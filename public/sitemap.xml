@@ -109,6 +109,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/tags</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/tags</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/about</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>

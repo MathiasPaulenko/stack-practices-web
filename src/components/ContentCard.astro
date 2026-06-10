@@ -5,11 +5,13 @@ export interface Props {
   href: string;
   difficulty?: string;
   tags?: string[];
+  locale?: 'en' | 'es';
 }
 
-const { title, description, href, difficulty, tags = [] } = Astro.props;
+const { title, description, href, difficulty, tags = [], locale = 'en' } = Astro.props;
 
 const searchIndex = [title, description, difficulty, ...tags].filter(Boolean).join(' ').toLowerCase();
+const tagPrefix = locale === 'es' ? '/es' : '';
 
 const difficultyColor: Record<string, string> = {
   beginner: 'bg-green-100 text-green-700',
@@ -38,7 +40,13 @@ const difficultyColor: Record<string, string> = {
     tags.length > 0 && (
       <div class="mt-4 flex flex-wrap gap-1.5">
         {tags.slice(0, 4).map((tag: string) => (
-          <span class="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">{tag}</span>
+          <a
+            href={`${tagPrefix}/tags/${tag}`}
+            class="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700 transition hover:bg-brand-100 hover:text-brand-700"
+            onclick="event.stopPropagation();"
+          >
+            {tag}
+          </a>
         ))}
       </div>
     )

@@ -1,0 +1,70 @@
+---
+import { buildTagIndex } from '../../lib/content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { webPage, breadcrumbList } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const tagIndex = await buildTagIndex('en');
+  return Array.from(tagIndex.keys()).map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const tagIndex = await buildTagIndex('en');
+const items = tagIndex.get(tag) ?? [];
+
+const heading = `Tag: ${tag}`;
+const description = `${items.length} resource${items.length === 1 ? '' : 's'} tagged with "${tag}" on StackPractices.`;
+
+const jsonLd = [
+  webPage({ name: heading, description, url: `/tags/${tag}`, locale: 'en' }),
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Tags', url: '/tags' },
+    { name: tag, url: `/tags/${tag}` },
+  ]),
+];
+---
+
+<BaseLayout title={heading} description={description} path={`/tags/${tag}`} keywords={[tag, 'tags', 'software engineering']} jsonLd={jsonLd}>
+  <section class="border-b border-slate-800 bg-slate-900">
+    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-400">
+        <a href="/" class="font-medium text-brand-400 hover:text-brand-300">Home</a>
+        <span class="mx-2 text-slate-600">/</span>
+        <a href="/tags" class="font-medium text-brand-400 hover:text-brand-300">Tags</a>
+        <span class="mx-2 text-slate-600">/</span>
+        <span class="font-medium text-slate-300">{tag}</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-white">{heading}</h1>
+      <p class="mt-2 max-w-2xl text-slate-300">{description}</p>
+    </div>
+  </section>
+
+  <section class="bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      {
+        items.length > 0 ? (
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((item) => (
+              <ContentCard
+                title={item.title}
+                description={item.description}
+                href={item.href}
+                tags={item.tags}
+                locale="en"
+              />
+            ))}
+          </div>
+        ) : (
+          <div class="rounded-xl border border-dashed border-slate-300 bg-slate-100 p-12 text-center">
+            <p class="text-slate-600">No resources found with this tag.</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

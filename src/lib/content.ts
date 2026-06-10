@@ -81,6 +81,36 @@ export async function buildResourceIndex() {
   return index;
 }
 
+/** Builds a tag index: tag -> list of resources with title, href, description, contentType. */
+export async function buildTagIndex(locale: 'en' | 'es') {
+  const collections = ['recipes', 'patterns', 'docs', 'guides'] as const;
+  const index = new Map<string, { title: string; href: string; description: string; contentType: string; tags: string[] }[]>();
+  const prefix = locale === 'es' ? '/es' : '';
+
+  for (const name of collections) {
+    const entries = await getCollection(name, ({ id }) => {
+      const isEs = isSpanish(id);
+      return locale === 'es' ? isEs : !isEs;
+    });
+    for (const entry of entries) {
+      const d = entry.data;
+      if (d.draft) continue;
+      for (const tag of d.tags) {
+        const items = index.get(tag) ?? [];
+        items.push({
+          title: d.title,
+          href: `${prefix}/${d.contentType}/${d.slug}`,
+          description: d.description,
+          contentType: d.contentType,
+          tags: d.tags,
+        });
+        index.set(tag, items);
+      }
+    }
+  }
+  return index;
+}
+
 /** Resolves relatedResources paths into renderable link data for a given locale. */
 export function resolveRelated(
   paths: string[],

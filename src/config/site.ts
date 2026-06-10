@@ -32,6 +32,7 @@ export const MAIN_NAV = [
   { label: 'Recipes', href: '/recipes' },
   { label: 'Patterns', href: '/patterns' },
   { label: 'Docs', href: '/docs' },
+  { label: 'Tags', href: '/tags' },
   { label: 'Guides', href: '/guides' },
   { label: 'Topics', href: '/topics' },
 ] as const;
