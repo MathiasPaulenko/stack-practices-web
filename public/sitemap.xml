@@ -181,6 +181,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/cookies"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/legal-notice</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/legal-notice"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/legal-notice</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/legal-notice"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/affiliate-disclosure</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/affiliate-disclosure"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/affiliate-disclosure"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/affiliate-disclosure"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/affiliate-disclosure</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/affiliate-disclosure"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/affiliate-disclosure"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/affiliate-disclosure"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/contact</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>

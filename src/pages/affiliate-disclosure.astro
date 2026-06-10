@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Affiliate Disclosure',
+      description: 'StackPractices affiliate disclosure and advertising policy.',
+      url: '/affiliate-disclosure',
+      locale: 'en',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Affiliate Disclosure', url: '/affiliate-disclosure' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Affiliate Disclosure"
+  description="StackPractices affiliate disclosure and advertising policy."
+  path="/affiliate-disclosure"
+  keywords={['affiliate disclosure', 'advertising', 'partnerships']}
+  jsonLd={jsonLd}
+>
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Home</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Affiliate Disclosure</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Affiliate Disclosure</h1>
+    </div>
+  </header>
+
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+        <p>
+          StackPractices is committed to transparency. This page explains how we may earn revenue
+          through affiliate links, advertising, and partnerships.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Affiliate Links</h2>
+        <p>
+          Some articles on StackPractices may contain affiliate links to products, services, or tools
+          we recommend. If you click on an affiliate link and make a purchase, we may receive a small
+          commission at no additional cost to you.
+        </p>
+        <p>
+          We only recommend products and services that we believe are valuable to developers. Our
+          editorial content is independent and not influenced by affiliate partnerships.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Advertising</h2>
+        <p>
+          StackPractices may display advertisements (e.g., Google AdSense) on certain pages.
+          Advertisements are clearly distinguishable from editorial content.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Ko-fi Donations</h2>
+        <p>
+          We accept voluntary donations through Ko-fi. These contributions help keep the content free
+          and growing. Donations do not influence editorial decisions.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Transparency Promise</h2>
+        <p>
+          We will always disclose when a link is an affiliate link or when content is sponsored.
+          If you have any questions about our partnerships, feel free to
+          <a href="/contact" class="text-brand-600 hover:underline">contact us</a>.
+        </p>
+
+        <p class="mt-10 text-sm text-slate-500">Last updated: June 10, 2026</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

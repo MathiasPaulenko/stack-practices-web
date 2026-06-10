@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Aviso Legal',
+      description: 'Aviso legal e información de responsabilidad de StackPractices.',
+      url: '/es/legal-notice',
+      locale: 'es',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Aviso Legal', url: '/es/legal-notice' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Aviso Legal"
+  description="Aviso legal e información de responsabilidad de StackPractices."
+  path="/es/legal-notice"
+  locale="es"
+  keywords={['aviso legal', 'responsabilidad', 'exención']}
+  jsonLd={jsonLd}
+>
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Aviso Legal</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Aviso Legal</h1>
+    </div>
+  </header>
+
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+        <p>
+          Este aviso legal rige el uso del sitio web y servicios de StackPractices.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Titular del Sitio</h2>
+        <p>
+          StackPractices es operado por un desarrollador independiente. Para consultas, contacta a
+          <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:underline">mathias.paulenko@outlook.com</a>.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Exención de Responsabilidad</h2>
+        <p>
+          El contenido de StackPractices se proporciona únicamente con fines informativos y educativos.
+          Aunque nos esforzamos por la precisión, no ofrecemos garantías sobre la integridad, fiabilidad
+          o idoneidad de la información. Utiliza las recetas de código y patrones bajo tu propia
+          responsabilidad. No somos responsables de daños derivados del uso de este sitio o su contenido.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Enlaces Externos</h2>
+        <p>
+          StackPractices puede contener enlaces a sitios web de terceros. No somos responsables del
+          contenido, prácticas de privacidad o disponibilidad de esos sitios externos.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Propiedad Intelectual</h2>
+        <p>
+          Todo el contenido original de StackPractices se distribuye bajo las licencias de código
+          abierto aplicables cuando se especifica. Las marcas comerciales, logotipos y nombres de
+          marca mencionados en este sitio pertenecen a sus respectivos propietarios.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Legislación Aplicable</h2>
+        <p>
+          Este aviso legal se rige por las leyes aplicables en la jurisdicción del operador del sitio.
+        </p>
+
+        <p class="mt-10 text-sm text-slate-500">Última actualización: 10 de junio de 2026</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

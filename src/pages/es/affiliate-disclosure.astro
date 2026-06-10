@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Divulgación de Afiliados',
+      description: 'Política de divulgación de afiliados y publicidad de StackPractices.',
+      url: '/es/affiliate-disclosure',
+      locale: 'es',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Divulgación de Afiliados', url: '/es/affiliate-disclosure' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Divulgación de Afiliados"
+  description="Política de divulgación de afiliados y publicidad de StackPractices."
+  path="/es/affiliate-disclosure"
+  locale="es"
+  keywords={['divulgación de afiliados', 'publicidad', 'patrocinio']}
+  jsonLd={jsonLd}
+>
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Divulgación de Afiliados</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Divulgación de Afiliados</h1>
+    </div>
+  </header>
+
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+        <p>
+          StackPractices se compromete con la transparencia. Esta página explica cómo podemos generar
+          ingresos a través de enlaces de afiliados, publicidad y colaboraciones.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Enlaces de Afiliados</h2>
+        <p>
+          Algunos artículos de StackPractices pueden contener enlaces de afiliados a productos,
+          servicios o herramientas que recomendamos. Si haces clic en un enlace de afiliado y realizas
+          una compra, podemos recibir una pequeña comisión sin costo adicional para ti.
+        </p>
+        <p>
+          Solo recomendamos productos y servicios que creemos valiosos para desarrolladores. Nuestro
+          contenido editorial es independiente y no está influenciado por colaboraciones de afiliados.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Publicidad</h2>
+        <p>
+          StackPractices puede mostrar anuncios (por ejemplo, Google AdSense) en ciertas páginas.
+          Los anuncios están claramente diferenciados del contenido editorial.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Donaciones Ko-fi</h2>
+        <p>
+          Aceptamos donaciones voluntarias a través de Ko-fi. Estas contribuciones ayudan a mantener
+          el contenido gratuito y en crecimiento. Las donaciones no influyen en las decisiones editoriales.
+        </p>
+
+        <h2 class="mt-10 text-xl font-semibold text-slate-900">Promesa de Transparencia</h2>
+        <p>
+          Siempre divulgaremos cuando un enlace sea de afiliado o cuando el contenido esté patrocinado.
+          Si tienes preguntas sobre nuestras colaboraciones, no dudes en
+          <a href="/es/contact" class="text-brand-600 hover:underline">contactarnos</a>.
+        </p>
+
+        <p class="mt-10 text-sm text-slate-500">Última actualización: 10 de junio de 2026</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
