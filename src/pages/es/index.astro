@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE, TECHNOLOGIES } from '../../config/site';
+import { webPage } from '../../lib/schema';
+import { getCollection } from 'astro:content';
+import { isSpanish } from '../../lib/content';
+
+const [recipes, patterns, docs, guides] = await Promise.all([
+  getCollection('recipes', ({ id }) => isSpanish(id)),
+  getCollection('patterns', ({ id }) => isSpanish(id)),
+  getCollection('docs', ({ id }) => isSpanish(id)),
+  getCollection('guides', ({ id }) => isSpanish(id)),
+]);
+
+const recipesCount = recipes.length;
+const patternsCount = patterns.length;
+const docsCount = docs.length;
+const guidesCount = guides.length;
+const topics = new Set<string>();
+for (const col of [recipes, patterns, docs, guides]) {
+  for (const entry of col) {
+    entry.data.topics.forEach((t: string) => topics.add(t));
+  }
+}
+const topicsCount = topics.size;
+
+const contentTypes = [
+  { slug: 'recipes', label: 'Recetas', description: 'Soluciones prácticas a problemas reales de desarrollo.' },
+  { slug: 'patterns', label: 'Patrones', description: 'Patrones de diseño y arquitectura con ejemplos reales.' },
+  { slug: 'docs', label: 'Documentación', description: 'Plantillas reutilizables de documentación técnica.' },
+  { slug: 'guides', label: 'Guías', description: 'Contenido extenso que conecta recetas y patrones.' },
+];
+
+const description = 'Base de conocimiento práctica para ingenieros de software: recetas de código, patrones de diseño y documentación técnica reutilizable.';
+
+const jsonLd = [
+  webPage({ name: SITE.title, description, url: '/es', locale: 'es' }),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+    inLanguage: 'es',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE.url}/es/search?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  },
+];
+
+const concepts = [
+  { label: 'API Design', slug: 'api' },
+  { label: 'Autenticación', slug: 'authentication' },
+  { label: 'Arquitectura', slug: 'architecture' },
+  { label: 'Rendimiento', slug: 'performance' },
+  { label: 'Testing', slug: 'testing' },
+  { label: 'Seguridad', slug: 'security' },
+];
+---
+
+<BaseLayout
+  title="StackPractices — Recetas de Código, Patrones y Documentación"
+  description={description}
+  path="/"
+  locale="es"
+  keywords={['recetas de código', 'patrones de diseño', 'ingeniería de software']}
+  jsonLd={jsonLd}
+>
+  <section class="hero-animated-bg bg-slate-900">
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-dot" aria-hidden="true"></span>
+    <span class="hero-code-symbol" aria-hidden="true">{ }</span>
+    <span class="hero-code-symbol" aria-hidden="true">&lt;/&gt;</span>
+    <span class="hero-code-symbol" aria-hidden="true">//</span>
+    <span class="hero-code-symbol" aria-hidden="true">[ ]</span>
+    <span class="hero-code-symbol" aria-hidden="true">&&</span>
+    <span class="hero-code-symbol" aria-hidden="true">;;</span>
+    <div class="relative z-10 mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28">
+      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        Conocimiento práctico de ingeniería de software, listo para reutilizar
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
+        Encuentra recetas de código reales, patrones de diseño y documentación reutilizable
+        en Python, Java, JavaScript, SQL y más.
+      </p>
+      <div class="relative z-10 mx-auto mt-10 flex flex-wrap justify-center gap-8 sm:gap-12">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-white">{recipesCount}</div>
+          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Recetas</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-white">{patternsCount}</div>
+          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Patrones</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-white">{docsCount}</div>
+          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Documentación</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-white">{guidesCount}</div>
+          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Guías</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-white">{topicsCount}</div>
+          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Temas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <h2 class="text-2xl font-bold text-slate-900">Explorar por tipo</h2>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        contentTypes.map((type) => (
+          <a href={`/es/${type.slug}`} class="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-brand-400 hover:shadow-lg">
+            <h3 class="text-lg font-semibold text-slate-900 group-hover:text-brand-600">{type.label}</h3>
+            <p class="mt-2 text-sm text-slate-600">{type.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-t border-slate-200 bg-slate-100">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <h2 class="text-2xl font-bold text-slate-900">Explorar por tecnología</h2>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {
+          TECHNOLOGIES.map((tech) => (
+            <span class="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold capitalize text-slate-700 shadow-sm">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <h2 class="text-2xl font-bold text-slate-900">Explorar por concepto</h2>
+    <div class="mt-8 flex flex-wrap gap-3">
+      {
+        concepts.map((concept) => (
+          <a
+            href={`/es/topics/${concept.slug}`}
+            class="rounded-full bg-brand-100 px-4 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-200 hover:text-brand-900"
+          >
+            {concept.label}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

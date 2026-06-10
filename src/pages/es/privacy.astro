@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Política de Privacidad',
+      description: 'Política de privacidad de StackPractices: cómo manejamos datos y cookies.',
+      url: '/es/privacy',
+      locale: 'es',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Política de Privacidad', url: '/es/privacy' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Política de Privacidad"
+  description="Política de privacidad de StackPractices: cómo manejamos datos y cookies."
+  path="/privacy"
+  locale="es"
+  keywords={['privacidad', 'cookies', 'datos']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Política de Privacidad</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Política de Privacidad</h1>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+      <p>
+        StackPractices respeta tu privacidad. Esta política explica qué datos recopilamos, cómo los
+        usamos y tus derechos.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Información que Recopilamos</h2>
+      <p>
+        StackPractices es un sitio estático. No recopilamos datos personales directamente. Sin embargo,
+        usamos servicios de terceros que pueden recopilar datos de uso anónimos:
+      </p>
+      <ul class="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Google Analytics</strong> — vistas de página anónimas e interacciones para entender
+          la popularidad del contenido (cuando esté habilitado).
+        </li>
+        <li>
+          <strong>Pagefind</strong> — la búsqueda local se ejecuta completamente en tu navegador; no se
+          envían datos a nuestros servidores.
+        </li>
+      </ul>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Cookies</h2>
+      <p>
+        Podemos usar cookies esenciales y de análisis. Puedes gestionar o desactivar cookies a través de
+        la configuración de tu navegador. Para más detalles, consulta nuestra
+        <a href="/es/cookies" class="text-brand-600 hover:underline">Política de Cookies</a>.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Tus Derechos</h2>
+      <p>
+        Dependiendo de tu jurisdicción, puedes tener derecho a acceder, corregir o eliminar datos
+        personales. Como no almacenamos datos personales directamente, la mayoría de solicitudes se
+        relacionan con proveedores de análisis de terceros.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Cambios a Esta Política</h2>
+      <p>
+        Podemos actualizar esta política de privacidad periódicamente. Los cambios se publicarán en
+        esta página con una fecha de vigencia actualizada.
+      </p>
+
+      <p class="mt-10 text-sm text-slate-500">Última actualización: 10 de junio de 2026</p>
+    </div>
+  </section>
+</BaseLayout>

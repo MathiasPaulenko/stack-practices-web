@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Cookie Policy',
+      description: 'How StackPractices uses cookies and similar technologies.',
+      url: '/cookies',
+      locale: 'en',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Cookie Policy', url: '/cookies' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Cookie Policy"
+  description="How StackPractices uses cookies and similar technologies."
+  path="/cookies"
+  keywords={['cookies', 'tracking', 'privacy']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Home</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Cookie Policy</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Cookie Policy</h1>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+      <p>
+        This policy explains how StackPractices uses cookies and similar technologies.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">What Are Cookies</h2>
+      <p>
+        Cookies are small text files stored on your device when you visit a website. They are widely
+        used to make websites work more efficiently and to provide information to site owners.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Cookies We Use</h2>
+      <ul class="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Essential cookies</strong> — required for the site to function properly (e.g.,
+          language preference).
+        </li>
+        <li>
+          <strong>Analytics cookies</strong> — help us understand how visitors interact with the site
+          (e.g., Google Analytics). These are anonymous and do not identify individuals.
+        </li>
+      </ul>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Managing Cookies</h2>
+      <p>
+        You can control and/or delete cookies as you wish. Most browsers allow you to refuse cookies
+        or to delete existing cookies. Be aware that disabling cookies may affect the functionality
+        of this site.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Changes</h2>
+      <p>
+        We may update this cookie policy from time to time. Any changes will be posted on this page.
+      </p>
+
+      <p class="mt-10 text-sm text-slate-500">Last updated: June 10, 2026</p>
+    </div>
+  </section>
+</BaseLayout>

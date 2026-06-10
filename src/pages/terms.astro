@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Terms of Service',
+      description: 'Terms of service for using StackPractices.',
+      url: '/terms',
+      locale: 'en',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Terms of Service', url: '/terms' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Terms of service for using StackPractices."
+  path="/terms"
+  keywords={['terms', 'tos', 'legal']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Home</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Terms of Service</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Terms of Service</h1>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+      <p>
+        By accessing and using StackPractices, you accept and agree to be bound by the terms and
+        provisions of this agreement.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Use of Content</h2>
+      <p>
+        All code snippets, patterns, and guides on StackPractices are provided for educational and
+        reference purposes. You may copy, modify, and use code examples in your own projects,
+        commercial or otherwise, unless otherwise noted.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Disclaimer</h2>
+      <p>
+        Content is provided "as is" without warranty of any kind. StackPractices is not liable for
+        any damages arising from the use of the information or code provided on this site.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">External Links</h2>
+      <p>
+        StackPractices may contain links to external websites. We are not responsible for the content
+        or privacy practices of those sites.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Changes</h2>
+      <p>
+        We reserve the right to modify these terms at any time. Continued use of the site after changes
+        constitutes acceptance of the new terms.
+      </p>
+
+      <p class="mt-10 text-sm text-slate-500">Last updated: June 10, 2026</p>
+    </div>
+  </section>
+</BaseLayout>

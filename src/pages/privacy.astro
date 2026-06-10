@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Privacy Policy',
+      description: 'StackPractices privacy policy: how we handle data and cookies.',
+      url: '/privacy',
+      locale: 'en',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Privacy Policy', url: '/privacy' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="StackPractices privacy policy: how we handle data and cookies."
+  path="/privacy"
+  keywords={['privacy', 'cookies', 'data']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Home</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Privacy Policy</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Privacy Policy</h1>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+      <p>
+        StackPractices respects your privacy. This policy explains what data we collect, how we use it,
+        and your rights.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Information We Collect</h2>
+      <p>
+        StackPractices is a static site. We do not collect personal data directly. However, we use
+        third-party services that may collect anonymous usage data:
+      </p>
+      <ul class="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Google Analytics</strong> — anonymous page views and interactions to understand
+          content popularity (when enabled).
+        </li>
+        <li>
+          <strong>Pagefind</strong> — local search runs entirely in your browser; no data is sent to
+          our servers.
+        </li>
+      </ul>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Cookies</h2>
+      <p>
+        We may use essential and analytics cookies. You can manage or disable cookies through your
+        browser settings. For more details, see our <a href="/cookies" class="text-brand-600 hover:underline">Cookie Policy</a>.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Your Rights</h2>
+      <p>
+        Depending on your jurisdiction, you may have the right to access, correct, or delete personal
+        data. Since we do not store personal data directly, most requests relate to third-party
+        analytics providers.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Changes to This Policy</h2>
+      <p>
+        We may update this privacy policy periodically. Changes will be posted on this page with an
+        updated effective date.
+      </p>
+
+      <p class="mt-10 text-sm text-slate-500">Last updated: June 10, 2026</p>
+    </div>
+  </section>
+</BaseLayout>

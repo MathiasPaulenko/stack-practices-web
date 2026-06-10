@@ -1,0 +1,214 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─── Theme tokens (Tailwind v4 CSS-first) ─────────────────────────────── */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Fira Code",
+    "Cascadia Code", Menlo, Consolas, monospace;
+
+  /* Brand palette */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+
+  /* Accent (practical/growth) */
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+
+  /* Slate palette for controlled contrast */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+}
+
+/* ─── Base styles ──────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+}
+
+/* Focus visibility for accessibility (WCAG 2.2) */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-brand-600;
+}
+
+/* ─── Hero background animation ─────────────────────────────────────── */
+@keyframes heroGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.25; }
+  50% { transform: translateY(-20px) scale(1.05); opacity: 0.5; }
+}
+
+@keyframes fadePulse {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.25; }
+}
+
+.hero-animated-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-animated-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.06) 0%, transparent 60%);
+  background-size: 200% 200%;
+  animation: heroGradient 15s ease infinite;
+  pointer-events: none;
+}
+
+/* Subtle code grid overlay */
+.hero-animated-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* Floating code pixels (square for digital feel) */
+.hero-dot {
+  position: absolute;
+  border-radius: 2px;
+  background: rgba(6, 182, 212, 0.25);
+  pointer-events: none;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Code symbol floating elements */
+.hero-code-symbol {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: rgba(6, 182, 212, 0.15);
+  pointer-events: none;
+  animation: fadePulse 8s ease-in-out infinite;
+  user-select: none;
+}
+
+.hero-dot:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s; }
+.hero-dot:nth-child(2) { width: 6px; height: 6px; top: 60%; left: 25%; animation-delay: 1s; }
+.hero-dot:nth-child(3) { width: 3px; height: 3px; top: 40%; left: 70%; animation-delay: 2s; }
+.hero-dot:nth-child(4) { width: 5px; height: 5px; top: 80%; left: 80%; animation-delay: 3s; }
+.hero-dot:nth-child(5) { width: 4px; height: 4px; top: 30%; left: 90%; animation-delay: 1.5s; }
+.hero-dot:nth-child(6) { width: 3px; height: 3px; top: 70%; left: 50%; animation-delay: 2.5s; }
+.hero-dot:nth-child(7) { width: 5px; height: 5px; top: 15%; left: 45%; animation-delay: 0.5s; }
+.hero-dot:nth-child(8) { width: 4px; height: 4px; top: 85%; left: 15%; animation-delay: 3.5s; }
+
+/* Code symbol positions */
+.hero-code-symbol:nth-child(9)  { top: 18%; left: 30%; animation-delay: 0.3s; }
+.hero-code-symbol:nth-child(10) { top: 55%; left: 15%; animation-delay: 1.3s; }
+.hero-code-symbol:nth-child(11) { top: 35%; left: 85%; animation-delay: 2.3s; }
+.hero-code-symbol:nth-child(12) { top: 75%; left: 60%; animation-delay: 0.8s; }
+.hero-code-symbol:nth-child(13) { top: 45%; left: 40%; animation-delay: 1.8s; }
+.hero-code-symbol:nth-child(14) { top: 65%; left: 75%; animation-delay: 2.8s; }
+
+/* FAQ accordion chevron rotation (works for dynamically created details) */
+details[open] > summary svg {
+  transform: rotate(180deg);
+}
+
+/* Prose H2 accent — subtle left border for section headings */
+.prose h2 {
+  border-left: 3px solid var(--color-brand-500, #3b82f6);
+  padding-left: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+/* Copy button on code blocks */
+pre.astro-code {
+  position: relative;
+}
+pre.astro-code .copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #e1e4e8;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+pre.astro-code:hover .copy-btn,
+pre.astro-code .copy-btn:focus {
+  opacity: 1;
+}
+pre.astro-code .copy-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+pre.astro-code .copy-btn.copied {
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+  opacity: 1;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-animated-bg::before,
+  .hero-animated-bg::after,
+  .hero-dot,
+  .hero-code-symbol {
+    animation: none !important;
+  }
+}

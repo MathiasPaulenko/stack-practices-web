@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Política de Cookies',
+      description: 'Cómo StackPractices utiliza cookies y tecnologías similares.',
+      url: '/es/cookies',
+      locale: 'es',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Política de Cookies', url: '/es/cookies' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Política de Cookies"
+  description="Cómo StackPractices utiliza cookies y tecnologías similares."
+  path="/cookies"
+  locale="es"
+  keywords={['cookies', 'rastreo', 'privacidad']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Política de Cookies</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Política de Cookies</h1>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+      <p>
+        Esta política explica cómo StackPractices utiliza cookies y tecnologías similares.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Qué Son las Cookies</h2>
+      <p>
+        Las cookies son pequeños archivos de texto almacenados en tu dispositivo cuando visitas un
+        sitio web. Se utilizan ampliamente para hacer que los sitios funcionen de manera más eficiente
+        y para proporcionar información a los propietarios del sitio.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Cookies que Usamos</h2>
+      <ul class="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Cookies esenciales</strong> — requeridas para que el sitio funcione correctamente
+          (ej. preferencia de idioma).
+        </li>
+        <li>
+          <strong>Cookies de análisis</strong> — nos ayudan a entender cómo los visitantes interactúan
+          con el sitio (ej. Google Analytics). Son anónimas y no identifican individuos.
+        </li>
+      </ul>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Gestión de Cookies</h2>
+      <p>
+        Puedes controlar y/o eliminar cookies como desees. La mayoría de navegadores te permiten
+        rechazar cookies o eliminar cookies existentes. Ten en cuenta que desactivar cookies puede
+        afectar la funcionalidad de este sitio.
+      </p>
+
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Cambios</h2>
+      <p>
+        Podemos actualizar esta política de cookies de vez en cuando. Cualquier cambio se publicará
+        en esta página.
+      </p>
+
+      <p class="mt-10 text-sm text-slate-500">Última actualización: 10 de junio de 2026</p>
+    </div>
+  </section>
+</BaseLayout>

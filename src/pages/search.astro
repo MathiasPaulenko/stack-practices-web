@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage } from '../lib/schema';
+
+const jsonLd = [
+  webPage({
+    name: 'Search',
+    description: 'Search code recipes, design patterns, documentation, and guides on StackPractices.',
+    url: '/search',
+    locale: 'en',
+  }),
+];
+---
+
+<BaseLayout
+  title="Search"
+  description="Search code recipes, design patterns, documentation, and guides on StackPractices."
+  path="/search"
+  jsonLd={jsonLd}
+  noindex={true}
+>
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <h1 class="text-3xl font-bold text-slate-900">Search</h1>
+    <p class="mt-2 text-slate-600">Find recipes, patterns, docs, and guides.</p>
+    <div id="search" class="mt-8"></div>
+  </section>
+
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.PagefindUI) {
+        new window.PagefindUI({ element: '#search', showSubResults: true });
+      }
+    });
+  </script>
+</BaseLayout>

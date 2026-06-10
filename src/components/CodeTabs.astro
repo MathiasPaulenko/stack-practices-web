@@ -1,0 +1,182 @@
+---
+/**
+ * Progressive-enhancement multi-language variant switcher.
+ *
+ * Scans a `.prose` container for consecutive H3 headings whose text is a known
+ * programming language, each followed by a code block (<pre>), and groups them
+ * into an accessible tablist. With JS disabled, all language sections remain
+ * visible as normal headings + code — fully functional, just not tabbed.
+ *
+ * Include once per page that renders recipe/pattern markdown.
+ */
+---
+
+<script is:inline>
+  (function () {
+    const LANGS = new Set([
+      'python', 'javascript', 'typescript', 'java', 'sql', 'bash', 'shell',
+      'docker', 'dockerfile', 'git', 'go', 'golang', 'rust', 'c#', 'csharp',
+      'php', 'ruby', 'kotlin', 'c++', 'c', 'json', 'yaml', 'html', 'css',
+    ]);
+
+    function initGroups(root) {
+      const headings = Array.from(root.querySelectorAll('h3'));
+      const items = [];
+      for (const h of headings) {
+        const label = (h.textContent || '').trim();
+        if (!LANGS.has(label.toLowerCase())) continue;
+        const pre = h.nextElementSibling;
+        if (!pre || pre.tagName !== 'PRE') continue;
+        items.push({ heading: h, pre, label });
+      }
+      if (items.length === 0) return;
+
+      // Group contiguous items (pre directly followed by the next item's heading).
+      const groups = [];
+      let current = [items[0]];
+      for (let i = 1; i < items.length; i++) {
+        const prev = items[i - 1];
+        if (prev.pre.nextElementSibling === items[i].heading) {
+          current.push(items[i]);
+        } else {
+          groups.push(current);
+          current = [items[i]];
+        }
+      }
+      groups.push(current);
+
+      let uid = 0;
+      for (const group of groups) {
+        if (group.length < 2) continue;
+        buildTabs(group, uid++);
+      }
+    }
+
+    function buildTabs(group, uid) {
+      const first = group[0];
+
+      // Anchor the insertion point before mutating the DOM.
+      const anchor = document.createComment('code-tabs');
+      first.heading.before(anchor);
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-tabs';
+
+      const tablist = document.createElement('div');
+      tablist.className = 'code-tabs__list';
+      tablist.setAttribute('role', 'tablist');
+      tablist.setAttribute('aria-label', 'Language variants');
+
+      const panels = [];
+
+      group.forEach((item, i) => {
+        const tabId = `ct-${uid}-tab-${i}`;
+        const panelId = `ct-${uid}-panel-${i}`;
+
+        const tab = document.createElement('button');
+        tab.className = 'code-tabs__tab';
+        tab.id = tabId;
+        tab.type = 'button';
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('aria-controls', panelId);
+        tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        tab.tabIndex = i === 0 ? 0 : -1;
+        tab.textContent = item.label;
+        tablist.appendChild(tab);
+
+        const panel = document.createElement('div');
+        panel.className = 'code-tabs__panel';
+        panel.id = panelId;
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', tabId);
+        if (i !== 0) panel.hidden = true;
+        panel.appendChild(item.pre); // moves the <pre> out of the flow
+        panels.push(panel);
+
+        // Remove the now-redundant heading.
+        item.heading.remove();
+      });
+
+      wrapper.appendChild(tablist);
+      panels.forEach((p) => wrapper.appendChild(p));
+      anchor.replaceWith(wrapper);
+
+      const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+      function select(idx) {
+        tabs.forEach((t, j) => {
+          const selected = j === idx;
+          t.setAttribute('aria-selected', selected ? 'true' : 'false');
+          t.tabIndex = selected ? 0 : -1;
+          panels[j].hidden = !selected;
+        });
+      }
+      tablist.addEventListener('click', (e) => {
+        const t = e.target.closest('[role="tab"]');
+        if (!t) return;
+        select(tabs.indexOf(t));
+      });
+      tablist.addEventListener('keydown', (e) => {
+        const idx = tabs.indexOf(document.activeElement);
+        if (idx === -1) return;
+        let next = -1;
+        if (e.key === 'ArrowRight') next = (idx + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next !== -1) {
+          e.preventDefault();
+          tabs[next].focus();
+          select(next);
+        }
+      });
+    }
+
+    function run() {
+      const root = document.querySelector('.prose');
+      if (root) initGroups(root);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', run);
+    } else {
+      run();
+    }
+  })();
+</script>
+
+<style is:global>
+  .code-tabs {
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-slate-200, #e2e8f0);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  .code-tabs__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.5rem 0.5rem 0;
+    background: #1e293b;
+  }
+  .code-tabs__tab {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    background: transparent;
+    border: none;
+    border-radius: 0.375rem 0.375rem 0 0;
+    cursor: pointer;
+  }
+  .code-tabs__tab[aria-selected='true'] {
+    color: #fff;
+    background: #0f172a;
+  }
+  .code-tabs__tab:hover {
+    color: #fff;
+  }
+  .code-tabs__panel > pre {
+    margin: 0;
+    border-radius: 0;
+  }
+</style>

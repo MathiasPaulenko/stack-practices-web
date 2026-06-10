@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Acerca de StackPractices',
+      description: 'Conoce StackPractices, una base de conocimiento práctica para ingenieros de software.',
+      url: '/es/about',
+      locale: 'es',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Acerca de', url: '/es/about' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Acerca de StackPractices"
+  description="Conoce StackPractices, una base de conocimiento práctica para ingenieros de software."
+  path="/about"
+  locale="es"
+  keywords={['acerca de', 'stackpractices', 'base de conocimiento']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Acerca de</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Acerca de StackPractices</h1>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-6 text-slate-700">
+      <p>
+        StackPractices es una base de conocimiento práctica para ingenieros de software que buscan
+        recetas de código reutilizables, patrones de diseño y plantillas de documentación en Python,
+        Java, JavaScript, SQL y más.
+      </p>
+      <p>
+        Cada recurso está diseñado para ser inmediatamente útil: copia el código, adapta a tu proyecto
+        y entrega más rápido. Priorizamos ejemplos del mundo real sobre teoría abstracta, y cubrimos
+        múltiples lenguajes para que encuentres la solución en el stack que usas hoy.
+      </p>
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Qué Encontrarás</h2>
+      <ul class="list-disc space-y-2 pl-5">
+        <li><strong>Recetas</strong> — Soluciones cortas y accionables a problemas comunes de desarrollo.</li>
+        <li><strong>Patrones</strong> — Patrones de diseño y arquitectura con implementaciones prácticas.</li>
+        <li><strong>Documentación</strong> — Plantillas reutilizables para READMEs, docs de API y runbooks.</li>
+        <li><strong>Guías</strong> — Contenido extenso que conecta recetas y patrones en flujos de trabajo cohesive.</li>
+      </ul>
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Nuestro Enfoque</h2>
+      <p>
+        Creemos que la mejor documentación es aquella que puedes copiar, ejecutar y adaptar en minutos.
+        Cada artículo incluye código en múltiples lenguajes, explicaciones claras y una sección de FAQ
+        para referencia rápida. El contenido es bilingüe (inglés y español) para servir a la audiencia
+        más amplia posible.
+      </p>
+      <p>
+        StackPractices es open source y construido con Astro, Tailwind CSS y Pagefind. Si quieres
+        contribuir o reportar un issue, visita nuestro repositorio en GitHub.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

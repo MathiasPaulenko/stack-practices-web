@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { SITE, type Locale } from '../config/site';
+
+export interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  locale?: Locale;
+  ogType?: 'website' | 'article';
+  keywords?: string[];
+  hasAlternate?: boolean;
+  jsonLd?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  path = '/',
+  locale = SITE.defaultLocale,
+  ogType = 'website',
+  keywords = [],
+  hasAlternate = true,
+  jsonLd = [],
+  noindex = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content={SITE.themeColor} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <Seo
+      title={title}
+      description={description}
+      path={path}
+      locale={locale}
+      ogType={ogType}
+      keywords={keywords}
+      hasAlternate={hasAlternate}
+      jsonLd={jsonLd}
+      noindex={noindex}
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBE12WJ5KZ"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RBE12WJ5KZ');
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
+    <Header locale={locale} />
+    <main
+      id="main"
+      class="flex-1"
+      data-pagefind-body
+      data-pagefind-filter={`lang[${locale}]`}
+    >
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

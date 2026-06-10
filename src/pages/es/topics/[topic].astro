@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import ListingPage from '../../../components/ListingPage.astro';
+import { isSpanish } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const collections = await Promise.all([
+    getCollection('recipes'),
+    getCollection('patterns'),
+    getCollection('docs'),
+    getCollection('guides'),
+  ]);
+
+  const topics = new Set<string>();
+  for (const col of collections) {
+    for (const entry of col) {
+      if (isSpanish(entry.id)) {
+        entry.data.topics.forEach((t: string) => topics.add(t));
+      }
+    }
+  }
+
+  return Array.from(topics).map((topic) => ({ params: { topic } }));
+}
+
+const { topic } = Astro.params;
+const topicLabel = topic.replace(/-/g, ' ');
+
+const [recipes, patterns, docs, guides] = await Promise.all([
+  getCollection('recipes', ({ id }) => isSpanish(id)),
+  getCollection('patterns', ({ id }) => isSpanish(id)),
+  getCollection('docs', ({ id }) => isSpanish(id)),
+  getCollection('guides', ({ id }) => isSpanish(id)),
+]);
+
+const entries = [...recipes, ...patterns, ...docs, ...guides]
+  .filter((entry) => (entry.data.topics as string[]).some((t) => t === topic))
+  .map((entry) => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    href: `/es/${entry.data.contentType}/${entry.data.slug}`,
+    difficulty: entry.data.difficulty,
+    tags: entry.data.tags,
+  }));
+---
+
+<ListingPage
+  heading={topicLabel}
+  description={`Recursos prácticos sobre ${topicLabel} para ingenieros de software.`}
+  path={`/es/topics/${topic}`}
+  entries={entries}
+  keywords={[topicLabel, 'recetas', 'patrones', 'documentacion', 'guias']}
+/>

@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import RecipeArticle from '../../../components/RecipeArticle.astro';
+import { buildResourceIndex, resolveRelated, extractFaqs, isSpanish } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs', ({ id }) => isSpanish(id));
+  return docs.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const d = entry.data;
+const index = await buildResourceIndex();
+const related = resolveRelated(d.relatedResources, index, 'es');
+const faqs = extractFaqs(entry.body ?? '');
+---
+
+<RecipeArticle
+  title={d.title}
+  description={d.description}
+  metaDescription={d.metaDescription}
+  keywords={d.seo.keywords}
+  difficulty={d.difficulty}
+  tags={d.tags}
+  topics={d.topics}
+  lastUpdated={d.lastUpdated}
+  author={d.author}
+  path={`/docs/${d.slug}`}
+  locale="es"
+  listingHref="/es/docs"
+  listingLabel="Documentación"
+  related={related}
+  faqs={faqs}
+  relatedLabel="Recursos Relacionados"
+>
+  <Content />
+</RecipeArticle>

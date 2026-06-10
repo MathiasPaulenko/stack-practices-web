@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ListingPage from '../../components/ListingPage.astro';
+import { isSpanish } from '../../lib/content';
+
+const guides = await getCollection('guides', ({ id, data }) => !isSpanish(id) && !data.draft);
+const entries = guides.map((g) => ({
+  title: g.data.title,
+  description: g.data.description,
+  href: `/guides/${g.data.slug}`,
+  difficulty: g.data.difficulty,
+  tags: g.data.tags,
+}));
+---
+
+<ListingPage
+  heading="Guides"
+  description="Long-form guides that connect recipes and patterns into complete solutions."
+  path="/guides"
+  entries={entries}
+  keywords={['programming guides', 'software engineering guides']}
+/>

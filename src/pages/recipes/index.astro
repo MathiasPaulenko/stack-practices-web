@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ListingPage from '../../components/ListingPage.astro';
+import { isSpanish } from '../../lib/content';
+
+const recipes = await getCollection('recipes', ({ id, data }) => !isSpanish(id) && !data.draft);
+const entries = recipes.map((r) => ({
+  title: r.data.title,
+  description: r.data.description,
+  href: `/recipes/${r.data.slug}`,
+  difficulty: r.data.difficulty,
+  tags: r.data.tags,
+}));
+---
+
+<ListingPage
+  heading="Recipes"
+  description="Practical, copy-paste solutions to real development problems across multiple languages."
+  path="/recipes"
+  entries={entries}
+  keywords={['code recipes', 'how to', 'programming examples']}
+/>
