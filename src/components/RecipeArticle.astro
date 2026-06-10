@@ -124,7 +124,12 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
           tags.length > 0 && (
             <div class="mt-4 flex flex-wrap gap-2">
               {tags.map((tag: string) => (
-                <span class="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-600">{tag}</span>
+                <a
+                  href={`${locale === 'es' ? '/es' : ''}/tags/${tag}`}
+                  class="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-600 transition hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700"
+                >
+                  {tag}
+                </a>
               ))}
             </div>
           )
