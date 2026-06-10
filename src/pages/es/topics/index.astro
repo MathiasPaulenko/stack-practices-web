@@ -2,8 +2,44 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { breadcrumbList, collectionPage } from '../../../lib/schema';
 import { TECHNOLOGIES } from '../../../config/site';
+import { getCollection } from 'astro:content';
+import { isSpanish } from '../../../lib/content';
 
-const concepts = ['data', 'api', 'authentication', 'file-handling', 'testing', 'architecture', 'design', 'devops', 'databases'];
+const concepts = [
+  { slug: 'data', icon: '\u{1F4CA}', desc: 'Estructuras de datos, parsing, serialización y transformación.' },
+  { slug: 'api', icon: '\u{1F50C}', desc: 'REST, GraphQL y patrones de diseño de API para integraciones robustas.' },
+  { slug: 'authentication', icon: '\u{1F512}', desc: 'JWT, OAuth, gestión de sesiones y flujos de autenticación seguros.' },
+  { slug: 'file-handling', icon: '\u{1F4C1}', desc: 'Lectura, escritura y manipulación de archivos en varios lenguajes.' },
+  { slug: 'testing', icon: '\u{1F9EA}', desc: 'Estrategias de testing unitario, de integración y end-to-end.' },
+  { slug: 'architecture', icon: '\u{1F3D7}', desc: 'Diseño de sistemas, microservicios y patrones escalables.' },
+  { slug: 'design', icon: '\u{1F3A8}', desc: 'Principios de diseño de software, SOLID y arquitectura limpia.' },
+  { slug: 'devops', icon: '\u{2699}', desc: 'CI/CD, contenedores, despliegue e infraestructura como código.' },
+  { slug: 'databases', icon: '\u{1F5C4}', desc: 'SQL, NoSQL, ORMs y técnicas de modelado de datos.' },
+];
+
+const techIcons: Record<string, string> = {
+  python: '\u{1F40D}',
+  java: '\u{2615}',
+  javascript: '\u{1F7E8}',
+  typescript: '\u{1F537}',
+  sql: '\u{1F5C3}',
+  bash: '\u{1F5A5}',
+  docker: '\u{1F433}',
+  git: '\u{1F500}',
+};
+
+const [recipes, patterns, docs, guides] = await Promise.all([
+  getCollection('recipes', e => isSpanish(e.id)),
+  getCollection('patterns', e => isSpanish(e.id)),
+  getCollection('docs', e => isSpanish(e.id)),
+  getCollection('guides', e => isSpanish(e.id)),
+]);
+
+const allEntries = [...recipes, ...patterns, ...docs, ...guides];
+
+function countByTopic(topic: string) {
+  return allEntries.filter(e => e.data.topics.includes(topic)).length;
+}
 
 const jsonLd = [
   collectionPage({
@@ -11,7 +47,7 @@ const jsonLd = [
     description: 'Explora contenido de StackPractices por tema y tecnología.',
     url: '/es/topics',
     locale: 'es',
-    items: concepts.map((t) => ({ name: t, url: `/es/topics/${t}` })),
+    items: concepts.map((c) => ({ name: c.slug, url: `/es/topics/${c.slug}` })),
   }),
   breadcrumbList([
     { name: 'Inicio', url: '/es' },
@@ -25,48 +61,81 @@ const jsonLd = [
   description="Explora recetas de código, patrones, documentos y guías por tema y tecnología."
   path="/es/topics"
   locale="es"
-  keywords={['temas de programación', 'temas de tecnología']}
+  keywords={['temas de programación', 'temas de tecnología', 'ingeniería de software']}
   jsonLd={jsonLd}
 >
-  <!-- Subtle brand accent line -->
   <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
 
-  <!-- Header section -->
   <header class="border-b border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
         <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
         <span class="mx-2 text-slate-400">/</span>
         <span class="font-medium text-slate-800">Temas</span>
       </nav>
-      <h1 class="mt-4 text-3xl font-bold text-slate-900">Temas</h1>
-      <p class="mt-2 max-w-2xl text-slate-600">Explora contenido por concepto o tecnología.</p>
+      <h1 class="mt-4 text-4xl font-bold text-slate-900">Temas</h1>
+      <p class="mt-3 max-w-2xl text-lg text-slate-600">
+        Explora nuestros recursos prácticos organizados por concepto de ingeniería de software o tecnología de programación.
+      </p>
     </div>
   </header>
 
-  <!-- Main content -->
   <section class="bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <h2 class="text-xl font-semibold text-slate-900">Por concepto</h2>
-    <div class="mt-4 flex flex-wrap gap-3">
-      {
-        concepts.map((concept) => (
-          <a href={`/es/topics/${concept}`} class="rounded-full bg-brand-50 px-4 py-2 text-sm font-medium capitalize text-brand-700 transition hover:bg-brand-100">
-            {concept.replace('-', ' ')}
-          </a>
-        ))
-      }
-    </div>
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <h2 class="text-2xl font-bold text-slate-900">Explorar por Concepto</h2>
+      <p class="mt-2 text-slate-600">Descubre contenido organizado en torno a temas centrales de ingeniería de software.</p>
 
-    <h2 class="mt-10 text-xl font-semibold text-slate-900">Por tecnología</h2>
-    <div class="mt-4 flex flex-wrap gap-3">
-      {
-        TECHNOLOGIES.map((tech) => (
-          <span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium capitalize text-slate-700">
-            {tech}
-          </span>
-        ))
-      }
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {concepts.map((concept) => {
+          const count = countByTopic(concept.slug);
+          return (
+            <a
+              href={`/es/topics/${concept.slug}`}
+              class="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
+            >
+              <div class="flex items-start justify-between">
+                <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-2xl">
+                  {concept.icon}
+                </span>
+                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                  {count} {count === 1 ? 'recurso' : 'recursos'}
+                </span>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold text-slate-900 capitalize group-hover:text-brand-600">
+                {concept.slug.replace(/-/g, ' ')}
+              </h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{concept.desc}</p>
+              <div class="mt-4 flex items-center text-sm font-medium text-brand-600">
+                Explorar
+                <svg class="ml-1.5 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <h2 class="text-2xl font-bold text-slate-900">Explorar por Tecnología</h2>
+      <p class="mt-2 text-slate-600">Encuentra recursos para tu lenguaje o herramienta preferida.</p>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {TECHNOLOGIES.map((tech) => (
+          <div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-md">
+            <span class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-xl">
+              {techIcons[tech] || '\u{1F4BB}'}
+            </span>
+            <div>
+              <h3 class="text-base font-semibold capitalize text-slate-900">{tech}</h3>
+              <p class="mt-0.5 text-xs text-slate-500">Ejemplos de código y guías</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>
