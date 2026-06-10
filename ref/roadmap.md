@@ -53,11 +53,18 @@
 - [x] Expanded recipe catalog (+12 new bilingual recipes: Password Hashing, Regular Expressions, Cron Jobs, Environment Variables, Pagination, Middleware, Input Validation, Logging, Caching, UUID Generation, Date Formatting, URL Encoding)
 - [x] Updated sitemap with all new recipe URLs
 
+### Completed this cycle
+- [x] New content: rate-limiting, database-transactions, github-actions recipes
+- [x] New docs: api-documentation template
+- [x] New guides: testing-strategy-guide
+- [x] Cross-linking — all content now has 3+ relatedResources links
+- [x] Search refinement — contentType filters, showFilters UI, type badges on results
+
 ### Current Focus (choose one to start)
-1. **Cross-linking** — enhance related content sidebar, add more `relatedResources` links between recipes and patterns
-2. **Search refinement** — custom Pagefind UI, highlight matches, filter by content type
-3. **New docs/guides** — add documentation templates and long-form guides to reach 50+ total items
-4. **More recipes** — additional topics (testing, file handling, databases, CI/CD, security)
+1. **New docs/guides** — add documentation templates and long-form guides to reach 50+ total items
+2. **More recipes** — additional topics (testing, file handling, databases, CI/CD, security)
+3. **Tag system & filtering** — tag detail pages, topic filtering on listing pages
+4. **Performance optimization** — Core Web Vitals, bundle size, image optimization
 
 ### Target: 50+ total content items
 Current count: ~40 (25 recipes + 11 patterns + 2 docs + 2 guides)
