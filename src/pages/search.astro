@@ -30,7 +30,12 @@ const jsonLd = [
   <script is:inline>
     window.addEventListener('DOMContentLoaded', () => {
       if (window.PagefindUI) {
-        new window.PagefindUI({ element: '#search', showSubResults: true });
+        const ui = new window.PagefindUI({ element: '#search', showSubResults: true });
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get('q');
+        if (q) {
+          setTimeout(() => ui.triggerSearch(q), 100);
+        }
       }
     });
   </script>
