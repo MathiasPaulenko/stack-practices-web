@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Page Not Found',
+    description: 'The page you are looking for does not exist.',
+    url: 'https://stackpractices.com/404',
+    inLanguage: 'en',
+  },
+];
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you are looking for does not exist."
+  path="/404"
+  jsonLd={jsonLd}
+  noindex={true}
+>
+  <section class="flex flex-col items-center justify-center px-4 py-24 text-center">
+    <h1 class="text-6xl font-bold text-slate-900">404</h1>
+    <p class="mt-4 text-xl text-slate-600">Page not found</p>
+    <p class="mt-2 max-w-md text-slate-500">
+      The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
+    >
+      Back to home
+    </a>
+  </section>
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList } from '../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Contact StackPractices',
+      description: 'Get in touch with StackPractices for feedback, suggestions, or collaboration.',
+      url: '/contact',
+      locale: 'en',
+    }),
+    datePublished: '2026-06-10',
+  },
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with StackPractices for feedback, suggestions, or collaboration."
+  path="/contact"
+  keywords={['contact', 'stackpractices', 'feedback', 'support']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Home</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Contact</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Contact</h1>
+      <p class="mt-2 text-slate-600">Have a question, suggestion, or just want to say hello? We would love to hear from you.</p>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <div class="space-y-8 text-slate-700">
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+          <h2 class="text-lg font-semibold text-slate-900">Email</h2>
+          <p class="mt-2">
+            <a href="mailto:hello@stackpractices.com" class="text-brand-600 hover:text-brand-700 hover:underline">
+              hello@stackpractices.com
+            </a>
+          </p>
+          <p class="mt-2 text-sm text-slate-500">We aim to respond within 2-3 business days.</p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+          <h2 class="text-lg font-semibold text-slate-900">GitHub</h2>
+          <p class="mt-2">
+            Found a bug or want to contribute?
+            <a
+              href="https://github.com/MathiasPaulenko/stack-practices-web"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-600 hover:text-brand-700 hover:underline"
+            >
+              Visit our repository
+            </a>.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+          <h2 class="text-lg font-semibold text-slate-900">Twitter / X</h2>
+          <p class="mt-2">
+            Follow us for updates:
+            <a
+              href="https://twitter.com/stackpractices"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-600 hover:text-brand-700 hover:underline"
+            >
+              @stackpractices
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

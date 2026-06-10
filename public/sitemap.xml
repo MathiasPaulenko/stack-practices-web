@@ -181,6 +181,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/cookies"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/contact</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/contact"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/contact</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/contact"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/topics/api</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>

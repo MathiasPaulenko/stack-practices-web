@@ -58,6 +58,7 @@ export const FOOTER_NAV = {
   ],
   site: [
     { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
     { label: 'Topics', href: '/topics' },
   ],
   legal: [

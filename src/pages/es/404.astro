@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Página no encontrada',
+    description: 'La página que buscas no existe.',
+    url: 'https://stackpractices.com/es/404',
+    inLanguage: 'es',
+  },
+];
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="La página que buscas no existe."
+  path="/es/404"
+  locale="es"
+  jsonLd={jsonLd}
+  noindex={true}
+>
+  <section class="flex flex-col items-center justify-center px-4 py-24 text-center">
+    <h1 class="text-6xl font-bold text-slate-900">404</h1>
+    <p class="mt-4 text-xl text-slate-600">Página no encontrada</p>
+    <p class="mt-2 max-w-md text-slate-500">
+      Es posible que la página que buscas haya sido eliminada, que haya cambiado de nombre o que no esté disponible temporalmente.
+    </p>
+    <a
+      href="/es/"
+      class="mt-8 inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
+    >
+      Volver al inicio
+    </a>
+  </section>
+</BaseLayout>
