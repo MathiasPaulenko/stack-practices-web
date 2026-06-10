@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { breadcrumbList, collectionPage } from '../../../lib/schema';
+import { TECHNOLOGIES } from '../../../config/site';
+
+const concepts = ['data', 'api', 'authentication', 'file-handling', 'testing', 'architecture', 'design', 'devops', 'databases'];
+
+const jsonLd = [
+  collectionPage({
+    name: 'Temas',
+    description: 'Explora contenido de StackPractices por tema y tecnología.',
+    url: '/es/topics',
+    locale: 'es',
+    items: concepts.map((t) => ({ name: t, url: `/es/topics/${t}` })),
+  }),
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Temas', url: '/es/topics' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Temas"
+  description="Explora recetas de código, patrones, documentos y guías por tema y tecnología."
+  path="/es/topics"
+  locale="es"
+  keywords={['temas de programación', 'temas de tecnología']}
+  jsonLd={jsonLd}
+>
+  <!-- Subtle brand accent line -->
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Temas</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Temas</h1>
+      <p class="mt-2 max-w-2xl text-slate-600">Explora contenido por concepto o tecnología.</p>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <h2 class="text-xl font-semibold text-slate-900">Por concepto</h2>
+    <div class="mt-4 flex flex-wrap gap-3">
+      {
+        concepts.map((concept) => (
+          <a href={`/es/topics/${concept}`} class="rounded-full bg-brand-50 px-4 py-2 text-sm font-medium capitalize text-brand-700 transition hover:bg-brand-100">
+            {concept.replace('-', ' ')}
+          </a>
+        ))
+      }
+    </div>
+
+    <h2 class="mt-10 text-xl font-semibold text-slate-900">Por tecnología</h2>
+    <div class="mt-4 flex flex-wrap gap-3">
+      {
+        TECHNOLOGIES.map((tech) => (
+          <span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium capitalize text-slate-700">
+            {tech}
+          </span>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

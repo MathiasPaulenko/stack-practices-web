@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import ListingPage from '../../../components/ListingPage.astro';
+import { isSpanish } from '../../../lib/content';
+
+const patterns = await getCollection('patterns', ({ id, data }) => isSpanish(id) && !data.draft);
+const entries = patterns.map((p) => ({
+  title: p.data.title,
+  description: p.data.description,
+  href: `/es/patterns/${p.data.slug}`,
+  difficulty: p.data.difficulty,
+  tags: p.data.tags,
+}));
+---
+
+<ListingPage
+  heading="Patrones"
+  description="Patrones de diseño y arquitectura de software explicados con ejemplos reales y ejecutables."
+  path="/es/patterns"
+  locale="es"
+  entries={entries}
+  keywords={['patrones de diseño', 'arquitectura de software', 'ejemplos de patrones']}
+/>
