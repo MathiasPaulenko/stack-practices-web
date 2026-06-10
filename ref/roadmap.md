@@ -51,20 +51,18 @@
 ### Content Count
 - **Recipes**: 25 (parse-json, call-rest-api, read-write-file, handle-errors, jwt-authentication, unit-testing, docker-basics, git-workflow, sql-joins, sort-array, password-hashing, regular-expressions, cron-jobs, environment-variables, pagination, middleware, input-validation, logging, caching, uuid-generation, date-formatting, url-encoding, rate-limiting, database-transactions, github-actions)
 - **Patterns**: 11 (Singleton, Observer, Strategy, Decorator, MVC, Repository, Builder, Abstract Factory, Adapter, Command)
-- **Docs**: 2 (readme-template, api-documentation)
-- **Guides**: 2 (rest-api-design-guide, testing-strategy-guide)
-- **Total**: ~40 items (80 bilingual files)
+- **Docs**: 5 (readme-template, api-documentation, adr-template, runbook-template, contributing-guide)
+- **Guides**: 5 (rest-api-design-guide, testing-strategy-guide, cicd-pipeline-guide, security-best-practices-guide, software-architecture-guide)
+- **Total**: ~46 items (92 bilingual files)
 
 ### Recently Completed
-- [x] 3 new recipes: rate-limiting, database-transactions, github-actions
-- [x] 1 new doc template: api-documentation
-- [x] 1 new guide: testing-strategy-guide
-- [x] Cross-linking: all content has 3+ relatedResources links
-- [x] Search refinement: contentType + lang filters, showFilters UI, type badges
-- [x] Sitemap updated with all new URLs
+- [x] 3 new doc templates: adr, runbook, contributing-guide
+- [x] 3 new guides: CI/CD pipeline, security best practices, software architecture
+- [x] Sitemap updated with all Phase 3 URLs
+- [x] Content cross-linking maintained (3+ relatedResources per item)
 
 ### Next Priorities
-1. **Reach 50+ items** — add 3+ docs/templates and 3+ guides
-2. **More recipes** — testing, file handling, security topics
-3. **Tag/topic filtering** on listing pages
-4. **Performance** — Core Web Vitals audit
+1. **Reach 50+ items** — add 4+ more recipes or guides
+2. **Tag/topic filtering** on listing pages
+3. **Performance** — Core Web Vitals audit
+4. **More recipes** — testing, file handling, security topics

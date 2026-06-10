@@ -1,0 +1,187 @@
+---
+contentType: guides
+slug: cicd-pipeline-guide
+title: "Guía de Pipelines CI/CD"
+description: "Una guía práctica para construir pipelines CI/CD con GitHub Actions, testing, estrategias de deployment y procedimientos de rollback."
+metaDescription: "Aprende a construir pipelines CI/CD robustos: workflows de GitHub Actions, testing automatizado, estrategias de deployment y rollbacks en producción."
+difficulty: intermediate
+topics:
+  - devops
+  - testing
+tags:
+  - cicd
+  - github-actions
+  - devops
+  - deployment
+  - automation
+  - pipeline
+  - testing
+relatedResources:
+  - /recipes/devops/github-actions
+  - /guides/testing/testing-strategy-guide
+  - /docs/templates/runbook-template
+lastUpdated: "2026-06-10"
+author: "StackPractices"
+seo:
+  metaDescription: "Aprende a construir pipelines CI/CD robustos: workflows de GitHub Actions, testing automatizado, estrategias de deployment y rollbacks en producción."
+  keywords:
+    - cicd pipeline
+    - github actions
+    - integración continua
+    - deployment continuo
+    - pipeline devops
+    - testing automatizado
+---
+
+## Overview
+
+CI/CD (Continuous Integration / Continuous Deployment) es la columna vertebral de la entrega de software moderna. Esta guía cubre la construcción de pipelines que testean, compilan y despliegan código de manera confiable.
+
+## When to Use
+
+- Despliegas código más de una vez por semana
+- Múltiples desarrolladores trabajan en el mismo codebase
+- Necesitas confianza de que los cambios no romperán producción
+- Quieres reducir errores de deployment manual
+
+## Core Concepts
+
+### Continuous Integration (CI)
+
+Compila y testea código automáticamente en cada commit.
+
+### Continuous Deployment (CD)
+
+Despliega automáticamente código validado a producción.
+
+### Etapas del pipeline
+
+| Etapa | Propósito | Herramientas típicas |
+| ----- | --------- | -------------------- |
+| Lint | Calidad de código | ESLint, Prettier, Black, SonarQube |
+| Test | Verificar comportamiento | Jest, pytest, JUnit, Vitest |
+| Build | Crear artefactos | Docker, Vite, Webpack, Maven |
+| Security | Escanear vulnerabilidades | Trivy, Snyk, OWASP ZAP |
+| Deploy | Liberar a ambiente | GitHub Actions, ArgoCD, Terraform |
+
+## Solution: Un Pipeline GitHub Actions listo para producción
+
+```yaml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:ci
+      - run: npm run build
+
+  security:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    if: github.ref == 'refs/heads/main'
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/deploy.sh staging
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/deploy.sh production
+```
+
+## Estrategias de deployment
+
+### 1. Rolling Deployment
+
+Reemplaza gradualmente instancias viejas con nuevas.
+
+**Pros**: Cero downtime, simple.
+**Contras**: El rollback toma tiempo, problemas de coexistencia de versiones.
+
+### 2. Blue-Green Deployment
+
+Mantiene dos ambientes idénticos; cambia el tráfico instantáneamente.
+
+**Pros**: Rollback instantáneo, cero downtime.
+**Contras**: Doble costo de infraestructura.
+
+### 3. Canary Deployment
+
+Libera primero a un pequeño subconjunto de usuarios.
+
+**Pros**: Mitigación de riesgo, monitoreo con usuarios reales.
+**Contras**: Enrutamiento complejo, deployment más largo.
+
+## Procedimientos de rollback
+
+### Triggers de rollback automático
+
+- Tasa de error excede umbral (ej. >1%)
+- Latencia p99 excede umbral (ej. >500ms)
+- Health check crítico falla
+- Aprobación manual no recibida dentro del timeout
+
+### Comandos de rollback
+
+```bash
+# Rollback de Kubernetes
+kubectl rollout undo deployment/my-app
+
+# Git revert
+git revert HEAD
+```
+
+## Best Practices
+
+- **Fallar rápido**: Ejecuta los checks más rápidos (lint, unit tests) primero
+- **Paralelizar**: Ejecuta jobs independientes en paralelo
+- **Usa environments**: Requiere aprobaciones para producción
+- **Cachea agresivamente**: Cachea dependencias y artefactos de build
+- **Almacena artefactos**: Guarda outputs de build para trazabilidad
+- **Notifica fallas**: Alerta al equipo inmediatamente cuando falle el pipeline
+
+## Anti-Patterns
+
+- Desplegar sin tests
+- Usar el mismo pipeline para todos los ambientes
+- Pasos manuales en el proceso de deployment
+- Sin plan de rollback
+- Ignorar fallas del pipeline
+
+## FAQ
+
+**Q: ¿Cuánto debería tardar un pipeline de CI?**
+A: Apunta a menos de 10 minutos para feedback. Menos de 5 minutos es ideal.
+
+**Q: ¿Debería desplegar en cada commit?**
+A: Sí, si tus tests y monitoreo son robustos. De lo contrario, despliega en merge a main.
+
+**Q: ¿Cuál es la diferencia entre Continuous Delivery y Continuous Deployment?**
+A: Continuous Delivery significa que el código siempre está desplegable; un humano aprueba el release. Continuous Deployment significa que cada cambio validado va a producción automáticamente.

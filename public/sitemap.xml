@@ -1134,4 +1134,112 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/testing/testing-strategy-guide"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/testing/testing-strategy-guide"/>
   </url>
+  <url>
+    <loc>https://stackpractices.com/docs/adr-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/adr-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/adr-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/adr-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/runbook-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/runbook-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/runbook-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/runbook-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/contributing-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/contributing-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/contributing-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/contributing-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/cicd-pipeline-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/cicd-pipeline-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/cicd-pipeline-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/cicd-pipeline-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/cicd-pipeline-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/cicd-pipeline-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/cicd-pipeline-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/cicd-pipeline-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/security-best-practices-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/security-best-practices-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/security-best-practices-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/security-best-practices-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/security-best-practices-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/security-best-practices-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/security-best-practices-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/security-best-practices-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/software-architecture-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/software-architecture-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/software-architecture-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/software-architecture-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/software-architecture-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/software-architecture-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/software-architecture-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/software-architecture-guide"/>
+  </url>
 </urlset>
