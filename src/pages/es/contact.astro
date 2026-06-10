@@ -32,53 +32,63 @@ const jsonLd = [
 
   <!-- Header section -->
   <header class="border-b border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
         <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
         <span class="mx-2 text-slate-400">/</span>
         <span class="font-medium text-slate-800">Contacto</span>
       </nav>
-      <h1 class="mt-4 text-3xl font-bold text-slate-900">Contacto</h1>
-      <p class="mt-2 text-slate-600">¿Tienes una pregunta, sugerencia o simplemente quieres saludar? Nos encantaría saber de ti.</p>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Ponte en Contacto</h1>
+      <p class="mt-2 max-w-2xl text-lg text-slate-600">
+        ¿Tienes una pregunta, sugerencia o simplemente quieres saludar? Nos encantaría saber de ti.
+      </p>
     </div>
   </header>
 
   <!-- Main content -->
   <section class="bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <div class="grid gap-10 lg:grid-cols-2">
         <!-- Form -->
-        <div>
-          <h2 class="text-xl font-semibold text-slate-900">Envía un mensaje</h2>
-          <p class="mt-1 text-sm text-slate-600">
-            Completa el formulario a continuación y te responderemos lo antes posible.
-          </p>
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></svg>
+            </div>
+            <div>
+              <h2 class="text-xl font-semibold text-slate-900">Envía un mensaje</h2>
+              <p class="text-sm text-slate-500">Solemos responder en 2–3 días hábiles.</p>
+            </div>
+          </div>
+
           <form
             action="https://formspree.io/f/YOUR_FORM_ID"
             method="POST"
             class="mt-6 space-y-5"
           >
-            <div>
-              <label for="name" class="block text-sm font-medium text-slate-700">Nombre</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
-                placeholder="Tu nombre"
-              />
-            </div>
-            <div>
-              <label for="email" class="block text-sm font-medium text-slate-700">Correo electrónico</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
-                placeholder="tu@ejemplo.com"
-              />
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="name" class="block text-sm font-medium text-slate-700">Nombre</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                  placeholder="Tu nombre"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-slate-700">Correo electrónico</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                  placeholder="tu@ejemplo.com"
+                />
+              </div>
             </div>
             <div>
               <label for="subject" class="block text-sm font-medium text-slate-700">Asunto</label>
@@ -104,8 +114,9 @@ const jsonLd = [
             </div>
             <button
               type="submit"
-              class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 sm:w-auto"
             >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
               Enviar mensaje
             </button>
           </form>
@@ -114,15 +125,80 @@ const jsonLd = [
         <!-- Contact info -->
         <div class="space-y-6">
           <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
-            <h2 class="text-lg font-semibold text-slate-900">Correo electrónico</h2>
-            <p class="mt-2">
-              <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:text-brand-700 hover:underline">
-                mathias.paulenko@outlook.com
-              </a>
-            </p>
-            <p class="mt-2 text-sm text-slate-500">Intentamos responder en un plazo de 2-3 días hábiles.</p>
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand-600 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-slate-900">Correo electrónico</h3>
+                <p class="mt-1 text-sm text-slate-600">
+                  <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:text-brand-700 hover:underline">
+                    mathias.paulenko@outlook.com
+                  </a>
+                </p>
+                <p class="mt-1 text-xs text-slate-500">Intentamos responder en un plazo de 2–3 días hábiles.</p>
+              </div>
+            </div>
           </div>
 
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand-600 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-slate-900">Tiempo de Respuesta</h3>
+                <p class="mt-1 text-sm text-slate-600">
+                  Leemos cada mensaje. Para preguntas técnicas, solicitudes de funciones o sugerencias de contenido,
+                  espera una respuesta en un plazo de 48–72 horas en días hábiles.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand-600 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-slate-900">Sobre qué Preguntar</h3>
+                <ul class="mt-2 space-y-1 text-sm text-slate-600">
+                  <li class="flex items-center gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+                    Sugerencias o correcciones de contenido
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+                    Solicitudes de nuevas recetas o patrones
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+                    Ideas de colaboración o asociación
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+                    Feedback general sobre el sitio
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand-600 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-slate-900">Privacidad</h3>
+                <p class="mt-1 text-sm text-slate-600">
+                  Tu correo electrónico se utiliza únicamente para responder a tu mensaje. No compartimos tus datos
+                  con terceros ni te agregamos a ninguna lista de correo.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
