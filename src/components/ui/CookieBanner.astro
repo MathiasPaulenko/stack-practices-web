@@ -1,0 +1,98 @@
+---
+import type { Locale } from '../../config/site';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const isEs = locale === 'es';
+---
+
+<div
+  id="cookie-banner"
+  class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-slate-700 bg-slate-900/95 backdrop-blur"
+  role="dialog"
+  aria-label={isEs ? 'Consentimiento de cookies' : 'Cookie consent'}
+>
+  <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6 sm:py-5">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="text-sm text-slate-300 sm:max-w-2xl">
+        <p>
+          {isEs
+            ? 'StackPractices utiliza cookies para mejorar tu experiencia y analizar el tráfico del sitio. Al hacer clic en "Aceptar", aceptas nuestra '
+            : 'StackPractices uses cookies to improve your experience and analyze site traffic. By clicking "Accept", you agree to our '}
+          <a href={`${isEs ? '/es' : ''}/cookies`} class="font-medium text-brand-400 hover:text-brand-300 hover:underline">
+            {isEs ? 'Política de Cookies' : 'Cookie Policy'}
+          </a>.
+        </p>
+      </div>
+      <div class="flex flex-shrink-0 items-center gap-3">
+        <button
+          id="cookie-reject"
+          class="rounded-md border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+        >
+          {isEs ? 'Rechazar' : 'Decline'}
+        </button>
+        <button
+          id="cookie-accept"
+          class="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
+        >
+          {isEs ? 'Aceptar' : 'Accept'}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const STORAGE_KEY = 'sp-cookie-consent';
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+
+    if (!banner || !acceptBtn || !rejectBtn) return;
+
+    const consent = localStorage.getItem(STORAGE_KEY);
+
+    if (consent === 'granted') {
+      loadGtag();
+    } else if (consent === 'denied') {
+      // Keep gtag unloaded
+    } else {
+      // No decision yet — show banner
+      banner.classList.remove('hidden');
+    }
+
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem(STORAGE_KEY, 'granted');
+      banner.classList.add('hidden');
+      loadGtag();
+    });
+
+    rejectBtn.addEventListener('click', () => {
+      localStorage.setItem(STORAGE_KEY, 'denied');
+      banner.classList.add('hidden');
+      // Ensure gtag stays unloaded and wipe any existing dataLayer
+      window.dataLayer = [];
+    });
+
+    function loadGtag() {
+      if (window.gtagLoaded) return;
+      window.gtagLoaded = true;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RBE12WJ5KZ';
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () {
+        window.dataLayer.push(arguments);
+      };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-RBE12WJ5KZ');
+    }
+  })();
+</script>

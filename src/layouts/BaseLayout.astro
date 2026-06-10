@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Seo from '../components/Seo.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
+import CookieBanner from '../components/ui/CookieBanner.astro';
 import { SITE, type Locale } from '../config/site';
 
 export interface Props {
@@ -52,14 +53,6 @@ const {
       noindex={noindex}
     />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBE12WJ5KZ"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-RBE12WJ5KZ');
-    </script>
   </head>
   <body class="flex min-h-screen flex-col">
     <a
@@ -78,5 +71,6 @@ const {
       <slot />
     </main>
     <Footer locale={locale} />
+    <CookieBanner locale={locale} />
   </body>
 </html>
