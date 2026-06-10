@@ -151,47 +151,6 @@ const concepts = [
     </div>
   </section>
 
-  <!-- Browse by Type -->
-  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-    <h2 class="text-2xl font-bold text-slate-900">Browse by type</h2>
-    <p class="mt-2 text-slate-600">Choose the kind of resource you need for your project.</p>
-    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {CONTENT_TYPES.map((type) => {
-        const count = type.slug === 'recipes' ? recipesCount : type.slug === 'patterns' ? patternsCount : type.slug === 'docs' ? docsCount : guidesCount;
-        const icon = type.slug === 'recipes' ? (
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2v2"/><path d="M15 2v2"/><path d="M12 2v8"/><path d="M8 4h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-        ) : type.slug === 'patterns' ? (
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-        ) : type.slug === 'docs' ? (
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>
-        ) : (
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-        );
-        return (
-          <a
-            href={`/${type.slug}`}
-            class="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
-          >
-            <div class="flex items-start gap-3">
-              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-slate-800 text-white">{icon}</span>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center justify-between gap-2">
-                  <h3 class="text-base font-semibold text-slate-900 group-hover:text-brand-600">{type.label}</h3>
-                  <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">{count}</span>
-                </div>
-                <p class="mt-1 text-sm text-slate-500">{type.description}</p>
-              </div>
-            </div>
-            <div class="mt-3 flex items-center text-sm font-medium text-brand-600">
-              Explore
-              <svg class="ml-1.5 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-            </div>
-          </a>
-        );
-      })}
-    </div>
-  </section>
-
   <!-- Why StackPractices -->
   <section class="border-y border-brand-100 bg-brand-50">
     <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -232,8 +191,51 @@ const concepts = [
     </div>
   </section>
 
-  <!-- Browse by Tag -->
+  <!-- Browse by Type -->
   <section class="border-t border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <h2 class="text-2xl font-bold text-slate-900">Browse by type</h2>
+      <p class="mt-2 text-slate-600">Choose the kind of resource you need for your project.</p>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {CONTENT_TYPES.map((type) => {
+          const count = type.slug === 'recipes' ? recipesCount : type.slug === 'patterns' ? patternsCount : type.slug === 'docs' ? docsCount : guidesCount;
+          const icon = type.slug === 'recipes' ? (
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2v2"/><path d="M15 2v2"/><path d="M12 2v8"/><path d="M8 4h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+          ) : type.slug === 'patterns' ? (
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+          ) : type.slug === 'docs' ? (
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>
+          ) : (
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          );
+          return (
+            <a
+              href={`/${type.slug}`}
+              class="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
+            >
+              <div class="flex items-start gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-slate-800 text-white">{icon}</span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-semibold text-slate-900 group-hover:text-brand-600">{type.label}</h3>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">{count}</span>
+                  </div>
+                  <p class="mt-1 text-sm text-slate-500">{type.description}</p>
+                </div>
+              </div>
+              <div class="mt-3 flex items-center text-sm font-medium text-brand-600">
+                Explore
+                <svg class="ml-1.5 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Browse by Tag -->
+  <section class="border-t border-slate-200 bg-slate-50">
     <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div class="flex items-center justify-between">
         <div>
@@ -264,7 +266,7 @@ const concepts = [
   </section>
 
   <!-- Explore Topics CTA -->
-  <section class="border-t border-slate-200 bg-slate-50">
+  <section class="border-t border-slate-200 bg-white">
     <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div class="rounded-2xl bg-slate-900 px-6 py-12 text-center sm:px-12 sm:py-16">
         <h2 class="text-2xl font-bold text-white sm:text-3xl">Explore by Topic & Technology</h2>
