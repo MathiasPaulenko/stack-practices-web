@@ -1044,4 +1044,94 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/data/url-encoding"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/data/url-encoding"/>
   </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/api/rate-limiting</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/api/rate-limiting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/api/rate-limiting"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/api/rate-limiting"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/api/rate-limiting</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/api/rate-limiting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/api/rate-limiting"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/api/rate-limiting"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/databases/database-transactions</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/databases/database-transactions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/databases/database-transactions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/databases/database-transactions"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/databases/database-transactions</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/databases/database-transactions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/databases/database-transactions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/databases/database-transactions"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/devops/github-actions</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/devops/github-actions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/devops/github-actions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/devops/github-actions"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/devops/github-actions</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/devops/github-actions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/devops/github-actions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/devops/github-actions"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/api-documentation</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/api-documentation"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/api-documentation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/api-documentation"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/api-documentation</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/api-documentation"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/api-documentation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/api-documentation"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/testing/testing-strategy-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/testing/testing-strategy-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/testing/testing-strategy-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/testing/testing-strategy-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/testing/testing-strategy-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/testing/testing-strategy-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/testing/testing-strategy-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/testing/testing-strategy-guide"/>
+  </url>
 </urlset>
