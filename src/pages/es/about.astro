@@ -27,55 +27,160 @@ const jsonLd = [
   keywords={['acerca de', 'stackpractices', 'base de conocimiento']}
   jsonLd={jsonLd}
 >
-  <!-- Subtle brand accent line -->
   <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
 
   <!-- Header section -->
   <header class="border-b border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
         <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
         <span class="mx-2 text-slate-400">/</span>
         <span class="font-medium text-slate-800">Acerca de</span>
       </nav>
       <h1 class="mt-4 text-3xl font-bold text-slate-900">Acerca de StackPractices</h1>
+      <p class="mt-2 max-w-2xl text-lg text-slate-600">
+        Una base de conocimiento práctica para desarrolladores que quieren copiar, ejecutar y entregar más rápido.
+      </p>
     </div>
   </header>
 
-  <!-- Main content -->
+  <!-- Mission -->
   <section class="bg-white">
-    <div class="prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <div class="space-y-6 text-slate-700">
-      <p>
-        StackPractices es una base de conocimiento práctica para ingenieros de software que buscan
-        recetas de código reutilizables, patrones de diseño y plantillas de documentación en Python,
-        Java, JavaScript, SQL y más.
-      </p>
-      <p>
-        Cada recurso está diseñado para ser inmediatamente útil: copia el código, adapta a tu proyecto
-        y entrega más rápido. Priorizamos ejemplos del mundo real sobre teoría abstracta, y cubrimos
-        múltiples lenguajes para que encuentres la solución en el stack que usas hoy.
-      </p>
-      <h2 class="mt-10 text-xl font-semibold text-slate-900">Qué Encontrarás</h2>
-      <ul class="list-disc space-y-2 pl-5">
-        <li><strong>Recetas</strong> — Soluciones cortas y accionables a problemas comunes de desarrollo.</li>
-        <li><strong>Patrones</strong> — Patrones de diseño y arquitectura con implementaciones prácticas.</li>
-        <li><strong>Documentación</strong> — Plantillas reutilizables para READMEs, docs de API y runbooks.</li>
-        <li><strong>Guías</strong> — Contenido extenso que conecta recetas y patrones en flujos de trabajo cohesive.</li>
-      </ul>
-      <h2 class="mt-10 text-xl font-semibold text-slate-900">Nuestro Enfoque</h2>
-      <p>
-        Creemos que la mejor documentación es aquella que puedes copiar, ejecutar y adaptar en minutos.
-        Cada artículo incluye código en múltiples lenguajes, explicaciones claras y una sección de FAQ
-        para referencia rápida. El contenido es bilingüe (inglés y español) para servir a la audiencia
-        más amplia posible.
-      </p>
-      <p>
-        StackPractices es open source y construido con Astro, Tailwind CSS y Pagefind. Si quieres
-        contribuir o reportar un issue, visita nuestro repositorio en GitHub.
-      </p>
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-lg leading-relaxed text-slate-700">
+          StackPractices es una base de conocimiento práctica para ingenieros de software que buscan
+          recetas de código reutilizables, patrones de diseño y plantillas de documentación en
+          <strong>Python, Java, JavaScript, SQL y más</strong>.
+        </p>
+        <p class="mt-4 leading-relaxed text-slate-600">
+          Cada recurso está diseñado para ser inmediatamente útil: copia el código, adapta a tu proyecto
+          y entrega más rápido. Priorizamos ejemplos del mundo real sobre teoría abstracta, y cubrimos
+          múltiples lenguajes para que encuentres la solución en el stack que usas hoy.
+        </p>
+      </div>
+    </div>
+  </section>
 
-      <div class="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
+  <!-- Feature cards -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <h2 class="text-2xl font-bold text-slate-900">Qué Encontrarás</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2">
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Recetas</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Soluciones cortas y accionables a problemas comunes de desarrollo. Copia, pega y adapta en minutos.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Patrones</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Patrones de diseño y arquitectura con implementaciones prácticas que puedes usar de inmediato.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Documentación</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Plantillas reutilizables para READMEs, docs de API, runbooks y otros artefactos de ingeniería.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Guías</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Contenido extenso que conecta recetas y patrones en flujos de trabajo cohesive y del mundo real.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="grid gap-10 lg:grid-cols-2">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900">Nuestro Enfoque</h2>
+          <div class="mt-6 space-y-4 text-slate-700">
+            <p>
+              Creemos que la mejor documentación es aquella que puedes <strong>copiar, ejecutar y adaptar en minutos</strong>.
+              Cada artículo incluye código en múltiples lenguajes, explicaciones claras y una sección de FAQ
+              para referencia rápida.
+            </p>
+            <p>
+              El contenido es <strong>bilingüe (inglés y español)</strong> para servir a la audiencia más amplia posible.
+              Sin paywalls, sin suscripciones — solo conocimiento práctico que puedes usar hoy.
+            </p>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+          <h3 class="text-lg font-semibold text-slate-900">Construido Con</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-700">Astro</span>
+            <span class="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-700">Tailwind CSS</span>
+            <span class="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-700">Pagefind</span>
+            <span class="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-700">TypeScript</span>
+            <span class="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-700">GitHub Pages</span>
+          </div>
+          <p class="mt-4 text-sm text-slate-600">
+            Open source y gratuito. Todo el sitio es estático — sin backend, sin base de datos, sin seguimiento
+            más allá de análisis anónimos (con tu consentimiento).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contributing CTA -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="rounded-xl border border-slate-200 bg-white p-8 text-center sm:p-10">
+        <h2 class="text-2xl font-bold text-slate-900">Contribuye en GitHub</h2>
+        <p class="mx-auto mt-3 max-w-xl text-slate-600">
+          ¿Encontraste un error? ¿Quieres agregar una receta o patrón? StackPractices es open source y
+          recibe con gusto contribuciones de la comunidad.
+        </p>
+        <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href="https://github.com/MathiasPaulenko/stack-practices-web"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            Ver Repositorio
+          </a>
+          <a
+            href="/es/contact"
+            class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            Contactar
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
         <h2 class="text-lg font-semibold text-slate-900">Apoya a StackPractices</h2>
         <p class="mt-2 text-sm text-slate-600">
           Si encuentras útil este proyecto, considera invitarnos a un café. Tu apoyo ayuda a mantener el contenido gratuito y en crecimiento.
