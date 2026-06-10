@@ -16,6 +16,7 @@ tags:
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json
+  - /recipes/regular-expressions
 lastUpdated: "2026-06-09"
 author: "StackPractices"
 seo:

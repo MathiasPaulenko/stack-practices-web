@@ -16,6 +16,7 @@ tags:
 relatedResources:
   - /recipes/docker-basics
   - /recipes/unit-testing
+  - /recipes/github-actions
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:

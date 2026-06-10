@@ -16,6 +16,7 @@ tags:
 relatedResources:
   - /recipes/git-workflow
   - /recipes/call-rest-api
+  - /recipes/environment-variables
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:

@@ -16,6 +16,7 @@ tags:
 relatedResources:
   - /recipes/parse-json
   - /recipes/unit-testing
+  - /recipes/date-formatting
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:

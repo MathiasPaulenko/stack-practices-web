@@ -18,6 +18,7 @@ tags:
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/jwt-authentication
+  - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:

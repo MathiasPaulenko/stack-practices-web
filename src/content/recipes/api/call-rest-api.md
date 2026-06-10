@@ -17,6 +17,7 @@ tags:
 relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file
+  - /recipes/api/middleware
 lastUpdated: "2026-06-09"
 author: "StackPractices"
 seo:
