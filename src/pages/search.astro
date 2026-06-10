@@ -19,7 +19,7 @@ const jsonLd = [
   jsonLd={jsonLd}
   noindex={true}
 >
-  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+  <section class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
     <h1 class="text-3xl font-bold text-slate-900">Search</h1>
     <p class="mt-2 text-slate-600">Find recipes, patterns, docs, and guides.</p>
     <div id="search" class="mt-8"></div>
@@ -30,7 +30,26 @@ const jsonLd = [
   <script is:inline>
     window.addEventListener('DOMContentLoaded', () => {
       if (window.PagefindUI) {
-        const ui = new window.PagefindUI({ element: '#search', showSubResults: true });
+        const ui = new window.PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          showFilters: true,
+          processResult: function (result) {
+            const typeMap = {
+              'recipes': 'Recipe',
+              'patterns': 'Pattern',
+              'docs': 'Doc',
+              'guides': 'Guide'
+            };
+            const filters = result.filters || {};
+            const contentType = (filters.contentType || [])[0] || '';
+            const label = typeMap[contentType] || '';
+            if (label && result.meta && result.meta.title) {
+              result.meta.title = '[' + label + '] ' + result.meta.title;
+            }
+            return result;
+          }
+        });
         const params = new URLSearchParams(window.location.search);
         const q = params.get('q');
         if (q) {

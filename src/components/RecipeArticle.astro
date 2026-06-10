@@ -28,6 +28,7 @@ export interface Props {
   related: RelatedItem[];
   faqs: { question: string; answer: string }[];
   relatedLabel: string;
+  contentType?: string;
 }
 
 const {
@@ -46,6 +47,7 @@ const {
   related,
   faqs,
   relatedLabel,
+  contentType,
 } = Astro.props;
 
 const iso = lastUpdated.toISOString();
@@ -91,6 +93,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   keywords={keywords}
   jsonLd={jsonLd}
 >
+  <div data-pagefind-filter={contentType ? `contentType[${contentType}]` : undefined}>
   <!-- Subtle brand accent line -->
   <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
 
@@ -339,4 +342,5 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
       }
     })();
   </script>
+  </div>
 </BaseLayout>

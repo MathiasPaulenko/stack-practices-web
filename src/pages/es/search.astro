@@ -20,7 +20,7 @@ const jsonLd = [
   jsonLd={jsonLd}
   noindex={true}
 >
-  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+  <section class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
     <h1 class="text-3xl font-bold text-slate-900">Buscar</h1>
     <p class="mt-2 text-slate-600">Encuentra recetas, patrones, documentos y guías.</p>
     <div id="search" class="mt-8"></div>
@@ -34,6 +34,7 @@ const jsonLd = [
         const ui = new window.PagefindUI({
           element: '#search',
           showSubResults: true,
+          showFilters: true,
           translations: {
             placeholder: 'Buscar...',
             clear_search: 'Limpiar',
@@ -46,6 +47,21 @@ const jsonLd = [
             alt_search: 'No se encontraron resultados para [SEARCH_TERM]. Mostrando resultados para [DIFFERENT_TERM] en su lugar.',
             search_suggestion: 'No se encontraron resultados para [SEARCH_TERM]. Intenta una de estas búsquedas:',
             searching: 'Buscando...'
+          },
+          processResult: function (result) {
+            const typeMap = {
+              'recipes': 'Receta',
+              'patterns': 'Patrón',
+              'docs': 'Doc',
+              'guides': 'Guía'
+            };
+            const filters = result.filters || {};
+            const contentType = (filters.contentType || [])[0] || '';
+            const label = typeMap[contentType] || '';
+            if (label && result.meta && result.meta.title) {
+              result.meta.title = '[' + label + '] ' + result.meta.title;
+            }
+            return result;
           }
         });
         const params = new URLSearchParams(window.location.search);

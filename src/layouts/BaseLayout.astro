@@ -62,13 +62,10 @@ const {
       Skip to content
     </a>
     <Header locale={locale} />
-    <main
-      id="main"
-      class="flex-1"
-      data-pagefind-body
-      data-pagefind-filter={`lang[${locale}]`}
-    >
-      <slot />
+    <main id="main" class="flex-1" data-pagefind-body>
+      <div data-pagefind-filter={`lang[${locale}]`}>
+        <slot />
+      </div>
     </main>
     <Footer locale={locale} />
     <CookieBanner locale={locale} />
