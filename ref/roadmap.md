@@ -18,7 +18,7 @@
 - [x] Initial recipe content (10 recipes: parse-json, call-rest-api, read-write-file, handle-errors, jwt-authentication, unit-testing, docker-basics, git-workflow, sql-joins, sort-array)
 - [x] Google indexing setup (post-deployment: Search Console + sitemap submit)
 
-## Phase 2: Patterns & Scale (In Progress)
+## Phase 2: Patterns & Scale (Done)
 - [x] Pattern content collection schema
 - [x] Pattern listing and detail pages
 - [x] Expand patterns catalog (11 patterns: Singleton, Observer, Strategy, Decorator, MVC, Repository, Builder, Abstract Factory, Adapter, Command, Repository Pattern)
@@ -31,8 +31,8 @@
 ## Phase 3: Documentation & Guides (In Progress)
 - [x] Documentation template system (README, API docs templates)
 - [x] Guide content type (testing strategy guide)
-- [ ] Expand docs catalog (+3 templates: ADR, Runbook, Contributing Guide)
-- [ ] Expand guides catalog (+3 guides: CI/CD, Security, Architecture)
+- [x] Expand docs catalog (+3 templates: ADR, Runbook, Contributing Guide)
+- [x] Expand guides catalog (+3 guides: CI/CD, Security, Architecture)
 - [ ] Printable/exportable docs
 - [ ] Monetization setup (AdSense, affiliate)
 - [ ] Donation integration
