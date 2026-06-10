@@ -21,16 +21,18 @@
 ## Phase 2: Patterns & Scale (In Progress)
 - [x] Pattern content collection schema
 - [x] Pattern listing and detail pages
-- [x] Expand patterns catalog (10+ patterns: Singleton, Observer, Strategy, Decorator, MVC, Repository, Builder, Abstract Factory, Adapter, Command)
-- [x] Expand recipe catalog (+12 recipes: Password Hashing, Regular Expressions, Cron Jobs, Environment Variables, Pagination, Middleware, Input Validation, Logging, Caching, UUID Generation, Date Formatting, URL Encoding)
-- [ ] Cross-linking between recipes and patterns
+- [x] Expand patterns catalog (11 patterns: Singleton, Observer, Strategy, Decorator, MVC, Repository, Builder, Abstract Factory, Adapter, Command, Repository Pattern)
+- [x] Expand recipe catalog (+15 recipes: Password Hashing, Regular Expressions, Cron Jobs, Environment Variables, Pagination, Middleware, Input Validation, Logging, Caching, UUID Generation, Date Formatting, URL Encoding, Rate Limiting, Database Transactions, GitHub Actions)
+- [x] Cross-linking between recipes and patterns (3+ relatedResources on every item)
 - [x] Tag system (tag index page + tag filtering)
 - [x] Clickable tags on detail pages
-- [ ] Full-text search refinement
+- [x] Full-text search refinement (contentType filters, showFilters UI, type badges)
 
-## Phase 3: Documentation & Guides
-- [ ] Documentation template system
-- [ ] Guide content type
+## Phase 3: Documentation & Guides (In Progress)
+- [x] Documentation template system (README, API docs templates)
+- [x] Guide content type (testing strategy guide)
+- [ ] Expand docs catalog (+3 templates: ADR, Runbook, Contributing Guide)
+- [ ] Expand guides catalog (+3 guides: CI/CD, Security, Architecture)
 - [ ] Printable/exportable docs
 - [ ] Monetization setup (AdSense, affiliate)
 - [ ] Donation integration
@@ -44,28 +46,25 @@
 
 ---
 
-## Phase 2 Immediate Next Steps
+## Current Status Summary
 
-### Completed
-- [x] First batch of patterns (10 new: Singleton, Observer, Strategy, Decorator, MVC, Repository, Builder, Abstract Factory, Adapter, Command)
-- [x] Clickable tags on detail pages with locale-aware routing
-- [x] Updated sitemap with all new pattern URLs
-- [x] Expanded recipe catalog (+12 new bilingual recipes: Password Hashing, Regular Expressions, Cron Jobs, Environment Variables, Pagination, Middleware, Input Validation, Logging, Caching, UUID Generation, Date Formatting, URL Encoding)
-- [x] Updated sitemap with all new recipe URLs
+### Content Count
+- **Recipes**: 25 (parse-json, call-rest-api, read-write-file, handle-errors, jwt-authentication, unit-testing, docker-basics, git-workflow, sql-joins, sort-array, password-hashing, regular-expressions, cron-jobs, environment-variables, pagination, middleware, input-validation, logging, caching, uuid-generation, date-formatting, url-encoding, rate-limiting, database-transactions, github-actions)
+- **Patterns**: 11 (Singleton, Observer, Strategy, Decorator, MVC, Repository, Builder, Abstract Factory, Adapter, Command)
+- **Docs**: 2 (readme-template, api-documentation)
+- **Guides**: 2 (rest-api-design-guide, testing-strategy-guide)
+- **Total**: ~40 items (80 bilingual files)
 
-### Completed this cycle
-- [x] New content: rate-limiting, database-transactions, github-actions recipes
-- [x] New docs: api-documentation template
-- [x] New guides: testing-strategy-guide
-- [x] Cross-linking — all content now has 3+ relatedResources links
-- [x] Search refinement — contentType filters, showFilters UI, type badges on results
+### Recently Completed
+- [x] 3 new recipes: rate-limiting, database-transactions, github-actions
+- [x] 1 new doc template: api-documentation
+- [x] 1 new guide: testing-strategy-guide
+- [x] Cross-linking: all content has 3+ relatedResources links
+- [x] Search refinement: contentType + lang filters, showFilters UI, type badges
+- [x] Sitemap updated with all new URLs
 
-### Current Focus (choose one to start)
-1. **New docs/guides** — add documentation templates and long-form guides to reach 50+ total items
-2. **More recipes** — additional topics (testing, file handling, databases, CI/CD, security)
-3. **Tag system & filtering** — tag detail pages, topic filtering on listing pages
-4. **Performance optimization** — Core Web Vitals, bundle size, image optimization
-
-### Target: 50+ total content items
-Current count: ~40 (25 recipes + 11 patterns + 2 docs + 2 guides)
-Gap to close: ~10 items
+### Next Priorities
+1. **Reach 50+ items** — add 3+ docs/templates and 3+ guides
+2. **More recipes** — testing, file handling, security topics
+3. **Tag/topic filtering** on listing pages
+4. **Performance** — Core Web Vitals audit
