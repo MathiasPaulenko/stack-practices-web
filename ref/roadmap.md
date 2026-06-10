@@ -60,5 +60,5 @@
 4. **More recipes** — additional topics (testing, file handling, databases, CI/CD, security)
 
 ### Target: 50+ total content items
-Current count: ~35 (22 recipes + 11 patterns + 1 doc + 1 guide)
-Gap to close: ~15 items
+Current count: ~40 (25 recipes + 11 patterns + 2 docs + 2 guides)
+Gap to close: ~10 items
