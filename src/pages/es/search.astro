@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage } from '../../lib/schema';
+
+const jsonLd = [
+  webPage({
+    name: 'Buscar',
+    description: 'Busca recetas de código, patrones de diseño, documentación y guías en StackPractices.',
+    url: '/es/search',
+    locale: 'es',
+  }),
+];
+---
+
+<BaseLayout
+  title="Buscar"
+  description="Busca recetas de código, patrones de diseño, documentación y guías en StackPractices."
+  path="/es/search"
+  locale="es"
+  jsonLd={jsonLd}
+  noindex={true}
+>
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <h1 class="text-3xl font-bold text-slate-900">Buscar</h1>
+    <p class="mt-2 text-slate-600">Encuentra recetas, patrones, documentos y guías.</p>
+    <div id="search" class="mt-8"></div>
+  </section>
+
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.PagefindUI) {
+        new window.PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          translations: {
+            placeholder: 'Buscar...',
+            clear_search: 'Limpiar',
+            load_more: 'Cargar más resultados',
+            search_label: 'Buscar en este sitio',
+            filters_label: 'Filtros',
+            zero_results: 'No se encontraron resultados para [SEARCH_TERM]',
+            many_results: '[COUNT] resultados encontrados',
+            one_result: 'Un resultado encontrado',
+            alt_search: 'No se encontraron resultados para [SEARCH_TERM]. Mostrando resultados para [DIFFERENT_TERM] en su lugar.',
+            search_suggestion: 'No se encontraron resultados para [SEARCH_TERM]. Intenta una de estas búsquedas:',
+            searching: 'Buscando...'
+          }
+        });
+      }
+    });
+  </script>
+</BaseLayout>
