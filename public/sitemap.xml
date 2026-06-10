@@ -595,6 +595,186 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/unit-testing"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/patterns/singleton-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/singleton-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/singleton-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/singleton-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/singleton-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/singleton-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/singleton-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/singleton-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/observer-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/observer-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/observer-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/observer-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/observer-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/observer-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/observer-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/observer-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/strategy-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/strategy-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/strategy-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/strategy-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/strategy-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/strategy-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/strategy-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/strategy-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/decorator-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/decorator-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/decorator-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/decorator-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/decorator-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/decorator-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/decorator-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/decorator-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/mvc-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/mvc-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/mvc-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/mvc-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/mvc-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/mvc-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/mvc-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/mvc-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/repository-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/repository-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/repository-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/repository-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/repository-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/repository-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/repository-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/repository-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/builder-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/builder-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/builder-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/builder-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/builder-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/builder-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/builder-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/builder-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/abstract-factory-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/abstract-factory-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/abstract-factory-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/abstract-factory-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/abstract-factory-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/abstract-factory-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/abstract-factory-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/abstract-factory-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/adapter-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/adapter-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/adapter-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/adapter-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/adapter-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/adapter-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/adapter-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/adapter-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/command-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/command-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/command-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/command-pattern"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/command-pattern</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/command-pattern"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/command-pattern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/command-pattern"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/patterns/factory-pattern</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
