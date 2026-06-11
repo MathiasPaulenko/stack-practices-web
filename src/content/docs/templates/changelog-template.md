@@ -21,6 +21,12 @@ lastUpdated: 2026-06-11
 author: StackPractices
 seo:
   metaDescription: "Standardized changelog template following Keep a Changelog. Track releases, features, fixes, and breaking changes consistently."
+  keywords:
+    - changelog template
+    - keep a changelog
+    - release notes
+    - semantic versioning
+    - version history
 ---
 
 ## Overview
@@ -93,3 +99,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Commit log dumps**: A changelog is curated, not a raw git log
 - **Missing dates**: Every release should have a date
 - **Forgetting the Unreleased section**: Helps users see what's coming
+
+## Frequently Asked Questions
+
+### What format should a changelog follow?
+
+Use the Keep a Changelog format with categories: Added, Changed, Deprecated, Removed, Fixed, and Security. Date every release in ISO 8601 format and link to issues or PRs when applicable.
+
+### Should I include every commit in the changelog?
+
+No. A changelog is curated, not a raw git log. Include only notable changes that affect users: new features, bug fixes, breaking changes, and security patches.
+
+### What is semantic versioning?
+
+Semantic Versioning (SemVer) uses MAJOR.MINOR.PATCH format: increment MAJOR for breaking changes, MINOR for new features, and PATCH for bug fixes.

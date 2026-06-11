@@ -122,3 +122,17 @@ Si este runbook no resuelve el problema dentro de [tiempo], escalar a:
 - Sin path de escalamiento definido
 - Información de contacto desactualizada
 - Asumir contexto que el lector no tiene
+
+## Preguntas Frecuentes
+
+### Cuál es la diferencia entre un runbook y un playbook?
+
+Un runbook es un procedimiento paso a paso para una tarea operacional específica. Un playbook es una colección más amplia de estrategias y procedimientos para una categoría de incidentes o escenarios.
+
+### Con qué frecuencia debería probar los runbooks?
+
+Prueba los runbooks críticos trimestralmente durante períodos de calma. Actualiza los runbooks inmediatamente después de cualquier incidente donde el runbook se usó y se encontró deficiente o incorrecto.
+
+### Los runbooks deberían incluir pasos de troubleshooting?
+
+Sí. Incluye modos de falla comunes y sus síntomas. Agrega árboles de decisión o diagramas de flujo para procedimientos complejos. Cada runbook debería tener un path de escalamiento claro si el procedimiento no resuelve el issue.

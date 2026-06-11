@@ -19,7 +19,7 @@ tags:
   - race-conditions
 relatedResources:
   - /es/recipes/caching
-  - /es/patterns/design/singleton
+  - /es/patterns/design/singleton-pattern
   - /es/guides/software-architecture-guide
 lastUpdated: "2026-06-11"
 author: "StackPractices"
@@ -153,3 +153,17 @@ class SafeCounter:
 - **Usa colecciones thread-safe**: `ConcurrentHashMap`, `Queue`, `AtomicInteger`
 - **Mantén secciones críticas pequeñas**: Bloquea por el mínimo tiempo
 - **Nunca llames APIs externas mientras mantienes un lock**
+
+## Preguntas Frecuentes
+
+### Cuándo debería usar async/await vs threads?
+
+Usa async/await para tareas I/O-bound (HTTP calls, sistema de archivos, bases de datos). Usa threads o procesos para trabajo CPU-bound (cálculos, procesamiento de datos) que necesita ejecución paralela.
+
+### Cómo evito deadlocks?
+
+Siempre adquiere locks en el mismo orden en tu codebase. Usa timeouts en adquisición de locks. Prefiere estructuras de datos lock-free cuando sea posible. La solución más simple a menudo es reducir el estado compartido.
+
+### Cuál es la diferencia entre concurrencia y paralelismo?
+
+La concurrencia es sobre estructurar un programa para manejar múltiples tareas (intercalación). El paralelismo es sobre ejecutar múltiples tareas simultáneamente (realmente al mismo tiempo). Async I/O es concurrente; multithreading en múltiples cores es paralelo.

@@ -75,6 +75,28 @@ La normalización reduce la redundancia y previene anomalías.
 - Debe estar en 2NF
 - Sin dependencia transitiva: atributos no clave dependen solo de la clave primaria
 
+### Ejemplo de Esquema Normalizado
+
+```sql
+CREATE TABLE users (
+  id         SERIAL PRIMARY KEY,
+  email      VARCHAR(255) NOT NULL UNIQUE,
+  name       VARCHAR(100) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE orders (
+  id          SERIAL PRIMARY KEY,
+  user_id     INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  total       DECIMAL(10,2) NOT NULL,
+  status      VARCHAR(20) NOT NULL DEFAULT 'pending',
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_orders_user ON orders(user_id);
+CREATE INDEX idx_orders_status ON orders(status) WHERE status != 'archived';
+```
+
 ## Estrategias de Indexación
 
 Los índices aceleran lecturas pero ralentizan escrituras.
@@ -119,3 +141,17 @@ Los índices aceleran lecturas pero ralentizan escrituras.
 - Usar `ENUM` para valores que cambian frecuentemente
 - Faltar reglas `ON DELETE` / `ON UPDATE` en claves foráneas
 - Almacenar datos derivados/calculados en vez de computar en lectura
+
+## Preguntas Frecuentes
+
+### Qué forma de normalización de base de datos debería usar?
+
+La mayoría de aplicaciones deberían normalizar al menos a Tercera Forma Normal (3NF). Esto elimina dependencias transitivas y mantiene datos consistentes. Desnormaliza solo cuando tengas problemas de performance comprobados.
+
+### Cuándo debería usar un índice compuesto?
+
+Usa índices compuestos cuando las queries filtren por múltiples columnas juntas. Ordena las columnas por selectividad (la más selectiva primero). Evita indexar columnas que rara vez se usan en WHERE clauses.
+
+### Debería usar UUID o auto-increment para claves primarias?
+
+Usa enteros auto-increment para la mayoría de aplicaciones OLTP — son más pequeños, más rápidos de indexar y legibles. Usa UUIDs cuando necesites generación distribuida o merge replication entre bases de datos.

@@ -4,7 +4,7 @@ templateType: code-of-conduct
 slug: code-of-conduct-template
 title: "Code of Conduct Template"
 description: "A community code of conduct template to establish inclusive, respectful collaboration standards."
-metaDescription: "Code of conduct template for open-source projects. Define expected behavior, enforcement, and reporting procedures."
+metaDescription: "Open-source code of conduct template with inclusive collaboration standards, expected behavior rules, enforcement guidelines, and reporting procedures."
 difficulty: beginner
 topics:
   - devops
@@ -20,7 +20,13 @@ relatedResources:
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
-  metaDescription: "Code of conduct template for open-source projects. Define expected behavior, enforcement, and reporting procedures."
+  metaDescription: "Open-source code of conduct template with inclusive collaboration standards, expected behavior rules, enforcement guidelines, and reporting procedures."
+  keywords:
+    - code of conduct
+    - community guidelines
+    - open source governance
+    - contributor covenant
+    - harassment policy
 ---
 
 ## Overview
@@ -101,3 +107,17 @@ version 2.1.
 - **Make it visible**: Link prominently in README and repository
 - **Enforce consistently**: A code without enforcement is meaningless
 - **Review annually**: Update as your community evolves
+
+## Frequently Asked Questions
+
+### Is a code of conduct legally binding?
+
+A code of conduct is not a legal contract, but it sets enforceable community standards. Violations can result in removal from the community, but it does not replace legal action for illegal behavior.
+
+### Should small projects have a code of conduct?
+
+Yes. Even small projects benefit from clear expectations. It prevents misunderstandings and creates a welcoming environment for new contributors from diverse backgrounds.
+
+### What happens when someone violates the code of conduct?
+
+The enforcement team investigates reports promptly and fairly. Consequences range from a warning to temporary or permanent removal from the community, depending on severity and recurrence.

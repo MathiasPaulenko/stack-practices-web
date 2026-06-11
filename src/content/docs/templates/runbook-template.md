@@ -122,3 +122,17 @@ If this runbook does not resolve the issue within [timeframe], escalate to:
 - No escalation path defined
 - Outdated contact information
 - Assuming context the reader doesn't have
+
+## Frequently Asked Questions
+
+### What is the difference between a runbook and a playbook?
+
+A runbook is a step-by-step procedure for a specific operational task. A playbook is a broader collection of strategies and procedures for a category of incidents or scenarios.
+
+### How often should runbooks be tested?
+
+Test critical runbooks quarterly during calm periods. Update runbooks immediately after any incident where the runbook was used and found lacking or incorrect.
+
+### Should runbooks include troubleshooting steps?
+
+Yes. Include common failure modes and their symptoms. Add decision trees or flowcharts for complex procedures. Every runbook should have a clear escalation path if the procedure does not resolve the issue.

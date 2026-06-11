@@ -18,10 +18,10 @@ tags:
   - observer
   - strategy
 relatedResources:
-  - /es/patterns/design/singleton
-  - /es/patterns/design/observer
-  - /es/patterns/design/strategy
-  - /es/patterns/design/repository
+  - /es/patterns/design/singleton-pattern
+  - /es/patterns/design/observer-pattern
+  - /es/patterns/design/strategy-pattern
+  - /es/patterns/design/repository-pattern
 lastUpdated: "2026-06-11"
 author: "StackPractices"
 seo:
@@ -243,3 +243,17 @@ cart.checkout(99.99)
 - Over-engineering: aplicar patterns a problemas triviales
 - Explosión de patterns: usar demasiados patterns en un módulo
 - Ignorar los idiomas del lenguaje: no todos los patterns encajan en todos los lenguajes
+
+## Preguntas Frecuentes
+
+### Cuándo debería usar un design pattern?
+
+Usa un design pattern cuando encuentres un problema que resuelve, no antes. Empieza con código simple y refactoriza hacia un pattern cuando veas duplicación, complejidad o acoplamiento que un pattern resolvería.
+
+### Son relevantes los design patterns en lenguajes modernos?
+
+Sí, pero los lenguajes modernos a menudo absorben patterns en sus librerías estándar. Por ejemplo, Promise de JavaScript es el pattern Observer, y los decorators de Python implementan el pattern Decorator nativamente.
+
+### Cuántos patterns debería usar en un módulo?
+
+Usa tantos como necesites, pero no más. Cada pattern agrega carga cognitiva. Si un módulo usa más de 2-3 patterns, considera si está haciendo demasiado y debería dividirse.

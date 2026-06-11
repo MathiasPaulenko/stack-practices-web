@@ -21,6 +21,12 @@ lastUpdated: 2026-06-11
 author: StackPractices
 seo:
   metaDescription: "Plantilla de changelog estandarizada siguiendo Keep a Changelog. Registra releases, features, fixes y breaking changes consistentemente."
+  keywords:
+    - plantilla changelog
+    - keep a changelog
+    - notas de release
+    - versionado semántico
+    - historial de versiones
 ---
 
 ## Resumen
@@ -93,3 +99,17 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Volcado de git log**: Un changelog es curado, no un log raw de git
 - **Fechas faltantes**: Cada release debe tener fecha
 - **Olvidar la sección Unreleased**: Ayuda a los usuarios a ver lo que viene
+
+## Preguntas Frecuentes
+
+### Qué formato debería seguir un changelog?
+
+Usa el formato Keep a Changelog con categorías: Added, Changed, Deprecated, Removed, Fixed y Security. Fecha cada release en formato ISO 8601 y enlaza a issues o PRs cuando aplique.
+
+### Debería incluir cada commit en el changelog?
+
+No. Un changelog es curado, no un log raw de git. Incluye solo cambios notables que afecten a usuarios: nuevas features, bug fixes, breaking changes y parches de seguridad.
+
+### Qué es el versionado semántico?
+
+Semantic Versioning (SemVer) usa el formato MAJOR.MINOR.PATCH: incrementa MAJOR para breaking changes, MINOR para nuevas features y PATCH para bug fixes.

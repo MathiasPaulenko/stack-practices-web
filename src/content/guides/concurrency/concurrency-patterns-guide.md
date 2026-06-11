@@ -19,7 +19,7 @@ tags:
   - race-conditions
 relatedResources:
   - /recipes/caching
-  - /patterns/design/singleton
+  - /patterns/design/singleton-pattern
   - /guides/software-architecture-guide
 lastUpdated: "2026-06-11"
 author: "StackPractices"
@@ -245,3 +245,18 @@ class CachedData {
 | **Java** | `java.util.concurrent` | `CompletableFuture` | `ExecutorService`, `CountDownLatch` |
 | **Go** | Goroutines | Built-in channels | `sync.WaitGroup`, `select` |
 | **Rust** | `std::thread` | `tokio` | `Arc<Mutex<T>>`, `mpsc` |
+
+## Frequently Asked Questions
+
+### When should I use async/await vs threads?
+
+Use async/await for I/O-bound tasks (HTTP calls, file system, databases). Use threads or processes for CPU-bound work (calculations, data processing) that needs parallel execution.
+
+### How do I avoid deadlocks?
+
+Always acquire locks in the same order across your codebase. Use timeouts on lock acquisition. Prefer lock-free data structures when possible. The simplest fix is often to reduce shared state.
+
+### What is the difference between concurrency and parallelism?
+
+Concurrency is about structuring a program to handle multiple tasks (interleaving). Parallelism is about executing multiple tasks simultaneously (truly at the same time). Async I/O is concurrent; multithreading on multiple cores is parallel.
+

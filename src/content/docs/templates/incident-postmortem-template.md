@@ -21,6 +21,12 @@ lastUpdated: 2026-06-11
 author: StackPractices
 seo:
   metaDescription: "Incident postmortem template for blameless retrospectives. Analyze outages, identify root causes, and define preventive actions."
+  keywords:
+    - postmortem template
+    - incident response
+    - blameless culture
+    - root cause analysis
+    - sre practices
 ---
 
 ## Overview
@@ -116,3 +122,17 @@ A postmortem is a written record of an incident, its impact, the actions taken t
 - **Blame-focused**: Naming individuals instead of analyzing systems
 - **Vague timelines**: Missing exact timestamps
 - **No action items**: Documenting without preventing recurrence
+
+## Frequently Asked Questions
+
+### What is a blameless postmortem?
+
+A blameless postmortem focuses on system and process failures rather than individual mistakes. It creates psychological safety so teams can learn from incidents without fear of punishment.
+
+### When should I write a postmortem?
+
+Write a postmortem after any significant production incident, SLA breach, or any event the team agrees is worth documenting. Publish within 48 hours of resolution.
+
+### Who should participate in a postmortem?
+
+Include on-call engineers who responded, service owners, and stakeholders. Optional: customer support and product managers for customer impact perspective. Keep the group small enough to move quickly.

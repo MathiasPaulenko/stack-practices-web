@@ -4,7 +4,7 @@ templateType: onboarding
 slug: onboarding-guide-template
 title: "Onboarding Guide Template"
 description: "A comprehensive onboarding guide template to help new team members get productive quickly."
-metaDescription: "Onboarding guide template for new developers. Cover setup, tools, codebase overview, and first-week tasks."
+metaDescription: "New developer onboarding guide template covering environment setup, required tools, codebase overview, team conventions, and first-week tasks."
 difficulty: beginner
 topics:
   - devops
@@ -20,7 +20,13 @@ relatedResources:
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
-  metaDescription: "Onboarding guide template for new developers. Cover setup, tools, codebase overview, and first-week tasks."
+  metaDescription: "New developer onboarding guide template covering environment setup, required tools, codebase overview, team conventions, and first-week tasks."
+  keywords:
+    - onboarding guide
+    - new hire template
+    - developer onboarding
+    - team onboarding
+    - first week tasks
 ---
 
 ## Overview
@@ -143,3 +149,17 @@ Slack: `@username` | Email: `name@company.com`
 - **Outdated instructions**: Broken links or changed processes
 - **Missing credentials**: Access requests that take days
 - **No buddy system**: New hire isolated without help
+
+## Frequently Asked Questions
+
+### How long should onboarding take?
+
+Effective onboarding spans 2-4 weeks. The first week focuses on environment setup and small contributions. Weeks 2-4 deepen domain knowledge and increase contribution complexity.
+
+### What if the new hire is remote?
+
+Remote onboarding requires more structured check-ins. Use video calls for pairing sessions, maintain a shared onboarding checklist in a project management tool, and over-communicate during the first month.
+
+### Should onboarding be the same for junior and senior developers?
+
+No. Senior developers need less hand-holding with tools but more context on architecture and domain. Junior developers need more guidance on workflows, code standards, and feedback cycles.

@@ -4,7 +4,7 @@ slug: adr-template
 templateType: adr
 title: "ADR Template"
 description: "A reusable template for Architecture Decision Records that capture context, decision, and consequences."
-metaDescription: "Use this ADR template to document architecture decisions with context, options considered, decision, and consequences."
+metaDescription: "Architecture Decision Record template for documenting software decisions with context, options, outcomes, and consequences in a structured format."
 difficulty: beginner
 topics:
   - architecture
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:
-  metaDescription: "Use this ADR template to document architecture decisions with context, options considered, decision, and consequences."
+  metaDescription: "Architecture Decision Record template for documenting software decisions with context, options, outcomes, and consequences in a structured format."
   keywords:
     - adr template
     - architecture decision record
@@ -108,3 +108,17 @@ State the architecture decision in a single sentence. Be clear and direct.
 - Omitting the context (future readers won't understand why)
 - Not listing alternatives (makes the decision look arbitrary)
 - Forgetting to mark ADRs as deprecated when superseded
+
+## Frequently Asked Questions
+
+### When should I write an ADR?
+
+Write an ADR after a significant architectural decision is made — typically when the decision affects multiple teams, is costly to reverse, or has long-term maintenance implications. Do not write ADRs for trivial choices.
+
+### Who should read ADRs?
+
+New team members, external reviewers, and future maintainers. ADRs serve as a historical record that helps people understand why the system is built the way it is, reducing repeated debates and wrong assumptions.
+
+### How do I handle a decision that changes later?
+
+Mark the original ADR as deprecated with a superseded-by link to the new ADR. Do not delete or rewrite historical ADRs. The evolution of decisions is itself valuable context.

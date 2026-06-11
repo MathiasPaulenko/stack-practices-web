@@ -4,7 +4,7 @@ slug: readme-template
 templateType: readme
 title: "Plantilla README"
 description: "Una plantilla README lista para producción para proyectos open-source e internos."
-metaDescription: "Usa esta plantilla README para documentar tu proyecto con secciones de instalación, uso, contribución y licencia."
+metaDescription: "Plantilla README lista para producción para documentar proyectos de software con secciones de instalación, uso, contribución y licencia."
 difficulty: beginner
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:
-  metaDescription: "Usa esta plantilla README para documentar tu proyecto con secciones de instalación, uso, contribución y licencia."
+  metaDescription: "Plantilla README lista para producción para documentar proyectos de software con secciones de instalación, uso, contribución y licencia."
   keywords:
     - plantilla readme
     - documentacion de proyecto
@@ -66,7 +66,7 @@ Copia la plantilla siguiente y reemplaza los marcadores `[entre corchetes]`:
 - [Contribución](#contribución)
 - [Licencia](#licencia)
 
-## Overview
+## Descripción del Proyecto
 
 [2-3 párrafos explicando qué hace el proyecto, por qué existe y quién debería usarlo.]
 

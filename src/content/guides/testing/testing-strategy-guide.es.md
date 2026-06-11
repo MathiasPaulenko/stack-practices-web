@@ -189,3 +189,17 @@ jobs:
 - [ ] Tests ejecutados en CI en cada pull request
 - [ ] Coverage trackeado y reportado
 - [ ] Tests flaky identificados y arreglados rápidamente
+
+## Preguntas Frecuentes
+
+### Qué es la pirámide de testing?
+
+La pirámide de testing es un modelo que sugiere tener muchos unit tests en la base, menos integration tests en el medio y muy pocos end-to-end tests en la cima. Esto mantiene el test suite rápido, confiable y económico.
+
+### Cuánto coverage de tests debería aspirar?
+
+Aspira a 70-80% de coverage en lógica de negocio crítica. Mayor coverage es mejor, pero 100% no garantiza corrección. Enfócate en comportamiento y casos edge en lugar de porcentajes arbitrarios.
+
+### Debería hacer mock de APIs externas en integration tests?
+
+Sí, haz mock de APIs externas en los boundaries de integration tests usando librerías como WireMock o MSW. Esto mantiene los tests determinísticos y rápidos mientras verifica los patrones de interacción de tu sistema.

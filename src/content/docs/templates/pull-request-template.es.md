@@ -4,7 +4,7 @@ templateType: pr-template
 slug: pull-request-template
 title: "Plantilla de Pull Request"
 description: "Plantilla de pull request completa para estandarizar code reviews y mejorar la calidad de merges."
-metaDescription: "Plantilla de pull request para code reviews consistentes. Incluye cambios, testing, checklists e issues relacionados."
+metaDescription: "Plantilla de pull request para code reviews estandarizados con descripción, tipo de cambio, checklist de testing e issues relacionados."
 difficulty: beginner
 topics:
   - devops
@@ -20,7 +20,13 @@ relatedResources:
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
-  metaDescription: "Plantilla de pull request para code reviews consistentes. Incluye cambios, testing, checklists e issues relacionados."
+  metaDescription: "Plantilla de pull request para code reviews estandarizados con descripción, tipo de cambio, checklist de testing e issues relacionados."
+  keywords:
+    - plantilla pull request
+    - checklist code review
+    - pr template
+    - github pull request
+    - estándares code review
 ---
 
 ## Resumen
@@ -103,3 +109,17 @@ Fixes # (issue)
 - **Plantillas vacías**: Enviar sin completar las secciones requeridas
 - **Tests faltantes**: Olvidar actualizar o agregar tests
 - **Sin enlaces a issues**: Hace más difícil rastrear el contexto
+
+## Preguntas Frecuentes
+
+### Cada pull request debería usar una plantilla?
+
+Sí. Las plantillas aseguran que los reviewers obtengan contexto consistente y que los autores verifiquen su trabajo. Incluso fixes pequeños se benefician de una breve descripción y confirmación de testing.
+
+### Qué tan detallada debería ser la sección de testing?
+
+Incluye suficiente detalle para que un reviewer pueda reproducir tus tests. Para cambios UI, adjunta screenshots o GIFs. Para cambios de API, incluye requests y responses de ejemplo.
+
+### Qué pasa si una plantilla de PR se siente muy pesada para mi equipo?
+
+Empieza con una plantilla mínima: descripción, tipo de cambio y un checklist de 3 items. Expande secciones solo cuando notes brechas de información en las reviews.

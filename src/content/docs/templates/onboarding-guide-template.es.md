@@ -21,6 +21,12 @@ lastUpdated: 2026-06-11
 author: StackPractices
 seo:
   metaDescription: "Plantilla de onboarding para nuevos desarrolladores. Cubre setup, herramientas, visión general del codebase y tareas de la primera semana."
+  keywords:
+    - guía de onboarding
+    - plantilla nueva contratación
+    - onboarding desarrolladores
+    - onboarding de equipo
+    - tareas primera semana
 ---
 
 ## Resumen
@@ -143,3 +149,17 @@ Slack: `@username` | Email: `name@company.com`
 - **Instrucciones desactualizadas**: Links rotos o procesos cambiados
 - **Credenciales faltantes**: Solicitudes de acceso que toman días
 - **Sin sistema de buddy**: Nuevo aislado sin ayuda
+
+## Preguntas Frecuentes
+
+### Cuánto debería durar el onboarding?
+
+Un onboarding efectivo abarca 2-4 semanas. La primera semana se enfoca en configuración del ambiente y contribuciones pequeñas. Las semanas 2-4 profundizan el conocimiento del dominio y aumentan la complejidad de las contribuciones.
+
+### Qué pasa si el nuevo contratado es remoto?
+
+El onboarding remoto requiere check-ins más estructurados. Usa videollamadas para sesiones de pair programming, mantén una checklist de onboarding compartida en una herramienta de gestión de proyectos y sobre-comunícale durante el primer mes.
+
+### Debería ser el mismo onboarding para juniors y seniors?
+
+No. Los desarrolladores senior necesitan menos ayuda con herramientas pero más contexto sobre arquitectura y dominio. Los juniors necesitan más orientación sobre workflows, estándares de código y ciclos de feedback.

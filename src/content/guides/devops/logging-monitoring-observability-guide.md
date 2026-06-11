@@ -205,3 +205,18 @@ groups:
 - Metrics without labels (no dimensions to slice by)
 - Alerting on CPU usage instead of user-facing symptoms
 - Storing logs indefinitely without a retention policy
+
+## Frequently Asked Questions
+
+### What is the difference between logs, metrics, and traces?
+
+Logs are discrete events that answer "what happened?" Metrics are aggregated numeric data that answer "how is it trending?" Traces follow a request across services and answer "where did time go?"
+
+### How long should I retain logs?
+
+Retain error and audit logs for 30-90 days. Debug logs can be kept for 7 days. Adjust based on compliance requirements and cost. Use log sampling for high-volume services.
+
+### What should I alert on?
+
+Alert on user-facing symptoms: error rate, latency, and availability. Avoid alerting on infrastructure metrics like CPU or memory unless they directly correlate with user impact.
+

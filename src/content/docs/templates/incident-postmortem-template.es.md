@@ -21,6 +21,12 @@ lastUpdated: 2026-06-11
 author: StackPractices
 seo:
   metaDescription: "Plantilla de postmortem de incidente para retros sin culpa. Analiza caídas, identifica causas raíz y define acciones preventivas."
+  keywords:
+    - plantilla postmortem
+    - respuesta a incidentes
+    - cultura sin culpa
+    - análisis de causa raíz
+    - prácticas sre
 ---
 
 ## Resumen
@@ -47,7 +53,7 @@ Un postmortem es un registro escrito de un incidente, su impacto, las acciones t
 - **Reportero**: [Nombre]
 - **Estado**: Resuelto
 
-## Resumen
+## Resumen del Incidente
 
 [Descripción de 2-3 oraciones de lo que pasó y su impacto]
 
@@ -117,3 +123,17 @@ configuración o diagramas de arquitectura si aplica.]
 - **Enfoque en culpa**: Nombrar individuos en vez de analizar sistemas
 - **Cronologías vagas**: Faltan timestamps exactos
 - **Sin acciones**: Documentar sin prevenir recurrencia
+
+## Preguntas Frecuentes
+
+### Qué es un postmortem sin culpa?
+
+Un postmortem sin culpa se enfoca en fallas de sistema y proceso en lugar de errores individuales. Crea seguridad psicológica para que los equipos puedan aprender de incidentes sin temor a castigo.
+
+### Cuándo debería escribir un postmortem?
+
+Escribe un postmortem después de cualquier incidente de producción significativo, incumplimiento de SLA, o cualquier evento que el equipo acuerde que vale la pena documentar. Publica dentro de 48 horas de la resolución.
+
+### Quién debería participar en un postmortem?
+
+Incluye a los ingenieros on-call que respondieron, dueños de servicio y stakeholders. Opcional: soporte al cliente y product managers para la perspectiva de impacto en usuarios. Mantén el grupo lo suficientemente pequeño para moverse rápido.

@@ -108,3 +108,17 @@ Enuncia la decisión de arquitectura en una sola oración. Sé claro y directo.
 - Omitir el contexto (lectores futuros no entenderán por qué)
 - No listar alternativas (hace que la decisión parezca arbitraria)
 - Olvidar marcar ADRs como obsoletas cuando son reemplazadas
+
+## Preguntas Frecuentes
+
+### Cuándo debería escribir un ADR?
+
+Escribe un ADR después de tomar una decisión arquitectónica significativa — típicamente cuando la decisión afecta a múltiples equipos, es costosa de revertir o tiene implicaciones de mantenimiento a largo plazo. No escribas ADRs para elecciones triviales.
+
+### Quién debería leer los ADRs?
+
+Nuevos miembros del equipo, revisores externos y mantenedores futuros. Los ADRs sirven como registro histórico que ayuda a entender por qué el sistema está construido de cierta manera, reduciendo debates repetidos y suposiciones incorrectas.
+
+### Cómo manejo una decisión que cambia más tarde?
+
+Marca el ADR original como obsoleto con un link superseded-by al nuevo ADR. No borres ni reescribas ADRs históricos. La evolución de las decisiones es en sí misma contexto valioso.

@@ -3,7 +3,7 @@ contentType: recipes
 slug: caching
 title: "Caching & Memoization"
 description: "How to cache expensive computations and API responses using in-memory, LRU, and distributed caches across Python, JavaScript, and Java."
-metaDescription: "Practical caching examples in Python, JavaScript, and Java. Learn memoization, TTL, and cache invalidation strategies."
+metaDescription: "Practical caching and memoization examples in Python, JavaScript, and Java. Covers LRU, TTL, Redis, and cache invalidation strategies."
 difficulty: intermediate
 topics:
   - data
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:
-  metaDescription: "Practical caching examples in Python, JavaScript, and Java. Learn memoization, TTL, and cache invalidation strategies."
+  metaDescription: "Practical caching and memoization examples in Python, JavaScript, and Java. Covers LRU, TTL, Redis, and cache invalidation strategies."
   keywords:
     - caching
     - memoization

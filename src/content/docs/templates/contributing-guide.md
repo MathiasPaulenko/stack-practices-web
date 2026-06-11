@@ -166,3 +166,17 @@ Contributors will be:
 - Open a [Discussion](link) for general questions
 - Join our [Discord/Slack](link) for real-time chat
 - Email [contact email] for private inquiries
+
+## Frequently Asked Questions
+
+### Do I need to sign a CLA before contributing?
+
+Many projects use a Contributor License Agreement (CLA) or Developer Certificate of Origin (DCO). Check the repository for a `CONTRIBUTING.md` or `CLA.md` file. Some projects accept contributions without any formal agreement.
+
+### How do I find issues to work on?
+
+Look for labels like `good first issue`, `help wanted`, or `beginner-friendly` in the issue tracker. These are curated by maintainers for new contributors.
+
+### What if my contribution is rejected?
+
+Do not take it personally. Maintainers may reject contributions that do not align with project goals or need significant rework. Ask for specific feedback and iterate. Every project has different standards and priorities.

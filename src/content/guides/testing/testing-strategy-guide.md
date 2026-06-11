@@ -194,3 +194,17 @@ jobs:
 - [ ] Tests run in CI on every pull request
 - [ ] Coverage tracked and reported
 - [ ] Flaky tests identified and fixed promptly
+
+## Frequently Asked Questions
+
+### What is the testing pyramid?
+
+The testing pyramid is a model that suggests having many unit tests at the base, fewer integration tests in the middle, and very few end-to-end tests at the top. This keeps the test suite fast, reliable, and cost-effective.
+
+### How much test coverage should I aim for?
+
+Aim for 70-80% coverage on critical business logic. Higher coverage is better, but 100% coverage does not guarantee correctness. Focus on behavior and edge cases rather than hitting arbitrary percentages.
+
+### Should I mock external APIs in integration tests?
+
+Mock external APIs at integration test boundaries using libraries like WireMock or MSW. This keeps tests deterministic and fast while still verifying your system's interaction patterns.

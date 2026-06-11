@@ -18,7 +18,7 @@ tags:
   - java
 relatedResources:
   - /patterns/design/decorator-pattern
-  - /patterns/design/facade-pattern
+  - /patterns/design/command-pattern
   - /recipes/api/call-rest-api
 lastUpdated: "2026-06-10"
 author: "StackPractices"

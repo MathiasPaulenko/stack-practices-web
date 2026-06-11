@@ -210,3 +210,18 @@ CREATE TABLE products (
 - Using `ENUM` for values that change frequently
 - Missing `ON DELETE` / `ON UPDATE` rules on foreign keys
 - Storing derived/calculated data instead of computing on read
+
+## Frequently Asked Questions
+
+### What database normalization form should I use?
+
+Most applications should normalize to at least Third Normal Form (3NF). This eliminates transitive dependencies and keeps data consistent. Denormalize only when you have proven performance issues.
+
+### When should I use a composite index?
+
+Use composite indexes when queries filter on multiple columns together. Order columns by selectivity (most selective first). Avoid indexing columns that are rarely used in WHERE clauses.
+
+### Should I use UUID or auto-increment for primary keys?
+
+Use auto-increment integers for most OLTP applications — they are smaller, faster to index, and human-readable. Use UUIDs when you need distributed generation or merge replication across databases.
+

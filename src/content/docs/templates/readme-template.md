@@ -4,7 +4,7 @@ slug: readme-template
 templateType: readme
 title: "README Template"
 description: "A production-ready README template for open-source and internal projects."
-metaDescription: "Use this README template to document your project with installation, usage, contributing, and license sections."
+metaDescription: "Production-ready README template for documenting software projects with installation, usage, contributing, and license sections."
 difficulty: beginner
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "StackPractices"
 seo:
-  metaDescription: "Use this README template to document your project with installation, usage, contributing, and license sections."
+  metaDescription: "Production-ready README template for documenting software projects with installation, usage, contributing, and license sections."
   keywords:
     - readme template
     - project documentation
@@ -66,7 +66,7 @@ Copy the template below and replace the `[bracketed]` placeholders:
 - [Contributing](#contributing)
 - [License](#license)
 
-## Overview
+## Project Description
 
 [2-3 paragraphs explaining what the project does, why it exists, and who should use it.]
 

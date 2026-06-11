@@ -130,3 +130,17 @@ Alertar sobre síntomas, no causas.
 - Métricas sin labels (sin dimensiones para cortar)
 - Alertar sobre uso de CPU en vez de síntomas orientados a usuarios
 - Almacenar logs indefinidamente sin política de retención
+
+## Preguntas Frecuentes
+
+### Cuál es la diferencia entre logs, métricas y traces?
+
+Los logs son eventos discretos que responden "qué pasó?". Las métricas son datos numéricos agregados que responden "cómo está la tendencia?". Los traces siguen un request a través de servicios y responden "dónde se fue el tiempo?"
+
+### Cuánto tiempo debería retener logs?
+
+Retén logs de error y auditoría por 30-90 días. Los logs de debug pueden mantenerse por 7 días. Ajusta según requisitos de compliance y costo. Usa log sampling para servicios de alto volumen.
+
+### Sobre qué debería alertar?
+
+Alerta sobre síntomas orientados a usuarios: tasa de error, latencia y disponibilidad. Evita alertar sobre métricas de infraestructura como CPU o memoria a menos que correlacionen directamente con impacto en usuarios.

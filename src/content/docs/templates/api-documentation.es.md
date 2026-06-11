@@ -240,3 +240,17 @@ Todos los errores siguen esta estructura:
 3. Incluye ejemplos de autenticación para OAuth, API keys o JWT
 4. Agrega ejemplos de código en Python, JavaScript y Java
 5. Linkea a tu spec de OpenAPI/Swagger para documentación interactiva
+
+## Preguntas Frecuentes
+
+### Debería documentar cada endpoint o solo los públicos?
+
+Documenta cada endpoint consumido por clientes, incluyendo microservicios internos. Los endpoints solo-internos pueden tener documentación más ligera, pero deberían ser descubribles y entendibles por otros equipos.
+
+### Cuál es la diferencia entre documentación de API y una spec OpenAPI?
+
+La documentación de API es la guía legible por humanos con explicaciones, ejemplos y contexto. Una spec OpenAPI es el contrato legible por máquinas que potencia docs interactivos, generación de clientes y testing de contratos. Mantén ambos.
+
+### Cómo mantengo la documentación de API sincronizada con el código?
+
+Genera la documentación desde anotaciones de código o specs OpenAPI como parte de tu pipeline de CI. Usa herramientas como Swagger UI, Redoc o Stoplight para renderizar specs automáticamente. La documentación manual se desactualiza rápidamente sin automatización.

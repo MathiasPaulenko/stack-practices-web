@@ -166,3 +166,17 @@ Los contribuidores serán:
 - Abre una [Discussion](link) para preguntas generales
 - Únete a nuestro [Discord/Slack](link) para chat en tiempo real
 - Email [contact email] para consultas privadas
+
+## Preguntas Frecuentes
+
+### Necesito firmar un CLA antes de contribuir?
+
+Muchos proyectos usan un Contributor License Agreement (CLA) o Developer Certificate of Origin (DCO). Revisa el repositorio por un archivo `CONTRIBUTING.md` o `CLA.md`. Algunos proyectos aceptan contribuciones sin acuerdo formal.
+
+### Cómo encuentro issues para trabajar?
+
+Busca labels como `good first issue`, `help wanted` o `beginner-friendly` en el issue tracker. Estos son curados por mantenedores para nuevos contribuidores.
+
+### Qué pasa si mi contribución es rechazada?
+
+No lo tomes personalmente. Los mantenedores pueden rechazar contribuciones que no se alinean con los objetivos del proyecto o necesitan rework significativo. Pide feedback específico e itera. Cada proyecto tiene diferentes estándares y prioridades.

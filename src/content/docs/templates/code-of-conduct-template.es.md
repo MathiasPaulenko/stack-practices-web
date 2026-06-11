@@ -21,6 +21,12 @@ lastUpdated: 2026-06-11
 author: StackPractices
 seo:
   metaDescription: "Plantilla de código de conducta para proyectos open-source. Define comportamiento esperado, cumplimiento y procedimientos de reporte."
+  keywords:
+    - código de conducta
+    - guías de comunidad
+    - gobernanza open source
+    - contributor covenant
+    - política de acoso
 ---
 
 ## Resumen
@@ -104,3 +110,17 @@ versión 2.1.
 - **Hazlo visible**: Enlaza prominentemente en el README y repositorio
 - **Cumple consistentemente**: Un código sin cumplimiento no tiene sentido
 - **Revisa anualmente**: Actualiza a medida que tu comunidad evoluciona
+
+## Preguntas Frecuentes
+
+### Es un código de conducta legalmente vinculante?
+
+Un código de conducta no es un contrato legal, pero establece estándares comunitarios exigibles. Las violaciones pueden resultar en la expulsión de la comunidad, pero no reemplaza la acción legal por comportamiento ilegal.
+
+### Los proyectos pequeños deberían tener un código de conducta?
+
+Sí. Incluso los proyectos pequeños se benefician de expectativas claras. Previene malentendidos y crea un ambiente acogedor para nuevos colaboradores de diversos orígenes.
+
+### Qué sucede cuando alguien viola el código de conducta?
+
+El equipo de cumplimiento investiga los reportes rápidamente y justamente. Las consecuencias van desde una advertencia hasta la remoción temporal o permanente de la comunidad, dependiendo de la gravedad y recurrencia.

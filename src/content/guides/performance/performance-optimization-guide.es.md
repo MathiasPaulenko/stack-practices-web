@@ -146,3 +146,17 @@ const Dashboard = () => import('./pages/Dashboard.js');
 - Cachear excesivamente respuestas de API que cambian frecuentemente
 - Cargar todas las imágenes eager en páginas largas
 - No comprimir respuestas de API (JSON)
+
+## Preguntas Frecuentes
+
+### Cuál es la optimización de performance más impactante para web apps?
+
+La optimización de imágenes típicamente entrega el mayor impacto. Convertir a WebP/AVIF, usar imágenes responsive y lazy loading de imágenes below-the-fold a menudo reduce el peso de página en 50% o más.
+
+### Debería usar un CDN para assets estáticos?
+
+Sí. Un CDN reduce la latencia sirviendo assets desde ubicaciones edge cercanas a tus usuarios. También descarga tráfico de tu servidor origen y provee compresión y HTTP/2 integrados.
+
+### Cómo mejoro Core Web Vitals rápidamente?
+
+Para LCP: optimiza tu elemento de contenido más grande (usualmente una imagen hero). Para CLS: siempre establece width/height en imágenes e iframes. Para INP: divide tareas largas de JavaScript y diferir scripts no críticos.

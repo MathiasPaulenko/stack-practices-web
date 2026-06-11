@@ -209,3 +209,18 @@ brotli_types text/plain text/css application/json application/javascript;
 - Over-caching API responses that change frequently
 - Loading all images eagerly on long pages
 - Not compressing API responses (JSON)
+
+## Frequently Asked Questions
+
+### What is the most impactful performance optimization for web apps?
+
+Image optimization typically delivers the biggest impact. Converting to WebP/AVIF, using responsive images, and lazy loading below-the-fold images often reduces page weight by 50% or more.
+
+### Should I use a CDN for static assets?
+
+Yes. A CDN reduces latency by serving assets from edge locations near your users. It also offloads traffic from your origin server and provides built-in compression and HTTP/2 support.
+
+### How do I improve Core Web Vitals quickly?
+
+For LCP: optimize your largest content element (usually a hero image). For CLS: always set width/height on images and iframes. For INP: break up long JavaScript tasks and defer non-critical scripts.
+

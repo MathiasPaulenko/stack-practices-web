@@ -14,6 +14,7 @@
     "sitemap": "node .agents/skills/stackp-content-creator/scripts/generate-sitemap.cjs",
     "content:index": "node .agents/skills/stackp-content-creator/scripts/generate-content-index.cjs",
     "content:validate": "node .agents/skills/stackp-content-creator/scripts/validate-content.cjs",
+    "content:quality": "node .agents/skills/stackp-content-creator/scripts/content-quality-validator.cjs",
     "content:links": "node .agents/skills/stackp-content-creator/scripts/check-broken-links.cjs"
   },
   "dependencies": {
