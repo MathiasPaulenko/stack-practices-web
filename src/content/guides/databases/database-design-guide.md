@@ -20,7 +20,7 @@ tags:
 relatedResources:
   - /recipes/sql-joins
   - /recipes/database-transactions
-  - /patterns/architectural/repository-pattern
+  - /patterns/repository-pattern
 lastUpdated: "2026-06-11"
 author: "StackPractices"
 seo:

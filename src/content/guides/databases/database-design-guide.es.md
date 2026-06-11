@@ -19,7 +19,7 @@ tags:
 relatedResources:
   - /es/recipes/sql-joins
   - /es/recipes/database-transactions
-  - /es/patterns/architectural/repository-pattern
+  - /es/patterns/repository-pattern
 lastUpdated: "2026-06-11"
 author: "StackPractices"
 seo:
