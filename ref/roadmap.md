@@ -40,7 +40,7 @@
 ## Phase 4: Polish & Growth
 - [ ] AI-assisted search
 - [ ] User contributions workflow
-- [ ] Newsletter / RSS
+- [x] RSS feed (auto-generated EN + ES feeds with all content)
 - [x] Performance optimization (compressHTML, CSS code split, minify, dns-prefetch, deferred Pagefind)
 - [ ] Analytics and tracking
 
@@ -60,6 +60,7 @@
 - [x] 3 new guides: CI/CD pipeline, security best practices, software architecture
 - [x] Printable/exportable docs (CSS print styles + print button)
 - [x] Performance audit: compressHTML, CSS code split, minify, dns-prefetch, deferred Pagefind
+- [x] RSS feed: auto-generated EN + ES feeds with all content types
 - [x] Sitemap updated with all Phase 3 URLs
 - [x] Content cross-linking maintained (3+ relatedResources per item)
 
@@ -67,4 +68,4 @@
 1. **Reach 50+ items** — add 4+ more recipes or guides
 2. **Tag/topic filtering** on listing pages
 3. **More recipes** — testing, file handling, security topics
-4. **RSS feed** — auto-generated XML feed with all content
+4. **Analytics** — Google Analytics 4 setup
