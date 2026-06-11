@@ -33,7 +33,7 @@
 - [x] Guide content type (testing strategy guide)
 - [x] Expand docs catalog (+3 templates: ADR, Runbook, Contributing Guide)
 - [x] Expand guides catalog (+3 guides: CI/CD, Security, Architecture)
-- [ ] Printable/exportable docs
+- [x] Printable/exportable docs (CSS print styles + print button)
 - [ ] Monetization setup (AdSense, affiliate)
 - [ ] Donation integration
 
