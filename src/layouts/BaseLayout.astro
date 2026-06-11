@@ -43,6 +43,13 @@ const {
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title={locale === 'es' ? 'StackPractices (ES)' : 'StackPractices'} href={locale === 'es' ? '/es/rss.xml' : '/rss.xml'} />
     <link rel="dns-prefetch" href="https://stackpractices.com" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBE12WJ5KZ"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RBE12WJ5KZ');
+    </script>
 
     <Seo
       title={title}
