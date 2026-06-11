@@ -1279,6 +1279,96 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/onboarding-guide-template"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/guides/databases/database-design-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/databases/database-design-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/databases/database-design-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/databases/database-design-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/databases/database-design-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/databases/database-design-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/databases/database-design-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/databases/database-design-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/performance/performance-optimization-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/performance/performance-optimization-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/performance/performance-optimization-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/performance/performance-optimization-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/performance/performance-optimization-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/performance/performance-optimization-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/performance/performance-optimization-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/performance/performance-optimization-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/design/design-patterns-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/design/design-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/design/design-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/design/design-patterns-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/design/design-patterns-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/design/design-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/design/design-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/design/design-patterns-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/devops/logging-monitoring-observability-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/devops/logging-monitoring-observability-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/devops/logging-monitoring-observability-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/devops/logging-monitoring-observability-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/devops/logging-monitoring-observability-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/devops/logging-monitoring-observability-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/devops/logging-monitoring-observability-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/devops/logging-monitoring-observability-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/concurrency/concurrency-patterns-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/concurrency/concurrency-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/concurrency/concurrency-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/concurrency/concurrency-patterns-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/guides/concurrency/concurrency-patterns-guide</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/concurrency/concurrency-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/concurrency/concurrency-patterns-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/concurrency/concurrency-patterns-guide"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/guides/testing/testing-strategy-guide</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>

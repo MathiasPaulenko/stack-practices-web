@@ -52,8 +52,8 @@
 - **Recipes**: 25 (parse-json, call-rest-api, read-write-file, handle-errors, jwt-authentication, unit-testing, docker-basics, git-workflow, sql-joins, sort-array, password-hashing, regular-expressions, cron-jobs, environment-variables, pagination, middleware, input-validation, logging, caching, uuid-generation, date-formatting, url-encoding, rate-limiting, database-transactions, github-actions)
 - **Patterns**: 11 (Singleton, Observer, Strategy, Decorator, MVC, Repository, Builder, Abstract Factory, Adapter, Command)
 - **Docs**: 10 (readme-template, api-documentation, adr-template, runbook-template, contributing-guide, changelog-template, code-of-conduct-template, incident-postmortem-template, pull-request-template, onboarding-guide-template)
-- **Guides**: 5 (rest-api-design-guide, testing-strategy-guide, cicd-pipeline-guide, security-best-practices-guide, software-architecture-guide)
-- **Total**: ~51 items (102 bilingual files)
+- **Guides**: 10 (rest-api-design-guide, testing-strategy-guide, cicd-pipeline-guide, security-best-practices-guide, software-architecture-guide, database-design-guide, performance-optimization-guide, design-patterns-guide, logging-monitoring-observability-guide, concurrency-patterns-guide)
+- **Total**: ~56 items (112 bilingual files)
 
 ### Recently Completed
 - [x] 3 new doc templates: adr, runbook, contributing-guide
