@@ -26,6 +26,58 @@ const jsonLd = [
   </section>
 
   <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <style is:global>
+    /* PagefindUI custom styling */
+    .pagefind-ui {
+      --pagefind-ui-scale: 0.9;
+      --pagefind-ui-primary: #2563eb;
+      --pagefind-ui-text: #0f172a;
+      --pagefind-ui-border: #e2e8f0;
+      --pagefind-ui-tag: #f1f5f9;
+    }
+    .pagefind-ui .pagefind-ui__result {
+      border-bottom: 1px solid var(--pagefind-ui-border);
+      padding: 1rem 0;
+    }
+    .pagefind-ui .pagefind-ui__result-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1e40af;
+    }
+    .pagefind-ui .pagefind-ui__result-excerpt {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .pagefind-ui .pagefind-ui__result-link {
+      color: #2563eb;
+      font-weight: 500;
+    }
+    .pagefind-ui .pagefind-ui__result-image {
+      display: none !important;
+    }
+    .pagefind-ui .pagefind-ui__result-thumb {
+      display: none !important;
+    }
+    .pagefind-ui .pagefind-ui__filter-panel {
+      border: 1px solid var(--pagefind-ui-border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      background: #f8fafc;
+    }
+    .pagefind-ui .pagefind-ui__filter-label {
+      font-weight: 500;
+      color: #334155;
+    }
+    .pagefind-ui .pagefind-ui__filter-value {
+      color: #475569;
+    }
+    /* Hide any images that might appear in results */
+    .pagefind-ui__result img,
+    .pagefind-ui__result-excerpt img {
+      display: none !important;
+    }
+  </style>
   <script is:inline src="/pagefind/pagefind-ui.js" defer></script>
   <script is:inline>
     window.addEventListener('DOMContentLoaded', () => {
