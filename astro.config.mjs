@@ -7,6 +7,10 @@ export default defineConfig({
   site: 'https://stackpractices.com',
   output: 'static',
   trailingSlash: 'ignore',
+  compressHTML: true,
+  build: {
+    format: 'directory',
+  },
   markdown: {
     shikiConfig: {
       theme: 'github-dark',
@@ -17,5 +21,9 @@ export default defineConfig({
     // Cast avoids a cosmetic type mismatch between @tailwindcss/vite and
     // Astro's bundled Vite types; the build is unaffected.
     plugins: [/** @type {any} */ (tailwindcss())],
+    build: {
+      cssCodeSplit: true,
+      minify: true,
+    },
   },
 });
