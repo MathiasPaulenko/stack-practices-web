@@ -1,0 +1,86 @@
+@media print {
+  /* Hide navigation, footer, and interactive elements */
+  header,
+  footer,
+  [data-pagefind-filter],
+  .cookie-banner,
+  nav,
+  .breadcrumbs,
+  .skip-link,
+  a[href="#main"] {
+    display: none !important;
+  }
+
+  /* Ensure content takes full width */
+  main,
+  #main,
+  article,
+  .prose {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Light background for print */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Ensure headings are visible */
+  h1, h2, h3, h4, h5, h6 {
+    color: black !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Avoid breaking inside code blocks and tables */
+  pre, table, figure, img, svg, blockquote {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Show URLs after links */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* Hide decorative elements */
+  .h-\[3px\],
+  .bg-gradient-to-r,
+  .shadow-sm,
+  .shadow-lg {
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure code blocks are readable */
+  pre, code {
+    background: #f5f5f5 !important;
+    color: #000 !important;
+    border: 1px solid #ddd !important;
+  }
+
+  /* Expand collapsed details or accordions for print */
+  details {
+    display: block !important;
+  }
+  details > summary {
+    display: block !important;
+  }
+  details > summary::marker,
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 2cm;
+  }
+}

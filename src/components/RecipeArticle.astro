@@ -111,13 +111,24 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
       </nav>
 
       <div class="mt-5">
-        <div class="flex flex-wrap items-center gap-3">
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-white px-2.5 py-0.5 text-xs font-medium capitalize text-green-700">
-            <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
-            {difficulty}
-          </span>
-          <span class="h-3 w-px bg-slate-300"></span>
-          <time datetime={iso} class="text-xs font-medium text-slate-400">{dateLabel}</time>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-white px-2.5 py-0.5 text-xs font-medium capitalize text-green-700">
+              <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+              {difficulty}
+            </span>
+            <span class="h-3 w-px bg-slate-300"></span>
+            <time datetime={iso} class="text-xs font-medium text-slate-400">{dateLabel}</time>
+          </div>
+          <button
+            type="button"
+            onclick="window.print()"
+            class="hidden rounded-md border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-600 hover:border-brand-400 hover:text-brand-700 sm:inline-flex sm:items-center sm:gap-1"
+            aria-label={locale === 'es' ? 'Imprimir página' : 'Print page'}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-printer"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            <span>{locale === 'es' ? 'Imprimir' : 'Print'}</span>
+          </button>
         </div>
 
         <h1 class="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{title}</h1>
