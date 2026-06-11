@@ -27,7 +27,6 @@ const jsonLd = [
 
   <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   <style is:global>
-    /* PagefindUI custom styling */
     .pagefind-ui {
       --pagefind-ui-scale: 0.9;
       --pagefind-ui-primary: #2563eb;
@@ -35,6 +34,7 @@ const jsonLd = [
       --pagefind-ui-border: #e2e8f0;
       --pagefind-ui-tag: #f1f5f9;
     }
+    /* Result styling */
     .pagefind-ui .pagefind-ui__result {
       border-bottom: 1px solid var(--pagefind-ui-border);
       padding: 1rem 0;
@@ -53,29 +53,91 @@ const jsonLd = [
       color: #2563eb;
       font-weight: 500;
     }
-    .pagefind-ui .pagefind-ui__result-image {
-      display: none !important;
-    }
+    .pagefind-ui .pagefind-ui__result-image,
     .pagefind-ui .pagefind-ui__result-thumb {
       display: none !important;
     }
-    .pagefind-ui .pagefind-ui__filter-panel {
-      border: 1px solid var(--pagefind-ui-border);
-      border-radius: 0.5rem;
-      padding: 1rem;
-      background: #f8fafc;
-    }
-    .pagefind-ui .pagefind-ui__filter-label {
-      font-weight: 500;
-      color: #334155;
-    }
-    .pagefind-ui .pagefind-ui__filter-value {
-      color: #475569;
-    }
-    /* Hide any images that might appear in results */
     .pagefind-ui__result img,
     .pagefind-ui__result-excerpt img {
       display: none !important;
+    }
+
+    /* Filter panel layout */
+    .pagefind-ui .pagefind-ui__filter-panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      background: #f8fafc;
+      margin-bottom: 1.5rem;
+    }
+    .pagefind-ui .pagefind-ui__filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .pagefind-ui .pagefind-ui__filter-label {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #1e293b;
+      text-transform: none;
+      letter-spacing: normal;
+      margin-bottom: 0.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .pagefind-ui .pagefind-ui__filter-value {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+    .pagefind-ui .pagefind-ui__filter-value label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: #475569;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      transition: background 0.15s;
+    }
+    .pagefind-ui .pagefind-ui__filter-value label:hover {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1rem;
+      height: 1rem;
+      border: 1.5px solid #94a3b8;
+      border-radius: 0.25rem;
+      background: white;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"]:checked {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
+    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      left: 0.25rem;
+      top: 0.125rem;
+      width: 0.3rem;
+      height: 0.55rem;
+      border: solid white;
+      border-width: 0 0.125rem 0.125rem 0;
+      transform: rotate(45deg);
+    }
+    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"]:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
     }
   </style>
   <script is:inline src="/pagefind/pagefind-ui.js" defer></script>
@@ -100,8 +162,42 @@ const jsonLd = [
               result.meta.title = '[' + label + '] ' + result.meta.title;
             }
             return result;
+          },
+          filterConfig: {
+            contentType: { label: 'Content Type' },
+            lang: { label: 'Language' }
           }
         });
+
+        function prettifyFilters() {
+          const map = {
+            'recipes': 'Recipes',
+            'patterns': 'Patterns',
+            'docs': 'Docs',
+            'guides': 'Guides',
+            'en': 'English',
+            'es': 'Spanish'
+          };
+          document.querySelectorAll('.pagefind-ui__filter-value label, .pagefind-ui__filter-value span, .pagefind-ui__filter-value').forEach(el => {
+            const key = el.textContent.trim().toLowerCase();
+            if (map[key]) {
+              const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+              let node;
+              while (node = walker.nextNode()) {
+                const text = node.textContent.trim();
+                if (map[text.toLowerCase()]) {
+                  node.textContent = node.textContent.replace(text, map[text.toLowerCase()]);
+                }
+              }
+            }
+          });
+        }
+        setTimeout(prettifyFilters, 200);
+        const searchEl = document.getElementById('search');
+        if (searchEl) {
+          const observer = new MutationObserver(() => prettifyFilters());
+          observer.observe(searchEl, { childList: true, subtree: true });
+        }
         const params = new URLSearchParams(window.location.search);
         const q = params.get('q');
         if (q) {
