@@ -41,7 +41,7 @@
 - [ ] AI-assisted search
 - [ ] User contributions workflow
 - [ ] Newsletter / RSS
-- [ ] Performance optimization
+- [x] Performance optimization (compressHTML, CSS code split, minify, dns-prefetch, deferred Pagefind)
 - [ ] Analytics and tracking
 
 ---
@@ -58,11 +58,13 @@
 ### Recently Completed
 - [x] 3 new doc templates: adr, runbook, contributing-guide
 - [x] 3 new guides: CI/CD pipeline, security best practices, software architecture
+- [x] Printable/exportable docs (CSS print styles + print button)
+- [x] Performance audit: compressHTML, CSS code split, minify, dns-prefetch, deferred Pagefind
 - [x] Sitemap updated with all Phase 3 URLs
 - [x] Content cross-linking maintained (3+ relatedResources per item)
 
 ### Next Priorities
 1. **Reach 50+ items** — add 4+ more recipes or guides
 2. **Tag/topic filtering** on listing pages
-3. **Performance** — Core Web Vitals audit
-4. **More recipes** — testing, file handling, security topics
+3. **More recipes** — testing, file handling, security topics
+4. **RSS feed** — auto-generated XML feed with all content
