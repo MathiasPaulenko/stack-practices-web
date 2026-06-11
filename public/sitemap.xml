@@ -1117,6 +1117,168 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/api-documentation"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/templates/readme-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/readme-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/readme-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/readme-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/readme-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/readme-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/readme-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/readme-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/adr-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/adr-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/adr-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/adr-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/adr-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/runbook-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/runbook-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/runbook-template</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/runbook-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/runbook-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/contributing-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/contributing-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/contributing-guide</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/contributing-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/contributing-guide"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/changelog-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/changelog-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/changelog-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/changelog-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/changelog-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/changelog-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/changelog-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/changelog-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/code-of-conduct-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/code-of-conduct-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/code-of-conduct-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/code-of-conduct-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/code-of-conduct-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/code-of-conduct-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/code-of-conduct-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/code-of-conduct-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/incident-postmortem-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/incident-postmortem-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/incident-postmortem-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/incident-postmortem-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/incident-postmortem-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/incident-postmortem-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/incident-postmortem-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/incident-postmortem-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/pull-request-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/pull-request-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/pull-request-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/pull-request-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/pull-request-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/pull-request-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/pull-request-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/pull-request-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/templates/onboarding-guide-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/onboarding-guide-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/onboarding-guide-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/onboarding-guide-template"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/templates/onboarding-guide-template</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/templates/onboarding-guide-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/templates/onboarding-guide-template"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/templates/onboarding-guide-template"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/guides/testing/testing-strategy-guide</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
