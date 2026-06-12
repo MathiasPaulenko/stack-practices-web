@@ -415,6 +415,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/security"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/topics/serverless</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/serverless"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/serverless"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/serverless"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/topics/serverless</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/serverless"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/serverless"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/serverless"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/topics/testing</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -2683,6 +2701,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/caching-redis"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/database-deadlocks-retries</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-deadlocks-retries"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-deadlocks-retries"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-deadlocks-retries"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/database-deadlocks-retries</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-deadlocks-retries"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-deadlocks-retries"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-deadlocks-retries"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/database-migrations-safely</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -2701,6 +2737,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-migrations-safely"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/database-read-replicas</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-read-replicas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-read-replicas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-read-replicas"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/database-read-replicas</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-read-replicas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-read-replicas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-read-replicas"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/database-transactions</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -2717,6 +2771,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-transactions"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-transactions"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-transactions"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/event-sourcing-relational</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/event-sourcing-relational"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/event-sourcing-relational"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/event-sourcing-relational"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/event-sourcing-relational</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/event-sourcing-relational"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/event-sourcing-relational"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/event-sourcing-relational"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/full-text-search</loc>
@@ -3097,6 +3169,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/read-write-file"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/cdn-edge-caching</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cdn-edge-caching"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cdn-edge-caching"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cdn-edge-caching"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/cdn-edge-caching</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cdn-edge-caching"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cdn-edge-caching"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cdn-edge-caching"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/debounce-throttle</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -3131,6 +3221,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/request-signing-hmac"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/request-signing-hmac"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/request-signing-hmac"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/serverless-functions</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/serverless-functions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/serverless-functions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/serverless-functions"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/serverless-functions</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/serverless-functions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/serverless-functions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/serverless-functions"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/unit-testing</loc>
