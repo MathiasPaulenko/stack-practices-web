@@ -98,11 +98,11 @@
 - [x] Domain-Driven Design (DDD) — bounded contexts and entities
 - [x] Event-Driven Architecture — queues, topics, and streams
 - [x] Monolith to Microservices — migration strategies
-- [ ] Database Sharding and Partitioning Strategies
-- [ ] Monitoring and Alerting with Prometheus and Grafana
-- [ ] Infrastructure as Code (IaC) — Terraform and Pulumi
-- [ ] Blue-Green and Canary Deployments
-- [ ] CAP Theorem and Database Trade-offs
+- [x] Database Sharding and Partitioning Strategies
+- [x] Monitoring and Alerting with Prometheus and Grafana
+- [x] Infrastructure as Code (IaC) — Terraform and Pulumi
+- [x] Blue-Green and Canary Deployments
+- [x] CAP Theorem and Database Trade-offs
 
 ---
 
@@ -132,9 +132,9 @@
 |----------|-------|-----------|---|
 | Recipes | 35 | 35 | 100% |
 | Patterns | 25 | 25 | 100% |
-| Guides | 25 | 18 | 72% |
+| Guides | 25 | 25 | 100% |
 | Docs | 15 | 0 | 0% |
-| **Total** | **100** | **78** | **78%** |
+| **Total** | **100** | **85** | **85%** |
 
 ---
 
