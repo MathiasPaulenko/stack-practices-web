@@ -55,18 +55,18 @@
 - [x] Flyweight Pattern — memory optimization via sharing
 - [x] Proxy Pattern — control access to objects
 - [x] Chain of Responsibility Pattern — request handling pipelines
-- [ ] Interpreter Pattern — building mini-languages
+- [x] Interpreter Pattern — building mini-languages
 - [x] Iterator Pattern — custom traversal logic
 - [x] Mediator Pattern — reduce chaotic dependencies
 - [x] Memento Pattern — state snapshots and undo
 - [x] State Pattern — finite state machines in practice
-- [ ] Template Method Pattern — algorithm skeletons
-- [ ] Visitor Pattern — operations on object structures
+- [x] Template Method Pattern — algorithm skeletons
+- [x] Visitor Pattern — operations on object structures
 - [x] Dependency Injection Pattern — decoupling with containers
 - [x] Circuit Breaker Pattern — resilient microservices
-- [ ] Retry Pattern — transient failure handling
-- [ ] Bulkhead Pattern — isolate failing components
-- [ ] Timeout Pattern — avoid hanging operations
+- [x] Retry Pattern — transient failure handling
+- [x] Bulkhead Pattern — isolate failing components
+- [x] Timeout Pattern — avoid hanging operations
 - [ ] Cache-Aside Pattern — read-through caching
 - [ ] CQRS Pattern — separate reads from writes
 - [ ] Event Sourcing Pattern — audit-friendly state management
@@ -131,10 +131,10 @@
 | Category | Count | Published | % |
 |----------|-------|-----------|---|
 | Recipes | 35 | 30 | 86% |
-| Patterns | 25 | 13 | 52% |
+| Patterns | 25 | 19 | 76% |
 | Guides | 25 | 0 | 0% |
 | Docs | 15 | 0 | 0% |
-| **Total** | **100** | **43** | **43%** |
+| **Total** | **100** | **49** | **49%** |
 
 ---
 
