@@ -81,8 +81,8 @@
 - [ ] REST API Design Best Practices — a complete guide
 - [ ] Microservices Architecture — when to use and when not to
 - [ ] CI/CD Pipeline Design — from commit to production
-- [ ] Docker for Developers — images, containers, and compose
-- [ ] Kubernetes Basics for Application Developers
+- [x] Docker for Developers — images, containers, and compose
+- [x] Kubernetes Basics for Application Developers
 - [ ] Clean Code Principles — writing maintainable software
 - [ ] SOLID Principles Explained with Examples
 - [ ] Test-Driven Development (TDD) — a practical workflow
@@ -90,12 +90,12 @@
 - [ ] NoSQL Database Selection — MongoDB, DynamoDB, Cassandra
 - [ ] API Security Checklist — authentication to encryption
 - [ ] Web Application Security (OWASP Top 10)
-- [ ] Git Branching Strategies — trunk-based, GitFlow, GitHub Flow
-- [ ] Code Review Best Practices — for authors and reviewers
+- [x] Git Branching Strategies — trunk-based, GitFlow, GitHub Flow
+- [x] Code Review Best Practices — for authors and reviewers
 - [ ] Technical Documentation Strategy — docs as code
 - [ ] On-Call and Incident Response Playbook
-- [ ] System Design Interview Guide — key concepts
-- [ ] Domain-Driven Design (DDD) — bounded contexts and entities
+- [x] System Design Interview Guide — key concepts
+- [x] Domain-Driven Design (DDD) — bounded contexts and entities
 - [ ] Event-Driven Architecture — queues, topics, and streams
 - [ ] Monolith to Microservices — migration strategies
 - [ ] Database Sharding and Partitioning Strategies
@@ -132,9 +132,9 @@
 |----------|-------|-----------|---|
 | Recipes | 35 | 35 | 100% |
 | Patterns | 25 | 25 | 100% |
-| Guides | 25 | 0 | 0% |
+| Guides | 25 | 6 | 24% |
 | Docs | 15 | 0 | 0% |
-| **Total** | **100** | **60** | **60% |
+| **Total** | **100** | **66** | **66%** |
 
 ---
 
