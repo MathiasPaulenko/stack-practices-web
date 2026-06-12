@@ -18,6 +18,14 @@ export const topicsEnum = z.enum([
   'databases',
   'concurrency',
   'security',
+  'ai',
+  'frontend',
+  'infrastructure',
+  'messaging',
+  'observability',
+  'graphql',
+  'serverless',
+  'caching',
 ]);
 
 const difficultyEnum = z.enum(['beginner', 'intermediate', 'advanced']);
