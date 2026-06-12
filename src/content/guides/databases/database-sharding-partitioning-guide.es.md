@@ -204,3 +204,7 @@ Cuando hayas agotado el escalado vertical y réplicas de lectura. Señales típi
 ### ¿Puedo cambiar la shard key más tarde?
 
 Técnicamente sí, prácticamente no. Cambiar la shard key requiere reescribir todos los datos. Diseña tu shard key como inmutable.
+
+### ¿Cómo manejo consultas que necesitan unir datos de múltiples shards?
+
+Evita los JOINs cross-shard en la base de datos. En su lugar, diseña tu esquema para que las consultas más frecuentes caigan en un único shard (query-based sharding), o usa patrones de aplicación como CQRS con tablas de lectura desnormalizadas. Para reportes analíticos, replica los datos a un data warehouse.
