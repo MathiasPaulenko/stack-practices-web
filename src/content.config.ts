@@ -66,7 +66,7 @@ const docs = defineCollection({
   schema: baseSchema.extend({
     contentType: z.literal('docs'),
     templateType: z
-      .enum(['readme', 'adr', 'api-doc', 'runbook', 'guideline', 'changelog', 'code-of-conduct', 'postmortem', 'pr-template', 'onboarding'])
+      .enum(['readme', 'adr', 'api-doc', 'runbook', 'guideline', 'changelog', 'code-of-conduct', 'postmortem', 'pr-template', 'onboarding', 'bug-report', 'feature-request', 'release-notes', 'api-deprecation', 'slo-document', 'data-retention-policy', 'security-incident-response', 'disaster-recovery', 'user-story', 'database-migration-runbook', 'dependency-audit', 'penetration-test', 'post-deployment-checklist'])
       .optional(),
   }),
 });
