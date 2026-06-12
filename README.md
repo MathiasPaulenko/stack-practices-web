@@ -8,7 +8,7 @@
 
 ## What is StackPractices?
 
-StackPractices is a **static, SEO-first developer knowledge base** designed for software engineers. It provides practical, multilingual code recipes, design patterns, documentation templates, and long-form guides — all optimized for both human readers and AI answer engines.
+StackPractices is a **static, SEO-first developer knowledge base** designed for software engineers. It provides practical, multilingual code recipes, design patterns, documentation templates, and long-form guides.
 
 ## Tech Stack
 
@@ -31,9 +31,7 @@ StackPractices is a **static, SEO-first developer knowledge base** designed for 
 │   ├── lib/                # Utilities (JSON-LD builders, helpers)
 │   ├── pages/              # File-based routing
 │   └── styles/             # Global CSS & Tailwind theme
-├── public/                 # Static assets (sitemap, robots.txt, pagefind index)
-├── ref/                    # Reference docs (roadmap, tech-stack, SEO strategy)
-└── .agents/                # Content creation scripts & skills
+└── public/                 # Static assets (sitemap, robots.txt, pagefind index)
 ```
 
 ## Quick Start
@@ -58,36 +56,6 @@ npm run preview
 ## Content Workflow
 
 All content is **bilingual (EN/ES)**. Every `.md` file must have a matching `.es.md` counterpart.
-
-### Creating a new recipe
-
-```bash
-# Scaffold a new recipe with proper frontmatter
-node .agents/skills/stackp-content-creator/scripts/resource-wizard.cjs \
-  --type recipes \
-  --slug my-recipe \
-  --title "My Recipe Title" \
-  --description "Short description" \
-  --metaDescription "SEO meta description" \
-  --difficulty beginner \
-  --topics "topic-slug" \
-  --tags "tag1,tag2" \
-  --author "StackPractices"
-```
-
-### Validating content
-
-```bash
-# Run all content quality checks
-npm run content:quality
-```
-
-This validates:
-- Frontmatter completeness (Zod schemas)
-- Broken internal links
-- Missing or orphan translations
-- Meta description lengths
-- Content structure
 
 ## Scripts
 
@@ -118,10 +86,6 @@ Every page includes:
 ## Deployment
 
 The site auto-deploys to GitHub Pages via GitHub Actions on every push to `main`.
-
-## Roadmap
-
-See [`ref/roadmap.md`](./ref/roadmap.md) for the full project roadmap and current phase.
 
 ## License
 
