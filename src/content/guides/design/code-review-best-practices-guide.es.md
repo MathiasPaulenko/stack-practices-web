@@ -1,0 +1,184 @@
+---
+contentType: guides
+slug: code-review-best-practices-guide
+title: "Mejores Prácticas de Code Review — Para Autores y Revisores"
+description: "Una guía práctica para revisiones de código efectivas: cómo escribir código revisable, dar feedback constructivo y mantener las revisiones rápidas y enfocadas."
+metaDescription: "Mejores prácticas de code review para autores y revisores. Aprende a escribir código revisable, dar feedback constructivo y mantener revisiones rápidas."
+difficulty: beginner
+topics:
+  - design
+  - devops
+tags:
+  - code-review
+  - pull-request
+  - peer-review
+  - calidad
+  - practicas-equipo
+  - guia
+relatedResources:
+  - /guides/design/design-patterns-guide
+  - /guides/testing/testing-strategy-guide
+  - /guides/devops/cicd-pipeline-guide
+lastUpdated: "2026-06-12"
+author: "StackPractices"
+seo:
+  metaDescription: "Mejores prácticas de code review para autores y revisores. Aprende a escribir código revisable, dar feedback constructivo y mantener revisiones rápidas."
+  keywords:
+    - mejores practicas code review
+    - revision pull request
+    - checklist code review
+    - revision entre pares
+    - feedback constructivo codigo
+---
+
+# Mejores Prácticas de Code Review
+
+## Introducción
+
+La revisión de código es una de las actividades con mayor retorno en el desarrollo de software. Detecta bugs temprano, comparte conocimiento entre el equipo y mantiene la calidad del código consistente. Esta guía cubre prácticas tanto para autores (quienes envían código) como para revisores (quienes lo evalúan).
+
+## Para Autores: Haciendo tu Código Revisable
+
+### 1. Mantén los PRs Pequeños
+
+Apunta a **200-400 líneas de código cambiadas** por PR. Los PRs grandes abruman a los revisores y aumentan la probabilidad de que los bugs pasen desapercibidos.
+
+```bash
+# Mal: 2000 líneas en 15 archivos
+# Bien: 150 líneas en 3 archivos relacionados
+```
+
+**Estrategias para PRs pequeños:**
+- Divide features grandes en PRs apilados
+- Extrae refactoring en PRs separados
+- Usa feature flags para mergear incrementalmente
+
+### 2. Escribe una Descripción Clara
+
+Una buena descripción de PR responde:
+
+- **Qué** cambió y **por qué**
+- **Cómo** probarlo
+- Links a tickets, diseños, o PRs relacionados
+- Screenshots para cambios de UI
+
+```markdown
+## Qué
+Agrega validación de email al formulario de registro de usuarios.
+
+## Por qué
+Actualmente los emails inválidos pasan y causan errores de
+procesamiento downstream en el pipeline de automatización de marketing.
+
+## Cómo probar
+1. Ir a /register
+2. Ingresar "no-es-email" — debería mostrar error de validación
+3. Ingresar "user@example.com" — debería pasar
+
+## Relacionado
+Fixes #142
+```
+
+### 3. Auto-Revisa Antes de Enviar
+
+Revisa tu propio PR primero. Vas a detectar:
+- Código de debug residual (`console.log`, `print`)
+- Cambios no intencionales
+- Tests o documentación faltantes
+- Bugs de nivel de typo
+
+### 4. Responde al Feedback Constructivamente
+
+- Asume intenciones positivas de los revisores
+- Haz preguntas aclaratorias en lugar de defenderte
+- Separa "debe arreglarse" de "sería bueno tener" sugerencias
+- Actualiza el PR prontamente después del feedback
+
+## Para Revisores: Dando Feedback Efectivo
+
+### 1. Revisa Dentro de 24 Horas
+
+Una respuesta rápida mantiene al autor en contexto y previene trabajo bloqueado. Si no puedes revisar en 24 horas, delega o avisa al equipo.
+
+### 2. Usa un Checklist de Revisión
+
+Las revisiones sistemáticas son más exhaustivas:
+
+| Categoría | Preguntas |
+|-----------|-----------|
+| **Funcionalidad** | ¿Hace lo que el PR dice? ¿Maneja casos edge? |
+| **Tests** | ¿Hay tests para la nueva lógica? ¿Los tests existentes siguen pasando? |
+| **Legibilidad** | ¿Los nombres son claros? ¿La complejidad está justificada? |
+| **Seguridad** | ¿Las entradas están validadas? ¿Hay secretos expuestos? |
+| **Performance** | ¿Hay queries N+1? ¿Asignaciones innecesarias? |
+| **Mantenibilidad** | ¿Hay código duplicado? ¿Será difícil de cambiar? |
+
+### 3. Categoriza el Feedback
+
+Usa niveles de severidad para ayudar a los autores a priorizar:
+
+| Nivel | Significado | Ejemplo |
+|-------|-------------|---------|
+| **Bloqueante** | Debe arreglarse antes del merge | "Este query carece de índice; escaneará la tabla entera" |
+| **Sugerencia** | Considerarlo | "Podrías simplificar esto con `map` en lugar de `for`" |
+| **Nitpick** | Preferencia personal | "Prefiero comillas simples para strings" |
+
+### 4. Pregunta, No Dicta
+
+**En lugar de:** "Cambia esto para usar un diccionario."
+
+**Pregunta:** "¿Un diccionario haría la búsqueda más rápida aquí?"
+
+Las preguntas fomentan la discusión y ayudan al autor a aprender, mientras que las órdenes generan resistencia.
+
+### 5. Aprueba con Comentarios
+
+Si el código es aceptable pero tienes sugerencias menores, aprueba el PR y deja que el autor decida si atenderlas. No bloquees merges por nits.
+
+## Patrones de Revisión que Funcionan
+
+### Revisión en Par
+
+Dos revisores alternan: uno lee la lógica, el otro lee los tests. Detectan diferentes categorías de problemas.
+
+### Revisión Asistida por Herramientas
+
+Deja que la automatización maneje lo aburrido:
+- **Linters** (ESLint, Black, Prettier) para estilo
+- **Análisis estático** (SonarQube, CodeClimate) para complejidad
+- **Scanners de seguridad** (Snyk, CodeQL) para vulnerabilidades
+- **Tests de CI** para regresiones
+
+Reserva la revisión humana para arquitectura, lógica e intención.
+
+### Ruleta de Revisores
+
+Rota revisores para que el conocimiento se distribuya equitativamente. Evita que solo ingenieros senior revisen todo.
+
+## Métricas a Seguir
+
+| Métrica | Objetivo | Por qué |
+|---------|----------|---------|
+| **Tamaño de PR** | <400 líneas | La calidad de revisión cae bruscamente por encima de esto |
+| **Tiempo de respuesta de revisión** | <24 horas | Previene pérdida de contexto y trabajo bloqueado |
+| **Tasa de escape de defectos** | Decreciente | Bugs encontrados en producción vs. revisión |
+| **Participación en revisiones** | >80% del equipo | Compartir conocimiento |
+
+## Errores Comunes
+
+- **Bike-shedding**: Gastar tiempo de revisión en problemas triviales de estilo mientras se pasan bugs reales
+- **Rubber-stamping**: Aprobar sin leer porque "nunca se equivocan"
+- **Gatekeeping**: Usar el poder de revisión para imponer preferencias personales
+- **Feedback retrasado**: Esperar días para revisar, forzando al autor a re-aprender contexto
+- **Sin seguimiento**: Sugerir cambios pero nunca verificar si se hicieron
+
+## Preguntas Frecuentes
+
+**P: ¿Cómo reviso código en un lenguaje o dominio desconocido?**
+R: Enfócate en lo que puedes evaluar: cobertura de tests, nombres de variables, errores de lógica obvios, y claridad de documentación. Pregunta a expertos del dominio por los matices técnicos.
+
+**P: ¿Qué pasa si el autor no está de acuerdo con mi feedback?**
+R: Discútelo. Si es un issue bloqueante y no pueden ponerse de acuerdo, escala al tech lead. Para sugerencias, deja que el autor decida y sigue adelante.
+
+**P: ¿Debería bloquear un PR por falta de tests?**
+R: Sí, si el PR agrega lógica que puede ser testeada. No, si es un refactor puro con cobertura existente, o cambios de UI que requieren tests E2E a cargo de otro equipo.
