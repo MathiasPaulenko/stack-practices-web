@@ -78,18 +78,18 @@
 
 ## Guides (25)
 
-- [ ] REST API Design Best Practices — a complete guide
+- [x] REST API Design Best Practices — a complete guide
 - [ ] Microservices Architecture — when to use and when not to
-- [ ] CI/CD Pipeline Design — from commit to production
+- [x] CI/CD Pipeline Design — from commit to production
 - [x] Docker for Developers — images, containers, and compose
 - [x] Kubernetes Basics for Application Developers
-- [ ] Clean Code Principles — writing maintainable software
-- [ ] SOLID Principles Explained with Examples
-- [ ] Test-Driven Development (TDD) — a practical workflow
-- [ ] SQL Performance Tuning — indexes, queries, and explain plans
+- [x] Clean Code Principles — writing maintainable software
+- [x] SOLID Principles Explained with Examples
+- [x] Test-Driven Development (TDD) — a practical workflow
+- [x] SQL Performance Tuning — indexes, queries, and explain plans
 - [ ] NoSQL Database Selection — MongoDB, DynamoDB, Cassandra
-- [ ] API Security Checklist — authentication to encryption
-- [ ] Web Application Security (OWASP Top 10)
+- [x] API Security Checklist — authentication to encryption
+- [x] Web Application Security (OWASP Top 10)
 - [x] Git Branching Strategies — trunk-based, GitFlow, GitHub Flow
 - [x] Code Review Best Practices — for authors and reviewers
 - [ ] Technical Documentation Strategy — docs as code
@@ -132,9 +132,9 @@
 |----------|-------|-----------|---|
 | Recipes | 35 | 35 | 100% |
 | Patterns | 25 | 25 | 100% |
-| Guides | 25 | 6 | 24% |
+| Guides | 25 | 12 | 48% |
 | Docs | 15 | 0 | 0% |
-| **Total** | **100** | **66** | **66%** |
+| **Total** | **100** | **72** | **72%** |
 
 ---
 
