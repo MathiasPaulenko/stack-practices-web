@@ -31,10 +31,15 @@ Thumbs.db
 # pagefind
 public/pagefind/
 
-# ref folder
-ref/
-
+# ref folder (except backlog)
+ref/*
+!ref/content-backlog.md
 
 # IA Folders
 .agents/
 .devin/
+
+# OS files
+*.swp
+*.swo
+*~
