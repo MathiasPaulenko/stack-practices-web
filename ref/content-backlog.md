@@ -67,12 +67,12 @@
 - [x] Retry Pattern — transient failure handling
 - [x] Bulkhead Pattern — isolate failing components
 - [x] Timeout Pattern — avoid hanging operations
-- [ ] Cache-Aside Pattern — read-through caching
-- [ ] CQRS Pattern — separate reads from writes
-- [ ] Event Sourcing Pattern — audit-friendly state management
-- [ ] Saga Pattern — distributed transactions
-- [ ] Sidecar Pattern — auxiliary container services
-- [ ] Ambassador Pattern — smart client-side proxy
+- [x] Cache-Aside Pattern — read-through caching
+- [x] CQRS Pattern — separate reads from writes
+- [x] Event Sourcing Pattern — audit-friendly state management
+- [x] Saga Pattern — distributed transactions
+- [x] Sidecar Pattern — auxiliary container services
+- [x] Ambassador Pattern — smart client-side proxy
 
 ---
 
@@ -131,10 +131,10 @@
 | Category | Count | Published | % |
 |----------|-------|-----------|---|
 | Recipes | 35 | 30 | 86% |
-| Patterns | 25 | 19 | 76% |
+| Patterns | 25 | 25 | 100% |
 | Guides | 25 | 0 | 0% |
 | Docs | 15 | 0 | 0% |
-| **Total** | **100** | **49** | **49%** |
+| **Total** | **100** | **55** | **55%** |
 
 ---
 
