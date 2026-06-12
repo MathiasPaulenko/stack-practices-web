@@ -79,7 +79,7 @@
 ## Guides (25)
 
 - [x] REST API Design Best Practices — a complete guide
-- [ ] Microservices Architecture — when to use and when not to
+- [x] Microservices Architecture — when to use and when not to
 - [x] CI/CD Pipeline Design — from commit to production
 - [x] Docker for Developers — images, containers, and compose
 - [x] Kubernetes Basics for Application Developers
@@ -87,17 +87,17 @@
 - [x] SOLID Principles Explained with Examples
 - [x] Test-Driven Development (TDD) — a practical workflow
 - [x] SQL Performance Tuning — indexes, queries, and explain plans
-- [ ] NoSQL Database Selection — MongoDB, DynamoDB, Cassandra
+- [x] NoSQL Database Selection — MongoDB, DynamoDB, Cassandra
 - [x] API Security Checklist — authentication to encryption
 - [x] Web Application Security (OWASP Top 10)
 - [x] Git Branching Strategies — trunk-based, GitFlow, GitHub Flow
 - [x] Code Review Best Practices — for authors and reviewers
-- [ ] Technical Documentation Strategy — docs as code
-- [ ] On-Call and Incident Response Playbook
+- [x] Technical Documentation Strategy — docs as code
+- [x] On-Call and Incident Response Playbook
 - [x] System Design Interview Guide — key concepts
 - [x] Domain-Driven Design (DDD) — bounded contexts and entities
-- [ ] Event-Driven Architecture — queues, topics, and streams
-- [ ] Monolith to Microservices — migration strategies
+- [x] Event-Driven Architecture — queues, topics, and streams
+- [x] Monolith to Microservices — migration strategies
 - [ ] Database Sharding and Partitioning Strategies
 - [ ] Monitoring and Alerting with Prometheus and Grafana
 - [ ] Infrastructure as Code (IaC) — Terraform and Pulumi
@@ -132,9 +132,9 @@
 |----------|-------|-----------|---|
 | Recipes | 35 | 35 | 100% |
 | Patterns | 25 | 25 | 100% |
-| Guides | 25 | 12 | 48% |
+| Guides | 25 | 18 | 72% |
 | Docs | 15 | 0 | 0% |
-| **Total** | **100** | **72** | **72%** |
+| **Total** | **100** | **78** | **78%** |
 
 ---
 
