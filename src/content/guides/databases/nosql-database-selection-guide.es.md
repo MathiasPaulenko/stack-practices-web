@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: nosql-database-selection-guide
-title: "Selección de Base de Datos NoSQL — MongoDB, DynamoDB, Cassandra"
+title: "Selección de Base de Datos NoSQL"
 description: "Guía práctica para elegir la base de datos NoSQL correcta. Compara documentos, clave-valor, columnas anchas y grafos con criterios de selección y tips de migración."
 metaDescription: "Guía de selección de bases de datos NoSQL: compara MongoDB, DynamoDB, Cassandra, Redis. Elige el store de documentos, clave-valor o columnas anchas correcto."
 difficulty: intermediate

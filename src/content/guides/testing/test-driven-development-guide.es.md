@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: test-driven-development-guide
-title: "Desarrollo Guiado por Pruebas (TDD) — Un Flujo de Trabajo Práctico"
+title: "Desarrollo Guiado por Pruebas (TDD)"
 description: "Aprende TDD paso a paso: escribe un test que falle, hazlo pasar, refactoriza. Red-Green-Refactor con ejemplos reales en Python, JavaScript y Java."
 metaDescription: "Guía de Desarrollo Guiado por Pruebas: ciclo Red-Green-Refactor con ejemplos prácticos. Aprende TDD en Python, JavaScript y Java paso a paso."
 difficulty: beginner

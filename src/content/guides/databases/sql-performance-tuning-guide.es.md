@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: sql-performance-tuning-guide
-title: "Optimización de Rendimiento SQL — Índices, Consultas y Explain Plans"
+title: "Optimización de Rendimiento SQL"
 description: "Una guía práctica para optimizar consultas SQL: estrategias de indexación, reescritura de queries, análisis de EXPLAIN plans y anti-patrones comunes a evitar."
 metaDescription: "Guía de optimización SQL: estrategias de indexación, reescritura de queries, EXPLAIN plans y anti-patrones. Optimiza consultas lentas en PostgreSQL, MySQL y SQL Server."
 difficulty: intermediate

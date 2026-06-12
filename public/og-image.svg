@@ -2,6 +2,6 @@
   <rect width="1200" height="630" fill="#1e293b"/>
   <rect x="60" y="60" width="1080" height="510" rx="16" fill="#0f172a" stroke="#3b82f6" stroke-width="4"/>
   <text x="600" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="#f8fafc" text-anchor="middle">StackPractices</text>
-  <text x="600" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#94a3b8" text-anchor="middle">Code Recipes, Patterns & Engineering Docs</text>
+  <text x="600" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#94a3b8" text-anchor="middle">Code Recipes, Patterns &amp; Engineering Docs</text>
   <rect x="520" y="420" width="160" height="8" rx="4" fill="#3b82f6"/>
 </svg>
