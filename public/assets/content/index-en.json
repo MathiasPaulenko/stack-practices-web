@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 156,
+  "count": 161,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -3863,6 +3863,174 @@
       }
     },
     {
+      "path": "recipes/ai/chatbot-openai.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "chatbot-openai",
+        "title": "Create a Chatbot with OpenAI Assistants API",
+        "description": "How to create an AI chatbot using the OpenAI Assistants API with function calling and file retrieval",
+        "metaDescription": "Create an AI chatbot with OpenAI Assistants API. Handle conversations, function calling, file retrieval, and thread management with examples.",
+        "difficulty": "beginner",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "chatbot",
+          "openai",
+          "assistants-api",
+          "llm",
+          "conversation",
+          "ai"
+        ],
+        "relatedResources": [
+          "/recipes/rag-pipeline",
+          "/recipes/semantic-search",
+          "/recipes/llm-fine-tuning",
+          "/guides/software-architecture-guide",
+          "/guides/event-driven-architecture-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Create an AI chatbot with OpenAI Assistants API. Handle conversations, function calling, file retrieval, and thread management with examples.",
+          "keywords": [
+            "chatbot",
+            "openai",
+            "assistants-api",
+            "llm",
+            "conversation",
+            "ai"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/ai/llm-fine-tuning.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "llm-fine-tuning",
+        "title": "Fine-Tune a Language Model for Code Generation",
+        "description": "How to fine-tune a large language model for domain-specific code generation using LoRA, QLoRA, and custom datasets",
+        "metaDescription": "Fine-tune LLMs for code generation with LoRA and QLoRA. Use Hugging Face, custom datasets, and parameter-efficient training for domain-specific models.",
+        "difficulty": "advanced",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "llm",
+          "fine-tuning",
+          "lora",
+          "qlora",
+          "hugging-face",
+          "code-generation"
+        ],
+        "relatedResources": [
+          "/recipes/chatbot-openai",
+          "/recipes/rag-pipeline",
+          "/recipes/semantic-search",
+          "/guides/software-architecture-guide",
+          "/guides/system-design-interview-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Fine-tune LLMs for code generation with LoRA and QLoRA. Use Hugging Face, custom datasets, and parameter-efficient training for domain-specific models.",
+          "keywords": [
+            "llm",
+            "fine-tuning",
+            "lora",
+            "qlora",
+            "hugging-face",
+            "code-generation"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/ai/rag-pipeline.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "rag-pipeline",
+        "title": "Build a RAG Pipeline with LangChain and Vector Databases",
+        "description": "How to build a Retrieval-Augmented Generation (RAG) pipeline using LangChain and vector databases for AI-powered search",
+        "metaDescription": "Build a RAG pipeline with LangChain, OpenAI, and vector databases. Chunk documents, generate embeddings, and retrieve context for LLM answers.",
+        "difficulty": "intermediate",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "rag",
+          "langchain",
+          "vector-database",
+          "openai",
+          "embeddings",
+          "llm"
+        ],
+        "relatedResources": [
+          "/recipes/semantic-search",
+          "/recipes/chatbot-openai",
+          "/recipes/llm-fine-tuning",
+          "/guides/system-design-interview-guide",
+          "/guides/software-architecture-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Build a RAG pipeline with LangChain, OpenAI, and vector databases. Chunk documents, generate embeddings, and retrieve context for LLM answers.",
+          "keywords": [
+            "rag",
+            "langchain",
+            "vector-database",
+            "openai",
+            "embeddings",
+            "llm"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/ai/semantic-search.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "semantic-search",
+        "title": "Implement Semantic Search with Embeddings",
+        "description": "How to implement semantic search using text embeddings and vector similarity search for intelligent document retrieval",
+        "metaDescription": "Implement semantic search with text embeddings and vector similarity. Use OpenAI, sentence-transformers, and FAISS for intelligent document retrieval.",
+        "difficulty": "intermediate",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "semantic-search",
+          "embeddings",
+          "vector-similarity",
+          "openai",
+          "faiss",
+          "nlp"
+        ],
+        "relatedResources": [
+          "/recipes/rag-pipeline",
+          "/recipes/chatbot-openai",
+          "/recipes/llm-fine-tuning",
+          "/guides/software-architecture-guide",
+          "/guides/sql-performance-tuning-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Implement semantic search with text embeddings and vector similarity. Use OpenAI, sentence-transformers, and FAISS for intelligent document retrieval.",
+          "keywords": [
+            "semantic-search",
+            "embeddings",
+            "vector-similarity",
+            "openai",
+            "faiss",
+            "nlp"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/api-documentation-openapi.md",
       "metadata": {
         "contentType": "recipes",
@@ -6510,6 +6678,48 @@
             "cache-invalidation",
             "cloudfront",
             "cloudflare",
+            "performance"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/performance/connection-pooling.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "connection-pooling",
+        "title": "Set Up Connection Pooling for Databases and HTTP Clients",
+        "description": "How to set up connection pooling for databases and HTTP clients to improve performance and reliability",
+        "metaDescription": "Set up connection pooling for PostgreSQL, MySQL, Redis, and HTTP clients. Improve throughput, reduce latency, and prevent connection exhaustion.",
+        "difficulty": "intermediate",
+        "topics": [
+          "performance"
+        ],
+        "tags": [
+          "connection-pooling",
+          "database",
+          "postgresql",
+          "redis",
+          "http-client",
+          "performance"
+        ],
+        "relatedResources": [
+          "/guides/sql-performance-tuning-guide",
+          "/guides/performance-optimization-guide",
+          "/recipes/cdn-edge-caching",
+          "/recipes/debounce-throttle",
+          "/patterns/cache-aside-pattern"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Set up connection pooling for PostgreSQL, MySQL, Redis, and HTTP clients. Improve throughput, reduce latency, and prevent connection exhaustion.",
+          "keywords": [
+            "connection-pooling",
+            "database",
+            "postgresql",
+            "redis",
+            "http-client",
             "performance"
           ]
         }

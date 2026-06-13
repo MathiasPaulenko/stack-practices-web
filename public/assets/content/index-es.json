@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 156,
+  "count": 161,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -3861,6 +3861,174 @@
       }
     },
     {
+      "path": "recipes/ai/chatbot-openai.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "chatbot-openai",
+        "title": "Crear un chatbot con la OpenAI Assistants API",
+        "description": "Cómo crear un chatbot de IA usando la OpenAI Assistants API con function calling y recuperación de archivos",
+        "metaDescription": "Crea un chatbot de IA con la OpenAI Assistants API. Maneja conversaciones, function calling, recuperación de archivos y gestión de threads con ejemplos.",
+        "difficulty": "beginner",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "chatbot",
+          "openai",
+          "assistants-api",
+          "llm",
+          "conversation",
+          "ai"
+        ],
+        "relatedResources": [
+          "/recipes/rag-pipeline",
+          "/recipes/semantic-search",
+          "/recipes/llm-fine-tuning",
+          "/guides/software-architecture-guide",
+          "/guides/system-design-interview-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Crea un chatbot de IA con la OpenAI Assistants API. Maneja conversaciones, function calling, recuperación de archivos y gestión de threads con ejemplos.",
+          "keywords": [
+            "chatbot",
+            "openai",
+            "assistants-api",
+            "llm",
+            "conversación",
+            "ia"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/ai/llm-fine-tuning.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "llm-fine-tuning",
+        "title": "Fine-tuning de un modelo de lenguaje para generación de código",
+        "description": "Cómo hacer fine-tuning de un modelo de lenguaje grande para generación de código específico de dominio usando LoRA, QLoRA y datasets personalizados",
+        "metaDescription": "Haz fine-tuning de LLMs para generación de código con LoRA y QLoRA. Usa Hugging Face y datasets personalizados para modelos específicos de dominio.",
+        "difficulty": "advanced",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "llm",
+          "fine-tuning",
+          "lora",
+          "qlora",
+          "hugging-face",
+          "code-generation"
+        ],
+        "relatedResources": [
+          "/recipes/chatbot-openai",
+          "/recipes/rag-pipeline",
+          "/recipes/semantic-search",
+          "/guides/software-architecture-guide",
+          "/guides/system-design-interview-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Haz fine-tuning de LLMs para generación de código con LoRA y QLoRA. Usa Hugging Face y datasets personalizados para modelos específicos de dominio.",
+          "keywords": [
+            "llm",
+            "fine-tuning",
+            "lora",
+            "qlora",
+            "hugging-face",
+            "generacion-codigo"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/ai/rag-pipeline.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "rag-pipeline",
+        "title": "Construir un pipeline RAG con LangChain y bases de datos vectoriales",
+        "description": "Cómo construir un pipeline de Retrieval-Augmented Generation (RAG) usando LangChain y bases de datos vectoriales para búsqueda potenciada por IA",
+        "metaDescription": "Construye un pipeline RAG con LangChain, OpenAI y bases de datos vectoriales. Fragmenta documentos, genera embeddings y recupera contexto para respuestas de LLM.",
+        "difficulty": "intermediate",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "rag",
+          "langchain",
+          "vector-database",
+          "openai",
+          "embeddings",
+          "llm"
+        ],
+        "relatedResources": [
+          "/recipes/semantic-search",
+          "/recipes/chatbot-openai",
+          "/recipes/llm-fine-tuning",
+          "/guides/system-design-interview-guide",
+          "/guides/software-architecture-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Construye un pipeline RAG con LangChain, OpenAI y bases de datos vectoriales. Fragmenta documentos, genera embeddings y recupera contexto para respuestas de LLM.",
+          "keywords": [
+            "rag",
+            "langchain",
+            "base-datos-vectorial",
+            "openai",
+            "embeddings",
+            "llm"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/ai/semantic-search.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "semantic-search",
+        "title": "Implementar búsqueda semántica con embeddings",
+        "description": "Cómo implementar búsqueda semántica usando embeddings de texto y búsqueda por similitud vectorial para recuperación inteligente de documentos",
+        "metaDescription": "Implementa búsqueda semántica con embeddings de texto y similitud vectorial. Usa OpenAI, sentence-transformers y FAISS para recuperación inteligente de documentos.",
+        "difficulty": "intermediate",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "semantic-search",
+          "embeddings",
+          "vector-similarity",
+          "openai",
+          "faiss",
+          "nlp"
+        ],
+        "relatedResources": [
+          "/recipes/rag-pipeline",
+          "/recipes/chatbot-openai",
+          "/recipes/llm-fine-tuning",
+          "/guides/software-architecture-guide",
+          "/guides/sql-performance-tuning-guide"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Implementa búsqueda semántica con embeddings de texto y similitud vectorial. Usa OpenAI, sentence-transformers y FAISS para recuperación inteligente de documentos.",
+          "keywords": [
+            "busqueda-semantica",
+            "embeddings",
+            "similitud-vectorial",
+            "openai",
+            "faiss",
+            "nlp"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/api-documentation-openapi.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -6459,6 +6627,48 @@
             "invalidacion-cache",
             "cloudfront",
             "cloudflare",
+            "rendimiento"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/performance/connection-pooling.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "connection-pooling",
+        "title": "Configurar connection pooling para bases de datos y clientes HTTP",
+        "description": "Cómo configurar connection pooling para bases de datos y clientes HTTP para mejorar rendimiento y confiabilidad",
+        "metaDescription": "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP. Mejora throughput, reduce latencia y previene agotamiento de conexiones.",
+        "difficulty": "intermediate",
+        "topics": [
+          "performance"
+        ],
+        "tags": [
+          "connection-pooling",
+          "database",
+          "postgresql",
+          "redis",
+          "http-client",
+          "performance"
+        ],
+        "relatedResources": [
+          "/guides/sql-performance-tuning-guide",
+          "/guides/performance-optimization-guide",
+          "/recipes/cdn-edge-caching",
+          "/recipes/debounce-throttle",
+          "/patterns/cache-aside-pattern"
+        ],
+        "lastUpdated": "2026-06-12",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP. Mejora throughput, reduce latencia y previene agotamiento de conexiones.",
+          "keywords": [
+            "connection-pooling",
+            "base-datos",
+            "postgresql",
+            "redis",
+            "http-client",
             "rendimiento"
           ]
         }
