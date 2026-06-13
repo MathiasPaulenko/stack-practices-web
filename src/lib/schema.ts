@@ -120,6 +120,23 @@ export function collectionPage(opts: {
   };
 }
 
+/** Builds an Organization schema. */
+export function organization(opts: {
+  name: string;
+  url: string;
+  logo?: string;
+  description?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: opts.name,
+    url: opts.url,
+    ...(opts.logo && { logo: opts.logo }),
+    ...(opts.description && { description: opts.description }),
+  };
+}
+
 /** Builds a FAQPage schema from Q&A pairs. */
 export function faqPage(faqs: { question: string; answer: string }[]) {
   return {

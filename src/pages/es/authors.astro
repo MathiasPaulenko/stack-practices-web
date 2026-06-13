@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList, organization } from '../../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Autores',
+      description: 'Conoce al equipo detrás de StackPractices y nuestro proceso editorial.',
+      url: '/es/authors',
+      locale: 'es',
+    }),
+    datePublished: '2026-06-13',
+  },
+  organization({
+    name: 'StackPractices',
+    url: 'https://stackpractices.com',
+    logo: 'https://stackpractices.com/favicon.svg',
+    description: 'Base de conocimiento práctica para ingenieros de software.',
+  }),
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Autores', url: '/es/authors' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Autores"
+  description="Conoce al equipo detrás de StackPractices y nuestro proceso editorial."
+  path="/es/authors"
+  keywords={['autores', 'equipo', 'stackpractices', 'editorial']}
+  jsonLd={jsonLd}
+  locale="es"
+>
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Autores</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Sobre los Autores</h1>
+      <p class="mt-2 max-w-2xl text-lg text-slate-600">
+        Conoce al equipo detrás de StackPractices y cómo construimos contenido práctico y fiable.
+      </p>
+    </div>
+  </header>
+
+  <!-- Team / Organization -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">StackPractices</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-700">
+          StackPractices es una base de conocimiento curada creada por ingenieros de software con
+          experiencia. Nuestro objetivo es simple: ayudar a los desarrolladores a escribir mejor
+          código, entregar más rápido y evitar errores comunes proporcionando soluciones probadas
+          y listas para producción.
+        </p>
+        <p class="mt-4 leading-relaxed text-slate-600">
+          Cada receta, patrón y guía pasa por un proceso de revisión por pares. Probamos los
+          ejemplos de código en entornos reales, validamos la precisión técnica y mantenemos
+          el contenido actualizado a medida que evolucionan los lenguajes y frameworks.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Revisado por Pares</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Cada recurso es revisado por varios ingenieros antes de su publicación.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Código Probado</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Los ejemplos de código se ejecutan y validan en entornos de desarrollo reales.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Actualizado Regularmente</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            El contenido se mantiene al día con las últimas versiones de lenguajes y mejores prácticas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial process -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Nuestro Proceso Editorial</h2>
+        <ol class="mt-6 space-y-4 text-slate-700">
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">1</span>
+            <span><strong>Investigación</strong> — Identificamos problemas del mundo real que enfrentan los desarrolladores.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">2</span>
+            <span><strong>Borrador</strong> — Escribimos explicaciones claras con ejemplos de código ejecutables.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">3</span>
+            <span><strong>Revisión</strong> — Revisión técnica por expertos del dominio para garantizar precisión.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">4</span>
+            <span><strong>Pruebas</strong> — Ejecutamos el código en múltiples entornos para verificar su corrección.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">5</span>
+            <span><strong>Publicación y Mantenimiento</strong> — Publicamos y actualizamos a medida que evolucionan las tecnologías.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / CTA -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Contacto</h2>
+        <p class="mt-4 text-slate-600">
+          ¿Tienes comentarios, correcciones o sugerencias? Nos encantaría saber de ti.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/es/about" class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
+            Sobre StackPractices
+          </a>
+          <a href="/es" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700">
+            Explorar Recetas
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

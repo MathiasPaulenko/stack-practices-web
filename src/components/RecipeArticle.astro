@@ -40,6 +40,7 @@ const {
   tags,
   topics,
   lastUpdated,
+  author,
   path,
   locale,
   listingHref,
@@ -117,6 +118,13 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
               <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
               {difficulty}
             </span>
+            <span class="h-3 w-px bg-slate-300"></span>
+            <a
+              href={`${locale === 'es' ? '/es' : ''}/authors`}
+              class="text-xs font-medium text-brand-600 hover:text-brand-700 hover:underline"
+            >
+              {locale === 'es' ? 'Por' : 'By'} {author}
+            </a>
             <span class="h-3 w-px bg-slate-300"></span>
             <time datetime={iso} class="text-xs font-medium text-slate-400">{dateLabel}</time>
           </div>

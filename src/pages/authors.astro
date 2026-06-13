@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList, organization } from '../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Authors',
+      description: 'Learn about the team behind StackPractices and our editorial process.',
+      url: '/authors',
+      locale: 'en',
+    }),
+    datePublished: '2026-06-13',
+  },
+  organization({
+    name: 'StackPractices',
+    url: 'https://stackpractices.com',
+    logo: 'https://stackpractices.com/favicon.svg',
+    description: 'Practical developer knowledge base for software engineers.',
+  }),
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Authors', url: '/authors' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Authors"
+  description="Learn about the team behind StackPractices and our editorial process."
+  path="/authors"
+  keywords={['authors', 'team', 'stackpractices', 'editorial']}
+  jsonLd={jsonLd}
+>
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header section -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Home</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Authors</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">About the Authors</h1>
+      <p class="mt-2 max-w-2xl text-lg text-slate-600">
+        Meet the team behind StackPractices and learn how we build reliable, practical content.
+      </p>
+    </div>
+  </header>
+
+  <!-- Team / Organization -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">StackPractices</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-700">
+          StackPractices is a curated developer knowledge base created by experienced software
+          engineers. Our goal is simple: help developers write better code, ship faster, and avoid
+          common pitfalls by providing tested, production-ready solutions.
+        </p>
+        <p class="mt-4 leading-relaxed text-slate-600">
+          Every recipe, pattern, and guide goes through a peer-review process. We test code
+          examples in real environments, validate technical accuracy, and keep content updated
+          as languages and frameworks evolve.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Peer Reviewed</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Every resource is reviewed by multiple engineers before publication.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Tested Code</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Code examples are run and validated in real development environments.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">Regularly Updated</h3>
+          <p class="mt-1 text-sm text-slate-600">
+            Content is kept current with the latest language versions and best practices.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial process -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Our Editorial Process</h2>
+        <ol class="mt-6 space-y-4 text-slate-700">
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">1</span>
+            <span><strong>Research</strong> — Identify real-world problems developers face daily.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">2</span>
+            <span><strong>Draft</strong> — Write clear explanations with runnable code examples.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">3</span>
+            <span><strong>Review</strong> — Technical review by domain experts for accuracy and completeness.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">4</span>
+            <span><strong>Test</strong> — Run code in multiple environments to verify correctness.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">5</span>
+            <span><strong>Publish &amp; Maintain</strong> — Release and update as technologies evolve.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / CTA -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Get in Touch</h2>
+        <p class="mt-4 text-slate-600">
+          Have feedback, corrections, or suggestions? We would love to hear from you.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/about" class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
+            About StackPractices
+          </a>
+          <a href="/" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700">
+            Browse Recipes
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
