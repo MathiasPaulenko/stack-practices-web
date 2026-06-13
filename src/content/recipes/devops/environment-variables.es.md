@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/docker-basics
   - /recipes/jwt-authentication
   - /recipes/password-hashing
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-06-13"
 author: "StackPractices"
 seo:
   metaDescription: "Ejemplos prácticos de variables de entorno en Python, JavaScript y Java. Aprende dotenv, process.env, System.getenv y configuración 12-factor app."
@@ -42,6 +42,8 @@ Las variables de entorno son pares clave-valor establecidos fuera del código de
 
 Separar la configuración del código hace que las aplicaciones sean portables entre entornos (dev, staging, producción) y evita que datos sensibles se commiteen al control de versiones.
 
+Antes de que las variables de entorno se convirtieran en el estándar, la configuración a menudo se incrustaba directamente en el código fuente o se almacenaba en archivos XML versionados en repositorios. Esto hacía los despliegues frágiles: un cambio de contraseña de base de datos requería un commit de código, rebuild y redeploy. Las variables de entorno resuelven esto externalizando todas las configuraciones específicas del entorno, permitiendo que el mismo artefacto compilado se ejecute en desarrollo, staging y producción sin modificación. Este principio — conocido como "build once, deploy many" — es esencial para pipelines modernos de CI/CD y arquitecturas containerizadas.
+
 ## Cuándo usarlo
 
 Usa esta recipe cuando:
@@ -49,12 +51,17 @@ Usa esta recipe cuando:
 - Configuras apps por entorno (dev, staging, prod)
 - Almacenas secretos como claves API y credenciales de base de datos
 - Habilitas o deshabilitas features con feature flags
-- Gestionas configuración de aplicaciones containerizadas
+- Gestionas configuración de aplicaciones containerizadas en Docker y Kubernetes
 - Evitas valores hard-codeados en el código fuente
+- Compartes configuración entre microservicios sin un servidor de configuración central
+- Cambias endpoints de base de datos entre primaria y réplica para escalado de lecturas
+- Habilitas debug logging o profiling solo en entornos específicos
 
 ## Solución
 
 ### Python
+
+El `os.getenv` de Python lee variables de entorno con un default opcional. El paquete `python-dotenv` carga variables desde un archivo `.env` en desarrollo, lo cual es conveniente para testing local sin polucionar el entorno de tu shell.
 
 ```python
 import os
@@ -74,6 +81,8 @@ print(f"API_KEY={api_key}, PORT={port}, DEBUG={debug}")
 
 ### JavaScript (Node.js)
 
+Node.js expone variables de entorno a través de `process.env`. El paquete `dotenv` carga un archivo `.env` al inicio de la aplicación, pero solo funciona en Node — los entornos de navegador no tienen acceso a `process.env` en runtime.
+
 ```javascript
 require('dotenv').config(); // Cargar archivo .env
 
@@ -86,6 +95,8 @@ console.log(`API_KEY=${apiKey}, PORT=${port}, DEBUG=${debug}`);
 ```
 
 ### Java
+
+El `System.getenv()` de Java devuelve un mapa inmutable del entorno del proceso. Usa `getOrDefault` para proporcionar valores de fallback para configuración opcional, y parsea strings a los tipos apropiados explícitamente.
 
 ```java
 public class Config {
@@ -120,35 +131,46 @@ Agrega `.env` a `.gitignore`:
 
 ## Explicación
 
-- **`os.environ` / `process.env` / `System.getenv()`**: Acceso en tiempo de ejecución a variables de entorno
-- **`load_dotenv()` / `require('dotenv').config()`**: Carga variables desde un archivo `.env` en desarrollo
-- **Defaults**: Siempre proporciona valores por defecto sensatos para valores no sensibles
-- **Coerción de tipos**: Las variables de entorno son strings — haz cast a int/boolean explícitamente
+- **`os.environ` / `process.env` / `System.getenv()`**: Acceso en tiempo de ejecución a variables de entorno. Estas se heredan del proceso padre (shell, systemd, Docker) y no pueden ser modificadas por procesos hijos de forma que afecten al padre.
+- **`load_dotenv()` / `require('dotenv').config()`**: Carga variables desde un archivo `.env` en desarrollo. Este archivo nunca debe ser commiteado — es una conveniencia solo para desarrollo local.
+- **Defaults**: Siempre proporciona valores por defecto sensatos para valores no sensibles. Las variables requeridas faltantes deberían hacer que la aplicación falle rápidamente al inicio con un mensaje de error claro.
+- **Coerción de tipos**: Las variables de entorno son siempre strings — haz cast a int/boolean explícitamente. Un valor de `"false"` es truthy en JavaScript si no lo comparas apropiadamente.
+- **Scope**: Las variables establecidas en el shell están disponibles para el proceso actual y sus hijos. Usa `export` en Bash o `setx` en Windows para persistirlas entre sesiones.
 
 ## Mejores prácticas
 
-- **Nunca commitees secretos**: Agrega `.env` a `.gitignore` inmediatamente
-- **Usa un `.env.example`**: Documenta las variables requeridas sin valores reales
-- **Valida al inicio**: Falla rápido si faltan variables requeridas
-- **Scope por entorno**: `.env.development`, `.env.production`
-- **Usa un secrets manager en producción**: AWS Secrets Manager, Azure Key Vault, HashiCorp Vault
-- **Loguea configuración (no secretos)**: Imprime la config cargada para debugging, redacta claves sensibles
+- **Nunca commitees secretos**: Agrega `.env` a `.gitignore` inmediatamente. Un solo archivo `.env` commiteado con credenciales de producción es un liability de seguridad permanente, incluso si lo borras después — el historial de Git lo retiene para siempre.
+- **Usa un `.env.example`**: Documenta las variables requeridas sin valores reales. Los nuevos desarrolladores pueden copiar este archivo a `.env` y llenar sus propias credenciales.
+- **Valida al inicio**: Falla rápido si faltan variables requeridas. No dejes que tu aplicación se ejecute en un estado parcialmente configurado que produce errores crípticos horas después.
+- **Scope por entorno**: `.env.development`, `.env.production`. Algunos frameworks cargan estos automáticamente basándose en `NODE_ENV` o equivalente.
+- **Usa un secrets manager en producción**: AWS Secrets Manager, Azure Key Vault, HashiCorp Vault. Estos proporcionan rotación, logging de auditoría y control de acceso granular que los archivos `.env` no pueden igualar.
+- **Loguea configuración (no secretos)**: Imprime la config cargada para debugging, pero redacta claves sensibles. Una línea de log como `DATABASE_URL=***` te dice que la variable está seteada sin exponer credenciales.
+- **Prefija variables públicas en frontend**: Frameworks como Vite, Next.js y Create React App solo exponen variables `VITE_*`, `NEXT_PUBLIC_*` o `REACT_APP_*` al navegador. Todo lo demás permanece del lado del servidor.
+- **Rota secretos regularmente**: incluso el mejor almacenamiento puede ser comprometido. Establece un recordatorio de calendario para rotar claves API y contraseñas de base de datos trimestralmente.
 
 ## Errores comunes
 
-- Commitear archivos `.env` con secretos reales a GitHub
-- Asumir que las variables de entorno existen sin defaults
-- No validar variables requeridas al inicio de la aplicación
-- Usar variables de entorno para datos estructurados complejos (usa archivos de config en su lugar)
-- Confundir variables de build-time y runtime en bundlers de frontend
+- **Commitear archivos `.env` con secretos reales a GitHub**: Incluso si borras el archivo después, permanece en el historial de Git para siempre. Usa `git filter-repo` o BFG Repo-Cleaner para eliminarlo si ya lo commiteaste.
+- **Asumir que las variables de entorno existen sin defaults**: Tu aplicación se caerá con errores confusos. Siempre valida variables requeridas y proporciona defaults sensatos para las opcionales.
+- **No validar variables requeridas al inicio de la aplicación**: La configuración faltante a menudo causa fallos profundos en el call stack que son difíciles de rastrear hasta una variable de entorno ausente.
+- **Usar variables de entorno para datos estructurados complejos**: Las variables de entorno son strings key-value planos. Usa archivos de config JSON o YAML para configuración anidada, y cárgalos desde una ruta especificada por una variable de entorno.
+- **Confundir variables de build-time y runtime en bundlers de frontend**: Las variables referenciadas en código frontend se embeben en build time, no se leen en runtime. Cambiar una variable de entorno después de build no tiene efecto en el bundle del cliente.
+- **Imprimir secretos en mensajes de error**: Los stack traces y respuestas de error nunca deben incluir contraseñas de base de datos o claves API. Los atacantes escanean logs y páginas de error públicas exactamente por este error.
+- **Usar los mismos secretos en todos los entornos**: Desarrollo y producción deben usar credenciales diferentes. Una contraseña de base de datos de dev filtrada no debería otorgar acceso a producción.
 
 ## Preguntas frecuentes
 
 **P: ¿Puedo usar variables de entorno en el navegador?**
-R: Solo en build time mediante sustitución del bundler. Nunca expongas secretos del servidor en código client-side. Usa variables públicas con el prefijo de tu framework (ej. `VITE_`, `NEXT_PUBLIC_`, `REACT_APP_`).
+R: Solo en build time mediante sustitución del bundler. Nunca expongas secretos del servidor en código client-side. Usa variables públicas con el prefijo de tu framework (ej. `VITE_`, `NEXT_PUBLIC_`, `REACT_APP_`). El navegador no tiene acceso al entorno del servidor.
 
 **P: ¿Qué es el principio de configuración de 12-Factor App?**
-R: Almacena la configuración en variables de entorno. Esto mantiene código y config separados, haciendo la app deployable a cualquier entorno sin cambios de código.
+R: Almacena la configuración en variables de entorno. Esto mantiene código y config separados, haciendo la app deployable a cualquier entorno sin cambios de código. La misma imagen Docker puede ejecutarse en dev, staging y prod con diferentes variables.
 
 **P: ¿Cómo gestiono secretos en un contenedor Docker?**
-R: Pásalos en runtime con flags `-e`, Docker secrets o móntalos como archivos. Nunca incluyas secretos en la imagen.
+R: Pásalos en runtime con flags `-e`, Docker secrets o móntalos como archivos. Nunca incluyas secretos en la imagen. Un registro de imágenes comprometido expondría cada secreto embebido durante el build.
+
+**P: ¿Cuál es la diferencia entre `.env` y exports de shell?**
+R: Los archivos `.env` son cargados por el código de la aplicación al inicio y solo afectan a ese proceso. Los exports de shell (`export VAR=value`) afectan la sesión de shell actual y todos los procesos hijos. Usa `.env` para settings por proyecto y exports de shell para herramientas globales.
+
+**P: ¿Debería validar variables de entorno en código o usar una librería de schema?**
+R: Ambos enfoques funcionan. Para proyectos pequeños, la validación manual al inicio está bien. Para aplicaciones más grandes, librerías de schema como `envalid` (Node), `pydantic-settings` (Python) o `@ConfigurationProperties` de Spring (Java) proporcionan type safety, defaults y validación automática.
