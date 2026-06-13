@@ -2287,6 +2287,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/graphql-api"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/grpc-api</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/grpc-api"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/grpc-api"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/grpc-api"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/grpc-api</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/grpc-api"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/grpc-api"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/grpc-api"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/handle-cors</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -2863,6 +2881,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-transactions"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/database-views-materialized</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-views-materialized"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-views-materialized"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-views-materialized"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/database-views-materialized</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-views-materialized"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-views-materialized"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-views-materialized"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/event-sourcing-relational</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -2897,6 +2933,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/full-text-search"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/full-text-search"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/full-text-search"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/optimistic-locking</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/optimistic-locking"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/optimistic-locking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/optimistic-locking"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/optimistic-locking</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/optimistic-locking"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/optimistic-locking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/optimistic-locking"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/soft-deletes</loc>
@@ -3097,6 +3151,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/github-actions"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/graceful-shutdown</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/graceful-shutdown"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/graceful-shutdown"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/graceful-shutdown"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/graceful-shutdown</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/graceful-shutdown"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/graceful-shutdown"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/graceful-shutdown"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/health-check-endpoint</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -3131,6 +3203,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-config-files"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-config-files"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-config-files"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/pre-commit-hooks</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/pre-commit-hooks"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/pre-commit-hooks"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/pre-commit-hooks"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/pre-commit-hooks</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/pre-commit-hooks"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/pre-commit-hooks"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/pre-commit-hooks"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/retry-logic-exponential-backoff</loc>

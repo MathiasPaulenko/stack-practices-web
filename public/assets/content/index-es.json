@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 161,
+  "count": 166,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -4246,6 +4246,50 @@
       }
     },
     {
+      "path": "recipes/api/grpc-api.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "grpc-api",
+        "title": "Implementar una API gRPC con Protocol Buffers",
+        "description": "Cómo implementar una API gRPC usando Protocol Buffers para comunicación de alto rendimiento entre servicios",
+        "metaDescription": "Implementa una API gRPC con Protocol Buffers. Construye servicios de alto rendimiento en Python, Node.js y Java con streaming e interceptores.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api"
+        ],
+        "tags": [
+          "grpc",
+          "protobuf",
+          "api",
+          "rpc",
+          "microservices",
+          "streaming",
+          "interceptor"
+        ],
+        "relatedResources": [
+          "/recipes/server-sent-events",
+          "/docs/api-documentation",
+          "/guides/rest-api-design-guide",
+          "/recipes/api-versioning",
+          "/recipes/call-rest-api"
+        ],
+        "lastUpdated": "2026-06-13",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Implementa una API gRPC con Protocol Buffers. Construye servicios de alto rendimiento en Python, Node.js y Java con streaming e interceptores.",
+          "keywords": [
+            "grpc",
+            "protobuf",
+            "api",
+            "rpc",
+            "microservicios",
+            "streaming",
+            "interceptor"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/handle-cors.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -5652,6 +5696,50 @@
       }
     },
     {
+      "path": "recipes/databases/database-views-materialized.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "database-views-materialized",
+        "title": "Crear y usar vistas de base de datos y vistas materializadas",
+        "description": "Cómo crear y usar vistas de base de datos y vistas materializadas para simplificar consultas y mejorar rendimiento de lectura",
+        "metaDescription": "Crea vistas de base de datos y vistas materializadas para simplificar consultas y acelerar lecturas. Usa PostgreSQL, MySQL y SQL Server con ejemplos.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "database-views",
+          "materialized-views",
+          "postgresql",
+          "mysql",
+          "sql-server",
+          "performance",
+          "sql"
+        ],
+        "relatedResources": [
+          "/guides/sql-performance-tuning-guide",
+          "/recipes/database-deadlocks-retries",
+          "/recipes/database-read-replicas",
+          "/recipes/sql-joins",
+          "/guides/database-design-guide"
+        ],
+        "lastUpdated": "2026-06-13",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Crea vistas de base de datos y vistas materializadas para simplificar consultas y acelerar lecturas. Usa PostgreSQL, MySQL y SQL Server con ejemplos.",
+          "keywords": [
+            "vistas-base-datos",
+            "vistas-materializadas",
+            "postgresql",
+            "mysql",
+            "sql-server",
+            "rendimiento",
+            "sql"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/event-sourcing-relational.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -5732,6 +5820,50 @@
             "meilisearch python",
             "full text search java",
             "tsvector postgresql"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/optimistic-locking.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "optimistic-locking",
+        "title": "Implementar optimistic locking con versionado",
+        "description": "Cómo implementar optimistic locking con versionado para prevenir actualizaciones perdidas en acceso concurrente a base de datos",
+        "metaDescription": "Implementa optimistic locking con versionado para prevenir actualizaciones perdidas. Usa versionado de filas en PostgreSQL, MySQL y JPA/Hibernate con ejemplos.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "optimistic-locking",
+          "concurrency",
+          "versioning",
+          "database",
+          "postgresql",
+          "mysql",
+          "jpa"
+        ],
+        "relatedResources": [
+          "/recipes/database-deadlocks-retries",
+          "/recipes/database-read-replicas",
+          "/recipes/database-views-materialized",
+          "/recipes/sql-joins",
+          "/guides/sql-performance-tuning-guide"
+        ],
+        "lastUpdated": "2026-06-13",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Implementa optimistic locking con versionado para prevenir actualizaciones perdidas. Usa versionado de filas en PostgreSQL, MySQL y JPA/Hibernate con ejemplos.",
+          "keywords": [
+            "optimistic-locking",
+            "concurrencia",
+            "versionado",
+            "base-datos",
+            "postgresql",
+            "mysql",
+            "jpa"
           ]
         }
       }
@@ -6202,6 +6334,48 @@
       }
     },
     {
+      "path": "recipes/devops/graceful-shutdown.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "graceful-shutdown",
+        "title": "Implementar graceful shutdown y reinicios sin downtime",
+        "description": "Cómo implementar graceful shutdown y reinicios sin downtime para servidores web, workers y contenedores",
+        "metaDescription": "Implementa graceful shutdown y reinicios sin downtime para servidores web y contenedores. Maneja SIGTERM, drena conexiones y recarga de forma segura.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "graceful-shutdown",
+          "zero-downtime",
+          "sigterm",
+          "containers",
+          "web-server",
+          "deployment"
+        ],
+        "relatedResources": [
+          "/guides/deployment-strategies-guide",
+          "/docs/post-deployment-checklist-template",
+          "/guides/cicd-pipeline-guide",
+          "/guides/docker-for-developers-guide",
+          "/guides/kubernetes-basics-guide"
+        ],
+        "lastUpdated": "2026-06-13",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Implementa graceful shutdown y reinicios sin downtime para servidores web y contenedores. Maneja SIGTERM, drena conexiones y recarga de forma segura.",
+          "keywords": [
+            "graceful-shutdown",
+            "sin-downtime",
+            "sigterm",
+            "contenedores",
+            "servidor-web",
+            "despliegue"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/health-check-endpoint.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -6286,6 +6460,48 @@
             "python",
             "javascript",
             "java"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/pre-commit-hooks.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "pre-commit-hooks",
+        "title": "Configurar pre-commit hooks",
+        "description": "Cómo configurar pre-commit hooks con husky, lint-staged y pre-commit para forzar calidad de código antes de commits",
+        "metaDescription": "Configura pre-commit hooks con husky, lint-staged y pre-commit. Enforce linting, formatting y tests antes de cada commit con ejemplos.",
+        "difficulty": "beginner",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "pre-commit",
+          "husky",
+          "lint-staged",
+          "git-hooks",
+          "code-quality",
+          "linting"
+        ],
+        "relatedResources": [
+          "/docs/bug-report-template",
+          "/docs/changelog-template",
+          "/docs/code-of-conduct-template",
+          "/docs/contributing-guide",
+          "/docs/disaster-recovery-plan-template"
+        ],
+        "lastUpdated": "2026-06-13",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Configura pre-commit hooks con husky, lint-staged y pre-commit. Enforce linting, formatting y tests antes de cada commit con ejemplos.",
+          "keywords": [
+            "pre-commit",
+            "husky",
+            "lint-staged",
+            "git-hooks",
+            "calidad-codigo",
+            "linting"
           ]
         }
       }
