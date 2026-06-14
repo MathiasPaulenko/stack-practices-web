@@ -1,36 +1,80 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { MAIN_NAV } from '../config/site';
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: 'Page Not Found',
-    description: 'The page you are looking for does not exist.',
+    description: 'The page you are looking for does not exist. Browse our code recipes, design patterns, documentation, and guides.',
     url: 'https://stackpractices.com/404',
     inLanguage: 'en',
   },
 ];
+
+const keywords = ['404', 'page not found', 'StackPractices', 'code recipes', 'design patterns', 'developer resources'];
 ---
 
 <BaseLayout
   title="Page Not Found"
-  description="The page you are looking for does not exist."
+  description="The page you are looking for does not exist. Browse our code recipes, design patterns, documentation, and guides."
   path="/404"
   jsonLd={jsonLd}
   noindex={true}
+  keywords={keywords}
 >
-  <section class="flex flex-col items-center justify-center px-4 py-24 text-center">
-    <h1 class="text-6xl font-bold text-slate-900">404</h1>
-    <p class="mt-4 text-xl text-slate-600">Page not found</p>
-    <p class="mt-2 max-w-md text-slate-500">
-      The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-    </p>
-    <a
-      href="/"
-      class="mt-8 inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
-    >
-      Back to home
-    </a>
+  <section class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
+    <div class="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200 sm:p-12">
+      <h1 class="text-7xl font-extrabold tracking-tight text-brand-600">404</h1>
+      <p class="mt-4 text-2xl font-semibold text-slate-900">Page not found</p>
+      <p class="mx-auto mt-3 max-w-lg text-slate-600">
+        The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+      </p>
+
+      <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <a
+          href="/"
+          class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
+        >
+          Back to home
+        </a>
+        <a
+          href="/search"
+          class="inline-flex items-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-brand-700 ring-1 ring-inset ring-brand-200 transition hover:bg-brand-50"
+        >
+          Search the site
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 text-left">
+      <h2 class="text-center text-lg font-semibold text-slate-900">Popular sections</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {MAIN_NAV.map((item) => (
+          <a
+            href={item.href}
+            class="group flex items-center justify-between rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200 transition hover:shadow-md hover:ring-brand-300"
+          >
+            <span class="font-medium text-slate-700 group-hover:text-brand-700">{item.label}</span>
+            <span class="text-slate-400 group-hover:text-brand-500" aria-hidden="true">→</span>
+          </a>
+        ))}
+        <a
+          href="/topics"
+          class="group flex items-center justify-between rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200 transition hover:shadow-md hover:ring-brand-300"
+        >
+          <span class="font-medium text-slate-700 group-hover:text-brand-700">Topics</span>
+          <span class="text-slate-400 group-hover:text-brand-500" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <h2 class="text-lg font-semibold text-slate-900">Looking for something specific?</h2>
+      <p class="mt-2 text-slate-600">
+        Try our <a href="/search" class="text-brand-600 hover:underline">search page</a> to find code recipes, patterns, docs, and guides across the entire site.
+      </p>
+    </div>
   </section>
 </BaseLayout>

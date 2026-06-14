@@ -1,37 +1,90 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { MAIN_NAV } from '../../config/site';
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: 'Página no encontrada',
-    description: 'La página que buscas no existe.',
+    description: 'La página que buscas no existe. Explora nuestras recetas de código, patrones de diseño, documentación y guías.',
     url: 'https://stackpractices.com/es/404',
     inLanguage: 'es',
   },
 ];
+
+const keywords = ['404', 'página no encontrada', 'StackPractices', 'recetas de código', 'patrones de diseño', 'recursos para desarrolladores'];
+
+const navLabels: Record<string, string> = {
+  'Recipes': 'Recetas',
+  'Patterns': 'Patrones',
+  'Docs': 'Docs',
+  'Guides': 'Guías',
+  'Tags': 'Etiquetas',
+  'Topics': 'Temas',
+};
 ---
 
 <BaseLayout
   title="Página no encontrada"
-  description="La página que buscas no existe."
+  description="La página que buscas no existe. Explora nuestras recetas de código, patrones de diseño, documentación y guías."
   path="/es/404"
   locale="es"
   jsonLd={jsonLd}
   noindex={true}
+  keywords={keywords}
 >
-  <section class="flex flex-col items-center justify-center px-4 py-24 text-center">
-    <h1 class="text-6xl font-bold text-slate-900">404</h1>
-    <p class="mt-4 text-xl text-slate-600">Página no encontrada</p>
-    <p class="mt-2 max-w-md text-slate-500">
-      Es posible que la página que buscas haya sido eliminada, que haya cambiado de nombre o que no esté disponible temporalmente.
-    </p>
-    <a
-      href="/es/"
-      class="mt-8 inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
-    >
-      Volver al inicio
-    </a>
+  <section class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
+    <div class="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200 sm:p-12">
+      <h1 class="text-7xl font-extrabold tracking-tight text-brand-600">404</h1>
+      <p class="mt-4 text-2xl font-semibold text-slate-900">Página no encontrada</p>
+      <p class="mx-auto mt-3 max-w-lg text-slate-600">
+        Es posible que la página que buscas haya sido eliminada, que haya cambiado de nombre o que no esté disponible temporalmente.
+      </p>
+
+      <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <a
+          href="/es/"
+          class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
+        >
+          Volver al inicio
+        </a>
+        <a
+          href="/es/search"
+          class="inline-flex items-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-brand-700 ring-1 ring-inset ring-brand-200 transition hover:bg-brand-50"
+        >
+          Buscar en el sitio
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 text-left">
+      <h2 class="text-center text-lg font-semibold text-slate-900">Secciones populares</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {MAIN_NAV.map((item) => (
+          <a
+            href={`/es${item.href}`}
+            class="group flex items-center justify-between rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200 transition hover:shadow-md hover:ring-brand-300"
+          >
+            <span class="font-medium text-slate-700 group-hover:text-brand-700">{navLabels[item.label] || item.label}</span>
+            <span class="text-slate-400 group-hover:text-brand-500" aria-hidden="true">→</span>
+          </a>
+        ))}
+        <a
+          href="/es/topics"
+          class="group flex items-center justify-between rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200 transition hover:shadow-md hover:ring-brand-300"
+        >
+          <span class="font-medium text-slate-700 group-hover:text-brand-700">Temas</span>
+          <span class="text-slate-400 group-hover:text-brand-500" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <h2 class="text-lg font-semibold text-slate-900">¿Buscas algo específico?</h2>
+      <p class="mt-2 text-slate-600">
+        Prueba nuestra <a href="/es/search" class="text-brand-600 hover:underline">página de búsqueda</a> para encontrar recetas de código, patrones, documentación y guías en todo el sitio.
+      </p>
+    </div>
   </section>
 </BaseLayout>
