@@ -28,7 +28,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const normalizedPath = path === '/' ? '' : path;
+const normalizedPath = path === '/' ? '' : path.endsWith('/') ? path : `${path}/`;
 const enUrl = `${SITE.url}${normalizedPath}`;
 const esUrl = `${SITE.url}/es${normalizedPath}`;
 const canonical = locale === 'es' ? esUrl : enUrl;

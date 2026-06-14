@@ -1,5 +1,10 @@
 import { SITE } from '../config/site';
 
+/** Ensures a path ends with a trailing slash (for SSG directory URLs). */
+function withSlash(url: string): string {
+  return url === SITE.url ? url : url.endsWith('/') ? url : `${url}/`;
+}
+
 /** Maps difficulty to Schema.org educationalLevel. */
 export function educationalLevel(difficulty: string): string {
   switch (difficulty) {
@@ -28,7 +33,7 @@ export function breadcrumbList(items: BreadcrumbItem[]) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `${SITE.url}${item.url}`,
+      item: withSlash(`${SITE.url}${item.url}`),
     })),
   };
 }
@@ -45,7 +50,7 @@ export function webPage(opts: {
     '@type': 'WebPage',
     name: opts.name,
     description: opts.description,
-    url: `${SITE.url}${opts.url}`,
+    url: withSlash(`${SITE.url}${opts.url}`),
     inLanguage: opts.locale,
     isPartOf: {
       '@type': 'WebSite',
@@ -72,7 +77,7 @@ export function techArticle(opts: {
     '@type': 'TechArticle',
     headline: opts.headline,
     description: opts.description,
-    url: `${SITE.url}${opts.url}`,
+    url: withSlash(`${SITE.url}${opts.url}`),
     inLanguage: opts.locale,
     educationalLevel: educationalLevel(opts.difficulty),
     ...(opts.section && { articleSection: opts.section }),
@@ -105,7 +110,7 @@ export function collectionPage(opts: {
     '@type': 'CollectionPage',
     name: opts.name,
     description: opts.description,
-    url: `${SITE.url}${opts.url}`,
+    url: withSlash(`${SITE.url}${opts.url}`),
     inLanguage: opts.locale,
     mainEntity: {
       '@type': 'ItemList',
@@ -114,7 +119,7 @@ export function collectionPage(opts: {
         '@type': 'ListItem',
         position: index + 1,
         name: item.name,
-        url: `${SITE.url}${item.url}`,
+        url: withSlash(`${SITE.url}${item.url}`),
       })),
     },
   };

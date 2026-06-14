@@ -96,8 +96,9 @@ const tagPages = Array.from(tags).map(t => ({ path: '/tags/' + t, priority: '0.5
 const allUrls = [...staticPages, ...recipes, ...patterns, ...docs, ...guides, ...topicPages, ...tagPages];
 
 function writeUrl(path, priority) {
-  const en = SITE_URL + path;
-  const es = SITE_URL + '/es' + path;
+  const normalized = path === '/' ? path : path.endsWith('/') ? path : path + '/';
+  const en = SITE_URL + normalized;
+  const es = SITE_URL + '/es' + normalized;
   return '  <url>\n' +
     '    <loc>' + en + '</loc>\n' +
     '    <lastmod>' + TODAY + '</lastmod>\n' +
