@@ -17,7 +17,7 @@ tags:
   - java
 relatedResources:
   - /recipes/sql-joins
-  - /recipes/api/pagination
+  - /recipes/pagination
   - /patterns/design/repository-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"

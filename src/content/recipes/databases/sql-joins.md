@@ -16,7 +16,7 @@ tags:
 relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file
-  - /recipes/api/pagination
+  - /recipes/pagination
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

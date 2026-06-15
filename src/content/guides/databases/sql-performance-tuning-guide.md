@@ -19,7 +19,7 @@ tags:
 relatedResources:
   - /guides/databases/database-design-guide
   - /guides/performance/performance-optimization-guide
-  - /recipes/api/pagination
+  - /recipes/pagination
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
