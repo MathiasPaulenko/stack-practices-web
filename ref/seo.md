@@ -103,8 +103,8 @@
 **Problema:** El sitemap usa `lastUpdated` del frontmatter o fecha fija. Si el contenido se actualiza pero `lastUpdated` no se modifica, el sitemap miente a Google.
 **Fix:** Usar fecha real del archivo o asegurar que `lastUpdated` se actualiza en cada cambio sustancial.
 
-- [ ] Revisar script `generate-sitemap.cjs` para usar `fs.statSync(file).mtime` como fallback
-- [ ] Establecer proceso: actualizar `lastUpdated` cuando se edita contenido
+- [x] Revisar script `generate-sitemap.cjs` para usar `fs.statSync(file).mtime` como fallback
+- [x] Establecer proceso: actualizar `lastUpdated` cuando se edita contenido
 
 ---
 
