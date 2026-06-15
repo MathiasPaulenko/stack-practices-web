@@ -19,8 +19,8 @@ tags:
 relatedResources:
   - /recipes/e2e-testing
   - /recipes/unit-testing
-  - /recipes/component-testing
-  - /recipes/storybook
+  - /recipes/integration-testing
+  - /recipes/integration-testing-strategies
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:

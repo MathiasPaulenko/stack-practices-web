@@ -18,7 +18,7 @@ tags:
   - ci-cd
 relatedResources:
   - /recipes/environment-variables
-  - /recipes/docker-compose
+  - /recipes/docker-basics
   - /recipes/api-security-headers
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"

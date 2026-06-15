@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/microservices-patterns
   - /recipes/saga-pattern
   - /recipes/api-gateway
-  - /recipes/retry-patterns
+  - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
