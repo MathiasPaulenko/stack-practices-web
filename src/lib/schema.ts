@@ -46,6 +46,7 @@ export function person(opts: {
   description?: string;
   jobTitle?: string;
   sameAs?: string[];
+  knowsAbout?: string[];
 }) {
   return {
     '@context': 'https://schema.org',
@@ -56,6 +57,7 @@ export function person(opts: {
     ...(opts.description && { description: opts.description }),
     ...(opts.jobTitle && { jobTitle: opts.jobTitle }),
     ...(opts.sameAs && opts.sameAs.length > 0 && { sameAs: opts.sameAs }),
+    ...(opts.knowsAbout && opts.knowsAbout.length > 0 && { knowsAbout: opts.knowsAbout }),
   };
 }
 

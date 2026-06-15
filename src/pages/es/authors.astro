@@ -7,7 +7,7 @@ const jsonLd = [
     ...webPage({
       name: 'Autores',
       description: 'Conoce a Mathias Vladimir Paulenko Echeverz, el ingeniero de software detrás de StackPractices — recetas de código, patrones de diseño y documentación de ingeniería.',
-      url: '/es/authors',
+      url: '/es/authors/',
       locale: 'es',
     }),
     datePublished: '2026-06-13',
@@ -22,10 +22,22 @@ const jsonLd = [
       'https://github.com/MathiasPaulenko',
       'https://cn.linkedin.com/in/mathias-paulenko-echeverz',
     ],
+    knowsAbout: [
+      'Software Engineering',
+      'Python',
+      'JavaScript',
+      'React',
+      'DevOps',
+      'CI/CD',
+      'API Design',
+      'Cloud Infrastructure',
+      'Full-Stack Development',
+      'System Design',
+    ],
   }),
   breadcrumbList([
-    { name: 'Inicio', url: '/es' },
-    { name: 'Autores', url: '/es/authors' },
+    { name: 'Inicio', url: '/es/' },
+    { name: 'Autores', url: '/es/authors/' },
   ]),
 ];
 ---
@@ -33,7 +45,7 @@ const jsonLd = [
 <BaseLayout
   title="Autores"
   description="Conoce a Mathias Vladimir Paulenko Echeverz, el ingeniero de software detrás de StackPractices."
-  path="/authors"
+  path="/authors/"
   keywords={['mathias paulenko', 'autor', 'ingeniero de software', 'stackpractices']}
   jsonLd={jsonLd}
   locale="es"
@@ -43,7 +55,7 @@ const jsonLd = [
   <header class="border-b border-slate-200 bg-slate-50">
     <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
-        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <a href="/es/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
         <span class="mx-2 text-slate-400">/</span>
         <span class="font-medium text-slate-800">Autores</span>
       </nav>

@@ -7,7 +7,7 @@ const jsonLd = [
     ...webPage({
       name: 'Authors',
       description: 'Meet Mathias Vladimir Paulenko Echeverz, the software engineer behind StackPractices — copy-paste code recipes, design patterns, and engineering docs.',
-      url: '/authors',
+      url: '/authors/',
       locale: 'en',
     }),
     datePublished: '2026-06-13',
@@ -22,10 +22,22 @@ const jsonLd = [
       'https://github.com/MathiasPaulenko',
       'https://cn.linkedin.com/in/mathias-paulenko-echeverz',
     ],
+    knowsAbout: [
+      'Software Engineering',
+      'Python',
+      'JavaScript',
+      'React',
+      'DevOps',
+      'CI/CD',
+      'API Design',
+      'Cloud Infrastructure',
+      'Full-Stack Development',
+      'System Design',
+    ],
   }),
   breadcrumbList([
     { name: 'Home', url: '/' },
-    { name: 'Authors', url: '/authors' },
+    { name: 'Authors', url: '/authors/' },
   ]),
 ];
 ---
@@ -33,7 +45,7 @@ const jsonLd = [
 <BaseLayout
   title="Authors"
   description="Meet Mathias Vladimir Paulenko Echeverz, the software engineer behind StackPractices."
-  path="/authors"
+  path="/authors/"
   keywords={['mathias paulenko', 'author', 'software engineer', 'stackpractices']}
   jsonLd={jsonLd}
 >
