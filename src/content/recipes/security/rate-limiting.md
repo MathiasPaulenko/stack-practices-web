@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: rate-limiting
+slug: rate-limiting-security
 title: "Implement Rate Limiting for APIs and Web Applications"
 description: "How to protect APIs and web endpoints from abuse using token bucket, sliding window, and fixed window rate limiting strategies with Redis and in-memory implementations."
 metaDescription: "Learn API rate limiting strategies. Protect endpoints from abuse using token bucket, sliding window, and fixed window with Redis and in-memory implementations."
