@@ -138,6 +138,57 @@ System.out.println(idV4); // 550e8400-e29b-41d4-a716-446655440000
 - No indexar apropiadamente columnas UUID en bases de datos
 - Generar UUIDs en un hot loop sin cachear la instancia del generador
 
+## Migración de auto-incremento a UUID
+
+Cambiar una tabla existente de enteros auto-incrementales a UUIDs requiere planificación:
+
+### Paso 1: Añadir columna UUID
+
+```sql
+-- PostgreSQL
+ALTER TABLE users ADD COLUMN uuid UUID DEFAULT gen_random_uuid();
+CREATE UNIQUE INDEX idx_users_uuid ON users(uuid);
+```
+
+### Paso 2: Rellenar filas existentes
+
+Ejecuta un script de migración única para generar UUIDs para registros existentes:
+
+```python
+import uuid
+for user in User.query.filter(User.uuid.is_(None)):
+    user.uuid = uuid.uuid7()
+    db.session.commit()
+```
+
+### Paso 3: Actualizar código de aplicación
+
+Modifica tus modelos ORM y endpoints de API para leer/escribir la columna UUID en lugar del ID entero.
+
+### Paso 4: Actualizar claves foráneas
+
+Si otras tablas referencian `users.id`, añade una columna `user_uuid` a esas tablas y migra las relaciones.
+
+### Paso 5: Deprecar el ID entero
+
+Después de confirmar que todo funciona, marca la columna `id` entera como deprecada. No la elimines inmediatamente — dáte un camino de rollback.
+
+## UUIDs en sistemas distribuidos
+
+En microservicios o arquitecturas orientadas a eventos, los UUIDs destacan porque pueden generarse independientemente por cualquier nodo:
+
+- **Event sourcing**: Cada evento obtiene un UUID, habilitando consumidores idempotentes
+- **Apps offline-first**: El cliente genera el UUID antes de sincronizar con el servidor
+- **Sharding de base de datos**: No se necesita un allocator central de IDs; cada shard genera sus propias claves
+- **CQRS**: Los modelos de lectura y escritura pueden generar IDs sin coordinación
+
+| Enfoque | Pros | Contras |
+|---------|------|---------|
+| **Auto-incremento** | Simple, compacto, ordenado | Cuello de botella central, difícil de shard |
+| **UUID v4** | Descentralizado, estándar | Penalización de inserción random, no ordenable |
+| **UUID v7** | Descentralizado, ordenable | Requiere versiones más nuevas de lenguaje/librería |
+| **Snowflake IDs** | Ordenable, compacto (64-bit) | Requiere coordinador central |
+
 ## Preguntas frecuentes
 
 **P: ¿Debería usar UUID v4 o v7 para proyectos nuevos?**
@@ -148,3 +199,9 @@ R: La probabilidad de colisión es astronómicamente baja (1 en 2^122 para v4). 
 
 **P: ¿Puedo usar UUIDs en URLs?**
 R: Sí, pero los ULIDs son más cortos y URL-safe. Si usas v4/v7, encodéalos sin guiones (32 chars) para URLs más cortas.
+
+**P: ¿Los UUIDs afectan el rendimiento de la base de datos?**
+R: UUID v4 causa inserciones random en B-tree, lo que perjudica el rendimiento de escritura en tablas grandes. UUID v7 y ULID son ordenados por tiempo, dando rendimiento similar a los enteros auto-incrementales.
+
+**P: ¿Puedo combinar UUIDs con IDs auto-incrementales?**
+R: Sí. Usa un entero auto-incremental como clave primaria interna (para clustering/rendimiento) y un UUID como identificador externo (para APIs y URLs). Esto te da lo mejor de ambos mundos.

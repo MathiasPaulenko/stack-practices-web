@@ -175,6 +175,57 @@ git revert HEAD
 - Sin plan de rollback
 - Ignorar fallas del pipeline
 
+## Gestión de ambientes
+
+Un pipeline bien estructurado trata los ambientes como ganado, no como mascotas. Cada ambiente debería crearse desde el mismo código de infraestructura.
+
+### Matriz de ambientes
+
+| Ambiente | Propósito | Datos | Acceso |
+|----------|-----------|-------|--------|
+| **Local** | Iteración del desarrollador | Sintéticos / sembrados | Solo desarrollador |
+| **CI** | Testing automatizado | Datos de test efímeros | Cuenta de servicio CI |
+| **Staging** | Validación pre-producción | Snapshot anonimizado de producción | Team leads |
+| **Producción** | Usuarios reales | Datos reales de usuarios | Ingenieros on-call |
+
+### Configuración por ambiente
+
+Usa archivos de configuración específicos por ambiente o variables en lugar de lógica de pipeline ramificada:
+
+```bash
+# .env.local
+DATABASE_URL=postgres://localhost/dev_db
+LOG_LEVEL=debug
+
+# .env.staging
+DATABASE_URL=postgres://staging.internal/staging_db
+LOG_LEVEL=info
+
+# .env.production
+DATABASE_URL=postgres://prod.internal/prod_db
+LOG_LEVEL=warn
+```
+
+**Nunca commitees secretos a Git.** Usa gestores de secretos (AWS Secrets Manager, HashiCorp Vault, GitHub Secrets) e inyéctalos en runtime.
+
+### Migraciones de base de datos en CI/CD
+
+Ejecuta migraciones como un job separado del pipeline, no dentro del startup de la aplicación:
+
+1. **Antes del deploy**: Ejecuta migraciones contra el ambiente objetivo
+2. **Verifica**: Ejecuta un health check confirmando que la versión del schema coincide con la expectativa de la app
+3. **Despliega**: Solo procede si la migración tiene éxito
+4. **Plan de rollback**: Ten un script de downgrade listo para la versión anterior del schema
+
+## Monitoreo y observabilidad
+
+Un pipeline sin observabilidad es volar a ciegas. Integra estos checks:
+
+- **Tests sintéticos** después del deploy a producción (ping a endpoints críticos)
+- **Línea base de tasa de error**: Compara la tasa de error post-deploy contra la pre-deploy
+- **Regresión de rendimiento**: Alerta si la latencia p95 aumenta > 20%
+- **Smoke tests**: Ejecuta un test mínimo de happy-path inmediatamente después del deployment
+
 ## FAQ
 
 **Q: ¿Cuánto debería tardar un pipeline de CI?**
@@ -185,3 +236,9 @@ A: Sí, si tus tests y monitoreo son robustos. De lo contrario, despliega en mer
 
 **Q: ¿Cuál es la diferencia entre Continuous Delivery y Continuous Deployment?**
 A: Continuous Delivery significa que el código siempre está desplegable; un humano aprueba el release. Continuous Deployment significa que cada cambio validado va a producción automáticamente.
+
+**Q: ¿Cómo manejo cambios de schema de base de datos en CI/CD?**
+A: Ejecuta migraciones antes del deployment, haz cambios retrocompatibles cuando sea posible, y ten scripts de rollback listos. Nunca elimines columnas en el mismo deploy que deja de leerlas.
+
+**Q: ¿Qué debería hacer cuando un deployment a producción falla?**
+A: Sigue este orden: 1) Alerta al equipo on-call, 2) Evalúa si se necesita rollback, 3) Ejecuta rollback o forward-fix, 4) Documenta el incidente, 5) Realiza un post-mortem en 48 horas.

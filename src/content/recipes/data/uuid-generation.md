@@ -138,6 +138,57 @@ System.out.println(idV4); // 550e8400-e29b-41d4-a716-446655440000
 - Not indexing UUID columns properly in databases
 - Generating UUIDs in a hot loop without caching the generator instance
 
+## Migrating from Auto-Increment to UUID
+
+Switching an existing table from auto-increment integers to UUIDs requires planning:
+
+### Step 1: Add UUID Column
+
+```sql
+-- PostgreSQL
+ALTER TABLE users ADD COLUMN uuid UUID DEFAULT gen_random_uuid();
+CREATE UNIQUE INDEX idx_users_uuid ON users(uuid);
+```
+
+### Step 2: Backfill Existing Rows
+
+Run a one-time migration script to generate UUIDs for existing records:
+
+```python
+import uuid
+for user in User.query.filter(User.uuid.is_(None)):
+    user.uuid = uuid.uuid7()
+    db.session.commit()
+```
+
+### Step 3: Update Application Code
+
+Modify your ORM models and API endpoints to read/write the UUID column instead of the integer ID.
+
+### Step 4: Update Foreign Keys
+
+If other tables reference `users.id`, add a `user_uuid` column to those tables and migrate the relationships.
+
+### Step 5: Deprecate Integer ID
+
+After confirming everything works, mark the integer `id` column as deprecated. Do not drop it immediately — give yourself a rollback path.
+
+## UUIDs in Distributed Systems
+
+In microservices or event-driven architectures, UUIDs shine because they can be generated independently by any node:
+
+- **Event sourcing**: Each event gets a UUID, enabling idempotent consumers
+- **Offline-first apps**: Client generates UUID before syncing to the server
+- **Database sharding**: No central ID allocator needed; each shard generates its own keys
+- **CQRS**: Read and write models can generate IDs without coordination
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Auto-increment** | Simple, compact, ordered | Central bottleneck, hard to shard |
+| **UUID v4** | Decentralized, standard | Random insert penalty, not sortable |
+| **UUID v7** | Decentralized, sortable | Requires newer language/library versions |
+| **Snowflake IDs** | Sortable, compact (64-bit) | Requires central coordinator |
+
 ## Frequently Asked Questions
 
 **Q: Should I use UUID v4 or v7 for new projects?**
@@ -148,3 +199,9 @@ A: The probability of collision is astronomically low (1 in 2^122 for v4). For p
 
 **Q: Can I use UUIDs in URLs?**
 A: Yes, but ULIDs are shorter and URL-safe. If using v4/v7, encode them without hyphens (32 chars) for shorter URLs.
+
+**Q: Do UUIDs affect database performance?**
+A: UUID v4 causes random B-tree inserts, which hurts write performance on large tables. UUID v7 and ULID are time-ordered, giving performance similar to auto-increment integers.
+
+**Q: Can I combine UUIDs with auto-increment IDs?**
+A: Yes. Use an auto-increment integer as the internal primary key (for clustering/performance) and a UUID as the external-facing identifier (for APIs and URLs). This gives you the best of both worlds.

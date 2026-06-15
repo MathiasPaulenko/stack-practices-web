@@ -175,6 +175,57 @@ git revert HEAD
 - No rollback plan
 - Ignoring pipeline failures
 
+## Environment Management
+
+A well-structured pipeline treats environments as cattle, not pets. Each environment should be created from the same infrastructure code.
+
+### Environment Matrix
+
+| Environment | Purpose | Data | Access |
+|-------------|---------|------|--------|
+| **Local** | Developer iteration | Synthetic / seeded | Developer only |
+| **CI** | Automated testing | Ephemeral test data | CI service account |
+| **Staging** | Pre-production validation | Anonymized production snapshot | Team leads |
+| **Production** | Live users | Real user data | On-call engineers |
+
+### Configuration per Environment
+
+Use environment-specific config files or variables rather than branching pipeline logic:
+
+```bash
+# .env.local
+DATABASE_URL=postgres://localhost/dev_db
+LOG_LEVEL=debug
+
+# .env.staging
+DATABASE_URL=postgres://staging.internal/staging_db
+LOG_LEVEL=info
+
+# .env.production
+DATABASE_URL=postgres://prod.internal/prod_db
+LOG_LEVEL=warn
+```
+
+**Never commit secrets to Git.** Use secret managers (AWS Secrets Manager, HashiCorp Vault, GitHub Secrets) and inject at runtime.
+
+### Database Migrations in CI/CD
+
+Run migrations as a separate pipeline job, not inside the application startup:
+
+1. **Before deploy**: Run migrations against the target environment
+2. **Verify**: Run a health check confirming schema version matches app expectation
+3. **Deploy**: Only proceed if migration succeeds
+4. **Rollback plan**: Have a downgrade script ready for the previous schema version
+
+## Monitoring & Observability
+
+A pipeline without observability is flying blind. Integrate these checks:
+
+- **Synthetic tests** after production deploy (ping critical endpoints)
+- **Error rate baseline**: Compare post-deploy error rate to pre-deploy baseline
+- **Performance regression**: Alert if p95 latency increases > 20%
+- **Smoke tests**: Run a minimal happy-path test immediately after deployment
+
 ## FAQ
 
 **Q: How long should a CI pipeline take?**
@@ -185,3 +236,9 @@ A: Yes, if your tests and monitoring are robust. Otherwise, deploy on merge to m
 
 **Q: What's the difference between Continuous Delivery and Continuous Deployment?**
 A: Continuous Delivery means code is always deployable; a human approves the release. Continuous Deployment means every validated change goes to production automatically.
+
+**Q: How do I handle database schema changes in CI/CD?**
+A: Run migrations before deployment, make changes backward-compatible when possible, and have rollback scripts ready. Never drop columns in the same deploy that stops reading them.
+
+**Q: What should I do when a production deployment fails?**
+A: Follow this order: 1) Alert the on-call team, 2) Assess if rollback is needed, 3) Execute rollback or forward-fix, 4) Document the incident, 5) Run a post-mortem within 48 hours.

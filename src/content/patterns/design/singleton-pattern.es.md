@@ -144,6 +144,24 @@ En entornos multi-hilo (como Java), usa `synchronized` o inicialización eager p
 - **Problemas de serialización**: deserializar puede crear instancias duplicadas a menos que se gestione
 - **Uso incorrecto de herencia**: las subclases pueden romper la garantía de instancia única
 
+## Ejemplos del mundo real
+
+### Pool de conexiones a base de datos
+
+La mayoría de drivers de base de datos (SQLAlchemy, JDBC connection pools) usan un patrón similar a singleton para gestionar un pool fijo de conexiones. Crear una nueva conexión por cada query agotaría el servidor de base de datos.
+
+### Gestor de configuración
+
+Las aplicaciones cargan configuración desde archivos o variables de entorno una sola vez al iniciar. Un gestor de configuración singleton asegura que todos los módulos lean del mismo estado en memoria sin recargar desde disco.
+
+### Capa de caché
+
+Las cachés en memoria (clientes Redis, cachés LRU locales) se comparten típicamente a través de la aplicación. Un singleton garantiza consistencia de caché y evita duplicación de memoria.
+
+### Fábrica de loggers
+
+Los frameworks de logging usan frecuentemente un registro de loggers nombrados que se comportan como singletons. Llamar `Logger.getLogger("my.module")` múltiples veces devuelve la misma instancia.
+
 ## Preguntas frecuentes
 
 **P: ¿Es Singleton un anti-patrón?**
@@ -154,3 +172,9 @@ R: El enfoque `__new__` mostrado arriba es thread-safe en CPython debido al GIL.
 
 **P: ¿Puede un Singleton tener subclases?**
 R: Es posible pero complicado. Cada subclase puede terminar con su propia instancia, lo cual puede o no ser el comportamiento deseado.
+
+**P: ¿Cómo testeo unitariamente código que usa un Singleton?**
+R: Inyecta el singleton como dependencia en lugar de llamarlo directamente, o proporciona un método `reset()` para tests. Alternativamente, usa una fábrica que devuelva el singleton por defecto pero pueda ser mockeada en tests.
+
+**P: ¿Cuáles son alternativas al Singleton?**
+R: Inyección de dependencias, localizadores de servicios, o variables a nivel de módulo en lenguajes que lo soporten (los módulos de Python son singletons naturales). Estos enfoques hacen las dependencias explícitas y más fáciles de testear.

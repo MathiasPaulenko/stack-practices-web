@@ -144,6 +144,24 @@ In multi-threaded environments (like Java), use `synchronized` or eager initiali
 - **Serialization issues**: Deserializing can create duplicate instances unless handled
 - **Inheritance misuse**: Subclasses can break the single-instance guarantee
 
+## Real-World Examples
+
+### Database Connection Pool
+
+Most database drivers (SQLAlchemy, JDBC connection pools) use a singleton-like pattern to manage a fixed pool of connections. Creating a new connection for every query would exhaust the database server.
+
+### Configuration Manager
+
+Applications load configuration from files or environment variables once at startup. A singleton config manager ensures all modules read from the same in-memory state without reloading from disk.
+
+### Cache Layer
+
+In-memory caches (Redis clients, local LRU caches) are typically shared across the application. A singleton guarantees cache consistency and avoids memory duplication.
+
+### Logger Factory
+
+Logging frameworks often use a registry of named loggers that behave as singletons. Retrieving `Logger.getLogger("my.module")` multiple times returns the same instance.
+
 ## Frequently Asked Questions
 
 **Q: Is Singleton an anti-pattern?**
@@ -154,3 +172,9 @@ A: The `__new__` approach shown above is thread-safe in CPython due to the GIL. 
 
 **Q: Can a Singleton have subclasses?**
 A: It is possible but tricky. Each subclass can end up with its own instance, which may or may not be the desired behavior.
+
+**Q: How do I unit test code that uses a Singleton?**
+A: Inject the singleton as a dependency rather than calling it directly, or provide a `reset()` method for tests. Alternatively, use a factory that returns the singleton by default but can be mocked in tests.
+
+**Q: What are alternatives to Singleton?**
+A: Dependency injection, service locators, or module-level variables in languages that support them (Python modules are natural singletons). These approaches make dependencies explicit and easier to test.

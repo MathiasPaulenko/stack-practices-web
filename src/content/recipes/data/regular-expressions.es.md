@@ -133,12 +133,49 @@ if (groupMatcher.find()) {
 ## Patrones comunes
 
 | Patrón | Descripción | Ejemplo |
-|--------|-------------|---------|
-| `\d{3}-\d{2}-\d{4}` | Número de Seguro Social de EE.UU. | 123-45-6789 |
-| `\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b` | Dirección IPv4 | 192.168.1.1 |
-| `https?://[^\s]+` | URL | https://example.com |
-| `^\d{4}-\d{2}-\d{2}$` | Fecha ISO (YYYY-MM-DD) | 2024-03-15 |
-| `^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$` | Email (básico) | user@domain.com |
+| -------- | ------------- | --------- |
+| `\d{3}-\d{2}-\d{4}` | Número de Seguro Social de EE.UU. | `123-45-6789` |
+| `\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b` | Dirección IPv4 | `192.168.1.1` |
+| `https?://[^\s]+` | URL | `https://example.com` |
+| `^\d{4}-\d{2}-\d{2}$` | Fecha ISO (YYYY-MM-DD) | `2024-03-15` |
+| `^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$` | Email (básico) | `user@domain.com` |
+| `^#[0-9A-Fa-f]{6}$` | Código de color hex | `#3B82F6` |
+| `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$` | Contraseña fuerte | `MyP@ssw0rd` |
+| `^\+?[1-9]\d{1,14}$` | Teléfono internacional (E.164) | `+14155552671` |
+| `^[a-zA-Z0-9_-]+$` | Nombre de archivo seguro | `my-file_v2` |
+
+## Consideraciones de rendimiento
+
+### ReDoS (Regular Expression Denial of Service)
+
+Regex mal escritos con cuantificadores anidados pueden causar backtracking catastrófico, consumiendo el 100% de CPU en una sola petición:
+
+```text
+Peligroso: (a+)+$  contra "aaaaaaaaaaaaaaaaaaaaaaaaaaaa!"
+Seguro:    a+$     contra el mismo input
+```
+
+**Estrategias de mitigación:**
+
+- Evita cuantificadores anidados (`(a+)+`, `(a*)*`) siempre que sea posible
+- Usa cuantificadores posesivos (`++`, `*+`) o grupos atómicos si tu motor lo soporta
+- Establece un timeout razonable en operaciones regex en producción
+- Testea con inputs maliciosos durante el desarrollo
+
+### Coste de compilación
+
+La mayoría de motores regex compilan patrones en una representación interna. Recompilar el mismo patrón en un loop es ineficiente:
+
+```python
+# Malo: compila el patrón en cada iteración
+for line in lines:
+    re.search(r'\berror\b', line)
+
+# Bueno: compila una vez y reutiliza
+error_pattern = re.compile(r'\berror\b')
+for line in lines:
+    error_pattern.search(line)
+```
 
 ## Mejores prácticas
 

@@ -151,6 +151,35 @@ public class UserService {
 - Not configuring log rotation, filling up server disks
 - Swallowing exceptions without logging the full stack trace
 
+## Log Aggregation & Monitoring
+
+In production, raw log files are rarely read directly. Instead, logs are shipped to aggregation platforms:
+
+| Platform | Best For | Shipping Method |
+|----------|----------|-----------------|
+| **ELK Stack** | Self-hosted, full control | Filebeat / Logstash |
+| **Datadog** | SaaS, APM integration | Datadog Agent |
+| **AWS CloudWatch** | AWS-native infrastructure | CloudWatch Agent |
+| **Grafana Loki** | Kubernetes, Prometheus stack | Promtail |
+| **Splunk** | Enterprise compliance | Universal Forwarder |
+
+### Alerting Rules
+
+Set up alerts based on log patterns:
+
+- **ERROR rate > 1%** in 5-minute window → PagerDuty / Slack
+- **FATAL log detected** → Immediate on-call alert
+- **Disk usage from logs > 80%** → Infrastructure team notification
+- **No logs from service for 10 minutes** → Health check alert (silent failure)
+
+### Dashboards
+
+Build dashboards that answer these questions:
+- How many requests per minute? (rate)
+- What is the 95th percentile response time? (latency)
+- Which endpoints produce the most errors? (breakdown by route)
+- What is the error trend over the last 24 hours?
+
 ## Frequently Asked Questions
 
 **Q: Should I log every API request?**
@@ -161,3 +190,9 @@ A: Structured logging outputs JSON or key-value pairs instead of plain text. It 
 
 **Q: How do I correlate logs across microservices?**
 A: Generate a `trace_id` at the entry point and propagate it through HTTP headers or message metadata. Include it in every log statement.
+
+**Q: How long should I retain production logs?**
+A: Retain ERROR/FATAL logs for at least 90 days for debugging. INFO logs for 7-30 days depending on volume and cost. Archive to cold storage (S3 Glacier) for compliance if needed.
+
+**Q: Should I log in development the same way as in production?**
+A: Use the same logger configuration but change the output format: human-readable plain text for local dev, structured JSON for production. This prevents "works on my machine" surprises caused by different logging behavior.

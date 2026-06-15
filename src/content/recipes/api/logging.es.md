@@ -151,6 +151,35 @@ public class UserService {
 - No configurar rotación de logs, llenando discos de servidor
 - Tragar excepciones sin loguear el stack trace completo
 
+## Agregación de logs y monitoreo
+
+En producción, los archivos de log en bruto rara vez se leen directamente. En su lugar, los logs se envían a plataformas de agregación:
+
+| Plataforma | Ideal para | Método de envío |
+|------------|------------|-----------------|
+| **ELK Stack** | Self-hosted, control total | Filebeat / Logstash |
+| **Datadog** | SaaS, integración APM | Datadog Agent |
+| **AWS CloudWatch** | Infraestructura AWS nativa | CloudWatch Agent |
+| **Grafana Loki** | Kubernetes, stack Prometheus | Promtail |
+| **Splunk** | Compliance empresarial | Universal Forwarder |
+
+### Reglas de alertas
+
+Configura alertas basadas en patrones de log:
+
+- **Tasa de ERROR > 1%** en ventana de 5 minutos → PagerDuty / Slack
+- **Log FATAL detectado** → Alerta inmediata al on-call
+- **Uso de disco por logs > 80%** → Notificación al equipo de infraestructura
+- **Sin logs del servicio por 10 minutos** → Alerta de health check (fallo silencioso)
+
+### Dashboards
+
+Construye dashboards que respondan estas preguntas:
+- ¿Cuántos requests por minuto? (rate)
+- ¿Cuál es el percentil 95 del tiempo de respuesta? (latencia)
+- ¿Qué endpoints producen más errores? (desglose por ruta)
+- ¿Cuál es la tendencia de errores en las últimas 24 horas?
+
 ## Preguntas frecuentes
 
 **P: ¿Debería loguear cada request de API?**
@@ -161,3 +190,9 @@ R: El structured logging genera JSON o pares clave-valor en lugar de texto plano
 
 **P: ¿Cómo correlaciono logs entre microservicios?**
 R: Genera un `trace_id` en el punto de entrada y propágalo a través de headers HTTP o metadata de mensajes. Inclúyelo en cada statement de log.
+
+**P: ¿Cuánto tiempo debería retener logs de producción?**
+R: Retén logs ERROR/FATAL por al menos 90 días para debugging. Logs INFO por 7-30 días dependiendo del volumen y coste. Archiva a almacenamiento frío (S3 Glacier) para compliance si es necesario.
+
+**P: ¿Debería loguear en desarrollo de la misma forma que en producción?**
+R: Usa la misma configuración de logger pero cambia el formato de salida: texto plano legible para local dev, JSON estructurado para producción. Esto previene sorpresas de "funciona en mi máquina" causadas por comportamiento de logging diferente.

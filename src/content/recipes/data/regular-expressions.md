@@ -139,6 +139,42 @@ if (groupMatcher.find()) {
 | `https?://[^\s]+` | URL | https://example.com |
 | `^\d{4}-\d{2}-\d{2}$` | ISO date (YYYY-MM-DD) | 2024-03-15 |
 | `^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$` | Email (basic) | user@domain.com |
+| `^#[0-9A-Fa-f]{6}$` | Hex color code | #3B82F6 |
+| `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$` | Strong password | MyP@ssw0rd |
+| `^\+?[1-9]\d{1,14}$` | International phone (E.164) | +14155552671 |
+| `^[a-zA-Z0-9_-]+$` | Safe filename (no spaces/special) | my-file_v2 |
+
+## Performance Considerations
+
+### ReDoS (Regular Expression Denial of Service)
+
+Poorly written regex with nested quantifiers can cause catastrophic backtracking, consuming 100% CPU on a single request:
+
+```
+Dangerous:  (a+)+$  against "aaaaaaaaaaaaaaaaaaaaaaaaaaaa!"
+Safe:       a+$      against the same input
+```
+
+**Mitigation strategies:**
+- Avoid nested quantifiers (`(a+)+`, `(a*)*`) whenever possible
+- Use possessive quantifiers (`++`, `*+`) or atomic groups if your engine supports them
+- Set a reasonable timeout on regex operations in production
+- Test with malicious inputs during development
+
+### Compilation Cost
+
+Most regex engines compile patterns into an internal representation. Recompiling the same pattern in a loop is wasteful:
+
+```python
+# Bad: compiles pattern on every iteration
+for line in lines:
+    re.search(r'\berror\b', line)
+
+# Good: compile once and reuse
+error_pattern = re.compile(r'\berror\b')
+for line in lines:
+    error_pattern.search(line)
+```
 
 ## Best Practices
 
