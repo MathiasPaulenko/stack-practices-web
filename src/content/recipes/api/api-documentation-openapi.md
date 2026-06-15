@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/handle-errors
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Create API documentation with OpenAPI and Swagger. Generate interactive docs from specs in Python, JavaScript, and Java with examples and best practices."
   keywords:

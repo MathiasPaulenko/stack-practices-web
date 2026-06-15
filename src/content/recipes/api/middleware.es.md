@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/jwt-authentication
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de middleware en Python, JavaScript y Java. Aprende interceptores de request, logging, auth y manejo de errores."
   keywords:

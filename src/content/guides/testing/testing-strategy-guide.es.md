@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api/input-validation
   - /recipes/github-actions
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a construir una estrategia de testing con unit tests, integration tests y E2E tests. Cubre pirámide de testing, mocking, integración CI y metas de coverage."
   keywords:

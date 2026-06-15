@@ -20,7 +20,7 @@ relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /guides/devops/monitoring-alerting-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Post-deployment verification checklist: health checks, smoke tests, metric validation, and rollback readiness before declaring a deployment successful."
   keywords:

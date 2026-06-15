@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/singleton-pattern
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende adapter pattern para integrar interfaces incompatibles. Puentea APIs legacy y librerías de terceros usando object y class adapters en Java, TypeScript y Python."
   keywords:

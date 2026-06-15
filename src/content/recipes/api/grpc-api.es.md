@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa una API gRPC con Protocol Buffers. Construye servicios de alto rendimiento en Python, Node.js y Java con streaming e interceptores."
   keywords:

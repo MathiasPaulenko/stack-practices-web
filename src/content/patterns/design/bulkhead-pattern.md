@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/retry-pattern
   - /patterns/design/timeout-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Bulkhead Pattern in Python, Java, and JavaScript. Resilience pattern for isolating failing components and preventing cascading failures."
   keywords:

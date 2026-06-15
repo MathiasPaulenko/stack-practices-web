@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to resize and optimize images in Python, JavaScript, and Java. Covers compression, responsive images, WebP, and lazy loading."
   keywords:

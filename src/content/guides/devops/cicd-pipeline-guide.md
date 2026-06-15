@@ -21,7 +21,7 @@ relatedResources:
   - /guides/testing/testing-strategy-guide
   - /docs/templates/runbook-template
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn how to build robust CI/CD pipelines: GitHub Actions workflows, automated testing, deployment strategies, and production rollbacks."
   keywords:

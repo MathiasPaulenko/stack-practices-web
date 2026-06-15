@@ -21,7 +21,7 @@ relatedResources:
   - /guides/databases/database-sharding-partitioning-guide
   - /guides/architecture/microservices-architecture-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía del teorema CAP: consistencia, disponibilidad, tolerancia a particiones. Elige los trade-offs correctos de base de datos para tus requerimientos."
   keywords:

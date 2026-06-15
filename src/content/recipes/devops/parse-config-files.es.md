@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/environment-variables
   - /recipes/health-check-endpoint
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a analizar y validar archivos de configuración YAML y JSON en Python, JavaScript y Java. Cubre validación de esquemas, configs por entorno y gestión de secretos."
   keywords:

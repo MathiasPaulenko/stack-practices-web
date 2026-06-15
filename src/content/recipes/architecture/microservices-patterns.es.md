@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/load-balancing
   - /recipes/service-mesh
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende patrones de microservicios para sistemas resilientes. Implementa circuit breakers, bulkheads, retries con backoff y sagas tolerantes a fallos."
   keywords:

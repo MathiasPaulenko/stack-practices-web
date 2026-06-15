@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/docker-basics
   - /recipes/environment-variables
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical GitHub Actions examples for CI/CD. Learn workflow syntax, build matrices, caching, secrets, and reusable workflows."
   keywords:

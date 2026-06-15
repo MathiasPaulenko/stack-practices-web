@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/data/sort-array
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Strategy con ejemplos prácticos en Python, Java y JavaScript. Patrón conductual para algoritmos intercambiables."
   keywords:

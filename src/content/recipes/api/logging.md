@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/middleware
   - /recipes/environment-variables
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical logging examples in Python, JavaScript, and Java. Learn structured logging, log levels, rotation, and production observability patterns."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /guides/databases/database-sharding-partitioning-guide
   - /docs/templates/disaster-recovery-plan-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Database migration runbook template: execute schema changes safely with rollback procedures, verification steps, and communication plans."
   keywords:

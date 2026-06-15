@@ -21,7 +21,7 @@ relatedResources:
   - /guides/architecture/domain-driven-design-guide
   - /guides/design/solid-principles-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Migración de monolito a microservicios: strangler fig, branch by abstraction, extracción incremental. Descompón de forma segura sin detener el negocio."
   keywords:

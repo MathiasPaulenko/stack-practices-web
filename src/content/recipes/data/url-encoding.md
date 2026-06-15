@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/regular-expressions
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical URL encoding examples in Python, JavaScript, and Java. Learn percent-encoding, query string building, URI parsing, and safe parameter handling."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/on-call-incident-response-guide
   - /docs/templates/incident-postmortem-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de respuesta a incidentes de seguridad: documenta brechas, contiene amenazas y comunica durante eventos de seguridad. Reduce impacto y tiempo de recuperación."
   keywords:

@@ -20,7 +20,7 @@ relatedResources:
   - /guides/devops/kubernetes-basics-guide
   - /recipes/devops/generate-sitemaps
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía completa de Docker para desarrolladores. Aprende imágenes, contenedores, Dockerfiles, redes, volúmenes y Docker Compose para flujos de desarrollo local."
   keywords:

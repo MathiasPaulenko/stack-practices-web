@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/adapter-pattern
   - /patterns/builder-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a implementar soft deletes en Python, JavaScript y Java. Cubre columnas de flag, consultas filtradas y estrategias de eliminación permanente."
   keywords:

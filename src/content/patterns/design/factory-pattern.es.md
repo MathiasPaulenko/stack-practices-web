@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/data/parse-json
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Factory Pattern con ejemplos prácticos en Python, Java y JavaScript. Patrón creacional para la creación flexible de objetos."
   keywords:

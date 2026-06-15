@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/rag-pipeline
   - /recipes/semantic-search
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to build autonomous AI agents. Design agents that plan, execute tools, and iterate using ReAct, function calling, and memory architectures."
   keywords:

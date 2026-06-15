@@ -21,7 +21,7 @@ relatedResources:
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Handle database deadlocks and retries with automatic retry logic, isolation levels, and query ordering. Examples in PostgreSQL, MySQL, and SQL Server."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/debounce-throttle
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Set up connection pooling for PostgreSQL, MySQL, Redis, and HTTP clients. Improve throughput, reduce latency, and prevent connection exhaustion."
   keywords:

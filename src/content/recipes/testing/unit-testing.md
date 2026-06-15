@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/sort-array
   - /guides/testing/testing-strategy-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical unit testing examples using pytest, Jest, and JUnit. Learn to structure tests, use mocks, and keep suites fast and maintainable."
   keywords:

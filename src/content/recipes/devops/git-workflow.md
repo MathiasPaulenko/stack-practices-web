@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/unit-testing
   - /recipes/github-actions
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn a practical Git branching workflow for teams. Feature branches, pull requests, rebasing, and keeping a clean commit history."
   keywords:

@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/middleware
   - /recipes/file-upload-validation
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to implement TOTP-based 2FA in Python, JavaScript, and Java. Covers QR code generation, secret storage, verification, and backup codes."
   keywords:

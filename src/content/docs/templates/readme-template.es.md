@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/devops/git-workflow
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla README lista para producción para documentar proyectos de software con secciones de instalación, uso, contribución y licencia."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/database-transactions
   - /patterns/repository-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn database design principles: normalization forms, primary and foreign keys, indexing strategies, and relationship modeling for scalable applications."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/state-pattern
   - /patterns/design/prototype-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Memento Pattern in Python, Java, and JavaScript. Behavioral design pattern for state snapshots and undo functionality."
   keywords:

@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/regular-expressions
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende operaciones flatten y unflatten en Python, JavaScript y Java. Cubre notación por puntos, anidamiento profundo, manejo de arrays y conversión round-trip."
   keywords:

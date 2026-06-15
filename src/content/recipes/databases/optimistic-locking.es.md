@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/sql-joins
   - /guides/sql-performance-tuning-guide
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa optimistic locking con versionado para prevenir actualizaciones perdidas. Usa versionado de filas en PostgreSQL, MySQL y JPA/Hibernate con ejemplos."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /guides/system-design-interview-guide
   - /guides/software-architecture-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye un pipeline RAG con LangChain, OpenAI y bases de datos vectoriales. Fragmenta documentos, genera embeddings y recupera contexto para respuestas de LLM."
   keywords:

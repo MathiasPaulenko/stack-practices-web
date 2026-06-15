@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/caching
   - /patterns/design/singleton-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical UUID generation examples in Python, JavaScript, and Java. Learn UUID v4, v7, ULID, and when to use each for database keys and distributed systems."
   keywords:

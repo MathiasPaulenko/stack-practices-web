@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/design/singleton-pattern
   - /patterns/design/decorator-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Builder Pattern with practical examples in Python, Java, and JavaScript. Creational design pattern for step-by-step object construction."
   keywords:

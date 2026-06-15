@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /guides/system-design-interview-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Crea un chatbot de IA con la OpenAI Assistants API. Maneja conversaciones, function calling, recuperación de archivos y gestión de threads con ejemplos."
   keywords:

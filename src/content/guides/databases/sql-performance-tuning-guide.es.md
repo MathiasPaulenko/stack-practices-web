@@ -21,7 +21,7 @@ relatedResources:
   - /guides/performance/performance-optimization-guide
   - /recipes/api/pagination
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de optimización SQL: estrategias de indexación, reescritura de queries, EXPLAIN plans y anti-patrones. Optimiza consultas lentas en PostgreSQL, MySQL y SQL Server."
   keywords:

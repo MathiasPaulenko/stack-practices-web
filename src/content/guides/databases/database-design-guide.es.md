@@ -21,7 +21,7 @@ relatedResources:
   - /es/recipes/database-transactions
   - /es/patterns/repository-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende principios de diseño de bases de datos: formas normales, claves primarias y foráneas, estrategias de indexación y modelado de relaciones."
   keywords:

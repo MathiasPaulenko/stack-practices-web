@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/unit-testing-mocking
   - /recipes/api-contract-testing
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn hexagonal architecture for maintainable apps. Use ports and adapters to isolate business logic from frameworks, databases, and external services."
   keywords:

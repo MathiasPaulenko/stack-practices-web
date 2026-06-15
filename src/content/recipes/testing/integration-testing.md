@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/call-rest-api
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn integration testing with real dependencies. Test API endpoints, database layers, and service interactions in Python, JavaScript, and Java."
   keywords:

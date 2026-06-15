@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/read-write-file
   - /recipes/api/pagination
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende JOINs en SQL con ejemplos prácticos. INNER, LEFT, RIGHT y FULL OUTER JOIN explicados con consultas reales y tips de rendimiento."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/adapter-pattern
   - /patterns/design/factory-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Proxy Pattern with practical examples in Python, Java, and JavaScript. Structural design pattern for access control, caching, and lazy loading."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /guides/databases/nosql-database-selection-guide
   - /guides/architecture/system-design-interview-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Database sharding and partitioning strategies: range, hash, and list sharding. Scale databases horizontally without downtime or hotspots."
   keywords:

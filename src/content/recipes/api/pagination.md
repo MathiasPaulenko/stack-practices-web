@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/sql-joins
   - /recipes/handle-errors
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical pagination examples in Python, JavaScript, and SQL. Learn offset vs cursor pagination, LIMIT/OFFSET, and cursor-based APIs for scalable data fetching."
   keywords:

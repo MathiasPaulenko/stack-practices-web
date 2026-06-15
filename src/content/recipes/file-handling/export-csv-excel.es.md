@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/read-write-file
   - /patterns/abstract-factory-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a exportar datos a CSV y Excel en Python, JavaScript y Java. Cubre pandas, xlsx, Apache POI y streaming de datasets grandes."
   keywords:

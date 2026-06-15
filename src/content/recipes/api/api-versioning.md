@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/logging
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn API versioning strategies for REST and GraphQL in Python, JavaScript, and Java. Covers URL, header, and media-type versioning with migration patterns."
   keywords:

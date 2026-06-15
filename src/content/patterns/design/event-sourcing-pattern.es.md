@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/saga-pattern
   - /patterns/design/observer-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Event Sourcing en Python, Java y JavaScript. Patrón arquitectónico para gestión de estado audit-friendly mediante streams de eventos."
   keywords:

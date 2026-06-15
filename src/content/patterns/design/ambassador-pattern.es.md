@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/proxy-pattern
   - /patterns/design/circuit-breaker-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Ambassador en Python, Java y JavaScript. Proxy del lado del cliente con reintentos, circuit breaking y descubrimiento."
   keywords:

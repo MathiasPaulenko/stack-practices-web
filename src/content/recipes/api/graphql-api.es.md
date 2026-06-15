@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/idempotent-api-endpoints
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye una API GraphQL en Python (Strawberry), JavaScript (Apollo) y Java. Schemas tipados, resolvers, mutaciones y suscripciones con ejemplos prácticos."
   keywords:

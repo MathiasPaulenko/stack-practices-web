@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/import-csv-excel
   - /recipes/image-optimization
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn stream processing for large files. Read, transform, and write files efficiently without loading them into memory using Python, Node.js, and Java streams."
   keywords:

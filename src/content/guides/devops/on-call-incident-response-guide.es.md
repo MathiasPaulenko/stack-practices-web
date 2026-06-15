@@ -19,7 +19,7 @@ relatedResources:
   - /guides/security/web-application-security-guide
   - /guides/devops/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Playbook de guardias e incidentes: triage, escalamiento, comunicación, postmortems. Reduce MTTR y construye una cultura de respuesta a incidentes resiliente."
   keywords:

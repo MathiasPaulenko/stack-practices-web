@@ -20,7 +20,7 @@ relatedResources:
   - /guides/devops/kubernetes-basics-guide
   - /patterns/design/cache-aside-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios. Aprende a estructurar respuestas para entrevistas técnicas."
   keywords:

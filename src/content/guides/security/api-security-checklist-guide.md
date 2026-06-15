@@ -21,7 +21,7 @@ relatedResources:
   - /guides/security/web-application-security-guide
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "API security checklist: authentication, authorization, rate limiting, encryption, input validation, logging. Secure REST and GraphQL APIs step by step."
   keywords:

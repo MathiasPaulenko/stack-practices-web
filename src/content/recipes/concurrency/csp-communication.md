@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/async-patterns
   - /recipes/concurrent-data-structures
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn CSP for concurrent task coordination. Use channels, select statements, and goroutines to communicate safely without shared mutable state in Go, Rust, and JS."
   keywords:

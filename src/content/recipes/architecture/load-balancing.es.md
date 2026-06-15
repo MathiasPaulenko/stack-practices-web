@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/cdn-edge-caching
   - /recipes/connection-pooling
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende algoritmos de load balancing para distribuir tráfico. Usa round-robin, least-connections, weighted y consistent hashing con health checks y failover."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/csrf-protection
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn encryption at rest for databases and storage. Encrypt sensitive data using AES-256-GCM, envelope encryption, and key management services before storing."
   keywords:

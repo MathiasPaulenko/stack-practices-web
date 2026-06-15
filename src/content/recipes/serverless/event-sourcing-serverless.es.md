@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/serverless-orchestration
   - /recipes/event-driven-architecture
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende event sourcing en arquitecturas serverless. Captura cambios como eventos inmutables usando Lambda, DynamoDB streams y event stores para audit trails."
   keywords:

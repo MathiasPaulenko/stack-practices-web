@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a generar PDFs en Python, JavaScript y Java. Incluye HTML-to-PDF, plantillas, headers, footers y firmas digitales."
   keywords:

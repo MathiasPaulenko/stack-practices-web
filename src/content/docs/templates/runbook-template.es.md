@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/devops/github-actions
   - /guides/testing/testing-strategy-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa esta plantilla de runbook para documentar procedimientos operacionales, playbooks de respuesta a incidentes y tareas de mantenimiento rutinarias."
   keywords:

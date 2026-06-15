@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/on-call-incident-response-guide
   - /docs/templates/feature-request-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de reporte de bugs con pasos de reproducción, comportamiento esperado vs actual, detalles de entorno y severidad. Ayuda a tu equipo a arreglar bugs más rápido."
   keywords:

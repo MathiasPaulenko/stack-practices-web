@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/docker-compose
   - /recipes/api-security-headers
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende gestión de secretos. Almacena, rota e inyecta API keys y contraseñas de forma segura sin hardcodearlas en código fuente."
   keywords:

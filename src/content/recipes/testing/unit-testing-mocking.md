@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/integration-testing
   - /recipes/load-testing
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn unit testing with mocks and stubs. Isolate code under test by replacing external dependencies like databases, APIs, and file systems for reliable tests."
   keywords:

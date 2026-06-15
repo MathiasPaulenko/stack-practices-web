@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/api/pagination
   - /patterns/design/repository-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical database transaction examples in Python, JavaScript, and Java. Learn ACID, BEGIN/COMMIT/ROLLBACK, and isolation levels."
   keywords:

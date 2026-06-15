@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/semantic-search
   - /recipes/chatbot-openai
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn AI image generation with DALL-E, Stable Diffusion, and Midjourney. Create, edit, and optimize images using prompt engineering, batch processing, and moderation."
   keywords:

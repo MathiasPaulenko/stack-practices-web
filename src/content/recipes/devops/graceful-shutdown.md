@@ -21,7 +21,7 @@ relatedResources:
   - /guides/docker-for-developers-guide
   - /guides/kubernetes-basics-guide
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement graceful shutdown and zero-downtime restarts for web servers and containers. Handle SIGTERM, drain connections, and reload safely."
   keywords:

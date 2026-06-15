@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/jwt-authentication
   - /recipes/password-hashing
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de variables de entorno en Python, JavaScript y Java. Aprende dotenv, process.env, System.getenv y configuración 12-factor app."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /guides/system-design-interview-guide
   - /guides/logging-monitoring-observability-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement CDN edge caching with cache rules, invalidation, and geo-optimization. Configure CloudFront, Cloudflare, and Fastly for static and dynamic content."
   keywords:

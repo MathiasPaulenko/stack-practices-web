@@ -20,7 +20,7 @@ relatedResources:
   - /guides/devops/infrastructure-as-code-guide
   - /guides/devops/docker-for-developers-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de estrategias de deploy: blue-green, canary, rolling y feature flags. Minimiza riesgo y tiempo de rollback al liberar a producción de forma segura."
   keywords:

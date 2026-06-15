@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/sql-joins
   - /recipes/connection-pooling
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende optimización de queries de base de datos. Usa EXPLAIN, refactoriza queries y aplica técnicas para corregir SQL lento y mejorar rendimiento."
   keywords:

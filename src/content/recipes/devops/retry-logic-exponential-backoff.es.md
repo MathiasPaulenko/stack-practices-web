@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/feature-flags
   - /recipes/health-check-endpoint
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende retry con backoff exponencial en Python, JavaScript y Java. Cubre jitter, circuit breakers, max retries e idempotencia para sistemas resilientes."
   keywords:

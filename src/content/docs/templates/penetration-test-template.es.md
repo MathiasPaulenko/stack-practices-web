@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/security-incident-response-template
   - /docs/templates/bug-report-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de reporte de penetration test: documenta hallazgos, ratings de riesgo, pasos de reproducción y guía de remediación para evaluaciones de seguridad."
   keywords:

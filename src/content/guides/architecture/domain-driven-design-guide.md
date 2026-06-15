@@ -22,7 +22,7 @@ relatedResources:
   - /guides/design/design-patterns-guide
   - /patterns/design/repository-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Domain-Driven Design guide: bounded contexts, entities, value objects, aggregates, and repositories. Practical DDD for complex business domains."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /guides/design/code-review-best-practices-guide
   - /guides/testing/testing-strategy-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de código limpio: nombres significativos, funciones cortas, DRY, comentarios, manejo de errores. Escribe software mantenible."
   keywords:

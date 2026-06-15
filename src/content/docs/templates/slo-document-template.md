@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/monitoring-alerting-guide
   - /docs/templates/incident-postmortem-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "SLO document template: define reliability targets, error budgets, and escalation policies for services. Build an SRE culture with measurable commitments."
   keywords:

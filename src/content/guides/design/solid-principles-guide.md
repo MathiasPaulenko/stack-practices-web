@@ -19,7 +19,7 @@ relatedResources:
   - /guides/design/design-patterns-guide
   - /guides/architecture/domain-driven-design-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "SOLID principles guide with practical examples: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/release-notes-template
   - /guides/architecture/microservices-architecture-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "API deprecation notice template: communicate endpoint and field deprecations with timelines, migration paths, and clear sunset dates."
   keywords:

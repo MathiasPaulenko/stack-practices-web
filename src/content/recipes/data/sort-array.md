@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/unit-testing
   - /recipes/date-formatting
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical array sorting examples in Python, JavaScript, and Java. Learn ascending, descending, and custom comparator patterns."
   keywords:

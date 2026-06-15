@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/rate-limiting
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn serverless API development with API Gateway and Lambda. Design REST APIs, handle routing, authentication, and deployment with infrastructure as code."
   keywords:

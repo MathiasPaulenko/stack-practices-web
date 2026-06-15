@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/cron-jobs
   - /patterns/abstract-factory-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to build CLI tools in Python, JavaScript, and Java. Covers argparse, commander.js, picocli, subcommands, flags, and validation."
   keywords:

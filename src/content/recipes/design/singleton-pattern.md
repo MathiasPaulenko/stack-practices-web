@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/unit-testing-mocking
   - /recipes/locks-and-mutexes
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn singleton pattern for single instances. Use lazy initialization, thread-safe creation, and registry-based singletons to ensure one instance per app."
   keywords:

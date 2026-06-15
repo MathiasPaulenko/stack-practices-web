@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/on-call-incident-response-guide
   - /docs/templates/feature-request-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Bug report template with reproduction steps, expected vs actual behavior, environment details, and severity. Help your team fix bugs faster."
   keywords:

@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/design/factory-pattern
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Singleton Pattern with practical examples in Python, Java, and JavaScript. Creational design pattern for single-instance control."
   keywords:

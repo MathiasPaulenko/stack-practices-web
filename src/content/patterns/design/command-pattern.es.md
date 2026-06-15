@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/strategy-pattern
   - /recipes/testing/unit-testing
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Command con ejemplos prácticos en Python, Java y JavaScript. Patrón conductual para encapsular peticiones como objetos."
   keywords:

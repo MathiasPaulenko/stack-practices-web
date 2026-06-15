@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/component-testing
   - /recipes/storybook
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende visual regression testing para web apps. Detecta cambios visuales no intencionales con comparación de screenshots, baselines y Chromatic, Percy."
   keywords:

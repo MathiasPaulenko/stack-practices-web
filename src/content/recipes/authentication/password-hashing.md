@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/handle-errors
   - /patterns/design/singleton-pattern
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical password hashing examples in Python, JavaScript, and Java. Use bcrypt, argon2, and PBKDF2 with salt to store passwords securely."
   keywords:

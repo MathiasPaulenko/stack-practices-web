@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/microservices-patterns
   - /recipes/docker-basics
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn integration testing strategies for reliable systems. Verify component interactions with test containers, API contracts, and consumer-driven contract testing."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/chain-of-responsibility-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Iterator Pattern in Python, Java, and JavaScript. Behavioral design pattern for sequential traversal of collections."
   keywords:

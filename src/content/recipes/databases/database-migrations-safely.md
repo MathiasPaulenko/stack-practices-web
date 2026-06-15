@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/uuid-generation
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn safe database migration strategies for PostgreSQL, MySQL, and SQLite. Covers zero-downtime deploys, backward-compatible changes, and rollback plans."
   keywords:

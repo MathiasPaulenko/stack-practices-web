@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /guides/system-design-interview-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Fine-tune LLMs for code generation with LoRA and QLoRA. Use Hugging Face, custom datasets, and parameter-efficient training for domain-specific models."
   keywords:

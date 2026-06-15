@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/api/call-rest-api
   - /recipes/api/handle-errors
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this API documentation template to document endpoints, request/response schemas, error codes, and authentication for REST and GraphQL APIs."
   keywords:

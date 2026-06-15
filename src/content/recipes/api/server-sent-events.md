@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/idempotent-api-endpoints
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn Server-Sent Events in Python, JavaScript, and Java. Covers SSE protocol, event streaming, reconnection handling, and broadcasting to multiple clients."
   keywords:

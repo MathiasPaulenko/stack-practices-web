@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/regular-expressions
   - /recipes/read-write-file
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn secure file upload validation: size limits, MIME type checking, content scanning, and virus detection. Code examples in Python, JavaScript, and Java."
   keywords:

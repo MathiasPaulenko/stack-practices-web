@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/sort-array
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical regular expression examples in Python, JavaScript, and Java. Learn pattern matching, validation, groups, and common regex patterns for developers."
   keywords:

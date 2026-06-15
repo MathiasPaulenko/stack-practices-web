@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/microservices-patterns
   - /recipes/database-transactions
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn lock coordination for concurrent programs. Prevent race conditions using mutexes, read-write locks, semaphores, and atomic operations in Java, Python, C++."
   keywords:

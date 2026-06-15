@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/observer-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Circuit Breaker Pattern in Python, Java, and JavaScript. Architectural pattern for resilient microservices and fault tolerance."
   keywords:

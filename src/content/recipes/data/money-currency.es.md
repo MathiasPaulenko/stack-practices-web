@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/regular-expressions
   - /recipes/sort-array
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a manejar dinero y moneda en Python, JavaScript y Java. Cubre aritmética decimal, formateo, tasas de cambio y errores comunes con punto flotante."
   keywords:

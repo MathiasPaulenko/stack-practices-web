@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/input-validation
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn CORS configuration in Python, JavaScript, and Java. Covers preflight requests, credentials, allowed origins, and common CORS security mistakes."
   keywords:

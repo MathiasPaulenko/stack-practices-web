@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/strategy-pattern
   - /patterns/design/command-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Interpreter Pattern in Python, Java, and JavaScript. Behavioral design pattern for parsing and evaluating mini-languages."
   keywords:

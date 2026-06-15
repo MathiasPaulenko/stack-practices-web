@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/unit-testing-mocking
   - /recipes/locks-and-mutexes
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende singleton pattern para instancias únicas. Usa inicialización perezosa, creación thread-safe y singletons basados en registro para asegurar una instancia por app."
   keywords:

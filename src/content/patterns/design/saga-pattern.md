@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/circuit-breaker-pattern
   - /patterns/design/retry-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Saga Pattern in Python, Java, and JavaScript. Microservices pattern for distributed transactions with compensating actions."
   keywords:

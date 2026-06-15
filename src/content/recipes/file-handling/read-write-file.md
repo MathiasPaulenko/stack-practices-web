@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/regular-expressions
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn how to read and write files in Python, JavaScript, and Bash with practical examples, encoding tips, and error handling best practices."
   keywords:

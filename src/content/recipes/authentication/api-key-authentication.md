@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/secret-management
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn API key authentication for services. Generate, validate, and rotate API keys using HMAC signatures, scopes, and rate-limited policies for machine-to-machine auth."
   keywords:

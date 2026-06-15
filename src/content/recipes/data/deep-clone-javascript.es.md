@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/regular-expressions
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende deep cloning en JavaScript con structuredClone, lodash, recursión manual y JSON.parse. Cubre referencias circulares, typed arrays y mejores prácticas."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/csrf-protection
   - /recipes/api-contract-testing
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende estrategias de rate limiting para APIs. Protege endpoints del abuso usando token bucket, sliding window y fixed window con Redis y memoria."
   keywords:

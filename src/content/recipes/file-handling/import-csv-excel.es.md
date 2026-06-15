@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/image-optimization
   - /recipes/input-validation
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a importar datos desde CSV y Excel en Python, JavaScript y Java. Cubre pandas, csv-parser, Apache POI y estrategias de validación."
   keywords:

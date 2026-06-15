@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/password-hashing
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de autenticación JWT en Python, JavaScript y Java. Aprende a firmar, verificar y refrescar tokens de forma segura."
   keywords:

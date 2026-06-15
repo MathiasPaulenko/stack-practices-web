@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/user-story-template
   - /guides/design/clean-code-principles-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de solicitud de features con user story, criterios de aceptación y prioridad. Ayuda a tu equipo a evaluar y construir las features correctas más rápido."
   keywords:

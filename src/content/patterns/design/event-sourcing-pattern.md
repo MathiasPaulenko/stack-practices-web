@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/saga-pattern
   - /patterns/design/observer-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Event Sourcing Pattern in Python, Java, and JavaScript. Architectural pattern for audit-friendly state management via event streams."
   keywords:

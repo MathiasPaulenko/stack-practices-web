@@ -20,7 +20,7 @@ relatedResources:
   - /guides/api/rest-api-design-guide
   - /patterns/design/mvc-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Architecture Decision Record template for documenting software decisions with context, options, outcomes, and consequences in a structured format."
   keywords:

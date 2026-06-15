@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/databases/sql-joins
   - /patterns/design/factory-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Repository Pattern with practical examples in Python, Java, and JavaScript. Architectural pattern for clean, testable data access."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/jwt-authentication
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn API gateway design for microservices. Route requests, handle auth, rate limiting, caching, and protocol translation between clients and backend services."
   keywords:

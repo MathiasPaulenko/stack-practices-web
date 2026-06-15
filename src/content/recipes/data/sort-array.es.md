@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/unit-testing
   - /recipes/date-formatting
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de ordenamiento de arrays en Python, JavaScript y Java. Aprende orden ascendente, descendente y comparadores personalizados."
   keywords:

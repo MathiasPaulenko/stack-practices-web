@@ -21,7 +21,7 @@ relatedResources:
   - /guides/architecture/domain-driven-design-guide
   - /guides/devops/docker-for-developers-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Event-driven architecture guide: events vs commands, message brokers, CQRS, Saga pattern. Learn when to use queues, topics, and streams in distributed systems."
   keywords:

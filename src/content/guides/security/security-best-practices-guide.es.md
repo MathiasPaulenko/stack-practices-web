@@ -22,7 +22,7 @@ relatedResources:
   - /es/recipes/jwt-authentication
   - /es/recipes/input-validation
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende prácticas esenciales de seguridad: autenticación, validación de inputs, gestión de secretos y prevención de vulnerabilidades OWASP."
   keywords:

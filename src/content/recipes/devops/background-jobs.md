@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/command-pattern
   - /patterns/abstract-factory-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to schedule background jobs in Python, JavaScript, and Java. Covers cron, Celery, BullMQ, and ScheduledExecutorService."
   keywords:

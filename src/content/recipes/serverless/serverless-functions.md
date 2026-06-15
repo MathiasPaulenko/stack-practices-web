@@ -19,7 +19,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /patterns/observer-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Build serverless functions with AWS Lambda, Cloud Functions, and Azure. Event-driven triggers, cold start optimization, and deployment strategies with examples."
   keywords:

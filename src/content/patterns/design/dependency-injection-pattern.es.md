@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/singleton-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Dependency Injection en Python, Java y JavaScript. Patrón arquitectural para código desacoplado, testeable y mantenible."
   keywords:

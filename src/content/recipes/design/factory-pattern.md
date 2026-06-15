@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/unit-testing-mocking
   - /recipes/api-gateway
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn factory pattern for flexible object creation. Use factory methods, abstract factories, and DI containers to decouple creation from usage and improve testability."
   keywords:

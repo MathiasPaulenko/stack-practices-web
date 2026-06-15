@@ -23,7 +23,7 @@ relatedResources:
   - /guides/api/rest-api-design-guide
   - /guides/devops/cicd-pipeline-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn software architecture fundamentals: monolith vs microservices, layered architecture, data flow patterns, CQRS, event-driven design, and technology selection."
   keywords:

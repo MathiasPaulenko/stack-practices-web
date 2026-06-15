@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/regular-expressions
   - /recipes/read-write-file
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende validación segura de subidas de archivos: límites de tamaño, verificación de tipo MIME, magic bytes y detección de virus. Ejemplos en Python, JavaScript y Java."
   keywords:

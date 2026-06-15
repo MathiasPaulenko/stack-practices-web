@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/devops/git-workflow
   - /guides/testing/testing-strategy-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa esta plantilla de guía de contribución para configurar flujos de pull request, estándares de código y onboarding de contribuidores."
   keywords:

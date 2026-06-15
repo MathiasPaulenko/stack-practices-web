@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /guides/event-driven-architecture-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Create an AI chatbot with OpenAI Assistants API. Handle conversations, function calling, file retrieval, and thread management with examples."
   keywords:

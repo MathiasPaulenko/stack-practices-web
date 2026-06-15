@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/docker-compose
   - /recipes/api-security-headers
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn secret management for applications. Store, rotate, and inject API keys, database passwords, and certificates securely without hardcoding in source code."
   keywords:

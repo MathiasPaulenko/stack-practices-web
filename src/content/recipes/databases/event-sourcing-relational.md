@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/event-sourcing-pattern
   - /docs/database-migration-runbook-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement event sourcing in a relational database. Event stores, projections, and snapshotting patterns with PostgreSQL, MySQL, and SQL Server examples."
   keywords:

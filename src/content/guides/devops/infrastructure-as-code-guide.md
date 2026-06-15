@@ -20,7 +20,7 @@ relatedResources:
   - /guides/devops/docker-for-developers-guide
   - /guides/devops/kubernetes-basics-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Infrastructure as Code guide: Terraform and Pulumi, declarative vs imperative, state management, modules, and testing infrastructure changes safely."
   keywords:

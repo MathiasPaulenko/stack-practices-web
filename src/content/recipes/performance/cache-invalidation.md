@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/connection-pooling
   - /recipes/cdn-edge-caching
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn cache invalidation strategies. Keep caches consistent with TTL, write-through, write-behind, and event-driven invalidation patterns for distributed systems."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/api/input-validation
   - /recipes/caching
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de rate limiting en Python, JavaScript y Java. Aprende token bucket, sliding window y fixed window para throttling de APIs."
   keywords:

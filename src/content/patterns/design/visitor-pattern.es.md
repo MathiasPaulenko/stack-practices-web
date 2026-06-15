@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/iterator-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Visitor en Python, Java y JavaScript. Patrón de comportamiento para agregar operaciones a estructuras de objetos."
   keywords:

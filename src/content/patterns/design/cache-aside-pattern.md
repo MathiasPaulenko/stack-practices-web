@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/circuit-breaker-pattern
   - /patterns/design/singleton-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Cache-Aside Pattern in Python, Java, and JavaScript. Caching pattern for read-through data with application-managed cache logic."
   keywords:

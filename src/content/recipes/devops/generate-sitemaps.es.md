@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/feature-flags
   - /recipes/health-check-endpoint
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende generación dinámica de sitemaps en Python, JavaScript y Java. Cubre estructura XML, paginación de URLs, fechas lastmod y soporte hreflang multi-idioma para SEO."
   keywords:

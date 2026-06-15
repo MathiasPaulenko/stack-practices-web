@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/cron-jobs
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical date formatting examples in Python, JavaScript, and Java. Learn ISO 8601, timezone handling, and locale formatting."
   keywords:

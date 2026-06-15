@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/design/saga-pattern
   - /patterns/design/cache-aside-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón CQRS en Python, Java y JavaScript. Patrón arquitectónico que separa modelos de lectura y escritura para rendimiento y escalabilidad."
   keywords:

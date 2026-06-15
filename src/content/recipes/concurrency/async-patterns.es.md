@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/event-driven-functions
   - /recipes/load-testing
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende patrones async para programación concurrente. Domina async/await, promises, futures y coroutines en JavaScript, Python y Java para I/O no bloqueante."
   keywords:

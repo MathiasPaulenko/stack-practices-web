@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/caching-redis
   - /patterns/abstract-factory-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn debounce and throttle patterns in Python, JavaScript, and Java. Covers leading/trailing edge, rate limiting, and event handler optimization."
   keywords:

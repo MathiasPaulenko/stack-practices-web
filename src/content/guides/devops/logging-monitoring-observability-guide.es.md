@@ -22,7 +22,7 @@ relatedResources:
   - /es/guides/cicd-pipeline-guide
   - /es/recipes/logging
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende prácticas de observabilidad: logging estructurado, recolección de métricas, alerting y tracing distribuido para sistemas en producción."
   keywords:

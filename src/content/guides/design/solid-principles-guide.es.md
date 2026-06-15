@@ -19,7 +19,7 @@ relatedResources:
   - /guides/design/design-patterns-guide
   - /guides/architecture/domain-driven-design-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de principios SOLID con ejemplos prácticos: Responsabilidad Única, Abierto/Cerrado, Sustitución de Liskov, Segregación de Interfaces, Inversión de Dependencias."
   keywords:

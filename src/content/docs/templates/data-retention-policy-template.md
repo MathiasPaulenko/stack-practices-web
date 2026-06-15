@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/security-incident-response-template
   - /guides/devops/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Data retention policy template: define data lifecycles, archive rules, and destruction procedures to comply with GDPR, CCPA, and industry regulations."
   keywords:

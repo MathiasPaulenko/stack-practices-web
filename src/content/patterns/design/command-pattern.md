@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/strategy-pattern
   - /recipes/testing/unit-testing
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Command Pattern with practical examples in Python, Java, and JavaScript. Behavioral design pattern for encapsulating requests as objects."
   keywords:

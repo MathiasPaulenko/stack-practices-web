@@ -20,7 +20,7 @@ relatedResources:
   - /guides/devops/docker-for-developers-guide
   - /guides/devops/cicd-pipeline-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Monitoring and alerting guide: RED/USE methods, metrics, logs, traces, alert design. Build observability systems that reduce MTTR and prevent alert fatigue."
   keywords:

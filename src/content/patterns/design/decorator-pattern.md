@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/design/strategy-pattern
   - /recipes/api/call-rest-api
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Decorator Pattern with practical examples in Python, Java, and JavaScript. Structural design pattern for dynamic behavior extension."
   keywords:

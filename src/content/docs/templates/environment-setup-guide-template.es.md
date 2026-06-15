@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/runbook-template
   - /guides/devops/docker-for-developers-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de guía de configuración de entorno: documenta pasos de setup local, staging y producción para onboarding consistente y reproducible."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/regular-expressions
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical input validation examples in Python, JavaScript, and Java. Learn schema validation, sanitization, and secure form handling."
   keywords:

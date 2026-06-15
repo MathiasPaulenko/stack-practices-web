@@ -20,7 +20,7 @@ relatedResources:
   - /guides/architecture/domain-driven-design-guide
   - /guides/devops/docker-for-developers-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de arquitectura de microservicios: cuándo usarla, trade-offs, estrategias de descomposición y patrones comunes. Elige la arquitectura correcta para tu escala."
   keywords:

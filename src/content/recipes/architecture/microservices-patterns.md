@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/load-balancing
   - /recipes/service-mesh
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn microservices patterns for resilient distributed systems. Implement circuit breakers, bulkheads, retries with backoff, and sagas for fault-tolerant architectures."
   keywords:

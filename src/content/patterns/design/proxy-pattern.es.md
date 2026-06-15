@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/adapter-pattern
   - /patterns/design/factory-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Proxy con ejemplos prácticos en Python, Java y JavaScript. Patrón estructural para control de acceso, caching y carga perezosa."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/load-balancing
   - /recipes/secret-management
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn service mesh for microservices. Deploy Istio or Linkerd to add mTLS, traffic management, observability, and policy enforcement without code changes."
   keywords:

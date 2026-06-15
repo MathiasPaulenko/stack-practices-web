@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/bridge-pattern
   - /patterns/builder-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa firma de peticiones con HMAC y AWS Signature v4. Autenticación segura de API con integridad de mensajes en Python, JavaScript y Java."
   keywords:

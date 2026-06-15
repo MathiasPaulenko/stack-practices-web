@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/devops/git-workflow
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Production-ready README template for documenting software projects with installation, usage, contributing, and license sections."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Set up database read replicas for scaling. Replication lag monitoring, read/write splitting, and load balancing across primary and replicas."
   keywords:

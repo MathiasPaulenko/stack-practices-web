@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/adapter-pattern
   - /patterns/builder-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to build a health check endpoint in Python, JavaScript, and Java. Includes liveness, readiness, and dependency checks for Kubernetes and load balancers."
   keywords:

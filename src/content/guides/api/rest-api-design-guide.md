@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/api/handle-errors
   - /patterns/design/factory-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn REST API design best practices: URL structure, HTTP methods, status codes, versioning, pagination, and error handling."
   keywords:

@@ -20,7 +20,7 @@ relatedResources:
   - /guides/testing/testing-strategy-guide
   - /guides/devops/cicd-pipeline-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Code review best practices for authors and reviewers. Learn to write reviewable code, give constructive feedback, and keep reviews fast."
   keywords:

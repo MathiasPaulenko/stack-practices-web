@@ -21,7 +21,7 @@ relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /guides/architecture/software-architecture-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Kubernetes basics for developers: Pods, Deployments, Services, ConfigMaps, and kubectl. Practical guide for running containerized apps on K8s."
   keywords:

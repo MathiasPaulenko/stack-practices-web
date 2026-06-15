@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/cqrs-pattern
   - /recipes/database-transactions
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende saga pattern para transacciones distribuidas. Implementa orquestación y coreografía para mantener consistencia entre microservicios sin 2PC."
   keywords:

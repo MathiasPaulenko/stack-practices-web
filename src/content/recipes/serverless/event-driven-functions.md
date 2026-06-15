@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/webhooks
   - /recipes/middleware
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn event-driven serverless architecture. Design loosely coupled systems with Lambda, SQS, EventBridge, and webhook triggers for scalable async processing."
   keywords:

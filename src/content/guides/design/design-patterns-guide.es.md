@@ -23,7 +23,7 @@ relatedResources:
   - /es/patterns/design/strategy-pattern
   - /es/patterns/design/repository-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende cuándo y cómo usar design patterns: Singleton, Factory, Observer, Strategy, Repository y más. Ejemplos prácticos con criterios de selección."
   keywords:

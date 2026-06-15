@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/builder-pattern
   - /patterns/design/singleton-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Prototype con ejemplos prácticos en Python, Java y JavaScript. Patrón creacional para clonación y duplicación de objetos."
   keywords:

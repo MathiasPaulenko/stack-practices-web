@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/state-pattern
   - /patterns/design/prototype-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Memento en Python, Java y JavaScript. Patrón de comportamiento para instantáneas de estado y funcionalidad de deshacer."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/runbook-template
   - /guides/devops/docker-for-developers-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Environment setup guide template: document local dev, staging, and production setup steps for consistent and reproducible onboarding."
   keywords:

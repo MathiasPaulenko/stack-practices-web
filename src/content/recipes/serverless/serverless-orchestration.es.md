@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/saga-pattern
   - /recipes/api-gateway
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende orquestación serverless con Step Functions y máquinas de estados. Coordina workflows, gestiona estado, reintentos y errores entre funciones distribuidas."
   keywords:

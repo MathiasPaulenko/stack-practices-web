@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/chain-of-responsibility-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Composite Pattern in Python, Java, and JavaScript. Structural design pattern for tree structures and part-whole hierarchies."
   keywords:

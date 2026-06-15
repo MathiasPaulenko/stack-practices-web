@@ -20,7 +20,7 @@ relatedResources:
   - /guides/databases/sql-performance-tuning-guide
   - /guides/architecture/system-design-interview-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "NoSQL database selection guide: compare MongoDB, DynamoDB, Cassandra, Redis. Choose the right document, key-value, or wide-column store for your workload."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/full-text-search
   - /recipes/soft-deletes
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to implement Redis caching in Python, JavaScript, and Java. Covers cache-aside, TTL, cache invalidation, and serialization."
   keywords:

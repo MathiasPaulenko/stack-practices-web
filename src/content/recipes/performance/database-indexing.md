@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/connection-pooling
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn database indexing strategies. Create B-tree and composite indexes, analyze query plans, and optimize SELECT performance in PostgreSQL, MySQL, and SQL Server."
   keywords:

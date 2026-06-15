@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/oauth2-login
   - /recipes/two-factor-authentication
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende login sin contraseña con magic links. Links de tiempo limitado por email con generación de tokens, validación y prevención replay."
   keywords:

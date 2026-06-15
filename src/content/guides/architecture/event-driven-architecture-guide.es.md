@@ -21,7 +21,7 @@ relatedResources:
   - /guides/architecture/domain-driven-design-guide
   - /guides/devops/docker-for-developers-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de arquitectura orientada a eventos: eventos vs comandos, brokers de mensajes, CQRS, Saga. Aprende cuándo usar colas, tópicos y streams en sistemas distribuidos."
   keywords:

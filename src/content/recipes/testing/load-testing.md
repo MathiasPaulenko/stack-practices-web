@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/connection-pooling
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn load testing with k6 and JMeter. Simulate traffic, measure API response times, identify bottlenecks, and validate scalability under realistic load."
   keywords:

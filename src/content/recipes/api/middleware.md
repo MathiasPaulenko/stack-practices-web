@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/jwt-authentication
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical middleware examples in Python (Flask/FastAPI), JavaScript (Express), and Java (Spring). Learn request interceptors, logging, auth, and error handling patterns."
   keywords:

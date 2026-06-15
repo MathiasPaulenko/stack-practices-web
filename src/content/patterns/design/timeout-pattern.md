@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/circuit-breaker-pattern
   - /patterns/design/bulkhead-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Timeout Pattern in Python, Java, and JavaScript. Resilience pattern for avoiding hanging operations with enforced time limits."
   keywords:

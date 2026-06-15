@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/user-story-template
   - /guides/design/clean-code-principles-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Feature request template with user story, acceptance criteria, and priority. Help your team evaluate and build the right features faster."
   keywords:

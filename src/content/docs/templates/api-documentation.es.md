@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/api/call-rest-api
   - /recipes/api/handle-errors
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa esta plantilla de documentación de API para documentar endpoints, schemas de request/response, códigos de error y autenticación para APIs REST y GraphQL."
   keywords:

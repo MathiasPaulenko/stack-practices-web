@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api-contract-testing
   - /recipes/database-migrations
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende Domain-Driven Design para dominios de negocio complejos. Usa bounded contexts, aggregates, entities, value objects y domain events para gestionar complejidad."
   keywords:

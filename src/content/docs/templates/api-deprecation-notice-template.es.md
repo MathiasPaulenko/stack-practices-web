@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/release-notes-template
   - /guides/architecture/microservices-architecture-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de aviso de deprecación de API: comunica deprecaciones de endpoints y campos con timelines, paths de migración y fechas de sunset claras."
   keywords:

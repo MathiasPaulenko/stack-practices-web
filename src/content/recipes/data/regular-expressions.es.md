@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/sort-array
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de expresiones regulares en Python, JavaScript y Java. Aprende pattern matching, validación, grupos y patrones comunes."
   keywords:

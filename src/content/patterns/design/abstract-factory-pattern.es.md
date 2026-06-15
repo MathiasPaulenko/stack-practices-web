@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/design/builder-pattern
   - /patterns/design/singleton-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Abstract Factory con ejemplos prácticos en Python, Java y JavaScript. Patrón creacional para familias de objetos relacionados."
   keywords:

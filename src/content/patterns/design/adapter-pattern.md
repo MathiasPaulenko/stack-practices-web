@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/design/command-pattern
   - /recipes/api/call-rest-api
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Adapter Pattern with practical examples in Python, Java, and JavaScript. Structural design pattern for making incompatible interfaces work together."
   keywords:

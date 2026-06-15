@@ -20,7 +20,7 @@ relatedResources:
   - /guides/api/rest-api-design-guide
   - /patterns/design/mvc-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa esta plantilla de ADR para documentar decisiones de arquitectura con contexto, opciones consideradas, decisión y consecuencias."
   keywords:

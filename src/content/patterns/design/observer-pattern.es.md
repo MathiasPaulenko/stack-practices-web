@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/design/singleton-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Observer con ejemplos prácticos en Python, Java y JavaScript. Patrón conductual para sistemas basados en eventos."
   keywords:

@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/retry-patterns
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn circuit breaker pattern for resilient distributed systems. Prevent cascading failures with open, closed, and half-open states in Java, TypeScript, and Python."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/builder-pattern
   - /patterns/design/singleton-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Prototype Pattern with practical examples in Python, Java, and JavaScript. Creational design pattern for object cloning and duplication."
   keywords:

@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/oauth2-login
   - /recipes/password-hashing
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn secure session management. Create, validate, and expire sessions with HTTP-only cookies, Redis storage, and CSRF protection in web applications."
   keywords:

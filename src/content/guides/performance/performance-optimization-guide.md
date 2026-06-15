@@ -22,7 +22,7 @@ relatedResources:
   - /guides/cicd-pipeline-guide
   - /recipes/middleware
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn web performance optimization: image compression, lazy loading, caching strategies, bundle splitting, and Core Web Vitals improvement techniques."
   keywords:

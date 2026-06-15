@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/lazy-loading
   - /recipes/query-optimization
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn cold start optimization for serverless functions. Reduce latency in Lambda, Azure Functions, and Cloud Run using provisioned concurrency."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /guides/architecture/domain-driven-design-guide
   - /guides/devops/git-branching-strategies-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Estrategia de documentación técnica: docs as code, versionado, flujos de review, estructura. Mantén documentación de ingeniería precisa, descubrible y mantenible."
   keywords:

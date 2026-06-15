@@ -21,7 +21,7 @@ relatedResources:
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Configura read replicas de base de datos para escalado. Monitoreo de replication lag, split de lectura/escritura y balanceo de carga entre primaria y réplicas."
   keywords:

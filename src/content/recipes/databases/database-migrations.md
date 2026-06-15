@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/query-optimization
   - /recipes/connection-pooling
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn database migrations with Flyway, Alembic, and Liquibase. Version, apply, and rollback schema changes safely in production environments."
   keywords:

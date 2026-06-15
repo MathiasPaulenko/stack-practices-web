@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/event-driven-functions
   - /recipes/database-migrations
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn CQRS to scale read and write workloads. Separate read and write models for optimized queries, event sourcing, and independent scaling of paths."
   keywords:

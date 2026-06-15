@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/sql-joins
   - /guides/database-design-guide
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Create database views and materialized views to simplify queries and boost read performance. Use PostgreSQL, MySQL, and SQL Server with examples."
   keywords:

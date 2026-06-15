@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /docs/templates/security-incident-response-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Dependency audit template: evaluate third-party libraries for license compliance, security vulnerabilities, maintenance health, and supply chain risk."
   keywords:

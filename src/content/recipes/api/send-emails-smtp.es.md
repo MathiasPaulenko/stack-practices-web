@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/logging
   - /recipes/middleware
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a enviar emails con SMTP en Python, JavaScript y Java. Incluye plantillas, autenticación, adjuntos y manejo de errores."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/unit-testing-mocking
   - /recipes/load-testing
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn end-to-end testing with Playwright and Cypress. Design reliable E2E tests that simulate real user journeys, avoid flakiness, and integrate into CI/CD."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /guides/sql-performance-tuning-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement semantic search with text embeddings and vector similarity. Use OpenAI, sentence-transformers, and FAISS for intelligent document retrieval."
   keywords:

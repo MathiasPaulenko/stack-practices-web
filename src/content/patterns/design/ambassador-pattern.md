@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/proxy-pattern
   - /patterns/design/circuit-breaker-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Ambassador Pattern in Python, Java, and JavaScript. Microservices pattern for client-side proxy with retries, circuit breaking, and service discovery."
   keywords:

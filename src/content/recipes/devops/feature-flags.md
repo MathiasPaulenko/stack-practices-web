@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/health-check-endpoint
   - /recipes/parse-config-files
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to implement feature flags in Python, JavaScript, and Java. Covers toggle services, A/B testing, rollout strategies, and safe rollbacks."
   keywords:

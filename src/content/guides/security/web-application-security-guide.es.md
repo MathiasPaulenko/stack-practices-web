@@ -20,7 +20,7 @@ relatedResources:
   - /guides/security/security-best-practices-guide
   - /recipes/authentication/jwt-authentication
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía OWASP Top 10 para desarrolladores. Previene inyección, XSS, control de acceso roto, diseño inseguro con ejemplos prácticos de código y checklists."
   keywords:

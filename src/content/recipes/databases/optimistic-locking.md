@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/sql-joins
   - /guides/sql-performance-tuning-guide
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement optimistic locking with versioning to prevent lost updates. Use row versioning in PostgreSQL, MySQL, and JPA/Hibernate with examples."
   keywords:

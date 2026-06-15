@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/data/sort-array
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Strategy Pattern with practical examples in Python, Java, and JavaScript. Behavioral design pattern for interchangeable algorithms."
   keywords:

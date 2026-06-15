@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/csrf-protection
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende encripción en reposo para bases de datos y storage. Encripta datos sensibles usando AES-256-GCM, encripción de sobre y servicios de gestión de keys."
   keywords:

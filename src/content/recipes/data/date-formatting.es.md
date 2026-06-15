@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/cron-jobs
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de formateo de fechas en Python, JavaScript y Java. Aprende ISO 8601, manejo de timezones y formateo localizado."
   keywords:

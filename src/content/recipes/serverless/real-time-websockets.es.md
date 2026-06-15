@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/event-driven-functions
   - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a construir APIs en tiempo real con WebSockets en serverless. Implementa comunicación bidireccional con API Gateway, Lambda, DynamoDB y gestión de conexiones."
   keywords:

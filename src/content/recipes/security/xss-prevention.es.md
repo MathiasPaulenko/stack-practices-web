@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/sql-injection-prevention
   - /recipes/handle-errors
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende técnicas de prevención XSS. Escapa output, sanitiza HTML, usa headers CSP y valida input para proteger a los usuarios de ataques de cross-site scripting."
   keywords:

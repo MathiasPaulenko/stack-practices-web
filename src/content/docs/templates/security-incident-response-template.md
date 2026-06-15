@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/on-call-incident-response-guide
   - /docs/templates/incident-postmortem-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Security incident response template: document breaches, contain threats, and communicate during security events. Reduce impact and recovery time."
   keywords:

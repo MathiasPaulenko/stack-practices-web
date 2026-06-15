@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/singleton-pattern
   - /patterns/design/composite-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Flyweight en Python, Java y JavaScript. Patrón estructural para optimización de memoria mediante compartición de objetos."
   keywords:

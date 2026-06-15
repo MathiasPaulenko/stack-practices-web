@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/decorator-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Chain of Responsibility en Python, Java y JavaScript. Patrón de comportamiento para pipelines de manejo de solicitudes y cadenas de middleware."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/command-pattern
   - /patterns/abstract-factory-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a programar tareas en segundo plano en Python, JavaScript y Java. Cubre cron, Celery, BullMQ y ScheduledExecutorService."
   keywords:

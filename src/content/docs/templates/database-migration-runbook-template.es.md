@@ -19,7 +19,7 @@ relatedResources:
   - /guides/databases/database-sharding-partitioning-guide
   - /docs/templates/disaster-recovery-plan-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de runbook de migración de base de datos: ejecuta cambios de esquema de forma segura con rollback, verificación y comunicación."
   keywords:

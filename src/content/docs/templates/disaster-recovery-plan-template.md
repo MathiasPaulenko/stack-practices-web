@@ -20,7 +20,7 @@ relatedResources:
   - /docs/templates/runbook-template
   - /guides/devops/monitoring-alerting-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Disaster recovery plan template: define RTO/RPO targets, failover procedures, and recovery runbooks to minimize downtime during catastrophic failures."
   keywords:

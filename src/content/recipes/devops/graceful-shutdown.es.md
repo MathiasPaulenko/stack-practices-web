@@ -21,7 +21,7 @@ relatedResources:
   - /guides/docker-for-developers-guide
   - /guides/kubernetes-basics-guide
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa graceful shutdown y reinicios sin downtime para servidores web y contenedores. Maneja SIGTERM, drena conexiones y recarga de forma segura."
   keywords:

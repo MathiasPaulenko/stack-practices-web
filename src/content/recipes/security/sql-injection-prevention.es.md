@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/handle-errors
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende técnicas de prevención de inyección SQL. Usa queries parametrizadas y ORMs para asegurar el acceso a bases de datos en Python, JavaScript y Java."
   keywords:

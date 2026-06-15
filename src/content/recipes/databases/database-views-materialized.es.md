@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/sql-joins
   - /guides/database-design-guide
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Crea vistas de base de datos y vistas materializadas para simplificar consultas y acelerar lecturas. Usa PostgreSQL, MySQL y SQL Server con ejemplos."
   keywords:

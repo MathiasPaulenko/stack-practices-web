@@ -20,7 +20,7 @@ relatedResources:
   - /docs/templates/runbook-template
   - /guides/devops/monitoring-alerting-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de plan de recuperación ante desastres: define targets RTO/RPO, procedimientos de failover y runbooks de recuperación para minimizar downtime."
   keywords:

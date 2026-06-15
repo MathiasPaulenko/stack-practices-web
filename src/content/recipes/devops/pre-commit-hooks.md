@@ -21,7 +21,7 @@ relatedResources:
   - /docs/contributing-guide
   - /docs/disaster-recovery-plan-template
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Set up pre-commit hooks with husky, lint-staged, and pre-commit. Enforce linting, formatting, and tests before every commit with examples."
   keywords:

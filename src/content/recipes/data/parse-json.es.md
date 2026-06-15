@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/read-write-file
   - /recipes/regular-expressions
 lastUpdated: "2026-06-09"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de parseo de JSON en Python, JavaScript y Java con fragmentos de código, casos límite y buenas prácticas para desarrolladores."
   keywords:

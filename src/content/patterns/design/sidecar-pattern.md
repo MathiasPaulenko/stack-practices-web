@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/proxy-pattern
   - /patterns/design/observer-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Sidecar Pattern in Python, Java, and JavaScript. Microservices pattern for extending application functionality with auxiliary services."
   keywords:

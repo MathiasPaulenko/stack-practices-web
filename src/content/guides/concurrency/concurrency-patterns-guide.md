@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/singleton-pattern
   - /guides/software-architecture-guide
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn concurrency patterns: thread pools, async/await, futures, semaphores, and race condition prevention. Practical examples in multiple languages."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement API logging and audit trails with structured output, correlation IDs, and compliance. Examples in Python, JavaScript, and Java."
   keywords:

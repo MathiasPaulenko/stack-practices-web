@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/design/observer-pattern
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the MVC Pattern with practical examples in Python, Java, and JavaScript. Architectural design pattern for organized application structure."
   keywords:

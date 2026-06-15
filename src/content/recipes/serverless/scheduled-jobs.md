@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/event-driven-functions
   - /recipes/cron-jobs
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn serverless scheduled jobs. Replace cron with Lambda, Cloud Scheduler, or Azure Timer Triggers for automated backups, reporting, and maintenance tasks."
   keywords:

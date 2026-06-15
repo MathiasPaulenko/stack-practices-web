@@ -21,7 +21,7 @@ relatedResources:
   - /guides/databases/database-sharding-partitioning-guide
   - /guides/architecture/microservices-architecture-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "CAP theorem guide: consistency, availability, partition tolerance. Choose the right database trade-offs for your application's requirements."
   keywords:

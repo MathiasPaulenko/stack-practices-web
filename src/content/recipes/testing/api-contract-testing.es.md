@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende API contract testing con Pact. Previene cambios breaking entre microservicios usando consumer-driven contracts y validadores de OpenAPI."
   keywords:

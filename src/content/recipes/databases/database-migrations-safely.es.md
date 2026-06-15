@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/uuid-generation
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende migraciones seguras de base de datos para PostgreSQL, MySQL y SQLite. Cubre deploys sin downtime y planes de rollback."
   keywords:

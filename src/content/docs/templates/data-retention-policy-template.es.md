@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/security-incident-response-template
   - /guides/devops/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de política de retención de datos: define ciclos de vida, reglas de archivo y procedimientos de destrucción para cumplir GDPR, CCPA y regulaciones."
   keywords:

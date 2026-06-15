@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/cdn-edge-caching
   - /recipes/image-optimization
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende lazy loading para imágenes, componentes y datos. Mejora el tiempo de carga inicial y optimiza Core Web Vitals."
   keywords:

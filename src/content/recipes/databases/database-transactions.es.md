@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/api/pagination
   - /patterns/design/repository-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de transacciones de base de datos en Python, JavaScript y Java. Aprende ACID, BEGIN/COMMIT/ROLLBACK y niveles de aislamiento."
   keywords:

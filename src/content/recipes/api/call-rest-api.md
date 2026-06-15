@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/read-write-file
   - /recipes/api/middleware
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn how to call a REST API in Python, JavaScript, and Java with practical HTTP request examples, error handling, and best practices."
   keywords:

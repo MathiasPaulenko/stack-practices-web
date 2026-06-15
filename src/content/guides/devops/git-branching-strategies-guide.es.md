@@ -20,7 +20,7 @@ relatedResources:
   - /guides/devops/docker-for-developers-guide
   - /guides/testing/testing-strategy-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de estrategias de branching en Git: trunk-based development, GitFlow, GitHub Flow. Elige el modelo correcto para tu equipo y pipeline de CI/CD."
   keywords:

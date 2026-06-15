@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-cors
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn WebSocket server implementation in Python, JavaScript, and Java. Covers bidirectional messaging, connection management, and broadcasting."
   keywords:

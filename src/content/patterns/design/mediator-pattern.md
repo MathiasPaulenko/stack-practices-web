@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/state-pattern
   - /patterns/design/singleton-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Mediator Pattern in Python, Java, and JavaScript. Behavioral design pattern for reducing coupling between components."
   keywords:

@@ -20,7 +20,7 @@ relatedResources:
   - /guides/design/clean-code-principles-guide
   - /guides/design/solid-principles-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Test-Driven Development guide: Red-Green-Refactor cycle with practical examples. Learn TDD in Python, JavaScript, and Java with step-by-step workflows."
   keywords:

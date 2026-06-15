@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/connection-pooling
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende estrategias de indexación de bases de datos. Crea índices B-tree y compuestos, analiza planes de ejecución y optimiza SELECT en PostgreSQL y MySQL."
   keywords:

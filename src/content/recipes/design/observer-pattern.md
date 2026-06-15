@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/factory-pattern
   - /recipes/microservices-patterns
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn observer pattern for reactive systems. Build event-driven systems with pub/sub, event emitters, and reactive streams in JavaScript, Java, and Python."
   keywords:

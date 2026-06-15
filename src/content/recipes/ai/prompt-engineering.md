@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/rag-pipeline
   - /recipes/semantic-search
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn prompt engineering for LLMs. Write effective prompts with role assignment, few-shot examples, chain-of-thought reasoning, and structured output formats."
   keywords:

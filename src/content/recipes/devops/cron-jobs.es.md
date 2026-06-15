@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/git-workflow
   - /patterns/design/observer-pattern
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de cron jobs en Linux, Python (librería schedule) y Node.js (node-cron). Aprende sintaxis cron, patrones de scheduling y mejores prácticas."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api
 lastUpdated: "2026-06-13"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement a gRPC API with Protocol Buffers. Build high-performance services in Python, Node.js, and Java with streaming and interceptors."
   keywords:

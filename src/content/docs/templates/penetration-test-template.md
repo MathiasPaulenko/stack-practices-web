@@ -19,7 +19,7 @@ relatedResources:
   - /docs/templates/security-incident-response-template
   - /docs/templates/bug-report-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Penetration test report template: document findings, risk ratings, reproduction steps, and remediation guidance for security assessments."
   keywords:

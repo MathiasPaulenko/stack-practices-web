@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/decorator-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Bridge Pattern in Python, Java, and JavaScript. Structural design pattern for decoupling abstraction from implementation."
   keywords:

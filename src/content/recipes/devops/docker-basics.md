@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/environment-variables
 lastUpdated: "2026-06-10"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn Docker fundamentals: write Dockerfiles, build images, run containers, and orchestrate services with Docker Compose."
   keywords:

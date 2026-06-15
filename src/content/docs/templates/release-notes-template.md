@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /docs/templates/post-deployment-checklist-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Release notes template with categories, upgrade instructions, and known issues. Communicate software changes clearly to users and operators."
   keywords:

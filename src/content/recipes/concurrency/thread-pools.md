@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/load-balancing
   - /recipes/serverless-functions
 lastUpdated: "2026-06-14"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn thread pool patterns for concurrent work. Manage worker threads with executors and rejection policies in Java, Python, and C# for CPU and I/O workloads."
   keywords:

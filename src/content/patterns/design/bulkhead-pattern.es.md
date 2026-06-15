@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/retry-pattern
   - /patterns/design/timeout-pattern
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Bulkhead en Python, Java y JavaScript. Patrón de resiliencia para aislar componentes fallidos y prevenir fallas en cascada."
   keywords:

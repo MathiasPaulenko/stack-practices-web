@@ -21,7 +21,7 @@ relatedResources:
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Maneja deadlocks y reintentos en bases de datos con lógica automática, niveles de aislamiento y ordenamiento de queries. Ejemplos en PostgreSQL, MySQL y SQL Server."
   keywords:

@@ -19,7 +19,7 @@ relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /docs/templates/security-incident-response-template
 lastUpdated: "2026-06-12"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de auditoría de dependencias: evalúa librerías de terceros para cumplimiento de licencias, vulnerabilidades, salud de mantenimiento y riesgo de supply chain."
   keywords:

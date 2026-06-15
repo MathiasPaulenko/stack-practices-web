@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/builder-pattern
   - /patterns/command-pattern
 lastUpdated: "2026-06-11"
-author: "StackPractices"
+author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a implementar búsqueda de texto completo en Python, JavaScript y Java. Cubre Elasticsearch, Meilisearch y PostgreSQL tsvector."
   keywords:
