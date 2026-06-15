@@ -9,10 +9,10 @@
 
 | Categoría | Cantidad | Estado |
 |-----------|----------|--------|
-| Crítico (bloquea indexación o genera errores) | 2 | [ ] Pendiente |
+| Crítico (bloquea indexación o genera errores) | 1 | [ ] Pendiente |
 | Advertencia (impacto SEO negativo) | 4 | [ ] Pendiente |
 | Info (mejora recomendada) | 4 | [ ] Pendiente |
-| Corregidos en esta sesión | 8 | [x] Hecho |
+| Corregidos en esta sesión | 9 | [x] Hecho |
 
 ---
 
@@ -96,8 +96,8 @@
 **Impacto:** Google puede clasificarlas como "soft 404" o thin content si tienen poco valor añadido.
 **Fix:** Opcional — añadir párrafo introductorio descriptivo.
 
-- [ ] Evaluar si añadir 1-2 párrafos de introducción a las páginas de tags
-- [ ] Ejemplo: "Recetas, patrones y guías relacionados con [tag]. Aprende [descripción del tema]."
+- [x] Añadir párrafos introductorios descriptivos a páginas de tags (EN + ES)
+- [x] Descripción dinámica incluye conteo, tipo de contenido y propósito del tag
 
 ### 10. Falta `lastmod` actualizado en sitemap
 **Problema:** El sitemap usa `lastUpdated` del frontmatter o fecha fija. Si el contenido se actualiza pero `lastUpdated` no se modifica, el sitemap miente a Google.
