@@ -10,9 +10,9 @@
 | Categoría | Cantidad | Estado |
 |-----------|----------|--------|
 | Crítico (bloquea indexación o genera errores) | 0 | [x] Completado |
-| Advertencia (impacto SEO negativo) | 4 | [ ] Pendiente |
+| Advertencia (impacto SEO negativo) | 0 | [x] Completado |
 | Info (mejora recomendada) | 3 | [ ] Pendiente |
-| Corregidos en esta sesión | 11 | [x] Hecho |
+| Corregidos en esta sesión | 14 | [x] Hecho |
 
 ---
 
@@ -72,24 +72,25 @@
 **Problema:** El título de la página tag ES es `Etiqueta: pytest` pero el OG title y meta description no diferencian claramente que es contenido ES.
 **Fix:** Asegurar que `<html lang="es">`, `og:locale`, y el título incluyan indicadores de idioma.
 
-- [ ] Verificar que todas las páginas ES usen `locale="es"` correctamente en BaseLayout
-- [ ] Verificar `og:locale` sea `es_ES` en páginas ES
-- [ ] Considerar añadir "[ES]" o "(Español)" al title tag de páginas ES (opcional)
+- [x] Verificar que todas las páginas ES usen `locale="es"` correctamente en BaseLayout
+- [x] Verificar `og:locale` sea `es_ES` en páginas ES (verificado en build output)
+- [x] Los títulos ya son diferenciados: "Recipes" vs "Recetas", "Tag: python" vs "Etiqueta: python"
 
 ### 7. Meta descriptions truncadas en listados
 **Problema:** Las páginas de listing (recipes, patterns, etc.) usan descriptions genéricas. Las tarjetas de contenido podrían tener descriptions idénticas.
 **Fix:** Asegurar que cada listing page tenga description única.
 
-- [ ] Verificar `/recipes/`, `/patterns/`, `/guides/`, `/docs/` tienen descriptions distintas
-- [ ] Verificar `/es/recipes/`, `/es/patterns/`, etc. tienen descriptions distintas de sus contrapartes EN
+- [x] Verificar `/recipes/`, `/patterns/`, `/guides/`, `/docs/` tienen descriptions distintas
+- [x] Verificar `/es/recipes/`, `/es/patterns/`, etc. tienen descriptions distintas de sus contrapartes EN
+- [x] Todas las listing pages tienen descriptions únicas y diferenciadas por idioma
 
 ### 8. Breadcrumbs sin schema JSON-LD en páginas dinámicas
 **Problema:** Las páginas de tags y topics tienen breadcrumbs visuales pero no verificar si tienen `BreadcrumbList` schema.
 **Fix:** Verificar e implementar si falta.
 
-- [ ] Verificar `dist/tags/faas/index.html` incluye `BreadcrumbList` JSON-LD
-- [ ] Verificar `dist/topics/data/index.html` incluye `BreadcrumbList` JSON-LD
-- [ ] Añadir si falta en `tags/[tag].astro` y `topics/[topic].astro`
+- [x] Verificar `dist/tags/faas/index.html` incluye `BreadcrumbList` JSON-LD (verificado: YES)
+- [x] Verificar `dist/topics/data/index.html` incluye `BreadcrumbList` JSON-LD (verificado: YES)
+- [x] Ya existía en `tags/[tag].astro` y `ListingPage.astro` (usado por topics)
 
 ### 9. Páginas de tags: contenido "thin" potencial
 **Problema:** Las páginas de tags listan solo tarjetas de contenido, sin texto introductorio sustancial.
@@ -142,6 +143,9 @@
 - [x] **Thin content en páginas de tags** — Descripciones introductorias añadidas a tag pages EN y ES.
 - [x] **Schema Person `knowsAbout`** — Añadidas 10 áreas de conocimiento al schema Person del autor para mejorar E-E-A-T.
 - [x] **Contenido ES/EN idéntico** — Banners de contexto localizado añadidos a todos los artículos (recipes, patterns, docs, guides) vía RecipeArticle.astro.
+- [x] **Diferenciación de idioma en títulos** — `og:locale` es `es_ES`/`en_US`, `html lang` es `es`/`en`, títulos diferenciados (Recipes/Recetas, Tag/Etiqueta).
+- [x] **Meta descriptions únicas en listados** — Todos los listing pages tienen descriptions distintas EN vs ES.
+- [x] **BreadcrumbList JSON-LD en tags/topics** — Verificado en build output para `/tags/*/` y `/topics/*/`, ya estaba implementado.
 
 ---
 
