@@ -19,7 +19,7 @@ const esTagIndex = await buildTagIndex('es');
 const hasEsVersion = esTagIndex.has(tag);
 
 const heading = `Tag: ${tag}`;
-const description = `${items.length} resource${items.length === 1 ? '' : 's'} tagged with "${tag}" on StackPractices.`;
+const description = `Browse ${items.length} practical software engineering resources tagged with "${tag}". Discover code recipes, design patterns, documentation templates, and in-depth guides to help you build, deploy, and maintain production-ready solutions involving ${tag}.`;
 
 const jsonLd = [
   webPage({ name: heading, description, url: `/tags/${tag}`, locale: 'en' }),

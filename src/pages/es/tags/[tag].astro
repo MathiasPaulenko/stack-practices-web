@@ -19,7 +19,7 @@ const enTagIndex = await buildTagIndex('en');
 const hasEnVersion = enTagIndex.has(tag);
 
 const heading = `Etiqueta: ${tag}`;
-const description = `${items.length} recurso${items.length === 1 ? '' : 's'} etiquetado${items.length === 1 ? '' : 's'} con "${tag}" en StackPractices.`;
+const description = `Explora ${items.length} recursos prácticos de ingeniería de software etiquetados con "${tag}". Descubre recetas de código, patrones de diseño, plantillas de documentación y guías detalladas para ayudarte a construir, desplegar y mantener soluciones listas para producción con ${tag}.`;
 
 const jsonLd = [
   webPage({ name: heading, description, url: `/es/tags/${tag}`, locale: 'es' }),
