@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList, organization } from '../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Editorial Policy',
+      description: 'StackPractices editorial policy: how we create, review, and maintain content.',
+      url: '/editorial-policy',
+      locale: 'en',
+    }),
+    datePublished: '2026-06-14',
+  },
+  organization({
+    name: 'StackPractices',
+    url: 'https://stackpractices.com',
+    logo: 'https://stackpractices.com/favicon.svg',
+    description: 'Practical developer knowledge base for software engineers.',
+  }),
+  breadcrumbList([
+    { name: 'Home', url: '/' },
+    { name: 'Editorial Policy', url: '/editorial-policy' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Editorial Policy"
+  description="StackPractices editorial policy: how we create, review, and maintain content."
+  path="/editorial-policy"
+  keywords={['editorial policy', 'content standards', 'review process', 'stackpractices']}
+  jsonLd={jsonLd}
+>
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Home</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Editorial Policy</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Editorial Policy</h1>
+      <p class="mt-2 max-w-2xl text-lg text-slate-600">
+        How StackPractices creates, reviews, and maintains reliable technical content.
+      </p>
+    </div>
+  </header>
+
+  <!-- Who We Are -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Who We Are</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-700">
+          StackPractices is curated by <strong>Mathias Vladimir Paulenko Echeverz</strong>, a
+          Project Leader and Test Solutions Architect with <strong>12+ years of experience</strong>
+          in software engineering, test automation, and full-stack development.
+        </p>
+        <p class="mt-4 leading-relaxed text-slate-600">
+          Mathias currently works at <strong>Indra / Minsait</strong>, where he leads test automation
+          initiatives and designs solutions for enterprise software. His expertise spans
+          <strong>Python, JavaScript, React, DevOps, CI/CD, Selenium, and Playwright</strong>,
+          giving him hands-on perspective across the entire software lifecycle.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="https://github.com/MathiasPaulenko"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            GitHub
+          </a>
+          <a
+            href="https://cn.linkedin.com/in/mathias-paulenko-echeverz"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a
+            href="https://mathiaspaulenko.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Portfolio
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Editorial Mission</h2>
+        <p class="mt-4 text-slate-700">
+          Our mission is to produce <strong>practical, immediately usable technical content</strong>
+          for software engineers. We prioritize real-world examples over abstract theory, and we
+          test every code snippet before publication.
+        </p>
+        <p class="mt-4 text-slate-700">
+          All content is published in <strong>English and Spanish</strong> to serve the broadest
+          possible developer community. No paywalls, no subscriptions — just knowledge you can use
+          today.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Criteria -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Content Criteria</h2>
+        <p class="mt-4 text-slate-600">
+          We only publish resources that meet all of the following criteria:
+        </p>
+        <ul class="mt-6 space-y-4 text-slate-700">
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">1</span>
+            <span><strong>Practical utility</strong> — The resource solves a real problem that developers encounter in production.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">2</span>
+            <span><strong>Technical accuracy</strong> — Code examples are tested and validated in real environments.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">3</span>
+            <span><strong>Multi-language coverage</strong> — Where applicable, we provide examples in Python, Java, JavaScript, SQL, Bash, and other relevant languages.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">4</span>
+            <span><strong>Security awareness</strong> — Security-related content is framed for defensive and educational purposes only.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">5</span>
+            <span><strong>No plagiarism</strong> — All content is original or properly attributed. We do not republish third-party material without permission.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Review Process -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Review Process</h2>
+        <p class="mt-4 text-slate-600">
+          Every resource goes through a structured quality process before publication:
+        </p>
+        <ol class="mt-6 space-y-4 text-slate-700">
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">1</span>
+            <span><strong>Research</strong> — Identify the problem, analyze existing solutions, and determine best practices.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">2</span>
+            <span><strong>Draft</strong> — Write explanations, create code examples, and document trade-offs.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">3</span>
+            <span><strong>Technical Review</strong> — Verify accuracy, check for deprecated APIs, and validate syntax.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">4</span>
+            <span><strong>Testing</strong> — Run code examples in clean environments to confirm they work as documented.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">5</span>
+            <span><strong>Publication &amp; Monitoring</strong> — Release the resource and monitor for reader feedback and corrections.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Update Policy -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Update Policy</h2>
+        <p class="mt-4 text-slate-700">
+          Technology changes rapidly. We review and update content on a rolling basis:
+        </p>
+        <ul class="mt-6 space-y-3 text-slate-700">
+          <li class="flex gap-2">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>
+            <span><strong>Critical updates</strong> (security patches, breaking API changes) are applied within 48 hours of discovery.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>
+            <span><strong>Routine reviews</strong> happen every 3-6 months for all published resources.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>
+            <span>Each page displays a <strong>last updated</strong> timestamp so readers know how current the content is.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Corrections -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Corrections &amp; Feedback</h2>
+        <p class="mt-4 text-slate-700">
+          We are committed to accuracy. If you spot an error, outdated example, or unclear explanation,
+          please let us know. We investigate every report and publish corrections transparently.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/contact" class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
+            Report an Issue
+          </a>
+          <a href="/about" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700">
+            About StackPractices
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

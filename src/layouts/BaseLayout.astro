@@ -35,6 +35,18 @@ const {
 <!doctype html>
 <html lang={locale}>
   <head>
+    <!-- Google Consent Mode v2 — Default Denied -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+    </script>
     <!-- Google Tag Manager -->
     <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -57,7 +69,34 @@ const {
       gtag('js', new Date());
       gtag('config', 'G-RBE12WJ5KZ');
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9762280383707953" crossorigin="anonymous"></script>
+    <!-- AdSense — loaded only after advertising consent -->
+    <script is:inline>
+      window.spConsent = window.spConsent || {
+        STORAGE_KEY: 'sp-cookie-consent',
+        getStoredConsent: function() {
+          try {
+            var raw = localStorage.getItem(this.STORAGE_KEY);
+            if (!raw) return null;
+            return JSON.parse(raw);
+          } catch (e) { return null; }
+        },
+        loadAdSense: function() {
+          if (window.spAdsLoaded) return;
+          window.spAdsLoaded = true;
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9762280383707953';
+          script.crossOrigin = 'anonymous';
+          document.head.appendChild(script);
+        }
+      };
+      (function() {
+        var consent = window.spConsent.getStoredConsent();
+        if (consent && consent.ad_storage === 'granted') {
+          window.spConsent.loadAdSense();
+        }
+      })();
+    </script>
 
     <Seo
       title={title}

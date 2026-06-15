@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webPage, breadcrumbList, organization } from '../../lib/schema';
+
+const jsonLd = [
+  {
+    ...webPage({
+      name: 'Política Editorial',
+      description: 'Política editorial de StackPractices: cómo creamos, revisamos y mantenemos el contenido.',
+      url: '/es/editorial-policy',
+      locale: 'es',
+    }),
+    datePublished: '2026-06-14',
+  },
+  organization({
+    name: 'StackPractices',
+    url: 'https://stackpractices.com',
+    logo: 'https://stackpractices.com/favicon.svg',
+    description: 'Base de conocimiento práctica para ingenieros de software.',
+  }),
+  breadcrumbList([
+    { name: 'Inicio', url: '/es' },
+    { name: 'Política Editorial', url: '/es/editorial-policy' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Política Editorial"
+  description="Política editorial de StackPractices: cómo creamos, revisamos y mantenemos el contenido."
+  path="/editorial-policy"
+  keywords={['política editorial', 'estándares de contenido', 'proceso de revisión', 'stackpractices']}
+  jsonLd={jsonLd}
+  locale="es"
+>
+  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+
+  <!-- Header -->
+  <header class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <span class="mx-2 text-slate-400">/</span>
+        <span class="font-medium text-slate-800">Política Editorial</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">Política Editorial</h1>
+      <p class="mt-2 max-w-2xl text-lg text-slate-600">
+        Cómo StackPractices crea, revisa y mantiene contenido técnico fiable.
+      </p>
+    </div>
+  </header>
+
+  <!-- Who We Are -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Quiénes Somos</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-700">
+          StackPractices está curado por <strong>Mathias Vladimir Paulenko Echeverz</strong>,
+          Project Leader y Test Solutions Architect con <strong>más de 12 años de experiencia</strong>
+          en ingeniería de software, automatización de pruebas y desarrollo full-stack.
+        </p>
+        <p class="mt-4 leading-relaxed text-slate-600">
+          Mathias trabaja actualmente en <strong>Indra / Minsait</strong>, donde lidera iniciativas de
+          automatización de pruebas y diseña soluciones para software empresarial. Su experiencia abarca
+          <strong>Python, JavaScript, React, DevOps, CI/CD, Selenium y Playwright</strong>,
+          lo que le proporciona una perspectiva práctica a lo largo de todo el ciclo de vida del software.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="https://github.com/MathiasPaulenko"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            GitHub
+          </a>
+          <a
+            href="https://cn.linkedin.com/in/mathias-paulenko-echeverz"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a
+            href="https://mathiaspaulenko.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Portfolio
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Misión Editorial</h2>
+        <p class="mt-4 text-slate-700">
+          Nuestra misión es producir <strong>contenido técnico práctico y de utilidad inmediata</strong>
+          para ingenieros de software. Priorizamos ejemplos del mundo real sobre teoría abstracta, y
+          probamos cada fragmento de código antes de su publicación.
+        </p>
+        <p class="mt-4 text-slate-700">
+          Todo el contenido se publica en <strong>inglés y español</strong> para servir a la comunidad de
+          desarrolladores más amplia posible. Sin paywalls, sin suscripciones: solo conocimiento que
+          puedes usar hoy.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Criteria -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Criterios de Contenido</h2>
+        <p class="mt-4 text-slate-600">
+          Solo publicamos recursos que cumplen todos los siguientes criterios:
+        </p>
+        <ul class="mt-6 space-y-4 text-slate-700">
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">1</span>
+            <span><strong>Utilidad práctica</strong> — El recurso resuelve un problema real que los desarrolladores enfrentan en producción.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">2</span>
+            <span><strong>Precisión técnica</strong> — Los ejemplos de código se prueban y validan en entornos reales.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">3</span>
+            <span><strong>Cobertura multi-lenguaje</strong> — Cuando aplica, proporcionamos ejemplos en Python, Java, JavaScript, SQL, Bash y otros lenguajes relevantes.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">4</span>
+            <span><strong>Conciencia de seguridad</strong> — El contenido relacionado con seguridad se enmarca únicamente con fines defensivos y educativos.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">5</span>
+            <span><strong>Sin plagio</strong> — Todo el contenido es original o debidamente atribuido. No republicamos material de terceros sin permiso.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Review Process -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Proceso de Revisión</h2>
+        <p class="mt-4 text-slate-600">
+          Cada recurso pasa por un proceso de calidad estructurado antes de su publicación:
+        </p>
+        <ol class="mt-6 space-y-4 text-slate-700">
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">1</span>
+            <span><strong>Investigación</strong> — Identificamos el problema, analizamos soluciones existentes y determinamos las mejores prácticas.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">2</span>
+            <span><strong>Borrador</strong> — Redactamos explicaciones, creamos ejemplos de código y documentamos trade-offs.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">3</span>
+            <span><strong>Revisión Técnica</strong> — Verificamos precisión, detectamos APIs obsoletas y validamos sintaxis.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">4</span>
+            <span><strong>Pruebas</strong> — Ejecutamos los ejemplos de código en entornos limpios para confirmar que funcionan según la documentación.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">5</span>
+            <span><strong>Publicación y Monitoreo</strong> — Publicamos el recurso y monitoreamos retroalimentación y correcciones de los lectores.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Update Policy -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Política de Actualización</h2>
+        <p class="mt-4 text-slate-700">
+          La tecnología evoluciona rápidamente. Revisamos y actualizamos el contenido de forma continua:
+        </p>
+        <ul class="mt-6 space-y-3 text-slate-700">
+          <li class="flex gap-2">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>
+            <span><strong>Actualizaciones críticas</strong> (parches de seguridad, cambios de API disruptivos) se aplican dentro de las 48 horas posteriores a su detección.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>
+            <span>Las <strong>revisiones rutinarias</strong> ocurren cada 3-6 meses para todos los recursos publicados.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>
+            <span>Cada página muestra una fecha de <strong>última actualización</strong> para que los lectores sepan qué tan actual es el contenido.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Corrections -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Correcciones y Retroalimentación</h2>
+        <p class="mt-4 text-slate-700">
+          Estamos comprometidos con la precisión. Si detectas un error, un ejemplo desactualizado o una
+          explicación poco clara, por favor avísanos. Investigamos cada reporte y publicamos correcciones
+          de forma transparente.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/es/contact" class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
+            Reportar un Problema
+          </a>
+          <a href="/es/about" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700">
+            Sobre StackPractices
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

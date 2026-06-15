@@ -33,12 +33,13 @@ public/pagefind/
 
 # ref folder (except backlog)
 ref/*
-!ref/content-backlog.md
-!ref/content-backlog-phase2.md
+docs/*
+ref.back/
 
 # IA Folders
 .agents/
 .devin/
+
 
 # OS files
 *.swp

@@ -20,27 +20,103 @@ const isEs = locale === 'es';
       <div class="text-sm text-slate-300 sm:max-w-2xl">
         <p>
           {isEs
-            ? 'StackPractices utiliza cookies para mejorar tu experiencia y analizar el tráfico del sitio. Al hacer clic en "Aceptar", aceptas nuestra '
-            : 'StackPractices uses cookies to improve your experience and analyze site traffic. By clicking "Accept", you agree to our '}
+            ? 'StackPractices utiliza cookies esenciales, de análisis y publicidad. Puedes personalizar tus preferencias o aceptar todas. Consulta nuestra '
+            : 'StackPractices uses essential, analytics, and advertising cookies. You can customize your preferences or accept all. See our '}
           <a href={`${isEs ? '/es' : ''}/cookies`} class="font-medium text-brand-400 hover:text-brand-300 hover:underline">
             {isEs ? 'Política de Cookies' : 'Cookie Policy'}
           </a>.
         </p>
       </div>
-      <div class="flex flex-shrink-0 items-center gap-3">
+      <div class="flex flex-shrink-0 flex-wrap items-center gap-2">
         <button
           id="cookie-reject"
-          class="rounded-md border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+          class="rounded-md border border-slate-600 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
         >
           {isEs ? 'Rechazar' : 'Decline'}
+        </button>
+        <button
+          id="cookie-manage"
+          class="rounded-md border border-slate-600 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+        >
+          {isEs ? 'Gestionar' : 'Manage'}
         </button>
         <button
           id="cookie-accept"
           class="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          {isEs ? 'Aceptar' : 'Accept'}
+          {isEs ? 'Aceptar todo' : 'Accept All'}
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Consent Preferences Modal -->
+<div
+  id="cookie-modal"
+  class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-label={isEs ? 'Preferencias de cookies' : 'Cookie preferences'}
+>
+  <div class="mx-4 w-full max-w-lg rounded-xl border border-slate-600 bg-slate-900 p-6 shadow-2xl">
+    <h2 class="text-lg font-semibold text-white">
+      {isEs ? 'Preferencias de cookies' : 'Cookie Preferences'}
+    </h2>
+    <p class="mt-2 text-sm text-slate-300">
+      {isEs
+        ? 'Selecciona qué tipos de cookies aceptas. Las esenciales son necesarias para el funcionamiento del sitio.'
+        : 'Select which types of cookies you accept. Essential cookies are required for the site to function.'}
+    </p>
+
+    <div class="mt-5 space-y-3">
+      <!-- Essential -->
+      <div class="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3">
+        <div>
+          <p class="text-sm font-medium text-white">{isEs ? 'Esenciales' : 'Essential'}</p>
+          <p class="text-xs text-slate-400">
+            {isEs ? 'Necesarias para el funcionamiento del sitio.' : 'Required for the site to work.'}
+          </p>
+        </div>
+        <input type="checkbox" checked disabled class="h-5 w-5 accent-brand-600" />
+      </div>
+
+      <!-- Analytics -->
+      <div class="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3">
+        <div>
+          <p class="text-sm font-medium text-white">{isEs ? 'Análisis' : 'Analytics'}</p>
+          <p class="text-xs text-slate-400">
+            {isEs ? 'Ayudan a entender cómo se usa el sitio.' : 'Help us understand how the site is used.'}
+          </p>
+        </div>
+        <input id="toggle-analytics" type="checkbox" class="h-5 w-5 accent-brand-600" />
+      </div>
+
+      <!-- Advertising -->
+      <div class="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3">
+        <div>
+          <p class="text-sm font-medium text-white">{isEs ? 'Publicidad' : 'Advertising'}</p>
+          <p class="text-xs text-slate-400">
+            {isEs ? 'Permiten mostrar anuncios relevantes.' : 'Allow us to show relevant ads.'}
+          </p>
+        </div>
+        <input id="toggle-advertising" type="checkbox" class="h-5 w-5 accent-brand-600" />
+      </div>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-3">
+      <button
+        id="modal-cancel"
+        class="rounded-md border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+      >
+        {isEs ? 'Cancelar' : 'Cancel'}
+      </button>
+      <button
+        id="modal-save"
+        class="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
+      >
+        {isEs ? 'Guardar preferencias' : 'Save Preferences'}
+      </button>
     </div>
   </div>
 </div>
@@ -49,50 +125,118 @@ const isEs = locale === 'es';
   (function () {
     const STORAGE_KEY = 'sp-cookie-consent';
     const banner = document.getElementById('cookie-banner');
+    const modal = document.getElementById('cookie-modal');
     const acceptBtn = document.getElementById('cookie-accept');
     const rejectBtn = document.getElementById('cookie-reject');
+    const manageBtn = document.getElementById('cookie-manage');
+    const saveBtn = document.getElementById('modal-save');
+    const cancelBtn = document.getElementById('modal-cancel');
+    const toggleAnalytics = document.getElementById('toggle-analytics');
+    const toggleAdvertising = document.getElementById('toggle-advertising');
 
-    if (!banner || !acceptBtn || !rejectBtn) return;
+    if (!banner) return;
 
-    const consent = localStorage.getItem(STORAGE_KEY);
+    function getConsent() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (e) { return null; }
+    }
 
-    if (consent === 'granted') {
-      loadGtag();
-    } else if (consent === 'denied') {
-      // Keep gtag unloaded
+    function setConsent(consent) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+      updateGtagConsent(consent);
+      if (consent.ad_storage === 'granted' && window.spConsent) {
+        window.spConsent.loadAdSense();
+      }
+    }
+
+    function updateGtagConsent(consent) {
+      if (typeof gtag !== 'function') return;
+      gtag('consent', 'update', {
+        'analytics_storage': consent.analytics_storage || 'denied',
+        'ad_storage': consent.ad_storage || 'denied',
+        'ad_user_data': consent.ad_user_data || 'denied',
+        'ad_personalization': consent.ad_personalization || 'denied'
+      });
+    }
+
+    var stored = getConsent();
+
+    if (stored) {
+      updateGtagConsent(stored);
+      if (stored.ad_storage === 'granted' && window.spConsent) {
+        window.spConsent.loadAdSense();
+      }
     } else {
-      // No decision yet — show banner
       banner.classList.remove('hidden');
     }
 
-    acceptBtn.addEventListener('click', () => {
-      localStorage.setItem(STORAGE_KEY, 'granted');
-      banner.classList.add('hidden');
-      loadGtag();
-    });
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function () {
+        var consent = {
+          analytics_storage: 'granted',
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted'
+        };
+        setConsent(consent);
+        banner.classList.add('hidden');
+        if (modal) modal.classList.add('hidden');
+      });
+    }
 
-    rejectBtn.addEventListener('click', () => {
-      localStorage.setItem(STORAGE_KEY, 'denied');
-      banner.classList.add('hidden');
-      // Ensure gtag stays unloaded and wipe any existing dataLayer
-      window.dataLayer = [];
-    });
+    if (rejectBtn) {
+      rejectBtn.addEventListener('click', function () {
+        var consent = {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        };
+        setConsent(consent);
+        banner.classList.add('hidden');
+        if (modal) modal.classList.add('hidden');
+      });
+    }
 
-    function loadGtag() {
-      if (window.gtagLoaded) return;
-      window.gtagLoaded = true;
+    if (manageBtn && modal) {
+      manageBtn.addEventListener('click', function () {
+        var storedConsent = getConsent();
+        if (toggleAnalytics) {
+          toggleAnalytics.checked = storedConsent ? storedConsent.analytics_storage === 'granted' : false;
+        }
+        if (toggleAdvertising) {
+          toggleAdvertising.checked = storedConsent ? storedConsent.ad_storage === 'granted' : false;
+        }
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      });
+    }
 
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RBE12WJ5KZ';
-      document.head.appendChild(script);
+    if (cancelBtn && modal) {
+      cancelBtn.addEventListener('click', function () {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      });
+    }
 
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () {
-        window.dataLayer.push(arguments);
-      };
-      window.gtag('js', new Date());
-      window.gtag('config', 'G-RBE12WJ5KZ');
+    if (saveBtn && modal) {
+      saveBtn.addEventListener('click', function () {
+        var analyticsGranted = toggleAnalytics ? toggleAnalytics.checked : false;
+        var adsGranted = toggleAdvertising ? toggleAdvertising.checked : false;
+        var consent = {
+          analytics_storage: analyticsGranted ? 'granted' : 'denied',
+          ad_storage: adsGranted ? 'granted' : 'denied',
+          ad_user_data: adsGranted ? 'granted' : 'denied',
+          ad_personalization: adsGranted ? 'granted' : 'denied'
+        };
+        setConsent(consent);
+        banner.classList.add('hidden');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      });
     }
   })();
 </script>
