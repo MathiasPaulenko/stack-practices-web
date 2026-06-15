@@ -11,8 +11,8 @@
 |-----------|----------|--------|
 | Crítico (bloquea indexación o genera errores) | 1 | [ ] Pendiente |
 | Advertencia (impacto SEO negativo) | 4 | [ ] Pendiente |
-| Info (mejora recomendada) | 4 | [ ] Pendiente |
-| Corregidos en esta sesión | 9 | [x] Hecho |
+| Info (mejora recomendada) | 3 | [ ] Pendiente |
+| Corregidos en esta sesión | 10 | [x] Hecho |
 
 ---
 
@@ -120,7 +120,7 @@
 
 ### 13. Schema `Person` del autor no incluye `knowsAbout`
 **Recomendación:** Añadir áreas de conocimiento al schema Person.
-- [ ] Añadir `knowsAbout: ["Software Engineering", "Python", "JavaScript", ...]` al JSON-LD de /authors
+- [x] Añadir `knowsAbout: ["Software Engineering", "Python", "JavaScript", ...]` al JSON-LD de /authors
 
 ### 14. No hay datos estructurados `FAQPage` en páginas estáticas
 **Recomendación:** Añadir FAQ schema a About, Editorial Policy para GEO (AI answer engines).
@@ -139,6 +139,8 @@
 - [x] **Sitemap duplicado `rate-limiting`** — Renombrado a `rate-limiting-security`. Ahora 0 duplicados en sitemap.
 - [x] **Enlaces rotos `relatedResources`** — 4 enlaces rotos adicionales corregidos (retry-patterns, docker-compose, component-testing, storybook).
 - [x] **Hreflang en tags/topics sin contraparte** — Tags y topics que solo existen en un idioma ya no emiten hreflang hacia 404s.
+- [x] **Thin content en páginas de tags** — Descripciones introductorias añadidas a tag pages EN y ES.
+- [x] **Schema Person `knowsAbout`** — Añadidas 10 áreas de conocimiento al schema Person del autor para mejorar E-E-A-T.
 
 ---
 
