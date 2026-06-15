@@ -85,9 +85,13 @@ export function techArticle(opts: {
     ...(opts.dateModified && { dateModified: opts.dateModified }),
     ...(opts.datePublished && { datePublished: opts.datePublished }),
     author: {
-      '@type': 'Organization',
-      name: SITE.author,
-      url: SITE.url,
+      '@type': 'Person',
+      name: 'Mathias Vladimir Paulenko Echeverz',
+      url: 'https://mathiaspaulenko.com',
+      sameAs: [
+        'https://github.com/MathiasPaulenko',
+        'https://cn.linkedin.com/in/mathias-paulenko-echeverz',
+      ],
     },
     publisher: {
       '@type': 'Organization',
