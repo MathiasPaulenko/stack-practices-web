@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { webPage, breadcrumbList, organization } from '../lib/schema';
+import { webPage, breadcrumbList, organization, faqPage } from '../lib/schema';
 
 const jsonLd = [
   {
@@ -21,6 +21,12 @@ const jsonLd = [
   breadcrumbList([
     { name: 'Home', url: '/' },
     { name: 'Editorial Policy', url: '/editorial-policy' },
+  ]),
+  faqPage([
+    { question: 'What is your review process?', answer: 'Every resource goes through five stages: Research, Draft, Technical Review, Testing, and Publication & Monitoring. Code examples are validated in real environments before publication.' },
+    { question: 'How often is content updated?', answer: 'Critical updates (security patches, breaking API changes) are applied within 48 hours. Routine reviews happen every 3-6 months for all published resources. Each page displays a last updated timestamp.' },
+    { question: 'Can I contribute to StackPractices?', answer: 'Currently, content is curated by the founder. We plan to open contributions in the future. You can report errors or suggest topics via the contact page.' },
+    { question: 'How do I report an error?', answer: 'Use the contact page or reach out via email. We investigate every report and publish corrections transparently.' },
   ]),
 ];
 ---
@@ -227,6 +233,45 @@ const jsonLd = [
           <a href="/about" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700">
             About StackPractices
           </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
+        <div class="mt-6 space-y-4">
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>What is your review process?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>Every resource goes through five stages: Research, Draft, Technical Review, Testing, and Publication &amp; Monitoring. Code examples are validated in real environments before publication.</p></div>
+          </details>
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>How often is content updated?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>Critical updates (security patches, breaking API changes) are applied within 48 hours. Routine reviews happen every 3-6 months for all published resources. Each page displays a last updated timestamp.</p></div>
+          </details>
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>Can I contribute to StackPractices?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>Currently, content is curated by the founder. We plan to open contributions in the future. You can report errors or suggest topics via the contact page.</p></div>
+          </details>
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>How do I report an error?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>Use the contact page or reach out via email. We investigate every report and publish corrections transparently.</p></div>
+          </details>
         </div>
       </div>
     </div>

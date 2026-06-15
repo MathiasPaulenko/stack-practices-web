@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { webPage, breadcrumbList } from '../lib/schema';
+import { webPage, breadcrumbList, faqPage } from '../lib/schema';
 
 const jsonLd = [
   {
@@ -15,6 +15,13 @@ const jsonLd = [
   breadcrumbList([
     { name: 'Home', url: '/' },
     { name: 'About', url: '/about' },
+  ]),
+  faqPage([
+    { question: 'What is StackPractices?', answer: 'StackPractices is a practical developer knowledge base offering copy-paste code recipes, design patterns, and documentation templates for software engineers across Python, Java, JavaScript, SQL, and more.' },
+    { question: 'Who runs StackPractices?', answer: 'StackPractices is curated by Mathias Vladimir Paulenko Echeverz, a Software Engineer with 12+ years of experience building production systems across Python, JavaScript, React, and DevOps.' },
+    { question: 'Is the content free?', answer: 'Yes. All content is free to use. No paywalls, no subscriptions. The project is sustained through advertising, affiliate partnerships, and community donations.' },
+    { question: 'What languages are covered?', answer: 'Content is published in English and Spanish. Code examples cover Python, Java, JavaScript, TypeScript, SQL, Bash, Docker, and other technologies based on the topic.' },
+    { question: 'How often is content updated?', answer: 'Critical updates (security patches, breaking API changes) are applied within 48 hours. Routine reviews happen every 3-6 months for all published resources.' },
   ]),
 ];
 ---
@@ -235,6 +242,52 @@ const jsonLd = [
         We only recommend products and services we believe are valuable to developers.
         For full details, see our <a href="/affiliate-disclosure" class="text-brand-600 hover:underline">Affiliate Disclosure</a>.
       </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="border-y border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
+        <div class="mt-6 space-y-4">
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>What is StackPractices?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>StackPractices is a practical developer knowledge base offering copy-paste code recipes, design patterns, and documentation templates for software engineers across Python, Java, JavaScript, SQL, and more.</p></div>
+          </details>
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>Who runs StackPractices?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>StackPractices is curated by Mathias Vladimir Paulenko Echeverz, a Software Engineer with 12+ years of experience building production systems across Python, JavaScript, React, and DevOps.</p></div>
+          </details>
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>Is the content free?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>Yes. All content is free to use. No paywalls, no subscriptions. The project is sustained through advertising, affiliate partnerships, and community donations.</p></div>
+          </details>
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>What languages are covered?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>Content is published in English and Spanish. Code examples cover Python, Java, JavaScript, TypeScript, SQL, Bash, Docker, and other technologies based on the topic.</p></div>
+          </details>
+          <details class="group rounded-xl border border-slate-200 bg-white open:border-brand-300 open:shadow-sm">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-semibold text-slate-800 select-none">
+              <span>How often is content updated?</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 group-open:rotate-180 transition" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-5 pb-4 text-sm text-slate-600"><p>Critical updates (security patches, breaking API changes) are applied within 48 hours. Routine reviews happen every 3-6 months for all published resources.</p></div>
+          </details>
+        </div>
+      </div>
     </div>
   </section>
 
