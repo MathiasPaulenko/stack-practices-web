@@ -34,7 +34,7 @@ public/pagefind/
 # ref folder (except backlog)
 ref/*
 docs/*
-ref.back/
+ref.back/*
 
 # IA Folders
 .agents/
