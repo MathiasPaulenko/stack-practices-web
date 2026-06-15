@@ -12,18 +12,22 @@ export async function getStaticPaths() {
   ]);
 
   const topics = new Set<string>();
+  const esTopics = new Set<string>();
   for (const col of collections) {
     for (const entry of col) {
       if (!isSpanish(entry.id)) {
         entry.data.topics.forEach((t: string) => topics.add(t));
+      } else {
+        entry.data.topics.forEach((t: string) => esTopics.add(t));
       }
     }
   }
 
-  return Array.from(topics).map((topic) => ({ params: { topic } }));
+  return Array.from(topics).map((topic) => ({ params: { topic }, props: { hasEsVersion: esTopics.has(topic) } }));
 }
 
 const { topic } = Astro.params;
+const { hasEsVersion } = Astro.props;
 const topicLabel = topic.replace(/-/g, ' ');
 
 const [recipes, patterns, docs, guides] = await Promise.all([
@@ -50,4 +54,5 @@ const entries = [...recipes, ...patterns, ...docs, ...guides]
   path={`/topics/${topic}`}
   entries={entries}
   keywords={[topicLabel, 'recipes', 'patterns', 'docs', 'guides']}
+  hasAlternate={hasEsVersion}
 />

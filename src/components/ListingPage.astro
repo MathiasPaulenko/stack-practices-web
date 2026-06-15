@@ -20,9 +20,10 @@ export interface Props {
   keywords?: string[];
   locale?: Locale;
   contentType?: string;
+  hasAlternate?: boolean;
 }
 
-const { heading, description, path, entries, keywords = [], locale = 'en', contentType } = Astro.props;
+const { heading, description, path, entries, keywords = [], locale = 'en', contentType, hasAlternate = true } = Astro.props;
 
 const homeHref = locale === 'es' ? '/es' : '/';
 const homeLabel = locale === 'es' ? 'Inicio' : 'Home';
@@ -42,7 +43,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout title={heading} description={description} path={path} locale={locale} keywords={keywords} jsonLd={jsonLd}>
+<BaseLayout title={heading} description={description} path={path} locale={locale} keywords={keywords} jsonLd={jsonLd} hasAlternate={hasAlternate}>
   <div data-pagefind-filter={contentType ? `contentType[${contentType}]` : undefined}>
   <!-- Mini hero: breadcrumb, title, description, search -->
   <section class="border-b border-slate-800 bg-slate-900">

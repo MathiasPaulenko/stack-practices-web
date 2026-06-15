@@ -15,6 +15,8 @@ export async function getStaticPaths() {
 const { tag } = Astro.props;
 const tagIndex = await buildTagIndex('en');
 const items = tagIndex.get(tag) ?? [];
+const esTagIndex = await buildTagIndex('es');
+const hasEsVersion = esTagIndex.has(tag);
 
 const heading = `Tag: ${tag}`;
 const description = `${items.length} resource${items.length === 1 ? '' : 's'} tagged with "${tag}" on StackPractices.`;
@@ -23,13 +25,13 @@ const jsonLd = [
   webPage({ name: heading, description, url: `/tags/${tag}`, locale: 'en' }),
   breadcrumbList([
     { name: 'Home', url: '/' },
-    { name: 'Tags', url: '/tags' },
-    { name: tag, url: `/tags/${tag}` },
+    { name: 'Tags', url: '/tags/' },
+    { name: tag, url: `/tags/${tag}/` },
   ]),
 ];
 ---
 
-<BaseLayout title={heading} description={description} path={`/tags/${tag}`} keywords={[tag, 'tags', 'software engineering']} jsonLd={jsonLd}>
+<BaseLayout title={heading} description={description} path={`/tags/${tag}`} keywords={[tag, 'tags', 'software engineering']} jsonLd={jsonLd} hasAlternate={hasEsVersion}>
   <section class="border-b border-slate-800 bg-slate-900">
     <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-400">
