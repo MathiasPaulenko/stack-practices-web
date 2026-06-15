@@ -29,12 +29,12 @@ export const CONTENT_TYPES = [
 
 /** Main navigation (By Type). */
 export const MAIN_NAV = [
-  { label: 'Recipes', href: '/recipes' },
-  { label: 'Patterns', href: '/patterns' },
-  { label: 'Docs', href: '/docs' },
-  { label: 'Guides', href: '/guides' },
-  { label: 'Tags', href: '/tags' },
-  { label: 'Topics', href: '/topics' },
+  { label: 'Recipes', href: '/recipes/' },
+  { label: 'Patterns', href: '/patterns/' },
+  { label: 'Docs', href: '/docs/' },
+  { label: 'Guides', href: '/guides/' },
+  { label: 'Tags', href: '/tags/' },
+  { label: 'Topics', href: '/topics/' },
 ] as const;
 
 /** Technologies (By Technology navigation dimension). */
@@ -52,23 +52,23 @@ export const TECHNOLOGIES = [
 /** Footer link groups. */
 export const FOOTER_NAV = {
   content: [
-    { label: 'Recipes', href: '/recipes' },
-    { label: 'Patterns', href: '/patterns' },
-    { label: 'Documentation', href: '/docs' },
-    { label: 'Guides', href: '/guides' },
+    { label: 'Recipes', href: '/recipes/' },
+    { label: 'Patterns', href: '/patterns/' },
+    { label: 'Documentation', href: '/docs/' },
+    { label: 'Guides', href: '/guides/' },
   ],
   site: [
-    { label: 'About', href: '/about' },
-    { label: 'Authors', href: '/authors' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Tags', href: '/tags' },
-    { label: 'Topics', href: '/topics' },
+    { label: 'About', href: '/about/' },
+    { label: 'Authors', href: '/authors/' },
+    { label: 'Contact', href: '/contact/' },
+    { label: 'Tags', href: '/tags/' },
+    { label: 'Topics', href: '/topics/' },
   ],
   legal: [
-    { label: 'Privacy', href: '/privacy' },
-    { label: 'Terms', href: '/terms' },
-    { label: 'Cookies', href: '/cookies' },
-    { label: 'Legal Notice', href: '/legal-notice' },
-    { label: 'Affiliate Disclosure', href: '/affiliate-disclosure' },
+    { label: 'Privacy', href: '/privacy/' },
+    { label: 'Terms', href: '/terms/' },
+    { label: 'Cookies', href: '/cookies/' },
+    { label: 'Legal Notice', href: '/legal-notice/' },
+    { label: 'Affiliate Disclosure', href: '/affiliate-disclosure/' },
   ],
 } as const;
