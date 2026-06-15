@@ -38,6 +38,27 @@ export function breadcrumbList(items: BreadcrumbItem[]) {
   };
 }
 
+/** Builds a Person schema for author pages. */
+export function person(opts: {
+  name: string;
+  url: string;
+  image?: string;
+  description?: string;
+  jobTitle?: string;
+  sameAs?: string[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: opts.name,
+    url: opts.url,
+    ...(opts.image && { image: opts.image }),
+    ...(opts.description && { description: opts.description }),
+    ...(opts.jobTitle && { jobTitle: opts.jobTitle }),
+    ...(opts.sameAs && opts.sameAs.length > 0 && { sameAs: opts.sameAs }),
+  };
+}
+
 /** Builds a WebPage schema. */
 export function webPage(opts: {
   name: string;
