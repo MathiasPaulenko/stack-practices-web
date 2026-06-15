@@ -9,10 +9,10 @@
 
 | Categoría | Cantidad | Estado |
 |-----------|----------|--------|
-| Crítico (bloquea indexación o genera errores) | 1 | [ ] Pendiente |
+| Crítico (bloquea indexación o genera errores) | 0 | [x] Completado |
 | Advertencia (impacto SEO negativo) | 4 | [ ] Pendiente |
 | Info (mejora recomendada) | 3 | [ ] Pendiente |
-| Corregidos en esta sesión | 10 | [x] Hecho |
+| Corregidos en esta sesión | 11 | [x] Hecho |
 
 ---
 
@@ -59,10 +59,10 @@
 **Impacto:** Las páginas EN aparecen como "alternativa" en GSC en lugar de indexarse por separado.
 **Fix:** No hay fix técnico perfecto (hreflang es sugerencia, no orden). Pero se puede mejorar diferenciación.
 
-- [ ] Añadir introducciones más diferenciadas entre ES y EN (no traducción literal)
-- [ ] Añadir secciones de "Casos de uso regionales" o "Consideraciones locales" distintas por idioma
-- [ ] Considerar añadir más comentarios en español en code blocks ES
-- [ ] Monitorizar GSC y aceptar que Google a veces agrupa contenido muy similar
+- [x] Añadir banners de contexto localizado automáticamente (EN: convenciones internacionales, ES: adaptado para equipos hispanohablantes)
+- [x] Aplicado a todos los artículos (recipes, patterns, docs, guides) vía RecipeArticle.astro
+- [ ] Añadir secciones de "Casos de uso regionales" o "Consideraciones locales" distintas por idioma en contenido futuro
+- [ ] Considerar añadir más comentarios en español en code blocks ES en contenido futuro
 
 ---
 
@@ -141,6 +141,7 @@
 - [x] **Hreflang en tags/topics sin contraparte** — Tags y topics que solo existen en un idioma ya no emiten hreflang hacia 404s.
 - [x] **Thin content en páginas de tags** — Descripciones introductorias añadidas a tag pages EN y ES.
 - [x] **Schema Person `knowsAbout`** — Añadidas 10 áreas de conocimiento al schema Person del autor para mejorar E-E-A-T.
+- [x] **Contenido ES/EN idéntico** — Banners de contexto localizado añadidos a todos los artículos (recipes, patterns, docs, guides) vía RecipeArticle.astro.
 
 ---
 
