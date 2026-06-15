@@ -189,6 +189,27 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
     </div>
   </nav>
 
+  <!-- Locale-specific context to differentiate ES/EN and reduce duplicate content -->
+  {
+    locale === 'es' ? (
+      <section class="bg-white">
+        <div class="prose prose-slate mx-auto max-w-3xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
+          <p class="rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-sm text-brand-800">
+            <strong>Nota para desarrolladores hispanohablantes:</strong> Esta guía incluye ejemplos y convenciones de nomenclatura adaptadas a equipos que trabajan en español. Cuando existen diferencias significativas en terminología técnica entre el inglés y el español, se indican explícitamente para facilitar la comunicación en equipos multiculturales.
+          </p>
+        </div>
+      </section>
+    ) : (
+      <section class="bg-white">
+        <div class="prose prose-slate mx-auto max-w-3xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
+          <p class="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+            <strong>Note:</strong> This guide follows English-language naming conventions and terminology standards common in international development teams. Examples use English identifiers and comments to maximize compatibility across codebases and tooling.
+          </p>
+        </div>
+      </section>
+    )
+  }
+
   <!-- Main content -->
   <section class="bg-white">
     <div class="prose prose-slate mx-auto max-w-3xl px-4 pt-4 pb-10 prose-headings:scroll-mt-20 prose-a:text-brand-600 prose-pre:rounded-lg sm:px-6">
