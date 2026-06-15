@@ -156,94 +156,6 @@ const jsonLd = [
     .pagefind-ui__content-badge--guide   { background: #f3e8ff; color: #7c3aed; }
     .pagefind-ui__content-badge--guia    { background: #f3e8ff; color: #7c3aed; }
 
-    /* ═══ Filter Pills ═══ */
-    .pagefind-ui .pagefind-ui__filter-panel {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0;
-      margin-bottom: 0.75rem;
-      border: none;
-      background: transparent;
-    }
-    .pagefind-ui .pagefind-ui__filter-label {
-      display: none !important;
-    }
-    .pagefind-ui .pagefind-ui__filter-group {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 0.375rem;
-    }
-    .pagefind-ui .pagefind-ui__filter-value {
-      display: flex;
-      flex-direction: row;
-      gap: 0.375rem;
-    }
-    .pagefind-ui .pagefind-ui__filter-value label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-size: 0.8rem;
-      color: #64748b;
-      cursor: pointer;
-      padding: 0.375rem 0.875rem;
-      border-radius: 9999px;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
-      transition: all 0.15s;
-      user-select: none;
-    }
-    .pagefind-ui .pagefind-ui__filter-value label:hover {
-      background: #eff6ff;
-      border-color: #bfdbfe;
-      color: #1d4ed8;
-    }
-    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 0.875rem;
-      height: 0.875rem;
-      border: 1.5px solid #94a3b8;
-      border-radius: 0.25rem;
-      background: transparent;
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-      margin: 0;
-    }
-    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"]:checked {
-      background: #3b82f6;
-      border-color: #3b82f6;
-    }
-    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"]:checked::after {
-      content: "";
-      position: absolute;
-      left: 0.1875rem;
-      top: 0.0625rem;
-      width: 0.25rem;
-      height: 0.5rem;
-      border: solid white;
-      border-width: 0 0.125rem 0.125rem 0;
-      transform: rotate(45deg);
-    }
-    .pagefind-ui .pagefind-ui__filter-value input[type="checkbox"]:focus-visible {
-      outline: 2px solid #60a5fa;
-      outline-offset: 2px;
-    }
-    .pagefind-ui .pagefind-ui__filter-value .pagefind-ui__filter-value-count {
-      display: none !important;
-    }
-    .pagefind-ui .pagefind-ui__filter-group details {
-      display: flex !important;
-      flex-wrap: wrap;
-      gap: 0.375rem;
-    }
-    .pagefind-ui .pagefind-ui__filter-group summary {
-      display: none !important;
-    }
-
     /* ═══ Sub-results ═══ */
     .pagefind-ui .pagefind-ui__result-nested {
       margin-left: 1.25rem;
@@ -285,7 +197,7 @@ const jsonLd = [
         const ui = new window.PagefindUI({
           element: '#search',
           showSubResults: true,
-          showFilters: true,
+          showFilters: false,
           processResult: function (result) {
             const typeMap = {
               'recipes': 'Recipe',
@@ -298,38 +210,8 @@ const jsonLd = [
             result.contentTypeLabel = typeMap[contentType] || '';
             return result;
           },
-          filterConfig: {
-            contentType: { label: 'Content Type' },
-            lang: { label: 'Language' }
-          }
         });
 
-        function prettifyFilters() {
-          const map = {
-            'recipes': 'Recipes',
-            'patterns': 'Patterns',
-            'docs': 'Docs',
-            'guides': 'Guides',
-            'en': 'English',
-            'es': 'Spanish'
-          };
-          document.querySelectorAll('.pagefind-ui__filter-value label, .pagefind-ui__filter-value span, .pagefind-ui__filter-value').forEach(el => {
-            const key = el.textContent.trim().toLowerCase();
-            if (map[key]) {
-              const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-              let node;
-              while (node = walker.nextNode()) {
-                const text = node.textContent.trim();
-                if (map[text.toLowerCase()]) {
-                  node.textContent = node.textContent.replace(text, map[text.toLowerCase()]);
-                }
-              }
-            }
-          });
-        }
-        function expandFilters() {
-          document.querySelectorAll('.pagefind-ui__filter-group details').forEach(d => { d.open = true; });
-        }
         function addBadges() {
           const titleMap = {
             'Recipe': 'recipe', 'Pattern': 'pattern', 'Doc': 'doc', 'Guide': 'guide',
@@ -361,18 +243,12 @@ const jsonLd = [
           if (resultsArea && resultsArea.parentElement !== wrapper) {
             wrapper.appendChild(resultsArea);
           }
-          const filterPanel = searchContainer.querySelector('.pagefind-ui__filter-panel');
-          if (filterPanel && filterPanel.parentElement !== wrapper) {
-            wrapper.insertBefore(filterPanel, wrapper.firstChild);
-          }
           const msg = searchContainer.querySelector('.pagefind-ui__message');
           if (msg && msg.parentElement !== wrapper) {
             wrapper.insertBefore(msg, wrapper.firstChild);
           }
         }
         function enhance() {
-          prettifyFilters();
-          expandFilters();
           addBadges();
           moveResultsToWrapper();
         }
