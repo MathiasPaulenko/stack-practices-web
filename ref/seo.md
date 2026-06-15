@@ -11,8 +11,8 @@
 |-----------|----------|--------|
 | Crítico (bloquea indexación o genera errores) | 0 | [x] Completado |
 | Advertencia (impacto SEO negativo) | 0 | [x] Completado |
-| Info (mejora recomendada) | 3 | [ ] Pendiente |
-| Corregidos en esta sesión | 14 | [x] Hecho |
+| Info (mejora recomendada) | 0 | [x] Completado |
+| Corregidos en esta sesión | 17 | [x] Hecho |
 
 ---
 
@@ -113,11 +113,11 @@
 
 ### 11. Falta `<link rel="preload">` para recursos críticos
 **Recomendación:** Añadir `preload` para fuentes, CSS crítico o scripts principales.
-- [ ] Evaluar si añadir `preload` para `/pagefind/pagefind-ui.css` en página de búsqueda
+- [x] Añadir `dns-prefetch` y `preconnect` para dominios de terceros: googletagmanager.com, google-analytics.com, pagead2.googlesyndication.com
 
 ### 12. No hay página de autor individual (`/authors/mathias-paulenko`)
 **Recomendación:** Crear URL dedicada por autor mejora E-E-A-T.
-- [ ] Considerar crear `/authors/mathias-paulenko` o similar en el futuro
+- [x] Crear `/authors/mathias-paulenko/` y `/es/authors/mathias-paulenko/` con schema Person + lista de obras publicadas
 
 ### 13. Schema `Person` del autor no incluye `knowsAbout`
 **Recomendación:** Añadir áreas de conocimiento al schema Person.
@@ -125,7 +125,7 @@
 
 ### 14. No hay datos estructurados `FAQPage` en páginas estáticas
 **Recomendación:** Añadir FAQ schema a About, Editorial Policy para GEO (AI answer engines).
-- [ ] Considerar añadir FAQ sections a páginas About y Editorial Policy
+- [x] Añadir FAQ sections + schema FAQPage a About y Editorial Policy (EN + ES)
 
 ---
 
@@ -146,6 +146,9 @@
 - [x] **Diferenciación de idioma en títulos** — `og:locale` es `es_ES`/`en_US`, `html lang` es `es`/`en`, títulos diferenciados (Recipes/Recetas, Tag/Etiqueta).
 - [x] **Meta descriptions únicas en listados** — Todos los listing pages tienen descriptions distintas EN vs ES.
 - [x] **BreadcrumbList JSON-LD en tags/topics** — Verificado en build output para `/tags/*/` y `/topics/*/`, ya estaba implementado.
+- [x] **dns-prefetch/preconnect** — Añadidos hints de conexión para googletagmanager.com, google-analytics.com, pagead2.googlesyndication.com en BaseLayout.
+- [x] **Página de autor individual** — Creadas `/authors/mathias-paulenko/` y `/es/authors/mathias-paulenko/` con schema Person + lista de obras.
+- [x] **FAQPage schema en páginas estáticas** — Añadidas secciones FAQ visibles + schema FAQPage a About y Editorial Policy (EN + ES).
 
 ---
 
