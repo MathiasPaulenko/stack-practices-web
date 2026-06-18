@@ -8,15 +8,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - config
   - devops
+  - config
   - java
-  - javascript
-  - json
-  - python
-  - schema
-  - validation
-  - yaml
 relatedResources:
   - /recipes/input-validation
   - /recipes/background-jobs

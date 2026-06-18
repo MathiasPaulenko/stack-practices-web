@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - authentication
 tags:
+  - authentication
   - 2fa
   - totp
-  - authentication
-  - security
-  - mfa
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login

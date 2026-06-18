@@ -8,12 +8,9 @@ difficulty: beginner
 topics:
   - api
 tags:
+  - api
   - rest
   - http
-  - api
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file

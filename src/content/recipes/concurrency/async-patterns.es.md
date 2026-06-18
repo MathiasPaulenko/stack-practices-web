@@ -11,10 +11,6 @@ tags:
   - concurrency
   - coroutines
   - event-loop
-  - futures
-  - non-blocking
-  - parallel-processing
-  - promises
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/serverless-functions

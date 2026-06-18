@@ -11,7 +11,6 @@ tags:
   - ai
   - embeddings
   - openai
-  - semantic-search
 relatedResources:
   - /recipes/rag-pipeline
   - /recipes/chatbot-openai

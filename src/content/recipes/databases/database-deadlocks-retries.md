@@ -11,10 +11,6 @@ tags:
   - database
   - deadlocks
   - isolation-levels
-  - mysql
-  - postgresql
-  - retries
-  - transactions
 relatedResources:
   - /recipes/database-transactions
   - /recipes/full-text-search

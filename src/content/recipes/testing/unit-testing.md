@@ -11,11 +11,6 @@ tags:
   - testing
   - unit-tests
   - pytest
-  - jest
-  - junit
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/handle-errors
   - /recipes/sort-array

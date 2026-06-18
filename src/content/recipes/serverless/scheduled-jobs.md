@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - serverless
 tags:
+  - serverless
   - scheduled-jobs
   - cron
-  - serverless
-  - lambda
-  - cloud-scheduler
-  - automation
-  - maintenance
-  - aws
 relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/event-driven-functions

@@ -11,8 +11,6 @@ tags:
   - ai
   - embeddings
   - llm
-  - openai
-  - rag
 relatedResources:
   - /recipes/semantic-search
   - /recipes/chatbot-openai

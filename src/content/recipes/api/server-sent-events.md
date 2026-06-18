@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - api
 tags:
+  - api
   - sse
   - server-sent-events
-  - streaming
-  - real-time
-  - api
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api

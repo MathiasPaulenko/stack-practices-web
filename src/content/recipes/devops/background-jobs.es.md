@@ -8,16 +8,9 @@ difficulty: intermediate
 topics:
   - devops
 tags:
+  - devops
   - background-jobs
   - bullmq
-  - celery
-  - cron
-  - devops
-  - java
-  - javascript
-  - python
-  - queue
-  - workers
 relatedResources:
   - /recipes/cron-jobs
   - /recipes/environment-variables

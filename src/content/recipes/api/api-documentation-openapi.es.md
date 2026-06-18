@@ -11,10 +11,6 @@ tags:
   - api
   - api-documentation
   - java
-  - javascript
-  - openapi
-  - python
-  - swagger
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api

@@ -11,7 +11,6 @@ tags:
   - ai
   - chatbot
   - llm
-  - openai
 relatedResources:
   - /recipes/rag-pipeline
   - /recipes/semantic-search

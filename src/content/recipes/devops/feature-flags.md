@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - devops
 tags:
+  - devops
   - feature-flags
   - toggles
-  - rollout
-  - ab-testing
-  - devops
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

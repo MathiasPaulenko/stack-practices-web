@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - design
 tags:
+  - design
   - factory-pattern
   - creational-patterns
-  - abstract-factory
-  - dependency-injection
-  - object-creation
-  - decoupling
-  - testability
-  - inversion-of-control
 relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/domain-driven-design

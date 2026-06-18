@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - design
 tags:
+  - design
   - adapter-pattern
   - structural-patterns
-  - legacy-integration
-  - third-party-apis
-  - interface-compatibility
-  - wrapper
-  - facade
-  - decoupling
 relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/factory-pattern

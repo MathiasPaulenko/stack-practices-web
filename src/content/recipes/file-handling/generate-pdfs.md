@@ -11,11 +11,6 @@ tags:
   - file-handling
   - html-to-pdf
   - java
-  - javascript
-  - pdf
-  - python
-  - reporting
-  - templates
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/send-emails-smtp

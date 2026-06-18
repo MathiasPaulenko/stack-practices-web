@@ -8,16 +8,9 @@ difficulty: beginner
 topics:
   - file-handling
 tags:
+  - file-handling
   - csv
   - excel
-  - file-handling
-  - import
-  - java
-  - javascript
-  - pandas
-  - parse
-  - python
-  - validation
 relatedResources:
   - /recipes/export-csv-excel
   - /recipes/file-upload-validation

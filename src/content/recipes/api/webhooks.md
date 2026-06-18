@@ -11,11 +11,6 @@ tags:
   - api
   - events
   - integration
-  - java
-  - javascript
-  - python
-  - real-time
-  - webhooks
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

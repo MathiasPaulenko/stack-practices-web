@@ -11,8 +11,6 @@ tags:
   - api
   - interceptor
   - microservices
-  - protobuf
-  - streaming
 relatedResources:
   - /recipes/server-sent-events
   - /docs/api-documentation

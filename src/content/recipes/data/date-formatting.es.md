@@ -11,11 +11,6 @@ tags:
   - data
   - dates
   - formatting
-  - iso8601
-  - java
-  - javascript
-  - python
-  - timezone
 relatedResources:
   - /recipes/parse-json
   - /recipes/call-rest-api

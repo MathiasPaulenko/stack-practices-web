@@ -8,12 +8,9 @@ difficulty: intermediate
 topics:
   - performance
 tags:
+  - performance
   - cdn
   - edge-caching
-  - cache-invalidation
-  - cloudfront
-  - cloudflare
-  - performance
 relatedResources:
   - /guides/performance-optimization-guide
   - /guides/sql-performance-tuning-guide

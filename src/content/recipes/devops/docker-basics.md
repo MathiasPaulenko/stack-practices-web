@@ -8,11 +8,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - devops
   - docker
   - container
-  - devops
-  - deployment
-  - compose
 relatedResources:
   - /recipes/git-workflow
   - /recipes/call-rest-api

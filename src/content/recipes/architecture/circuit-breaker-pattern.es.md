@@ -11,13 +11,6 @@ tags:
   - architecture
   - cascading-failures
   - circuit-breaker
-  - distributed-systems
-  - fallback
-  - fault-tolerance
-  - microservices
-  - resilience
-  - retry
-  - timeout
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/saga-pattern

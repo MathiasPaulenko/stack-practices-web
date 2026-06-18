@@ -11,11 +11,6 @@ tags:
   - data
   - deep-clone
   - javascript
-  - lodash
-  - objects
-  - performance
-  - serialization
-  - structuredclone
 relatedResources:
   - /recipes/caching
   - /recipes/date-formatting

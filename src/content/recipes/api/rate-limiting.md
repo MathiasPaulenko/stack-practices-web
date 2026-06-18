@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - api
 tags:
+  - api
   - rate-limiting
   - throttling
-  - token-bucket
-  - api
-  - python
-  - javascript
-  - java
-  - redis
 relatedResources:
   - /recipes/api/middleware
   - /recipes/api/input-validation

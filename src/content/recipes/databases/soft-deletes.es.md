@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - databases
 tags:
+  - database
   - audit
   - data-recovery
-  - database
-  - deletion
-  - java
-  - javascript
-  - python
-  - soft-deletes
 relatedResources:
   - /recipes/database-transactions
   - /recipes/full-text-search

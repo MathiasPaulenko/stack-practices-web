@@ -11,12 +11,6 @@ tags:
   - database
   - elasticsearch
   - full-text-search
-  - java
-  - javascript
-  - meilisearch
-  - postgresql
-  - python
-  - search
 relatedResources:
   - /recipes/database-transactions
   - /patterns/abstract-factory-pattern

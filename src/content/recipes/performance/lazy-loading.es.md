@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - performance
 tags:
+  - performance
   - lazy-loading
   - imagenes
-  - componentes
-  - intersection-observer
-  - core-web-vitals
-  - ancho-de-banda
-  - frontend
-  - performance
 relatedResources:
   - /recipes/cache-invalidation
   - /recipes/cdn-edge-caching

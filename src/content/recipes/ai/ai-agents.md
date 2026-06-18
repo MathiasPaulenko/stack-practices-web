@@ -11,12 +11,6 @@ tags:
   - ai
   - ai-agents
   - autonomous-agents
-  - function-calling
-  - llm
-  - memory
-  - react-pattern
-  - reasoning
-  - tool-use
 relatedResources:
   - /recipes/prompt-engineering
   - /recipes/rag-pipeline

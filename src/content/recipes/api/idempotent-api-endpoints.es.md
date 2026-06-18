@@ -11,11 +11,6 @@ tags:
   - api
   - distributed-systems
   - http
-  - idempotency
-  - java
-  - javascript
-  - python
-  - retry
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-cors

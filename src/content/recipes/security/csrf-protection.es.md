@@ -8,12 +8,9 @@ difficulty: beginner
 topics:
   - security
 tags:
+  - security
   - authentication
   - cookies
-  - owasp
-  - security
-  - tokens
-  - web-security
 relatedResources:
   - /recipes/api-security-headers
   - /recipes/session-management

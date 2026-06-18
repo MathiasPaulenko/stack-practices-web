@@ -11,12 +11,6 @@ tags:
   - data
   - data-validation
   - input-validation
-  - joi
-  - pydantic
-  - sanitization
-  - schemas
-  - security
-  - zod
 relatedResources:
   - /recipes/input-validation
   - /recipes/api-security-headers

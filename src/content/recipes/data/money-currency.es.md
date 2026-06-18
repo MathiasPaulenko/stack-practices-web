@@ -8,15 +8,9 @@ difficulty: intermediate
 topics:
   - data
 tags:
-  - currency
   - data
+  - currency
   - decimal
-  - finance
-  - formatting
-  - java
-  - javascript
-  - money
-  - python
 relatedResources:
   - /recipes/date-formatting
   - /recipes/caching

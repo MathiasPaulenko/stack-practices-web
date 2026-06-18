@@ -8,12 +8,9 @@ difficulty: intermediate
 topics:
   - performance
 tags:
+  - performance
   - cache-invalidation
   - caching
-  - distributed-systems
-  - performance
-  - redis
-  - ttl
 relatedResources:
   - /recipes/database-indexing
   - /recipes/connection-pooling

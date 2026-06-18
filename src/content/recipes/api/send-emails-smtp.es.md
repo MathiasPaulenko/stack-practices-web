@@ -11,11 +11,6 @@ tags:
   - api
   - email
   - java
-  - javascript
-  - notificacion
-  - plantillas
-  - python
-  - smtp
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

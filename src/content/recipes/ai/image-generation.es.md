@@ -11,12 +11,6 @@ tags:
   - ai
   - ai-art
   - batch-processing
-  - dall-e
-  - generative-ai
-  - image-generation
-  - moderation
-  - prompt-engineering
-  - stable-diffusion
 relatedResources:
   - /recipes/prompt-engineering
   - /recipes/ai-agents

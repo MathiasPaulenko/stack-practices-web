@@ -11,13 +11,6 @@ tags:
   - api
   - java
   - javascript
-  - logging
-  - loguru
-  - observability
-  - python
-  - slf4j
-  - structured-logging
-  - winston
 relatedResources:
   - /recipes/handle-errors
   - /recipes/middleware

@@ -11,13 +11,6 @@ tags:
   - api
   - input-validation
   - java
-  - javascript
-  - pydantic
-  - python
-  - sanitization
-  - schema
-  - validation
-  - zod
 relatedResources:
   - /recipes/handle-errors
   - /recipes/regular-expressions

@@ -8,12 +8,9 @@ difficulty: intermediate
 topics:
   - devops
 tags:
+  - devops
   - github-actions
   - ci-cd
-  - devops
-  - automation
-  - yaml
-  - testing
 relatedResources:
   - /recipes/unit-testing
   - /recipes/docker-basics

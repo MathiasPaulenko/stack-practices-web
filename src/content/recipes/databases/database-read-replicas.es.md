@@ -11,10 +11,6 @@ tags:
   - database
   - load-balancing
   - mysql
-  - postgresql
-  - read-replicas
-  - replication
-  - scaling
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/full-text-search

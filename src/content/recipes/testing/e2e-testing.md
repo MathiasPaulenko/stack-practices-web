@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - testing
 tags:
+  - testing
   - e2e-testing
   - playwright
-  - cypress
-  - user-journey
-  - flakiness
-  - ci-cd
-  - automation
-  - testing
 relatedResources:
   - /recipes/integration-testing
   - /recipes/unit-testing-mocking

@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - serverless
 tags:
-  - event-driven
   - serverless
+  - event-driven
   - lambda
-  - sqs
-  - eventbridge
-  - async-processing
-  - microservices
-  - aws
 relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/webhooks

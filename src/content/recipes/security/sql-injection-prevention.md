@@ -8,15 +8,9 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - sql-injection
   - security
+  - sql-injection
   - database
-  - parameterized-queries
-  - prepared-statements
-  - orm
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/database-transactions
   - /recipes/input-validation

@@ -11,11 +11,6 @@ tags:
   - ai
   - ai-development
   - chain-of-thought
-  - few-shot-learning
-  - generative-ai
-  - llm
-  - openai
-  - prompt-engineering
 relatedResources:
   - /recipes/chatbot-openai
   - /recipes/rag-pipeline

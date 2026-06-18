@@ -8,15 +8,9 @@ difficulty: beginner
 topics:
   - file-handling
 tags:
+  - file-handling
   - bandwidth
   - brotli
-  - compression
-  - file-handling
-  - gzip
-  - performance
-  - static-assets
-  - streaming
-  - zlib
 relatedResources:
   - /recipes/cdn-edge-caching
   - /recipes/lazy-loading

@@ -8,15 +8,9 @@ difficulty: intermediate
 topics:
   - concurrency
 tags:
+  - concurrency
   - atomic-operations
   - blocking-queue
-  - concurrency
-  - concurrent-collections
-  - concurrent-map
-  - copy-on-write
-  - java-util-concurrent
-  - producer-consumer
-  - thread-safety
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools

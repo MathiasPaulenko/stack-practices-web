@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 226,
+  "count": 230,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -3997,13 +3997,7 @@
         "tags": [
           "ai",
           "ai-agents",
-          "autonomous-agents",
-          "function-calling",
-          "llm",
-          "memory",
-          "react-pattern",
-          "reasoning",
-          "tool-use"
+          "autonomous-agents"
         ],
         "relatedResources": [
           "/recipes/prompt-engineering",
@@ -4039,8 +4033,7 @@
         "tags": [
           "ai",
           "chatbot",
-          "llm",
-          "openai"
+          "llm"
         ],
         "relatedResources": [
           "/recipes/rag-pipeline",
@@ -4079,13 +4072,7 @@
         "tags": [
           "ai",
           "ai-art",
-          "batch-processing",
-          "dall-e",
-          "generative-ai",
-          "image-generation",
-          "moderation",
-          "prompt-engineering",
-          "stable-diffusion"
+          "batch-processing"
         ],
         "relatedResources": [
           "/recipes/prompt-engineering",
@@ -4161,12 +4148,7 @@
         "tags": [
           "ai",
           "ai-development",
-          "chain-of-thought",
-          "few-shot-learning",
-          "generative-ai",
-          "llm",
-          "openai",
-          "prompt-engineering"
+          "chain-of-thought"
         ],
         "relatedResources": [
           "/recipes/chatbot-openai",
@@ -4203,9 +4185,7 @@
         "tags": [
           "ai",
           "embeddings",
-          "llm",
-          "openai",
-          "rag"
+          "llm"
         ],
         "relatedResources": [
           "/recipes/semantic-search",
@@ -4244,8 +4224,7 @@
         "tags": [
           "ai",
           "embeddings",
-          "openai",
-          "semantic-search"
+          "openai"
         ],
         "relatedResources": [
           "/recipes/rag-pipeline",
@@ -4270,6 +4249,43 @@
       }
     },
     {
+      "path": "recipes/ai/slack-bot-openai.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "slack-bot-openai",
+        "title": "Build a Slack Bot with OpenAI GPT-4",
+        "description": "How to build a conversational Slack bot powered by OpenAI GPT-4 that responds to mentions and direct messages",
+        "metaDescription": "Build a Slack bot with OpenAI GPT-4. Handle mentions, DMs, conversation history, and function calling for a production-ready chatbot.",
+        "difficulty": "intermediate",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "ai",
+          "chatbot",
+          "openai",
+          "slack"
+        ],
+        "relatedResources": [
+          "/recipes/chatbot-openai",
+          "/recipes/llm-fine-tuning",
+          "/guides/software-architecture-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Build a Slack bot with OpenAI GPT-4. Handle mentions, DMs, conversation history, and function calling for a production-ready chatbot.",
+          "keywords": [
+            "slack bot",
+            "openai",
+            "chatbot",
+            "gpt-4",
+            "bolt"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/api-documentation-openapi.md",
       "metadata": {
         "contentType": "recipes",
@@ -4284,11 +4300,7 @@
         "tags": [
           "api",
           "api-documentation",
-          "java",
-          "javascript",
-          "openapi",
-          "python",
-          "swagger"
+          "java"
         ],
         "relatedResources": [
           "/recipes/api-versioning",
@@ -4328,11 +4340,7 @@
         "tags": [
           "api",
           "compliance",
-          "java",
-          "javascript",
-          "logging",
-          "python",
-          "structured-logging"
+          "java"
         ],
         "relatedResources": [
           "/recipes/logging",
@@ -4372,12 +4380,7 @@
         "tags": [
           "api",
           "versioning",
-          "rest",
-          "graphql",
-          "backward-compatibility",
-          "python",
-          "javascript",
-          "java"
+          "rest"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -4416,12 +4419,9 @@
           "api"
         ],
         "tags": [
-          "rest",
-          "http",
           "api",
-          "python",
-          "javascript",
-          "java"
+          "rest",
+          "http"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -4458,9 +4458,7 @@
         "tags": [
           "api",
           "graphql",
-          "java",
-          "javascript",
-          "python"
+          "java"
         ],
         "relatedResources": [
           "/recipes/api-versioning",
@@ -4500,9 +4498,7 @@
         "tags": [
           "api",
           "interceptor",
-          "microservices",
-          "protobuf",
-          "streaming"
+          "microservices"
         ],
         "relatedResources": [
           "/recipes/server-sent-events",
@@ -4542,11 +4538,7 @@
         "tags": [
           "api",
           "cors",
-          "http",
-          "java",
-          "javascript",
-          "python",
-          "security"
+          "http"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -4587,10 +4579,7 @@
         "tags": [
           "api",
           "error-handling",
-          "java",
-          "javascript",
-          "python",
-          "rest"
+          "java"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -4626,12 +4615,7 @@
         "tags": [
           "api",
           "distributed-systems",
-          "http",
-          "idempotency",
-          "java",
-          "javascript",
-          "python",
-          "retry"
+          "http"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -4673,14 +4657,7 @@
         "tags": [
           "api",
           "input-validation",
-          "java",
-          "javascript",
-          "pydantic",
-          "python",
-          "sanitization",
-          "schema",
-          "validation",
-          "zod"
+          "java"
         ],
         "relatedResources": [
           "/recipes/handle-errors",
@@ -4721,14 +4698,7 @@
         "tags": [
           "api",
           "java",
-          "javascript",
-          "logging",
-          "loguru",
-          "observability",
-          "python",
-          "slf4j",
-          "structured-logging",
-          "winston"
+          "javascript"
         ],
         "relatedResources": [
           "/recipes/handle-errors",
@@ -4769,14 +4739,7 @@
         "tags": [
           "api",
           "authentication",
-          "express",
-          "fastapi",
-          "interceptor",
-          "java",
-          "javascript",
-          "logging",
-          "middleware",
-          "python"
+          "express"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -4813,14 +4776,9 @@
           "api"
         ],
         "tags": [
-          "pagination",
           "api",
-          "database",
-          "offset",
-          "cursor",
-          "python",
-          "javascript",
-          "sql"
+          "pagination",
+          "database"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -4857,14 +4815,9 @@
           "api"
         ],
         "tags": [
-          "rate-limiting",
-          "throttling",
-          "token-bucket",
           "api",
-          "python",
-          "javascript",
-          "java",
-          "redis"
+          "rate-limiting",
+          "throttling"
         ],
         "relatedResources": [
           "/recipes/api/middleware",
@@ -4903,13 +4856,7 @@
         "tags": [
           "api",
           "java",
-          "javascript",
-          "notifications",
-          "publish-subscribe",
-          "python",
-          "real-time",
-          "redis",
-          "websocket"
+          "javascript"
         ],
         "relatedResources": [
           "/recipes/websocket-server",
@@ -4950,12 +4897,7 @@
         "tags": [
           "api",
           "email",
-          "java",
-          "javascript",
-          "notification",
-          "python",
-          "smtp",
-          "templates"
+          "java"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -4993,14 +4935,9 @@
           "api"
         ],
         "tags": [
-          "sse",
-          "server-sent-events",
-          "streaming",
-          "real-time",
           "api",
-          "python",
-          "javascript",
-          "java"
+          "sse",
+          "server-sent-events"
         ],
         "relatedResources": [
           "/recipes/api-versioning",
@@ -5041,12 +4978,7 @@
         "tags": [
           "api",
           "events",
-          "integration",
-          "java",
-          "javascript",
-          "python",
-          "real-time",
-          "webhooks"
+          "integration"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -5086,13 +5018,7 @@
         "tags": [
           "api",
           "bidirectional",
-          "java",
-          "javascript",
-          "python",
-          "real-time",
-          "server",
-          "websocket",
-          "ws"
+          "java"
         ],
         "relatedResources": [
           "/recipes/server-sent-events",
@@ -5131,15 +5057,9 @@
           "architecture"
         ],
         "tags": [
-          "api-gateway",
           "architecture",
-          "authentication",
-          "caching",
-          "load-balancing",
-          "microservices",
-          "protocol-translation",
-          "rate-limiting",
-          "routing"
+          "api-gateway",
+          "authentication"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -5176,14 +5096,7 @@
         "tags": [
           "architecture",
           "cascading-failures",
-          "circuit-breaker",
-          "distributed-systems",
-          "fallback",
-          "fault-tolerance",
-          "microservices",
-          "resilience",
-          "retry",
-          "timeout"
+          "circuit-breaker"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -5220,10 +5133,7 @@
         "tags": [
           "architecture",
           "event-bus",
-          "event-driven",
-          "event-sourcing",
-          "loose-coupling",
-          "pub-sub"
+          "event-driven"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -5260,13 +5170,7 @@
         "tags": [
           "architecture",
           "consistent-hashing",
-          "failover",
-          "haproxy",
-          "health-checks",
-          "least-connections",
-          "load-balancing",
-          "nginx",
-          "round-robin"
+          "failover"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -5303,13 +5207,7 @@
         "tags": [
           "architecture",
           "bulkhead",
-          "circuit-breaker",
-          "distributed-systems",
-          "fault-tolerance",
-          "microservices",
-          "resilience",
-          "retries",
-          "saga-pattern"
+          "circuit-breaker"
         ],
         "relatedResources": [
           "/recipes/api-gateway",
@@ -5346,11 +5244,7 @@
         "tags": [
           "architecture",
           "choreography",
-          "compensation",
-          "distributed-transactions",
-          "event-driven",
-          "microservices",
-          "saga-pattern"
+          "compensation"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -5387,13 +5281,7 @@
         "tags": [
           "architecture",
           "istio",
-          "kubernetes",
-          "linkerd",
-          "mtls",
-          "observability",
-          "service-mesh",
-          "sidecar",
-          "traffic-management"
+          "kubernetes"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -5428,14 +5316,9 @@
           "authentication"
         ],
         "tags": [
-          "api-keys",
           "authentication",
-          "hmac",
-          "machine-to-machine",
-          "api-gateway",
-          "rate-limiting",
-          "security",
-          "scopes"
+          "api-keys",
+          "hmac"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -5470,13 +5353,9 @@
           "authentication"
         ],
         "tags": [
-          "jwt",
           "authentication",
-          "security",
-          "token",
-          "python",
-          "javascript",
-          "java"
+          "jwt",
+          "security"
         ],
         "relatedResources": [
           "/recipes/handle-errors",
@@ -5510,14 +5389,9 @@
           "authentication"
         ],
         "tags": [
-          "magic-links",
-          "passwordless",
           "authentication",
-          "email",
-          "jwt",
-          "security",
-          "user-experience",
-          "tokens"
+          "magic-links",
+          "passwordless"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -5552,14 +5426,9 @@
           "authentication"
         ],
         "tags": [
-          "oauth2",
           "authentication",
-          "google",
-          "github",
-          "sso",
-          "python",
-          "javascript",
-          "java"
+          "oauth2",
+          "google"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -5600,12 +5469,7 @@
         "tags": [
           "authentication",
           "bcrypt",
-          "hashing",
-          "java",
-          "javascript",
-          "password",
-          "python",
-          "security"
+          "hashing"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -5645,10 +5509,7 @@
         "tags": [
           "authentication",
           "cookies",
-          "jwt",
-          "redis",
-          "security",
-          "session-management"
+          "jwt"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -5683,14 +5544,9 @@
           "authentication"
         ],
         "tags": [
-          "2fa",
-          "totp",
           "authentication",
-          "security",
-          "mfa",
-          "python",
-          "javascript",
-          "java"
+          "2fa",
+          "totp"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -5731,11 +5587,7 @@
         "tags": [
           "concurrency",
           "coroutines",
-          "event-loop",
-          "futures",
-          "non-blocking",
-          "parallel-processing",
-          "promises"
+          "event-loop"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -5770,15 +5622,9 @@
           "concurrency"
         ],
         "tags": [
-          "atomic-operations",
-          "blocking-queue",
           "concurrency",
-          "concurrent-collections",
-          "concurrent-map",
-          "copy-on-write",
-          "java-util-concurrent",
-          "producer-consumer",
-          "thread-safety"
+          "atomic-operations",
+          "blocking-queue"
         ],
         "relatedResources": [
           "/recipes/locks-and-mutexes",
@@ -5813,14 +5659,9 @@
           "concurrency"
         ],
         "tags": [
-          "channels",
           "concurrency",
-          "go-routines",
-          "goroutines",
-          "message-passing",
-          "rust-async",
-          "select-statement",
-          "thread-safety"
+          "channels",
+          "go-routines"
         ],
         "relatedResources": [
           "/recipes/locks-and-mutexes",
@@ -5855,12 +5696,9 @@
           "concurrency"
         ],
         "tags": [
-          "atomic-operations",
           "concurrency",
-          "race-condition",
-          "read-write-lock",
-          "synchronization",
-          "thread-safety"
+          "atomic-operations",
+          "race-condition"
         ],
         "relatedResources": [
           "/recipes/async-patterns",
@@ -5897,11 +5735,7 @@
         "tags": [
           "concurrency",
           "cpu-bound",
-          "executors",
-          "java-executors",
-          "rejection-policy",
-          "thread-pools",
-          "worker-threads"
+          "executors"
         ],
         "relatedResources": [
           "/recipes/async-patterns",
@@ -5936,15 +5770,9 @@
           "data"
         ],
         "tags": [
-          "caching",
           "data",
-          "java",
-          "javascript",
-          "lru",
-          "memoization",
-          "performance",
-          "python",
-          "redis"
+          "caching",
+          "java"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -5984,13 +5812,7 @@
         "tags": [
           "data",
           "data-validation",
-          "input-validation",
-          "joi",
-          "pydantic",
-          "sanitization",
-          "schemas",
-          "security",
-          "zod"
+          "input-validation"
         ],
         "relatedResources": [
           "/recipes/input-validation",
@@ -6027,12 +5849,7 @@
         "tags": [
           "data",
           "dates",
-          "formatting",
-          "iso8601",
-          "java",
-          "javascript",
-          "python",
-          "timezone"
+          "formatting"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -6072,12 +5889,7 @@
         "tags": [
           "data",
           "deep-clone",
-          "javascript",
-          "lodash",
-          "objects",
-          "performance",
-          "serialization",
-          "structuredclone"
+          "javascript"
         ],
         "relatedResources": [
           "/recipes/caching",
@@ -6117,13 +5929,7 @@
         "tags": [
           "data",
           "flatten",
-          "java",
-          "javascript",
-          "nested",
-          "objects",
-          "python",
-          "recursion",
-          "unflatten"
+          "java"
         ],
         "relatedResources": [
           "/recipes/caching",
@@ -6162,15 +5968,9 @@
           "data"
         ],
         "tags": [
-          "currency",
           "data",
-          "decimal",
-          "finance",
-          "formatting",
-          "java",
-          "javascript",
-          "money",
-          "python"
+          "currency",
+          "decimal"
         ],
         "relatedResources": [
           "/recipes/date-formatting",
@@ -6211,10 +6011,7 @@
         "tags": [
           "data",
           "java",
-          "javascript",
-          "json",
-          "parsing",
-          "python"
+          "javascript"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -6250,12 +6047,7 @@
         "tags": [
           "data",
           "java",
-          "javascript",
-          "pattern-matching",
-          "python",
-          "regex",
-          "regular-expressions",
-          "validation"
+          "javascript"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -6293,12 +6085,9 @@
           "data"
         ],
         "tags": [
-          "array",
           "data",
-          "java",
-          "javascript",
-          "python",
-          "sorting"
+          "array",
+          "java"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -6333,12 +6122,7 @@
         "tags": [
           "data",
           "encoding",
-          "java",
-          "javascript",
-          "percent-encoding",
-          "python",
-          "query-string",
-          "url"
+          "java"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -6378,13 +6162,7 @@
         "tags": [
           "data",
           "database",
-          "guid",
-          "identifiers",
-          "java",
-          "javascript",
-          "python",
-          "ulid",
-          "uuid"
+          "guid"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -6423,16 +6201,9 @@
           "databases"
         ],
         "tags": [
-          "cache",
-          "cache-aside",
-          "caching",
           "database",
-          "java",
-          "javascript",
-          "performance",
-          "python",
-          "redis",
-          "ttl"
+          "cache",
+          "cache-aside"
         ],
         "relatedResources": [
           "/recipes/caching",
@@ -6474,11 +6245,7 @@
         "tags": [
           "database",
           "deadlocks",
-          "isolation-levels",
-          "mysql",
-          "postgresql",
-          "retries",
-          "transactions"
+          "isolation-levels"
         ],
         "relatedResources": [
           "/recipes/database-transactions",
@@ -6515,16 +6282,9 @@
           "databases"
         ],
         "tags": [
-          "migrations",
           "database",
-          "schema",
-          "deploy",
-          "zero-downtime",
-          "alembic",
-          "flyway",
-          "python",
-          "javascript",
-          "java"
+          "migrations",
+          "schema"
         ],
         "relatedResources": [
           "/recipes/database-transactions",
@@ -6565,15 +6325,9 @@
           "databases"
         ],
         "tags": [
-          "alembic",
-          "ci-cd",
           "database",
-          "database-migrations",
-          "devops",
-          "flyway",
-          "liquibase",
-          "schema-versioning",
-          "sql"
+          "alembic",
+          "ci-cd"
         ],
         "relatedResources": [
           "/recipes/database-indexing",
@@ -6611,11 +6365,7 @@
         "tags": [
           "database",
           "load-balancing",
-          "mysql",
-          "postgresql",
-          "read-replicas",
-          "replication",
-          "scaling"
+          "mysql"
         ],
         "relatedResources": [
           "/recipes/database-deadlocks-retries",
@@ -6652,13 +6402,9 @@
           "databases"
         ],
         "tags": [
-          "transactions",
-          "acid",
-          "sql",
           "database",
-          "python",
-          "javascript",
-          "java"
+          "transactions",
+          "acid"
         ],
         "relatedResources": [
           "/recipes/sql-joins",
@@ -6697,12 +6443,7 @@
         "tags": [
           "database",
           "database-views",
-          "materialized-views",
-          "mysql",
-          "performance",
-          "postgresql",
-          "sql",
-          "sql-server"
+          "materialized-views"
         ],
         "relatedResources": [
           "/guides/sql-performance-tuning-guide",
@@ -6742,11 +6483,7 @@
         "tags": [
           "database",
           "event-sourcing",
-          "event-store",
-          "postgresql",
-          "projections",
-          "relational",
-          "snapshotting"
+          "event-store"
         ],
         "relatedResources": [
           "/recipes/database-deadlocks-retries",
@@ -6785,13 +6522,7 @@
         "tags": [
           "database",
           "elasticsearch",
-          "full-text-search",
-          "java",
-          "javascript",
-          "meilisearch",
-          "postgresql",
-          "python",
-          "search"
+          "full-text-search"
         ],
         "relatedResources": [
           "/recipes/database-transactions",
@@ -6818,6 +6549,42 @@
       }
     },
     {
+      "path": "recipes/databases/mongodb-crud-mongoose.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "mongodb-crud-mongoose",
+        "title": "CRUD Operations with MongoDB and Mongoose",
+        "description": "How to perform Create, Read, Update, and Delete operations in MongoDB using Mongoose ODM with Node.js and Express",
+        "metaDescription": "CRUD operations with MongoDB and Mongoose. Create schemas, perform queries, handle transactions, and implement pagination in Node.js.",
+        "difficulty": "beginner",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "mongodb",
+          "database",
+          "nodejs"
+        ],
+        "relatedResources": [
+          "/guides/database-design-guide",
+          "/recipes/database-indexing",
+          "/patterns/repository-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "CRUD operations with MongoDB and Mongoose. Create schemas, perform queries, handle transactions, and implement pagination in Node.js.",
+          "keywords": [
+            "mongodb",
+            "mongoose",
+            "crud",
+            "nodejs",
+            "express"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/optimistic-locking.md",
       "metadata": {
         "contentType": "recipes",
@@ -6830,13 +6597,9 @@
           "databases"
         ],
         "tags": [
-          "optimistic-locking",
-          "concurrency",
-          "versioning",
           "database",
-          "postgresql",
-          "mysql",
-          "jpa"
+          "optimistic-locking",
+          "concurrency"
         ],
         "relatedResources": [
           "/recipes/database-deadlocks-retries",
@@ -6874,14 +6637,9 @@
           "databases"
         ],
         "tags": [
-          "audit",
-          "data-recovery",
           "database",
-          "deletion",
-          "java",
-          "javascript",
-          "python",
-          "soft-deletes"
+          "audit",
+          "data-recovery"
         ],
         "relatedResources": [
           "/recipes/database-transactions",
@@ -6919,11 +6677,9 @@
           "databases"
         ],
         "tags": [
-          "sql",
-          "joins",
           "database",
-          "postgres",
-          "mysql"
+          "sql",
+          "joins"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -6956,14 +6712,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "adapter-pattern",
-          "structural-patterns",
-          "legacy-integration",
-          "third-party-apis",
-          "interface-compatibility",
-          "wrapper",
-          "facade",
-          "decoupling"
+          "structural-patterns"
         ],
         "relatedResources": [
           "/recipes/hexagonal-architecture",
@@ -6998,12 +6749,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "command-query-separation",
-          "cqrs",
-          "event-sourcing",
-          "eventual-consistency",
-          "projections",
-          "scalability"
+          "cqrs"
         ],
         "relatedResources": [
           "/recipes/domain-driven-design",
@@ -7038,12 +6786,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "aggregates",
-          "clean-architecture",
-          "domain-driven-design",
-          "domain-events",
-          "entities",
-          "value-objects"
+          "clean-architecture"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -7078,14 +6823,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "factory-pattern",
-          "creational-patterns",
-          "abstract-factory",
-          "dependency-injection",
-          "object-creation",
-          "decoupling",
-          "testability",
-          "inversion-of-control"
+          "creational-patterns"
         ],
         "relatedResources": [
           "/recipes/hexagonal-architecture",
@@ -7120,14 +6860,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "hexagonal-architecture",
-          "ports-and-adapters",
-          "clean-architecture",
-          "dependency-inversion",
-          "testability",
-          "domain-logic",
-          "adapters",
-          "decoupling"
+          "ports-and-adapters"
         ],
         "relatedResources": [
           "/recipes/domain-driven-design",
@@ -7162,14 +6897,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "observer-pattern",
-          "pub-sub",
-          "event-emitter",
-          "reactive-programming",
-          "event-driven",
-          "listeners",
-          "event-handlers",
-          "decoupling"
+          "pub-sub"
         ],
         "relatedResources": [
           "/recipes/event-driven-architecture",
@@ -7204,14 +6934,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "singleton-pattern",
-          "creational-patterns",
-          "lazy-initialization",
-          "thread-safety",
-          "global-state",
-          "registry",
-          "double-checked-locking",
-          "dependency-injection"
+          "creational-patterns"
         ],
         "relatedResources": [
           "/recipes/factory-pattern",
@@ -7246,14 +6971,9 @@
           "design"
         ],
         "tags": [
+          "design",
           "strategy-pattern",
-          "behavioral-patterns",
-          "algorithm-selection",
-          "dependency-injection",
-          "polymorphism",
-          "lambda-strategies",
-          "runtime-behavior",
-          "encapsulation"
+          "behavioral-patterns"
         ],
         "relatedResources": [
           "/recipes/factory-pattern",
@@ -7276,6 +6996,42 @@
       }
     },
     {
+      "path": "recipes/devops/aws-ecs-fargate.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "aws-ecs-fargate",
+        "title": "Deploy Containers to AWS ECS with Fargate",
+        "description": "How to deploy Docker containers to AWS ECS using Fargate serverless compute with Terraform and GitHub Actions",
+        "metaDescription": "Deploy containers to AWS ECS with Fargate. Use Terraform for infrastructure, GitHub Actions for CI/CD, and ALB for load balancing.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "aws",
+          "docker",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/docker-compose",
+          "/guides/infrastructure-as-code-guide",
+          "/patterns/facade-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Deploy containers to AWS ECS with Fargate. Use Terraform for infrastructure, GitHub Actions for CI/CD, and ALB for load balancing.",
+          "keywords": [
+            "aws ecs",
+            "fargate",
+            "docker",
+            "terraform",
+            "github actions"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/background-jobs.md",
       "metadata": {
         "contentType": "recipes",
@@ -7288,16 +7044,9 @@
           "devops"
         ],
         "tags": [
-          "background-jobs",
-          "bullmq",
-          "celery",
-          "cron",
           "devops",
-          "java",
-          "javascript",
-          "python",
-          "queue",
-          "workers"
+          "background-jobs",
+          "bullmq"
         ],
         "relatedResources": [
           "/recipes/cron-jobs",
@@ -7337,16 +7086,9 @@
           "devops"
         ],
         "tags": [
-          "argparse",
-          "argument-parsing",
-          "cli",
-          "command-line",
           "devops",
-          "flags",
-          "java",
-          "javascript",
-          "python",
-          "subcommands"
+          "argparse",
+          "argument-parsing"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -7386,14 +7128,9 @@
           "devops"
         ],
         "tags": [
-          "automation",
-          "cron",
           "devops",
-          "javascript",
-          "linux",
-          "nodejs",
-          "python",
-          "scheduling"
+          "automation",
+          "cron"
         ],
         "relatedResources": [
           "/recipes/docker-basics",
@@ -7430,11 +7167,9 @@
           "devops"
         ],
         "tags": [
-          "docker",
-          "container",
           "devops",
-          "deployment",
-          "compose"
+          "docker",
+          "container"
         ],
         "relatedResources": [
           "/recipes/git-workflow",
@@ -7468,15 +7203,9 @@
           "devops"
         ],
         "tags": [
-          "12-factor-app",
-          "configuration",
           "devops",
-          "dotenv",
-          "env-vars",
-          "environment",
-          "java",
-          "javascript",
-          "python"
+          "12-factor-app",
+          "configuration"
         ],
         "relatedResources": [
           "/recipes/docker-basics",
@@ -7514,14 +7243,9 @@
           "devops"
         ],
         "tags": [
-          "feature-flags",
-          "toggles",
-          "rollout",
-          "ab-testing",
           "devops",
-          "python",
-          "javascript",
-          "java"
+          "feature-flags",
+          "toggles"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -7562,13 +7286,7 @@
         "tags": [
           "devops",
           "dynamic",
-          "generation",
-          "java",
-          "javascript",
-          "python",
-          "seo",
-          "sitemap",
-          "xml"
+          "generation"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -7607,11 +7325,9 @@
           "devops"
         ],
         "tags": [
+          "devops",
           "git",
-          "workflow",
-          "branching",
-          "ci-cd",
-          "devops"
+          "workflow"
         ],
         "relatedResources": [
           "/recipes/docker-basics",
@@ -7645,12 +7361,9 @@
           "devops"
         ],
         "tags": [
-          "github-actions",
-          "ci-cd",
           "devops",
-          "automation",
-          "yaml",
-          "testing"
+          "github-actions",
+          "ci-cd"
         ],
         "relatedResources": [
           "/recipes/unit-testing",
@@ -7687,13 +7400,9 @@
           "devops"
         ],
         "tags": [
-          "containers",
-          "deployment",
           "devops",
-          "graceful-shutdown",
-          "sigterm",
-          "web-server",
-          "zero-downtime"
+          "containers",
+          "deployment"
         ],
         "relatedResources": [
           "/guides/deployment-strategies-guide",
@@ -7732,13 +7441,7 @@
         "tags": [
           "devops",
           "health-check",
-          "java",
-          "javascript",
-          "kubernetes",
-          "liveness",
-          "monitoring",
-          "python",
-          "readiness"
+          "java"
         ],
         "relatedResources": [
           "/recipes/environment-variables",
@@ -7777,15 +7480,9 @@
           "devops"
         ],
         "tags": [
-          "config",
           "devops",
-          "java",
-          "javascript",
-          "json",
-          "python",
-          "schema",
-          "validation",
-          "yaml"
+          "config",
+          "java"
         ],
         "relatedResources": [
           "/recipes/input-validation",
@@ -7824,13 +7521,9 @@
           "devops"
         ],
         "tags": [
-          "code-quality",
           "devops",
-          "git-hooks",
-          "husky",
-          "lint-staged",
-          "linting",
-          "pre-commit"
+          "code-quality",
+          "git-hooks"
         ],
         "relatedResources": [
           "/docs/bug-report-template",
@@ -7867,15 +7560,9 @@
           "devops"
         ],
         "tags": [
-          "circuit-breaker",
           "devops",
-          "exponential-backoff",
-          "java",
-          "javascript",
-          "jitter",
-          "python",
-          "resilience",
-          "retry"
+          "circuit-breaker",
+          "exponential-backoff"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -7914,14 +7601,9 @@
           "devops"
         ],
         "tags": [
-          "secret-management",
-          "vault",
-          "aws-secrets-manager",
-          "kubernetes-secrets",
-          "environment-variables",
-          "security",
           "devops",
-          "ci-cd"
+          "secret-management",
+          "vault"
         ],
         "relatedResources": [
           "/recipes/environment-variables",
@@ -7956,15 +7638,9 @@
           "file-handling"
         ],
         "tags": [
-          "bandwidth",
-          "brotli",
-          "compression",
           "file-handling",
-          "gzip",
-          "performance",
-          "static-assets",
-          "streaming",
-          "zlib"
+          "bandwidth",
+          "brotli"
         ],
         "relatedResources": [
           "/recipes/cdn-edge-caching",
@@ -7999,17 +7675,9 @@
           "file-handling"
         ],
         "tags": [
-          "csv",
-          "data",
-          "excel",
-          "export",
           "file-handling",
-          "java",
-          "javascript",
-          "pandas",
-          "python",
-          "streaming",
-          "xlsx"
+          "csv",
+          "data"
         ],
         "relatedResources": [
           "/recipes/file-upload-validation",
@@ -8052,12 +7720,7 @@
         "tags": [
           "file-handling",
           "file-upload",
-          "java",
-          "javascript",
-          "mime-type",
-          "python",
-          "security",
-          "validation"
+          "java"
         ],
         "relatedResources": [
           "/recipes/input-validation",
@@ -8097,12 +7760,7 @@
         "tags": [
           "file-handling",
           "html-to-pdf",
-          "java",
-          "javascript",
-          "pdf",
-          "python",
-          "reporting",
-          "templates"
+          "java"
         ],
         "relatedResources": [
           "/recipes/file-upload-validation",
@@ -8140,15 +7798,9 @@
           "file-handling"
         ],
         "tags": [
-          "compression",
           "file-handling",
-          "images",
-          "java",
-          "javascript",
-          "optimization",
-          "python",
-          "resize",
-          "webp"
+          "compression",
+          "images"
         ],
         "relatedResources": [
           "/recipes/file-upload-validation",
@@ -8187,16 +7839,9 @@
           "file-handling"
         ],
         "tags": [
-          "csv",
-          "excel",
           "file-handling",
-          "import",
-          "java",
-          "javascript",
-          "pandas",
-          "parse",
-          "python",
-          "validation"
+          "csv",
+          "excel"
         ],
         "relatedResources": [
           "/recipes/export-csv-excel",
@@ -8236,12 +7881,9 @@
           "file-handling"
         ],
         "tags": [
-          "bash",
           "file-handling",
-          "files",
-          "io",
-          "javascript",
-          "python"
+          "bash",
+          "files"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -8275,14 +7917,9 @@
           "file-handling"
         ],
         "tags": [
-          "stream-processing",
           "file-handling",
-          "python",
-          "nodejs",
-          "java",
-          "memory-efficiency",
-          "large-files",
-          "pipes"
+          "stream-processing",
+          "python"
         ],
         "relatedResources": [
           "/recipes/read-write-file",
@@ -8317,12 +7954,9 @@
           "performance"
         ],
         "tags": [
-          "cache-invalidation",
-          "caching",
-          "distributed-systems",
           "performance",
-          "redis",
-          "ttl"
+          "cache-invalidation",
+          "caching"
         ],
         "relatedResources": [
           "/recipes/database-indexing",
@@ -8357,12 +7991,9 @@
           "performance"
         ],
         "tags": [
+          "performance",
           "cdn",
-          "edge-caching",
-          "cache-invalidation",
-          "cloudfront",
-          "cloudflare",
-          "performance"
+          "edge-caching"
         ],
         "relatedResources": [
           "/guides/performance-optimization-guide",
@@ -8399,12 +8030,9 @@
           "performance"
         ],
         "tags": [
+          "performance",
           "connection-pooling",
-          "database",
-          "postgresql",
-          "redis",
-          "http-client",
-          "performance"
+          "database"
         ],
         "relatedResources": [
           "/guides/sql-performance-tuning-guide",
@@ -8441,12 +8069,9 @@
           "performance"
         ],
         "tags": [
-          "database",
-          "indexing",
-          "mysql",
           "performance",
-          "postgresql",
-          "sql"
+          "database",
+          "indexing"
         ],
         "relatedResources": [
           "/recipes/sql-joins",
@@ -8483,14 +8108,9 @@
           "performance"
         ],
         "tags": [
-          "debounce",
-          "throttle",
-          "rate-limiting",
-          "events",
           "performance",
-          "python",
-          "javascript",
-          "java"
+          "debounce",
+          "throttle"
         ],
         "relatedResources": [
           "/recipes/rate-limiting",
@@ -8529,14 +8149,9 @@
           "performance"
         ],
         "tags": [
+          "performance",
           "lazy-loading",
-          "images",
-          "components",
-          "intersection-observer",
-          "core-web-vitals",
-          "bandwidth",
-          "frontend",
-          "performance"
+          "images"
         ],
         "relatedResources": [
           "/recipes/cache-invalidation",
@@ -8570,13 +8185,9 @@
           "performance"
         ],
         "tags": [
-          "database",
-          "explain",
-          "mysql",
           "performance",
-          "postgresql",
-          "profiling",
-          "sql"
+          "database",
+          "explain"
         ],
         "relatedResources": [
           "/recipes/database-indexing",
@@ -8611,12 +8222,9 @@
           "security"
         ],
         "tags": [
-          "api-security",
-          "cors",
-          "owasp",
           "security",
-          "web-security",
-          "x-frame-options"
+          "api-security",
+          "cors"
         ],
         "relatedResources": [
           "/recipes/xss-prevention",
@@ -8652,12 +8260,9 @@
           "security"
         ],
         "tags": [
-          "authentication",
-          "cookies",
-          "owasp",
           "security",
-          "tokens",
-          "web-security"
+          "authentication",
+          "cookies"
         ],
         "relatedResources": [
           "/recipes/api-security-headers",
@@ -8692,12 +8297,9 @@
           "security"
         ],
         "tags": [
+          "security",
           "compliance",
-          "database-encryption",
-          "encryption-at-rest",
-          "envelope-encryption",
-          "file-encryption",
-          "security"
+          "database-encryption"
         ],
         "relatedResources": [
           "/recipes/secret-management",
@@ -8732,14 +8334,9 @@
           "security"
         ],
         "tags": [
+          "security",
           "rate-limiting",
-          "api-gateway",
-          "redis",
-          "token-bucket",
-          "sliding-window",
-          "throttling",
-          "ddos-protection",
-          "security"
+          "api-gateway"
         ],
         "relatedResources": [
           "/recipes/api-security-headers",
@@ -8773,15 +8370,9 @@
           "security"
         ],
         "tags": [
+          "security",
           "api-security",
-          "aws-signature",
-          "cryptography",
-          "hmac",
-          "java",
-          "javascript",
-          "python",
-          "request-signing",
-          "security"
+          "aws-signature"
         ],
         "relatedResources": [
           "/patterns/abstract-factory-pattern",
@@ -8820,15 +8411,9 @@
           "security"
         ],
         "tags": [
-          "sql-injection",
           "security",
-          "database",
-          "parameterized-queries",
-          "prepared-statements",
-          "orm",
-          "python",
-          "javascript",
-          "java"
+          "sql-injection",
+          "database"
         ],
         "relatedResources": [
           "/recipes/database-transactions",
@@ -8865,13 +8450,9 @@
           "security"
         ],
         "tags": [
-          "html-escaping",
-          "input-validation",
-          "javascript",
-          "react",
           "security",
-          "web-security",
-          "xss"
+          "html-escaping",
+          "input-validation"
         ],
         "relatedResources": [
           "/recipes/input-validation",
@@ -8908,14 +8489,9 @@
           "serverless"
         ],
         "tags": [
-          "cold-start",
           "serverless",
-          "lambda",
-          "provisioned-concurrency",
-          "latency",
-          "optimization",
-          "startup-time",
-          "faas"
+          "cold-start",
+          "lambda"
         ],
         "relatedResources": [
           "/recipes/serverless-functions",
@@ -8950,14 +8526,9 @@
           "serverless"
         ],
         "tags": [
-          "event-driven",
           "serverless",
-          "lambda",
-          "sqs",
-          "eventbridge",
-          "async-processing",
-          "microservices",
-          "aws"
+          "event-driven",
+          "lambda"
         ],
         "relatedResources": [
           "/recipes/serverless-api-gateway",
@@ -8992,15 +8563,9 @@
           "serverless"
         ],
         "tags": [
-          "cqrs",
-          "dynamodb-streams",
-          "event-sourcing",
-          "event-store",
-          "immutable-events",
-          "lambda-triggers",
           "serverless",
-          "serverless-patterns",
-          "temporal-query"
+          "cqrs",
+          "dynamodb-streams"
         ],
         "relatedResources": [
           "/recipes/cqrs-pattern",
@@ -9035,14 +8600,9 @@
           "serverless"
         ],
         "tags": [
-          "websockets",
-          "real-time",
-          "api-gateway",
-          "lambda",
-          "dynamodb",
           "serverless",
-          "bidirectional",
-          "connections"
+          "websockets",
+          "real-time"
         ],
         "relatedResources": [
           "/recipes/serverless-api-gateway",
@@ -9076,14 +8636,9 @@
           "serverless"
         ],
         "tags": [
-          "scheduled-jobs",
-          "cron",
           "serverless",
-          "lambda",
-          "cloud-scheduler",
-          "automation",
-          "maintenance",
-          "aws"
+          "scheduled-jobs",
+          "cron"
         ],
         "relatedResources": [
           "/recipes/serverless-api-gateway",
@@ -9118,12 +8673,9 @@
           "serverless"
         ],
         "tags": [
+          "serverless",
           "api-gateway",
-          "aws",
-          "aws-lambda",
-          "faas",
-          "rest-api",
-          "serverless"
+          "aws"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -9161,10 +8713,7 @@
         "tags": [
           "serverless",
           "lambda",
-          "cloud-functions",
-          "azure-functions",
-          "faas",
-          "event-driven"
+          "cloud-functions"
         ],
         "relatedResources": [
           "/guides/event-driven-architecture-guide",
@@ -9199,15 +8748,9 @@
           "serverless"
         ],
         "tags": [
-          "distributed-workflows",
-          "durable-functions",
-          "retries",
           "serverless",
-          "serverless-orchestration",
-          "state-machines",
-          "step-functions",
-          "temporal",
-          "workflow-engine"
+          "distributed-workflows",
+          "durable-functions"
         ],
         "relatedResources": [
           "/recipes/cold-start-optimization",
@@ -9242,14 +8785,9 @@
           "testing"
         ],
         "tags": [
+          "testing",
           "api-testing",
-          "consumer-driven-contracts",
-          "contract-testing",
-          "integration-testing",
-          "microservices",
-          "openapi",
-          "pact",
-          "testing"
+          "consumer-driven-contracts"
         ],
         "relatedResources": [
           "/recipes/integration-testing",
@@ -9284,14 +8822,9 @@
           "testing"
         ],
         "tags": [
+          "testing",
           "e2e-testing",
-          "playwright",
-          "cypress",
-          "user-journey",
-          "flakiness",
-          "ci-cd",
-          "automation",
-          "testing"
+          "playwright"
         ],
         "relatedResources": [
           "/recipes/integration-testing",
@@ -9325,16 +8858,9 @@
           "testing"
         ],
         "tags": [
-          "api-testing",
-          "consumer-driven-contracts",
-          "contract-testing",
-          "database-testing",
-          "integration-testing",
-          "pact",
-          "spring-boot-test",
-          "test-containers",
           "testing",
-          "wiremock"
+          "api-testing",
+          "consumer-driven-contracts"
         ],
         "relatedResources": [
           "/recipes/unit-testing-mocking",
@@ -9369,16 +8895,9 @@
           "testing"
         ],
         "tags": [
-          "integration-testing",
           "testing",
-          "pytest",
-          "jest",
-          "junit",
-          "api-testing",
-          "database-testing",
-          "python",
-          "javascript",
-          "java"
+          "integration-testing",
+          "pytest"
         ],
         "relatedResources": [
           "/recipes/unit-testing",
@@ -9403,6 +8922,42 @@
       }
     },
     {
+      "path": "recipes/testing/jest-snapshot-testing.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "jest-snapshot-testing",
+        "title": "Snapshot Testing React Components with Jest",
+        "description": "How to use Jest snapshot testing to catch unintended UI regressions in React components and prevent visual bugs from reaching production",
+        "metaDescription": "Snapshot testing React components with Jest. Catch UI regressions, update snapshots intentionally, and integrate with CI for automated visual regression detection.",
+        "difficulty": "beginner",
+        "topics": [
+          "testing"
+        ],
+        "tags": [
+          "jest",
+          "testing",
+          "react"
+        ],
+        "relatedResources": [
+          "/recipes/unit-testing-mocking",
+          "/recipes/visual-regression-testing",
+          "/guides/testing-strategy-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Snapshot testing React components with Jest. Catch UI regressions, update snapshots intentionally, and integrate with CI for automated visual regression detection.",
+          "keywords": [
+            "jest",
+            "snapshot testing",
+            "react",
+            "ui testing",
+            "regression"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/testing/load-testing.md",
       "metadata": {
         "contentType": "recipes",
@@ -9415,15 +8970,9 @@
           "testing"
         ],
         "tags": [
+          "testing",
           "api-testing",
-          "benchmarks",
-          "jmeter",
-          "k6",
-          "load-testing",
-          "performance",
-          "scalability",
-          "stress-testing",
-          "testing"
+          "benchmarks"
         ],
         "relatedResources": [
           "/recipes/integration-testing",
@@ -9459,16 +9008,9 @@
           "testing"
         ],
         "tags": [
-          "jest",
-          "junit",
-          "mocking",
-          "pytest",
-          "spies",
-          "stubs",
-          "tdd",
-          "test-doubles",
           "testing",
-          "unit-testing"
+          "jest",
+          "junit"
         ],
         "relatedResources": [
           "/recipes/unit-testing",
@@ -9506,12 +9048,7 @@
         "tags": [
           "testing",
           "unit-tests",
-          "pytest",
-          "jest",
-          "junit",
-          "python",
-          "javascript",
-          "java"
+          "pytest"
         ],
         "relatedResources": [
           "/recipes/handle-errors",
@@ -9545,14 +9082,9 @@
           "testing"
         ],
         "tags": [
-          "baseline",
-          "chromatic",
-          "design-systems",
-          "percy",
-          "playwright",
           "testing",
-          "ui-testing",
-          "visual-regression"
+          "baseline",
+          "chromatic"
         ],
         "relatedResources": [
           "/recipes/e2e-testing",

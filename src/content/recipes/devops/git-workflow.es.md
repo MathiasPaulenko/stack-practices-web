@@ -8,11 +8,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - devops
   - git
   - workflow
-  - branching
-  - ci-cd
-  - devops
 relatedResources:
   - /recipes/docker-basics
   - /recipes/unit-testing

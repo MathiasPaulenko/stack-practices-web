@@ -11,10 +11,6 @@ tags:
   - api
   - cors
   - http
-  - java
-  - javascript
-  - python
-  - security
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/api-versioning

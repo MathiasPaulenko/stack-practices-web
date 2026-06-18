@@ -11,12 +11,6 @@ tags:
   - architecture
   - bulkhead
   - circuit-breaker
-  - distributed-systems
-  - fault-tolerance
-  - microservices
-  - resilience
-  - retries
-  - saga-pattern
 relatedResources:
   - /recipes/api-gateway
   - /recipes/event-driven-functions

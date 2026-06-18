@@ -11,11 +11,6 @@ tags:
   - data
   - encoding
   - java
-  - javascript
-  - percent-encoding
-  - python
-  - query-string
-  - url
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json

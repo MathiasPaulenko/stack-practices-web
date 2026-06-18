@@ -8,11 +8,9 @@ difficulty: beginner
 topics:
   - databases
 tags:
+  - database
   - sql
   - joins
-  - database
-  - postgres
-  - mysql
 relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file

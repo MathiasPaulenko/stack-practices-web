@@ -11,9 +11,6 @@ tags:
   - api
   - error-handling
   - java
-  - javascript
-  - python
-  - rest
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/jwt-authentication

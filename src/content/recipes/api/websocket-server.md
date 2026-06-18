@@ -11,12 +11,6 @@ tags:
   - api
   - bidirectional
   - java
-  - javascript
-  - python
-  - real-time
-  - server
-  - websocket
-  - ws
 relatedResources:
   - /recipes/server-sent-events
   - /recipes/webhooks

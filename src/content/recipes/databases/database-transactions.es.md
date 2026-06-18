@@ -8,13 +8,9 @@ difficulty: intermediate
 topics:
   - databases
 tags:
+  - database
   - transactions
   - acid
-  - sql
-  - database
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/sql-joins
   - /recipes/pagination

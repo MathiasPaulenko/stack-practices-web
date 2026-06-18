@@ -8,12 +8,9 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - array
   - data
+  - array
   - java
-  - javascript
-  - python
-  - sorting
 relatedResources:
   - /recipes/parse-json
   - /recipes/unit-testing

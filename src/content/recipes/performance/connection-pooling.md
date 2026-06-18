@@ -8,12 +8,9 @@ difficulty: intermediate
 topics:
   - performance
 tags:
+  - performance
   - connection-pooling
   - database
-  - postgresql
-  - redis
-  - http-client
-  - performance
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /guides/performance-optimization-guide

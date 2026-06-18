@@ -8,13 +8,9 @@ difficulty: intermediate
 topics:
   - databases
 tags:
+  - database
   - optimistic-locking
   - concurrency
-  - versioning
-  - database
-  - postgresql
-  - mysql
-  - jpa
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas

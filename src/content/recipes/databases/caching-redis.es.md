@@ -8,16 +8,9 @@ difficulty: intermediate
 topics:
   - databases
 tags:
+  - database
   - cache
   - cache-aside
-  - caching
-  - database
-  - java
-  - javascript
-  - performance
-  - python
-  - redis
-  - ttl
 relatedResources:
   - /recipes/caching
   - /recipes/database-migrations-safely

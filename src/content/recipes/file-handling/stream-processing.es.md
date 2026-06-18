@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - file-handling
 tags:
-  - stream-processing
   - file-handling
+  - stream-processing
   - python
-  - nodejs
-  - java
-  - memory-efficiency
-  - large-files
-  - pipes
 relatedResources:
   - /recipes/read-write-file
   - /recipes/import-csv-excel

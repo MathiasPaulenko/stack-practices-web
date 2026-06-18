@@ -11,11 +11,6 @@ tags:
   - data
   - java
   - javascript
-  - pattern-matching
-  - python
-  - regex
-  - regular-expressions
-  - validation
 relatedResources:
   - /recipes/parse-json
   - /recipes/handle-errors

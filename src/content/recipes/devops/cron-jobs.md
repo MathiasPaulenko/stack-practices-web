@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - devops
   - automation
   - cron
-  - devops
-  - javascript
-  - linux
-  - nodejs
-  - python
-  - scheduling
 relatedResources:
   - /recipes/docker-basics
   - /recipes/git-workflow

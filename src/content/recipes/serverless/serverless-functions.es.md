@@ -11,9 +11,6 @@ tags:
   - serverless
   - lambda
   - cloud-functions
-  - azure-functions
-  - faas
-  - event-driven
 relatedResources:
   - /guides/event-driven-architecture-guide
   - /guides/software-architecture-guide

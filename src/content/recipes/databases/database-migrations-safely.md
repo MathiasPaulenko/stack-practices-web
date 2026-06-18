@@ -8,16 +8,9 @@ difficulty: intermediate
 topics:
   - databases
 tags:
-  - migrations
   - database
+  - migrations
   - schema
-  - deploy
-  - zero-downtime
-  - alembic
-  - flyway
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/database-transactions
   - /recipes/full-text-search

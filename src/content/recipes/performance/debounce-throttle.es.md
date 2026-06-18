@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - performance
 tags:
+  - performance
   - debounce
   - throttle
-  - rate-limiting
-  - events
-  - performance
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/rate-limiting
   - /recipes/webhooks

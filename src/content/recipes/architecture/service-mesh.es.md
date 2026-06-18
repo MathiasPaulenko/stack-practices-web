@@ -11,12 +11,6 @@ tags:
   - architecture
   - istio
   - kubernetes
-  - linkerd
-  - mtls
-  - observability
-  - service-mesh
-  - sidecar
-  - traffic-management
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway

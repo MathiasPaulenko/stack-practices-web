@@ -8,15 +8,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - devops
   - 12-factor-app
   - configuration
-  - devops
-  - dotenv
-  - env-vars
-  - environment
-  - java
-  - javascript
-  - python
 relatedResources:
   - /recipes/docker-basics
   - /recipes/jwt-authentication

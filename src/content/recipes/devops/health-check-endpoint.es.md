@@ -11,12 +11,6 @@ tags:
   - devops
   - health-check
   - java
-  - javascript
-  - kubernetes
-  - liveness
-  - monitoring
-  - python
-  - readiness
 relatedResources:
   - /recipes/environment-variables
   - /recipes/cron-jobs

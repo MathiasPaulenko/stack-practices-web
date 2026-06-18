@@ -11,10 +11,6 @@ tags:
   - api
   - compliance
   - java
-  - javascript
-  - logging
-  - python
-  - structured-logging
 relatedResources:
   - /recipes/logging
   - /recipes/middleware

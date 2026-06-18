@@ -11,9 +11,6 @@ tags:
   - data
   - java
   - javascript
-  - json
-  - parsing
-  - python
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/read-write-file

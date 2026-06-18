@@ -11,9 +11,6 @@ tags:
   - architecture
   - event-bus
   - event-driven
-  - event-sourcing
-  - loose-coupling
-  - pub-sub
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/cqrs-pattern

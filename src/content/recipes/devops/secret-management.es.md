@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - devops
 tags:
+  - devops
   - secret-management
   - vault
-  - aws-secrets-manager
-  - kubernetes-secrets
-  - environment-variables
-  - security
-  - devops
-  - ci-cd
 relatedResources:
   - /recipes/environment-variables
   - /recipes/docker-basics

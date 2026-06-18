@@ -3,6 +3,7 @@ import { buildTagIndex } from '../../../lib/content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ContentCard from '../../../components/ContentCard.astro';
 import { webPage, breadcrumbList } from '../../../lib/schema';
+import { tagIntros } from '../../../data/tag-intros';
 
 export async function getStaticPaths() {
   const tagIndex = await buildTagIndex('es');
@@ -20,6 +21,8 @@ const hasEnVersion = enTagIndex.has(tag);
 
 const heading = `Etiqueta: ${tag}`;
 const description = `Explora ${items.length} recursos prácticos de ingeniería de software etiquetados con "${tag}". Descubre recetas de código, patrones de diseño, plantillas de documentación y guías detalladas para ayudarte a construir, desplegar y mantener soluciones listas para producción con ${tag}.`;
+
+const intro = tagIntros[tag]?.es;
 
 const jsonLd = [
   webPage({ name: heading, description, url: `/es/tags/${tag}`, locale: 'es' }),
@@ -45,6 +48,17 @@ const jsonLd = [
       <p class="mt-2 max-w-2xl text-slate-300">{description}</p>
     </div>
   </section>
+
+  {intro && (
+    <section class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <h2 class="text-xl font-semibold text-slate-900">{intro.heading}</h2>
+        {intro.paragraphs.map((p) => (
+          <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">{p}</p>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="bg-slate-50">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">

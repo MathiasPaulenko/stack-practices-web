@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - authentication
 tags:
+  - authentication
   - magic-links
   - passwordless
-  - authentication
-  - email
-  - jwt
-  - security
-  - user-experience
-  - tokens
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/session-management

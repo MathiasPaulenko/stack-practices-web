@@ -11,10 +11,6 @@ tags:
   - database
   - event-sourcing
   - event-store
-  - postgresql
-  - projections
-  - relational
-  - snapshotting
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas

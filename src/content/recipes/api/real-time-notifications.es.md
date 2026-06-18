@@ -11,12 +11,6 @@ tags:
   - api
   - java
   - javascript
-  - notifications
-  - publish-subscribe
-  - python
-  - real-time
-  - redis
-  - websocket
 relatedResources:
   - /recipes/websocket-server
   - /recipes/rate-limiting

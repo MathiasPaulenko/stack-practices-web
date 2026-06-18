@@ -8,15 +8,9 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
-  - api-gateway
   - architecture
+  - api-gateway
   - authentication
-  - caching
-  - load-balancing
-  - microservices
-  - protocol-translation
-  - rate-limiting
-  - routing
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/load-balancing

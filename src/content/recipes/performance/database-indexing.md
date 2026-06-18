@@ -8,12 +8,9 @@ difficulty: intermediate
 topics:
   - performance
 tags:
+  - performance
   - database
   - indexing
-  - mysql
-  - performance
-  - postgresql
-  - sql
 relatedResources:
   - /recipes/sql-joins
   - /recipes/database-views-materialized

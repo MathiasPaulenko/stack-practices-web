@@ -8,12 +8,9 @@ difficulty: beginner
 topics:
   - file-handling
 tags:
-  - bash
   - file-handling
+  - bash
   - files
-  - io
-  - javascript
-  - python
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json

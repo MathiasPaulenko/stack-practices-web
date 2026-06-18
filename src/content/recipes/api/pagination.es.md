@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - pagination
   - api
+  - pagination
   - database
-  - offset
-  - cursor
-  - python
-  - javascript
-  - sql
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/sql-joins

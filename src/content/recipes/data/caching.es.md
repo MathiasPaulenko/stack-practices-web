@@ -8,15 +8,9 @@ difficulty: intermediate
 topics:
   - data
 tags:
-  - caching
   - data
+  - caching
   - java
-  - javascript
-  - lru
-  - memoization
-  - performance
-  - python
-  - redis
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/pagination

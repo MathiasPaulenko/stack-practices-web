@@ -8,15 +8,9 @@ difficulty: advanced
 topics:
   - security
 tags:
+  - security
   - api-security
   - aws-signature
-  - cryptography
-  - hmac
-  - java
-  - javascript
-  - python
-  - request-signing
-  - security
 relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern

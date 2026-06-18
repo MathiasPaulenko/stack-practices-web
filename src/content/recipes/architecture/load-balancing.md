@@ -11,12 +11,6 @@ tags:
   - architecture
   - consistent-hashing
   - failover
-  - haproxy
-  - health-checks
-  - least-connections
-  - load-balancing
-  - nginx
-  - round-robin
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway

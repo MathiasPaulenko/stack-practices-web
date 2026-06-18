@@ -11,12 +11,6 @@ tags:
   - devops
   - dynamic
   - generation
-  - java
-  - javascript
-  - python
-  - seo
-  - sitemap
-  - xml
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - design
 tags:
+  - design
   - hexagonal-architecture
   - ports-and-adapters
-  - clean-architecture
-  - dependency-inversion
-  - testability
-  - domain-logic
-  - adapters
-  - decoupling
 relatedResources:
   - /recipes/domain-driven-design
   - /recipes/microservices-patterns

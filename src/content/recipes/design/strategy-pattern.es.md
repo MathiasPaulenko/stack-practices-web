@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - design
 tags:
+  - design
   - strategy-pattern
   - behavioral-patterns
-  - algorithm-selection
-  - dependency-injection
-  - polymorphism
-  - lambda-strategies
-  - runtime-behavior
-  - encapsulation
 relatedResources:
   - /recipes/factory-pattern
   - /recipes/adapter-pattern

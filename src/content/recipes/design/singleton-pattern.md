@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - design
 tags:
+  - design
   - singleton-pattern
   - creational-patterns
-  - lazy-initialization
-  - thread-safety
-  - global-state
-  - registry
-  - double-checked-locking
-  - dependency-injection
 relatedResources:
   - /recipes/factory-pattern
   - /recipes/hexagonal-architecture

@@ -11,12 +11,6 @@ tags:
   - data
   - database
   - guid
-  - identifiers
-  - java
-  - javascript
-  - python
-  - ulid
-  - uuid
 relatedResources:
   - /recipes/parse-json
   - /recipes/caching

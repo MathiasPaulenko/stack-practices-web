@@ -8,15 +8,9 @@ difficulty: intermediate
 topics:
   - databases
 tags:
+  - database
   - alembic
   - ci-cd
-  - database
-  - database-migrations
-  - devops
-  - flyway
-  - liquibase
-  - schema-versioning
-  - sql
 relatedResources:
   - /recipes/database-indexing
   - /recipes/query-optimization

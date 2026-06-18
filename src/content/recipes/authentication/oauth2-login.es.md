@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - authentication
 tags:
-  - oauth2
   - authentication
+  - oauth2
   - google
-  - github
-  - sso
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/password-hashing

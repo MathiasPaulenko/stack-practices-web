@@ -8,14 +8,9 @@ difficulty: beginner
 topics:
   - design
 tags:
+  - design
   - observer-pattern
   - pub-sub
-  - event-emitter
-  - reactive-programming
-  - event-driven
-  - listeners
-  - event-handlers
-  - decoupling
 relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/async-patterns

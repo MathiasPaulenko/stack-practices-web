@@ -8,12 +8,9 @@ difficulty: advanced
 topics:
   - design
 tags:
+  - design
   - aggregates
   - clean-architecture
-  - domain-driven-design
-  - domain-events
-  - entities
-  - value-objects
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-functions

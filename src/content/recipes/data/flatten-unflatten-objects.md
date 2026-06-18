@@ -11,12 +11,6 @@ tags:
   - data
   - flatten
   - java
-  - javascript
-  - nested
-  - objects
-  - python
-  - recursion
-  - unflatten
 relatedResources:
   - /recipes/caching
   - /recipes/date-formatting

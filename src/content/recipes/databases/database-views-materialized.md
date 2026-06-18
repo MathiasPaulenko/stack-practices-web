@@ -11,11 +11,6 @@ tags:
   - database
   - database-views
   - materialized-views
-  - mysql
-  - performance
-  - postgresql
-  - sql
-  - sql-server
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/database-deadlocks-retries

@@ -8,16 +8,9 @@ difficulty: intermediate
 topics:
   - testing
 tags:
-  - integration-testing
   - testing
+  - integration-testing
   - pytest
-  - jest
-  - junit
-  - api-testing
-  - database-testing
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/unit-testing
   - /recipes/handle-errors

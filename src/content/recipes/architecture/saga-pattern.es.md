@@ -11,10 +11,6 @@ tags:
   - architecture
   - choreography
   - compensation
-  - distributed-transactions
-  - event-driven
-  - microservices
-  - saga-pattern
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-architecture

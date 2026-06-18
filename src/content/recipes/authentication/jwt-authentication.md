@@ -8,13 +8,9 @@ difficulty: intermediate
 topics:
   - authentication
 tags:
-  - jwt
   - authentication
+  - jwt
   - security
-  - token
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/handle-errors
   - /recipes/call-rest-api

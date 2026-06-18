@@ -8,12 +8,9 @@ difficulty: intermediate
 topics:
   - concurrency
 tags:
-  - atomic-operations
   - concurrency
+  - atomic-operations
   - race-condition
-  - read-write-lock
-  - synchronization
-  - thread-safety
 relatedResources:
   - /recipes/async-patterns
   - /recipes/thread-pools

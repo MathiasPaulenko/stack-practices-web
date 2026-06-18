@@ -11,8 +11,6 @@ tags:
   - api
   - graphql
   - java
-  - javascript
-  - python
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api

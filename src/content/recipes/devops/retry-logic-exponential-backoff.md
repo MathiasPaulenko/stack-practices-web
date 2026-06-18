@@ -8,15 +8,9 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - circuit-breaker
   - devops
+  - circuit-breaker
   - exponential-backoff
-  - java
-  - javascript
-  - jitter
-  - python
-  - resilience
-  - retry
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

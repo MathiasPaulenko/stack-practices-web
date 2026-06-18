@@ -8,16 +8,9 @@ difficulty: intermediate
 topics:
   - testing
 tags:
+  - testing
   - api-testing
   - consumer-driven-contracts
-  - contract-testing
-  - database-testing
-  - integration-testing
-  - pact
-  - spring-boot-test
-  - test-containers
-  - testing
-  - wiremock
 relatedResources:
   - /recipes/unit-testing-mocking
   - /recipes/api-gateway

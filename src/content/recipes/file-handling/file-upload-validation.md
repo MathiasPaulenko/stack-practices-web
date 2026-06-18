@@ -11,11 +11,6 @@ tags:
   - file-handling
   - file-upload
   - java
-  - javascript
-  - mime-type
-  - python
-  - security
-  - validation
 relatedResources:
   - /recipes/input-validation
   - /recipes/jwt-authentication

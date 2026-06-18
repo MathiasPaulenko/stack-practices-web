@@ -11,11 +11,6 @@ tags:
   - api
   - versioning
   - rest
-  - graphql
-  - backward-compatibility
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

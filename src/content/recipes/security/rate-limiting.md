@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - security
 tags:
+  - security
   - rate-limiting
   - api-gateway
-  - redis
-  - token-bucket
-  - sliding-window
-  - throttling
-  - ddos-protection
-  - security
 relatedResources:
   - /recipes/api-security-headers
   - /recipes/csrf-protection

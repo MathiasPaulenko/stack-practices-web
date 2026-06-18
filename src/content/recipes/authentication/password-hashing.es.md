@@ -11,11 +11,6 @@ tags:
   - authentication
   - bcrypt
   - hashing
-  - java
-  - javascript
-  - password
-  - python
-  - security
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/handle-errors

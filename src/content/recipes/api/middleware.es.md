@@ -11,13 +11,6 @@ tags:
   - api
   - authentication
   - express
-  - fastapi
-  - interceptor
-  - java
-  - javascript
-  - logging
-  - middleware
-  - python
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

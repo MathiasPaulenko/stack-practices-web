@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - authentication
 tags:
-  - api-keys
   - authentication
+  - api-keys
   - hmac
-  - machine-to-machine
-  - api-gateway
-  - rate-limiting
-  - security
-  - scopes
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login

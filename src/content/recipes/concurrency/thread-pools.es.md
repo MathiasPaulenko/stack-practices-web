@@ -11,10 +11,6 @@ tags:
   - concurrency
   - cpu-bound
   - executors
-  - java-executors
-  - rejection-policy
-  - thread-pools
-  - worker-threads
 relatedResources:
   - /recipes/async-patterns
   - /recipes/microservices-patterns

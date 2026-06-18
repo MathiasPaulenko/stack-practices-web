@@ -11,9 +11,6 @@ tags:
   - authentication
   - cookies
   - jwt
-  - redis
-  - security
-  - session-management
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login

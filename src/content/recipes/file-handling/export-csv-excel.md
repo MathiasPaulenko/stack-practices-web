@@ -8,17 +8,9 @@ difficulty: beginner
 topics:
   - file-handling
 tags:
+  - file-handling
   - csv
   - data
-  - excel
-  - export
-  - file-handling
-  - java
-  - javascript
-  - pandas
-  - python
-  - streaming
-  - xlsx
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs

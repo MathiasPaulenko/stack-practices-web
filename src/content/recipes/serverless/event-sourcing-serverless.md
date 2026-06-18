@@ -8,15 +8,9 @@ difficulty: advanced
 topics:
   - serverless
 tags:
+  - serverless
   - cqrs
   - dynamodb-streams
-  - event-sourcing
-  - event-store
-  - immutable-events
-  - lambda-triggers
-  - serverless
-  - serverless-patterns
-  - temporal-query
 relatedResources:
   - /recipes/cqrs-pattern
   - /recipes/saga-pattern

@@ -8,14 +8,9 @@ difficulty: intermediate
 topics:
   - serverless
 tags:
-  - cold-start
   - serverless
+  - cold-start
   - lambda
-  - provisioned-concurrency
-  - latency
-  - optimization
-  - startup-time
-  - faas
 relatedResources:
   - /recipes/serverless-functions
   - /recipes/serverless-api-gateway

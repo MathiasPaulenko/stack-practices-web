@@ -8,15 +8,9 @@ difficulty: beginner
 topics:
   - file-handling
 tags:
-  - compression
   - file-handling
+  - compression
   - images
-  - java
-  - javascript
-  - optimization
-  - python
-  - resize
-  - webp
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs

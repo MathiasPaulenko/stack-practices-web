@@ -8,14 +8,9 @@ difficulty: advanced
 topics:
   - serverless
 tags:
+  - serverless
   - websockets
   - real-time
-  - api-gateway
-  - lambda
-  - dynamodb
-  - serverless
-  - bidirectional
-  - connections
 relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/event-driven-functions
