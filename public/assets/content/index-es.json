@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 248,
+  "count": 253,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -5109,6 +5109,44 @@
       }
     },
     {
+      "path": "recipes/api/nginx-reverse-proxy.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "nginx-reverse-proxy",
+        "title": "Configura Nginx como Reverse Proxy y API Gateway",
+        "description": "Como usar Nginx como reverse proxy para servicios backend, implementar balanceo de carga, terminacion SSL y rate limiting para API gateways de produccion",
+        "metaDescription": "Nginx reverse proxy y API gateway. Configura load balancing, SSL termination, rate limiting y routing basado en paths para servicios backend en produccion.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "infrastructure"
+        ],
+        "tags": [
+          "nginx",
+          "api-gateway",
+          "load-balancer",
+          "reverse-proxy"
+        ],
+        "relatedResources": [
+          "/recipes/performance/brotli-nginx-compression",
+          "/recipes/devops/terraform-aws-vpc",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Nginx reverse proxy y API gateway. Configura load balancing, SSL termination, rate limiting y routing basado en paths para servicios backend en produccion.",
+          "keywords": [
+            "nginx reverse proxy",
+            "api gateway",
+            "load balancing",
+            "ssl termination",
+            "rate limiting"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/pagination.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -5416,6 +5454,44 @@
             "real-time security",
             "token validation",
             "room authorization"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/api/websocket-bidirectional-chat.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "websocket-bidirectional-chat",
+        "title": "Construye un Chat Bidireccional con WebSocket y Node.js",
+        "description": "Como construir una aplicacion de chat en tiempo real bidireccional usando WebSocket con mensajeria basada en salas, tracking de presencia y persistencia de mensajes",
+        "metaDescription": "Chat bidireccional con WebSocket y Node.js. Construye mensajeria en tiempo real con delivery por salas, tracking de presencia y persistencia de mensajes para produccion.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "frontend"
+        ],
+        "tags": [
+          "bidirectional",
+          "websockets",
+          "real-time",
+          "nodejs"
+        ],
+        "relatedResources": [
+          "/recipes/api/websocket-authentication",
+          "/recipes/api/server-sent-events-go",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Chat bidireccional con WebSocket y Node.js. Construye mensajeria en tiempo real con delivery por salas, tracking de presencia y persistencia de mensajes para produccion.",
+          "keywords": [
+            "websocket chat",
+            "bidirectional communication",
+            "real time messaging",
+            "socket.io",
+            "node.js"
           ]
         }
       }
@@ -7103,6 +7179,44 @@
       }
     },
     {
+      "path": "recipes/databases/redis-cache-patterns.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "redis-cache-patterns",
+        "title": "Patrones de Cache de Redis para Aplicaciones de Alto Rendimiento",
+        "description": "Como implementar patrones cache-aside, write-through y write-behind con Redis para reducir carga de base de datos y mejorar tiempos de respuesta",
+        "metaDescription": "Patrones de cache de Redis para apps de alto rendimiento. Implementa cache-aside, write-through y write-behind para reducir carga de base de datos y mejorar latencia.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases",
+          "performance"
+        ],
+        "tags": [
+          "redis",
+          "cache",
+          "database",
+          "performance"
+        ],
+        "relatedResources": [
+          "/recipes/cache-invalidation",
+          "/recipes/connection-pooling",
+          "/guides/performance-optimization-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Patrones de cache de Redis para apps de alto rendimiento. Implementa cache-aside, write-through y write-behind para reducir carga de base de datos y mejorar latencia.",
+          "keywords": [
+            "redis",
+            "caching patterns",
+            "cache-aside",
+            "write-through",
+            "performance"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/soft-deletes.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7541,6 +7655,44 @@
             "bullmq javascript queue",
             "scheduled executor java",
             "workers redis tasks"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/bash-scripting-automation.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "bash-scripting-automation",
+        "title": "Scripting en Bash para Automatizacion DevOps y Tareas de Sistema",
+        "description": "Como escribir scripts Bash robustos para automatizar despliegues, monitoreo de sistemas, rotacion de logs y tareas de mantenimiento rutinarias",
+        "metaDescription": "Scripting en Bash para automatizacion DevOps. Escribe scripts robustos para despliegues, monitoreo, rotacion de logs y mantenimiento con manejo de errores y logging.",
+        "difficulty": "beginner",
+        "topics": [
+          "devops",
+          "file-handling"
+        ],
+        "tags": [
+          "bash",
+          "automation",
+          "devops",
+          "scripting"
+        ],
+        "relatedResources": [
+          "/recipes/read-write-file",
+          "/recipes/pre-commit-hooks",
+          "/guides/infrastructure-as-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Scripting en Bash para automatizacion DevOps. Escribe scripts robustos para despliegues, monitoreo, rotacion de logs y mantenimiento con manejo de errores y logging.",
+          "keywords": [
+            "bash scripting",
+            "devops automation",
+            "shell scripting",
+            "system administration",
+            "deployment scripts"
           ]
         }
       }
@@ -8731,6 +8883,44 @@
             "intersection observer",
             "lazy load imagenes",
             "lazy load componentes"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/performance/load-testing-k6.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "load-testing-k6",
+        "title": "Testing de Carga de APIs con k6 y Aserciones Basadas en Umbrales",
+        "description": "Como escribir y ejecutar tests de carga con k6 para medir rendimiento de APIs, validar SLOs e identificar cuellos de botella antes del despliegue a produccion",
+        "metaDescription": "Testing de carga de APIs con k6. Mide rendimiento, valida SLOs con aserciones de umbrales e identifica cuellos de botella antes del despliegue a produccion.",
+        "difficulty": "intermediate",
+        "topics": [
+          "testing",
+          "performance"
+        ],
+        "tags": [
+          "benchmarks",
+          "testing",
+          "performance",
+          "api"
+        ],
+        "relatedResources": [
+          "/recipes/load-testing",
+          "/recipes/integration-testing",
+          "/guides/testing-strategy-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Testing de carga de APIs con k6. Mide rendimiento, valida SLOs con aserciones de umbrales e identifica cuellos de botella antes del despliegue a produccion.",
+          "keywords": [
+            "k6 load testing",
+            "api performance",
+            "load test",
+            "benchmarking",
+            "slo validation"
           ]
         }
       }
