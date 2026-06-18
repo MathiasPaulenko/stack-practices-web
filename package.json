@@ -18,7 +18,11 @@
     "content:links": "node .agents/skills/stackp-content-creator/scripts/check-broken-links.cjs"
   },
   "dependencies": {
-    "astro": "^5.6.1"
+    "@tailwindcss/postcss": "^4.3.1",
+    "astro": "^6.4.8"
+  },
+  "overrides": {
+    "dompurify": "^3.5.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

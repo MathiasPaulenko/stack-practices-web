@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,9 +17,6 @@ export default defineConfig({
     },
   },
   vite: {
-    // Cast avoids a cosmetic type mismatch between @tailwindcss/vite and
-    // Astro's bundled Vite types; the build is unaffected.
-    plugins: [/** @type {any} */ (tailwindcss())],
     build: {
       cssCodeSplit: true,
       minify: true,
