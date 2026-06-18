@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 230,
+  "count": 236,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -2483,6 +2483,44 @@
       }
     },
     {
+      "path": "patterns/design/adapter-pattern-api.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "adapter-pattern-api",
+        "title": "Adapter Pattern for Integrating External REST APIs",
+        "description": "Use the Adapter pattern to normalize responses from external REST APIs into a consistent internal model without leaking third-party formats into your domain",
+        "metaDescription": "Adapter pattern for external REST APIs. Normalize third-party responses into consistent internal models. Clean separation between external and domain logic.",
+        "difficulty": "beginner",
+        "topics": [
+          "design",
+          "api"
+        ],
+        "tags": [
+          "adapter",
+          "api",
+          "structural",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/decorator-pattern-pipeline",
+          "/patterns/design/facade-pattern",
+          "/recipes/api/call-rest-api"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Adapter pattern for external REST APIs. Normalize third-party responses into consistent internal models. Clean separation between external and domain logic.",
+          "keywords": [
+            "adapter pattern",
+            "rest api integration",
+            "structural pattern",
+            "data normalization",
+            "third-party api"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/adapter-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -2608,6 +2646,43 @@
             "python bridge",
             "java bridge",
             "javascript bridge"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/builder-pattern-configuration.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "builder-pattern-configuration",
+        "title": "Builder Pattern for Complex Configuration Objects",
+        "description": "Use the Builder pattern to construct complex configuration objects with optional parameters and sensible defaults without telescoping constructors",
+        "metaDescription": "Builder pattern for configuration objects. Construct complex objects with optional parameters, fluent API, and sensible defaults without telescoping constructors.",
+        "difficulty": "beginner",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "builder",
+          "creational",
+          "design-pattern",
+          "fluent-interface"
+        ],
+        "relatedResources": [
+          "/patterns/design/abstract-factory-pattern",
+          "/patterns/design/proxy-pattern-caching",
+          "/recipes/api/call-rest-api"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Builder pattern for configuration objects. Construct complex objects with optional parameters, fluent API, and sensible defaults without telescoping constructors.",
+          "keywords": [
+            "builder pattern",
+            "configuration builder",
+            "creational pattern",
+            "fluent api",
+            "object construction"
           ]
         }
       }
@@ -2961,6 +3036,44 @@
             "python cqrs",
             "java cqrs",
             "javascript cqrs"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/decorator-pattern-pipeline.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "decorator-pattern-pipeline",
+        "title": "Decorator Pattern for HTTP Request Pipelines",
+        "description": "Use the Decorator pattern to compose cross-cutting concerns like logging, metrics, and retries into HTTP request pipelines without modifying core logic",
+        "metaDescription": "Decorator pattern for HTTP pipelines. Compose logging, retries, and metrics around requests without modifying core logic. Clean, testable middleware.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "api"
+        ],
+        "tags": [
+          "decorator",
+          "middleware",
+          "structural",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/proxy-pattern-caching",
+          "/patterns/design/adapter-pattern",
+          "/recipes/api/call-rest-api"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Decorator pattern for HTTP pipelines. Compose logging, retries, and metrics around requests without modifying core logic. Clean, testable middleware.",
+          "keywords": [
+            "decorator pattern",
+            "http middleware",
+            "request pipeline",
+            "structural pattern",
+            "cross-cutting concerns"
           ]
         }
       }
@@ -3361,6 +3474,44 @@
       }
     },
     {
+      "path": "patterns/design/mvc-pattern-frontend.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "mvc-pattern-frontend",
+        "title": "MVC Pattern in Modern Frontend Applications",
+        "description": "Apply the Model-View-Controller pattern to React and Vue applications to separate data, UI, and interaction logic for maintainable component architecture",
+        "metaDescription": "MVC pattern in modern frontend. Separate data, UI, and interaction logic in React and Vue for maintainable component architecture and predictable state flow.",
+        "difficulty": "beginner",
+        "topics": [
+          "design",
+          "frontend"
+        ],
+        "tags": [
+          "mvc",
+          "frontend",
+          "architecture",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/repository-pattern-typescript",
+          "/patterns/design/decorator-pattern-pipeline",
+          "/guides/testing-strategy-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "MVC pattern in modern frontend. Separate data, UI, and interaction logic in React and Vue for maintainable component architecture and predictable state flow.",
+          "keywords": [
+            "mvc pattern",
+            "frontend architecture",
+            "react mvc",
+            "vue mvc",
+            "component architecture"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/mvc-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -3494,6 +3645,45 @@
       }
     },
     {
+      "path": "patterns/design/proxy-pattern-caching.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "proxy-pattern-caching",
+        "title": "Proxy Pattern for API Response Caching",
+        "description": "How to implement a caching proxy that intercepts API calls and stores responses to reduce latency and avoid redundant network requests",
+        "metaDescription": "Implement a caching proxy pattern for API responses. Reduce latency, avoid redundant requests, and control cache invalidation with a clean wrapper.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "performance"
+        ],
+        "tags": [
+          "proxy",
+          "caching",
+          "performance",
+          "structural",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/decorator-pattern",
+          "/patterns/design/adapter-pattern",
+          "/recipes/cache-invalidation"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Implement a caching proxy pattern for API responses. Reduce latency, avoid redundant requests, and control cache invalidation with a clean wrapper.",
+          "keywords": [
+            "proxy pattern",
+            "caching proxy",
+            "api caching",
+            "structural pattern",
+            "response cache"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/proxy-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -3535,6 +3725,44 @@
             "python proxy",
             "java proxy",
             "javascript proxy"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/repository-pattern-typescript.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "repository-pattern-typescript",
+        "title": "Repository Pattern with TypeScript Generics",
+        "description": "Implement a type-safe repository pattern in TypeScript that decouples data access logic from domain services using generics and interfaces",
+        "metaDescription": "Repository pattern in TypeScript with generics. Decouple data access from domain logic with type-safe repositories, interfaces, and clean dependency injection.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "databases"
+        ],
+        "tags": [
+          "repository",
+          "typescript",
+          "architecture",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/adapter-pattern-api",
+          "/recipes/database-indexing",
+          "/guides/database-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Repository pattern in TypeScript with generics. Decouple data access from domain logic with type-safe repositories, interfaces, and clean dependency injection.",
+          "keywords": [
+            "repository pattern",
+            "typescript generics",
+            "data access layer",
+            "architecture pattern",
+            "clean architecture"
           ]
         }
       }

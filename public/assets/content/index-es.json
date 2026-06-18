@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 230,
+  "count": 236,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -2518,6 +2518,44 @@
       }
     },
     {
+      "path": "patterns/design/adapter-pattern-api.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "adapter-pattern-api",
+        "title": "Adapter Pattern para Integrar APIs REST Externas",
+        "description": "Usa el Adapter pattern para normalizar respuestas de APIs REST externas en un modelo interno consistente sin filtrar formatos de terceros en tu dominio",
+        "metaDescription": "Adapter pattern para APIs REST externas. Normaliza respuestas de terceros en modelos internos consistentes. Separacion limpia entre logica externa y de dominio.",
+        "difficulty": "beginner",
+        "topics": [
+          "design",
+          "api"
+        ],
+        "tags": [
+          "adapter",
+          "api",
+          "structural",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/decorator-pattern-pipeline",
+          "/patterns/design/facade-pattern",
+          "/recipes/api/call-rest-api"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Adapter pattern para APIs REST externas. Normaliza respuestas de terceros en modelos internos consistentes. Separacion limpia entre logica externa y de dominio.",
+          "keywords": [
+            "adapter pattern",
+            "rest api integration",
+            "structural pattern",
+            "data normalization",
+            "third-party api"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/adapter-pattern.es.md",
       "metadata": {
         "contentType": "patterns",
@@ -2646,6 +2684,43 @@
             "python bridge",
             "java bridge",
             "javascript bridge"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/builder-pattern-configuration.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "builder-pattern-configuration",
+        "title": "Builder Pattern para Objetos de Configuracion Complejos",
+        "description": "Usa el Builder pattern para construir objetos de configuracion complejos con parametros opcionales y valores por defecto sensatos sin constructores telescopicos",
+        "metaDescription": "Builder pattern para objetos de configuracion. Construye objetos complejos con parametros opcionales, API fluida y valores por defecto sin constructores telescopicos.",
+        "difficulty": "beginner",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "builder",
+          "creational",
+          "design-pattern",
+          "fluent-interface"
+        ],
+        "relatedResources": [
+          "/patterns/design/abstract-factory-pattern",
+          "/patterns/design/proxy-pattern-caching",
+          "/recipes/api/call-rest-api"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Builder pattern para objetos de configuracion. Construye objetos complejos con parametros opcionales, API fluida y valores por defecto sin constructores telescopicos.",
+          "keywords": [
+            "builder pattern",
+            "configuration builder",
+            "creational pattern",
+            "fluent api",
+            "object construction"
           ]
         }
       }
@@ -3005,6 +3080,44 @@
             "python cqrs",
             "java cqrs",
             "javascript cqrs"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/decorator-pattern-pipeline.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "decorator-pattern-pipeline",
+        "title": "Decorator Pattern para Pipelines de Peticiones HTTP",
+        "description": "Usa el Decorator pattern para componer preocupaciones transversales como logging, metricas y reintentos en pipelines de peticiones HTTP sin modificar logica central",
+        "metaDescription": "Decorator pattern para pipelines HTTP. Compone logging, reintentos y metricas alrededor de peticiones sin modificar logica central. Middleware limpio y testeable.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "api"
+        ],
+        "tags": [
+          "decorator",
+          "middleware",
+          "structural",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/proxy-pattern-caching",
+          "/patterns/design/adapter-pattern",
+          "/recipes/api/call-rest-api"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Decorator pattern para pipelines HTTP. Compone logging, reintentos y metricas alrededor de peticiones sin modificar logica central. Middleware limpio y testeable.",
+          "keywords": [
+            "decorator pattern",
+            "http middleware",
+            "request pipeline",
+            "structural pattern",
+            "cross-cutting concerns"
           ]
         }
       }
@@ -3406,6 +3519,44 @@
       }
     },
     {
+      "path": "patterns/design/mvc-pattern-frontend.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "mvc-pattern-frontend",
+        "title": "MVC Pattern en Aplicaciones Frontend Modernas",
+        "description": "Aplica el Model-View-Controller pattern en aplicaciones React y Vue para separar datos, UI y logica de interaccion en una arquitectura de componentes mantenible",
+        "metaDescription": "MVC pattern en frontend moderno. Separa datos, UI y logica de interaccion en React y Vue para arquitectura de componentes mantenible y flujo de estado predecible.",
+        "difficulty": "beginner",
+        "topics": [
+          "design",
+          "frontend"
+        ],
+        "tags": [
+          "mvc",
+          "frontend",
+          "architecture",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/repository-pattern-typescript",
+          "/patterns/design/decorator-pattern-pipeline",
+          "/guides/testing-strategy-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "MVC pattern en frontend moderno. Separa datos, UI y logica de interaccion en React y Vue para arquitectura de componentes mantenible y flujo de estado predecible.",
+          "keywords": [
+            "mvc pattern",
+            "frontend architecture",
+            "react mvc",
+            "vue mvc",
+            "component architecture"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/mvc-pattern.es.md",
       "metadata": {
         "contentType": "patterns",
@@ -3539,6 +3690,45 @@
       }
     },
     {
+      "path": "patterns/design/proxy-pattern-caching.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "proxy-pattern-caching",
+        "title": "Proxy Pattern para Cacheo de Respuestas de API",
+        "description": "Como implementar un proxy de cacheo que intercepta llamadas a APIs y almacena respuestas para reducir latencia y evitar peticiones redundantes",
+        "metaDescription": "Implementa un proxy de cacheo para respuestas de API. Reduce latencia, evita peticiones redundantes y controla invalidacion de cache con un wrapper limpio.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "performance"
+        ],
+        "tags": [
+          "proxy",
+          "caching",
+          "performance",
+          "structural",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/decorator-pattern",
+          "/patterns/design/adapter-pattern",
+          "/recipes/cache-invalidation"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Implementa un proxy de cacheo para respuestas de API. Reduce latencia, evita peticiones redundantes y controla invalidacion de cache con un wrapper limpio.",
+          "keywords": [
+            "proxy pattern",
+            "caching proxy",
+            "api caching",
+            "structural pattern",
+            "response cache"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/proxy-pattern.es.md",
       "metadata": {
         "contentType": "patterns",
@@ -3580,6 +3770,44 @@
             "python proxy",
             "java proxy",
             "javascript proxy"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/repository-pattern-typescript.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "repository-pattern-typescript",
+        "title": "Repository Pattern con Generics de TypeScript",
+        "description": "Implementa el Repository pattern con generics de TypeScript que desacopla logica de acceso a datos de servicios de dominio usando generics e interfaces",
+        "metaDescription": "Repository pattern en TypeScript con generics. Desacopla acceso a datos de logica de dominio con repositorios type-safe, interfaces e inyeccion de dependencias limpia.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "databases"
+        ],
+        "tags": [
+          "repository",
+          "typescript",
+          "architecture",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/adapter-pattern-api",
+          "/recipes/database-indexing",
+          "/guides/database-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Repository pattern en TypeScript con generics. Desacopla acceso a datos de logica de dominio con repositorios type-safe, interfaces e inyeccion de dependencias limpia.",
+          "keywords": [
+            "repository pattern",
+            "typescript generics",
+            "data access layer",
+            "architecture pattern",
+            "clean architecture"
           ]
         }
       }
