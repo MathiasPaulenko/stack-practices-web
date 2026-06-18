@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 242,
+  "count": 248,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -3990,6 +3990,43 @@
       }
     },
     {
+      "path": "patterns/design/solid-principles-typescript.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "solid-principles-typescript",
+        "title": "SOLID Principles in TypeScript with Practical Examples",
+        "description": "Apply the five SOLID principles to TypeScript code to improve maintainability, testability, and reduce coupling in object-oriented designs",
+        "metaDescription": "SOLID principles in TypeScript. Apply Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion with practical examples.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "solid",
+          "clean-code",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/adapter-pattern-api",
+          "/patterns/design/decorator-pattern-pipeline",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "SOLID principles in TypeScript. Apply Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion with practical examples.",
+          "keywords": [
+            "solid principles",
+            "typescript",
+            "clean code",
+            "object oriented design",
+            "dependency inversion"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/state-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -5183,6 +5220,44 @@
             "javascript",
             "java",
             "notification"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/api/server-sent-events-go.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "server-sent-events-go",
+        "title": "Implement Server-Sent Events in Go for Real-Time Updates",
+        "description": "How to build a production-ready Server-Sent Events endpoint in Go with connection management, heartbeat pings, and graceful client disconnect handling",
+        "metaDescription": "Server-Sent Events in Go. Build real-time update streams with connection management, heartbeat pings, and graceful handling of client disconnects.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "performance"
+        ],
+        "tags": [
+          "server-sent-events",
+          "real-time",
+          "golang",
+          "api"
+        ],
+        "relatedResources": [
+          "/recipes/api/websocket-authentication",
+          "/recipes/real-time-websockets",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Server-Sent Events in Go. Build real-time update streams with connection management, heartbeat pings, and graceful handling of client disconnects.",
+          "keywords": [
+            "server sent events",
+            "sse",
+            "golang",
+            "real time api",
+            "event stream"
           ]
         }
       }
@@ -6487,6 +6562,44 @@
             "python uuid",
             "javascript uuid",
             "java uuid"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/acid-transactions-postgres.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "acid-transactions-postgres",
+        "title": "Implement ACID Transactions in PostgreSQL",
+        "description": "How to use PostgreSQL transactions to ensure Atomicity, Consistency, Isolation, and Durability for reliable multi-step database operations",
+        "metaDescription": "ACID transactions in PostgreSQL. Ensure atomicity, consistency, isolation, and durability with proper transaction boundaries, isolation levels, and savepoints.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases",
+          "data"
+        ],
+        "tags": [
+          "acid",
+          "database",
+          "postgres",
+          "transactions"
+        ],
+        "relatedResources": [
+          "/recipes/databases/mongodb-crud-mongoose",
+          "/recipes/query-optimization",
+          "/guides/database-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "ACID transactions in PostgreSQL. Ensure atomicity, consistency, isolation, and durability with proper transaction boundaries, isolation levels, and savepoints.",
+          "keywords": [
+            "acid transactions",
+            "postgresql",
+            "database consistency",
+            "isolation levels",
+            "sql transactions"
           ]
         }
       }
@@ -7809,6 +7922,44 @@
       }
     },
     {
+      "path": "recipes/devops/istio-canary-deployment.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "istio-canary-deployment",
+        "title": "Canary Deployments with Istio Service Mesh",
+        "description": "How to use Istio traffic splitting to perform safe canary deployments by gradually shifting user traffic between application versions",
+        "metaDescription": "Canary deployments with Istio. Split traffic between app versions, monitor metrics, and automate rollback for zero-downtime releases.",
+        "difficulty": "advanced",
+        "topics": [
+          "devops",
+          "infrastructure"
+        ],
+        "tags": [
+          "istio",
+          "kubernetes",
+          "deployment",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/devops/aws-ecs-fargate",
+          "/recipes/devops/terraform-aws-vpc",
+          "/guides/infrastructure-as-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Canary deployments with Istio. Split traffic between app versions, monitor metrics, and automate rollback for zero-downtime releases.",
+          "keywords": [
+            "istio",
+            "canary deployment",
+            "service mesh",
+            "traffic splitting",
+            "kubernetes"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/parse-config-files.md",
       "metadata": {
         "contentType": "recipes",
@@ -8316,6 +8467,44 @@
             "python streams",
             "nodejs streams",
             "java streams"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/performance/brotli-nginx-compression.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "brotli-nginx-compression",
+        "title": "Enable Brotli Compression in Nginx for Faster Asset Delivery",
+        "description": "How to configure Brotli compression in Nginx to reduce transfer sizes for JavaScript, CSS, and HTML assets with better ratios than Gzip",
+        "metaDescription": "Enable Brotli compression in Nginx. Reduce asset transfer sizes with better compression ratios than Gzip for JavaScript, CSS, and HTML delivery.",
+        "difficulty": "beginner",
+        "topics": [
+          "performance",
+          "frontend"
+        ],
+        "tags": [
+          "brotli",
+          "performance",
+          "nginx",
+          "compression"
+        ],
+        "relatedResources": [
+          "/recipes/compression-gzip",
+          "/recipes/cdn-edge-caching",
+          "/guides/performance-optimization-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Enable Brotli compression in Nginx. Reduce asset transfer sizes with better compression ratios than Gzip for JavaScript, CSS, and HTML delivery.",
+          "keywords": [
+            "brotli compression",
+            "nginx",
+            "web performance",
+            "asset compression",
+            "gzip alternative"
           ]
         }
       }
@@ -8850,6 +9039,44 @@
             "sql injection examples",
             "input sanitization",
             "secure coding"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/security/vault-dynamic-credentials.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "vault-dynamic-credentials",
+        "title": "Dynamic Database Credentials with HashiCorp Vault",
+        "description": "How to use HashiCorp Vault to generate short-lived database credentials, eliminating hardcoded passwords and reducing secret sprawl",
+        "metaDescription": "Dynamic database credentials with HashiCorp Vault. Generate short-lived passwords, eliminate hardcoded secrets, and audit all database access with Vault.",
+        "difficulty": "intermediate",
+        "topics": [
+          "security",
+          "databases"
+        ],
+        "tags": [
+          "vault",
+          "security",
+          "database",
+          "secret-management"
+        ],
+        "relatedResources": [
+          "/recipes/secret-management",
+          "/recipes/security-headers",
+          "/guides/security-best-practices"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Dynamic database credentials with HashiCorp Vault. Generate short-lived passwords, eliminate hardcoded secrets, and audit all database access with Vault.",
+          "keywords": [
+            "hashicorp vault",
+            "dynamic credentials",
+            "secret management",
+            "database security",
+            "password rotation"
           ]
         }
       }
