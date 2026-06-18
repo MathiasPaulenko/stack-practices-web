@@ -9,11 +9,12 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - release-notes
-  - template
   - changelog
-  - versioning
+  - devops
+  - release-notes
   - semver
+  - template
+  - versioning
 relatedResources:
   - /docs/templates/bug-report-template
   - /guides/devops/cicd-pipeline-guide

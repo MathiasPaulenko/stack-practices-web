@@ -8,12 +8,13 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - documentacion
+  - devops
   - docs-as-code
-  - markdown
+  - documentacion
   - escritura-tecnica
   - gestion-del-conocimiento
   - guia
+  - markdown
 relatedResources:
   - /guides/design/code-review-best-practices-guide
   - /guides/architecture/domain-driven-design-guide

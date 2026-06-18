@@ -9,10 +9,9 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - slo
-  - sre
+  - devops
   - reliability
-  - error-budget
+  - sre
   - template
 relatedResources:
   - /guides/devops/on-call-incident-response-guide

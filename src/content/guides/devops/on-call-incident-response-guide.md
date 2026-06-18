@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - on-call
+  - devops
+  - guide
   - incident-response
-  - sre
-  - postmortem
   - mttr
   - observability
-  - guide
+  - on-call
+  - postmortem
+  - sre
 relatedResources:
   - /guides/devops/docker-for-developers-guide
   - /guides/security/web-application-security-guide

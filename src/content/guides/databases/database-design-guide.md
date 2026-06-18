@@ -9,14 +9,11 @@ topics:
   - databases
   - architecture
 tags:
+  - architecture
+  - database
   - database-design
-  - normalization
   - indexing
-  - relational-databases
-  - schema-design
-  - er-diagram
   - sql
-  - foreign-keys
 relatedResources:
   - /recipes/sql-joins
   - /recipes/database-transactions

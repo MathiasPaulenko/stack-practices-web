@@ -8,12 +8,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - docker
   - containers
-  - dockerfile
-  - docker-compose
-  - development
   - devops
+  - docker
   - guide
 relatedResources:
   - /guides/devops/cicd-pipeline-guide

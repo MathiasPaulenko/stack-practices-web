@@ -8,12 +8,13 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - graceful-shutdown
-  - zero-downtime
-  - sigterm
   - containers
-  - web-server
   - deployment
+  - devops
+  - graceful-shutdown
+  - sigterm
+  - web-server
+  - zero-downtime
 relatedResources:
   - /guides/deployment-strategies-guide
   - /docs/post-deployment-checklist-template

@@ -8,12 +8,9 @@ difficulty: advanced
 topics:
   - ai
 tags:
-  - llm
+  - ai
   - fine-tuning
-  - lora
-  - qlora
-  - hugging-face
-  - code-generation
+  - llm
 relatedResources:
   - /recipes/chatbot-openai
   - /recipes/rag-pipeline

@@ -8,14 +8,12 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
-  - event-driven
-  - message-broker
+  - architecture
   - event-bus
-  - kafka
-  - rabbitmq
-  - pub-sub
-  - loose-coupling
+  - event-driven
   - event-sourcing
+  - loose-coupling
+  - pub-sub
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/cqrs-pattern

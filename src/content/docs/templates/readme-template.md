@@ -9,11 +9,11 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - readme
-  - template
+  - devops
   - documentation
   - markdown
   - open-source
+  - template
 relatedResources:
   - /patterns/design/factory-pattern
   - /recipes/devops/git-workflow

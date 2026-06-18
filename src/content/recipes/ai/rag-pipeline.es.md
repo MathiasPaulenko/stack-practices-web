@@ -8,12 +8,11 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - rag
-  - langchain
-  - vector-database
-  - openai
+  - ai
   - embeddings
   - llm
+  - openai
+  - rag
 relatedResources:
   - /recipes/semantic-search
   - /recipes/chatbot-openai

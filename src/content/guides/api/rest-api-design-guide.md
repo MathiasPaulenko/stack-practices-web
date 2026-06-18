@@ -9,12 +9,11 @@ topics:
   - api
   - architecture
 tags:
-  - rest
   - api
-  - design
-  - http
   - architecture
   - best-practices
+  - http
+  - rest
 relatedResources:
   - /recipes/api/call-rest-api
   - /recipes/api/handle-errors

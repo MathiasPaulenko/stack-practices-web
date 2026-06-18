@@ -8,14 +8,15 @@ difficulty: beginner
 topics:
   - api
 tags:
-  - validation
+  - api
   - input-validation
-  - schema
-  - sanitization
-  - python
-  - javascript
   - java
+  - javascript
   - pydantic
+  - python
+  - sanitization
+  - schema
+  - validation
   - zod
 relatedResources:
   - /recipes/handle-errors

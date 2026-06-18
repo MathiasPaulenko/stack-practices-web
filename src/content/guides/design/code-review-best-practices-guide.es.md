@@ -9,12 +9,12 @@ topics:
   - design
   - devops
 tags:
-  - code-review
-  - pull-request
-  - peer-review
   - calidad
-  - practicas-equipo
+  - code-review
+  - devops
   - guia
+  - practicas-equipo
+  - pull-request
 relatedResources:
   - /guides/design/design-patterns-guide
   - /guides/testing/testing-strategy-guide

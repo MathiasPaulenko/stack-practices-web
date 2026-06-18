@@ -8,13 +8,11 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - graphql
   - api
-  - apollo
-  - strawberry
-  - python
-  - javascript
+  - graphql
   - java
+  - javascript
+  - python
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api

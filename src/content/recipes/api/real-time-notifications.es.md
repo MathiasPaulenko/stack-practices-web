@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - websocket
+  - api
+  - java
+  - javascript
+  - notifications
+  - publish-subscribe
+  - python
   - real-time
   - redis
-  - publish-subscribe
-  - notifications
-  - python
-  - javascript
-  - java
+  - websocket
 relatedResources:
   - /recipes/websocket-server
   - /recipes/rate-limiting

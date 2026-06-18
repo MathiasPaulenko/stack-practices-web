@@ -9,13 +9,13 @@ topics:
   - databases
   - architecture
 tags:
-  - database-design
-  - normalizacion
-  - indexacion
+  - architecture
   - bases-de-datos
-  - schema-design
+  - database
+  - database-design
+  - indexacion
+  - normalizacion
   - sql
-  - foreign-keys
 relatedResources:
   - /es/recipes/sql-joins
   - /es/recipes/database-transactions

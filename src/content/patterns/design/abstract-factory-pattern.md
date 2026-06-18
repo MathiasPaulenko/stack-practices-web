@@ -9,13 +9,12 @@ topics:
   - design
 tags:
   - abstract-factory
-  - pattern
-  - design-pattern
   - creational
-  - factory-family
-  - python
-  - javascript
+  - design-pattern
   - java
+  - javascript
+  - pattern
+  - python
 relatedResources:
   - /patterns/design/factory-pattern
   - /patterns/design/builder-pattern

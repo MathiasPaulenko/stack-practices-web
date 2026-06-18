@@ -9,14 +9,12 @@ topics:
   - design
 tags:
   - composite
-  - pattern
   - design-pattern
-  - structural
-  - tree
-  - hierarchy
-  - python
-  - javascript
   - java
+  - javascript
+  - pattern
+  - python
+  - structural
 relatedResources:
   - /patterns/design/decorator-pattern
   - /patterns/design/chain-of-responsibility-pattern

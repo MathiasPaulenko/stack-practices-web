@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - monitoreo
   - alertas
-  - observabilidad
-  - metricas
-  - logs
-  - traces
+  - devops
   - guia
+  - logs
+  - metricas
+  - monitoreo
+  - observabilidad
+  - traces
 relatedResources:
   - /guides/devops/on-call-incident-response-guide
   - /guides/devops/docker-for-developers-guide

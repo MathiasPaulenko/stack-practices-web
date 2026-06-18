@@ -8,15 +8,16 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
+  - architecture
+  - cascading-failures
   - circuit-breaker
-  - resilience
-  - fault-tolerance
   - distributed-systems
   - fallback
-  - retry
+  - fault-tolerance
   - microservices
+  - resilience
+  - retry
   - timeout
-  - cascading-failures
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/saga-pattern

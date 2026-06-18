@@ -9,10 +9,7 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - penetration-test
-  - pentest
-  - security-assessment
-  - vulnerability-report
+  - security
   - template
 relatedResources:
   - /guides/security/web-application-security-guide

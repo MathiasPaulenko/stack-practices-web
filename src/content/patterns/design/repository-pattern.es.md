@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
-  - repository
-  - pattern
-  - design-pattern
   - architectural
+  - architecture
   - data-access
-  - python
-  - javascript
+  - design-pattern
   - java
+  - javascript
+  - pattern
+  - python
+  - repository
 relatedResources:
   - /patterns/design/mvc-pattern
   - /recipes/databases/sql-joins

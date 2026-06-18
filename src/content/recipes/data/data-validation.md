@@ -8,14 +8,15 @@ difficulty: beginner
 topics:
   - data
 tags:
+  - data
   - data-validation
   - input-validation
+  - joi
+  - pydantic
   - sanitization
   - schemas
-  - zod
-  - pydantic
-  - joi
   - security
+  - zod
 relatedResources:
   - /recipes/input-validation
   - /recipes/api-security-headers

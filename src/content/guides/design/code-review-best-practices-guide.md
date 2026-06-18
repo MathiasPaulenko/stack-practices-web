@@ -10,11 +10,9 @@ topics:
   - devops
 tags:
   - code-review
-  - pull-request
-  - peer-review
-  - quality
-  - team-practices
+  - devops
   - guide
+  - pull-request
 relatedResources:
   - /guides/design/design-patterns-guide
   - /guides/testing/testing-strategy-guide

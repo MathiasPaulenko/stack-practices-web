@@ -8,14 +8,15 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - devops
   - health-check
-  - monitoring
+  - java
+  - javascript
   - kubernetes
   - liveness
-  - readiness
+  - monitoring
   - python
-  - javascript
-  - java
+  - readiness
 relatedResources:
   - /recipes/environment-variables
   - /recipes/cron-jobs

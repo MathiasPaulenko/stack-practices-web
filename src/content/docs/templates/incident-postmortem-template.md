@@ -9,10 +9,11 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - postmortem
+  - devops
   - incident-response
-  - sre
+  - postmortem
   - reliability
+  - sre
 relatedResources:
   - /docs/runbook-template
   - /guides/cicd-pipeline-guide

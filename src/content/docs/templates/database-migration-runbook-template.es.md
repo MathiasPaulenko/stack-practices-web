@@ -9,10 +9,9 @@ difficulty: intermediate
 topics:
   - databases
 tags:
-  - database-migration
-  - runbook
-  - schema-change
+  - database
   - rollback
+  - runbook
   - template
 relatedResources:
   - /guides/databases/sql-performance-tuning-guide

@@ -10,9 +10,10 @@ topics:
   - devops
 tags:
   - changelog
-  - versioning
+  - devops
   - release-notes
   - semver
+  - versioning
 relatedResources:
   - /es/docs/contributing-guide
   - /es/docs/readme-template

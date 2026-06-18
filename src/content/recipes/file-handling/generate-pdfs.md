@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - file-handling
 tags:
-  - pdf
-  - reporting
+  - file-handling
   - html-to-pdf
-  - templates
-  - python
-  - javascript
   - java
+  - javascript
+  - pdf
+  - python
+  - reporting
+  - templates
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/send-emails-smtp

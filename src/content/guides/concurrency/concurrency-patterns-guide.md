@@ -9,14 +9,8 @@ topics:
   - concurrency
   - architecture
 tags:
+  - architecture
   - concurrency
-  - async
-  - threading
-  - parallelism
-  - thread-pool
-  - semaphore
-  - mutex
-  - race-conditions
 relatedResources:
   - /recipes/caching
   - /patterns/design/singleton-pattern

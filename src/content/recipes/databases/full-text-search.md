@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - databases
 tags:
-  - full-text-search
+  - database
   - elasticsearch
+  - full-text-search
+  - java
+  - javascript
   - meilisearch
   - postgresql
-  - search
   - python
-  - javascript
-  - java
+  - search
 relatedResources:
   - /recipes/database-transactions
   - /patterns/abstract-factory-pattern

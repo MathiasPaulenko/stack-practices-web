@@ -8,12 +8,10 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - semantic-search
+  - ai
   - embeddings
-  - vector-similarity
   - openai
-  - faiss
-  - nlp
+  - semantic-search
 relatedResources:
   - /recipes/rag-pipeline
   - /recipes/chatbot-openai

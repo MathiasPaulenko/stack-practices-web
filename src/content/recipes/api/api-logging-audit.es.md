@@ -8,13 +8,13 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - logging
-  - audit-trail
-  - structured-logging
+  - api
   - compliance
-  - python
-  - javascript
   - java
+  - javascript
+  - logging
+  - python
+  - structured-logging
 relatedResources:
   - /recipes/logging
   - /recipes/middleware

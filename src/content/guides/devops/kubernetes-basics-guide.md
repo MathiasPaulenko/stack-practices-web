@@ -9,13 +9,11 @@ topics:
   - devops
   - architecture
 tags:
-  - kubernetes
-  - k8s
+  - architecture
   - containers
-  - orchestration
   - devops
   - guide
-  - kubectl
+  - kubernetes
 relatedResources:
   - /guides/devops/docker-for-developers-guide
   - /guides/devops/cicd-pipeline-guide

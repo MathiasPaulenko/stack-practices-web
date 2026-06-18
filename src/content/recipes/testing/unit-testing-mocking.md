@@ -8,15 +8,16 @@ difficulty: beginner
 topics:
   - testing
 tags:
-  - unit-testing
-  - mocking
-  - stubs
-  - spies
-  - test-doubles
-  - tdd
   - jest
-  - pytest
   - junit
+  - mocking
+  - pytest
+  - spies
+  - stubs
+  - tdd
+  - test-doubles
+  - testing
+  - unit-testing
 relatedResources:
   - /recipes/unit-testing
   - /recipes/integration-testing

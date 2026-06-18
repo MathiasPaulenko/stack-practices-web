@@ -9,13 +9,12 @@ topics:
   - design
 tags:
   - adapter
-  - pattern
   - design-pattern
-  - structural
-  - compatibility
-  - python
-  - javascript
   - java
+  - javascript
+  - pattern
+  - python
+  - structural
 relatedResources:
   - /patterns/design/decorator-pattern
   - /patterns/design/command-pattern

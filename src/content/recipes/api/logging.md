@@ -8,15 +8,16 @@ difficulty: beginner
 topics:
   - api
 tags:
-  - logging
-  - observability
-  - structured-logging
-  - python
-  - javascript
+  - api
   - java
+  - javascript
+  - logging
   - loguru
-  - winston
+  - observability
+  - python
   - slf4j
+  - structured-logging
+  - winston
 relatedResources:
   - /recipes/handle-errors
   - /recipes/middleware

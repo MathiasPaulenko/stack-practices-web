@@ -9,11 +9,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - bug-report
-  - template
+  - devops
   - issue-tracking
-  - qa
-  - defect
+  - template
 relatedResources:
   - /guides/testing/test-driven-development-guide
   - /guides/devops/on-call-incident-response-guide

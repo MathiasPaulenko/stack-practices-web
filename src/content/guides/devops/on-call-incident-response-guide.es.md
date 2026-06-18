@@ -8,12 +8,13 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - on-call
-  - respuesta-a-incidentes
-  - postmortem
+  - devops
+  - guia
   - mttr
   - observabilidad
-  - guia
+  - on-call
+  - postmortem
+  - respuesta-a-incidentes
 relatedResources:
   - /guides/devops/docker-for-developers-guide
   - /guides/security/web-application-security-guide

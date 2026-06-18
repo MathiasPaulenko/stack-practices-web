@@ -8,13 +8,14 @@ difficulty: beginner
 topics:
   - data
 tags:
+  - data
   - dates
   - formatting
-  - timezone
   - iso8601
-  - python
-  - javascript
   - java
+  - javascript
+  - python
+  - timezone
 relatedResources:
   - /recipes/parse-json
   - /recipes/call-rest-api

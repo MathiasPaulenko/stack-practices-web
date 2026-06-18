@@ -9,14 +9,12 @@ topics:
   - design
 tags:
   - bulkhead
-  - pattern
   - design-pattern
-  - resilience
-  - isolation
-  - fault-containment
-  - python
-  - javascript
   - java
+  - javascript
+  - pattern
+  - python
+  - resilience
 relatedResources:
   - /patterns/design/circuit-breaker-pattern
   - /patterns/design/retry-pattern

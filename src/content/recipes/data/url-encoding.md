@@ -8,13 +8,14 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - url
+  - data
   - encoding
-  - query-string
+  - java
+  - javascript
   - percent-encoding
   - python
-  - javascript
-  - java
+  - query-string
+  - url
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json

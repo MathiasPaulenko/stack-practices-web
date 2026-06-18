@@ -8,15 +8,16 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - cli
-  - command-line
   - argparse
   - argument-parsing
+  - cli
+  - command-line
+  - devops
   - flags
-  - subcommands
-  - python
-  - javascript
   - java
+  - javascript
+  - python
+  - subcommands
 relatedResources:
   - /recipes/background-jobs
   - /recipes/environment-variables

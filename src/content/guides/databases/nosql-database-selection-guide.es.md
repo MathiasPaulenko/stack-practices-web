@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - databases
 tags:
-  - nosql
-  - mongodb
-  - dynamodb
   - cassandra
+  - database
+  - dynamodb
+  - guia
+  - mongodb
+  - nosql
   - redis
   - seleccion-base-de-datos
-  - guia
 relatedResources:
   - /guides/databases/database-design-guide
   - /guides/databases/sql-performance-tuning-guide

@@ -9,13 +9,14 @@ topics:
   - databases
   - performance
 tags:
-  - sql
-  - rendimiento
+  - base-de-datos
+  - database
+  - guia
   - indexacion
   - optimizacion-de-consultas
-  - explain-plan
-  - base-de-datos
-  - guia
+  - performance
+  - rendimiento
+  - sql
 relatedResources:
   - /guides/databases/database-design-guide
   - /guides/performance/performance-optimization-guide

@@ -9,12 +9,13 @@ topics:
   - testing
   - design
 tags:
+  - guide
+  - red-green-refactor
   - tdd
   - test-driven-development
+  - testing
   - unit-testing
-  - red-green-refactor
   - workflow
-  - guide
 relatedResources:
   - /guides/testing/testing-strategy-guide
   - /guides/design/clean-code-principles-guide

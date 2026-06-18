@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - databases
 tags:
+  - database
   - database-views
   - materialized-views
-  - postgresql
   - mysql
-  - sql-server
   - performance
+  - postgresql
   - sql
+  - sql-server
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/database-deadlocks-retries

@@ -9,11 +9,8 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - post-deployment
-  - verification
-  - checklist
-  - smoke-test
   - deployment
+  - devops
   - template
 relatedResources:
   - /docs/templates/release-notes-template

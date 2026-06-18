@@ -9,14 +9,15 @@ topics:
   - performance
   - devops
 tags:
-  - performance
-  - core-web-vitals
-  - caching
-  - lazy-loading
-  - compression
   - bundle-splitting
-  - images
+  - caching
   - cdn
+  - compression
+  - core-web-vitals
+  - devops
+  - images
+  - lazy-loading
+  - performance
 relatedResources:
   - /recipes/caching
   - /guides/cicd-pipeline-guide

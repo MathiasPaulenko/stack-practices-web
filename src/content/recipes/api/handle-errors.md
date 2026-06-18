@@ -8,13 +8,12 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - error-handling
   - api
-  - rest
-  - http-status
-  - python
-  - javascript
+  - error-handling
   - java
+  - javascript
+  - python
+  - rest
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/jwt-authentication

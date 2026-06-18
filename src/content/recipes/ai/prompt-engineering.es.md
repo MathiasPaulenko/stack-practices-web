@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - prompt-engineering
+  - ai
+  - ai-development
+  - chain-of-thought
+  - few-shot-learning
+  - generative-ai
   - llm
   - openai
-  - generative-ai
-  - few-shot-learning
-  - chain-of-thought
-  - ai-development
+  - prompt-engineering
 relatedResources:
   - /recipes/chatbot-openai
   - /recipes/rag-pipeline

@@ -8,15 +8,14 @@ difficulty: intermediate
 topics:
   - concurrency
 tags:
-  - csp
   - channels
-  - goroutines
-  - select-statement
   - concurrency
-  - message-passing
   - go-routines
-  - thread-safety
+  - goroutines
+  - message-passing
   - rust-async
+  - select-statement
+  - thread-safety
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools

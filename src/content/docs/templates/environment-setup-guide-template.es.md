@@ -9,11 +9,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - environment-setup
+  - devops
   - onboarding
-  - local-development
   - template
-  - devcontainer
 relatedResources:
   - /docs/templates/onboarding-guide-template
   - /docs/templates/runbook-template

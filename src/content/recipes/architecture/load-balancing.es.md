@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
-  - load-balancing
-  - round-robin
-  - least-connections
+  - architecture
   - consistent-hashing
-  - health-checks
   - failover
-  - nginx
   - haproxy
+  - health-checks
+  - least-connections
+  - load-balancing
+  - nginx
+  - round-robin
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway

@@ -9,14 +9,15 @@ topics:
   - testing
   - architecture
 tags:
+  - architecture
+  - ci-cd
+  - coverage
+  - e2e
+  - integration-tests
+  - mocking
+  - test-pyramid
   - testing
   - unit-tests
-  - integration-tests
-  - e2e
-  - test-pyramid
-  - coverage
-  - mocking
-  - ci-cd
 relatedResources:
   - /recipes/unit-testing
   - /recipes/api/input-validation

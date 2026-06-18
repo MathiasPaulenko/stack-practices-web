@@ -8,12 +8,13 @@ difficulty: intermediate
 topics:
   - databases
 tags:
+  - database
+  - load-balancing
+  - mysql
+  - postgresql
   - read-replicas
   - replication
   - scaling
-  - postgresql
-  - mysql
-  - load-balancing
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/full-text-search

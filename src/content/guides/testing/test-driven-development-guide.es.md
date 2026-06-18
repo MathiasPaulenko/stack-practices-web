@@ -9,12 +9,13 @@ topics:
   - testing
   - design
 tags:
-  - tdd
   - desarrollo-guiado-por-pruebas
-  - pruebas-unitarias
-  - red-green-refactor
   - flujo-de-trabajo
   - guia
+  - pruebas-unitarias
+  - red-green-refactor
+  - tdd
+  - testing
 relatedResources:
   - /guides/testing/testing-strategy-guide
   - /guides/design/clean-code-principles-guide

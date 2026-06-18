@@ -9,11 +9,10 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - feature-request
-  - template
+  - devops
   - product-management
+  - template
   - user-story
-  - backlog
 relatedResources:
   - /docs/templates/bug-report-template
   - /docs/templates/user-story-template

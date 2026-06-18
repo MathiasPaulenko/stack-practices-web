@@ -8,13 +8,11 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - infrastructure-as-code
-  - terraform
-  - pulumi
-  - iac
   - devops
-  - nube
   - guia
+  - nube
+  - pulumi
+  - terraform
 relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /guides/devops/docker-for-developers-guide

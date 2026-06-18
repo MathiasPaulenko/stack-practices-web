@@ -8,14 +8,12 @@ difficulty: advanced
 topics:
   - design
 tags:
-  - cqrs
   - command-query-separation
+  - cqrs
   - event-sourcing
-  - read-model
-  - write-model
-  - scalability
-  - projections
   - eventual-consistency
+  - projections
+  - scalability
 relatedResources:
   - /recipes/domain-driven-design
   - /recipes/microservices-patterns

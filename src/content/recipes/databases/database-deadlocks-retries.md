@@ -8,12 +8,13 @@ difficulty: intermediate
 topics:
   - databases
 tags:
+  - database
   - deadlocks
+  - isolation-levels
+  - mysql
+  - postgresql
   - retries
   - transactions
-  - isolation-levels
-  - postgresql
-  - mysql
 relatedResources:
   - /recipes/database-transactions
   - /recipes/full-text-search

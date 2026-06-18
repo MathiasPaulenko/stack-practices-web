@@ -8,14 +8,13 @@ difficulty: intermediate
 topics:
   - concurrency
 tags:
-  - async
-  - promises
-  - coroutines
   - concurrency
-  - non-blocking
-  - futures
-  - parallel-processing
+  - coroutines
   - event-loop
+  - futures
+  - non-blocking
+  - parallel-processing
+  - promises
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/serverless-functions

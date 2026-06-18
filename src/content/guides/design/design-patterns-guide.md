@@ -9,14 +9,15 @@ topics:
   - design
   - architecture
 tags:
-  - design-patterns
-  - creational
-  - structural
+  - architecture
   - behavioral
-  - singleton
+  - creational
+  - design-patterns
   - factory
   - observer
+  - singleton
   - strategy
+  - structural
 relatedResources:
   - /patterns/design/singleton-pattern
   - /patterns/design/observer-pattern

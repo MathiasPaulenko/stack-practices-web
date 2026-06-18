@@ -8,13 +8,12 @@ difficulty: intermediate
 topics:
   - authentication
 tags:
-  - session-management
   - authentication
   - cookies
-  - csrf
+  - jwt
   - redis
   - security
-  - jwt
+  - session-management
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login

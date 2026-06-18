@@ -9,11 +9,9 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - user-story
-  - acceptance-criteria
-  - agile
   - product-management
   - template
+  - user-story
 relatedResources:
   - /docs/templates/feature-request-template
   - /guides/design/clean-code-principles-guide

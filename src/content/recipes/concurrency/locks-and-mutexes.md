@@ -8,13 +8,11 @@ difficulty: intermediate
 topics:
   - concurrency
 tags:
-  - mutex
-  - semaphore
-  - read-write-lock
-  - race-condition
-  - synchronization
   - atomic-operations
   - concurrency
+  - race-condition
+  - read-write-lock
+  - synchronization
   - thread-safety
 relatedResources:
   - /recipes/async-patterns

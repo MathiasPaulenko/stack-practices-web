@@ -8,14 +8,15 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - service-mesh
+  - architecture
   - istio
+  - kubernetes
   - linkerd
   - mtls
-  - traffic-management
   - observability
+  - service-mesh
   - sidecar
-  - kubernetes
+  - traffic-management
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway

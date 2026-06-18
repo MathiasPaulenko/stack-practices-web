@@ -9,13 +9,15 @@ topics:
   - security
   - api
 tags:
-  - seguridad-api
+  - api
   - autenticacion
   - autorizacion
   - encriptacion
-  - rate-limiting
-  - owasp
   - guia
+  - owasp
+  - rate-limiting
+  - security
+  - seguridad-api
 relatedResources:
   - /guides/security/security-best-practices-guide
   - /guides/security/web-application-security-guide

@@ -9,13 +9,11 @@ topics:
   - databases
   - performance
 tags:
-  - sql
-  - performance
-  - indexing
-  - query-optimization
-  - explain-plan
   - database
   - guide
+  - indexing
+  - performance
+  - sql
 relatedResources:
   - /guides/databases/database-design-guide
   - /guides/performance/performance-optimization-guide

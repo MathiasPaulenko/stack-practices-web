@@ -8,15 +8,13 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - dependency-injection
-  - pattern
   - architecture-pattern
-  - di
-  - ioc
   - decoupling
-  - python
-  - javascript
+  - dependency-injection
   - java
+  - javascript
+  - pattern
+  - python
 relatedResources:
   - /patterns/design/factory-pattern
   - /patterns/design/singleton-pattern

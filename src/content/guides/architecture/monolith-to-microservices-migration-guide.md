@@ -9,13 +9,13 @@ topics:
   - architecture
   - devops
 tags:
-  - monolith
+  - architecture
+  - devops
+  - guide
   - microservices
   - migration
-  - strangler-fig
+  - monolith
   - refactoring
-  - modernization
-  - guide
 relatedResources:
   - /guides/architecture/microservices-architecture-guide
   - /guides/architecture/domain-driven-design-guide

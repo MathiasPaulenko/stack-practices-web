@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - data
 tags:
+  - data
   - deep-clone
   - javascript
-  - objects
-  - structuredclone
   - lodash
-  - serialization
+  - objects
   - performance
+  - serialization
+  - structuredclone
 relatedResources:
   - /recipes/caching
   - /recipes/date-formatting

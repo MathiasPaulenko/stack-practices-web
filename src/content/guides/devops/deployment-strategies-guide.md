@@ -8,13 +8,12 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - blue-green
-  - canary
   - deployment
+  - devops
   - feature-flags
-  - zero-downtime
-  - rollback
   - guide
+  - rollback
+  - zero-downtime
 relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /guides/devops/infrastructure-as-code-guide

@@ -10,11 +10,9 @@ topics:
   - architecture
 tags:
   - adr
-  - template
   - architecture
-  - decision-records
   - documentation
-  - rfc
+  - template
 relatedResources:
   - /docs/templates/readme-template
   - /guides/api/rest-api-design-guide

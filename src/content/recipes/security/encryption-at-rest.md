@@ -8,14 +8,12 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - encryption-at-rest
-  - aes-256
-  - kms
-  - envelope-encryption
+  - compliance
   - database-encryption
+  - encryption-at-rest
+  - envelope-encryption
   - file-encryption
   - security
-  - compliance
 relatedResources:
   - /recipes/secret-management
   - /recipes/api-security-headers

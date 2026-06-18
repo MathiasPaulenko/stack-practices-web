@@ -8,14 +8,14 @@ difficulty: intermediate
 topics:
   - testing
 tags:
-  - visual-regression
-  - screenshot-testing
+  - baseline
   - chromatic
+  - design-systems
   - percy
   - playwright
+  - testing
   - ui-testing
-  - design-systems
-  - baseline
+  - visual-regression
 relatedResources:
   - /recipes/e2e-testing
   - /recipes/unit-testing

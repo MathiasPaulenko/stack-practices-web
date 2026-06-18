@@ -8,12 +8,11 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - clean-code
-  - maintainability
-  - readability
-  - refactoring
   - best-practices
+  - clean-code
   - guide
+  - maintainability
+  - refactoring
 relatedResources:
   - /guides/design/solid-principles-guide
   - /guides/design/code-review-best-practices-guide

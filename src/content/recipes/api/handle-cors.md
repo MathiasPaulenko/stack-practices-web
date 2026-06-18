@@ -8,14 +8,13 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - cors
-  - security
   - api
+  - cors
   - http
-  - headers
-  - python
-  - javascript
   - java
+  - javascript
+  - python
+  - security
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/api-versioning

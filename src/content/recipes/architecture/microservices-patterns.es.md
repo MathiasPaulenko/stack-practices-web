@@ -8,14 +8,15 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - microservices
-  - circuit-breaker
-  - retries
+  - architecture
   - bulkhead
-  - saga-pattern
+  - circuit-breaker
   - distributed-systems
-  - resilience
   - fault-tolerance
+  - microservices
+  - resilience
+  - retries
+  - saga-pattern
 relatedResources:
   - /recipes/api-gateway
   - /recipes/event-driven-functions

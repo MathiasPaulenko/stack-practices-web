@@ -9,12 +9,11 @@ topics:
   - architecture
   - performance
 tags:
-  - system-design
-  - interview
-  - scalability
-  - distributed-systems
   - architecture
+  - distributed-systems
   - guide
+  - performance
+  - scalability
 relatedResources:
   - /guides/architecture/software-architecture-guide
   - /guides/devops/kubernetes-basics-guide

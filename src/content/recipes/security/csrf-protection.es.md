@@ -8,13 +8,12 @@ difficulty: beginner
 topics:
   - security
 tags:
-  - csrf
-  - security-headers
-  - web-security
-  - owasp
   - authentication
   - cookies
+  - owasp
+  - security
   - tokens
+  - web-security
 relatedResources:
   - /recipes/api-security-headers
   - /recipes/session-management

@@ -8,14 +8,12 @@ difficulty: beginner
 topics:
   - security
 tags:
-  - security-headers
-  - hsts
-  - csp
-  - cors
-  - x-frame-options
   - api-security
-  - web-security
+  - cors
   - owasp
+  - security
+  - web-security
+  - x-frame-options
 relatedResources:
   - /recipes/xss-prevention
   - /recipes/sql-injection-prevention

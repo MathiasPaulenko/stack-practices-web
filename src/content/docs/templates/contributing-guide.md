@@ -9,12 +9,11 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - contributing
-  - template
-  - open-source
-  - guidelines
-  - onboarding
   - community
+  - devops
+  - onboarding
+  - open-source
+  - template
 relatedResources:
   - /docs/templates/readme-template
   - /recipes/devops/git-workflow

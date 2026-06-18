@@ -8,15 +8,14 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - flyweight
-  - pattern
-  - design-pattern
-  - structural
-  - memory-optimization
   - caching
-  - python
-  - javascript
+  - design-pattern
+  - flyweight
   - java
+  - javascript
+  - pattern
+  - python
+  - structural
 relatedResources:
   - /patterns/design/proxy-pattern
   - /patterns/design/singleton-pattern

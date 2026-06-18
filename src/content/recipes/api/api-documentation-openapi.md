@@ -8,13 +8,13 @@ difficulty: beginner
 topics:
   - api
 tags:
-  - openapi
-  - swagger
+  - api
   - api-documentation
-  - redoc
-  - python
-  - javascript
   - java
+  - javascript
+  - openapi
+  - python
+  - swagger
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api

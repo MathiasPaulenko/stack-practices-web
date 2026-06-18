@@ -9,13 +9,12 @@ topics:
   - architecture
   - devops
 tags:
-  - event-driven
-  - message-broker
-  - kafka
-  - rabbitmq
+  - architecture
   - cqrs
-  - saga
+  - devops
+  - event-driven
   - guide
+  - saga
 relatedResources:
   - /guides/architecture/microservices-architecture-guide
   - /guides/architecture/domain-driven-design-guide

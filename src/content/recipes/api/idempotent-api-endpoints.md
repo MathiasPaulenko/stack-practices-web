@@ -8,15 +8,14 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - idempotency
   - api
-  - http
   - distributed-systems
-  - retry
-  - safety
-  - python
-  - javascript
+  - http
+  - idempotency
   - java
+  - javascript
+  - python
+  - retry
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-cors

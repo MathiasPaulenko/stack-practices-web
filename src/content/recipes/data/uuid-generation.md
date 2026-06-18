@@ -8,14 +8,15 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - uuid
-  - guid
-  - ulid
-  - identifiers
+  - data
   - database
-  - python
-  - javascript
+  - guid
+  - identifiers
   - java
+  - javascript
+  - python
+  - ulid
+  - uuid
 relatedResources:
   - /recipes/parse-json
   - /recipes/caching

@@ -9,11 +9,10 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - api-deprecation
-  - template
-  - sunset-policy
-  - versioning
+  - api
   - backward-compatibility
+  - template
+  - versioning
 relatedResources:
   - /guides/api/rest-api-design-guide
   - /docs/templates/release-notes-template

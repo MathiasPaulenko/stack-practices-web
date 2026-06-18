@@ -1,0 +1,212 @@
+TAGS WITH 2 ENTRIES: 70
+
+backward-compatibility
+  API Deprecation Notice Template | API Versioning
+
+openapi
+  API Documentation Template | Create API Documentation with OpenAPI
+
+swagger
+  API Documentation Template | Create API Documentation with OpenAPI
+
+changelog
+  Changelog Template | Release Notes Template
+
+release-notes
+  Changelog Template | Release Notes Template
+
+semver
+  Changelog Template | Release Notes Template
+
+community
+  Code of Conduct Template | Contributing Guide Template
+
+compliance
+  Data Retention Policy Template | Implement API Logging and Audit Trails
+
+runbook
+  Database Migration Runbook Template | Runbook Template
+
+rollback
+  Database Migration Runbook Template | Blue-Green and Canary Deployments
+
+product-management
+  Feature Request Template | User Story and Acceptance Criteria Template
+
+user-story
+  Feature Request Template | User Story and Acceptance Criteria Template
+
+postmortem
+  Incident Postmortem Template | On-Call and Incident Response Playbook
+
+reliability
+  Incident Postmortem Template | Service Level Objective (SLO) Document Template
+
+pull-request
+  Pull Request Template | Code Review Best Practices — For Authors and Reviewers
+
+code-review
+  Pull Request Template | Code Review Best Practices — For Authors and Reviewers
+
+markdown
+  README Template | Technical Documentation Strategy — Docs as Code
+
+operations
+  Runbook Template | Visitor Pattern
+
+saga
+  Event-Driven Architecture — Queues, Topics, and Streams | Saga Pattern
+
+refactoring
+  Monolith to Microservices — Migration Strategies | Clean Code Principles — Writing Maintainable Software
+
+concurrency
+  Concurrency Patterns Guide | Implement Optimistic Locking with Versioning
+
+indexing
+  Database Design Guide | SQL Performance Tuning — Indexes, Queries, and Explain Plans
+
+maintainability
+  Clean Code Principles — Writing Maintainable Software | SOLID Principles Explained with Examples
+
+singleton
+  Practical Design Patterns Guide | Singleton Pattern
+
+factory
+  Practical Design Patterns Guide | Factory Pattern
+
+observer
+  Practical Design Patterns Guide | Observer Pattern
+
+strategy
+  Practical Design Patterns Guide | Strategy Pattern
+
+github-actions
+  CI/CD Pipeline Guide | GitHub Actions CI/CD
+
+pipeline
+  CI/CD Pipeline Guide | Chain of Responsibility Pattern
+
+feature-flags
+  Blue-Green and Canary Deployments | Feature Flags
+
+docker
+  Docker for Developers — A Complete Guide | Docker Basics
+
+branching
+  Git Branching Strategies — A Practical Guide | Git Workflow
+
+kubernetes
+  Kubernetes Basics for Application Developers | Health Check Endpoint
+
+metrics
+  Logging, Monitoring & Observability Guide | Monitoring and Alerting — Metrics, Logs, and Dashboards
+
+alerting
+  Logging, Monitoring & Observability Guide | Monitoring and Alerting — Metrics, Logs, and Dashboards
+
+compression
+  Web Performance Optimization Guide | Image Optimization
+
+images
+  Web Performance Optimization Guide | Image Optimization
+
+cdn
+  Web Performance Optimization Guide | Implement CDN Edge Caching
+
+api-security
+  API Security Checklist — Authentication to Encryption | Implement Request Signing with HMAC
+
+authorization
+  API Security Checklist — Authentication to Encryption | Security Best Practices Guide
+
+encryption
+  API Security Checklist — Authentication to Encryption | Security Best Practices Guide
+
+owasp
+  API Security Checklist — Authentication to Encryption | Security Best Practices Guide
+
+access-control
+  Web Application Security (OWASP Top 10) | Proxy Pattern
+
+unit-tests
+  Software Testing Strategy Guide | Unit Testing
+
+cache-aside
+  Cache-Aside Pattern | Caching with Redis
+
+middleware
+  Chain of Responsibility Pattern | Middleware
+
+circuit-breaker
+  Circuit Breaker Pattern | Retry Logic with Exponential Backoff
+
+architecture-pattern
+  Circuit Breaker Pattern | Dependency Injection Pattern
+
+undo
+  Command Pattern | Memento Pattern
+
+queue
+  Command Pattern | Background Jobs
+
+event-sourcing
+  Event Sourcing Pattern | Implement Event Sourcing in a Relational Database
+
+audit
+  Event Sourcing Pattern | Soft Deletes
+
+event-store
+  Event Sourcing Pattern | Implement Event Sourcing in a Relational Database
+
+exponential-backoff
+  Retry Pattern | Retry Logic with Exponential Backoff
+
+embeddings
+  Build a RAG Pipeline with LangChain and Vector Databases | Implement Semantic Search with Embeddings
+
+structured-logging
+  Implement API Logging and Audit Trails | Logging
+
+graphql
+  API Versioning | Implement a GraphQL API
+
+interceptor
+  Implement a gRPC API with Protocol Buffers | Middleware
+
+websocket
+  Build Real-Time Notifications with WebSockets | WebSocket Server
+
+templates
+  Send Emails with SMTP | Generate PDFs
+
+events
+  Webhooks | Debounce and Throttle
+
+formatting
+  Date Formatting | Money and Currency Handling
+
+objects
+  Deep Clone Objects in JavaScript | Flatten and Unflatten Nested Objects
+
+json
+  Parse JSON | Parse and Validate YAML/JSON Configuration
+
+transactions
+  Handle Database Deadlocks and Retries | Database Transactions
+
+cron
+  Background Jobs | Cron Jobs
+
+yaml
+  GitHub Actions CI/CD | Parse and Validate YAML/JSON Configuration
+
+csv
+  Export Data to CSV/Excel | Import Data from CSV/Excel
+
+excel
+  Export Data to CSV/Excel | Import Data from CSV/Excel
+
+pandas
+  Export Data to CSV/Excel | Import Data from CSV/Excel
+

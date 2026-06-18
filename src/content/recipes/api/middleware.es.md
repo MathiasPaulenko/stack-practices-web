@@ -8,15 +8,16 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - middleware
-  - interceptor
-  - logging
+  - api
   - authentication
-  - python
-  - javascript
-  - java
   - express
   - fastapi
+  - interceptor
+  - java
+  - javascript
+  - logging
+  - middleware
+  - python
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

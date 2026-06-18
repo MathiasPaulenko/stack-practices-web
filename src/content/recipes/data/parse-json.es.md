@@ -8,11 +8,12 @@ difficulty: beginner
 topics:
   - data
 tags:
+  - data
+  - java
+  - javascript
   - json
   - parsing
   - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/read-write-file

@@ -9,10 +9,10 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - code-of-conduct
   - comunidad
-  - open-source
+  - devops
   - gobernanza
+  - open-source
 relatedResources:
   - /es/docs/contributing-guide
   - /es/docs/readme-template

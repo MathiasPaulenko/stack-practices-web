@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - file-handling
 tags:
+  - file-handling
   - file-upload
-  - validation
-  - security
+  - java
+  - javascript
   - mime-type
   - python
-  - javascript
-  - java
+  - security
+  - validation
 relatedResources:
   - /recipes/input-validation
   - /recipes/jwt-authentication

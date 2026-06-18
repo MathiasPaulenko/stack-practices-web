@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - testing
 tags:
-  - contract-testing
-  - pact
-  - microservices
   - api-testing
-  - openapi
   - consumer-driven-contracts
+  - contract-testing
   - integration-testing
+  - microservices
+  - openapi
+  - pact
+  - testing
 relatedResources:
   - /recipes/integration-testing
   - /recipes/api-versioning

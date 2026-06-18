@@ -8,14 +8,12 @@ difficulty: intermediate
 topics:
   - serverless
 tags:
-  - serverless
   - api-gateway
+  - aws
   - aws-lambda
   - faas
   - rest-api
-  - infrastructure-as-code
-  - aws
-  - cloud
+  - serverless
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

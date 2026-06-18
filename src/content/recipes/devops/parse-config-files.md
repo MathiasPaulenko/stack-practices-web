@@ -9,13 +9,14 @@ topics:
   - devops
 tags:
   - config
-  - yaml
-  - json
-  - validation
-  - schema
-  - python
-  - javascript
+  - devops
   - java
+  - javascript
+  - json
+  - python
+  - schema
+  - validation
+  - yaml
 relatedResources:
   - /recipes/input-validation
   - /recipes/background-jobs

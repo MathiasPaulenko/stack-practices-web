@@ -9,10 +9,7 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - dependency-audit
-  - supply-chain
-  - license-compliance
-  - vulnerability-scanning
+  - security
   - template
 relatedResources:
   - /guides/security/web-application-security-guide

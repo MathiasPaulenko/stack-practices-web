@@ -9,14 +9,12 @@ topics:
   - design
 tags:
   - dependency-injection
+  - desacoplamiento
+  - java
+  - javascript
   - patron
   - patron-arquitectural
-  - di
-  - ioc
-  - desacoplamiento
   - python
-  - javascript
-  - java
 relatedResources:
   - /patterns/design/factory-pattern
   - /patterns/design/singleton-pattern

@@ -9,13 +9,8 @@ topics:
   - architecture
   - design
 tags:
-  - domain-driven-design
-  - ddd
-  - bounded-context
-  - aggregate
-  - entity
-  - value-object
   - architecture
+  - domain-driven-design
   - guide
 relatedResources:
   - /guides/architecture/software-architecture-guide

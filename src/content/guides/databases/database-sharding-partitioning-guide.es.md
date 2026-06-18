@@ -8,12 +8,13 @@ difficulty: advanced
 topics:
   - databases
 tags:
-  - sharding
-  - particionamiento
-  - escalado-horizontal
-  - rendimiento-base-de-datos
+  - database
   - escalabilidad
+  - escalado-horizontal
   - guia
+  - particionamiento
+  - rendimiento-base-de-datos
+  - sharding
 relatedResources:
   - /guides/databases/sql-performance-tuning-guide
   - /guides/databases/nosql-database-selection-guide

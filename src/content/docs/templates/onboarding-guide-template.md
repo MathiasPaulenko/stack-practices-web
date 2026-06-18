@@ -9,10 +9,9 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - onboarding
-  - new-hire
+  - devops
   - documentation
-  - team
+  - onboarding
 relatedResources:
   - /docs/readme-template
   - /docs/contributing-guide

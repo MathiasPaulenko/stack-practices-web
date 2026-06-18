@@ -9,14 +9,13 @@ topics:
   - design
 tags:
   - bridge
-  - pattern
-  - design-pattern
-  - structural
   - decoupling
-  - abstraction
-  - python
-  - javascript
+  - design-pattern
   - java
+  - javascript
+  - pattern
+  - python
+  - structural
 relatedResources:
   - /patterns/design/adapter-pattern
   - /patterns/design/decorator-pattern

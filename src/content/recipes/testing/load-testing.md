@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - testing
 tags:
+  - api-testing
+  - benchmarks
+  - jmeter
+  - k6
   - load-testing
   - performance
-  - k6
-  - jmeter
-  - api-testing
   - scalability
   - stress-testing
-  - benchmarks
+  - testing
 relatedResources:
   - /recipes/integration-testing
   - /recipes/rate-limiting

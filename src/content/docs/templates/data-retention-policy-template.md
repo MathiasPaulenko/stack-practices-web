@@ -9,10 +9,8 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - data-retention
-  - gdpr
   - compliance
-  - privacy
+  - security
   - template
 relatedResources:
   - /guides/security/web-application-security-guide

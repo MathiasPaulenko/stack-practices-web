@@ -9,14 +9,12 @@ topics:
   - design
 tags:
   - ambassador
-  - pattern
   - design-pattern
-  - microservices
-  - client-side-proxy
-  - service-discovery
-  - python
-  - javascript
   - java
+  - javascript
+  - microservices
+  - pattern
+  - python
 relatedResources:
   - /patterns/design/sidecar-pattern
   - /patterns/design/proxy-pattern

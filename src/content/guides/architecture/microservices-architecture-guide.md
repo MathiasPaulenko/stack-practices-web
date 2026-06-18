@@ -8,13 +8,12 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - microservices
   - architecture
-  - monolith
-  - decomposition
   - distributed-systems
-  - scalability
   - guide
+  - microservices
+  - monolith
+  - scalability
 relatedResources:
   - /guides/architecture/system-design-interview-guide
   - /guides/architecture/domain-driven-design-guide

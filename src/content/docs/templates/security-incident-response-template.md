@@ -9,11 +9,9 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - security-incident
   - incident-response
+  - security
   - template
-  - breach
-  - forensics
 relatedResources:
   - /guides/security/web-application-security-guide
   - /guides/devops/on-call-incident-response-guide

@@ -8,14 +8,13 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - saga-pattern
-  - distributed-transactions
-  - orchestration
+  - architecture
   - choreography
   - compensation
-  - microservices
-  - consistency
+  - distributed-transactions
   - event-driven
+  - microservices
+  - saga-pattern
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-architecture

@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - image-generation
-  - dall-e
-  - stable-diffusion
+  - ai
   - ai-art
-  - prompt-engineering
   - batch-processing
-  - moderation
+  - dall-e
   - generative-ai
+  - image-generation
+  - moderation
+  - prompt-engineering
+  - stable-diffusion
 relatedResources:
   - /recipes/prompt-engineering
   - /recipes/ai-agents

@@ -9,14 +9,15 @@ topics:
   - devops
   - performance
 tags:
-  - observability
-  - logging
-  - monitoring
-  - metrics
-  - tracing
   - alerting
   - devops
+  - logging
+  - metrics
+  - monitoring
+  - observability
+  - performance
   - sre
+  - tracing
 relatedResources:
   - /docs/runbook-template
   - /guides/cicd-pipeline-guide

@@ -9,13 +9,12 @@ topics:
   - design
 tags:
   - builder
-  - pattern
-  - design-pattern
   - creational
-  - fluent-interface
-  - python
-  - javascript
+  - design-pattern
   - java
+  - javascript
+  - pattern
+  - python
 relatedResources:
   - /patterns/design/factory-pattern
   - /patterns/design/singleton-pattern

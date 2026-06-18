@@ -8,12 +8,10 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - git
   - branching
-  - gitflow
-  - github-flow
-  - trunk-based-development
   - control-de-versiones
+  - devops
+  - git
   - guia
 relatedResources:
   - /guides/devops/cicd-pipeline-guide

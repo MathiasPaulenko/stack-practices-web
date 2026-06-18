@@ -9,14 +9,11 @@ topics:
   - concurrency
   - architecture
 tags:
+  - architecture
   - concurrencia
-  - async
-  - threading
+  - concurrency
   - paralelismo
-  - thread-pool
   - semaforo
-  - mutex
-  - race-conditions
 relatedResources:
   - /es/recipes/caching
   - /es/patterns/design/singleton-pattern

@@ -10,13 +10,14 @@ topics:
 tags:
   - csv
   - excel
+  - file-handling
   - import
-  - parse
-  - validation
-  - pandas
-  - python
-  - javascript
   - java
+  - javascript
+  - pandas
+  - parse
+  - python
+  - validation
 relatedResources:
   - /recipes/export-csv-excel
   - /recipes/file-upload-validation

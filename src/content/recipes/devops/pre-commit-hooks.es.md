@@ -8,12 +8,13 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - pre-commit
+  - code-quality
+  - devops
+  - git-hooks
   - husky
   - lint-staged
-  - git-hooks
-  - code-quality
   - linting
+  - pre-commit
 relatedResources:
   - /docs/bug-report-template
   - /docs/changelog-template

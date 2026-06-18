@@ -8,12 +8,10 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - solid
-  - object-oriented-design
-  - principles
   - architecture
-  - maintainability
   - guide
+  - maintainability
+  - solid
 relatedResources:
   - /guides/design/clean-code-principles-guide
   - /guides/design/design-patterns-guide

@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - monitoring
   - alerting
-  - observability
-  - metrics
-  - logs
-  - traces
+  - devops
   - guide
+  - logs
+  - metrics
+  - monitoring
+  - observability
+  - traces
 relatedResources:
   - /guides/devops/on-call-incident-response-guide
   - /guides/devops/docker-for-developers-guide

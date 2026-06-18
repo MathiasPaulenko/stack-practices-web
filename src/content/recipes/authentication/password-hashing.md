@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - authentication
 tags:
-  - password
-  - hashing
+  - authentication
   - bcrypt
-  - security
-  - python
-  - javascript
+  - hashing
   - java
+  - javascript
+  - password
+  - python
+  - security
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/handle-errors

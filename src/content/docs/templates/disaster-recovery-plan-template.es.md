@@ -9,11 +9,7 @@ difficulty: advanced
 topics:
   - devops
 tags:
-  - disaster-recovery
-  - dr-plan
-  - rto
-  - rpo
-  - business-continuity
+  - devops
   - template
 relatedResources:
   - /guides/devops/infrastructure-as-code-guide

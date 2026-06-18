@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - serverless
 tags:
-  - serverless-orchestration
-  - step-functions
-  - state-machines
-  - temporal
-  - durable-functions
-  - workflow-engine
-  - retries
   - distributed-workflows
+  - durable-functions
+  - retries
+  - serverless
+  - serverless-orchestration
+  - state-machines
+  - step-functions
+  - temporal
+  - workflow-engine
 relatedResources:
   - /recipes/cold-start-optimization
   - /recipes/event-driven-architecture

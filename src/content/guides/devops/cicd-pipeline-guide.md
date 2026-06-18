@@ -9,11 +9,10 @@ topics:
   - devops
   - testing
 tags:
-  - cicd
-  - github-actions
-  - devops
-  - deployment
   - automation
+  - deployment
+  - devops
+  - github-actions
   - pipeline
   - testing
 relatedResources:

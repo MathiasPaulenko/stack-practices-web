@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - webhooks
+  - api
   - events
-  - real-time
   - integration
-  - python
-  - javascript
   - java
+  - javascript
+  - python
+  - real-time
+  - webhooks
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

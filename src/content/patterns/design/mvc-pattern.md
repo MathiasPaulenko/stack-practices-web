@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
+  - architectural
+  - architecture
+  - design-pattern
+  - java
+  - javascript
   - mvc
   - pattern
-  - design-pattern
-  - architectural
-  - separation-of-concerns
   - python
-  - javascript
-  - java
+  - separation-of-concerns
 relatedResources:
   - /patterns/design/repository-pattern
   - /patterns/design/observer-pattern

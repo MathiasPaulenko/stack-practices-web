@@ -9,13 +9,14 @@ topics:
   - architecture
 tags:
   - api-gateway
-  - microservices
-  - routing
-  - rate-limiting
-  - caching
+  - architecture
   - authentication
-  - protocol-translation
+  - caching
   - load-balancing
+  - microservices
+  - protocol-translation
+  - rate-limiting
+  - routing
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/load-balancing

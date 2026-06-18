@@ -8,14 +8,13 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - xss
-  - security
-  - csp
   - html-escaping
   - input-validation
-  - web-security
   - javascript
   - react
+  - security
+  - web-security
+  - xss
 relatedResources:
   - /recipes/input-validation
   - /recipes/sql-injection-prevention

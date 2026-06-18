@@ -9,11 +9,11 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - readme
-  - plantilla
+  - devops
   - documentacion
   - markdown
   - open-source
+  - plantilla
 relatedResources:
   - /patterns/design/factory-pattern
   - /recipes/devops/git-workflow

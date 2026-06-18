@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - data
 tags:
+  - data
   - flatten
-  - unflatten
-  - objects
-  - nested
-  - recursion
-  - python
-  - javascript
   - java
+  - javascript
+  - nested
+  - objects
+  - python
+  - recursion
+  - unflatten
 relatedResources:
   - /recipes/caching
   - /recipes/date-formatting

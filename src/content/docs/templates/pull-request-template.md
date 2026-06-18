@@ -9,9 +9,10 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - pull-request
   - code-review
+  - devops
   - git
+  - pull-request
   - workflow
 relatedResources:
   - /docs/contributing-guide

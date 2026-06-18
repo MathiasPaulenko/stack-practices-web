@@ -9,13 +9,14 @@ topics:
   - data
 tags:
   - caching
-  - memoization
+  - data
+  - java
+  - javascript
   - lru
-  - redis
+  - memoization
   - performance
   - python
-  - javascript
-  - java
+  - redis
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/pagination

@@ -8,13 +8,11 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - grpc
-  - protobuf
   - api
-  - rpc
-  - microservices
-  - streaming
   - interceptor
+  - microservices
+  - protobuf
+  - streaming
 relatedResources:
   - /recipes/server-sent-events
   - /docs/api-documentation

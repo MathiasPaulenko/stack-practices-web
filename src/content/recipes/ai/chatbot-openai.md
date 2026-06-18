@@ -8,12 +8,10 @@ difficulty: beginner
 topics:
   - ai
 tags:
-  - chatbot
-  - openai
-  - assistants-api
-  - llm
-  - conversation
   - ai
+  - chatbot
+  - llm
+  - openai
 relatedResources:
   - /recipes/rag-pipeline
   - /recipes/semantic-search

@@ -8,14 +8,13 @@ difficulty: intermediate
 topics:
   - concurrency
 tags:
-  - thread-pools
-  - executors
   - concurrency
-  - worker-threads
-  - rejection-policy
-  - java-executors
-  - parallelism
   - cpu-bound
+  - executors
+  - java-executors
+  - rejection-policy
+  - thread-pools
+  - worker-threads
 relatedResources:
   - /recipes/async-patterns
   - /recipes/microservices-patterns

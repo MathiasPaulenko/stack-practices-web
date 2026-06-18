@@ -8,13 +8,14 @@ difficulty: intermediate
 topics:
   - api
 tags:
-  - smtp
+  - api
   - email
+  - java
+  - javascript
+  - notificacion
   - plantillas
   - python
-  - javascript
-  - java
-  - notificacion
+  - smtp
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

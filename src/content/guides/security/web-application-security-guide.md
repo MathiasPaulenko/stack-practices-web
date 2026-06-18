@@ -9,12 +9,14 @@ topics:
   - security
   - api
 tags:
+  - access-control
+  - api
+  - guide
+  - injection
   - owasp-top-10
+  - security
   - web-security
   - xss
-  - injection
-  - access-control
-  - guide
 relatedResources:
   - /guides/security/api-security-checklist-guide
   - /guides/security/security-best-practices-guide

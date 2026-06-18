@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - api
 tags:
+  - api
+  - bidirectional
+  - java
+  - javascript
+  - python
+  - real-time
+  - server
   - websocket
   - ws
-  - real-time
-  - bidirectional
-  - server
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/server-sent-events
   - /recipes/webhooks

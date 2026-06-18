@@ -9,12 +9,9 @@ topics:
   - databases
   - architecture
 tags:
-  - cap-theorem
-  - consistency
-  - availability
-  - partition-tolerance
+  - architecture
+  - database
   - distributed-systems
-  - database-tradeoffs
   - guide
 relatedResources:
   - /guides/databases/nosql-database-selection-guide

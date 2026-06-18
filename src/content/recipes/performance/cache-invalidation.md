@@ -10,10 +10,9 @@ topics:
 tags:
   - cache-invalidation
   - caching
-  - redis
   - distributed-systems
   - performance
-  - consistency
+  - redis
   - ttl
 relatedResources:
   - /recipes/database-indexing

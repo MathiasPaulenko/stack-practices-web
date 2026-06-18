@@ -8,14 +8,15 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - sitemap
-  - xml
-  - seo
+  - devops
   - dynamic
   - generation
-  - python
-  - javascript
   - java
+  - javascript
+  - python
+  - seo
+  - sitemap
+  - xml
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

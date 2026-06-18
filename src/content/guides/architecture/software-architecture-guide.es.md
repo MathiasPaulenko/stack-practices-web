@@ -10,12 +10,10 @@ topics:
   - design
 tags:
   - architecture
-  - microservices
-  - monolith
   - cqrs
   - event-driven
-  - layered-architecture
-  - software-design
+  - microservices
+  - monolith
   - scalability
 relatedResources:
   - /patterns/design/mvc-pattern

@@ -9,14 +9,15 @@ topics:
   - devops
 tags:
   - background-jobs
-  - cron
-  - queue
-  - celery
   - bullmq
-  - workers
-  - python
-  - javascript
+  - celery
+  - cron
+  - devops
   - java
+  - javascript
+  - python
+  - queue
+  - workers
 relatedResources:
   - /recipes/cron-jobs
   - /recipes/environment-variables

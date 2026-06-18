@@ -8,13 +8,14 @@ difficulty: beginner
 topics:
   - data
 tags:
+  - data
+  - java
+  - javascript
+  - pattern-matching
+  - python
   - regex
   - regular-expressions
-  - pattern-matching
   - validation
-  - python
-  - javascript
-  - java
 relatedResources:
   - /recipes/parse-json
   - /recipes/handle-errors

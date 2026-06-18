@@ -8,14 +8,15 @@ difficulty: advanced
 topics:
   - ai
 tags:
+  - ai
   - ai-agents
   - autonomous-agents
-  - tool-use
-  - react-pattern
   - function-calling
   - llm
-  - reasoning
   - memory
+  - react-pattern
+  - reasoning
+  - tool-use
 relatedResources:
   - /recipes/prompt-engineering
   - /recipes/rag-pipeline

@@ -9,15 +9,16 @@ topics:
   - file-handling
 tags:
   - csv
+  - data
   - excel
   - export
-  - data
-  - pandas
-  - xlsx
-  - streaming
-  - python
-  - javascript
+  - file-handling
   - java
+  - javascript
+  - pandas
+  - python
+  - streaming
+  - xlsx
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs

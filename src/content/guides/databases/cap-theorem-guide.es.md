@@ -9,13 +9,14 @@ topics:
   - databases
   - architecture
 tags:
-  - cap-theorem
+  - architecture
   - consistencia
+  - database
   - disponibilidad
-  - tolerancia-a-particiones
-  - sistemas-distribuidos
-  - tradeoffs-base-de-datos
   - guia
+  - sistemas-distribuidos
+  - tolerancia-a-particiones
+  - tradeoffs-base-de-datos
 relatedResources:
   - /guides/databases/nosql-database-selection-guide
   - /guides/databases/database-sharding-partitioning-guide
