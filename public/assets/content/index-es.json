@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 278,
+  "count": 284,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -7006,6 +7006,44 @@
       }
     },
     {
+      "path": "recipes/data/deep-clone-structured.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "deep-clone-structured",
+        "title": "Deep Clone de Objetos en JavaScript: Mas alla de JSON.parse",
+        "description": "Compara estrategias de deep clone incluyendo JSON.parse, structuredClone, recursion manual y librerias para copiar objetos anidados con referencias circulares",
+        "metaDescription": "Compara estrategias de deep clone en JavaScript: JSON.parse, structuredClone, recursion manual y librerias para copiar objetos anidados con referencias circulares.",
+        "difficulty": "beginner",
+        "topics": [
+          "data",
+          "frontend"
+        ],
+        "tags": [
+          "deep-clone",
+          "javascript",
+          "clone",
+          "duplication"
+        ],
+        "relatedResources": [
+          "/patterns/design/prototype-pattern-cloning",
+          "/recipes/data/flatten-nested-objects",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Compara estrategias de deep clone en JavaScript: JSON.parse, structuredClone, recursion manual y librerias para copiar objetos anidados con referencias circulares.",
+          "keywords": [
+            "deep clone",
+            "structuredclone",
+            "javascript",
+            "object copy",
+            "circular references"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/flatten-unflatten-objects.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7124,6 +7162,44 @@
       }
     },
     {
+      "path": "recipes/data/race-condition-prevention.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "race-condition-prevention",
+        "title": "Prevencion de Race Conditions en Codigo Async de JavaScript",
+        "description": "Identifica y corrige race conditions en JavaScript asincrono usando secuenciacion apropiada, operaciones atomicas y patrones de Promise para ejecucion concurrente predecible",
+        "metaDescription": "Previene race conditions en JavaScript async. Usa secuenciacion apropiada, operaciones atomicas y patrones Promise para ejecucion concurrente predecible.",
+        "difficulty": "intermediate",
+        "topics": [
+          "concurrency",
+          "frontend"
+        ],
+        "tags": [
+          "race-condition",
+          "concurrency",
+          "javascript",
+          "async"
+        ],
+        "relatedResources": [
+          "/recipes/concurrency/async-patterns-promises",
+          "/patterns/design/singleton-pattern-services",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Previene race conditions en JavaScript async. Usa secuenciacion apropiada, operaciones atomicas y patrones Promise para ejecucion concurrente predecible.",
+          "keywords": [
+            "race condition",
+            "async javascript",
+            "concurrent execution",
+            "atomic operations",
+            "promise patterns"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/regular-expressions.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7199,6 +7275,44 @@
       }
     },
     {
+      "path": "recipes/data/url-encoding-decoding.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "url-encoding-decoding",
+        "title": "Codificacion y Decodificacion de URLs: encodeURI, encodeURIComponent y Mas",
+        "description": "Domina la codificacion de URLs en JavaScript y otros lenguajes con encodeURI, encodeURIComponent, manejo de plus-safe, cumplimiento RFC 3986 y casos edge de decodificacion",
+        "metaDescription": "Domina la codificacion de URLs en JavaScript con encodeURI, encodeURIComponent, cumplimiento RFC 3986, manejo plus-safe y casos edge de decodificacion.",
+        "difficulty": "beginner",
+        "topics": [
+          "data",
+          "frontend"
+        ],
+        "tags": [
+          "encoding",
+          "url",
+          "javascript",
+          "frontend"
+        ],
+        "relatedResources": [
+          "/recipes/api/go-rest-api-gin",
+          "/guides/security-guide",
+          "/recipes/security/data-validation-zod"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Domina la codificacion de URLs en JavaScript con encodeURI, encodeURIComponent, cumplimiento RFC 3986, manejo plus-safe y casos edge de decodificacion.",
+          "keywords": [
+            "url encoding",
+            "encodeURIComponent",
+            "RFC 3986",
+            "percent encoding",
+            "query parameters"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/url-encoding.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7234,6 +7348,44 @@
             "java URLEncoder",
             "uri parsing",
             "parámetros url seguros"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/uuid-generation-strategies.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "uuid-generation-strategies",
+        "title": "Generacion de UUID: v4, v7 y Comparacion con ULID",
+        "description": "Compara UUID v4, v7, ULID y nanoid para generar identificadores unicos con diferentes tradeoffs en aleatoriedad, ordenamiento, rendimiento y localidad de indices de base de datos",
+        "metaDescription": "Compara UUID v4, v7, ULID y nanoid para identificadores unicos. Diferentes tradeoffs en aleatoriedad, ordenamiento, rendimiento y localidad de indices.",
+        "difficulty": "beginner",
+        "topics": [
+          "data",
+          "databases"
+        ],
+        "tags": [
+          "guid",
+          "uuid",
+          "databases",
+          "performance"
+        ],
+        "relatedResources": [
+          "/recipes/databases/postgres-query-optimization",
+          "/patterns/design/singleton-pattern-services",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Compara UUID v4, v7, ULID y nanoid para identificadores unicos. Diferentes tradeoffs en aleatoriedad, ordenamiento, rendimiento y localidad de indices.",
+          "keywords": [
+            "uuid generation",
+            "ulid",
+            "nanoid",
+            "unique identifiers",
+            "database indexing"
           ]
         }
       }
@@ -7584,6 +7736,44 @@
             "sql-server",
             "rendimiento",
             "sql"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/deadlock-prevention-sql.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "deadlock-prevention-sql",
+        "title": "Prevencion y Resolucion de Deadlocks en Transacciones SQL",
+        "description": "Identifica patrones de deadlock en bases de datos SQL, aplica ordenamiento consistente de locks, usa niveles de aislamiento apropiados e implementa logica de reintento para transacciones concurrentes resilientes",
+        "metaDescription": "Previene y resuelve deadlocks en SQL. Aplica ordenamiento de locks, niveles de aislamiento y reintento para transacciones concurrentes.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases",
+          "concurrency"
+        ],
+        "tags": [
+          "deadlocks",
+          "isolation-levels",
+          "sql",
+          "concurrency"
+        ],
+        "relatedResources": [
+          "/recipes/databases/acid-transactions-postgres",
+          "/recipes/databases/postgres-query-optimization",
+          "/patterns/design/retry-pattern-transient"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Previene y resuelve deadlocks en SQL. Aplica ordenamiento de locks, niveles de aislamiento y reintento para transacciones concurrentes.",
+          "keywords": [
+            "sql deadlock",
+            "isolation levels",
+            "concurrent transactions",
+            "lock ordering",
+            "retry logic"
           ]
         }
       }
@@ -9975,6 +10165,44 @@
             "samesite cookies",
             "web security",
             "owasp"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/security/data-validation-zod.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "data-validation-zod",
+        "title": "Validacion de Datos Basada en Schemas con Zod en TypeScript",
+        "description": "Valida y sanitiza datos entrantes usando schemas Zod con inferencia de TypeScript, refinements custom y formateo de errores para validacion robusta de APIs y formularios",
+        "metaDescription": "Valida datos con schemas Zod en TypeScript. Usa inferencia de tipos, refinements custom y formateo de errores para validacion robusta de APIs y formularios.",
+        "difficulty": "beginner",
+        "topics": [
+          "security",
+          "api"
+        ],
+        "tags": [
+          "data-validation",
+          "typescript",
+          "zod",
+          "security"
+        ],
+        "relatedResources": [
+          "/recipes/api/go-rest-api-gin",
+          "/patterns/design/builder-pattern",
+          "/guides/security-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Valida datos con schemas Zod en TypeScript. Usa inferencia de tipos, refinements custom y formateo de errores para validacion robusta de APIs y formularios.",
+          "keywords": [
+            "zod validation",
+            "schema validation",
+            "typescript",
+            "data sanitization",
+            "form validation"
           ]
         }
       }
