@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 259,
+  "count": 266,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -2440,6 +2440,44 @@
       }
     },
     {
+      "path": "patterns/design/abstract-factory-cross-platform.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "abstract-factory-cross-platform",
+        "title": "Abstract Factory for Cross-Platform UI Component Families",
+        "description": "Create families of related objects without specifying concrete classes, enabling platform-specific implementations that share a common interface",
+        "metaDescription": "Abstract Factory pattern for UI families. Create related objects without specifying concrete classes for cross-platform and theme-specific component families.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "frontend"
+        ],
+        "tags": [
+          "abstract-factory",
+          "creational-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/factory-method-injection",
+          "/patterns/design/bridge-pattern-ui-themes",
+          "/guides/react-patterns-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Abstract Factory pattern for UI families. Create related objects without specifying concrete classes for cross-platform and theme-specific component families.",
+          "keywords": [
+            "abstract factory",
+            "family of objects",
+            "cross platform ui",
+            "creational patterns",
+            "platform abstraction"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/abstract-factory-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -2559,6 +2597,44 @@
             "python adapter",
             "java adapter",
             "javascript adapter"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/ambassador-pattern-services.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "ambassador-pattern-services",
+        "title": "Ambassador Pattern for Resilient Remote Service Access",
+        "description": "Add a local ambassador that handles retries, circuit breaking, and monitoring when calling remote services, keeping the client simple and the service logic pure",
+        "metaDescription": "Ambassador pattern for resilient service calls. Use a local proxy to handle retries, circuit breaking, and monitoring when accessing remote microservices.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "infrastructure"
+        ],
+        "tags": [
+          "ambassador",
+          "structural-patterns",
+          "microservices",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/proxy-pattern-access-control",
+          "/patterns/design/retry-pattern-transient",
+          "/patterns/design/circuit-breaker-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Ambassador pattern for resilient service calls. Use a local proxy to handle retries, circuit breaking, and monitoring when accessing remote microservices.",
+          "keywords": [
+            "ambassador pattern",
+            "service mesh",
+            "remote service proxy",
+            "structural patterns",
+            "resilience"
           ]
         }
       }
@@ -3484,6 +3560,43 @@
       }
     },
     {
+      "path": "patterns/design/interpreter-pattern-expressions.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "interpreter-pattern-expressions",
+        "title": "Interpreter Pattern for Domain-Specific Expression Languages",
+        "description": "Build a language interpreter that evaluates expressions and rules by representing grammar as composable objects, useful for formulas, queries, and business rules",
+        "metaDescription": "Interpreter pattern for expression languages. Evaluate formulas and rules by representing grammar as composable objects for configurable business logic.",
+        "difficulty": "advanced",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "interpreter",
+          "behavioral-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/chain-of-responsibility-middleware",
+          "/patterns/design/iterator-pattern-collections",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Interpreter pattern for expression languages. Evaluate formulas and rules by representing grammar as composable objects for configurable business logic.",
+          "keywords": [
+            "interpreter pattern",
+            "expression language",
+            "domain specific language",
+            "behavioral patterns",
+            "rule engine"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/interpreter-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -3610,6 +3723,44 @@
       }
     },
     {
+      "path": "patterns/design/mediator-pattern-components.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "mediator-pattern-components",
+        "title": "Mediator Pattern for Loose Component Coupling in Frontend Apps",
+        "description": "Reduce chaotic dependencies between UI components by introducing a mediator that centralizes communication, preventing explicit references between peers",
+        "metaDescription": "Mediator pattern for loose component coupling. Centralize communication between UI components to eliminate explicit peer references and simplify dependencies.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "frontend"
+        ],
+        "tags": [
+          "mediator",
+          "behavioral-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/observer-pattern-events",
+          "/patterns/design/singleton-pattern-services",
+          "/guides/react-patterns-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Mediator pattern for loose component coupling. Centralize communication between UI components to eliminate explicit peer references and simplify dependencies.",
+          "keywords": [
+            "mediator pattern",
+            "component communication",
+            "loose coupling",
+            "behavioral patterns",
+            "frontend architecture"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/mediator-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -3650,6 +3801,43 @@
             "python mediator",
             "java mediator",
             "javascript mediator"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/memento-pattern-state.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "memento-pattern-state",
+        "title": "Memento Pattern for State Snapshot and Restoration",
+        "description": "Capture and externalize an object's internal state without violating encapsulation, enabling undo, serialization, and state rollback in applications",
+        "metaDescription": "Memento pattern for state snapshots. Capture and restore object state without breaking encapsulation for undo, serialization, and rollback functionality.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "memento",
+          "behavioral-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/command-pattern-undo",
+          "/patterns/design/prototype-pattern-cloning",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Memento pattern for state snapshots. Capture and restore object state without breaking encapsulation for undo, serialization, and rollback functionality.",
+          "keywords": [
+            "memento pattern",
+            "state snapshot",
+            "undo restore",
+            "behavioral patterns",
+            "serialization"
           ]
         }
       }
@@ -3822,6 +4010,43 @@
             "python observer",
             "java observer",
             "javascript observer"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/prototype-pattern-cloning.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "prototype-pattern-cloning",
+        "title": "Prototype Pattern for Object Cloning and Configuration Templates",
+        "description": "Create new objects by copying existing ones, allowing pre-configured templates and avoiding subclass explosion when object creation is expensive",
+        "metaDescription": "Prototype pattern for object cloning. Create objects by copying existing ones with pre-configured templates to avoid expensive initialization and subclass explosion.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "prototype",
+          "creational-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/factory-method-injection",
+          "/patterns/design/builder-pattern",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Prototype pattern for object cloning. Create objects by copying existing ones with pre-configured templates to avoid expensive initialization and subclass explosion.",
+          "keywords": [
+            "prototype pattern",
+            "object cloning",
+            "configuration templates",
+            "creational patterns",
+            "deep copy"
           ]
         }
       }
@@ -4424,6 +4649,43 @@
             "python timeout",
             "java timeout",
             "javascript timeout"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/visitor-pattern-operations.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "visitor-pattern-operations",
+        "title": "Visitor Pattern for Extensible Operations on Object Structures",
+        "description": "Separate algorithms from the objects they operate on, allowing new operations to be added without modifying existing element classes",
+        "metaDescription": "Visitor pattern for extensible operations. Separate algorithms from the objects they operate on to add new operations without modifying existing element classes.",
+        "difficulty": "advanced",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "visitor",
+          "behavioral-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/strategy-pattern",
+          "/patterns/design/chain-of-responsibility-middleware",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Visitor pattern for extensible operations. Separate algorithms from the objects they operate on to add new operations without modifying existing element classes.",
+          "keywords": [
+            "visitor pattern",
+            "double dispatch",
+            "extensible operations",
+            "behavioral patterns",
+            "object structure traversal"
           ]
         }
       }
