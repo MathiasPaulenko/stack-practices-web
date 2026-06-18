@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 272,
+  "count": 278,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -5389,6 +5389,44 @@
       }
     },
     {
+      "path": "recipes/api/grpc-services-typescript.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "grpc-services-typescript",
+        "title": "gRPC Services with Protocol Buffers in TypeScript",
+        "description": "Build high-performance, strongly-typed services using gRPC with Protocol Buffers, covering unary calls, server streaming, client streaming, and bidirectional streaming",
+        "metaDescription": "Build gRPC services with Protocol Buffers in TypeScript. Implement unary, server streaming, client streaming, and bidirectional streaming for high-performance APIs.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "devops"
+        ],
+        "tags": [
+          "grpc",
+          "api",
+          "microservices",
+          "protocol-buffers"
+        ],
+        "relatedResources": [
+          "/recipes/api/go-rest-api-gin",
+          "/patterns/design/ambassador-pattern-services",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Build gRPC services with Protocol Buffers in TypeScript. Implement unary, server streaming, client streaming, and bidirectional streaming for high-performance APIs.",
+          "keywords": [
+            "grpc",
+            "protocol buffers",
+            "streaming api",
+            "typescript",
+            "high performance"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/handle-cors.md",
       "metadata": {
         "contentType": "recipes",
@@ -8672,6 +8710,44 @@
       }
     },
     {
+      "path": "recipes/devops/grafana-dashboards-observability.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "grafana-dashboards-observability",
+        "title": "Observability Dashboards with Grafana and Prometheus",
+        "description": "Build interactive Grafana dashboards that visualize Prometheus metrics with panels, variables, and alerts for comprehensive service observability",
+        "metaDescription": "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for comprehensive service observability.",
+        "difficulty": "beginner",
+        "topics": [
+          "devops",
+          "observability"
+        ],
+        "tags": [
+          "grafana",
+          "monitoring",
+          "observability",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/devops/prometheus-monitoring-alerts",
+          "/recipes/devops/helm-chart-deployment",
+          "/guides/logging-monitoring-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for comprehensive service observability.",
+          "keywords": [
+            "grafana",
+            "dashboards",
+            "observability",
+            "prometheus",
+            "visualization"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/health-check-endpoint.md",
       "metadata": {
         "contentType": "recipes",
@@ -8708,6 +8784,44 @@
             "python",
             "javascript",
             "java"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/helm-chart-deployment.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "helm-chart-deployment",
+        "title": "Deploy Applications to Kubernetes with Helm Charts",
+        "description": "Package, version, and deploy Kubernetes applications using Helm charts with value overrides, template functions, and release management for reproducible infrastructure",
+        "metaDescription": "Deploy applications to Kubernetes with Helm charts. Package, version, and manage releases with value overrides, template functions, and reproducible infrastructure.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops",
+          "infrastructure"
+        ],
+        "tags": [
+          "helm",
+          "kubernetes",
+          "devops",
+          "infrastructure"
+        ],
+        "relatedResources": [
+          "/recipes/devops/docker-compose-local-dev",
+          "/patterns/design/ambassador-pattern-services",
+          "/guides/devops-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Deploy applications to Kubernetes with Helm charts. Package, version, and manage releases with value overrides, template functions, and reproducible infrastructure.",
+          "keywords": [
+            "helm charts",
+            "kubernetes deployment",
+            "package management",
+            "infrastructure as code",
+            "release management"
           ]
         }
       }
@@ -8863,6 +8977,44 @@
             "git-hooks",
             "code-quality",
             "linting"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/prometheus-monitoring-alerts.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "prometheus-monitoring-alerts",
+        "title": "Metrics Collection and Alerting with Prometheus",
+        "description": "Instrument applications and infrastructure with Prometheus metrics, configure alerting rules, and set up recording rules for efficient monitoring of service health",
+        "metaDescription": "Instrument applications with Prometheus metrics. Configure alerting rules and recording rules for efficient monitoring of service health and infrastructure.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops",
+          "observability"
+        ],
+        "tags": [
+          "prometheus",
+          "monitoring",
+          "devops",
+          "observability"
+        ],
+        "relatedResources": [
+          "/recipes/devops/helm-chart-deployment",
+          "/patterns/design/ambassador-pattern-services",
+          "/guides/logging-monitoring-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Instrument applications with Prometheus metrics. Configure alerting rules and recording rules for efficient monitoring of service health and infrastructure.",
+          "keywords": [
+            "prometheus",
+            "metrics",
+            "alerting",
+            "monitoring",
+            "service health"
           ]
         }
       }
@@ -9295,6 +9447,82 @@
             "python streams",
             "nodejs streams",
             "java streams"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/messaging/kafka-event-streaming.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "kafka-event-streaming",
+        "title": "Event Streaming with Apache Kafka and Node.js",
+        "description": "Build scalable event-driven systems using Apache Kafka with producers, consumers, consumer groups, and exactly-once semantics for reliable asynchronous messaging",
+        "metaDescription": "Build event-driven systems with Apache Kafka. Implement producers, consumers, consumer groups, and exactly-once semantics for reliable asynchronous messaging.",
+        "difficulty": "intermediate",
+        "topics": [
+          "messaging",
+          "devops"
+        ],
+        "tags": [
+          "kafka",
+          "event-driven",
+          "messaging",
+          "microservices"
+        ],
+        "relatedResources": [
+          "/recipes/devops/docker-compose-local-dev",
+          "/patterns/design/event-driven-architecture",
+          "/patterns/design/circuit-breaker-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Build event-driven systems with Apache Kafka. Implement producers, consumers, consumer groups, and exactly-once semantics for reliable asynchronous messaging.",
+          "keywords": [
+            "apache kafka",
+            "event streaming",
+            "message broker",
+            "consumer groups",
+            "exactly once"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/messaging/rabbitmq-task-queue.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "rabbitmq-task-queue",
+        "title": "Task Queues and RPC with RabbitMQ and AMQP",
+        "description": "Implement reliable task distribution and request-reply patterns using RabbitMQ with durable queues, dead-letter exchanges, and prefetch for controlled concurrency",
+        "metaDescription": "Implement task queues and RPC with RabbitMQ. Use durable queues, dead-letter exchanges, and prefetch for reliable task distribution and controlled concurrency.",
+        "difficulty": "intermediate",
+        "topics": [
+          "messaging",
+          "devops"
+        ],
+        "tags": [
+          "rabbitmq",
+          "messaging",
+          "microservices",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/messaging/kafka-event-streaming",
+          "/patterns/design/event-driven-architecture",
+          "/patterns/design/worker-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Implement task queues and RPC with RabbitMQ. Use durable queues, dead-letter exchanges, and prefetch for reliable task distribution and controlled concurrency.",
+          "keywords": [
+            "rabbitmq",
+            "amqp",
+            "task queue",
+            "dead letter",
+            "rpc"
           ]
         }
       }

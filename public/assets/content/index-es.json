@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 272,
+  "count": 278,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -5432,6 +5432,44 @@
       }
     },
     {
+      "path": "recipes/api/grpc-services-typescript.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "grpc-services-typescript",
+        "title": "Servicios gRPC con Protocol Buffers en TypeScript",
+        "description": "Construye servicios de alto rendimiento y fuertemente tipados usando gRPC con Protocol Buffers, cubriendo llamadas unarias, server streaming, client streaming y bidirectional streaming",
+        "metaDescription": "Construye servicios gRPC con Protocol Buffers en TypeScript. Implementa llamadas unarias y streaming bidireccional para APIs de alto rendimiento.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "devops"
+        ],
+        "tags": [
+          "grpc",
+          "api",
+          "microservices",
+          "protocol-buffers"
+        ],
+        "relatedResources": [
+          "/recipes/api/go-rest-api-gin",
+          "/patterns/design/ambassador-pattern-services",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Construye servicios gRPC con Protocol Buffers en TypeScript. Implementa llamadas unarias y streaming bidireccional para APIs de alto rendimiento.",
+          "keywords": [
+            "grpc",
+            "protocol buffers",
+            "streaming api",
+            "typescript",
+            "high performance"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/handle-cors.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -8686,6 +8724,44 @@
       }
     },
     {
+      "path": "recipes/devops/grafana-dashboards-observability.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "grafana-dashboards-observability",
+        "title": "Dashboards de Observabilidad con Grafana y Prometheus",
+        "description": "Construye dashboards interactivos en Grafana que visualizan metricas Prometheus con paneles, variables y alerts para observabilidad completa de servicios",
+        "metaDescription": "Construye dashboards Grafana para metricas Prometheus. Crea visualizaciones interactivas con paneles, variables y alerts para observabilidad completa.",
+        "difficulty": "beginner",
+        "topics": [
+          "devops",
+          "observability"
+        ],
+        "tags": [
+          "grafana",
+          "monitoring",
+          "observability",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/devops/prometheus-monitoring-alerts",
+          "/recipes/devops/helm-chart-deployment",
+          "/guides/logging-monitoring-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Construye dashboards Grafana para metricas Prometheus. Crea visualizaciones interactivas con paneles, variables y alerts para observabilidad completa.",
+          "keywords": [
+            "grafana",
+            "dashboards",
+            "observability",
+            "prometheus",
+            "visualization"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/health-check-endpoint.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -8719,6 +8795,44 @@
             "readiness probe python",
             "spring boot actuator health",
             "monitoring endpoint"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/helm-chart-deployment.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "helm-chart-deployment",
+        "title": "Despliegue de Aplicaciones en Kubernetes con Helm Charts",
+        "description": "Empaqueta, versiona y despliega aplicaciones Kubernetes usando Helm charts con value overrides, funciones de template y release management para infraestructura reproducible",
+        "metaDescription": "Despliega aplicaciones en Kubernetes con Helm charts. Empaqueta, versiona y maneja releases con value overrides, funciones de template e infraestructura reproducible.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops",
+          "infrastructure"
+        ],
+        "tags": [
+          "helm",
+          "kubernetes",
+          "devops",
+          "infrastructure"
+        ],
+        "relatedResources": [
+          "/recipes/devops/docker-compose-local-dev",
+          "/patterns/design/ambassador-pattern-services",
+          "/guides/devops-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Despliega aplicaciones en Kubernetes con Helm charts. Empaqueta, versiona y maneja releases con value overrides, funciones de template e infraestructura reproducible.",
+          "keywords": [
+            "helm charts",
+            "kubernetes deployment",
+            "package management",
+            "infrastructure as code",
+            "release management"
           ]
         }
       }
@@ -8874,6 +8988,44 @@
             "git-hooks",
             "calidad-codigo",
             "linting"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/prometheus-monitoring-alerts.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "prometheus-monitoring-alerts",
+        "title": "Metricas y Alertas con Prometheus",
+        "description": "Instrumenta aplicaciones e infraestructura con metricas Prometheus, configura reglas de alerting y recording rules para monitoreo eficiente de salud de servicios",
+        "metaDescription": "Instrumenta aplicaciones con metricas Prometheus. Configura reglas de alerting y recording rules para monitoreo eficiente de salud de servicios e infraestructura.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops",
+          "observability"
+        ],
+        "tags": [
+          "prometheus",
+          "monitoring",
+          "devops",
+          "observability"
+        ],
+        "relatedResources": [
+          "/recipes/devops/helm-chart-deployment",
+          "/patterns/design/ambassador-pattern-services",
+          "/guides/logging-monitoring-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Instrumenta aplicaciones con metricas Prometheus. Configura reglas de alerting y recording rules para monitoreo eficiente de salud de servicios e infraestructura.",
+          "keywords": [
+            "prometheus",
+            "metrics",
+            "alerting",
+            "monitoring",
+            "service health"
           ]
         }
       }
@@ -9290,6 +9442,82 @@
             "python streams",
             "nodejs streams",
             "java streams"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/messaging/kafka-event-streaming.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "kafka-event-streaming",
+        "title": "Event Streaming con Apache Kafka y Node.js",
+        "description": "Construye sistemas event-driven escalables usando Apache Kafka con producers, consumers, consumer groups y semantica exactly-once para messaging asincrono confiable",
+        "metaDescription": "Construye sistemas event-driven con Apache Kafka. Implementa producers, consumers, consumer groups y semantica exactly-once para messaging asincrono confiable.",
+        "difficulty": "intermediate",
+        "topics": [
+          "messaging",
+          "devops"
+        ],
+        "tags": [
+          "kafka",
+          "event-driven",
+          "messaging",
+          "microservices"
+        ],
+        "relatedResources": [
+          "/recipes/devops/docker-compose-local-dev",
+          "/patterns/design/event-driven-architecture",
+          "/patterns/design/circuit-breaker-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Construye sistemas event-driven con Apache Kafka. Implementa producers, consumers, consumer groups y semantica exactly-once para messaging asincrono confiable.",
+          "keywords": [
+            "apache kafka",
+            "event streaming",
+            "message broker",
+            "consumer groups",
+            "exactly once"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/messaging/rabbitmq-task-queue.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "rabbitmq-task-queue",
+        "title": "Task Queues y RPC con RabbitMQ y AMQP",
+        "description": "Implementa distribucion confiable de tareas y patrones request-reply usando RabbitMQ con durable queues, dead-letter exchanges y prefetch para concurrencia controlada",
+        "metaDescription": "Implementa task queues y RPC con RabbitMQ. Usa durable queues, dead-letter exchanges y prefetch para distribucion confiable de tareas y concurrencia controlada.",
+        "difficulty": "intermediate",
+        "topics": [
+          "messaging",
+          "devops"
+        ],
+        "tags": [
+          "rabbitmq",
+          "messaging",
+          "microservices",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/messaging/kafka-event-streaming",
+          "/patterns/design/event-driven-architecture",
+          "/patterns/design/worker-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Implementa task queues y RPC con RabbitMQ. Usa durable queues, dead-letter exchanges y prefetch para distribucion confiable de tareas y concurrencia controlada.",
+          "keywords": [
+            "rabbitmq",
+            "amqp",
+            "task queue",
+            "dead letter",
+            "rpc"
           ]
         }
       }
