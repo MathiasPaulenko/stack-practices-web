@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 284,
+  "count": 290,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -5200,6 +5200,44 @@
       }
     },
     {
+      "path": "recipes/api/api-rate-limiting-redis.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "api-rate-limiting-redis",
+        "title": "Implementar Rate Limiting de APIs con Redis",
+        "description": "Protege APIs de abuso usando algoritmos de token bucket y ventana deslizante con Redis, incluyendo manejo de bursts, coordinacion distribuida y headers custom para feedback al cliente",
+        "metaDescription": "Implementa rate limiting de APIs con Redis. Usa token bucket y sliding window con manejo de bursts, coordinacion distribuida y headers de feedback al cliente.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "security"
+        ],
+        "tags": [
+          "throttling",
+          "redis",
+          "api",
+          "rate-limiting"
+        ],
+        "relatedResources": [
+          "/recipes/api/go-rest-api-gin",
+          "/patterns/design/circuit-breaker-resilience",
+          "/guides/security-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Implementa rate limiting de APIs con Redis. Usa token bucket y sliding window con manejo de bursts, coordinacion distribuida y headers de feedback al cliente.",
+          "keywords": [
+            "rate limiting",
+            "token bucket",
+            "sliding window",
+            "redis",
+            "api protection"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/api-versioning.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -5272,6 +5310,82 @@
             "api python",
             "fetch javascript",
             "httpclient java"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/api/cursor-pagination-postgresql.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "cursor-pagination-postgresql",
+        "title": "Paginacion por Cursor con PostgreSQL",
+        "description": "Implementa paginacion eficiente por cursor para datasets grandes en PostgreSQL, evitando la degradacion de performance de OFFSET con paginacion keyset indexada y orden estable",
+        "metaDescription": "Implementa paginacion por cursor en PostgreSQL. Paginacion keyset eficiente para datasets grandes evitando degradacion de OFFSET con ordenamiento indexado.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "databases"
+        ],
+        "tags": [
+          "pagination",
+          "api",
+          "databases",
+          "postgresql"
+        ],
+        "relatedResources": [
+          "/recipes/databases/indexed-cursor-pagination",
+          "/recipes/api/go-rest-api-gin",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Implementa paginacion por cursor en PostgreSQL. Paginacion keyset eficiente para datasets grandes evitando degradacion de OFFSET con ordenamiento indexado.",
+          "keywords": [
+            "cursor pagination",
+            "keyset pagination",
+            "postgresql",
+            "offset performance",
+            "api pagination"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/api/express-middleware-patterns.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "express-middleware-patterns",
+        "title": "Patrones de Composicion de Middleware en Express.js",
+        "description": "Construye aplicaciones Express mantenibles usando patrones de composicion de middleware para autenticacion, validacion, manejo de errores, propagacion de contexto y wrappers de rutas async",
+        "metaDescription": "Construye apps Express mantenibles con composicion de middleware. Patrones para auth, validacion, manejo de errores, propagacion de contexto y wrappers async.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "frontend"
+        ],
+        "tags": [
+          "express",
+          "nodejs",
+          "middleware",
+          "patterns"
+        ],
+        "relatedResources": [
+          "/recipes/api/go-rest-api-gin",
+          "/recipes/security/data-validation-zod",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Construye apps Express mantenibles con composicion de middleware. Patrones para auth, validacion, manejo de errores, propagacion de contexto y wrappers async.",
+          "keywords": [
+            "express middleware",
+            "middleware composition",
+            "nodejs patterns",
+            "async routes",
+            "error handling"
           ]
         }
       }
@@ -5938,6 +6052,44 @@
             "golang",
             "real time api",
             "event stream"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/api/server-sent-events-node.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "server-sent-events-node",
+        "title": "Server-Sent Events con Node.js y Express",
+        "description": "Implementa push en tiempo real de servidor a cliente usando Server-Sent Events en Node.js con Express, cubriendo gestion de conexiones, tipos de eventos, logica de reconexion y manejo de backpressure",
+        "metaDescription": "Implementa Server-Sent Events en Node.js con Express. Push en tiempo real con gestion de conexiones, tipos de eventos, reconexion y manejo de backpressure.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "frontend"
+        ],
+        "tags": [
+          "sse",
+          "real-time",
+          "nodejs",
+          "express"
+        ],
+        "relatedResources": [
+          "/recipes/api/websocket-bidirectional-chat",
+          "/recipes/messaging/kafka-event-streaming",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Implementa Server-Sent Events en Node.js con Express. Push en tiempo real con gestion de conexiones, tipos de eventos, reconexion y manejo de backpressure.",
+          "keywords": [
+            "server sent events",
+            "sse",
+            "nodejs",
+            "express",
+            "real time push"
           ]
         }
       }
@@ -8565,6 +8717,44 @@
       }
     },
     {
+      "path": "recipes/devops/container-security-scanning.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "container-security-scanning",
+        "title": "Escaneo de Seguridad de Imagenes de Contenedores con Trivy",
+        "description": "Escanea imagenes Docker para vulnerabilidades, configuraciones incorrectas y secretos usando Trivy, integra el escaneo en pipelines de CI/CD y aplica politicas de imagen antes del deployment a produccion",
+        "metaDescription": "Escanea imagenes Docker para vulnerabilidades con Trivy. Integra escaneo de seguridad en CI/CD y aplica politicas de imagen antes del deployment a produccion.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops",
+          "security"
+        ],
+        "tags": [
+          "container",
+          "docker",
+          "security",
+          "trivy"
+        ],
+        "relatedResources": [
+          "/recipes/devops/docker-multi-stage-builds",
+          "/recipes/security/secrets-management-vault",
+          "/guides/security-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Escanea imagenes Docker para vulnerabilidades con Trivy. Integra escaneo de seguridad en CI/CD y aplica politicas de imagen antes del deployment a produccion.",
+          "keywords": [
+            "container security",
+            "docker scanning",
+            "trivy",
+            "vulnerability scanning",
+            "image security"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/cron-jobs.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -9632,6 +9822,44 @@
             "python streams",
             "nodejs streams",
             "java streams"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/frontend/email-templates-mjml.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "email-templates-mjml",
+        "title": "Templates de Email Responsivos con MJML",
+        "description": "Crea templates de email responsivos compatibles con multiples clientes usando MJML, variables dinamicas con Handlebars y CSS inline para renderizado confiable en Gmail, Outlook y Apple Mail",
+        "metaDescription": "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables dinamicas y CSS inline para Gmail, Outlook y Apple Mail.",
+        "difficulty": "beginner",
+        "topics": [
+          "frontend",
+          "data"
+        ],
+        "tags": [
+          "email",
+          "templates",
+          "frontend",
+          "mjml"
+        ],
+        "relatedResources": [
+          "/recipes/performance/spa-code-splitting-lazy",
+          "/recipes/api/go-rest-api-gin",
+          "/guides/frontend-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables dinamicas y CSS inline para Gmail, Outlook y Apple Mail.",
+          "keywords": [
+            "mjml",
+            "email templates",
+            "responsive email",
+            "cross-client email",
+            "handlebars"
           ]
         }
       }
