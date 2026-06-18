@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 236,
+  "count": 242,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -4712,6 +4712,43 @@
       }
     },
     {
+      "path": "recipes/api/graphql-apollo-server.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "graphql-apollo-server",
+        "title": "Build a GraphQL API with Apollo Server and TypeScript",
+        "description": "How to build a production-ready GraphQL API using Apollo Server, TypeScript, and DataLoader to solve the N+1 query problem",
+        "metaDescription": "Build a GraphQL API with Apollo Server and TypeScript. Use DataLoader for N+1 queries, implement authentication, and structure resolvers cleanly.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api"
+        ],
+        "tags": [
+          "graphql",
+          "api",
+          "typescript",
+          "nodejs"
+        ],
+        "relatedResources": [
+          "/patterns/design/adapter-pattern-api",
+          "/recipes/api/call-rest-api",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Build a GraphQL API with Apollo Server and TypeScript. Use DataLoader for N+1 queries, implement authentication, and structure resolvers cleanly.",
+          "keywords": [
+            "graphql",
+            "apollo server",
+            "typescript",
+            "dataloader",
+            "api design"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/grpc-api.md",
       "metadata": {
         "contentType": "recipes",
@@ -5227,6 +5264,44 @@
             "python",
             "javascript",
             "java"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/api/websocket-authentication.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "websocket-authentication",
+        "title": "WebSocket Authentication and Security Patterns",
+        "description": "How to authenticate WebSocket connections, implement token validation, and handle authorization for real-time messaging in production",
+        "metaDescription": "WebSocket authentication and security patterns. Validate tokens on connection, implement room-based authorization, and prevent unauthorized real-time access.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "security"
+        ],
+        "tags": [
+          "websockets",
+          "security",
+          "authentication",
+          "real-time"
+        ],
+        "relatedResources": [
+          "/recipes/api/call-rest-api",
+          "/recipes/real-time-websockets",
+          "/patterns/design/decorator-pattern-pipeline"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "WebSocket authentication and security patterns. Validate tokens on connection, implement room-based authorization, and prevent unauthorized real-time access.",
+          "keywords": [
+            "websockets",
+            "authentication",
+            "real-time security",
+            "token validation",
+            "room authorization"
           ]
         }
       }
@@ -6697,6 +6772,44 @@
       }
     },
     {
+      "path": "recipes/databases/elasticsearch-aggregations.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "elasticsearch-aggregations",
+        "title": "Elasticsearch Aggregations for Analytics and Search",
+        "description": "How to use Elasticsearch aggregations to build faceted search, analytics dashboards, and real-time metrics from indexed data",
+        "metaDescription": "Elasticsearch aggregations for analytics. Build faceted search, metrics dashboards, and real-time aggregations with bucket and metric aggregations.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases",
+          "data"
+        ],
+        "tags": [
+          "elasticsearch",
+          "database",
+          "analytics",
+          "search"
+        ],
+        "relatedResources": [
+          "/recipes/databases/mongodb-crud-mongoose",
+          "/recipes/query-optimization",
+          "/guides/database-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Elasticsearch aggregations for analytics. Build faceted search, metrics dashboards, and real-time aggregations with bucket and metric aggregations.",
+          "keywords": [
+            "elasticsearch",
+            "aggregations",
+            "faceted search",
+            "analytics",
+            "search engine"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/event-sourcing-relational.md",
       "metadata": {
         "contentType": "recipes",
@@ -7854,6 +7967,44 @@
       }
     },
     {
+      "path": "recipes/devops/terraform-aws-vpc.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "terraform-aws-vpc",
+        "title": "Provision an AWS VPC with Terraform",
+        "description": "How to use Terraform to provision a production-ready AWS VPC with public and private subnets, NAT gateways, and security groups",
+        "metaDescription": "Provision an AWS VPC with Terraform. Create public and private subnets, NAT gateways, routing tables, and security groups for production infrastructure.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops",
+          "infrastructure"
+        ],
+        "tags": [
+          "terraform",
+          "aws",
+          "devops",
+          "networking"
+        ],
+        "relatedResources": [
+          "/recipes/devops/aws-ecs-fargate",
+          "/guides/infrastructure-as-code-guide",
+          "/patterns/design/builder-pattern-configuration"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Provision an AWS VPC with Terraform. Create public and private subnets, NAT gateways, routing tables, and security groups for production infrastructure.",
+          "keywords": [
+            "terraform",
+            "aws vpc",
+            "infrastructure as code",
+            "networking",
+            "devops"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/file-handling/compression-gzip.md",
       "metadata": {
         "contentType": "recipes",
@@ -8550,6 +8701,44 @@
       }
     },
     {
+      "path": "recipes/security/oauth2-pkce-spa.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "oauth2-pkce-spa",
+        "title": "Implement OAuth 2.0 PKCE for Single-Page Applications",
+        "description": "How to implement the OAuth 2.0 PKCE flow in single-page applications to securely authenticate users without exposing client secrets",
+        "metaDescription": "OAuth 2.0 PKCE for single-page applications. Securely authenticate users without client secrets, implement code exchange, and handle token refresh in SPAs.",
+        "difficulty": "intermediate",
+        "topics": [
+          "security",
+          "authentication"
+        ],
+        "tags": [
+          "oauth2",
+          "security",
+          "authentication",
+          "spa"
+        ],
+        "relatedResources": [
+          "/recipes/security-headers",
+          "/patterns/design/adapter-pattern-api",
+          "/guides/security-best-practices"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "OAuth 2.0 PKCE for single-page applications. Securely authenticate users without client secrets, implement code exchange, and handle token refresh in SPAs.",
+          "keywords": [
+            "oauth2 pkce",
+            "single page application",
+            "authentication",
+            "security",
+            "spa auth"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/security/rate-limiting.md",
       "metadata": {
         "contentType": "recipes",
@@ -9219,6 +9408,42 @@
             "stress testing",
             "scalability testing",
             "performance benchmarks"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/testing/playwright-component-testing.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "playwright-component-testing",
+        "title": "Component Testing with Playwright and Storybook",
+        "description": "How to test React components in isolation using Playwright component tests combined with Storybook stories for visual and behavioral validation",
+        "metaDescription": "Component testing with Playwright and Storybook. Test React components in isolation, validate interactions, and catch visual regressions before deployment.",
+        "difficulty": "beginner",
+        "topics": [
+          "testing"
+        ],
+        "tags": [
+          "playwright",
+          "testing",
+          "react"
+        ],
+        "relatedResources": [
+          "/recipes/jest-snapshot-testing",
+          "/recipes/visual-regression-testing",
+          "/guides/testing-strategy-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Component testing with Playwright and Storybook. Test React components in isolation, validate interactions, and catch visual regressions before deployment.",
+          "keywords": [
+            "playwright",
+            "component testing",
+            "react testing",
+            "storybook",
+            "visual regression"
           ]
         }
       }
