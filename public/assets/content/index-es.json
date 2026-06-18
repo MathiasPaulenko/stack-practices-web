@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 253,
+  "count": 259,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -2644,6 +2644,44 @@
       }
     },
     {
+      "path": "patterns/design/bridge-pattern-ui-themes.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "bridge-pattern-ui-themes",
+        "title": "Bridge Pattern para Desacoplar Componentes UI de Temas",
+        "description": "Separa una abstraccion de su implementacion para que ambas puedan variar independientemente usando el Bridge pattern para temas UI y motores de renderizado intercambiables",
+        "metaDescription": "Bridge pattern para temas UI. Desacopla componentes del renderizado para que abstracciones e implementaciones varien independientemente en sistemas de theming.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "frontend"
+        ],
+        "tags": [
+          "bridge",
+          "structural-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/adapter-pattern-api",
+          "/patterns/design/strategy-pattern-algorithms",
+          "/guides/react-patterns-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Bridge pattern para temas UI. Desacopla componentes del renderizado para que abstracciones e implementaciones varien independientemente en sistemas de theming.",
+          "keywords": [
+            "bridge pattern",
+            "decoupling",
+            "ui themes",
+            "structural patterns",
+            "platform independence"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/bridge-pattern.es.md",
       "metadata": {
         "contentType": "patterns",
@@ -2859,6 +2897,44 @@
       }
     },
     {
+      "path": "patterns/design/chain-of-responsibility-middleware.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "chain-of-responsibility-middleware",
+        "title": "Chain of Responsibility para Middleware de Procesamiento de Peticiones",
+        "description": "Pasa peticiones a lo largo de una cadena de handlers donde cada handler decide si procesa la peticion o la pasa al siguiente handler en la pipeline",
+        "metaDescription": "Chain of Responsibility para pipelines de middleware. Pasa peticiones a traves de una cadena de handlers donde cada uno decide procesar o delegar al siguiente.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "api"
+        ],
+        "tags": [
+          "chain-of-responsibility",
+          "behavioral-patterns",
+          "nodejs",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/decorator-pattern-pipeline",
+          "/patterns/design/proxy-pattern-access-control",
+          "/guides/api-design-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Chain of Responsibility para pipelines de middleware. Pasa peticiones a traves de una cadena de handlers donde cada uno decide procesar o delegar al siguiente.",
+          "keywords": [
+            "chain of responsibility",
+            "middleware pipeline",
+            "request processing",
+            "behavioral patterns",
+            "express middleware"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/chain-of-responsibility-pattern.es.md",
       "metadata": {
         "contentType": "patterns",
@@ -2949,6 +3025,43 @@
       }
     },
     {
+      "path": "patterns/design/command-pattern-undo.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "command-pattern-undo",
+        "title": "Command Pattern con Undo/Redo en TypeScript",
+        "description": "Implementa el Command pattern para encapsular peticiones como objetos, habilitando operaciones undo/redo, encolamiento de peticiones y logging de operaciones",
+        "metaDescription": "Command pattern con undo/redo en TypeScript. Encapsula peticiones como objetos para encolamiento, logging y acciones reversibles en aplicaciones interactivas.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "command",
+          "behavioral-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/memento-pattern-state",
+          "/patterns/design/observer-pattern-events",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Command pattern con undo/redo en TypeScript. Encapsula peticiones como objetos para encolamiento, logging y acciones reversibles en aplicaciones interactivas.",
+          "keywords": [
+            "command pattern",
+            "undo redo",
+            "typescript",
+            "behavioral patterns",
+            "operation queue"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/command-pattern.es.md",
       "metadata": {
         "contentType": "patterns",
@@ -2989,6 +3102,44 @@
             "python command",
             "java command",
             "javascript command"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/composite-pattern-ui.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "composite-pattern-ui",
+        "title": "Composite Pattern para Arboles de Componentes UI en React",
+        "description": "Usa el Composite pattern para componer objetos en estructuras de arbol, permitiendo que clientes traten objetos individuales y composiciones uniformemente en jerarquias de componentes",
+        "metaDescription": "Composite pattern para arboles UI en React. Compone objetos en arboles para tratar elementos y composiciones uniformemente en jerarquias de componentes.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "frontend"
+        ],
+        "tags": [
+          "composite",
+          "structural-patterns",
+          "react",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/decorator-pattern-pipeline",
+          "/patterns/design/adapter-pattern-api",
+          "/guides/react-patterns-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Composite pattern para arboles UI en React. Compone objetos en arboles para tratar elementos y composiciones uniformemente en jerarquias de componentes.",
+          "keywords": [
+            "composite pattern",
+            "tree structure",
+            "react components",
+            "structural patterns",
+            "ui hierarchy"
           ]
         }
       }
@@ -3295,6 +3446,44 @@
       }
     },
     {
+      "path": "patterns/design/flyweight-pattern-text.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "flyweight-pattern-text",
+        "title": "Flyweight Pattern para Comparticion Eficiente de Objetos a Gran Escala",
+        "description": "Usa el Flyweight pattern para minimizar uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares, esencial para renderizar datasets grandes",
+        "metaDescription": "Flyweight pattern para eficiencia de memoria. Comparte estado entre objetos similares para minimizar uso de memoria al renderizar datasets grandes.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design",
+          "performance"
+        ],
+        "tags": [
+          "flyweight",
+          "structural-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/singleton-pattern-services",
+          "/patterns/design/cache-invalidation",
+          "/guides/performance-optimization-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Flyweight pattern para eficiencia de memoria. Comparte estado entre objetos similares para minimizar uso de memoria al renderizar datasets grandes.",
+          "keywords": [
+            "flyweight pattern",
+            "object sharing",
+            "memory optimization",
+            "structural patterns",
+            "large datasets"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/flyweight-pattern.es.md",
       "metadata": {
         "contentType": "patterns",
@@ -3380,6 +3569,43 @@
             "python interpreter",
             "java interpreter",
             "javascript interpreter"
+          ]
+        }
+      }
+    },
+    {
+      "path": "patterns/design/iterator-pattern-collections.es.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "iterator-pattern-collections",
+        "title": "Iterator Pattern para Traversal de Colecciones Custom en TypeScript",
+        "description": "Provee una forma de acceder a elementos de un objeto agregado secuencialmente sin exponer su representacion subyacente usando el Iterator pattern",
+        "metaDescription": "Iterator pattern para colecciones custom. Accede a elementos de agregados secuencialmente sin exponer la representacion subyacente para arboles, grafos y streams.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "iterator",
+          "behavioral-patterns",
+          "typescript",
+          "design-pattern"
+        ],
+        "relatedResources": [
+          "/patterns/design/composite-pattern-ui",
+          "/patterns/design/strategy-pattern-algorithms",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Iterator pattern para colecciones custom. Accede a elementos de agregados secuencialmente sin exponer la representacion subyacente para arboles, grafos y streams.",
+          "keywords": [
+            "iterator pattern",
+            "collection traversal",
+            "behavioral patterns",
+            "typescript",
+            "tree traversal"
           ]
         }
       }
