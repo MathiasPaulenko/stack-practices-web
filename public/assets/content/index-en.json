@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 266,
+  "count": 272,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -3391,6 +3391,43 @@
       }
     },
     {
+      "path": "patterns/design/dependency-injection-typescript.md",
+      "metadata": {
+        "contentType": "patterns",
+        "slug": "dependency-injection-typescript",
+        "title": "Dependency Injection Container in TypeScript",
+        "description": "Build a lightweight DI container that resolves class dependencies automatically, enabling testable, loosely-coupled applications without frameworks like Angular or InversifyJS",
+        "metaDescription": "Build a lightweight DI container in TypeScript. Resolve class dependencies automatically for testable, loosely-coupled applications without heavy frameworks.",
+        "difficulty": "intermediate",
+        "topics": [
+          "design"
+        ],
+        "tags": [
+          "dependency-injection",
+          "typescript",
+          "design-pattern",
+          "testing"
+        ],
+        "relatedResources": [
+          "/patterns/design/factory-method-injection",
+          "/patterns/design/singleton-pattern-services",
+          "/guides/clean-code-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Build a lightweight DI container in TypeScript. Resolve class dependencies automatically for testable, loosely-coupled applications without heavy frameworks.",
+          "keywords": [
+            "dependency injection",
+            "di container",
+            "typescript",
+            "inversion of control",
+            "testable code"
+          ]
+        }
+      }
+    },
+    {
       "path": "patterns/design/event-sourcing-pattern.md",
       "metadata": {
         "contentType": "patterns",
@@ -5192,6 +5229,44 @@
             "python",
             "javascript",
             "java"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/api/go-rest-api-gin.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "go-rest-api-gin",
+        "title": "Go REST API with Gin and Middleware",
+        "description": "Build production-ready REST APIs in Go using the Gin framework with custom middleware for logging, authentication, validation, and error handling",
+        "metaDescription": "Build production REST APIs in Go with Gin framework. Implement custom middleware for logging, auth, validation, and error handling in high-performance services.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api",
+          "devops"
+        ],
+        "tags": [
+          "golang",
+          "api",
+          "rest",
+          "microservices"
+        ],
+        "relatedResources": [
+          "/recipes/api/server-sent-events-go",
+          "/patterns/design/middleware-pattern",
+          "/patterns/design/ambassador-pattern-services"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Build production REST APIs in Go with Gin framework. Implement custom middleware for logging, auth, validation, and error handling in high-performance services.",
+          "keywords": [
+            "golang api",
+            "gin framework",
+            "rest api go",
+            "middleware",
+            "go microservices"
           ]
         }
       }
@@ -7643,6 +7718,44 @@
       }
     },
     {
+      "path": "recipes/databases/postgres-query-optimization.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "postgres-query-optimization",
+        "title": "PostgreSQL Query Optimization and Indexing Strategies",
+        "description": "Analyze and optimize slow PostgreSQL queries using EXPLAIN, proper indexing, partial indexes, and query rewriting to reduce execution time from seconds to milliseconds",
+        "metaDescription": "Optimize PostgreSQL queries with EXPLAIN, indexing strategies, partial indexes, and query rewriting to reduce execution time from seconds to milliseconds.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases",
+          "performance"
+        ],
+        "tags": [
+          "postgres",
+          "sql",
+          "performance",
+          "databases"
+        ],
+        "relatedResources": [
+          "/recipes/databases/acid-transactions-postgres",
+          "/recipes/databases/redis-cache-patterns",
+          "/patterns/design/repository-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Optimize PostgreSQL queries with EXPLAIN, indexing strategies, partial indexes, and query rewriting to reduce execution time from seconds to milliseconds.",
+          "keywords": [
+            "postgresql optimization",
+            "query performance",
+            "indexing strategies",
+            "explain analyze",
+            "database tuning"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/redis-cache-patterns.md",
       "metadata": {
         "contentType": "recipes",
@@ -8285,6 +8398,44 @@
       }
     },
     {
+      "path": "recipes/devops/docker-compose-local-dev.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "docker-compose-local-dev",
+        "title": "Local Microservices Development with Docker Compose",
+        "description": "Orchestrate multi-service local environments with Docker Compose including databases, caches, message brokers, and reverse proxies with hot reload and shared networks",
+        "metaDescription": "Orchestrate multi-service local environments with Docker Compose. Run databases, caches, message brokers, and apps with hot reload and shared networks.",
+        "difficulty": "beginner",
+        "topics": [
+          "devops",
+          "infrastructure"
+        ],
+        "tags": [
+          "docker-compose",
+          "docker",
+          "microservices",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/devops/nginx-reverse-proxy",
+          "/patterns/design/ambassador-pattern-services",
+          "/recipes/databases/redis-cache-patterns"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Orchestrate multi-service local environments with Docker Compose. Run databases, caches, message brokers, and apps with hot reload and shared networks.",
+          "keywords": [
+            "docker compose",
+            "local development",
+            "microservices",
+            "container orchestration",
+            "dev environment"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/environment-variables.md",
       "metadata": {
         "contentType": "recipes",
@@ -8595,6 +8746,43 @@
             "service mesh",
             "traffic splitting",
             "kubernetes"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/load-balancing-haproxy.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "load-balancing-haproxy",
+        "title": "Load Balancing with HAProxy and Health Checks",
+        "description": "Configure HAProxy as a high-performance load balancer with active health checks, sticky sessions, and SSL termination for resilient service distribution",
+        "metaDescription": "Configure HAProxy as a load balancer with health checks, sticky sessions, and SSL termination for resilient distribution of traffic across backend services.",
+        "difficulty": "intermediate",
+        "topics": [
+          "infrastructure",
+          "devops"
+        ],
+        "tags": [
+          "networking",
+          "load-balancer",
+          "haproxy"
+        ],
+        "relatedResources": [
+          "/patterns/design/ambassador-pattern-services",
+          "/recipes/devops/nginx-reverse-proxy",
+          "/patterns/design/circuit-breaker-pattern"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Configure HAProxy as a load balancer with health checks, sticky sessions, and SSL termination for resilient distribution of traffic across backend services.",
+          "keywords": [
+            "haproxy",
+            "load balancing",
+            "health checks",
+            "ssl termination",
+            "high availability"
           ]
         }
       }
@@ -9451,6 +9639,44 @@
             "explain analyze",
             "database profiling",
             "query refactoring"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/performance/spa-code-splitting-lazy.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "spa-code-splitting-lazy",
+        "title": "SPA Performance: Code Splitting and Lazy Loading",
+        "description": "Improve single-page application load times by splitting bundles at route and component level, implementing lazy loading with React.lazy and dynamic imports",
+        "metaDescription": "Improve SPA performance with code splitting and lazy loading. Split bundles at route and component level using React.lazy and dynamic imports for faster loads.",
+        "difficulty": "intermediate",
+        "topics": [
+          "frontend",
+          "performance"
+        ],
+        "tags": [
+          "spa",
+          "react",
+          "performance",
+          "frontend"
+        ],
+        "relatedResources": [
+          "/patterns/design/composite-pattern-ui",
+          "/patterns/design/bridge-pattern-ui-themes",
+          "/guides/performance-optimization-guide"
+        ],
+        "lastUpdated": "2026-06-18",
+        "author": "Mathias Paulenko",
+        "seo": {
+          "metaDescription": "Improve SPA performance with code splitting and lazy loading. Split bundles at route and component level using React.lazy and dynamic imports for faster loads.",
+          "keywords": [
+            "code splitting",
+            "lazy loading",
+            "react lazy",
+            "spa performance",
+            "dynamic imports"
           ]
         }
       }

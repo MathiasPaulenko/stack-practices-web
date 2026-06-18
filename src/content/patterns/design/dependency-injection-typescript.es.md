@@ -1,0 +1,203 @@
+---
+contentType: patterns
+slug: dependency-injection-typescript
+title: "Dependency Injection Container en TypeScript"
+description: "Construye un DI container liviano que resuelve dependencias de clases automaticamente, habilitando aplicaciones testeables y debilmente acopladas sin frameworks pesados"
+metaDescription: "Construye un DI container liviano en TypeScript. Resuelve dependencias de clases automaticamente para aplicaciones testeables y debilmente acopladas."
+difficulty: intermediate
+topics:
+  - design
+tags:
+  - dependency-injection
+  - typescript
+  - design-pattern
+  - testing
+relatedResources:
+  - /patterns/design/factory-method-injection
+  - /patterns/design/singleton-pattern-services
+  - /guides/clean-code-guide
+lastUpdated: "2026-06-18"
+author: "Mathias Paulenko"
+seo:
+  metaDescription: "Construye un DI container liviano en TypeScript. Resuelve dependencias de clases automaticamente para aplicaciones testeables y debilmente acopladas."
+  keywords:
+    - dependency injection
+    - di container
+    - typescript
+    - inversion of control
+    - testable code
+---
+
+# Dependency Injection Container en TypeScript
+
+Implementa un container de dependency injection liviano en TypeScript que resuelve dependencias de clases automaticamente a traves de decorators o metadata de constructores. Este pattern desacopla la creacion de objetos de la logica de negocio, haciendo el codigo testeable, modular y mas facil de refactorizar sin frameworks pesados.
+
+## Cuando Usar Esto
+
+- Las clases tienen cadenas de dependencias profundas que hacen la construccion manual tediosa
+- Necesitas swapear implementaciones para testing (mocks, stubs)
+- El manejo de ciclo de vida de la aplicacion requiere singletons, instancias scoped y disposal
+
+## Problema
+
+Un servicio depende de un repositorio, que depende de una conexion a base de datos, que depende de un config loader. Crear objetos manualmente genera codigo fragil y dificil de testear.
+
+## Solucion
+
+### 1. Container con Token Registration
+
+```typescript
+// di/Container.ts
+type Constructor<T> = new (...args: unknown[]) => T;
+
+class Container {
+  private registry = new Map<symbol, { impl: Constructor<unknown>; singleton?: unknown }>();
+
+  register<T>(token: symbol, impl: Constructor<T>): this {
+    this.registry.set(token, { impl });
+    return this;
+  }
+
+  resolve<T>(token: symbol): T {
+    const entry = this.registry.get(token);
+    if (!entry) throw new Error(`No registration for token: ${token.toString()}`);
+
+    // Retorna singleton cacheado si esta disponible
+    if (entry.singleton) return entry.singleton as T;
+
+    // Resuelve dependencias recursivamente
+    const params = Reflect.getMetadata('design:paramtypes', entry.impl) || [];
+    const deps = params.map((param: symbol) => this.resolve(param));
+
+    const instance = new (entry.impl as Constructor<T>)(...deps);
+    entry.singleton = instance;
+    return instance;
+  }
+}
+```
+
+### 2. Injectable Decorator con Metadata
+
+```typescript
+// di/Injectable.ts
+import 'reflect-metadata';
+
+const INJECTABLE_KEY = Symbol('injectable');
+
+function Injectable<T extends Constructor<unknown>>(target: T): T {
+  Reflect.defineMetadata(INJECTABLE_KEY, true, target);
+  return target;
+}
+
+function Inject(token: symbol) {
+  return function (target: unknown, _propertyKey: string | symbol, parameterIndex: number) {
+    const existing = Reflect.getMetadata('design:paramtypes', target) || [];
+    existing[parameterIndex] = token;
+    Reflect.defineMetadata('design:paramtypes', existing, target);
+  };
+}
+```
+
+### 3. Definiciones de Servicios
+
+```typescript
+// services/Database.ts
+const DB_TOKEN = Symbol('Database');
+
+@Injectable
+class Database {
+  private connection: unknown;
+
+  connect(): void {
+    this.connection = { status: 'connected' };
+  }
+
+  query(sql: string): unknown[] {
+    return [{ id: 1, name: 'Alice' }];
+  }
+}
+
+// services/UserRepository.ts
+const REPO_TOKEN = Symbol('UserRepository');
+
+@Injectable
+class UserRepository {
+  constructor(@Inject(DB_TOKEN) private db: Database) {}
+
+  findAll(): unknown[] {
+    return this.db.query('SELECT * FROM users');
+  }
+}
+
+// services/UserService.ts
+const SERVICE_TOKEN = Symbol('UserService');
+
+@Injectable
+class UserService {
+  constructor(@Inject(REPO_TOKEN) private repo: UserRepository) {}
+
+  getUsers(): unknown[] {
+    return this.repo.findAll();
+  }
+}
+```
+
+### 4. Bootstrap de Aplicacion
+
+```typescript
+// main.ts
+const container = new Container();
+
+container.register(DB_TOKEN, Database);
+container.register(REPO_TOKEN, UserRepository);
+container.register(SERVICE_TOKEN, UserService);
+
+const userService = container.resolve<UserService>(SERVICE_TOKEN);
+console.log(userService.getUsers());
+```
+
+## Como Funciona
+
+- **Container** almacena registrations mapeando tokens a implementaciones
+- **Reflect Metadata** captura tipos de parametros del constructor en compile time
+- **@Injectable** marca clases que el container puede instanciar
+- **@Inject** sobreescribe tokens de parametros para interfaces o clases abstractas
+- **resolve** crea instancias recursivamente, cacheando singletons
+
+## Variacion: Scoped Lifetime
+
+```typescript
+// di/ScopedContainer.ts
+class ScopedContainer {
+  private parent: Container;
+  private scoped = new Map<symbol, unknown>();
+
+  resolve<T>(token: symbol): T {
+    if (this.scoped.has(token)) return this.scoped.get(token) as T;
+
+    const instance = this.parent.resolve<T>(token);
+    this.scoped.set(token, instance);
+    return instance;
+  }
+}
+```
+
+## Consideraciones de Produccion
+
+- Usa `tsyringe` o `inversify` para produccion en lugar de un container custom
+- Habilita `emitDecoratorMetadata` en `tsconfig.json` para metadata de Reflect
+- Dispon instancias scoped apropiadamente para prevenir memory leaks en apps de larga duracion
+
+## Errores Comunes
+
+- Dependencias circulares que causan recursion infinita durante resolution
+- Olvidar llamar `connect()` o metodos de inicializacion despues de resolution
+- Registrar clases concretas cuando se necesitan interfaces o abstracciones
+
+## FAQ
+
+**P: En que se diferencia de Service Locator?**
+R: Service Locator pide un registro global por dependencias. DI inyecta dependencias a traves de constructores, haciendolas explicitas y testeables.
+
+**P: Puedo usar esto sin decorators?**
+R: Si. Usa una factory function o registration manual con arrays de dependencias explicitas: `container.register(UserService, { deps: [UserRepository] })`.
