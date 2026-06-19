@@ -10,7 +10,6 @@ topics:
 tags:
   - connection-pooling
   - databases
-  - postgresql
   - performance
 relatedResources:
   - /recipes/uuid-generation-strategies

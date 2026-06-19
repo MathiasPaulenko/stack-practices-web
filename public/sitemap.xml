@@ -3565,6 +3565,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/saga-pattern/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/service-discovery/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/service-discovery/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/service-discovery/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/service-discovery/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/service-discovery/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/service-discovery/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/service-discovery/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/service-discovery/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/service-mesh/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -3581,6 +3599,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/service-mesh/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/service-mesh/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/service-mesh/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/workflow-engine/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/workflow-engine/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/workflow-engine/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/workflow-engine/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/workflow-engine/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/workflow-engine/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/workflow-engine/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/workflow-engine/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/api-key-authentication/</loc>
@@ -4933,6 +4969,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/helm-chart-deployment/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/immutable-infrastructure/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/immutable-infrastructure/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/immutable-infrastructure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/immutable-infrastructure/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/immutable-infrastructure/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/immutable-infrastructure/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/immutable-infrastructure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/immutable-infrastructure/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/istio-canary-deployment/</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -5257,6 +5311,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/javascript-event-loop/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/server-side-rendering/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/server-side-rendering/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/server-side-rendering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/server-side-rendering/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/server-side-rendering/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/server-side-rendering/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/server-side-rendering/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/server-side-rendering/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/websockets-realtime/</loc>
     <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -5345,6 +5417,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/distributed-tracing/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/distributed-tracing/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/distributed-tracing/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/metrics-collection/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/metrics-collection/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/metrics-collection/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/metrics-collection/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/metrics-collection/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/metrics-collection/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/metrics-collection/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/metrics-collection/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/prometheus-api-monitoring/</loc>
@@ -5759,6 +5849,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/request-signing-hmac/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/request-signing-hmac/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/request-signing-hmac/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/security-headers/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/security-headers/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/security-headers/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/security-headers/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/sql-injection-prevention/</loc>

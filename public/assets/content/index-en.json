@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 312,
+  "count": 318,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -6623,7 +6623,6 @@
         "tags": [
           "multi-tenancy",
           "architecture",
-          "saas",
           "databases"
         ],
         "relatedResources": [
@@ -6683,6 +6682,44 @@
       }
     },
     {
+      "path": "recipes/architecture/service-discovery.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "service-discovery",
+        "title": "Service Discovery",
+        "description": "Implement service discovery with health checks, DNS-based resolution, and service registries for dynamic microservices environments.",
+        "metaDescription": "Service discovery patterns: Consul, etcd, Eureka, DNS-based resolution, health checks, and dynamic service registration for microservices.",
+        "difficulty": "intermediate",
+        "topics": [
+          "architecture"
+        ],
+        "tags": [
+          "service-discovery",
+          "architecture",
+          "microservices",
+          "consul"
+        ],
+        "relatedResources": [
+          "/guides/microservices-architecture-guide",
+          "/guides/monolith-to-microservices-migration-guide",
+          "/guides/software-architecture-guide",
+          "/recipes/microservices-communication",
+          "/docs/adr-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Service discovery patterns: Consul, etcd, Eureka, DNS-based resolution, health checks, and dynamic service registration for microservices.",
+          "keywords": [
+            "service-discovery",
+            "architecture",
+            "microservices",
+            "consul"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/architecture/service-mesh.md",
       "metadata": {
         "contentType": "recipes",
@@ -6715,6 +6752,44 @@
             "linkerd",
             "mtls encryption",
             "traffic management k8s"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/architecture/workflow-engine.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "workflow-engine",
+        "title": "Workflow Engines",
+        "description": "Orchestrate complex business processes with workflow engines, state machines, and long-running task coordination across distributed services.",
+        "metaDescription": "Workflow engines and state machines: Temporal, Camunda, state machine patterns, saga orchestration, and long-running task coordination for business processes.",
+        "difficulty": "advanced",
+        "topics": [
+          "architecture"
+        ],
+        "tags": [
+          "workflow-engine",
+          "architecture",
+          "state-machines",
+          "distributed-systems"
+        ],
+        "relatedResources": [
+          "/guides/microservices-architecture-guide",
+          "/guides/system-design-interview-guide",
+          "/guides/cap-theorem-guide",
+          "/recipes/microservices-communication",
+          "/docs/adr-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Workflow engines and state machines: Temporal, Camunda, state machine patterns, saga orchestration, and long-running task coordination for business processes.",
+          "keywords": [
+            "workflow-engine",
+            "architecture",
+            "state-machines",
+            "distributed-systems"
           ]
         }
       }
@@ -7869,7 +7944,6 @@
         "tags": [
           "connection-pooling",
           "databases",
-          "postgresql",
           "performance"
         ],
         "relatedResources": [
@@ -9555,6 +9629,44 @@
       }
     },
     {
+      "path": "recipes/devops/immutable-infrastructure.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "immutable-infrastructure",
+        "title": "Immutable Infrastructure",
+        "description": "Build immutable infrastructure with versioned machine images and containers to eliminate configuration drift and ensure reproducible deployments.",
+        "metaDescription": "Immutable infrastructure: versioned machine images, container-based deployments, configuration drift elimination, and reproducible infrastructure with Packer and Docker.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "immutable-infrastructure",
+          "devops",
+          "docker",
+          "packer"
+        ],
+        "relatedResources": [
+          "/guides/docker-for-developers-guide",
+          "/recipes/aws-ecs-fargate",
+          "/recipes/docker-basics",
+          "/recipes/docker-compose-local-dev",
+          "/docs/api-status-page-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Immutable infrastructure: versioned machine images, container-based deployments, configuration drift elimination, and reproducible infrastructure with Packer and Docker.",
+          "keywords": [
+            "immutable-infrastructure",
+            "devops",
+            "docker",
+            "packer"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/istio-canary-deployment.md",
       "metadata": {
         "contentType": "recipes",
@@ -10244,6 +10356,44 @@
       }
     },
     {
+      "path": "recipes/frontend/server-side-rendering.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "server-side-rendering",
+        "title": "Server-Side Rendering",
+        "description": "Improve performance and SEO with server-side rendering using Next.js, Nuxt, Astro, and other frameworks with hydration strategies.",
+        "metaDescription": "Server-side rendering guide: Next.js, Nuxt, Astro, hydration, streaming SSR, edge rendering, and performance optimization for SEO and Core Web Vitals.",
+        "difficulty": "intermediate",
+        "topics": [
+          "frontend"
+        ],
+        "tags": [
+          "server-side-rendering",
+          "frontend",
+          "nextjs",
+          "astro"
+        ],
+        "relatedResources": [
+          "/patterns/mvc-pattern-frontend",
+          "/recipes/url-encoding-decoding",
+          "/recipes/email-templates-mjml",
+          "/recipes/websockets-realtime",
+          "/recipes/spa-code-splitting-lazy"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Server-side rendering guide: Next.js, Nuxt, Astro, hydration, streaming SSR, edge rendering, and performance optimization for SEO and Core Web Vitals.",
+          "keywords": [
+            "server-side-rendering",
+            "frontend",
+            "nextjs",
+            "astro"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/frontend/websockets-realtime.md",
       "metadata": {
         "contentType": "recipes",
@@ -10407,7 +10557,6 @@
         "tags": [
           "distributed-tracing",
           "observability",
-          "opentelemetry",
           "microservices"
         ],
         "relatedResources": [
@@ -10426,6 +10575,44 @@
             "observability",
             "opentelemetry",
             "microservices"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/observability/metrics-collection.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "metrics-collection",
+        "title": "Metrics Collection",
+        "description": "Collect, aggregate, and expose application and infrastructure metrics with Prometheus, StatsD, and OpenTelemetry for monitoring and alerting.",
+        "metaDescription": "Metrics collection for applications and infrastructure: Prometheus, StatsD, OpenTelemetry, custom metrics, histograms, counters, and Grafana dashboards.",
+        "difficulty": "intermediate",
+        "topics": [
+          "observability"
+        ],
+        "tags": [
+          "metrics-collection",
+          "observability",
+          "prometheus",
+          "grafana"
+        ],
+        "relatedResources": [
+          "/recipes/prometheus-monitoring-alerts",
+          "/recipes/prometheus-api-monitoring",
+          "/recipes/grafana-dashboards-observability",
+          "/recipes/distributed-tracing",
+          "/recipes/structured-logging"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Metrics collection for applications and infrastructure: Prometheus, StatsD, OpenTelemetry, custom metrics, histograms, counters, and Grafana dashboards.",
+          "keywords": [
+            "metrics-collection",
+            "observability",
+            "prometheus",
+            "grafana"
           ]
         }
       }
@@ -11009,8 +11196,7 @@
         "tags": [
           "gdpr",
           "privacy",
-          "compliance",
-          "data-protection"
+          "compliance"
         ],
         "relatedResources": [
           "/docs/data-retention-policy-template",
@@ -11291,6 +11477,44 @@
             "python",
             "javascript",
             "java"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/security/security-headers.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "security-headers",
+        "title": "Security Headers",
+        "description": "Harden web applications with HTTP security headers: CSP, HSTS, X-Frame-Options, and a comprehensive security header checklist.",
+        "metaDescription": "HTTP security headers for web applications: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and security header implementation guide.",
+        "difficulty": "beginner",
+        "topics": [
+          "security"
+        ],
+        "tags": [
+          "security-headers",
+          "csp",
+          "hsts",
+          "web-security"
+        ],
+        "relatedResources": [
+          "/guides/web-application-security-guide",
+          "/docs/data-retention-policy-template",
+          "/docs/dependency-audit-template",
+          "/docs/penetration-test-template",
+          "/docs/security-incident-response-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "HTTP security headers for web applications: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and security header implementation guide.",
+          "keywords": [
+            "security-headers",
+            "csp",
+            "hsts",
+            "web-security"
           ]
         }
       }

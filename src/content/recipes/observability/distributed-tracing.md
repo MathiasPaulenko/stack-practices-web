@@ -10,7 +10,6 @@ topics:
 tags:
   - distributed-tracing
   - observability
-  - opentelemetry
   - microservices
 relatedResources:
   - /recipes/grafana-dashboards-observability

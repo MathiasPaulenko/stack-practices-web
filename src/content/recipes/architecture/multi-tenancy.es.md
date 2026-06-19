@@ -10,7 +10,6 @@ topics:
 tags:
   - multi-tenancy
   - architecture
-  - saas
   - databases
 relatedResources:
   - /docs/adr-template

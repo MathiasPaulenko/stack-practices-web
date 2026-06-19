@@ -11,7 +11,6 @@ tags:
   - gdpr
   - privacy
   - compliance
-  - data-protection
 relatedResources:
   - /docs/data-retention-policy-template
   - /recipes/encryption-at-rest
