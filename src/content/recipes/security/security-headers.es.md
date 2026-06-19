@@ -9,8 +9,6 @@ topics:
   - security
 tags:
   - security-headers
-  - csp
-  - hsts
   - web-security
 relatedResources:
   - /guides/web-application-security-guide

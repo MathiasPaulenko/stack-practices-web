@@ -10,7 +10,6 @@ topics:
 tags:
   - workflow-engine
   - architecture
-  - state-machines
   - distributed-systems
 relatedResources:
   - /guides/microservices-architecture-guide

@@ -10,8 +10,6 @@ topics:
 tags:
   - server-side-rendering
   - frontend
-  - nextjs
-  - astro
 relatedResources:
   - /patterns/mvc-pattern-frontend
   - /recipes/url-encoding-decoding

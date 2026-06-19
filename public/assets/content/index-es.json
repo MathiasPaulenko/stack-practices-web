@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 318,
+  "count": 324,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -6685,6 +6685,44 @@
       }
     },
     {
+      "path": "recipes/architecture/retry-backoff.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "retry-backoff",
+        "title": "Retry con Exponential Backoff",
+        "description": "Implementa estrategias de retry resilientes con exponential backoff, jitter e integración de circuit breaker para recuperación de fallas transitorias.",
+        "metaDescription": "Patrones de retry con exponential backoff y jitter: implementa clientes HTTP resilientes, evita thundering herds e integra con circuit breakers.",
+        "difficulty": "intermediate",
+        "topics": [
+          "architecture"
+        ],
+        "tags": [
+          "retry-backoff",
+          "resilience",
+          "architecture",
+          "distributed-systems"
+        ],
+        "relatedResources": [
+          "/guides/microservices-architecture-guide",
+          "/guides/system-design-interview-guide",
+          "/guides/cap-theorem-guide",
+          "/recipes/microservices-communication",
+          "/recipes/workflow-engine"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Patrones de retry con exponential backoff y jitter: implementa clientes HTTP resilientes, evita thundering herds e integra con circuit breakers.",
+          "keywords": [
+            "retry-backoff",
+            "resilience",
+            "architecture",
+            "distributed-systems"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/architecture/saga-pattern.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -6735,8 +6773,7 @@
         "tags": [
           "service-discovery",
           "architecture",
-          "microservices",
-          "consul"
+          "microservices"
         ],
         "relatedResources": [
           "/guides/microservices-architecture-guide",
@@ -6810,7 +6847,6 @@
         "tags": [
           "workflow-engine",
           "architecture",
-          "state-machines",
           "distributed-systems"
         ],
         "relatedResources": [
@@ -8144,6 +8180,44 @@
             "postgresql",
             "mysql",
             "balanceo-carga"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/database-replication.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "database-replication",
+        "title": "Replicación de Bases de Datos",
+        "description": "Configura y gestiona replicación de bases de datos para alta disponibilidad, escalado de lecturas y disaster recovery con arquitecturas primaria-réplica.",
+        "metaDescription": "Replicación de bases de datos: primaria-réplica, multi-primaria, replicación síncrona/asíncrona, failover y escalado de lecturas para alta disponibilidad.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "database-replication",
+          "databases",
+          "high-availability",
+          "performance"
+        ],
+        "relatedResources": [
+          "/recipes/uuid-generation-strategies",
+          "/recipes/database-connection-pooling",
+          "/recipes/postgres-query-optimization",
+          "/guides/sql-performance-tuning-guide",
+          "/recipes/cursor-pagination-postgresql"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Replicación de bases de datos: primaria-réplica, multi-primaria, replicación síncrona/asíncrona, failover y escalado de lecturas para alta disponibilidad.",
+          "keywords": [
+            "database-replication",
+            "databases",
+            "high-availability",
+            "performance"
           ]
         }
       }
@@ -9654,8 +9728,7 @@
         "tags": [
           "immutable-infrastructure",
           "devops",
-          "docker",
-          "packer"
+          "docker"
         ],
         "relatedResources": [
           "/guides/docker-for-developers-guide",
@@ -10365,9 +10438,7 @@
         ],
         "tags": [
           "server-side-rendering",
-          "frontend",
-          "nextjs",
-          "astro"
+          "frontend"
         ],
         "relatedResources": [
           "/patterns/mvc-pattern-frontend",
@@ -10422,6 +10493,44 @@
             "real-time",
             "nodejs",
             "frontend"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/messaging/dead-letter-queue.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "dead-letter-queue",
+        "title": "Dead Letter Queues",
+        "description": "Maneja mensajes fallidos gracefulmente con dead letter queues, políticas de retry y detección de poison pills en arquitecturas message-driven.",
+        "metaDescription": "Dead letter queues: detección de poison pills, límites de retry, replay de mensajes y estrategias de recuperación para sistemas async.",
+        "difficulty": "intermediate",
+        "topics": [
+          "messaging"
+        ],
+        "tags": [
+          "dead-letter-queue",
+          "messaging",
+          "resilience",
+          "error-handling"
+        ],
+        "relatedResources": [
+          "/recipes/event-driven-microservices",
+          "/recipes/kafka-event-streaming",
+          "/recipes/rabbitmq-task-queue",
+          "/docs/api-error-response-template",
+          "/patterns/bulkhead-pattern"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Dead letter queues: detección de poison pills, límites de retry, replay de mensajes y estrategias de recuperación para sistemas async.",
+          "keywords": [
+            "dead-letter-queue",
+            "messaging",
+            "resilience",
+            "error-handling"
           ]
         }
       }
@@ -10502,6 +10611,44 @@
       }
     },
     {
+      "path": "recipes/messaging/message-idempotency.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "message-idempotency",
+        "title": "Idempotencia en Procesamiento de Mensajes",
+        "description": "Diseña procesadores de mensajes idempotentes que manejan entregas duplicadas de forma segura sin side effects en sistemas async y event-driven.",
+        "metaDescription": "Procesamiento de mensajes idempotente: estrategias de deduplicación, idempotency keys, semántica exactly-once y manejo seguro de entregas duplicadas.",
+        "difficulty": "advanced",
+        "topics": [
+          "messaging"
+        ],
+        "tags": [
+          "message-idempotency",
+          "messaging",
+          "distributed-systems",
+          "architecture"
+        ],
+        "relatedResources": [
+          "/recipes/event-driven-microservices",
+          "/recipes/dead-letter-queue",
+          "/recipes/kafka-event-streaming",
+          "/recipes/rabbitmq-task-queue",
+          "/guides/microservices-architecture-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Procesamiento de mensajes idempotente: estrategias de deduplicación, idempotency keys, semántica exactly-once y manejo seguro de entregas duplicadas.",
+          "keywords": [
+            "message-idempotency",
+            "messaging",
+            "distributed-systems",
+            "architecture"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/messaging/rabbitmq-task-queue.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -10576,6 +10723,44 @@
       }
     },
     {
+      "path": "recipes/observability/log-aggregation.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "log-aggregation",
+        "title": "Agregación de Logs",
+        "description": "Centraliza logs de servicios distribuidos con ELK, Fluentd y Loki para búsqueda, alertado y troubleshooting en producción.",
+        "metaDescription": "Agregación de logs para sistemas distribuidos: stack ELK, Fluentd, Grafana Loki, log shipping, parsing y troubleshooting centralizado a escala.",
+        "difficulty": "intermediate",
+        "topics": [
+          "observability"
+        ],
+        "tags": [
+          "log-aggregation",
+          "observability",
+          "elk",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/grafana-dashboards-observability",
+          "/recipes/prometheus-monitoring-alerts",
+          "/recipes/prometheus-api-monitoring",
+          "/recipes/structured-logging",
+          "/recipes/distributed-tracing"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Agregación de logs para sistemas distribuidos: stack ELK, Fluentd, Grafana Loki, log shipping, parsing y troubleshooting centralizado a escala.",
+          "keywords": [
+            "log-aggregation",
+            "observability",
+            "elk",
+            "devops"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/observability/metrics-collection.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -10590,8 +10775,7 @@
         "tags": [
           "metrics-collection",
           "observability",
-          "prometheus",
-          "grafana"
+          "prometheus"
         ],
         "relatedResources": [
           "/recipes/prometheus-monitoring-alerts",
@@ -11491,8 +11675,6 @@
         ],
         "tags": [
           "security-headers",
-          "csp",
-          "hsts",
           "web-security"
         ],
         "relatedResources": [
@@ -11953,6 +12135,44 @@
             "api contracts",
             "microservices testing",
             "openapi validation"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/testing/api-mocking.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "api-mocking",
+        "title": "API Mocking para Testing",
+        "description": "Construye tests confiables mockeando APIs externas con WireMock, MockServer y MSW para eliminar flakiness y testear casos edge.",
+        "metaDescription": "Estrategias de API mocking para testing: WireMock, MockServer, MSW, definiciones de stubs, response templating y testing de casos edge sin dependencias reales.",
+        "difficulty": "intermediate",
+        "topics": [
+          "testing"
+        ],
+        "tags": [
+          "api-mocking",
+          "testing",
+          "mocking",
+          "automation"
+        ],
+        "relatedResources": [
+          "/guides/cicd-pipeline-guide",
+          "/guides/testing-strategy-guide",
+          "/recipes/end-to-end-testing",
+          "/guides/test-driven-development-guide",
+          "/recipes/load-testing-k6"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Estrategias de API mocking para testing: WireMock, MockServer, MSW, definiciones de stubs, response templating y testing de casos edge sin dependencias reales.",
+          "keywords": [
+            "api-mocking",
+            "testing",
+            "mocking",
+            "automation"
           ]
         }
       }

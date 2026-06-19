@@ -3547,6 +3547,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/multi-tenancy/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/retry-backoff/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/retry-backoff/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/retry-backoff/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/retry-backoff/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/retry-backoff/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/retry-backoff/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/retry-backoff/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/retry-backoff/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/saga-pattern/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -4247,6 +4265,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-read-replicas/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-read-replicas/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-read-replicas/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/database-replication/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-replication/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-replication/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-replication/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/database-replication/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/database-replication/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/database-replication/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/database-replication/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/database-transactions/</loc>
@@ -5347,6 +5383,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/websockets-realtime/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/dead-letter-queue/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/dead-letter-queue/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/dead-letter-queue/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/dead-letter-queue/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/dead-letter-queue/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/dead-letter-queue/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/dead-letter-queue/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/dead-letter-queue/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/event-driven-microservices/</loc>
     <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -5383,6 +5437,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/kafka-event-streaming/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/message-idempotency/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/message-idempotency/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/message-idempotency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/message-idempotency/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/message-idempotency/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/message-idempotency/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/message-idempotency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/message-idempotency/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/rabbitmq-task-queue/</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -5417,6 +5489,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/distributed-tracing/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/distributed-tracing/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/distributed-tracing/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/log-aggregation/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/log-aggregation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/log-aggregation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/log-aggregation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/log-aggregation/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/log-aggregation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/log-aggregation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/log-aggregation/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/metrics-collection/</loc>
@@ -6083,6 +6173,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/api-contract-testing/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/api-contract-testing/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/api-contract-testing/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/api-mocking/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/api-mocking/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/api-mocking/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/api-mocking/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/api-mocking/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/api-mocking/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/api-mocking/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/api-mocking/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/e2e-testing/</loc>

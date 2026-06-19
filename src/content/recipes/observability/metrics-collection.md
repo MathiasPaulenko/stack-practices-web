@@ -11,7 +11,6 @@ tags:
   - metrics-collection
   - observability
   - prometheus
-  - grafana
 relatedResources:
   - /recipes/prometheus-monitoring-alerts
   - /recipes/prometheus-api-monitoring

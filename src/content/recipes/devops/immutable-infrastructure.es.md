@@ -11,7 +11,6 @@ tags:
   - immutable-infrastructure
   - devops
   - docker
-  - packer
 relatedResources:
   - /guides/docker-for-developers-guide
   - /recipes/aws-ecs-fargate

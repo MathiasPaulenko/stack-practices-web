@@ -11,7 +11,6 @@ tags:
   - service-discovery
   - architecture
   - microservices
-  - consul
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/monolith-to-microservices-migration-guide
