@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 324,
+  "count": 330,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -6658,7 +6658,6 @@
           "architecture"
         ],
         "tags": [
-          "retry-backoff",
           "resilience",
           "architecture",
           "distributed-systems"
@@ -8172,7 +8171,6 @@
         "tags": [
           "database-replication",
           "databases",
-          "high-availability",
           "performance"
         ],
         "relatedResources": [
@@ -8572,6 +8570,44 @@
             "cache-aside",
             "write-through",
             "performance"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/schema-evolution.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "schema-evolution",
+        "title": "Database Schema Evolution",
+        "description": "Evolve database schemas safely with backward-compatible changes, versioned migrations, and online DDL operations in production environments.",
+        "metaDescription": "Database schema evolution: backward-compatible changes, versioned migrations, online DDL, expand-contract pattern, and safe schema changes in production.",
+        "difficulty": "advanced",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "schema-evolution",
+          "databases",
+          "devops",
+          "migrations"
+        ],
+        "relatedResources": [
+          "/recipes/cursor-pagination-postgresql",
+          "/recipes/uuid-generation-strategies",
+          "/recipes/database-connection-pooling",
+          "/recipes/database-replication",
+          "/recipes/postgres-query-optimization"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Database schema evolution: backward-compatible changes, versioned migrations, online DDL, expand-contract pattern, and safe schema changes in production.",
+          "keywords": [
+            "schema-evolution",
+            "databases",
+            "devops",
+            "migrations"
           ]
         }
       }
@@ -10045,6 +10081,44 @@
       }
     },
     {
+      "path": "recipes/devops/traffic-mirroring.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "traffic-mirroring",
+        "title": "Traffic Mirroring",
+        "description": "Mirror production traffic to staging environments for realistic testing, shadow deployments, and performance validation without user impact.",
+        "metaDescription": "Traffic mirroring for production testing: shadow deployments, realistic load testing, performance validation, and safe environment replication without user impact.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "traffic-mirroring",
+          "devops",
+          "testing",
+          "deployment"
+        ],
+        "relatedResources": [
+          "/guides/cicd-pipeline-guide",
+          "/docs/post-deployment-checklist-template",
+          "/guides/deployment-strategies-guide",
+          "/recipes/blue-green-deployment",
+          "/recipes/graceful-shutdown"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Traffic mirroring for production testing: shadow deployments, realistic load testing, performance validation, and safe environment replication without user impact.",
+          "keywords": [
+            "traffic-mirroring",
+            "devops",
+            "testing",
+            "deployment"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/file-handling/compression-gzip.md",
       "metadata": {
         "contentType": "recipes",
@@ -10502,6 +10576,44 @@
       }
     },
     {
+      "path": "recipes/infrastructure/cost-optimization.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "cost-optimization",
+        "title": "Cloud Cost Optimization",
+        "description": "Reduce cloud infrastructure costs with right-sizing, reserved instances, spot instances, and automated resource scheduling across AWS, GCP, and Azure.",
+        "metaDescription": "Cloud cost optimization strategies: right-sizing, reserved instances, spot instances, auto-scaling policies, and automated resource scheduling for AWS, GCP, and Azure.",
+        "difficulty": "intermediate",
+        "topics": [
+          "infrastructure"
+        ],
+        "tags": [
+          "cost-optimization",
+          "infrastructure",
+          "aws",
+          "devops"
+        ],
+        "relatedResources": [
+          "/docs/capacity-planning-template",
+          "/recipes/helm-chart-deployment",
+          "/recipes/terraform-aws-vpc",
+          "/recipes/docker-compose-local-dev",
+          "/recipes/istio-canary-deployment"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Cloud cost optimization strategies: right-sizing, reserved instances, spot instances, auto-scaling policies, and automated resource scheduling for AWS, GCP, and Azure.",
+          "keywords": [
+            "cost-optimization",
+            "infrastructure",
+            "aws",
+            "devops"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/messaging/dead-letter-queue.md",
       "metadata": {
         "contentType": "recipes",
@@ -10627,7 +10739,6 @@
           "messaging"
         ],
         "tags": [
-          "message-idempotency",
           "messaging",
           "distributed-systems",
           "architecture"
@@ -10741,7 +10852,6 @@
         "tags": [
           "log-aggregation",
           "observability",
-          "elk",
           "devops"
         ],
         "relatedResources": [
@@ -10835,6 +10945,44 @@
             "observability",
             "api",
             "devops"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/observability/real-user-monitoring.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "real-user-monitoring",
+        "title": "Real User Monitoring",
+        "description": "Monitor actual user experiences with Core Web Vitals, session replay, and performance analytics to identify real-world bottlenecks.",
+        "metaDescription": "Real user monitoring RUM: Core Web Vitals, session replay, performance analytics, JavaScript error tracking, and user experience optimization.",
+        "difficulty": "intermediate",
+        "topics": [
+          "observability"
+        ],
+        "tags": [
+          "real-user-monitoring",
+          "observability",
+          "performance",
+          "frontend"
+        ],
+        "relatedResources": [
+          "/recipes/grafana-dashboards-observability",
+          "/recipes/prometheus-monitoring-alerts",
+          "/recipes/distributed-tracing",
+          "/recipes/log-aggregation",
+          "/recipes/metrics-collection"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Real user monitoring RUM: Core Web Vitals, session replay, performance analytics, JavaScript error tracking, and user experience optimization.",
+          "keywords": [
+            "real-user-monitoring",
+            "observability",
+            "performance",
+            "frontend"
           ]
         }
       }
@@ -11291,6 +11439,44 @@
       }
     },
     {
+      "path": "recipes/performance/web-performance.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "web-performance",
+        "title": "Web Performance Optimization",
+        "description": "Improve Core Web Vitals, reduce bundle sizes, and optimize frontend performance with lazy loading, code splitting, and modern build tools.",
+        "metaDescription": "Web performance optimization guide: Core Web Vitals, lazy loading, code splitting, bundle analysis, image optimization, and modern build tools for faster websites.",
+        "difficulty": "intermediate",
+        "topics": [
+          "performance"
+        ],
+        "tags": [
+          "web-performance",
+          "performance",
+          "frontend",
+          "core-web-vitals"
+        ],
+        "relatedResources": [
+          "/guides/performance-optimization-guide",
+          "/recipes/spa-code-splitting-lazy",
+          "/docs/capacity-planning-template",
+          "/guides/system-design-interview-guide",
+          "/guides/sql-performance-tuning-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Web performance optimization guide: Core Web Vitals, lazy loading, code splitting, bundle analysis, image optimization, and modern build tools for faster websites.",
+          "keywords": [
+            "web-performance",
+            "performance",
+            "frontend",
+            "core-web-vitals"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/security/api-security-headers.md",
       "metadata": {
         "contentType": "recipes",
@@ -11324,6 +11510,44 @@
             "api security",
             "cors headers",
             "owasp headers"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/security/container-security.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "container-security",
+        "title": "Container Security Scanning",
+        "description": "Scan container images for vulnerabilities, misconfigurations, and secrets with Trivy, Clair, and Snyk before deploying to production.",
+        "metaDescription": "Container security scanning: vulnerability detection with Trivy, Clair, Snyk, image hardening, secret detection, and CI-integrated security gates.",
+        "difficulty": "intermediate",
+        "topics": [
+          "security"
+        ],
+        "tags": [
+          "container-security",
+          "security",
+          "docker",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/container-security-scanning",
+          "/docs/data-retention-policy-template",
+          "/docs/dependency-audit-template",
+          "/docs/penetration-test-template",
+          "/docs/security-incident-response-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Container security scanning: vulnerability detection with Trivy, Clair, Snyk, image hardening, secret detection, and CI-integrated security gates.",
+          "keywords": [
+            "container-security",
+            "security",
+            "docker",
+            "devops"
           ]
         }
       }

@@ -8,7 +8,6 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
-  - retry-backoff
   - resilience
   - architecture
   - distributed-systems

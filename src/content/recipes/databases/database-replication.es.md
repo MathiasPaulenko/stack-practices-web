@@ -10,7 +10,6 @@ topics:
 tags:
   - database-replication
   - databases
-  - high-availability
   - performance
 relatedResources:
   - /recipes/uuid-generation-strategies

@@ -8,7 +8,6 @@ difficulty: advanced
 topics:
   - messaging
 tags:
-  - message-idempotency
   - messaging
   - distributed-systems
   - architecture
