@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 290,
+  "count": 296,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -4817,6 +4817,44 @@
       }
     },
     {
+      "path": "recipes/ai/ai-agents-tool-use.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "ai-agents-tool-use",
+        "title": "Agentes de IA con Uso de Herramientas",
+        "description": "Construye agentes de IA autónomos que pueden usar herramientas y APIs externas para completar tareas complejas.",
+        "metaDescription": "Aprende a construir agentes de IA autónomos con uso de herramientas, patrón ReAct y razonamiento para completar tareas complejas y automatizar workflows.",
+        "difficulty": "advanced",
+        "topics": [
+          "ai"
+        ],
+        "tags": [
+          "ai-agents",
+          "ai",
+          "openai",
+          "architecture"
+        ],
+        "relatedResources": [
+          "/recipes/ai-agents",
+          "/recipes/semantic-search",
+          "/recipes/slack-bot-openai",
+          "/recipes/chatbot-openai",
+          "/recipes/image-generation"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a construir agentes de IA autónomos con uso de herramientas, patrón ReAct y razonamiento para completar tareas complejas y automatizar workflows.",
+          "keywords": [
+            "ai-agents",
+            "ai",
+            "openai",
+            "architecture"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/ai/ai-agents.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -6996,6 +7034,44 @@
             "worker threads",
             "procesamiento concurrente",
             "tamano thread pool"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/batch-processing-patterns.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "batch-processing-patterns",
+        "title": "Patrones de Procesamiento por Lotes",
+        "description": "Diseña pipelines robustos de procesamiento por lotes para grandes datasets con retry, idempotencia y observabilidad.",
+        "metaDescription": "Patrones de procesamiento por lotes para grandes datasets: diseño robusto de pipelines, retry, idempotencia y mejores prácticas de observabilidad para ETL.",
+        "difficulty": "intermediate",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "batch-processing",
+          "data",
+          "performance",
+          "architecture"
+        ],
+        "relatedResources": [
+          "/recipes/caching",
+          "/recipes/data-validation",
+          "/recipes/date-formatting",
+          "/recipes/deep-clone-javascript",
+          "/recipes/flatten-unflatten-objects"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Patrones de procesamiento por lotes para grandes datasets: diseño robusto de pipelines, retry, idempotencia y mejores prácticas de observabilidad para ETL.",
+          "keywords": [
+            "batch-processing",
+            "data",
+            "performance",
+            "architecture"
           ]
         }
       }
@@ -9858,6 +9934,44 @@
       }
     },
     {
+      "path": "recipes/frontend/javascript-event-loop.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "javascript-event-loop",
+        "title": "Event Loop de JavaScript",
+        "description": "Comprende cómo funciona el event loop de JavaScript y cómo escribir código no bloqueante.",
+        "metaDescription": "Guía profunda del event loop de JavaScript: call stack, cola de tareas, microtareas y código async eficiente para mejorar el rendimiento de aplicaciones web.",
+        "difficulty": "intermediate",
+        "topics": [
+          "frontend"
+        ],
+        "tags": [
+          "event-loop",
+          "async",
+          "javascript",
+          "performance"
+        ],
+        "relatedResources": [
+          "/recipes/race-condition-prevention",
+          "/recipes/deep-clone-structured",
+          "/recipes/url-encoding-decoding",
+          "/recipes/brotli-nginx-compression",
+          "/recipes/spa-code-splitting-lazy"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Guía profunda del event loop de JavaScript: call stack, cola de tareas, microtareas y código async eficiente para mejorar el rendimiento de aplicaciones web.",
+          "keywords": [
+            "event-loop",
+            "async",
+            "javascript",
+            "performance"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/messaging/kafka-event-streaming.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -9929,6 +10043,44 @@
             "task queue",
             "dead letter",
             "rpc"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/observability/prometheus-api-monitoring.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "prometheus-api-monitoring",
+        "title": "Monitoreo de APIs con Prometheus",
+        "description": "Monitorea rendimiento y salud de APIs con métricas Prometheus, collectors personalizados y reglas de alertamiento.",
+        "metaDescription": "Configura monitoreo Prometheus para APIs REST y gRPC con métricas personalizadas, collectors, reglas de alertamiento y dashboards de Grafana.",
+        "difficulty": "intermediate",
+        "topics": [
+          "observability"
+        ],
+        "tags": [
+          "prometheus",
+          "observability",
+          "api",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/prometheus-monitoring-alerts",
+          "/recipes/grafana-dashboards-observability",
+          "/docs/api-status-page-template",
+          "/guides/logging-monitoring-observability-guide",
+          "/guides/monitoring-alerting-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Configura monitoreo Prometheus para APIs REST y gRPC con métricas personalizadas, collectors, reglas de alertamiento y dashboards de Grafana.",
+          "keywords": [
+            "prometheus",
+            "observability",
+            "api",
+            "devops"
           ]
         }
       }
@@ -10464,6 +10616,44 @@
       }
     },
     {
+      "path": "recipes/security/hmac-request-signing.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "hmac-request-signing",
+        "title": "Firma de Requests con HMAC",
+        "description": "Asegura requests de APIs con firmas HMAC-SHA256 para garantizar integridad y autenticidad.",
+        "metaDescription": "Implementa firma de requests HMAC-SHA256 para autenticación segura de APIs. Protege integridad de mensajes y previene ataques de replay entre servicios.",
+        "difficulty": "intermediate",
+        "topics": [
+          "security"
+        ],
+        "tags": [
+          "hmac",
+          "security",
+          "api",
+          "authentication"
+        ],
+        "relatedResources": [
+          "/guides/api-security-checklist-guide",
+          "/guides/security-best-practices-guide",
+          "/guides/web-application-security-guide",
+          "/recipes/websocket-authentication",
+          "/recipes/csrf-protection"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Implementa firma de requests HMAC-SHA256 para autenticación segura de APIs. Protege integridad de mensajes y previene ataques de replay entre servicios.",
+          "keywords": [
+            "hmac",
+            "security",
+            "api",
+            "authentication"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/security/oauth2-pkce-spa.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -10497,6 +10687,44 @@
             "authentication",
             "security",
             "spa auth"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/security/password-hashing-production.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "password-hashing-production",
+        "title": "Hashing de Contraseñas en Producción",
+        "description": "Hashea y verifica contraseñas de forma segura usando bcrypt, scrypt y Argon2 con mejores prácticas.",
+        "metaDescription": "Guía de hashing de contraseñas para producción con bcrypt, scrypt y Argon2. Mejores prácticas para almacenamiento seguro de credenciales en apps web.",
+        "difficulty": "intermediate",
+        "topics": [
+          "security"
+        ],
+        "tags": [
+          "bcrypt",
+          "security",
+          "authentication",
+          "nodejs"
+        ],
+        "relatedResources": [
+          "/guides/api-security-checklist-guide",
+          "/guides/security-best-practices-guide",
+          "/recipes/websocket-authentication",
+          "/recipes/csrf-protection",
+          "/recipes/oauth2-pkce-spa"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Guía de hashing de contraseñas para producción con bcrypt, scrypt y Argon2. Mejores prácticas para almacenamiento seguro de credenciales en apps web.",
+          "keywords": [
+            "bcrypt",
+            "security",
+            "authentication",
+            "nodejs"
           ]
         }
       }
