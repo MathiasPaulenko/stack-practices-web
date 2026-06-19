@@ -10,7 +10,6 @@ topics:
 tags:
   - authentication
   - oauth2
-  - google
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/password-hashing

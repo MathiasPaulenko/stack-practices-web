@@ -9,7 +9,6 @@ topics:
   - data
 tags:
   - data
-  - dates
   - formatting
 relatedResources:
   - /recipes/parse-json

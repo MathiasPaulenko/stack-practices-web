@@ -9,7 +9,6 @@ topics:
   - security
 tags:
   - security
-  - html-escaping
   - input-validation
 relatedResources:
   - /recipes/input-validation

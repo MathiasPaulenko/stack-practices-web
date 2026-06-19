@@ -9,8 +9,6 @@ topics:
   - testing
 tags:
   - testing
-  - baseline
-  - chromatic
 relatedResources:
   - /recipes/e2e-testing
   - /recipes/unit-testing

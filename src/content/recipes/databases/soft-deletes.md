@@ -10,7 +10,6 @@ topics:
 tags:
   - database
   - audit
-  - data-recovery
 relatedResources:
   - /recipes/database-transactions
   - /recipes/full-text-search

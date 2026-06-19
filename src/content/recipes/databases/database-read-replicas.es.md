@@ -9,8 +9,6 @@ topics:
   - databases
 tags:
   - database
-  - load-balancing
-  - mysql
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/full-text-search

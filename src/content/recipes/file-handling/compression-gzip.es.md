@@ -9,7 +9,6 @@ topics:
   - file-handling
 tags:
   - file-handling
-  - bandwidth
   - brotli
 relatedResources:
   - /recipes/cdn-edge-caching

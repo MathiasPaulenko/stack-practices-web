@@ -3223,6 +3223,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/real-time-notifications/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/rest-api-design/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/rest-api-design/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/rest-api-design/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/rest-api-design/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/rest-api-design/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/rest-api-design/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/rest-api-design/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/rest-api-design/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/send-emails-smtp/</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -3401,6 +3419,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/circuit-breaker-pattern/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/circuit-breaker-pattern/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/circuit-breaker-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/dependency-injection/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/dependency-injection/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/dependency-injection/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/dependency-injection/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/dependency-injection/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/dependency-injection/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/dependency-injection/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/dependency-injection/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/event-driven-architecture/</loc>
@@ -4519,6 +4555,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/bash-scripting-automation/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/cicd-pipeline-setup/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cicd-pipeline-setup/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cicd-pipeline-setup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cicd-pipeline-setup/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/cicd-pipeline-setup/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cicd-pipeline-setup/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cicd-pipeline-setup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cicd-pipeline-setup/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/cli-tool-argument-parsing/</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -5095,6 +5149,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/javascript-event-loop/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/websockets-realtime/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/websockets-realtime/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/websockets-realtime/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/websockets-realtime/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/websockets-realtime/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/websockets-realtime/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/websockets-realtime/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/websockets-realtime/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/kafka-event-streaming/</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -5149,6 +5221,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/prometheus-api-monitoring/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/structured-logging/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/structured-logging/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/structured-logging/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/structured-logging/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/structured-logging/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/structured-logging/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/structured-logging/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/structured-logging/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/brotli-nginx-compression/</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -5183,6 +5273,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cache-invalidation/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cache-invalidation/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cache-invalidation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/caching-strategies/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/caching-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/caching-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/caching-strategies/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/caching-strategies/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/caching-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/caching-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/caching-strategies/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/cdn-edge-caching/</loc>

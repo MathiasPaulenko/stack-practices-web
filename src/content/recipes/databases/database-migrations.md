@@ -9,7 +9,6 @@ topics:
   - databases
 tags:
   - database
-  - alembic
   - ci-cd
 relatedResources:
   - /recipes/database-indexing

@@ -10,7 +10,6 @@ topics:
 tags:
   - devops
   - dynamic
-  - generation
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

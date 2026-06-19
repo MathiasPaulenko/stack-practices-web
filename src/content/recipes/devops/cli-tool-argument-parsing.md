@@ -9,7 +9,6 @@ topics:
   - devops
 tags:
   - devops
-  - argparse
   - argument-parsing
 relatedResources:
   - /recipes/background-jobs

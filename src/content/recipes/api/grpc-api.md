@@ -9,7 +9,6 @@ topics:
   - api
 tags:
   - api
-  - interceptor
   - microservices
 relatedResources:
   - /recipes/server-sent-events

@@ -9,8 +9,6 @@ topics:
   - ai
 tags:
   - ai
-  - ai-development
-  - chain-of-thought
 relatedResources:
   - /recipes/chatbot-openai
   - /recipes/rag-pipeline

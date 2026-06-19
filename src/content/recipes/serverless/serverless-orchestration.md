@@ -9,8 +9,6 @@ topics:
   - serverless
 tags:
   - serverless
-  - distributed-workflows
-  - durable-functions
 relatedResources:
   - /recipes/cold-start-optimization
   - /recipes/event-driven-architecture

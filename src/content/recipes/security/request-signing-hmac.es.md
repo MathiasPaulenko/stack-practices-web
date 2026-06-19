@@ -10,7 +10,6 @@ topics:
 tags:
   - security
   - api-security
-  - aws-signature
 relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern

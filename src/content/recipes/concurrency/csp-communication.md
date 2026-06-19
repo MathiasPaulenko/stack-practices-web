@@ -9,8 +9,6 @@ topics:
   - concurrency
 tags:
   - concurrency
-  - channels
-  - go-routines
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools

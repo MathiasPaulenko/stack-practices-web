@@ -9,7 +9,6 @@ topics:
   - ai
 tags:
   - ai
-  - ai-art
   - batch-processing
 relatedResources:
   - /recipes/prompt-engineering

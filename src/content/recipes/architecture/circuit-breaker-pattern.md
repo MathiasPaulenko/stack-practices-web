@@ -9,7 +9,6 @@ topics:
   - architecture
 tags:
   - architecture
-  - cascading-failures
   - circuit-breaker
 relatedResources:
   - /recipes/microservices-patterns

@@ -10,7 +10,6 @@ topics:
 tags:
   - design
   - hexagonal-architecture
-  - ports-and-adapters
 relatedResources:
   - /recipes/domain-driven-design
   - /recipes/microservices-patterns

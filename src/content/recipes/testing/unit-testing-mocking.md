@@ -10,7 +10,6 @@ topics:
 tags:
   - testing
   - jest
-  - junit
 relatedResources:
   - /recipes/unit-testing
   - /recipes/integration-testing

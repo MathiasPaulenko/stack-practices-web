@@ -9,7 +9,6 @@ topics:
   - authentication
 tags:
   - authentication
-  - api-keys
   - hmac
 relatedResources:
   - /recipes/jwt-authentication

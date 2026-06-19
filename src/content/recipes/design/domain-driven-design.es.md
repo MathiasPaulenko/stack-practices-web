@@ -9,8 +9,6 @@ topics:
   - design
 tags:
   - design
-  - aggregates
-  - clean-architecture
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-functions

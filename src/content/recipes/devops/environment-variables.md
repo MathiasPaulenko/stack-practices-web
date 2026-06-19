@@ -9,8 +9,6 @@ topics:
   - devops
 tags:
   - devops
-  - 12-factor-app
-  - configuration
 relatedResources:
   - /recipes/docker-basics
   - /recipes/jwt-authentication

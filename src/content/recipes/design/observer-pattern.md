@@ -10,7 +10,6 @@ topics:
 tags:
   - design
   - observer-pattern
-  - pub-sub
 relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/async-patterns

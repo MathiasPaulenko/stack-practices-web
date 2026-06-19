@@ -10,7 +10,6 @@ topics:
 tags:
   - performance
   - database
-  - explain
 relatedResources:
   - /recipes/database-indexing
   - /recipes/sql-joins

@@ -10,7 +10,6 @@ topics:
 tags:
   - concurrency
   - atomic-operations
-  - blocking-queue
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools

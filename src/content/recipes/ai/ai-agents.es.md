@@ -10,7 +10,6 @@ topics:
 tags:
   - ai
   - ai-agents
-  - autonomous-agents
 relatedResources:
   - /recipes/prompt-engineering
   - /recipes/rag-pipeline

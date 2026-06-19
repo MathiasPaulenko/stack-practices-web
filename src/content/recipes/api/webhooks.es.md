@@ -9,8 +9,6 @@ topics:
   - api
 tags:
   - api
-  - events
-  - integration
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

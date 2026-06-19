@@ -9,7 +9,6 @@ topics:
   - concurrency
 tags:
   - concurrency
-  - cpu-bound
   - executors
 relatedResources:
   - /recipes/async-patterns

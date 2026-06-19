@@ -10,7 +10,6 @@ topics:
 tags:
   - serverless
   - cqrs
-  - dynamodb-streams
 relatedResources:
   - /recipes/cqrs-pattern
   - /recipes/saga-pattern

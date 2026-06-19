@@ -9,8 +9,6 @@ topics:
   - architecture
 tags:
   - architecture
-  - consistent-hashing
-  - failover
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway

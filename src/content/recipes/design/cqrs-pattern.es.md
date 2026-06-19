@@ -9,7 +9,6 @@ topics:
   - design
 tags:
   - design
-  - command-query-separation
   - cqrs
 relatedResources:
   - /recipes/domain-driven-design

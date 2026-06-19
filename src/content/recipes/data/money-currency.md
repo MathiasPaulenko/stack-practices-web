@@ -10,7 +10,6 @@ topics:
 tags:
   - data
   - currency
-  - decimal
 relatedResources:
   - /recipes/date-formatting
   - /recipes/caching

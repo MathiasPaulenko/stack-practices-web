@@ -9,7 +9,6 @@ topics:
   - ai
 tags:
   - ai
-  - fine-tuning
   - llm
 relatedResources:
   - /recipes/chatbot-openai

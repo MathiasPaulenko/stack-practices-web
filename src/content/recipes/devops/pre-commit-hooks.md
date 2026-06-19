@@ -9,8 +9,6 @@ topics:
   - devops
 tags:
   - devops
-  - code-quality
-  - git-hooks
 relatedResources:
   - /docs/bug-report-template
   - /docs/changelog-template

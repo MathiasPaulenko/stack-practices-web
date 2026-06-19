@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 296,
+  "count": 302,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -4824,8 +4824,7 @@
         ],
         "tags": [
           "ai",
-          "ai-agents",
-          "autonomous-agents"
+          "ai-agents"
         ],
         "relatedResources": [
           "/recipes/prompt-engineering",
@@ -4899,7 +4898,6 @@
         ],
         "tags": [
           "ai",
-          "ai-art",
           "batch-processing"
         ],
         "relatedResources": [
@@ -4936,7 +4934,6 @@
         ],
         "tags": [
           "ai",
-          "fine-tuning",
           "llm"
         ],
         "relatedResources": [
@@ -4974,9 +4971,7 @@
           "ai"
         ],
         "tags": [
-          "ai",
-          "ai-development",
-          "chain-of-thought"
+          "ai"
         ],
         "relatedResources": [
           "/recipes/chatbot-openai",
@@ -5514,7 +5509,6 @@
         ],
         "tags": [
           "api",
-          "interceptor",
           "microservices"
         ],
         "relatedResources": [
@@ -5976,6 +5970,44 @@
       }
     },
     {
+      "path": "recipes/api/rest-api-design.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "rest-api-design",
+        "title": "REST API Design Best Practices",
+        "description": "Design robust, scalable REST APIs with proper HTTP methods, status codes, versioning, and pagination strategies.",
+        "metaDescription": "REST API design best practices: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for scalable backends.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api"
+        ],
+        "tags": [
+          "rest-api",
+          "api-design",
+          "http",
+          "backend"
+        ],
+        "relatedResources": [
+          "/docs/api-error-response-template",
+          "/guides/rest-api-design-guide",
+          "/recipes/call-rest-api",
+          "/recipes/handle-cors",
+          "/recipes/idempotent-api-endpoints"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "REST API design best practices: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for scalable backends.",
+          "keywords": [
+            "rest-api",
+            "api-design",
+            "http",
+            "backend"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/send-emails-smtp.md",
       "metadata": {
         "contentType": "recipes",
@@ -6145,9 +6177,7 @@
           "api"
         ],
         "tags": [
-          "api",
-          "events",
-          "integration"
+          "api"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -6340,7 +6370,6 @@
         ],
         "tags": [
           "architecture",
-          "cascading-failures",
           "circuit-breaker"
         ],
         "relatedResources": [
@@ -6359,6 +6388,46 @@
             "cascading failures",
             "fault tolerance",
             "distributed resilience"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/architecture/dependency-injection.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "dependency-injection",
+        "title": "Dependency Injection",
+        "description": "Implement dependency injection to write testable, decoupled code across languages and frameworks.",
+        "metaDescription": "Dependency injection patterns in TypeScript, Python, Java, and C#. Write testable, decoupled, maintainable code with DI containers and manual injection.",
+        "difficulty": "intermediate",
+        "topics": [
+          "architecture"
+        ],
+        "tags": [
+          "dependency-injection",
+          "architecture",
+          "typescript",
+          "java",
+          "python"
+        ],
+        "relatedResources": [
+          "/patterns/mvc-pattern",
+          "/patterns/repository-pattern",
+          "/patterns/dependency-injection-pattern",
+          "/docs/adr-template",
+          "/docs/database-schema-documentation-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Dependency injection patterns in TypeScript, Python, Java, and C#. Write testable, decoupled, maintainable code with DI containers and manual injection.",
+          "keywords": [
+            "dependency-injection",
+            "architecture",
+            "typescript",
+            "java",
+            "python"
           ]
         }
       }
@@ -6413,9 +6482,7 @@
           "architecture"
         ],
         "tags": [
-          "architecture",
-          "consistent-hashing",
-          "failover"
+          "architecture"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -6488,7 +6555,6 @@
         ],
         "tags": [
           "architecture",
-          "choreography",
           "compensation"
         ],
         "relatedResources": [
@@ -6562,7 +6628,6 @@
         ],
         "tags": [
           "authentication",
-          "api-keys",
           "hmac"
         ],
         "relatedResources": [
@@ -6672,8 +6737,7 @@
         ],
         "tags": [
           "authentication",
-          "oauth2",
-          "google"
+          "oauth2"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -6868,8 +6932,7 @@
         ],
         "tags": [
           "concurrency",
-          "atomic-operations",
-          "blocking-queue"
+          "atomic-operations"
         ],
         "relatedResources": [
           "/recipes/locks-and-mutexes",
@@ -6904,9 +6967,7 @@
           "concurrency"
         ],
         "tags": [
-          "concurrency",
-          "channels",
-          "go-routines"
+          "concurrency"
         ],
         "relatedResources": [
           "/recipes/locks-and-mutexes",
@@ -6979,7 +7040,6 @@
         ],
         "tags": [
           "concurrency",
-          "cpu-bound",
           "executors"
         ],
         "relatedResources": [
@@ -7131,7 +7191,6 @@
         ],
         "tags": [
           "data",
-          "dates",
           "formatting"
         ],
         "relatedResources": [
@@ -7290,8 +7349,7 @@
         ],
         "tags": [
           "data",
-          "currency",
-          "decimal"
+          "currency"
         ],
         "relatedResources": [
           "/recipes/date-formatting",
@@ -7799,7 +7857,6 @@
         ],
         "tags": [
           "database",
-          "alembic",
           "ci-cd"
         ],
         "relatedResources": [
@@ -7836,9 +7893,7 @@
           "databases"
         ],
         "tags": [
-          "database",
-          "load-balancing",
-          "mysql"
+          "database"
         ],
         "relatedResources": [
           "/recipes/database-deadlocks-retries",
@@ -8262,8 +8317,7 @@
         ],
         "tags": [
           "database",
-          "audit",
-          "data-recovery"
+          "audit"
         ],
         "relatedResources": [
           "/recipes/database-transactions",
@@ -8373,7 +8427,6 @@
         ],
         "tags": [
           "design",
-          "command-query-separation",
           "cqrs"
         ],
         "relatedResources": [
@@ -8409,9 +8462,7 @@
           "design"
         ],
         "tags": [
-          "design",
-          "aggregates",
-          "clean-architecture"
+          "design"
         ],
         "relatedResources": [
           "/recipes/microservices-patterns",
@@ -8484,8 +8535,7 @@
         ],
         "tags": [
           "design",
-          "hexagonal-architecture",
-          "ports-and-adapters"
+          "hexagonal-architecture"
         ],
         "relatedResources": [
           "/recipes/domain-driven-design",
@@ -8521,8 +8571,7 @@
         ],
         "tags": [
           "design",
-          "observer-pattern",
-          "pub-sub"
+          "observer-pattern"
         ],
         "relatedResources": [
           "/recipes/event-driven-architecture",
@@ -8668,8 +8717,7 @@
         ],
         "tags": [
           "devops",
-          "background-jobs",
-          "bullmq"
+          "background-jobs"
         ],
         "relatedResources": [
           "/recipes/cron-jobs",
@@ -8734,6 +8782,44 @@
       }
     },
     {
+      "path": "recipes/devops/cicd-pipeline-setup.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "cicd-pipeline-setup",
+        "title": "CI/CD Pipeline Setup",
+        "description": "Set up automated CI/CD pipelines for testing, building, and deploying applications with GitHub Actions and best practices.",
+        "metaDescription": "CI/CD pipeline setup with GitHub Actions: automated testing, building, deployment, environment management, and pipeline security best practices.",
+        "difficulty": "beginner",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "ci-cd",
+          "devops",
+          "github-actions",
+          "automation"
+        ],
+        "relatedResources": [
+          "/guides/cicd-pipeline-guide",
+          "/recipes/github-actions",
+          "/recipes/bash-scripting-automation",
+          "/recipes/cron-jobs",
+          "/docs/api-status-page-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "CI/CD pipeline setup with GitHub Actions: automated testing, building, deployment, environment management, and pipeline security best practices.",
+          "keywords": [
+            "ci-cd",
+            "devops",
+            "github-actions",
+            "automation"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/cli-tool-argument-parsing.md",
       "metadata": {
         "contentType": "recipes",
@@ -8747,7 +8833,6 @@
         ],
         "tags": [
           "devops",
-          "argparse",
           "argument-parsing"
         ],
         "relatedResources": [
@@ -8939,9 +9024,7 @@
           "devops"
         ],
         "tags": [
-          "devops",
-          "12-factor-app",
-          "configuration"
+          "devops"
         ],
         "relatedResources": [
           "/recipes/docker-basics",
@@ -9020,8 +9103,7 @@
         ],
         "tags": [
           "devops",
-          "dynamic",
-          "generation"
+          "dynamic"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -9406,9 +9488,7 @@
           "devops"
         ],
         "tags": [
-          "devops",
-          "code-quality",
-          "git-hooks"
+          "devops"
         ],
         "relatedResources": [
           "/docs/bug-report-template",
@@ -9600,7 +9680,6 @@
         ],
         "tags": [
           "file-handling",
-          "bandwidth",
           "brotli"
         ],
         "relatedResources": [
@@ -9720,7 +9799,6 @@
         ],
         "tags": [
           "file-handling",
-          "html-to-pdf",
           "java"
         ],
         "relatedResources": [
@@ -9977,6 +10055,44 @@
       }
     },
     {
+      "path": "recipes/frontend/websockets-realtime.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "websockets-realtime",
+        "title": "WebSockets for Real-Time Communication",
+        "description": "Build bidirectional real-time communication with WebSockets, handling connection management, reconnection, and fallbacks.",
+        "metaDescription": "WebSocket real-time communication: connection management, reconnection strategies, fallbacks to SSE/long-polling, and scaling WebSocket servers.",
+        "difficulty": "intermediate",
+        "topics": [
+          "frontend"
+        ],
+        "tags": [
+          "websocket",
+          "real-time",
+          "nodejs",
+          "frontend"
+        ],
+        "relatedResources": [
+          "/recipes/server-sent-events-node",
+          "/recipes/websocket-bidirectional-chat",
+          "/patterns/mvc-pattern-frontend",
+          "/recipes/express-middleware-patterns",
+          "/recipes/url-encoding-decoding"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "WebSocket real-time communication: connection management, reconnection strategies, fallbacks to SSE/long-polling, and scaling WebSocket servers.",
+          "keywords": [
+            "websocket",
+            "real-time",
+            "nodejs",
+            "frontend"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/messaging/kafka-event-streaming.md",
       "metadata": {
         "contentType": "recipes",
@@ -10091,6 +10207,44 @@
       }
     },
     {
+      "path": "recipes/observability/structured-logging.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "structured-logging",
+        "title": "Structured Logging",
+        "description": "Implement structured logging with JSON output, correlation IDs, and log aggregation for production observability.",
+        "metaDescription": "Structured logging best practices: JSON format, correlation IDs, log levels, aggregation with ELK/Loki, and distributed tracing integration.",
+        "difficulty": "intermediate",
+        "topics": [
+          "observability"
+        ],
+        "tags": [
+          "logging",
+          "observability",
+          "elk",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/grafana-dashboards-observability",
+          "/recipes/prometheus-monitoring-alerts",
+          "/recipes/prometheus-api-monitoring",
+          "/guides/logging-monitoring-observability-guide",
+          "/guides/monitoring-alerting-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Structured logging best practices: JSON format, correlation IDs, log levels, aggregation with ELK/Loki, and distributed tracing integration.",
+          "keywords": [
+            "logging",
+            "observability",
+            "elk",
+            "devops"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/performance/brotli-nginx-compression.md",
       "metadata": {
         "contentType": "recipes",
@@ -10161,6 +10315,44 @@
             "write through",
             "cache consistency",
             "distributed caching"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/performance/caching-strategies.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "caching-strategies",
+        "title": "Caching Strategies",
+        "description": "Implement effective caching strategies for databases, APIs, and frontends using Redis, CDNs, and browser caches.",
+        "metaDescription": "Caching strategies for web applications: Redis, CDN, browser cache, cache invalidation, stale-while-revalidate, and cache stampede prevention.",
+        "difficulty": "intermediate",
+        "topics": [
+          "performance"
+        ],
+        "tags": [
+          "caching",
+          "performance",
+          "redis",
+          "cdn"
+        ],
+        "relatedResources": [
+          "/guides/performance-optimization-guide",
+          "/patterns/proxy-pattern-caching",
+          "/recipes/redis-cache-patterns",
+          "/recipes/cache-invalidation",
+          "/recipes/cdn-edge-caching"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Caching strategies for web applications: Redis, CDN, browser cache, cache invalidation, stale-while-revalidate, and cache stampede prevention.",
+          "keywords": [
+            "caching",
+            "performance",
+            "redis",
+            "cdn"
           ]
         }
       }
@@ -10409,8 +10601,7 @@
         ],
         "tags": [
           "performance",
-          "database",
-          "explain"
+          "database"
         ],
         "relatedResources": [
           "/recipes/database-indexing",
@@ -10784,8 +10975,7 @@
         ],
         "tags": [
           "security",
-          "api-security",
-          "aws-signature"
+          "api-security"
         ],
         "relatedResources": [
           "/patterns/abstract-factory-pattern",
@@ -10901,7 +11091,6 @@
         ],
         "tags": [
           "security",
-          "html-escaping",
           "input-validation"
         ],
         "relatedResources": [
@@ -11013,8 +11202,7 @@
         ],
         "tags": [
           "serverless",
-          "cqrs",
-          "dynamodb-streams"
+          "cqrs"
         ],
         "relatedResources": [
           "/recipes/cqrs-pattern",
@@ -11195,9 +11383,7 @@
           "serverless"
         ],
         "tags": [
-          "serverless",
-          "distributed-workflows",
-          "durable-functions"
+          "serverless"
         ],
         "relatedResources": [
           "/recipes/cold-start-optimization",
@@ -11490,8 +11676,7 @@
         ],
         "tags": [
           "testing",
-          "jest",
-          "junit"
+          "jest"
         ],
         "relatedResources": [
           "/recipes/unit-testing",
@@ -11563,9 +11748,7 @@
           "testing"
         ],
         "tags": [
-          "testing",
-          "baseline",
-          "chromatic"
+          "testing"
         ],
         "relatedResources": [
           "/recipes/e2e-testing",

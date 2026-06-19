@@ -10,7 +10,6 @@ topics:
 tags:
   - devops
   - background-jobs
-  - bullmq
 relatedResources:
   - /recipes/cron-jobs
   - /recipes/environment-variables

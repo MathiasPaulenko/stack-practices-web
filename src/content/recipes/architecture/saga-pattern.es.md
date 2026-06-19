@@ -9,7 +9,6 @@ topics:
   - architecture
 tags:
   - architecture
-  - choreography
   - compensation
 relatedResources:
   - /recipes/microservices-patterns
