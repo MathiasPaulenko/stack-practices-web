@@ -9,8 +9,6 @@ topics:
   - authentication
 tags:
   - authentication
-  - 2fa
-  - totp
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login

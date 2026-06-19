@@ -10,7 +10,6 @@ topics:
 tags:
   - security
   - compliance
-  - database-encryption
 relatedResources:
   - /recipes/secret-management
   - /recipes/api-security-headers

@@ -11,7 +11,6 @@ topics:
 tags:
   - data-validation
   - typescript
-  - zod
   - security
 relatedResources:
   - /recipes/api/go-rest-api-gin

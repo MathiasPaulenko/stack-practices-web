@@ -9,7 +9,6 @@ topics:
   - devops
   - infrastructure
 tags:
-  - docker-compose
   - docker
   - microservices
   - devops

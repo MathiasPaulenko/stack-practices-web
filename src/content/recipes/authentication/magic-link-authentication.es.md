@@ -9,8 +9,6 @@ topics:
   - authentication
 tags:
   - authentication
-  - magic-links
-  - passwordless
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/session-management

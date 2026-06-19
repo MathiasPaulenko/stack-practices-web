@@ -9,7 +9,6 @@ topics:
   - devops
   - observability
 tags:
-  - grafana
   - monitoring
   - observability
   - devops

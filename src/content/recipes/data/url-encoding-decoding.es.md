@@ -10,7 +10,6 @@ topics:
   - frontend
 tags:
   - encoding
-  - url
   - javascript
   - frontend
 relatedResources:

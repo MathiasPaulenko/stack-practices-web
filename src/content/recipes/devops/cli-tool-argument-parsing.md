@@ -9,7 +9,6 @@ topics:
   - devops
 tags:
   - devops
-  - argument-parsing
 relatedResources:
   - /recipes/background-jobs
   - /recipes/environment-variables

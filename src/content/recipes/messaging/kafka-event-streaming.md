@@ -9,7 +9,6 @@ topics:
   - messaging
   - devops
 tags:
-  - kafka
   - event-driven
   - messaging
   - microservices

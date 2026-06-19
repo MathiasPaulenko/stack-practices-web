@@ -9,7 +9,6 @@ topics:
   - concurrency
 tags:
   - concurrency
-  - coroutines
   - event-loop
 relatedResources:
   - /recipes/microservices-patterns

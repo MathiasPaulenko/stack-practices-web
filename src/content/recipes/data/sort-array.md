@@ -9,7 +9,6 @@ topics:
   - data
 tags:
   - data
-  - array
   - java
 relatedResources:
   - /recipes/parse-json

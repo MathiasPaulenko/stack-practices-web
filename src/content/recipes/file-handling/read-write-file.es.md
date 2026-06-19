@@ -10,7 +10,6 @@ topics:
 tags:
   - file-handling
   - bash
-  - files
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json

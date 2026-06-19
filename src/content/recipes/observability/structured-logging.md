@@ -10,7 +10,6 @@ topics:
 tags:
   - logging
   - observability
-  - elk
   - devops
 relatedResources:
   - /recipes/grafana-dashboards-observability

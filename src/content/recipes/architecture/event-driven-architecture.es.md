@@ -9,7 +9,6 @@ topics:
   - architecture
 tags:
   - architecture
-  - event-bus
   - event-driven
 relatedResources:
   - /recipes/microservices-patterns

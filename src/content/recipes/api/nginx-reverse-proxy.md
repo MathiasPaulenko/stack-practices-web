@@ -12,7 +12,6 @@ tags:
   - nginx
   - api-gateway
   - load-balancer
-  - reverse-proxy
 relatedResources:
   - /recipes/performance/brotli-nginx-compression
   - /recipes/devops/terraform-aws-vpc

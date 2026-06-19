@@ -12,7 +12,6 @@ tags:
   - express
   - nodejs
   - middleware
-  - patterns
 relatedResources:
   - /recipes/api/go-rest-api-gin
   - /recipes/security/data-validation-zod

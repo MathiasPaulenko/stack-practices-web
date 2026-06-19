@@ -9,7 +9,6 @@ topics:
   - performance
 tags:
   - performance
-  - cache-invalidation
   - caching
 relatedResources:
   - /recipes/database-indexing

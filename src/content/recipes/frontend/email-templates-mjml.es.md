@@ -11,7 +11,6 @@ topics:
 tags:
   - email
   - frontend
-  - mjml
 relatedResources:
   - /recipes/performance/spa-code-splitting-lazy
   - /recipes/api/go-rest-api-gin

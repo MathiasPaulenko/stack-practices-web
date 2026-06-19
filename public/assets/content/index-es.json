@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 302,
+  "count": 312,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -5130,8 +5130,7 @@
         "tags": [
           "ai",
           "chatbot",
-          "openai",
-          "slack"
+          "openai"
         ],
         "relatedResources": [
           "/recipes/chatbot-openai",
@@ -5271,6 +5270,44 @@
       }
     },
     {
+      "path": "recipes/api/api-rate-limiting.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "api-rate-limiting",
+        "title": "[ES] API Rate Limiting",
+        "description": "[ES] Protect APIs from abuse and ensure fair resource usage with token bucket, sliding window, and leaky bucket rate limiting.",
+        "metaDescription": "[ES] API rate limiting strategies: token bucket, sliding window, leaky bucket algorithms, Redis-based rate limiters, and distributed rate limiting.",
+        "difficulty": "intermediate",
+        "topics": [
+          "api"
+        ],
+        "tags": [
+          "rate-limiting",
+          "api",
+          "redis",
+          "security"
+        ],
+        "relatedResources": [
+          "/guides/api-security-checklist-guide",
+          "/recipes/api-rate-limiting-redis",
+          "/guides/web-application-security-guide",
+          "/recipes/rate-limiting",
+          "/docs/api-deprecation-notice-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "[ES] API rate limiting strategies: token bucket, sliding window, leaky bucket algorithms, Redis-based rate limiters, and distributed rate limiting.",
+          "keywords": [
+            "rate-limiting",
+            "api",
+            "redis",
+            "security"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/api/api-versioning.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -5363,8 +5400,7 @@
         "tags": [
           "pagination",
           "api",
-          "databases",
-          "postgresql"
+          "databases"
         ],
         "relatedResources": [
           "/recipes/databases/indexed-cursor-pagination",
@@ -5401,8 +5437,7 @@
         "tags": [
           "express",
           "nodejs",
-          "middleware",
-          "patterns"
+          "middleware"
         ],
         "relatedResources": [
           "/recipes/api/go-rest-api-gin",
@@ -5591,10 +5626,8 @@
           "devops"
         ],
         "tags": [
-          "grpc",
           "api",
-          "microservices",
-          "protocol-buffers"
+          "microservices"
         ],
         "relatedResources": [
           "/recipes/api/go-rest-api-gin",
@@ -5871,8 +5904,7 @@
         "tags": [
           "nginx",
           "api-gateway",
-          "load-balancer",
-          "reverse-proxy"
+          "load-balancer"
         ],
         "relatedResources": [
           "/recipes/performance/brotli-nginx-compression",
@@ -6026,9 +6058,7 @@
         ],
         "tags": [
           "rest-api",
-          "api-design",
-          "http",
-          "backend"
+          "http"
         ],
         "relatedResources": [
           "/docs/api-error-response-template",
@@ -6485,7 +6515,6 @@
         ],
         "tags": [
           "architecture",
-          "event-bus",
           "event-driven"
         ],
         "relatedResources": [
@@ -6544,6 +6573,44 @@
       }
     },
     {
+      "path": "recipes/architecture/microservices-communication.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "microservices-communication",
+        "title": "[ES] Microservices Communication Patterns",
+        "description": "[ES] Choose between synchronous and asynchronous communication patterns for resilient microservices architectures.",
+        "metaDescription": "[ES] Microservices communication patterns: REST, gRPC, messaging, event-driven, sagas, and circuit breakers for distributed system resilience.",
+        "difficulty": "advanced",
+        "topics": [
+          "architecture"
+        ],
+        "tags": [
+          "microservices",
+          "communication",
+          "distributed-systems",
+          "architecture"
+        ],
+        "relatedResources": [
+          "/guides/microservices-architecture-guide",
+          "/guides/monolith-to-microservices-migration-guide",
+          "/guides/software-architecture-guide",
+          "/guides/system-design-interview-guide",
+          "/guides/cap-theorem-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "[ES] Microservices communication patterns: REST, gRPC, messaging, event-driven, sagas, and circuit breakers for distributed system resilience.",
+          "keywords": [
+            "microservices",
+            "communication",
+            "distributed-systems",
+            "architecture"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/architecture/microservices-patterns.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -6576,6 +6643,44 @@
             "sistemas distribuidos",
             "patron saga",
             "arquitectura resiliente"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/architecture/multi-tenancy.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "multi-tenancy",
+        "title": "Arquitectura Multi-Tenancy",
+        "description": "Diseña aplicaciones multi-tenant con bases de datos compartidas o aisladas, routing tenant-aware y estrategias de aislamiento de datos.",
+        "metaDescription": "Patrones de arquitectura multi-tenancy: base de datos compartida, schema aislado, instancia dedicada por tenant, routing y estrategias de aislamiento de datos para SaaS.",
+        "difficulty": "advanced",
+        "topics": [
+          "architecture"
+        ],
+        "tags": [
+          "multi-tenancy",
+          "architecture",
+          "saas",
+          "databases"
+        ],
+        "relatedResources": [
+          "/docs/adr-template",
+          "/docs/database-schema-documentation-template",
+          "/docs/engineering-handbook-template",
+          "/guides/rest-api-design-guide",
+          "/guides/domain-driven-design-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Patrones de arquitectura multi-tenancy: base de datos compartida, schema aislado, instancia dedicada por tenant, routing y estrategias de aislamiento de datos para SaaS.",
+          "keywords": [
+            "multi-tenancy",
+            "architecture",
+            "saas",
+            "databases"
           ]
         }
       }
@@ -6738,9 +6843,7 @@
           "authentication"
         ],
         "tags": [
-          "authentication",
-          "magic-links",
-          "passwordless"
+          "authentication"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -6813,8 +6916,7 @@
         ],
         "tags": [
           "authentication",
-          "bcrypt",
-          "hashing"
+          "bcrypt"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -6889,9 +6991,7 @@
           "authentication"
         ],
         "tags": [
-          "authentication",
-          "2fa",
-          "totp"
+          "authentication"
         ],
         "relatedResources": [
           "/recipes/jwt-authentication",
@@ -6931,7 +7031,6 @@
         ],
         "tags": [
           "concurrency",
-          "coroutines",
           "event-loop"
         ],
         "relatedResources": [
@@ -7075,8 +7174,7 @@
           "concurrency"
         ],
         "tags": [
-          "concurrency",
-          "executors"
+          "concurrency"
         ],
         "relatedResources": [
           "/recipes/async-patterns",
@@ -7226,8 +7324,7 @@
           "data"
         ],
         "tags": [
-          "data",
-          "formatting"
+          "data"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -7344,7 +7441,6 @@
         ],
         "tags": [
           "data",
-          "flatten",
           "java"
         ],
         "relatedResources": [
@@ -7384,8 +7480,7 @@
           "data"
         ],
         "tags": [
-          "data",
-          "currency"
+          "data"
         ],
         "relatedResources": [
           "/recipes/date-formatting",
@@ -7539,7 +7634,6 @@
         ],
         "tags": [
           "data",
-          "array",
           "java"
         ],
         "relatedResources": [
@@ -7575,7 +7669,6 @@
         ],
         "tags": [
           "encoding",
-          "url",
           "javascript",
           "frontend"
         ],
@@ -7794,6 +7887,44 @@
       }
     },
     {
+      "path": "recipes/databases/database-connection-pooling.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "database-connection-pooling",
+        "title": "[ES] Database Connection Pooling",
+        "description": "[ES] Configure and tune database connection pools to maximize throughput while preventing connection exhaustion.",
+        "metaDescription": "[ES] Database connection pooling: configure, tune, and monitor pools for PostgreSQL, MySQL, and Redis to prevent exhaustion and improve throughput.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "connection-pooling",
+          "databases",
+          "postgresql",
+          "performance"
+        ],
+        "relatedResources": [
+          "/recipes/uuid-generation-strategies",
+          "/recipes/postgres-query-optimization",
+          "/guides/sql-performance-tuning-guide",
+          "/recipes/cursor-pagination-postgresql",
+          "/recipes/redis-cache-patterns"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "[ES] Database connection pooling: configure, tune, and monitor pools for PostgreSQL, MySQL, and Redis to prevent exhaustion and improve throughput.",
+          "keywords": [
+            "connection-pooling",
+            "databases",
+            "postgresql",
+            "performance"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/database-deadlocks-retries.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7846,7 +7977,6 @@
         ],
         "tags": [
           "database",
-          "migrations",
           "schema"
         ],
         "relatedResources": [
@@ -7996,9 +8126,7 @@
           "databases"
         ],
         "tags": [
-          "database",
-          "database-views",
-          "materialized-views"
+          "database"
         ],
         "relatedResources": [
           "/guides/sql-performance-tuning-guide",
@@ -8076,9 +8204,7 @@
         ],
         "tags": [
           "elasticsearch",
-          "database",
-          "analytics",
-          "search"
+          "database"
         ],
         "relatedResources": [
           "/recipes/databases/mongodb-crud-mongoose",
@@ -8152,8 +8278,7 @@
         ],
         "tags": [
           "database",
-          "elasticsearch",
-          "full-text-search"
+          "elasticsearch"
         ],
         "relatedResources": [
           "/recipes/database-transactions",
@@ -8738,8 +8863,7 @@
           "devops"
         ],
         "tags": [
-          "devops",
-          "background-jobs"
+          "devops"
         ],
         "relatedResources": [
           "/recipes/cron-jobs",
@@ -8800,6 +8924,82 @@
       }
     },
     {
+      "path": "recipes/devops/blue-green-deployment.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "blue-green-deployment",
+        "title": "Despliegue Blue-Green",
+        "description": "Despliega con zero downtime usando ambientes blue-green, conmutación instantánea de tráfico y capacidades de rollback automatizado.",
+        "metaDescription": "Estrategia de despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción.",
+        "difficulty": "intermediate",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "blue-green",
+          "deployment",
+          "zero-downtime",
+          "devops"
+        ],
+        "relatedResources": [
+          "/guides/deployment-strategies-guide",
+          "/docs/post-deployment-checklist-template",
+          "/guides/cicd-pipeline-guide",
+          "/recipes/graceful-shutdown",
+          "/recipes/istio-canary-deployment"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Estrategia de despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción.",
+          "keywords": [
+            "blue-green",
+            "deployment",
+            "zero-downtime",
+            "devops"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/devops/chaos-engineering.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "chaos-engineering",
+        "title": "Chaos Engineering",
+        "description": "Construye sistemas resilientes inyectando fallas intencionalmente y observando cómo responden y se recuperan tus servicios distribuidos.",
+        "metaDescription": "Chaos engineering: inyección de fallas, game days, rollback automático y experimentos controlados para resiliencia en sistemas productivos.",
+        "difficulty": "advanced",
+        "topics": [
+          "devops"
+        ],
+        "tags": [
+          "chaos-engineering",
+          "resilience",
+          "testing",
+          "distributed-systems"
+        ],
+        "relatedResources": [
+          "/guides/cicd-pipeline-guide",
+          "/docs/api-status-page-template",
+          "/docs/bug-report-template",
+          "/docs/capacity-planning-template",
+          "/docs/changelog-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Chaos engineering: inyección de fallas, game days, rollback automático y experimentos controlados para resiliencia en sistemas productivos.",
+          "keywords": [
+            "chaos-engineering",
+            "resilience",
+            "testing",
+            "distributed-systems"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/devops/cicd-pipeline-setup.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -8850,8 +9050,7 @@
           "devops"
         ],
         "tags": [
-          "devops",
-          "argument-parsing"
+          "devops"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -8890,8 +9089,7 @@
         "tags": [
           "container",
           "docker",
-          "security",
-          "trivy"
+          "security"
         ],
         "relatedResources": [
           "/recipes/devops/docker-multi-stage-builds",
@@ -9001,7 +9199,6 @@
           "infrastructure"
         ],
         "tags": [
-          "docker-compose",
           "docker",
           "microservices",
           "devops"
@@ -9116,8 +9313,7 @@
           "devops"
         ],
         "tags": [
-          "devops",
-          "dynamic"
+          "devops"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -9271,7 +9467,6 @@
           "observability"
         ],
         "tags": [
-          "grafana",
           "monitoring",
           "observability",
           "devops"
@@ -9347,7 +9542,6 @@
           "infrastructure"
         ],
         "tags": [
-          "helm",
           "kubernetes",
           "devops",
           "infrastructure"
@@ -9459,7 +9653,6 @@
         ],
         "tags": [
           "devops",
-          "config",
           "java"
         ],
         "relatedResources": [
@@ -9878,8 +10071,7 @@
         ],
         "tags": [
           "file-handling",
-          "csv",
-          "excel"
+          "csv"
         ],
         "relatedResources": [
           "/recipes/export-csv-excel",
@@ -9916,8 +10108,7 @@
         ],
         "tags": [
           "file-handling",
-          "bash",
-          "files"
+          "bash"
         ],
         "relatedResources": [
           "/recipes/call-rest-api",
@@ -9989,8 +10180,7 @@
         ],
         "tags": [
           "email",
-          "frontend",
-          "mjml"
+          "frontend"
         ],
         "relatedResources": [
           "/recipes/performance/spa-code-splitting-lazy",
@@ -10062,7 +10252,6 @@
           "frontend"
         ],
         "tags": [
-          "websocket",
           "real-time",
           "nodejs",
           "frontend"
@@ -10088,6 +10277,44 @@
       }
     },
     {
+      "path": "recipes/messaging/event-driven-microservices.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "event-driven-microservices",
+        "title": "Microservicios Event-Driven",
+        "description": "Diseña microservicios event-driven con message brokers, event sourcing, CQRS y patrones de consistencia eventual.",
+        "metaDescription": "Arquitectura de microservicios event-driven: message brokers, event sourcing, CQRS, consistencia eventual, patrones saga e implementación del outbox pattern.",
+        "difficulty": "advanced",
+        "topics": [
+          "messaging"
+        ],
+        "tags": [
+          "event-driven",
+          "microservices",
+          "messaging",
+          "architecture"
+        ],
+        "relatedResources": [
+          "/recipes/kafka-event-streaming",
+          "/recipes/rabbitmq-task-queue",
+          "/guides/software-architecture-guide",
+          "/guides/event-driven-architecture-guide",
+          "/guides/microservices-architecture-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Arquitectura de microservicios event-driven: message brokers, event sourcing, CQRS, consistencia eventual, patrones saga e implementación del outbox pattern.",
+          "keywords": [
+            "event-driven",
+            "microservices",
+            "messaging",
+            "architecture"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/messaging/kafka-event-streaming.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -10101,7 +10328,6 @@
           "devops"
         ],
         "tags": [
-          "kafka",
           "event-driven",
           "messaging",
           "microservices"
@@ -10139,7 +10365,6 @@
           "devops"
         ],
         "tags": [
-          "rabbitmq",
           "messaging",
           "microservices",
           "devops"
@@ -10159,6 +10384,44 @@
             "task queue",
             "dead letter",
             "rpc"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/observability/distributed-tracing.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "distributed-tracing",
+        "title": "Tracing Distribuido",
+        "description": "Tracea requests a través de microservicios distribuidos con OpenTelemetry, Jaeger y Zipkin para debuguear latencia y optimizar performance.",
+        "metaDescription": "Tracing distribuido con OpenTelemetry, Jaeger y Zipkin: tracea requests a través de microservicios, identifica cuellos de botella de latencia y optimiza performance.",
+        "difficulty": "intermediate",
+        "topics": [
+          "observability"
+        ],
+        "tags": [
+          "distributed-tracing",
+          "observability",
+          "opentelemetry",
+          "microservices"
+        ],
+        "relatedResources": [
+          "/recipes/grafana-dashboards-observability",
+          "/recipes/prometheus-monitoring-alerts",
+          "/recipes/prometheus-api-monitoring",
+          "/recipes/structured-logging",
+          "/guides/microservices-architecture-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Tracing distribuido con OpenTelemetry, Jaeger y Zipkin: tracea requests a través de microservicios, identifica cuellos de botella de latencia y optimiza performance.",
+          "keywords": [
+            "distributed-tracing",
+            "observability",
+            "opentelemetry",
+            "microservices"
           ]
         }
       }
@@ -10216,7 +10479,6 @@
         "tags": [
           "logging",
           "observability",
-          "elk",
           "devops"
         ],
         "relatedResources": [
@@ -10291,7 +10553,6 @@
         ],
         "tags": [
           "performance",
-          "cache-invalidation",
           "caching"
         ],
         "relatedResources": [
@@ -10480,9 +10741,7 @@
           "performance"
         ],
         "tags": [
-          "performance",
-          "debounce",
-          "throttle"
+          "performance"
         ],
         "relatedResources": [
           "/recipes/rate-limiting",
@@ -10732,6 +10991,44 @@
       }
     },
     {
+      "path": "recipes/security/data-privacy-gdpr.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "data-privacy-gdpr",
+        "title": "Privacidad de Datos y Cumplimiento GDPR",
+        "description": "Implementa controles de privacidad de datos, gestión de consentimientos, anonimización y manejo GDPR-compliant en aplicaciones web.",
+        "metaDescription": "Cumplimiento GDPR y privacidad de datos: gestión de consentimientos, anonimización de datos, derecho al olvido, portabilidad de datos y patrones de privacy-by-design.",
+        "difficulty": "intermediate",
+        "topics": [
+          "security"
+        ],
+        "tags": [
+          "gdpr",
+          "privacy",
+          "compliance",
+          "data-protection"
+        ],
+        "relatedResources": [
+          "/docs/data-retention-policy-template",
+          "/recipes/encryption-at-rest",
+          "/docs/dependency-audit-template",
+          "/docs/penetration-test-template",
+          "/docs/security-incident-response-template"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Cumplimiento GDPR y privacidad de datos: gestión de consentimientos, anonimización de datos, derecho al olvido, portabilidad de datos y patrones de privacy-by-design.",
+          "keywords": [
+            "gdpr",
+            "privacy",
+            "compliance",
+            "data-protection"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/security/data-validation-zod.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -10747,7 +11044,6 @@
         "tags": [
           "data-validation",
           "typescript",
-          "zod",
           "security"
         ],
         "relatedResources": [
@@ -10783,8 +11079,7 @@
         ],
         "tags": [
           "security",
-          "compliance",
-          "database-encryption"
+          "compliance"
         ],
         "relatedResources": [
           "/recipes/secret-management",
@@ -11469,6 +11764,44 @@
             "cypress testing",
             "user journey testing",
             "automated browser testing"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/testing/end-to-end-testing.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "end-to-end-testing",
+        "title": "[ES] End-to-End Testing",
+        "description": "[ES] Write reliable end-to-end tests that simulate real user journeys across the entire application stack.",
+        "metaDescription": "[ES] End-to-end testing best practices: Playwright, Cypress, test isolation, data seeding, CI integration, and flaky test prevention strategies.",
+        "difficulty": "intermediate",
+        "topics": [
+          "testing"
+        ],
+        "tags": [
+          "e2e",
+          "testing",
+          "playwright",
+          "automation"
+        ],
+        "relatedResources": [
+          "/guides/cicd-pipeline-guide",
+          "/guides/testing-strategy-guide",
+          "/recipes/e2e-testing",
+          "/recipes/playwright-component-testing",
+          "/guides/test-driven-development-guide"
+        ],
+        "lastUpdated": "2026-06-19",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "[ES] End-to-end testing best practices: Playwright, Cypress, test isolation, data seeding, CI integration, and flaky test prevention strategies.",
+          "keywords": [
+            "e2e",
+            "testing",
+            "playwright",
+            "automation"
           ]
         }
       }

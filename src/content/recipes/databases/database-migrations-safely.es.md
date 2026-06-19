@@ -9,7 +9,6 @@ topics:
   - databases
 tags:
   - database
-  - migrations
   - schema
 relatedResources:
   - /recipes/database-transactions

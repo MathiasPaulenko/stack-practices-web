@@ -9,7 +9,6 @@ topics:
   - data
 tags:
   - data
-  - currency
 relatedResources:
   - /recipes/date-formatting
   - /recipes/caching

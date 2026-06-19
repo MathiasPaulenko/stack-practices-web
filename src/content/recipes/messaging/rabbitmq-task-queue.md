@@ -9,7 +9,6 @@ topics:
   - messaging
   - devops
 tags:
-  - rabbitmq
   - messaging
   - microservices
   - devops

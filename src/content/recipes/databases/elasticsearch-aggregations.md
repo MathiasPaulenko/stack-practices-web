@@ -11,8 +11,6 @@ topics:
 tags:
   - elasticsearch
   - database
-  - analytics
-  - search
 relatedResources:
   - /recipes/databases/mongodb-crud-mongoose
   - /recipes/query-optimization

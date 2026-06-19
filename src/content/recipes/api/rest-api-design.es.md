@@ -9,9 +9,7 @@ topics:
   - api
 tags:
   - rest-api
-  - api-design
   - http
-  - backend
 relatedResources:
   - /docs/api-error-response-template
   - /guides/rest-api-design-guide

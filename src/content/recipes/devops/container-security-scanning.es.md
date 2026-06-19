@@ -12,7 +12,6 @@ tags:
   - container
   - docker
   - security
-  - trivy
 relatedResources:
   - /recipes/devops/docker-multi-stage-builds
   - /recipes/security/secrets-management-vault

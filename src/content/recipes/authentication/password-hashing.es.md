@@ -10,7 +10,6 @@ topics:
 tags:
   - authentication
   - bcrypt
-  - hashing
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/handle-errors

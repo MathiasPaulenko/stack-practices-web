@@ -11,7 +11,6 @@ tags:
   - ai
   - chatbot
   - openai
-  - slack
 relatedResources:
   - /recipes/chatbot-openai
   - /recipes/llm-fine-tuning

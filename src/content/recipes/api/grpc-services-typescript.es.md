@@ -9,10 +9,8 @@ topics:
   - api
   - devops
 tags:
-  - grpc
   - api
   - microservices
-  - protocol-buffers
 relatedResources:
   - /recipes/api/go-rest-api-gin
   - /patterns/design/ambassador-pattern-services

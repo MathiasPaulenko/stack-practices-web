@@ -9,8 +9,6 @@ topics:
   - performance
 tags:
   - performance
-  - debounce
-  - throttle
 relatedResources:
   - /recipes/rate-limiting
   - /recipes/webhooks

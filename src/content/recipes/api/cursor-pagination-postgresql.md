@@ -12,7 +12,6 @@ tags:
   - pagination
   - api
   - databases
-  - postgresql
 relatedResources:
   - /recipes/databases/indexed-cursor-pagination
   - /recipes/api/go-rest-api-gin

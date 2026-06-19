@@ -8,7 +8,6 @@ difficulty: intermediate
 topics:
   - frontend
 tags:
-  - websocket
   - real-time
   - nodejs
   - frontend

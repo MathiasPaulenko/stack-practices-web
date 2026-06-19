@@ -9,7 +9,6 @@ topics:
   - devops
   - infrastructure
 tags:
-  - helm
   - kubernetes
   - devops
   - infrastructure

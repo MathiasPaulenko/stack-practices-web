@@ -9,7 +9,6 @@ topics:
   - devops
 tags:
   - devops
-  - dynamic
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

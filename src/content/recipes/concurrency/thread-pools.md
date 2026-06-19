@@ -9,7 +9,6 @@ topics:
   - concurrency
 tags:
   - concurrency
-  - executors
 relatedResources:
   - /recipes/async-patterns
   - /recipes/microservices-patterns

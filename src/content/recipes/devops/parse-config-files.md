@@ -9,7 +9,6 @@ topics:
   - devops
 tags:
   - devops
-  - config
   - java
 relatedResources:
   - /recipes/input-validation

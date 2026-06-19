@@ -9,7 +9,6 @@ topics:
   - data
 tags:
   - data
-  - formatting
 relatedResources:
   - /recipes/parse-json
   - /recipes/call-rest-api

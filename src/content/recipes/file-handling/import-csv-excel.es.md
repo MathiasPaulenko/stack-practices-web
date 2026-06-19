@@ -10,7 +10,6 @@ topics:
 tags:
   - file-handling
   - csv
-  - excel
 relatedResources:
   - /recipes/export-csv-excel
   - /recipes/file-upload-validation

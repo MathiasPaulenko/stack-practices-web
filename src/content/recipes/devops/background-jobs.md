@@ -9,7 +9,6 @@ topics:
   - devops
 tags:
   - devops
-  - background-jobs
 relatedResources:
   - /recipes/cron-jobs
   - /recipes/environment-variables

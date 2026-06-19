@@ -9,7 +9,6 @@ topics:
   - data
 tags:
   - data
-  - flatten
   - java
 relatedResources:
   - /recipes/caching

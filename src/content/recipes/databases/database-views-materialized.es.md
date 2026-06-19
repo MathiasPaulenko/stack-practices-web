@@ -9,8 +9,6 @@ topics:
   - databases
 tags:
   - database
-  - database-views
-  - materialized-views
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/database-deadlocks-retries

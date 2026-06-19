@@ -9,7 +9,6 @@ topics:
   - file-handling
 tags:
   - file-handling
-  - file-upload
   - java
 relatedResources:
   - /recipes/input-validation

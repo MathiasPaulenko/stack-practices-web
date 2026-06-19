@@ -10,7 +10,6 @@ topics:
 tags:
   - database
   - elasticsearch
-  - full-text-search
 relatedResources:
   - /recipes/database-transactions
   - /patterns/abstract-factory-pattern
