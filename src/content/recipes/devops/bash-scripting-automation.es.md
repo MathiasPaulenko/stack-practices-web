@@ -12,7 +12,6 @@ tags:
   - bash
   - automation
   - devops
-  - scripting
 relatedResources:
   - /recipes/read-write-file
   - /recipes/pre-commit-hooks

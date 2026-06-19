@@ -9,7 +9,6 @@ topics:
   - performance
 tags:
   - performance
-  - connection-pooling
   - database
 relatedResources:
   - /guides/sql-performance-tuning-guide

@@ -10,7 +10,6 @@ topics:
 tags:
   - devops
   - feature-flags
-  - toggles
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

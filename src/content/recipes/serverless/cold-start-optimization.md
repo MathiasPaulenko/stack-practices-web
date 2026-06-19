@@ -9,7 +9,6 @@ topics:
   - serverless
 tags:
   - serverless
-  - cold-start
   - lambda
 relatedResources:
   - /recipes/serverless-functions

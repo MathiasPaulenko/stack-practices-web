@@ -9,7 +9,6 @@ topics:
   - databases
 tags:
   - database
-  - optimistic-locking
   - concurrency
 relatedResources:
   - /recipes/database-deadlocks-retries

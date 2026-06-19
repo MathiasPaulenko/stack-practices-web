@@ -9,7 +9,6 @@ topics:
   - serverless
 tags:
   - serverless
-  - scheduled-jobs
   - cron
 relatedResources:
   - /recipes/serverless-api-gateway

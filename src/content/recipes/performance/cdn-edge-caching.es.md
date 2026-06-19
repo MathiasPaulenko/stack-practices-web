@@ -10,7 +10,6 @@ topics:
 tags:
   - performance
   - cdn
-  - edge-caching
 relatedResources:
   - /guides/performance-optimization-guide
   - /guides/sql-performance-tuning-guide

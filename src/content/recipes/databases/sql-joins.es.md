@@ -10,7 +10,6 @@ topics:
 tags:
   - database
   - sql
-  - joins
 relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file

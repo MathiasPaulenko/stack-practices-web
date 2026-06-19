@@ -9,7 +9,6 @@ topics:
   - testing
 tags:
   - testing
-  - e2e-testing
   - playwright
 relatedResources:
   - /recipes/integration-testing

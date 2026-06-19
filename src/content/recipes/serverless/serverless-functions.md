@@ -10,7 +10,6 @@ topics:
 tags:
   - serverless
   - lambda
-  - cloud-functions
 relatedResources:
   - /guides/event-driven-architecture-guide
   - /guides/software-architecture-guide

@@ -8095,7 +8095,6 @@
         ],
         "tags": [
           "database",
-          "optimistic-locking",
           "concurrency"
         ],
         "relatedResources": [
@@ -8249,8 +8248,7 @@
         ],
         "tags": [
           "database",
-          "sql",
-          "joins"
+          "sql"
         ],
         "relatedResources": [
           "/recipes/parse-json",
@@ -8656,8 +8654,7 @@
         "tags": [
           "bash",
           "automation",
-          "devops",
-          "scripting"
+          "devops"
         ],
         "relatedResources": [
           "/recipes/read-write-file",
@@ -8921,8 +8918,7 @@
         ],
         "tags": [
           "devops",
-          "feature-flags",
-          "toggles"
+          "feature-flags"
         ],
         "relatedResources": [
           "/recipes/background-jobs",
@@ -9270,8 +9266,7 @@
         ],
         "tags": [
           "networking",
-          "load-balancer",
-          "haproxy"
+          "load-balancer"
         ],
         "relatedResources": [
           "/patterns/design/ambassador-pattern-services",
@@ -9803,7 +9798,6 @@
         ],
         "tags": [
           "file-handling",
-          "stream-processing",
           "python"
         ],
         "relatedResources": [
@@ -9841,7 +9835,6 @@
         ],
         "tags": [
           "email",
-          "templates",
           "frontend",
           "mjml"
         ],
@@ -10029,8 +10022,7 @@
         ],
         "tags": [
           "performance",
-          "cdn",
-          "edge-caching"
+          "cdn"
         ],
         "relatedResources": [
           "/guides/performance-optimization-guide",
@@ -10068,7 +10060,6 @@
         ],
         "tags": [
           "performance",
-          "connection-pooling",
           "database"
         ],
         "relatedResources": [
@@ -10717,7 +10708,6 @@
         ],
         "tags": [
           "serverless",
-          "cold-start",
           "lambda"
         ],
         "relatedResources": [
@@ -10864,7 +10854,6 @@
         ],
         "tags": [
           "serverless",
-          "scheduled-jobs",
           "cron"
         ],
         "relatedResources": [
@@ -10939,8 +10928,7 @@
         ],
         "tags": [
           "serverless",
-          "lambda",
-          "cloud-functions"
+          "lambda"
         ],
         "relatedResources": [
           "/guides/event-driven-architecture-guide",
@@ -11050,7 +11038,6 @@
         ],
         "tags": [
           "testing",
-          "e2e-testing",
           "playwright"
         ],
         "relatedResources": [
@@ -11123,7 +11110,6 @@
         ],
         "tags": [
           "testing",
-          "integration-testing",
           "pytest"
         ],
         "relatedResources": [

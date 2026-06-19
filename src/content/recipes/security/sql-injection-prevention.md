@@ -9,7 +9,6 @@ topics:
   - security
 tags:
   - security
-  - sql-injection
   - database
 relatedResources:
   - /recipes/database-transactions

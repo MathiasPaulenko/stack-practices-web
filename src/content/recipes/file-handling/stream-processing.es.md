@@ -9,7 +9,6 @@ topics:
   - file-handling
 tags:
   - file-handling
-  - stream-processing
   - python
 relatedResources:
   - /recipes/read-write-file

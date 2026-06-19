@@ -11,7 +11,6 @@ topics:
 tags:
   - networking
   - load-balancer
-  - haproxy
 relatedResources:
   - /patterns/design/ambassador-pattern-services
   - /recipes/devops/nginx-reverse-proxy

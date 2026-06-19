@@ -9,7 +9,6 @@ topics:
   - testing
 tags:
   - testing
-  - integration-testing
   - pytest
 relatedResources:
   - /recipes/unit-testing

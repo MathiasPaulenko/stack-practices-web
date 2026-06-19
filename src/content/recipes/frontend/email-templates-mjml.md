@@ -10,7 +10,6 @@ topics:
   - data
 tags:
   - email
-  - templates
   - frontend
   - mjml
 relatedResources:
