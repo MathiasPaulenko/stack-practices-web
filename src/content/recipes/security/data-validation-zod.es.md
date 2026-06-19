@@ -186,12 +186,12 @@ function useZodForm<T extends z.ZodObject<any>>(schema: T) {
 
 - Usa `.strict()` para rechazar propiedades inesperadas y prevenir injection
 - Precompila schemas para hot paths para reducir overhead de parsing
-- Combina Zod con tRPC para APIs end-to-end type-safe
+- Combina Zod con tRPC para APIs end-to-end type-safe. Consulta [diseño de APIs](/guides/api/rest-api-design-guide).
 
 ## Errores Comunes
 
 - Usar `.parse()` sin try-catch, crasheando en input invalido
-- No coercionar query parameters y form data, que llegan como strings
+- No coercionar query parameters y form data, que llegan como strings. Consulta [validación de input](/recipes/api/input-validation).
 - Crear nuevas instancias de schema en cada render en lugar de reusarlas
 
 ## FAQ

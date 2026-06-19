@@ -144,9 +144,9 @@ Simula comportamiento de usuario real a través de toda la aplicación.
 
 ## Metas de Coverage
 
-- **Line coverage**: 70-80% mínimo para lógica de negocio
+- **Line coverage**: 70-80% mínimo para lógica de negocio. Consulta [unit testing](/recipes/unit-testing).
 - **Branch coverage**: Priorizar sobre line coverage
-- **Critical paths**: 100% coverage para payment, auth y flujos de seguridad
+- **Critical paths**: 100% coverage para payment, auth y [flujos de seguridad](/guides/security/security-best-practices-guide)
 
 ## Integración CI/CD
 
@@ -167,11 +167,11 @@ jobs:
 
 ## Mejores prácticas
 
-- **Escribe tests primero** (TDD) para lógica compleja o fixes de bugs
+- **Escribe tests primero** ([TDD](/guides/testing/test-driven-development-guide)) para lógica compleja o fixes de bugs
 - **Usa test data builders** en lugar de hardcodear fixtures
-- **Mock servicios externos** en los boundaries de integration tests
+- **Mock servicios externos** en los boundaries de [integration tests](/recipes/testing/integration-testing)
 - **Ejecuta tests en paralelo** para mantener feedback loops rápidos
-- **Falla CI en regresión de coverage**, no en targets arbitrarios
+- **Falla [CI](/guides/cicd-pipeline-guide) en regresión de coverage**, no en targets arbitrarios
 - **Mantén E2E tests determinísticos**: evita assertions que dependen de timing
 
 ## Anti-patrones comunes
@@ -187,7 +187,7 @@ jobs:
 - [ ] Unit tests para toda lógica de negocio
 - [ ] Integration tests para capa de DB y API
 - [ ] E2E tests para journeys críticos de usuario
-- [ ] Tests ejecutados en CI en cada pull request
+- [ ] Tests ejecutados en [CI](/guides/cicd-pipeline-guide) en cada pull request
 - [ ] Coverage trackeado y reportado
 - [ ] Tests flaky identificados y arreglados rápidamente
 
@@ -195,7 +195,7 @@ jobs:
 
 ### Qué es la pirámide de testing?
 
-La pirámide de testing es un modelo que sugiere tener muchos unit tests en la base, menos integration tests en el medio y muy pocos end-to-end tests en la cima. Esto mantiene el test suite rápido, confiable y económico.
+La pirámide de testing es un modelo que sugiere tener muchos [unit tests](/recipes/unit-testing) en la base, menos [integration tests](/recipes/testing/integration-testing) en el medio y muy pocos [end-to-end tests](/recipes/testing/e2e-testing) en la cima. Esto mantiene el test suite rápido, confiable y económico.
 
 ### Cuánto coverage de tests debería aspirar?
 

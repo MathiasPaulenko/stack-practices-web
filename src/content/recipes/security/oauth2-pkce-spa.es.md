@@ -190,14 +190,14 @@ export function getAccessToken(): string | undefined {
 
 ## Consideraciones de Produccion
 
-- Valida siempre el **parametro state** para prevenir ataques CSRF
-- Usa **Content Security Policy** headers para mitigar robo de tokens por XSS
+- Valida siempre el **parametro state** para prevenir ataques [CSRF](/recipes/security/api-security-headers)
+- Usa **Content Security Policy** headers para mitigar robo de tokens por [XSS](/recipes/security/xss-prevention)
 - Implementa **silent token refresh** usando `prompt=none` en un iframe oculto
 - Rota refresh tokens y detecta reutilizacion para prevenir ataques de replay
 
 ## Errores Comunes
 
-- Almacenar tokens en `localStorage` donde XSS puede robarlos facilmente
+- Almacenar tokens en `localStorage` donde [XSS](/recipes/security/xss-prevention) puede robarlos facilmente
 - No validar el parametro state durante el manejo del callback
 - Usar `response_type=token` (flujo implicito) que esta deprecado para SPAs
 
@@ -210,4 +210,4 @@ R: Si. La OAuth 2.0 Security Best Current Practice recomienda PKCE para todos lo
 R: Si. Esto es de hecho mas seguro. El backend almacena el refresh token en una cookie httpOnly mientras la SPA solo recibe un access token de corta duracion.
 
 **P: Que pasa si el proveedor no soporta PKCE?**
-R: Usa un patron backend-for-frontend (BFF) donde tu backend maneja el flujo OAuth y la SPA se autentica via cookies de sesion.
+R: Usa un patron backend-for-frontend (BFF) donde tu [backend maneja el flujo OAuth](/recipes/security/oauth2-pkce-spa) y la SPA se autentica via cookies de sesion.

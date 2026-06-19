@@ -29,9 +29,9 @@ seo:
 
 ## Overview
 
-Rate limiting is a defensive technique that controls how many requests a client can make to an API or web endpoint within a given time window. Without rate limiting, a single misbehaving client — whether malicious or accidentally buggy — can exhaust backend resources, starve legitimate users, and trigger cascading failures across distributed systems.
+Rate limiting is a defensive technique that controls how many requests a client can make to an API or web endpoint within a given time window. Without rate limiting, a single misbehaving client — whether malicious or accidentally buggy — can exhaust backend resources, starve legitimate users, and trigger [cascading failures](/patterns/design/circuit-breaker-pattern) across distributed systems.
 
-Effective rate limiting is implemented at multiple layers: API gateway (edge), application middleware (service), and database (query throttling). Each layer uses different algorithms suited to different trade-offs. Token bucket allows bursts, sliding window provides precision, and fixed window is simple but vulnerable to stampede at window boundaries. This recipe covers implementations from in-memory single-node to distributed Redis-backed limiting.
+Effective rate limiting is implemented at multiple layers: [API gateway](/recipes/serverless/serverless-api-gateway) (edge), application middleware (service), and database (query throttling). Each layer uses different algorithms suited to different trade-offs. Token bucket allows bursts, sliding window provides precision, and fixed window is simple but vulnerable to stampede at window boundaries. This recipe covers implementations from in-memory single-node to distributed Redis-backed limiting.
 
 ## When to use it
 
@@ -147,7 +147,7 @@ server {
 - **Use different limits per endpoint**: authentication endpoints should be stricter (5 attempts/minute) than read-only data endpoints (100 requests/minute). Tailor limits to the cost and sensitivity of each operation.
 - **Identify clients correctly**: rate limit by authenticated user ID when available, not just IP address. Shared NATs and VPNs can cause false positives when limiting by IP alone.
 - **Implement tiered limits**: free users get 100 requests/hour, paid users get 10,000. Store tier configuration alongside user profiles and apply dynamically in middleware.
-- **Monitor rejected requests**: a sudden spike in 429 responses may indicate an attack or a client bug. Alert on rate-limiting events via your monitoring stack.
+- **Monitor rejected requests**: a sudden spike in 429 responses may indicate an attack or a client bug. Alert on rate-limiting events via your [monitoring stack](/guides/devops/monitoring-alerting-guide).
 
 ## Common mistakes
 
@@ -165,7 +165,7 @@ A: Rate limiting rejects requests that exceed a threshold (HTTP 429). Throttling
 A: Use a shared data store like Redis with atomic increment operations. Avoid in-memory counters in multi-node deployments because each node maintains its own independent count.
 
 **Q: Can rate limiting prevent DDoS attacks?**
-A: Basic rate limiting helps against application-layer (L7) DDoS but cannot stop volumetric network floods (L3/L4). Combine rate limiting with CDN DDoS protection and WAF rules.
+A: Basic rate limiting helps against application-layer (L7) DDoS but cannot stop volumetric network floods (L3/L4). Combine rate limiting with [CDN DDoS protection](/guides/performance/cdn-edge-caching) and WAF rules.
 
 **Q: Should I rate limit authenticated and unauthenticated users differently?**
 A: Yes. Authenticated users should be limited by user ID and given higher quotas. Unauthenticated users should be limited by IP with stricter thresholds to prevent anonymous abuse.

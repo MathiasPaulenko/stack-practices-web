@@ -29,7 +29,7 @@ seo:
 ---
 ## Overview
 
-Database replication copies data from a primary database to one or more replicas. This enables read scaling, high availability, and disaster recovery. Whether using streaming replication in PostgreSQL, binary log replication in MySQL, or native replica sets in MongoDB, understanding replication lag, failover, and consistency trade-offs is essential for building resilient data layers.
+Database replication copies data from a primary database to one or more replicas. This enables read scaling, high availability, and [disaster recovery](/docs/disaster-recovery-plan-template). Whether using streaming replication in PostgreSQL, binary log replication in MySQL, or native replica sets in MongoDB, understanding replication lag, failover, and consistency trade-offs is essential for building resilient data layers.
 
 ## When to Use
 
@@ -37,7 +37,7 @@ Use this resource when:
 - Read traffic exceeds what a single database instance can handle
 - You need near-zero downtime failover for critical applications
 - Geographic distribution requires data closer to users
-- Backups must not impact primary database performance
+- [Backups](/docs/disaster-recovery-plan-template) must not impact primary database performance
 
 ## Solution
 
@@ -142,14 +142,14 @@ await query('UPDATE users SET last_login = NOW() WHERE id = $1', [userId]);
 ## Best Practices
 
 - **Monitor replication lag**: Alert when lag exceeds application tolerance (usually 1-5 seconds)
-- **Use connection pooling**: PgBouncer or ProxySQL manages primary/replica routing
+- **Use connection pooling**: [PgBouncer](/recipes/database-connection-pooling) or ProxySQL manages primary/replica routing
 - **Test failover quarterly**: Automated failover still needs human validation
 - **Keep replicas in different AZs**: Not just different instances — different failure domains
 - **Don't write to replicas**: Even if supported, it creates conflicts and split-brain scenarios
 
 ## Common Mistakes
 
-1. **Assuming replicas are real-time**: Asynchronous lag can be seconds or minutes; design for eventual consistency
+1. **Assuming replicas are real-time**: Asynchronous lag can be seconds or minutes; design for eventual consistency. Learn more in [CAP theorem](/guides/cap-theorem-guide).
 2. **No failover testing**: The first time you failover shouldn't be during an outage
 3. **Ignoring replication slot bloat**: PostgreSQL replication slots prevent WAL cleanup; monitor disk usage
 4. **Single network path**: Replicas in the same AZ as primary share the same failure domain
@@ -161,7 +161,7 @@ await query('UPDATE users SET last_login = NOW() WHERE id = $1', [userId]);
 A: For analytics: minutes. For user-facing reads: <1 second. For financial data: use synchronous replication.
 
 **Q: Can I use replicas for backups?**
-A: Yes. `pg_basebackup` from a replica offloads the primary. Ensure the replica is caught up first.
+A: Yes. `pg_basebackup` from a replica offloads the primary. Ensure the replica is caught up first. See our [disaster recovery plan template](/docs/disaster-recovery-plan-template).
 
 **Q: What's the difference between logical and physical replication?**
 A: Physical copies byte-for-byte (fast; entire database). Logical replicates row changes (selective tables; cross-version compatible).

@@ -35,9 +35,9 @@ Caching is the single most effective technique for improving application perform
 ## When to Use
 
 Use this resource when:
-- Database queries are becoming a bottleneck under load
-- API response times exceed 200ms for read-heavy endpoints
-- Serving static assets (images, JS, CSS) to global users
+- [Database queries](/recipes/performance/query-optimization) are becoming a bottleneck under load
+- [API response times](/recipes/api/call-rest-api) exceed 200ms for read-heavy endpoints
+- Serving static assets (images, JS, CSS) to global users via [CDN](/recipes/performance/cdn-edge-caching)
 - Building high-traffic applications where stale data is acceptable
 
 ## Solution
@@ -103,7 +103,7 @@ app.get('/api/products', (req, res) => {
 **Cache invalidation approaches**:
 - **Time-based (TTL)**: Simple but can serve stale data
 - **Key-based**: Include version or hash in cache key
-- **Event-based**: Invalidate on data change via message bus
+- **Event-based**: Invalidate on data change via message bus. See [cache invalidation](/recipes/performance/cache-invalidation).
 
 ## Variants
 
@@ -137,7 +137,7 @@ app.get('/api/products', (req, res) => {
 A: Use a mutex or Redis SET NX (lock) so only one request rebuilds the cache while others wait.
 
 **Q: Should I cache GraphQL responses?**
-A: Yes, but cache by query hash + variables. Apollo Server has built-in response caching.
+A: Yes, but cache by query hash + variables. [Apollo Server](/recipes/api/call-rest-api) has built-in response caching.
 
 **Q: What is the difference between Redis and Memcached?**
 A: Redis supports data structures (lists, sets, sorted sets) and persistence. Memcached is simpler and slightly faster for plain key-value caching.

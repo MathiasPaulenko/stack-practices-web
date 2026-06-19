@@ -141,7 +141,7 @@ await asyncio.gather(
 )
 ```
 
-## Semaphore for Rate Limiting
+## Semaphore for [Rate Limiting](/recipes/rate-limiting)
 
 Control access to limited resources.
 
@@ -227,7 +227,7 @@ class CachedData {
 - **Share nothing**: Prefer message passing over shared state
 - **Use thread-safe collections**: `ConcurrentHashMap`, `Queue`, `AtomicInteger`
 - **Keep critical sections small**: Hold locks for the minimum time
-- **Never call external APIs while holding a lock**
+- **Never call external APIs while holding a lock** — see [retry with backoff](/recipes/retry-backoff) for resilient external calls
 - **Test with ThreadSanitizer** or Helgrind for race detection
 
 ## Language Quick Reference
@@ -244,7 +244,7 @@ class CachedData {
 
 ### When should I use async/await vs threads?
 
-Use async/await for I/O-bound tasks (HTTP calls, file system, databases). Use threads or processes for CPU-bound work (calculations, data processing) that needs parallel execution.
+Use async/await for I/O-bound tasks ([HTTP calls](/guides/api/rest-api-design-guide), [file system](/recipes/file-handling/read-write-file), databases). Use threads or processes for CPU-bound work (calculations, data processing) that needs parallel execution.
 
 ### How do I avoid deadlocks?
 

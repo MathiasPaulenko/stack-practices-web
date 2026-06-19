@@ -32,7 +32,7 @@ seo:
 
 ## Visión General
 
-Retrieval-Augmented Generation (RAG) combina un modelo de lenguaje grande con un paso de recuperación de documentos. En lugar de depender únicamente de la memoria paramétrica del LLM, RAG obtiene pasajes relevantes de una base de conocimiento y los inyecta en el prompt. Esto reduce dramáticamente las alucinaciones y permite que el modelo responda preguntas sobre datos privados o recientes.
+Retrieval-Augmented Generation (RAG) combina un modelo de lenguaje grande con un paso de recuperación de documentos. En lugar de depender únicamente de la memoria paramétrica del LLM, [RAG](/recipes/ai/rag-pipeline) obtiene pasajes relevantes de una base de conocimiento y los inyecta en el prompt. Esto reduce dramáticamente las alucinaciones y permite que el modelo responda preguntas sobre datos privados o recientes.
 
 Esta receta construye un pipeline RAG completo: fragmenta documentos, genera embeddings, los almacena en una base de datos vectorial, recupera fragmentos relevantes y genera respuestas con LangChain.
 
@@ -155,8 +155,8 @@ String answer = chatClient.call(prompt).getResult().getOutput().getContent();
 
 Un pipeline RAG tiene cuatro etapas:
 
-1. **Ingesta**: Los documentos se cargan, limpian y dividen en fragmentos. El tamaño de fragmento (típicamente 200–1000 tokens) equilibra granularidad con preservación de contexto.
-2. **Embedding**: Cada fragmento se convierte en un vector de alta dimensión usando un modelo de embeddings. Los vectores capturan significado semántico, no solo coincidencia de palabras clave.
+1. **Ingesta**: Los documentos se cargan, limpian y dividen en fragmentos. Para manejo de documentos, consulta [validación de archivos](/recipes/file-handling/file-upload-validation). El tamaño de fragmento (típicamente 200–1000 tokens) equilibra granularidad con preservación de contexto.
+2. **Embedding**: Cada fragmento se convierte en un vector de alta dimensión usando un modelo de embeddings. Los vectores capturan [significado semántico](/recipes/ai/semantic-search), no solo coincidencia de palabras clave.
 3. **Recuperación**: En tiempo de consulta, la pregunta del usuario también se embebe. La base de datos vectorial devuelve los `k` fragmentos más similares mediante similitud coseno o distancia euclidiana.
 4. **Generación**: Los fragmentos recuperados se concatenan en un bloque de contexto y se inyectan en el prompt del LLM. El modelo genera una respuesta fundamentada en el texto proporcionado.
 
@@ -169,7 +169,7 @@ Un pipeline RAG tiene cuatro etapas:
 
 | Tecnología | Enfoque | Notas |
 |------------|---------|-------|
-| LangChain | Orquestación + chaining | Ecosistema maduro, maneja plantillas de prompt y parsing de salida |
+| LangChain | Orquestación + chaining | Ecosistema maduro, maneja [plantillas de prompt](/recipes/ai/prompt-engineering) y parsing de salida |
 | LlamaIndex | Framework centrado en datos | Conectores integrados para PDFs, SQL, APIs; mejor para datos complejos |
 | Haystack | Pipeline modular | Fuerte para evaluación y monitoreo en producción |
 | Bases vectoriales | Chroma / Pinecone / Weaviate / pgvector | Chroma para local, Pinecone para gestionado, pgvector si ya usas Postgres |

@@ -108,8 +108,8 @@ Cassandra es query-first: las tablas se diseñan alrededor de consultas específ
 |-----------|-----------------|
 | Tablas normalizadas | Embebe datos relacionados cuando se acceden juntos; referencia cuando se acceden por separado |
 | JOINs por todas partes | Diseña tablas/colecciones alrededor de patrones de consulta, no de entidades |
-| IDs auto-incrementales | Usa UUIDs o claves compuestas (user_id + timestamp) |
-| Analytics ad-hoc | Usa change data capture (CDC) para stream a un data warehouse |
+| IDs auto-incrementales | Usa [UUIDs](/recipes/uuid-generation) o claves compuestas (user_id + timestamp) |
+| Analytics ad-hoc | Usa [change data capture](/guides/event-driven-architecture-guide) para stream a un data warehouse |
 | Fuente única de verdad | Acepta que diferentes stores pueden tener diferentes vistas de la verdad (CQRS) |
 
 ## Mejores Prácticas
@@ -140,4 +140,4 @@ Sí, y es común. Usa Redis para cache/sesiones, DynamoDB para perfiles de usuar
 
 ### ¿Cómo manejo transacciones entre bases de datos NoSQL?
 
-La mayoría de stores NoSQL no soportan transacciones ACID cross-documento o cross-table. Usa sagas, patrones outbox, u operaciones idempotentes con entrega at-least-once para lograr consistencia eventual.
+La mayoría de stores NoSQL no soportan transacciones ACID cross-documento o cross-table. Usa [sagas](/guides/event-driven-architecture-guide), patrones outbox, u [operaciones idempotentes](/recipes/message-idempotency) con entrega at-least-once para lograr consistencia eventual.

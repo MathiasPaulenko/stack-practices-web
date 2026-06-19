@@ -31,14 +31,14 @@ seo:
 ---
 ## Visión General
 
-El debounce y throttle son técnicas de rate-limiting que controlan con qué frecuencia se ejecuta una función en respuesta a disparos rápidos y repetidos. El debounce espera a que una ráfaga de eventos se calme antes de disparar una vez. El throttle garantiza ejecución como máximo una vez por ventana de tiempo. Usa debounce para búsquedas (disparar tras el usuario deja de escribir); usa throttle para scroll o resize (disparar cada N milisegundos). Esta receta cubre implementaciones con bordes leading/trailing configurables, cancelación, y variantes síncronas y asíncronas en Python, JavaScript y Java.
+El debounce y throttle son técnicas de [rate-limiting](/recipes/security/rate-limiting) que controlan con qué frecuencia se ejecuta una función en respuesta a disparos rápidos y repetidos. El debounce espera a que una ráfaga de eventos se calme antes de disparar una vez. El throttle garantiza ejecución como máximo una vez por ventana de tiempo. Usa debounce para búsquedas (disparar tras el usuario deja de escribir); usa throttle para scroll o resize (disparar cada N milisegundos). Esta receta cubre implementaciones con bordes leading/trailing configurables, cancelación, y variantes síncronas y asíncronas en Python, JavaScript y Java.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Implementes búsqueda en tiempo real que debería consultar solo tras la pausa del usuario
 - Manejes eventos de alta frecuencia como scroll, resize o mousemove sin congelar la UI
-- Apliques rate-limiting a llamadas a APIs disparadas por acciones de usuario (spam de botón, autocomplete)
+- Apliques [rate-limiting](/recipes/security/rate-limiting) a llamadas a APIs disparadas por acciones de usuario (spam de botón, autocomplete)
 - Proceses datos en streaming donde quieras snapshots periódicos en vez de cada evento individual
 
 ## Solución
@@ -300,12 +300,12 @@ public class RateLimiters {
 2. **Usa throttle para eventos visuales** — scroll, resize y mousemove pueden disparar 60+ veces por segundo. Throttle a 100ms o usa `requestAnimationFrame`.
 3. **Implementa siempre cancelación** — timers pendientes pueden ejecutarse tras destruir un componente, causando errores o llamadas a APIs desperdiciadas.
 4. **Elige el edge correcto** — leading edge se siente rápido para botones; trailing edge es mejor para búsqueda para capturar el input final.
-5. **Mide el impacto** — usa la pestaña Performance de DevTools para verificar que tu debounce/throttle reduce realmente el trabajo del main thread.
+5. **Mide el impacto** — usa la pestaña Performance de DevTools para verificar que tu debounce/throttle reduce realmente el trabajo del main thread. Consulta [optimización de rendimiento](/guides/performance/performance-optimization-guide).
 
 ## Errores Comunes
 
 1. Usar debounce donde se necesita throttle, causando que eventos intermedios importantes se pierdan completamente.
-2. Olvidar limpiar timers al desmontar componentes, causando memory leaks y ejecuciones obsoletas.
+2. Olvidar limpiar timers al desmontar componentes, causando memory leaks y ejecuciones obsoletas. Consulta [mejores prácticas de rendimiento](/guides/performance/performance-optimization-guide).
 3. Poner delays de debounce muy largos (ej. 2 segundos), haciendo que la UI se sienta poco responsiva.
 4. Usar throttle sin trailing edge, perdiendo el evento final de una ráfaga (ej. última posición de scroll).
 5. No manejar condiciones de carrera en ambientes multi-hilo donde los timers pueden superponerse.

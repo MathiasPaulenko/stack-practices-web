@@ -244,18 +244,18 @@ Estrategias comunes de namespaces:
 
 ## Buenas Prácticas
 
-- **Establece requests y limits de recursos** en cada contenedor para prevenir vecinos ruidosos
+- **Establece [requests y limits de recursos](/guides/performance/performance-optimization-guide)** en cada contenedor para prevenir vecinos ruidosos
 - **Usa readiness probes** para evitar que el tráfico llegue a Pods no listos
 - **Usa liveness probes** para recuperarse de deadlocks y bloqueos
-- **Nunca ejecutes como root** — establece `securityContext.runAsNonRoot: true`
+- **Nunca ejecutes como root** — establece `securityContext.runAsNonRoot: true`. Consulta [seguridad de contenedores](/recipes/container-security).
 - **Fija las etiquetas de imagen** — evita `:latest` en producción
-- **Usa ConfigMaps para configuración**, Secrets para credenciales
-- **Establece terminación graceful** — maneja SIGTERM en tu app (`terminationGracePeriodSeconds`)
+- **Usa ConfigMaps para configuración**, [Secrets](/guides/secrets-management-guide) para credenciales
+- **Establece terminación graceful** — maneja SIGTERM en tu app (`terminationGracePeriodSeconds`). Consulta [estrategias de deployment](/guides/devops/deployment-strategies-guide).
 
 ## Errores Comunes
 
 - No establecer requests/limits de recursos, causando inestabilidad del cluster
-- Usar etiquetas de imagen `latest`, llevando a despliegues impredecibles
+- Usar etiquetas de imagen `latest`, llevando a [despliegues](/guides/devops/deployment-strategies-guide) impredecibles
 - Faltar readiness probes, causando errores 502 durante rollouts
 - Almacenar secretos en ConfigMaps en lugar de Secrets
 - No manejar SIGTERM, causando shutdowns abruptos y pérdida de datos

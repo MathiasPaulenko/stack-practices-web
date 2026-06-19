@@ -30,14 +30,14 @@ seo:
 ---
 ## Overview
 
-Container security scanning identifies vulnerabilities in Docker images before they reach production. A single outdated base image can expose hundreds of CVEs. Tools like Trivy, Clair, and Snyk analyze OS packages, language dependencies, and even secrets embedded in layers. Integrating scanning into CI/CD creates a security gate that prevents vulnerable images from deploying.
+Container security scanning identifies vulnerabilities in Docker images before they reach production. A single outdated base image can expose hundreds of CVEs. Tools like Trivy, Clair, and Snyk analyze OS packages, language dependencies, and even secrets embedded in layers. Integrating scanning into [CI/CD](/guides/cicd-pipeline-guide) creates a security gate that prevents vulnerable images from deploying.
 
 ## When to Use
 
 Use this resource when:
 - Docker images are built from public base images that may contain known CVEs
-- You need to comply with security frameworks (SOC 2, PCI-DSS, FedRAMP)
-- Developers add dependencies without reviewing their security posture
+- You need to comply with [security frameworks](/guides/security-best-practices-guide) (SOC 2, PCI-DSS, FedRAMP)
+- Developers add [dependencies](/docs/dependency-audit-template) without reviewing their security posture
 - Production incidents have been traced back to vulnerable system libraries
 
 ## Solution
@@ -127,7 +127,7 @@ trufflehog filesystem --directory=.
 - **Scan on every build**: Vulnerabilities are discovered daily; yesterday's clean image is today's risk
 - **Use distroless or minimal bases**: `distroless`, `alpine`, or `scratch` reduce attack surface
 - **Pin base image digests**: `FROM node:20-alpine@sha256:abc...` prevents tag tampering
-- **Multi-stage builds**: Don't ship build tools (gcc, git) in production images
+- **Multi-stage builds**: Don't ship build tools (gcc, git) in production images. See [immutable infrastructure](/recipes/immutable-infrastructure).
 - **Sign images with Cosign**: Verify image integrity and provenance before deploy
 
 ## Common Mistakes
@@ -135,7 +135,7 @@ trufflehog filesystem --directory=.
 1. **Scanning only the base image**: Application dependencies often have more CVEs than the OS
 2. **Using `:latest` tag**: Non-reproducible builds make vulnerability attribution impossible
 3. **No severity threshold**: Scanning but ignoring all results creates false confidence
-4. **Secrets in ENV**: `ENV AWS_SECRET_ACCESS_KEY=...` is visible to anyone who pulls the image
+4. **Secrets in ENV**: `ENV AWS_SECRET_ACCESS_KEY=...` is visible to anyone who pulls the image. Follow [secrets management](/guides/secrets-management-guide).
 5. **Forgetting runtime scanning**: Image is clean at build time; runtime vulnerabilities (mounted volumes, sidecars) need monitoring too
 
 ## Frequently Asked Questions

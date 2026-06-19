@@ -149,13 +149,13 @@ class SafeCounter:
 - **Share nothing**: Prefiere paso de mensajes sobre estado compartido
 - **Usa colecciones thread-safe**: `ConcurrentHashMap`, `Queue`, `AtomicInteger`
 - **Mantén secciones críticas pequeñas**: Bloquea por el mínimo tiempo
-- **Nunca llames APIs externas mientras mantienes un lock**
+- **Nunca llames APIs externas mientras mantienes un lock** — consulta [reintentos con backoff](/recipes/retry-backoff) para llamadas externas resilientes
 
 ## Preguntas Frecuentes
 
 ### Cuándo debería usar async/await vs threads?
 
-Usa async/await para tareas I/O-bound (HTTP calls, sistema de archivos, bases de datos). Usa threads o procesos para trabajo CPU-bound (cálculos, procesamiento de datos) que necesita ejecución paralela.
+Usa async/await para tareas I/O-bound ([HTTP calls](/guides/api/rest-api-design-guide), [sistema de archivos](/recipes/file-handling/read-write-file), bases de datos). Usa threads o procesos para trabajo CPU-bound (cálculos, procesamiento de datos) que necesita ejecución paralela.
 
 ### Cómo evito deadlocks?
 

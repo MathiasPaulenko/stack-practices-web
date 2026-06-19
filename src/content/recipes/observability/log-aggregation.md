@@ -29,14 +29,14 @@ seo:
 ---
 ## Overview
 
-Log aggregation centralizes logs from dozens or hundreds of services into a single searchable system. Instead of SSHing into individual servers, teams query a unified index to trace requests across microservices, investigate errors, and detect anomalies. Tools like the ELK stack, Fluentd, and Grafana Loki have made centralized logging accessible to any team size.
+Log aggregation centralizes logs from dozens or hundreds of services into a single searchable system. Instead of SSHing into individual servers, teams query a unified index to trace requests across [microservices](/guides/microservices-architecture-guide), investigate errors, and detect anomalies. Tools like the ELK stack, Fluentd, and Grafana Loki have made centralized logging accessible to any team size.
 
 ## When to Use
 
 Use this resource when:
 - Debugging requires correlating logs from 5+ services for a single user request
 - Compliance mandates log retention and tamper-proof storage
-- You need real-time alerting based on log patterns (error spikes, security events)
+- You need real-time [alerting](/recipes/prometheus-monitoring-alerts) based on log patterns (error spikes, security events)
 - Log volumes exceed local storage capacity on individual hosts
 
 ## Solution
@@ -162,10 +162,10 @@ sum by (service) (
 
 ## Best Practices
 
-- **Include correlation IDs**: Every log entry should have a `traceId` linking the full request journey
+- **Include correlation IDs**: Every log entry should have a `traceId` linking the full request journey. See [distributed tracing](/recipes/distributed-tracing).
 - **Log at the right level**: DEBUG for development; INFO for normal operations; ERROR for actionable issues
 - **Don't log secrets**: Mask PII, tokens, and passwords before they reach the aggregation system
-- **Set retention policies**: 30 days hot storage for troubleshooting; 1 year cold archive for compliance
+- **Set retention policies**: 30 days hot storage for troubleshooting; 1 year cold archive for compliance. Use a [data retention policy template](/docs/data-retention-policy-template).
 - **Alert on patterns, not single lines**: "5 ERRORs in 1 minute" is more actionable than one log line
 
 ## Common Mistakes
@@ -182,7 +182,7 @@ sum by (service) (
 A: Sample DEBUG logs, aggregate metrics at the edge, and use cheaper storage tiers (S3, GCS) for old logs.
 
 **Q: Should I aggregate metrics or logs?**
-A: Both. Metrics for dashboards and alerts. Logs for debugging and audit trails. Don't alert on logs alone.
+A: Both. [Metrics](/recipes/metrics-collection) for dashboards and alerts. Logs for debugging and audit trails. Don't alert on logs alone.
 
 **Q: How do I secure aggregated logs?**
-A: Role-based access, encrypted transport (TLS), and encrypted storage (AES-256). Treat logs as sensitive data.
+A: Role-based access, encrypted transport (TLS), and encrypted storage (AES-256). Treat logs as sensitive data. See [security best practices](/guides/security-best-practices-guide).

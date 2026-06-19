@@ -293,9 +293,9 @@ cliente.precio_primer_item_ultima_orden()
 
 - **Deja el código más limpio de lo que lo encontraste** (Regla del Boy Scout)
 - **Elimina código muerto** — código comentado, funciones no usadas, ramas inaccesibles
-- **Escribe tests primero** — obligan a escribir código testable (y por tanto limpio)
+- **Escribe tests primero** — obligan a escribir código testable (y por tanto limpio). Consulta [estrategias de testing](/guides/testing-strategy-guide).
 - **El código se lee 10 veces más de lo que se escribe** — optimiza para el lector
-- **Programación en pareja** — dos ojos detectan complejidad antes de que se acumule
+- **Programación en pareja** — dos ojos detectan complejidad antes de que se acumule. Complementa las [code reviews](/guides/design/code-review-best-practices-guide).
 
 ## Errores Comunes
 
@@ -312,7 +312,7 @@ cliente.precio_primer_item_ultima_orden()
 R: Sigue la Regla del Boy Scout: limpia las partes que tocas. No emprendas reescrituras grandes sin justificación de negocio y cobertura de tests.
 
 **P: ¿Cómo convenzo a mi equipo de adoptar prácticas de código limpio?**
-R: Comienza con formateo automático (cero debate), luego introduce checklists de code review. Muestra ejemplos concretos de bugs causados por código poco claro.
+R: Comienza con formateo automático (cero debate), luego introduce [checklists de code review](/guides/design/code-review-best-practices-guide). Muestra ejemplos concretos de bugs causados por código poco claro.
 
 **P: ¿Es más lento escribir código limpio?**
 R: Ligeramente más lento de escribir, significativamente más rápido de leer, depurar y cambiar. La inversión se recupera en la primera modificación.

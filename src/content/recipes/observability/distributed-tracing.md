@@ -143,15 +143,15 @@ def handle_request(headers):
 
 ## Best Practices
 
-- **Instrument at framework level**: Auto-instrument HTTP, gRPC, database, and message queue clients
+- **Instrument at framework level**: Auto-instrument HTTP, [gRPC](/recipes/api/grpc-api), [database](/guides/databases/database-design-guide), and message queue clients
 - **Add business attributes**: user_id, order_id, tenant_id make traces actionable
 - **Keep cardinality low**: Don't put unique IDs in span names (use attributes instead)
 - **Sample aggressively in production**: 1-5% is usually sufficient for debugging
-- **Link traces to logs**: Include trace_id in log entries for cross-referencing
+- **Link traces to logs**: Include trace_id in [log entries](/recipes/observability/structured-logging) for cross-referencing
 
 ## Common Mistakes
 
-1. **Missing context propagation**: Spans break across service boundaries if headers aren't forwarded
+1. **Missing context propagation**: Spans break across [service boundaries](/guides/architecture/microservices-architecture-guide) if headers aren't forwarded
 2. **Span explosion**: Creating spans for every loop iteration creates unreadable traces
 3. **High-cardinality tags**: User IDs or session IDs as span names crash storage
 4. **Not sampling in dev**: Full tracing in development makes it easy to verify instrumentation

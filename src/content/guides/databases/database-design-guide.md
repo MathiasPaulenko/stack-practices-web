@@ -199,13 +199,13 @@ CREATE TABLE products (
 - **Avoid nullable foreign keys** — use junction tables for optional relationships
 - **Choose data types carefully**: `VARCHAR(255)` vs `TEXT`, `DECIMAL` vs `FLOAT`
 - **Document your schema** with comments and ER diagrams
-- **Plan for growth**: partition large tables before they become a problem
+- **Plan for growth**: [partition large tables](/guides/databases/database-sharding-partitioning-guide) before they become a problem
 
 ## Common Mistakes
 
-- Skipping normalization for "performance" without evidence
+- Skipping normalization for "performance" without evidence. See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide).
 - Using `ENUM` for values that change frequently
-- Missing `ON DELETE` / `ON UPDATE` rules on foreign keys
+- Missing `ON DELETE` / `ON UPDATE` rules on foreign keys. See [data validation](/recipes/data-validation-zod) principles.
 - Storing derived/calculated data instead of computing on read
 
 ## Frequently Asked Questions

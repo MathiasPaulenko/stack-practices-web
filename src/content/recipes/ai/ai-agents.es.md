@@ -28,7 +28,7 @@ seo:
 
 ## Visión general
 
-Los agentes de IA son sistemas autónomos potenciados por large language models (LLMs) que pueden percibir su entorno, razonar sobre objetivos y tomar acciones invocando herramientas externas. A diferencia de chatbots simples que solo generan texto, los agentes mantienen estado a través de múltiples turnos, eligen qué herramientas llamar basándose en contexto e iteran hasta que una tarea se completa. Representan la siguiente evolución desde prompts estáticos hasta sistemas orientados a objetivos dinámicos.
+Los agentes de IA son sistemas autónomos potenciados por large language models (LLMs) que pueden percibir su entorno, razonar sobre objetivos y tomar acciones invocando herramientas externas. A diferencia de [chatbots simples](/recipes/ai/chatbot-openai) que solo generan texto, los agentes mantienen estado a través de múltiples turnos, eligen qué herramientas llamar basándose en contexto e iteran hasta que una tarea se completa. Representan la siguiente evolución desde [prompts estáticos](/recipes/ai/prompt-engineering) hasta sistemas orientados a objetivos dinámicos.
 
 El ciclo fundamental de agente es: **observar → razonar → actuar → observar de nuevo**. El agente recibe un input o estado de entorno, razona sobre qué hacer, llama una herramienta (como búsqueda web, query de base de datos o ejecución de código), observa el resultado y repite hasta que el objetivo se satisface. Esta receta cubre el patrón ReAct, APIs de function calling, definiciones de herramientas y gestión de memoria para sistemas de agentes multi-turno.
 
@@ -196,16 +196,16 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 
 - **Dar al agente herramientas peligrosas por defecto**: un agente con acceso a shell o permisos de escritura en base de datos puede causar daño irreversible. Aplica acceso least-privilege a herramientas y requiere aprobación humana para acciones destructivas.
 - **Ignorar latencia**: cada llamada a herramienta agrega una ronda de API del LLM. Un agente de 5 pasos con latencia de API de 2 segundos toma 10+ segundos. Usa llamadas de herramientas paralelas y caching para reducir la latencia percibida.
-- **Over-engineering de tareas simples**: si una pregunta puede responderse con una sola búsqueda RAG, no construyas un agente completo. Los agentes agregan complejidad, costo y modos de fallo. Úsalos solo cuando el razonamiento multi-paso sea genuinamente requerido.
+- **Over-engineering de tareas simples**: si una pregunta puede responderse con una sola [búsqueda RAG](/recipes/ai/rag-pipeline), no construyas un agente completo. Los agentes agregan complejidad, costo y modos de fallo. Úsalos solo cuando el razonamiento multi-paso sea genuinamente requerido.
 - **Olvidar manejar errores de herramientas**: si una API de búsqueda está caída, el agente recibe un string de error y puede alucinar una respuesta. Captura excepciones, retorna mensajes de error estructurados y enseña al agente a reintentar o escalar.
 
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre un agente y un chatbot?**
-R: Un chatbot responde a cada mensaje independientemente. Un agente mantiene estado a través de múltiples turnos, razona sobre objetivos e invoca herramientas externas para completar tareas. Los agentes son chatbots más autonomía.
+R: Un chatbot responde a cada mensaje independientemente. Un agente mantiene estado a través de múltiples turnos, razona sobre objetivos e invoca herramientas externas para completar tareas. Los agentes son [chatbots](/recipes/ai/chatbot-openai) más autonomía.
 
 **P: ¿Puedo construir agentes sin OpenAI?**
-R: Sí. Claude (Anthropic), Gemini (Google) y modelos abiertos como Llama 3 y Mistral soportan tool calling. La API de function calling varía ligeramente pero el patrón ReAct funciona a través de todos ellos.
+R: Sí. Claude (Anthropic), Gemini (Google) y modelos abiertos como Llama 3 y Mistral soportan tool calling. La API de function calling varía ligeramente pero el [patrón ReAct](/recipes/ai/ai-agents-tool-use) funciona a través de todos ellos.
 
 **P: ¿Cómo evito que un agente haga llamadas a API caras?**
 R: Implementa un presupuesto de costo por sesión, limita la tasa de llamadas a herramientas y requiere confirmación de usuario para acciones de alto costo (por ejemplo, reservar un vuelo, enviar un email).

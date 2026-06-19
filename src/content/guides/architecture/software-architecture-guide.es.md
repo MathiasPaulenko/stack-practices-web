@@ -104,7 +104,7 @@ La arquitectura de software define la estructura de un sistema, las relaciones e
 └──────────────────────────────┘
 ```
 
-**Regla de Dependencia**: Las capas internas no deben depender de las externas.
+**Regla de Dependencia**: Las capas internas no deben depender de las externas. Consulta [principios SOLID](/guides/design/solid-principles-guide).
 
 ## Patrones de Flujo de Datos
 
@@ -193,10 +193,10 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 
 ## Mejores prácticas
 
-- **Empieza simple**: Comienza con un monolito modular; extrae servicios cuando sea necesario
-- **Define contextos acotados**: Usa Domain-Driven Design para encontrar límites naturales
-- **Diseña para observabilidad**: Cada componente debe exponer métricas, logs, traces
-- **Automatiza todo**: CI/CD, infraestructura, testing, escaneo de seguridad
+- **Empieza simple**: Comienza con un [monolito modular](/guides/architecture/monolith-to-microservices-migration-guide); extrae servicios cuando sea necesario
+- **Define contextos acotados**: Usa [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) para encontrar límites naturales
+- **Diseña para observabilidad**: Cada componente debe exponer [métricas, logs, traces](/recipes/observability/metrics-collection)
+- **Automatiza todo**: [CI/CD](/guides/cicd-pipeline-guide), [infraestructura](/guides/devops/infrastructure-as-code-guide), testing, escaneo de seguridad
 - **Documenta decisiones**: ADRs para cada elección arquitectónica significativa
 
 ## FAQ

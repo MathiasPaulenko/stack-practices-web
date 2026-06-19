@@ -280,11 +280,11 @@ SOLID principles reinforce each other:
 
 ### Should I apply all SOLID principles to every class?
 
-No. These are guidelines, not laws. Apply them where they reduce complexity and coupling. Small scripts and CRUD operations often don't need full SOLID treatment.
+No. These are guidelines, not laws. Apply them where they reduce complexity and coupling. Small scripts and [CRUD operations](/guides/databases/database-design-guide) often don't need full SOLID treatment.
 
 ### Do SOLID principles apply only to OOP?
 
-The concepts translate well to other paradigms. Functional programming achieves DIP via higher-order functions, and SRP applies to modules and functions in any paradigm.
+The concepts translate well to other paradigms. Functional programming achieves DIP via higher-order functions, and SRP applies to modules and functions in any paradigm. See [design patterns](/guides/design/design-patterns-guide) for practical examples.
 
 ### How do I convince my team to refactor toward SOLID?
 

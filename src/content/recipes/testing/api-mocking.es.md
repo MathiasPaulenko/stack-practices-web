@@ -30,13 +30,13 @@ seo:
 ---
 ## Visión General
 
-El API mocking reemplaza dependencias externas reales con simulaciones controladas durante el testing. Esto elimina la flakiness de red, reduce el tiempo de ejecución de tests y habilita el testing de casos edge — como errores 500 o timeouts — que son difíciles de reproducir con servicios en vivo. Herramientas modernas como WireMock, MSW y MockServer proveen request matching, response templating y capacidades de verificación que hacen que los mocks se comporten como lo real.
+El API mocking reemplaza dependencias externas reales con simulaciones controladas durante el [testing](/guides/testing-strategy-guide). Esto elimina la flakiness de red, reduce el tiempo de ejecución de tests y habilita el testing de casos edge — como errores 500 o timeouts — que son difíciles de reproducir con servicios en vivo. Herramientas modernas como WireMock, MSW y MockServer proveen request matching, response templating y capacidades de verificación que hacen que los mocks se comporten como lo real.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Las APIs externas son poco confiables, lentas o tienen rate limits que bloquean pipelines de CI
-- Necesitas testear manejo de errores para HTTP 429, 503 o escenarios de timeout
+- Las APIs externas son poco confiables, lentas o tienen rate limits que bloquean [pipelines de CI](/guides/cicd-pipeline-guide)
+- Necesitas testear manejo de errores para HTTP 429, 503 o [escenarios de timeout](/recipes/retry-backoff)
 - El servicio real no tiene un sandbox o ambiente de test
 - Quieres tests determinísticos que no fallen por cambios de terceros
 
@@ -172,7 +172,7 @@ def test_payment_api():
 
 ## Mejores Prácticas
 
-- **Mock en el boundary**: Mockea HTTP, no métodos internos — los tests deberían ejercitar el stack completo
+- **Mock en el boundary**: Mockea HTTP, no métodos internos — los tests deberían ejercitar el stack completo. Para cobertura de integración completa, consulta [end-to-end testing](/recipes/end-to-end-testing).
 - **Verifica requests, no solo responses**: Asegúrate de que tu código envía el payload y headers correctos
 - **Usa record/replay para APIs complejas**: Captura tráfico real una vez, luego replay en tests
 - **Mantén mocks cerca de la realidad**: Actualiza mocks cuando la API real cambia; mocks obsoletos ocultan bugs
@@ -182,7 +182,7 @@ def test_payment_api():
 
 1. **Mockear métodos internos**: Testeas el mock, no el código
 2. **Matchers demasiado permisivos**: Matchers `any()` dejan pasar bugs que matchers específicos detectan
-3. **Sin cobertura de escenarios de error**: Solo testear 200 OK omite la mitad del código de manejo de errores
+3. **Sin cobertura de escenarios de error**: Solo testear 200 OK omite la mitad del código de [manejo de errores](/recipes/handle-errors)
 4. **Estado mutable compartido**: Estado de mock global filtra entre tests
 5. **Olvidar verificar**: Un test que pasa con un mock no usado significa que nada fue realmente testeado
 

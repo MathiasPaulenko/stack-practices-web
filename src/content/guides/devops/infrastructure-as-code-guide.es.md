@@ -182,12 +182,12 @@ terraform show -json tfplan > plan.json
 - Usa estado remoto con locking — previene modificaciones concurrentes corruptiendo el estado
 - Separa ambientes — usa workspaces o archivos de estado separados por ambiente
 - Usa módulos para reusabilidad — pero evita sobre-abstracción; simple es mejor
-- Nunca commitees secrets — usa secret managers y referencia por ARN
+- Nunca commitees secrets — usa [gestores de secretos](/guides/secrets-management-guide) y referencia por ARN
 - Pinea versiones de providers — previene breaking changes de actualizaciones automáticas
 
 ## Errores Comunes
 
-- Correr `terraform apply` localmente en lugar de CI/CD
+- Correr `terraform apply` localmente en lugar de [CI/CD](/guides/cicd-pipeline-guide)
 - Almacenar archivos de estado en Git (contienen IDs sensibles y a veces secrets)
 - No usar workspaces o directorios separados para ambientes
 - Escribir configs monolíticas gigantes en lugar de componentes modulares

@@ -31,7 +31,7 @@ seo:
 
 Lazy loading is a performance optimization strategy that defers the loading of non-critical resources until they are actually needed. Instead of downloading every image, component, and data chunk on initial page load, the application only fetches what the user can immediately see or interact with. Resources below the fold, hidden tabs, or off-screen carousels load on demand — typically when the user scrolls, clicks, or hovers.
 
-This technique directly improves three key metrics: **Largest Contentful Paint (LCP)** by prioritizing above-the-fold content, **Time to Interactive (TTI)** by reducing JavaScript parsing on startup, and **cumulative bandwidth usage** by avoiding unnecessary downloads. Modern browsers provide native lazy loading for images via the `loading="lazy"` attribute, while frameworks like React and Vue offer component-level code splitting. This recipe covers images, UI components, and API data.
+This technique directly improves three key metrics: **Largest Contentful Paint (LCP)** by prioritizing above-the-fold content, **Time to Interactive (TTI)** by reducing JavaScript parsing on startup, and **cumulative bandwidth usage** by avoiding unnecessary downloads. See [performance optimization](/guides/performance/performance-optimization-guide) for more on Core Web Vitals. Modern browsers provide native lazy loading for images via the `loading="lazy"` attribute, while frameworks like React and Vue offer component-level code splitting. This recipe covers images, UI components, and API data.
 
 ## When to use it
 
@@ -133,7 +133,7 @@ function ProductList() {
 
 - **Native `loading="lazy"`**: the simplest approach. The browser decides when to fetch the image based on viewport distance. Supported in all modern browsers. Always include `width` and `height` to prevent layout shift (CLS).
 - **Intersection Observer**: a performant API that watches when elements enter the viewport. Unlike scroll event listeners, it does not run on the main thread continuously. Use it for custom lazy loading behaviors, background images, or iframes.
-- **Component code splitting**: bundlers like Webpack, Vite, and Rollup automatically split dynamic `import()` calls into separate chunks. React's `lazy()` wraps these chunks in a Suspense boundary, showing a fallback while the chunk loads.
+- **Component code splitting**: [bundlers like Webpack, Vite, and Rollup](/recipes/performance/spa-code-splitting-lazy) automatically split dynamic `import()` calls into separate chunks. React's `lazy()` wraps these chunks in a Suspense boundary, showing a fallback while the chunk loads.
 - **Infinite scroll / pagination**: instead of loading all data upfront, fetch pages as the user scrolls or clicks "load more." This reduces initial API payload and database query cost.
 
 ## Variants
@@ -148,7 +148,7 @@ function ProductList() {
 
 ## Best practices
 
-- **Set dimensions on lazy images**: without explicit `width` and `height`, the browser cannot reserve space before the image loads. This causes Cumulative Layout Shift (CLS), a Core Web Vitals penalty.
+- **Set dimensions on lazy images**: without explicit `width` and `height`, the browser cannot reserve space before the image loads. This causes Cumulative Layout Shift (CLS), a [Core Web Vitals](/guides/performance/performance-optimization-guide) penalty.
 - **Use `eager` for above-the-fold images**: the hero image, logo, and primary CTA should load immediately with `loading="eager"`. Only defer content the user cannot see on first paint.
 - **Preload critical resources**: for content that is likely to be needed soon (e.g., the next route in a SPA), use `<link rel="preload">` or `prefetch` so it loads in idle time.
 - **Show skeleton placeholders**: while a lazy component or image loads, display a lightweight skeleton UI that matches the final layout. Avoid blank spaces or jumping content.
@@ -159,7 +159,7 @@ function ProductList() {
 - **Lazy loading the LCP image**: the largest contentful paint element should never be lazy loaded. If the hero image has `loading="lazy"`, LCP will be delayed until the user scrolls — defeating the purpose.
 - **Not handling errors**: if a lazy image fails to load (network error, 404), the user sees a broken icon or infinite spinner. Add `onerror` handlers and fallback images.
 - **Over-splitting components**: splitting every component into its own chunk creates excessive HTTP requests. Group related components and split only chunks larger than 20-30KB.
-- **Forgetting server-side rendering**: if a lazy component is needed for SSR or initial paint, it will block rendering. Use framework-specific `ssr: true` flags or load eagerly for above-the-fold content.
+- **Forgetting server-side rendering**: if a lazy component is needed for SSR or initial paint, it will block rendering. Consider [SPA code splitting](/recipes/performance/spa-code-splitting-lazy) for above-the-fold content. Use framework-specific `ssr: true` flags or load eagerly for above-the-fold content.
 
 ## FAQ
 

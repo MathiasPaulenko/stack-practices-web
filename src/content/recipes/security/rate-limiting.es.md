@@ -29,9 +29,9 @@ seo:
 
 ## Visión general
 
-El rate limiting es una técnica defensiva que controla cuántas peticiones puede realizar un cliente a una API o endpoint web dentro de una ventana de tiempo determinada. Sin rate limiting, un solo cliente que se comporta mal — ya sea malicioso o accidentalmente con bugs — puede agotar recursos del backend, privar a usuarios legítimos y desencadenar fallos en cascada a través de sistemas distribuidos.
+El rate limiting es una técnica defensiva que controla cuántas peticiones puede realizar un cliente a una API o endpoint web dentro de una ventana de tiempo determinada. Sin rate limiting, un solo cliente que se comporta mal — ya sea malicioso o accidentalmente con bugs — puede agotar recursos del backend, privar a usuarios legítimos y desencadenar [fallos en cascada](/patterns/design/circuit-breaker-pattern) a través de sistemas distribuidos.
 
-El rate limiting efectivo se implementa en múltiples capas: API gateway (edge), middleware de aplicación (servicio) y base de datos (throttling de queries). Cada capa usa diferentes algoritmos adecuados a diferentes trade-offs. Token bucket permite ráfagas, sliding window proporciona precisión, y fixed window es simple pero vulnerable a avalanchas en los límites de la ventana. Esta receta cubre implementaciones desde in-memory de nodo único hasta limitación distribuida respaldada por Redis.
+El rate limiting efectivo se implementa en múltiples capas: [API gateway](/recipes/serverless/serverless-api-gateway) (edge), middleware de aplicación (servicio) y base de datos (throttling de queries). Cada capa usa diferentes algoritmos adecuados a diferentes trade-offs. Token bucket permite ráfagas, sliding window proporciona precisión, y fixed window es simple pero vulnerable a avalanchas en los límites de la ventana. Esta receta cubre implementaciones desde in-memory de nodo único hasta limitación distribuida respaldada por Redis.
 
 ## Cuándo usarlo
 
@@ -147,7 +147,7 @@ server {
 - **Usa diferentes límites por endpoint**: los endpoints de autenticación deberían ser más estrictos (5 intentos/minuto) que los endpoints de datos de solo lectura (100 peticiones/minuto). Adapta los límites al costo y sensibilidad de cada operación.
 - **Identifica clientes correctamente**: limita por ID de usuario autenticado cuando esté disponible, no solo por dirección IP. Los NATs compartidos y VPNs pueden causar falsos positivos al limitar solo por IP.
 - **Implementa límites por tier**: los usuarios gratuitos obtienen 100 peticiones/hora, los pagados 10,000. Almacena la configuración de tier junto a los perfiles de usuario y aplícala dinámicamente en middleware.
-- **Monitorea peticiones rechazadas**: un pico repentino en respuestas 429 puede indicar un ataque o un bug de cliente. Alerta sobre eventos de rate limiting vía tu stack de monitoreo.
+- **Monitorea peticiones rechazadas**: un pico repentino en respuestas 429 puede indicar un ataque o un bug de cliente. Alerta sobre eventos de rate limiting vía tu [stack de monitoreo](/guides/devops/monitoring-alerting-guide).
 
 ## Errores comunes
 
@@ -165,7 +165,7 @@ R: El rate limiting rechaza peticiones que exceden un umbral (HTTP 429). El thro
 R: Usa un almacén de datos compartido como Redis con operaciones de incremento atómico. Evita contadores en memoria en despliegues multi-nodo porque cada nodo mantiene su propio conteo independiente.
 
 **P: ¿Puede el rate limiting prevenir ataques DDoS?**
-R: El rate limiting básico ayuda contra DDoS de capa de aplicación (L7) pero no puede detener inundaciones de red volumétricas (L3/L4). Combina rate limiting con protección DDoS de CDN y reglas de WAF.
+R: El rate limiting básico ayuda contra DDoS de capa de aplicación (L7) pero no puede detener inundaciones de red volumétricas (L3/L4). Combina rate limiting con [protección DDoS de CDN](/guides/performance/cdn-edge-caching) y reglas de WAF.
 
 **P: ¿Debería limitar usuarios autenticados y no autenticados de forma diferente?**
 R: Sí. Los usuarios autenticados deberían ser limitados por ID de usuario con cuotas más altas. Los usuarios no autenticados deberían ser limitados por IP con umbrales más estrictos para prevenir abuso anónimo.

@@ -182,18 +182,18 @@ const dark = new ThemedButton(new DarkTheme());
 ## Consideraciones de Produccion
 
 - Usa inyeccion de dependencias para intercambiar implementaciones en runtime
-- Bridge funciona bien con Abstract Factory para crear familias de componentes emparejados
+- Bridge funciona bien con [Abstract Factory](/patterns/design/abstract-factory-pattern) para crear familias de componentes emparejados
 - Manten la abstraccion delgada; delega todos los detalles de renderizado a la implementacion
 
 ## Errores Comunes
 
-- Confundir Bridge con Adapter: Adapter hace compatibles interfaces no relacionadas; Bridge separa una interfaz de su implementacion
-- Crear un Bridge cuando un simple Strategy bastaria para variacion de un solo metodo
+- Confundir Bridge con [Adapter](/patterns/design/adapter-pattern): Adapter hace compatibles interfaces no relacionadas; Bridge separa una interfaz de su implementacion
+- Crear un Bridge cuando un simple [Strategy](/patterns/design/strategy-pattern) bastaria para variacion de un solo metodo
 
 ## FAQ
 
 **P: En que se diferencia de Strategy?**
-R: Strategy cambia el comportamiento de un solo objeto. Bridge separa dos jerarquias de clases enteras para que cada una pueda evolucionar independientemente.
+R: [Strategy](/patterns/design/strategy-pattern) cambia el comportamiento de un solo objeto. Bridge separa dos jerarquias de clases enteras para que cada una pueda evolucionar independientemente.
 
 **P: Puedo usar esto para backends de base de datos?**
 R: Si. La abstraccion es tu interfaz de repositorio; las implementaciones son adaptadores SQL, MongoDB o DynamoDB.

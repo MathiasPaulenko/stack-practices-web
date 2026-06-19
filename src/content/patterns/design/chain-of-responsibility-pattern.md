@@ -48,7 +48,7 @@ Use the Chain of Responsibility Pattern when:
 - More than one object may handle a request, and the handler isn't known in advance
 - You want to issue a request to one of several objects without specifying the receiver explicitly
 - The set of objects that can handle a request should be specified dynamically
-- You need a pipeline or middleware where each step can process, transform, or stop a request
+- You need a [pipeline](/patterns/design/chain-of-responsibility-middleware) or middleware where each step can process, transform, or stop a request
 
 ## Solution
 
@@ -262,10 +262,10 @@ The client builds the chain order. Each handler can also choose to stop the chai
 ## Frequently Asked Questions
 
 **Q: Is this the same as middleware in web frameworks?**
-A: Yes. Express.js middleware, Django middleware, and ASP.NET Core middleware are all implementations of the Chain of Responsibility Pattern. Each middleware decides whether to process the request, pass it along, or short-circuit with a response.
+A: Yes. Express.js middleware, Django middleware, and ASP.NET Core middleware are all implementations of the [Chain of Responsibility](/patterns/design/chain-of-responsibility-middleware) Pattern. Each middleware decides whether to process the request, pass it along, or short-circuit with a response.
 
 **Q: What happens if no handler processes the request?**
-A: By default, the request falls through the chain unhandled. You should add a catch-all handler at the end that returns a default response or throws an appropriate error.
+A: By default, the request falls through the chain unhandled. Consider adding a [Decorator](/patterns/design/decorator-pattern) for enrichment or a default handler for catch-all behavior. You should add a catch-all handler at the end that returns a default response or throws an appropriate error.
 
 **Q: Can handlers modify the request before passing it along?**
 A: Yes. Unlike a pure pass-or-fail chain, handlers can transform, enrich, or validate the request before forwarding it. This is common in middleware pipelines.

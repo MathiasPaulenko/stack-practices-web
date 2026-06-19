@@ -149,13 +149,13 @@ jobs:
 
 - **Use `data-testid` selectors**: avoid selecting by CSS class or DOM position. Classes change during refactors; `data-testid` attributes are stable contracts between frontend and test suite.
 - **Test user journeys, not implementation details**: a good E2E test reads like a user story — "the user logs in, adds a product to cart, and checks out." It does not assert internal Redux state or API response payloads.
-- **Run E2E in CI on every PR**: E2E tests are slow, but running them on pull requests catches regressions before they reach staging. Use sharding (parallel workers) to keep total runtime under 10 minutes.
+- **Run E2E in CI on every PR**: E2E tests are slow, but running them on [pull requests](/guides/cicd-pipeline-guide) catches regressions before they reach staging. Use sharding (parallel workers) to keep total runtime under 10 minutes.
 - **Mock external dependencies**: third-party payment processors, email services, and analytics should be stubbed or intercepted. Tests that depend on real external services are slow and unreliable.
 - **Retry failed tests cautiously**: most frameworks support automatic retries. Use them sparingly — retries mask real flakiness. Fix the root cause instead of retrying indefinitely.
 
 ## Common mistakes
 
-- **Testing everything through the UI**: not every feature needs an E2E test. Business-critical paths (checkout, login, payments) deserve E2E coverage. Internal admin utilities are better served by integration tests.
+- **Testing everything through the UI**: not every feature needs an E2E test. Business-critical paths (checkout, login, payments) deserve E2E coverage. Internal admin utilities are better served by [integration tests](/recipes/testing/integration-testing).
 - **Hardcoding timeouts**: explicit waits like `cy.wait(3000)` make tests slow and still fail on slower CI runners. Use framework auto-waiting or assert on DOM conditions instead.
 - **Sharing test accounts**: tests that log in with the same user account create race conditions. Use test-specific accounts or ephemeral users created via API before each test.
 - **Ignoring mobile viewports**: users interact with your application on phones, tablets, and desktops. Run E2E tests against multiple viewport sizes to catch responsive layout bugs.
@@ -172,5 +172,5 @@ A: Run synthetic monitoring (smoke tests) against production, but not the full E
 A: Use API endpoints to create and authenticate test users before each test. Store session tokens in `localStorage` or cookies via `page.addInitScript` to bypass the UI login flow.
 
 **Q: What is the difference between E2E and integration testing?**
-A: E2E tests drive the application through the UI as a user would. Integration tests verify that backend components (API + database + service) work together, often via direct HTTP calls without a browser.
+A: E2E tests drive the application through the UI as a user would. [Integration tests](/recipes/testing/integration-testing) verify that backend components (API + database + service) work together, often via direct HTTP calls without a browser.
 

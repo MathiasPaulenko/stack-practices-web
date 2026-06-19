@@ -31,7 +31,7 @@ seo:
 ---
 ## Overview
 
-Retrieval-Augmented Generation (RAG) combines a large language model with a document retrieval step. Instead of relying solely on the LLM's parametric memory, RAG fetches relevant passages from a knowledge base and injects them into the prompt. This dramatically reduces hallucinations and enables the model to answer questions about private or recent data.
+Retrieval-Augmented Generation (RAG) combines a large language model with a document retrieval step. Instead of relying solely on the LLM's parametric memory, [RAG](/recipes/ai/rag-pipeline) fetches relevant passages from a knowledge base and injects them into the prompt. This dramatically reduces hallucinations and enables the model to answer questions about private or recent data.
 
 This recipe builds a complete RAG pipeline: chunk documents, generate embeddings, store them in a vector database, retrieve relevant chunks, and generate answers with LangChain.
 
@@ -154,8 +154,8 @@ String answer = chatClient.call(prompt).getResult().getOutput().getContent();
 
 A RAG pipeline has four stages:
 
-1. **Ingestion**: Documents are loaded, cleaned, and split into chunks. Chunk size (typically 200–1000 tokens) balances granularity with context preservation.
-2. **Embedding**: Each chunk is converted into a high-dimensional vector using an embedding model. Vectors capture semantic meaning, not just keyword overlap.
+1. **Ingestion**: Documents are loaded, cleaned, and split into chunks. For document handling, see [file upload validation](/recipes/file-handling/file-upload-validation). Chunk size (typically 200–1000 tokens) balances granularity with context preservation.
+2. **Embedding**: Each chunk is converted into a high-dimensional vector using an embedding model. Vectors capture [semantic meaning](/recipes/ai/semantic-search), not just keyword overlap.
 3. **Retrieval**: At query time, the user's question is also embedded. The vector database returns the `k` most similar chunks via cosine similarity or Euclidean distance.
 4. **Generation**: Retrieved chunks are concatenated into a context block and injected into the LLM prompt. The model generates an answer grounded in the provided text.
 
@@ -168,7 +168,7 @@ A RAG pipeline has four stages:
 
 | Technology | Approach | Notes |
 |------------|----------|-------|
-| LangChain | Orchestration + chaining | Mature ecosystem, handles prompt templates and output parsing |
+| LangChain | Orchestration + chaining | Mature ecosystem, handles [prompt templates](/recipes/ai/prompt-engineering) and output parsing |
 | LlamaIndex | Data-centric framework | Built-in connectors for PDFs, SQL, APIs; better for complex data |
 | Haystack | Modular pipeline | Strong for evaluation and production monitoring |
 | Vector DBs | Chroma / Pinecone / Weaviate / pgvector | Chroma for local, Pinecone for managed, pgvector if you already use Postgres |

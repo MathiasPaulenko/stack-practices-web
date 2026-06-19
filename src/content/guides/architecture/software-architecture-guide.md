@@ -81,7 +81,7 @@ Software architecture defines the structure of a system, the relationships betwe
 **When to Choose**
 
 - Mid-sized team (10–30 developers)
-- Want to defer microservices complexity
+- Want to defer [microservices complexity](/guides/architecture/microservices-architecture-guide)
 - Clear domain boundaries but shared infrastructure
 
 **Pros**: Simpler operations than microservices, better structure than big-ball-of-mud.
@@ -104,7 +104,7 @@ Software architecture defines the structure of a system, the relationships betwe
 └──────────────────────────────┘
 ```
 
-**Dependency Rule**: Inner layers must not depend on outer layers.
+**Dependency Rule**: Inner layers must not depend on outer layers. See [SOLID principles](/guides/design/solid-principles-guide).
 
 ## Data Flow Patterns
 
@@ -165,9 +165,9 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 | Pattern | Use Case |
 | ------- | -------- |
 | Read replicas | Read-heavy workloads |
-| Sharding | Write-heavy, large datasets |
-| Connection pooling | Many application instances |
-| Caching (Redis) | Hot data, session storage |
+| [Sharding](/guides/databases/database-sharding-partitioning-guide) | Write-heavy, large datasets |
+| [Connection pooling](/recipes/performance/connection-pooling) | Many application instances |
+| [Caching](/recipes/performance/caching-strategies) (Redis) | Hot data, session storage |
 
 ## Communication Between Components
 
@@ -193,10 +193,10 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 
 ## Best Practices
 
-- **Start simple**: Begin with a modular monolith; extract services when needed
-- **Define bounded contexts**: Use Domain-Driven Design to find natural boundaries
-- **Design for observability**: Every component must expose metrics, logs, traces
-- **Automate everything**: CI/CD, infrastructure, testing, security scanning
+- **Start simple**: Begin with a [modular monolith](/guides/architecture/monolith-to-microservices-migration-guide); extract services when needed
+- **Define bounded contexts**: Use [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) to find natural boundaries
+- **Design for observability**: Every component must expose [metrics, logs, traces](/recipes/observability/metrics-collection)
+- **Automate everything**: [CI/CD](/guides/cicd-pipeline-guide), [infrastructure](/guides/devops/infrastructure-as-code-guide), testing, security scanning
 - **Document decisions**: ADRs for every significant architectural choice
 
 ## FAQ

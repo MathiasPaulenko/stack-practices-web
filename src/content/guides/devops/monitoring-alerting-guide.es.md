@@ -131,7 +131,7 @@ Un dashboard debería decirte si el sistema está saludable en 5 segundos.
 
 ## Mejores Prácticas
 
-- Instrumenta antes de necesitarlo — agregar métricas durante un incidente es demasiado tarde
+- Instrumenta antes de necesitarlo — agregar métricas durante un [incidente](/guides/devops/on-call-incident-response-guide) es demasiado tarde
 - Usa percentiles, no promedios — los promedios ocultan outliers; p95 y p99 cuentan la historia real
 - IDs de correlación en todas partes — vincula logs, métricas y traces a un request ID único
 - Alerta sobre síntomas, no causas — "usuarios no pueden hacer checkout" es mejor que "CPU está alta"
@@ -139,7 +139,7 @@ Un dashboard debería decirte si el sistema está saludable en 5 segundos.
 
 ## Errores Comunes
 
-- Alertar sobre cada posible modo de fallo — la fatiga de alertas mata la calidad de respuesta
+- Alertar sobre cada posible modo de fallo — la fatiga de alertas mata la calidad de [respuesta](/guides/devops/on-call-incident-response-guide)
 - No tener una métrica "canary" — despliega un cambio y observa una sola métrica dorada
 - Ignorar cambios de línea base — si p99 se desplaza de 100ms a 300ms en un mes, investiga
 - Dashboards sin dueños — alguien debe poseer y mantener cada dashboard

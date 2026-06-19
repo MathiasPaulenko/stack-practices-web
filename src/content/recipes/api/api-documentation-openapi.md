@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-OpenAPI (formerly Swagger) is the industry standard for describing REST APIs. A well-maintained OpenAPI spec serves as the single source of truth for your API — generating interactive documentation, client SDKs, and automated tests from one YAML or JSON file.
+OpenAPI (formerly Swagger) is the industry standard for describing [REST APIs](/recipes/api/rest-api-design). A well-maintained OpenAPI spec serves as the single source of truth for your API — generating interactive documentation, client SDKs, and automated tests from one YAML or JSON file.
 
 This recipe covers generating interactive API docs from OpenAPI specs using Swagger UI, Redoc, and native framework tools.
 
@@ -101,8 +101,8 @@ public class BookController {
 ## Explanation
 
 OpenAPI specs are typically generated in two ways:
-- **Code-first**: Annotations in your code generate the spec automatically (FastAPI, SpringDoc, tsoa)
-- **Design-first**: You write the YAML/JSON spec manually, then generate server stubs and client SDKs
+- **Code-first**: Annotations in your code generate the spec automatically ([FastAPI](/recipes/api/fastapi-crud), SpringDoc, tsoa)
+- **Design-first**: You write the YAML/JSON spec manually, then generate server stubs and [client SDKs](/recipes/api/call-rest-api)
 
 The generated spec (`openapi.json`) drives:
 - **Swagger UI**: Interactive explorer for testing endpoints
@@ -130,8 +130,8 @@ The generated spec (`openapi.json`) drives:
 ## Common Mistakes
 
 - **Drift between code and spec**: Code changes but spec is not updated — use code-first to avoid this
-- **Missing security definitions**: Document auth requirements (Bearer, OAuth2, API key)
-- **Over-sharing internal models**: Expose DTOs, not database entities, in the spec
+- **Missing security definitions**: Document auth requirements ([Bearer](/recipes/security/oauth2-pkce-spa), OAuth2, API key)
+- **Over-sharing internal models**: Expose DTOs, not [database entities](/guides/databases/database-design-guide), in the spec
 - **Ignoring nullable fields**: OpenAPI 3.0 requires `nullable: true` explicitly
 - **Hardcoding server URLs**: Use variables (`{serverUrl}`) for different environments
 

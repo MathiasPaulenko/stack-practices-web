@@ -32,7 +32,7 @@ seo:
 
 Cross-Site Request Forgery (CSRF) engaña a usuarios autenticados para que realicen acciones no deseadas en un sitio web en el que confían. Un atacante crea un enlace o formulario malicioso que, cuando el usuario logueado hace clic, envía un request al sitio víctima usando la cookie de sesión existente del usuario. El servidor ve un request legítimo de un usuario autenticado y ejecuta la acción — cambiar un email, transferir fondos o eliminar una cuenta — sin conocimiento del usuario.
 
-A diferencia de XSS, que inyecta scripts maliciosos, CSRF explota el comportamiento automático del navegador de enviar cookies. Si `bank.com` tiene un endpoint `POST /transfer`, un atacante puede incrustar un formulario en `evil.com` que se envía a `bank.com/transfer`. Mientras el usuario tenga una cookie de sesión válida para `bank.com`, el navegador la envía automáticamente.
+A diferencia de [XSS](/recipes/security/xss-prevention), que inyecta scripts maliciosos, CSRF explota el comportamiento automático del navegador de enviar cookies. Si `bank.com` tiene un endpoint `POST /transfer`, un atacante puede incrustar un formulario en `evil.com` que se envía a `bank.com/transfer`. Mientras el usuario tenga una cookie de sesión válida para `bank.com`, el navegador la envía automáticamente.
 
 ## Cuándo usarlo
 
@@ -125,7 +125,7 @@ public class CookieConfig implements WebMvcConfigurer {
 - **Confiar solo en SameSite sin tokens**: navegadores más antiguos y ciertos patrones de navegación cross-site pueden no enforce SameSite. Los tokens proveen una defensa de respaldo.
 - **No proteger formularios de login**: login CSRF es real. Un atacante puede forzar a una víctima a loguearse en una cuenta controlada por el atacante, habilitando ataques subsecuentes.
 - **Usar GET para acciones que cambian estado**: `GET /delete-account?id=123` es trivialmente explotable vía una image tag o enlace. Siempre usa POST, PUT, DELETE para mutaciones.
-- **Almacenar tokens en localStorage**: XSS puede robar localStorage. Almacena el token server-side en un campo de formulario oculto o una cookie non-HttpOnly (para el patrón double-submit).
+- **Almacenar tokens en localStorage**: [XSS](/recipes/security/xss-prevention) puede robar localStorage. Almacena el token server-side en un campo de formulario oculto o una cookie non-HttpOnly (para el patrón double-submit).
 
 ## Preguntas frecuentes
 
@@ -133,7 +133,7 @@ public class CookieConfig implements WebMvcConfigurer {
 R: Sí. SameSite bloquea la mayoría de CSRF pero no todos los escenarios (requests GET cross-site, iframes incrustados, endpoints que aceptan form data). La defensa en profundidad con tokens es recomendada.
 
 **P: ¿Las APIs necesitan protección CSRF?**
-R: Las APIs que aceptan submissions de formulario o usan autenticación por cookie necesitan protección CSRF. Las APIs que usan bearer tokens o API keys en headers son generalmente inmunes porque el atacante no puede forjar el header.
+R: Las APIs que aceptan submissions de formulario o usan autenticación por cookie necesitan protección CSRF. Las APIs que usan bearer tokens o API keys en headers son generalmente inmunes porque el atacante no puede forjar el header. Para seguridad de headers de API, consulta [headers de seguridad API](/recipes/security/api-security-headers).
 
 **P: ¿Qué es login CSRF?**
 R: Un atacante engaña a una víctima para que se loguee en un sitio bajo la cuenta del atacante. La víctima entonces realiza acciones (agregar métodos de pago, escribir reviews) que benefician al atacante.

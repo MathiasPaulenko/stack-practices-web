@@ -31,7 +31,7 @@ seo:
 
 # Ambassador Pattern for Resilient Remote Service Access
 
-The Ambassador pattern creates a local helper instance that acts on behalf of a remote service. It handles network concerns like retries, timeouts, circuit breaking, and logging, keeping the client code clean and the remote service interface simple. This pattern is common in microservices and containerized deployments.
+The Ambassador pattern creates a local helper instance that acts on behalf of a remote service. It handles network concerns like retries, timeouts, circuit breaking, and logging, keeping the client code clean and the remote service interface simple. This pattern is common in [microservices](/guides/architecture/microservices-architecture-guide) and containerized deployments.
 
 ## When to Use This
 
@@ -183,7 +183,7 @@ class MonitoringAmbassador implements UserService {
 
 ## Production Considerations
 
-- Combine with a service mesh (Istio, Linkerd) for cluster-wide policy enforcement
+- Combine with a [service mesh](/guides/architecture/microservices-architecture-guide) (Istio, Linkerd) for cluster-wide policy enforcement
 - Use connection pooling in the ambassador to reduce TCP overhead
 - Keep the ambassador stateless so it can be recreated on failure
 
@@ -196,7 +196,7 @@ class MonitoringAmbassador implements UserService {
 ## FAQ
 
 **Q: How is this different from Proxy?**
-A: Proxy controls access to a single object. Ambassador specifically handles remote service resilience and is usually deployed as a local process or library.
+A: [Proxy](/patterns/design/proxy-pattern) controls access to a single object. Ambassador specifically handles remote service resilience and is usually deployed as a local process or library.
 
 **Q: Can I use this with gRPC?**
 A: Yes. gRPC interceptors are a form of ambassador pattern for adding retries, deadlines, and auth to service calls.

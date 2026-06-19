@@ -45,7 +45,7 @@ It shines when an object has many optional parameters, nested components, or whe
 ## When to Use
 
 Use the Builder Pattern when:
-- An object has many optional or nested configuration parameters
+- An object has many optional or nested [configuration](/patterns/design/builder-pattern-configuration) parameters
 - You want to enforce a specific construction sequence
 - The constructor would have too many parameters (telescoping constructor problem)
 - You need different configurations of the same object type
@@ -195,7 +195,7 @@ By returning `self` (or `this`) from each configuration method, you create a flu
 - **Return `self` from each step method** to enable method chaining
 - **Make the product immutable** after `build()` is called
 - **Validate in `build()`**, not in individual steps, for complete error context
-- **Use a Director** when you have common preset configurations (e.g., `pizzaDirector.makeMargherita()`)
+- **Use a [Director](/patterns/design/builder-pattern-configuration)** when you have common preset configurations (e.g., `pizzaDirector.makeMargherita()`)
 - **Document required vs. optional steps** so callers know the minimum valid configuration
 
 ## Common Mistakes
@@ -209,10 +209,10 @@ By returning `self` (or `this`) from each configuration method, you create a flu
 ## Frequently Asked Questions
 
 **Q: What is the difference between Builder and Factory?**
-A: Factory decides which class to instantiate. Builder assembles a single complex object step by step. They solve different problems and can be used together.
+A: [Factory](/patterns/design/factory-pattern) decides which class to instantiate. Builder assembles a single complex object step by step. They solve different problems and can be used together.
 
 **Q: Should I use a Builder for every class?**
 A: No. Use it when constructors become unwieldy (more than 3-4 optional parameters) or when construction has a meaningful sequence.
 
 **Q: Can a Builder produce different product types?**
-A: Typically no. A Builder is tightly coupled to one product class. Use Abstract Factory if you need different product families.
+A: Typically no. A Builder is tightly coupled to one product class. Use [Abstract Factory](/patterns/design/abstract-factory-pattern) if you need different product families.

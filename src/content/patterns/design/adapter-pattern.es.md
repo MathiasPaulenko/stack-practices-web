@@ -150,7 +150,7 @@ El adapter traduce llamadas desde la interfaz target a llamadas que el adaptee e
 - **Mantén el adapter delgado**: Debería traducir llamadas, no añadir lógica de negocio
 - **Documenta el mapeo**: Explica cómo los métodos target se mapean a métodos del adaptee
 - **Maneja nulls y excepciones** gracefulmente durante la traducción
-- **Considera caching**: Si la traducción involucra computación pesada, cachea resultados
+- **Considera [caching](/recipes/performance/caching-strategies)**: Si la traducción involucra computación pesada, cachea resultados
 
 ## Errores comunes
 
@@ -163,7 +163,7 @@ El adapter traduce llamadas desde la interfaz target a llamadas que el adaptee e
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Adapter y Facade?**
-R: Adapter hace compatible una interfaz incompatible. Facade simplifica un subsistema complejo proporcionando una única interfaz unificada.
+R: Adapter hace compatible una interfaz incompatible. [Facade](/patterns/design/facade-pattern) simplifica un subsistema complejo proporcionando una única interfaz unificada.
 
 **P: ¿Puedo adaptar múltiples clases a la vez?**
 R: Sí. Un único adapter puede envolver múltiples adaptees y coordinarlos para proporcionar una interfaz unificada.

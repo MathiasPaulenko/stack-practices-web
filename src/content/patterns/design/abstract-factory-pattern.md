@@ -209,23 +209,23 @@ A client uses only the abstract interfaces. Switching from Light to Dark theme m
 - **Document the product family contract**: List which concrete classes belong together
 - **Keep factory methods simple**: Factories should delegate to constructors, not contain complex logic
 - **Consider a registry**: For runtime factory selection based on configuration
-- **Pair with Singleton**: Often the concrete factory itself is a singleton
+- **Pair with [Singleton](/patterns/design/singleton-pattern)**: Often the concrete factory itself is a singleton
 
 ## Common Mistakes
 
 - **Mixing families**: Creating a Light Button with a Dark Checkbox breaks consistency
 - **Factory bloat**: Adding business logic inside factory methods instead of keeping them as thin creators
-- **Over-abstraction**: Using Abstract Factory when a simple Factory Method is sufficient
+- **Over-abstraction**: Using Abstract Factory when a simple [Factory Method](/patterns/design/factory-pattern) is sufficient
 - **Leaky abstractions**: Returning concrete types instead of abstract interfaces
 - **Difficult testing**: Not providing an easy way to inject mock factories
 
 ## Frequently Asked Questions
 
 **Q: What is the difference between Factory Method and Abstract Factory?**
-A: Factory Method delegates object creation to subclasses. Abstract Factory creates families of related objects through multiple factory methods.
+A: [Factory Method](/patterns/design/factory-pattern) delegates object creation to subclasses. Abstract Factory creates families of related objects through multiple factory methods.
 
 **Q: Can Abstract Factory be combined with Builder?**
-A: Yes. The factory can return builders for complex products, or builders can use factories to construct parts.
+A: Yes. The factory can return [builders](/patterns/design/builder-pattern) for complex products, or builders can use factories to construct parts.
 
 **Q: How do I add a new product type to an existing family?**
 A: You must add a new abstract method to the factory interface and implement it in every concrete factory. This is the main drawback of the pattern.

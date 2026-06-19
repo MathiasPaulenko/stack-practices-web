@@ -30,13 +30,13 @@ seo:
 ---
 ## Overview
 
-API mocking replaces real external dependencies with controlled simulations during testing. This eliminates network flakiness, reduces test execution time, and enables testing edge cases — like 500 errors or timeouts — that are hard to reproduce with live services. Modern tools like WireMock, MSW, and MockServer provide request matching, response templating, and verification capabilities that make mocks behave like the real thing.
+API mocking replaces real external dependencies with controlled simulations during [testing](/guides/testing-strategy-guide). This eliminates network flakiness, reduces test execution time, and enables testing edge cases — like 500 errors or timeouts — that are hard to reproduce with live services. Modern tools like WireMock, MSW, and MockServer provide request matching, response templating, and verification capabilities that make mocks behave like the real thing.
 
 ## When to Use
 
 Use this resource when:
-- External APIs are unreliable, slow, or have rate limits that block CI pipelines
-- You need to test error handling for HTTP 429, 503, or timeout scenarios
+- External APIs are unreliable, slow, or have rate limits that block [CI pipelines](/guides/cicd-pipeline-guide)
+- You need to test error handling for HTTP 429, 503, or [timeout scenarios](/recipes/retry-backoff)
 - The real service doesn't have a sandbox or test environment
 - You want deterministic tests that don't fail due to third-party changes
 
@@ -172,7 +172,7 @@ def test_payment_api():
 
 ## Best Practices
 
-- **Mock at the boundary**: Mock HTTP, not internal methods — tests should exercise the full stack
+- **Mock at the boundary**: Mock HTTP, not internal methods — tests should exercise the full stack. For full integration coverage, see [end-to-end testing](/recipes/end-to-end-testing).
 - **Verify requests, not just responses**: Ensure your code sends the right payload and headers
 - **Use record/replay for complex APIs**: Capture real traffic once, then replay in tests
 - **Keep mocks close to reality**: Update mocks when the real API changes; stale mocks hide bugs
@@ -182,7 +182,7 @@ def test_payment_api():
 
 1. **Mocking internal methods**: You test the mock, not the code
 2. **Overly permissive matchers**: `any()` matchers let bugs through that specific matchers catch
-3. **No error scenario coverage**: Only testing 200 OK misses half your error handling code
+3. **No error scenario coverage**: Only testing 200 OK misses half your [error handling](/recipes/handle-errors) code
 4. **Shared mutable state**: Global mock state leaks between tests
 5. **Forgetting to verify**: A passing test with an unused mock means nothing was actually tested
 

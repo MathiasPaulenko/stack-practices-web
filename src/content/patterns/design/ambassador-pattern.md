@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-The Ambassador Pattern deploys a client-side proxy alongside an application to handle cross-cutting concerns for outbound service calls. The ambassador manages retries, circuit breaking, load balancing, service discovery, and TLS termination — freeing the main application from networking complexity.
+The Ambassador Pattern deploys a client-side [proxy](/patterns/design/proxy-pattern) alongside an application to handle cross-cutting concerns for outbound service calls. The ambassador manages retries, circuit breaking, load balancing, service discovery, and TLS termination — freeing the main application from networking complexity.
 
 ## When to Use
 
@@ -232,7 +232,7 @@ The main application makes simple calls; the ambassador handles all networking r
 
 - **Keep the main application networking-naive** — it should just call methods
 - **Configure retries with exponential backoff and jitter** to avoid thundering herd
-- **Include circuit breaker logic** in the ambassador, not the main app
+- **Include [circuit breaker](/patterns/design/circuit-breaker-pattern) logic** in the ambassador, not the main app
 - **Log and metrics all outbound calls** from the ambassador for observability
 - **Keep ambassador logic stateless** so it can be reused across services
 
@@ -247,7 +247,7 @@ The main application makes simple calls; the ambassador handles all networking r
 ## Frequently Asked Questions
 
 **Q: What is the difference between Ambassador and API Gateway?**
-A: Ambassador is a client-side proxy (per-service). API Gateway is a server-side proxy (per-cluster/ingress). Both handle cross-cutting concerns but at different layers.
+A: Ambassador is a client-side proxy (per-service). [API Gateway](/recipes/serverless/serverless-api-gateway) is a server-side proxy (per-cluster/ingress). Both handle cross-cutting concerns but at different layers.
 
 **Q: Should I use a service mesh sidecar or an embedded library?**
-A: Service mesh sidecars (Envoy) give you language-agnostic, infrastructure-level features with no code changes. Embedded libraries (Resilience4j, Polly) have lower latency but require per-language implementation.
+A: [Service mesh](/guides/architecture/microservices-architecture-guide) sidecars (Envoy) give you language-agnostic, infrastructure-level features with no code changes. Embedded libraries (Resilience4j, Polly) have lower latency but require per-language implementation.

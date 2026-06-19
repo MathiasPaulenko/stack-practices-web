@@ -49,7 +49,7 @@ Use the Cache-Aside Pattern when:
 - The application should control what gets cached and for how long
 - Cache invalidation can be handled explicitly by the application layer
 - You want a simple, portable caching strategy that works with any cache provider (Redis, Memcached, in-memory)
-- Examples: user profiles, product catalogs, configuration data, reference data
+- Examples: user profiles, product catalogs, [configuration data](/recipes/data/parse-json), reference data
 
 ## Solution
 
@@ -207,8 +207,8 @@ The application is the **single point of control** — it decides when to read f
 
 | Variant | Description | Use Case |
 |---------|-------------|----------|
-| **Lazy Loading** | Cache miss triggers load | Most common; prevents unnecessary cache fills |
-| **Write-Through** | Writes update cache and DB simultaneously | Strong consistency required |
+| **[Lazy Loading](/recipes/performance/lazy-loading)** | Cache miss triggers load | Most common; prevents unnecessary cache fills |
+| **[Write-Through](/recipes/performance/cache-invalidation)** | Writes update cache and DB simultaneously | Strong consistency required |
 | **Refresh-Ahead** | Proactively refresh before TTL expires | Predictable access patterns |
 | **Multi-Level** | L1 (in-memory) + L2 (Redis) + L3 (DB) | High-scale applications |
 
@@ -216,7 +216,7 @@ The application is the **single point of control** — it decides when to read f
 
 - **Always set a TTL** — stale data is worse than a cache miss
 - **Invalidate on writes** — delete the cache key after DB updates to maintain consistency
-- **Use a circuit breaker** around cache failures — if Redis is down, fall back directly to DB
+- **Use a [circuit breaker](/patterns/design/circuit-breaker-pattern)** around cache failures — if Redis is down, fall back directly to DB
 - **Serialize complex objects** before storing (JSON, protobuf)
 - **Monitor cache hit ratio** — aim for >90% on read-heavy workloads
 - **Pre-warm cache** on startup for critical reference data
@@ -235,7 +235,7 @@ The application is the **single point of control** — it decides when to read f
 A: In Cache-Aside, the application controls cache logic. In Read-Through, the cache provider (e.g., Redis with a cache loader) fetches from the DB transparently. Cache-Aside is more explicit and portable; Read-Through delegates control to the cache layer.
 
 **Q: How do I prevent cache stampedes?**
-A: Use a mutex or lock per key so only one request loads from DB while others wait. Alternatively, use a probabilistic early expiration (e.g., refresh the key before TTL expires with some probability).
+A: Use a [mutex](/recipes/security/rate-limiting) or lock per key so only one request loads from DB while others wait. Alternatively, see [caching strategies](/recipes/performance/caching-strategies) for more patterns. Alternatively, use a probabilistic early expiration (e.g., refresh the key before TTL expires with some probability).
 
 **Q: Should I cache writes (Write-Through) or invalidate (Cache-Aside)?**
 A: Cache-Aside invalidation is simpler and safer. Write-Through adds complexity but guarantees consistency. Use Write-Through only when strong consistency is critical and worth the overhead.

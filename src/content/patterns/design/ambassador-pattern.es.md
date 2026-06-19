@@ -40,7 +40,7 @@ seo:
 
 ## Resumen
 
-El Patrón Ambassador despliega un proxy del lado del cliente junto a una aplicación para manejar preocupaciones transversales en llamadas a servicios salientes. El ambassador gestiona reintentos, circuit breaking, balanceo de carga, descubrimiento de servicios y terminación TLS — liberando a la aplicación principal de la complejidad de networking.
+El Patrón Ambassador despliega un [proxy](/patterns/design/proxy-pattern) del lado del cliente junto a una aplicación para manejar preocupaciones transversales en llamadas a servicios salientes. El ambassador gestiona reintentos, circuit breaking, balanceo de carga, descubrimiento de servicios y terminación TLS — liberando a la aplicación principal de la complejidad de networking.
 
 ## Cuándo usarlo
 
@@ -234,7 +234,7 @@ La aplicación principal hace llamadas simples; el ambassador maneja toda la res
 
 - **Mantén la aplicación principal ingenua en networking** — debería solo llamar métodos
 - **Configura reintentos con backoff exponencial y jitter** para evitar thundering herd
-- **Incluye lógica de circuit breaker** en el ambassador, no en la app principal
+- **Incluye lógica de [circuit breaker](/patterns/design/circuit-breaker-pattern)** en el ambassador, no en la app principal
 - **Registra y métrica todas las llamadas salientes** desde el ambassador para observabilidad
 - **Mantén la lógica del ambassador stateless** para que pueda reutilizarse entre servicios
 
@@ -249,7 +249,7 @@ La aplicación principal hace llamadas simples; el ambassador maneja toda la res
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Ambassador y API Gateway?**
-R: Ambassador es un proxy del lado del cliente (por servicio). API Gateway es un proxy del lado del servidor (por clúster/ingress). Ambos manejan preocupaciones transversales pero en capas diferentes.
+R: Ambassador es un proxy del lado del cliente (por servicio). [API Gateway](/recipes/serverless/serverless-api-gateway) es un proxy del lado del servidor (por clúster/ingress). Ambos manejan preocupaciones transversales pero en capas diferentes.
 
 **P: ¿Debería usar un sidecar de service mesh o una biblioteca embebida?**
-R: Los sidecars de service mesh (Envoy) te dan funcionalidades agnósticas de lenguaje a nivel de infraestructura sin cambios de código. Las bibliotecas embebidas (Resilience4j, Polly) tienen menor latencia pero requieren implementación por lenguaje.
+R: Los sidecars de [service mesh](/guides/architecture/microservices-architecture-guide) (Envoy) te dan funcionalidades agnósticas de lenguaje a nivel de infraestructura sin cambios de código. Las bibliotecas embebidas (Resilience4j, Polly) tienen menor latencia pero requieren implementación por lenguaje.

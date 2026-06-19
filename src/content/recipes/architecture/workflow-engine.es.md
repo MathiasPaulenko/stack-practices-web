@@ -29,14 +29,14 @@ seo:
 ---
 ## Visión General
 
-Los workflow engines orquestan procesos de negocio complejos de múltiples pasos que abarcan servicios, tiempo y dominios de falla. A diferencia de simples job queues que ejecutan tareas independientes, los workflows gestionan transiciones de estado, retries, timeouts y compensaciones a través de sistemas distribuidos. Ya sea procesando una orden de e-commerce, suscribiendo una póliza de seguro o aprobando un préstamo, los workflow engines aseguran que cada paso se ejecute en el orden correcto con manejo apropiado de errores.
+Los workflow engines orquestan procesos de negocio complejos de múltiples pasos que abarcan servicios, tiempo y dominios de falla. A diferencia de simples job queues que ejecutan tareas independientes, los workflows gestionan transiciones de estado, retries, timeouts y compensaciones a través de [sistemas distribuidos](/guides/microservices-architecture-guide). Ya sea procesando una orden de e-commerce, suscribiendo una póliza de seguro o aprobando un préstamo, los workflow engines aseguran que cada paso se ejecute en el orden correcto con manejo apropiado de errores.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Los procesos de negocio tienen 5+ pasos secuenciales con requisitos de manejo de fallas
 - Los pasos necesitan esperar aprobación humana o eventos externos (horas o días)
-- Las fallas parciales requieren transacciones compensatorias (patrón saga)
+- Las fallas parciales requieren transacciones compensatorias ([patrón saga](/recipes/saga-pattern))
 - Necesitas audit trails y visibilidad del estado de procesos de larga duración
 
 ## Solución
@@ -155,7 +155,7 @@ order.ship()     # paid -> shipped
 
 ## Mejores Prácticas
 
-- **Activities idempotentes**: Ejecutar la misma activity dos veces debería producir el mismo resultado
+- **Activities idempotentes**: Ejecutar la misma activity dos veces debería producir el mismo resultado. Consulta [idempotencia de mensajes](/recipes/message-idempotency).
 - **Claves de idempotencia**: Pasar keys únicas a APIs externas para prevenir double charges
 - **Set timeouts en todo**: Timeout default de 10 minutos previene workflows stuck
 - **Versiona definiciones de workflow**: Nuevos despliegues no deberían romper workflows en vuelo
@@ -164,7 +164,7 @@ order.ship()     # paid -> shipped
 ## Errores Comunes
 
 1. **Acoplamiento fuerte al orchestrator**: Lógica de negocio filtrándose en definiciones de workflow dificulta testing
-2. **Sin paths de compensación**: Workflows fallados que ya cobraron al cliente necesitan refunds explícitos
+2. **Sin paths de compensación**: Workflows fallados que ya cobraron al cliente necesitan refunds explícitos. Aprende más en [patrón saga](/recipes/saga-pattern).
 3. **Polling en lugar de events**: Esperar 30 segundos para check de status desperdicia recursos; usa callbacks
 4. **Ignorar historial de workflow**: Workflows completados viejos llenan storage; implementa retention policies
 5. **No testear replay**: Temporal y similares hacen replay de historial; código no determinístico se rompe
@@ -172,7 +172,7 @@ order.ship()     # paid -> shipped
 ## Preguntas Frecuentes
 
 **P: ¿Cuándo debo usar un workflow engine en lugar de una message queue?**
-R: Usa queues para tareas independientes y paralelas. Usa workflow engines para procesos coordinados y secuenciales con estado.
+R: Usa [message queues](/guides/event-driven-architecture-guide) para tareas independientes y paralelas. Usa workflow engines para procesos coordinados y secuenciales con estado.
 
 **P: ¿Cómo manejan los workflow engines los crashes?**
 R: Persisten estado después de cada activity. Al reiniciar, reanudan desde el último paso completado.

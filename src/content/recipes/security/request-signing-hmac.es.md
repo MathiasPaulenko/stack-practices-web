@@ -40,7 +40,7 @@ Esta receta implementa firmas de petición HMAC-SHA256 y patrones de autenticaci
 
 Usa este recurso cuando:
 - Necesitas peticiones de API a prueba de manipulaciones sobre HTTP (TLS solo no es suficiente)
-- Estás construyendo sistemas de entrega de webhooks que requieren verificación del remitente
+- Estás construyendo sistemas de entrega de [webhooks](/recipes/serverless/event-driven-functions) que requieren verificación del remitente
 - Estás implementando autenticación compatible con AWS
 - Necesitas autenticación stateless sin almacenamiento de sesiones
 
@@ -154,7 +154,7 @@ AWS Signature v4 extiende esto con scopes de credenciales, headers firmados e id
 - **Incluye timestamps**: Rechaza peticiones mayores a 5 minutos para prevenir replay attacks
 - **Rota secretos regularmente**: Implementa rotación graceful con períodos de aceptación de clave dual
 - **Firma el body, no solo headers**: La manipulación del payload debe invalidar la firma
-- **Almacena secretos en vaults**: Nunca hardcodees secretos; usa HashiCorp Vault o AWS Secrets Manager
+- **Almacena secretos en vaults**: Nunca hardcodees secretos; usa [HashiCorp Vault](/recipes/security/vault-dynamic-credentials) o AWS Secrets Manager
 
 ## Errores Comunes
 
@@ -162,7 +162,7 @@ AWS Signature v4 extiende esto con scopes de credenciales, headers firmados e id
 - **Comparación de strings simple**: La comparación `==` filtra información de timing — usa siempre comparación de tiempo constante
 - **Omitir body en la firma**: Un atacante puede modificar el payload sin detección
 - **Sin protección contra replay**: Sin timestamps, las peticiones capturadas pueden repetirse indefinidamente
-- **Almacenar secretos en variables de entorno**: Usa servicios de gestión de secretos en su lugar
+- **Almacenar secretos en variables de entorno**: Usa servicios de [gestión de secretos](/guides/devops/secrets-management-guide) en su lugar
 
 ## Preguntas Frecuentes
 

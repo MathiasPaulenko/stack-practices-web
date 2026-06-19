@@ -135,8 +135,8 @@ Adoptar Apache Kafka como la plataforma de event streaming.
 - Maneja backpressure vía consumer lag
 
 ### Negativas
-- Complejidad operativa (ZooKeeper, brokers, particiones)
-- El equipo necesita aprender patrones event-driven
+- Complejidad operativa (ZooKeeper, brokers, particiones). Consulta [arquitectura event-driven](/guides/event-driven-architecture-guide).
+- El equipo necesita aprender [patrones event-driven](/guides/event-driven-architecture-guide)
 - La consistencia eventual requiere Saga pattern para algunos flujos
 ```
 
@@ -161,7 +161,7 @@ Un runbook es una guía paso a paso para responder a una alerta conocida o modo 
 3. Revisar logs de aplicación por leaks de conexión
 
 ## Resolución
-1. Si causado por query lento: matar query, agregar índice, o escalar réplicas de lectura
+1. Si causado por query lento: matar query, [agregar índice](/recipes/performance/database-indexing), o escalar [réplicas de lectura](/guides/databases/database-design-guide)
 2. Si causado por leak de conexión: reiniciar pods de app (temporal), luego deployear fix
 3. Si persistente: aumentar tamaño del pool en config y redeployar
 
@@ -176,14 +176,14 @@ Si la resolución falla después de 15 minutos, escalar al equipo de Base de Dat
 | **Markdown en Git** | READMEs, ADRs, runbooks | Universal, versionado, gratis | Sin búsqueda integrada |
 | **MkDocs / Docusaurus** | Sitios de documentación de producto | Búsqueda, versionado, theming | Requiere build step |
 | **Notion / Confluence** | Base de conocimiento viva | WYSIWYG, fácil colaboración | Sin versionado en git |
-| **Swagger / OpenAPI** | Referencia de API | Auto-generado desde código | Limitado a superficie de API |
+| **Swagger / OpenAPI** | [Referencia de API](/recipes/api/api-documentation-openapi) | Auto-generado desde código | Limitado a superficie de API |
 | **Mermaid / PlantUML** | Diagramas as code | Diagramas versionados y editables | Curva de aprendizaje |
 
 ## Mejores Prácticas
 
 - **Escribe el README primero** — si no puedes explicar cómo ejecutar el servicio, el servicio no está listo
 - **Mantén los docs cerca del código** — los docs en un repo separo se pudren más rápido que el código
-- **Automatiza el chequeo de links** — links rotos destruyen confianza; CI debería capturarlos
+- **Automatiza el chequeo de links** — links rotos destruyen confianza; [CI](/guides/cicd-pipeline-guide) debería capturarlos
 - **Usa diagramas as code** — Mermaid y PlantUML mantienen diagramas versionados y editables
 - **Revisa docs en PRs** — un cambio de código sin cambio de doc es un PR incompleto
 - **Establece una política de frescura** — marca docs no actualizados en 12 meses para revisión

@@ -31,9 +31,9 @@ seo:
 
 ## Overview
 
-HTTP security headers are a lightweight, server-side defense layer that instructs browsers how to handle your content. They require no changes to application code and protect against entire classes of attacks: clickjacking via `X-Frame-Options`, cross-site scripting via `Content-Security-Policy`, protocol downgrade attacks via `Strict-Transport-Security`, and MIME-type sniffing via `X-Content-Type-Options`.
+HTTP security headers are a lightweight, server-side defense layer that instructs browsers how to handle your content. They require no changes to application code and protect against entire classes of attacks: clickjacking via `X-Frame-Options`, [cross-site scripting](/recipes/security/xss-prevention) via `Content-Security-Policy`, protocol downgrade attacks via `Strict-Transport-Security`, and MIME-type sniffing via `X-Content-Type-Options`.
 
-OWASP maintains a dedicated cheat sheet for security headers because they are effective, easy to implement, and frequently forgotten during deployments. A server missing these headers is not immediately vulnerable, but it is significantly less resilient against common web attacks.
+[OWASP](/guides/security/web-application-security-guide) maintains a dedicated cheat sheet for security headers because they are effective, easy to implement, and frequently forgotten during deployments. A server missing these headers is not immediately vulnerable, but it is significantly less resilient against common web attacks.
 
 ## When to Use
 
@@ -147,7 +147,7 @@ A: Most security headers are browser-specific. Mobile native apps using HTTP cli
 A: Yes. Cloudflare Transform Rules and AWS CloudFront Functions can inject headers at the edge without touching origin code. This is useful for static sites or legacy systems.
 
 **Q: What is the difference between CSP and CORS?**
-A: CSP controls what resources a browser can load when rendering your page. CORS controls whether other origins can make requests *to* your API. They are complementary, not substitutes.
+A: CSP controls what resources a browser can load when rendering your page. [CORS](/recipes/api/handle-cors) controls whether other origins can make requests *to* your API. They are complementary, not substitutes.
 
 **Q: Should I use `report-uri` in CSP?**
 A: Yes, during rollout. The `report-uri` directive sends violation reports to an endpoint without blocking content. This helps you identify legitimate sources you forgot to whitelist before enforcing the policy.

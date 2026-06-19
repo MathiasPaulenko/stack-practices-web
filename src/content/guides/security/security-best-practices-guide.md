@@ -138,15 +138,15 @@ Always commit lock files (`package-lock.json`, `poetry.lock`, `Cargo.lock`) to e
 
 | Vulnerability | Prevention |
 | ------------- | ---------- |
-| Injection | Parameterized queries, input validation |
+| Injection | [Parameterized queries](/recipes/security/sql-injection-prevention), [input validation](/recipes/api/input-validation) |
 | Broken Access Control | Deny by default, enforce ownership |
-| Cryptographic Failures | HTTPS everywhere, encrypt at rest |
+| Cryptographic Failures | [HTTPS everywhere](/recipes/api/handle-cors), [encrypt at rest](/recipes/security/encryption-at-rest) |
 | Insecure Design | Threat modeling, security requirements |
 | Security Misconfiguration | Minimal platforms, remove defaults |
 | Vulnerable Components | Dependency scanning, auto-updates |
-| Auth Failures | MFA, strong passwords, session limits |
+| Auth Failures | MFA, strong passwords, [session limits](/recipes/security/oauth2-pkce-spa) |
 | Software Integrity | Verify packages, signed commits |
-| Logging Failures | Log all auth events, monitor anomalies |
+| Logging Failures | [Log all auth events](/recipes/observability/structured-logging), [monitor anomalies](/recipes/observability/metrics-collection) |
 | SSRF | Whitelist URLs, disable unnecessary protocols |
 
 ## Secure Communication
@@ -159,7 +159,7 @@ Always commit lock files (`package-lock.json`, `poetry.lock`, `Cargo.lock`) to e
 
 ### API Security
 
-- Rate limiting (prevent brute force)
+- [Rate limiting](/recipes/rate-limiting) (prevent brute force)
 - API versioning (graceful deprecation)
 - Request signing (verify integrity)
 
@@ -201,4 +201,4 @@ A: At least monthly. Enable Dependabot or Renovate for automated PRs.
 A: JWT is secure when implemented correctly: short expiry, strong signing algorithms (RS256/ES256), secure secret storage, and HTTPS-only transmission.
 
 **Q: Should I encrypt everything in the database?**
-A: Encrypt sensitive fields (PII, credentials, tokens). At-rest encryption should be enabled at the database level.
+A: Encrypt sensitive fields (PII, credentials, tokens). At-rest encryption should be enabled at the [database](/guides/databases/database-design-guide) level.

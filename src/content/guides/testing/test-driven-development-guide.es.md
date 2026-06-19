@@ -205,16 +205,16 @@ class ShoppingCart:
 | Beneficio | Cómo TDD Lo Entrega |
 |-----------|---------------------|
 | **Confianza** | Cada característica está respaldada por un test que prueba que funciona |
-| **Presión de diseño** | El código debe ser testeable, lo cual tiende hacia diseños desacoplados y modulares |
+| **Presión de diseño** | El código debe ser testeable, lo cual tiende hacia [diseños desacoplados y modulares](/guides/design/solid-principles-guide) |
 | **Documentación** | Los tests son ejemplos ejecutables de cómo usar el código |
 | **Seguridad de regresión** | Los cambios son seguros porque los tests existentes detectan roturas |
 | **Tiempo de debugging** | Los bugs se detectan inmediatamente, no días después |
 
 ## Errores Comunes de TDD
 
-- **Probar implementación, no comportamiento** — haz assertions sobre valores de retorno, no sobre estado interno
+- **Probar implementación, no comportamiento** — haz assertions sobre valores de retorno, no sobre estado interno. Consulta [unit testing](/recipes/unit-testing).
 - **Escribir demasiados tests antes de código** — mantén el ciclo corto (minutos, no horas)
-- **Saltar el paso de refactor** — el tercer paso es donde mejora el diseño
+- **Saltar el paso de refactor** — el tercer paso es donde mejora el [código limpio](/guides/design/clean-code-principles-guide)
 - **Probar getters/setters triviales** — enfócate en lógica y decisiones
 - **No ejecutar tests frecuentemente** — si escribes 50 líneas sin ejecutar tests, no estás haciendo TDD
 

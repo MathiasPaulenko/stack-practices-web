@@ -162,7 +162,7 @@ class OrderConfirmed:
     confirmed_at: datetime
 ```
 
-Domain events enable loose coupling between bounded contexts.
+Domain events enable loose coupling between bounded contexts. See [event-driven architecture](/guides/event-driven-architecture-guide).
 
 ## Strategic DDD vs. Tactical DDD
 
@@ -189,15 +189,15 @@ Use DDD when:
 ## Best Practices
 
 - **Start with the ubiquitous language**, not the database schema
-- **Keep aggregates small** — large aggregates hurt concurrency
+- **Keep aggregates small** — large aggregates hurt [concurrency](/guides/concurrency/concurrency-patterns-guide)
 - **Prefer value objects** over entities where possible (simpler, immutable)
-- **One transaction per aggregate** — don't update multiple aggregates in one transaction
+- **One transaction per aggregate** — don't update multiple aggregates in one transaction. See [database design](/guides/databases/database-design-guide).
 - **Use domain events** for cross-aggregate communication
 - **Don't over-engineer** — not every project needs full DDD
 
 ## Common Mistakes
 
-- Designing the database schema first, then forcing DDD patterns on top
+- Designing the [database schema](/guides/databases/database-design-guide) first, then forcing DDD patterns on top
 - Making every object an entity instead of using value objects
 - Creating giant aggregates that span half the domain
 - Using DDD for simple CRUD applications
@@ -210,7 +210,7 @@ Use DDD when:
 A: An aggregate root is a special entity that serves as the entry point to an aggregate. All external references to the aggregate go through the root, and all modifications are done via the root's methods.
 
 **Q: Can I use DDD with microservices?**
-A: Yes. Each microservice typically aligns with a bounded context. The service boundary enforces the context boundary, and services communicate via domain events or APIs.
+A: Yes. Each [microservice](/guides/microservices-architecture-guide) typically aligns with a bounded context. The service boundary enforces the context boundary, and services communicate via domain events or APIs.
 
 **Q: How do I identify bounded contexts?**
-A: Look for areas where terminology changes, different teams have ownership, or where business capabilities are independent. Events Storming workshops are a common technique.
+A: Look for areas where terminology changes, different teams have ownership, or where business capabilities are independent. [Event Storming](/guides/event-driven-architecture-guide) workshops are a common technique.

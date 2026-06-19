@@ -223,9 +223,9 @@ CMD ["node", "dist/main.js"]
 ## Errores Comunes
 
 - Ejecutar contenedores como root innecesariamente
-- Almacenar secretos en variables de entorno o capas de imagen
+- Almacenar secretos en variables de entorno o capas de imagen. Consulta [seguridad de contenedores](/recipes/container-security).
 - No manejar señales adecuadamente (problema PID 1) — usa `tini` o `dumb-init`
-- Construir imágenes de producción con devDependencies incluidas
+- Construir imágenes de producción con devDependencies incluidas. Consulta [infraestructura inmutable](/recipes/immutable-infrastructure).
 - Ignorar `.dockerignore`, hinchando el contexto de build
 - Hardcodear configuración en imágenes en lugar de usar variables de entorno
 
@@ -238,4 +238,4 @@ R: Las VMs virtualizan hardware e incluyen un SO completo. Los contenedores virt
 R: Usa `docker logs <contenedor>` para stdout/stderr, `docker exec -it <contenedor> sh` para inspeccionar el filesystem, y `docker inspect <contenedor>` para configuración detallada.
 
 **P: ¿Debo usar Docker Swarm o Kubernetes?**
-R: Para la mayoría de proyectos nuevos, usa Kubernetes (o un servicio gestionado como EKS, GKE, AKS). Docker Swarm es más simple pero tiene soporte de ecosistema limitado y ya no se desarrolla activamente.
+R: Para la mayoría de proyectos nuevos, usa Kubernetes (o un servicio gestionado como EKS, GKE, AKS). Consulta [orquestación](/recipes/serverless-orchestration). Docker Swarm es más simple pero tiene soporte de ecosistema limitado y ya no se desarrolla activamente.

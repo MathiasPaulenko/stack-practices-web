@@ -29,7 +29,7 @@ seo:
 
 ## Overview
 
-Caching improves read performance by storing frequently accessed data in fast, in-memory storage. However, caches introduce a classic distributed systems problem: when the underlying data changes, the cache becomes stale. Serving stale data can lead to incorrect business decisions, security issues, and poor user experiences.
+Caching improves read performance by storing frequently accessed data in fast, in-memory storage. However, caches introduce a classic [distributed systems](/guides/architecture/microservices-architecture-guide) problem: when the underlying data changes, the cache becomes stale. Serving stale data can lead to incorrect business decisions, security issues, and poor user experiences.
 
 Cache invalidation is the mechanism that ensures cached data remains consistent with its source. There is no universal solution — the right strategy depends on your consistency requirements, write volume, and tolerance for stale reads. This recipe covers the four primary patterns: TTL expiration, write-through, write-behind, and event-driven invalidation.
 
@@ -40,7 +40,7 @@ Use this recipe when:
 - Adding caching to an application that requires data consistency
 - Debugging stale cache issues where users see outdated information
 - Designing distributed systems with multiple writers and readers
-- Choosing between Redis, Memcached, or CDN caching layers
+- Choosing between Redis, Memcached, or [CDN](/recipes/performance/cdn-edge-caching) caching layers
 - Implementing cache warming and eviction policies
 
 ## Solution
@@ -92,7 +92,7 @@ redisClient.publish('user:updated', userId);
 - **TTL expiration**: The simplest approach. Data expires after a fixed time. Suitable for data that changes infrequently or where brief staleness is acceptable. Easy to implement but can serve stale data for the duration of the TTL.
 - **Write-through**: Updates the cache synchronously when the database is written. Guarantees consistency but adds latency to write operations and increases cache load.
 - **Write-behind (write-back)**: Writes go to the cache first, which asynchronously persists to the database. Extremely fast writes but risks data loss if the cache fails before flushing.
-- **Event-driven invalidation**: Services publish events when data changes. Cache listeners delete or refresh affected keys. Loose coupling but requires a message broker.
+- **Event-driven invalidation**: Services publish [events](/recipes/serverless/event-driven-functions) when data changes. Cache listeners delete or refresh affected keys. Loose coupling but requires a message broker.
 
 ## Variants
 
@@ -121,7 +121,7 @@ redisClient.publish('user:updated', userId);
 ## Frequently Asked Questions
 
 **Q: How do I prevent cache stampedes?**
-A: Use a distributed lock so only one process repopulates the cache after expiration. Alternatively, use probabilistic early expiration where each request has a small chance of refreshing the cache before TTL hits zero.
+A: Use a distributed lock so only one process repopulates the cache after expiration. See [rate limiting](/recipes/security/rate-limiting) for distributed locking patterns. Alternatively, use probabilistic early expiration where each request has a small chance of refreshing the cache before TTL hits zero.
 
 **Q: Should I cache writes as well as reads?**
 A: Only in specific high-write scenarios. Write caching (write-behind) introduces complexity and durability risks. Most applications benefit from read caching alone.

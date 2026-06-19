@@ -171,11 +171,11 @@ En un sistema distribuido, solo puedes garantizar dos de tres:
 | Problema | Desafíos Clave |
 |----------|---------------|
 | **URL Shortener** | Colisiones de hash, alto volumen de lecturas, analytics |
-| **Twitter Feed** | Fan-out (push vs. pull), generación de timeline |
-| **Sistema de Chat** | Entrega en tiempo real, presencia, orden de mensajes |
+| **Twitter Feed** | [Fan-out](/guides/event-driven-architecture-guide) (push vs. pull), generación de timeline |
+| **Sistema de Chat** | [Entrega en tiempo real](/recipes/real-time-websockets), presencia, orden de mensajes |
 | **Motor de Búsqueda** | Indexación, ranking, parsing de queries |
-| **Video Streaming** | CDN, bitrate adaptativo, encoding |
-| **Rate Limiter** | Token bucket vs. sliding window, estado distribuido |
+| **Video Streaming** | [CDN](/recipes/cdn-edge-caching), bitrate adaptativo, encoding |
+| **Rate Limiter** | [Token bucket vs. sliding window](/recipes/rate-limiting), estado distribuido |
 
 ## Buenas Prácticas
 
@@ -191,8 +191,8 @@ En un sistema distribuido, solo puedes garantizar dos de tres:
 - Saltar a un esquema de base de datos detallado antes de clarificar requerimientos
 - Ignorar requerimientos no funcionales (escala, disponibilidad)
 - Proponer tecnologías sin entenderlas (ej. "usa Kafka" sin saber por qué)
-- No discutir trade-offs (ej. SQL vs. NoSQL)
-- Olvidar monitoreo, seguridad y preocupaciones operacionales
+- No discutir trade-offs (ej. [SQL vs. NoSQL](/guides/databases/nosql-database-selection-guide))
+- Olvidar [monitoreo](/recipes/prometheus-monitoring-alerts), [seguridad](/guides/security-best-practices-guide) y preocupaciones operacionales
 - Diseñar para escala infinita cuando los requerimientos no la justifican
 
 ## Preguntas Frecuentes

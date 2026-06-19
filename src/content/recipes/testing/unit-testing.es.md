@@ -192,7 +192,7 @@ Ejecutar: `mvn test` o el runner de tu IDE.
 - **Nombra tests según comportamiento**: `sumaNumerosNegativos` es mejor que `test_add2` porque describe la intención.
 - **Un concepto por test**: si necesitas múltiples asserts, asegúrate de que verifiquen un solo resultado lógico. De lo contrario, divide el test.
 - **Evita lógica en tests**: sin sentencias `if` ni bucles en tests — hacen que los fallos sean más difíciles de diagnosticar.
-- **Usa fakes sobre mocks cuando sea posible**: un repositorio en memoria fake es más simple que mockear cada llamada a método.
+- **Usa fakes sobre mocks cuando sea posible**: un repositorio en memoria fake es más simple que [mockear](/recipes/testing/unit-testing-mocking) cada llamada a método.
 - **Mantén los tests cerca del código**: coloca los archivos de test junto al fuente (co-locación) o en un directorio `tests/` espejado.
 
 ## Common Mistakes
@@ -200,7 +200,7 @@ Ejecutar: `mvn test` o el runner de tu IDE.
 - **Probar implementación en vez de comportamiento**: afirmar que se llamó a un método privado específico hace que los tests sean frágiles durante refactoring.
 - **Ignorar casos edge**: cadenas vacías, cero, null/undefined y entradas muy grandes son donde se esconden los bugs.
 - **Estado mutable compartido**: un test que muta un contador global rompe todos los tests que se ejecutan después.
-- **Pruebas unitarias lentas**: llamar a una base de datos real o servicio HTTP convierte pruebas unitarias en de integración y ralentiza la suite.
+- **Pruebas unitarias lentas**: llamar a una base de datos real o servicio HTTP convierte pruebas unitarias en [pruebas de integración](/recipes/testing/integration-testing) y ralentiza la suite.
 - **Salida ruidosa**: `console.log` o `System.out.println` en tests ensucian los logs de CI. Usa fallos de assertion apropiados en su lugar.
 
 ## Frequently Asked Questions
@@ -209,7 +209,7 @@ Ejecutar: `mvn test` o el runner de tu IDE.
 A: Un concepto lógico por test. Múltiples asserts están bien si verifican diferentes aspectos del mismo resultado (ej. un objeto creado tiene el ID correcto y el nombre correcto). Si los conceptos divergen, divide el test.
 
 **Q: ¿Debería probar métodos privados?**
-A: No. Prueba la API pública. Los métodos privados son detalles de implementación; si los cambias, no deberías tener que actualizar tests. Si un método privado es lo suficientemente complejo como para necesitar sus propios tests, considera extraerlo a una clase separada.
+A: No. Prueba la API pública. Los métodos privados son detalles de implementación; si los cambias, no deberías tener que actualizar tests. Consulta [código limpio](/guides/design/clean-code-principles-guide). Si un método privado es lo suficientemente complejo como para necesitar sus propios tests, considera extraerlo a una clase separada.
 
 **Q: ¿Cuál es la diferencia entre un stub y un mock?**
 A: Un stub proporciona respuestas predefinidas a llamadas. Un mock verifica que ocurrieron interacciones específicas (ej. "este método fue llamado exactamente una vez"). Usa stubs para entradas; usa mocks con moderación para verificar efectos secundarios.

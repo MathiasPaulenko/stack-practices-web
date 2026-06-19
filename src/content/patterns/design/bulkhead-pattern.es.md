@@ -49,7 +49,7 @@ Usa el Patrón Bulkhead cuando:
 - Un componente lento o fallido no debería consumir todos los recursos disponibles
 - Necesites asegurar que las operaciones críticas siempre tengan capacidad dedicada
 - Quieras degradar gracefulmente aislando fallas a subsistemas específicos
-- Ejemplos: microservicios con diferentes SLAs, API gateways, sistemas multi-tenant
+- Ejemplos: [microservicios](/guides/architecture/microservices-architecture-guide) con diferentes SLAs, API gateways, sistemas multi-tenant
 
 ## Solución
 
@@ -208,7 +208,7 @@ Esto asegura que un consumidor descontrolado (ej. un job en segundo plano) no pu
 
 - **Siempre reserva capacidad para rutas críticas** — no dejes que los jobs en segundo plano mueran de hambre las peticiones de usuarios
 - **Monitorea la saturación de pools** — rastrea con qué frecuencia cada bulkhead rechaza o hace timeout
-- **Combina con Circuit Breaker** — si un bulkhead está constantemente saturado, el breaker debería dispararse
+- **Combina con [Circuit Breaker](/patterns/design/circuit-breaker-pattern)** — si un bulkhead está constantemente saturado, el breaker debería dispararse
 - **Usa semáforos en lugar de pools de hilos** cuando la creación de hilos es costosa o limitada
 - **Documenta y haz cumplir SLAs** por bulkhead para que los equipos conozcan los límites de capacidad
 
@@ -223,7 +223,7 @@ Esto asegura que un consumidor descontrolado (ej. un job en segundo plano) no pu
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Bulkhead y Circuit Breaker?**
-R: Bulkhead aísla recursos para prevenir que una falla afecte a otras. Circuit Breaker detiene el envío de peticiones a un servicio fallido. Se complementan: Bulkhead contiene el radio de explosión, Circuit Breaker detiene el sangrado.
+R: Bulkhead aísla recursos para prevenir que una falla afecte a otras. [Circuit Breaker](/patterns/design/circuit-breaker-pattern) detiene el envío de peticiones a un servicio fallido. Se complementan: Bulkhead contiene el radio de explosión, Circuit Breaker detiene el sangrado.
 
 **P: ¿Debería usar pools de hilos o semáforos para bulkheads?**
 R: Los pools de hilos proporcionan el aislamiento más fuerte pero tienen mayor overhead. Los semáforos son más ligeros y ejecutan en el hilo llamador — úsalos cuando necesites muchos bulkheads concurrentes o quieras evitar la inanición de hilos.

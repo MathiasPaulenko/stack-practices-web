@@ -184,7 +184,7 @@ For HTTP clients, `keep-alive` reuses the underlying TCP connection across multi
 
 1. **Not releasing connections** — always return connections to the pool, even on exceptions
 2. **Pool size = 1** — serializes all database access and kills throughput
-3. **Pool too large** — can overwhelm the database with `max_connections` limits
+3. **Pool too large** — can overwhelm the [database](/guides/databases/database-design-guide) with `max_connections` limits
 4. **Ignoring idle timeouts** — stale connections cause silent failures or half-open sockets
 5. **No HTTP keep-alive** — reopening TLS for every outbound request wastes milliseconds
 
@@ -196,8 +196,8 @@ A good starting point is `(core_count * 2) + effective_spindle_count` for OLTP w
 
 ### Should I use one pool or many?
 
-One pool per database per application instance is standard. Creating multiple pools to the same database fragments resources and reduces efficiency. For microservices, each service manages its own pool.
+One pool per database per application instance is standard. Creating multiple pools to the same database fragments resources and reduces efficiency. For [microservices](/guides/architecture/microservices-architecture-guide), each service manages its own pool.
 
 ### How do I handle pool exhaustion?
 
-Set a reasonable `connectionTimeout` so requests fail fast instead of hanging indefinitely. Add circuit breakers or retries with backoff. Monitor pool saturation and scale the database or application workers before exhaustion becomes critical.
+Set a reasonable `connectionTimeout` so requests fail fast instead of hanging indefinitely. Add [circuit breakers](/recipes/api/circuit-breaker-pattern) or [retries with backoff](/recipes/retry-backoff). Monitor pool saturation and scale the database or application workers before exhaustion becomes critical.

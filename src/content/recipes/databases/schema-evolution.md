@@ -30,15 +30,15 @@ seo:
 ---
 ## Overview
 
-Database schemas must evolve as applications grow, but schema changes are a leading cause of production outages. The expand-contract pattern, online DDL, and backward-compatible migrations allow teams to add features without downtime. This resource covers practical techniques for evolving schemas in PostgreSQL, MySQL, and distributed databases while maintaining data integrity and application availability.
+Database schemas must evolve as applications grow, but schema changes are a leading cause of [production outages](/docs/disaster-recovery-plan-template). The expand-contract pattern, online DDL, and backward-compatible migrations allow teams to add features without downtime. This resource covers practical techniques for evolving schemas in PostgreSQL, MySQL, and distributed databases while maintaining data integrity and application availability.
 
 ## When to Use
 
 Use this resource when:
 - Adding columns, indexes, or constraints to tables with millions of rows
 - You need to rename columns or split tables without breaking running applications
-- Running migrations in a CI/CD pipeline that deploys multiple times daily
-- Working with distributed databases where schema changes propagate asynchronously
+- Running migrations in a [CI/CD pipeline](/guides/cicd-pipeline-guide) that deploys multiple times daily
+- Working with [distributed databases](/recipes/database-replication) where schema changes propagate asynchronously
 
 ## Solution
 
@@ -125,9 +125,9 @@ CREATE INDEX idx_user_preferences_theme ON user_preferences(theme);
 ## Common Mistakes
 
 1. **Big-bang migrations**: Running `ALTER TABLE` on a 100M-row table without `CONCURRENTLY`
-2. **Not testing rollback**: If the deploy fails, can you revert the schema change?
+2. **Not testing rollback**: If the deploy fails, can you revert the schema change? Test [deployment strategies](/guides/deployment-strategies-guide).
 3. **Missing application compatibility**: New schema breaks old code during rolling deployments
-4. **Ignoring lock timeouts**: PostgreSQL `statement_timeout` aborts long migrations unpredictably
+4. **Ignoring lock timeouts**: PostgreSQL `statement_timeout` aborts long migrations unpredictably. See [connection pooling](/recipes/database-connection-pooling).
 5. **No dry runs**: Running migrations directly in production without `EXPLAIN` or staging validation
 
 ## Frequently Asked Questions
@@ -139,4 +139,4 @@ A: Add new column → dual write → migrate data → update readers → drop ol
 A: PostgreSQL supports transactional DDL. MySQL commits implicitly after each DDL statement.
 
 **Q: How do I handle schema changes in microservices?**
-A: Each service owns its schema. Use schema-per-service. Shared databases create coupling that makes schema changes dangerous.
+A: Each service owns its schema. Use schema-per-service. [Shared databases](/guides/database-design-guide) create coupling that makes schema changes dangerous.

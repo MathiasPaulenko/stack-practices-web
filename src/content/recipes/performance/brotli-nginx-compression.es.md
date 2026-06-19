@@ -31,7 +31,7 @@ seo:
 
 # Habilita Compresion Brotli en Nginx para Entrega Mas Rapida de Assets
 
-Brotli es un algoritmo de compresion moderno desarrollado por Google que consistentemente logra tamanos de archivo 15-25% mas pequenos que Gzip para assets basados en texto. Combinado con Nginx y configuracion apropiada de content-type, reduce uso de ancho de banda y mejora tiempos de carga de pagina para todos los usuarios.
+Brotli es un algoritmo de compresion moderno desarrollado por Google que consistentemente logra tamanos de archivo 15-25% mas pequenos que Gzip para assets basados en texto. Consulta [optimizacion de rendimiento](/guides/performance/performance-optimization-guide) para mas tecnicas de web performance. Combinado con Nginx y configuracion apropiada de content-type, reduce uso de ancho de banda y mejora tiempos de carga de pagina para todos los usuarios.
 
 ## Cuando Usar Esto
 
@@ -159,8 +159,8 @@ server {
 
 - Usa **nivel de compresion 4-6** para contenido dinamico; nivel 11 para assets estaticos pre-comprimidos
 - Monitorea **uso de CPU**; Brotli a niveles altos puede ser intensivo en CPU
-- Combina con un **CDN** que soporte cacheo de Brotli para maximo beneficio
-- Testea con **WebPageTest** o Lighthouse para verificar reducciones de tamano de transferencia
+- Combina con un **[CDN](/recipes/performance/cdn-edge-caching)** que soporte cacheo de Brotli para maximo beneficio
+- Testea con **WebPageTest** o Lighthouse para verificar reducciones de tamano de transferencia y [Core Web Vitals](/guides/performance/performance-optimization-guide)
 
 ## Errores Comunes
 

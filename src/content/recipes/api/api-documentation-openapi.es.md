@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-OpenAPI (anteriormente Swagger) es el estándar de la industria para describir APIs REST. Un spec OpenAPI bien mantenido sirve como única fuente de verdad para tu API — generando documentación interactiva, clientes SDK y tests automatizados desde un solo archivo YAML o JSON.
+OpenAPI (anteriormente Swagger) es el estándar de la industria para describir [APIs REST](/recipes/api/rest-api-design). Un spec OpenAPI bien mantenido sirve como única fuente de verdad para tu API — generando documentación interactiva, clientes SDK y tests automatizados desde un solo archivo YAML o JSON.
 
 Esta receta cubre la generación de documentación de API interactiva a partir de specs OpenAPI usando Swagger UI, Redoc y herramientas nativas de frameworks.
 
@@ -99,8 +99,8 @@ public class BookController {
 ## Explicación
 
 Los specs OpenAPI se generan típicamente de dos formas:
-- **Code-first**: Las anotaciones en tu código generan el spec automáticamente (FastAPI, SpringDoc, tsoa)
-- **Design-first**: Escribes el spec YAML/JSON manualmente, luego generas stubs del servidor y clientes SDK
+- **Code-first**: Las anotaciones en tu código generan el spec automáticamente ([FastAPI](/recipes/api/fastapi-crud), SpringDoc, tsoa)
+- **Design-first**: Escribes el spec YAML/JSON manualmente, luego generas stubs del servidor y [clientes SDK](/recipes/api/call-rest-api)
 
 El spec generado (`openapi.json`) alimenta:
 - **Swagger UI**: Explorador interactivo para probar endpoints
@@ -128,8 +128,8 @@ El spec generado (`openapi.json`) alimenta:
 ## Errores Comunes
 
 - **Divergencia entre código y spec**: El código cambia pero el spec no se actualiza — usa code-first para evitarlo
-- **Definiciones de seguridad ausentes**: Documenta requisitos de auth (Bearer, OAuth2, API key)
-- **Compartir modelos internos**: Expón DTOs, no entidades de base de datos, en el spec
+- **Definiciones de seguridad ausentes**: Documenta requisitos de auth ([Bearer](/recipes/security/oauth2-pkce-spa), OAuth2, API key)
+- **Compartir modelos internos**: Expón DTOs, no [entidades de base de datos](/guides/databases/database-design-guide), en el spec
 - **Ignorar campos nullable**: OpenAPI 3.0 requiere `nullable: true` explícitamente
 - **URLs de servidor hardcodeadas**: Usa variables (`{serverUrl}`) para diferentes entornos
 

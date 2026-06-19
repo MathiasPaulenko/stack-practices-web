@@ -38,8 +38,8 @@ La optimización de queries es un proceso de tres pasos: identificar queries len
 Usa esta receta cuando:
 
 - Los tiempos de respuesta de la aplicación degradan a medida que crece el volumen de datos
-- El uso de CPU o I/O de la base de datos es consistentemente alto
-- Herramientas de monitoreo marcan queries específicas como entradas de slow query log
+- El uso de CPU o I/O de la base de datos es consistentemente alto. Verifica [monitoreo y observabilidad](/guides/devops/logging-monitoring-observability-guide).
+- [Herramientas de monitoreo](/guides/devops/logging-monitoring-observability-guide) marcan queries específicas como entradas de slow query log
 - Agregando paginación, búsqueda o features de reporting a tablas existentes
 - Migrando SQL legacy a un nuevo motor de base de datos
 
@@ -96,7 +96,7 @@ customers = db.query("""
 
 | Técnica | Impacto | Esfuerzo | Mejor para |
 |---------|---------|----------|------------|
-| Agregar índice | Alto | Bajo | Índice faltante en columnas WHERE/JOIN |
+| Agregar [índice](/recipes/performance/database-indexing) | Alto | Bajo | Índice faltante en columnas WHERE/JOIN |
 | Reescribir query | Alto | Medio | Joins ineficientes, subqueries |
 | Particionar tabla | Muy alto | Alto | Tablas > 10M filas con queries basadas en tiempo |
 | Vista materializada | Alto | Medio | Agregaciones complejas consultadas frecuentemente |
@@ -128,5 +128,5 @@ R: Para queries de producción, sí. Pero para exploración ad-hoc o tablas muy 
 R: `EXPLAIN` muestra el plan estimado sin ejecutar. `EXPLAIN ANALYZE` ejecuta la query y muestra timings y conteos de filas reales. Siempre usa `ANALYZE` cuando estás tuneando.
 
 **P: ¿Los ORMs pueden generar queries eficientes?**
-R: Usualmente, pero no siempre. ORMs como SQLAlchemy y Hibernate pueden generar queries N+1 o joins ineficientes. Profile el SQL actual que emiten y optimiza a nivel SQL cuando sea necesario.
+R: Usualmente, pero no siempre. ORMs como SQLAlchemy y Hibernate pueden generar queries N+1 o joins ineficientes. Consulta [prevención de SQL injection](/recipes/security/sql-injection-prevention) para patrones de queries seguras. Profile el SQL actual que emiten y optimiza a nivel SQL cuando sea necesario.
 

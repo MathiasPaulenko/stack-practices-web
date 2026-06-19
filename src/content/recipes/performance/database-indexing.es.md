@@ -118,14 +118,14 @@ Busca:
 - **Pon columnas de igualdad antes que columnas de rango**: en `(a, b)` donde `a = 1` y `b > 100`, el índice en `(a, b)` es mucho más efectivo que `(b, a)`.
 - **Evita indexar columnas de baja cardinalidad solas**: una columna `status` con solo 3 valores (active, pending, archived) no se beneficia de un índice standalone. Combínala con una columna de alta cardinalidad.
 - **Elimina índices no usados**: cada índice ralentiza escrituras. Monitorea estadísticas de uso de índices y elimina índices que nunca se escanean.
-- **Indexa columnas de foreign key**: las bases de datos no siempre indexan automáticamente foreign keys. Índices faltantes en columnas `JOIN` causan escaneos costosos de nested loop.
+- **Indexa columnas de foreign key**: las bases de datos no siempre indexan automáticamente foreign keys. Índices faltantes en columnas `JOIN` causan escaneos costosos de nested loop. Consulta [diseño de bases de datos](/guides/databases/database-design-guide).
 
 ## Errores comunes
 
 - **Indexar cada columna**: esto desperdicia espacio en disco, ralentiza dramáticamente escrituras, y confunde al optimizador de queries con demasiadas opciones.
 - **Orden incorrecto de columnas en índices compuestos**: un índice en `(created_at, user_id)` no puede ayudar a un query que filtra solo por `user_id`.
 - **Indexar columnas que nunca se consultan**: revisa tus logs de queries antes de crear índices.
-- **Ignorar el mantenimiento de índices**: los índices fragmentados en tablas de alta rotación se degradan con el tiempo. Programa `REINDEX` o `OPTIMIZE TABLE` periódicamente.
+- **Ignorar el mantenimiento de índices**: los índices fragmentados en tablas de alta rotación se degradan con el tiempo. Consulta [tuning SQL](/guides/databases/sql-performance-tuning-guide). Programa `REINDEX` o `OPTIMIZE TABLE` periódicamente.
 - **Usar índices en tablas pequeñas**: tablas con menos de unos miles de filas a menudo son más rápidas con escaneos secuenciales porque leer el índice y luego la tabla es más overhead que un escaneo completo.
 
 ## Preguntas frecuentes

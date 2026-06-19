@@ -160,8 +160,8 @@ const mobileScreen = new SettingsScreen(new MobileFactory());
 ## Production Considerations
 
 - Use dependency injection frameworks to select the factory at runtime
-- Abstract Factory works well with Bridge when families also need platform-specific rendering
-- Consider factory registries for plugin-based architectures
+- Abstract Factory works well with [Bridge](/patterns/design/bridge-pattern) when families also need platform-specific rendering
+- Consider [factory registries](/patterns/design/factory-pattern) for plugin-based architectures
 
 ## Common Mistakes
 
@@ -172,7 +172,7 @@ const mobileScreen = new SettingsScreen(new MobileFactory());
 ## FAQ
 
 **Q: How is this different from Factory Method?**
-A: Factory Method creates one product through inheritance. Abstract Factory creates families of related products through composition.
+A: [Factory Method](/patterns/design/factory-pattern) creates one product through inheritance. Abstract Factory creates families of related products through composition.
 
 **Q: When should I avoid Abstract Factory?**
 A: When the product family is small (2-3 products) or when products do not need to be compatible with each other.

@@ -222,9 +222,9 @@ CMD ["node", "dist/main.js"]
 ## Common Mistakes
 
 - Running containers as root unnecessarily
-- Storing secrets in environment variables or image layers
+- Storing secrets in environment variables or image layers. See [container security](/recipes/container-security).
 - Not handling signals properly (PID 1 problem) — use `tini` or `dumb-init`
-- Building production images with devDependencies included
+- Building production images with devDependencies included. See [immutable infrastructure](/recipes/immutable-infrastructure).
 - Ignoring `.dockerignore`, bloating the build context
 - Hardcoding configuration in images instead of using env vars
 
@@ -237,4 +237,4 @@ A: VMs virtualize hardware and include a full OS. Containers virtualize the OS k
 A: Use `docker logs <container>` for stdout/stderr, `docker exec -it <container> sh` to inspect the filesystem, and `docker inspect <container>` for detailed configuration.
 
 **Q: Should I use Docker Swarm or Kubernetes?**
-A: For most new projects, use Kubernetes (or a managed service like EKS, GKE, AKS). Docker Swarm is simpler but has limited ecosystem support and is no longer actively developed by Docker Inc.
+A: For most new projects, use Kubernetes (or a managed service like EKS, GKE, AKS). See [orchestration](/recipes/serverless-orchestration). Docker Swarm is simpler but has limited ecosystem support and is no longer actively developed by Docker Inc.

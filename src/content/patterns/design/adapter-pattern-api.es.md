@@ -31,7 +31,7 @@ seo:
 
 # Adapter Pattern para Integrar APIs REST Externas
 
-El Adapter pattern convierte la interfaz de una clase en otra interfaz que los clientes esperan. Al integrar APIs REST de terceros, se convierte en una capa de traduccion que mapea formatos de datos externos a modelos de dominio limpios y estables que tu aplicacion controla.
+El [Adapter](/patterns/design/adapter-pattern) pattern convierte la interfaz de una clase en otra interfaz que los clientes esperan. Al integrar APIs REST de terceros, se convierte en una capa de traduccion que mapea formatos de datos externos a modelos de dominio limpios y estables que tu aplicacion controla.
 
 ## Cuando Usar Esto
 
@@ -123,7 +123,7 @@ const service = new PaymentService(new StripeAdapter());
 ## Variaciones
 
 - **Two-Way Adapter**: Convierte modelos internos de vuelta a formato externo para actualizaciones
-- **Caching Adapter**: Combina con Proxy para cachear busquedas externas
+- **Caching Adapter**: Combina con [Proxy](/patterns/design/proxy-pattern) para cachear busquedas externas
 - **Batch Adapter**: Adapta endpoints de lista a consultas internas paginadas
 
 ## Mejores Practicas
@@ -141,7 +141,7 @@ const service = new PaymentService(new StripeAdapter());
 ## FAQ
 
 **P: Como se diferencia de una funcion mapper?**
-R: Un adapter implementa una interfaz conocida asi que el servicio consumidor no depende de que proveedor este activo. Un mapper es tipicamente una llamada de funcion aislada.
+R: Un [adapter](/patterns/design/adapter-pattern) implementa una interfaz conocida asi que el servicio consumidor no depende de que proveedor este activo. Un mapper es tipicamente una llamada de funcion aislada.
 
 **P: Deberia probar adapters con llamadas HTTP reales?**
 R: Prefiere respuestas grabadas o stubs para velocidad. Prueba el adapter real en una suite de test de contrato separada.

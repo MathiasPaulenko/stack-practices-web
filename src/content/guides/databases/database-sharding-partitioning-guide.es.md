@@ -200,7 +200,7 @@ CREATE TABLE shard_directory (
 
 ### ¿Cuándo debería empezar a hacer sharding?
 
-Cuando hayas agotado el escalado vertical y réplicas de lectura. Señales típicas: CPU de servidor único > 70% sostenido, throughput de escritura es el cuello de botella, o necesitas distribución geográfica. La mayoría de aplicaciones nunca necesitan sharding.
+Cuando hayas agotado el escalado vertical y réplicas de lectura. Señales típicas: CPU de servidor único > 70% sostenido, throughput de escritura es el cuello de botella, o necesitas distribución geográfica. La mayoría de aplicaciones nunca necesitan sharding. Consulta [diseño de bases de datos](/guides/databases/database-design-guide) primero.
 
 ### ¿Puedo cambiar la shard key más tarde?
 
@@ -208,4 +208,4 @@ Técnicamente sí, prácticamente no. Cambiar la shard key requiere reescribir t
 
 ### ¿Cómo manejo consultas que necesitan unir datos de múltiples shards?
 
-Evita los JOINs cross-shard en la base de datos. En su lugar, diseña tu esquema para que las consultas más frecuentes caigan en un único shard (query-based sharding), o usa patrones de aplicación como CQRS con tablas de lectura desnormalizadas. Para reportes analíticos, replica los datos a un data warehouse.
+Evita los JOINs cross-shard en la base de datos. En su lugar, diseña tu esquema para que las consultas más frecuentes caigan en un único shard (query-based sharding), o usa patrones de aplicación como [CQRS](/guides/event-driven-architecture-guide) con tablas de lectura desnormalizadas. Para reportes analíticos, replica los datos a un data warehouse.

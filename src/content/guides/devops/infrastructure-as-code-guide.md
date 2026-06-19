@@ -176,7 +176,7 @@ terraform validate
 # TFLint: catch provider-specific mistakes
 tflint --deep
 
-# Checkov / Terraform-compliance: security policies
+# Checkov / Terraform-compliance: [security policies](/guides/security-best-practices-guide)
 checkov -d .
 ```
 
@@ -220,13 +220,13 @@ func TestVpc(t *testing.T) {
 - **Use remote state with locking** — prevents concurrent modifications corrupting state
 - **Separate environments** — use workspaces or separate state files per environment
 - **Use modules for reusability** — but avoid over-abstraction; simple is better
-- **Never commit secrets** — use secret managers (AWS Secrets Manager, Vault) and reference by ARN
+- **Never commit secrets** — use [secret managers](/guides/secrets-management-guide) (AWS Secrets Manager, Vault) and reference by ARN
 - **Document your modules** — README with inputs, outputs, and usage examples
 - **Pin provider versions** — prevent breaking changes from automatic provider updates
 
 ## Common Mistakes
 
-- Running `terraform apply` locally instead of through CI/CD
+- Running `terraform apply` locally instead of through [CI/CD](/guides/cicd-pipeline-guide)
 - Storing state files in Git (contains sensitive resource IDs and sometimes secrets)
 - Not using workspaces or separate directories for environments
 - Writing giant monolithic Terraform configs instead of modular components

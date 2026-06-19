@@ -30,7 +30,7 @@ seo:
 
 # Builder Pattern para Objetos de Configuracion Complejos
 
-El Builder pattern separa la construccion de un objeto complejo de su representacion. En lugar de pasar ocho argumentos al constructor o crear un objeto vacio y establecer campos individualmente, el builder proporciona una API legible paso a paso con valores por defecto y validacion.
+El [Builder](/patterns/design/builder-pattern) pattern separa la construccion de un objeto complejo de su representacion. En lugar de pasar ocho argumentos al constructor o crear un objeto vacio y establecer campos individualmente, el builder proporciona una API legible paso a paso con valores por defecto y validacion.
 
 ## Cuando Usar Esto
 
@@ -127,12 +127,12 @@ const config = new DatabaseConfigBuilder()
 ## Variaciones
 
 - **Immutable Builder**: Retorna un nuevo builder en cada paso en lugar de mutar estado
-- **Director**: Encapsula configuraciones comunes detras de una clase director
+- **[Director](/patterns/design/builder-pattern)**: Encapsula configuraciones comunes detras de una clase director
 - **Step Builder**: Refuerza orden de construccion a traves de interfaces separadas para cada paso
 
 ## Mejores Practicas
 
-- Valida solo al llamar `build()`, no en cada setter
+- Valida solo al llamar `build()`, no en cada setter; consulta [Builder pattern](/patterns/design/builder-pattern) para estrategias de validacion
 - Retorna `this` para encadenamiento de metodos (interfaz fluida)
 - Congela o sella el objeto retornado para prevenir mutacion post-construccion
 
@@ -145,7 +145,7 @@ const config = new DatabaseConfigBuilder()
 ## FAQ
 
 **P: Cuando deberia preferir un builder sobre un literal de objeto?**
-R: Cuando se necesita validacion, los valores por defecto son complejos, o la misma logica de construccion se reutiliza en multiples puntos de llamada.
+R: Cuando se necesita validacion, los valores por defecto son complejos, o la misma logica de construccion se reutiliza en multiples puntos de llamada. Para casos simples, considera [Factory Method](/patterns/design/factory-pattern) en su lugar.
 
 **P: El Builder pattern sigue siendo relevante con la sintaxis de spread de objetos?**
 R: Si. Los spreads son convenientes para casos simples pero no enforcean validacion, valores por defecto ni orden de construccion.

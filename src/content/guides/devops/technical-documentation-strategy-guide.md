@@ -135,8 +135,8 @@ Adopt Apache Kafka as the event streaming platform.
 - Handles backpressure via consumer lag
 
 ### Negative
-- Operational complexity (ZooKeeper, brokers, partitions)
-- Team needs to learn event-driven patterns
+- Operational complexity (ZooKeeper, brokers, partitions). See [event-driven architecture](/guides/event-driven-architecture-guide).
+- Team needs to learn [event-driven patterns](/guides/event-driven-architecture-guide)
 - Eventual consistency requires Saga pattern for some flows
 ```
 
@@ -161,7 +161,7 @@ A runbook is a step-by-step guide for responding to a known alert or failure mod
 3. Check for connection leaks in application logs
 
 ## Resolution
-1. If caused by slow query: kill query, add index, or scale read replicas
+1. If caused by slow query: kill query, [add index](/recipes/performance/database-indexing), or scale [read replicas](/guides/databases/database-design-guide)
 2. If caused by connection leak: restart app pods (temporary), then deploy fix
 3. If persistent: increase pool size in config and redeploy
 
@@ -176,14 +176,14 @@ If resolution fails after 15 minutes, escalate to Database Team on-call.
 | **Markdown in Git** | READMEs, ADRs, runbooks | Universal, versioned, free | No built-in search |
 | **MkDocs / Docusaurus** | Product documentation sites | Search, versioning, theming | Requires build step |
 | **Notion / Confluence** | Living knowledge base | WYSIWYG, easy collaboration | No git versioning |
-| **Swagger / OpenAPI** | API reference | Auto-generated from code | Limited to API surface |
+| **Swagger / OpenAPI** | [API reference](/recipes/api/api-documentation-openapi) | Auto-generated from code | Limited to API surface |
 | **Mermaid / PlantUML** | Diagrams as code | Versioned diagrams | Learning curve |
 
 ## Best Practices
 
 - **Write the README first** — if you cannot explain how to run the service, the service is not ready
 - **Keep docs close to code** — docs in a separate repo rot faster than code
-- **Automate link checking** — broken links destroy trust; CI should catch them
+- **Automate link checking** — broken links destroy trust; [CI](/guides/cicd-pipeline-guide) should catch them
 - **Use diagrams as code** — Mermaid and PlantUML keep diagrams versioned and editable
 - **Review docs in PRs** — a code change without a doc change is an incomplete PR
 - **Set a freshness policy** — flag docs not updated in 12 months for review

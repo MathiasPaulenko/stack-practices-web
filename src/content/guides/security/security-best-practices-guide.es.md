@@ -138,15 +138,15 @@ Siempre commitea archivos de lock (`package-lock.json`, `poetry.lock`, `Cargo.lo
 
 | Vulnerabilidad | Prevención |
 | ------------- | ---------- |
-| Injection | Queries parametrizadas, validación de inputs |
+| Injection | [Queries parametrizadas](/recipes/security/sql-injection-prevention), [validación de inputs](/recipes/api/input-validation) |
 | Broken Access Control | Denegar por defecto, forzar ownership |
-| Cryptographic Failures | HTTPS en todas partes, encriptar en reposo |
+| Cryptographic Failures | [HTTPS en todas partes](/recipes/api/handle-cors), [encriptar en reposo](/recipes/security/encryption-at-rest) |
 | Insecure Design | Threat modeling, requerimientos de seguridad |
 | Security Misconfiguration | Plataformas mínimas, remover defaults |
 | Vulnerable Components | Escaneo de dependencias, auto-updates |
-| Auth Failures | MFA, contraseñas fuertes, límites de sesión |
+| Auth Failures | MFA, contraseñas fuertes, [límites de sesión](/recipes/security/oauth2-pkce-spa) |
 | Software Integrity | Verificar paquetes, commits firmados |
-| Logging Failures | Loggear todos los eventos de auth, monitorear anomalías |
+| Logging Failures | [Loggear eventos de auth](/recipes/observability/structured-logging), [monitorear anomalías](/recipes/observability/metrics-collection) |
 | SSRF | Whitelist de URLs, deshabilitar protocolos innecesarios |
 
 ## Comunicación Segura
@@ -159,7 +159,7 @@ Siempre commitea archivos de lock (`package-lock.json`, `poetry.lock`, `Cargo.lo
 
 ### Seguridad de APIs
 
-- Rate limiting (prevenir fuerza bruta)
+- [Rate limiting](/recipes/rate-limiting) (prevenir fuerza bruta)
 - Versionado de APIs (deprecación graceful)
 - Firmado de requests (verificar integridad)
 
@@ -201,4 +201,4 @@ A: Al menos mensualmente. Habilita Dependabot o Renovate para PRs automatizados.
 A: JWT es seguro cuando se implementa correctamente: expiración corta, algoritmos de firma fuertes (RS256/ES256), almacenamiento seguro de secretos, y transmisión solo por HTTPS.
 
 **Q: ¿Debería encriptar todo en la base de datos?**
-A: Encripta campos sensibles (PII, credenciales, tokens). La encriptación en reposo debería estar habilitada a nivel de base de datos.
+A: Encripta campos sensibles (PII, credenciales, tokens). La encriptación en reposo debería estar habilitada a nivel de [base de datos](/guides/databases/database-design-guide).

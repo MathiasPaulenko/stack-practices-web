@@ -129,7 +129,7 @@ const Dashboard = () => import('./pages/Dashboard.js');
 
 ### Uso de CDN
 
-- Servir assets estáticos desde ubicaciones edge
+- Servir assets estáticos desde [ubicaciones edge](/recipes/performance/cdn-edge-caching)
 - Usar HTTP/2 o HTTP/3 para multiplexación
 - Habilitar optimización automática de imágenes
 
@@ -137,16 +137,16 @@ const Dashboard = () => import('./pages/Dashboard.js');
 
 - **Establecer width/height explícitos** en imágenes para prevenir CLS
 - **Diferir JavaScript no crítico** con `defer` o `async`
-- **Preload recursos críticos**: fuentes, imágenes hero, CSS principal
+- **Preload recursos críticos**: fuentes, imágenes hero, CSS principal. Consulta [lazy loading](/recipes/performance/lazy-loading).
 - **Usar resource hints**: `dns-prefetch`, `preconnect`, `prefetch`
 - **Medir antes de optimizar**: Perfilear con DevTools primero
 
 ## Errores Comunes
 
-- Optimización prematura sin medición
+- [Optimización prematura](/guides/performance/performance-optimization-guide) sin medición
 - Cachear excesivamente respuestas de API que cambian frecuentemente
 - Cargar todas las imágenes eager en páginas largas
-- No comprimir respuestas de API (JSON)
+- No [comprimir respuestas de API](/recipes/performance/brotli-nginx-compression) (JSON)
 
 ## Preguntas Frecuentes
 

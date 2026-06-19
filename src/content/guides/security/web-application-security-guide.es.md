@@ -128,9 +128,9 @@ subprocess.run(["convert", user_filename, "output.png"], check=True)
 
 ### Checklist
 
-- [ ] Usa consultas parametrizadas para todo acceso a base de datos
+- [ ] Usa [consultas parametrizadas](/recipes/security/sql-injection-prevention) para todo acceso a base de datos
 - [ ] Escapa caracteres especiales en LDAP, XML y comandos del OS
-- [ ] Valida y whitelistea entrada de usuario antes de usarla en comandos
+- [ ] Valida y whitelistea [entrada de usuario](/recipes/api/input-validation) antes de usarla en comandos
 
 ## 4. Diseño Inseguro
 
@@ -171,7 +171,7 @@ def request_password_reset(email):
 ### Prevención
 
 ```bash
-# Escanear dependencias por CVEs conocidos
+# Escanear [dependencias](/docs/templates/dependency-audit-template) por CVEs conocidos
 npm audit
 pip-audit
 snyk test
@@ -188,7 +188,7 @@ snyk test
 - [ ] Mantén un software bill of materials (SBOM)
 - [ ] Suscríbete a avisos de seguridad para dependencias críticas
 - [ ] Elimina dependencias no usadas (reduce superficie de ataque)
-- [ ] Prueba actualizaciones en staging antes de producción
+- [ ] Prueba actualizaciones en [staging](/guides/devops/deployment-strategies-guide) antes de producción
 
 ## 7. Fallas de Identificación y Autenticación
 

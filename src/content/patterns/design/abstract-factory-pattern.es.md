@@ -209,23 +209,23 @@ Un cliente usa solo las interfaces abstractas. Cambiar de Light a Dark theme sig
 - **Documenta el contrato de la familia de productos**: Lista qué clases concretas pertenecen juntas
 - **Mantén los métodos de factory simples**: Las factories deberían delegar a constructores, no contener lógica compleja
 - **Considera un registro**: Para selección de factory en tiempo de ejecución basada en configuración
-- **Empareja con Singleton**: A menudo la factory concreta misma es un singleton
+- **Empareja con [Singleton](/patterns/design/singleton-pattern)**: A menudo la factory concreta misma es un singleton
 
 ## Errores comunes
 
 - **Mezclar familias**: Crear un Light Button con un Dark Checkbox rompe la consistencia
 - **Factory inflado**: Añadir lógica de negocio dentro de métodos de factory en lugar de mantenerlos como creadores delgados
-- **Sobre-abstracción**: Usar Abstract Factory cuando un simple Factory Method es suficiente
+- **Sobre-abstracción**: Usar Abstract Factory cuando un simple [Factory Method](/patterns/design/factory-pattern) es suficiente
 - **Abstracciones filtradas**: Retornar tipos concretos en lugar de interfaces abstractas
 - **Testing difícil**: No proporcionar una forma fácil de inyectar factories mock
 
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Factory Method y Abstract Factory?**
-R: Factory Method delega la creación de objetos a subclases. Abstract Factory crea familias de objetos relacionados a través de múltiples métodos de factory.
+R: [Factory Method](/patterns/design/factory-pattern) delega la creación de objetos a subclases. Abstract Factory crea familias de objetos relacionados a través de múltiples métodos de factory.
 
 **P: ¿Puede Abstract Factory combinarse con Builder?**
-R: Sí. La factory puede retornar builders para productos complejos, o los builders pueden usar factories para construir partes.
+R: Sí. La factory puede retornar [builders](/patterns/design/builder-pattern) para productos complejos, o los builders pueden usar factories para construir partes.
 
 **P: ¿Cómo añado un nuevo tipo de producto a una familia existente?**
 R: Debes añadir un nuevo método abstracto a la interfaz de factory e implementarlo en cada factory concreta. Este es el principal inconveniente del patrón.

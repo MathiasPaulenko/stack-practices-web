@@ -29,7 +29,7 @@ seo:
 
 ## Visión general
 
-El caching mejora el rendimiento de lectura almacenando datos frecuentemente accedidos en almacenamiento rápido en memoria. Sin embargo, las cachés introducen un problema clásico de sistemas distribuidos: cuando los datos subyacentes cambian, la caché se vuelve obsoleta. Servir datos obsoletos puede llevar a decisiones de negocio incorrectas, problemas de seguridad y malas experiencias de usuario.
+El caching mejora el rendimiento de lectura almacenando datos frecuentemente accedidos en almacenamiento rápido en memoria. Sin embargo, las cachés introducen un problema clásico de [sistemas distribuidos](/guides/architecture/microservices-architecture-guide): cuando los datos subyacentes cambian, la caché se vuelve obsoleta. Servir datos obsoletos puede llevar a decisiones de negocio incorrectas, problemas de seguridad y malas experiencias de usuario.
 
 La invalidación de caché es el mecanismo que garantiza que los datos cacheados permanezcan consistentes con su fuente. No hay una solución universal — la estrategia correcta depende de tus requerimientos de consistencia, volumen de escrituras, y tolerancia a lecturas obsoletas. Esta receta cubre los cuatro patrones principales: expiración TTL, write-through, write-behind e invalidación event-driven.
 
@@ -40,7 +40,7 @@ Usa esta receta cuando:
 - Agregas caching a una aplicación que requiere consistencia de datos
 - Debuggeas problemas de caché obsoleta donde usuarios ven información desactualizada
 - Diseñas sistemas distribuidos con múltiples escritores y lectores
-- Eliges entre Redis, Memcached o capas de caching de CDN
+- Eliges entre Redis, Memcached o capas de caching de [CDN](/recipes/performance/cdn-edge-caching)
 - Implementas políticas de cache warming y eviction
 
 ## Solución
@@ -90,7 +90,7 @@ redisClient.publish('user:updated', userId);
 - **Expiración TTL**: El enfoque más simple. Los datos expiran después de un tiempo fijo. Adecuado para datos que cambian infrecuentemente o donde la obsolescencia breve es aceptable. Fácil de implementar pero puede servir datos obsoletos durante la duración del TTL.
 - **Write-through**: Actualiza la caché sincrónicamente cuando se escribe en la base de datos. Garantiza consistencia pero agrega latencia a las escrituras e incrementa la carga de la caché.
 - **Write-behind (write-back)**: Las escrituras van primero a la caché, que persiste asíncronamente en la base de datos. Escrituras extremadamente rápidas pero riesgo de pérdida de datos si la caché falla antes de flush.
-- **Event-driven**: Los servicios publican eventos cuando los datos cambian. Los listeners de caché eliminan o refrescan las keys afectadas. Acoplamiento débil pero requiere un message broker.
+- **Event-driven**: Los servicios publican [eventos](/recipes/serverless/event-driven-functions) cuando los datos cambian. Los listeners de caché eliminan o refrescan las keys afectadas. Acoplamiento débil pero requiere un message broker.
 
 ## Variantes
 
@@ -119,7 +119,7 @@ redisClient.publish('user:updated', userId);
 ## Preguntas frecuentes
 
 **P: ¿Cómo prevengo cache stampedes?**
-R: Usa un lock distribuido para que solo un proceso repopule la caché después de la expiración. Alternativamente, usa expiración temprana probabilística donde cada request tiene una pequeña chance de refrescar la caché antes de que el TTL llegue a cero.
+R: Usa un lock distribuido para que solo un proceso repopule la caché después de la expiración. Consulta [rate limiting](/recipes/security/rate-limiting) para patrones de locking distribuido. Alternativamente, usa expiración temprana probabilística donde cada request tiene una pequeña chance de refrescar la caché antes de que el TTL llegue a cero.
 
 **P: ¿Debería cachear escrituras además de lecturas?**
 R: Solo en escenarios específicos de alta escritura. El write caching (write-behind) introduce complejidad y riesgos de durabilidad. La mayoría de aplicaciones se beneficia solo de read caching.

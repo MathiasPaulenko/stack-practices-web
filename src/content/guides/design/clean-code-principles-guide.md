@@ -292,9 +292,9 @@ customer.last_order_first_item_price()
 
 - **Leave the code cleaner than you found it** (Boy Scout Rule)
 - **Delete dead code** — commented-out code, unused functions, unreachable branches
-- **Write tests first** — they force you to write testable (hence clean) code
+- **Write tests first** — they force you to write testable (hence clean) code. See [testing strategies](/guides/testing-strategy-guide).
 - **Code is read 10x more than it is written** — optimize for the reader
-- **Pair programming** — two eyes catch complexity before it compounds
+- **Pair programming** — two eyes catch complexity before it compounds. Complements [code reviews](/guides/design/code-review-best-practices-guide).
 
 ## Common Mistakes
 
@@ -311,7 +311,7 @@ customer.last_order_first_item_price()
 A: Follow the Boy Scout Rule: clean up the parts you touch. Don't embark on large rewrites without business justification and test coverage.
 
 **Q: How do I convince my team to adopt clean code practices?**
-A: Start with automated formatting (zero debate), then introduce code review checklists. Show concrete examples of bugs caused by unclear code.
+A: Start with automated formatting (zero debate), then introduce [code review checklists](/guides/design/code-review-best-practices-guide). Show concrete examples of bugs caused by unclear code.
 
 **Q: Is clean code slower to write?**
 A: Slightly slower to write, significantly faster to read, debug, and change. The investment pays off within the first modification.

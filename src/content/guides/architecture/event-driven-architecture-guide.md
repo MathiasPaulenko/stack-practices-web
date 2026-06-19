@@ -150,7 +150,7 @@ The event carries the data consumers need, eliminating extra queries.
 
 ### 3. CQRS (Command Query Responsibility Segregation)
 
-Separate read and write models. Writes go to the command model; reads come from optimized read models populated by events.
+Separate read and write models. Writes go to the command model; reads come from optimized read models populated by events. See [database design](/guides/databases/database-design-guide).
 
 ```
 ┌──────────────┐    OrderPlaced event     ┌──────────────┐
@@ -164,7 +164,7 @@ Separate read and write models. Writes go to the command model; reads come from 
 
 ### 4. Saga Pattern
 
-Manage distributed transactions using a sequence of local transactions, each publishing an event that triggers the next.
+Manage distributed transactions using a sequence of local transactions, each publishing an event that triggers the next. Common in [microservices](/guides/microservices-architecture-guide).
 
 ```
 Order Service: create order → publish OrderCreated
@@ -196,16 +196,16 @@ def on_payment_failed(event):
 ## Best Practices
 
 - **Design events as facts, not instructions** — `OrderPlaced`, not `ProcessOrder`
-- **Include correlation IDs** — trace a request across services and time
-- **Make consumers idempotent** — at-least-once delivery means events may be processed twice
+- **Include correlation IDs** — [trace a request](/recipes/distributed-tracing) across services and time
+- **Make consumers idempotent** — at-least-once delivery means events may be processed twice. See [message idempotency](/recipes/message-idempotency).
 - **Version your events** — `OrderPlacedV1`, `OrderPlacedV2` to support gradual migration
 - **Monitor consumer lag** — lagging consumers are a sign of scaling or performance issues
-- **Use dead letter queues** — failed messages should not block the queue; analyze them separately
+- **Use dead letter queues** — failed messages should not block the queue. See [dead letter queues](/recipes/dead-letter-queue).
 
 ## Common Mistakes
 
 - Treating events as commands — events announce facts; they do not demand action
-- Not handling duplicate delivery — assume at-least-once and design for idempotency
+- Not handling duplicate delivery — assume at-least-once and design for [idempotency](/recipes/message-idempotency)
 - Ignoring consumer lag until it is a crisis — monitor and alert on lag metrics
 - Building custom message brokers — use proven systems (Kafka, RabbitMQ, NATS, AWS SNS/SQS)
 - Using events for simple request/response — adds unnecessary complexity
@@ -214,7 +214,7 @@ def on_payment_failed(event):
 
 ### How do I debug an event-driven system?
 
-Use distributed tracing (OpenTelemetry, Jaeger) and correlation IDs. Log every event produced and consumed with the same trace ID. Build a "trace viewer" that shows the path of a request across services.
+Use [distributed tracing](/recipes/distributed-tracing) (OpenTelemetry, Jaeger) and correlation IDs. Log every event produced and consumed with the same trace ID. Build a "trace viewer" that shows the path of a request across services.
 
 ### What if a consumer is down when an event is published?
 

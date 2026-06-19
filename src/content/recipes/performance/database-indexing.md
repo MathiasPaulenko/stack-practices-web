@@ -118,14 +118,14 @@ Look for:
 - **Put equality columns before range columns**: in `(a, b)` where `a = 1` and `b > 100`, the index on `(a, b)` is far more effective than `(b, a)`.
 - **Avoid indexing low-cardinality columns alone**: a `status` column with only 3 values (active, pending, archived) does not benefit from a standalone index. Combine it with a high-cardinality column.
 - **Remove unused indexes**: every index slows down writes. Monitor index usage statistics and drop indexes that are never scanned.
-- **Index foreign key columns**: databases do not always auto-index foreign keys. Missing indexes on `JOIN` columns cause expensive nested loop scans.
+- **Index foreign key columns**: databases do not always auto-index foreign keys. Missing indexes on `JOIN` columns cause expensive nested loop scans. See [database design](/guides/databases/database-design-guide).
 
 ## Common Mistakes
 
 - **Indexing every column**: this wastes disk space, slows writes dramatically, and confuses the query optimizer with too many choices.
 - **Wrong column order in composite indexes**: an index on `(created_at, user_id)` cannot help a query that filters only on `user_id`.
 - **Indexing columns that are never queried**: check your query logs before creating indexes.
-- **Ignoring index maintenance**: fragmented indexes on high-churn tables degrade over time. Schedule `REINDEX` or `OPTIMIZE TABLE` periodically.
+- **Ignoring index maintenance**: fragmented indexes on high-churn tables degrade over time. See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide). Schedule `REINDEX` or `OPTIMIZE TABLE` periodically.
 - **Using indexes on tiny tables**: tables with fewer than a few thousand rows are often faster with sequential scans because reading the index and then the table is more overhead than a full scan.
 
 ## Frequently Asked Questions

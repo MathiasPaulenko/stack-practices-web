@@ -125,9 +125,9 @@ class CreateUserRequest(BaseModel):
 
 - [ ] Valida **tipo, longitud, formato y rango** para cada entrada
 - [ ] Rechaza campos inesperados (validación de esquema estricta)
-- [ ] Sanitiza subidas de archivos (extensión, tipo MIME, límites de tamaño)
-- [ ] Usa consultas parametrizadas (previene inyección SQL)
-- [ ] Codifica salida para prevenir XSS
+- [ ] Sanitiza [subidas de archivos](/recipes/file-handling/file-upload-validation) (extensión, tipo MIME, límites de tamaño)
+- [ ] Usa [consultas parametrizadas](/recipes/security/sql-injection-prevention) (previene inyección SQL)
+- [ ] Codifica salida para prevenir [XSS](/recipes/security/xss-prevention)
 
 ## 4. Rate Limiting
 
@@ -149,7 +149,7 @@ def login():
 
 ### Checklist
 
-- [ ] Límites diferentes por endpoint (más estricto para auth, más laxo para lectura)
+- [ ] [Límites diferentes por endpoint](/recipes/rate-limiting) (más estricto para auth, más laxo para lectura)
 - [ ] Límites por usuario y por IP
 - [ ] Retorna `429 Too Many Requests` con header `Retry-After`
 - [ ] Loggea y alerta sobre violaciones repetidas
@@ -181,7 +181,7 @@ decrypted = cipher.decrypt(ssn_encrypted)
 - [ ] TLS 1.2+ para toda comunicación de API
 - [ ] Encripta datos sensibles en reposo (PII, credenciales, tokens)
 - [ ] Hashea contraseñas con bcrypt/Argon2 (nunca MD5 o SHA1)
-- [ ] Gestión segura de claves (KMS, HSM, o vault — no en código)
+- [ ] Gestión segura de claves (KMS, HSM, o [vault](/recipes/security/vault-dynamic-credentials) — no en código)
 
 ## 6. Manejo de Errores
 

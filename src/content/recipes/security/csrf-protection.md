@@ -32,7 +32,7 @@ seo:
 
 Cross-Site Request Forgery (CSRF) tricks authenticated users into performing unwanted actions on a website they trust. An attacker crafts a malicious link or form that, when clicked by a logged-in user, submits a request to the victim site using the user's existing session cookie. The server sees a legitimate request from an authenticated user and executes the action — changing an email address, transferring funds, or deleting an account — without the user's knowledge.
 
-Unlike XSS, which injects malicious scripts, CSRF exploits the browser's automatic cookie-sending behavior. If `bank.com` has a `POST /transfer` endpoint, an attacker can embed a form on `evil.com` that submits to `bank.com/transfer`. As long as the user has a valid session cookie for `bank.com`, the browser sends it automatically.
+Unlike [XSS](/recipes/security/xss-prevention), which injects malicious scripts, CSRF exploits the browser's automatic cookie-sending behavior. If `bank.com` has a `POST /transfer` endpoint, an attacker can embed a form on `evil.com` that submits to `bank.com/transfer`. As long as the user has a valid session cookie for `bank.com`, the browser sends it automatically.
 
 ## When to Use
 
@@ -127,7 +127,7 @@ public class CookieConfig implements WebMvcConfigurer {
 - **Relying solely on SameSite without tokens**: older browsers and certain cross-site navigation patterns may not enforce SameSite. Tokens provide a fallback defense.
 - **Not protecting login forms**: login CSRF is real. An attacker can force a victim to log into an attacker-controlled account, enabling subsequent attacks.
 - **Using GET for state-changing actions**: `GET /delete-account?id=123` is trivially exploitable via an image tag or link. Always use POST, PUT, DELETE for mutations.
-- **Storing tokens in localStorage**: XSS can steal localStorage. Store the server-side token in a hidden form field or a non-HttpOnly cookie (for double-submit pattern).
+- **Storing tokens in localStorage**: [XSS](/recipes/security/xss-prevention) can steal localStorage. Store the server-side token in a hidden form field or a non-HttpOnly cookie (for double-submit pattern).
 
 ## Frequently Asked Questions
 
@@ -135,7 +135,7 @@ public class CookieConfig implements WebMvcConfigurer {
 A: Yes. SameSite blocks most CSRF but not all scenarios (cross-site GET requests, embedded iframes, API endpoints that accept form data). Defense in depth with tokens is recommended.
 
 **Q: Do APIs need CSRF protection?**
-A: APIs that accept form submissions or use cookie authentication need CSRF protection. APIs that use bearer tokens or API keys in headers are generally immune because the attacker cannot forge the header.
+A: APIs that accept form submissions or use cookie authentication need CSRF protection. APIs that use bearer tokens or API keys in headers are generally immune because the attacker cannot forge the header. For API header security, see [API security headers](/recipes/security/api-security-headers).
 
 **Q: What is login CSRF?**
 A: An attacker tricks a victim into logging into a site under the attacker's account. The victim then performs actions (adding payment methods, writing reviews) that benefit the attacker.

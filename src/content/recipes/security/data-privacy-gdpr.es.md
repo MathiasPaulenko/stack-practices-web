@@ -136,16 +136,16 @@ async function eraseUserData(userId) {
 ## Mejores Prácticas
 
 - **Privacy by default**: Nuevas features opt-out por defecto; requiere opt-in explícito
-- **Encripta PII en reposo**: Usa AES-256 para bases de datos, S3 y backups
-- **Loguea acceso a datos personales**: Audita quién accedió qué y cuándo
+- **Encripta PII en reposo**: Usa [AES-256](/recipes/security/encryption-at-rest) para bases de datos, S3 y backups
+- **Loguea acceso a datos personales**: [Audita](/guides/devops/logging-monitoring-observability-guide) quién accedió qué y cuándo
 - **Separa datos de analytics**: Pseudonimiza antes de enviar a herramientas BI
 - **Documenta tu base legal**: Contrato, consentimiento o interés legítimo por tipo de dato
 
 ## Errores Comunes
 
-1. **Consentimiento implícito**: Checkboxes pre-marcadas o términos escondidos no cuentan bajo GDPR
+1. **Consentimiento implícito**: Checkboxes pre-marcadas o términos escondidos no cuentan bajo [GDPR](/recipes/security/data-privacy-gdpr)
 2. **Sin límites de retención**: Mantener datos de usuario para siempre viola limitación de almacenamiento
-3. **Filtración a terceros**: Analytics, ads y CDNs reciben PII sin conocimiento del usuario
+3. **Filtración a terceros**: Analytics, ads y CDNs reciben PII sin conocimiento del usuario. Ejecuta [auditorías de dependencias](/recipes/security/dependency-audit-template) regularmente.
 4. **Ignorar eliminación de backups**: Los datos de usuario borrados persisten en snapshots antiguos de base de datos
 5. **Consentimiento único para todo**: Las cookies de marketing y funcionales necesitan consentimiento separado
 

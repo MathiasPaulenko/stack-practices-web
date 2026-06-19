@@ -160,7 +160,7 @@ public class UserRepositoryTest {
 - **Use real dependencies, not mocks**: the whole point of integration testing is verifying real interactions. Mock only external systems you do not control (payment gateways, third-party APIs).
 - **Clean up between tests**: truncate tables, clear queues, or recreate containers so test order does not affect results.
 - **Keep integration tests in a separate directory**: `tests/integration/` or `src/test/integration/` makes it clear these are slower and more comprehensive.
-- **Run them in CI, not on every file save**: configure your test runner with separate commands (`npm run test:unit` vs `npm run test:integration`).
+- **Run them in [CI](/guides/cicd-pipeline-guide), not on every file save**: configure your test runner with separate commands (`npm run test:unit` vs `npm run test:integration`).
 - **Use random ports and isolated databases**: never run integration tests against your development or production database.
 - **Limit scope**: test one integration point per test. A test that exercises the database, HTTP layer, and message queue is hard to debug when it fails.
 
@@ -168,14 +168,14 @@ public class UserRepositoryTest {
 
 - **Running integration tests against production databases**: this can corrupt real data and violate compliance policies.
 - **Not cleaning up after tests**: leftover data causes flaky tests that pass in isolation but fail in a suite.
-- **Mocking everything in an integration test**: if you mock the database and HTTP layer, you are writing an elaborate unit test, not an integration test.
+- **Mocking everything in an integration test**: if you mock the database and HTTP layer, you are writing an elaborate [unit test](/recipes/testing/unit-testing), not an integration test.
 - **Using hard-coded ports**: port conflicts cause flaky tests. Always use port 0 or dynamic allocation.
 - **Testing too much in one test**: when a broad integration test fails, you spend more time debugging which layer broke than writing the fix.
 
 ## Frequently Asked Questions
 
 **Q: How are integration tests different from end-to-end tests?**
-A: Integration tests verify a specific pair or small group of components. E2E tests exercise the entire application through the UI or public API, often using tools like Selenium, Playwright, or Cypress.
+A: Integration tests verify a specific pair or small group of components. [E2E tests](/recipes/testing/e2e-testing) exercise the entire application through the UI or public API, often using tools like Selenium, Playwright, or Cypress.
 
 **Q: Should I use an in-memory database like H2 or SQLite for integration tests?**
 A: Only if your production database is also SQLite. In-memory databases have different behavior from PostgreSQL or MySQL (transaction isolation, type coercion, JSON support). Testcontainers with the real database engine is the safer choice.

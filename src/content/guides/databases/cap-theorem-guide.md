@@ -157,17 +157,17 @@ session.execute(
 
 - **Do not default to strong consistency everywhere** — it costs latency and availability
 - **Identify your consistency requirements per operation** — not all data needs the same guarantees
-- **Use saga patterns for distributed transactions** — do not try to force ACID across services
-- **Design for idempotency** — eventual consistency means retries, and retries mean duplicates
-- **Monitor replication lag** — lag is the distance between "written" and "visible everywhere"
+- **Use [saga patterns](/guides/event-driven-architecture-guide) for distributed transactions** — do not try to force ACID across services
+- **Design for [idempotency](/recipes/message-idempotency)** — eventual consistency means retries, and retries mean duplicates
+- **Monitor [replication lag](/recipes/database-replication)** — lag is the distance between "written" and "visible everywhere"
 
 ## Common Mistakes
 
 - Treating all data as if it needs strong consistency — most application data is fine with eventual
 - Building distributed systems without understanding the trade-offs — leads to unpredictable failures
 - Assuming "distributed" means "more consistent" — the opposite is usually true
-- Using a CP database for an AP workload (or vice versa) — match the tool to the requirement
-- Ignoring replication lag in read-after-write scenarios — users may not see their own writes immediately
+- Using a CP database for an AP workload (or vice versa) — match the tool to the requirement. See [NoSQL selection](/guides/databases/nosql-database-selection-guide).
+- Ignoring [replication lag](/recipes/database-replication) in read-after-write scenarios — users may not see their own writes immediately
 
 ## Frequently Asked Questions
 

@@ -28,7 +28,7 @@ seo:
 
 ## Overview
 
-AI agents are autonomous systems powered by large language models (LLMs) that can perceive their environment, reason about goals, and take actions by invoking external tools. Unlike simple chatbots that only generate text, agents maintain state across multiple turns, choose which tools to call based on context, and iterate until a task is complete. They represent the next evolution from static prompts to dynamic, goal-oriented systems.
+AI agents are autonomous systems powered by large language models (LLMs) that can perceive their environment, reason about goals, and take actions by invoking external tools. Unlike simple [chatbots](/recipes/ai/chatbot-openai) that only generate text, agents maintain state across multiple turns, choose which tools to call based on context, and iterate until a task is complete. They represent the next evolution from [static prompts](/recipes/ai/prompt-engineering) to dynamic, goal-oriented systems.
 
 The fundamental agent loop is: **observe → reason → act → observe again**. The agent receives an input or environment state, reasons about what to do, calls a tool (such as a web search, database query, or code execution), observes the result, and repeats until the goal is satisfied. This recipe covers the ReAct pattern, function calling APIs, tool definitions, and memory management for multi-turn agent systems.
 
@@ -196,16 +196,16 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 
 - **Giving the agent dangerous tools by default**: an agent with shell access or database write permissions can cause irreversible damage. Apply least-privilege tool access and require human approval for destructive actions.
 - **Ignoring latency**: each tool call adds an LLM API round-trip. A 5-step agent with 2-second API latency takes 10+ seconds. Use parallel tool calling and caching to reduce perceived latency.
-- **Over-engineering simple tasks**: if a question can be answered with a single RAG lookup, do not build a full agent. Agents add complexity, cost, and failure modes. Use them only when multi-step reasoning is genuinely required.
+- **Over-engineering simple tasks**: if a question can be answered with a single [RAG lookup](/recipes/ai/rag-pipeline), do not build a full agent. Agents add complexity, cost, and failure modes. Use them only when multi-step reasoning is genuinely required.
 - **Forgetting to handle tool errors**: if a search API is down, the agent receives an error string and may hallucinate an answer. Catch exceptions, return structured error messages, and teach the agent to retry or escalate.
 
 ## FAQ
 
 **Q: What is the difference between an agent and a chatbot?**
-A: A chatbot responds to each message independently. An agent maintains state across multiple turns, reasons about goals, and invokes external tools to accomplish tasks. Agents are chatbots plus autonomy.
+A: A chatbot responds to each message independently. An agent maintains state across multiple turns, reasons about goals, and invokes external tools to accomplish tasks. Agents are [chatbots](/recipes/ai/chatbot-openai) plus autonomy.
 
 **Q: Can I build agents without OpenAI?**
-A: Yes. Claude (Anthropic), Gemini (Google), and open models like Llama 3 and Mistral support tool calling. The function-calling API varies slightly but the ReAct pattern works across all of them.
+A: Yes. Claude (Anthropic), Gemini (Google), and open models like Llama 3 and Mistral support tool calling. The function-calling API varies slightly but the [ReAct pattern](/recipes/ai/ai-agents-tool-use) works across all of them.
 
 **Q: How do I prevent an agent from making expensive API calls?**
 A: Implement a cost budget per session, rate-limit tool calls, and require user confirmation for high-cost actions (e.g., booking a flight, sending an email).

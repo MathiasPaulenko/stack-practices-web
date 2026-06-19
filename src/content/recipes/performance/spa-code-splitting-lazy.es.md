@@ -31,7 +31,7 @@ seo:
 
 # Rendimiento SPA: Code Splitting y Lazy Loading
 
-Reduce el tamano del bundle inicial en single-page applications dividiendo codigo a nivel de ruta y componente. Esta recipe demuestra React.lazy, imports dinamicos y estrategias de preload que mantienen time-to-interactive bajo sin sacrificar experiencia de usuario.
+Reduce el tamano del bundle inicial en [single-page applications](/recipes/performance/lazy-loading) dividiendo codigo a nivel de ruta y componente. Esta recipe demuestra React.lazy, imports dinamicos y estrategias de preload que mantienen time-to-interactive bajo sin sacrificar experiencia de usuario.
 
 ## Cuando Usar Esto
 
@@ -178,7 +178,7 @@ function useLazyLoad() {
 ## Consideraciones de Produccion
 
 - Setea fallback UI apropiado para prevenir layout shifts mientras carga
-- Monitorea Core Web Vitals (LCP, INP, CLS) despues de hacer splitting
+- Monitorea [Core Web Vitals](/guides/performance/performance-optimization-guide) (LCP, INP, CLS) despues de hacer splitting
 - Usa `preload` para rutas criticas accedidas por la mayoria de usuarios
 
 ## Errores Comunes

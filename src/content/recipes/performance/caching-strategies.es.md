@@ -35,9 +35,9 @@ El caching es la técnica más efectiva para mejorar el rendimiento de aplicacio
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Las consultas de base de datos se vuelven un cuello de botella bajo carga
-- Los tiempos de respuesta de API exceden 200ms para endpoints de lectura intensiva
-- Sirves assets estáticos (imágenes, JS, CSS) a usuarios globales
+- Las [consultas de base de datos](/recipes/performance/query-optimization) se vuelven un cuello de botella bajo carga
+- Los [tiempos de respuesta de API](/recipes/api/call-rest-api) exceden 200ms para endpoints de lectura intensiva
+- Sirves assets estáticos (imágenes, JS, CSS) a usuarios globales via [CDN](/recipes/performance/cdn-edge-caching)
 - Construyes aplicaciones de alto tráfico donde datos stale son aceptables
 
 ## Solución
@@ -99,7 +99,7 @@ app.get('/api/products', (req, res) => {
 **Enfoques de invalidación de cache**:
 - **Basado en tiempo (TTL)**: Simple pero puede servir datos stale
 - **Basado en clave**: Incluye versión o hash en la clave de cache
-- **Basado en eventos**: Invalida cuando los datos cambian vía message bus
+- **Basado en eventos**: Invalida cuando los datos cambian vía message bus. Consulta [invalidación de caché](/recipes/performance/cache-invalidation).
 
 ## Variantes
 
@@ -133,7 +133,7 @@ app.get('/api/products', (req, res) => {
 R: Usa un mutex o Redis SET NX (lock) para que solo un request reconstruya el cache mientras otros esperan.
 
 **P: ¿Debería cachear respuestas GraphQL?**
-R: Sí, pero cachea por hash de query + variables. Apollo Server tiene caching de respuestas built-in.
+R: Sí, pero cachea por hash de query + variables. [Apollo Server](/recipes/api/call-rest-api) tiene caching de respuestas built-in.
 
 **P: ¿Cuál es la diferencia entre Redis y Memcached?**
 R: Redis soporta estructuras de datos (listas, sets, sorted sets) y persistencia. Memcached es más simple y ligeramente más rápido para caching plain key-value.

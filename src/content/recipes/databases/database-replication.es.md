@@ -29,7 +29,7 @@ seo:
 ---
 ## Visión General
 
-La replicación de bases de datos copia datos de una base de datos primaria a una o más réplicas. Esto habilita el escalado de lecturas, alta disponibilidad y disaster recovery. Ya sea usando streaming replication en PostgreSQL, binary log replication en MySQL, o replica sets nativos en MongoDB, entender el lag de replicación, failover y trade-offs de consistencia es esencial para construir capas de datos resilientes.
+La replicación de bases de datos copia datos de una base de datos primaria a una o más réplicas. Esto habilita el escalado de lecturas, alta disponibilidad y [disaster recovery](/docs/disaster-recovery-plan-template). Ya sea usando streaming replication en PostgreSQL, binary log replication en MySQL, o replica sets nativos en MongoDB, entender el lag de replicación, failover y trade-offs de consistencia es esencial para construir capas de datos resilientes.
 
 ## Cuándo Usar
 
@@ -37,7 +37,7 @@ Usa este recurso cuando:
 - El tráfico de lecturas excede lo que una única instancia de base de datos puede manejar
 - Necesitas failover con near-zero downtime para aplicaciones críticas
 - La distribución geográfica requiere datos más cerca de los usuarios
-- Los backups no deben impactar la performance de la base de datos primaria
+- Los [backups](/docs/disaster-recovery-plan-template) no deben impactar la performance de la base de datos primaria
 
 ## Solución
 
@@ -142,14 +142,14 @@ await query('UPDATE users SET last_login = NOW() WHERE id = $1', [userId]);
 ## Mejores Prácticas
 
 - **Monitorea lag de replicación**: Alerta cuando el lag excede la tolerancia de la aplicación (usualmente 1-5 segundos)
-- **Usa connection pooling**: PgBouncer o ProxySQL manejan el ruteo primaria/réplica
+- **Usa connection pooling**: [PgBouncer](/recipes/database-connection-pooling) o ProxySQL manejan el ruteo primaria/réplica
 - **Testea failover trimestralmente**: El failover automatizado aún necesita validación humana
 - **Mantén réplicas en AZs diferentes**: No solo diferentes instancias — diferentes dominios de falla
 - **No escribas en réplicas**: Incluso si está soportado, crea conflictos y escenarios de split-brain
 
 ## Errores Comunes
 
-1. **Asumir que las réplicas son real-time**: El lag asíncrono puede ser segundos o minutos; diseña para consistencia eventual
+1. **Asumir que las réplicas son real-time**: El lag asíncrono puede ser segundos o minutos; diseña para consistencia eventual. Aprende más en [CAP theorem](/guides/cap-theorem-guide).
 2. **Sin testing de failover**: La primera vez que haces failover no debería ser durante un outage
 3. **Ignorar bloat de replication slots**: Los slots de replicación de PostgreSQL previenen cleanup de WAL; monitorea uso de disco
 4. **Único path de red**: Réplicas en la misma AZ que la primaria comparten el mismo dominio de falla
@@ -161,7 +161,7 @@ await query('UPDATE users SET last_login = NOW() WHERE id = $1', [userId]);
 R: Para analytics: minutos. Para lecturas user-facing: <1 segundo. Para datos financieros: usa replicación síncrona.
 
 **P: ¿Puedo usar réplicas para backups?**
-R: Sí. `pg_basebackup` desde una réplica descarga la primaria. Asegúrate de que la réplica esté al día primero.
+R: Sí. `pg_basebackup` desde una réplica descarga la primaria. Asegúrate de que la réplica esté al día primero. Consulta nuestra [plantilla de disaster recovery](/docs/disaster-recovery-plan-template).
 
 **P: ¿Cuál es la diferencia entre replicación lógica y física?**
 R: La física copia byte-por-byte (rápida; base de datos completa). La lógica replica cambios de fila (tablas selectivas; compatible entre versiones).

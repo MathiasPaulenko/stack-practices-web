@@ -189,24 +189,24 @@ When a service needs data owned by another:
 ## Best Practices
 
 - **Own the full lifecycle** — teams build, run, and support their services (you build it, you run it)
-- **Design for failure** — assume any dependency can fail; use retries with backoff, circuit breakers, and graceful degradation
+- **Design for failure** — assume any dependency can fail; use [retries with backoff](/recipes/retry-backoff), [circuit breakers](/recipes/circuit-breaker-pattern), and graceful degradation
 - **Automate everything** — if a deployment or rollback requires a runbook, automate it
-- **Standardize observability** — every service must emit logs, metrics, and traces in a consistent format
+- **Standardize observability** — every service must emit [logs](/recipes/log-aggregation), [metrics](/recipes/metrics-collection), and [traces](/recipes/distributed-tracing) in a consistent format
 - **Limit service dependencies** — avoid deep dependency chains; prefer fan-out over deep trees
 
 ## Common Mistakes
 
 - Creating too many services too early — 5 services for 3 engineers is overkill
-- Sharing databases between services — this is a distributed monolith
-- Ignoring network latency — every sync call is a potential timeout or retry storm
-- Underestimating operational cost — microservices need mature DevOps practices
-- Building a custom RPC framework — use proven standards (gRPC, HTTP/REST, or message brokers)
+- Sharing databases between services — this is a distributed monolith. See [database design](/guides/databases/database-design-guide).
+- Ignoring network latency — every sync call is a potential timeout or [retry storm](/recipes/retry-backoff)
+- Underestimating operational cost — microservices need mature [DevOps practices](/guides/devops-best-practices-guide)
+- Building a custom RPC framework — use proven standards (gRPC, [HTTP/REST](/guides/api/rest-api-design-guide), or [message brokers](/guides/event-driven-architecture-guide))
 
 ## Frequently Asked Questions
 
 ### Should every startup start with microservices?
 
-No. Start with a monolith. Extract services when a module becomes painful to deploy, scale, or reason about independently. Premature decomposition is a common cause of engineering slowdown.
+No. Start with a [monolith](/guides/architecture/monolith-to-microservices-migration-guide). Extract services when a module becomes painful to deploy, scale, or reason about independently. Premature decomposition is a common cause of engineering slowdown.
 
 ### How big should a microservice be?
 
@@ -214,4 +214,4 @@ Small enough to be rewritten in 2-4 weeks. If a service requires 6+ engineers an
 
 ### What is the biggest risk of microservices?
 
-Distributed complexity. Debugging, testing, and reasoning about a system that spans dozens of services is significantly harder than a monolith. Without strong observability and automation, the architecture will slow you down rather than speed you up.
+Distributed complexity. [Debugging](/recipes/distributed-tracing), testing, and reasoning about a system that spans dozens of services is significantly harder than a monolith. Without strong [observability](/recipes/log-aggregation) and automation, the architecture will slow you down rather than speed you up.

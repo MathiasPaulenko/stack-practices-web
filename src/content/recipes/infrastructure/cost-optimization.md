@@ -30,7 +30,7 @@ seo:
 ---
 ## Overview
 
-Cloud costs can spiral unexpectedly — unused resources, oversized instances, and forgotten development environments silently drain budgets. Cost optimization isn't just about cutting spending; it's about aligning infrastructure capacity with actual demand. This resource covers right-sizing, purchasing strategies (reserved vs. spot), automated scheduling, and FinOps practices that reduce waste without impacting reliability.
+Cloud costs can spiral unexpectedly — unused resources, oversized instances, and forgotten development environments silently drain budgets. Cost optimization isn't just about cutting spending; it's about aligning infrastructure [capacity](/docs/capacity-planning-template) with actual demand. This resource covers right-sizing, purchasing strategies (reserved vs. spot), automated scheduling, and FinOps practices that reduce waste without impacting reliability.
 
 ## When to Use
 
@@ -141,12 +141,12 @@ spec:
 - **Set budgets and alerts**: Alert at 80% of monthly budget; investigate immediately
 - **Review unused resources weekly**: Dangling IPs, orphaned volumes, and stale snapshots add up
 - **Use Savings Plans over RIs**: More flexible; apply across instance families and regions
-- **Implement auto-scaling**: Scale to zero for dev environments; scale up for production peaks
+- **Implement auto-scaling**: Scale to zero for dev environments; scale up for production peaks. See [autoscaling policies](/recipes/autoscaling-policies).
 
 ## Common Mistakes
 
 1. **No cost ownership**: When engineering doesn't see the bill, waste accumulates
-2. **Overcommitting to reserved instances**: Buying 3-year RIs for workloads that may migrate to serverless
+2. **Overcommitting to reserved instances**: Buying 3-year RIs for workloads that may migrate to [serverless](/guides/serverless-architecture-guide)
 3. **Ignoring data transfer costs**: NAT Gateway, cross-AZ traffic, and egress can exceed compute costs
 4. **Leaving preview resources running**: POCs and experiments that become permanent line items
 5. **One-size-fits-all pricing**: Production needs stability; dev can tolerate spot interruptions
@@ -157,7 +157,7 @@ spec:
 A: Only for stateless, fault-tolerant workloads with proper fallback to on-demand. Never for databases or singleton services.
 
 **Q: How do I prevent developers from creating expensive resources?**
-A: SCPs (Service Control Policies) restrict instance types by OU. Terraform policies enforce approved instance families.
+A: [SCPs (Service Control Policies)](/guides/security-best-practices-guide) restrict instance types by OU. Terraform policies enforce approved instance families.
 
 **Q: What's the difference between FinOps and DevOps?**
-A: DevOps optimizes for speed and reliability. FinOps adds cost as a first-class metric, with cross-functional accountability.
+A: [DevOps](/guides/devops-best-practices-guide) optimizes for speed and reliability. FinOps adds cost as a first-class metric, with cross-functional accountability.

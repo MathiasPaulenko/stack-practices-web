@@ -259,7 +259,7 @@ El Patrón Circuit Breaker tiene tres estados:
 - **Abierto (Open)** — El servicio se considera no saludable. Todas las solicitudes fallan rápidamente sin llamar al servicio.
 - **Semi-abierto (Half-Open)** — Después de un timeout, se permiten un número limitado de solicitudes de prueba para verificar si el servicio se recuperó.
 
-Esto previene agotamiento de recursos por llamadas fallidas repetidas y da tiempo a los servicios fallidos para recuperarse.
+Esto previene agotamiento de recursos por llamadas fallidas repetidas y da tiempo a los servicios fallidos para recuperarse. Esencial en [sistemas distribuidos](/guides/architecture/microservices-architecture-guide).
 
 ## Variantes
 
@@ -268,7 +268,7 @@ Esto previene agotamiento de recursos por llamadas fallidas repetidas y da tiemp
 | **Basado en Conteo** | Salta después de N fallos | Comportamiento simple y predecible |
 | **Basado en Tiempo** | Salta si la tasa de fallo excede umbral en ventana de tiempo | Se adapta a carga variable |
 | **Ponderado** | Umbrales diferentes para distintos tipos de excepción | Distinguir fallos transitorios vs. permanentes |
-| **Fallback Personalizado** | Retorna valor por defecto cuando está abierto | Degradación elegante (cache, respuesta por defecto) |
+| **[Fallback Personalizado](/patterns/design/cache-aside-pattern)** | Retorna valor por defecto cuando está abierto | Degradación elegante (cache, respuesta por defecto) |
 
 ## Buenas Prácticas
 
@@ -289,10 +289,10 @@ Esto previene agotamiento de recursos por llamadas fallidas repetidas y da tiemp
 ## Preguntas Frecuentes
 
 **P: ¿Cómo se diferencia Circuit Breaker de Retry?**
-R: Retry intenta la misma operación múltiples veces. Circuit Breaker deja de llamar a un servicio fallido por completo. Funcionan bien juntos: retry para fallos transitorios, circuit breaker para cortes persistentes.
+R: [Retry](/patterns/design/retry-pattern) intenta la misma operación múltiples veces. Circuit Breaker deja de llamar a un servicio fallido por completo. Funcionan bien juntos: retry para fallos transitorios, circuit breaker para cortes persistentes.
 
 **P: ¿Debería usar una librería o implementar el mío?**
-R: Para sistemas de producción, usa librerías establecidas: Resilience4j (Java), Polly (.NET), Opossum (JavaScript/Node). Implementa el tuyo solo para aprender o en entornos muy restringidos.
+R: Para sistemas de producción, usa librerías establecidas: Resilience4j (Java), Polly (.NET), Opossum (JavaScript/Node). Consulta también [Ambassador](/patterns/design/ambassador-pattern) para resiliencia del lado del cliente. Implementa el tuyo solo para aprender o en entornos muy restringidos.
 
 **P: ¿Cómo monitoreo la salud del circuit breaker?**
 R: Expón métricas para transiciones de estado, tasas de fallo y duración en estado abierto. Integra con tu stack de monitoreo (Prometheus, Grafana) para alertar sobre saltos frecuentes del circuito.

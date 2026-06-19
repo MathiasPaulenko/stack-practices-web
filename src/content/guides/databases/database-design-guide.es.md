@@ -133,13 +133,13 @@ Los índices aceleran lecturas pero ralentizan escrituras.
 - **Evitar claves foráneas nulas**: usa tablas de intersección para relaciones opcionales
 - **Elegir tipos de datos cuidadosamente**: `VARCHAR(255)` vs `TEXT`, `DECIMAL` vs `FLOAT`
 - **Documentar el schema**: con comentarios y diagramas ER
-- **Planificar el crecimiento**: particionar tablas grandes antes de que se conviertan en un problema
+- **Planificar el crecimiento**: [particionar tablas grandes](/guides/databases/database-sharding-partitioning-guide) antes de que se conviertan en un problema
 
 ## Errores Comunes
 
-- Saltarse la normalización por "performance" sin evidencia
+- Saltarse la normalización por "performance" sin evidencia. Consulta [tuning SQL](/guides/databases/sql-performance-tuning-guide).
 - Usar `ENUM` para valores que cambian frecuentemente
-- Faltar reglas `ON DELETE` / `ON UPDATE` en claves foráneas
+- Faltar reglas `ON DELETE` / `ON UPDATE` en claves foráneas. Consulta [validación de datos](/recipes/data-validation-zod).
 - Almacenar datos derivados/calculados en vez de computar en lectura
 
 ## Preguntas Frecuentes

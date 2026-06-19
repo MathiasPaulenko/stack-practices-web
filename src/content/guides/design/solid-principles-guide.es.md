@@ -282,11 +282,11 @@ Los principios SOLID se refuerzan mutuamente:
 
 ### ¿Debería aplicar todos los principios SOLID a cada clase?
 
-No. Son guías, no leyes. Aplícalos donde reduzcan complejidad y acoplamiento. Scripts pequeños y operaciones CRUD a menudo no necesitan tratamiento SOLID completo.
+No. Son guías, no leyes. Aplícalos donde reduzcan complejidad y acoplamiento. Scripts pequeños y [operaciones CRUD](/guides/databases/database-design-guide) a menudo no necesitan tratamiento SOLID completo.
 
 ### ¿Los principios SOLID aplican solo a POO?
 
-Los conceptos se traducen bien a otros paradigmas. La programación funcional logra DIP mediante funciones de orden superior, y SRP aplica a módulos y funciones en cualquier paradigma.
+Los conceptos se traducen bien a otros paradigmas. La programación funcional logra DIP mediante funciones de orden superior, y SRP aplica a módulos y funciones en cualquier paradigma. Consulta [design patterns](/guides/design/design-patterns-guide) para ejemplos prácticos.
 
 ### ¿Cómo convenzo a mi equipo de refactorizar hacia SOLID?
 

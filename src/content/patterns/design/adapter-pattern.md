@@ -150,7 +150,7 @@ The adapter translates calls from the target interface into calls the adaptee un
 - **Keep the adapter thin**: It should translate calls, not add business logic
 - **Document the mapping**: Explain how target methods map to adaptee methods
 - **Handle nulls and exceptions** gracefully during translation
-- **Consider caching**: If translation involves heavy computation, cache results
+- **Consider [caching](/recipes/performance/caching-strategies)**: If translation involves heavy computation, cache results
 
 ## Common Mistakes
 
@@ -163,7 +163,7 @@ The adapter translates calls from the target interface into calls the adaptee un
 ## Frequently Asked Questions
 
 **Q: What is the difference between Adapter and Facade?**
-A: Adapter makes one incompatible interface compatible. Facade simplifies a complex subsystem by providing a single unified interface.
+A: Adapter makes one incompatible interface compatible. [Facade](/patterns/design/facade-pattern) simplifies a complex subsystem by providing a single unified interface.
 
 **Q: Can I adapt multiple classes at once?**
 A: Yes. A single adapter can wrap multiple adaptees and coordinate them to provide a unified interface.

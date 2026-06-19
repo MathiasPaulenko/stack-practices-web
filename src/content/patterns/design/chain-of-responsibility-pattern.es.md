@@ -48,7 +48,7 @@ Usa el Patrón Chain of Responsibility cuando:
 - Más de un objeto puede manejar una solicitud, y el manejador no se conoce de antemano
 - Quieres emitir una solicitud a uno de varios objetos sin especificar el receptor explícitamente
 - El conjunto de objetos que pueden manejar una solicitud debe especificarse dinámicamente
-- Necesitas un pipeline o middleware donde cada paso pueda procesar, transformar o detener una solicitud
+- Necesitas un [pipeline](/patterns/design/chain-of-responsibility-middleware) o middleware donde cada paso pueda procesar, transformar o detener una solicitud
 
 ## Solución
 
@@ -262,10 +262,10 @@ El cliente construye el orden de la cadena. Cada manejador también puede elegir
 ## Preguntas Frecuentes
 
 **P: ¿Es lo mismo que el middleware en frameworks web?**
-R: Sí. El middleware de Express.js, Django y ASP.NET Core son implementaciones del Patrón Chain of Responsibility. Cada middleware decide si procesa la solicitud, la pasa adelante, o cortocircuita con una respuesta.
+R: Sí. El middleware de Express.js, Django y ASP.NET Core son implementaciones del [Patrón Chain of Responsibility](/patterns/design/chain-of-responsibility-middleware). Cada middleware decide si procesa la solicitud, la pasa adelante, o cortocircuita con una respuesta.
 
 **P: ¿Qué pasa si ningún manejador procesa la solicitud?**
-R: Por defecto, la solicitud cae a través de la cadena sin ser manejada. Deberías agregar un manejador comodín al final que retorne una respuesta por defecto o lance un error apropiado.
+R: Por defecto, la solicitud cae a través de la cadena sin ser manejada. Considera agregar un [Decorator](/patterns/design/decorator-pattern) para enriquecimiento o un manejador por defecto. Deberías agregar un manejador comodín al final que retorne una respuesta por defecto o lance un error apropiado.
 
 **P: ¿Los manejadores pueden modificar la solicitud antes de pasarla?**
 R: Sí. A diferencia de una cadena pura de pasar-o-fallar, los manejadores pueden transformar, enriquecer o validar la solicitud antes de reenviarla. Esto es común en pipelines de middleware.

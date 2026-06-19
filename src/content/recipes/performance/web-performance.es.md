@@ -30,7 +30,7 @@ seo:
 ---
 ## Visión General
 
-El performance web impacta directamente el engagement de usuarios, tasas de conversión y rankings de búsqueda. Los Core Web Vitals de Google — Largest Contentful Paint (LCP), Interaction to Next Paint (INP) y Cumulative Layout Shift (CLS) — proveen targets medibles. Este recurso cubre técnicas prácticas: lazy loading, code splitting, optimización de imágenes, critical CSS y modern build tooling para lograr cargas de página bajo 3 segundos.
+El performance web impacta directamente el engagement de usuarios, tasas de conversión y [rankings de búsqueda](/guides/performance-optimization-guide). Los Core Web Vitals de Google — Largest Contentful Paint (LCP), Interaction to Next Paint (INP) y Cumulative Layout Shift (CLS) — proveen targets medibles. Este recurso cubre técnicas prácticas: lazy loading, code splitting, optimización de imágenes, critical CSS y modern build tooling para lograr cargas de página bajo 3 segundos.
 
 ## Cuándo Usar
 
@@ -38,7 +38,7 @@ Usa este recurso cuando:
 - Los scores de Core Web Vitals están fallando (LCP > 2.5s, CLS > 0.1)
 - Usuarios móviles en redes 3G abandonan páginas antes de que carguen
 - Los bundle sizes exceden 200KB e impactan el time-to-interactive
-- Scripts de terceros (analytics, ads) bloquean el main thread
+- [Scripts de terceros](/recipes/security-headers) (analytics, ads) bloquean el main thread
 
 ## Solución
 
@@ -126,7 +126,7 @@ function Dashboard() {
 ## Mejores Prácticas
 
 - **Mide usuarios reales, no tests de lab**: Field data de Chrome UX Report refleja condiciones actuales
-- **Optimiza el critical path**: Cualquier cosa bloqueando `<head>` debería estar bajo 50KB total
+- **Optimiza el critical path**: Cualquier cosa bloqueando `<head>` debería estar bajo 50KB total. Consulta [server-side rendering](/recipes/server-side-rendering).
 - **Self-host fonts y analytics**: Conexiones de terceros agregan overhead de DNS + TLS + TCP
 - **Usa `content-visibility: auto`**: Los browsers skip rendering de contenido off-screen
 - **Defer JavaScript no crítico**: `defer` o `type="module"` para scripts no necesarios inmediatamente
@@ -136,7 +136,7 @@ function Dashboard() {
 1. **Imágenes hero oversized**: Un PNG hero de 4MB destruye LCP; usa imágenes responsive con `srcset`
 2. **Terceros render-blocking**: Google Fonts cargados síncronamente retrasan first paint
 3. **Sin resource hints**: `preload`, `prefetch` y `preconnect` son wins de performance gratuitos
-4. **Hidratar todo**: La arquitectura de islands (Astro, Fresh) envía zero JS para contenido estático
+4. **Hidratar todo**: [Arquitectura de islands](/recipes/server-side-rendering) (Astro, Fresh) envía zero JS para contenido estático
 5. **Ignorar mobile**: 70% de usuarios están en mobile; testea en dispositivos reales, no solo DevTools
 
 ## Preguntas Frecuentes
@@ -145,7 +145,7 @@ function Dashboard() {
 R: Optimización de imágenes. Las imágenes son típicamente 60-80% del peso de página. Usa formatos modernos, sizing responsive y lazy loading.
 
 **P: ¿Debería usar un CDN?**
-R: Sí. Un CDN reduce TTFB sirviendo desde edge locations cercanas a los usuarios. Esencial para audiencias globales.
+R: Sí. Un [CDN](/recipes/caching) reduce TTFB sirviendo desde edge locations cercanas a los usuarios. Esencial para audiencias globales.
 
 **P: ¿Cómo balanceo performance con developer experience?**
 R: Usa frameworks que optimizan por default (Astro, SvelteKit, Next.js con App Router). No luches contra las herramientas.

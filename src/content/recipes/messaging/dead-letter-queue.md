@@ -30,7 +30,7 @@ seo:
 ---
 ## Overview
 
-Dead letter queues (DLQs) capture messages that fail processing after repeated attempts. Without them, failed messages would block the queue or be lost entirely. A well-designed DLQ system distinguishes between poison pills (permanently bad messages) and transient failures, enabling operators to replay, inspect, or discard problematic messages without impacting the main processing flow.
+Dead letter queues (DLQs) capture messages that fail processing after repeated attempts in [message-driven](/guides/event-driven-architecture-guide) systems. Without them, failed messages would block the queue or be lost entirely. A well-designed DLQ system distinguishes between poison pills (permanently bad messages) and transient failures, enabling operators to replay, inspect, or discard problematic messages without impacting the main processing flow.
 
 ## When to Use
 
@@ -38,7 +38,7 @@ Use this resource when:
 - Message consumers encounter unrecoverable errors (malformed payloads, missing references)
 - You need to prevent one bad message from blocking an entire queue partition
 - Operations teams require visibility into failed messages for manual intervention
-- Compliance requires audit trails of all processed and failed messages
+- Compliance requires audit trails of all processed and failed messages. Use a [data retention policy](/docs/data-retention-policy-template).
 
 ## Solution
 
@@ -142,7 +142,7 @@ await consumer.run({
 - **Depth alerting**: DLQ > 10 messages triggers PagerDuty
 - **Age alerting**: Message in DLQ > 24 hours needs investigation
 - **Replay tooling**: Admin UI to reprocess or purge DLQ messages
-- **Correlation**: Link DLQ message to original trace ID
+- **Correlation**: Link DLQ message to original trace ID. See [distributed tracing](/recipes/distributed-tracing).
 
 ## Variants
 
@@ -159,13 +159,13 @@ await consumer.run({
 - **Set reasonable retry counts**: 3-5 attempts balances recovery time against queue pressure
 - **Include full context in DLQ**: Original headers, retry count, error type, and stack trace
 - **Separate DLQs by severity**: Validation errors vs. infrastructure failures need different handling
-- **Monitor DLQ depth as a metric**: It's a leading indicator of system health
+- **Monitor DLQ depth as a metric**: It's a leading indicator of system health. See [metrics collection](/recipes/metrics-collection).
 - **Automate replay with caution**: Replay after fixing the bug; replaying blindly amplifies failures
 
 ## Common Mistakes
 
 1. **No DLQ at all**: Failed messages silently disappear or block consumers forever
-2. **Infinite retry loops**: Requeuing without a max count creates perpetual processing
+2. **Infinite retry loops**: Requeuing without a max count creates perpetual processing. Use [retry with exponential backoff](/recipes/retry-backoff).
 3. **Ignoring DLQ messages**: The DLQ becomes a dumping ground that nobody monitors
 4. **No dead-letter reason**: Operators can't distinguish "bad JSON" from "database down"
 5. **Shared DLQ for all topics**: One poison pill from topic A doesn't belong with topic B's failures
@@ -179,4 +179,4 @@ A: Only after identifying and fixing the root cause. Blind replay wastes resourc
 A: Longer than your incident response SLA. 7-14 days is typical; archive to cheap storage beyond that.
 
 **Q: What's the difference between a DLQ and a retry queue?**
-A: Retry queues hold messages for later reprocessing. DLQs hold messages that have exhausted all retries.
+A: [Retry queues](/recipes/retry-backoff) hold messages for later reprocessing. DLQs hold messages that have exhausted all retries.

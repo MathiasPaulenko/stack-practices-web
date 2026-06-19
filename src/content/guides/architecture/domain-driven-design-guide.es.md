@@ -163,7 +163,7 @@ class OrderConfirmed:
     confirmed_at: datetime
 ```
 
-Los domain events permiten acoplamiento flojo entre bounded contexts.
+Los domain events permiten acoplamiento flojo entre bounded contexts. Consulta [arquitectura event-driven](/guides/event-driven-architecture-guide).
 
 ## DDD Estratégico vs. DDD Táctico
 
@@ -190,15 +190,15 @@ Usa DDD cuando:
 ## Buenas Prácticas
 
 - **Empieza con el ubiquitous language**, no con el esquema de base de datos
-- **Mantén los aggregates pequeños** — los aggregates grandes dañan la concurrencia
+- **Mantén los aggregates pequeños** — los aggregates grandes dañan la [concurrencia](/guides/concurrency/concurrency-patterns-guide)
 - **Prefiere value objects** sobre entidades cuando sea posible (más simples, inmutables)
-- **Una transacción por aggregate** — no actualices múltiples aggregates en una transacción
+- **Una transacción por aggregate** — no actualices múltiples aggregates en una transacción. Consulta [diseño de bases de datos](/guides/databases/database-design-guide).
 - **Usa domain events** para comunicación cross-aggregate
 - **No sobre-ingenieres** — no todo proyecto necesita DDD completo
 
 ## Errores Comunes
 
-- Diseñar el esquema de base de datos primero, luego forzar patrones DDD encima
+- Diseñar el [esquema de base de datos](/guides/databases/database-design-guide) primero, luego forzar patrones DDD encima
 - Hacer cada objeto una entidad en lugar de usar value objects
 - Crear aggregates gigantes que abarcan la mitad del dominio
 - Usar DDD para aplicaciones CRUD simples
@@ -211,7 +211,7 @@ Usa DDD cuando:
 R: Un aggregate root es una entidad especial que sirve como punto de entrada a un aggregate. Todas las referencias externas al aggregate pasan por la root, y todas las modificaciones se hacen vía los métodos de la root.
 
 **P: ¿Puedo usar DDD con microservicios?**
-R: Sí. Cada microservicio típicamente se alinea con un bounded context. El límite del servicio refuerza el límite del contexto, y los servicios se comunican vía domain events o APIs.
+R: Sí. Cada [microservicio](/guides/microservices-architecture-guide) típicamente se alinea con un bounded context. El límite del servicio refuerza el límite del contexto, y los servicios se comunican vía domain events o APIs.
 
 **P: ¿Cómo identifico bounded contexts?**
-R: Busca áreas donde la terminología cambia, diferentes equipos tienen ownership, o donde las capacidades de negocio son independientes. Los workshops de Event Storming son una técnica común.
+R: Busca áreas donde la terminología cambia, diferentes equipos tienen ownership, o donde las capacidades de negocio son independientes. Los workshops de [Event Storming](/guides/event-driven-architecture-guide) son una técnica común.

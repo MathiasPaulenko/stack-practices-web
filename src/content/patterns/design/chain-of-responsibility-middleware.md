@@ -31,7 +31,7 @@ seo:
 
 # Chain of Responsibility for Request Processing Middleware
 
-The Chain of Responsibility pattern passes requests along a chain of handlers. Each handler decides either to process the request or to pass it to the next handler on the chain. This pattern decouples senders from receivers, allowing multiple objects to handle a request without the sender knowing which object will ultimately process it.
+The [Chain of Responsibility](/patterns/design/chain-of-responsibility-pattern) pattern passes requests along a chain of handlers. Each handler decides either to process the request or to pass it to the next handler on the chain. This pattern decouples senders from receivers, allowing multiple objects to handle a request without the sender knowing which object will ultimately process it.
 
 ## When to Use This
 
@@ -41,7 +41,7 @@ The Chain of Responsibility pattern passes requests along a chain of handlers. E
 
 ## Problem
 
-An HTTP request needs to pass through authentication, rate limiting, request validation, and logging. Hardcoding this sequence in the router makes the pipeline rigid and hard to extend.
+An HTTP request needs to pass through authentication, [rate limiting](/recipes/security/rate-limiting), request validation, and logging. Hardcoding this sequence in the router makes the pipeline rigid and hard to extend.
 
 ## Solution
 
@@ -222,7 +222,7 @@ const pipeline = compose([
 ## FAQ
 
 **Q: How is this different from Decorator?**
-A: Decorator adds responsibilities dynamically but all decorators process the request. Chain of Responsibility passes requests until one handles it.
+A: [Decorator](/patterns/design/decorator-pattern) adds responsibilities dynamically but all decorators process the request. Chain of Responsibility passes requests until one handles it.
 
 **Q: Can I add handlers at runtime?**
 A: Yes. This is the primary advantage — middleware can be registered dynamically based on routes or configuration.

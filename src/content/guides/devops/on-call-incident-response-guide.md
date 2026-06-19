@@ -105,10 +105,10 @@ kubectl scale deployment/api-service --replicas=20
 | Problem | Fast Mitigation |
 |---------|---------------|
 | Bad deployment | Rollback to last known good version |
-| Traffic spike | Scale horizontally, enable rate limiting |
-| Dependency failure | Enable circuit breaker, serve stale cache |
-| Database overload | Kill slow queries, add read replicas |
-| Configuration error | Revert config, restart with previous values |
+| Traffic spike | Scale horizontally, enable [rate limiting](/recipes/rate-limiting) |
+| Dependency failure | Enable [circuit breaker](/recipes/api/circuit-breaker-pattern), serve stale cache |
+| Database overload | Kill slow queries, add [read replicas](/guides/databases/database-design-guide) |
+| Configuration error | [Revert config](/guides/devops/infrastructure-as-code-guide), restart with previous values |
 
 ## 4. Communication
 
@@ -155,7 +155,7 @@ An incident is resolved when:
 
 1. Stop the clock (log total incident duration)
 2. Schedule postmortem within 24 hours for SEV-1/2
-3. Create follow-up tickets with owners and due dates
+3. Create follow-up tickets with owners and due dates. Update [CI/CD](/guides/cicd-pipeline-guide) if needed.
 4. Update runbooks with anything learned
 
 ## 6. Postmortem
@@ -173,7 +173,7 @@ Why? → The change was not tested under load.
 Why? → Load tests do not cover the checkout flow.
 Why? → Load test scenarios were last updated 6 months ago.
 
-Action: Add checkout flow to weekly load tests; require load test pass in CI.
+Action: Add checkout flow to weekly [load tests](/recipes/load-testing-k6); require load test pass in [CI](/guides/cicd-pipeline-guide).
 ```
 
 ### Postmortem Template

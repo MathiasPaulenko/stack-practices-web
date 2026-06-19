@@ -43,7 +43,7 @@ This guide covers the foundational principles and practical decisions that separ
 
 This guide applies when:
 - Building public or internal HTTP APIs
-- Designing microservice communication boundaries
+- Designing [microservice communication](/guides/microservices-architecture-guide) boundaries
 - Creating backend services consumed by web, mobile, or CLI clients
 - Migrating from RPC or SOAP to REST
 
@@ -157,8 +157,8 @@ Return a consistent error envelope:
 - **Use JSON** as the default content type (`application/json`)
 - **Return consistent envelopes** — wrap responses in a predictable structure
 - **Support `Content-Type` and `Accept` headers** properly
-- **Implement rate limiting** — protect your infrastructure and users
-- **Use HTTPS everywhere** — never expose APIs over plain HTTP
+- **Implement [rate limiting](/recipes/rate-limiting)** — protect your infrastructure and users
+- **Use HTTPS everywhere** — never expose APIs over plain HTTP. See [security best practices](/guides/security-best-practices-guide).
 - **Document with OpenAPI** — generate specs and interactive docs
 - **Version from v1** — retroactive versioning is painful
 - **Return `Location` headers** on `201 Created` responses
@@ -166,8 +166,8 @@ Return a consistent error envelope:
 ## Common Mistakes
 
 - **Using verbs in URLs** — `/createUser` breaks REST semantics
-- **Returning `200 OK` for errors** — confuses clients and breaks retries
-- **No pagination** — endpoints that crash under real data load
+- **Returning `200 OK` for errors** — confuses clients and breaks [retry logic](/recipes/retry-backoff)
+- **No pagination** — endpoints that crash under real data load. See [pagination strategies](/recipes/cursor-pagination-postgresql).
 - **Exposing internal IDs** — use UUIDs or slug-based identifiers
 - **Inconsistent naming** — mixing `camelCase` and `snake_case` in JSON
 - **Missing `Content-Type` handling** — clients receive HTML error pages instead of JSON
@@ -186,4 +186,4 @@ A: Use `multipart/form-data` for simple uploads. For large files, use presigned 
 A: HATEOAS (Hypermedia as the Engine of Application State) includes links in responses. It is nice-to-have for public APIs but overkill for internal services.
 
 **Q: How do I authenticate a REST API?**
-A: For server-to-server, use API keys or OAuth 2.0 client credentials. For user-facing apps, use OAuth 2.0 with PKCE or session-based auth with CSRF protection.
+A: For server-to-server, use [API keys](/recipes/api-security-headers) or OAuth 2.0 client credentials. For user-facing apps, use [OAuth 2.0 with PKCE](/recipes/oauth2-pkce-spa) or session-based auth with [CSRF protection](/recipes/csrf-protection).

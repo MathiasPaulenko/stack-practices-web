@@ -109,8 +109,8 @@ Las revisiones sistemáticas son más exhaustivas:
 | **Funcionalidad** | ¿Hace lo que el PR dice? ¿Maneja casos edge? |
 | **Tests** | ¿Hay tests para la nueva lógica? ¿Los tests existentes siguen pasando? |
 | **Legibilidad** | ¿Los nombres son claros? ¿La complejidad está justificada? |
-| **Seguridad** | ¿Las entradas están validadas? ¿Hay secretos expuestos? |
-| **Performance** | ¿Hay queries N+1? ¿Asignaciones innecesarias? |
+| **Seguridad** | ¿Las entradas están validadas? ¿Hay secretos expuestos? | [validación de datos](/recipes/data-validation-zod) |
+| **Performance** | ¿Hay [queries N+1](/recipes/performance/database-indexing)? ¿Asignaciones innecesarias? |
 | **Mantenibilidad** | ¿Hay código duplicado? ¿Será difícil de cambiar? |
 
 ### 3. Categoriza el Feedback
@@ -181,4 +181,4 @@ R: Enfócate en lo que puedes evaluar: cobertura de tests, nombres de variables,
 R: Discútelo. Si es un issue bloqueante y no pueden ponerse de acuerdo, escala al tech lead. Para sugerencias, deja que el autor decida y sigue adelante.
 
 **P: ¿Debería bloquear un PR por falta de tests?**
-R: Sí, si el PR agrega lógica que puede ser testeada. No, si es un refactor puro con cobertura existente, o cambios de UI que requieren tests E2E a cargo de otro equipo.
+R: Sí, si el PR agrega lógica que puede ser testeada. No, si es un refactor puro con cobertura existente, o cambios de UI que requieren [tests E2E](/recipes/e2e-testing) a cargo de otro equipo.

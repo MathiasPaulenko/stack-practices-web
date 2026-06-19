@@ -30,7 +30,7 @@ seo:
 
 # Command Pattern con Undo/Redo en TypeScript
 
-El Command pattern convierte una peticion en un objeto independiente que contiene toda la informacion sobre la peticion. Este desacoplamiento permite parametrizar metodos con diferentes peticiones, retrasar o encolar ejecucion, e implementar operaciones undo/redo — esencial para aplicaciones interactivas como editores, herramientas de dibujo y constructores de formularios.
+El [Command](/patterns/design/command-pattern) pattern convierte una peticion en un objeto independiente que contiene toda la informacion sobre la peticion. Este desacoplamiento permite parametrizar metodos con diferentes peticiones, retrasar o encolar ejecucion, e implementar operaciones undo/redo — esencial para aplicaciones interactivas como editores, herramientas de dibujo y constructores de formularios.
 
 ## Cuando Usar Esto
 
@@ -200,7 +200,7 @@ console.log(doc.getContent()); // "Hello World"
 ## FAQ
 
 **P: En que se diferencia del Memento pattern?**
-R: Command almacena la operacion para revertir. Memento almacena un snapshot de estado. Los commands son mas pequenos pero mas dificiles de implementar; los Mementos son mas simples pero usan mas memoria.
+R: Command almacena la operacion para revertir. [Memento](/patterns/design/memento-pattern-state) almacena un snapshot de estado. Los commands son mas pequenos pero mas dificiles de implementar; los Mementos son mas simples pero usan mas memoria.
 
 **P: Puedo usar esto para logging de peticiones API?**
-R: Si. Envuelve peticiones HTTP como commands para replicar secuencias para debugging o testing.
+R: Si. Envuelve [peticiones HTTP](/recipes/api/call-rest-api) como commands para replicar secuencias para debugging o testing.

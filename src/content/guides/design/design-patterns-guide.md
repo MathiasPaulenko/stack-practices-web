@@ -240,13 +240,13 @@ cart.checkout(99.99)
 | "I need to add logging to everything" | Decorator |
 | "Components need to react to events" | Observer |
 | "I want to swap algorithms at runtime" | Strategy |
-| "I need to abstract database access" | Repository |
+| "I need to abstract database access" | Repository | See [database design](/guides/databases/database-design-guide).
 | "I need to track and undo changes" | Command + Memento |
 
 ## Best Practices
 
 - **Don't force patterns**: Not every problem needs a pattern
-- **Start simple**: Refactor into a pattern when duplication appears
+- **Start simple**: Refactor into a pattern when duplication appears. See [clean code](/guides/design/clean-code-principles-guide).
 - **Name matters**: Use pattern names in class names (`UserRepository`, `EmailStrategy`)
 - **Document intent**: Explain *why* you chose a pattern, not just *what* it does
 
@@ -260,7 +260,7 @@ cart.checkout(99.99)
 
 ### When should I use a design pattern?
 
-Use a design pattern when you encounter a problem it solves, not before. Start with simple code and refactor into a pattern when you see duplication, complexity, or coupling that a pattern would resolve.
+Use a design pattern when you encounter a problem it solves, not before. Combine with [SOLID principles](/guides/design/solid-principles-guide). Start with simple code and refactor into a pattern when you see duplication, complexity, or coupling that a pattern would resolve.
 
 ### Are design patterns still relevant in modern languages?
 

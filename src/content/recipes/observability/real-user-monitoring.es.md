@@ -30,12 +30,12 @@ seo:
 ---
 ## Visión General
 
-Real User Monitoring (RUM) captura datos de performance de sesiones reales de browser — no tests sintéticos ni métricas server-side. Revela cómo Core Web Vitals, errores JavaScript y latencias de API varían a través de dispositivos, redes y geografías. A diferencia de tests de lab que corren en condiciones ideales, RUM expone la experiencia de usuarios en redes 3G, dispositivos de gama baja y browsers antiguos.
+Real User Monitoring (RUM) captura datos de performance de sesiones reales de browser — no tests sintéticos ni métricas server-side. Revela cómo [Core Web Vitals](/recipes/web-performance), errores JavaScript y latencias de API varían a través de dispositivos, redes y geografías. A diferencia de tests de lab que corren en condiciones ideales, RUM expone la experiencia de usuarios en redes 3G, dispositivos de gama baja y browsers antiguos.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Los scores de Lighthouse basados en lab no coinciden con quejas de performance del mundo real
+- Los scores de Lighthouse basados en lab no coinciden con [quejas de performance](/recipes/web-performance) del mundo real
 - Necesitas correlacionar métricas de negocio (conversión, bounce rate) con velocidad de página
 - Debuggeas issues de performance que solo afectan browsers o regiones específicas
 - Priorizas esfuerzos de optimización basados en impacto de usuario real, no suposiciones
@@ -127,7 +127,7 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 - **LCP**: Elemento visible más grande — hero image, heading
 - **INP**: Latencia de interacción — click de botón a update visual
 - **CLS**: Layout shifts — ads, imágenes, fonts causando saltos
-- **TTFB**: Tiempo de respuesta del servidor — hosting + backend performance
+- **TTFB**: Tiempo de respuesta del servidor — hosting + backend performance. Consulta [server-side rendering](/recipes/server-side-rendering).
 - **FCP**: First content paint — primer texto o imagen visible
 
 ## Variantes
@@ -146,14 +146,14 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 - **Samplea inteligentemente**: 100% de sampling sobrecarga backends; 5-10% es usualmente suficiente
 - **Captura contexto**: Tipo de dispositivo, velocidad de conexión y país explican variación
 - **Alerta en percentiles, no promedios**: El performance P95 es lo que experimentan usuarios frustrados
-- **Correlaciona con métricas de negocio**: Grafica tasa de conversión vs. LCP para justificar budgets de optimización
+- **Correlaciona con métricas de negocio**: Grafica tasa de conversión vs. LCP para justificar budgets de optimización. Consulta [recolección de métricas](/recipes/metrics-collection).
 - **Respeta privacidad**: Mask PII en session replay; cumple con GDPR/CCPA para telemetría
 
 ## Errores Comunes
 
 1. **Solo monitorear homepage**: Las páginas de producto y checkout a menudo tienen peor performance
-2. **Ignorar navegaciones SPA**: Las single-page apps necesitan medición custom de LCP/FID para cambios de ruta
-3. **Sin correlación con errores**: Una página lenta que también tira errores JS necesita priorización diferente
+2. **Ignorar navegaciones SPA**: Las single-page apps necesitan medición custom de LCP/FID para cambios de ruta. Considera [server-side rendering](/recipes/server-side-rendering).
+3. **Sin correlación con errores**: Una página lenta que también tira errores JS necesita priorización diferente. Consulta [manejo de errores](/recipes/handle-errors).
 4. **Alertar en promedios**: Un LCP promedio de 2s oculta que 20% de usuarios ven cargas de 8s+
 5. **Sin acción sobre datos**: Coleccionar RUM sin sprints de optimización desperdicia el esfuerzo de instrumentación
 
@@ -163,7 +163,7 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 R: Negligiblemente. La librería web-vitals es <1KB. Los beacons se envían después de que la página es interactiva.
 
 **P: ¿Debería usar RUM o monitoreo sintético?**
-R: Ambos. Sintético para detección de regresión baseline. RUM para entender la experiencia real de usuario.
+R: Ambos. Sintético para detección de regresión baseline. RUM para entender la [experiencia real de usuario](/recipes/web-performance).
 
 **P: ¿Cómo manejo ad blockers?**
 R: Sirve RUM desde tu propio dominio (first-party), no de terceros. Los ad blockers targetean dominios de analytics conocidos.

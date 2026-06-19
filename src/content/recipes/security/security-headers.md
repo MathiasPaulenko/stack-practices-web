@@ -28,13 +28,13 @@ seo:
 ---
 ## Overview
 
-HTTP security headers are the first line of defense for web applications. They instruct browsers on how to behave when rendering your site — blocking XSS, preventing clickjacking, enforcing HTTPS, and controlling what external resources can load. Properly configured, they can stop entire classes of attacks without changing a line of application code.
+HTTP security headers are the first line of defense for [web applications](/guides/web-application-security-guide). They instruct browsers on how to behave when rendering your site — blocking XSS, preventing clickjacking, enforcing HTTPS, and controlling what external resources can load. Properly configured, they can stop entire classes of attacks without changing a line of application code.
 
 ## When to Use
 
 Use this resource when:
 - Hardening production web applications against common browser-based attacks
-- Preparing for security audits that check OWASP secure headers
+- Preparing for [security audits](/docs/penetration-test-template) that check OWASP secure headers
 - Serving user-generated content that could contain malicious scripts
 - Embedding your application in third-party sites via iframes
 
@@ -137,7 +137,7 @@ curl -sI "$URL" | grep -iE \
 ## Frequently Asked Questions
 
 **Q: Do security headers protect APIs?**
-A: Partially. CORS, HSTS, and CSP matter for browser clients. For machine-to-machine APIs, focus on authentication and TLS.
+A: Partially. CORS, HSTS, and CSP matter for browser clients. For machine-to-machine APIs, focus on [authentication](/recipes/jwt-authentication) and TLS.
 
 **Q: Will CSP break my analytics?**
 A: Only if you forget to whitelist your analytics domain. Add it to `script-src` and `connect-src` directives.

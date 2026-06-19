@@ -219,12 +219,12 @@ WHERE id IN (1, 2, 3, ...);
 
 | Anti-Pattern | Problem | Fix |
 |-------------|---------|-----|
-| **N+1 Queries** | One query per row | Use JOIN or `WHERE IN` |
+| **N+1 Queries** | One query per row | Use JOIN or `WHERE IN`. See [database indexing](/recipes/performance/database-indexing). |
 | **Missing LIMIT** | Fetching millions of rows | Add `LIMIT` and pagination |
 | **Implicit conversions** | Function on column prevents index use | Cast the constant, not the column |
 | `SELECT DISTINCT` to fix duplicates | Hides a join problem | Fix the join or schema |
 | **Counting all rows** | `SELECT COUNT(*)` on huge tables | Use approximate counts or triggers |
-| **No connection pooling** | Connection overhead dominates | Use pgBouncer, HikariCP, etc. |
+| **No connection pooling** | Connection overhead dominates | Use [connection pooling](/recipes/connection-pooling). |
 
 ## Best Practices
 
@@ -233,7 +233,7 @@ WHERE id IN (1, 2, 3, ...);
 - **Analyze tables regularly** — `ANALYZE` updates statistics for the query planner
 - **Avoid over-indexing** — each index slows writes and consumes space
 - **Use appropriate data types** — `INTEGER` is faster than `VARCHAR` for IDs
-- **Partition large tables** by date or range when they exceed 10M rows
+- **[Partition large tables](/guides/databases/database-sharding-partitioning-guide)** by date or range when they exceed 10M rows
 
 ## Frequently Asked Questions
 

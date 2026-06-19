@@ -32,9 +32,9 @@ seo:
 
 ## Visión general
 
-La inyección SQL es una de las vulnerabilidades más comunes y peligrosas en aplicaciones web. Ocurre cuando un atacante inyecta código SQL malicioso en queries de la aplicación a través de input del usuario, potencialmente exponiendo, modificando o eliminando bases de datos enteras. Los ataques de inyección consistentemente aparecen en el OWASP Top 10 porque son fáciles de explotar y devastadores en impacto.
+La inyección SQL es una de las vulnerabilidades más comunes y peligrosas en aplicaciones web. Ocurre cuando un atacante inyecta código SQL malicioso en queries de la aplicación a través de input del usuario, potencialmente exponiendo, modificando o eliminando bases de datos enteras. Los ataques de inyección consistentemente aparecen en el [OWASP Top 10](/guides/security/web-application-security-guide) porque son fáciles de explotar y devastadores en impacto.
 
-La causa raíz es casi siempre la misma: concatenar input de usuario no confiable directamente en strings de SQL. La solución es igualmente directa: usar queries parametrizadas o un ORM que maneje el escaping automáticamente. Esta receta muestra la forma segura de acceder a bases de datos en Python, JavaScript y Java.
+La causa raíz es casi siempre la misma: concatenar [input](/recipes/security/input-validation) de usuario no confiable directamente en strings de SQL. La solución es igualmente directa: usar queries parametrizadas o un ORM que maneje el escaping automáticamente. Esta receta muestra la forma segura de acceder a bases de datos en Python, JavaScript y Java.
 
 ## Cuándo usarlo
 
@@ -138,7 +138,7 @@ with Session(engine) as session:
 
 - **Nunca concatenes input de usuario en strings de SQL**: ni siquiera para columnas `ORDER BY` o nombres de tablas. Usa listas permitidas si identificadores dinámicos son inevitables.
 - **Usa un ORM por defecto**: elimina categorías enteras de bugs de inyección con un costo de rendimiento mínimo.
-- **Valida el input antes de que llegue a la base de datos**: la validación de input y las queries parametrizadas son defensas complementarias.
+- **Valida el input antes de que llegue a la base de datos**: la [validación de input](/recipes/security/input-validation) y las queries parametrizadas son defensas complementarias.
 - **Usa cuentas de base de datos de menor privilegio**: el usuario de la aplicación no debería tener permisos `DROP TABLE` o `GRANT`.
 - **Loggea y monitorea intentos de inyección**: queries fallidas conteniendo keywords SQL o caracteres inusuales pueden señalar probing.
 - **Mantén drivers de base de datos actualizados**: los patches de seguridad para drivers y ORMs fixean bypasses conocidos.
@@ -160,7 +160,7 @@ R: No. Los nombres de tablas y columnas son identificadores, no valores de datos
 R: Sí, para operaciones estándar. Sin embargo, los métodos de SQL raw como `sequelize.query()` o `session.execute()` todavía requieren parametrización manual.
 
 **P: ¿Qué pasa con bases de datos NoSQL como MongoDB?**
-R: La inyección NoSQL también existe. Usa queries parametrizadas o métodos del driver que acepten objetos, no concatenación de strings. Nunca pases input raw de usuario a `eval()` o cláusulas `$where`.
+R: La [inyección NoSQL](/guides/databases/nosql-database-selection) también existe. Usa queries parametrizadas o métodos del driver que acepten objetos, no concatenación de strings. Nunca pases input raw de usuario a `eval()` o cláusulas `$where`.
 
 **P: ¿Los prepared statements perjudican el rendimiento?**
 R: No. Usualmente mejoran el rendimiento porque la base de datos cachea el plan de ejecución. El overhead es negligible comparado con el beneficio de seguridad.

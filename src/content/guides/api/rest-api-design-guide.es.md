@@ -45,7 +45,7 @@ Esta guía cubre los principios fundamentales y decisiones prácticas que separa
 
 Esta guía aplica cuando:
 - Construyes APIs HTTP públicas o internas
-- Diseñas límites de comunicación entre microservicios
+- Diseñas límites de [comunicación entre microservicios](/guides/microservices-architecture-guide)
 - Creas servicios backend consumidos por web, mobile o clientes CLI
 - Migras de RPC o SOAP a REST
 
@@ -159,8 +159,8 @@ Devuelve un envelope de error consistente:
 - **Usa JSON** como tipo de contenido por defecto (`application/json`)
 - **Devuelve envelopes consistentes** — envuelve respuestas en una estructura predecible
 - **Soporta headers `Content-Type` y `Accept`** correctamente
-- **Implementa rate limiting** — protege tu infraestructura y usuarios
-- **Usa HTTPS en todas partes** — nunca expongas APIs sobre HTTP plano
+- **Implementa [rate limiting](/recipes/rate-limiting)** — protege tu infraestructura y usuarios
+- **Usa HTTPS en todas partes** — nunca expongas APIs sobre HTTP plano. Consulta [mejores prácticas de seguridad](/guides/security-best-practices-guide).
 - **Documenta con OpenAPI** — genera specs y docs interactivas
 - **Versiona desde v1** — versionado retroactivo es doloroso
 - **Devuelve headers `Location`** en respuestas `201 Created`
@@ -168,8 +168,8 @@ Devuelve un envelope de error consistente:
 ## Common Mistakes
 
 - **Usar verbos en URLs** — `/createUser` rompe la semántica REST
-- **Devolver `200 OK` para errores** — confunde clientes y rompe reintentos
-- **Sin paginación** — endpoints que colapsan bajo carga real
+- **Devolver `200 OK` para errores** — confunde clientes y rompe [lógica de reintentos](/recipes/retry-backoff)
+- **Sin paginación** — endpoints que colapsan bajo carga real. Consulta [estrategias de paginación](/recipes/cursor-pagination-postgresql).
 - **Exponer IDs internos** — usa UUIDs o identificadores basados en slugs
 - **Naming inconsistente** — mezclar `camelCase` y `snake_case` en JSON
 - **Manejo de `Content-Type` faltante** — clientes reciben páginas HTML en lugar de JSON
@@ -188,4 +188,4 @@ A: Usa `multipart/form-data` para uploads simples. Para archivos grandes, usa UR
 A: HATEOAS (Hypermedia as the Engine of Application State) incluye links en respuestas. Es deseable para APIs públicas pero excesivo para servicios internos.
 
 **Q: ¿Cómo autentico una API REST?**
-A: Para server-to-server, usa API keys o OAuth 2.0 client credentials. Para apps orientadas a usuarios, usa OAuth 2.0 con PKCE o auth basada en sesiones con protección CSRF.
+A: Para server-to-server, usa [API keys](/recipes/api-security-headers) o OAuth 2.0 client credentials. Para apps orientadas a usuarios, usa [OAuth 2.0 con PKCE](/recipes/oauth2-pkce-spa) o auth basada en sesiones con [protección CSRF](/recipes/csrf-protection).

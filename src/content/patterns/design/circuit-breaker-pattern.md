@@ -260,7 +260,7 @@ The Circuit Breaker Pattern has three states:
 - **Open** — The service is considered unhealthy. All requests fail fast immediately without calling the service.
 - **Half-Open** — After a timeout, a limited number of test requests are allowed through to check if the service recovered.
 
-This prevents resource exhaustion from repeated failed calls and gives failing services time to recover.
+This prevents resource exhaustion from repeated failed calls and gives failing services time to recover. Essential in [distributed systems](/guides/architecture/microservices-architecture-guide).
 
 ## Variants
 
@@ -269,7 +269,7 @@ This prevents resource exhaustion from repeated failed calls and gives failing s
 | **Count-based** | Trip after N failures | Simple, predictable behavior |
 | **Time-based** | Trip if failure rate exceeds threshold in a time window | Adapts to varying load |
 | **Weighted** | Different failure thresholds for different exception types | Distinguish transient vs. permanent failures |
-| **Custom Fallback** | Return a default value when open instead of throwing | Graceful degradation (cache, default response) |
+| **[Custom Fallback](/patterns/design/cache-aside-pattern)** | Return a default value when open instead of throwing | Graceful degradation (cache, default response) |
 
 ## Best Practices
 
@@ -290,10 +290,10 @@ This prevents resource exhaustion from repeated failed calls and gives failing s
 ## Frequently Asked Questions
 
 **Q: How is Circuit Breaker different from Retry?**
-A: Retry attempts the same operation multiple times. Circuit Breaker stops calling a failing service altogether. They work well together: retry for transient failures, circuit breaker for persistent outages.
+A: [Retry](/patterns/design/retry-pattern) attempts the same operation multiple times. Circuit Breaker stops calling a failing service altogether. They work well together: retry for transient failures, circuit breaker for persistent outages.
 
 **Q: Should I use a library or implement my own?**
-A: For production systems, use established libraries: Resilience4j (Java), Polly (.NET), Opossum (JavaScript/Node). Implement your own only for learning or very constrained environments.
+A: For production systems, use established libraries: Resilience4j (Java), Polly (.NET), Opossum (JavaScript/Node). See also [Ambassador](/patterns/design/ambassador-pattern) for client-side resilience. Implement your own only for learning or very constrained environments.
 
 **Q: How do I monitor circuit breaker health?**
 A: Expose metrics for state transitions, failure rates, and open duration. Integrate with your monitoring stack (Prometheus, Grafana) to alert on frequent circuit trips.

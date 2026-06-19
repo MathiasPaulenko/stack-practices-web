@@ -222,12 +222,12 @@ WHERE id IN (1, 2, 3, ...);
 
 | Anti-Patrón | Problema | Solución |
 |-------------|----------|----------|
-| **Consultas N+1** | Una consulta por fila | Usa JOIN o `WHERE IN` |
+| **Consultas N+1** | Una consulta por fila | Usa JOIN o `WHERE IN`. Consulta [indexación de base de datos](/recipes/performance/database-indexing). |
 | **Sin LIMIT** | Obtener millones de filas | Agrega `LIMIT` y paginación |
 | **Conversiones implícitas** | Función en columna impide uso de índice | Castea la constante, no la columna |
 | `SELECT DISTINCT` para arreglar duplicados | Oculta un problema de join | Arregla el join o el esquema |
 | **Contar todas las filas** | `SELECT COUNT(*)` en tablas enormes | Usa conteos aproximados o triggers |
-| **Sin pool de conexiones** | Sobrecarga de conexión domina | Usa pgBouncer, HikariCP, etc. |
+| **Sin pool de conexiones** | Sobrecarga de conexión domina | Usa [pool de conexiones](/recipes/connection-pooling). |
 
 ## Mejores Prácticas
 
@@ -236,7 +236,7 @@ WHERE id IN (1, 2, 3, ...);
 - **Analiza tablas regularmente** — `ANALYZE` actualiza estadísticas para el planificador
 - **Evita sobre-indexación** — cada índice ralentiza escrituras y consume espacio
 - **Usa tipos de datos apropiados** — `INTEGER` es más rápido que `VARCHAR` para IDs
-- **Particiona tablas grandes** por fecha o rango cuando exceden 10M filas
+- **[Particiona tablas grandes](/guides/databases/database-sharding-partitioning-guide)** por fecha o rango cuando exceden 10M filas
 
 ## Preguntas Frecuentes
 

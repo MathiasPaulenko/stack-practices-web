@@ -38,9 +38,9 @@ Use this recipe when:
 
 - Building applications that call LLM APIs for classification, extraction, or generation
 - Debugging inconsistent or hallucinated model outputs
-- Designing chatbots, copilots, or AI-powered assistants
+- Designing [chatbots](/recipes/ai/chatbot-openai), copilots, or [AI-powered assistants](/recipes/ai/ai-agents)
 - Implementing automated content moderation, summarization, or translation pipelines
-- Evaluating prompt versions with A/B testing frameworks
+- Evaluating prompt versions with [A/B testing](/recipes/testing/load-testing-k6) frameworks
 
 ## Solution
 
@@ -138,10 +138,10 @@ response = openai.chat.completions.create(
 A: Three to five high-quality examples usually outperform ten mediocre ones. Include edge cases and diverse phrasings.
 
 **Q: Does prompt engineering replace fine-tuning?**
-A: No. Prompt engineering is faster to iterate and requires no data preparation. Fine-tuning is better when you need consistent behavior on a specialized domain and want to reduce per-request token costs.
+A: No. [Prompt engineering](/recipes/ai/prompt-engineering) is faster to iterate and requires no data preparation. [Fine-tuning](/recipes/ai/llm-fine-tuning) is better when you need consistent behavior on a specialized domain and want to reduce per-request token costs.
 
 **Q: Can I force an LLM to always output valid JSON?**
-A: OpenAI's `json_object` response format and function calling enforce JSON structure, but the model can still produce semantically incorrect or hallucinated values. Validate schema server-side.
+A: OpenAI's `json_object` response format and [function calling](/recipes/ai/ai-agents-tool-use) enforce JSON structure, but the model can still produce semantically incorrect or hallucinated values. Validate schema server-side.
 
 **Q: What is the difference between temperature and top-p?**
 A: Temperature controls randomness (0 = deterministic, 1 = creative). Top-p (nucleus sampling) controls diversity by limiting token selection to the most probable set summing to p. Use temperature for most applications.

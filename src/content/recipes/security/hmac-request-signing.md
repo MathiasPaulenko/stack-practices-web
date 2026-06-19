@@ -36,7 +36,7 @@ HMAC (Hash-based Message Authentication Code) is the industry standard for signi
 
 Use this resource when:
 - Authenticating service-to-service API calls
-- Ensuring webhook payloads have not been tampered with
+- Ensuring [webhook](/recipes/serverless/event-driven-functions) payloads have not been tampered with
 - Implementing API key authentication without OAuth complexity
 - Verifying request integrity across untrusted networks
 
@@ -126,12 +126,12 @@ SHA-256 without HMAC is vulnerable to length-extension attacks. HMAC uses two ne
 2. **Missing replay protection**: Without timestamps, intercepted requests are valid forever
 3. **Using MD5 or SHA-1**: Cryptographically broken; use SHA-256 minimum
 4. **String comparison instead of timingSafeEqual**: Vulnerable to timing attacks
-5. **Storing secrets in environment variables without encryption**: Use a secret manager
+5. **Storing secrets in environment variables without encryption**: Use a [secret manager](/recipes/security/vault-dynamic-credentials)
 
 ## Frequently Asked Questions
 
 **Q: Is HMAC better than JWT for service-to-service auth?**
-A: HMAC is simpler and stateless for internal services. JWT is better when you need identity claims and third-party verification.
+A: HMAC is simpler and stateless for internal services. JWT is better when you need identity claims and third-party verification. For a full API security overview, see the [API security checklist](/guides/security/api-security-checklist-guide).
 
 **Q: How do I handle clock skew between services?**
 A: Allow a 5-minute window and synchronize with NTP. Reject requests outside the window.

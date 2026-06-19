@@ -32,7 +32,7 @@ seo:
 
 ## Visión General
 
-Una Red de Entrega de Contenido (CDN) distribuye tu contenido a través de servidores edge geográficamente dispersos, reduciendo la latencia al servir a los usuarios desde la ubicación más cercana. Un edge caching correctamente configurado puede reducir los tiempos de carga de página en un 50–80% y disminuir significativamente la carga del servidor de origen.
+Una Red de Entrega de Contenido (CDN) distribuye tu contenido a través de servidores edge geográficamente dispersos, reduciendo la latencia al servir a los usuarios desde la ubicación más cercana, mejorando [rendimiento](/guides/performance/performance-optimization-guide). Un edge caching correctamente configurado puede reducir los tiempos de carga de página en un 50–80% y disminuir significativamente la carga del servidor de origen.
 
 Esta receta cubre la configuración de reglas de edge caching de CDN, estrategias de invalidación de caché y optimización geográfica para contenido estático y dinámico.
 
@@ -41,8 +41,8 @@ Esta receta cubre la configuración de reglas de edge caching de CDN, estrategia
 Usa este recurso cuando:
 - Tu audiencia global experimenta tiempos de carga lentos desde un único origen
 - Tu servidor de origen está saturado por peticiones repetidas del mismo contenido
-- Necesitas cachear respuestas de API o páginas generadas dinámicamente
-- Quieres reducir costos de ancho de banda y mejorar la tolerancia a fallos
+- Necesitas cachear [respuestas de API](/recipes/api/call-rest-api) o páginas generadas dinámicamente
+- Quieres reducir costos de ancho de banda y mejorar [tolerancia a fallos](/guides/devops/logging-monitoring-observability-guide)
 
 ## Solución
 
@@ -154,4 +154,4 @@ R: Usa `s-maxage` (surrogate max age) para cacheo solo de CDN manteniendo `max-a
 R: Purging elimina contenido de los caches edge inmediatamente. Invalidation marca contenido como stale pero puede servirlo mientras obtiene actualizaciones. Purging es explícito; invalidation puede ser pasivo.
 
 **P: ¿Debería usar una CDN para backends solo de API?**
-R: Sí, si las respuestas son cacheables. GraphQL es más difícil de cachear en el edge que REST, pero servicios como Cloudflare Workers o Fastly Compute pueden implementar cacheo de queries a nivel edge.
+R: Sí, si las respuestas son cacheables. [GraphQL](/recipes/api/call-rest-api) es más difícil de cachear en el edge que REST, pero servicios como Cloudflare Workers o Fastly Compute pueden implementar cacheo de queries a nivel edge.

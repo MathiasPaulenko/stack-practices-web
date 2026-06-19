@@ -162,7 +162,7 @@ class FieldEncryption {
 - **Envelope encryption**: each record is encrypted with a unique data encryption key (DEK). The DEK itself is encrypted by a key encryption key (KEK) managed in a KMS. This means you can rotate the KEK without re-encrypting all data, and you can revoke access to a single record by deleting its DEK.
 - **AES-256-GCM**: the industry standard for authenticated encryption. GCM mode provides confidentiality (encryption) and integrity (authentication tag) in a single operation. Always verify the authentication tag before decrypting to detect tampering.
 - **Key derivation**: instead of storing DEKs separately, derive them deterministically from a master key and record ID using HKDF. This eliminates DEK storage but makes key rotation more complex — changing the master key requires re-encrypting all records.
-- **Cloud KMS integration**: AWS KMS, Azure Key Vault, and GCP KMS provide FIPS 140-2 Level 2+ hardware security modules. They handle key generation, rotation, access policies, and audit logging. Never store master keys in application configuration files.
+- **Cloud KMS integration**: AWS KMS, Azure Key Vault, and GCP KMS provide FIPS 140-2 Level 2+ hardware security modules. For secret management practices, see [secrets management guide](/guides/devops/secrets-management-guide). They handle key generation, rotation, access policies, and audit logging. Never store master keys in application configuration files.
 
 ## Variants
 
@@ -183,7 +183,7 @@ class FieldEncryption {
 
 ## Common mistakes
 
-- **Hardcoding encryption keys in source code**: embedding a master key in `config.py` or an environment variable on a shared server defeats the purpose. Use a dedicated secret manager with IAM controls.
+- **Hardcoding encryption keys in source code**: embedding a master key in `config.py` or an environment variable on a shared server defeats the purpose. Use a dedicated [secret manager](/recipes/security/vault-dynamic-credentials) with IAM controls.
 - **Ignoring the authentication tag**: decrypting AES-GCM without verifying the authentication tag removes tamper detection. Always check the tag before processing decrypted data.
 - **Encrypting everything indiscriminately**: encryption adds latency, storage overhead, and complexity. Only encrypt fields that are genuinely sensitive (PII, credentials, health data). Public product catalogs do not need encryption at rest.
 - **Losing the master key**: if the KMS master key is deleted or inaccessible, all encrypted data is permanently lost. Enable key deletion protection, maintain cross-region replicas, and test disaster recovery procedures.
@@ -191,7 +191,7 @@ class FieldEncryption {
 ## FAQ
 
 **Q: Does encryption at rest protect against SQL injection?**
-A: No. Encryption at rest protects data on disk. SQL injection attacks operate against running databases via query manipulation. Combine encryption with parameterized queries and input validation for defense in depth.
+A: No. Encryption at rest protects data on disk. SQL injection attacks operate against running databases via query manipulation. Combine encryption with [parameterized queries](/recipes/security/sql-injection-prevention) and [input validation](/recipes/security/input-validation) for defense in depth.
 
 **Q: What is the difference between TDE and application encryption?**
 A: Transparent Data Encryption (TDE) encrypts the entire database file at the storage layer. It is fast and invisible to applications but protects only against disk theft. Application encryption protects individual fields, protecting against database-level breaches but requiring application changes.
@@ -200,5 +200,5 @@ A: Transparent Data Encryption (TDE) encrypts the entire database file at the st
 A: Use deterministic encryption for exact matches (e.g., email lookup), blind indexes (hash prefixes stored alongside ciphertext), or homomorphic encryption for advanced use cases. Each approach involves trade-offs between security and query flexibility.
 
 **Q: Should I encrypt backups separately?**
-A: Yes. Database backups should be encrypted with a key distinct from the production encryption key. Store backup encryption keys in a separate vault. Test backup decryption quarterly as part of your disaster recovery plan.
+A: Yes. Database backups should be encrypted with a key distinct from the production encryption key. Store backup encryption keys in a separate [vault](/recipes/security/vault-dynamic-credentials). Test backup decryption quarterly as part of your disaster recovery plan.
 

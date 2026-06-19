@@ -30,7 +30,7 @@ seo:
 
 # Builder Pattern for Complex Configuration Objects
 
-The Builder pattern separates the construction of a complex object from its representation. Instead of passing eight constructor arguments or creating an empty object and setting fields individually, the builder provides a readable, step-by-step API with defaults and validation.
+The [Builder](/patterns/design/builder-pattern) pattern separates the construction of a complex object from its representation. Instead of passing eight constructor arguments or creating an empty object and setting fields individually, the builder provides a readable, step-by-step API with defaults and validation.
 
 ## When to Use This
 
@@ -127,12 +127,12 @@ const config = new DatabaseConfigBuilder()
 ## Variations
 
 - **Immutable Builder**: Return a new builder on each step instead of mutating state
-- **Director**: Encapsulate common configurations behind a director class
+- **[Director](/patterns/design/builder-pattern)**: Encapsulate common configurations behind a director class
 - **Step Builder**: Enforce build order through separate interfaces for each step
 
 ## Best Practices
 
-- Validate only at `build()` time, not on every setter
+- Validate only at `build()` time, not on every setter; see [Builder pattern](/patterns/design/builder-pattern) for validation strategies
 - Return `this` for method chaining (fluent interface)
 - Freeze or seal the returned object to prevent post-construction mutation
 
@@ -145,7 +145,7 @@ const config = new DatabaseConfigBuilder()
 ## FAQ
 
 **Q: When should I prefer a builder over an object literal?**
-A: When validation is needed, defaults are complex, or the same construction logic is reused across multiple call sites.
+A: When validation is needed, defaults are complex, or the same construction logic is reused across multiple call sites. For simple cases, consider [Factory Method](/patterns/design/factory-pattern) instead.
 
 **Q: Is the Builder pattern still relevant with object spread syntax?**
 A: Yes. Spreads are convenient for simple cases but do not enforce validation, defaults, or construction order.

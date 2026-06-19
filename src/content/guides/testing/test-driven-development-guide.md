@@ -205,16 +205,16 @@ class ShoppingCart:
 | Benefit | How TDD Delivers |
 |---------|-----------------|
 | **Confidence** | Every feature is backed by a test that proves it works |
-| **Design pressure** | Code must be testable, which tends toward decoupled, modular designs |
+| **Design pressure** | Code must be testable, which tends toward [decoupled, modular designs](/guides/design/solid-principles-guide) |
 | **Documentation** | Tests are executable examples of how the code should be used |
 | **Regression safety** | Changes are safe because existing tests catch breakages |
 | **Debugging time** | Bugs are caught immediately, not discovered days later |
 
 ## Common TDD Mistakes
 
-- **Testing implementation, not behavior** — assert on return values, not internal state
+- **Testing implementation, not behavior** — assert on return values, not internal state. See [unit testing](/recipes/unit-testing).
 - **Writing too many tests before any code** — keep the cycle tight (minutes, not hours)
-- **Skipping the refactor step** — the third step is where design improves
+- **Skipping the refactor step** — the third step is where [clean code](/guides/design/clean-code-principles-guide) improves
 - **Testing trivial getters/setters** — focus on logic and decisions
 - **Not running tests frequently** — if you write 50 lines without running tests, you're not doing TDD
 
@@ -236,9 +236,9 @@ Use TDD for:
 - Code you expect to change frequently
 
 Use caution with:
-- UI components (use component/E2E tests instead)
+- UI components (use component/[E2E tests](/recipes/testing/e2e-testing) instead)
 - Exploratory prototyping
-- Tightly coupled legacy code (refactor to testability first)
+- Tightly coupled legacy code ([refactor](/guides/design/clean-code-principles-guide) to testability first)
 
 ## Best Practices
 

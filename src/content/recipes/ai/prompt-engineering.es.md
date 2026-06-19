@@ -38,9 +38,9 @@ Usa esta receta cuando:
 
 - Construyes aplicaciones que llaman APIs de LLM para clasificación, extracción o generación
 - Debuggeas outputs inconsistentes o alucinados del modelo
-- Diseñas chatbots, copilotos o asistentes impulsados por IA
+- Diseñas [chatbots](/recipes/ai/chatbot-openai), copilotos o [asistentes impulsados por IA](/recipes/ai/ai-agents)
 - Implementando pipelines automatizados de moderación de contenido, resumen o traducción
-- Evaluando versiones de prompts con frameworks de testing A/B
+- Evaluando versiones de prompts con frameworks de [testing A/B](/recipes/testing/load-testing-k6)
 
 ## Solución
 
@@ -138,10 +138,10 @@ response = openai.chat.completions.create(
 R: Tres a cinco ejemplos de alta calidad usualmente superan a diez mediocres. Incluye casos edge y redacciones diversas.
 
 **P: ¿El prompt engineering reemplaza el fine-tuning?**
-R: No. El prompt engineering es más rápido de iterar y no requiere preparación de datos. El fine-tuning es mejor cuando necesitas comportamiento consistente en un dominio especializado y quieres reducir costos por request.
+R: No. El [prompt engineering](/recipes/ai/prompt-engineering) es más rápido de iterar y no requiere preparación de datos. El [fine-tuning](/recipes/ai/llm-fine-tuning) es mejor cuando necesitas comportamiento consistente en un dominio especializado y quieres reducir costos por request.
 
 **P: ¿Puedo forzar a un LLM a siempre outputar JSON válido?**
-R: El formato `json_object` de OpenAI y el function calling enforces estructura JSON, pero el modelo aún puede producir valores semánticamente incorrectos o alucinados. Valida el schema server-side.
+R: El formato `json_object` de OpenAI y el [function calling](/recipes/ai/ai-agents-tool-use) enforces estructura JSON, pero el modelo aún puede producir valores semánticamente incorrectos o alucinados. Valida el schema server-side.
 
 **P: ¿Cuál es la diferencia entre temperature y top-p?**
 R: La temperature controla la aleatoriedad (0 = determinístico, 1 = creativo). El top-p (nucleus sampling) controla la diversidad limitando la selección de tokens al conjunto más probable que sume p. Usa temperature para la mayoría de aplicaciones.

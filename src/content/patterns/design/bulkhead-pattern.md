@@ -47,7 +47,7 @@ Use the Bulkhead Pattern when:
 - A slow or failing component should not consume all available resources
 - You need to ensure critical operations always have dedicated capacity
 - You want to degrade gracefully by isolating failures to specific subsystems
-- Examples: microservices with different SLAs, API gateways, multi-tenant systems
+- Examples: [microservices](/guides/architecture/microservices-architecture-guide) with different SLAs, API gateways, multi-tenant systems
 
 ## Solution
 
@@ -207,7 +207,7 @@ This ensures that a runaway consumer (e.g., a background job) cannot consume all
 
 - **Always reserve capacity for critical paths** — don't let background jobs starve user requests
 - **Monitor pool saturation** — track how often each bulkhead rejects or times out
-- **Combine with Circuit Breaker** — if a bulkhead is constantly saturated, the breaker should trip
+- **Combine with [Circuit Breaker](/patterns/design/circuit-breaker-pattern)** — if a bulkhead is constantly saturated, the breaker should trip
 - **Use semaphores instead of thread pools** when thread creation is expensive or limited
 - **Document and enforce SLAs** per bulkhead so teams know the capacity boundaries
 
@@ -222,7 +222,7 @@ This ensures that a runaway consumer (e.g., a background job) cannot consume all
 ## Frequently Asked Questions
 
 **Q: What is the difference between Bulkhead and Circuit Breaker?**
-A: Bulkhead isolates resources to prevent one failure from affecting others. Circuit Breaker stops sending requests to a failing service. They complement each other: Bulkhead contains the blast radius, Circuit Breaker stops the bleeding.
+A: Bulkhead isolates resources to prevent one failure from affecting others. [Circuit Breaker](/patterns/design/circuit-breaker-pattern) stops sending requests to a failing service. They complement each other: Bulkhead contains the blast radius, Circuit Breaker stops the bleeding.
 
 **Q: Should I use thread pools or semaphores for bulkheads?**
 A: Thread pools provide the strongest isolation but have higher overhead. Semaphores are lighter and run on the calling thread — use them when you need many concurrent bulkheads or want to avoid thread starvation.

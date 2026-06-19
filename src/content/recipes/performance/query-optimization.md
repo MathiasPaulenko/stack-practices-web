@@ -38,8 +38,8 @@ Query optimization is a three-step process: identify slow queries through loggin
 Use this recipe when:
 
 - Application response times degrade as data volume grows
-- Database CPU or I/O usage is consistently high
-- Monitoring tools flag specific queries as slow query log entries
+- Database CPU or I/O usage is consistently high. Check [monitoring and observability](/guides/devops/logging-monitoring-observability-guide).
+- [Monitoring tools](/guides/devops/logging-monitoring-observability-guide) flag specific queries as slow query log entries
 - Adding pagination, search, or reporting features to existing tables
 - Migrating legacy SQL to a new database engine
 
@@ -98,7 +98,7 @@ customers = db.query("""
 
 | Technique | Impact | Effort | Best For |
 |-----------|--------|--------|----------|
-| Add index | High | Low | Missing index on WHERE/JOIN columns |
+| Add [index](/recipes/performance/database-indexing) | High | Low | Missing index on WHERE/JOIN columns |
 | Rewrite query | High | Medium | Inefficient joins, subqueries |
 | Partition table | Very high | High | Tables > 10M rows with time-based queries |
 | Materialized view | High | Medium | Complex aggregations queried frequently |
@@ -130,5 +130,5 @@ A: For production queries, yes. But for ad-hoc exploration or very small tables,
 A: `EXPLAIN` shows the estimated plan without executing. `EXPLAIN ANALYZE` executes the query and shows actual timings and row counts. Always use `ANALYZE` when tuning.
 
 **Q: Can ORMs generate efficient queries?**
-A: Usually, but not always. ORMs like SQLAlchemy and Hibernate can generate N+1 queries or inefficient joins. Profile the actual SQL they emit and optimize at the SQL level when needed.
+A: Usually, but not always. ORMs like SQLAlchemy and Hibernate can generate N+1 queries or inefficient joins. See [SQL injection prevention](/recipes/security/sql-injection-prevention) for secure query patterns. Profile the actual SQL they emit and optimize at the SQL level when needed.
 
