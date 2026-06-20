@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 330,
+  "count": 335,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -7578,6 +7578,48 @@
       }
     },
     {
+      "path": "recipes/data/generate-slugs.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "generate-slugs",
+        "title": "Generar Slugs URL",
+        "description": "Cómo generar slugs limpios y amigables para URLs desde strings en múltiples lenguajes.",
+        "metaDescription": "Aprende a generar slugs amigables para URLs desde strings en Python, JavaScript y Java. Slugs limpios y seguros para SEO en apps web.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "slug",
+          "url",
+          "sanitization",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-json",
+          "/recipes/data/regular-expressions",
+          "/guides/software-architecture/clean-code-principles",
+          "/recipes/api/input-validation"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a generar slugs amigables para URLs desde strings en Python, JavaScript y Java. Slugs limpios y seguros para SEO en apps web.",
+          "keywords": [
+            "slug",
+            "url",
+            "sanitization",
+            "python",
+            "javascript",
+            "java"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/money-currency.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7617,6 +7659,48 @@
       }
     },
     {
+      "path": "recipes/data/parse-csv-files.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-csv-files",
+        "title": "Analizar Archivos CSV",
+        "description": "Cómo analizar archivos CSV en Python, Java y JavaScript con ejemplos de código prácticos.",
+        "metaDescription": "Aprende a analizar archivos CSV en Python, Java y JavaScript. Ejemplos de código prácticos para leer y procesar datos tabulares.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "csv",
+          "parsing",
+          "python",
+          "javascript",
+          "java",
+          "data-processing"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-json",
+          "/recipes/data/regular-expressions",
+          "/recipes/file-handling/import-csv-excel",
+          "/recipes/data/validate-json-schema",
+          "/guides/databases/sql-joins-guide"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a analizar archivos CSV en Python, Java y JavaScript. Ejemplos de código prácticos para leer y procesar datos tabulares.",
+          "keywords": [
+            "csv",
+            "parsing",
+            "python",
+            "javascript",
+            "java",
+            "data-processing"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/parse-json.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7648,6 +7732,91 @@
             "json javascript",
             "json java",
             "deserializar json"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/parse-log-files.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-log-files",
+        "title": "Analizar Archivos de Log",
+        "description": "Cómo analizar archivos de log de servidores usando Python, Java y JavaScript.",
+        "metaDescription": "Aprende a analizar archivos de log de servidores. Extrae insights de logs de Apache, Nginx y aplicaciones con ejemplos de código.",
+        "difficulty": "intermediate",
+        "topics": [
+          "data",
+          "devops"
+        ],
+        "tags": [
+          "logs",
+          "parsing",
+          "python",
+          "javascript",
+          "java",
+          "devops"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-xml-files",
+          "/recipes/data/validate-json-schema",
+          "/guides/devops/logging-monitoring-observability-guide",
+          "/recipes/devops/log-aggregation"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a analizar archivos de log de servidores. Extrae insights de logs de Apache, Nginx y aplicaciones con ejemplos de código.",
+          "keywords": [
+            "logs",
+            "parsing",
+            "python",
+            "javascript",
+            "java",
+            "devops"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/parse-xml-files.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-xml-files",
+        "title": "Analizar Archivos XML",
+        "description": "Cómo analizar documentos XML en Python, Java y JavaScript con ejemplos de código prácticos.",
+        "metaDescription": "Aprende a analizar archivos XML en Python, Java y JavaScript. Ejemplos de código para parsing DOM, SAX y consultas XPath.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "xml",
+          "parsing",
+          "python",
+          "javascript",
+          "java",
+          "data-processing"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-json",
+          "/recipes/data/regular-expressions",
+          "/guides/devops/logging-monitoring-observability-guide",
+          "/recipes/file-handling/stream-processing"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a analizar archivos XML en Python, Java y JavaScript. Ejemplos de código para parsing DOM, SAX y consultas XPath.",
+          "keywords": [
+            "xml",
+            "parsing",
+            "python",
+            "javascript",
+            "java",
+            "data-processing"
           ]
         }
       }
@@ -7916,6 +8085,48 @@
             "python uuid",
             "javascript uuid",
             "java uuid"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/validate-json-schema.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "validate-json-schema",
+        "title": "Validar JSON Schema",
+        "description": "Cómo validar datos JSON contra schemas en Python, Java y JavaScript.",
+        "metaDescription": "Aprende validación JSON Schema en Python, Java y JavaScript. Valida payloads de API y configuración con schemas.",
+        "difficulty": "intermediate",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "json",
+          "schema",
+          "validation",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-json",
+          "/recipes/api/input-validation",
+          "/recipes/data/parse-xml-files",
+          "/guides/software-architecture/clean-code-principles",
+          "/patterns/design/factory-pattern"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende validación JSON Schema en Python, Java y JavaScript. Valida payloads de API y configuración con schemas.",
+          "keywords": [
+            "json",
+            "schema",
+            "validation",
+            "python",
+            "javascript",
+            "java"
           ]
         }
       }
@@ -9733,7 +9944,7 @@
         "relatedResources": [
           "/recipes/devops/docker-compose-local-dev",
           "/patterns/design/ambassador-pattern-services",
-          "/guides/devops-guide"
+          "/guides/devops/kubernetes-basics-guide"
         ],
         "lastUpdated": "2026-06-18",
         "author": "Mathias Paulenko",
@@ -9843,7 +10054,7 @@
         ],
         "relatedResources": [
           "/patterns/design/ambassador-pattern-services",
-          "/recipes/devops/nginx-reverse-proxy",
+          "/recipes/nginx-reverse-proxy",
           "/patterns/design/circuit-breaker-pattern"
         ],
         "lastUpdated": "2026-06-18",
@@ -9959,7 +10170,7 @@
         "relatedResources": [
           "/recipes/devops/helm-chart-deployment",
           "/patterns/design/ambassador-pattern-services",
-          "/guides/logging-monitoring-guide"
+          "/guides/devops/logging-monitoring-observability-guide"
         ],
         "lastUpdated": "2026-06-18",
         "author": "Mathias Paulenko",
@@ -10444,7 +10655,7 @@
         "relatedResources": [
           "/recipes/performance/spa-code-splitting-lazy",
           "/recipes/api/go-rest-api-gin",
-          "/guides/frontend-guide"
+          "/guides/design/clean-code-principles-guide"
         ],
         "lastUpdated": "2026-06-18",
         "author": "Mathias Paulenko",
@@ -10705,7 +10916,7 @@
         ],
         "relatedResources": [
           "/recipes/devops/docker-compose-local-dev",
-          "/patterns/design/event-driven-architecture",
+          "/recipes/event-driven-architecture",
           "/patterns/design/circuit-breaker-pattern"
         ],
         "lastUpdated": "2026-06-18",
@@ -10779,8 +10990,8 @@
         ],
         "relatedResources": [
           "/recipes/messaging/kafka-event-streaming",
-          "/patterns/design/event-driven-architecture",
-          "/patterns/design/worker-pattern"
+          "/recipes/event-driven-architecture",
+          "/recipes/devops/background-jobs"
         ],
         "lastUpdated": "2026-06-18",
         "author": "Mathias Paulenko",
@@ -11643,7 +11854,7 @@
         "relatedResources": [
           "/recipes/api/go-rest-api-gin",
           "/patterns/design/builder-pattern",
-          "/guides/security-guide"
+          "/guides/security/security-best-practices-guide"
         ],
         "lastUpdated": "2026-06-18",
         "author": "Mathias Paulenko",
@@ -11755,7 +11966,7 @@
         "relatedResources": [
           "/recipes/security-headers",
           "/patterns/design/adapter-pattern-api",
-          "/guides/security-best-practices"
+          "/guides/security/security-best-practices-guide"
         ],
         "lastUpdated": "2026-06-18",
         "author": "Mathias Paulenko",
@@ -11982,7 +12193,7 @@
         "relatedResources": [
           "/recipes/secret-management",
           "/recipes/security-headers",
-          "/guides/security-best-practices"
+          "/guides/security/security-best-practices-guide"
         ],
         "lastUpdated": "2026-06-18",
         "author": "Mathias Paulenko",
