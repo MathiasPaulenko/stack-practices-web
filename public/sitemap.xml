@@ -3889,6 +3889,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/caching/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/convert-json-to-csv/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/convert-json-to-csv/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/convert-json-to-csv/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/convert-json-to-csv/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/convert-json-to-csv/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/convert-json-to-csv/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/convert-json-to-csv/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/convert-json-to-csv/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/data-validation/</loc>
     <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -4015,6 +4033,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/money-currency/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/parse-command-line-arguments/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-command-line-arguments/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-command-line-arguments/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-command-line-arguments/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/parse-command-line-arguments/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-command-line-arguments/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-command-line-arguments/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-command-line-arguments/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/parse-csv-files/</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -4069,6 +4105,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-log-files/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/parse-toml-files/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-toml-files/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-toml-files/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-toml-files/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/parse-toml-files/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-toml-files/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-toml-files/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-toml-files/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/parse-xml-files/</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -4085,6 +4139,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-xml-files/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-xml-files/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-xml-files/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/parse-yaml-files/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-yaml-files/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-yaml-files/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-yaml-files/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/parse-yaml-files/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-yaml-files/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-yaml-files/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-yaml-files/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/race-condition-prevention/</loc>
@@ -4121,6 +4193,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/regular-expressions/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/regular-expressions/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/regular-expressions/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/serialize-deserialize-data/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/serialize-deserialize-data/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/serialize-deserialize-data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/serialize-deserialize-data/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/serialize-deserialize-data/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/serialize-deserialize-data/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/serialize-deserialize-data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/serialize-deserialize-data/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/sort-array/</loc>

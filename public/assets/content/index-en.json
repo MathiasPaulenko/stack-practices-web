@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 335,
+  "count": 340,
   "entries": [
     {
       "path": "docs/templates/adr-template.md",
@@ -7349,6 +7349,50 @@
       }
     },
     {
+      "path": "recipes/data/convert-json-to-csv.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "convert-json-to-csv",
+        "title": "Convert JSON to CSV",
+        "description": "How to convert JSON data to CSV format in Python, Java, and JavaScript.",
+        "metaDescription": "Learn how to convert JSON to CSV in Python, Java, and JavaScript. Transform API responses and data exports with practical code examples.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "json",
+          "csv",
+          "conversion",
+          "python",
+          "javascript",
+          "java",
+          "data-processing"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-json",
+          "/recipes/data/serialize-deserialize-data",
+          "/recipes/data/validate-json-schema",
+          "/recipes/data/parse-xml-files"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Learn how to convert JSON to CSV in Python, Java, and JavaScript. Transform API responses and data exports with practical code examples.",
+          "keywords": [
+            "json",
+            "csv",
+            "conversion",
+            "python",
+            "javascript",
+            "java",
+            "data-processing"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/data-validation.md",
       "metadata": {
         "contentType": "recipes",
@@ -7623,6 +7667,48 @@
       }
     },
     {
+      "path": "recipes/data/parse-command-line-arguments.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-command-line-arguments",
+        "title": "Parse Command Line Arguments",
+        "description": "How to parse command line arguments in Python, Java, and Node.js CLI applications.",
+        "metaDescription": "Learn CLI argument parsing in Python, Java, and Node.js. Build robust command-line tools with flags, options, and subcommands.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "cli",
+          "arguments",
+          "parsing",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-yaml-files",
+          "/recipes/data/parse-toml-files",
+          "/recipes/data/validate-json-schema",
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-json"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Learn CLI argument parsing in Python, Java, and Node.js. Build robust command-line tools with flags, options, and subcommands.",
+          "keywords": [
+            "cli",
+            "arguments",
+            "parsing",
+            "python",
+            "javascript",
+            "java"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/parse-csv-files.md",
       "metadata": {
         "contentType": "recipes",
@@ -7744,13 +7830,55 @@
       }
     },
     {
+      "path": "recipes/data/parse-toml-files.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-toml-files",
+        "title": "Parse TOML Files",
+        "description": "How to parse TOML configuration files in Python, Java, and JavaScript.",
+        "metaDescription": "Learn how to parse TOML configuration files in Python, Java, and JavaScript. Read app configs with practical code examples.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "toml",
+          "parsing",
+          "config",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-yaml-files",
+          "/recipes/data/parse-json",
+          "/recipes/data/validate-json-schema",
+          "/recipes/data/serialize-deserialize-data",
+          "/recipes/data/parse-xml-files"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Learn how to parse TOML configuration files in Python, Java, and JavaScript. Read app configs with practical code examples.",
+          "keywords": [
+            "toml",
+            "parsing",
+            "config",
+            "python",
+            "javascript",
+            "java"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/parse-xml-files.md",
       "metadata": {
         "contentType": "recipes",
         "slug": "parse-xml-files",
         "title": "Parse XML Files",
         "description": "How to parse XML documents in Python, Java, and JavaScript with practical code examples.",
-        "metaDescription": "Learn how to parse XML files in Python, Java, and JavaScript. Code examples for DOM parsing, SAX, and XPath queries.",
+        "metaDescription": "Learn how to parse XML files in Python, Java, and JavaScript. Practical code examples for DOM parsing, SAX, StAX, and XPath queries.",
         "difficulty": "beginner",
         "topics": [
           "data"
@@ -7773,7 +7901,7 @@
         "lastUpdated": "2026-06-20",
         "author": "StackPractices",
         "seo": {
-          "metaDescription": "Learn how to parse XML files in Python, Java, and JavaScript. Code examples for DOM parsing, SAX, and XPath queries.",
+          "metaDescription": "Learn how to parse XML files in Python, Java, and JavaScript. Practical code examples for DOM parsing, SAX, StAX, and XPath queries.",
           "keywords": [
             "xml",
             "parsing",
@@ -7781,6 +7909,48 @@
             "javascript",
             "java",
             "data-processing"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/parse-yaml-files.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-yaml-files",
+        "title": "Parse YAML Files",
+        "description": "How to parse YAML configuration files in Python, Java, and JavaScript.",
+        "metaDescription": "Learn how to parse YAML files in Python, Java, and JavaScript. Load configs, validate schemas, and handle anchors with code examples.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "yaml",
+          "parsing",
+          "config",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-json",
+          "/recipes/data/validate-json-schema",
+          "/recipes/data/serialize-deserialize-data",
+          "/recipes/data/parse-toml-files",
+          "/recipes/data/parse-xml-files"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Learn how to parse YAML files in Python, Java, and JavaScript. Load configs, validate schemas, and handle anchors with code examples.",
+          "keywords": [
+            "yaml",
+            "parsing",
+            "config",
+            "python",
+            "javascript",
+            "java"
           ]
         }
       }
@@ -7859,6 +8029,50 @@
             "java regex",
             "regex groups",
             "regex flags"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/serialize-deserialize-data.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "serialize-deserialize-data",
+        "title": "Serialize and Deserialize Data",
+        "description": "How to serialize and deserialize data in JSON, XML, and YAML across Python, Java, and JavaScript.",
+        "metaDescription": "Learn data serialization and deserialization in Python, Java, and JavaScript. Convert objects to JSON, XML, and YAML with code examples.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "serialization",
+          "json",
+          "xml",
+          "yaml",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-json",
+          "/recipes/data/parse-xml-files",
+          "/recipes/data/parse-yaml-files",
+          "/recipes/data/validate-json-schema",
+          "/recipes/data/convert-json-to-csv"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Learn data serialization and deserialization in Python, Java, and JavaScript. Convert objects to JSON, XML, and YAML with code examples.",
+          "keywords": [
+            "serialization",
+            "json",
+            "xml",
+            "yaml",
+            "python",
+            "javascript",
+            "java"
           ]
         }
       }
@@ -8060,7 +8274,7 @@
         "slug": "validate-json-schema",
         "title": "Validate JSON Schema",
         "description": "How to validate JSON data against schemas in Python, Java, and JavaScript.",
-        "metaDescription": "Learn JSON Schema validation in Python, Java, and JavaScript. Validate API payloads and configuration with schemas.",
+        "metaDescription": "Learn JSON Schema validation in Python, Java, and JavaScript. Validate API payloads and configuration files with schemas using best practices.",
         "difficulty": "intermediate",
         "topics": [
           "data"
@@ -8083,7 +8297,7 @@
         "lastUpdated": "2026-06-20",
         "author": "StackPractices",
         "seo": {
-          "metaDescription": "Learn JSON Schema validation in Python, Java, and JavaScript. Validate API payloads and configuration with schemas.",
+          "metaDescription": "Learn JSON Schema validation in Python, Java, and JavaScript. Validate API payloads and configuration files with schemas using best practices.",
           "keywords": [
             "json",
             "schema",
