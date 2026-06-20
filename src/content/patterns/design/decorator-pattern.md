@@ -39,7 +39,7 @@ seo:
 
 The Decorator Pattern is a structural design pattern that lets you attach new behaviors to objects by placing them inside wrapper objects that contain the behaviors. It provides a flexible alternative to subclassing for extending functionality.
 
-It is widely used in I/O streams (Java), middleware pipelines (Express.js), and Python's `@decorator` syntax.
+It is widely used in I/O streams (Java), [middleware pipelines](/patterns/design/decorator-pattern-pipeline) (Express.js), and Python's `@decorator` syntax.
 
 ## When to Use
 
@@ -168,7 +168,7 @@ Decorators can be nested arbitrarily. You can wrap a `MilkDecorator` with a `Sug
 |---------|----------|-----------|
 | **Class-based** | Strongly typed languages (Java, C#) | Verbose but type-safe |
 | **Function-based** | Python `@decorator` syntax | Concise, but less explicit composition |
-| **Middleware pipeline** | Web frameworks (Express, Koa) | Great for request/response processing |
+| **[Middleware pipeline](/patterns/design/decorator-pattern-pipeline)** | Web frameworks (Express, Koa) | Great for request/response processing |
 
 ## Best Practices
 
@@ -189,10 +189,10 @@ Decorators can be nested arbitrarily. You can wrap a `MilkDecorator` with a `Sug
 ## Frequently Asked Questions
 
 **Q: What is the difference between Decorator and Proxy?**
-A: Decorator adds responsibilities dynamically. Proxy controls access to an object (lazy initialization, access control, logging). They have similar structure but different intent.
+A: Decorator adds responsibilities dynamically. [Proxy](/patterns/design/proxy-pattern) controls access to an object (lazy initialization, access control, logging). They have similar structure but different intent.
 
 **Q: Can decorators be removed at runtime?**
-A: Not easily in most implementations. If you need add/remove flexibility, consider the Chain of Responsibility pattern instead.
+A: Not easily in most implementations. If you need add/remove flexibility, consider the [Chain of Responsibility](/patterns/design/chain-of-responsibility-pattern) pattern instead.
 
 **Q: Are Python's `@decorator` syntax and the Decorator Pattern the same?**
 A: Python's `@decorator` is a language feature for wrapping functions. The Decorator Pattern is an OOP design pattern for wrapping objects. They share the concept but apply to different levels.

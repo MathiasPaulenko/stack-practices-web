@@ -36,11 +36,11 @@ Escribir esta coordinación dentro de funciones Lambda crea código spaghetti: l
 
 Usa esta receta cuando:
 
-- Un proceso serverless tiene más de dos pasos dependientes
-- Los pasos deben reintentarse con backoff ante fallas transitorias
+- Un proceso serverless tiene más de dos pasos dependientes. Consulta [Serverless Functions](/recipes/messaging/event-driven-microservices) para construir unidades de función individuales.
+- Los pasos deben reintentarse con backoff ante fallas transitorias. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para patrones de backoff exponencial.
 - El estado del workflow debe sobrevivir a timeouts o crashes de funciones
 - Se requieren esperas de aprobación humana o eventos externos a mitad del workflow
-- Múltiples funciones deben coordinarse con ramas paralelas y puntos de join
+- Múltiples funciones deben coordinarse con ramas paralelas y puntos de join. Consulta [Event-Driven Functions](/recipes/messaging/event-driven-microservices) para arquitecturas event-driven.
 
 ## Solución
 

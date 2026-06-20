@@ -38,10 +38,10 @@ El adapter pattern resuelve esto introduciendo una clase wrapper que implementa 
 
 Usa esta receta cuando:
 
-- Integrando una librería de terceros con una interfaz incompatible
-- Migrando desde un sistema legacy sin reescribir código dependiente
+- Integrando una librería de terceros con una interfaz incompatible. Consulta [Arquitectura Hexagonal](/recipes/design/hexagonal-architecture) para aislamiento de ports/adapters.
+- Migrando desde un sistema legacy sin reescribir código dependiente. Consulta [Factory Pattern](/recipes/design/factory-pattern) para crear instancias de adapters.
 - Exponiendo una fachada simplificada sobre un subsistema complejo
-- Soportando múltiples implementaciones de la misma capacidad (pagos, storage, mensajería)
+- Soportando múltiples implementaciones de la misma capacidad (pagos, storage, mensajería). Consulta [Strategy Pattern](/recipes/design/strategy-pattern) para selección de algoritmos en runtime.
 - Testeando código que depende de servicios externos adaptando mocks
 
 ## Solución
@@ -184,7 +184,7 @@ url = storage.upload("report.pdf", pdf_bytes)
 - **Documenta el comportamiento de traducción**: los adapters hacen más que renombrar métodos. Pueden convertir unidades, transformar tipos de error, o batch requests. Documenta estas traducciones claramente.
 - **Maneja errores con elegancia**: las APIs de terceros lanzan excepciones específicas del vendor. El adapter debe capturarlas y mapearlas a la taxonomía de errores de tu aplicación. `StripeCardError` se convierte en `PaymentDeclinedError`.
 - **Mantén los adapters delgados**: un adapter con cientos de líneas de lógica es un servicio, no un adapter. Las transformaciones complejas pertenecen a servicios de aplicación. El adapter debe traducir llamadas y errores, y luego salir del camino.
-- **Testea adapters con contract tests**: escribe tests que verifiquen que el adapter satisface la interfaz objetivo, no tests que verifiquen el SDK de terceros. Usa mocks del adaptee para testear el adapter en aislamiento.
+- **Testea adapters con contract tests**: escribe tests que verifiquen que el adapter satisface la interfaz objetivo, no tests que verifiquen el SDK de terceros. Usa mocks del adaptee para testear el adapter en aislamiento. Consulta [Input Validation](/recipes/api/input-validation) para contratos de límite.
 
 ## Errores comunes
 

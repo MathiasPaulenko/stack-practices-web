@@ -37,7 +37,7 @@ Reduce initial bundle size in [single-page applications](/recipes/performance/la
 
 - Your SPA bundle exceeds 200KB gzipped and loads slowly on mobile
 - Not all routes are accessed by every user on first visit
-- Heavy components (charts, editors, maps) are only needed on specific pages
+- Heavy components (charts, editors, maps) are only needed on specific pages. See [MVC Pattern Frontend](/patterns/design/mvc-pattern-frontend) for component architecture.
 
 ## Solution
 

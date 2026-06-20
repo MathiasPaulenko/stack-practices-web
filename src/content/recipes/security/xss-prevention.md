@@ -33,9 +33,9 @@ seo:
 
 Cross-Site Scripting (XSS) is an injection attack where malicious scripts are embedded into trusted websites. When a victim visits the compromised page, the script executes in their browser with the same privileges as the legitimate site, allowing attackers to steal session cookies, capture keystrokes, or perform actions on behalf of the user.
 
-XSS consistently ranks in the [OWASP Top 10](/guides/security/web-application-security-guide) because it is both common and dangerous. The three main types are reflected XSS (malicious URL triggers the script), stored XSS (malicious script is saved in the database and served to all users), and DOM-based XSS (client-side JavaScript writes untrusted data to the page without escaping).
+XSS consistently ranks in the [OWASP Top 10](/guides/security/security-best-practices-guide) because it is both common and dangerous. The three main types are reflected XSS (malicious URL triggers the script), stored XSS (malicious script is saved in the database and served to all users), and DOM-based XSS (client-side JavaScript writes untrusted data to the page without escaping).
 
-The fundamental defense is simple but frequently forgotten: never trust user [input](/recipes/security/input-validation). All data from users, APIs, or external sources must be escaped before rendering in HTML, JavaScript, CSS, or URLs.
+The fundamental defense is simple but frequently forgotten: never trust user [input](/recipes/api/input-validation). All data from users, APIs, or external sources must be escaped before rendering in HTML, JavaScript, CSS, or URLs.
 
 ## When to Use
 
@@ -118,7 +118,7 @@ const clean = DOMPurify.sanitize(dirty);
 - **Implement a strict CSP**: start with `default-src 'self'` and whitelist only required domains. Avoid `'unsafe-inline'` and `'unsafe-eval'` for scripts.
 - **Set `HttpOnly` and `Secure` on cookies**: `HttpOnly` prevents JavaScript from reading session cookies, mitigating the impact of XSS. `Secure` ensures cookies are only sent over HTTPS.
 - **Validate input, not just output**: reject unexpected characters at the boundary (e.g., only allow alphanumeric usernames) so bad data never enters your system.
-- **Audit dependencies**: XSS can also come from compromised npm packages or third-party scripts. Use `npm audit` and [review dependencies](/recipes/security/dependency-audit-template) loaded from external domains.
+- **Audit dependencies**: XSS can also come from compromised npm packages or third-party scripts. Use `npm audit` and [review dependencies](/guides/security/security-best-practices-guide) loaded from external domains.
 
 ## Common Mistakes
 

@@ -40,7 +40,7 @@ seo:
 
 ## Resumen
 
-El Patrón Sidecar despliega componentes auxiliares junto a la aplicación principal como contenedores o procesos separados. Estos sidecars extienden o mejoran la aplicación principal con preocupaciones transversales como logging, monitoreo, configuración o networking — sin modificar el código de la aplicación principal.
+El [Patrón Sidecar](/patterns/design/sidecar-pattern) despliega componentes auxiliares junto a la aplicación principal como contenedores o procesos separados. Estos sidecars extienden o mejoran la aplicación principal con preocupaciones transversales como logging, monitoreo, configuración o networking — sin modificar el código de la aplicación principal.
 
 ## Cuándo usarlo
 
@@ -214,7 +214,7 @@ El Patrón Sidecar separa preocupaciones en procesos co-ubicados pero independie
 
 | Variante | Descripción | Caso de uso |
 |----------|-------------|-------------|
-| **Sidecar Ambassador** | Proxy para comunicación con servicios externos | Descubrimiento de servicios, terminación TLS |
+| **[Sidecar Ambassador](/patterns/design/ambassador-pattern)** | Proxy para comunicación con servicios externos | Descubrimiento de servicios, terminación TLS |
 | **Sidecar Adapter** | Normaliza salida de la app principal | Formatos de log, scraping de métricas |
 | **Sidecar Config** | Recarga configuración dinámicamente | Watchers de Consul, etcd |
 | **Sidecar Security** | Proxy de autenticación/autorización | OAuth, mTLS, Vault |
@@ -239,7 +239,7 @@ El Patrón Sidecar separa preocupaciones en procesos co-ubicados pero independie
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Sidecar y Ambassador?**
-R: Ambassador es un tipo específico de sidecar que hace proxy de comunicación con servicios externos. Sidecar es el patrón general — cualquier contenedor auxiliar cuenta (logging, config, monitoreo, proxy).
+R: [Ambassador](/patterns/design/ambassador-pattern) es un tipo específico de sidecar que hace proxy de comunicación con servicios externos. Sidecar es el patrón general — cualquier contenedor auxiliar cuenta (logging, config, monitoreo, proxy).
 
 **P: ¿Debería usar un sidecar o agregar la funcionalidad in-process?**
 R: Usa un sidecar cuando la funcionalidad sea agnóstica de lenguaje, necesite despliegue independiente, o cuando no puedas modificar la app principal. Usa in-process cuando la latencia sea crítica y la lógica sea simple.

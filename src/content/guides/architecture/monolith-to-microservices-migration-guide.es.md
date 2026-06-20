@@ -120,7 +120,7 @@ return old
 | Trimestre | Objetivo |
 |-----------|----------|
 | Q1 | Extraer servicio no crítico con Strangler Fig |
-| Q2 | Implementar [API Gateway](/recipes/serverless-api-gateway) y [service discovery](/recipes/service-discovery) |
+| Q2 | Implementar [API Gateway](/recipes/serverless/serverless-api-gateway) y [service discovery](/recipes/architecture/service-discovery) |
 | Q3 | Extraer servicio medio-crítico con Branch by Abstraction |
 | Q4 | Parallel run para un servicio alto-crítico |
 | Año 2 | Extraer servicios core; monolito se encoge |
@@ -130,17 +130,17 @@ return old
 
 - Nunca hagas un rewrite big-bang — la extracción incremental preserva opcionalidad
 - Mide antes y después: deploy frequency, lead time, failure rate
-- Mantén el monolito deployable — no dejes que la extracción rompa [CI/CD](/guides/cicd-pipeline-guide)
-- Invierte en testing — [contract tests](/recipes/api-contract-testing) capturan breaking changes
+- Mantén el monolito deployable — no dejes que la extracción rompa [CI/CD](/guides/devops/cicd-pipeline-guide)
+- Invierte en testing — [contract tests](/recipes/testing/api-contract-testing) capturan breaking changes
 - Acepta que algún código nunca se mueve
 
 ## Errores Comunes
 
 - Extraer servicios basados en capas técnicas en vez de capacidades de negocio
-- Ignorar consistencia de datos — las transacciones distribuidas requieren [sagas](/guides/event-driven-architecture-guide)
+- Ignorar consistencia de datos — las transacciones distribuidas requieren [sagas](/guides/architecture/event-driven-architecture-guide)
 - Subestimar el "último 10%" — los servicios finales son los más acoplados
 - Remover el monolito demasiado temprano — es tu red de seguridad
-- No invertir en experiencia de desarrollador — local dev y [testing](/guides/testing-strategy-guide) son más difíciles con microservicios
+- No invertir en experiencia de desarrollador — local dev y [testing](/guides/testing/testing-strategy-guide) son más difíciles con microservicios
 
 ## Preguntas Frecuentes
 

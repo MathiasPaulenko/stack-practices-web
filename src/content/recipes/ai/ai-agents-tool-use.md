@@ -30,7 +30,7 @@ seo:
 ---
 ## Overview
 
-AI agents are autonomous systems that use large language models to reason, plan, and execute tasks by calling external tools. Unlike simple chatbots, agents can search the web, query databases, run code, and interact with APIs to accomplish complex, multi-step objectives.
+AI agents are autonomous systems that use large language models to reason, plan, and execute tasks by calling external tools. Unlike simple [chatbots](/recipes/ai/chatbot-openai), agents can search the web, query databases, run code, and interact with APIs to accomplish complex, multi-step objectives.
 
 ## When to Use
 
@@ -112,7 +112,7 @@ Key design decisions:
 
 | Framework | Pattern | Best For |
 |-----------|---------|----------|
-| LangChain | ReAct, Plan-and-Execute | Rapid prototyping |
+| [LangChain Agents](/recipes/ai/ai-agents-tool-use) | ReAct, Plan-and-Execute | Rapid prototyping |
 | AutoGen | Multi-agent conversation | Collaborative tasks |
 | CrewAI | Role-based agents | Business workflows |
 | Custom | ReAct with tool registry | Production systems |
@@ -136,7 +136,7 @@ Key design decisions:
 ## Frequently Asked Questions
 
 **Q: What is the difference between RAG and an agent?**
-A: RAG retrieves documents and answers once. Agents can take multiple actions, use tools, and iterate until a goal is met.
+A: [RAG](/recipes/ai/semantic-search) retrieves documents and answers once. Agents can take multiple actions, use tools, and iterate until a goal is met.
 
 **Q: How many tools should an agent have?**
 A: Start with 2-3. Research shows accuracy drops significantly beyond 5-7 tools.

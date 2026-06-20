@@ -42,7 +42,7 @@ Usa esta recipe cuando:
 
 - Proteges APIs públicas de abuso o DDoS
 - Aplicas límites de uso por tier (gratis vs pago)
-- Prevenes ataques de fuerza bruta en endpoints de autenticación
+- Prevenes ataques de fuerza bruta en endpoints de autenticación. Consulta [JWT Authentication](/recipes/authentication/jwt-authentication) para seguridad de auth.
 - Manejas capacidad para operaciones intensivas en recursos
 - Implementas políticas de uso justo entre usuarios
 
@@ -92,7 +92,7 @@ async function rateLimit(key, limit, windowSeconds) {
   return current <= limit;
 }
 
-// Uso en middleware de Express
+// Uso en [middleware de Express](/recipes/api/middleware)
 async function limiter(req, res, next) {
   const key = `ratelimit:${req.ip}`;
   const allowed = await rateLimit(key, 100, 60);
@@ -142,7 +142,7 @@ public class SlidingWindow {
 ## Mejores prácticas
 
 - **Retorna status 429** con header `Retry-After` al limitar
-- **Usa Redis** para rate limiting distribuido entre múltiples servidores
+- **Usa Redis** para rate limiting distribuido entre múltiples servidores. Consulta [Rate Limiting con Redis](/recipes/api/api-rate-limiting-redis) para patrones de producción.
 - **Diferencia por cliente**: Usa API key o user ID, no solo IP
 - **Límites más altos para usuarios autenticados** que para tráfico anónimo
 - **Loguea eventos de rate limit** para monitoreo de seguridad y detección de abuso
@@ -154,7 +154,7 @@ public class SlidingWindow {
 - No manejar fallos de Redis graceful (fail open vs fail closed)
 - Usar contadores en memoria en deployments multi-instancia
 - Establecer límites demasiado agresivos, bloqueando usuarios legítimos
-- No documentar límites de rate en la documentación de API
+- No documentar límites de rate en la documentación de API. Consulta [Plantilla de Documentación de API](/docs/templates/api-documentation) para estructura de docs.
 
 ## Preguntas frecuentes
 

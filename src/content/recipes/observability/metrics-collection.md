@@ -29,14 +29,14 @@ seo:
 ---
 ## Overview
 
-Metrics collection transforms raw system behavior into time-series data that reveals performance trends, capacity limits, and anomalies. Unlike [logs](/recipes/structured-logging) (discrete events) or [traces](/recipes/distributed-tracing) (request journeys), metrics are numerical measurements aggregated over time — request rates, error percentages, queue depths, and memory usage. A well-designed metrics pipeline enables proactive alerting before users notice degradation.
+Metrics collection transforms raw system behavior into time-series data that reveals performance trends, capacity limits, and anomalies. Unlike [logs](/recipes/observability/structured-logging) (discrete events) or [traces](/recipes/observability/distributed-tracing) (request journeys), metrics are numerical measurements aggregated over time — request rates, error percentages, queue depths, and memory usage. A well-designed metrics pipeline enables proactive alerting before users notice degradation.
 
 ## When to Use
 
 Use this resource when:
 - You need quantitative SLIs for error budgets and SLO dashboards
 - Alerting must fire before logs are aggregated (sub-minute detection)
-- [Capacity planning](/docs/capacity-planning-template) requires historical throughput and resource usage trends
+- [Capacity planning](/guides/devops/infrastructure-as-code-guide) requires historical throughput and resource usage trends
 - Debugging requires correlating metrics across services (CPU spike + latency increase)
 
 ## Solution
@@ -167,7 +167,7 @@ def create_order(items, total):
 1. **High-cardinality labels**: User IDs as labels crash Prometheus storage
 2. **Missing units**: `request_duration` without `_seconds` or `_milliseconds` creates confusion
 3. **Alerting on gauges**: Queue depth alone doesn't indicate failure; combine with processing rate
-4. **No retention policy**: Keeping 1-second resolution for 5 years wastes storage; implement a [data retention policy](/docs/data-retention-policy-template).
+4. **No retention policy**: Keeping 1-second resolution for 5 years wastes storage; implement a [data retention policy](/guides/databases/database-design-guide).
 5. **Forgetting to instrument failures**: Only measuring success hides partial outages
 
 ## Frequently Asked Questions
@@ -179,4 +179,4 @@ A: Use Prometheus for new cloud-native apps. Use StatsD for legacy apps where ad
 A: Negligible for counters and gauges (<1%). Histograms with many buckets add slightly more; use predefined buckets.
 
 **Q: Should I collect metrics from the client (browser)?**
-A: Yes. [Core Web Vitals](/recipes/web-performance), API error rates, and navigation timing from real users are essential SLIs.
+A: Yes. [Core Web Vitals](/recipes/performance/web-performance), API error rates, and navigation timing from real users are essential SLIs.

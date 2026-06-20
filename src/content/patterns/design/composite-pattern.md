@@ -38,15 +38,15 @@ seo:
 
 ## Overview
 
-The Composite Pattern is a structural design pattern that lets you compose objects into tree structures and then work with those structures as if they were individual objects. It is ideal when you need to treat individual items and groups of items uniformly — such as UI components, file systems, or organization charts.
+The Composite Pattern is a structural design pattern that lets you compose objects into tree structures and then work with those structures as if they were individual objects. It is ideal when you need to treat individual items and groups of items uniformly — such as [UI components](/patterns/design/composite-pattern-ui), file systems, or organization charts.
 
 ## When to Use
 
 Use the Composite Pattern when:
-- You need to represent part-whole hierarchies of objects
+- You need to represent part-whole hierarchies of objects. See [Visitor Pattern](/patterns/design/visitor-pattern) for operations on tree structures.
 - Clients should ignore the difference between compositions of objects and individual objects
-- You want to perform operations recursively over a tree structure
-- The structure is naturally hierarchical (UI, file systems, org charts, expressions)
+- You want to perform operations recursively over a tree structure. See [Visitor Pattern](/patterns/design/visitor-pattern) for traversal operations.
+- The structure is naturally hierarchical (UI, file systems, org charts, expressions). See [Flyweight Pattern](/patterns/design/flyweight-pattern) for optimizing many similar nodes.
 
 ## Solution
 
@@ -256,7 +256,7 @@ Clients interact with all objects through the Component interface, making the tr
 ## Frequently Asked Questions
 
 **Q: When should I use Composite instead of a flat list?**
-A: Use Composite when your data is naturally hierarchical and you need to perform recursive operations. For flat or shallow structures, a simple list with grouping is usually sufficient.
+A: Use Composite when your data is naturally hierarchical and you need to perform recursive operations. For flat or shallow structures, a simple list with grouping is usually sufficient. If you need to add behavior to individual objects without tree semantics, use [Decorator](/patterns/design/decorator-pattern) instead.
 
 **Q: How do I prevent cycles in a Composite tree?**
 A: In the `add()` method of the composite, check that the component being added is not already an ancestor in the tree. Maintain a parent reference if needed.

@@ -204,7 +204,7 @@ except pybreaker.CircuitBreakerError:
 ## Best practices
 
 - **Always provide a fallback**: when the circuit is open, the application must still function. A payment service might return "payment pending, retry later." A product catalog might serve stale data from a cache. Never let an open circuit propagate as a hard failure to the user.
-- **Use circuit breakers with timeouts and retries**: a circuit breaker without a per-request timeout can still hang. Combine a circuit breaker (macro-level health) with a request timeout (micro-level limit) and retry (transient recovery). The retry should be inside the circuit breaker, not outside — retrying on an open circuit is wasted effort.
+- **Use circuit breakers with timeouts and [retries](/recipes/architecture/retry-backoff)**: a circuit breaker without a per-request timeout can still hang. Combine a circuit breaker (macro-level health) with a request timeout (micro-level limit) and retry (transient recovery). The retry should be inside the circuit breaker, not outside — retrying on an open circuit is wasted effort.
 - **Log and alert on circuit state changes**: opening a circuit is a symptom of a downstream problem. Log every state transition with context (failure rate, last error, affected service). Alert when a circuit opens, but suppress recovery alerts unless the circuit repeatedly opens — a single recovery is normal; a flapping circuit is not.
 - **Size the sliding window to your traffic**: a window of 10 calls opens after 5 failures, which is appropriate for moderate traffic. For high-throughput services, a percentage-based window (e.g., 50% failure rate over 100 calls) is more stable. For low-traffic services, a count-based window may never accumulate enough failures — consider time-based windows instead.
 - **Distinguish between failure types**: do not open the circuit on 4xx errors (client errors that will not recover). Open only on 5xx, timeouts, and connection errors. Some libraries allow configuring `expected_exception` — use it to classify non-retryable errors.
@@ -225,8 +225,8 @@ A: No — it is a state machine with memory (failure windows), automatic recover
 A: Retry inside. The circuit breaker wraps the retry logic. If the retry exhausts and the call still fails, the circuit breaker counts it as a failure. Retrying outside an open circuit wastes resources — you already know the service is unhealthy.
 
 **Q: Can circuit breakers cause data inconsistency?**
-A: Yes, if the fallback is not carefully designed. If the circuit opens during a payment and the fallback is "assume it succeeded," you may mark unpaid orders as paid. Design fallbacks to be safe: mark as pending, queue for later processing, or notify the user.
+A: Yes, if the fallback is not carefully designed. If the circuit opens during a payment and the fallback is "assume it succeeded," you may mark unpaid orders as paid. Design fallbacks to be safe: mark as pending, queue for later processing, or notify the user. See [Saga Pattern](/recipes/architecture/saga-pattern) for distributed transaction coordination.
 
 **Q: How do circuit breakers work with async/await?**
-A: Most modern libraries (Resilience4j, Opossum for JS) support async execution natively. The state machine runs in the calling thread (or event loop), and the wrapped function is awaited. Timeouts must be compatible with the async runtime (Promise timeout in JS, CompletableFuture timeout in Java).
+A: Most modern libraries (Resilience4j, Opossum for JS) support async execution natively. The state machine runs in the calling thread (or event loop), and the wrapped function is awaited. Timeouts must be compatible with the async runtime (Promise timeout in JS, CompletableFuture timeout in Java). See [Async Patterns](/recipes/api/call-rest-api) for async execution strategies.
 

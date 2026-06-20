@@ -36,10 +36,10 @@ A graceful shutdown ensures your application finishes in-flight requests, flushe
 ## When to Use
 
 Use this resource when:
-- You deploy frequently in Kubernetes, Docker, or auto-scaling groups
-- You run long-polling, WebSocket, or background job workers
-- You need to flush metrics, logs, or database writes before termination
-- You want zero-downtime deployments with rolling updates or blue/green releases
+- You deploy frequently in Kubernetes, Docker, or auto-scaling groups. See [Docker Basics](/recipes/devops/docker-basics) for container fundamentals.
+- You run long-polling, WebSocket, or background job workers. See [WebSockets Real-Time](/recipes/frontend/websockets-realtime) for connection lifecycle management.
+- You need to flush metrics, logs, or database writes before termination. See [Structured Logging](/recipes/observability/structured-logging) for log flushing patterns.
+- You want zero-downtime deployments with rolling updates or blue/green releases. See [Blue-Green Deployment](/recipes/devops/blue-green-deployment) for traffic switching.
 
 ## Solution
 

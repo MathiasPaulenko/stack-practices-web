@@ -33,7 +33,7 @@ seo:
 
 # Plantilla de Release Notes
 
-Usa esta plantilla para comunicar qué cambió, por qué importa y qué deben hacer los usuarios.
+Usa esta plantilla para comunicar qué cambió, por qué importa y qué deben hacer los usuarios. Combínala con la [Plantilla de Changelog](/docs/templates/changelog-template) para tracking y la [Plantilla de Checklist Post-Deploy](/docs/templates/post-deployment-checklist-template) para verificación.
 
 ## Plantilla
 
@@ -91,20 +91,20 @@ Link al diff completo de commits o archivo changelog.
 - **Escribe release notes antes del release** — son un forcing function para review final
 - **Destaca breaking changes primero** — usuarios escanean por cosas que podrían romperles
 - **Incluye instrucciones de upgrade** — incluso para releases "sin acción requerida", dilo explícitamente
-- **Link a documentación** — cada nueva feature debería tener una página de docs correspondiente
+- **Link a documentación** — cada nueva feature debería tener una página de docs correspondiente. Enlaza a la [Plantilla de Documentación de API](/docs/templates/api-documentation) para referencia.
 
 ## Errores Comunes
 
 - Listar cada commit — los usuarios no les importa "refactor helper function"
-- Omitir breaking changes — esto rompe confianza y causa incidentes
-- No dar instrucciones de upgrade — usuarios pierden tiempo adivinando el path de migración
+- Omitir breaking changes — esto rompe confianza y causa incidentes. Consulta la [Plantilla de Postmortem](/docs/templates/incident-postmortem-template) para procedimientos de recuperación.
+- No dar instrucciones de upgrade — usuarios pierden tiempo adivinando el path de migración. Consulta la [Plantilla de Guía de Configuración de Entorno](/docs/templates/environment-setup-guide-template) para contexto de configuración.
 - Saltarse issues conocidos — la transparencia genera confianza; ocultar problemas la destruye
 
 ## Preguntas Frecuentes
 
 ### ¿Qué tan detalladas deben ser release notes para servicios internos?
 
-Los servicios internos necesitan la misma estructura pero con contexto adicional de deploy: qué ambientes fueron actualizados, procedimiento de rollback, y links a dashboards de monitoreo.
+Los servicios internos necesitan la misma estructura pero con contexto adicional de deploy: qué ambientes fueron actualizados, procedimiento de rollback, y links a dashboards de monitoreo. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización de deployment.
 
 ### ¿Debería incluir números CVE para fixes de seguridad?
 

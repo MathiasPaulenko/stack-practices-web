@@ -15,7 +15,7 @@ tags:
 relatedResources:
   - /recipes/api/go-rest-api-gin
   - /patterns/design/builder-pattern
-  - /guides/security-guide
+  - /guides/security/security-best-practices-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -36,7 +36,7 @@ Usa Zod para definir schemas que validan datos en runtime mientras infieren auto
 
 - Los bodies de requests de API deben validarse antes de procesarse
 - Los inputs de formularios necesitan validacion tanto client-side como server-side
-- Los objetos de configuracion y variables de entorno requieren parsing type-safe
+- Los objetos de configuracion y variables de entorno requieren parsing type-safe. Consulta [Parse JSON](/recipes/data/parse-json) para parsear datos de config estructurados.
 
 ## Solucion
 

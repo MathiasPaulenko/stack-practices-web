@@ -41,7 +41,7 @@ Usa esta receta cuando:
 - Múltiples threads leen y escriben el mismo estado mutable
 - Protegiendo caches en memoria, contadores o configuración compartida entre threads
 - Limitando acceso concurrente a recursos externos (APIs, bases de datos, file handles)
-- Implementando estructuras de datos thread-safe (colas, maps, pools)
+- Implementando [estructuras de datos thread-safe](/recipes/concurrency/concurrent-data-structures) (colas, maps, pools)
 - Evitando data races sin rediseñar toda la arquitectura para ser lock-free
 
 ## Solución
@@ -175,7 +175,7 @@ int main() {
 
 - **Mutex**: asegura exclusión mutua — solo un thread tiene el lock a la vez. Otros threads bloquean hasta que el lock se libera. Simple y efectivo, pero puede convertirse en cuello de botella si la sección crítica es grande o frecuentemente accedida.
 - **Read-write lock**: permite múltiples lectores concurrentes pero solo un escritor. Ideal para cargas de trabajo dominadas por lecturas donde las escrituras son raras. Un lector no bloquea a otros lectores, pero un escritor bloquea a todos. Algunas implementaciones soportan downgrade de write a read.
-- **Semaphore**: un lock generalizado con un contador. Un mutex es un semaphore con count 1. Un pool semaphore con count 10 permite que 10 threads entren simultáneamente. Útil para pools de recursos, throttling y backpressure.
+- **Semaphore**: un lock generalizado con un contador. Un mutex es un semaphore con count 1. Un pool semaphore con count 10 permite que 10 threads entren simultáneamente. Útil para [pools de recursos](/recipes/performance/connection-pooling), throttling y backpressure.
 - **Operaciones atómicas**: updates libres de locks usando instrucciones de CPU como `CAS` (compare-and-swap). Más rápidas que locks para operaciones simples pero limitadas en alcance. Usar para contadores y flags. Updates complejos aún requieren locks.
 
 ## Variantes
@@ -194,7 +194,7 @@ int main() {
 - **Siempre desbloquea en finally**: un thread que lanza una excepción mientras sostiene un lock nunca lo liberará, deadlockeando otros threads. Usa try/finally (Java), `with` (Python) o RAII (C++ `std::lock_guard`) para asegurar que el unlock ocurre incluso con excepciones.
 - **Evita locks anidados**: adquirir el lock A y luego el lock B, mientras otro thread adquiere B y luego A, crea un deadlock clásico. Si los locks anidados son inevitables, adquírelos siempre en un orden global consistente. Mejor aún, rediseña para evitar anidamiento.
 - **Prefiere read-write locks para datos dominados por lectura**: si el 99% de los accesos son lecturas, un mutex serializa el 99% de las operaciones innecesariamente. Un read-write lock permite lecturas paralelas, mejorando dramáticamente el throughput en caches, configuración y tablas de lookup.
-- **Usa atómicos para contadores simples**: un `AtomicInteger` o `std::atomic<int>` para un contador es más rápido que un mutex y elimina el riesgo de deadlock. No uses atómicos para operaciones compuestas (ej. "chequear balance y retirar") — esas requieren un lock.
+- **Usa atómicos para contadores simples**: un `AtomicInteger` o `std::atomic<int>` para un contador es más rápido que un mutex y elimina el riesgo de deadlock. No uses atómicos para operaciones compuestas — esas requieren un lock. Consulta [Thread Pools](/recipes/concurrency/thread-pools) para gestionar workers concurrentes.
 
 ## Errores comunes
 
@@ -212,7 +212,7 @@ R: Usa `synchronized` para casos simples — es menos propenso a errores (unlock
 R: El GIL previene paralelismo real de threads para trabajo CPU, pero los locks aún son necesarios para thread safety. Dos threads aún pueden intercalar operaciones en datos compartidos entre instrucciones de bytecode. Usa `threading.Lock` para estado mutable compartido.
 
 **P: ¿Qué es lock contention y cómo la reduzco?**
-R: Contención ocurre cuando múltiples threads compiten por el mismo lock. Redúcela: (1) achicando secciones críticas, (2) usando read-write locks, (3) sharding datos (cada shard tiene su propio lock), (4) usando estructuras lock-free, o (5) reduciendo el número de threads.
+R: Contención ocurre cuando múltiples threads compiten por el mismo lock. Redúcela: (1) achicando secciones críticas, (2) usando read-write locks, (3) sharding datos (cada shard tiene su propio lock), (4) usando [estructuras lock-free](/recipes/concurrency/concurrent-data-structures), o (5) reduciendo el número de threads.
 
 **P: ¿Son semáforos y mutexes lo mismo?**
 R: Un mutex es un semáforo binario (count = 1) con semántica de ownership — solo el thread que lo bloqueó puede desbloquearlo. Un semáforo tiene un contador configurable y no tiene ownership. Usa mutex para acceso exclusivo; semáforo para pools de recursos.

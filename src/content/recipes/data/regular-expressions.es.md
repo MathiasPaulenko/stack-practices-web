@@ -41,8 +41,8 @@ A pesar de su sintaxis críptica, regex es indispensable para trabajar con texto
 
 Usa esta recipe cuando:
 
-- Validas direcciones de email, números de teléfono o IDs
-- Extraes datos de texto no estructurado o archivos de log
+- Validas direcciones de email, números de teléfono o IDs. Consulta [Data Validation](/recipes/data/data-validation) para enfoques basados en schemas.
+- Extraes datos de texto no estructurado o [archivos de log](/recipes/api/logging)
 - Reemplazas o formateas strings con reglas complejas
 - Divides texto en delimitadores dinámicos
 - Buscas patrones dentro de documentos grandes
@@ -175,7 +175,7 @@ for line in lines:
 
 ## Mejores prácticas
 
-- **Siempre escapa caracteres especiales** cuando construyas regex dinámicamente
+- **Siempre escapa caracteres especiales** cuando construyas regex dinámicamente. Consulta [Input Validation](/recipes/api/input-validation) para manejo seguro de strings.
 - **Usa raw strings** en Python (`r'...'`) para evitar escapes dobles
 - **Prefiere clases de caracteres explícitas** sobre `.` (dot) para matching predecible
 - **Ancla tus patrones** con `^` y `$` al validar strings completos

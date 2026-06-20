@@ -45,10 +45,10 @@ El Patrón Flyweight es un patrón de diseño estructural que minimiza el uso de
 ## Cuándo Usarlo
 
 Usa el Patrón Flyweight cuando:
-- Tu aplicación usa un gran número de objetos que comparten estado común
-- Los costos de almacenamiento de objetos son altos debido a duplicación masiva
+- Tu aplicación usa un gran número de objetos que comparten estado común. Consulta [Object Pool](/patterns/design/abstract-factory-pattern) para gestión de instancias reutilizables.
+- Los costos de almacenamiento de objetos son altos debido a duplicación masiva. Consulta [Caching Strategies](/recipes/performance/caching-strategies) para reducir duplicación de datos.
 - La mayor parte del estado de un objeto puede hacerse extrínseco (computado o pasado)
-- Necesitas soportar muchos objetos granulares sin agotar la memoria
+- Necesitas soportar muchos objetos granulares sin agotar la memoria. Consulta [Database Indexing](/recipes/performance/database-indexing) para técnicas de optimización de almacenamiento.
 - Ejemplos: caracteres en un documento, baldosas en un mapa de juego, íconos en una UI
 
 ## Solución
@@ -226,10 +226,10 @@ La **Fábrica Flyweight** (`TreeType.get()`) gestiona un cache de instancias fly
 ## Preguntas Frecuentes
 
 **P: ¿Es Flyweight lo mismo que Singleton?**
-R: No. Singleton fuerza exactamente una instancia de una clase. Flyweight crea una instancia por combinación única de estado intrínseco. Un singleton es un caso especial donde todo el estado es compartido.
+R: No. [Singleton](/patterns/design/singleton-pattern) fuerza exactamente una instancia de una clase. Flyweight crea una instancia por combinación única de estado intrínseco. Un singleton es un caso especial donde todo el estado es compartido.
 
 **P: ¿Cuándo no debería usar Flyweight?**
-R: Evítalo cuando los objetos sean pocos, el estado sea mayoritariamente único, o los ahorros de memoria no justifiquen la complejidad añadida. Mide primero, optimiza después.
+R: Evítalo cuando los objetos sean pocos, el estado sea mayoritariamente único, o los ahorros de memoria no justifiquen la complejidad añadida. Para renderizado de texto, consulta [Flyweight para Texto](/patterns/design/flyweight-pattern-text). Mide primero, optimiza después.
 
 **P: ¿Cómo se diferencia Flyweight del Pool de Objetos?**
 R: El Pool de Objetos reutiliza objetos para evitar overhead de asignación. Flyweight comparte objetos para reducir el uso de memoria. Los objetos del pool son típicamente mutables y devueltos al pool; los flyweights se comparten simultáneamente entre contextos.

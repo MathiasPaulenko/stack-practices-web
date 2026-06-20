@@ -31,7 +31,7 @@ seo:
 
 ## Template Structure
 
-Use this template as the foundation for documenting any architecture decision in your project.
+Use this template as the foundation for documenting any architecture decision in your project. Pair it with the [System Diagram Template](/docs/templates/adr-template) to visualize the architecture being decided.
 
 ---
 
@@ -97,7 +97,7 @@ State the architecture decision in a single sentence. Be clear and direct.
 - **One decision per ADR**: Keep scope focused
 - **Write after the decision**: Document decisions once made, not debates
 - **Link related ADRs**: Create a chain of decisions
-- **Store in version control**: Keep ADRs alongside code (`docs/adr/`)
+- **Store in version control**: Keep ADRs alongside code (`docs/adr/`). See [README Template](/docs/templates/readme-template) for project doc organization.
 - **Use sequential numbering**: `0001-use-postgresql.md`, `0002-adopt-graphql.md`
 
 ## Common Mistakes
@@ -111,7 +111,7 @@ State the architecture decision in a single sentence. Be clear and direct.
 
 ### When should I write an ADR?
 
-Write an ADR after a significant architectural decision is made — typically when the decision affects multiple teams, is costly to reverse, or has long-term maintenance implications. Do not write ADRs for trivial choices.
+Write an ADR after a significant architectural decision is made — typically when the decision affects multiple teams, is costly to reverse, or has long-term maintenance implications. For high-impact infrastructure decisions, also document capacity plans using the [Capacity Planning Template](/docs/templates/capacity-planning-template). Do not write ADRs for trivial choices.
 
 ### Who should read ADRs?
 

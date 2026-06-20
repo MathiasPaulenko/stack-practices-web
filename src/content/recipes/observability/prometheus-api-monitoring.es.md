@@ -35,10 +35,10 @@ Prometheus es el estándar de facto para recolección de métricas en entornos c
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Configuras monitoreo para APIs REST o gRPC
-- Definies SLOs y SLIs para microservicios
-- Creas dashboards de Grafana para salud de API
-- Alertas sobre picos de latencia p99 o tasas de error
+- Configuras monitoreo para APIs REST o gRPC. Consulta [Structured Logging](/recipes/observability/structured-logging) para correlacionar logs con métricas.
+- Definies SLOs y SLIs para microservicios. Consulta [Load Testing](/recipes/testing/load-testing) para establecer baselines de rendimiento.
+- Creas dashboards de Grafana para salud de API. Consulta [API Status Page Template](/docs/templates/api-status-page-template) para reporte de estado externo.
+- Alertas sobre picos de latencia p99 o tasas de error. Consulta [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para prevenir fallas en cascada.
 
 ## Solución
 

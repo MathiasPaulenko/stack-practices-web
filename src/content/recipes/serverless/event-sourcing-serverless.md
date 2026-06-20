@@ -37,11 +37,11 @@ Event sourcing stores every state change as an immutable event in an append-only
 
 Use this recipe when:
 
-- Complete audit history of all changes is a business requirement
+- Complete audit history of all changes is a business requirement. See [Event-Driven Functions](/recipes/messaging/event-driven-microservices) for event-driven architectures.
 - You need to answer temporal questions about past states
-- Rebuilding read models from scratch is a needed capability
+- Rebuilding read models from scratch is a needed capability. See [Serverless Orchestration](/recipes/devops/background-jobs) for managing stateful workflows.
 - The write model is complex and the read model needs to be optimized separately
-- Compliance or regulatory requirements mandate immutable change logs
+- Compliance or regulatory requirements mandate immutable change logs. See [CQRS Pattern](/patterns/design/cqrs-pattern) for separating read and write models.
 
 ## Solution
 

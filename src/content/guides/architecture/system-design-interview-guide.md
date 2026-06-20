@@ -169,11 +169,11 @@ In a distributed system, you can only guarantee two of three:
 | Problem | Key Challenges |
 |---------|---------------|
 | **URL Shortener** | Hash collisions, high read volume, analytics |
-| **Twitter Feed** | [Fan-out](/guides/event-driven-architecture-guide) (push vs. pull), timeline generation |
-| **Chat System** | [Real-time delivery](/recipes/real-time-websockets), presence, message ordering |
+| **Twitter Feed** | [Fan-out](/guides/architecture/event-driven-architecture-guide) (push vs. pull), timeline generation |
+| **Chat System** | [Real-time delivery](/recipes/serverless/real-time-websockets), presence, message ordering |
 | **Search Engine** | Indexing, ranking, query parsing |
-| **Video Streaming** | [CDN](/recipes/cdn-edge-caching), adaptive bitrate, encoding |
-| **Rate Limiter** | [Token bucket vs. sliding window](/recipes/rate-limiting), distributed state |
+| **Video Streaming** | [CDN](/recipes/performance/cdn-edge-caching), adaptive bitrate, encoding |
+| **Rate Limiter** | [Token bucket vs. sliding window](/recipes/api/rate-limiting), distributed state |
 
 ## Best Practices
 
@@ -190,7 +190,7 @@ In a distributed system, you can only guarantee two of three:
 - Ignoring non-functional requirements (scale, availability)
 - Proposing technologies without understanding them (e.g., "use Kafka" without knowing why)
 - Not discussing trade-offs (e.g., [SQL vs. NoSQL](/guides/databases/nosql-database-selection-guide))
-- Forgetting [monitoring](/recipes/prometheus-monitoring-alerts), [security](/guides/security-best-practices-guide), and operational concerns
+- Forgetting [monitoring](/recipes/devops/prometheus-monitoring-alerts), [security](/guides/security/security-best-practices-guide), and operational concerns
 - Designing for infinite scale when the requirements don't justify it
 
 ## Frequently Asked Questions

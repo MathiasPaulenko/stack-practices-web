@@ -33,9 +33,9 @@ Playwright component tests allow you to mount, interact with, and assert on Reac
 
 ## When to Use This
 
-- You want to test components in isolation without spinning up the full application
-- Interactions like hover, focus, and keyboard navigation must be validated
-- Visual regressions in individual components need to be caught before deployment
+- You want to test components in isolation without spinning up the full application. See [Jest Snapshot Testing](/recipes/testing/unit-testing) for render output comparisons.
+- Interactions like hover, focus, and keyboard navigation must be validated. See [Unit Testing](/recipes/testing/unit-testing) for testing event handlers in isolation.
+- Visual regressions in individual components need to be caught before deployment. See [Visual Regression Testing](/recipes/testing/e2e-testing) for screenshot-based comparisons.
 
 ## Prerequisites
 

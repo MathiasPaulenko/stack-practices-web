@@ -37,11 +37,11 @@ The observer pattern inverts this relationship. Component A (the subject) mainta
 
 Use this recipe when:
 
-- Multiple components need to react to the same event independently
+- Multiple components need to react to the same event independently. See [CQRS Pattern](/patterns/design/cqrs-pattern) for event-driven architectures.
 - The set of listeners changes at runtime (plugins, widgets, modules)
 - Decoupling the event source from its handlers is architecturally desirable
-- Building real-time UIs, monitoring dashboards, or event-driven backends
-- Implementing reactive streams where data flows push updates to consumers
+- Building real-time UIs, monitoring dashboards, or event-driven backends. See [Logging](/recipes/api/logging) for observability patterns.
+- Implementing reactive streams where data flows push updates to consumers. See [Batch Processing](/recipes/data/batch-processing-patterns) for stream processing.
 
 ## Solution
 
@@ -202,7 +202,7 @@ order_subject.on_next({'id': '124', 'total': 250})
 - **Do not mutate the observer list during notification**: if an observer unsubscribes another observer while handling an event, the iteration list changes mid-flight. Copy the list before iterating, or use a copy-on-write data structure.
 - **Handle exceptions in observers independently**: if one observer throws, it should not prevent others from receiving the event. Wrap each observer call in a try/catch (or Promise.catch) and log the error without stopping the broadcast.
 - **Use typed events**: in TypeScript, define event interfaces (`OrderCreated`, `PaymentProcessed`) rather than generic `string` events. This enables compile-time checking of payload shapes and prevents typo-bugs in event names.
-- **Prefer reactive streams for complex flows**: RxJS and RxPY provide operators (map, filter, merge, debounce) that compose elegantly. For simple one-to-many notification, a basic event emitter suffices. For data pipelines and async coordination, reactive streams are worth the learning curve.
+- **Prefer reactive streams for complex flows**: RxJS and RxPY provide operators (map, filter, merge, debounce) that compose elegantly. See [Redis Cache Patterns](/recipes/databases/redis-cache-patterns) for pub/sub backends. For simple one-to-many notification, a basic event emitter suffices. For data pipelines and async coordination, reactive streams are worth the learning curve.
 
 ## Common mistakes
 

@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-The Mediator Pattern is a behavioral design pattern that defines an object that encapsulates how a set of objects interact. Instead of objects referring to each other directly, they communicate through a central mediator. This reduces the number of direct connections between components and centralizes complex coordination logic.
+The [Mediator](/patterns/design/mediator-pattern-components) Pattern is a behavioral design pattern that defines an object that encapsulates how a set of objects interact. Instead of objects referring to each other directly, they communicate through a central mediator. This reduces the number of direct connections between components and centralizes complex coordination logic.
 
 ## When to Use
 
@@ -238,7 +238,7 @@ Without the mediator, each user would need a reference to every other user. With
 ## Frequently Asked Questions
 
 **Q: Is Mediator the same as Observer?**
-A: Related but different. Observer is a one-to-many dependency where subjects notify observers. Mediator centralizes many-to-many communication. An event bus can serve as both.
+A: Related but different. [Observer](/patterns/design/observer-pattern) is a one-to-many dependency where subjects notify observers. Mediator centralizes many-to-many communication. An event bus can serve as both.
 
 **Q: What is the difference between Mediator and Facade?**
-A: Facade provides a simplified interface to a subsystem. Mediator coordinates communication between peer objects. Facade is about simplifying access; Mediator is about decoupling peers.
+A: [Facade](/patterns/design/adapter-pattern) provides a simplified interface to a subsystem. Mediator coordinates communication between peer objects. Facade is about simplifying access; Mediator is about decoupling peers.

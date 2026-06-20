@@ -38,10 +38,10 @@ Los tests de integración verifican que tu código funciona con dependencias rea
 
 Usa esta receta cuando:
 
-- Verificando que tu servicio se integra correctamente con bases de datos, message queues o APIs externas
-- Capturando desajustes de contrato de API entre microservicios antes del deployment
+- Verificando que tu servicio se integra correctamente con bases de datos, message queues o APIs externas. Consulta [Unit Testing](/recipes/testing/unit-testing) para aislar dependencias con mocks.
+- Capturando desajustes de contrato de API entre microservicios antes del deployment. Consulta [API Contract Testing](/recipes/testing/api-mocking) para contratos consumer-driven.
 - Testeando migraciones de base de datos y compatibilidad de schema
-- Asegurando que configuración y wiring funcionan en un ambiente realista
+- Asegurando que configuración y wiring funcionan en un ambiente realista. Consulta [Docker Basics](/recipes/devops/docker-basics) para entornos de test containerizados.
 - Complementando unit tests con confianza de que los componentes interactúan correctamente
 
 ## Solución

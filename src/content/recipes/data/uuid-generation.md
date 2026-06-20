@@ -42,11 +42,11 @@ Modern systems increasingly prefer UUID v7 or ULID over v4 because they are sort
 
 Use this recipe when:
 
-- Generating primary keys in distributed databases
-- Creating session or API tokens
-- Naming files, images, or uploads to prevent collisions
-- Merging data from multiple sources where IDs must not clash
-- Building systems where clients generate IDs before sending to the server
+- Generating primary keys in distributed databases. See [Connection Pooling](/recipes/databases/database-connection-pooling) for database access patterns.
+- Creating session or API tokens. See [JWT Authentication](/recipes/authentication/jwt-authentication) for secure token handling.
+- Naming files, images, or uploads to prevent collisions. See [File Upload Validation](/recipes/file-handling/file-upload-validation) for secure upload handling.
+- Merging data from multiple sources where IDs must not clash. See [Parse JSON](/recipes/data/parse-json) for structured data merging.
+- Building systems where clients generate IDs before sending to the server. See [Call REST API](/recipes/api/call-rest-api) for client-server communication.
 
 ## Solution
 

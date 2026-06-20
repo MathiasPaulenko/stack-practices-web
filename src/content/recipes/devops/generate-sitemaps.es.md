@@ -36,10 +36,10 @@ Los sitemaps XML informan a los motores de búsqueda qué páginas existen en tu
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Tu sitio tiene miles de páginas que cambian regularmente y un sitemap estático es inmantenible
-- Ejecutas un sitio multi-idioma y necesitas anotaciones `xhtml:link` en sitemaps para hreflang
-- Quieres incluir metadatos `lastmod`, `changefreq` y `priority` derivados de timestamps de contenido
-- Necesitas un archivo de índice de sitemap que referencie múltiples archivos de sitemap paginados para sitios muy grandes
+- Tu sitio tiene miles de páginas que cambian regularmente y un sitemap estático es inmantenible. Consulta [Background Jobs](/recipes/devops/background-jobs) para regeneración programada.
+- Ejecutas un sitio multi-idioma y necesitas anotaciones `xhtml:link` en sitemaps para hreflang. Consulta [Environment Variables](/recipes/devops/environment-variables) para configuración por locale.
+- Quieres incluir metadatos `lastmod`, `changefreq` y `priority` derivados de timestamps de contenido. Consulta [Cron Jobs](/recipes/devops/cron-jobs) para actualizaciones programadas.
+- Necesitas un archivo de índice de sitemap que referencie múltiples archivos de sitemap paginados para sitios muy grandes. Consulta [Compression Gzip](/recipes/file-handling/compression-gzip) para reducir tamaño de transferencia de sitemaps.
 
 ## Solución
 

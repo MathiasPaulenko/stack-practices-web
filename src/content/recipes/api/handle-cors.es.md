@@ -38,7 +38,7 @@ Cross-Origin Resource Sharing (CORS) es un mecanismo de seguridad del navegador 
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Tu frontend (SPA, app móvil, widget de terceros) corre en un origen distinto al de tu API
+- Tu frontend (SPA, app móvil, widget de terceros) corre en un origen distinto al de tu [API](/recipes/api/call-rest-api)
 - Necesites soportar requests cross-origin autenticados con cookies o headers de autorización
 - Estés construyendo una API pública consumida por múltiples dominios externos
 - Estés debuggeando misteriosos errores de navegador "CORS policy" en llamadas a APIs
@@ -195,6 +195,7 @@ public class SecurityConfig {
           .requestMatchers("/api/**").authenticated()
           .anyRequest().permitAll()
         );
+    // Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para patrones de autenticación.
     return http.build();
   }
 }
@@ -232,7 +233,7 @@ public class SecurityConfig {
 2. Reflejar el header `Origin` del request sin validación, permitiendo que cualquier sitio web llame a tu API.
 3. Olvidar manejar el preflight `OPTIONS`, causando errores CORS del navegador en requests PUT/DELETE.
 4. No setear `Vary: Origin`, llevando a cache poisoning de CDN donde la respuesta de un origen se sirve a otro.
-5. Habilitar `allowCredentials` en APIs públicas sin validación de origen, exponiendo endpoints autenticados a sitios maliciosos.
+5. Habilitar `allowCredentials` en APIs públicas sin validación de origen, exponiendo endpoints autenticados a sitios maliciosos. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para validación de origen.
 
 ## Preguntas Frecuentes
 
@@ -246,4 +247,4 @@ No directamente en `Access-Control-Allow-Origin`. El header requiere una coincid
 
 ### ¿Necesito CORS si despliego mi frontend y API en el mismo dominio?
 
-No. CORS solo aplica cuando el origen (scheme + host + port) del frontend difiere del de la API. Si ambos corren en `https://example.com` (o la API está en un subdominio con configuración apropiada), no se necesitan headers CORS. Usar un reverse proxy (nginx) para rutear `/api` a tu backend es una estrategia común de deployment de mismo origen.
+No. CORS solo aplica cuando el origen (scheme + host + port) del frontend difiere del de la API. Si ambos corren en `https://example.com` (o la API está en un subdominio con configuración apropiada), no se necesitan headers CORS. Usar un [reverse proxy](/recipes/api/nginx-reverse-proxy) (nginx) para rutear `/api` a tu backend es una estrategia común de deployment de mismo origen.

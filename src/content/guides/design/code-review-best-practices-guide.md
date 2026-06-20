@@ -107,7 +107,7 @@ Systematic reviews are more thorough:
 | **Functionality** | Does it do what the PR claims? Are edge cases handled? |
 | **Tests** | Are there tests for new logic? Do existing tests still pass? |
 | **Readability** | Are names clear? Is complexity justified? |
-| **Security** | Are inputs validated? Are secrets exposed? | [data validation](/recipes/data-validation-zod) |
+| **Security** | Are inputs validated? Are secrets exposed? | [data validation](/recipes/security/data-validation-zod) |
 | **Performance** | Are there [N+1 queries](/recipes/performance/database-indexing)? Unnecessary allocations? |
 | **Maintainability** | Is there duplicated code? Will this be hard to change? |
 
@@ -179,4 +179,4 @@ A: Focus on what you can evaluate: test coverage, variable naming, obvious logic
 A: Discuss it. If it's a blocking issue and you cannot agree, escalate to the team lead. For suggestions, let the author decide and move on.
 
 **Q: Should I block a PR for missing tests?**
-A: Yes, if the PR adds logic that can be tested. No, if it's a pure refactor with existing coverage, or UI changes that require [E2E tests](/recipes/e2e-testing) owned by another team.
+A: Yes, if the PR adds logic that can be tested. No, if it's a pure refactor with existing coverage, or UI changes that require [E2E tests](/recipes/testing/e2e-testing) owned by another team.

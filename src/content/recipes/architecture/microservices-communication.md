@@ -30,14 +30,14 @@ seo:
 ---
 ## Overview
 
-[Describe what this resource covers and why it matters for developers.]
+Microservices communicate via [REST](/recipes/api/call-rest-api), [gRPC](/recipes/api/grpc-api), messaging, or [event-driven](/recipes/architecture/event-driven-architecture) patterns. Choosing the right pattern determines latency, reliability, and coupling between services.
 
 ## When to Use
 
 Use this resource when:
-- [Scenario 1]
-- [Scenario 2]
-- [Scenario 3]
+- Choosing between synchronous ([REST](/recipes/api/call-rest-api), [gRPC](/recipes/api/grpc-api)) and asynchronous ([messaging](/recipes/messaging/kafka-event-streaming), events) communication
+- Designing resilient communication with [circuit breakers](/recipes/architecture/circuit-breaker-pattern) and [retries](/recipes/architecture/retry-backoff)
+- Coordinating distributed transactions with [sagas](/recipes/architecture/saga-pattern)
 
 ## Solution
 

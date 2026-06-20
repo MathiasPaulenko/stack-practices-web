@@ -162,7 +162,7 @@ class FieldEncryption {
 - **Envelope encryption**: each record is encrypted with a unique data encryption key (DEK). The DEK itself is encrypted by a key encryption key (KEK) managed in a KMS. This means you can rotate the KEK without re-encrypting all data, and you can revoke access to a single record by deleting its DEK.
 - **AES-256-GCM**: the industry standard for authenticated encryption. GCM mode provides confidentiality (encryption) and integrity (authentication tag) in a single operation. Always verify the authentication tag before decrypting to detect tampering.
 - **Key derivation**: instead of storing DEKs separately, derive them deterministically from a master key and record ID using HKDF. This eliminates DEK storage but makes key rotation more complex — changing the master key requires re-encrypting all records.
-- **Cloud KMS integration**: AWS KMS, Azure Key Vault, and GCP KMS provide FIPS 140-2 Level 2+ hardware security modules. For secret management practices, see [secrets management guide](/guides/devops/secrets-management-guide). They handle key generation, rotation, access policies, and audit logging. Never store master keys in application configuration files.
+- **Cloud KMS integration**: AWS KMS, Azure Key Vault, and GCP KMS provide FIPS 140-2 Level 2+ hardware security modules. For secret management practices, see [secrets management guide](/guides/security/security-best-practices-guide). They handle key generation, rotation, access policies, and audit logging. Never store master keys in application configuration files.
 
 ## Variants
 
@@ -191,7 +191,7 @@ class FieldEncryption {
 ## FAQ
 
 **Q: Does encryption at rest protect against SQL injection?**
-A: No. Encryption at rest protects data on disk. SQL injection attacks operate against running databases via query manipulation. Combine encryption with [parameterized queries](/recipes/security/sql-injection-prevention) and [input validation](/recipes/security/input-validation) for defense in depth.
+A: No. Encryption at rest protects data on disk. SQL injection attacks operate against running databases via query manipulation. Combine encryption with [parameterized queries](/recipes/security/sql-injection-prevention) and [input validation](/recipes/api/input-validation) for defense in depth.
 
 **Q: What is the difference between TDE and application encryption?**
 A: Transparent Data Encryption (TDE) encrypts the entire database file at the storage layer. It is fast and invisible to applications but protects only against disk theft. Application encryption protects individual fields, protecting against database-level breaches but requiring application changes.

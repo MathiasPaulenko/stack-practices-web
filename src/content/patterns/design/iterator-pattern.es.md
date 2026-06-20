@@ -39,7 +39,7 @@ seo:
 
 ## Visión General
 
-El Patrón Iterator es un patrón de diseño de comportamiento que proporciona una forma de acceder a los elementos de un objeto agregado secuencialmente sin exponer su representación subyacente. Separa la lógica de recorrido de la colección misma, permitiendo múltiples recorridos simultáneos y diferentes estrategias de recorrido.
+El [Patrón Iterator](/patterns/design/iterator-pattern-collections) es un patrón de diseño de comportamiento que proporciona una forma de acceder a los elementos de un objeto agregado secuencialmente sin exponer su representación subyacente. Separa la lógica de recorrido de la colección misma, permitiendo múltiples recorridos simultáneos y diferentes estrategias de recorrido.
 
 ## Cuándo Usarlo
 
@@ -217,7 +217,7 @@ Los lenguajes modernos integran profundamente los iteradores — los protocolos 
 ## Preguntas Frecuentes
 
 **P: ¿Necesito implementar el Patrón Iterator manualmente?**
-R: Raramente. La mayoría de los lenguajes proporcionan soporte de iterador incorporado. Solo implementa un iterador personalizado cuando necesites un recorrido no estándar (ej. recorrido de árbol, recorrido de grafo, o iteración filtrada).
+R: Raramente. La mayoría de los lenguajes proporcionan soporte de iterador incorporado. Solo implementa un iterador personalizado cuando necesites un recorrido no estándar (ej. [recorrido de árbol](/patterns/design/iterator-pattern-collections), recorrido de grafo, o iteración filtrada).
 
 **P: ¿Cuál es la diferencia entre Iterator y Visitor?**
-R: Iterator recorre elementos. Visitor realiza operaciones sobre elementos. A menudo se usan juntos: un iterador camina la estructura, y un visitor procesa cada elemento.
+R: Iterator recorre elementos. [Visitor](/patterns/design/visitor-pattern) realiza operaciones sobre elementos. A menudo se usan juntos: un iterador camina la estructura, y un visitor procesa cada elemento.

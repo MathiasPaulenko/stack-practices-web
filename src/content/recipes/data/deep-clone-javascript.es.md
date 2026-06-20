@@ -37,8 +37,8 @@ El deep cloning crea una copia completamente independiente de un objeto donde ob
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Necesites mutar una copia de estado anidado sin afectar el original (Redux, manejo de formularios)
-- Serialices objetos para `postMessage`, IndexedDB o Web Workers
+- Necesites mutar una copia de estado anidado sin afectar el original (Redux, manejo de formularios). Consulta [Caching](/recipes/data/caching) para patrones de memoización.
+- Serialices objetos para `postMessage`, IndexedDB o Web Workers. Consulta [Parse JSON](/recipes/data/parse-json) para serialización.
 - Implementes stacks de undo/redo que requieren snapshots inmutables
 - Hagas copias defensivas de argumentos de funciones o respuestas de API antes de transformarlas
 
@@ -269,8 +269,8 @@ Person cloned = DeepCopyUtil.deepCopy(original);
 1. **Prefiere `structuredClone` para entornos modernos** — es nativo, rápido, maneja referencias circulares y soporta Maps, Sets y typed arrays. No requiere dependencia.
 2. **Usa Lodash cuando soportes navegadores antiguos** — si targeteas IE11 o Node < 17, `structuredClone` no está disponible y Lodash provee comportamiento consistente.
 3. **Nunca uses `JSON.parse/stringify` para objetos complejos** — funciona para objetos de configuración simples, pero corrompe silenciosamente Dates, funciones, `undefined`, Maps, Sets y referencias circulares.
-4. **Clona defensivamente en límites de API** — cuando recibes objetos de APIs externas o pasas estado a componentes hijos, clona antes de mutar para prevenir efectos secundarios accidentales.
-5. **Considera sharing estructural para árboles grandes** — para estructuras de datos inmutables muy grandes, librerías como Immer o Immutable.js usan sharing estructural para evitar costos de copia O(n) en cada actualización.
+4. **Clona defensivamente en límites de API** — cuando recibes objetos de [APIs externas](/recipes/api/call-rest-api) o pasas estado a componentes hijos, clona antes de mutar para prevenir efectos secundarios accidentales.
+5. **Considera sharing estructural para árboles grandes** — para estructuras de datos inmutables muy grandes, librerías como Immer usan sharing estructural para evitar costos de copia O(n) en cada actualización. Consulta [Flatten/Unflatten Objects](/recipes/data/flatten-unflatten-objects) para manipulación de datos anidados.
 
 ## Errores Comunes
 

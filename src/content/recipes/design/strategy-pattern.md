@@ -38,10 +38,10 @@ The strategy pattern separates the algorithms from the context that uses them. E
 
 Use this recipe when:
 
-- Multiple algorithms or behaviors exist for the same task and only one is used at a time
-- The algorithm must be selected at runtime based on configuration or user input
+- Multiple algorithms or behaviors exist for the same task and only one is used at a time. See [Factory Pattern](/recipes/design/factory-pattern) for creating algorithms.
+- The algorithm must be selected at runtime based on configuration or user input. See [Input Validation](/recipes/api/input-validation) for safe configuration.
 - You want to isolate algorithm complexity from the main business logic
-- Adding new variants should not require modifying existing code
+- Adding new variants should not require modifying existing code. See [Adapter Pattern](/recipes/design/adapter-pattern) for extending interfaces.
 - Algorithm-specific state or configuration needs encapsulation separate from the context
 
 ## Solution
@@ -227,7 +227,7 @@ total = checkout.get_total(order)
 ## FAQ
 
 **Q: Is the strategy pattern the same as the command pattern?**
-A: No. Strategy encapsulates interchangeable algorithms used by a context. Command encapsulates a request as an object, enabling queuing, logging, and undo. A strategy is about "how to do it"; a command is about "do it later." You can combine them — a command object that holds a strategy.
+A: No. Strategy encapsulates interchangeable algorithms used by a context. Command encapsulates a request as an object, enabling queuing, logging, and undo. See [Batch Processing](/recipes/data/batch-processing-patterns) for command queues. A strategy is about "how to do it"; a command is about "do it later." You can combine them — a command object that holds a strategy.
 
 **Q: When should I use a function instead of a class for a strategy?**
 A: Use a function when the strategy is stateless and simple (e.g., a tax calculation). Use a class when the strategy needs configuration at construction time, maintains internal state between calls, or has multiple related methods.

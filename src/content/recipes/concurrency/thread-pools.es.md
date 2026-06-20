@@ -38,8 +38,8 @@ Usa esta receta cuando:
 
 - Procesando un alto volumen de tareas independientes concurrentemente
 - Ejecutando computaciones CPU-bound (procesamiento de imágenes, transformación de datos, inferencia ML)
-- Ejecutando operaciones I/O-bound donde los threads pasan tiempo esperando (llamadas API, lecturas de archivo)
-- Limitando uso de recursos para prevenir agotamiento de threads o presión de memoria
+- Ejecutando operaciones I/O-bound donde los threads pasan tiempo esperando (llamadas API, lecturas de archivo). Consulta [Async Patterns](/recipes/concurrency/async-patterns) para alternativas no bloqueantes.
+- Limitando uso de recursos para prevenir agotamiento de threads o presión de memoria. Consulta [Locks y Mutexes](/recipes/concurrency/locks-and-mutexes) para coordinar acceso compartido.
 - Construyendo colas de trabajo donde las tareas deben ejecutarse asíncronamente del submitter
 
 ## Solución
@@ -172,10 +172,10 @@ ThreadPool.SetMaxThreads(8, 8);
 
 ## Mejores prácticas
 
-- **Dimensiona pools CPU al número de cores**: para trabajo CPU-bound, usa `Runtime.getRuntime().availableProcessors()` o `os.cpu_count()`. Threads adicionales solo compiten por cores, causando context switches sin ganancias de throughput.
+- **Dimensiona pools CPU al número de cores**: para trabajo CPU-bound, usa `Runtime.getRuntime().availableProcessors()` o `os.cpu_count()`. Threads adicionales solo compiten por cores, causando context switches sin ganancias de throughput. Consulta [Load Balancing](/recipes/architecture/load-balancing) para distribuir trabajo entre cores.
 - **Dimensiona pools I/O más alto que core count**: para trabajo I/O-bound, los threads se bloquean en red/disco. Un thread esperando una respuesta no usa un core. Usa 2x-4x core count para pools I/O, dependiendo de latencia. Mide para encontrar el punto óptimo.
 - **Siempre shutdown gracefulmente**: un executor no terminado filtra threads y previene salida del proceso JVM/Python. Llama `shutdown()`, espera terminación, luego `shutdownNow()` si es necesario. Usa try-with-resources en Python (`with ThreadPoolExecutor`).
-- **Usa colas acotadas con políticas de rechazo**: las colas ilimitadas ocultan backpressure. Un sistema que acepta tareas infinitas eventualmente se cae. Usa colas acotadas y maneja rechazo sheddando carga (retorna 503) o ralentizando al submitter.
+- **Usa colas acotadas con políticas de rechazo**: las colas ilimitadas ocultan backpressure. Un sistema que acepta tareas infinitas eventualmente se cae. Usa colas acotadas y maneja rechazo sheddando carga o ralentizando al submitter. Consulta [Rate Limiting](/recipes/api/rate-limiting) para gestionar sobrecarga.
 - **Nombra tus threads**: debuggear un thread dump de 50 threads sin nombre es imposible. Usa thread factories custom para nombrar threads (`worker-1`, `worker-2`). Esto hace profiling, logging y debugging triviales.
 
 ## Errores comunes
@@ -188,7 +188,7 @@ ThreadPool.SetMaxThreads(8, 8);
 ## Preguntas frecuentes
 
 **P: ¿Cuántos threads debería tener mi pool?**
-R: Para tareas CPU-bound: igual al número de cores. Para tareas I/O-bound: `cores * (1 + wait_time / compute_time)`. Si una tarea pasa 50ms computando y 450ms esperando, usa `cores * 10`. Mide y ajusta basado en throughput y latencia.
+R: Para tareas CPU-bound: igual al número de cores. Para tareas I/O-bound: `cores * (1 + wait_time / compute_time)`. Si una tarea pasa 50ms computando y 450ms esperando, usa `cores * 10`. Mide y ajusta basado en throughput y latencia. Consulta [Estructuras de Datos Concurrentes](/recipes/concurrency/concurrent-data-structures) para coordinación de estado compartido.
 
 **P: ¿Cuál es la diferencia entre un thread pool y un coroutine pool?**
 R: Los thread pools usan OS threads — costosos pero verdaderamente paralelos. Los coroutine pools (asyncio, Goroutines) usan threads ligeros de user-space — baratos pero limitados por el GIL en Python. Usa threads para paralelismo CPU e I/O bloqueante. Usa coroutines para I/O de alta concurrencia con bajo overhead por tarea.

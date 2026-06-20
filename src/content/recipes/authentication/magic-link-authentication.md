@@ -39,7 +39,7 @@ Use this recipe when:
 - Reducing friction in user onboarding and login flows
 - Building applications where users log in infrequently (weekly or monthly)
 - Serving users who struggle with password managers or complex requirements
-- Complementing social login (Google, GitHub) with an email-based alternative
+- Complementing [social login](/recipes/authentication/oauth2-login) (Google, GitHub) with an email-based alternative
 - Creating internal tools or B2B products where email is the primary identity
 
 ## Solution
@@ -111,7 +111,7 @@ def verify_magic_link(token: str) -> dict:
     )
     db.commit()
 
-    # Create user session or JWT
+    # Create user [session](/recipes/authentication/session-management) or [JWT](/recipes/authentication/jwt-authentication)
     user = get_or_create_user(email)
     session = create_session(user.id)
 
@@ -171,13 +171,13 @@ async function sendMagicLink(email, magicLink) {
 - **Include plain text fallback**: always provide a plain-text version of the magic link alongside HTML. Some email clients disable HTML or render it poorly. The link must be clickable or copyable in text form.
 - **Invalidate on new request**: if a user requests a second magic link before using the first, invalidate the previous token. This prevents confusion from multiple valid links and limits the attack surface.
 - **Log suspicious patterns**: alert when multiple magic link requests target different emails from the same IP address, or when a single email receives dozens of requests in a short window. Both may indicate enumeration attacks.
-- **Combine with device trust**: for additional security, require email verification on new devices or browsers. Store a device fingerprint cookie after first successful login and prompt for re-verification on unrecognized devices.
+- **Combine with [device trust](/recipes/authentication/two-factor-authentication)**: for additional security, require email verification on new devices or browsers. Store a device fingerprint cookie after first successful login and prompt for re-verification on unrecognized devices.
 
 ## Common mistakes
 
 - **Allowing token reuse**: a magic link that can be clicked twice is as dangerous as a reusable password. Always mark tokens as consumed on first use and reject subsequent attempts with the same hash.
 - **Sending tokens in URL parameters on HTTP**: magic links must use `https://` exclusively. A token sent over HTTP is exposed to network sniffers, DNS poisoning, and man-in-the-middle attacks.
-- **Not rate-limiting link requests**: without rate limiting, an attacker can flood a victim's inbox with thousands of login emails, constituting harassment and potentially masking a real attack. Limit to 3-5 requests per email per hour.
+- **Not [rate-limiting](/recipes/api/rate-limiting) link requests**: without rate limiting, an attacker can flood a victim's inbox with thousands of login emails, constituting harassment and potentially masking a real attack. Limit to 3-5 requests per email per hour.
 - **Storing raw tokens in logs**: never log the full magic link URL. Log only the email address, timestamp, and a success/failure flag. If logs leak, raw tokens grant immediate access.
 
 ## FAQ
@@ -186,7 +186,7 @@ async function sendMagicLink(email, magicLink) {
 A: They have different threat models. Magic links rely on email security; passwords rely on user memory and hashing. For most consumer applications, magic links are as secure or more secure than weak user-chosen passwords, and they eliminate credential stuffing attacks entirely.
 
 **Q: What happens if a user's email is compromised?**
-A: The attacker can log in by intercepting magic links. This is equivalent to a password reset flow compromise. Mitigate with device trust, suspicious login alerts, and optional MFA for sensitive actions after login.
+A: The attacker can log in by intercepting magic links. This is equivalent to a password reset flow compromise. Mitigate with device trust, suspicious login alerts, and optional MFA for sensitive actions after login. See [Session Management](/recipes/authentication/session-management) for additional security layers.
 
 **Q: Can I use magic links for mobile apps?**
 A: Yes, using deep links or universal links. The magic link opens the app directly via a registered URL scheme (`yourapp://auth/verify?token=...`). Ensure the app validates the token server-side, not just in the client.

@@ -40,7 +40,7 @@ Use this recipe when:
 - Debugging inconsistent or hallucinated model outputs
 - Designing [chatbots](/recipes/ai/chatbot-openai), copilots, or [AI-powered assistants](/recipes/ai/ai-agents)
 - Implementing automated content moderation, summarization, or translation pipelines
-- Evaluating prompt versions with [A/B testing](/recipes/testing/load-testing-k6) frameworks
+- Evaluating prompt versions with [A/B testing](/recipes/performance/load-testing-k6) frameworks
 
 ## Solution
 

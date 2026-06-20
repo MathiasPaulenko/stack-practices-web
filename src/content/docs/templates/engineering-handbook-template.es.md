@@ -32,11 +32,11 @@ seo:
 
 ## Mejores Prácticas
 
-- **Trata el manual como código** — Control de versiones, PR reviews y checks de CI lo mantienen preciso
+- **Trata el manual como código** — Control de versiones, PR reviews y checks de CI lo mantienen preciso. Consulta la [Plantilla de Guía de Onboarding](/docs/templates/onboarding-guide-template) para integración de nuevos.
 - **Revisa trimestralmente** — Los manuales obsoletos confunden a los nuevos y erosionan la confianza
 - **Mantenlo buscable** — Usa una estructura plana con headings claros; evita anidamiento profundo
 - **Hazlo acogedor** — Los nuevos deberían sentirse guiados, no policiados
-- **Enlaza, no dupliques** — Referencia documentos externos en vez de copiar contenido que cambia
+- **Enlaza, no dupliques** — Referencia documentos externos en vez de copiar contenido que cambia. Usa la [Plantilla de ADR](/docs/templates/adr-template) para decisiones de arquitectura y el [Código de Conducta](/docs/templates/code-of-conduct-template) para estándares de comunidad.
 
 ## Errores Comunes
 
@@ -50,7 +50,7 @@ seo:
 
 ### ¿Qué tan largo debería ser un manual de equipo?
 
-Comienza con 5-10 páginas cubriendo lo esencial (estándares, flujo, onboarding, ops). Expande basado en preguntas recurrentes. Si una pregunta se hace más de dos veces, pertenece al manual.
+Comienza con 5-10 páginas cubriendo lo esencial (estándares, flujo, [onboarding](/docs/templates/onboarding-guide-template), ops). Expande basado en preguntas recurrentes. Si una pregunta se hace más de dos veces, pertenece al manual.
 
 ### ¿Cada equipo debería tener su propio manual?
 

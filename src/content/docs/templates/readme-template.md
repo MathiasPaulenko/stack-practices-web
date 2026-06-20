@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-A README is the front door of your project. It is the first thing developers see on GitHub, npm, PyPI, or Docker Hub. A well-structured README reduces onboarding friction, answers common questions, and sets expectations for contributors.
+A README is the front door of your project. Pair it with the [Contributing Guide](/docs/templates/contributing-guide) and [Code of Conduct](/docs/templates/code-of-conduct-template) for community standards. It is the first thing developers see on GitHub, npm, PyPI, or Docker Hub. A well-structured README reduces onboarding friction, answers common questions, and sets expectations for contributors.
 
 This template provides a battle-tested structure you can copy, adapt, and ship in minutes.
 
@@ -132,7 +132,7 @@ Each section serves a specific purpose:
 - **Installation**: Lower the barrier to first success; include copy-paste commands
 - **Usage**: Show a minimal working example before explaining edge cases
 - **API Reference**: Link to detailed docs; keep the README scannable
-- **Contributing**: Set expectations for PRs, issues, and code style
+- **Contributing**: Set expectations for PRs, issues, and code style. Link to [Contributing Guide](/docs/templates/contributing-guide) for details.
 - **License**: Protects both authors and users legally
 
 ## Variants
@@ -142,7 +142,7 @@ Each section serves a specific purpose:
 | **Library / SDK** | API Reference, Changelog | Screenshots |
 | **CLI Tool** | Commands, Flags, Config | Architecture |
 | **Web App** | Screenshots, Demo link, Deploy | API Reference |
-| **Internal Tool** | Onboarding, Internal Slack channel | License, Contributing |
+| **Internal Tool** | [Onboarding](/docs/templates/onboarding-guide-template), Internal Slack channel | License, Contributing |
 
 ## Best Practices
 
@@ -151,7 +151,7 @@ Each section serves a specific purpose:
 - **Link, don't inline** — detailed docs belong in `/docs`, not the README
 - **Update the TOC** — stale TOCs frustrate readers; use `doctoc` or auto-generate
 - **Add a troubleshooting section** — collect the top 3 issues from your issue tracker
-- **Include a changelog link** — users need to know what changed between versions
+- **Include a changelog link** — users need to know what changed between versions. Use [Changelog Template](/docs/templates/changelog-template) for structure.
 
 ## Common Mistakes
 

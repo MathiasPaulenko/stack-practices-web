@@ -149,7 +149,7 @@ jobs:
 
 - **Use `data-testid` selectors**: avoid selecting by CSS class or DOM position. Classes change during refactors; `data-testid` attributes are stable contracts between frontend and test suite.
 - **Test user journeys, not implementation details**: a good E2E test reads like a user story — "the user logs in, adds a product to cart, and checks out." It does not assert internal Redux state or API response payloads.
-- **Run E2E in CI on every PR**: E2E tests are slow, but running them on [pull requests](/guides/cicd-pipeline-guide) catches regressions before they reach staging. Use sharding (parallel workers) to keep total runtime under 10 minutes.
+- **Run E2E in CI on every PR**: E2E tests are slow, but running them on [pull requests](/guides/devops/cicd-pipeline-guide) catches regressions before they reach staging. Use sharding (parallel workers) to keep total runtime under 10 minutes.
 - **Mock external dependencies**: third-party payment processors, email services, and analytics should be stubbed or intercepted. Tests that depend on real external services are slow and unreliable.
 - **Retry failed tests cautiously**: most frameworks support automatic retries. Use them sparingly — retries mask real flakiness. Fix the root cause instead of retrying indefinitely.
 

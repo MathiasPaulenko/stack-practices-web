@@ -40,8 +40,8 @@ Usa esta receta cuando:
 
 - Construyes aplicaciones web tradicionales server-rendered con funcionalidad de login
 - Implementas dashboards de admin, carritos de e-commerce o portales de usuario
-- Eliges entre sesiones stateful y autenticación JWT stateless
-- Protegiendo contra session fixation, hijacking y ataques CSRF
+- Eliges entre sesiones stateful y autenticación [JWT](/recipes/authentication/jwt-authentication) stateless
+- Protegiendo contra session fixation, hijacking y ataques CSRF. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para prácticas de seguridad comprehensivas.
 - Configurando stores de sesión (Redis, PostgreSQL, memoria) para aplicaciones de producción
 
 ## Solución
@@ -116,7 +116,7 @@ def login_view(request):
 | Sesiones en memoria | RAM del servidor | Pobre (servidor único) | Desarrollo, prototipos |
 | Sesiones Redis | Redis | Excelente | Aplicaciones web de producción |
 | Sesiones en base de datos | PostgreSQL/MySQL | Buena | Cuando Redis no está disponible |
-| JWT cliente | Browser storage | Excelente | SPAs, APIs móviles |
+| [JWT cliente](/recipes/authentication/jwt-authentication) | Browser storage | Excelente | SPAs, APIs móviles |
 
 ## Mejores prácticas
 
@@ -136,7 +136,7 @@ def login_view(request):
 ## Preguntas frecuentes
 
 **P: ¿Debería usar sesiones o JWT para autenticación?**
-R: Usa sesiones server-side para aplicaciones web tradicionales donde necesitas revocación instantánea. Usa JWT para APIs stateless y SPAs donde quieres evitar lookups de base de datos en cada request.
+R: Usa sesiones server-side para aplicaciones web tradicionales donde necesitas revocación instantánea. Usa [JWT](/recipes/authentication/jwt-authentication) para APIs stateless y SPAs donde quieres evitar lookups de base de datos en cada request.
 
 **P: ¿Cómo manejo sesiones entre múltiples servidores?**
 R: Usa un store de sesión compartido como Redis o una base de datos. Cada servidor lee y escribe datos de sesión desde el store central en lugar de memoria local.
@@ -144,6 +144,6 @@ R: Usa un store de sesión compartido como Redis o una base de datos. Cada servi
 **P: ¿Cuál es la diferencia entre session fixation y session hijacking?**
 R: Session fixation fuerza a la víctima a usar un ID de sesión conocido por el atacante. Session hijacking roba un ID de sesión legítimo existente. Ambos se mitigan con flags de cookies seguros y expiración corta.
 
-**P: ¿Puedo almacenar JWTs en localStorage en lugar de cookies?**
+**P: ¿Puedo almacenar [JWTs](/recipes/authentication/jwt-authentication) en localStorage en lugar de cookies?**
 R: Puedes, pero localStorage es accesible para JavaScript y vulnerable al robo por XSS. Las cookies HTTP-only son la opción más segura para aplicaciones web.
 

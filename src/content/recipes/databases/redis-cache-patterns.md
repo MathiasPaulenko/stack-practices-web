@@ -35,8 +35,8 @@ Redis is an in-memory data structure store that serves as an extremely fast cach
 
 ## When to Use This
 
-- Database queries are slow and return frequently accessed data
-- You need to reduce load on primary databases during traffic spikes
+- Database queries are slow and return frequently accessed data. See [Query Optimization](/recipes/databases/postgres-query-optimization) for tuning slow queries.
+- You need to reduce load on primary databases during traffic spikes. See [Rate Limiting](/recipes/api/rate-limiting) for traffic control.
 - Temporary data staleness is acceptable in exchange for lower latency
 
 ## Prerequisites
@@ -94,7 +94,7 @@ class WriteThroughProductRepository {
   async updateProduct(id: string, data: Partial<Product>): Promise<void> {
     const cacheKey = `product:${id}`;
 
-    // Start database transaction
+    // Start database transaction. See [Database Transactions](/recipes/databases/database-transactions) for ACID patterns.
     await this.db.query('BEGIN');
     try {
       await this.db.query('UPDATE products SET ... WHERE id = $1', [id]);
@@ -130,7 +130,7 @@ class WriteBehindProductRepository {
   }
 }
 
-// Background worker
+// Background worker. See [Batch Processing](/recipes/data/batch-processing-patterns) for job patterns.
 async function flushPendingWrites() {
   const batch = await redis.lpop('pending_writes', 100);
   if (!batch) return;
@@ -195,7 +195,7 @@ class StampedeProtectedCache {
 ## Production Considerations
 
 - Use **Redis Cluster** or **Redis Sentinel** for high availability
-- Implement **circuit breaker** logic when Redis is unavailable; fall back to database
+- Implement **[circuit breaker](/patterns/design/circuit-breaker-pattern)** logic when Redis is unavailable; fall back to database
 - Set appropriate **TTL values** based on data change frequency
 - Monitor **cache hit ratio** with `INFO stats` and adjust TTL accordingly
 

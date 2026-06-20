@@ -35,8 +35,8 @@ Nginx is a high-performance web server that excels as a reverse proxy and API ga
 ## When to Use This
 
 - You need to expose multiple backend services through a single entry point
-- SSL/TLS termination should happen at the edge, not in application code
-- You want to add rate limiting, caching, or request rewriting without modifying backends
+- SSL/TLS termination should happen at the edge, not in application code. See [Security Guide](/guides/security/security-best-practices-guide) for TLS best practices.
+- You want to add [rate limiting](/recipes/api/api-rate-limiting-redis), caching, or request rewriting without modifying backends
 
 ## Prerequisites
 
@@ -180,7 +180,7 @@ server {
 - Enable **HTTP/2** on the frontend for multiplexed connections
 - Use **keepalive** connections to backends to reduce TCP overhead
 - Implement **sticky sessions** only when necessary; prefer stateless design
-- Monitor **upstream health** with active checks or passive failure detection
+- Monitor **upstream health** with active checks or passive failure detection. See [API Logging and Audit](/recipes/api/api-logging-audit) for health check logging.
 
 ## Common Mistakes
 

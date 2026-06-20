@@ -38,10 +38,10 @@ La implementación ingenua — un campo estático inicializado al cargar la clas
 
 Usa esta receta cuando:
 
-- Una clase gestiona un recurso que debe ser único dentro de la aplicación (pool de conexiones, cache, config)
-- Múltiples instancias causarían conflictos o agotamiento de recursos
+- Una clase gestiona un recurso que debe ser único dentro de la aplicación (pool de conexiones, cache, config). Consulta [Factory Pattern](/recipes/design/factory-pattern) para patrones de creación.
+- Múltiples instancias causarían conflictos o agotamiento de recursos. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para recursos compartidos.
 - Necesitas inicialización perezosa para evitar setup costoso durante el arranque
-- El singleton es stateless o read-only después de la inicialización (evita estado global mutable)
+- El singleton es stateless o read-only después de la inicialización (evita estado global mutable). Consulta [Locks y Mutexes](/recipes/concurrency/locks-and-mutexes) para acceso thread-safe.
 
 ## Solución
 
@@ -175,7 +175,7 @@ public class OrderService {
 ## Mejores prácticas
 
 - **Prefiere DI sobre singletons manuales**: un container de inyección de dependencias gestiona singletons declarativamente. Configuras `services.AddSingleton<IConfig, AppConfig>()` y el container maneja creación, cacheo y disposición. Las dependencias son explícitas y el testing es trivial.
-- **Haz singletons stateless o inmutables**: un singleton mutable es estado global, y el estado global es el enemigo del testing y la concurrencia. Si el singleton debe mantener estado, hazlo thread-safe (usa locks u operaciones atómicas) y documenta las garantías de thread-safety.
+- **Haz singletons stateless o inmutables**: un singleton mutable es estado global, y el estado global es el enemigo del testing y la concurrencia. Consulta [Prevención de Race Conditions](/recipes/data/race-condition-prevention) para seguridad concurrente. Si el singleton debe mantener estado, hazlo thread-safe (usa locks u operaciones atómicas) y documenta las garantías de thread-safety.
 - **Evita singletons para lógica de negocio**: un `UserService` no debería ser singleton. Las reglas de negocio cambian por request (usuarios distintos, contextos distintos). Reserva singletons para infraestructura: pools de conexiones, caches, loggers, lectores de configuración.
 - **Implementa IDisposable / Closeable**: un singleton frecuentemente mantiene recursos (conexiones, threads, file handles). Implementa métodos de limpieza y llámalos durante el shutdown de la aplicación. En Spring o ASP.NET, registra hooks de disposición con el container.
 - **Documenta thread-safety**: si el singleton no es thread-safe, documentalo claramente. Los consumidores deben sincronizar externamente. Si es thread-safe, documenta qué operaciones son atómicas y cuáles no.

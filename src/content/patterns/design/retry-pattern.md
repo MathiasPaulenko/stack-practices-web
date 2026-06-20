@@ -49,7 +49,7 @@ Use the Retry Pattern when:
 - The operation is idempotent or can be safely repeated
 - You want to improve perceived reliability without user intervention
 - You need configurable backoff to avoid thundering herd problems
-- Combine with Circuit Breaker to avoid retrying when a service is clearly down
+- Combine with [Circuit Breaker](/patterns/design/circuit-breaker-pattern) to avoid retrying when a service is clearly down
 
 ## Solution
 
@@ -187,7 +187,7 @@ The Retry Pattern has three configurable dimensions:
 | **Fixed Delay** | Constant wait between retries | Predictable load on target |
 | **Exponential Backoff** | Delay doubles each retry | Avoids overwhelming recovering services |
 | **Jitter** | Adds randomness to backoff | Prevents thundering herd after recovery |
-| **Circuit Breaker + Retry** | Skip retries when breaker is open | Prevents wasted retry attempts |
+| **[Circuit Breaker](/patterns/design/circuit-breaker-pattern) + Retry** | Skip retries when breaker is open | Prevents wasted retry attempts |
 
 ## Best Practices
 
@@ -208,7 +208,7 @@ The Retry Pattern has three configurable dimensions:
 ## Frequently Asked Questions
 
 **Q: What is the difference between Retry and Circuit Breaker?**
-A: Retry handles individual transient failures. Circuit Breaker prevents cascading failures by stopping requests to a failing service. They work best together: Retry handles temporary blips, Circuit Breaker handles prolonged outages.
+A: Retry handles individual transient failures. [Circuit Breaker](/patterns/design/circuit-breaker-pattern) prevents cascading failures by stopping requests to a failing service. They work best together: Retry handles temporary blips, Circuit Breaker handles prolonged outages.
 
 **Q: Should I retry 500 Internal Server Errors?**
 A: It depends. 500 may indicate a transient server issue worth retrying, but 502/503/504 are more clearly transient. Never retry 4xx client errors (400, 401, 403, 404) without fixing the request first.

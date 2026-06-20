@@ -42,7 +42,7 @@ seo:
 
 The Command Pattern is a behavioral design pattern that turns a request into a stand-alone object containing all information about the request. This lets you parameterize methods with different requests, delay or queue execution, and support undoable operations.
 
-It is the basis for undo/redo systems, job queues, macro recording, and transactional operations.
+It is the basis for [undo/redo](/patterns/design/command-pattern-undo) systems, job queues, macro recording, and transactional operations.
 
 ## When to Use
 
@@ -200,10 +200,10 @@ By encapsulating requests as objects, you gain the ability to queue, log, and re
 ## Frequently Asked Questions
 
 **Q: What is the difference between Command and Strategy?**
-A: Strategy encapsulates interchangeable algorithms. Command encapsulates a request to perform an action, often with support for undo, queuing, and logging.
+A: [Strategy](/patterns/design/strategy-pattern) encapsulates interchangeable algorithms. Command encapsulates a request to perform an action, often with support for undo, queuing, and logging.
 
 **Q: Can Command be used without undo?**
 A: Yes. The undo capability is optional. Many systems use Command solely for queuing and decoupling invokers from receivers.
 
 **Q: How do I implement multi-level undo?**
-A: Maintain a stack of executed commands. Undo pops the stack and calls `undo()`. Redo pushes the command back and calls `execute()`.
+A: Maintain a stack of executed commands. Undo pops the stack and calls `undo()`. See [Command with Undo/Redo](/patterns/design/command-pattern-undo) for a full implementation. Redo pushes the command back and calls `execute()`.

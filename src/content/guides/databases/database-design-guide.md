@@ -205,7 +205,7 @@ CREATE TABLE products (
 
 - Skipping normalization for "performance" without evidence. See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide).
 - Using `ENUM` for values that change frequently
-- Missing `ON DELETE` / `ON UPDATE` rules on foreign keys. See [data validation](/recipes/data-validation-zod) principles.
+- Missing `ON DELETE` / `ON UPDATE` rules on foreign keys. See [data validation](/recipes/security/data-validation-zod) principles.
 - Storing derived/calculated data instead of computing on read
 
 ## Frequently Asked Questions

@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-A postmortem is a written record of an incident, its impact, the actions taken to mitigate or resolve it, and the follow-up actions to prevent recurrence. It follows a blameless culture approach.
+A postmortem is a written record of an incident, its impact, the actions taken to mitigate or resolve it, and the follow-up actions to prevent recurrence. See [On-Call Incident Response Guide](/guides/devops/on-call-incident-response-guide) for response procedures. It follows a blameless culture approach.
 
 ## When to Use
 
@@ -85,8 +85,8 @@ A postmortem is a written record of an incident, its impact, the actions taken t
 ## Lessons Learned
 
 ### What Went Well
-- Monitoring detected the issue within 5 minutes
-- Runbook was up-to-date and effective
+- Monitoring detected the issue within 5 minutes. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for setup.
+- Runbook was up-to-date and effective. See [Runbook Template](/docs/templates/runbook-template) for structure.
 
 ### What Went Wrong
 - Connection leak was not caught in staging
@@ -114,7 +114,7 @@ A postmortem is a written record of an incident, its impact, the actions taken t
 
 - **Blameless**: Focus on system and process failures, not individuals
 - **Specific**: Include exact times, metrics, and affected systems
-- **Actionable**: Every postmortem must have follow-up action items
+- **Actionable**: Every postmortem must have follow-up action items. Use [Security Incident Response Template](/docs/templates/security-incident-response-template) for security-related incidents.
 - **Timely**: Publish within 48 hours of incident resolution
 - **Shared**: Distribute to all stakeholders and store centrally
 

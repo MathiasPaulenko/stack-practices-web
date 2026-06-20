@@ -37,7 +37,7 @@ Server-Sent Events (SSE) provee un canal liviano unidireccional para push de act
 
 - Dashboards en vivo, feeds de actividad o streams de notificacion necesitan actualizaciones iniciadas por el servidor
 - Quieres push en tiempo real sin la complejidad de WebSockets bidireccionales
-- La infraestructura HTTP existente (cache, auth, LB) debe reutilizarse
+- La infraestructura HTTP existente (cache, auth, [LB](/recipes/api/nginx-reverse-proxy)) debe reutilizarse
 
 ## Solucion
 
@@ -215,7 +215,7 @@ class SafeSSEManager extends SSEManager {
 ## FAQ
 
 **P: SSE vs WebSockets: cual elegir?**
-R: Usa SSE para push de servidor a cliente sobre HTTP. Usa WebSockets cuando necesites comunicacion verdaderamente bidireccional o datos binarios.
+R: Usa SSE para push de servidor a cliente sobre HTTP. Usa [WebSockets](/recipes/api/websocket-server) cuando necesites comunicacion verdaderamente bidireccional o datos binarios.
 
 **P: Cuantas conexiones SSE concurrentes puede manejar un servidor Node.js?**
-R: Miles por proceso, limitado por memoria y file descriptors del OS. Usa clustering o worker threads para escalado horizontal.
+R: Miles por proceso, limitado por memoria y file descriptors del OS. Usa clustering o [patrones de service mesh](/patterns/design/ambassador-pattern-services) para escalado horizontal.

@@ -37,11 +37,11 @@ La clave es que la compresión ocurra transparentemente en la capa correcta. Los
 
 Usa esta receta cuando:
 
-- Sirviendo grandes bundles JavaScript, hojas de estilo CSS o documentos HTML
-- Reduciendo tamaños de response de API para clientes móviles en conexiones medidas
-- Comprimiendo archivos de log antes de archivarlos a cold storage
-- Subiendo grandes payloads a object storage o transfiriendo archivos entre servicios
-- Cumpliendo con presupuestos de performance que mandatan tamaños máximos de transferencia
+- Sirviendo grandes bundles JavaScript, hojas de estilo CSS o documentos HTML. Consulta [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) para reducir tamaños de bundles.
+- Reduciendo tamaños de response de API para clientes móviles en conexiones medidas. Consulta [Call REST API](/recipes/api/call-rest-api) para diseño eficiente de APIs.
+- Comprimiendo archivos de log antes de archivarlos a cold storage. Consulta [Stream Processing](/recipes/file-handling/stream-processing) para procesamiento de pipelines de logs.
+- Subiendo grandes payloads a object storage o transfiriendo archivos entre servicios. Consulta [Image Optimization](/recipes/file-handling/image-optimization) para compresión de media.
+- Cumpliendo con presupuestos de performance que mandatan tamaños máximos de transferencia. Consulta [Lazy Loading Images](/recipes/performance/lazy-loading) para reducir transferencia.
 
 ## Solución
 

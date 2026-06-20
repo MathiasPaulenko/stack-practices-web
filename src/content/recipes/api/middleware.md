@@ -40,11 +40,11 @@ Middleware follows a pipeline pattern: each layer can modify the request, abort 
 
 Use this recipe when:
 
-- Enforcing authentication before route handlers execute
-- Logging all incoming requests and response times
-- Adding CORS headers or security headers to every response
+- Enforcing authentication before route handlers execute. See [JWT Authentication](/recipes/authentication/jwt-authentication) for auth patterns.
+- Logging all incoming requests and response times. See [Logging](/recipes/api/logging) for structured logging.
+- Adding CORS headers or security headers to every response. See [Handle CORS](/recipes/api/handle-cors) for CORS configuration.
 - Validating request bodies or query parameters
-- Implementing rate limiting or request throttling
+- Implementing rate limiting or request throttling. See [Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for Redis-based rate limiting.
 
 ## Solution
 
@@ -155,7 +155,7 @@ public class WebConfig implements WebMvcConfigurer {
 - **preHandle / before**: Runs before the route handler. Can block requests (auth, validation).
 - **postHandle / after**: Runs after the handler but before the response is sent.
 - **afterCompletion**: Runs after the response is fully sent. Ideal for cleanup and logging.
-- **Error middleware**: Catches uncaught exceptions. Must be registered last in the stack.
+- **Error middleware**: Catches uncaught exceptions. Must be registered last in the stack. See [Error Handling](/recipes/api/handle-errors) for error patterns.
 
 ## Best Practices
 

@@ -34,9 +34,9 @@ Container images bundle application code with operating system libraries, making
 
 ## When to Use This
 
-- Production workloads run containerized applications that must meet security compliance
-- Images are built from public base images with unknown vulnerability status
-- You need automated enforcement blocking deployments with critical CVEs
+- Production workloads run containerized applications that must meet security compliance. See [Docker Basics](/recipes/devops/docker-basics) for container fundamentals.
+- Images are built from public base images with unknown vulnerability status. See [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) for local image building.
+- You need automated enforcement blocking deployments with critical CVEs. See [CI/CD Pipeline Setup](/recipes/devops/cicd-pipeline-setup) for pipeline gating.
 
 ## Solution
 

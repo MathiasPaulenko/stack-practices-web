@@ -34,9 +34,9 @@ Las imagenes de contenedor empaquetan codigo de aplicacion con librerias del sis
 
 ## Cuando Usar Esto
 
-- Workloads de produccion ejecutan aplicaciones containerizadas que deben cumplir compliance de seguridad
-- Las imagenes se construyen desde imagenes base publicas con estado de vulnerabilidad desconocido
-- Necesitas enforcement automatizado bloqueando deployments con CVEs criticas
+- Workloads de produccion ejecutan aplicaciones containerizadas que deben cumplir compliance de seguridad. Consulta [Docker Basics](/recipes/devops/docker-basics) para fundamentos de contenedores.
+- Las imagenes se construyen desde imagenes base publicas con estado de vulnerabilidad desconocido. Consulta [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) para construcción local de imágenes.
+- Necesitas enforcement automatizado bloqueando deployments con CVEs criticas. Consulta [CI/CD Pipeline Setup](/recipes/devops/cicd-pipeline-setup) para gating de pipelines.
 
 ## Solucion
 

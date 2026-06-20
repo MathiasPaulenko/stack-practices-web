@@ -49,7 +49,7 @@ Observability is the ability to understand a system's internal state by examinin
 
 ## Structured Logging
 
-Replace free-form text with machine-parseable JSON.
+Replace free-form text with machine-parseable JSON. See [Structured Logging](/recipes/observability/structured-logging) for practical implementation.
 
 ### Format
 

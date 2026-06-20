@@ -119,7 +119,7 @@ Monitor every resource (CPU, disk, network, memory) with these three:
 A good alert answers three questions:
 1. **What is wrong?** — clear metric name and threshold breached
 2. **Where is it wrong?** — service name, region, environment
-3. **What should I do?** — link to runbook or suggested action
+3. **What should I do?** — link to [runbook](/guides/devops/technical-documentation-strategy-guide) or suggested action
 
 ### Bad Alert Examples
 

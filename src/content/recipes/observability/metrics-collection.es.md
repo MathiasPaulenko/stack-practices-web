@@ -29,14 +29,14 @@ seo:
 ---
 ## Visión General
 
-La recolección de métricas transforma el comportamiento crudo del sistema en datos de series temporales que revelan tendencias de performance, límites de capacidad y anomalías. A diferencia de [logs](/recipes/structured-logging) (eventos discretos) o [traces](/recipes/distributed-tracing) (journeys de requests), las métricas son mediciones numéricas agregadas a través del tiempo — tasas de request, porcentajes de error, profundidades de cola y uso de memoria. Un pipeline de métricas bien diseñado habilita alertado proactivo antes de que los usuarios noten degradación.
+La recolección de métricas transforma el comportamiento crudo del sistema en datos de series temporales que revelan tendencias de performance, límites de capacidad y anomalías. A diferencia de [logs](/recipes/observability/structured-logging) (eventos discretos) o [traces](/recipes/observability/distributed-tracing) (journeys de requests), las métricas son mediciones numéricas agregadas a través del tiempo — tasas de request, porcentajes de error, profundidades de cola y uso de memoria. Un pipeline de métricas bien diseñado habilita alertado proactivo antes de que los usuarios noten degradación.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Necesitas SLIs cuantitativos para error budgets y dashboards de SLO
 - El alertado debe dispararse antes de que logs se agreguen (detección sub-minuto)
-- El [capacity planning](/docs/capacity-planning-template) requiere tendencias históricas de throughput y uso de recursos
+- El [capacity planning](/guides/devops/infrastructure-as-code-guide) requiere tendencias históricas de throughput y uso de recursos
 - El debugging requiere correlacionar métricas a través de servicios (spike de CPU + aumento de latencia)
 
 ## Solución
@@ -167,7 +167,7 @@ def create_order(items, total):
 1. **Labels de alta cardinalidad**: User IDs como labels saturan storage de Prometheus
 2. **Unidades faltantes**: `request_duration` sin `_seconds` o `_milliseconds` crea confusión
 3. **Alertar en gauges**: Queue depth solo no indica falla; combina con processing rate
-4. **Sin política de retención**: Mantener resolución de 1 segundo por 5 años desperdicia storage; implementa una [política de retención de datos](/docs/data-retention-policy-template).
+4. **Sin política de retención**: Mantener resolución de 1 segundo por 5 años desperdicia storage; implementa una [política de retención de datos](/guides/databases/database-design-guide).
 5. **Olvidar instrumentar fallas**: Solo medir el éxito oculta outages parciales
 
 ## Preguntas Frecuentes
@@ -179,4 +179,4 @@ R: Usa Prometheus para apps cloud-native nuevas. Usa StatsD para apps legacy don
 R: Despreciable para counters y gauges (<1%). Los histograms con muchos buckets agregan un poco más; usa buckets predefinidos.
 
 **P: ¿Debería recolectar métricas desde el cliente (browser)?**
-R: Sí. [Core Web Vitals](/recipes/web-performance), tasas de error de API y navigation timing de usuarios reales son SLIs esenciales.
+R: Sí. [Core Web Vitals](/recipes/performance/web-performance), tasas de error de API y navigation timing de usuarios reales son SLIs esenciales.

@@ -30,7 +30,7 @@ seo:
 
 # Security Incident Response Template
 
-Use this template during a security event to ensure nothing is missed under pressure.
+Use this template during a security event to ensure nothing is missed under pressure. See [Web Application Security Guide](/guides/security/web-application-security-guide) for prevention and [On-Call Incident Response Guide](/guides/devops/on-call-incident-response-guide) for response procedures.
 
 ## Template
 
@@ -115,7 +115,7 @@ your [data type]. We have [contained / remediated] the issue and are
 ## Best Practices
 
 - **Designate an incident commander immediately** — one person coordinates, others execute
-- **Preserve evidence before containment** — memory dumps and logs disappear when you restart
+- **Preserve evidence before containment** — memory dumps and logs disappear when you restart. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for log management.
 - **Communicate early and often** — silence breeds speculation and regulatory penalties
 - **Assume breach until proven otherwise** — better to over-respond than under-respond
 - **Document as you go** — post-incident memory is unreliable
@@ -125,13 +125,13 @@ your [data type]. We have [contained / remediated] the issue and are
 - Destroying evidence by rebooting servers — preserves volatile memory first
 - Not involving legal early — disclosure laws have tight deadlines (72 hours for GDPR)
 - Communicating too early with unverified facts — retracting statements damages trust
-- Skipping the postmortem — security incidents teach more than regular outages
+- Skipping the postmortem — security incidents teach more than regular outages. Use [Incident Postmortem Template](/docs/templates/incident-postmortem-template) for structured follow-up.
 
 ## Frequently Asked Questions
 
 ### When should I notify customers about a security incident?
 
-If their data was or may have been accessed, notify them directly and promptly. Regulations vary: GDPR requires 72 hours to regulators, customer notification without undue delay. When in doubt, notify.
+If their data was or may have been accessed, notify them directly and promptly. See [Data Retention Policy Template](/docs/templates/data-retention-policy-template) for data classification guidance. Regulations vary: GDPR requires 72 hours to regulators, customer notification without undue delay. When in doubt, notify.
 
 ### Should I pay a ransomware demand?
 

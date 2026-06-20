@@ -109,7 +109,7 @@ table.query(
 
 ### Redis
 
-Best for: caching, real-time leaderboards, [rate limiting](/recipes/rate-limiting), session stores.
+Best for: caching, real-time leaderboards, [rate limiting](/recipes/api/rate-limiting), session stores.
 
 ```bash
 # Cache a computed value for 5 minutes
@@ -177,8 +177,8 @@ LIMIT 100;
 |-----------|-----------------|
 | Normalized tables | Embed related data when accessed together; reference when accessed separately |
 | JOINs everywhere | Design tables/collections around query patterns, not entities |
-| Auto-increment IDs | Use [UUIDs](/recipes/uuid-generation) or composite keys (user_id + timestamp) |
-| Ad-hoc analytics | Use [change data capture](/guides/event-driven-architecture-guide) to stream to a data warehouse |
+| Auto-increment IDs | Use [UUIDs](/recipes/data/uuid-generation) or composite keys (user_id + timestamp) |
+| Ad-hoc analytics | Use [change data capture](/guides/architecture/event-driven-architecture-guide) to stream to a data warehouse |
 | Single source of truth | Accept that different stores may have different views of truth (CQRS) |
 
 ## Best Practices
@@ -209,4 +209,4 @@ Yes, and it is common. Use Redis for cache/sessions, DynamoDB for user profiles,
 
 ### How do I handle transactions across NoSQL databases?
 
-Most NoSQL stores do not support cross-document or cross-table ACID transactions. Use [sagas](/guides/event-driven-architecture-guide), outbox patterns, or [idempotent operations](/recipes/message-idempotency) with at-least-once delivery to achieve eventual consistency.
+Most NoSQL stores do not support cross-document or cross-table ACID transactions. Use [sagas](/guides/architecture/event-driven-architecture-guide), outbox patterns, or [idempotent operations](/recipes/messaging/message-idempotency) with at-least-once delivery to achieve eventual consistency.

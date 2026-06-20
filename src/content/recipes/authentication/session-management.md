@@ -40,8 +40,8 @@ Use this recipe when:
 
 - Building traditional server-rendered web applications with login functionality
 - Implementing admin dashboards, e-commerce carts, or user portals
-- Choosing between stateful sessions and stateless JWT authentication
-- Protecting against session fixation, hijacking, and CSRF attacks
+- Choosing between stateful sessions and stateless [JWT authentication](/recipes/authentication/jwt-authentication)
+- Protecting against session fixation, hijacking, and CSRF attacks. See [API Security Checklist](/guides/security/api-security-checklist-guide) for comprehensive security practices.
 - Configuring session stores (Redis, PostgreSQL, memory) for production applications
 
 ## Solution
@@ -119,7 +119,7 @@ def login_view(request):
 | Memory sessions | Server RAM | Poor (single server) | Development, prototypes |
 | Redis sessions | Redis | Excellent | Production web apps |
 | Database sessions | PostgreSQL/MySQL | Good | When Redis is unavailable |
-| Client JWT | Browser storage | Excellent | SPAs, mobile APIs |
+| [Client JWT](/recipes/authentication/jwt-authentication) | Browser storage | Excellent | SPAs, mobile APIs |
 
 ## Best Practices
 
@@ -139,7 +139,7 @@ def login_view(request):
 ## Frequently Asked Questions
 
 **Q: Should I use sessions or JWT for authentication?**
-A: Use server-side sessions for traditional web apps where you need instant revocation. Use JWT for stateless APIs and SPAs where you want to avoid database lookups on every request.
+A: Use server-side sessions for traditional web apps where you need instant revocation. Use [JWT](/recipes/authentication/jwt-authentication) for stateless APIs and SPAs where you want to avoid database lookups on every request.
 
 **Q: How do I handle sessions across multiple servers?**
 A: Use a shared session store like Redis or a database. Each server reads and writes session data from the central store instead of local memory.
@@ -147,6 +147,6 @@ A: Use a shared session store like Redis or a database. Each server reads and wr
 **Q: What is the difference between session fixation and session hijacking?**
 A: Session fixation forces a victim to use an attacker-known session ID. Session hijacking steals an existing legitimate session ID. Both are mitigated by secure cookie flags and short expiration.
 
-**Q: Can I store JWTs in localStorage instead of cookies?**
+**Q: Can I store [JWTs](/recipes/authentication/jwt-authentication) in localStorage instead of cookies?**
 A: You can, but localStorage is accessible to JavaScript and vulnerable to XSS theft. HTTP-only cookies are the safer choice for web applications.
 

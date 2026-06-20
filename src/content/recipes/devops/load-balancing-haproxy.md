@@ -13,7 +13,7 @@ tags:
   - load-balancer
 relatedResources:
   - /patterns/design/ambassador-pattern-services
-  - /recipes/devops/nginx-reverse-proxy
+  - /recipes/nginx-reverse-proxy
   - /patterns/design/circuit-breaker-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
@@ -33,9 +33,9 @@ Distribute incoming traffic across multiple backend servers using HAProxy, a hig
 
 ## When to Use This
 
-- You run multiple application instances and need to distribute traffic evenly
-- Services must be automatically removed from rotation when unhealthy
-- SSL termination should happen at the edge, not on each application server
+- You run multiple application instances and need to distribute traffic evenly. See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for backend health probes.
+- Services must be automatically removed from rotation when unhealthy. See [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for failure isolation.
+- SSL termination should happen at the edge, not on each application server. See [Nginx Reverse Proxy](/recipes/api/nginx-reverse-proxy) for edge proxy patterns.
 
 ## Solution
 

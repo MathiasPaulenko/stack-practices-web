@@ -42,11 +42,11 @@ Los sistemas modernos prefieren cada vez más UUID v7 o ULID sobre v4 porque son
 
 Usa esta recipe cuando:
 
-- Generas claves primarias en bases de datos distribuidas
-- Creas tokens de sesión o API
-- Nombras archivos, imágenes o uploads para prevenir colisiones
-- Fusionas datos de múltiples fuentes donde los IDs no deben chocar
-- Construyes sistemas donde los clientes generan IDs antes de enviarlos al servidor
+- Generas claves primarias en bases de datos distribuidas. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para patrones de acceso a base de datos.
+- Creas tokens de sesión o API. Consulta [JWT Authentication](/recipes/authentication/jwt-authentication) para manejo seguro de tokens.
+- Nombras archivos, imágenes o uploads para prevenir colisiones. Consulta [File Upload Validation](/recipes/file-handling/file-upload-validation) para manejo seguro de subidas.
+- Fusionas datos de múltiples fuentes donde los IDs no deben chocar. Consulta [Parse JSON](/recipes/data/parse-json) para fusión de datos estructurados.
+- Construyes sistemas donde los clientes generan IDs antes de enviarlos al servidor. Consulta [Call REST API](/recipes/api/call-rest-api) para comunicación cliente-servidor.
 
 ## Solución
 

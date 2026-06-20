@@ -33,9 +33,9 @@ Los tests de componentes de Playwright te permiten montar, interactuar y hacer a
 
 ## Cuando Usar Esto
 
-- Quieres testear componentes de forma aislada sin levantar la aplicacion completa
-- Interacciones como hover, focus y navegacion por teclado deben ser validadas
-- Las regresiones visuales en componentes individuales deben detectarse antes del despliegue
+- Quieres testear componentes de forma aislada sin levantar la aplicacion completa. Consulta [Jest Snapshot Testing](/recipes/testing/unit-testing) para comparaciones de render output.
+- Interacciones como hover, focus y navegacion por teclado deben ser validadas. Consulta [Unit Testing](/recipes/testing/unit-testing) para testear event handlers en aislamiento.
+- Las regresiones visuales en componentes individuales deben detectarse antes del despliegue. Consulta [Visual Regression Testing](/recipes/testing/e2e-testing) para comparaciones basadas en screenshots.
 
 ## Requisitos Previos
 

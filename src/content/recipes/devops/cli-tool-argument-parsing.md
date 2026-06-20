@@ -37,10 +37,10 @@ Command-line tools are the backbone of developer workflows, DevOps automation, a
 ## When to Use
 
 Use this resource when:
-- Building internal developer tools, deployment scripts, or automation utilities
-- Creating data processing or ETL pipelines triggered from the terminal
-- Exposing application functionality to sysadmins and CI/CD pipelines
-- Writing scripts that need more than a few arguments to stay maintainable
+- Building internal developer tools, deployment scripts, or automation utilities. See [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) for shell-based automation.
+- Creating data processing or ETL pipelines triggered from the terminal. See [Parse JSON](/recipes/data/parse-json) for structured data handling.
+- Exposing application functionality to sysadmins and CI/CD pipelines. See [GitHub Actions](/recipes/devops/github-actions) for pipeline integration.
+- Writing scripts that need more than a few arguments to stay maintainable. See [Environment Variables](/recipes/devops/environment-variables) for externalized configuration.
 
 ## Solution
 

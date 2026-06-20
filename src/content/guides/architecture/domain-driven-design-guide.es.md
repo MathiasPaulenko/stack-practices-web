@@ -163,7 +163,7 @@ class OrderConfirmed:
     confirmed_at: datetime
 ```
 
-Los domain events permiten acoplamiento flojo entre bounded contexts. Consulta [arquitectura event-driven](/guides/event-driven-architecture-guide).
+Los domain events permiten acoplamiento flojo entre bounded contexts. Consulta [arquitectura event-driven](/guides/architecture/event-driven-architecture-guide).
 
 ## DDD Estratégico vs. DDD Táctico
 
@@ -211,7 +211,7 @@ Usa DDD cuando:
 R: Un aggregate root es una entidad especial que sirve como punto de entrada a un aggregate. Todas las referencias externas al aggregate pasan por la root, y todas las modificaciones se hacen vía los métodos de la root.
 
 **P: ¿Puedo usar DDD con microservicios?**
-R: Sí. Cada [microservicio](/guides/microservices-architecture-guide) típicamente se alinea con un bounded context. El límite del servicio refuerza el límite del contexto, y los servicios se comunican vía domain events o APIs.
+R: Sí. Cada [microservicio](/guides/architecture/microservices-architecture-guide) típicamente se alinea con un bounded context. El límite del servicio refuerza el límite del contexto, y los servicios se comunican vía domain events o APIs.
 
 **P: ¿Cómo identifico bounded contexts?**
-R: Busca áreas donde la terminología cambia, diferentes equipos tienen ownership, o donde las capacidades de negocio son independientes. Los workshops de [Event Storming](/guides/event-driven-architecture-guide) son una técnica común.
+R: Busca áreas donde la terminología cambia, diferentes equipos tienen ownership, o donde las capacidades de negocio son independientes. Los workshops de [Event Storming](/guides/architecture/event-driven-architecture-guide) son una técnica común.

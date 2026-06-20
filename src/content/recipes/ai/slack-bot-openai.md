@@ -29,7 +29,7 @@ seo:
 
 # Build a Slack Bot with OpenAI GPT-4
 
-A Slack bot powered by a large language model can answer questions, summarize threads, and execute commands through natural language. This recipe shows how to build one using the Slack Bolt framework and OpenAI's GPT-4 API.
+A Slack bot powered by a large language model can answer questions, summarize threads, and execute commands through natural language. For a general chatbot implementation, see [Chatbot with OpenAI](/recipes/ai/chatbot-openai). This recipe shows how to build one using the Slack Bolt framework and OpenAI's GPT-4 API.
 
 ## When to Use This
 
@@ -149,9 +149,9 @@ node app.js
 
 ## Production Considerations
 
-- **Replace in-memory store with Redis** for multi-instance deployments
-- **Add rate limiting** to prevent API cost surprises
-- **Implement function calling** to let the bot execute actions (create tickets, query databases)
+- **Replace in-memory store with Redis** for multi-instance deployments. See [API Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for Redis patterns.
+- **Add rate limiting** to prevent API cost surprises. See [API Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for implementation.
+- **Implement function calling** to let the bot execute actions. See [AI Agents with Tool Use](/recipes/ai/ai-agents-tool-use) for function calling patterns.
 - **Add message filtering** to prevent the bot from responding to every message in busy channels
 
 ## Variations

@@ -37,7 +37,7 @@ El caching es la técnica más efectiva para mejorar el rendimiento de aplicacio
 Usa este recurso cuando:
 - Las [consultas de base de datos](/recipes/performance/query-optimization) se vuelven un cuello de botella bajo carga
 - Los [tiempos de respuesta de API](/recipes/api/call-rest-api) exceden 200ms para endpoints de lectura intensiva
-- Sirves assets estáticos (imágenes, JS, CSS) a usuarios globales via [CDN](/recipes/performance/cdn-edge-caching)
+- Sirves assets estáticos (imágenes, JS, CSS) a usuarios globales via [CDN](/recipes/data/caching)
 - Construyes aplicaciones de alto tráfico donde datos stale son aceptables
 
 ## Solución

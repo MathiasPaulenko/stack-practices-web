@@ -38,9 +38,9 @@ El saga pattern resuelve esto dividiendo una transacción de larga duración en 
 Usa esta receta cuando:
 
 - Una operación de negocio abarca múltiples microservicios con bases de datos independientes
-- Two-phase commit (2PC) no está disponible o es inaceptable por latencia o contención de locks
+- Two-phase commit (2PC) no está disponible o es inaceptable por latencia o contención de locks. Consulta [Arquitectura Event-Driven](/recipes/architecture/event-driven-architecture) para coordinación sin bloqueos.
 - Las operaciones de larga duración deben sobrevivir a la indisponibilidad temporal de servicios
-- Las acciones compensatorias son factibles (ej. reembolsar pago, liberar inventario, cancelar envío)
+- Las acciones compensatorias son factibles (ej. reembolsar pago, liberar inventario, cancelar envío). Consulta [Microservices Patterns](/guides/architecture/microservices-architecture-guide) para estrategias de resiliencia.
 - La consistencia eventual es aceptable para el caso de uso
 
 ## Solución
@@ -199,7 +199,7 @@ async function orderSaga(orderData: OrderData): Promise<void> {
 - **Coreografía**: cada servicio publica un evento después de completar su paso. Otros servicios se suscriben y reaccionan. No hay un controlador central. La saga emerge de la interacción de servicios independientes. Es altamente desacoplado pero puede volverse difícil de trazar a medida que crece el número de servicios.
 - **Orquestación**: un orquestador de saga dedicado ejecuta pasos secuencialmente, llamando a cada servicio directamente. El orquestador mantiene el estado de la saga y maneja compensaciones si un paso falla. Centraliza la lógica y hace el flujo explícito, pero introduce un punto de control único.
 - **Transacciones compensatorias**: a diferencia de los rollbacks de base de datos, las compensaciones son operaciones de negocio explícitas. Reembolsar un pago no es lo mismo que deshacer un `BEGIN...ROLLBACK`. La compensación puede fallar por sí misma, requiriendo reintento o intervención humana. Diseña compensaciones idempotentes que puedan reintentarse de forma segura.
-- **Idempotencia**: cada paso de saga y compensación debe ser idempotente. Si la red se agota, el orquestador puede reintentar un paso que ya tuvo éxito. El servicio debe reconocer la solicitud duplicada y devolver el resultado anterior, no ejecutar la operación de nuevo.
+- **Idempotencia**: cada paso de saga y compensación debe ser idempotente. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación. Si la red se agota, el orquestador puede reintentar un paso que ya tuvo éxito. El servicio debe reconocer la solicitud duplicada y devolver el resultado anterior, no ejecutar la operación de nuevo.
 
 ## Variantes
 
@@ -236,5 +236,5 @@ R: Reintenta con backoff exponencial. Si los reintentos se agotan, alerta a un o
 R: Sí — mantén una tabla de estado de saga en la base de datos del orquestador. Cada fila representa una instancia de saga con columnas para el paso actual, pasos completados y detalles de error. Expón una API de lectura para equipos de soporte y dashboards de monitoreo.
 
 **P: ¿Debería toda interacción entre microservicios usar saga?**
-R: No. Las sagas agregan complejidad. Úsalas para procesos de negocio de múltiples pasos que deben ser todo-o-nada. Para llamadas simples uno-a-uno que pueden fallar independientemente, usa llamadas API directas con reintentos y circuit breakers.
+R: No. Las sagas agregan complejidad. Úsalas para procesos de negocio de múltiples pasos que deben ser todo-o-nada. Para llamadas simples uno-a-uno que pueden fallar independientemente, usa llamadas API directas con [retries](/recipes/architecture/retry-backoff) y [circuit breakers](/recipes/architecture/circuit-breaker-pattern).
 

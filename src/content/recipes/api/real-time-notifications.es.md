@@ -42,7 +42,7 @@ Esta receta implementa un sistema de notificaciones con conexiones WebSocket, br
 Usa este recurso cuando:
 - Los usuarios necesitan actualizaciones instantáneas (chat, alertas, dashboards en vivo)
 - El polling genera demasiada carga en tu infraestructura
-- Ejecutas múltiples instancias de API detrás de un balanceador de carga
+- Ejecutas múltiples instancias de API detrás de un [balanceador de carga](/recipes/api/nginx-reverse-proxy)
 - Necesitas difundir el mismo evento a muchos clientes conectados
 
 ## Solución
@@ -189,9 +189,9 @@ Redis pub/sub es ideal para broadcasting porque los suscriptores reciben mensaje
 
 - **No manejar reconexiones**: Los clientes se desconectan — implementa reconexión con backoff exponencial
 - **Almacenar mensajes en Redis pub/sub**: Pub/sub no persiste mensajes; usa Redis Streams para durabilidad
-- **Difundir a todos los clientes**: Usa namespaces de room/canal para limitar la entrega de mensajes
+- **Difundir a todos los clientes**: Usa [namespaces de room/canal](/patterns/design/chain-of-responsibility-middleware) para limitar la entrega de mensajes
 - **Ignorar límites de conexión**: Cada WebSocket consume memoria; establece límites por IP y globales
-- **Falta de auth en el handshake**: Autentica durante la petición de upgrade, no después de la conexión
+- **Falta de auth en el handshake**: Autentica durante la petición de upgrade con [JWT](/recipes/authentication/jwt-authentication), no después de la conexión
 
 ## Preguntas Frecuentes
 
@@ -199,7 +199,7 @@ Redis pub/sub es ideal para broadcasting porque los suscriptores reciben mensaje
 R: Node.js maneja ~10k-50k, Go ~100k+, Java (Netty) ~1M+. Usa pruebas de carga con el tamaño real de tu payload para determinar los límites reales.
 
 **P: ¿Puedo usar WebSockets con funciones serverless?**
-R: AWS API Gateway soporta WebSockets, pero las funciones stateless requieren DynamoDB o Redis para compartir información de conexión. Considera servicios gestionados como Pusher o Ably para simplicidad.
+R: AWS API Gateway soporta WebSockets, pero las funciones stateless requieren DynamoDB o Redis para compartir información de conexión. Considera [patrones de service mesh](/patterns/design/ambassador-pattern-services) para escalar infraestructura en tiempo real.
 
 **P: ¿Debería usar WebSockets o Server-Sent Events?**
 R: Usa SSE para streams unidireccionales servidor-a-cliente (más simple, basado en HTTP, auto-reconexión). Usa WebSockets para comunicación bidireccional (chat, edición colaborativa).

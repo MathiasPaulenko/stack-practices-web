@@ -35,9 +35,9 @@ seo:
 ## When to Use
 
 Use this resource when:
-- [Scenario 1]
-- [Scenario 2]
-- [Scenario 3]
+- Testing complete user journeys across the full application stack. See [Component Testing](/recipes/testing/e2e-testing) for isolated UI validation.
+- Verifying critical paths like checkout, signup, or payment flows. See [Unit Testing](/recipes/testing/unit-testing) for testing logic in isolation.
+- Catching regressions that integration tests miss due to real browser behavior. See [Integration Testing](/recipes/testing/integration-testing) for service-level verification.
 
 ## Solution
 

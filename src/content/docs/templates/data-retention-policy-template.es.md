@@ -30,7 +30,7 @@ seo:
 
 # Plantilla de Política de Retención de Datos
 
-Usa esta plantilla para definir cuánto tiempo viven los datos, cuándo se mueven y cómo se destruyen de forma segura.
+Usa esta plantilla para definir cuánto tiempo viven los datos, cuándo se mueven y cómo se destruyen de forma segura. Complémentala con la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/templates/security-incident-response-template) para procedimientos de brechas.
 
 ## Plantilla
 
@@ -103,7 +103,7 @@ Usa esta plantilla para definir cuánto tiempo viven los datos, cuándo se mueve
 - **Etiqueta datos al crear** — la metadata determina el ciclo de vida, no la clasificación manual posterior
 - **Testea recuperación desde archivo** — datos archivados que no pueden restaurarse son inútiles
 - **Documenta retenciones legales** — las excepciones deben ser trackeadas y expirar cuando la retención termina
-- **Encripta antes de archivar** — el cold storage es más barato pero aún necesita protección
+- **Encripta antes de archivar** — el cold storage es más barato pero aún necesita protección. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para mejores prácticas de encriptación.
 
 ## Errores Comunes
 
@@ -116,7 +116,7 @@ Usa esta plantilla para definir cuánto tiempo viven los datos, cuándo se mueve
 
 ### ¿Qué pasa si un usuario solicita eliminación antes de que termine el período de retención?
 
-GDPR y CCPA otorgan a usuarios el derecho a eliminación. Implementa un workflow de "eliminar bajo solicitud" que anule el cronograma estándar de retención. Loguea la solicitud y la excepción.
+GDPR y CCPA otorgan a usuarios el derecho a eliminación. Documenta este workflow en tus procedimientos de [Respuesta a Incidentes de Seguridad](/docs/templates/security-incident-response-template). Implementa un workflow de "eliminar bajo solicitud" que anule el cronograma estándar de retención. Loguea la solicitud y la excepción.
 
 ### ¿Cómo manejo datos en backups que han excedido su período de retención?
 

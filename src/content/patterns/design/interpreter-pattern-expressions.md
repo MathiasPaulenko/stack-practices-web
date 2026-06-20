@@ -30,7 +30,7 @@ seo:
 
 # Interpreter Pattern for Domain-Specific Expression Languages
 
-The Interpreter pattern defines a representation for a language's grammar along with an interpreter that uses the representation to interpret sentences in the language. It turns complex text expressions into executable objects, making business rules, query filters, and mathematical formulas configurable without code changes.
+The [Interpreter](/patterns/design/interpreter-pattern) pattern defines a representation for a language's grammar along with an interpreter that uses the representation to interpret sentences in the language. It turns complex text expressions into executable objects, making business rules, query filters, and mathematical formulas configurable without code changes.
 
 ## When to Use This
 
@@ -166,7 +166,7 @@ console.log(formula.interpret({ price: 100, shipping: 10 })); // 90
 
 ## Production Considerations
 
-- Cache parsed expression trees to avoid re-parsing on every evaluation
+- [Cache](/patterns/design/cache-aside-pattern) parsed expression trees to avoid re-parsing on every evaluation
 - Sanitize variable names to prevent context pollution
 - For complex grammars, prefer parser generators (PEG.js, ANTLR) over hand-rolled interpreters
 
@@ -179,7 +179,7 @@ console.log(formula.interpret({ price: 100, shipping: 10 })); // 90
 ## FAQ
 
 **Q: How is this different from Command?**
-A: Command encapsulates actions to execute later. Interpreter parses and evaluates expressions to produce a result.
+A: [Command](/patterns/design/command-pattern) encapsulates actions to execute later. Interpreter parses and evaluates expressions to produce a result.
 
 **Q: When should I use a parser generator instead?**
 A: When the grammar has more than 5-6 production rules, left recursion, or needs error recovery.

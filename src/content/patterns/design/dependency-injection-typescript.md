@@ -30,7 +30,7 @@ seo:
 
 # Dependency Injection Container in TypeScript
 
-Implement a lightweight dependency injection container in TypeScript that resolves class dependencies automatically through decorators or constructor metadata. This pattern decouples object creation from business logic, making code testable, modular, and easier to refactor without heavy frameworks.
+Implement a lightweight [dependency injection](/patterns/design/dependency-injection-pattern) container in TypeScript that resolves class dependencies automatically through decorators or constructor metadata. This pattern decouples object creation from business logic, making code testable, modular, and easier to refactor without heavy frameworks.
 
 ## When to Use This
 
@@ -40,7 +40,7 @@ Implement a lightweight dependency injection container in TypeScript that resolv
 
 ## Problem
 
-A service depends on a repository, which depends on a database connection, which depends on a config loader. Creating objects manually creates brittle, hard-to-test code.
+A service depends on a repository, which depends on a database connection, which depends on a config loader. See [Dependency Injection Pattern](/patterns/design/dependency-injection-pattern) for language-agnostic examples. Creating objects manually creates brittle, hard-to-test code.
 
 ## Solution
 
@@ -197,7 +197,7 @@ class ScopedContainer {
 ## FAQ
 
 **Q: How is this different from the Service Locator?**
-A: Service Locator asks a global registry for dependencies. DI injects dependencies through constructors, making them explicit and testable.
+A: Service Locator asks a global registry for dependencies. DI injects dependencies through constructors, making them explicit and testable. See [Dependency Injection Pattern](/patterns/design/dependency-injection-pattern) for broader coverage.
 
 **Q: Can I use this without decorators?**
 A: Yes. Use a factory function or manual registration with explicit dependency arrays: `container.register(UserService, { deps: [UserRepository] })`.

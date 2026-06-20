@@ -35,7 +35,7 @@ Multi-tenancy is an architecture where a single software instance serves multipl
 
 Use this resource when:
 - Building SaaS applications serving multiple organizations
-- Meeting compliance requirements (SOC 2, HIPAA) that mandate data segregation
+- Meeting compliance requirements (SOC 2, HIPAA) that mandate data segregation. See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance best practices.
 - Optimizing infrastructure costs by sharing compute across tenants
 - Scaling from hundreds to thousands of tenants with predictable performance
 
@@ -121,11 +121,11 @@ def migrate_tenant_schema(tenant_id: str):
 
 ## Best Practices
 
-- **Never trust tenant ID from user input**: Always resolve from authenticated context
+- **Never trust tenant ID from user input**: Always resolve from [authenticated context](/recipes/authentication/jwt-authentication)
 - **Index tenant_id first**: Every query filters by tenant; make it the leading column
-- **Use connection pooling carefully**: Schema-per-tenant requires dynamic schema switching
+- **Use [connection pooling](/recipes/performance/connection-pooling) carefully**: Schema-per-tenant requires dynamic schema switching
 - **Backup per tenant**: Schema-per-tenant makes pg_dump per-schema trivial
-- **Resource quotas**: Limit CPU, storage, and API rate per tenant to prevent noisy neighbors
+- **Resource quotas**: Limit CPU, storage, and [API rate](/recipes/api/api-rate-limiting-redis) per tenant to prevent noisy neighbors
 
 ## Common Mistakes
 

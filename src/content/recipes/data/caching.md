@@ -41,10 +41,10 @@ Caching is one of the most effective performance optimizations, but it introduce
 
 Use this recipe when:
 
-- Calling expensive database queries or API endpoints repeatedly
+- Calling expensive database queries or [API endpoints](/recipes/api/call-rest-api) repeatedly
 - Computing complex mathematical or statistical results
 - Serving static or slowly-changing configuration data
-- Reducing latency in high-traffic read-heavy systems
+- Reducing latency in high-traffic read-heavy systems. See [Pagination](/recipes/api/pagination) for managing large result sets.
 - Offloading load from downstream services
 
 ## Solution
@@ -151,7 +151,7 @@ userCache.invalidate(userId);
 
 - **Cache at the right level**: Don't cache everything. Cache the most expensive and most frequently accessed data.
 - **Set TTLs thoughtfully**: Too short = useless. Too long = stale data.
-- **Monitor hit rates**: A cache with <80% hit rate is usually not worth the complexity.
+- **Monitor hit rates**: A cache with <80% hit rate is usually not worth the complexity. See [Logging](/recipes/api/logging) for cache metrics.
 - **Handle cache failures gracefully**: If Redis is down, fall back to the database. Don't fail the request.
 - **Version cache keys**: Include the data version or app version in the key to prevent stale data after deployments.
 - **Invalidate proactively**: Clear cache entries when underlying data changes, not just when TTL expires.
@@ -170,7 +170,7 @@ userCache.invalidate(userId);
 A: Cache stampede happens when many requests simultaneously hit a missing cache key. Use locking, per-key semaphores, or probabilistic early expiration.
 
 **Q: When should I use Redis instead of in-memory caching?**
-A: Use Redis when you need shared cache across multiple application instances, persistence, or advanced data structures.
+A: Use Redis when you need shared cache across multiple application instances, persistence, or advanced data structures. See [Connection Pooling](/recipes/performance/connection-pooling) for managing Redis connections.
 
 **Q: Should I cache API responses?**
 A: Yes, if the data is cacheable and the endpoint is read-heavy. Use the Cache-Control header to communicate cacheability to clients and CDNs.

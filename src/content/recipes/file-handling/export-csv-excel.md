@@ -40,10 +40,10 @@ Exporting data to CSV or Excel is a common requirement for admin dashboards, rep
 ## When to Use
 
 Use this resource when:
-- Users need to download reports or filtered data from a web app
-- Migrating data between systems requires an intermediate file format
-- Building an admin panel with bulk export functionality
-- Processing data for external tools (spreadsheets, BI tools)
+- Users need to download reports or filtered data from a web app. See [Import CSV Excel](/recipes/file-handling/import-csv-excel) for the reverse workflow.
+- Migrating data between systems requires an intermediate file format. See [Parse JSON](/recipes/data/parse-json) for structured data exchange.
+- Building an admin panel with bulk export functionality. See [Background Jobs](/recipes/devops/background-jobs) for async report generation.
+- Processing data for external tools (spreadsheets, BI tools). See [Stream Processing](/recipes/file-handling/stream-processing) for large dataset pipelines.
 
 ## Solution
 

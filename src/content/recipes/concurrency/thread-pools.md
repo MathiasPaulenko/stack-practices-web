@@ -38,8 +38,8 @@ Use this recipe when:
 
 - Processing a high volume of independent tasks concurrently
 - Running CPU-bound computations (image processing, data transformation, ML inference)
-- Executing I/O-bound operations where threads spend time waiting (API calls, file reads)
-- Limiting resource usage to prevent thread exhaustion or memory pressure
+- Executing I/O-bound operations where threads spend time waiting (API calls, file reads). See [Async Patterns](/recipes/concurrency/async-patterns) for non-blocking alternatives.
+- Limiting resource usage to prevent thread exhaustion or memory pressure. See [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) for coordinating shared access.
 - Building worker queues where tasks must execute asynchronously from the submitter
 
 ## Solution
@@ -200,10 +200,10 @@ ThreadPool.SetMaxThreads(8, 8);
 
 ## Best practices
 
-- **Size CPU pools to core count**: for CPU-bound work, use `Runtime.getRuntime().availableProcessors()` or `os.cpu_count()`. Additional threads just compete for cores, causing context switches without throughput gains.
+- **Size CPU pools to core count**: for CPU-bound work, use `Runtime.getRuntime().availableProcessors()` or `os.cpu_count()`. Additional threads just compete for cores, causing context switches without throughput gains. See [Load Balancing](/recipes/architecture/load-balancing) for distributing work across cores.
 - **Size I/O pools higher than core count**: for I/O-bound work, threads block on network/disk. A thread waiting for a response is not using a core. Use 2x-4x core count for I/O pools, depending on latency. Measure to find the sweet spot.
 - **Always shut down gracefully**: an unterminated executor leaks threads and prevents JVM/Python process exit. Call `shutdown()`, wait for termination, then `shutdownNow()` if needed. Use try-with-resources in Python (`with ThreadPoolExecutor`).
-- **Use bounded queues with rejection policies**: unbounded queues hide backpressure. A system that accepts infinite tasks will eventually crash. Use bounded queues and handle rejection by shedding load (return 503) or slowing the submitter.
+- **Use bounded queues with rejection policies**: unbounded queues hide backpressure. A system that accepts infinite tasks will eventually crash. Use bounded queues and handle rejection by shedding load or slowing the submitter. See [Rate Limiting](/recipes/api/rate-limiting) for managing overload.
 - **Name your threads**: debugging a thread dump of 50 unnamed threads is impossible. Use custom thread factories to name threads (`worker-1`, `worker-2`). This makes profiling, logging, and debugging trivial.
 
 ## Common mistakes
@@ -216,7 +216,7 @@ ThreadPool.SetMaxThreads(8, 8);
 ## FAQ
 
 **Q: How many threads should my pool have?**
-A: For CPU-bound tasks: equal to core count. For I/O-bound tasks: `cores * (1 + wait_time / compute_time)`. If a task spends 50ms computing and 450ms waiting, use `cores * 10`. Measure and adjust based on throughput and latency.
+A: For CPU-bound tasks: equal to core count. For I/O-bound tasks: `cores * (1 + wait_time / compute_time)`. If a task spends 50ms computing and 450ms waiting, use `cores * 10`. Measure and adjust based on throughput and latency. See [Concurrent Data Structures](/recipes/concurrency/concurrent-data-structures) for shared state coordination.
 
 **Q: What is the difference between a thread pool and a coroutine pool?**
 A: Thread pools use OS threads — expensive but truly parallel. Coroutine pools (asyncio, Goroutines) use lightweight user-space threads — cheap but limited by the GIL in Python. Use threads for CPU parallelism and blocking I/O. Use coroutines for high-concurrency I/O with low per-task overhead.

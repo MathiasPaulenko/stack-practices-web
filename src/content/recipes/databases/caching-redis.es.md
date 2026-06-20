@@ -35,10 +35,10 @@ El caching es la forma más efectiva de acelerar aplicaciones con muchas lectura
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Las consultas a base de datos son lentas y devuelven los mismos resultados frecuentemente
-- Necesitas reducir carga en APIs o bases de datos downstream
+- Las [consultas a base de datos](/recipes/databases/postgres-query-optimization) son lentas y devuelven los mismos resultados frecuentemente
+- Necesitas reducir carga en [APIs](/recipes/api/call-rest-api) o bases de datos downstream
 - Datos de sesión, perfiles de usuario o configuración necesitan acceso rápido de lectura
-- Se requieren leaderboards en tiempo real, rate limiting o locks temporales
+- Se requieren leaderboards en tiempo real, [rate limiting](/recipes/api/rate-limiting) o locks temporales
 
 ## Solución
 
@@ -181,7 +181,7 @@ Este patrón es simple, funciona con cualquier base de datos y maneja fallos de 
 - **Configura TTL en todo**: Sin TTL, tu caché crece infinitamente y datos obsoletos viven indefinidamente. Usa 5-15 minutos para datos volátiles, horas para datos de referencia estables.
 - **Usa versionado de cache keys**: `user:v2:123` permite invalidar un esquema entero cambiando el prefijo de versión.
 - **Serializa a JSON o MessagePack**: JSON es legible; MessagePack es más pequeño y rápido. Evita `pickle` de Python o serialización nativa de Java por seguridad.
-- **Maneja cache misses elegantemente**: Los fallos de caché deben degradar a la base de datos, nunca crashear la app. Usa circuit breakers para conexiones Redis.
+- **Maneja cache misses elegantemente**: Los fallos de caché deben degradar a la base de datos, nunca crashear la app. Usa [circuit breakers](/patterns/design/circuit-breaker-pattern) para conexiones Redis.
 - **Monitorea hit rates**: Un hit rate menor a 80% usualmente significa que tu TTL es muy corto o estás cacheando los datos equivocados.
 
 ## Errores Comunes

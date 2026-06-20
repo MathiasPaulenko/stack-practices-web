@@ -35,7 +35,7 @@ El procesamiento por lotes es la columna vertebral de pipelines de datos, flujos
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Procesas grandes datasets que no caben en memoria
+- Procesas grandes datasets que no caben en memoria. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para manejar fallos transitorios.
 - Construyes pipelines ETL para data warehouses
 - Generas reportes o agregaciones nocturnas
 - Migras datos entre sistemas con ventanas de mantenimiento
@@ -103,9 +103,9 @@ SELECT * FROM job_runs WHERE job_id = 'daily_report_2025_01_15' AND status = 'co
 
 Un pipeline de producción por lotes necesita tres propiedades:
 
-1. **Idempotencia**: Ejecutar el mismo trabajo dos veces debe producir el mismo resultado. Usa IDs de trabajo y checksums para saltar trabajo ya procesado.
+1. **Idempotencia**: Ejecutar el mismo trabajo dos veces debe producir el mismo resultado. Usa IDs de trabajo y checksums para saltar trabajo ya procesado. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación.
 2. **Tolerancia a fallos**: Fallos individuales de batch no deben crashear todo el trabajo. Implementa reintentos con backoff exponencial y una cola de mensajes fallidos.
-3. **Observabilidad**: Rastrea progreso, throughput y errores. Emite métricas para items procesados, latencia y tasas de fallo.
+3. **Observabilidad**: Rastrea progreso, throughput y errores. [Registra](/recipes/api/logging) métricas para items procesados, latencia y tasas de fallo.
 
 **Estrategia de chunking**: Ajusta el tamaño de batches para balancear uso de memoria y throughput. Demasiado pequeño = overhead; demasiado grande = riesgo de OOM.
 
@@ -124,7 +124,7 @@ Un pipeline de producción por lotes necesita tres propiedades:
 - **Registra todo**: Inicio de trabajo, fin, y resultado de cada batch
 - **Usa transacciones**: Envuelve escrituras de batch en transacciones de base de datos
 - **Monitorea profundidad de cola**: Alerta cuando batches pendientes excedan umbrales
-- **Implementa circuit breakers**: Detén reintentos si el downstream está unhealthy
+- **Implementa [circuit breakers](/recipes/architecture/circuit-breaker-pattern)**: Detén reintentos si el downstream está unhealthy
 
 ## Errores Comunes
 
@@ -140,7 +140,7 @@ Un pipeline de producción por lotes necesita tres propiedades:
 R: Comienza con 100-1000 items. Haz benchmark con tus datos y restricciones de memoria.
 
 **P: ¿Debería usar una cola de trabajos como Celery o un cron job?**
-R: Usa Celery/Redis para sistemas distribuidos y cron para pipelines simples de un solo nodo.
+R: Usa Celery/Redis para sistemas distribuidos y cron para pipelines simples de un solo nodo. Consulta [Rate Limiting](/recipes/api/rate-limiting) para controlar throughput.
 
 **P: ¿Cómo manejo cambios de schema en medio del pipeline?**
 R: Versiona tu lógica de trabajo y schemas de datos. Ejecuta versiones viejas y nuevas en paralelo durante la migración.

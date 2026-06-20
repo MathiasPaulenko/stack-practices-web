@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-The Saga Pattern manages distributed transactions across multiple services by breaking a long-running transaction into a sequence of local transactions. Each local transaction updates a single service and publishes an event or message to trigger the next step. If a step fails, the saga executes compensating transactions to undo the changes made by previous steps.
+The [Saga](/patterns/design/saga-pattern) Pattern manages distributed transactions across multiple services by breaking a long-running transaction into a sequence of local transactions. For event-driven choreography, see [Event Sourcing](/patterns/design/event-sourcing-pattern). Each local transaction updates a single service and publishes an event or message to trigger the next step. If a step fails, the saga executes compensating transactions to undo the changes made by previous steps.
 
 ## When to Use
 
@@ -314,7 +314,7 @@ Both approaches use **compensating transactions** to undo work when a step fails
 - **Idempotency**: Steps and compensations should be safe to run multiple times
 - **Timeouts**: Each step must have a timeout; missing responses should trigger compensation
 - **Logging**: Log every step, compensation, and failure for observability
-- **Retries**: Retry transient failures within a step before declaring failure
+- **[Retries](/patterns/design/retry-pattern)**: Retry transient failures within a step before declaring failure
 
 ## Common Mistakes
 
@@ -327,7 +327,7 @@ Both approaches use **compensating transactions** to undo work when a step fails
 ## Frequently Asked Questions
 
 **Q: What is the difference between Saga and 2PC?**
-A: 2PC locks resources across services until commit, ensuring strong consistency but blocking and brittle. Saga releases locks immediately after each local transaction, achieving eventual consistency with better availability and performance.
+A: 2PC locks resources across services until commit, ensuring strong consistency but blocking and brittle. For event-driven alternatives, see [CQRS](/patterns/design/cqrs-pattern). Saga releases locks immediately after each local transaction, achieving eventual consistency with better availability and performance.
 
 **Q: How do I handle a compensation that also fails?**
 A: Log the failure and alert an operator. Some compensations may require manual intervention (e.g., refunding a payment). Design compensations to be as simple and reliable as possible.

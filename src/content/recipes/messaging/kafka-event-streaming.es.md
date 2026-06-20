@@ -14,7 +14,7 @@ tags:
   - microservices
 relatedResources:
   - /recipes/devops/docker-compose-local-dev
-  - /patterns/design/event-driven-architecture
+  - /recipes/event-driven-architecture
   - /patterns/design/circuit-breaker-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
@@ -34,9 +34,9 @@ Construye sistemas event-driven resilientes y escalables usando Apache Kafka. Es
 
 ## Cuando Usar Esto
 
-- Los servicios necesitan comunicarse asincronamente sin acoplamiento fuerte
-- El historial de eventos debe ser replayable para debugging o onboarding de nuevos consumers
-- El procesamiento de mensajes de alto throughput requiere scaling horizontal de consumers
+- Los servicios necesitan comunicarse asincronamente sin acoplamiento fuerte. Consulta [Event-Driven Microservices](/recipes/messaging/event-driven-microservices) para patrones de arquitectura.
+- El historial de eventos debe ser replayable para debugging o onboarding de nuevos consumers. Consulta [Event Sourcing](/patterns/design/event-sourcing-pattern) para logs de eventos inmutables.
+- El procesamiento de mensajes de alto throughput requiere scaling horizontal de consumers. Consulta [RabbitMQ Task Queue](/recipes/messaging/rabbitmq-task-queue) para patrones de broker alternativos.
 
 ## Solucion
 

@@ -35,10 +35,10 @@ El chaos engineering es la disciplina de experimentar en sistemas distribuidos p
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Operas sistemas distribuidos donde las fallas son inevitables
-- Te preparas para drills de disaster recovery y game days
-- Validas auto-escalado, failover y mecanismos de auto-curación
-- Construyes confianza antes de eventos de alto tráfico (lanzamientos, Black Friday)
+- Operas sistemas distribuidos donde las fallas son inevitables. Consulta [Event-Driven Microservices](/recipes/messaging/event-driven-microservices) para arquitecturas resilientes.
+- Te preparas para drills de disaster recovery y game days. Consulta [Load Testing](/recipes/testing/load-testing) para verificación de capacidad.
+- Validas auto-escalado, failover y mecanismos de auto-curación. Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para configuración de probes.
+- Construyes confianza antes de eventos de alto tráfico (lanzamientos, Black Friday). Consulta [Retry Logic](/recipes/architecture/retry-backoff) para manejar fallas gracefulmente.
 
 ## Solución
 

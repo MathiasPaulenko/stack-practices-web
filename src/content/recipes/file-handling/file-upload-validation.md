@@ -36,10 +36,10 @@ File uploads are one of the most common attack vectors in web applications. Unva
 ## When to Use
 
 Use this resource when:
-- Building a web app that accepts user-generated images, documents, or media
-- Implementing a CMS, forum, or SaaS with attachment support
-- You need to comply with security standards (PCI-DSS, SOC 2)
-- Processing files from untrusted sources (public forms, APIs)
+- Building a web app that accepts user-generated images, documents, or media. See [Image Optimization](/recipes/file-handling/image-optimization) for post-upload processing.
+- Implementing a CMS, forum, or SaaS with attachment support. See [Export CSV Excel](/recipes/file-handling/export-csv-excel) for data export features.
+- You need to comply with security standards (PCI-DSS, SOC 2). See [Secret Management](/recipes/devops/secret-management) for secure credential storage.
+- Processing files from untrusted sources (public forms, APIs). See [Input Validation](/recipes/api/input-validation) for untrusted input handling.
 
 ## Solution
 

@@ -141,7 +141,7 @@ await asyncio.gather(
 )
 ```
 
-## Semaphore for [Rate Limiting](/recipes/rate-limiting)
+## Semaphore for [Rate Limiting](/recipes/api/rate-limiting)
 
 Control access to limited resources.
 
@@ -227,7 +227,7 @@ class CachedData {
 - **Share nothing**: Prefer message passing over shared state
 - **Use thread-safe collections**: `ConcurrentHashMap`, `Queue`, `AtomicInteger`
 - **Keep critical sections small**: Hold locks for the minimum time
-- **Never call external APIs while holding a lock** — see [retry with backoff](/recipes/retry-backoff) for resilient external calls
+- **Never call external APIs while holding a lock** — see [retry with backoff](/recipes/architecture/retry-backoff) for resilient external calls
 - **Test with ThreadSanitizer** or Helgrind for race detection
 
 ## Language Quick Reference

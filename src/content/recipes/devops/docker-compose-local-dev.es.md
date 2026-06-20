@@ -34,9 +34,9 @@ Configura un entorno de desarrollo local completo para microservicios usando Doc
 
 ## Cuando Usar Esto
 
-- Tu aplicacion consiste en multiples servicios que deben correr juntos localmente
-- Los desarrolladores necesitan entornos consistentes independientemente del SO host
-- Bases de datos, caches y message brokers son requeridos para testing de integracion
+- Tu aplicacion consiste en multiples servicios que deben correr juntos localmente. Consulta [Docker Basics](/recipes/devops/docker-basics) para fundamentos de contenedores.
+- Los desarrolladores necesitan entornos consistentes independientemente del SO host. Consulta [Environment Variables](/recipes/devops/environment-variables) para configuración por entorno.
+- Bases de datos, caches y message brokers son requeridos para testing de integracion. Consulta [Integration Testing](/recipes/testing/integration-testing) para estrategias de testing.
 
 ## Solucion
 

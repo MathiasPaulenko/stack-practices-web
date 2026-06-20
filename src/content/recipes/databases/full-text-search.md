@@ -37,10 +37,10 @@ Full-text search lets users find documents by relevance rather than exact substr
 ## When to Use
 
 Use this resource when:
-- Users need to search articles, products, or documents with typo tolerance
+- Users need to search articles, products, or documents with typo tolerance. See [Parse JSON](/recipes/data/parse-json) for document indexing.
 - Your app requires ranked results, faceted search, or highlighting
-- `LIKE` queries are too slow on tables with >100k rows
-- You want search-as-you-type (autocomplete) behavior
+- `LIKE` queries are too slow on tables with >100k rows. See [Query Optimization](/recipes/databases/postgres-query-optimization) for index tuning.
+- You want search-as-you-type (autocomplete) behavior. See [Input Validation](/recipes/api/input-validation) for query sanitization.
 
 ## Solution
 
@@ -161,7 +161,7 @@ PostgreSQL `tsvector` is great for simple use cases with no extra infrastructure
 
 ## Best Practices
 
-- **Use GIN indexes on PostgreSQL**: `to_tsvector` queries without an index are full table scans.
+- **Use GIN indexes on PostgreSQL**: `to_tsvector` queries without an index are full table scans. See [Query Optimization](/recipes/databases/postgres-query-optimization) for indexing.
 - **Limit searchable fields**: Indexing every column wastes space and degrades relevance.
 - **Stem words before indexing**: "running" and "run" should match the same document.
 - **Highlight matching terms**: Users need visual confirmation of why a result matched.
@@ -172,7 +172,7 @@ PostgreSQL `tsvector` is great for simple use cases with no extra infrastructure
 - **Using `LIKE '%term%'` on large tables**: Sequential scans kill performance past 100k rows.
 - **Not configuring stop words**: "The" should not influence ranking.
 - **Ignoring index refresh latency**: Elasticsearch is near-real-time, not instant.
-- **Storing all data in the search engine**: Use search IDs to fetch full records from the database.
+- **Storing all data in the search engine**: Use search IDs to fetch full records from the database. See [Data Validation](/recipes/data/data-validation) for data integrity.
 - **No query timeout**: A malformed query can hang for minutes on unoptimized indexes.
 
 ## Frequently Asked Questions

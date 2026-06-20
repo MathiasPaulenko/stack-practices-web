@@ -38,7 +38,7 @@ Las contraseñas solas ya no son suficientes para proteger cuentas de usuario. L
 Usa este recurso cuando:
 - Protejas cuentas de usuario con un paso adicional de verificación más allá de las contraseñas
 - Construyas flujos de login para aplicaciones financieras, de salud o de administración
-- Migres de autenticación solo-contraseña a autenticación multi-factor (MFA)
+- Migres de autenticación solo-contraseña a autenticación multi-factor (MFA). Consulta [Hashing de Contraseñas](/recipes/authentication/password-hashing) para mejores prácticas de almacenamiento de credenciales.
 - Soportes apps de autenticación (Google Authenticator, Authy, Microsoft Authenticator)
 
 ## Solución
@@ -195,10 +195,10 @@ public class TOTPService {
 ## Mejores Prácticas
 
 1. **Encripta secretos en reposo** — nunca almacenes secretos TOTP en texto plano; usa AES-256-GCM o un vault de secretos dedicado.
-2. **Limita intentos de verificación** — bloquea o retrasa tras 5 intentos fallidos de TOTP para prevenir fuerza bruta.
+2. **[Limita intentos](/recipes/api/rate-limiting) de verificación** — bloquea o retrasa tras 5 intentos fallidos de TOTP para prevenir fuerza bruta.
 3. **Proporciona códigos de respaldo al enrolar** — genera 8-10 códigos de un solo uso y hashealos antes de almacenarlos.
 4. **Permite re-enrolamiento** — permite a los usuarios desactivar y reactivar 2FA cuando cambian de dispositivo, con confirmación por email.
-5. **Loguea eventos de 2FA** — audita enrolamiento, éxito/fallo de verificación y uso de códigos de respaldo para monitoreo de seguridad.
+5. **[Loguea eventos de 2FA](/recipes/api/logging)** — audita enrolamiento, éxito/fallo de verificación y uso de códigos de respaldo para monitoreo de seguridad.
 
 ## Errores Comunes
 
@@ -220,4 +220,4 @@ Sí, escaneando el mismo QR code en múltiples apps de autenticación. Por segur
 
 ### ¿Qué pasa si un usuario pierde su dispositivo de autenticación?
 
-Proporciona códigos de respaldo durante el enrolamiento. Si también los pierde, requiere verificación de identidad (email + reset de contraseña con confirmación adicional) antes de desactivar 2FA.
+Proporciona códigos de respaldo durante el enrolamiento. Si también los pierde, requiere verificación de identidad (email + reset de contraseña con confirmación adicional) antes de desactivar 2FA. Consulta [Magic Links](/recipes/authentication/magic-link-authentication) para verificación segura por email.

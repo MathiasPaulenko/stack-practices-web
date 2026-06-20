@@ -39,8 +39,8 @@ This recipe shows the idiomatic, modern way to make an HTTP request and read the
 
 Use this recipe when:
 
-- Fetching data from a third-party or internal API
-- Submitting form data or events to a backend service
+- Fetching data from a third-party or internal API. See [Input Validation](/recipes/api/input-validation) for validating API request and response data.
+- Submitting form data or events to a backend service. See [Retry Logic](/recipes/architecture/retry-backoff) for handling transient failures.
 - Integrating with SaaS platforms (payments, email, analytics)
 - Building a client SDK or CLI that talks to an HTTP service
 - Uploading files to a storage API or CDN
@@ -102,7 +102,7 @@ System.out.println(response.body());
 - **JavaScript** uses the built-in `fetch` API (Node 18+ and all modern browsers). Note that `fetch` only rejects on network errors — HTTP errors like 404 or 500 still resolve the promise, so you must check `response.ok` yourself.
 - **Java** uses the built-in `java.net.http.HttpClient` (Java 11+). It supports synchronous (`send`) and asynchronous (`sendAsync`) calls, and can be configured with connection pooling and request timeouts.
 
-Once you receive the body, see [Parse JSON](/recipes/parse-json) for turning it into typed data.
+Once you receive the body, see [Parse JSON](/recipes/data/parse-json) for turning it into typed data.
 
 ## Variants
 

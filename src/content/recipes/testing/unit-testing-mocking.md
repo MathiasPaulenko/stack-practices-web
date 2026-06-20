@@ -38,11 +38,11 @@ A well-isolated unit test runs in milliseconds, produces the same result every t
 
 Use this recipe when:
 
-- Writing unit tests for code that calls databases, APIs, or third-party services
-- Testing error handling for scenarios that are hard to trigger in real systems
+- Writing unit tests for code that calls databases, APIs, or third-party services. See [Integration Testing](/recipes/testing/integration-testing) for testing with real dependencies.
+- Testing error handling for scenarios that are hard to trigger in real systems. See [API Contract Testing](/recipes/testing/api-mocking) for verifying API error responses.
 - Speeding up a slow test suite dominated by integration-style tests
 - Verifying that a function calls a collaborator with the correct arguments
-- Replacing non-deterministic dependencies (random generators, current time, UUIDs)
+- Replacing non-deterministic dependencies (random generators, current time, UUIDs). See [Call REST API](/recipes/api/call-rest-api) for testing HTTP client logic.
 
 ## Solution
 

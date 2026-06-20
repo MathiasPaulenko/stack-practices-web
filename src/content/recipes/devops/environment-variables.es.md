@@ -41,10 +41,10 @@ Antes de que las variables de entorno se convirtieran en el estándar, la config
 
 Usa esta recipe cuando:
 
-- Configuras apps por entorno (dev, staging, prod)
-- Almacenas secretos como claves API y credenciales de base de datos
-- Habilitas o deshabilitas features con feature flags
-- Gestionas configuración de aplicaciones containerizadas en Docker y Kubernetes
+- Configuras apps por entorno (dev, staging, prod). Consulta [Docker Basics](/recipes/devops/docker-basics) para configuración de apps containerizadas.
+- Almacenas secretos como claves API y credenciales de base de datos. Consulta [JWT Authentication](/recipes/authentication/jwt-authentication) para manejo seguro de tokens.
+- Habilitas o deshabilitas features con feature flags. Consulta [Feature Flags](/recipes/devops/feature-flags) para gestión de toggles.
+- Gestionas configuración de aplicaciones containerizadas en Docker y Kubernetes. Consulta [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) para orquestación local de contenedores.
 - Evitas valores hard-codeados en el código fuente
 - Compartes configuración entre microservicios sin un servidor de configuración central
 - Cambias endpoints de base de datos entre primaria y réplica para escalado de lecturas

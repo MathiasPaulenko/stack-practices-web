@@ -38,9 +38,9 @@ A service mesh solves these problems by inserting a proxy — a sidecar containe
 
 Use this recipe when:
 
-- Running 10+ microservices in Kubernetes with complex inter-service communication
+- Running 10+ microservices in Kubernetes with complex inter-service communication. See [Microservices Patterns](/guides/architecture/microservices-architecture-guide) for resilience strategies.
 - Requiring encryption for all service-to-service traffic without modifying applications
-- Implementing canary deployments, A/B testing, or traffic mirroring between service versions
+- Implementing [canary deployments](/recipes/architecture/load-balancing), A/B testing, or traffic mirroring between service versions
 - Needing unified observability (metrics, logs, traces) across all microservices
 - Enforcing access policies (e.g., "payment service can only talk to billing and fraud detection")
 
@@ -169,7 +169,7 @@ spec:
 - **Start with permissive mTLS, then enforce strict**: begin with `PERMISSIVE` mode to ensure all sidecars are injected and working. After validating traffic flows, switch to `STRICT` to reject unencrypted connections. Sudden strict mode can break services that lack sidecars.
 - **Define service accounts per workload**: Kubernetes service accounts map to Istio identities. Use distinct service accounts for each deployment, not the `default` account. This enables fine-grained authorization policies.
 - **Configure retry budgets, not just retries**: naive retries can amplify failures. Use Istio's retry budgets (e.g., retry only if the error ratio is below 10%) or configure maximum retry attempts with exponential backoff. Unlimited retries create retry storms.
-- **Use circuit breakers on every outbound call**: configure `outlierDetection` in DestinationRules. If a downstream service returns 5xx on 50% of requests over a 30-second window, eject it for 30 seconds. This prevents cascading failures.
+- **Use [circuit breakers](/recipes/architecture/circuit-breaker-pattern) on every outbound call**: configure `outlierDetection` in DestinationRules. If a downstream service returns 5xx on 50% of requests over a 30-second window, eject it for 30 seconds. This prevents cascading failures.
 - **Monitor sidecar resource usage**: Envoy consumes CPU and memory. Set resource requests/limits on the sidecar. In high-throughput services, the sidecar can become the bottleneck before the application. Profile and tune proxy concurrency.
 
 ## Common mistakes
@@ -181,7 +181,7 @@ spec:
 
 ## FAQ
 
-**Q: Does a service mesh replace an API gateway?**
+**Q: Does a service mesh replace an [API gateway](/recipes/architecture/api-gateway)?**
 A: No. The gateway handles north-south (external to cluster). The mesh handles east-west (service-to-service). Use both. Some meshes include an ingress gateway, but it complements, not replaces, your primary API gateway.
 
 **Q: What is the performance overhead of a service mesh?**

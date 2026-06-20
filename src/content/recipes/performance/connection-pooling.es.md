@@ -37,10 +37,10 @@ Esta receta cubre connection pooling de base de datos con PostgreSQL, MySQL y Re
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Tu aplicación abre una conexión nueva por petición y el throughput es bajo
-- Recibes errores de "demasiadas conexiones" bajo carga
-- Haces llamadas HTTP frecuentes a APIs externas y quieres reutilizar conexiones TCP
-- Necesitas ajustar los límites de concurrencia para un servicio web o worker
+- Tu aplicación abre una conexión nueva por petición y el throughput es bajo. Consulta [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) para optimización previa.
+- Recibes errores de "demasiadas conexiones" bajo carga. Consulta [Performance Optimization](/guides/performance/performance-optimization-guide) para diagnóstico de cuellos de botella.
+- Haces llamadas HTTP frecuentes a APIs externas y quieres reutilizar conexiones TCP. Consulta [Call REST API](/recipes/api/call-rest-api) para patrones de cliente HTTP.
+- Necesitas ajustar los límites de concurrencia para un servicio web o worker. Consulta [Rate Limiting](/recipes/api/rate-limiting) para control de concurrencia.
 
 ## Solución
 

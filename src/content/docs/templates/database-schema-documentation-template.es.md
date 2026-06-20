@@ -31,9 +31,9 @@ seo:
 
 ## Mejores Prácticas
 
-- **Documenta cada tabla y columna** — Los desarrolladores futuros (incluyéndote) te lo agradecerán
+- **Documenta cada tabla y columna** — Los desarrolladores futuros (incluyéndote) te lo agradecerán. Combina los docs de esquema con un [Runbook de Migración](/docs/templates/database-migration-runbook-template) para tracking de cambios.
 - **Explica el significado de negocio, no solo los tipos** — `status` es obvio; por qué existe `metadata` no lo es
-- **Incluye el "por qué" de los índices** — Los índices tienen costo; documenta qué query sirven
+- **Incluye el "por qué" de los índices** — Los índices tienen costo; documenta qué query sirven. Consulta la [Guía de Optimización de SQL](/guides/databases/sql-performance-tuning-guide) para estrategias de indexación.
 - **Versiona tus docs de esquema** — Rastrea qué cambió y cuándo, como con el código
 - **Mantén el diagrama ER actualizado** — La referencia visual es más rápida que leer SQL para entender relaciones
 - **Marca columnas deprecadas** — No borres docs de columnas eliminadas inmediatamente; márquenlas como deprecated con fecha de remoción
@@ -50,7 +50,7 @@ seo:
 
 ### ¿Debería auto-generar docs de esquema desde la base de datos?
 
-Sí, para la línea base estructural. Herramientas como tbls, dbdocs, o comentarios de pg_dump son excelentes puntos de partida. Pero siempre agrega documentación narrativa — el "por qué" detrás de decisiones de diseño no puede extraerse del DDL.
+Sí, para la línea base estructural. Herramientas como tbls, dbdocs, o comentarios de pg_dump son excelentes puntos de partida. Traquea cambios estructurales con el [Runbook de Migración de BD](/docs/templates/database-migration-runbook-template). Pero siempre agrega documentación narrativa — el "por qué" detrás de decisiones de diseño no puede extraerse del DDL.
 
 ### ¿Cómo mantengo los docs de esquema sincronizados con la base de datos?
 

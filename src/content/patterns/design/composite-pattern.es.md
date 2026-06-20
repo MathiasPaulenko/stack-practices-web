@@ -40,15 +40,15 @@ seo:
 
 ## Visión General
 
-El Patrón Composite es un patrón de diseño estructural que te permite componer objetos en estructuras de árbol y luego trabajar con esas estructuras como si fueran objetos individuales. Es ideal cuando necesitas tratar elementos individuales y grupos de elementos uniformemente — como componentes UI, sistemas de archivos, o organigramas.
+El Patrón Composite es un patrón de diseño estructural que te permite componer objetos en estructuras de árbol y luego trabajar con esas estructuras como si fueran objetos individuales. Es ideal cuando necesitas tratar elementos individuales y grupos de elementos uniformemente — como [componentes UI](/patterns/design/composite-pattern-ui), sistemas de archivos, o organigramas.
 
 ## Cuándo Usarlo
 
 Usa el Patrón Composite cuando:
-- Necesitas representar jerarquías parte-todo de objetos
+- Necesitas representar jerarquías parte-todo de objetos. Consulta [Visitor Pattern](/patterns/design/visitor-pattern) para operaciones sobre árboles.
 - Los clientes deben ignorar la diferencia entre composiciones de objetos y objetos individuales
-- Quieres realizar operaciones recursivamente sobre una estructura de árbol
-- La estructura es naturalmente jerárquica (UI, sistemas de archivos, organigramas, expresiones)
+- Quieres realizar operaciones recursivamente sobre una estructura de árbol. Consulta [Visitor Pattern](/patterns/design/visitor-pattern) para operaciones de recorrido.
+- La estructura es naturalmente jerárquica (UI, sistemas de archivos, organigramas, expresiones). Consulta [Flyweight Pattern](/patterns/design/flyweight-pattern) para optimizar nodos similares.
 
 ## Solución
 
@@ -258,7 +258,7 @@ Los clientes interactúan con todos los objetos a través de la interfaz Compone
 ## Preguntas Frecuentes
 
 **P: ¿Cuándo debería usar Composite en lugar de una lista plana?**
-R: Usa Composite cuando tus datos sean naturalmente jerárquicos y necesites realizar operaciones recursivas. Para estructuras planas o poco profundas, una lista simple con agrupación es usualmente suficiente.
+R: Usa Composite cuando tus datos sean naturalmente jerárquicos y necesites realizar operaciones recursivas. Para estructuras planas o poco profundas, una lista simple con agrupación es usualmente suficiente. Si necesitas agregar comportamiento a objetos individuales sin semántica de árbol, usa [Decorator](/patterns/design/decorator-pattern) en su lugar.
 
 **P: ¿Cómo evito ciclos en un árbol Composite?**
 R: En el método `add()` del compuesto, verifica que el componente que se agrega no sea ya un ancestro en el árbol. Mantén una referencia al padre si es necesario.

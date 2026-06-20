@@ -133,13 +133,13 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 
 - **Usa expand-contract para cambios breaking** — agregar nuevo esquema, deployar código, eliminar viejo esquema en migraciones separadas
 - **Batch updates grandes** — `UPDATE ... WHERE id BETWEEN 1 AND 10000` en un loop, con sleeps
-- **Monitorea lag de replicación** — DDL grande puede bloquear replicación; pausa si el lag excede umbrales
+- **Monitorea lag de replicación** — DDL grande puede bloquear replicación; pausa si el lag excede umbrales. Consulta la [Guía de Optimización de SQL](/guides/databases/sql-performance-tuning-guide) para estrategias de monitoreo.
 - **Mantén migraciones idempotentes** — `IF NOT EXISTS` y `IF EXISTS` permiten re-ejecución segura
 - **Documenta duración real** — las estimaciones futuras mejoran cuando trackeas la realidad
 
 ## Errores Comunes
 
-- Correr migraciones no testeadas en producción — testea en una copia con tamaño de datos realista
+- Correr migraciones no testeadas en producción — testea en una copia con tamaño de datos realista. Documenta tu esquema con la [Plantilla de Documentación de Esquema de BD](/docs/templates/database-schema-documentation-template).
 - Olvidar usar `CONCURRENTLY` — lockea la tabla para escrituras, causando outages
 - Transacciones grandes sin batching — un `UPDATE` único en 100M filas lockeará y hará rollback lento
 - Sin plan de rollback — "ya veremos" no es un plan
@@ -149,11 +149,11 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 
 ### ¿Debería usar una herramienta de migración o SQL raw?
 
-Usa una herramienta (Flyway, Liquibase, Django migrations, Rails migrations). Las herramientas trackean migraciones aplicadas, enforcean ordenamiento, y proveen hooks de rollback. Los scripts SQL raw requieren trackeo manual y son propensos a errores.
+Usa una herramienta (Flyway, Liquibase, Django migrations, Rails migrations). Consulta la [Guía de Optimización de SQL](/guides/databases/sql-performance-tuning-guide) y la [Guía de Sharding de BD](/guides/databases/database-sharding-partitioning-guide) para mejores prácticas relacionadas. Las herramientas trackean migraciones aplicadas, enforcean ordenamiento, y proveen hooks de rollback. Los scripts SQL raw requieren trackeo manual y son propensos a errores.
 
 ### ¿Cómo manejo una migración fallida en producción?
 
-Detente inmediatamente. No apliques migraciones subsiguientes. Evalúa si hacer rollback o fix forward. Rollback si la integridad de datos está en riesgo. Fix forward si el fix es un script pequeño y bien entendido. Siempre ten el script de rollback listo antes de empezar.
+Detente inmediatamente. No apliques migraciones subsiguientes. Evalúa si hacer rollback o fix forward. Rollback si la integridad de datos está en riesgo. Fix forward si el fix es un script pequeño y bien entendido. Siempre ten el script de rollback listo antes de empezar. Para planificación más amplia de desastres, consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template).
 
 ### ¿Puedo correr migraciones en una transacción?
 

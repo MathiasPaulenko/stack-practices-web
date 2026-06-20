@@ -37,11 +37,11 @@ En arquitecturas serverless, los WebSockets requieren gestión de estado de cone
 
 Usa esta receta cuando:
 
-- Construyas aplicaciones de chat, notificaciones en vivo o feeds en tiempo real
-- Transmitas datos en vivo a dashboards o herramientas de monitoreo
+- Construyas aplicaciones de chat, notificaciones en vivo o feeds en tiempo real. Consulta [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) para patrones de endpoints HTTP.
+- Transmitas datos en vivo a dashboards o herramientas de monitoreo. Consulta [Event-Driven Functions](/recipes/messaging/event-driven-microservices) para streaming de datos event-driven.
 - Implementes edición colaborativa o estado de juegos multijugador
 - Reemplaces polling largo o SSE con una conexión persistente más eficiente
-- Transmitas eventos desde servicios backend a clientes conectados
+- Transmitas eventos desde servicios backend a clientes conectados. Consulta [Scheduled Jobs](/recipes/devops/background-jobs) para push de datos periódico.
 
 ## Solución
 

@@ -35,10 +35,10 @@ Prometheus is the de facto standard for metrics collection in cloud-native envir
 ## When to Use
 
 Use this resource when:
-- Setting up monitoring for REST or gRPC APIs
-- Defining SLOs and SLIs for microservices
-- Creating Grafana dashboards for API health
-- Alerting on p99 latency or error rate spikes
+- Setting up monitoring for REST or gRPC APIs. See [Structured Logging](/recipes/observability/structured-logging) for correlating logs with metrics.
+- Defining SLOs and SLIs for microservices. See [Load Testing](/recipes/testing/load-testing) for establishing performance baselines.
+- Creating Grafana dashboards for API health. See [API Status Page Template](/docs/templates/api-status-page-template) for external status reporting.
+- Alerting on p99 latency or error rate spikes. See [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for preventing cascading failures.
 
 ## Solution
 

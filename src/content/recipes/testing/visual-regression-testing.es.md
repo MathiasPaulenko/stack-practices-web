@@ -36,9 +36,9 @@ El desafío core es evitar falsos positivos. El anti-aliasing, frames de animaci
 
 Usa esta receta cuando:
 
-- Manteniendo un design system donde cambios de componentes afectan múltiples aplicaciones
-- Releasing actualizaciones frecuentes de UI y necesitando confianza de que los cambios son intencionales
-- Soportando múltiples navegadores o temas donde la consistencia visual es crítica
+- Manteniendo un design system donde cambios de componentes afectan múltiples aplicaciones. Consulta [Component Testing](/recipes/testing/e2e-testing) para testear componentes en aislamiento.
+- Releasing actualizaciones frecuentes de UI y necesitando confianza de que los cambios son intencionales. Consulta [Jest Snapshot Testing](/recipes/testing/unit-testing) para validación de render output.
+- Soportando múltiples navegadores o temas donde la consistencia visual es crítica. Consulta [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) para mejores prácticas de rendimiento frontend.
 - Migrando frameworks de CSS o refactorizando estilos globales con impacto amplio
 - Colaborando entre equipos de diseño e ingeniería con estándares visuales compartidos
 

@@ -36,7 +36,7 @@ Copia objetos JavaScript anidados sin referencias compartidas usando enfoques mo
 ## Cuando Usar Esto
 
 - El manejo de estado requiere actualizaciones inmutables sin mutar datos originales
-- Las respuestas de API son cacheadas y no deben ser modificadas por consumidores
+- Las [respuestas de API](/recipes/api/call-rest-api) son cacheadas y no deben ser modificadas por consumidores
 - Los objetos de configuracion se pasan a multiples modulos que pueden modificarlos
 
 ## Solucion
@@ -172,12 +172,12 @@ const largeObject = {
 
 - Usa `structuredClone` en ambientes modernos para rendimiento nativo
 - Prefiere `klona` sobre `lodash` si importa el tamano del bundle
-- Para estado de React, considera Immer para structural sharing en lugar de clonado completo
+- Para estado de React, considera Immer para structural sharing en lugar de clonado completo. Consulta [Clean Code Guide](/guides/design/clean-code-principles-guide) para patrones mantenibles.
 
 ## Errores Comunes
 
 - Usar `JSON.parse` para objetos que contienen Dates, Maps o funciones
-- Hacer spread de objetos anidados (`{ ...obj }`) que solo hace shallow-clone del primer nivel
+- Hacer spread de objetos anidados (`{ ...obj }`) que solo hace shallow-clone del primer nivel. Consulta [Deep Clone JavaScript](/recipes/data/deep-clone-javascript) para estrategias completas.
 - No manejar referencias circulares, causando stack overflow en soluciones recursivas
 
 ## FAQ

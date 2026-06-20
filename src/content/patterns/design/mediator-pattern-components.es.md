@@ -31,7 +31,7 @@ seo:
 
 # Mediator Pattern para Desacoplamiento de Componentes en Apps Frontend
 
-El Mediator pattern define un objeto que encapsula como un conjunto de objetos interactuan. En lugar de que componentes se referencien entre si directamente, se refieren a un mediador, reduciendo el numero de conexiones explicitas de many-to-many a many-to-one. Esto es esencial para UIs complejas donde docenas de componentes necesitan mantenerse sincronizados.
+El [Mediator](/patterns/design/mediator-pattern) pattern define un objeto que encapsula como un conjunto de objetos interactuan. En lugar de que componentes se referencien entre si directamente, se refieren a un mediador, reduciendo el numero de conexiones explicitas de many-to-many a many-to-one. Esto es esencial para UIs complejas donde docenas de componentes necesitan mantenerse sincronizados.
 
 ## Cuando Usar Esto
 
@@ -200,7 +200,7 @@ bus.emit('user-login', { id: 1 });
 
 - Manten mediadores enfocados en un dominio; no crees un god object
 - Usa eventos tipados para prevenir bugs de comunicacion stringly-typed
-- Considera librerias de state management (Redux, Zustand) como mediadores evolucionados
+- Considera librerias de state management (Redux, Zustand) como mediadores evolucionados. Consulta [Singleton](/patterns/design/singleton-pattern) para gestion de instancias de servicios.
 
 ## Errores Comunes
 
@@ -211,7 +211,7 @@ bus.emit('user-login', { id: 1 });
 ## FAQ
 
 **P: En que se diferencia de Observer?**
-R: Observer es broadcast one-to-many. Mediator es many-to-many enrutado a traves de un coordinador central.
+R: [Observer](/patterns/design/observer-pattern) es broadcast one-to-many. Mediator es many-to-many enrutado a traves de un coordinador central.
 
 **P: Cuando deberia usar un state manager en su lugar?**
 R: Cuando la necesidad primaria es estado compartido, no solo comunicacion. Mediator maneja mensajes; state managers manejan datos.

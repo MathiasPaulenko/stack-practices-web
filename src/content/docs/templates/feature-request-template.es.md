@@ -31,7 +31,7 @@ seo:
 
 # Plantilla de Solicitud de Feature
 
-Usa esta plantilla para proponer nuevas features de manera que ayude a equipos de producto e ingeniería a evaluar valor de usuario y esfuerzo de implementación.
+Usa esta plantilla para proponer nuevas features de manera que ayude a equipos de producto e ingeniería a evaluar valor de usuario y esfuerzo de implementación. Combínala con la [Plantilla de User Story](/docs/templates/user-story-template) para requerimientos en formato narrativo.
 
 ## Plantilla
 
@@ -82,13 +82,13 @@ Describe la feature. Incluye mockups, wireframes o diagramas de flujo si están 
 ## Consejos para Quienes Solicitan
 
 - **Empieza con el problema, no la solución** — el equipo puede encontrar una solución mejor
-- **Incluye una cita de usuario** — "Como [usuario], quiero [feature] para poder [beneficio]"
+- **Incluye una cita de usuario** — "Como [usuario], quiero [feature] para poder [beneficio]". Consulta la [Plantilla de User Story](/docs/templates/user-story-template) para el formato completo.
 - **Define una feature por solicitud** — los paquetes son difíciles de evaluar y trackear
 
 ## Consejos para Reviewers
 
 - **Rechaza solicitudes poco claras rápidamente** — label "necesita-mas-info" y deadline de 48 horas
-- **Estima antes de comprometerte** — t-shirt sizing (S/M/L) es suficiente para triage
+- **Estima antes de comprometerte** — t-shirt sizing (S/M/L) es suficiente para triage. Consulta la [Guía de Principios de Clean Code](/guides/design/clean-code-principles-guide) para estándares de implementación.
 - **Link al roadmap** — muestra dónde encaja (o no) en los objetivos trimestrales
 
 ## Preguntas Frecuentes
@@ -103,4 +103,4 @@ Requiere una sección de "valor de usuario" en cada solicitud. Si la respuesta e
 
 ### ¿Las herramientas internas deberían usar la misma plantilla?
 
-Sí, pero relaja la sección de "valor de usuario". Las solicitudes internas necesitan "equipo solicitante" y "tiempo ahorrado por semana" en su lugar.
+Sí, pero relaja la sección de "valor de usuario". Las solicitudes internas necesitan "equipo solicitante" y "tiempo ahorrado por semana" en su lugar. Usa la [Plantilla de Reporte de Bug](/docs/templates/bug-report-template) para tracking de defectos.

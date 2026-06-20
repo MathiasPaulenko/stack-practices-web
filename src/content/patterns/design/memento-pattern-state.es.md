@@ -30,7 +30,7 @@ seo:
 
 # Memento Pattern para Snapshot y Restauracion de Estado
 
-El Memento pattern captura y externaliza el estado interno de un objeto para que el objeto pueda ser restaurado a ese estado mas tarde, sin violar encapsulacion. A diferencia de Command, que almacena operaciones, Memento almacena el snapshot completo del estado. Es la base para sistemas de undo, checkpoints en juegos y guardado de borradores en editores.
+El [Memento](/patterns/design/memento-pattern) pattern captura y externaliza el estado interno de un objeto para que el objeto pueda ser restaurado a ese estado mas tarde, sin violar encapsulacion. A diferencia de [Command](/patterns/design/command-pattern), que almacena operaciones, Memento almacena el snapshot completo del estado. Es la base para sistemas de undo, checkpoints en juegos y guardado de borradores en editores.
 
 ## Cuando Usar Esto
 
@@ -215,7 +215,7 @@ class GameCheckpoint implements EditorMemento {
 ## FAQ
 
 **P: En que se diferencia de Command?**
-R: Command almacena operaciones para revertir. Memento almacena snapshots completos de estado. Los mementos son mas grandes pero mas simples de implementar para objetos complejos.
+R: [Command](/patterns/design/command-pattern) almacena operaciones para revertir. Memento almacena snapshots completos de estado. Los mementos son mas grandes pero mas simples de implementar para objetos complejos.
 
 **P: Puedo usar esto con Redux?**
 R: El time-travel de Redux es esencialmente un historial de mementos sobre estado inmutable. Redux DevTools implementa este pattern.

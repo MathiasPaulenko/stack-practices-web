@@ -247,9 +247,9 @@ Estrategias comunes de namespaces:
 - **Establece [requests y limits de recursos](/guides/performance/performance-optimization-guide)** en cada contenedor para prevenir vecinos ruidosos
 - **Usa readiness probes** para evitar que el tráfico llegue a Pods no listos
 - **Usa liveness probes** para recuperarse de deadlocks y bloqueos
-- **Nunca ejecutes como root** — establece `securityContext.runAsNonRoot: true`. Consulta [seguridad de contenedores](/recipes/container-security).
+- **Nunca ejecutes como root** — establece `securityContext.runAsNonRoot: true`. Consulta [seguridad de contenedores](/recipes/security/container-security).
 - **Fija las etiquetas de imagen** — evita `:latest` en producción
-- **Usa ConfigMaps para configuración**, [Secrets](/guides/secrets-management-guide) para credenciales
+- **Usa ConfigMaps para configuración**, [Secrets](/guides/security/security-best-practices-guide) para credenciales
 - **Establece terminación graceful** — maneja SIGTERM en tu app (`terminationGracePeriodSeconds`). Consulta [estrategias de deployment](/guides/devops/deployment-strategies-guide).
 
 ## Errores Comunes

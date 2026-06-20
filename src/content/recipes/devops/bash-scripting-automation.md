@@ -34,9 +34,9 @@ Bash remains the lingua franca of system administration and DevOps automation. A
 
 ## When to Use This
 
-- You need to automate repetitive system or deployment tasks
-- The environment is minimal (containers, CI runners, VMs) without Node/Python
-- You want self-documenting automation that any sysadmin can read and modify
+- You need to automate repetitive system or deployment tasks. See [Docker Basics](/recipes/devops/docker-basics) for container deployment.
+- The environment is minimal (containers, CI runners, VMs) without Node/Python. See [CLI Tool Argument Parsing](/recipes/devops/cli-tool-argument-parsing) for typed CLI alternatives.
+- You want self-documenting automation that any sysadmin can read and modify. See [Git Workflow](/recipes/devops/git-workflow) for version-controlled automation.
 
 ## Prerequisites
 

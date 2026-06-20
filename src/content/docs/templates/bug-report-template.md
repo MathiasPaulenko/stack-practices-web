@@ -65,7 +65,7 @@ What actually happened. Include screenshots or error messages.
 - [ ] Low — cosmetic issue, minor inconvenience
 
 ## Additional Context
-- Link to related issue or PR
+- Link to related issue, PR, or [feature request](/docs/templates/feature-request-template). See [Test-Driven Development](/guides/testing/test-driven-development-guide) for writing tests that reproduce bugs.
 - Frequency of occurrence
 - Recent changes that may be related
 ```
@@ -105,4 +105,4 @@ Yes, but simplify it. Customers get a form with Summary, Steps, and Environment 
 
 ### How do I handle "works on my machine" bugs?
 
-Add environment parity checks: Docker, exact dependency versions, and seeded test data. If it only happens in production, the bug is in the data or configuration, not the code.
+Add environment parity checks: [Docker](/recipes/devops/docker-compose-local-dev), exact dependency versions, and seeded test data. See [Integration Testing](/recipes/testing/integration-testing-strategies) for verifying fixes across environments. If it only happens in production, the bug is in the data or configuration, not the code.

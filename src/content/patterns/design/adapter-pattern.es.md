@@ -45,10 +45,10 @@ Es el equivalente software de un adaptador de corriente físico: convierte una i
 ## Cuándo usarlo
 
 Usa el Patrón Adapter cuando:
-- Quieres usar una clase existente cuya interfaz es incompatible con el resto de tu código
-- Necesitas reutilizar código legacy o de terceros que no coincide con tus interfaces
+- Quieres usar una clase existente cuya interfaz es incompatible con el resto de tu código. Consulta [Strategy Pattern](/patterns/design/strategy-pattern) para selección de comportamiento en runtime.
+- Necesitas reutilizar código legacy o de terceros que no coincide con tus interfaces. Consulta [Facade Pattern](/patterns/design/adapter-pattern) para simplificar APIs complejas.
 - Quieres crear una interfaz unificada a través de varias clases con APIs diferentes
-- No puedes o no deberías modificar el código fuente de la clase incompatible
+- No puedes o no deberías modificar el código fuente de la clase incompatible. Consulta [Decorator Pattern](/patterns/design/decorator-pattern) para extender comportamiento sin herencia.
 - Necesitas traducir formatos de datos o convenciones de llamada entre sistemas
 
 ## Solución
@@ -163,7 +163,7 @@ El adapter traduce llamadas desde la interfaz target a llamadas que el adaptee e
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Adapter y Facade?**
-R: Adapter hace compatible una interfaz incompatible. [Facade](/patterns/design/facade-pattern) simplifica un subsistema complejo proporcionando una única interfaz unificada.
+R: Adapter hace compatible una interfaz incompatible. [Facade](/patterns/design/adapter-pattern) simplifica un subsistema complejo proporcionando una única interfaz unificada.
 
 **P: ¿Puedo adaptar múltiples clases a la vez?**
 R: Sí. Un único adapter puede envolver múltiples adaptees y coordinarlos para proporcionar una interfaz unificada.

@@ -37,11 +37,11 @@ El streaming no es solo para archivos. Aplica a respuestas de red, resultados de
 
 Usa esta receta cuando:
 
-- Procesas archivos más grandes que la RAM disponible (logs, CSVs, video, backups)
-- Construyes pipelines ETL que transforman datos entre formatos
-- Manejas feeds de datos en tiempo real (datos de sensores, ticks financieros, clickstreams)
-- Comprimes o encriptas archivos sin cargarlos completamente
-- Implementas barras de progreso y procesamiento resumible para tareas de larga duración
+- Procesas archivos más grandes que la RAM disponible (logs, CSVs, video, backups). Consulta [Compression Gzip](/recipes/file-handling/compression-gzip) para pre-procesamiento de archivos grandes.
+- Construyes pipelines ETL que transforman datos entre formatos. Consulta [Import CSV Excel](/recipes/file-handling/import-csv-excel) para patrones ETL tabulares.
+- Manejas feeds de datos en tiempo real (datos de sensores, ticks financieros, clickstreams). Consulta [Kafka Event Streaming](/recipes/messaging/kafka-event-streaming) para streaming pub-sub.
+- Comprimes o encriptas archivos sin cargarlos completamente. Consulta [Image Optimization](/recipes/file-handling/image-optimization) para procesamiento de pipelines de media.
+- Implementas barras de progreso y procesamiento resumible para tareas de larga duración. Consulta [Background Jobs](/recipes/devops/background-jobs) para gestión de colas de trabajos.
 
 ## Solución
 

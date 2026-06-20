@@ -39,7 +39,7 @@ seo:
 
 ## Visión General
 
-El Patrón State es un patrón de diseño de comportamiento que permite que un objeto altere su comportamiento cuando cambia su estado interno. En lugar de grandes sentencias switch o condicionales dispersas por todo el código, cada estado se encapsula en su propia clase con comportamiento específico.
+El [Patrón State](/patterns/design/state-pattern) es un patrón de diseño de comportamiento que permite que un objeto altere su comportamiento cuando cambia su estado interno. En lugar de grandes sentencias switch o condicionales dispersas por todo el código, cada estado se encapsula en su propia clase con comportamiento específico.
 
 ## Cuándo Usarlo
 
@@ -280,7 +280,7 @@ El Patrón State involucra dos roles:
 | **Máquina de Estados Simple** | Los estados manejan transiciones | Pequeño número de estados |
 | **Máquina de Estados Jerárquica** | Los estados pueden tener subestados | Comportamiento anidado complejo |
 | **Tabla de Estados** | Las transiciones se almacenan en tabla de búsqueda | Muchos estados con transiciones predecibles |
-| **Autómata de Pila** | Historial de estado basado en pila | Transiciones de estado deshacer/reversibles |
+| **Autómata de Pila** | Historial de estado basado en pila | Transiciones de estado deshacer/reversibles. Consulta [Memento](/patterns/design/memento-pattern) |
 
 ## Buenas Prácticas
 
@@ -301,7 +301,7 @@ El Patrón State involucra dos roles:
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre State y Strategy?**
-R: Ambos encapsulan comportamiento en objetos intercambiables. State es sobre cambiar comportamiento basado en transiciones de estado internas. Strategy es sobre seleccionar un algoritmo desde afuera. La intención difiere: State gestiona ciclo de vida, Strategy proporciona opciones.
+R: Ambos encapsulan comportamiento en objetos intercambiables. State es sobre cambiar comportamiento basado en transiciones de estado internas. [Strategy](/patterns/design/strategy-pattern) es sobre seleccionar un algoritmo desde afuera. La intención difiere: State gestiona ciclo de vida, Strategy proporciona opciones.
 
 **P: ¿Los estados deben conocerse entre sí?**
 R: En la implementación clásica, los estados disparan transiciones a otros estados. Una alternativa es dejar que el contexto o una tabla de transiciones gestione las transiciones, manteniendo los estados desacoplados.

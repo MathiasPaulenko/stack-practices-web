@@ -38,9 +38,9 @@ This recipe covers setting up read replicas, implementing read/write splitting, 
 ## When to Use
 
 Use this resource when:
-- Your primary database CPU or I/O is saturated by read queries
-- You need to run analytical reports without impacting production writes
-- You want geographic read locality by placing replicas near users
+- Your primary database CPU or I/O is saturated by read queries. See [Query Optimization](/recipes/databases/postgres-query-optimization) for tuning reads.
+- You need to run analytical reports without impacting production writes. See [Logging](/recipes/api/logging) for observability.
+- You want geographic read locality by placing replicas near users. See [Caching](/recipes/data/caching) for edge-layer performance.
 - Your workload is read-heavy (>80% reads) and write volume is moderate
 
 ## Solution
@@ -182,9 +182,9 @@ Read replicas use streaming replication (physical) or logical replication:
 
 - **Monitor replication lag**: Alert when lag exceeds 1–5 seconds depending on use case
 - **Route time-sensitive reads to primary**: User profile updates after edit should read from primary
-- **Use connection pooling per replica**: Don't create connections directly; use PgBouncer or ProxySQL
+- **Use connection pooling per replica**: Don't create connections directly; use PgBouncer or ProxySQL. See [Connection Pooling](/recipes/databases/database-connection-pooling) for configuration.
 - **Distribute replicas across availability zones**: Protect against zone failures
-- **Test failover procedures**: Replicas can be promoted to primary during outages
+- **Test failover procedures**: Replicas can be promoted to primary during outages. See [Retry Logic](/recipes/architecture/retry-backoff) for resilience patterns.
 
 ## Common Mistakes
 

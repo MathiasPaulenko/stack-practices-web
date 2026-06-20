@@ -35,10 +35,10 @@ Database views are virtual tables defined by a query. They simplify complex join
 ## When to Use
 
 Use this resource when:
-- You run the same complex aggregation query repeatedly and it is slow
+- You run the same complex [aggregation query](/recipes/databases/sql-joins) repeatedly and it is slow
 - You want to restrict data access without duplicating permission logic in application code
-- You need to precompute expensive joins or aggregations for reporting dashboards
-- You want to abstract schema changes from downstream consumers
+- You need to precompute expensive joins or aggregations for [reporting dashboards](/recipes/databases/postgres-query-optimization)
+- You want to abstract schema changes from downstream consumers. See [Input Validation](/recipes/api/input-validation) for schema safety.
 
 ## Solution
 
@@ -182,7 +182,7 @@ A **materialized view** stores the query result on disk. Reads are as fast as qu
 
 1. Always create a unique index on materialized views before using `CONCURRENTLY` refresh
 2. Use `CREATE OR REPLACE VIEW` for non-breaking changes; drop and recreate only when necessary
-3. Schedule refreshes with cron, pg_cron, or your job scheduler; refresh after ETL, not during peak read times
+3. Schedule refreshes with cron, pg_cron, or your job scheduler; refresh after ETL, not during peak read times. See [Batch Processing](/recipes/data/batch-processing-patterns) for job scheduling.
 4. Use views to expose only needed columns for least-privilege access control
 5. Monitor disk usage; materialized views can grow large with wide rows or high cardinality
 
@@ -192,7 +192,7 @@ A **materialized view** stores the query result on disk. Reads are as fast as qu
 2. **No unique index** — `REFRESH CONCURRENTLY` fails without one, locking the view during refresh
 3. **Writable views without rules/triggers** — not all databases support `INSERT` into views; application code must handle this
 4. **Complex views with no underlying indexes** — a view does not create indexes; ensure base tables are indexed
-5. **Using views for real-time transactional queries** — views add query overhead; use them for reporting, not OLTP hot paths
+5. **Using views for real-time transactional queries** — views add query overhead; use them for reporting, not OLTP hot paths. See [Database Transactions](/recipes/databases/database-transactions) for transactional patterns.
 
 ## Frequently Asked Questions
 

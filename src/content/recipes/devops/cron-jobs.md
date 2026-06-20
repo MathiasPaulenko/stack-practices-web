@@ -40,10 +40,10 @@ Beyond system cron, most programming ecosystems offer scheduling libraries that 
 
 Use this recipe when:
 
-- Running periodic tasks on a server (backups, cleanups, reports)
-- Scheduling background jobs within an application
-- Replacing manual processes with automated scripts
-- Coordinating distributed job execution
+- Running periodic tasks on a server (backups, cleanups, reports). See [Background Jobs](/recipes/devops/background-jobs) for task queue patterns.
+- Scheduling background jobs within an application. See [Scheduled Jobs](/recipes/devops/background-jobs) for serverless cron.
+- Replacing manual processes with automated scripts. See [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) for script automation.
+- Coordinating distributed job execution. See [RabbitMQ Task Queue](/recipes/messaging/rabbitmq-task-queue) for distributed task coordination.
 
 ## Solution
 

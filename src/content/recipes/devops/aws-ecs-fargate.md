@@ -33,9 +33,9 @@ AWS Fargate removes the need to manage EC2 instances by providing serverless com
 
 ## When to Use This
 
-- You want to run containers without managing servers
-- You need auto-scaling based on CPU or request count
-- You want infrastructure as code for reproducible environments
+- You want to run containers without managing servers. See [Docker Basics](/recipes/devops/docker-basics) for container fundamentals.
+- You need auto-scaling based on CPU or request count. See [Load Testing](/recipes/testing/load-testing) for performance baselines.
+- You want infrastructure as code for reproducible environments. See [Terraform AWS VPC](/recipes/devops/terraform-aws-vpc) for network infrastructure as code.
 
 ## Prerequisites
 

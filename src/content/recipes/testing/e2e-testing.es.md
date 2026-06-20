@@ -36,11 +36,11 @@ El desafío principal del testing E2E es el flakiness — tests que fallan inter
 
 Usa esta receta cuando:
 
-- Validando viajes de usuario críticos como login, checkout y flujos de onboarding
-- Probando en múltiples navegadores y dispositivos antes del release
-- Atrapando regresiones que los tests unitarios y de integración no detectan
-- Construyendo confianza para pipelines de continuous deployment
-- Reproduciendo bugs reportados por usuarios en producción
+- Validando viajes de usuario críticos como login, checkout y flujos de onboarding. Consulta [Integration Testing](/recipes/testing/integration-testing) para verificación de componentes.
+- Probando en múltiples navegadores y dispositivos antes del release. Consulta [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) para rendimiento frontend.
+- Atrapando regresiones que los tests unitarios y de integración no detectan. Consulta [Unit Testing](/recipes/testing/unit-testing) para pirámide de testing.
+- Construyendo confianza para pipelines de continuous deployment. Consulta [GitHub Actions](/recipes/devops/github-actions) para CI.
+- Reproduciendo bugs reportados por usuarios en producción. Consulta [Structured Logging](/recipes/observability/structured-logging) para diagnóstico.
 
 ## Solución
 

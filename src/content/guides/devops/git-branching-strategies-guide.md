@@ -203,7 +203,7 @@ git push origin --delete feature/add-search
 - **Keep branches short-lived** — the longer a branch lives, the harder the merge
 - **Use feature flags** for incomplete features on main/trunk
 - **Require [PR reviews](/guides/design/code-review-best-practices-guide)** before merging to main
-- **Run full test suite** on every PR; block merge on failure. See [CI/CD](/guides/cicd-pipeline-guide).
+- **Run full test suite** on every PR; block merge on failure. See [CI/CD](/guides/devops/cicd-pipeline-guide).
 - **Squash or rebase** to keep a linear history (team preference)
 - **Tag releases** on main for traceability
 - **Protect main/develop** branches with branch protection rules

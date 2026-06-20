@@ -40,7 +40,7 @@ seo:
 
 ## Resumen
 
-El Patrón Interpreter es un patrón de diseño de comportamiento que define una representación para la gramática de un lenguaje junto con un intérprete que usa la representación para interpretar oraciones en el lenguaje. Es ideal para construir lenguajes específicos de dominio (DSL), evaluadores de expresiones, analizadores de consultas y motores de reglas.
+El [Patrón Interpreter](/patterns/design/interpreter-pattern-expressions) es un patrón de diseño de comportamiento que define una representación para la gramática de un lenguaje junto con un intérprete que usa la representación para interpretar oraciones en el lenguaje. Es ideal para construir lenguajes específicos de dominio (DSL), evaluadores de expresiones, analizadores de consultas y motores de reglas.
 
 ## Cuándo usarlo
 
@@ -249,7 +249,7 @@ El cliente construye un AST y luego llama `interpret()` en el nodo raíz, que ev
 | Variante | Descripción | Caso de uso |
 |----------|-------------|-------------|
 | **Tree Walker** | Recorre un AST pre-construido | Motores de reglas, evaluadores de consultas |
-| **Visitor + Interpreter** | Separa la lógica de evaluación de los nodos del árbol | Cuando las estrategias de evaluación varían |
+| **[Visitor](/patterns/design/visitor-pattern) + Interpreter** | Separa la lógica de evaluación de los nodos del árbol | Cuando las estrategias de evaluación varían |
 | **Interpreter Memoizado** | Cachea resultados de sub-expresiones | Evaluaciones repetidas con el mismo contexto |
 | **Compiler + VM** | Compila a bytecode, luego ejecuta | Ejecución repetida de alto rendimiento |
 
@@ -275,4 +275,4 @@ El cliente construye un AST y luego llama `interpret()` en el nodo raíz, que ev
 R: Usa Interpreter para gramáticas muy simples con pocas reglas que cambian infrecuentemente. Para cualquier cosa más allá de aritmética básica o expresiones booleanas, usa ANTLR, PEG.js o una herramienta similar.
 
 **P: ¿Puedo combinar Interpreter con Visitor?**
-R: Sí, y a menudo deberías. El Patrón Interpreter define la estructura del AST; el Patrón Visitor agrega operaciones (interpretar, serializar, optimizar) sin modificar los nodos del AST.
+R: Sí, y a menudo deberías. El Patrón Interpreter define la estructura del AST; el [Patrón Visitor](/patterns/design/visitor-pattern) agrega operaciones (interpretar, serializar, optimizar) sin modificar los nodos del AST.

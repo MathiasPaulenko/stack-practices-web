@@ -38,7 +38,7 @@ Passwords alone are no longer sufficient to protect user accounts. Two-factor au
 Use this resource when:
 - Protecting user accounts with an additional verification step beyond passwords
 - Building login flows for financial, healthcare, or admin applications
-- Migrating from password-only auth to multi-factor authentication (MFA)
+- Migrating from password-only auth to multi-factor authentication (MFA). See [Password Hashing](/recipes/authentication/password-hashing) for credential storage best practices.
 - Supporting authenticator apps (Google Authenticator, Authy, Microsoft Authenticator)
 
 ## Solution
@@ -195,10 +195,10 @@ public class TOTPService {
 ## Best Practices
 
 1. **Encrypt secrets at rest** — never store TOTP secrets in plaintext; use AES-256-GCM or a dedicated secrets vault.
-2. **Rate limit verification attempts** — lock or delay after 5 failed TOTP attempts to prevent brute force.
+2. **[Rate limit](/recipes/api/rate-limiting) verification attempts** — lock or delay after 5 failed TOTP attempts to prevent brute force.
 3. **Provide backup codes on enrollment** — generate 8-10 single-use codes and hash them before storage.
 4. **Allow re-enrollment** — let users disable and re-enable 2FA when they switch devices, with email confirmation.
-5. **Log 2FA events** — audit enrollment, verification success/failure, and backup code usage for security monitoring.
+5. **[Log 2FA events](/recipes/api/logging)** — audit enrollment, verification success/failure, and backup code usage for security monitoring.
 
 ## Common Mistakes
 
@@ -220,4 +220,4 @@ Yes, by scanning the same QR code on multiple authenticator apps. For security, 
 
 ### What happens if a user loses their authenticator device?
 
-Provide backup codes during enrollment. If those are lost too, require identity verification (email + password reset with additional confirmation) before disabling 2FA.
+Provide backup codes during enrollment. If those are lost too, require identity verification (email + password reset with additional confirmation) before disabling 2FA. See [Magic Links](/recipes/authentication/magic-link-authentication) for secure email verification.

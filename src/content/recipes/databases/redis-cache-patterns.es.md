@@ -35,8 +35,8 @@ Redis es un almacen de estructuras de datos en memoria que sirve como una capa d
 
 ## Cuando Usar Esto
 
-- Las consultas a base de datos son lentas y devuelven datos frecuentemente accedidos
-- Necesitas reducir carga en bases de datos primarias durante picos de trafico
+- Las consultas a base de datos son lentas y devuelven datos frecuentemente accedidos. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para ajustar queries lentos.
+- Necesitas reducir carga en bases de datos primarias durante picos de trafico. Consulta [Rate Limiting](/recipes/api/rate-limiting) para control de tráfico.
 - La temporal staleness de datos es aceptable a cambio de menor latencia
 
 ## Requisitos Previos
@@ -94,7 +94,7 @@ class WriteThroughProductRepository {
   async updateProduct(id: string, data: Partial<Product>): Promise<void> {
     const cacheKey = `product:${id}`;
 
-    // Iniciar transaccion de base de datos
+    // Iniciar transaccion de base de datos. Consulta [Database Transactions](/recipes/databases/database-transactions) para patrones ACID.
     await this.db.query('BEGIN');
     try {
       await this.db.query('UPDATE products SET ... WHERE id = $1', [id]);
@@ -130,7 +130,7 @@ class WriteBehindProductRepository {
   }
 }
 
-// Worker en background
+// Worker en background. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para patrones de jobs.
 async function flushPendingWrites() {
   const batch = await redis.lpop('pending_writes', 100);
   if (!batch) return;
@@ -195,7 +195,7 @@ class StampedeProtectedCache {
 ## Consideraciones de Produccion
 
 - Usa **Redis Cluster** o **Redis Sentinel** para alta disponibilidad
-- Implementa logica de **circuit breaker** cuando Redis no esta disponible; fallback a base de datos
+- Implementa logica de **[circuit breaker](/patterns/design/circuit-breaker-pattern)** cuando Redis no esta disponible; fallback a base de datos
 - Configura **valores de TTL** apropiados basados en frecuencia de cambio de datos
 - Monitorea **cache hit ratio** con `INFO stats` y ajusta TTL en consecuencia
 

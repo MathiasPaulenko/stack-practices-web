@@ -33,7 +33,7 @@ seo:
 ---
 ## Overview
 
-Server-Sent Events (SSE) is a browser API and HTTP-based protocol that enables servers to push real-time updates to clients over a single long-lived connection. Unlike WebSockets (full-duplex), SSE is uni-directional: server → client only. It runs over standard HTTP, works through most firewalls and proxies, has built-in auto-reconnection with `Last-Event-ID`, and requires no special protocol upgrades. This recipe covers implementing SSE endpoints in Python, JavaScript (Node.js), and Java (Spring Boot), with event types, heartbeat keepalives, and broadcasting to multiple clients.
+Server-Sent Events (SSE) is a browser API and HTTP-based protocol that enables servers to push real-time updates to clients over a single long-lived connection. Unlike [WebSockets](/recipes/api/websocket-server) (full-duplex), SSE is uni-directional: server → client only. It runs over standard HTTP, works through most firewalls and proxies, has built-in auto-reconnection with `Last-Event-ID`, and requires no special protocol upgrades. This recipe covers implementing SSE endpoints in Python, JavaScript (Node.js), and Java (Spring Boot), with event types, heartbeat keepalives, and broadcasting to multiple clients.
 
 ## When to Use
 
@@ -333,7 +333,7 @@ source.addEventListener("update", (e) => {
 
 ## Best Practices
 
-1. **Always set `X-Accel-Buffering: no`** — reverse proxies like Nginx buffer responses by default. This header disables buffering so SSE messages arrive immediately instead of being batched.
+1. **Always set `X-Accel-Buffering: no`** — [reverse proxies like Nginx](/recipes/api/nginx-reverse-proxy) buffer responses by default. This header disables buffering so SSE messages arrive immediately instead of being batched.
 2. **Use heartbeat keepalives** — send periodic comment lines (`:heartbeat\n\n`) every 15-30 seconds to prevent proxies and load balancers from closing idle connections.
 3. **Handle client disconnections** — register `onCompletion`, `onTimeout`, and `onError` callbacks (or `req.on("close")` in Node.js) to remove dead connections from your broadcast registry and prevent memory leaks.
 4. **Set appropriate `Cache-Control`** — use `no-cache` to prevent browsers and proxies from caching the stream. SSE is inherently dynamic and caching breaks real-time delivery.
@@ -344,14 +344,14 @@ source.addEventListener("update", (e) => {
 1. Forgetting `X-Accel-Buffering: no` or `Cache-Control: no-cache`, causing Nginx or browsers to buffer SSE messages and deliver them in batches instead of real-time.
 2. Not handling client disconnections, leading to memory leaks as dead connections accumulate in the broadcast registry.
 3. Sending SSE data without proper newlines (`\n\n` terminator). The browser waits indefinitely for the message to complete.
-4. Using SSE for bidirectional communication. SSE is uni-directional; for chat or two-way data, use WebSockets instead.
+4. Using SSE for bidirectional communication. SSE is uni-directional; for chat or two-way data, use [WebSockets](/recipes/api/websocket-bidirectional-chat) instead.
 5. Sending binary data directly. SSE only supports UTF-8 text. Base64-encode binary payloads or use WebSockets for binary streaming.
 
 ## Frequently Asked Questions
 
 ### How is SSE different from WebSockets?
 
-SSE runs over standard HTTP (no protocol upgrade), is uni-directional (server → client only), has built-in auto-reconnection with `Last-Event-ID`, and works through most firewalls and proxies. WebSockets require a protocol upgrade, support bidirectional communication, but need custom reconnection logic. Use SSE for one-way streaming; use WebSockets for bidirectional real-time apps like chat or multiplayer games.
+SSE runs over standard HTTP (no protocol upgrade), is uni-directional (server → client only), has built-in auto-reconnection with `Last-Event-ID`, and works through most firewalls and proxies. WebSockets require a protocol upgrade, support bidirectional communication, but need custom reconnection logic. Use SSE for one-way streaming; use [WebSockets](/recipes/api/websocket-server) for bidirectional real-time apps like chat or multiplayer games.
 
 ### Can SSE work with HTTP/2?
 

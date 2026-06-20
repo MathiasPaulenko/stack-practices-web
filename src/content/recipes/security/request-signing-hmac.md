@@ -42,7 +42,7 @@ This recipe implements HMAC-SHA256 request signing and AWS Signature v4 authenti
 
 Use this resource when:
 - You need tamper-proof API requests over HTTP (no TLS alone is not enough)
-- You are building [webhook](/recipes/serverless/event-driven-functions) delivery systems that require sender verification
+- You are building [webhook](/recipes/messaging/event-driven-microservices) delivery systems that require sender verification
 - You are implementing AWS-compatible API authentication
 - You need stateless authentication without session storage
 
@@ -164,7 +164,7 @@ AWS Signature v4 extends this with credential scopes, signed headers, and region
 - **Simple string comparison**: `==` comparison leaks timing information — always use constant-time comparison
 - **Missing body in signature**: An attacker can modify the payload without detection
 - **No replay protection**: Without timestamps, captured requests can be replayed indefinitely
-- **Storing secrets in environment variables**: Use [secret management](/guides/devops/secrets-management-guide) services instead
+- **Storing secrets in environment variables**: Use [secret management](/guides/security/security-best-practices-guide) services instead
 
 ## Frequently Asked Questions
 

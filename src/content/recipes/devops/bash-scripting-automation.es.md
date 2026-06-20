@@ -34,9 +34,9 @@ Bash sigue siendo la lingua franca de administracion de sistemas y automatizacio
 
 ## Cuando Usar Esto
 
-- Necesitas automatizar tareas repetitivas de sistema o despliegue
-- El ambiente es minimal (contenedores, runners de CI, VMs) sin Node/Python
-- Quieres automatizacion auto-documentada que cualquier sysadmin pueda leer y modificar
+- Necesitas automatizar tareas repetitivas de sistema o despliegue. Consulta [Docker Basics](/recipes/devops/docker-basics) para despliegue de contenedores.
+- El ambiente es minimal (contenedores, runners de CI, VMs) sin Node/Python. Consulta [CLI Tool Argument Parsing](/recipes/devops/cli-tool-argument-parsing) para alternativas CLI tipadas.
+- Quieres automatizacion auto-documentada que cualquier sysadmin pueda leer y modificar. Consulta [Git Workflow](/recipes/devops/git-workflow) para automatización versionada.
 
 ## Requisitos Previos
 

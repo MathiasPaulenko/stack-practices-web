@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-The Repository Pattern is an architectural design pattern that mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects. It abstracts the details of data storage and retrieval.
+The [Repository](/patterns/design/repository-pattern-typescript) Pattern is an architectural design pattern that mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects. It abstracts the details of data storage and retrieval.
 
 It is the foundation of clean architecture, Domain-Driven Design (DDD), and is heavily used in frameworks like Spring Data JPA, Entity Framework, and Django ORM.
 
@@ -178,14 +178,14 @@ Business logic depends only on the interface, so you can swap implementations fo
 
 | Variant | Use Case | Trade-off |
 |---------|----------|-----------|
-| **Generic Repository** | CRUD for any entity type | Less code duplication, but less specific query optimization |
+| **[Generic Repository](/patterns/design/repository-pattern-typescript)** | CRUD for any entity type | Less code duplication, but less specific query optimization |
 | **Specification Pattern** | Complex query composition | Very flexible, but harder to optimize at the database level |
 | **Unit of Work** | Batch multiple operations into a single transaction | Adds complexity, but essential for data integrity |
 
 ## Best Practices
 
 - **Return domain objects, not raw data rows**: Map database results to rich domain objects
-- **Use interfaces for repositories**: This is what makes them testable and swappable
+- **Use interfaces for repositories**: This is what makes them testable and swappable. See [Dependency Injection](/patterns/design/dependency-injection-pattern) for wiring strategies.
 - **Keep repositories focused on data access**: Business logic belongs in services, not repositories
 - **Return `Optional` or nullable types** instead of throwing exceptions for missing data
 - **Consider pagination** for `findAll` operations to prevent loading massive datasets

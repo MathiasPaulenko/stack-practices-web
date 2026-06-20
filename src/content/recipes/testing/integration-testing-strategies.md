@@ -38,10 +38,10 @@ Integration tests verify that your code works with real (or realistic) dependenc
 
 Use this recipe when:
 
-- Verifying that your service correctly integrates with databases, message queues, or external APIs
-- Catching API contract mismatches between microservices before deployment
+- Verifying that your service correctly integrates with databases, message queues, or external APIs. See [Unit Testing](/recipes/testing/unit-testing) for isolating dependencies with mocks.
+- Catching API contract mismatches between microservices before deployment. See [API Contract Testing](/recipes/testing/api-mocking) for consumer-driven contracts.
 - Testing database migrations and schema compatibility
-- Ensuring configuration and wiring work in a realistic environment
+- Ensuring configuration and wiring work in a realistic environment. See [Docker Basics](/recipes/devops/docker-basics) for containerized test environments.
 - Complementing unit tests with confidence that components interact correctly
 
 ## Solution

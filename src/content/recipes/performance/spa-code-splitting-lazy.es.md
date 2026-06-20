@@ -37,7 +37,7 @@ Reduce el tamano del bundle inicial en [single-page applications](/recipes/perfo
 
 - Tu bundle de SPA excede 200KB gzip y carga lentamente en mobile
 - No todas las rutas son accedidas por cada usuario en la primera visita
-- Componentes pesados (graficos, editores, mapas) solo se necesitan en paginas especificas
+- Componentes pesados (graficos, editores, mapas) solo se necesitan en paginas especificas. Consulta [MVC Pattern Frontend](/patterns/design/mvc-pattern-frontend) para arquitectura de componentes.
 
 ## Solucion
 

@@ -30,12 +30,12 @@ seo:
 ---
 ## Overview
 
-Real User Monitoring (RUM) captures performance data from actual browser sessions — not synthetic tests or server-side metrics. It reveals how [Core Web Vitals](/recipes/web-performance), JavaScript errors, and API latencies vary across devices, networks, and geographies. Unlike lab tests that run in ideal conditions, RUM exposes the experience of users on 3G networks, low-end devices, and older browsers.
+Real User Monitoring (RUM) captures performance data from actual browser sessions — not synthetic tests or server-side metrics. It reveals how [Core Web Vitals](/recipes/performance/web-performance), JavaScript errors, and API latencies vary across devices, networks, and geographies. Unlike lab tests that run in ideal conditions, RUM exposes the experience of users on 3G networks, low-end devices, and older browsers.
 
 ## When to Use
 
 Use this resource when:
-- Lab-based Lighthouse scores don't match real-world [performance complaints](/recipes/web-performance)
+- Lab-based Lighthouse scores don't match real-world [performance complaints](/recipes/performance/web-performance)
 - You need to correlate business metrics (conversion, bounce rate) with page speed
 - Debugging performance issues that only affect specific browsers or regions
 - Prioritizing optimization efforts based on actual user impact, not assumptions
@@ -127,7 +127,7 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 - **LCP**: Largest visible element — hero image, heading
 - **INP**: Interaction latency — button click to visual update
 - **CLS**: Layout shifts — ads, images, fonts causing jumps
-- **TTFB**: Server response time — hosting + backend performance. See [server-side rendering](/recipes/server-side-rendering).
+- **TTFB**: Server response time — hosting + backend performance. See [server-side rendering](/recipes/performance/spa-code-splitting-lazy).
 - **FCP**: First content paint — first text or image visible
 
 ## Variants
@@ -146,14 +146,14 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 - **Sample intelligently**: 100% sampling overwhelms backends; 5-10% is usually sufficient
 - **Capture context**: Device type, connection speed, and country explain variation
 - **Alert on percentiles, not averages**: P95 performance is what frustrated users experience
-- **Correlate with business metrics**: Plot conversion rate vs. LCP to justify optimization budgets. See [metrics collection](/recipes/metrics-collection).
+- **Correlate with business metrics**: Plot conversion rate vs. LCP to justify optimization budgets. See [metrics collection](/recipes/observability/metrics-collection).
 - **Respect privacy**: Mask PII in session replay; comply with GDPR/CCPA for telemetry
 
 ## Common Mistakes
 
 1. **Only monitoring homepage**: Product pages and checkout often have worse performance
-2. **Ignoring SPA navigations**: Single-page apps need custom LCP/FID measurement for route changes. Consider [server-side rendering](/recipes/server-side-rendering).
-3. **No correlation with errors**: A slow page that also throws JS errors needs different prioritization. See [error handling](/recipes/handle-errors).
+2. **Ignoring SPA navigations**: Single-page apps need custom LCP/FID measurement for route changes. Consider [server-side rendering](/recipes/performance/spa-code-splitting-lazy).
+3. **No correlation with errors**: A slow page that also throws JS errors needs different prioritization. See [error handling](/recipes/api/handle-errors).
 4. **Alerting on averages**: Mean LCP of 2s hides that 20% of users see 8s+ loads
 5. **No action on data**: Collecting RUM without optimization sprints wastes the instrumentation effort
 
@@ -163,7 +163,7 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 A: Negligibly. The web-vitals library is <1KB. Beacons are sent after the page is interactive.
 
 **Q: Should I use RUM or synthetic monitoring?**
-A: Both. Synthetic for baseline regression detection. RUM for understanding actual [user experience](/recipes/web-performance).
+A: Both. Synthetic for baseline regression detection. RUM for understanding actual [user experience](/recipes/performance/web-performance).
 
 **Q: How do I handle ad blockers?**
 A: Serve RUM from your own domain (first-party), not third-party. Ad blockers target known analytics domains.

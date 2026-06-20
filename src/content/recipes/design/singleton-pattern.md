@@ -38,10 +38,10 @@ The naive implementation — a static field initialized at class load — works 
 
 Use this recipe when:
 
-- A class manages a resource that must be unique within the application (connection pool, cache, config)
-- Multiple instances would cause conflicts or resource exhaustion
+- A class manages a resource that must be unique within the application (connection pool, cache, config). See [Factory Pattern](/recipes/design/factory-pattern) for creation patterns.
+- Multiple instances would cause conflicts or resource exhaustion. See [Database Connection Pooling](/recipes/databases/database-connection-pooling) for shared resources.
 - You need lazy initialization to avoid expensive setup during application startup
-- The singleton is stateless or read-only after initialization (avoid mutable global state)
+- The singleton is stateless or read-only after initialization (avoid mutable global state). See [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) for thread-safe access.
 
 ## Solution
 
@@ -184,7 +184,7 @@ public class OrderService {
 ## Best practices
 
 - **Prefer DI over manual singletons**: a dependency injection container manages singletons declaratively. You configure `services.AddSingleton<IConfig, AppConfig>()` and the container handles creation, caching, and disposal. This makes dependencies explicit and testing trivial.
-- **Make singletons stateless or immutable**: a mutable singleton is global state, and global state is the enemy of testing and concurrency. If the singleton must hold state, make it thread-safe (use locks or atomic operations) and document thread-safety guarantees.
+- **Make singletons stateless or immutable**: a mutable singleton is global state, and global state is the enemy of testing and concurrency. See [Race Condition Prevention](/recipes/data/race-condition-prevention) for concurrent safety. If the singleton must hold state, make it thread-safe (use locks or atomic operations) and document thread-safety guarantees.
 - **Avoid singletons for business logic**: a `UserService` should not be a singleton. Business rules change per request (different users, different contexts). Reserve singletons for infrastructure: connection pools, caches, loggers, configuration readers.
 - **Implement IDisposable / Closeable**: a singleton often holds resources (connections, threads, file handles). Implement cleanup methods and call them during application shutdown. In Spring or ASP.NET, register disposal hooks with the container.
 - **Document thread-safety**: if the singleton is not thread-safe, document it clearly. Consumers must synchronize externally. If it is thread-safe, document which operations are atomic and which are not.

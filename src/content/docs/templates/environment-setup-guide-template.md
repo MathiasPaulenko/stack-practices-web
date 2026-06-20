@@ -101,7 +101,7 @@ curl http://localhost:3000/health
 ## Best Practices
 
 - **Use `.env.example`** — never commit secrets; commit a template with dummy values
-- **Automate with `make` or scripts** — one command should get a new developer running
+- **Automate with `make` or scripts** — one command should get a new developer running. Link to the [Onboarding Guide Template](/docs/templates/onboarding-guide-template) for a full checklist.
 - **Test setup monthly** — stale setup docs are worse than no docs
 - **Pin dependency versions** — "latest" causes "works on my machine"
 - **Document OS differences** — macOS, Linux, and Windows paths vary
@@ -109,7 +109,7 @@ curl http://localhost:3000/health
 ## Common Mistakes
 
 - Setup instructions that only work on the author's machine
-- Missing `.env.example` — new developers guess at required variables
+- Missing `.env.example` — new developers guess at required variables. Pair with the [Runbook Template](/docs/templates/runbook-template) for troubleshooting steps.
 - No verification step — developers do not know if setup succeeded
 - Hardcoded local paths — `/Users/alice/project` does not work for Bob
 
@@ -117,7 +117,7 @@ curl http://localhost:3000/health
 
 ### Should I use Docker for local development?
 
-Yes, if your project has more than two dependencies (database, cache, queue). A `docker-compose.yml` ensures every developer runs the same versions. For simple projects, local package managers suffice.
+Yes, if your project has more than two dependencies (database, cache, queue). See [Docker for Developers Guide](/guides/devops/docker-for-developers-guide) for best practices. A `docker-compose.yml` ensures every developer runs the same versions. For simple projects, local package managers suffice.
 
 ### How do I handle secrets in local setup?
 

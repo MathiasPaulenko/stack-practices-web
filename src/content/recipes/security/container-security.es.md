@@ -30,14 +30,14 @@ seo:
 ---
 ## Visión General
 
-El escaneo de seguridad de containers identifica vulnerabilidades en imágenes Docker antes de que lleguen a producción. Una única imagen base desactualizada puede exponer cientos de CVEs. Herramientas como Trivy, Clair y Snyk analizan paquetes de OS, dependencias de lenguajes e incluso secrets embebidos en capas. Integrar el escaneo en [CI/CD](/guides/cicd-pipeline-guide) crea una puerta de seguridad que previene imágenes vulnerables de desplegarse.
+El escaneo de seguridad de containers identifica vulnerabilidades en imágenes Docker antes de que lleguen a producción. Una única imagen base desactualizada puede exponer cientos de CVEs. Herramientas como Trivy, Clair y Snyk analizan paquetes de OS, dependencias de lenguajes e incluso secrets embebidos en capas. Integrar el escaneo en [CI/CD](/guides/devops/cicd-pipeline-guide) crea una puerta de seguridad que previene imágenes vulnerables de desplegarse.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Las imágenes Docker se construyen de imágenes base públicas que pueden contener CVEs conocidos
-- Necesitas cumplir con [frameworks de seguridad](/guides/security-best-practices-guide) (SOC 2, PCI-DSS, FedRAMP)
-- Los developers agregan [dependencias](/docs/dependency-audit-template) sin revisar su postura de seguridad
+- Necesitas cumplir con [frameworks de seguridad](/guides/security/security-best-practices-guide) (SOC 2, PCI-DSS, FedRAMP)
+- Los developers agregan [dependencias](/guides/security/security-best-practices-guide) sin revisar su postura de seguridad
 - Incidentes de producción han sido rastreados a librerías de sistema vulnerables
 
 ## Solución
@@ -127,7 +127,7 @@ trufflehog filesystem --directory=.
 - **Scannea en cada build**: Las vulnerabilidades se descubren diariamente; la imagen limpia de ayer es el riesgo de hoy
 - **Usa bases distroless o mínimas**: `distroless`, `alpine` o `scratch` reducen superficie de ataque
 - **Pinea digests de imagen base**: `FROM node:20-alpine@sha256:abc...` previene tampering de tags
-- **Multi-stage builds**: No envíes build tools (gcc, git) en imágenes de producción. Consulta [infraestructura inmutable](/recipes/immutable-infrastructure).
+- **Multi-stage builds**: No envíes build tools (gcc, git) en imágenes de producción. Consulta [infraestructura inmutable](/guides/devops/infrastructure-as-code-guide).
 - **Firma imágenes con Cosign**: Verifica integridad de imagen y provenance antes del deploy
 
 ## Errores Comunes
@@ -135,7 +135,7 @@ trufflehog filesystem --directory=.
 1. **Scanneando solo la imagen base**: Las dependencias de aplicación a menudo tienen más CVEs que el OS
 2. **Usando tag `:latest`**: Builds no reproducibles hacen la atribución de vulnerabilidades imposible
 3. **Sin threshold de severidad**: Scannear pero ignorar todos los resultados crea falsa confianza
-4. **Secrets en ENV**: `ENV AWS_SECRET_ACCESS_KEY=...` es visible para cualquiera que haga pull de la imagen. Sigue [secrets management](/guides/secrets-management-guide).
+4. **Secrets en ENV**: `ENV AWS_SECRET_ACCESS_KEY=...` es visible para cualquiera que haga pull de la imagen. Sigue [secrets management](/guides/security/security-best-practices-guide).
 5. **Olvidando escaneo en runtime**: La imagen está limpia en build time; las vulnerabilidades en runtime (volúmenes montados, sidecars) necesitan monitoreo
 
 ## Preguntas Frecuentes

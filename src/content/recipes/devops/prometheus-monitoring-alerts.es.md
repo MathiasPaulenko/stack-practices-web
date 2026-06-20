@@ -16,7 +16,7 @@ tags:
 relatedResources:
   - /recipes/devops/helm-chart-deployment
   - /patterns/design/ambassador-pattern-services
-  - /guides/logging-monitoring-guide
+  - /guides/devops/logging-monitoring-observability-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -35,9 +35,9 @@ Instrumenta servicios e infraestructura con metricas Prometheus para obtener vis
 
 ## Cuando Usar Esto
 
-- Necesitas datos cuantitativos sobre comportamiento de aplicacion e infraestructura
-- El alerting deberia dispararse en sintomas, no solo en fallos de infraestructura
-- Se requieren metricas historicas para capacity planning y debugging
+- Necesitas datos cuantitativos sobre comportamiento de aplicacion e infraestructura. Consulta [Structured Logging](/recipes/observability/structured-logging) para datos de eventos correlacionados.
+- El alerting deberia dispararse en sintomas, no solo en fallos de infraestructura. Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para detección de síntomas.
+- Se requieren metricas historicas para capacity planning y debugging. Consulta [Load Testing](/recipes/testing/load-testing) para medición de líneas base de capacidad.
 
 ## Solucion
 

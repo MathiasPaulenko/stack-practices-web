@@ -38,10 +38,10 @@ Images are the single largest contributor to page weight. Unoptimized images slo
 ## When to Use
 
 Use this resource when:
-- Users upload photos that need resizing before storage
-- You need to generate multiple image sizes for responsive layouts
-- Your Core Web Vitals report flags images for optimization
-- You want to convert legacy formats (JPEG, PNG) to WebP/AVIF
+- Users upload photos that need resizing before storage. See [File Upload Validation](/recipes/file-handling/file-upload-validation) for secure upload handling.
+- You need to generate multiple image sizes for responsive layouts. See [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) for responsive asset delivery.
+- Your Core Web Vitals report flags images for optimization. See [Compression Gzip](/recipes/file-handling/compression-gzip) for additional payload reduction.
+- You want to convert legacy formats (JPEG, PNG) to WebP/AVIF. See [Stream Processing](/recipes/file-handling/stream-processing) for batch format conversion.
 
 ## Solution
 

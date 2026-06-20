@@ -41,10 +41,10 @@ El caching es una de las optimizaciones de rendimiento más efectivas, pero intr
 
 Usa esta recipe cuando:
 
-- Llamas queries de base de datos o endpoints de API costosos repetidamente
+- Llamas queries de base de datos o [endpoints de API](/recipes/api/call-rest-api) costosos repetidamente
 - Computas resultados matemáticos o estadísticos complejos
 - Sirves datos de configuración estáticos o de cambio lento
-- Reduces latencia en sistemas de lectura intensa de alto tráfico
+- Reduces latencia en sistemas de lectura intensa de alto tráfico. Consulta [Pagination](/recipes/api/pagination) para gestionar grandes conjuntos de resultados.
 - Descargas carga de servicios downstream
 
 ## Solución
@@ -151,7 +151,7 @@ userCache.invalidate(userId);
 
 - **Cachea al nivel correcto**: No cachees todo. Cachea los datos más costosos y más frecuentemente accedidos.
 - **Establece TTLs consideradamente**: Demasiado corto = inútil. Demasiado largo = datos stale.
-- **Monitorea hit rates**: Un cache con <80% hit rate generalmente no vale la complejidad.
+- **Monitorea hit rates**: Un cache con <80% hit rate generalmente no vale la complejidad. Consulta [Logging](/recipes/api/logging) para métricas de cache.
 - **Maneja fallos de cache graceful**: Si Redis está caído, fallback a la base de datos. No falles el request.
 - **Versiona cache keys**: Incluye la versión de datos o app en la key para prevenir datos stale después de deploys.
 - **Invalida proactivamente**: Limpia entradas de cache cuando los datos subyacentes cambian, no solo cuando expira el TTL.
@@ -170,7 +170,7 @@ userCache.invalidate(userId);
 R: El cache stampede ocurre cuando muchos requests golpean simultáneamente una key de cache faltante. Usa locking, semáforos per-key, o expiración temprana probabilística.
 
 **P: ¿Cuándo debería usar Redis en lugar de caching en memoria?**
-R: Usa Redis cuando necesites cache compartido entre múltiples instancias de aplicación, persistencia, o estructuras de datos avanzadas.
+R: Usa Redis cuando necesites cache compartido entre múltiples instancias de aplicación, persistencia, o estructuras de datos avanzadas. Consulta [Connection Pooling](/recipes/performance/connection-pooling) para gestionar conexiones Redis.
 
 **P: ¿Debería cachear respuestas de API?**
 R: Sí, si los datos son cacheables y el endpoint es de lectura intensa. Usa el header Cache-Control para comunicar cacheability a clientes y CDNs.

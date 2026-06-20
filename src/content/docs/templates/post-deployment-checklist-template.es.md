@@ -30,7 +30,7 @@ seo:
 
 # Plantilla de Checklist Post-Deploy
 
-Usa este checklist antes de declarar un deployment exitoso.
+Usa este checklist antes de declarar un deployment exitoso. Combínalo con la [Plantilla de Release Notes](/docs/templates/release-notes-template) para comunicación y la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización.
 
 ## Plantilla
 
@@ -95,9 +95,9 @@ Usa este checklist antes de declarar un deployment exitoso.
 
 ## Mejores Prácticas
 
-- **Automatiza el checklist** — CI debería fallar el deploy si los health checks no pasan
-- **Testea rollback antes de necesitarlo** — un rollback que nunca testeaste es una apuesta
-- **Mantén la versión anterior warm** — deployments blue-green te permiten volver instantáneamente
+- **Automatiza el checklist** — CI debería fallar el deploy si los health checks no pasan. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para integración.
+- **Testea rollback antes de necesitarlo** — un rollback que nunca testeaste es una apuesta. Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template) para planificación amplia.
+- **Mantén la versión anterior warm** — deployments blue-green te permiten volver instantáneamente. Consulta la [Guía de Estrategias de Deployment](/guides/devops/deployment-strategies-guide) para patrones.
 - **Usa monitoreo sintético** — probes externos detectan issues que tus checks internos no ven
 - **Documenta actual vs esperado** — las desviaciones se convierten en datos de respuesta a incidentes
 
@@ -105,7 +105,7 @@ Usa este checklist antes de declarar un deployment exitoso.
 
 - Saltarse verificación porque "los tests pasaron" — el tráfico de producción es la prueba real
 - No chequear tasas de error post-deploy — un deploy que incrementa errores en 0.1% es un deploy fallido
-- Asumir que rollback es trivial — testea tu procedimiento de rollback trimestralmente
+- Asumir que rollback es trivial — testea tu procedimiento de rollback trimestralmente. Para planificación de desastres, consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template).
 - Deployar sin coverage de on-call — si la verificación falla, alguien debe estar disponible para responder
 
 ## Preguntas Frecuentes
@@ -120,4 +120,4 @@ Investiga inmediatamente. Los smoke tests cubren paths críticos de usuarios; lo
 
 ### ¿Debería automatizar o manualizar el checklist?
 
-Automatiza health checks y smoke tests en CI. La verificación manual es para juicios de negocio críticos ("¿el flujo de checkout se siente bien?"). El objetivo es gates automatizados con supervisión humana.
+Automatiza health checks y smoke tests en CI. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para probes. La verificación manual es para juicios de negocio críticos ("¿el flujo de checkout se siente bien?"). El objetivo es gates automatizados con supervisión humana.

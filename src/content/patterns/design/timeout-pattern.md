@@ -49,7 +49,7 @@ Use the Timeout Pattern when:
 - You need to guarantee maximum response times to users or upstream callers
 - Hanging operations could exhaust thread pools, connection pools, or memory
 - You want to fail fast rather than wait indefinitely for a response
-- Always combine with Retry for transient issues, and Circuit Breaker for chronic failures
+- Always combine with [Retry](/patterns/design/retry-pattern) for transient issues, and [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for chronic failures
 
 ## Solution
 
@@ -173,7 +173,7 @@ This prevents thread pool exhaustion, connection leaks, and poor user experience
 - **Propagate deadlines** through your call chain (e.g., gRPC context, HTTP headers)
 - **Set timeouts shorter at lower levels** — leave headroom for retries and fallbacks
 - **Log timeout events** with the target service name for debugging
-- **Combine with Circuit Breaker** — if timeouts are frequent, stop calling the failing service
+- **Combine with [Circuit Breaker](/patterns/design/circuit-breaker-pattern)** — if timeouts are frequent, stop calling the failing service
 - **Use `Promise.race` in JavaScript** and `Future.get(timeout)` in Java for clean cancellation
 
 ## Common Mistakes
@@ -193,4 +193,4 @@ A: Base it on your SLA and the downstream service's P99 latency. If your API pro
 A: It depends on the implementation. Thread interruption signals cancellation but doesn't force it. With async frameworks (Java CompletableFuture, JavaScript AbortController), you can properly cancel the underlying I/O.
 
 **Q: Should I retry after a timeout?**
-A: Yes, if the operation is idempotent and the timeout might have been caused by a transient network issue. But if timeouts are frequent, combine with Circuit Breaker to avoid wasting retries on a chronically slow service.
+A: Yes, if the operation is idempotent and the timeout might have been caused by a transient network issue. But if timeouts are frequent, combine with [Circuit Breaker](/patterns/design/circuit-breaker-pattern) to avoid wasting retries on a chronically slow service.

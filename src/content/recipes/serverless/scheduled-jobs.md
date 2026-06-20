@@ -37,12 +37,12 @@ AWS EventBridge rules trigger Lambda functions on cron expressions. Google Cloud
 
 Use this recipe when:
 
-- Replacing legacy cron jobs running on EC2 or virtual machines
-- Generating daily, weekly, or monthly reports from application data
+- Replacing legacy cron jobs running on EC2 or virtual machines. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for deploying serverless code.
+- Generating daily, weekly, or monthly reports from application data. See [Parse JSON](/recipes/data/parse-json) for handling report data formats.
 - Cleaning up old logs, temporary files, or expired database records
 - Warming caches or pre-computing aggregations before peak traffic
 - Sending scheduled notifications, reminders, or newsletters
-- Running database maintenance (VACUUM, index rebuilds, statistics updates)
+- Running database maintenance (VACUUM, index rebuilds, statistics updates). See [PostgreSQL Query Optimization](/recipes/databases/postgres-query-optimization) for database performance tuning.
 
 ## Solution
 

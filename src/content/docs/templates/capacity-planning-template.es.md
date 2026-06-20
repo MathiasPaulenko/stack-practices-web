@@ -33,10 +33,10 @@ seo:
 ## Mejores Prácticas
 
 - **Planifica antes del cuello de botella** — La planificación de capacidad es proactiva, no reactiva. Si ya estás al 80% de utilización, llegaste tarde
-- **Usa datos de pruebas de carga** — No adivines; ejecuta load tests para encontrar puntos de ruptura reales
+- **Usa datos de pruebas de carga** — No adivines; ejecuta [load tests](/recipes/testing/load-testing) para encontrar puntos de ruptura reales
 - **Incluye un margen de seguridad** — Apunta a un margen de al menos 30-40% sobre la carga pico proyectada
 - **Revisa trimestralmente** — Los supuestos de crecimiento cambian; revisa los planes cada trimestre
-- **Documenta dependencias** — Un límite de réplicas de base de datos afecta la capacidad de la aplicación incluso si los servidores de app tienen CPU disponible
+- **Documenta dependencias** — Un límite de réplicas de base de datos afecta la capacidad de la aplicación incluso si los servidores de app tienen CPU disponible. Consulta la [Plantilla de Diagramas de Sistema](/docs/templates/adr-template) para mapear dependencias.
 - **Modela tráfico burst** — Planifica para 2-3x el pico normal durante campañas de marketing o eventos virales
 - **Considera retención de datos** — El almacenamiento crece continuamente incluso si el crecimiento de usuarios es plano
 
@@ -60,4 +60,4 @@ Sobreaprovisiona rutas críticas (autenticación, procesamiento de pagos) y usa 
 
 ### ¿Qué pasa si las proyecciones de crecimiento están equivocadas?
 
-Construye flexibilidad en tu arquitectura (cargas de trabajo containerizadas, infraestructura como código) para que puedas pivotar entre escalado vertical y horizontal sin reescribir la aplicación.
+Construye flexibilidad en tu arquitectura (cargas de trabajo containerizadas, [infraestructura como código](/guides/devops/infrastructure-as-code-guide)) para que puedas pivotar entre escalado vertical y horizontal sin reescribir la aplicación.

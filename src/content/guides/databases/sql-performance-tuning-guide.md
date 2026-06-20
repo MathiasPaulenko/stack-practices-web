@@ -224,7 +224,7 @@ WHERE id IN (1, 2, 3, ...);
 | **Implicit conversions** | Function on column prevents index use | Cast the constant, not the column |
 | `SELECT DISTINCT` to fix duplicates | Hides a join problem | Fix the join or schema |
 | **Counting all rows** | `SELECT COUNT(*)` on huge tables | Use approximate counts or triggers |
-| **No connection pooling** | Connection overhead dominates | Use [connection pooling](/recipes/connection-pooling). |
+| **No connection pooling** | Connection overhead dominates | Use [connection pooling](/recipes/performance/connection-pooling). |
 
 ## Best Practices
 

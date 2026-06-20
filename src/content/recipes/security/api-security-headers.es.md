@@ -33,7 +33,7 @@ seo:
 
 Los HTTP security headers son una capa de defensa ligera del lado del servidor que instruye a los navegadores cómo manejar tu contenido. No requieren cambios en el código de aplicación y protegen contra clases enteras de ataques: clickjacking vía `X-Frame-Options`, [cross-site scripting](/recipes/security/xss-prevention) vía `Content-Security-Policy`, ataques de downgrade de protocolo vía `Strict-Transport-Security`, y sniffing de MIME-type vía `X-Content-Type-Options`.
 
-[OWASP](/guides/security/web-application-security-guide) mantiene un cheat sheet dedicado para security headers porque son efectivos, fáciles de implementar, y frecuentemente olvidados durante deployments. Un servidor sin estos headers no es inmediatamente vulnerable, pero es significativamente menos resiliente contra ataques web comunes.
+[OWASP](/guides/security/security-best-practices-guide) mantiene un cheat sheet dedicado para security headers porque son efectivos, fáciles de implementar, y frecuentemente olvidados durante deployments. Un servidor sin estos headers no es inmediatamente vulnerable, pero es significativamente menos resiliente contra ataques web comunes.
 
 ## Cuándo usarlo
 

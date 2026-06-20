@@ -38,9 +38,9 @@ Esta receta cubre la configuración de read replicas, implementación de split d
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- La CPU o I/O de tu base de datos principal está saturada por queries de lectura
-- Necesitas ejecutar reportes analíticos sin impactar escrituras de producción
-- Quieres localidad geográfica de lecturas colocando réplicas cerca de usuarios
+- La CPU o I/O de tu base de datos principal está saturada por queries de lectura. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para ajustar lecturas.
+- Necesitas ejecutar reportes analíticos sin impactar escrituras de producción. Consulta [Logging](/recipes/api/logging) para observabilidad.
+- Quieres localidad geográfica de lecturas colocando réplicas cerca de usuarios. Consulta [Caching](/recipes/data/caching) para rendimiento en edge.
 - Tu workload es intensivo en lectura (>80% lecturas) y el volumen de escritura es moderado
 
 ## Solución
@@ -182,9 +182,9 @@ Las read replicas usan replicación streaming (física) o lógica:
 
 - **Monitorea el replication lag**: Alerta cuando el lag excede 1–5 segundos dependiendo del caso de uso
 - **Enruta lecturas sensibles al tiempo a la primaria**: Lecturas de perfil de usuario después de editar deben ir a la primaria
-- **Usa connection pooling por réplica**: No crees conexiones directamente; usa PgBouncer o ProxySQL
+- **Usa connection pooling por réplica**: No crees conexiones directamente; usa PgBouncer o ProxySQL. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para configuración.
 - **Distribuye réplicas entre zonas de disponibilidad**: Protege contra fallos de zona
-- **Prueba procedimientos de failover**: Las réplicas pueden promoverse a primaria durante outages
+- **Prueba procedimientos de failover**: Las réplicas pueden promoverse a primaria durante outages. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para patrones de resiliencia.
 
 ## Errores Comunes
 

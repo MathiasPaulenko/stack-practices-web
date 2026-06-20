@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-The Memento Pattern is a behavioral design pattern that lets you save and restore the previous state of an object without revealing its internal structure. It is the foundation of undo/redo functionality in applications like text editors, drawing programs, and game state management.
+The [Memento](/patterns/design/memento-pattern-state) Pattern is a behavioral design pattern that lets you save and restore the previous state of an object without revealing its internal structure. It is the foundation of undo/redo functionality in applications like text editors, drawing programs, and game state management.
 
 ## When to Use
 
@@ -267,7 +267,7 @@ The key benefit is that the memento's internal state is opaque to the caretaker,
 | **Full Snapshot** | Stores entire object state | Small objects, infrequent snapshots |
 | **Delta/Incremental** | Stores only changed fields | Large objects, frequent snapshots |
 | **Serializable Memento** | Uses serialization for deep copying | Complex object graphs |
-| **Command + Memento** | Commands store mementos for undo | Transaction systems, editors |
+| **[Command](/patterns/design/command-pattern) + Memento** | Commands store mementos for undo | Transaction systems, editors |
 
 ## Best Practices
 
@@ -288,7 +288,7 @@ The key benefit is that the memento's internal state is opaque to the caretaker,
 ## Frequently Asked Questions
 
 **Q: How is Memento different from Prototype?**
-A: Prototype creates a new object by copying an existing one. Memento saves an object's state so it can be restored later. Prototype is about duplication; Memento is about time-travel.
+A: [Prototype](/patterns/design/prototype-pattern) creates a new object by copying an existing one. Memento saves an object's state so it can be restored later. Prototype is about duplication; Memento is about time-travel.
 
 **Q: Can I use serialization instead of Memento?**
 A: Yes, but serialization is often slower and less controlled. Memento gives you fine-grained control over what state is saved and how it is restored.

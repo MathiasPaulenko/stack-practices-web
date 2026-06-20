@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-The State Pattern is a behavioral design pattern that lets an object alter its behavior when its internal state changes. Instead of large switch statements, each state is encapsulated in its own class with state-specific behavior.
+The [State](/patterns/design/state-pattern) Pattern is a behavioral design pattern that lets an object alter its behavior when its internal state changes. Instead of large switch statements, each state is encapsulated in its own class with state-specific behavior.
 
 ## When to Use
 
@@ -280,7 +280,7 @@ The State Pattern involves two roles:
 | **Simple State Machine** | States handle transitions | Small number of states |
 | **Hierarchical State Machine** | States can have substates | Complex nested behavior |
 | **State Table** | Transitions stored in a lookup table | Many states with predictable transitions |
-| **Pushdown Automaton** | Stack-based state history | Undo/reversible state transitions |
+| **Pushdown Automaton** | Stack-based state history | Undo/reversible state transitions. See [Memento](/patterns/design/memento-pattern) |
 
 ## Best Practices
 
@@ -301,7 +301,7 @@ The State Pattern involves two roles:
 ## Frequently Asked Questions
 
 **Q: What is the difference between State and Strategy?**
-A: Both encapsulate behavior in interchangeable objects. State is about changing behavior based on internal state transitions. Strategy is about selecting an algorithm from the outside. The intent differs: State manages lifecycle, Strategy provides options.
+A: Both encapsulate behavior in interchangeable objects. State is about changing behavior based on internal state transitions. [Strategy](/patterns/design/strategy-pattern) is about selecting an algorithm from the outside. The intent differs: State manages lifecycle, Strategy provides options.
 
 **Q: Should states know about each other?**
 A: In the classic implementation, states trigger transitions to other states. An alternative is to let the context or a transition table manage transitions, keeping states decoupled.

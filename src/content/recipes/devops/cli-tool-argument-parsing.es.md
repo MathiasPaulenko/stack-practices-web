@@ -33,10 +33,10 @@ Las herramientas de línea de comandos son la columna vertebral de flujos de tra
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Construyas herramientas internas para desarrolladores, scripts de deployment o utilidades de automatización
-- Crees pipelines de procesamiento de datos o ETL disparados desde la terminal
-- Expongas funcionalidad de aplicación a sysadmins y pipelines CI/CD
-- Escribas scripts que necesitan más que unos pocos argumentos para mantenerse manejables
+- Construyas herramientas internas para desarrolladores, scripts de deployment o utilidades de automatización. Consulta [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) para automatización basada en shell.
+- Crees pipelines de procesamiento de datos o ETL disparados desde la terminal. Consulta [Parse JSON](/recipes/data/parse-json) para manejo de datos estructurados.
+- Expongas funcionalidad de aplicación a sysadmins y pipelines CI/CD. Consulta [GitHub Actions](/recipes/devops/github-actions) para integración de pipelines.
+- Escribas scripts que necesitan más que unos pocos argumentos para mantenerse manejables. Consulta [Environment Variables](/recipes/devops/environment-variables) para configuración externalizada.
 
 ## Solución
 

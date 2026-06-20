@@ -101,7 +101,7 @@ public class BookController {
 ## Explanation
 
 OpenAPI specs are typically generated in two ways:
-- **Code-first**: Annotations in your code generate the spec automatically ([FastAPI](/recipes/api/fastapi-crud), SpringDoc, tsoa)
+- **Code-first**: Annotations in your code generate the spec automatically ([FastAPI](/recipes/api/go-rest-api-gin), SpringDoc, tsoa)
 - **Design-first**: You write the YAML/JSON spec manually, then generate server stubs and [client SDKs](/recipes/api/call-rest-api)
 
 The generated spec (`openapi.json`) drives:

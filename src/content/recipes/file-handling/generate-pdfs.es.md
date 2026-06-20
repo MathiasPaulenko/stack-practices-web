@@ -34,10 +34,10 @@ La generación de PDFs es un requisito común para facturas, reportes, certifica
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Necesites generar facturas, recibos o confirmaciones de orden
-- Los usuarios soliciten reportes o exports de analíticas descargables
-- Debas producir documentos legalmente compliant (contratos, certificados)
-- Quieras reutilizar diseños HTML/CSS existentes para salida impresa
+- Necesites generar facturas, recibos o confirmaciones de orden. Consulta [Export CSV Excel](/recipes/file-handling/export-csv-excel) para exportación de datos tabulares.
+- Los usuarios soliciten reportes o exports de analíticas descargables. Consulta [Background Jobs](/recipes/devops/background-jobs) para generación asíncrona de PDFs.
+- Debas producir documentos legalmente compliant (contratos, certificados). Consulta [Email Templates MJML](/recipes/frontend/email-templates-mjml) para entrega profesional por email.
+- Quieras reutilizar diseños HTML/CSS existentes para salida impresa. Consulta [Image Optimization](/recipes/file-handling/image-optimization) para optimización de imágenes embebidas.
 
 ## Solución
 

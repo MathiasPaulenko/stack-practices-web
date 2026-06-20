@@ -38,10 +38,10 @@ Los fallos transitorios —timeouts de red, rate limits, cortes temporales de se
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Llames APIs externas que pueden aplicar rate limits o sufrir cortes temporales
-- Publiques mensajes a colas o buses de eventos que puedan estar temporalmente no disponibles
-- Realices operaciones de base de datos que puedan encontrar deadlocks o timeouts de conexión
-- Construyas microservicios que necesiten resiliencia ante degradación de servicios downstream
+- Llames APIs externas que pueden aplicar rate limits o sufrir cortes temporales. Consulta [Call REST API](/recipes/api/call-rest-api) para patrones de clientes API.
+- Publiques mensajes a colas o buses de eventos que puedan estar temporalmente no disponibles. Consulta [RabbitMQ Task Queue](/recipes/messaging/rabbitmq-task-queue) para resiliencia de message brokers.
+- Realices operaciones de base de datos que puedan encontrar deadlocks o timeouts de conexión. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para gestionar conexiones a DB.
+- Construyas microservicios que necesiten resiliencia ante degradación de servicios downstream. Consulta [Event-Driven Microservices](/recipes/messaging/event-driven-microservices) para arquitectura resiliente.
 
 ## Solución
 

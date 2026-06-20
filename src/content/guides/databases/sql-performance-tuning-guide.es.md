@@ -227,7 +227,7 @@ WHERE id IN (1, 2, 3, ...);
 | **Conversiones implícitas** | Función en columna impide uso de índice | Castea la constante, no la columna |
 | `SELECT DISTINCT` para arreglar duplicados | Oculta un problema de join | Arregla el join o el esquema |
 | **Contar todas las filas** | `SELECT COUNT(*)` en tablas enormes | Usa conteos aproximados o triggers |
-| **Sin pool de conexiones** | Sobrecarga de conexión domina | Usa [pool de conexiones](/recipes/connection-pooling). |
+| **Sin pool de conexiones** | Sobrecarga de conexión domina | Usa [pool de conexiones](/recipes/performance/connection-pooling). |
 
 ## Mejores Prácticas
 

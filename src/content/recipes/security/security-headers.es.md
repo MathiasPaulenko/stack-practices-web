@@ -28,13 +28,13 @@ seo:
 ---
 ## Visión General
 
-Los HTTP security headers son la primera línea de defensa para [aplicaciones web](/guides/web-application-security-guide). Instruyen a los navegadores sobre cómo comportarse al renderizar tu sitio — bloqueando XSS, previniendo clickjacking, forzando HTTPS y controlando qué recursos externos pueden cargarse. Configurados correctamente, pueden detener clases enteras de ataques sin cambiar una línea de código de aplicación.
+Los HTTP security headers son la primera línea de defensa para [aplicaciones web](/guides/security/security-best-practices-guide). Instruyen a los navegadores sobre cómo comportarse al renderizar tu sitio — bloqueando XSS, previniendo clickjacking, forzando HTTPS y controlando qué recursos externos pueden cargarse. Configurados correctamente, pueden detener clases enteras de ataques sin cambiar una línea de código de aplicación.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Fortaleces aplicaciones web en producción contra ataques comunes basados en navegador
-- Te preparas para [auditorías de seguridad](/docs/penetration-test-template) que verifican headers seguros de OWASP
+- Te preparas para [auditorías de seguridad](/guides/security/security-best-practices-guide) que verifican headers seguros de OWASP
 - Sirves contenido generado por usuarios que podría contener scripts maliciosos
 - Embebes tu aplicación en sitios de terceros vía iframes
 
@@ -137,7 +137,7 @@ curl -sI "$URL" | grep -iE \
 ## Preguntas Frecuentes
 
 **P: ¿Los security headers protegen APIs?**
-R: Parcialmente. CORS, HSTS y CSP importan para clientes de browser. Para APIs machine-to-machine, enfócate en [autenticación](/recipes/jwt-authentication) y TLS.
+R: Parcialmente. CORS, HSTS y CSP importan para clientes de browser. Para APIs machine-to-machine, enfócate en [autenticación](/recipes/authentication/jwt-authentication) y TLS.
 
 **P: ¿CSP romperá mi analytics?**
 R: Solo si olvidas whitelistear tu dominio de analytics. Agrégalo a `script-src` y `connect-src`.

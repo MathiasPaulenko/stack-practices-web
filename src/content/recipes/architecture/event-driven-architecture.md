@@ -41,7 +41,7 @@ Use this recipe when:
 - Workloads are bursty and need buffering to smooth traffic spikes
 - Services have different availability requirements and cannot block on each other
 - Building audit trails where every state change must be recorded
-- Implementing event sourcing for temporal queries and state reconstruction
+- Implementing event sourcing for temporal queries and state reconstruction. See [CQRS Pattern](/patterns/design/cqrs-pattern) for read/write separation.
 
 ## Solution
 
@@ -160,9 +160,9 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 
 ## Best practices
 
-- **Design events, not messages**: an event should describe what happened, not what the consumer should do. `OrderPlaced` is correct. `DecrementInventory` is a command masquerading as an event. Events are facts; commands are instructions.
+- **Design events, not messages**: an event should describe what happened, not what the consumer should do. See [Microservices Patterns](/guides/architecture/microservices-architecture-guide) for service communication strategies. `OrderPlaced` is correct. `DecrementInventory` is a command masquerading as an event. Events are facts; commands are instructions.
 - **Use schema validation**: unvalidated events are a source of subtle bugs. Use Avro, JSON Schema, or Protobuf to define event contracts. Validate at the publisher and consumer boundaries. Version schemas and maintain backward compatibility.
-- **Make consumers idempotent**: network retries and broker redeliveries mean the same event may be processed multiple times. Design handlers so that processing the same event twice produces the same state. Use `UPSERT` or track processed event IDs in a deduplication table.
+- **Make consumers idempotent**: network retries and broker redeliveries mean the same event may be processed multiple times. See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for deduplication patterns. Design handlers so that processing the same event twice produces the same state. Use `UPSERT` or track processed event IDs in a deduplication table.
 - **Monitor consumer lag**: lag is the number of unprocessed messages in a partition. High lag indicates the consumer is slower than the producer. Alert on lag thresholds. Scale consumers horizontally or optimize handler performance.
 - **Publish domain events, not infrastructure events**: `PaymentProcessed` is a domain event with business meaning. `DatabaseRowInserted` is infrastructure noise. Consumers care about business state changes, not implementation details.
 
@@ -179,7 +179,7 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 A: Kafka for high-throughput event streaming, event sourcing, and replay. RabbitMQ for complex routing, request-reply patterns, and AMQP compatibility. Kafka scales horizontally better; RabbitMQ is easier to operate at small scale.
 
 **Q: How do I handle event ordering across services?**
-A: You cannot guarantee global ordering across services. Ensure ordering within an aggregate (e.g., all events for `order-123` go to the same partition). Use sagas to compensate when cross-service ordering assumptions are violated.
+A: You cannot guarantee global ordering across services. Ensure ordering within an aggregate (e.g., all events for `order-123` go to the same partition). Use [sagas](/recipes/architecture/saga-pattern) to compensate when cross-service ordering assumptions are violated.
 
 **Q: What is the difference between event-driven and message-driven?**
 A: Event-driven: services react to events they subscribe to. Message-driven: services send messages to specific queues. The terms overlap, but event-driven implies pub/sub and loose coupling, while message-driven includes point-to-point patterns.

@@ -30,7 +30,7 @@ seo:
 
 ## Overview
 
-An onboarding guide accelerates new team member productivity by providing a clear path from day one to first meaningful contribution. It reduces the burden on existing team members and ensures consistency.
+An onboarding guide accelerates new team member productivity by providing a clear path from day one to first meaningful contribution. See [README Template](/docs/templates/readme-template) for project docs and [Contributing Guide](/docs/templates/contributing-guide) for contribution standards. It reduces the burden on existing team members and ensures consistency.
 
 ## When to Use
 
@@ -55,6 +55,8 @@ Welcome to the team! This guide will help you get up and running.
 - [ ] Calendar invites sent for team standups and rituals
 
 ## Day 1-2: Environment Setup
+
+See [Environment Setup Guide Template](/docs/templates/environment-setup-guide-template) for detailed instructions.
 
 ### Required Tools
 | Tool | Version | Purpose | Install Link |
@@ -109,7 +111,7 @@ Look for issues labeled:
 ## Week 2+: Deeper Dive
 
 - [ ] Attend architecture overview session
-- [ ] Read ADRs in `/docs/adr/`
+- [ ] Read [ADRs](/docs/templates/adr-template) in `/docs/adr/`
 - [ ] Shadow an on-call rotation (observation only)
 - [ ] Pair program with a teammate
 

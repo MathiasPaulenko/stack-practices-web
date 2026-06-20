@@ -41,7 +41,7 @@ seo:
 
 ## Overview
 
-The Proxy Pattern is a structural design pattern that provides a surrogate or placeholder for another object. The proxy controls access to the real subject, adding a layer of indirection that can be used for lazy loading, access control, caching, logging, or monitoring — without changing the subject's code.
+The [Proxy](/patterns/design/proxy-pattern-caching) Pattern is a structural design pattern that provides a surrogate or placeholder for another object. The proxy controls access to the real subject, adding a layer of indirection that can be used for lazy loading, access control, caching, logging, or monitoring — without changing the subject's code.
 
 ## When to Use
 
@@ -216,10 +216,10 @@ The proxy can intercept operations to add caching, logging, access control, or l
 ## Frequently Asked Questions
 
 **Q: What is the difference between Proxy and Decorator?**
-A: Both wrap objects and add behavior. Proxy controls access to the wrapped object (often for structural reasons like lazy loading or remote access). Decorator adds responsibilities dynamically, usually for functional enhancement. The intent differs even if the structure looks similar.
+A: Both wrap objects and add behavior. Proxy controls access to the wrapped object (often for structural reasons like lazy loading or remote access). See [Caching Proxy](/patterns/design/proxy-pattern-caching) for a concrete example. Decorator adds responsibilities dynamically, usually for functional enhancement. The intent differs even if the structure looks similar.
 
 **Q: Can a proxy wrap another proxy?**
 A: Yes. You can stack proxies — for example, a caching proxy wrapping a remote proxy. Each layer adds its own behavior. Keep the stack shallow to avoid confusing stack traces and performance overhead.
 
 **Q: When should I use a Proxy instead of a Factory?**
-A: Use a Factory when you want to control which class is instantiated. Use a Proxy when you want to control access to an already-instantiated object or delay its creation.
+A: Use a [Factory](/patterns/design/factory-pattern) when you want to control which class is instantiated. Use a Proxy when you want to control access to an already-instantiated object or delay its creation.

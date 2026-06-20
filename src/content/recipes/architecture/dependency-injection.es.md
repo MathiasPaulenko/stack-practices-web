@@ -40,7 +40,7 @@ Usa este recurso cuando:
 - Escribas tests unitarios que requieren sustituir servicios reales por dobles de prueba
 - Construyas aplicaciones modulares donde los componentes no deberían conocer implementaciones concretas
 - Manejes grafos de objetos complejos con dependencias transitivas
-- Implementes arquitecturas de plugins o patrones de estrategia
+- Implementes arquitecturas de plugins o [patrones de estrategia](/patterns/design/strategy-pattern)
 
 ## Solución
 
@@ -133,7 +133,7 @@ La DI invierte el control: en lugar de que los componentes encuentren o creen su
 
 - **Prefiere inyección por constructor**: Hace las dependencias explícitas e inmutables
 - **Evita service locators**: Ocultan dependencias y dificultan los tests
-- **Usa interfaces/protocolos**: Depende de abstracciones, no de tipos concretos
+- **Usa interfaces/protocolos**: Depende de abstracciones, no de tipos concretos. Consulta [Factory Pattern](/patterns/design/factory-pattern) para abstracciones de creación de objetos.
 - **Mantén roots de composición superficiales**: Cablea dependencias en el punto de entrada de la aplicación
 
 ## Errores Comunes
@@ -142,7 +142,7 @@ La DI invierte el control: en lugar de que los componentes encuentren o creen su
 2. **Fugas del contenedor**: Pasar el contenedor de DI a los servicios anula el propósito
 3. **Acoplamiento al framework**: Usa anotaciones estándar (@Inject) cuando sea posible
 4. **Ignorar ciclo de vida**: Servicios scoped resueltos como singletons causan fugas de memoria
-5. **Dependencias circulares**: Refactoriza en eventos o un mediador si A depende de B y B de A
+5. **Dependencias circulares**: Refactoriza en eventos o un [mediador](/patterns/design/mediator-pattern) si A depende de B y B de A
 
 ## Preguntas Frecuentes
 

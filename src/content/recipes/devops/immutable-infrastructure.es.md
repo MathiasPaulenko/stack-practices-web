@@ -29,7 +29,7 @@ seo:
 ---
 ## Visión General
 
-La infraestructura inmutable trata los servidores y despliegues como artefactos desechables que nunca se modifican después de su creación. En lugar de parchar máquinas en ejecución, construyes nuevas imágenes desde definiciones versionadas y reemplazas las instancias antiguas por completo. Esto elimina el configuration drift, hace los rollbacks triviales y asegura que cada ambiente — desde desarrollo hasta producción — ejecute stacks de software idénticos. Consulta [estrategias de despliegue](/guides/deployment-strategies-guide) para patrones de rollback y [blue-green deployment](/recipes/blue-green-deployment) para swaps sin downtime.
+La infraestructura inmutable trata los servidores y despliegues como artefactos desechables que nunca se modifican después de su creación. En lugar de parchar máquinas en ejecución, construyes nuevas imágenes desde definiciones versionadas y reemplazas las instancias antiguas por completo. Esto elimina el configuration drift, hace los rollbacks triviales y asegura que cada ambiente — desde desarrollo hasta producción — ejecute stacks de software idénticos. Consulta [estrategias de despliegue](/guides/devops/deployment-strategies-guide) para patrones de rollback y [blue-green deployment](/recipes/devops/blue-green-deployment) para swaps sin downtime.
 
 ## Cuándo Usar
 
@@ -143,7 +143,7 @@ resource "aws_autoscaling_group" "app" {
 ## Mejores Prácticas
 
 - **Almacena imágenes en registries**: ECR, GCR, ACR o Docker Hub con tags inmutables
-- **Escanea imágenes antes del deploy**: Trivy, Clair o Snyk en [pipeline de CI](/guides/cicd-pipeline-guide). Para una guía dedicada, consulta [escaneo de seguridad de containers](/recipes/container-security).
+- **Escanea imágenes antes del deploy**: Trivy, Clair o Snyk en [pipeline de CI](/guides/devops/cicd-pipeline-guide). Para una guía dedicada, consulta [escaneo de seguridad de containers](/recipes/security/container-security).
 - **Tag imágenes con git SHA**: `myapp:abc1234` vincula artifacts a código fuente
 - **Usa read-only root filesystem**: Los containers que no pueden escribir no pueden ser comprometidos fácilmente
 - **Separa datos de código**: Adjunta volúmenes EBS o usa S3 para estado; nunca almacenes estado en la imagen
@@ -152,7 +152,7 @@ resource "aws_autoscaling_group" "app" {
 
 1. **Containers mutables**: Ejecutar `apt-get install` dentro de un container en ejecución anula la inmutabilidad
 2. **Tags latest**: `:latest` es mutable y no determinístico; siempre fija digests o SHAs
-3. **Almacenar secrets en imágenes**: Bakear credenciales en AMIs y containers crea exposición permanente. Sigue [mejores prácticas de secrets management](/guides/secrets-management-guide).
+3. **Almacenar secrets en imágenes**: Bakear credenciales en AMIs y containers crea exposición permanente. Sigue [mejores prácticas de secrets management](/guides/security/security-best-practices-guide).
 4. **Olvidar data volumes**: Un rootfs read-only significa que logs y uploads necesitan storage externo
 5. **Sin política de lifecycle de imágenes**: Las imágenes viejas acumulan costos de storage y se convierten en liabilities de seguridad
 
@@ -165,4 +165,4 @@ R: Storage ligeramente mayor para imágenes, pero menor costo operacional debido
 R: Construye una nueva imagen con el patch, despliégala y decomisiona las instancias viejas. El proceso es idéntico a despliegues normales.
 
 **P: ¿Puedo usar infraestructura inmutable con bases de datos?**
-R: Para servidores de app stateless, sí. Para bases de datos, usa configuración inmutable + volúmenes de datos persistentes, no datos inmutables. Aprende más en [diseño de bases de datos](/guides/database-design-guide).
+R: Para servidores de app stateless, sí. Para bases de datos, usa configuración inmutable + volúmenes de datos persistentes, no datos inmutables. Aprende más en [diseño de bases de datos](/guides/databases/database-design-guide).

@@ -34,10 +34,10 @@ El logging estructurado reemplaza mensajes de log de texto libre con objetos JSO
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Ejecutes más de un servicio que necesite agregación de logs centralizada
-- Debuggees issues que abarcan múltiples microservicios o jobs async
-- Construyas dashboards y alertas basadas en eventos de log
-- Migres de logs de texto plano a un stack moderno de observabilidad
+- Ejecutes más de un servicio que necesite agregación de logs centralizada. Consulta [Prometheus API Monitoring](/recipes/observability/prometheus-api-monitoring) para colección de métricas.
+- Debuggees issues que abarcan múltiples microservicios o jobs async. Consulta [Integration Testing](/recipes/testing/integration-testing) para verificación cross-service.
+- Construyas dashboards y alertas basadas en eventos de log. Consulta [API Status Page Template](/docs/templates/api-status-page-template) para dashboards de estado.
+- Migres de logs de texto plano a un stack moderno de observabilidad. Consulta [Docker Basics](/recipes/devops/docker-basics) para infraestructura de logging containerizada.
 
 ## Solución
 

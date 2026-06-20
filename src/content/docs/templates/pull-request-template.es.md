@@ -32,7 +32,7 @@ seo:
 
 ## Resumen
 
-Una plantilla de pull request estandariza la información provista al enviar cambios de código. Asegura que los revisores tengan contexto y que los autores verifiquen su trabajo antes de solicitar revisión.
+Una plantilla de pull request estandariza la información provista al enviar cambios de código. Consulta la [Guía de Contribución](/docs/templates/contributing-guide) para estándares de equipo y las [Mejores Prácticas de Code Review](/guides/design/code-review-best-practices-guide) para cultura de revisión. Asegura que los revisores tengan contexto y que los autores verifiquen su trabajo antes de solicitar revisión.
 
 ## Cuándo Usar
 
@@ -101,21 +101,21 @@ Fixes # (issue)
 
 - **Manténlo conciso**: Plantillas largas desaniman completarlas
 - **Usa checkboxes**: Fáciles de escanear, difíciles de olvidar
-- **Enlaza issues**: Siempre referencia tickets relacionados
+- **Enlaza issues**: Siempre referencia tickets relacionados. Usa la [Plantilla de Reporte de Bug](/docs/templates/bug-report-template) o la [Plantilla de Solicitud de Feature](/docs/templates/feature-request-template) para estructura de issues.
 - **Incluye screenshots**: Para cambios UI, la prueba visual es esencial
-- **Automatiza donde sea posible**: Deja que CI verifique lo que los bots pueden
+- **Automatiza donde sea posible**: Deja que CI verifique lo que los bots pueden. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización.
 
 ## Errores Comunes
 
 - **Plantillas vacías**: Enviar sin completar las secciones requeridas
-- **Tests faltantes**: Olvidar actualizar o agregar tests
+- **Tests faltantes**: Olvidar actualizar o agregar tests. Consulta la [Guía de Estrategia de Testing](/guides/testing/testing-strategy-guide) para estándares de cobertura.
 - **Sin enlaces a issues**: Hace más difícil rastrear el contexto
 
 ## Preguntas Frecuentes
 
 ### Cada pull request debería usar una plantilla?
 
-Sí. Las plantillas aseguran que los reviewers obtengan contexto consistente y que los autores verifiquen su trabajo. Incluso fixes pequeños se benefician de una breve descripción y confirmación de testing.
+Sí. Las plantillas aseguran que los reviewers obtengan contexto consistente y que los autores verifiquen su trabajo. Consulta las [Mejores Prácticas de Code Review](/guides/design/code-review-best-practices-guide) para cultura. Incluso fixes pequeños se benefician de una breve descripción y confirmación de testing.
 
 ### Qué tan detallada debería ser la sección de testing?
 
@@ -123,4 +123,4 @@ Incluye suficiente detalle para que un reviewer pueda reproducir tus tests. Para
 
 ### Qué pasa si una plantilla de PR se siente muy pesada para mi equipo?
 
-Empieza con una plantilla mínima: descripción, tipo de cambio y un checklist de 3 items. Expande secciones solo cuando notes brechas de información en las reviews.
+Empieza con una plantilla mínima: descripción, tipo de cambio y un checklist de 3 items. Expande usando estándares de la [Guía de Contribución](/docs/templates/contributing-guide). Expande secciones solo cuando notes brechas de información en las reviews.

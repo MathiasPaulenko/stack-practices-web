@@ -38,11 +38,11 @@ A database transaction is a sequence of operations treated as a single logical u
 
 Use this recipe when:
 
-- Transferring money between accounts
-- Updating inventory after a purchase
+- Transferring money between accounts. See [Money and Currency](/recipes/data/money-currency) for exact decimal arithmetic.
+- Updating inventory after a purchase. See [Batch Processing](/recipes/data/batch-processing-patterns) for bulk operations.
 - Creating related records across multiple tables
 - Ensuring read consistency for reporting queries
-- Preventing race conditions in concurrent writes
+- Preventing [race conditions](/recipes/data/race-condition-prevention) in concurrent writes
 
 ## Solution
 
@@ -143,7 +143,7 @@ COMMIT;
 - **Keep transactions short**: Long transactions hold locks and block other queries
 - **Use the lowest isolation level** that meets your correctness requirements
 - **Always handle rollback**: Use try/catch/finally to ensure rollback on error
-- **Use optimistic locking** for high-contention data (version columns)
+- **Use optimistic locking** for high-contention data (version columns). See [Optimistic Locking](/recipes/databases/optimistic-locking) for version-based concurrency.
 - **Test concurrent scenarios**: Simulate race conditions in your test suite
 - **Avoid user input inside transactions**: Collect data before starting the transaction
 
@@ -152,7 +152,7 @@ COMMIT;
 - Forgetting to call `commit()` or `rollback()`, leaving connections idle in transaction
 - Running long queries inside transactions, causing lock contention
 - Using `SERIALIZABLE` everywhere without understanding the performance cost
-- Not handling deadlock exceptions (error code 40P01 in PostgreSQL)
+- Not handling [deadlock exceptions](/recipes/databases/database-deadlocks-retries) (error code 40P01 in PostgreSQL)
 - Nesting transactions without savepoints
 
 ## Frequently Asked Questions

@@ -33,9 +33,9 @@ AWS Fargate elimina la necesidad de gestionar instancias EC2 al proporcionar com
 
 ## Cuando Usar Esto
 
-- Quieres ejecutar contenedores sin gestionar servidores
-- Necesitas auto-escalado basado en CPU o cantidad de peticiones
-- Quieres infraestructura como codigo para entornos reproducibles
+- Quieres ejecutar contenedores sin gestionar servidores. Consulta [Docker Basics](/recipes/devops/docker-basics) para fundamentos de contenedores.
+- Necesitas auto-escalado basado en CPU o cantidad de peticiones. Consulta [Load Testing](/recipes/testing/load-testing) para líneas base de rendimiento.
+- Quieres infraestructura como codigo para entornos reproducibles. Consulta [Terraform AWS VPC](/recipes/devops/terraform-aws-vpc) para infraestructura de red como código.
 
 ## Requisitos Previos
 

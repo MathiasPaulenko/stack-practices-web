@@ -37,13 +37,13 @@ Esta receta muestra la forma idiomática de leer y escribir archivos de texto en
 
 Usa esta receta cuando:
 
-- Cargas archivos de configuración o datos al arrancar
+- Cargas archivos de configuración o datos al arrancar. Consulta [Parse JSON](/recipes/data/parse-json) para archivos de config estructurados.
 - Generas informes, exportaciones o logs para auditoría y análisis
 - Procesas texto línea a línea (CSV, logs, fixtures)
 - Persistes pequeñas cantidades de estado sin una base de datos
 - Lees y escribes archivos de configuración JSON o YAML
 - Haces streaming de archivos de logs grandes sin cargarlos completamente en memoria
-- Creas archivos temporales para procesamiento intermedio en pipelines de datos
+- Creas archivos temporales para procesamiento intermedio en pipelines de datos. Consulta [Call REST API](/recipes/api/call-rest-api) para descargar datos remotos.
 
 ## Solución
 
@@ -94,7 +94,7 @@ cat notes.txt
 - **JavaScript** usa la API basada en promesas `fs/promises`. Prefiérela sobre las síncronas `readFileSync`/`writeFileSync`, que bloquean el event loop. Para archivos grandes, usa `createReadStream()` para procesar datos en chunks.
 - **Bash** usa redirección: `>` sobrescribe, `>>` añade. `cat` imprime el contenido. Para parsing estructurado, combina `cat` con `jq` para JSON o `awk` para CSV.
 
-Para convertir el contenido de un archivo en datos estructurados, consulta [Parsear JSON](/es/recipes/parse-json).
+Para convertir el contenido de un archivo en datos estructurados, consulta [Parsear JSON](/recipes/data/parse-json).
 
 ## Variantes
 

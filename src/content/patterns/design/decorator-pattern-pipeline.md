@@ -31,7 +31,7 @@ seo:
 
 # Decorator Pattern for HTTP Request Pipelines
 
-The Decorator pattern wraps an object to add responsibilities dynamically. When applied to HTTP clients, it becomes a clean way to compose cross-cutting concerns — logging, retries, metrics, authentication — without polluting the core request logic.
+The [Decorator](/patterns/design/decorator-pattern) pattern wraps an object to add responsibilities dynamically. When applied to HTTP clients, it becomes a clean way to compose cross-cutting concerns — logging, retries, metrics, authentication — without polluting the core request logic.
 
 ## When to Use This
 
@@ -41,7 +41,7 @@ The Decorator pattern wraps an object to add responsibilities dynamically. When 
 
 ## Problem
 
-Adding logging, retries, metrics, and auth to every HTTP call leads to monolithic client classes or copy-paste boilerplate at every call site.
+Adding logging, retries, metrics, and auth to every [HTTP call](/recipes/api/call-rest-api) leads to monolithic client classes or copy-paste boilerplate at every call site.
 
 ## Solution
 
@@ -131,7 +131,7 @@ const client = new AuthDecorator(
 
 - **Conditional Decorator**: Apply logic only for specific URLs or HTTP methods
 - **Metrics Decorator**: Push timing and status code distributions to Prometheus
-- **Cache Decorator**: Combine with Proxy pattern to cache GET responses
+- **Cache Decorator**: Combine with [Proxy](/patterns/design/proxy-pattern) pattern to cache GET responses
 
 ## Best Practices
 
@@ -148,7 +148,7 @@ const client = new AuthDecorator(
 ## FAQ
 
 **Q: How is this different from middleware in Express?**
-A: Express middleware operates on request/response objects in sequence. Decorators wrap a single client interface and can be composed at any granularity.
+A: Express [middleware](/patterns/design/chain-of-responsibility-middleware) operates on request/response objects in sequence. Decorators wrap a single client interface and can be composed at any granularity.
 
 **Q: Can decorators be removed dynamically?**
 A: Only if you reassign the client reference. Decorators are typically composed at initialization and remain fixed.

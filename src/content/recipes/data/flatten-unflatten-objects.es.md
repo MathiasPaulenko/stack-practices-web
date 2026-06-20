@@ -37,9 +37,9 @@ El flattening transforma un objeto profundamente anidado en un diccionario de un
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Conviertas datos de formularios anidados en pares clave-valor planos para query strings HTTP o export CSV
+- Conviertas datos de formularios anidados en pares clave-valor planos para [query strings HTTP](/recipes/data/url-encoding) o export CSV
 - Apliques patches solo en campos específicos profundamente anidados en documentos MongoDB/Elasticsearch
-- Normalices respuestas de APIs JSON en estructuras relacionales planas para analytics
+- Normalices [respuestas de APIs JSON](/recipes/data/parse-json) en estructuras relacionales planas para analytics
 - Construyas sistemas de configuración dinámica donde rutas con notación por puntos accedan a settings anidados
 
 ## Solución
@@ -260,7 +260,7 @@ public class FlattenUtil {
 1. **Valida la elección del separador** — si tus claves de datos pueden contener puntos (ej. nombres de dominio como `example.com`), usa un separador custom como `__` o `→` para evitar rutas ambiguas.
 2. **Preserva índices de arrays explícitamente** — incluye siempre los índices de arrays en la clave flatten (`tags[0]`). Sin ellos, los arrays se convierten en objetos con claves de string numéricas al hacer unflatten.
 3. **Maneja null y objetos vacíos** — los valores `null` deben preservarse tal cual. Los objetos vacíos `{}` deben preservarse u omitirse explícitamente según tu caso de uso.
-4. **Fidelidad de tipos en round-trip** — el flattening pierde información de tipos para Dates, Maps, Sets y typed arrays. Serializa estos a strings antes de flatten si la recuperación del tipo importa.
+4. **Fidelidad de tipos en round-trip** — el flattening pierde información de tipos para Dates, Maps, Sets y typed arrays. [Serializa estos a strings](/recipes/data/deep-clone-javascript) antes de flatten si la recuperación del tipo importa.
 5. **Limita la profundidad para seguridad** — en input no confiable, limita la profundidad de recursión para prevenir ataques de stack overflow con JSON maliciosamente anidado.
 
 ## Errores Comunes

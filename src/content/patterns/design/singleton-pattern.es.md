@@ -37,7 +37,7 @@ seo:
 
 ## Visión general
 
-El Patrón Singleton es un patrón de diseño creacional que restringe una clase a una única instancia y proporciona un punto de acceso global a ella. Es útil cuando se necesita exactamente un objeto para coordinar acciones en todo el sistema.
+El [Patrón Singleton](/patterns/design/singleton-pattern) es un patrón de diseño creacional que restringe una clase a una única instancia y proporciona un punto de acceso global a ella. Es útil cuando se necesita exactamente un objeto para coordinar acciones en todo el sistema.
 
 Casos de uso comunes incluyen pools de conexiones a bases de datos, gestores de configuración y servicios de logging.
 
@@ -156,7 +156,7 @@ Las aplicaciones cargan configuración desde archivos o variables de entorno una
 
 ### Capa de caché
 
-Las cachés en memoria (clientes Redis, cachés LRU locales) se comparten típicamente a través de la aplicación. Un singleton garantiza consistencia de caché y evita duplicación de memoria.
+Las cachés en memoria (clientes [Redis](/patterns/design/cache-aside-pattern), cachés LRU locales) se comparten típicamente a través de la aplicación. Un singleton garantiza consistencia de caché y evita duplicación de memoria.
 
 ### Fábrica de loggers
 
@@ -177,4 +177,4 @@ R: Es posible pero complicado. Cada subclase puede terminar con su propia instan
 R: Inyecta el singleton como dependencia en lugar de llamarlo directamente, o proporciona un método `reset()` para tests. Alternativamente, usa una fábrica que devuelva el singleton por defecto pero pueda ser mockeada en tests.
 
 **P: ¿Cuáles son alternativas al Singleton?**
-R: Inyección de dependencias, localizadores de servicios, o variables a nivel de módulo en lenguajes que lo soporten (los módulos de Python son singletons naturales). Estos enfoques hacen las dependencias explícitas y más fáciles de testear.
+R: [Inyección de dependencias](/patterns/design/dependency-injection-pattern), localizadores de servicios, o variables a nivel de módulo en lenguajes que lo soporten (los módulos de Python son singletons naturales). Estos enfoques hacen las dependencias explícitas y más fáciles de testear.

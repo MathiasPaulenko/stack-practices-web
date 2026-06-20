@@ -37,10 +37,10 @@ Feature flags (or feature toggles) decouple deployment from release. They let yo
 ## When to Use
 
 Use this resource when:
-- Rolling out a high-risk feature gradually to monitor for errors
-- Running A/B tests to compare two implementations of a feature
-- Deploying incomplete code to `main` without exposing it to users
-- Needing an instant kill-switch for a feature causing production issues
+- Rolling out a high-risk feature gradually to monitor for errors. See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for monitoring application health.
+- Running A/B tests to compare two implementations of a feature. See [Load Testing](/recipes/testing/load-testing) for measuring performance under load.
+- Deploying incomplete code to `main` without exposing it to users. See [Git Workflow](/recipes/devops/git-workflow) for branch management.
+- Needing an instant kill-switch for a feature causing production issues. See [Retry Logic](/recipes/architecture/retry-backoff) for handling transient failures gracefully.
 
 ## Solution
 

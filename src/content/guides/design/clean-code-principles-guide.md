@@ -292,7 +292,7 @@ customer.last_order_first_item_price()
 
 - **Leave the code cleaner than you found it** (Boy Scout Rule)
 - **Delete dead code** — commented-out code, unused functions, unreachable branches
-- **Write tests first** — they force you to write testable (hence clean) code. See [testing strategies](/guides/testing-strategy-guide).
+- **Write tests first** — they force you to write testable (hence clean) code. See [testing strategies](/guides/testing/testing-strategy-guide).
 - **Code is read 10x more than it is written** — optimize for the reader
 - **Pair programming** — two eyes catch complexity before it compounds. Complements [code reviews](/guides/design/code-review-best-practices-guide).
 

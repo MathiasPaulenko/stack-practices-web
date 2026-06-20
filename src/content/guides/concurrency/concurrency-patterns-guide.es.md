@@ -149,7 +149,7 @@ class SafeCounter:
 - **Share nothing**: Prefiere paso de mensajes sobre estado compartido
 - **Usa colecciones thread-safe**: `ConcurrentHashMap`, `Queue`, `AtomicInteger`
 - **Mantén secciones críticas pequeñas**: Bloquea por el mínimo tiempo
-- **Nunca llames APIs externas mientras mantienes un lock** — consulta [reintentos con backoff](/recipes/retry-backoff) para llamadas externas resilientes
+- **Nunca llames APIs externas mientras mantienes un lock** — consulta [reintentos con backoff](/recipes/architecture/retry-backoff) para llamadas externas resilientes
 
 ## Preguntas Frecuentes
 

@@ -16,7 +16,7 @@ tags:
 relatedResources:
   - /recipes/devops/helm-chart-deployment
   - /patterns/design/ambassador-pattern-services
-  - /guides/logging-monitoring-guide
+  - /guides/devops/logging-monitoring-observability-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -35,9 +35,9 @@ Instrument services and infrastructure with Prometheus metrics to gain real-time
 
 ## When to Use This
 
-- You need quantitative data about application and infrastructure behavior
-- Alerting should trigger on symptoms, not just infrastructure failures
-- Historical metrics are required for capacity planning and debugging
+- You need quantitative data about application and infrastructure behavior. See [Structured Logging](/recipes/observability/structured-logging) for correlated event data.
+- Alerting should trigger on symptoms, not just infrastructure failures. See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for symptom detection.
+- Historical metrics are required for capacity planning and debugging. See [Load Testing](/recipes/testing/load-testing) for capacity baseline measurement.
 
 ## Solution
 

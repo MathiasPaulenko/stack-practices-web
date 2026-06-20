@@ -39,9 +39,9 @@ El factory pattern mueve la creación de objetos a un método o clase dedicado. 
 Usa esta receta cuando:
 
 - La clase exacta del objeto se determina en runtime basado en configuración o input
-- La creación de objetos involucra lógica de inicialización compleja (connection pools, caches, event listeners)
-- El testing requiere sustituir implementaciones reales con mocks o stubs
-- Crear objetos directamente viola inversión de dependencias (módulos de alto nivel dependen de detalles de bajo nivel)
+- La creación de objetos involucra lógica de inicialización compleja (connection pools, caches, event listeners). Consulta [Singleton Pattern](/recipes/design/singleton-pattern) para gestionar instancias compartidas.
+- El testing requiere sustituir implementaciones reales con mocks o stubs. Consulta [Input Validation](/recipes/api/input-validation) para testing de límites.
+- Crear objetos directamente viola inversión de dependencias (módulos de alto nivel dependen de detalles de bajo nivel). Consulta [Arquitectura Hexagonal](/recipes/design/hexagonal-architecture) para inversión de dependencias.
 - Construyendo frameworks o bibliotecas donde usuarios proveen sus propias implementaciones
 
 ## Solución
@@ -209,7 +209,7 @@ result = processor.charge(99.99, "USD")
 R: Usa una factory para creación localizada de objetos dentro de un módulo. Usa un DI container para grafos de dependencias a nivel de aplicación. La mayoría de frameworks modernos combinan ambos: el container usa factory providers para crear objetos.
 
 **P: ¿Es el factory pattern todavía relevante con frameworks de DI?**
-R: Sí. Los frameworks de DI usan factories internamente. Todavía escribes factory methods cuando la creación de objetos requiere lógica custom (ej. elegir un database shard basado en el user ID). DI maneja el wiring; las factories manejan las decisiones de creación.
+R: Sí. Los frameworks de DI usan [factories](/recipes/design/factory-pattern) internamente. Todavía escribes factory methods cuando la creación de objetos requiere lógica custom (ej. elegir un database shard basado en el user ID). DI maneja el wiring; las factories manejan las decisiones de creación.
 
 **P: ¿Cómo testeo código que usa factories?**
 R: Mock la factory misma. Si `OrderService` depende de `PaymentProcessorFactory`, inyecta una factory mock que retorna un stub processor. Alternativamente, usa DI para inyectar el processor directamente, bypassando la factory en tests.

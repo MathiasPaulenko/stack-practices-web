@@ -35,7 +35,7 @@ Elige la estrategia de identificador unico correcta para tu aplicacion comparand
 
 ## Cuando Usar Esto
 
-- Las primary keys de base de datos deben ser globalmente unicas en sistemas distribuidos
+- Las primary keys de [base de datos](/recipes/databases/database-transactions) deben ser globalmente unicas en sistemas distribuidos
 - El ordenamiento de identificadores afecta el rendimiento de queries y fragmentacion de indices
 - Se necesitan identificadores cortos y URL-safe para recursos public-facing
 
@@ -166,7 +166,7 @@ INSERT INTO events (id, name) VALUES ('018f3bda-7c58-7e8a-8b5e-4f3e8c9d2a1b', 's
 
 ## Consideraciones de Produccion
 
-- Usa UUID v7 para aplicaciones nuevas que necesiten keys time-sortable
+- Usa UUID v7 para aplicaciones nuevas que necesiten keys time-sortable. Consulta [Database Migrations](/recipes/databases/database-migrations) para evolucionar schemas.
 - Manten UUID v4 para sistemas existentes a menos que la migracion este justificada
 - Usa ULID cuando la longitud del identificador y el ordenamiento lexicografico importen
 - Usa nanoid para tokens de corta vida, short URLs o cuando el tamano sea critico
@@ -180,7 +180,7 @@ INSERT INTO events (id, name) VALUES ('018f3bda-7c58-7e8a-8b5e-4f3e8c9d2a1b', 's
 ## FAQ
 
 **P: Deberia usar enteros auto-incrementales en su lugar?**
-R: Usa enteros para sistemas single-node donde la coordinacion es trivial. Usa UUIDs para sistemas distribuidos o cuando los identificadores no deben revelar informacion de secuencia.
+R: Usa enteros para sistemas single-node donde la coordinacion es trivial. Usa UUIDs para sistemas distribuidos o cuando los identificadores no deben revelar informacion de secuencia. Consulta [Database Connection Pooling](/recipes/databases/database-connection-pooling) para gestionar conexiones de base de datos.
 
 **P: Es UUID v7 oficialmente estandarizado?**
 R: Esta en estado RFC draft y ampliamente considerado estable. Las principales bases de datos y librerias lo soportan.

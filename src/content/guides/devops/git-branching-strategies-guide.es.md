@@ -204,7 +204,7 @@ git push origin --delete feature/add-search
 - **Mantén las ramas de corta duración** — cuanto más vive una rama, más difícil es el merge
 - **Usa feature flags** para funcionalidades incompletas en main/trunk
 - **Requiere [revisiones de PR](/guides/design/code-review-best-practices-guide)** antes de mergear a main
-- **Ejecuta el test suite completo** en cada PR; bloquea el merge si falla. Consulta [CI/CD](/guides/cicd-pipeline-guide).
+- **Ejecuta el test suite completo** en cada PR; bloquea el merge si falla. Consulta [CI/CD](/guides/devops/cicd-pipeline-guide).
 - **Squash o rebase** para mantener un historial lineal (preferencia del equipo)
 - **Etiqueta releases** en main para trazabilidad
 - **Protege las ramas main/develop** con reglas de branch protection

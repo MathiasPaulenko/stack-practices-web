@@ -40,7 +40,7 @@ Usa esta receta cuando:
 - Agregas caching a una aplicación que requiere consistencia de datos
 - Debuggeas problemas de caché obsoleta donde usuarios ven información desactualizada
 - Diseñas sistemas distribuidos con múltiples escritores y lectores
-- Eliges entre Redis, Memcached o capas de caching de [CDN](/recipes/performance/cdn-edge-caching)
+- Eliges entre Redis, Memcached o capas de caching de [CDN](/recipes/data/caching)
 - Implementas políticas de cache warming y eviction
 
 ## Solución
@@ -90,7 +90,7 @@ redisClient.publish('user:updated', userId);
 - **Expiración TTL**: El enfoque más simple. Los datos expiran después de un tiempo fijo. Adecuado para datos que cambian infrecuentemente o donde la obsolescencia breve es aceptable. Fácil de implementar pero puede servir datos obsoletos durante la duración del TTL.
 - **Write-through**: Actualiza la caché sincrónicamente cuando se escribe en la base de datos. Garantiza consistencia pero agrega latencia a las escrituras e incrementa la carga de la caché.
 - **Write-behind (write-back)**: Las escrituras van primero a la caché, que persiste asíncronamente en la base de datos. Escrituras extremadamente rápidas pero riesgo de pérdida de datos si la caché falla antes de flush.
-- **Event-driven**: Los servicios publican [eventos](/recipes/serverless/event-driven-functions) cuando los datos cambian. Los listeners de caché eliminan o refrescan las keys afectadas. Acoplamiento débil pero requiere un message broker.
+- **Event-driven**: Los servicios publican [eventos](/recipes/messaging/event-driven-microservices) cuando los datos cambian. Los listeners de caché eliminan o refrescan las keys afectadas. Acoplamiento débil pero requiere un message broker.
 
 ## Variantes
 

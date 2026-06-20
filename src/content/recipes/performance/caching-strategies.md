@@ -37,7 +37,7 @@ Caching is the single most effective technique for improving application perform
 Use this resource when:
 - [Database queries](/recipes/performance/query-optimization) are becoming a bottleneck under load
 - [API response times](/recipes/api/call-rest-api) exceed 200ms for read-heavy endpoints
-- Serving static assets (images, JS, CSS) to global users via [CDN](/recipes/performance/cdn-edge-caching)
+- Serving static assets (images, JS, CSS) to global users via [CDN](/recipes/data/caching)
 - Building high-traffic applications where stale data is acceptable
 
 ## Solution

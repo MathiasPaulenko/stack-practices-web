@@ -35,9 +35,9 @@ A well-structured VPC is the foundation of secure cloud infrastructure. Terrafor
 
 ## When to Use This
 
-- You need repeatable, version-controlled network infrastructure across dev/staging/prod
-- Applications require both public-facing and internal-only resources
-- You want to enforce network segmentation between different tiers
+- You need repeatable, version-controlled network infrastructure across dev/staging/prod. See [Git Workflow](/recipes/devops/git-workflow) for version-controlled infrastructure.
+- Applications require both public-facing and internal-only resources. See [AWS ECS Fargate](/recipes/devops/aws-ecs-fargate) for container deployment.
+- You want to enforce network segmentation between different tiers. See [Load Balancing HAProxy](/recipes/devops/load-balancing-haproxy) for tier separation.
 
 ## Prerequisites
 

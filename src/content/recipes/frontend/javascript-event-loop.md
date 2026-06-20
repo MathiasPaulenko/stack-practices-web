@@ -35,10 +35,10 @@ The JavaScript event loop is the heart of asynchronous programming in browsers a
 ## When to Use
 
 Use this resource when:
-- Debugging mysterious asynchronous bugs or race conditions
-- Optimizing UI responsiveness in frontend applications
-- Choosing between setTimeout, Promise, and queueMicrotask
-- Understanding why code order does not always match execution order
+- Debugging mysterious asynchronous bugs or race conditions. See [Unit Testing](/recipes/testing/unit-testing) for testing async code.
+- Optimizing UI responsiveness in frontend applications. See [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) for frontend performance.
+- Choosing between setTimeout, Promise, and queueMicrotask. See [WebSockets Real-Time](/recipes/frontend/websockets-realtime) for event-driven frontend patterns.
+- Understanding why code order does not always match execution order. See [Parse JSON](/recipes/data/parse-json) for handling async data parsing.
 
 ## Solution
 

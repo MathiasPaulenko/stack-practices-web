@@ -38,9 +38,9 @@ Effective validation operates at multiple layers: client-side for immediate feed
 
 Use this recipe when:
 
-- Receiving user input from forms, APIs, file uploads, or webhooks
+- Receiving user input from forms, [APIs](/recipes/api/call-rest-api), file uploads, or webhooks
 - Defining API request/response contracts in OpenAPI or GraphQL schemas
-- Preventing injection attacks by rejecting unexpected data types or formats
+- Preventing injection attacks by rejecting unexpected data types or formats. See [Input Validation](/recipes/api/input-validation) for boundary checking patterns.
 - Ensuring business rules (minimum order amount, valid date ranges) at the boundary
 - Building data pipelines that consume external or third-party data sources
 
@@ -125,11 +125,11 @@ if (error) {
 
 ## Best Practices
 
-- **Validate at the boundary, not everywhere**: centralize validation in middleware or controller entry points. Business logic should assume data is already clean.
+- **Validate at the boundary, not everywhere**: centralize validation in middleware or controller entry points. Business logic should assume data is already clean. See [Middleware](/recipes/api/middleware) for request processing patterns.
 - **Whitelist, do not blacklist**: define what is allowed rather than what is forbidden. Blacklists are impossible to complete and always leave gaps.
 - **Sanitize before storing**: strip HTML tags from text fields, normalize email addresses to lowercase, and trim whitespace before writing to the database.
 - **Return structured errors**: instead of a generic "bad request," return `{ field: "email", message: "Invalid email format" }` so clients can highlight the right input.
-- **Log validation failures**: repeated validation errors from the same IP or user agent may indicate scanning or automated attack attempts.
+- **[Log validation failures](/recipes/api/logging)**: repeated validation errors from the same IP or user agent may indicate scanning or automated attack attempts.
 
 ## Common Mistakes
 

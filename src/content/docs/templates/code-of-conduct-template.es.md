@@ -107,7 +107,7 @@ versión 2.1.
 ## Buenas Prácticas
 
 - **Adapta, no copies**: Personaliza la plantilla a las necesidades de tu comunidad
-- **Hazlo visible**: Enlaza prominentemente en el README y repositorio
+- **Hazlo visible**: Enlaza prominentemente en el [README](/docs/templates/readme-template) y repositorio
 - **Cumple consistentemente**: Un código sin cumplimiento no tiene sentido
 - **Revisa anualmente**: Actualiza a medida que tu comunidad evoluciona
 
@@ -119,7 +119,7 @@ Un código de conducta no es un contrato legal, pero establece estándares comun
 
 ### Los proyectos pequeños deberían tener un código de conducta?
 
-Sí. Incluso los proyectos pequeños se benefician de expectativas claras. Previene malentendidos y crea un ambiente acogedor para nuevos colaboradores de diversos orígenes.
+Sí. Incluso los proyectos pequeños se benefician de expectativas claras. Combínalo con una [Guía de Contribución](/docs/templates/contributing-guide) y [README](/docs/templates/readme-template) para establecer expectativas desde el inicio. Previene malentendidos y crea un ambiente acogedor para nuevos colaboradores de diversos orígenes.
 
 ### Qué sucede cuando alguien viola el código de conducta?
 

@@ -37,10 +37,10 @@ This recipe shows how to generate (sign), validate (verify), and refresh JWTs sa
 
 Use JWTs when:
 
-- Building a stateless REST API where sessions should not be stored server-side
-- Authenticating microservices that call each other internally
+- Building a stateless [REST API](/recipes/api/call-rest-api) where sessions should not be stored server-side
+- Authenticating [microservices](/guides/architecture/microservices-architecture-guide) that call each other internally
 - Issuing short-lived access tokens with separate long-lived refresh tokens
-- Adding SSO or third-party login (OAuth2 / OpenID Connect)
+- Adding SSO or third-party login ([OAuth2](/recipes/authentication/oauth2-login) / OpenID Connect)
 
 Avoid JWTs when:
 
@@ -193,7 +193,7 @@ A JWT has three parts separated by dots: `header.payload.signature`.
 A: Access tokens should live in memory (variables). Refresh tokens should be stored in `HttpOnly`, `Secure`, `SameSite=Strict` cookies to prevent XSS theft.
 
 **Q: How do I revoke a JWT before it expires?**
-A: Maintain a token blocklist (e.g., Redis with TTL matching token expiry) and check it on every verification. Alternatively, keep sessions server-side.
+A: Maintain a token blocklist (e.g., Redis with TTL matching token expiry) and check it on every verification. Alternatively, keep [sessions](/recipes/authentication/session-management) server-side.
 
 **Q: What is the difference between HS256 and RS256?**
 A: `HS256` is symmetric: one secret signs and verifies. `RS256` is asymmetric: a private key signs, and any service with the public key can verify. Use `RS256` when multiple services need to verify tokens independently.

@@ -35,7 +35,7 @@ GraphQL allows clients to request exactly the data they need in a single query. 
 ## When to Use This
 
 - Clients need flexible queries over a complex domain model
-- You want to reduce over-fetching and under-fetching common in REST APIs
+- You want to reduce over-fetching and under-fetching common in [REST APIs](/recipes/api/call-rest-api)
 - Real-time updates via subscriptions are a requirement
 
 ## Prerequisites
@@ -152,7 +152,7 @@ const { url } = await startStandaloneServer(server, {
 console.log(`Server ready at ${url}`);
 ```
 
-### 5. Authentication Middleware
+### 5. [Authentication](/guides/security/api-security-checklist-guide) Middleware
 
 ```typescript
 // auth.ts
@@ -183,7 +183,7 @@ export const authDirective = (schema: GraphQLSchema) =>
 
 - Use **Apollo Federation** to compose multiple GraphQL services into a unified gateway
 - Enable **response caching** with `@cacheControl` directives for GET queries
-- Implement **rate limiting** per operation complexity, not just request count
+- Implement [rate limiting](/recipes/api/api-rate-limiting-redis) per operation complexity, not just request count
 - Add **operation safelisting** to prevent arbitrary expensive queries in production
 
 ## FAQ
@@ -195,4 +195,4 @@ A: Apollo Server has the largest ecosystem. Yoga is lighter and faster for simpl
 A: Use `graphql-upload-minimal` with multipart requests, or prefer a separate REST endpoint for large files.
 
 **Q: When should I avoid GraphQL?**
-A: For simple CRUD with few relationships, REST is often simpler. GraphQL shines when clients need flexible queries over complex graphs.
+A: For simple CRUD with few relationships, [REST](/recipes/api/call-rest-api) is often simpler. GraphQL shines when clients need flexible queries over complex graphs.

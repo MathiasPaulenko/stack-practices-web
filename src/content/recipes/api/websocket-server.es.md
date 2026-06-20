@@ -40,7 +40,7 @@ WebSockets proporcionan canales de comunicación full-duplex y bidireccionales s
 Usa este recurso cuando:
 - Necesitas comunicación en tiempo real verdaderamente bidireccional (chat, edición colaborativa, juegos multijugador)
 - Tu aplicación requiere updates de baja latencia en ambas direcciones (cliente → servidor y servidor → cliente)
-- Quieres evitar el overhead del polling HTTP o la limitación unidireccional de SSE
+- Quieres evitar el overhead del polling HTTP o la limitación unidireccional de [SSE](/recipes/api/server-sent-events)
 - Necesitas enviar datos a clientes o grupos específicos (salas/canales) basado en lógica de negocio
 
 ## Solución
@@ -326,8 +326,8 @@ function sendMessage(room, text) {
 ## Mejores Prácticas
 
 1. **Siempre maneja errores de conexión** — fallos de red, crashes de clientes y timeouts de proxies pueden dejar conexiones stale. Envuelve operaciones de send en try/catch, maneja callbacks `onError`, e implementa limpieza basada en heartbeat.
-2. **Autentica durante el handshake** — pasa tokens de autenticación via query parameters o cookies durante la petición de upgrade WebSocket. No intentes autenticar sobre el canal de mensajes WebSocket después de conectar; el handshake inicial es el punto más seguro.
-3. **Valida todos los mensajes entrantes** — los payloads WebSocket no son confiables. Valida esquema JSON, sanitiza inputs, impone límites de tamaño de mensaje, y rate-limita clientes para prevenir ataques DoS via mensajes de gran tamaño o alta frecuencia.
+2. **Autentica durante el handshake** — pasa [tokens de autenticación](/recipes/authentication/jwt-authentication) via query parameters o cookies durante la petición de upgrade WebSocket. No intentes autenticar sobre el canal de mensajes WebSocket después de conectar; el handshake inicial es el punto más seguro.
+3. **Valida todos los mensajes entrantes** — los payloads WebSocket no son confiables. [Valida input](/recipes/api/input-validation), sanitiza inputs, impone límites de tamaño de mensaje, y rate-limita clientes para prevenir ataques DoS via mensajes de gran tamaño o alta frecuencia.
 4. **Usa salas para entrega dirigida** — en lugar de hacer broadcast de cada mensaje a todos los clientes, organiza clientes en salas/canales basado en lógica de aplicación (salas de chat, IDs de documento, grupos de usuarios). Esto reduce carga del servidor y filtrado del lado del cliente.
 5. **Implementa lógica de reconexión en el cliente** — los navegadores no reconectan WebSockets automáticamente. Envuelve tu instancia `WebSocket` en un manager que detecta desconexiones, usa backoff exponencial, y rejoins salas después de la reconexión.
 
@@ -343,7 +343,7 @@ function sendMessage(room, text) {
 
 ### ¿Cuántas conexiones WebSocket concurrentes puede manejar un servidor?
 
-Depende del lenguaje, framework y hardware. Node.js con `ws` puede manejar 10.000–50.000 conexiones en un único proceso. Python con `websockets` (asyncio) típicamente maneja 1.000–10.000. Java (Netty/Spring) puede escalar a 100.000+ con tuning apropiado. El escalado horizontal con sesiones sticky o pub/sub compartido (Redis) es necesario para despliegues verdaderamente masivos.
+Depende del lenguaje, framework y hardware. Node.js con `ws` puede manejar 10.000–50.000 conexiones en un único proceso. Python con `websockets` (asyncio) típicamente maneja 1.000–10.000. Java (Netty/Spring) puede escalar a 100.000+ con tuning apropiado. El escalado horizontal con sesiones sticky o [pub/sub compartido (Redis)](/recipes/api/real-time-notifications) es necesario para despliegues verdaderamente masivos.
 
 ### ¿Debo usar WebSockets raw o una librería como Socket.IO?
 

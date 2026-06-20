@@ -30,7 +30,7 @@ seo:
 ---
 ## Visión General
 
-Los costos cloud pueden escalar inesperadamente — recursos sin usar, instancias oversized y ambientes de desarrollo olvidados drenan presupuestos silenciosamente. La optimización de costos no es solo reducir gastos; es alinear la [capacidad de infraestructura](/docs/capacity-planning-template) con la demanda actual. Este recurso cubre right-sizing, estrategias de compra (reserved vs. spot), scheduling automatizado y prácticas FinOps que reducen desperdicio sin impactar la confiabilidad.
+Los costos cloud pueden escalar inesperadamente — recursos sin usar, instancias oversized y ambientes de desarrollo olvidados drenan presupuestos silenciosamente. La optimización de costos no es solo reducir gastos; es alinear la [capacidad de infraestructura](/guides/devops/infrastructure-as-code-guide) con la demanda actual. Este recurso cubre right-sizing, estrategias de compra (reserved vs. spot), scheduling automatizado y prácticas FinOps que reducen desperdicio sin impactar la confiabilidad.
 
 ## Cuándo Usar
 
@@ -141,12 +141,12 @@ spec:
 - **Setea budgets y alertas**: Alerta al 80% del budget mensual; investiga inmediatamente
 - **Revisa recursos sin usar semanalmente**: IPs flotantes, volúmenes huérfanos y snapshots stale se acumulan
 - **Usa Savings Plans sobre RIs**: Más flexible; aplica a través de familias de instancias y regiones
-- **Implementa auto-scaling**: Escala a zero para ambientes dev; escala up para picos de producción. Consulta [políticas de autoscaling](/recipes/autoscaling-policies).
+- **Implementa auto-scaling**: Escala a zero para ambientes dev; escala up para picos de producción. Consulta [políticas de autoscaling](/recipes/devops/terraform-aws-vpc).
 
 ## Errores Comunes
 
 1. **Sin ownership de costos**: Cuando engineering no ve la factura, el desperdicio se acumula
-2. **Overcommitting a reserved instances**: Comprar RIs de 3 años para workloads que pueden migrar a [serverless](/guides/serverless-architecture-guide)
+2. **Overcommitting a reserved instances**: Comprar RIs de 3 años para workloads que pueden migrar a [serverless](/guides/architecture/event-driven-architecture-guide)
 3. **Ignorar costos de data transfer**: NAT Gateway, tráfico cross-AZ y egress pueden exceder costos de compute
 4. **Dejar recursos de preview corriendo**: POCs y experimentos que se convierten en items permanentes
 5. **Pricing one-size-fits-all**: Producción necesita estabilidad; dev puede tolerar interrupciones de spot
@@ -157,7 +157,7 @@ spec:
 R: Solo para workloads stateless y tolerantes a fallas con fallback adecuado a on-demand. Nunca para bases de datos o servicios singleton.
 
 **P: ¿Cómo prevengo que developers creen recursos caros?**
-R: Las [SCPs (Service Control Policies)](/guides/security-best-practices-guide) restringen tipos de instancia por OU. Las políticas de Terraform enforcean familias de instancias aprobadas.
+R: Las [SCPs (Service Control Policies)](/guides/security/security-best-practices-guide) restringen tipos de instancia por OU. Las políticas de Terraform enforcean familias de instancias aprobadas.
 
 **P: ¿Cuál es la diferencia entre FinOps y DevOps?**
-R: [DevOps](/guides/devops-best-practices-guide) optimiza para velocidad y confiabilidad. FinOps agrega costo como métrica de primera clase, con accountability cross-funcional.
+R: [DevOps](/guides/devops/docker-for-developers-guide) optimiza para velocidad y confiabilidad. FinOps agrega costo como métrica de primera clase, con accountability cross-funcional.

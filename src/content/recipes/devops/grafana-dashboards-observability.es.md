@@ -34,9 +34,9 @@ Crea dashboards ricos e interactivos en Grafana para visualizar metricas Prometh
 
 ## Cuando Usar Esto
 
-- Los equipos necesitan una vista centralizada de salud y rendimiento de servicios
-- Ingenieros on-call deben identificar rapidamente que servicio esta fallando
-- Stakeholders de negocio quieren visibilidad de uptime y latencia sin queryar metricas directamente
+- Los equipos necesitan una vista centralizada de salud y rendimiento de servicios. Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para probes de readiness.
+- Ingenieros on-call deben identificar rapidamente que servicio esta fallando. Consulta [Prometheus API Monitoring](/recipes/observability/prometheus-api-monitoring) para recolección de métricas.
+- Stakeholders de negocio quieren visibilidad de uptime y latencia sin queryar metricas directamente. Consulta [API Status Page Template](/docs/templates/api-status-page-template) para reportes de estado externos.
 
 ## Solucion
 

@@ -35,10 +35,10 @@ El event loop de JavaScript es el corazón de la programación asíncrona en nav
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Depuras errores asíncronos misteriosos o condiciones de carrera
-- Optimizas la responsividad de la UI en aplicaciones frontend
-- Eliges entre setTimeout, Promise y queueMicrotask
-- Entiendes por qué el orden del código no siempre coincide con el orden de ejecución
+- Depuras errores asíncronos misteriosos o condiciones de carrera. Consulta [Unit Testing](/recipes/testing/unit-testing) para testear código async.
+- Optimizas la responsividad de la UI en aplicaciones frontend. Consulta [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) para rendimiento frontend.
+- Eliges entre setTimeout, Promise y queueMicrotask. Consulta [WebSockets Real-Time](/recipes/frontend/websockets-realtime) para patrones frontend event-driven.
+- Entiendes por qué el orden del código no siempre coincide con el orden de ejecución. Consulta [Parse JSON](/recipes/data/parse-json) para manejar parsing de datos async.
 
 ## Solución
 

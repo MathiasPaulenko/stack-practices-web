@@ -159,7 +159,7 @@ Always commit lock files (`package-lock.json`, `poetry.lock`, `Cargo.lock`) to e
 
 ### API Security
 
-- [Rate limiting](/recipes/rate-limiting) (prevent brute force)
+- [Rate limiting](/recipes/api/rate-limiting) (prevent brute force)
 - API versioning (graceful deprecation)
 - Request signing (verify integrity)
 

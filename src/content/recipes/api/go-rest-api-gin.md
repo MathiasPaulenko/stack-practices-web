@@ -37,7 +37,7 @@ Build high-performance REST APIs in Go using the Gin framework. This recipe cove
 
 - You need a fast, lightweight HTTP framework for Go services
 - Cross-cutting concerns (logging, auth, metrics) must be reusable across endpoints
-- The API serves as a backend for SPAs or mobile applications
+- The API serves as a backend for SPAs or mobile applications. See [Call REST API](/recipes/api/call-rest-api) for client patterns.
 
 ## Solution
 
@@ -71,7 +71,7 @@ func listUsers(c *gin.Context) {
 }
 ```
 
-### 2. Custom Middleware
+### 2. Custom [Middleware](/patterns/design/chain-of-responsibility-middleware)
 
 ```go
 // middleware/logger.go
@@ -132,7 +132,7 @@ func createUser(c *gin.Context) {
 }
 ```
 
-### 4. Structured Error Handling
+### 4. Structured [Error Handling](/recipes/api/handle-errors)
 
 ```go
 // errors/errors.go
@@ -205,7 +205,7 @@ func runWithGracefulShutdown(router *gin.Engine) {
 - **Binding** validates and populates structs from JSON/form data automatically
 - **Graceful shutdown** completes in-flight requests before terminating
 
-## Variation: Route Groups with Rate Limiting
+## Variation: Route Groups with [Rate Limiting](/recipes/api/api-rate-limiting-redis)
 
 ```go
 import "golang.org/x/time/rate"
@@ -243,4 +243,4 @@ api.Use(RateLimiter())
 A: Gin adds routing, middleware, and binding with minimal overhead. For simple APIs, `net/http` with `chi` or standard library is sufficient.
 
 **Q: Can I use Gin with gRPC?**
-A: Yes. Run gRPC and HTTP servers side by side, or use the `grpc-gateway` to generate HTTP endpoints from protobuf definitions.
+A: Yes. Run [gRPC](/recipes/api/grpc-api) and HTTP servers side by side, or use the `grpc-gateway` to generate HTTP endpoints from protobuf definitions.

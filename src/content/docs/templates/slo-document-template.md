@@ -31,7 +31,7 @@ seo:
 
 # Service Level Objective (SLO) Document Template
 
-Use this template to define reliability targets that balance user happiness with engineering velocity.
+Use this template to define reliability targets that balance user happiness with engineering velocity. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for metric collection and [On-Call Incident Response Guide](/guides/devops/on-call-incident-response-guide) for escalation procedures.
 
 ## Template
 
@@ -103,7 +103,7 @@ Budget remaining | Policy
 
 ## Best Practices
 
-- **Start with user-visible metrics** — "CPU usage" is not an SLI; "request success rate" is
+- **Start with user-visible metrics** — "CPU usage" is not an SLI; "request success rate" is. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for metric selection.
 - **Set SLOs based on current performance** — if you are at 99.5% today, do not promise 99.99%
 - **Review quarterly** — adjust targets based on user feedback and engineering capacity
 - **Distinguish SLI, SLO, and SLA** — SLI is the metric, SLO is the target, SLA is the contractual promise to customers
@@ -113,13 +113,13 @@ Budget remaining | Policy
 - SLOs that are too loose — 99% for a payment API means 7 hours of downtime is "acceptable"
 - SLOs that are too tight — 99.999% requires expensive infrastructure for marginal user benefit
 - Tracking SLIs no one looks at — every SLI needs an owner and a review cadence
-- Ignoring error budget burn — the budget exists to protect engineering velocity, not to be ignored
+- Ignoring error budget burn — the budget exists to protect engineering velocity, not to be ignored. See [Incident Postmortem Template](/docs/templates/incident-postmortem-template) for when SLOs are breached.
 
 ## Frequently Asked Questions
 
 ### What is the difference between SLO and SLA?
 
-An SLO is an internal reliability target. An SLA is a contractual promise to customers with financial penalties. SLOs are usually stricter than SLAs so you have buffer before breaching contracts.
+An SLO is an internal reliability target. See [On-Call Incident Response Guide](/guides/devops/on-call-incident-response-guide) for operational context. An SLA is a contractual promise to customers with financial penalties. SLOs are usually stricter than SLAs so you have buffer before breaching contracts.
 
 ### How many SLOs should a service have?
 

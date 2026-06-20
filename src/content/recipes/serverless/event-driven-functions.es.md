@@ -38,10 +38,10 @@ Las funciones serverless son una opción natural para sistemas event-driven porq
 
 Usa esta receta cuando:
 
-- Procesas cargas de trabajo asíncronas que no necesitan respuestas inmediatas (procesamiento de imágenes, generación de reportes, envío de emails)
-- Desacoplas microservicios para que puedan deployarse, escalar y fallar independientemente
+- Procesas cargas de trabajo asíncronas que no necesitan respuestas inmediatas (procesamiento de imágenes, generación de reportes, envío de emails). Consulta [Scheduled Jobs](/recipes/devops/background-jobs) para automatización de tareas recurrentes.
+- Desacoplas microservicios para que puedan deployarse, escalar y fallar independientemente. Consulta [Serverless Orchestration](/recipes/devops/background-jobs) para coordinar workflows complejos.
 - Construyes sistemas que deben manejar picos de tráfico sin provisionar capacidad por adelantado
-- Reaccionas a cambios en datos (CDC de base de datos) o sistemas externos (webhooks, uploads de archivos)
+- Reaccionas a cambios en datos (CDC de base de datos) o sistemas externos (webhooks, uploads de archivos). Consulta [Event Sourcing](/patterns/design/event-sourcing-pattern) para patrones de eventos inmutables.
 - Reemplazas cron jobs con funciones disparadas por eventos para timing más preciso
 
 ## Solución

@@ -29,7 +29,7 @@ seo:
 ---
 ## Overview
 
-Immutable infrastructure treats servers and deployments as disposable artifacts that are never modified after creation. Instead of patching running machines, you build new images from versioned definitions and replace old instances entirely. This eliminates configuration drift, makes rollbacks trivial, and ensures every environment — from development to production — runs identical software stacks. See [deployment strategies](/guides/deployment-strategies-guide) for rollback patterns and [blue-green deployment](/recipes/blue-green-deployment) for zero-downtime swaps.
+Immutable infrastructure treats servers and deployments as disposable artifacts that are never modified after creation. Instead of patching running machines, you build new images from versioned definitions and replace old instances entirely. This eliminates configuration drift, makes rollbacks trivial, and ensures every environment — from development to production — runs identical software stacks. See [deployment strategies](/guides/devops/deployment-strategies-guide) for rollback patterns and [blue-green deployment](/recipes/devops/blue-green-deployment) for zero-downtime swaps.
 
 ## When to Use
 
@@ -143,7 +143,7 @@ resource "aws_autoscaling_group" "app" {
 ## Best Practices
 
 - **Store images in registries**: ECR, GCR, ACR, or Docker Hub with immutable tags
-- **Scan images before deploy**: Trivy, Clair, or Snyk in [CI pipeline](/guides/cicd-pipeline-guide). For a dedicated guide, see [container security scanning](/recipes/container-security).
+- **Scan images before deploy**: Trivy, Clair, or Snyk in [CI pipeline](/guides/devops/cicd-pipeline-guide). For a dedicated guide, see [container security scanning](/recipes/security/container-security).
 - **Tag images with git SHA**: `myapp:abc1234` links artifacts to source code
 - **Use read-only root filesystems**: Containers that can't write can't be easily compromised
 - **Separate data from code**: Attach EBS volumes or use S3 for state; never store state in the image
@@ -152,7 +152,7 @@ resource "aws_autoscaling_group" "app" {
 
 1. **Mutable containers**: Running `apt-get install` inside a running container defeats immutability
 2. **Latest tags**: `:latest` is mutable and non-deterministic; always pin digests or SHAs
-3. **Storing secrets in images**: Bake credentials into AMIs and containers create permanent exposure. Follow [secrets management best practices](/guides/secrets-management-guide).
+3. **Storing secrets in images**: Bake credentials into AMIs and containers create permanent exposure. Follow [secrets management best practices](/guides/security/security-best-practices-guide).
 4. **Forgetting data volumes**: Read-only rootfs means logs and uploads need external storage
 5. **No image lifecycle policy**: Old images accumulate storage costs and become security liabilities
 
@@ -165,4 +165,4 @@ A: Slightly higher storage for images, but lower operational cost due to elimina
 A: Build a new image with the patch, deploy it, and decommission old instances. The process is identical to normal deployments.
 
 **Q: Can I use immutable infrastructure with databases?**
-A: For stateless app servers, yes. For databases, use immutable configuration + persistent data volumes, not immutable data. Learn more in [database design](/guides/database-design-guide).
+A: For stateless app servers, yes. For databases, use immutable configuration + persistent data volumes, not immutable data. Learn more in [database design](/guides/databases/database-design-guide).

@@ -38,10 +38,10 @@ Una herramienta de migración convierte los cambios de schema en scripts version
 
 Usa esta receta cuando:
 
-- Gestionando la evolución de schema a través de bases de datos de desarrollo, staging y producción
-- Agregando tablas, columnas, índices o constraints como parte de un release de feature
-- Coordinando cambios de schema con deployments de código de aplicación
-- Haciendo rollback de cambios de schema después de deployments fallidos
+- Gestionando la evolución de schema a través de bases de datos de desarrollo, staging y producción. Consulta [Safe Migrations](/recipes/databases/database-migrations-safely) para estrategias sin downtime.
+- Agregando tablas, columnas, índices o constraints como parte de un release de feature. Consulta [Database Transactions](/recipes/databases/database-transactions) para consistencia durante despliegues.
+- Coordinando cambios de schema con deployments de código de aplicación. Consulta [Clean Code Guide](/guides/design/clean-code-principles-guide) para patrones mantenibles.
+- Haciendo rollback de cambios de schema después de deployments fallidos. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para estrategias de recuperación.
 - Auditando quién cambió qué en la base de datos y cuándo
 
 ## Solución
@@ -143,7 +143,7 @@ liquibase --changeLogFile=db.changelog.xml update
 
 ## Errores comunes
 
-- **Agregar columnas non-nullable sin defaults**: las filas existentes causarán que la migración falle. Agrega la columna como nullable, backfillea datos, luego agrega el constraint `NOT NULL` en una migración follow-up.
+- **Agregar columnas non-nullable sin defaults**: las filas existentes causarán que la migración falle. Agrega la columna como nullable, backfillea datos, luego agrega el constraint `NOT NULL` en una migración follow-up. Consulta [Safe Migrations](/recipes/databases/database-migrations-safely) para el patrón expand-contract.
 - **Eliminar datos sin backups**: eliminar una columna destruye datos permanentemente. Siempre haz backup o copia datos antes de cambios destructivos.
 - **Bloquear tablas durante horas pico**: agregar un índice o alterar una tabla grande puede bloquear por minutos. Programa migraciones pesadas durante ventanas de mantenimiento o usa herramientas de schema change online.
 - **Olvidar réplicas**: las migraciones aplicadas a una base de datos primaria pueden no replicarse correctamente si contienen funciones no determinísticas o tablas temporales.

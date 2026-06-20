@@ -33,10 +33,10 @@ Los JOINs en SQL combinan filas de dos o más tablas basándose en una columna r
 
 Usa JOINs cuando:
 
-- Necesites datos de múltiples tablas en un solo resultado
+- Necesites datos de múltiples tablas en un solo resultado. Consulta [Database Views](/recipes/databases/database-views-materialized) para consultas reutilizables.
 - Esquemas normalizados dividan datos relacionados entre tablas (ej. users, orders, products)
-- Reportes o análisis requieran datos agregados de varias fuentes
-- Quieras encontrar registros huérfanos o no coincidentes (ej. usuarios sin órdenes)
+- Reportes o análisis requieran datos agregados de varias fuentes. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para rendimiento.
+- Quieras encontrar registros huérfanos o no coincidentes (ej. usuarios sin órdenes). Consulta [Soft Deletes](/recipes/databases/soft-deletes) para manejo de datos faltantes.
 
 ## Solution
 
@@ -130,7 +130,7 @@ Devuelve todos los usuarios y todas las órdenes, con NULLs donde no hay coincid
 
 ## Best Practices
 
-- **Indexa claves foráneas**: la columna de join (`orders.user_id`) debería tener un índice o constraint de foreign key. Sin él, tablas grandes hacen full scans.
+- **Indexa claves foráneas**: la columna de join (`orders.user_id`) debería tener un índice o constraint de foreign key. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para indexación. Sin él, tablas grandes hacen full scans.
 - **Usa aliases de tabla**: `users u` hace las consultas legibles y más cortas.
 - **Sé explícito**: escribe `INNER JOIN` en lugar de solo `JOIN` — comunica la intención claramente.
 - **Filtra en la cláusula ON para lógica de join, WHERE para filtrado de resultados**: `ON u.id = o.user_id AND o.amount > 100` se comporta diferente que `WHERE o.amount > 100` con LEFT JOINs.
@@ -140,7 +140,7 @@ Devuelve todos los usuarios y todas las órdenes, con NULLs donde no hay coincid
 
 - **Usar LEFT JOIN cuando se necesita INNER JOIN**: esto produce filas NULL que el código downstream puede no esperar.
 - **Join en la columna equivocada**: `ON u.name = o.user_id` compila pero da resultados sin sentido.
-- **Consultas N+1 en código de aplicación**: obtener una lista de usuarios y luego consultar órdenes para cada uno individualmente es más lento que un solo JOIN.
+- **Consultas N+1 en código de aplicación**: obtener una lista de usuarios y luego consultar órdenes para cada uno individualmente es más lento que un solo JOIN. Consulta [Caching](/recipes/databases/redis-cache-patterns) para reducción de queries.
 - **Índices faltantes**: JOINs en columnas sin indexar son rápidos en desarrollo con 100 filas y catastróficos en producción con millones.
 - **Joins implícitos**: tablas separadas por coma en la cláusula `FROM` (`FROM users, orders`) son propensos a errores; siempre usa sintaxis de JOIN explícita.
 

@@ -40,7 +40,7 @@ seo:
 
 ## Resumen
 
-El Patrón Saga gestiona transacciones distribuidas a través de múltiples servicios rompiendo una transacción de larga duración en una secuencia de transacciones locales. Cada transacción local actualiza un único servicio y publica un evento o mensaje para disparar el siguiente paso. Si un paso falla, la saga ejecuta **transacciones compensatorias** para deshacer los cambios realizados por los pasos anteriores.
+El [Patrón Saga](/patterns/design/saga-pattern) gestiona transacciones distribuidas a través de múltiples servicios rompiendo una transacción de larga duración en una secuencia de transacciones locales. Para coreografía impulsada por eventos, consulta [Event Sourcing](/patterns/design/event-sourcing-pattern). Cada transacción local actualiza un único servicio y publica un evento o mensaje para disparar el siguiente paso. Si un paso falla, la saga ejecuta **transacciones compensatorias** para deshacer los cambios realizados por los pasos anteriores.
 
 ## Cuándo usarlo
 
@@ -314,7 +314,7 @@ Ambos enfoques usan **transacciones compensatorias** para deshacer trabajo cuand
 - **Idempotencia**: Los pasos y compensaciones deberían ser seguros de ejecutar múltiples veces
 - **Timeouts**: Cada paso debe tener un timeout; respuestas faltantes deberían disparar compensación
 - **Logging**: Registra cada paso, compensación y fallo para observabilidad
-- **Reintentos**: Reintenta fallas transitorias dentro de un paso antes de declarar fallo
+- **[Reintentos](/patterns/design/retry-pattern)**: Reintenta fallas transitorias dentro de un paso antes de declarar fallo
 
 ## Errores comunes
 
@@ -327,7 +327,7 @@ Ambos enfoques usan **transacciones compensatorias** para deshacer trabajo cuand
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Saga y 2PC?**
-R: 2PC bloquea recursos entre servicios hasta el commit, asegurando consistencia fuerte pero bloqueando y siendo frágil. Saga libera los bloqueos inmediatamente después de cada transacción local, logrando consistencia eventual con mejor disponibilidad y rendimiento.
+R: 2PC bloquea recursos entre servicios hasta el commit, asegurando consistencia fuerte pero bloqueando y siendo frágil. Para alternativas impulsadas por eventos, consulta [CQRS](/patterns/design/cqrs-pattern). Saga libera los bloqueos inmediatamente después de cada transacción local, logrando consistencia eventual con mejor disponibilidad y rendimiento.
 
 **P: ¿Cómo manejo una compensación que también falla?**
 R: Registra el fallo y alerta a un operador. Algunas compensaciones pueden requerir intervención manual (ej. reembolsar un pago). Diseña compensaciones para ser lo más simples y confiables posible.

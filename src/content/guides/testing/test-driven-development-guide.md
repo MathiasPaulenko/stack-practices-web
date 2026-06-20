@@ -212,7 +212,7 @@ class ShoppingCart:
 
 ## Common TDD Mistakes
 
-- **Testing implementation, not behavior** — assert on return values, not internal state. See [unit testing](/recipes/unit-testing).
+- **Testing implementation, not behavior** — assert on return values, not internal state. See [unit testing](/recipes/testing/unit-testing).
 - **Writing too many tests before any code** — keep the cycle tight (minutes, not hours)
 - **Skipping the refactor step** — the third step is where [clean code](/guides/design/clean-code-principles-guide) improves
 - **Testing trivial getters/setters** — focus on logic and decisions

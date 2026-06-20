@@ -165,7 +165,7 @@ Separa modelos de lectura y escritura. Las escrituras van al modelo de comando; 
 
 ### 4. Patrón Saga
 
-Maneja transacciones distribuidas usando una secuencia de transacciones locales, cada una publicando un evento que dispara la siguiente. Común en [microservicios](/guides/microservices-architecture-guide).
+Maneja transacciones distribuidas usando una secuencia de transacciones locales, cada una publicando un evento que dispara la siguiente. Común en [microservicios](/guides/architecture/microservices-architecture-guide).
 
 ```
 Servicio de Órdenes: crea orden → publica OrderCreated
@@ -197,16 +197,16 @@ def on_payment_failed(event):
 ## Mejores Prácticas
 
 - **Diseña eventos como hechos, no instrucciones** — `OrderPlaced`, no `ProcessOrder`
-- **Incluye correlation IDs** — [traza una solicitud](/recipes/distributed-tracing) a través de servicios y tiempo
-- **Hace consumidores idempotentes** — la entrega at-least-once significa que los eventos pueden procesarse dos veces. Consulta [idempotencia de mensajes](/recipes/message-idempotency).
+- **Incluye correlation IDs** — [traza una solicitud](/recipes/observability/distributed-tracing) a través de servicios y tiempo
+- **Hace consumidores idempotentes** — la entrega at-least-once significa que los eventos pueden procesarse dos veces. Consulta [idempotencia de mensajes](/recipes/messaging/message-idempotency).
 - **Versiona tus eventos** — `OrderPlacedV1`, `OrderPlacedV2` para soportar migración gradual
 - **Monitorea consumer lag** — consumidores con lag son señal de problemas de escalado o performance
-- **Usa dead letter queues** — mensajes fallidos no deberían bloquear la cola. Consulta [dead letter queues](/recipes/dead-letter-queue).
+- **Usa dead letter queues** — mensajes fallidos no deberían bloquear la cola. Consulta [dead letter queues](/recipes/messaging/dead-letter-queue).
 
 ## Errores Comunes
 
 - Tratar eventos como comandos — los eventos anuncian hechos; no exigen acción
-- No manejar duplicados — asume at-least-once y diseña para [idempotencia](/recipes/message-idempotency)
+- No manejar duplicados — asume at-least-once y diseña para [idempotencia](/recipes/messaging/message-idempotency)
 - Ignorar consumer lag hasta que es una crisis — monitorea y alerta sobre métricas de lag
 - Construir brokers de mensajes custom — usa sistemas probados (Kafka, RabbitMQ, NATS, AWS SNS/SQS)
 - Usar eventos para request/response simple — agrega complejidad innecesaria
@@ -215,7 +215,7 @@ def on_payment_failed(event):
 
 ### ¿Cómo debuggeo un sistema orientado a eventos?
 
-Usa [trazado distribuido](/recipes/distributed-tracing) (OpenTelemetry, Jaeger) e IDs de correlación. Loguea cada evento producido y consumido con el mismo trace ID. Construye un "trace viewer" que muestre el camino de una solicitud a través de servicios.
+Usa [trazado distribuido](/recipes/observability/distributed-tracing) (OpenTelemetry, Jaeger) e IDs de correlación. Loguea cada evento producido y consumido con el mismo trace ID. Construye un "trace viewer" que muestre el camino de una solicitud a través de servicios.
 
 ### ¿Qué pasa si un consumidor está caído cuando se publica un evento?
 

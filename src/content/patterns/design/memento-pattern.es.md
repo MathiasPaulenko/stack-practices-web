@@ -40,7 +40,7 @@ seo:
 
 ## Visión General
 
-El Patrón Memento es un patrón de diseño de comportamiento que te permite guardar y restaurar el estado anterior de un objeto sin revelar su estructura interna. Es la base de la funcionalidad de deshacer/rehacer en aplicaciones como editores de texto, programas de dibujo, y gestión de estado de juegos.
+El [Patrón Memento](/patterns/design/memento-pattern-state) es un patrón de diseño de comportamiento que te permite guardar y restaurar el estado anterior de un objeto sin revelar su estructura interna. Es la base de la funcionalidad de deshacer/rehacer en aplicaciones como editores de texto, programas de dibujo, y gestión de estado de juegos.
 
 ## Cuándo Usarlo
 
@@ -267,7 +267,7 @@ El beneficio clave es que el estado interno del memento es opaco al cuidador, pr
 | **Instantánea Completa** | Almacena todo el estado del objeto | Objetos pequeños, instantáneas infrecuentes |
 | **Delta/Incremental** | Almacena solo campos cambiados | Objetos grandes, instantáneas frecuentes |
 | **Memento Serializable** | Usa serialización para copia profunda | Grafos de objetos complejos |
-| **Command + Memento** | Comandos almacenan mementos para deshacer | Sistemas transaccionales, editores |
+| **[Command](/patterns/design/command-pattern) + Memento** | Comandos almacenan mementos para deshacer | Sistemas transaccionales, editores |
 
 ## Buenas Prácticas
 
@@ -288,7 +288,7 @@ El beneficio clave es que el estado interno del memento es opaco al cuidador, pr
 ## Preguntas Frecuentes
 
 **P: ¿Cómo se diferencia Memento de Prototype?**
-R: Prototype crea un nuevo objeto copiando uno existente. Memento guarda el estado de un objeto para poder restaurarlo más tarde. Prototype es sobre duplicación; Memento es sobre viajar en el tiempo.
+R: [Prototype](/patterns/design/prototype-pattern) crea un nuevo objeto copiando uno existente. Memento guarda el estado de un objeto para poder restaurarlo más tarde. Prototype es sobre duplicación; Memento es sobre viajar en el tiempo.
 
 **P: ¿Puedo usar serialización en lugar de Memento?**
 R: Sí, pero la serialización es a menudo más lenta y menos controlada. Memento te da control granular sobre qué estado se guarda y cómo se restaura.

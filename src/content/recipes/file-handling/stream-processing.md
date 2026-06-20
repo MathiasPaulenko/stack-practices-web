@@ -37,11 +37,11 @@ Streaming is not just for files. It applies to network responses, database query
 
 Use this recipe when:
 
-- Processing files larger than available RAM (logs, CSVs, video, backups)
-- Building ETL pipelines that transform data between formats
-- Handling real-time data feeds (sensor data, financial ticks, clickstreams)
-- Compressing or encrypting files without loading them entirely
-- Implementing progress bars and resumable processing for long-running tasks
+- Processing files larger than available RAM (logs, CSVs, video, backups). See [Compression Gzip](/recipes/file-handling/compression-gzip) for pre-processing large files.
+- Building ETL pipelines that transform data between formats. See [Import CSV Excel](/recipes/file-handling/import-csv-excel) for tabular ETL patterns.
+- Handling real-time data feeds (sensor data, financial ticks, clickstreams). See [Kafka Event Streaming](/recipes/messaging/kafka-event-streaming) for pub-sub streaming.
+- Compressing or encrypting files without loading them entirely. See [Image Optimization](/recipes/file-handling/image-optimization) for media pipeline processing.
+- Implementing progress bars and resumable processing for long-running tasks. See [Background Jobs](/recipes/devops/background-jobs) for job queue management.
 
 ## Solution
 

@@ -37,12 +37,12 @@ AWS EventBridge rules disparan funciones Lambda en expresiones cron. Google Clou
 
 Usa esta receta cuando:
 
-- Reemplazas jobs cron que corren en EC2 o máquinas virtuales
-- Generando reportes diarios, semanales o mensuales de datos de aplicación
+- Reemplazas jobs cron que corren en EC2 o máquinas virtuales. Consulta [Serverless Functions](/recipes/messaging/event-driven-microservices) para deployar código serverless.
+- Generando reportes diarios, semanales o mensuales de datos de aplicación. Consulta [Parse JSON](/recipes/data/parse-json) para manejar formatos de datos de reportes.
 - Limpiando logs viejos, archivos temporales o registros de base de datos expirados
 - Calentando caches o pre-computando agregaciones antes del tráfico pico
 - Enviando notificaciones, recordatorios o newsletters programados
-- Ejecutando mantenimiento de base de datos (VACUUM, rebuilds de índices, actualizaciones de estadísticas)
+- Ejecutando mantenimiento de base de datos (VACUUM, rebuilds de índices, actualizaciones de estadísticas). Consulta [PostgreSQL Query Optimization](/recipes/databases/postgres-query-optimization) para tuning de rendimiento de base de datos.
 
 ## Solución
 

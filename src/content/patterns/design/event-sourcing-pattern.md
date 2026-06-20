@@ -48,8 +48,8 @@ Use the Event Sourcing Pattern when:
 - You need a complete audit trail of every state change (finance, healthcare, compliance)
 - You want to reconstruct historical states or debug by replaying events
 - Event-driven architectures already exist, making event stores a natural fit
-- CQRS is in use, and read models can be built from event projections
-- You need to compensate for failures by replaying or reversing events
+- [CQRS](/patterns/design/cqrs-pattern) is in use, and read models can be built from event projections
+- You need to compensate for failures by replaying or reversing events (see [Saga](/patterns/design/saga-pattern))
 - Examples: banking ledgers, inventory systems, order tracking, collaborative editing
 
 ## Solution
@@ -298,4 +298,4 @@ A: Version your event types (`OrderPlaced_v1`, `OrderPlaced_v2`). During replay,
 A: You cannot delete events, but you can encrypt them with a user-specific key and delete that key. Alternatively, append a `DataForgotten` event and filter it in projections.
 
 **Q: How do snapshots work?**
-A: After every N events, save the computed entity state. On rehydration, load the latest snapshot and replay only events after it. This keeps replay time constant.
+A: After every N events, save the computed entity state. On rehydration, load the latest snapshot and replay only events after it. This keeps replay time constant. See [CQRS](/patterns/design/cqrs-pattern) for read model patterns that work well with Event Sourcing.

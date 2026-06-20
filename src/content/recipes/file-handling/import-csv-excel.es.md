@@ -34,10 +34,10 @@ Importar datos desde CSV o Excel es una funcionalidad estándar de paneles de ad
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Los usuarios suban hojas de cálculo para crear o actualizar registros masivamente
-- Migres datos desde sistemas legacy o proveedores externos
-- Construyas pipelines ETL que procesen archivos programados
-- Paneles de administración necesiten una funcionalidad de "subir e importar"
+- Los usuarios suban hojas de cálculo para crear o actualizar registros masivamente. Consulta [File Upload Validation](/recipes/file-handling/file-upload-validation) para manejo seguro de subidas.
+- Migres datos desde sistemas legacy o proveedores externos. Consulta [Export CSV Excel](/recipes/file-handling/export-csv-excel) para el flujo inverso de migración.
+- Construyas pipelines ETL que procesen archivos programados. Consulta [Stream Processing](/recipes/file-handling/stream-processing) para pipelines eficientes en memoria.
+- Paneles de administración necesiten una funcionalidad de "subir e importar". Consulta [Background Jobs](/recipes/devops/background-jobs) para procesamiento asíncrono de imports.
 
 ## Solución
 

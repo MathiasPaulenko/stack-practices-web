@@ -31,9 +31,9 @@ seo:
 
 ## Overview
 
-SQL injection is one of the most common and dangerous web application vulnerabilities. It occurs when an attacker injects malicious SQL code into application queries through user input, potentially exposing, modifying, or deleting entire databases. Injection attacks consistently rank in the [OWASP Top 10](/guides/security/web-application-security-guide) because they are easy to exploit and devastating in impact.
+SQL injection is one of the most common and dangerous web application vulnerabilities. It occurs when an attacker injects malicious SQL code into application queries through user input, potentially exposing, modifying, or deleting entire databases. Injection attacks consistently rank in the [OWASP Top 10](/guides/security/security-best-practices-guide) because they are easy to exploit and devastating in impact.
 
-The root cause is almost always the same: concatenating untrusted user [input](/recipes/security/input-validation) directly into SQL strings. The fix is equally straightforward: use parameterized queries or an ORM that handles escaping automatically. This recipe shows the secure way to access databases in Python, JavaScript, and Java.
+The root cause is almost always the same: concatenating untrusted user [input](/recipes/api/input-validation) directly into SQL strings. The fix is equally straightforward: use parameterized queries or an ORM that handles escaping automatically. This recipe shows the secure way to access databases in Python, JavaScript, and Java.
 
 ## When to Use
 
@@ -137,7 +137,7 @@ with Session(engine) as session:
 
 - **Never concatenate user input into SQL strings**: not even for `ORDER BY` columns or table names. Use allowlists if dynamic identifiers are unavoidable.
 - **Use an ORM by default**: it eliminates entire categories of injection bugs with minimal performance cost.
-- **Validate input before it reaches the database**: [input validation](/recipes/security/input-validation) and parameterized queries are complementary defenses.
+- **Validate input before it reaches the database**: [input validation](/recipes/api/input-validation) and parameterized queries are complementary defenses.
 - **Use least-privilege database accounts**: the application user should not have `DROP TABLE` or `GRANT` permissions.
 - **Log and monitor for injection attempts**: failed queries containing SQL keywords or unusual characters can signal probing.
 - **Keep database drivers updated**: security patches for drivers and ORMs fix known bypasses.
@@ -159,7 +159,7 @@ A: No. Table and column names are identifiers, not data values, and cannot be pa
 A: Yes, for standard operations. However, raw SQL methods like `sequelize.query()` or `session.execute()` still require manual parameterization.
 
 **Q: What about NoSQL databases like MongoDB?**
-A: [NoSQL injection](/guides/databases/nosql-database-selection) exists too. Use parameterized queries or driver methods that accept objects, not string concatenation. Never pass raw user input to `eval()` or `$where` clauses.
+A: [NoSQL injection](/guides/databases/nosql-database-selection-guide) exists too. Use parameterized queries or driver methods that accept objects, not string concatenation. Never pass raw user input to `eval()` or `$where` clauses.
 
 **Q: Can prepared statements hurt performance?**
 A: No. They usually improve performance because the database caches the execution plan. The overhead is negligible compared to the security benefit.

@@ -33,7 +33,7 @@ seo:
 
 ## Template Structure
 
-Use this template to build consistent, actionable error responses for any REST or HTTP API.
+Use this template to build consistent, actionable error responses for any REST or HTTP API. See also the [API Documentation Template](/docs/templates/api-documentation) for endpoint documentation.
 
 ---
 
@@ -132,4 +132,4 @@ Use the `errors` array with one object per cause. Each object should include `fi
 
 ### How do I handle errors from downstream services?
 
-Wrap downstream errors in your own format. Do not proxy raw third-party error bodies directly. Map the downstream failure to one of your documented error codes, log the original upstream response, and return a sanitized message to the client.
+Wrap downstream errors in your own format. Consider [Circuit Breaker](/patterns/design/circuit-breaker-pattern) and [Retry](/patterns/design/retry-pattern) patterns for resilient downstream communication. Do not proxy raw third-party error bodies directly. Map the downstream failure to one of your documented error codes, log the original upstream response, and return a sanitized message to the client.

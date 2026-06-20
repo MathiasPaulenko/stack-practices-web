@@ -39,10 +39,10 @@ Esta receta cubre la creación de un asistente, gestión de threads, invocación
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Quieres un chatbot con memoria persistente sin gestionar historial manualmente
-- Necesitas que el bot acceda a documentos internos o bases de conocimiento
-- Quieres que el bot llame funciones de tu backend (consultar base de datos, reservar citas, etc.)
-- Prefieres una solución gestionada en lugar de construir RAG y orquestación desde cero
+- Quieres un chatbot con memoria persistente sin gestionar historial manualmente. Consulta [AI Agents Tool Use](/recipes/ai/ai-agents-tool-use) para agentes con memoria.
+- Necesitas que el bot acceda a documentos internos o bases de conocimiento. Consulta [RAG Pipeline](/recipes/ai/rag-pipeline) para recuperación de conocimiento.
+- Quieres que el bot llame funciones de tu backend (consultar base de datos, reservar citas, etc.). Consulta [Call REST API](/recipes/api/call-rest-api) para integración de funciones.
+- Prefieres una solución gestionada en lugar de construir [RAG](/recipes/ai/semantic-search) y orquestación desde cero
 
 ## Solución
 
@@ -228,7 +228,7 @@ La OpenAI Assistants API abstrae la complejidad de los chatbots:
 |------------|---------|-------|
 | Assistants API | Gestión de estado y herramientas | Mejor para aplicaciones de chat persistentes; sin gestión de historial manual |
 | Chat Completions API | Sin estado | Más rápido y barato; tu código gestiona memoria e historial |
-| LangChain Agents | Orquestación multi-proveedor | Más flexible pero más código; funciona con cualquier LLM |
+| [LangChain Agents](/recipes/ai/ai-agents-tool-use) | Orquestación multi-proveedor | Más flexible pero más código; funciona con cualquier LLM |
 | RAG manual | Control total | Implementa tu propia recuperación de documentos y gestión de contexto |
 | Claude / Gemini APIs | Alternativas de proveedor | APIs similares de Anthropic y Google; prueba múltiples modelos |
 

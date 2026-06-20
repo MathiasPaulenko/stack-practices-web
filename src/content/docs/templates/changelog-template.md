@@ -37,7 +37,7 @@ A changelog is a curated, chronologically ordered list of notable changes for ea
 ## When to Use
 
 - You maintain a library, framework, or application with versioned releases
-- You need to communicate breaking changes to consumers
+- You need to communicate breaking changes to consumers. Pair with the [API Deprecation Notice Template](/docs/templates/api-deprecation-notice-template) when sunsetting features.
 - You want to automate release note generation
 
 ## Template
@@ -82,7 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 |----------|---------|
 | **Added** | New features |
 | **Changed** | Changes to existing functionality |
-| **Deprecated** | Features marked for removal |
+| **Deprecated** | Features marked for removal. See [API Deprecation Notice Template](/docs/templates/api-deprecation-notice-template) |
 | **Removed** | Features removed in this release |
 | **Fixed** | Bug fixes |
 | **Security** | Security vulnerability fixes |
@@ -113,4 +113,4 @@ No. A changelog is curated, not a raw git log. Include only notable changes that
 
 ### What is semantic versioning?
 
-Semantic Versioning (SemVer) uses MAJOR.MINOR.PATCH format: increment MAJOR for breaking changes, MINOR for new features, and PATCH for bug fixes.
+[Semantic Versioning](/guides/api/rest-api-design-guide) (SemVer) uses MAJOR.MINOR.PATCH format: increment MAJOR for breaking changes, MINOR for new features, and PATCH for bug fixes.

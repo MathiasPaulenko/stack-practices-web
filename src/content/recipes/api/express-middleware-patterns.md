@@ -30,12 +30,12 @@ seo:
 
 # Express.js Middleware Composition Patterns
 
-Express middleware is the backbone of Node.js API architecture, but deeply nested or duplicated middleware chains quickly become unmaintainable. This recipe covers composition patterns for authentication, validation, error handling, request context propagation, and async route wrappers that keep route handlers clean and testable.
+Express middleware is the backbone of Node.js API architecture, but deeply nested or duplicated middleware chains quickly become unmaintainable. This recipe covers composition patterns for [authentication](/guides/security/api-security-checklist-guide), [validation](/recipes/security/data-validation-zod), [error handling](/recipes/api/handle-errors), request context propagation, and async route wrappers that keep route handlers clean and testable.
 
 ## When to Use This
 
 - Express routes accumulate repetitive middleware (auth, logging, validation) copy-pasted everywhere
-- Async route handlers throw unhandled promise rejections that crash the server
+- Async route handlers throw unhandled promise rejections that crash the server. See [Error Handling](/recipes/api/handle-errors) for patterns.
 - You need request-scoped context (user, trace ID) accessible throughout the call stack
 
 ## Solution
@@ -217,7 +217,7 @@ function validateParams(schema: ZodSchema) {
 
 - Register error handlers last in middleware stack (after all routes)
 - Do not call `next()` after sending a response; it causes "headers already sent" errors
-- Use `res.on('finish')` for logging middleware to capture the actual response status
+- Use `res.on('finish')` for [logging middleware](/recipes/api/api-logging-audit) to capture the actual response status
 
 ## Common Mistakes
 
@@ -228,7 +228,7 @@ function validateParams(schema: ZodSchema) {
 ## FAQ
 
 **Q: Should I use Express or Fastify for new projects?**
-A: Fastify offers better performance and built-in schema validation. Express has larger ecosystem and familiarity. Both are viable for production.
+A: Fastify offers better performance and built-in schema validation. Express has larger ecosystem and familiarity. Both are viable for production. For Go-based APIs, see [Go REST API with Gin](/recipes/api/go-rest-api-gin).
 
 **Q: How do I test middleware in isolation?**
 A: Create a mini Express app in tests, mount the middleware, and make supertest requests against it.

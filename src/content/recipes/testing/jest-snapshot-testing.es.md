@@ -33,9 +33,9 @@ El snapshot testing captura la salida renderizada de un componente y la compara 
 
 ## Cuando Usar Esto
 
-- Quieres detectar cambios no intencionales en el renderizado de componentes
-- Tus componentes tienen logica de renderizado condicional compleja
-- Estas refactorizando un componente y quieres confianza de que nada se rompio
+- Quieres detectar cambios no intencionales en el renderizado de componentes. Consulta [Visual Regression Testing](/recipes/testing/e2e-testing) para comparaciones pixel-perfect.
+- Tus componentes tienen logica de renderizado condicional compleja. Consulta [Component Testing](/recipes/testing/e2e-testing) para tests interactivos en navegador.
+- Estas refactorizando un componente y quieres confianza de que nada se rompio. Consulta [Unit Testing](/recipes/testing/unit-testing) para verificación de lógica aislada.
 
 ## Cuando NO Usar Esto
 

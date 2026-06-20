@@ -42,7 +42,7 @@ seo:
 
 El Patrón Command es un patrón de diseño conductual que convierte una petición en un objeto independiente que contiene toda la información sobre la petición. Esto te permite parametrizar métodos con diferentes peticiones, retrasar o encolar ejecución y soportar operaciones deshacibles.
 
-Es la base de sistemas de undo/redo, colas de trabajo, grabación de macros y operaciones transaccionales.
+Es la base de sistemas de [undo/redo](/patterns/design/command-pattern-undo), colas de trabajo, grabación de macros y operaciones transaccionales.
 
 ## Cuándo usarlo
 
@@ -200,10 +200,10 @@ Al encapsular peticiones como objetos, ganas la habilidad de encolar, loggear y 
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Command y Strategy?**
-R: Strategy encapsula algoritmos intercambiables. Command encapsula una petición para realizar una acción, a menudo con soporte para deshacer, encolar y logging.
+R: [Strategy](/patterns/design/strategy-pattern) encapsula algoritmos intercambiables. Command encapsula una petición para realizar una acción, a menudo con soporte para deshacer, encolar y logging.
 
 **P: ¿Se puede usar Command sin undo?**
 R: Sí. La capacidad de deshacer es opcional. Muchos sistemas usan Command únicamente para encolar y desacoplar invocadores de receptores.
 
 **P: ¿Cómo implemento deshacer multinivel?**
-R: Mantén un stack de commands ejecutados. Deshacer hace pop del stack y llama `undo()`. Rehacer empuja el command de vuelta y llama `execute()`.
+R: Mantén un stack de commands ejecutados. Deshacer hace pop del stack y llama `undo()`. Consulta [Command con Undo/Redo](/patterns/design/command-pattern-undo) para una implementación completa. Rehacer empuja el command de vuelta y llama `execute()`.

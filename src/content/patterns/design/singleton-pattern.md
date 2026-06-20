@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-The Singleton Pattern is a creational design pattern that restricts a class to a single instance and provides a global point of access to it. It is useful when exactly one object is needed to coordinate actions across the system.
+The [Singleton](/patterns/design/singleton-pattern) Pattern is a creational design pattern that restricts a class to a single instance and provides a global point of access to it. It is useful when exactly one object is needed to coordinate actions across the system.
 
 Common use cases include database connection pools, configuration managers, and logging services.
 
@@ -156,7 +156,7 @@ Applications load configuration from files or environment variables once at star
 
 ### Cache Layer
 
-In-memory caches (Redis clients, local LRU caches) are typically shared across the application. A singleton guarantees cache consistency and avoids memory duplication.
+In-memory caches ([Redis](/patterns/design/cache-aside-pattern) clients, local LRU caches) are typically shared across the application. A singleton guarantees cache consistency and avoids memory duplication.
 
 ### Logger Factory
 
@@ -177,4 +177,4 @@ A: It is possible but tricky. Each subclass can end up with its own instance, wh
 A: Inject the singleton as a dependency rather than calling it directly, or provide a `reset()` method for tests. Alternatively, use a factory that returns the singleton by default but can be mocked in tests.
 
 **Q: What are alternatives to Singleton?**
-A: Dependency injection, service locators, or module-level variables in languages that support them (Python modules are natural singletons). These approaches make dependencies explicit and easier to test.
+A: [Dependency injection](/patterns/design/dependency-injection-pattern), service locators, or module-level variables in languages that support them (Python modules are natural singletons). These approaches make dependencies explicit and easier to test.

@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-The Model-View-Controller (MVC) Pattern is an architectural design pattern that separates an application into three interconnected components: Model (data and business logic), View (presentation), and Controller (input handling and coordination).
+The [Model-View-Controller](/patterns/design/mvc-pattern-frontend) (MVC) Pattern is an architectural design pattern that separates an application into three interconnected components: Model (data and business logic), View (presentation), and Controller (input handling and coordination).
 
 It is the foundation of many web frameworks (Django, Ruby on Rails, ASP.NET MVC) and desktop application architectures.
 
@@ -179,7 +179,7 @@ In modern web frameworks, the Controller often maps HTTP routes to Model operati
 - **Keep Models ignorant of Views**: Models should not know how they are displayed
 - **Make Views read-only from the Model**: Views observe models, but do not modify them directly
 - **Keep Controllers thin**: Business logic belongs in the Model, not the Controller
-- **Use the Observer Pattern** for Model-to-View updates to reduce coupling
+- **Use the [Observer Pattern](/patterns/design/observer-pattern)** for Model-to-View updates to reduce coupling
 - **Avoid direct Model access from Views**: Always go through the Controller or a ViewModel
 
 ## Common Mistakes
@@ -196,7 +196,7 @@ In modern web frameworks, the Controller often maps HTTP routes to Model operati
 A: Yes, though often in evolved forms. React uses a unidirectional data flow that separates concerns similarly. Angular implements MVVM, which is a direct descendant.
 
 **Q: What is the difference between MVC and MVVM?**
-A: MVVM replaces the Controller with a ViewModel that binds directly to the View via two-way data binding. It is more common in frontend frameworks.
+A: [MVVM](/patterns/design/mvc-pattern-frontend) replaces the Controller with a ViewModel that binds directly to the View via two-way data binding. It is more common in frontend frameworks.
 
 **Q: Can I use MVC in a serverless architecture?**
 A: Yes, though the "Controller" may be an API Gateway or Lambda function, the "Model" is your data layer, and the "View" is the JSON response or rendered template.

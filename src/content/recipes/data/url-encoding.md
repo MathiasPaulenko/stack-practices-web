@@ -35,16 +35,16 @@ seo:
 
 URL encoding (percent-encoding) converts characters into a format that can be transmitted over the internet. It replaces unsafe ASCII characters with a `%` followed by two hexadecimal digits. It is essential for query parameters, path segments, and form submissions.
 
-Failing to encode user input before placing it in a URL can lead to broken links, injection attacks, or unexpected API behavior.
+Failing to encode user input before placing it in a URL can lead to broken links, injection attacks, or unexpected [API behavior](/recipes/api/call-rest-api). See [API Security Checklist](/guides/security/api-security-checklist-guide) for comprehensive protection.
 
 ## When to Use
 
 Use this recipe when:
 
-- Building query strings with dynamic values from user input
+- Building query strings with dynamic values from [user input](/recipes/api/input-validation)
 - Encoding file names or IDs in URL paths
 - Parsing URLs and extracting query parameters
-- Sending form data via GET requests
+- Sending form data via GET requests. See [Data Validation](/recipes/data/data-validation) for sanitizing form data.
 - Handling redirect URLs with parameters
 
 ## Solution

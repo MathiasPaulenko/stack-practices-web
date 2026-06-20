@@ -38,9 +38,9 @@ The saga pattern solves this by breaking a long-lived transaction into a sequenc
 Use this recipe when:
 
 - A business operation spans multiple microservices with independent databases
-- Two-phase commit (2PC) is unavailable or unacceptable due to latency or lock contention
+- Two-phase commit (2PC) is unavailable or unacceptable due to latency or lock contention. See [Event-Driven Architecture](/recipes/architecture/event-driven-architecture) for lock-free coordination.
 - Long-running operations must survive temporary service unavailability
-- Compensating actions are feasible (e.g., refund payment, release inventory, cancel shipment)
+- Compensating actions are feasible (e.g., refund payment, release inventory, cancel shipment). See [Microservices Patterns](/guides/architecture/microservices-architecture-guide) for resilience strategies.
 - Eventual consistency is acceptable for the use case
 
 ## Solution
@@ -206,7 +206,7 @@ async function orderSaga(orderData: OrderData): Promise<void> {
 - **Choreography**: each service publishes an event after completing its step. Other services subscribe and react. There is no central controller. The saga emerges from the interaction of independent services. This is highly decoupled but can become hard to trace as the number of services grows.
 - **Orchestration**: a dedicated saga orchestrator executes steps sequentially, calling each service directly. The orchestrator maintains saga state and handles compensation if a step fails. This centralizes logic and makes the flow explicit, but introduces a single point of control.
 - **Compensating transactions**: unlike database rollbacks, compensations are explicit business operations. Refunding a payment is not the same as undoing a `BEGIN...ROLLBACK`. Compensation may itself fail, requiring retry or human intervention. Design idempotent compensations that can be safely retried.
-- **Idempotency**: every saga step and compensation must be idempotent. If the network times out, the orchestrator may retry a step that already succeeded. The service must recognize the duplicate request and return the previous result, not execute the operation again.
+- **Idempotency**: every saga step and compensation must be idempotent. See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for deduplication patterns. If the network times out, the orchestrator may retry a step that already succeeded. The service must recognize the duplicate request and return the previous result, not execute the operation again.
 
 ## Variants
 
@@ -243,5 +243,5 @@ A: Retry with exponential backoff. If retries exhaust, alert an operator and par
 A: Yes — maintain a saga state table in the orchestrator's database. Each row represents a saga instance with columns for current step, completed steps, and error details. Expose a read API for support teams and monitoring dashboards.
 
 **Q: Should every microservices interaction use a saga?**
-A: No. Sagas add complexity. Use them for multi-step business processes that must be all-or-nothing. For simple one-to-one calls that can fail independently, use direct API calls with retries and circuit breakers.
+A: No. Sagas add complexity. Use them for multi-step business processes that must be all-or-nothing. For simple one-to-one calls that can fail independently, use direct API calls with [retries](/recipes/architecture/retry-backoff) and [circuit breakers](/recipes/architecture/circuit-breaker-pattern).
 

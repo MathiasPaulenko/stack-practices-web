@@ -45,10 +45,10 @@ Esta receta cubre los tres ecosistemas de lenguaje más comunes y explica cómo 
 Usa esta recipe cuando:
 
 - Almacenas credenciales de usuario en una base de datos o directorio de usuarios
-- Implementas sistemas de autenticación con flujos de usuario y contraseña
+- Implementas [sistemas de autenticación](/recipes/authentication/session-management) con flujos de usuario y contraseña
 - Migras sistemas legacy desde hashes rápidos (MD5, SHA-1) a almacenamiento moderno de contraseñas
 - Validas contraseñas durante el login y los flujos de reset de contraseña
-- Cumples con estándares de seguridad (PCI-DSS, SOC 2, GDPR) que mandatan protección adecuada de credenciales
+- Cumples con estándares de seguridad (PCI-DSS, SOC 2, GDPR) que mandatan protección adecuada de credenciales. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para mejores prácticas de compliance.
 - Construyes paneles de administración o herramientas CLI que crean cuentas de servicio con contraseñas
 
 ## Solución
@@ -149,7 +149,7 @@ System.out.println(matches);
 - **Hard-codear salts en el código fuente**: El código fuente a menudo se almacena en control de versiones. Un salt hard-codeado es tan malo como no tener salt, ya que los atacantes lo encontrarán en el repositorio.
 - **Usar factores de trabajo insuficientes (ej. bcrypt con <10 rounds)**: Hashes más rápidos significan que los atacantes pueden probar más contraseñas por segundo. Un factor de trabajo de 10 completa en ~100ms; 12 completa en ~250ms. Ese delay extra agrega protección masiva a un costo de usuario negligible.
 - **Almacenar el hash sin el identificador de algoritmo**: Almacena siempre el string de output completo de bcrypt/Argon2 que incluye el algoritmo, costo, salt y hash. Esto asegura que puedas re-verificar correctamente incluso si cambias de algoritmo más adelante.
-- **Enviar contraseñas sobre conexiones no encriptadas**: El hashing protege las contraseñas almacenadas, pero la contraseña debe viajar de forma segura a tu servidor primero. Usa siempre TLS para formularios de login y endpoints de API.
+- **Enviar contraseñas sobre conexiones no encriptadas**: El hashing protege las contraseñas almacenadas, pero la contraseña debe viajar de forma segura a tu servidor primero. Usa siempre [TLS](/recipes/api/nginx-reverse-proxy) para formularios de login y endpoints de API.
 
 ## Preguntas frecuentes
 
@@ -157,7 +157,7 @@ System.out.println(matches);
 R: No. SHA-256 está diseñado para ser rápido. El hashing de contraseñas debe ser intencionalmente lento para resistir fuerza bruta. Usa bcrypt, Argon2 o PBKDF2 en su lugar.
 
 **P: ¿Cómo migro usuarios de hashes MD5 antiguos?**
-R: Re-hashea los hashes MD5 existentes con bcrypt en el próximo login, luego reemplaza el hash viejo en tu base de datos. Marca las cuentas migradas para no intentar re-hashearlas de nuevo. Hasta que un usuario haga login, su hash legacy permanece en su lugar como medida provisional.
+R: Re-hashea los hashes MD5 existentes con bcrypt en el próximo login, luego reemplaza el hash viejo en tu base de datos. Consulta [Logging](/recipes/api/logging) para monitorear el progreso de migración. Marca las cuentas migradas para no intentar re-hashearlas de nuevo. Hasta que un usuario haga login, su hash legacy permanece en su lugar como medida provisional.
 
 **P: ¿Qué factor de trabajo debo usar para bcrypt?**
 R: Empieza con 12. Haz benchmarking para que el hashing tarde ~250ms en tu hardware de producción. Aumenta el factor cada 2-3 años a medida que los CPUs se vuelven más rápidos. El cuarto de segundo extra es imperceptible para los usuarios pero aumenta dramáticamente el costo del ataque.

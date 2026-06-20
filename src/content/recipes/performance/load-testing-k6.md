@@ -172,7 +172,7 @@ export default function () {
 
 ## Production Considerations
 
-- Run smoke tests on every [pull request](/guides/cicd-pipeline-guide) to catch basic regressions
+- Run smoke tests on every [pull request](/guides/devops/cicd-pipeline-guide) to catch basic regressions
 - Schedule soak tests (hours-long runs) to find memory leaks
 - Use separate environments for load testing; never test [production](/guides/devops/deployment-strategies-guide) directly
 - Correlate k6 metrics with [APM tools](/recipes/observability/metrics-collection) for root cause analysis

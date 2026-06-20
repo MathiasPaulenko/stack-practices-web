@@ -45,10 +45,10 @@ This recipe covers the three most common language ecosystems and explains how to
 Use this recipe when:
 
 - Storing user credentials in a database or user directory
-- Implementing authentication systems with username and password flows
+- Implementing [authentication systems](/recipes/authentication/session-management) with username and password flows
 - Migrating legacy systems from fast hashes (MD5, SHA-1) to modern password storage
 - Validating passwords during login and password-reset flows
-- Complying with security standards (PCI-DSS, SOC 2, GDPR) that mandate proper credential protection
+- Complying with security standards (PCI-DSS, SOC 2, GDPR) that mandate proper credential protection. See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance best practices.
 - Building admin panels or CLI tools that create service accounts with passwords
 
 ## Solution
@@ -149,7 +149,7 @@ System.out.println(matches);
 - **Hard-coding salts in source code**: Source code is often stored in version control. A hard-coded salt is as bad as no salt at all, since attackers will find it in the repository.
 - **Using insufficient work factors (e.g., bcrypt with <10 rounds)**: Faster hashing means attackers can test more passwords per second. A work factor of 10 completes in ~100ms; 12 completes in ~250ms. That extra delay adds massive protection at negligible user cost.
 - **Storing the hash without the algorithm identifier**: Always store the full bcrypt/Argon2 output string which includes the algorithm, cost, salt, and hash. This ensures you can re-verify correctly even if you later change algorithms.
-- **Sending passwords over unencrypted connections**: Hashing protects stored passwords, but the password must travel securely to your server first. Always use TLS for login forms and API endpoints.
+- **Sending passwords over unencrypted connections**: Hashing protects stored passwords, but the password must travel securely to your server first. Always use [TLS](/recipes/api/nginx-reverse-proxy) for login forms and API endpoints.
 
 ## Frequently Asked Questions
 
@@ -157,7 +157,7 @@ System.out.println(matches);
 A: No. SHA-256 is designed to be fast. Password hashing must be intentionally slow to resist brute force. Use bcrypt, Argon2, or PBKDF2 instead.
 
 **Q: How do I migrate users from old MD5 hashes?**
-A: Re-hash existing MD5 hashes with bcrypt on next login, then replace the old hash in your database. Mark migrated accounts so you do not attempt to re-hash them again. Until a user logs in, their legacy hash remains in place as a stopgap.
+A: Re-hash existing MD5 hashes with bcrypt on next login, then replace the old hash in your database. See [Logging](/recipes/api/logging) for monitoring migration progress. Mark migrated accounts so you do not attempt to re-hash them again. Until a user logs in, their legacy hash remains in place as a stopgap.
 
 **Q: What work factor should I use for bcrypt?**
 A: Start with 12. Benchmark so hashing takes ~250ms on your production hardware. Increase the factor every 2-3 years as CPUs get faster. The extra quarter-second is imperceptible to users but dramatically increases attack cost.

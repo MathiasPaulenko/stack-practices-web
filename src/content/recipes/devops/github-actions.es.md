@@ -42,13 +42,13 @@ Al definir tu pipeline como código dentro de tu repositorio, obtienes control d
 
 Usa esta recipe cuando:
 
-- Ejecutas tests en cada pull request para detectar regresiones antes de que lleguen a producción
-- Construyes y pusheas imágenes Docker en tags de release para despliegues inmutables
-- Despliegas a ambientes de staging o producción con aprobaciones controladas
-- Haces chequeos de linting y formateo antes del merge para mantener un estilo de código consistente
-- Ejecutas tareas programadas (workflows basados en cron) como auditorías de dependencias o backups nocturnos
+- Ejecutas tests en cada pull request para detectar regresiones antes de que lleguen a producción. Consulta [Unit Testing](/recipes/testing/unit-testing) para automatización de tests.
+- Construyes y pusheas imágenes Docker en tags de release para despliegues inmutables. Consulta [Docker Basics](/recipes/devops/docker-basics) para construcción de imágenes.
+- Despliegas a ambientes de staging o producción con aprobaciones controladas. Consulta [Environment Variables](/recipes/devops/environment-variables) para gestionar configuración de deployment.
+- Haces chequeos de linting y formateo antes del merge para mantener un estilo de código consistente. Consulta [Pre-Commit Hooks](/recipes/devops/pre-commit-hooks) para calidad de código local.
+- Ejecutas tareas programadas (workflows basados en cron) como auditorías de dependencias o backups nocturnos. Consulta [Scheduled Jobs](/recipes/devops/background-jobs) para patrones cron.
 - Generas y publicas documentación automáticamente cuando cambian los archivos fuente
-- Escaneas vulnerabilidades de seguridad en dependencias en cada commit
+- Escaneas vulnerabilidades de seguridad en dependencias en cada commit. Consulta [Secret Management](/recipes/devops/secret-management) para seguridad de credenciales.
 
 ## Solución
 

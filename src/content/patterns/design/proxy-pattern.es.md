@@ -41,7 +41,7 @@ seo:
 
 ## Visión General
 
-El Patrón Proxy es un patrón de diseño estructural que proporciona un sustituto o marcador de posición para otro objeto. El proxy controla el acceso al sujeto real, agregando una capa de indirección que puede usarse para carga perezosa, control de acceso, caching, logging o monitoreo — sin cambiar el código del sujeto.
+El [Patrón Proxy](/patterns/design/proxy-pattern-caching) es un patrón de diseño estructural que proporciona un sustituto o marcador de posición para otro objeto. El proxy controla el acceso al sujeto real, agregando una capa de indirección que puede usarse para carga perezosa, control de acceso, caching, logging o monitoreo — sin cambiar el código del sujeto.
 
 ## Cuándo Usarlo
 
@@ -216,10 +216,10 @@ El proxy puede interceptar operaciones para agregar caching, logging, control de
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre Proxy y Decorator?**
-R: Ambos envuelven objetos y agregan comportamiento. Proxy controla el acceso al objeto envuelto (frecuentemente por razones estructurales como carga perezosa o acceso remoto). Decorator agrega responsabilidades dinámicamente, generalmente para mejora funcional. La intención difiere aunque la estructura parezca similar.
+R: Ambos envuelven objetos y agregan comportamiento. Proxy controla el acceso al objeto envuelto (frecuentemente por razones estructurales como carga perezosa o acceso remoto). Consulta [Proxy de Cache](/patterns/design/proxy-pattern-caching) para un ejemplo concreto. Decorator agrega responsabilidades dinámicamente, generalmente para mejora funcional. La intención difiere aunque la estructura parezca similar.
 
 **P: ¿Puede un proxy envolver otro proxy?**
 R: Sí. Puedes apilar proxies — por ejemplo, un proxy de cache envolviendo un proxy remoto. Cada capa agrega su propio comportamiento. Mantén la pila superficial para evitar stack traces confusos y overhead de rendimiento.
 
 **P: ¿Cuándo debería usar un Proxy en lugar de un Factory?**
-R: Usa Factory cuando quieras controlar qué clase se instancia. Usa Proxy cuando quieras controlar el acceso a un objeto ya instanciado o retrasar su creación.
+R: Usa [Factory](/patterns/design/factory-pattern) cuando quieras controlar qué clase se instancia. Usa Proxy cuando quieras controlar el acceso a un objeto ya instanciado o retrasar su creación.

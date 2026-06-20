@@ -159,7 +159,7 @@ Siempre commitea archivos de lock (`package-lock.json`, `poetry.lock`, `Cargo.lo
 
 ### Seguridad de APIs
 
-- [Rate limiting](/recipes/rate-limiting) (prevenir fuerza bruta)
+- [Rate limiting](/recipes/api/rate-limiting) (prevenir fuerza bruta)
 - Versionado de APIs (deprecación graceful)
 - Firmado de requests (verificar integridad)
 

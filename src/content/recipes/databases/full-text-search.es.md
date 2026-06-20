@@ -34,10 +34,10 @@ La búsqueda de texto completo permite que los usuarios encuentren documentos po
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Los usuarios necesiten buscar artículos, productos o documentos con tolerancia a errores tipográficos
+- Los usuarios necesiten buscar artículos, productos o documentos con tolerancia a errores tipográficos. Consulta [Parse JSON](/recipes/data/parse-json) para indexación de documentos.
 - Tu app requiera resultados clasificados, búsqueda facetada o resaltado
-- Las consultas `LIKE` sean demasiado lentas en tablas con >100k filas
-- Quieras comportamiento de búsqueda mientras escribes (autocompletado)
+- Las consultas `LIKE` sean demasiado lentas en tablas con >100k filas. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para ajuste de índices.
+- Quieras comportamiento de búsqueda mientras escribes (autocompletado). Consulta [Input Validation](/recipes/api/input-validation) para sanitización de consultas.
 
 ## Solución
 
@@ -158,7 +158,7 @@ PostgreSQL `tsvector` es excelente para casos simples sin infraestructura adicio
 
 ## Mejores Prácticas
 
-- **Usa índices GIN en PostgreSQL**: Las consultas `to_tsvector` sin índice son escaneos completos de tabla.
+- **Usa índices GIN en PostgreSQL**: Las consultas `to_tsvector` sin índice son escaneos completos de tabla. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para indexación.
 - **Limita campos buscables**: Indexar cada columna desperdicia espacio y degrada relevancia.
 - **Aplica stemming antes de indexar**: "corriendo" y "correr" deberían coincidir con el mismo documento.
 - **Resalta términos coincidentes**: Los usuarios necesitan confirmación visual de por qué un resultado coincidió.
@@ -169,7 +169,7 @@ PostgreSQL `tsvector` es excelente para casos simples sin infraestructura adicio
 - **Usar `LIKE '%term%'` en tablas grandes**: Los escaneos secuenciales matan el rendimiento pasadas las 100k filas.
 - **No configurar stop words**: "El" no debería influir en el ranking.
 - **Ignorar la latencia de refresco del índice**: Elasticsearch es casi en tiempo real, no instantáneo.
-- **Almacenar todos los datos en el motor de búsqueda**: Usa IDs de búsqueda para obtener registros completos de la base de datos.
+- **Almacenar todos los datos en el motor de búsqueda**: Usa IDs de búsqueda para obtener registros completos de la base de datos. Consulta [Data Validation](/recipes/data/data-validation) para integridad de datos.
 - **Sin timeout en consultas**: Una consulta malformada puede colgar por minutos en índices no optimizados.
 
 ## Preguntas Frecuentes

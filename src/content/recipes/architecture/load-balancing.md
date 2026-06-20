@@ -38,7 +38,7 @@ Use this recipe when:
 
 - Running multiple instances of an application behind a single domain
 - Experiencing traffic that exceeds the capacity of a single server
-- Requiring high availability with automatic failover between data centers
+- Requiring high availability with automatic [failover](/recipes/architecture/circuit-breaker-pattern) between data centers
 - Needing session persistence so users hit the same backend across requests
 - Implementing canary or blue/green deployments that route percentages of traffic
 
@@ -172,10 +172,10 @@ user_server = ring.get_node("user-123")
 ## Best practices
 
 - **Implement active health checks**: passive monitoring (detecting connection failures) is too slow. Configure HTTP health checks that hit `/health` every 5 seconds. A server returning 500s should be removed from rotation before it degrades user experience.
-- **Use connection pooling**: creating a new TCP connection for every request adds latency and CPU overhead. Configure `keepalive` connections between the load balancer and backends so connections are reused across requests.
+- **Use [connection pooling](/recipes/performance/connection-pooling)**: creating a new TCP connection for every request adds latency and CPU overhead. Configure `keepalive` connections between the load balancer and backends so connections are reused across requests.
 - **Terminate SSL at the load balancer**: handle TLS handshake at the edge, forwarding plain HTTP to backends inside a secure network. This reduces certificate management and CPU load on application servers.
 - **Expose real client IPs**: backends behind a load balancer see the balancer's IP, not the client's. Forward `X-Forwarded-For` and `X-Real-IP` headers. Ensure backends trust only the load balancer's IP to prevent IP spoofing.
-- **Plan for session persistence**: if your application stores session state in memory, use sticky sessions (cookie-based or IP hash) so users consistently hit the same backend. Better yet, store sessions in Redis and make all requests stateless.
+- **Plan for session persistence**: if your application stores session state in memory, use sticky sessions (cookie-based or IP hash) so users consistently hit the same backend. Better yet, store sessions in [Redis](/recipes/api/real-time-notifications) and make all requests stateless.
 
 ## Common mistakes
 
@@ -189,10 +189,10 @@ user_server = ring.get_node("user-123")
 **Q: Should I use Layer 4 or Layer 7 load balancing?**
 A: Layer 4 (TCP/UDP) is faster but cannot inspect HTTP headers or route based on URL. Layer 7 (HTTP) enables path-based routing, cookie stickiness, and request rewriting. Use Layer 7 for web applications; Layer 4 for databases, game servers, or non-HTTP protocols.
 
-**Q: How do load balancers handle WebSockets?**
+**Q: How do load balancers handle [WebSockets](/recipes/api/websocket-server)?**
 A: WebSocket connections are long-lived. The balancer must support HTTP upgrade proxying and maintain the connection. Nginx and HAProxy handle this natively. Ensure the backend timeout exceeds the expected WebSocket duration.
 
-**Q: What is the difference between a load balancer and a reverse proxy?**
+**Q: What is the difference between a load balancer and a [reverse proxy](/recipes/api/nginx-reverse-proxy)?**
 A: A reverse proxy routes requests to backends and can modify them. A load balancer adds distribution algorithms, health checks, and failover. In practice, modern tools (Nginx, HAProxy, Traefik) are both. The terms are often used interchangeably.
 
 **Q: Can I load balance across regions?**

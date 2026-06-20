@@ -39,11 +39,11 @@ Esta arquitectura es ideal para APIs con tráfico variable o impredecible. Una s
 
 Usa esta receta cuando:
 
-- Construyes APIs con patrones de tráfico esporádicos o impredecibles
+- Construyes APIs con patrones de tráfico esporádicos o impredecibles. Consulta [Rate Limiting](/recipes/api/rate-limiting) para proteger APIs bajo carga.
 - Prototipas productos donde los costos de servidor deberían escalar a cero cuando están ociosos
-- Procesas webhooks, uploads de archivos o eventos programados vía HTTP
+- Procesas webhooks, uploads de archivos o eventos programados vía HTTP. Consulta [Input Validation](/recipes/api/input-validation) para validar requests entrantes.
 - Creas microservicios donde cada endpoint tiene diferentes necesidades de recursos
-- Reduces overhead operacional eliminando patching y scaling de servidores
+- Reduces overhead operacional eliminando patching y scaling de servidores. Consulta [Serverless Functions](/recipes/messaging/event-driven-microservices) para deploy de funciones.
 
 ## Solución
 

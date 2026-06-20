@@ -32,7 +32,7 @@ seo:
 
 # Proxy Pattern for API Response Caching
 
-The Proxy pattern intercepts access to an object to add behavior without changing the original implementation. When applied to API clients, it becomes a powerful caching layer that stores responses, reduces latency, and shields downstream services from redundant requests.
+The [Proxy](/patterns/design/proxy-pattern) pattern intercepts access to an object to add behavior without changing the original implementation. When applied to API clients, it becomes a powerful caching layer that stores responses, reduces latency, and shields downstream services from redundant requests.
 
 ## When to Use This
 
@@ -107,7 +107,7 @@ const forecast = await cachedClient.getForecast('London');
 
 ## Best Practices
 
-- Set TTL based on data volatility, not a fixed value for everything
+- Set TTL based on data volatility, not a fixed value for everything. See [cache invalidation](/patterns/design/cache-aside-pattern) best practices.
 - Implement cache invalidation hooks for write-through consistency
 - Use a decorator or composition to layer multiple proxies
 
@@ -123,4 +123,4 @@ const forecast = await cachedClient.getForecast('London');
 A: The Proxy pattern implements the same interface as the real object, so callers do not know or care whether they are using the cache or the original client.
 
 **Q: Can I combine this with the Decorator pattern?**
-A: Yes. A Decorator adds behavior; a Proxy controls access. They are often used together in practice.
+A: Yes. A [Decorator](/patterns/design/decorator-pattern) adds behavior; a Proxy controls access. They are often used together in practice.

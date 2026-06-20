@@ -37,7 +37,7 @@ Esta receta cubre el formato estándar de respuesta de error (RFC 7807 Problem D
 
 Usa esta receta cuando:
 
-- Construyas o refactores una API REST de la que clientes dependan
+- Construyas o refactores una [API REST](/recipes/api/call-rest-api) de la que clientes dependan
 - Estandarices respuestas de error entre múltiples servicios backend
 - Documentes modos de falla para consumidores de la API
 - Diseñes middleware de manejo de errores o mapeadores de excepciones
@@ -161,7 +161,7 @@ public class GlobalExceptionHandler {
 
 - **RFC 7807 Problem Details** define un formato JSON de error estándar: `type`, `title`, `detail` y `status`. Usar este formato hace que tu API sea predecible para los clientes.
 - **Los códigos de estado HTTP** transmiten el significado semántico del error. Nunca devuelvas 200 OK para una solicitud fallida.
-- **Los manejadores de error globales** centralizan la serialización de errores para que los manejadores de rutas individuales se concentren en la lógica de negocio.
+- **Los manejadores de error globales** centralizan la serialización de errores para que los manejadores de rutas individuales se concentren en la lógica de negocio. Consulta [Patrones de Middleware de Express](/recipes/api/express-middleware-patterns) para manejo de errores específico de Express.
 - **Prevención de fugas**: en producción, nunca expongas stack traces o rutas internas en las respuestas de error.
 
 ## Variants
@@ -179,14 +179,14 @@ public class GlobalExceptionHandler {
 
 - **Usa el código HTTP correcto**: 400 para errores del cliente, 401/403 para problemas de autenticación, 404 para recursos faltantes, 409 para conflictos, 422 para fallas de validación, 500 para bugs del servidor.
 - **Incluye un ID de correlación**: agrega un ID de solicitud a cada respuesta de error para que soporte pueda rastrear logs.
-- **Documenta todos los errores**: lista cada 4xx y 5xx que tu endpoint puede devolver en la documentación de la API (OpenAPI).
+- **Documenta todos los errores**: lista cada 4xx y 5xx que tu endpoint puede devolver en la documentación de la API. Consulta [Plantilla de Documentación de API](/docs/templates/api-documentation) para estructura de docs.
 - **Mantén los mensajes accionables**: "El nombre de usuario debe tener entre 2 y 50 caracteres" es mejor que "Validación fallida."
 - **Localiza con moderación**: el `detail` del error puede estar en inglés; deja que el cliente mapee URLs `type` a cadenas de UI localizadas.
 
 ## Common Mistakes
 
-- **Devolver 200 con cuerpo de error**: algunas APIs legacy hacen esto — rompe el cacheo, el logging y el monitoreo.
-- **Exponer detalles internos**: enviar stack traces completos o detalles SQL al cliente es un riesgo de seguridad.
+- **Devolver 200 con cuerpo de error**: algunas APIs legacy hacen esto — rompe el cacheo, el logging y el monitoreo. Usa [códigos de estado HTTP](/recipes/api/api-versioning) apropiados.
+- **Exponer detalles internos**: enviar stack traces completos o detalles SQL al cliente es un riesgo de seguridad. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para protección de datos.
 - **Formas inconsistentes**: un endpoint devuelve `{ error: "msg" }`, otro devuelve `{ message: "msg", code: 123 }` — esto confunde a los generadores de clientes.
 - **Código de estado incorrecto**: devolver 500 para un recurso faltante (debería ser 404) o 403 para una solicitud no autenticada (debería ser 401).
 - **Ocultar excepciones**: capturar todo y devolver un 500 genérico oculta bugs que deberías corregir.

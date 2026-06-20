@@ -31,13 +31,13 @@ seo:
 
 Los modelos generativos de imágenes han transformado cómo los desarrolladores crean contenido visual. En lugar de contratar diseñadores, comprar fotos de stock o construir complejos pipelines de renderizado, las aplicaciones ahora pueden generar imágenes personalizadas a partir de descripciones de texto en segundos. DALL-E 3, Stable Diffusion XL y Midjourney producen retratos fotorrealistas, ilustraciones, íconos y mockups de productos que son cada vez más indistinguibles del arte creado por humanos.
 
-El desafío en producción no es llamar a la API — es diseñar prompts que produzcan resultados consistentes y usables a escala. Un prompt como "un gato" produce resultados impredecibles. Un prompt estructurado con referencias de estilo, proporciones de aspecto, constraints negativas y valores de seed produce assets reproducibles adecuados para e-commerce, marketing y generación de UI. Esta receta cubre integración de API, plantillas de prompts, generación por lotes, moderación de contenido y optimización de imágenes para entrega web.
+El desafío en producción no es llamar a la API — es diseñar prompts que produzcan resultados consistentes y usables a escala. Un prompt como "un gato" produce resultados impredecibles. Un prompt estructurado con referencias de estilo, proporciones de aspecto, constraints negativas y valores de seed produce assets reproducibles adecuados para e-commerce, marketing y generación de UI. Para fundamentos de prompt engineering, consulta [Prompt Engineering](/recipes/ai/prompt-engineering). Esta receta cubre integración de API, plantillas de prompts, generación por lotes, moderación de contenido y optimización de imágenes para entrega web.
 
 ## Cuándo usarlo
 
 Usa esta receta cuando:
 
-- Generando mockups de productos, banners de marketing o assets de redes sociales dinámicamente
+- Generando mockups de productos, banners de marketing o assets de redes sociales dinámicamente. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para generación de assets a escala.
 - Construyendo herramientas de creación de avatares donde los usuarios describen su apariencia deseada
 - Creando ilustraciones personalizadas para newsletters, posts de blog o libros infantiles
 - Prototipando diseños de UI y wireframes a partir de descripciones de texto
@@ -159,7 +159,7 @@ async function generateBatch(theme, outputDir) {
 - **Prompt engineering para imágenes**: los modelos de imagen son altamente sensibles a la estructura del prompt. Incluye sujeto, estilo, iluminación, ángulo de cámara, mood y constraints negativas. DALL-E 3 expande automáticamente prompts cortos; Stable Diffusion requiere detalle explícito para resultados de calidad.
 - **Valores de seed para consistencia**: fijar la seed aleatoria (`seed=42`) asegura que el mismo prompt produzca la misma imagen a través de generaciones. Esto es esencial para A/B testing, testing de regresión y crear series de imágenes con estilo uniforme.
 - **Moderación de contenido**: OpenAI y Stability AI filtran automáticamente prompts y outputs por contenido dañino. Implementa capas adicionales de moderación para prompts generados por usuarios, logueando requests rechazados y alertando sobre patrones sospechosos.
-- **Optimización de imágenes**: las imágenes generadas típicamente son PNG o JPEG de alta calidad. Conviértelas a WebP para entrega web, genera tamaños responsive y lazy-load las imágenes below-the-fold. Usa CDNs para distribución global.
+- **Optimización de imágenes**: las imágenes generadas típicamente son PNG o JPEG de alta calidad. Conviértelas a WebP para entrega web, genera tamaños responsive y lazy-load las imágenes below-the-fold. Consulta [Lazy Loading de Imágenes](/recipes/performance/lazy-loading) para implementación. Usa CDNs para distribución global.
 
 ## Variantes
 

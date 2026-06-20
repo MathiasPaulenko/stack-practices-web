@@ -14,8 +14,8 @@ tags:
   - devops
 relatedResources:
   - /recipes/messaging/kafka-event-streaming
-  - /patterns/design/event-driven-architecture
-  - /patterns/design/worker-pattern
+  - /recipes/event-driven-architecture
+  - /recipes/devops/background-jobs
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -34,9 +34,9 @@ Distribute background tasks reliably and implement request-reply patterns using 
 
 ## When to Use This
 
-- Background jobs (image processing, email sending) must not block the main request flow
-- Failed tasks should be retried with exponential backoff or routed to dead-letter queues
-- Services need synchronous RPC-style communication without HTTP overhead
+- Background jobs (image processing, email sending) must not block the main request flow. See [Scheduled Jobs](/recipes/devops/background-jobs) for recurring task automation.
+- Failed tasks should be retried with exponential backoff or routed to dead-letter queues. See [Retry Logic](/recipes/architecture/retry-backoff) for exponential backoff patterns.
+- Services need synchronous RPC-style communication without HTTP overhead. See [Call REST API](/recipes/api/call-rest-api) for synchronous HTTP alternatives.
 
 ## Solution
 

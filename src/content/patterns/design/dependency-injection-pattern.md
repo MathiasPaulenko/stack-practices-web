@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-The Dependency Injection Pattern is an architectural pattern where dependencies are supplied to a class from the outside rather than being created internally. This inverts control: the class declares what it needs, and an external mechanism provides it. The result is loosely coupled, highly testable code.
+The [Dependency Injection](/patterns/design/dependency-injection-typescript) Pattern is an architectural pattern where dependencies are supplied to a class from the outside rather than being created internally. This inverts control: the class declares what it needs, and an external mechanism provides it. The result is loosely coupled, highly testable code.
 
 ## When to Use
 
@@ -188,7 +188,7 @@ The core idea is **Inversion of Control**: instead of a class creating its own d
 | **Setter Injection** | Dependencies set after creation | Optional dependencies; reconfiguration at runtime |
 | **Interface Injection** | Dependencies via interface method | Framework-managed lifecycle |
 | **Service Locator** | Class asks a registry for dependencies | Legacy systems; avoid in new code |
-| **DI Container** | Framework resolves and injects dependencies automatically | Large applications (Spring, Angular, .NET Core) |
+| **[DI Container](/patterns/design/dependency-injection-typescript)** | Framework resolves and injects dependencies automatically | Large applications (Spring, Angular, .NET Core) |
 
 ## Best Practices
 
@@ -212,7 +212,7 @@ The core idea is **Inversion of Control**: instead of a class creating its own d
 A: DI is a specific form of IoC. IoC is the broader principle of delegating control to external code. DI achieves IoC by injecting dependencies from outside.
 
 **Q: Do I need a DI framework?**
-A: No. For small projects, manual constructor injection is sufficient. DI frameworks like Spring, Angular's injector, or InversifyJS shine in large applications with many interdependent services.
+A: No. For small projects, manual constructor injection is sufficient. See [DI Container in TypeScript](/patterns/design/dependency-injection-typescript) for a lightweight implementation. DI frameworks like Spring, Angular's injector, or InversifyJS shine in large applications with many interdependent services.
 
 **Q: How does DI help with testing?**
-A: By depending on abstractions (interfaces), you can inject mock or stub implementations during tests. This isolates the class under test from its real collaborators.
+A: By depending on abstractions (interfaces), you can inject mock or stub implementations during tests. See [unit testing](/recipes/testing/unit-testing) for testing best practices. This isolates the class under test from its real collaborators.

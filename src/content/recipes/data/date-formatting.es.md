@@ -39,11 +39,11 @@ Almacena y transmite siempre las fechas en UTC (ISO 8601), y formatea a hora loc
 
 Usa esta recipe cuando:
 
-- Serializas fechas a JSON o XML para APIs
+- Serializas fechas a JSON o XML para [APIs](/recipes/api/call-rest-api)
 - Muestras fechas en interfaces de usuario con localización apropiada
-- Parseas fechas ingresadas por usuarios desde formularios o archivos
+- Parseas fechas ingresadas por usuarios desde formularios o archivos. Consulta [Data Validation](/recipes/data/data-validation) para sanitizar input.
 - Conviertes entre timezones para aplicaciones globales
-- Logueas y auditas eventos con timestamps precisos
+- Logueas y auditas eventos con timestamps precisos. Consulta [Logging](/recipes/api/logging) para patrones de observabilidad.
 
 ## Solución
 
@@ -149,7 +149,7 @@ System.out.println(tokyo.format(formatter)); // 2026-06-10 23:30:00 JST
 ## Preguntas frecuentes
 
 **P: ¿Debería usar timestamps o strings formateados en mi base de datos?**
-R: Usa tipos nativos `TIMESTAMP WITH TIME ZONE`. Almacenan instantes precisos en el tiempo y manejan conversiones automáticamente.
+R: Usa tipos nativos `TIMESTAMP WITH TIME ZONE`. Almacenan instantes precisos en el tiempo y manejan conversiones automáticamente. Consulta [Database Transactions](/recipes/databases/database-transactions) para integridad de datos.
 
 **P: ¿Cómo manejo el horario de verano (daylight saving)?**
 R: Almacena todo en UTC. Usa IDs de timezone IANA (ej. `Europe/Madrid`) para conversiones user-facing. Nunca hard-codees offsets.

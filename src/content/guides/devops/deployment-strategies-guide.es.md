@@ -151,8 +151,8 @@ return old_checkout.handle(request)
 
 ## Mejores Prácticas
 
-- **Automatiza rollback** — un humano presionando un botón a las 3 AM es poco confiable. Consulta [pipelines CI/CD](/guides/cicd-pipeline-guide).
-- **Usa tráfico sintético** — golpea el canary con [tests de carga](/recipes/load-testing-k6) antes que usuarios reales
+- **Automatiza rollback** — un humano presionando un botón a las 3 AM es poco confiable. Consulta [pipelines CI/CD](/guides/devops/cicd-pipeline-guide).
+- **Usa tráfico sintético** — golpea el canary con [tests de carga](/recipes/performance/load-testing-k6) antes que usuarios reales
 - **Mantén deploys pequeños** — cambios más pequeños son más fáciles de debuggear y más rápidos de revertir
 - **Un cambio a la vez** — no combines un deploy con migración de base de datos y cambio de config
 - **Testea rollback** — un rollback que nunca practicaste es una apuesta
@@ -163,7 +163,7 @@ return old_checkout.handle(request)
 - No tener rollback automatizado — los rollbacks manuales toman 10x más tiempo
 - Combinar múltiples cambios en un deploy — cuando falla, no sabes cuál causó el problema
 - Ignorar métricas de canary porque "los tests pasaron" — tráfico de producción es la única prueba real
-- Olvidar [compatibilidad de esquema](/recipes/schema-evolution) en blue-green — código viejo y nuevo debe coexistir durante el switch
+- Olvidar [compatibilidad de esquema](/recipes/databases/schema-evolution) en blue-green — código viejo y nuevo debe coexistir durante el switch
 
 ## Preguntas Frecuentes
 

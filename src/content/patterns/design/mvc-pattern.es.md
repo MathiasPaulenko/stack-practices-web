@@ -40,7 +40,7 @@ seo:
 
 ## Visión general
 
-El Patrón Modelo-Vista-Controlador (MVC) es un patrón de diseño arquitectural que separa una aplicación en tres componentes interconectados: Modelo (datos y lógica de negocio), Vista (presentación) y Controlador (manejo de entrada y coordinación).
+El [Patrón Modelo-Vista-Controlador](/patterns/design/mvc-pattern-frontend) (MVC) es un patrón de diseño arquitectural que separa una aplicación en tres componentes interconectados: Modelo (datos y lógica de negocio), Vista (presentación) y Controlador (manejo de entrada y coordinación).
 
 Es la base de muchos frameworks web (Django, Ruby on Rails, ASP.NET MVC) y arquitecturas de aplicaciones de escritorio.
 
@@ -179,7 +179,7 @@ En frameworks web modernos, el Controlador suele mapear rutas HTTP a operaciones
 - **Mantén los Modelos ignorantes de las Vistas**: Los modelos no deben saber cómo se muestran
 - **Haz las Vistas de solo lectura desde el Modelo**: Las vistas observan modelos, pero no los modifican directamente
 - **Mantén los Controladores delgados**: La lógica de negocio pertenece al Modelo, no al Controlador
-- **Usa el Patrón Observer** para actualizaciones Modelo-a-Vista y reducir acoplamiento
+- **Usa el [Patrón Observer](/patterns/design/observer-pattern)** para actualizaciones Modelo-a-Vista y reducir acoplamiento
 - **Evita acceso directo al Modelo desde Vistas**: Siempre pasa por el Controlador o un ViewModel
 
 ## Errores comunes
@@ -196,7 +196,7 @@ En frameworks web modernos, el Controlador suele mapear rutas HTTP a operaciones
 R: Sí, aunque a menudo en formas evolucionadas. React usa un flujo de datos unidireccional que separa preocupaciones de forma similar. Angular implementa MVVM, que es un descendiente directo.
 
 **P: ¿Cuál es la diferencia entre MVC y MVVM?**
-R: MVVM reemplaza el Controlador con un ViewModel que se vincula directamente a la Vista mediante binding bidireccional de datos. Es más común en frameworks frontend.
+R: [MVVM](/patterns/design/mvc-pattern-frontend) reemplaza el Controlador con un ViewModel que se vincula directamente a la Vista mediante binding bidireccional de datos. Es más común en frameworks frontend.
 
 **P: ¿Puedo usar MVC en una arquitectura serverless?**
 R: Sí, aunque el "Controlador" puede ser un API Gateway o función Lambda, el "Modelo" es tu capa de datos y la "Vista" es la respuesta JSON o plantilla renderizada.

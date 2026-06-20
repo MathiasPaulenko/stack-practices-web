@@ -36,7 +36,7 @@ Use this resource when:
 - Designing a new public or internal API from scratch
 - Refactoring a legacy RPC-style API to REST
 - Documenting an API with OpenAPI/Swagger
-- Choosing between REST, GraphQL, or gRPC for a new service
+- Choosing between [REST](/recipes/api/call-rest-api), [GraphQL](/recipes/api/graphql-api), or [gRPC](/recipes/api/grpc-api) for a new service
 
 ## Solution
 
@@ -91,9 +91,9 @@ GET    /users/:id/orders     # Nested resource
 
 REST leverages HTTP as an application protocol, not just a transport:
 
-- **Idempotency**: GET, PUT, DELETE should be safe to retry. POST is not idempotent.
+- **Idempotency**: GET, PUT, DELETE should be safe to retry. See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for patterns. POST is not idempotent.
 - **Statelessness**: Each request contains all information needed; no server-side session.
-- **Cacheability**: Use Cache-Control, ETag, and Last-Modified headers aggressively.
+- **Cacheability**: Use Cache-Control, ETag, and Last-Modified headers aggressively. See [Handle CORS](/recipes/api/handle-cors) for header configuration.
 - **HATEOAS**: Include links to related resources (optional but improves discoverability).
 
 ## Variants
@@ -111,12 +111,12 @@ REST leverages HTTP as an application protocol, not just a transport:
 - **Version in URL**: /v1/users (more explicit than headers)
 - **Return consistent envelope**: { data, error, meta } structure
 - **Support filtering**: GET /users?role=admin&active=true
-- **Rate limit early**: Return 429 with Retry-After header
+- **Rate limit early**: Return 429 with Retry-After header. See [Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for implementation.
 
 ## Common Mistakes
 
 1. **Using verbs in URLs**: /createUser, /getOrders — use nouns and HTTP methods instead
-2. **Ignoring HTTP status codes**: Returning 200 with an error body breaks middleware
+2. **Ignoring HTTP status codes**: Returning 200 with an error body breaks middleware. See [Error Handling](/recipes/api/handle-errors) for status code usage.
 3. **Not versioning**: Breaking changes without versioning strand existing clients
 4. **Over-fetching**: Returning huge nested objects when clients need a subset
 5. **Missing content negotiation**: Not respecting Accept and Content-Type headers

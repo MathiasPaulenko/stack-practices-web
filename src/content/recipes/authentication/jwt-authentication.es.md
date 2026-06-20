@@ -37,10 +37,10 @@ Esta receta muestra cómo generar (firmar), validar (verificar) y refrescar JWTs
 
 Usa JWTs cuando:
 
-- Construyas una API REST sin estado donde las sesiones no deben almacenarse del lado del servidor
-- Autentiques microservicios que se llaman entre sí internamente
+- Construyas una [API REST](/recipes/api/call-rest-api) sin estado donde las sesiones no deben almacenarse del lado del servidor
+- Autentiques [microservicios](/guides/architecture/microservices-architecture-guide) que se llaman entre sí internamente
 - Emitas tokens de acceso de corta duración con tokens de refresco de mayor duración
-- Agregues SSO o login de terceros (OAuth2 / OpenID Connect)
+- Agregues SSO o login de terceros ([OAuth2](/recipes/authentication/oauth2-login) / OpenID Connect)
 
 Evita JWTs cuando:
 
@@ -193,7 +193,7 @@ Un JWT tiene tres partes separadas por puntos: `header.payload.signature`.
 A: Los tokens de acceso deben vivir en memoria (variables). Los tokens de refresco deben almacenarse en cookies `HttpOnly`, `Secure`, `SameSite=Strict` para prevenir robo por XSS.
 
 **Q: ¿Cómo revoco un JWT antes de que expire?**
-A: Mantén una lista de bloqueo de tokens (ej. Redis con TTL igual a la expiración del token) y verifícala en cada validación. Alternativamente, mantén sesiones del lado del servidor.
+A: Mantén una lista de bloqueo de tokens (ej. Redis con TTL igual a la expiración del token) y verifícala en cada validación. Alternativamente, mantén [sesiones](/recipes/authentication/session-management) del lado del servidor.
 
 **Q: ¿Cuál es la diferencia entre HS256 y RS256?**
 A: `HS256` es simétrico: un solo secreto firma y verifica. `RS256` es asimétrico: una clave privada firma y cualquier servicio con la clave pública puede verificar. Usa `RS256` cuando múltiples servicios necesiten verificar tokens independientemente.

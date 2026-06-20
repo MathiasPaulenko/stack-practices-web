@@ -39,7 +39,7 @@ Usa esta receta cuando:
 - Consumes una API REST que devuelve un payload JSON
 - Lees configuración o datos almacenados en archivos `.json`
 - Deserializas cuerpos de webhooks o eventos de una cola de mensajes
-- Conviertes una cadena JSON en objetos tipados de tu modelo de dominio
+- Conviertes una cadena JSON en objetos tipados de tu modelo de dominio. Consulta [Data Validation Zod](/recipes/security/data-validation-zod) para parsing basado en schemas.
 
 ## Solución
 
@@ -87,7 +87,7 @@ Cada lenguaje adopta un enfoque ligeramente distinto:
 - **JavaScript** usa `JSON.parse()` incorporado. Devuelve objetos y arrays planos. Nunca uses `eval()` para parsear JSON: es un riesgo de seguridad.
 - **Java** no tiene parser incorporado, así que añades una librería como [Jackson](https://github.com/FasterXML/jackson) o Gson. `readTree()` te da un árbol navegable; `readValue()` mapea directamente a POJOs tipados.
 
-Una vez tengas los datos parseados, consulta [Llamar a una API REST](/es/recipes/call-rest-api) para obtener JSON por HTTP, o [Leer y Escribir Archivos](/es/recipes/read-write-file) para cargarlo desde disco.
+Una vez tengas los datos parseados, consulta [Llamar a una API REST](/recipes/api/call-rest-api) para obtener JSON por HTTP, o [Leer y Escribir Archivos](/recipes/file-handling/read-write-file) para cargarlo desde disco.
 
 ## Variantes
 

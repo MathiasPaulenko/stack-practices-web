@@ -34,10 +34,10 @@ Pre-commit hooks automatically run checks on your code before every commit. They
 ## When to Use
 
 Use this resource when:
-- Your team repeatedly commits code that fails CI lint or format checks
-- You want to enforce code style without relying solely on PR reviews
-- You need to run secrets scanning or vulnerability checks on every commit
-- You want fast feedback: fix issues locally instead of waiting for CI to fail
+- Your team repeatedly commits code that fails CI lint or format checks. See [GitHub Actions](/recipes/devops/github-actions) for CI pipeline setup.
+- You want to enforce code style without relying solely on PR reviews. See [Unit Testing](/recipes/testing/unit-testing) for automated quality gates.
+- You need to run secrets scanning or vulnerability checks on every commit. See [Container Security Scanning](/recipes/devops/container-security-scanning) for security scanning.
+- You want fast feedback: fix issues locally instead of waiting for CI to fail. See [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) for local automation scripts.
 
 ## Solution
 

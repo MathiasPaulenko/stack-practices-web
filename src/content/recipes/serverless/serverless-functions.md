@@ -37,10 +37,10 @@ This recipe covers creating and deploying serverless functions with AWS Lambda, 
 ## When to Use
 
 Use this resource when:
-- You have event-driven workloads (webhooks, file processing, scheduled jobs)
-- You want automatic scaling from zero to thousands of requests
+- You have event-driven workloads (webhooks, file processing, scheduled jobs). See [Event-Driven Functions](/recipes/messaging/event-driven-microservices) for event-driven patterns.
+- You want automatic scaling from zero to thousands of requests. See [Cold Start Optimization](/recipes/performance/connection-pooling) for minimizing startup latency.
 - You need to avoid server maintenance and infrastructure overhead
-- Your traffic is sporadic and provisioning servers would be wasteful
+- Your traffic is sporadic and provisioning servers would be wasteful. See [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) for building pay-per-use APIs.
 
 ## Solution
 

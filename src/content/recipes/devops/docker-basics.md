@@ -37,10 +37,10 @@ This recipe covers the essential Dockerfile instructions, image layering, and a 
 
 Use this recipe when:
 
-- You want to eliminate "works on my machine" problems
-- Setting up a local development environment that mirrors production
-- Preparing an application for deployment to Kubernetes, AWS ECS, or similar platforms
-- Running integration tests that depend on databases, caches, or message brokers
+- You want to eliminate "works on my machine" problems. See [Environment Variables](/recipes/devops/environment-variables) for managing container configuration.
+- Setting up a local development environment that mirrors production. See [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) for multi-service setups.
+- Preparing an application for deployment to Kubernetes, AWS ECS, or similar platforms. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for function-as-a-service deployments.
+- Running integration tests that depend on databases, caches, or message brokers. See [Integration Testing](/recipes/testing/integration-testing) for test isolation strategies.
 
 ## Solution
 

@@ -46,11 +46,11 @@ Es la base de arquitecturas basadas en eventos, programación reactiva y la arqu
 ## Cuándo usarlo
 
 Usa el Patrón Observer cuando:
-- Los cambios en un objeto requieren actualizar un número desconocido de objetos dependientes
-- Necesitas un modelo de comunicación publicar-suscribir
+- Los cambios en un objeto requieren actualizar un número desconocido de objetos dependientes. Consulta [Mediator Pattern](/patterns/design/mediator-pattern) para enrutamiento centralizado.
+- Necesitas un modelo de comunicación publicar-suscribir. Consulta [CQRS Pattern](/recipes/design/cqrs-pattern) para arquitecturas event-driven.
 - Un objeto debe notificar a otros sin saber quiénes son
 - Quieres acoplamiento débil entre productores y consumidores de eventos
-- Construyes componentes de UI reactivos o feeds de datos en tiempo real
+- Construyes componentes de UI reactivos o feeds de datos en tiempo real. Consulta [API REST](/recipes/api/call-rest-api) para fetching de datos en tiempo real.
 
 ## Solución
 
@@ -169,10 +169,10 @@ Cuando el estado del Subject cambia, itera sobre sus observadores y llama su mé
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Observer y Pub/Sub?**
-R: Observer es una relación directa subject-observer. Pub/Sub añade un broker de eventos (event bus) que desacopla completamente a los publicadores de los suscriptores.
+R: Observer es una relación directa subject-observer. Pub/Sub añade un broker de eventos ([Mediator](/patterns/design/mediator-pattern)) que desacopla completamente a los publicadores de los suscriptores.
 
 **P: ¿Sigue siendo relevante el Patrón Observer con frameworks reactivos modernos?**
-R: Sí. React hooks, RxJS y el sistema de reactividad de Vue están construidos sobre conceptos de Observer.
+R: Sí. React hooks, RxJS y el sistema de reactividad de Vue están construidos sobre conceptos de Observer. Para brokers de eventos singleton, consulta [Singleton](/patterns/design/singleton-pattern).
 
 **P: ¿Cómo evito fugas de memoria con observadores?**
 R: Siempre proporciona un mecanismo de desuscripción y llámalo en manejadores de limpieza o destructores.

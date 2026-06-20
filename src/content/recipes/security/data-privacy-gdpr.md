@@ -145,7 +145,7 @@ async function eraseUserData(userId) {
 
 1. **Implicit consent**: Pre-checked boxes or buried terms don't count under [GDPR](/recipes/security/data-privacy-gdpr)
 2. **No retention limits**: Keeping user data forever violates storage limitation
-3. **Third-party leakage**: Analytics, ads, and CDNs receive PII without user knowledge. Run [dependency audits](/recipes/security/dependency-audit-template) regularly.
+3. **Third-party leakage**: Analytics, ads, and CDNs receive PII without user knowledge. Run [dependency audits](/guides/security/security-best-practices-guide) regularly.
 4. **Ignoring backup deletion**: Erased user data persists in old database snapshots
 5. **One-size-fits-all consent**: Marketing and functional cookies need separate consent
 

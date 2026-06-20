@@ -35,9 +35,9 @@ Identifica y corrige queries lentas en PostgreSQL usando analisis de planes de e
 
 ## Cuando Usar Esto
 
-- Las queries tardan mas de 100ms y se ejecutan frecuentemente
-- Aparecen sequential scans en planes de queries donde deberian usarse index scans
-- CPU o I/O de la base de datos estan saturados bajo carga normal
+- Las queries tardan mas de 100ms y se ejecutan frecuentemente. Consulta [Database Views](/recipes/databases/database-views-materialized) para resultados precomputados.
+- Aparecen sequential scans en planes de queries donde deberian usarse index scans. Consulta [SQL Joins](/recipes/databases/sql-joins) para optimización de joins.
+- CPU o I/O de la base de datos estan saturados bajo carga normal. Consulta [Redis Caching](/recipes/databases/redis-cache-patterns) para reducir carga.
 
 ## Solucion
 
@@ -151,14 +151,14 @@ LIMIT 20;
 ## Consideraciones de Produccion
 
 - Corre `ANALYZE` despues de bulk loads o cambios significativos de datos para actualizar estadisticas
-- Usa `pg_stat_statements` para identificar las queries mas lentas por tiempo total
+- Usa `pg_stat_statements` para identificar las queries mas lentas por tiempo total. Consulta [Logging](/recipes/api/logging) para observabilidad de queries.
 - Monitorea bloat de indexes con `pgstattuple` y rebuild con `REINDEX`
 
 ## Errores Comunes
 
 - Agregar indexes en cada columna sin considerar patrones de query
 - Usar `SELECT *` cuando solo se necesitan pocas columnas
-- No actualizar estadisticas de tabla despues de migraciones grandes de datos
+- No actualizar estadisticas de tabla despues de migraciones grandes de datos. Consulta [Database Migrations](/recipes/databases/database-migrations) para cambios de schema seguros.
 
 ## FAQ
 

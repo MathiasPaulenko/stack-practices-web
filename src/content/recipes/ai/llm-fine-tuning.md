@@ -38,7 +38,7 @@ This recipe covers preparing a code dataset, fine-tuning with LoRA/QLoRA using H
 
 Use this resource when:
 - You need a model that understands your internal APIs, DSLs, or proprietary frameworks
-- Prompt engineering and RAG are insufficient for highly specialized code patterns
+- [Prompt engineering](/recipes/ai/prompt-engineering) and [RAG](/recipes/ai/semantic-search) are insufficient for highly specialized code patterns
 - You have 500–10,000 high-quality code examples and want better completion accuracy
 - You want to reduce inference costs by using a smaller, task-specific model
 
@@ -184,7 +184,7 @@ Fine-tuning updates a pre-trained model's weights to improve performance on a na
 | QLoRA | 4-bit quantized LoRA | Fits 7B on 1x RTX 3090; slightly slower training |
 | Prefix tuning | Train prompt embeddings | Older method; LoRA generally preferred |
 | Adapter layers | Small bottleneck layers | Similar idea to LoRA; less widely adopted |
-| OpenAI fine-tuning | API-based | Upload JSONL, no infrastructure; pay per token |
+| [OpenAI fine-tuning](/recipes/ai/chatbot-openai) | API-based | Upload JSONL, no infrastructure; pay per token |
 
 ## Best Practices
 
@@ -214,4 +214,4 @@ QLoRA on Google Colab (free T4) works for 7B models with very small batch sizes.
 
 ### Should I use OpenAI's fine-tuning API instead?
 
-If you need proprietary model quality (GPT-4 class) and have budget, yes. For cost control, privacy, or on-premise deployment, use open-source models with LoRA/QLoRA on your own hardware.
+If you need proprietary model quality (GPT-4 class) and have budget, yes. See [Chatbot with OpenAI](/recipes/ai/chatbot-openai) for API-based approaches. For cost control, privacy, or on-premise deployment, use open-source models with LoRA/QLoRA on your own hardware.

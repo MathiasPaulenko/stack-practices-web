@@ -48,8 +48,8 @@ Usa el Patrón Event Sourcing cuando:
 - Necesites un trail de auditoría completo de cada cambio de estado (finanzas, salud, cumplimiento)
 - Quieras reconstruir estados históricos o depurar reproduciendo eventos
 - Las arquitecturas impulsadas por eventos ya existan, haciendo que los event stores sean naturales
-- CQRS esté en uso, y los modelos de lectura puedan construirse desde proyecciones de eventos
-- Necesites compensar fallas reproduciendo o invirtiendo eventos
+- [CQRS](/patterns/design/cqrs-pattern) esté en uso, y los modelos de lectura puedan construirse desde proyecciones de eventos
+- Necesites compensar fallas reproduciendo o invirtiendo eventos (consulta [Saga](/patterns/design/saga-pattern))
 - Ejemplos: libros contables, sistemas de inventario, seguimiento de órdenes, edición colaborativa
 
 ## Solución
@@ -297,4 +297,4 @@ R: Versiona tus tipos de eventos (`OrderPlaced_v1`, `OrderPlaced_v2`). Durante l
 R: No puedes borrar eventos, pero puedes encriptarlos con una clave específica del usuario y borrar esa clave. Alternativamente, añade un evento `DataForgotten` y filtralo en las proyecciones.
 
 **P: ¿Cómo funcionan los snapshots?**
-R: Después de cada N eventos, guarda el estado computado de la entidad. Al rehidratar, carga el último snapshot y reproduce solo los eventos posteriores a este. Esto mantiene el tiempo de reproducción constante.
+R: Después de cada N eventos, guarda el estado computado de la entidad. Al rehidratar, carga el último snapshot y reproduce solo los eventos posteriores a este. Esto mantiene el tiempo de reproducción constante. Consulta [CQRS](/patterns/design/cqrs-pattern) para patrones de modelos de lectura que funcionan bien con Event Sourcing.

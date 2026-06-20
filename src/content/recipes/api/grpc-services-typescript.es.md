@@ -33,7 +33,7 @@ Construye APIs de alto rendimiento e independientes de lenguaje usando gRPC con 
 
 ## Cuando Usar Esto
 
-- Comunicacion de baja latencia y alto throughput entre microservicios internos
+- Comunicacion de baja latencia y alto throughput entre [microservicios](/patterns/design/ambassador-pattern-services) internos
 - Necesitas contratos fuertemente tipados con generacion de codigo automatica
 - Datos streaming (logs, eventos, file uploads) deben manejarse eficientemente
 
@@ -192,7 +192,7 @@ function listUsers(): Promise<User[]> {
 }
 ```
 
-### 5. Interceptor para Metadata y Deadlines
+### 5. [Interceptor](/patterns/design/chain-of-responsibility-middleware) para Metadata y Deadlines
 
 ```typescript
 // grpc/interceptor.ts
@@ -231,12 +231,12 @@ const client = new UserServiceClient('localhost:50051', grpc.credentials.createI
 
 - Cambiar campos de protobuf sin actualizar todos los clientes de servicio
 - No manejar errores de stream y drops de conexion gracefulmente
-- Usar gRPC para APIs public-facing donde el soporte de browser es limitado
+- Usar gRPC para APIs public-facing donde el soporte de browser es limitado. Consulta [API gRPC](/recipes/api/grpc-api) para alternativas de APIs públicas.
 
 ## FAQ
 
 **P: En que se diferencia de REST?**
-R: gRPC usa protobuf binario sobre HTTP/2, ofreciendo menor latencia y streaming built-in. REST usa JSON sobre HTTP/1.1 con soporte de cliente mas amplio.
+R: gRPC usa protobuf binario sobre HTTP/2, ofreciendo menor latencia y streaming built-in. [REST](/recipes/api/call-rest-api) usa JSON sobre HTTP/1.1 con soporte de cliente mas amplio.
 
 **P: Los browsers pueden llamar gRPC directamente?**
-R: No. Usa gRPC-Web para clientes de browser, o provee un gateway REST via grpc-gateway para APIs publicas.
+R: No. Usa gRPC-Web para clientes de browser, o provee un [gateway REST](/recipes/api/go-rest-api-gin) via grpc-gateway para APIs publicas.

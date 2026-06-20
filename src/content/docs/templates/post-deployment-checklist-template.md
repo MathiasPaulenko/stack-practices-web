@@ -30,7 +30,7 @@ seo:
 
 # Post-Deployment Verification Checklist Template
 
-Use this checklist before declaring a deployment successful.
+Use this checklist before declaring a deployment successful. Pair it with [Release Notes Template](/docs/templates/release-notes-template) for communication and [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
 
 ## Template
 
@@ -95,9 +95,9 @@ Use this checklist before declaring a deployment successful.
 
 ## Best Practices
 
-- **Automate the checklist** — CI should fail the deploy if health checks do not pass
-- **Test rollback before you need it** — a rollback that has never been tested is a gamble
-- **Keep the previous version warm** — blue-green deployments let you switch back instantly
+- **Automate the checklist** — CI should fail the deploy if health checks do not pass. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for integration.
+- **Test rollback before you need it** — a rollback that has never been tested is a gamble. See [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template) for broader planning.
+- **Keep the previous version warm** — blue-green deployments let you switch back instantly. See [Deployment Strategies Guide](/guides/devops/deployment-strategies-guide) for patterns.
 - **Use synthetic monitoring** — external probes catch issues your internal checks miss
 - **Document actual vs expected** — deviations become your incident response data
 
@@ -105,7 +105,7 @@ Use this checklist before declaring a deployment successful.
 
 - Skipping verification because "the tests passed" — production traffic is the real test
 - Not checking error rates after deploy — a deploy that increases errors by 0.1% is a failed deploy
-- Assuming rollback is trivial — test your rollback procedure quarterly
+- Assuming rollback is trivial — test your rollback procedure quarterly. For disaster planning, see [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template).
 - Deploying without on-call coverage — if verification fails, someone must be available to respond
 
 ## Frequently Asked Questions
@@ -120,4 +120,4 @@ Investigate immediately. Smoke tests cover critical user paths; metric dashboard
 
 ### Should I automate or manual the checklist?
 
-Automate health checks and smoke tests in CI. Manual verification is for business-critical judgment calls ("does the checkout flow feel right?"). The goal is automated gates with human oversight.
+Automate health checks and smoke tests in CI. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for probes. Manual verification is for business-critical judgment calls ("does the checkout flow feel right?"). The goal is automated gates with human oversight.

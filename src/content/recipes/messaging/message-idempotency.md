@@ -29,7 +29,7 @@ seo:
 ---
 ## Overview
 
-Idempotency ensures that processing the same message multiple times produces the same result as processing it once. In [async systems](/guides/event-driven-architecture-guide) where at-least-once delivery is the default, duplicate messages are inevitable — [network retries](/recipes/retry-backoff), consumer rebalances, and producer retries all create duplicates. Without idempotency, customers get charged twice, inventory gets decremented twice, and emails get sent twice.
+Idempotency ensures that processing the same message multiple times produces the same result as processing it once. In [async systems](/guides/architecture/event-driven-architecture-guide) where at-least-once delivery is the default, duplicate messages are inevitable — [network retries](/recipes/architecture/retry-backoff), consumer rebalances, and producer retries all create duplicates. Without idempotency, customers get charged twice, inventory gets decremented twice, and emails get sent twice.
 
 ## When to Use
 
@@ -162,7 +162,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 1. **No deduplication window**: Checking for duplicates only in-memory means process restarts lose state
 2. **Key collisions**: Using timestamps or non-unique fields creates false duplicates
 3. **Ignoring the "at-least-once" contract**: Assuming the broker delivers exactly-once without verification
-4. **Non-idempotent side effects**: Sending email inside the transaction means duplicates send multiple emails. For failed messages, use [dead letter queues](/recipes/dead-letter-queue).
+4. **Non-idempotent side effects**: Sending email inside the transaction means duplicates send multiple emails. For failed messages, use [dead letter queues](/recipes/messaging/dead-letter-queue).
 5. **Forgetting to clean up**: Deduplication tables that grow forever become performance bottlenecks
 
 ## Frequently Asked Questions
@@ -171,7 +171,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 A: Deduplication prevents processing the same message twice. Idempotency means processing twice produces the same outcome. They're often used together.
 
 **Q: Can I achieve exactly-once delivery?**
-A: In practice, exactly-once is actually exactly-once processing with idempotency. True exactly-once delivery is impossible in [distributed systems](/guides/microservices-architecture-guide).
+A: In practice, exactly-once is actually exactly-once processing with idempotency. True exactly-once delivery is impossible in [distributed systems](/guides/architecture/microservices-architecture-guide).
 
 **Q: How long should I keep deduplication keys?**
 A: Longer than your maximum redelivery window. For Kafka: `offsets.retention.minutes`. For SQS: visibility timeout × max retries + buffer.

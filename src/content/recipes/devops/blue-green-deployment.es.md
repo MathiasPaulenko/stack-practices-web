@@ -35,10 +35,10 @@ El despliegue blue-green es una estrategia de release que mantiene dos ambientes
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- El downtime durante despliegues es inaceptable (SLA > 99.9%)
-- Necesitas capacidad de rollback instantáneo sin redeployar
-- Ejecutas migraciones de base de datos que deben ser retrocompatibles
-- Validas nuevos releases contra tráfico real de producción vía canary routing
+- El downtime durante despliegues es inaceptable (SLA > 99.9%). Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para verificación de readiness.
+- Necesitas capacidad de rollback instantáneo sin redeployar. Consulta [Feature Flags](/recipes/devops/feature-flags) para toggles instantáneos.
+- Ejecutas migraciones de base de datos que deben ser retrocompatibles. Consulta [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) para testing local de migraciones.
+- Validas nuevos releases contra tráfico real de producción vía canary routing. Consulta [Istio Canary Deployment](/recipes/devops/istio-canary-deployment) para shifting progresivo de tráfico.
 
 ## Solución
 

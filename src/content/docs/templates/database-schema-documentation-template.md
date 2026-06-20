@@ -31,9 +31,9 @@ seo:
 
 ## Best Practices
 
-- **Document every table and column** — Future developers (including yourself) will thank you
+- **Document every table and column** — Future developers (including yourself) will thank you. Pair schema docs with a [Migration Runbook](/docs/templates/database-migration-runbook-template) for change tracking.
 - **Explain business meaning, not just types** — `status` is obvious; why `metadata` exists is not
-- **Include the "why" for indexes** — Indexes have cost; document what query they serve
+- **Include the "why" for indexes** — Indexes have cost; document what query they serve. See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) for indexing strategy.
 - **Version your schema docs** — Track what changed and when, just like code
 - **Keep the ER diagram updated** — Visual reference is faster than reading SQL for understanding relationships
 - **Mark deprecated columns** — Do not delete docs for dropped columns immediately; mark them deprecated with a removal date
@@ -50,7 +50,7 @@ seo:
 
 ### Should I auto-generate schema docs from the database?
 
-Yes, for the structural baseline. Tools like tbls, dbdocs, or pg_dump comments are great starting points. But always add narrative documentation — the "why" behind design decisions cannot be extracted from DDL.
+Yes, for the structural baseline. Tools like tbls, dbdocs, or pg_dump comments are great starting points. Track structural changes with the [Database Migration Runbook](/docs/templates/database-migration-runbook-template). But always add narrative documentation — the "why" behind design decisions cannot be extracted from DDL.
 
 ### How do I keep schema docs in sync with the database?
 

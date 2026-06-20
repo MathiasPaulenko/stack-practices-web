@@ -36,9 +36,9 @@ Soft deletes mark records as deleted without actually removing them from the dat
 ## When to Use
 
 Use this resource when:
-- Users need to recover accidentally deleted data
-- You must maintain audit trails for compliance (GDPR, HIPAA, SOC2)
-- Foreign key constraints prevent hard deletes
+- Users need to recover accidentally deleted data. See [Database Transactions](/recipes/databases/database-transactions) for rollback patterns.
+- You must maintain audit trails for compliance (GDPR, HIPAA, SOC2). See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance.
+- Foreign key constraints prevent hard deletes. See [SQL Joins](/recipes/databases/sql-joins) for relational patterns.
 - You want to show "recently deleted" trash/recycle bin features
 
 ## Solution
@@ -175,8 +175,8 @@ For true removal, implement a "hard delete" or "purge" operation that runs `DELE
 
 - **Always filter by default**: Your ORM or query builder should exclude deleted records unless explicitly asked.
 - **Include `deleted_at` in unique indexes**: Otherwise you can't recreate a record with the same unique key after soft delete.
-- **Schedule periodic hard deletes**: GDPR's "right to erasure" requires actual deletion after a retention period.
-- **Log hard deletes separately**: When you finally purge, log it to an audit table or event stream.
+- **Schedule periodic hard deletes**: GDPR's "right to erasure" requires actual deletion after a retention period. See [Batch Processing](/recipes/data/batch-processing-patterns) for scheduled jobs.
+- **Log hard deletes separately**: When you finally purge, log it to an audit table or event stream. See [Logging](/recipes/api/logging) for audit trails.
 - **Test your recovery flow**: A soft delete is useless if users can't actually restore from a trash UI.
 
 ## Common Mistakes

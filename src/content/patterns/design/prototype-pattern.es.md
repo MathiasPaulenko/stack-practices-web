@@ -39,7 +39,7 @@ seo:
 
 ## Visión General
 
-El Patrón Prototype es un patrón de diseño creacional que crea nuevos objetos copiando los existentes. En lugar de construir objetos desde cero usando constructores, clonas una instancia prototipo y opcionalmente la personalizas. Esto es especialmente útil cuando la creación de objetos es costosa, involucra configuraciones complejas, o cuando necesitas objetos similares pero no idénticos.
+El [Patrón Prototype](/patterns/design/prototype-pattern-cloning) es un patrón de diseño creacional que crea nuevos objetos copiando los existentes. En lugar de construir objetos desde cero usando constructores, clonas una instancia prototipo y opcionalmente la personalizas. Esto es especialmente útil cuando la creación de objetos es costosa, involucra configuraciones complejas, o cuando necesitas objetos similares pero no idénticos.
 
 ## Cuándo Usarlo
 
@@ -235,10 +235,10 @@ El desafío clave es decidir entre **copia superficial** (copia referencias) y *
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre Prototype y Factory?**
-R: Factory crea objetos usando un método/clase separado. Prototype crea objetos copiando una instancia existente. Usa Factory cuando la lógica de creación es compleja; usa Prototype cuando los objetos son costosos de construir desde cero.
+R: [Factory](/patterns/design/factory-pattern) crea objetos usando un método/clase separado. Prototype crea objetos copiando una instancia existente. Usa Factory cuando la lógica de creación es compleja; usa Prototype cuando los objetos son costosos de construir desde cero.
 
 **P: ¿Debo usar siempre copia profunda?**
 R: No. Usa copia superficial cuando los objetos anidados son inmutables o cuando quieres referencias compartidas intencionalmente. Usa copia profunda cuando los objetos anidados son mutables y deben ser independientes.
 
 **P: ¿Cómo se compara Prototype con el patrón Builder?**
-R: Builder construye un objeto paso a paso. Prototype copia un objeto completamente construido. Resuelven problemas diferentes: Builder es para construcción compleja, Prototype es para duplicación.
+R: [Builder](/patterns/design/builder-pattern) construye un objeto paso a paso. Prototype copia un objeto completamente construido. Resuelven problemas diferentes: Builder es para construcción compleja, Prototype es para duplicación.

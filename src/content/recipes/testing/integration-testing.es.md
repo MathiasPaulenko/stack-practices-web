@@ -39,12 +39,12 @@ Los tests de integración son más lentos y complejos que los unit tests, pero c
 
 Usa esta receta cuando:
 
-- Verificas que repositorios de base de datos y migraciones funcionan correctamente
-- Testeas endpoints de API HTTP con ciclos reales de request/response
-- Confirmas que productores y consumidores de colas de mensajes se integran apropiadamente
-- Validas comportamiento de SDKs o APIs de terceros
-- Chequeas que la configuración y el setup del entorno sean correctos
-- Ejecutas smoke tests pre-despliegue en pipelines de CI/CD
+- Verificas que repositorios de base de datos y migraciones funcionan correctamente. Consulta [Connection Pooling](/recipes/performance/connection-pooling) para gestión de conexiones.
+- Testeas endpoints de API HTTP con ciclos reales de request/response. Consulta [Call REST API](/recipes/api/call-rest-api) para diseño de APIs.
+- Confirmas que productores y consumidores de colas de mensajes se integran apropiadamente. Consulta [Kafka Event Streaming](/recipes/messaging/kafka-event-streaming) para mensajería.
+- Validas comportamiento de SDKs o APIs de terceros. Consulta [Handle Errors](/recipes/api/handle-errors) para manejo de fallos.
+- Chequeas que la configuración y el setup del entorno sean correctos. Consulta [Environment Variables](/recipes/devops/environment-variables) para configuración.
+- Ejecutas smoke tests pre-despliegue en pipelines de CI/CD. Consulta [CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para pipelines.
 
 ## Solución
 

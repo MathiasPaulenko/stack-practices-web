@@ -39,10 +39,10 @@ Herramientas modernas como k6 y JMeter permiten definir escenarios en código o 
 
 Usa esta receta cuando:
 
-- Te preparas para un lanzamiento de producto, campaña de marketing o pico de tráfico estacional
+- Te preparas para un lanzamiento de producto, campaña de marketing o pico de tráfico estacional. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para manejar conexiones concurrentes a base de datos.
 - Migras infraestructura y necesitas validar que la nueva plataforma maneja carga equivalente
-- Estableces baselines de rendimiento y Objetivos de Nivel de Servicio (SLOs)
-- Investigas timeouts o errores intermitentes que solo aparecen bajo carga concurrente
+- Estableces baselines de rendimiento y Objetivos de Nivel de Servicio (SLOs). Consulta [Caching Strategies](/recipes/performance/caching-strategies) para reducir carga en servicios backend.
+- Investigas timeouts o errores intermitentes que solo aparecen bajo carga concurrente. Consulta [Rate Limiting](/recipes/api/rate-limiting) para proteger APIs bajo tráfico intenso.
 - Comparas rendimiento antes y después de un cambio mayor de código o infraestructura
 
 ## Solución

@@ -212,7 +212,7 @@ class ShoppingCart:
 
 ## Errores Comunes de TDD
 
-- **Probar implementación, no comportamiento** — haz assertions sobre valores de retorno, no sobre estado interno. Consulta [unit testing](/recipes/unit-testing).
+- **Probar implementación, no comportamiento** — haz assertions sobre valores de retorno, no sobre estado interno. Consulta [unit testing](/recipes/testing/unit-testing).
 - **Escribir demasiados tests antes de código** — mantén el ciclo corto (minutos, no horas)
 - **Saltar el paso de refactor** — el tercer paso es donde mejora el [código limpio](/guides/design/clean-code-principles-guide)
 - **Probar getters/setters triviales** — enfócate en lógica y decisiones

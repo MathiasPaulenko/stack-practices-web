@@ -30,7 +30,7 @@ seo:
 
 # Iterator Pattern para Traversal de Colecciones Custom en TypeScript
 
-El Iterator pattern provee una forma de acceder a elementos de un objeto agregado secuencialmente sin exponer su representacion subyacente. Separa el algoritmo de traversal de la estructura de coleccion, permitiendo iterar sobre arrays, arboles, grafos o streams con la misma interfaz.
+El [Iterator](/patterns/design/iterator-pattern) pattern provee una forma de acceder a elementos de un objeto agregado secuencialmente sin exponer su representacion subyacente. Separa el algoritmo de traversal de la estructura de coleccion, permitiendo iterar sobre arrays, arboles, grafos o streams con la misma interfaz.
 
 ## Cuando Usar Esto
 
@@ -40,7 +40,7 @@ El Iterator pattern provee una forma de acceder a elementos de un objeto agregad
 
 ## Problema
 
-Una estructura de arbol requiere diferentes ordenes de traversal para diferentes casos de uso, pero cada traversal esta fuertemente acoplado a la implementacion del nodo del arbol.
+Una estructura de [arbol](/patterns/design/composite-pattern) requiere diferentes ordenes de traversal para diferentes casos de uso, pero cada traversal esta fuertemente acoplado a la implementacion del nodo del arbol.
 
 ## Solucion
 
@@ -239,4 +239,4 @@ R: Iterator separa traversal de la coleccion, permitiendo multiples algoritmos y
 R: Si. Implementa `[Symbol.iterator]` y usa generators para integrar con `for...of`, spread syntax y destructuring.
 
 **P: Cuando deberia usar async iterators?**
-R: Para queries paginadas de base de datos, lecturas de archivos en streaming, o cualquier coleccion donde elementos llegan asincronicamente.
+R: Para [queries paginadas de base de datos](/recipes/databases/sql-joins), lecturas de archivos en streaming, o cualquier coleccion donde elementos llegan asincronicamente.

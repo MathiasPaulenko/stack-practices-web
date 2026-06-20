@@ -30,14 +30,14 @@ seo:
 ---
 ## Overview
 
-[Describe what this resource covers and why it matters for developers.]
+Rate limiting protects APIs from abuse and ensures fair resource distribution. See [API Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for a complete Redis-based implementation and [API Security Checklist](/guides/security/api-security-checklist-guide) for broader security practices.
 
 ## When to Use
 
 Use this resource when:
-- [Scenario 1]
-- [Scenario 2]
-- [Scenario 3]
+- Public APIs need protection against brute force and scraping
+- Different user tiers require different rate limits
+- Multiple API nodes must share rate limit state consistently
 
 ## Solution
 
@@ -71,19 +71,19 @@ Use this resource when:
 
 ## Best Practices
 
-1. [Best practice 1]
-2. [Best practice 2]
-3. [Best practice 3]
-4. [Best practice 4]
-5. [Best practice 5]
+1. Use token bucket for controlled bursts and sliding window for strict limits
+2. Return `Retry-After` headers with 429 responses so clients know when to retry
+3. Rate limit by user ID, not just IP, to avoid blocking legitimate users behind NAT
+4. Log rate limit violations for security monitoring and abuse detection
+5. Implement [circuit breaker](/patterns/design/circuit-breaker-pattern) around Redis to fail open if the cache is down
 
 ## Common Mistakes
 
-1. [Mistake 1]
-2. [Mistake 2]
-3. [Mistake 3]
-4. [Mistake 4]
-5. [Mistake 5]
+1. Rate limiting only by IP, which blocks legitimate users behind NAT
+2. Not handling Redis failures gracefully, causing API outages
+3. Returning 429 without `Retry-After` headers, leaving clients guessing
+4. Using the same rate limit for all endpoints regardless of cost or sensitivity
+5. Ignoring rate limit violations instead of logging them for security analysis
 
 ## Frequently Asked Questions
 

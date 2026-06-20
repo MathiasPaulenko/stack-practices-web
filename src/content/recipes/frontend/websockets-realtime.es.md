@@ -34,10 +34,10 @@ WebSockets proveen comunicación full-duplex persistente entre navegadores y ser
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Construyas aplicaciones de chat o sistemas de comentarios en vivo
-- Streamings de datos en tiempo real a dashboards (acciones, métricas, IoT)
-- Implementes sincronización de estado de juegos multijugador
-- Crees herramientas de edición colaborativa (como Google Docs)
+- Construyas aplicaciones de chat o sistemas de comentarios en vivo. Consulta [Event-Driven Functions](/recipes/messaging/event-driven-microservices) para manejo de eventos backend.
+- Streamings de datos en tiempo real a dashboards (acciones, métricas, IoT). Consulta [Prometheus API Monitoring](/recipes/observability/prometheus-api-monitoring) para dashboards de métricas.
+- Implementes sincronización de estado de juegos multijugador. Consulta [Cold Start Optimization](/recipes/performance/connection-pooling) para serverless de baja latencia.
+- Crees herramientas de edición colaborativa (como Google Docs). Consulta [JavaScript Event Loop](/recipes/frontend/javascript-event-loop) para actualizaciones de UI non-blocking.
 
 ## Solución
 

@@ -37,10 +37,10 @@ Most applications need external configuration to adapt behavior across environme
 ## When to Use
 
 Use this resource when:
-- Loading database credentials, API keys, or feature flags from external files
-- Supporting multiple deployment environments with different settings
-- Validating user-supplied configuration to fail fast on startup
-- Migrating from hard-coded constants to file-based configuration
+- Loading database credentials, API keys, or feature flags from external files. See [Environment Variables](/recipes/devops/environment-variables) for runtime secret injection.
+- Supporting multiple deployment environments with different settings. See [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) for local environment parity.
+- Validating user-supplied configuration to fail fast on startup. See [Input Validation](/recipes/api/input-validation) for validation patterns.
+- Migrating from hard-coded constants to file-based configuration. See [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) for migration scripting.
 
 ## Solution
 

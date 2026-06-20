@@ -44,10 +44,10 @@ The Flyweight Pattern is a structural design pattern that minimizes memory usage
 ## When to Use
 
 Use the Flyweight Pattern when:
-- Your application uses a large number of objects that share common state
-- Object storage costs are high due to massive duplication
+- Your application uses a large number of objects that share common state. See [Object Pool](/patterns/design/abstract-factory-pattern) for reusable instance management.
+- Object storage costs are high due to massive duplication. See [Caching Strategies](/recipes/performance/caching-strategies) for reducing data duplication.
 - Most of an object's state can be made extrinsic (computed or passed in)
-- You need to support many granular objects without exhausting memory
+- You need to support many granular objects without exhausting memory. See [Database Indexing](/recipes/performance/database-indexing) for storage optimization techniques.
 - Examples: characters in a document, tiles in a game map, icons in a UI
 
 ## Solution
@@ -225,10 +225,10 @@ The **Flyweight Factory** (`TreeType.get()`) manages a cache of shared flyweight
 ## Frequently Asked Questions
 
 **Q: Is Flyweight the same as a Singleton?**
-A: No. Singleton enforces exactly one instance of a class. Flyweight creates one instance per unique intrinsic state combination. A singleton is a special case where all state is shared.
+A: No. [Singleton](/patterns/design/singleton-pattern) enforces exactly one instance of a class. Flyweight creates one instance per unique intrinsic state combination. A singleton is a special case where all state is shared.
 
 **Q: When should I not use Flyweight?**
-A: Avoid it when objects are few, state is mostly unique, or the memory savings don't justify the added complexity. Measure first, optimize second.
+A: Avoid it when objects are few, state is mostly unique, or the memory savings don't justify the added complexity. For text rendering, see [Flyweight for Text](/patterns/design/flyweight-pattern-text). Measure first, optimize second.
 
 **Q: How does Flyweight differ from Object Pool?**
 A: Object Pool reuses objects to avoid allocation overhead. Flyweight shares objects to reduce memory footprint. Object Pool objects are typically mutable and returned to the pool; flyweights are shared simultaneously across contexts.

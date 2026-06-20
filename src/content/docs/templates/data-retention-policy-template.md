@@ -30,7 +30,7 @@ seo:
 
 # Data Retention Policy Template
 
-Use this template to define how long data lives, when it moves, and how it is securely destroyed.
+Use this template to define how long data lives, when it moves, and how it is securely destroyed. Complement it with the [Security Incident Response Template](/docs/templates/security-incident-response-template) for breach procedures.
 
 ## Template
 
@@ -103,7 +103,7 @@ Use this template to define how long data lives, when it moves, and how it is se
 - **Tag data at creation** — metadata determines lifecycle, not manual classification later
 - **Test recovery from archive** — archived data that cannot be restored is worthless
 - **Document legal holds** — exceptions must be tracked and expired when the hold ends
-- **Encrypt before archiving** — cold storage is cheaper but still needs protection
+- **Encrypt before archiving** — cold storage is cheaper but still needs protection. See [Web Application Security Guide](/guides/security/web-application-security-guide) for encryption best practices.
 
 ## Common Mistakes
 
@@ -116,7 +116,7 @@ Use this template to define how long data lives, when it moves, and how it is se
 
 ### What happens if a user requests deletion before the retention period ends?
 
-GDPR and CCPA grant users the right to deletion. Implement a "delete on request" workflow that overrides the standard retention schedule. Log the request and the exception.
+GDPR and CCPA grant users the right to deletion. Document this workflow in your [Security Incident Response Template](/docs/templates/security-incident-response-template) procedures. Implement a "delete on request" workflow that overrides the standard retention schedule. Log the request and the exception.
 
 ### How do I handle data in backups that has exceeded its retention period?
 

@@ -118,7 +118,7 @@ Busca:
 - **Pon columnas de igualdad antes que columnas de rango**: en `(a, b)` donde `a = 1` y `b > 100`, el índice en `(a, b)` es mucho más efectivo que `(b, a)`.
 - **Evita indexar columnas de baja cardinalidad solas**: una columna `status` con solo 3 valores (active, pending, archived) no se beneficia de un índice standalone. Combínala con una columna de alta cardinalidad.
 - **Elimina índices no usados**: cada índice ralentiza escrituras. Monitorea estadísticas de uso de índices y elimina índices que nunca se escanean.
-- **Indexa columnas de foreign key**: las bases de datos no siempre indexan automáticamente foreign keys. Índices faltantes en columnas `JOIN` causan escaneos costosos de nested loop. Consulta [diseño de bases de datos](/guides/databases/database-design-guide).
+- **Indexa columnas de foreign key**: las bases de datos no siempre indexan automáticamente foreign keys. Índices faltantes en columnas `JOIN` causan escaneos costosos de nested loop. Consulta [diseño de bases de datos](/guides/databases/database-design-guide). Consulta [SQL Joins](/recipes/databases/sql-joins) para optimización de joins.
 
 ## Errores comunes
 

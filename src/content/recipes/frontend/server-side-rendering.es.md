@@ -28,7 +28,7 @@ seo:
 ---
 ## Visión General
 
-El server-side rendering (SSR) genera HTML en el servidor para cada request, enviando una página completamente renderizada al navegador. Esto mejora la carga inicial de página, [SEO](/guides/performance-optimization-guide) y previews de social sharing. Frameworks modernos como Next.js, Nuxt y Astro combinan SSR con hydration del lado del cliente para entregar first paints rápidos e experiencias interactivas sin sacrificar crawlability.
+El server-side rendering (SSR) genera HTML en el servidor para cada request, enviando una página completamente renderizada al navegador. Esto mejora la carga inicial de página, [SEO](/guides/performance/performance-optimization-guide) y previews de social sharing. Frameworks modernos como Next.js, Nuxt y Astro combinan SSR con hydration del lado del cliente para entregar first paints rápidos e experiencias interactivas sin sacrificar crawlability.
 
 ## Cuándo Usar
 
@@ -36,7 +36,7 @@ Usa este recurso cuando:
 - Construyes sitios con mucho contenido que dependen de indexación por motores de búsqueda
 - El sharing social requiere previews de Open Graph precisos
 - Usuarios en redes lentas necesitan contenido significativo inmediatamente
-- SPAs con mucho JavaScript tienen malos scores de [Core Web Vitals](/recipes/web-performance)
+- SPAs con mucho JavaScript tienen malos scores de [Core Web Vitals](/recipes/performance/web-performance)
 
 ## Solución
 
@@ -141,7 +141,7 @@ const { data: posts } = await useFetch('/api/posts', {
 - **Usa streaming para datos lentos**: Suspense boundaries permiten que UI crítica renderice mientras datos cargan
 - **Evita hydration mismatches**: El HTML del servidor y cliente debe coincidir exactamente
 - **Serializa estado mínimo**: Solo pasa datos que el cliente necesita; evita full database dumps
-- **Cachea responses de SSR**: [CDN caching](/recipes/caching) con `stale-while-revalidate` reduce carga del servidor
+- **Cachea responses de SSR**: [CDN caching](/recipes/data/caching) con `stale-while-revalidate` reduce carga del servidor
 - **Lazy-load below-fold**: Usa `client:visible` (Astro) o dynamic imports para interactividad no crítica
 
 ## Errores Comunes

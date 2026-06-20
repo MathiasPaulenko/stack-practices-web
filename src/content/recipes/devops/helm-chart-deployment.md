@@ -15,7 +15,7 @@ tags:
 relatedResources:
   - /recipes/devops/docker-compose-local-dev
   - /patterns/design/ambassador-pattern-services
-  - /guides/devops-guide
+  - /guides/devops/kubernetes-basics-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -34,9 +34,9 @@ Package and deploy applications to Kubernetes using Helm, the package manager fo
 
 ## When to Use This
 
-- You deploy the same application to multiple environments with different configurations
-- Kubernetes manifests become repetitive and hard to maintain across teams
-- You need versioned releases with easy rollback capabilities
+- You deploy the same application to multiple environments with different configurations. See [Environment Variables](/recipes/devops/environment-variables) for per-environment config.
+- Kubernetes manifests become repetitive and hard to maintain across teams. See [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) for local multi-service templates.
+- You need versioned releases with easy rollback capabilities. See [Blue-Green Deployment](/recipes/devops/blue-green-deployment) for instant rollback.
 
 ## Solution
 

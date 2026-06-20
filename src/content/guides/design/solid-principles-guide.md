@@ -69,7 +69,7 @@ class ReportGenerator:
         ...
 ```
 
-**Why it matters:** When a class has multiple responsibilities, changes to one responsibility can break another. Small, focused classes are easier to understand, test, and reuse.
+**Why it matters:** When a class has multiple responsibilities, changes to one responsibility can break another. Small, focused classes are easier to understand, test, and reuse. See [Clean Code Principles](/guides/design/clean-code-principles-guide) for related practices.
 
 ## O — Open/Closed Principle (OCP)
 
@@ -113,7 +113,7 @@ class CryptoPayment(PaymentMethod):
         ...
 ```
 
-**Why it matters:** Modifying existing, working code introduces risk. By extending through new code, you preserve the stability of what already works.
+**Why it matters:** Modifying existing, working code introduces risk. By extending through new code, you preserve the stability of what already works. See [Strategy Pattern](/patterns/design/strategy-pattern) for interchangeable behavior.
 
 ## L — Liskov Substitution Principle (LSP)
 
@@ -254,7 +254,7 @@ email_notifier = NotificationManager(EmailService())
 sms_notifier = NotificationManager(SMSService())
 ```
 
-**Why it matters:** Depending on abstractions makes the system flexible. You can swap implementations (for testing, different environments, or new requirements) without touching the high-level business logic.
+**Why it matters:** Depending on abstractions makes the system flexible. You can swap implementations (for testing, different environments, or new requirements) without touching the high-level business logic. See [Factory Pattern](/patterns/design/factory-pattern) for creating abstractions.
 
 ## Applying SOLID Together
 

@@ -29,14 +29,14 @@ seo:
 ---
 ## Overview
 
-[Describe what this resource covers and why it matters for developers.]
+Connection pooling reuses established database connections instead of creating a new one per request, dramatically reducing latency and preventing connection exhaustion under load. See [PostgreSQL Query Optimization](/recipes/databases/postgres-query-optimization) for tuning queries that use pooled connections.
 
 ## When to Use
 
 Use this resource when:
-- [Scenario 1]
-- [Scenario 2]
-- [Scenario 3]
+- Your application opens too many connections and the database rejects new requests
+- Latency spikes occur because establishing a TCP + TLS + auth handshake on every request is expensive
+- You need to tune connection limits for serverless or high-concurrency architectures. See [Redis Cache Patterns](/recipes/databases/redis-cache-patterns) for cache-layer pooling. See [Database Transactions](/recipes/databases/database-transactions) for managing transactions with pooled connections.
 
 ## Solution
 

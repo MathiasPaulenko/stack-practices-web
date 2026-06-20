@@ -30,7 +30,7 @@ seo:
 
 # Plantilla de Respuesta a Incidentes de Seguridad
 
-Usa esta plantilla durante un evento de seguridad para asegurar que nada se pasa por alto bajo presión.
+Usa esta plantilla durante un evento de seguridad para asegurar que nada se pasa por alto bajo presión. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para prevención y la [Guía de Respuesta a Incidentes On-Call](/guides/devops/on-call-incident-response-guide) para procedimientos de respuesta.
 
 ## Plantilla
 
@@ -115,7 +115,7 @@ involucrado su [tipo de dato]. Hemos [contenido / remediado] el issue y estamos
 ## Mejores Prácticas
 
 - **Designa un comandante de incidente inmediatamente** — una persona coordina, otros ejecutan
-- **Preserva evidencia antes de contención** — dumps de memoria y logs desaparecen al reiniciar
+- **Preserva evidencia antes de contención** — dumps de memoria y logs desaparecen al reiniciar. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para gestión de logs.
 - **Comunica temprano y frecuentemente** — el silencio genera especulación y penalizaciones regulatorias
 - **Asume brecha hasta que se pruebe lo contrario** — mejor sobre-responder que sub-responder
 - **Documenta sobre la marcha** — la memoria post-incidente es poco confiable
@@ -125,13 +125,13 @@ involucrado su [tipo de dato]. Hemos [contenido / remediado] el issue y estamos
 - Destruir evidencia reiniciando servidores — preserva memoria volátil primero
 - No involucrar legal temprano — las leyes de disclosure tienen deadlines ajustados (72 horas para GDPR)
 - Comunicar demasiado temprano con hechos no verificados — retractar declaraciones daña la confianza
-- Saltarse el postmortem — los incidentes de seguridad enseñan más que outages regulares
+- Saltarse el postmortem — los incidentes de seguridad enseñan más que outages regulares. Usa la [Plantilla de Postmortem de Incidente](/docs/templates/incident-postmortem-template) para seguimiento estructurado.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuándo debería notificar a clientes sobre un incidente de seguridad?
 
-Si sus datos fueron o podrían haber sido accedidos, notifícalos directa y prontamente. Las regulaciones varían: GDPR requiere 72 horas a reguladores, notificación a clientes sin demora indebida. Cuando en duda, notifica.
+Si sus datos fueron o podrían haber sido accedidos, notifícalos directa y prontamente. Consulta la [Plantilla de Política de Retención de Datos](/docs/templates/data-retention-policy-template) para guía de clasificación de datos. Las regulaciones varían: GDPR requiere 72 horas a reguladores, notificación a clientes sin demora indebida. Cuando en duda, notifica.
 
 ### ¿Debería pagar una demanda de ransomware?
 

@@ -35,9 +35,9 @@ k6 es una herramienta moderna de testing de carga construida para desarrolladore
 
 ## Cuando Usar Esto
 
-- Necesitas verificar que las APIs cumplen SLOs de tiempo de respuesta y throughput
-- Quieres simular patrones de trafico de usuarios realistas
-- El testing de regresion debe detectar degradacion de rendimiento en CI/CD
+- Necesitas verificar que las APIs cumplen SLOs de tiempo de respuesta y throughput. Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para monitoreo de APIs.
+- Quieres simular patrones de trafico de usuarios realistas. Consulta [Load Testing](/recipes/testing/load-testing) para estrategias de carga.
+- El testing de regresion debe detectar degradacion de rendimiento en CI/CD. Consulta [CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para integración continua.
 
 ## Requisitos Previos
 

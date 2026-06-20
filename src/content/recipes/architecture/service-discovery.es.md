@@ -29,7 +29,7 @@ seo:
 ---
 ## Visión General
 
-El service discovery es el mecanismo por el cual los [microservicios](/guides/microservices-architecture-guide) se localizan y comunican entre sí en ambientes dinámicos donde las direcciones IP cambian constantemente. En lugar de hardcodear endpoints, los servicios se registran en un registro y los clientes lo consultan para encontrar instancias saludables. Combinado con [health checks](/recipes/health-check-endpoint), habilita sistemas auto-curativos que rutean alrededor de fallas automáticamente.
+El service discovery es el mecanismo por el cual los [microservicios](/guides/architecture/microservices-architecture-guide) se localizan y comunican entre sí en ambientes dinámicos donde las direcciones IP cambian constantemente. En lugar de hardcodear endpoints, los servicios se registran en un registro y los clientes lo consultan para encontrar instancias saludables. Combinado con [health checks](/recipes/devops/health-check-endpoint), habilita sistemas auto-curativos que rutean alrededor de fallas automáticamente.
 
 ## Cuándo Usar
 
@@ -37,7 +37,7 @@ Usa este recurso cuando:
 - Ejecutas microservicios en Kubernetes, ECS o auto-scaling groups donde las IPs son efímeras
 - Necesitas failover automático cuando instancias de servicio fallan o se vuelven unhealthy
 - Balanceas carga entre múltiples instancias sin actualizaciones manuales de configuración
-- Implementas [despliegues blue-green](/recipes/blue-green-deployment) o canary releases que requieren routing dinámico de tráfico
+- Implementas [despliegues blue-green](/recipes/devops/blue-green-deployment) o canary releases que requieren routing dinámico de tráfico
 
 ## Solución
 
@@ -151,7 +151,7 @@ public class OrderProcessor {
 - **Cache con fallback**: Los clientes deben cachear listas de instancias y usar datos stale brevemente si el registry no está disponible
 - **Routing zone-aware**: Preferir instancias en la misma AZ para reducir latencia y costos de transferencia de datos
 - **Metadata para routing**: Etiquetar instancias con versiones para habilitar canary y A/B testing
-- **Seguridad con mTLS**: Encriptar comunicación service-to-service; autenticar servicios registrados. Consulta [API security checklist](/guides/api-security-checklist).
+- **Seguridad con mTLS**: Encriptar comunicación service-to-service; autenticar servicios registrados. Consulta [API security checklist](/guides/security/api-security-checklist-guide).
 
 ## Errores Comunes
 
@@ -159,7 +159,7 @@ public class OrderProcessor {
 2. **Thundering herd**: Todos los clientes consultando el registry simultáneamente bajo carga
 3. **Ignorar deregistration**: Servicios crashados permanecen en el pool hasta que expire el TTL
 4. **Hard-codear fallback IPs**: Anula el propósito del discovery dinámico
-5. **Omitir retries**: Una instancia fallida debería disparar un retry en otra, no fallar el request. Usa [retry con backoff exponencial](/recipes/retry-backoff) para clientes resilientes.
+5. **Omitir retries**: Una instancia fallida debería disparar un retry en otra, no fallar el request. Usa [retry con backoff exponencial](/recipes/architecture/retry-backoff) para clientes resilientes.
 
 ## Preguntas Frecuentes
 
@@ -167,7 +167,7 @@ public class OrderProcessor {
 R: Client-side es más rápido (sin hop extra) pero requiere clientes inteligentes. Server-side es más simple pero agrega latencia. DNS-based es el más simple para Kubernetes.
 
 **P: ¿Cómo funciona el service discovery con serverless?**
-R: AWS Cloud Map, GCP Service Directory o service registries de API Gateway se integran con Lambda y Cloud Run. Aprende más en [arquitectura serverless](/guides/serverless-architecture-guide).
+R: AWS Cloud Map, GCP Service Directory o service registries de API Gateway se integran con Lambda y Cloud Run. Aprende más en [arquitectura serverless](/guides/architecture/event-driven-architecture-guide).
 
 **P: ¿Cuál es la diferencia entre service discovery y load balancing?**
-R: El discovery encuentra instancias disponibles; [load balancing](/recipes/load-balancing) distribuye tráfico entre ellas. A menudo trabajan juntas.
+R: El discovery encuentra instancias disponibles; [load balancing](/recipes/architecture/load-balancing) distribuye tráfico entre ellas. A menudo trabajan juntas.

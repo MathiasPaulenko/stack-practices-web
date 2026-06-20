@@ -159,7 +159,7 @@ server {
 
 - Use **compression level 4-6** for dynamic content; level 11 for pre-compressed static assets
 - Monitor **CPU usage**; Brotli at high levels can be CPU-intensive
-- Combine with a **[CDN](/recipes/performance/cdn-edge-caching)** that supports Brotli caching for maximum benefit
+- Combine with a **[CDN](/recipes/data/caching)** that supports Brotli caching for maximum benefit
 - Test with **WebPageTest** or Lighthouse to verify transfer size reductions and [Core Web Vitals](/guides/performance/performance-optimization-guide)
 
 ## Common Mistakes

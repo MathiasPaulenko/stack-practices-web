@@ -36,11 +36,11 @@ La idea central de DDD es que los dominios grandes son demasiado complejos para 
 
 Usa esta receta cuando:
 
-- Construyendo aplicaciones donde las reglas de negocio son complejas, cambian frecuentemente o son poco comprendidas
+- Construyendo aplicaciones donde las reglas de negocio son complejas, cambian frecuentemente o son poco comprendidas. Consulta [Arquitectura Hexagonal](/recipes/design/hexagonal-architecture) para aislar lógica de dominio.
 - Trabajando con expertos de dominio que usan terminología precisa que debería reflejarse en el código
 - Descomponiendo un monolito donde diferentes departamentos tienen modelos conflictivos del mismo concepto
-- Implementando sistemas event-sourced donde el modelo de dominio impulsa la persistencia
-- Refactorizando código legacy donde la lógica de negocio está dispersa entre capas y frameworks
+- Implementando sistemas event-sourced donde el modelo de dominio impulsa la persistencia. Consulta [Event Sourcing](/recipes/databases/event-sourcing-relational) para patrones de persistencia.
+- Refactorizando código legacy donde la lógica de negocio está dispersa entre capas y frameworks. Consulta [Guía de Clean Code](/guides/design/clean-code-principles-guide) para refactoring mantenible.
 
 ## Solución
 
@@ -197,7 +197,7 @@ public class OrderToShipmentAdapter {
 - **Mantén aggregates pequeños**: un aggregate debería caber cómodamente en memoria y ser escribible en una sola transacción. Si cargar una orden requiere unir 50 tablas, tu aggregate es demasiado grande. Separa en aggregates más pequeños y usa consistencia eventual vía domain events.
 - **Diseña para invariantes, no CRUD**: en lugar de métodos genéricos `create`, `update`, `delete`, expón métodos orientados a comportamiento como `add_item`, `submit`, `cancel`. Estos métodos enforce reglas de negocio (ej. "no se puede cancelar una orden enviada") en la capa de dominio.
 - **Usa el lenguaje ubicuo**: nombra clases, métodos y variables usando los mismos términos que usan los expertos de dominio. Si los contadores dicen "postear un asiento contable", tu código debería tener `journal.post_entry()`, no `create_transaction_record()`. Esto cierra la brecha entre código y conversación.
-- **Publica domain events antes de persistencia**: el patrón es — mutar aggregate, colectar eventos, persistir aggregate, publicar eventos. Si la persistencia falla, los eventos nunca fueron publicados, manteniendo consistencia. Nunca publiques eventos antes de que la transacción se confirme.
+- **Publica domain events antes de persistencia**: el patrón es — mutar aggregate, colectar eventos, persistir aggregate, publicar eventos. Consulta [Transacciones de Base de Datos](/recipes/databases/database-transactions) para consistencia atómica. Si la persistencia falla, los eventos nunca fueron publicados, manteniendo consistencia. Nunca publiques eventos antes de que la transacción se confirme.
 - **Evita modelos de dominio anémicos**: un modelo anémico tiene entidades con solo getters y setters, mientras toda la lógica vive en clases de servicio. Esto es solo un esquema de base de datos en código. Empuja las reglas de negocio hacia entidades y value objects donde pertenecen.
 
 ## Errores comunes

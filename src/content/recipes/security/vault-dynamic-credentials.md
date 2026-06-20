@@ -16,7 +16,7 @@ tags:
 relatedResources:
   - /recipes/secret-management
   - /recipes/security-headers
-  - /guides/security-best-practices
+  - /guides/security/security-best-practices-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

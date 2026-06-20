@@ -37,9 +37,9 @@ Communicating Sequential Processes (CSP), popularizado por Go, invierte este mod
 Usa esta receta cuando:
 
 - Múltiples workers concurrentes necesitan coordinar sin estado mutable compartido
-- Construyendo pipelines donde la salida de una etapa es la entrada de la siguiente
+- Construyendo [pipelines](/guides/architecture/microservices-architecture-guide) donde la salida de una etapa es la entrada de la siguiente
 - Implementando fan-out (un productor, muchos consumidores) y fan-in (muchos productores, un consumidor)
-- Reemplazando concurrencia basada en locks por paso de mensajes para claridad y seguridad
+- Reemplazando [concurrencia basada en locks](/recipes/concurrency/concurrent-data-structures) por paso de mensajes para claridad y seguridad
 - Escribiendo programas en Go donde goroutines y channels son el modelo de concurrencia idiomático
 
 ## Solución
@@ -223,7 +223,7 @@ R: Bajo el capó, los channels usan locks y variables de condición. Pero la abs
 R: Go maneja rutinariamente cientos de miles de goroutines. Comienzan con un stack de 2KB que crece y decrece. El scheduler multiplexa goroutines sobre threads del SO (scheduling M:N). El límite es la memoria — cada goroutine consume cierto overhead. Si alcanzas límites de memoria, usa un worker pool con un número fijo de goroutines.
 
 **P: ¿Debería usar mutexes o channels?**
-R: Usa channels para coordinar y comunicar entre goroutines. Usa mutexes para proteger estado compartido que debe ser accedido por múltiples goroutines. El proverbio de Go es "comparte memoria comunicando, no comuniques compartiendo memoria." Cuando dudes, comienza con channels.
+R: Usa channels para coordinar y comunicar entre goroutines. Usa mutexes para proteger estado compartido que debe ser accedido por múltiples goroutines. El proverbio de Go es "comparte memoria comunicando, no comuniques compartiendo memoria." Cuando dudes, comienza con channels. Consulta [Estructuras de Datos Concurrentes](/recipes/concurrency/concurrent-data-structures) para alternativas basadas en locks.
 
 **P: ¿Puedo usar patrones CSP en lenguajes distintos a Go?**
 R: Sí — Rust tiene `tokio::sync::mpsc`, JavaScript puede usar async generators, y lenguajes como Clojure tienen core.async. El patrón fundamental (paso de mensajes entre procesos secuenciales) es agnóstico al lenguaje, aunque la sintaxis nativa de Go (`go`, `chan`, `select`) lo hace el más ergonómico.

@@ -49,7 +49,7 @@ La observabilidad es la capacidad de entender el estado interno de un sistema ex
 
 ## Logging Estructurado
 
-Reemplaza texto libre por JSON parseable por máquinas.
+Reemplaza texto libre por JSON parseable por máquinas. Consulta [Structured Logging](/recipes/observability/structured-logging) para implementación práctica.
 
 ### Formato
 

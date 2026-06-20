@@ -38,10 +38,10 @@ Importing data from CSV or Excel is a staple of admin panels, data migration too
 ## When to Use
 
 Use this resource when:
-- Users upload spreadsheets to bulk-create or bulk-update records
-- Migrating data from legacy systems or external vendors
-- Building ETL pipelines that process scheduled file drops
-- Admin panels need a "upload and import" feature
+- Users upload spreadsheets to bulk-create or bulk-update records. See [File Upload Validation](/recipes/file-handling/file-upload-validation) for secure upload handling.
+- Migrating data from legacy systems or external vendors. See [Export CSV Excel](/recipes/file-handling/export-csv-excel) for the reverse migration workflow.
+- Building ETL pipelines that process scheduled file drops. See [Stream Processing](/recipes/file-handling/stream-processing) for memory-efficient pipelines.
+- Admin panels need a "upload and import" feature. See [Background Jobs](/recipes/devops/background-jobs) for async import processing.
 
 ## Solution
 

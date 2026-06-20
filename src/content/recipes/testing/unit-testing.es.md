@@ -192,7 +192,7 @@ Ejecutar: `mvn test` o el runner de tu IDE.
 - **Nombra tests según comportamiento**: `sumaNumerosNegativos` es mejor que `test_add2` porque describe la intención.
 - **Un concepto por test**: si necesitas múltiples asserts, asegúrate de que verifiquen un solo resultado lógico. De lo contrario, divide el test.
 - **Evita lógica en tests**: sin sentencias `if` ni bucles en tests — hacen que los fallos sean más difíciles de diagnosticar.
-- **Usa fakes sobre mocks cuando sea posible**: un repositorio en memoria fake es más simple que [mockear](/recipes/testing/unit-testing-mocking) cada llamada a método.
+- **Usa fakes sobre mocks cuando sea posible**: un repositorio en memoria fake es más simple que [mockear](/recipes/testing/unit-testing) cada llamada a método.
 - **Mantén los tests cerca del código**: coloca los archivos de test junto al fuente (co-locación) o en un directorio `tests/` espejado.
 
 ## Common Mistakes

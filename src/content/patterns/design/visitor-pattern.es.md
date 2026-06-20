@@ -45,9 +45,9 @@ El Patrón Visitor es un patrón de diseño de comportamiento que te permite def
 ## Cuándo usarlo
 
 Usa el Patrón Visitor cuando:
-- Necesites realizar operaciones sobre todos los elementos de una estructura de objetos compleja
-- La estructura de objetos sea estable pero las operaciones sobre ella cambien frecuentemente
-- Quieras evitar contaminar las clases de elementos con operaciones no relacionadas
+- Necesites realizar operaciones sobre todos los elementos de una estructura de objetos compleja. Consulta [Composite Pattern](/patterns/design/composite-pattern) para estructuras de árbol.
+- La estructura de objetos sea estable pero las operaciones sobre ella cambien frecuentemente. Consulta [Strategy Pattern](/patterns/design/strategy-pattern) para algoritmos intercambiables.
+- Quieras evitar contaminar las clases de elementos con operaciones no relacionadas. Consulta [Single Responsibility Principle](/patterns/design/solid-principles-typescript) para clases enfocadas.
 - La lógica de la operación dependa de la clase concreta del elemento, no solo de la interfaz
 - Ejemplos: recorrido de AST (compiladores), exportación de documentos (PDF, HTML), generación de reportes sobre árboles de entidades
 
@@ -270,7 +270,7 @@ Esto se conoce como **doble despacho**: el primer despacho es `shape.accept(visi
 - **Agrupa operaciones relacionadas** en un solo visitor en lugar de muchos pequeños
 - **Considera `instanceof` + sealed classes** (Java 17+) como alternativa moderna
 - **Mantén los visitors sin estado** cuando sea posible, o documenta claramente el estado mutable
-- **Úsalo junto con Composite** para recorrer estructuras de árbol
+- **Úsalo junto con [Composite](/patterns/design/composite-pattern)** para recorrer estructuras de árbol
 
 ## Errores comunes
 
@@ -283,7 +283,7 @@ Esto se conoce como **doble despacho**: el primer despacho es `shape.accept(visi
 ## Preguntas frecuentes
 
 **P: ¿Por qué no simplemente agregar métodos a las clases de elementos directamente?**
-R: Si la operación es específica de un caso de uso del cliente (ej. exportación a PDF) y no es intrínseca al elemento, agregarla directamente viola el Principio de Responsabilidad Única. Visitor mantiene las clases de elementos enfocadas.
+R: Si la operación es específica de un caso de uso del cliente (ej. exportación a PDF) y no es intrínseca al elemento, agregarla directamente viola el [Principio de Responsabilidad Única](/patterns/design/solid-principles-typescript). Visitor mantiene las clases de elementos enfocadas.
 
 **P: ¿Hay una alternativa moderna a Visitor?**
 R: En lenguajes con sealed classes y pattern matching (Java 17+, TypeScript 5.3+), puedes usar expresiones `switch` con type checking exhaustivo en lugar del doble despacho clásico de Visitor.

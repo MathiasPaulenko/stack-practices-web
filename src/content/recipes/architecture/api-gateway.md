@@ -39,7 +39,7 @@ An API gateway solves this by acting as a single entry point. Clients talk to on
 Use this recipe when:
 
 - Operating 5+ backend services that clients must access directly
-- Needing centralized authentication, rate limiting, or logging across all APIs
+- Needing centralized [authentication](/recipes/authentication/jwt-authentication), [rate limiting](/recipes/api/api-rate-limiting-redis), or logging across all APIs
 - Supporting multiple client types (web, mobile, IoT) with different API requirements
 - Migrating from a monolith to microservices while maintaining a stable external contract
 - Requiring protocol translation between GraphQL clients and REST backends
@@ -213,17 +213,17 @@ app.listen(3000, () => console.log('Gateway running on port 3000'));
 
 ## Best practices
 
-- **Implement circuit breakers at the gateway**: if a backend service is failing, the gateway should stop forwarding requests and return a cached response or 503. This prevents cascading failures and gives struggling services time to recover.
+- **Implement [circuit breakers](/recipes/architecture/circuit-breaker-pattern) at the gateway**: if a backend service is failing, the gateway should stop forwarding requests and return a cached response or 503. This prevents cascading failures and gives struggling services time to recover.
 - **Use path versioning**: include API version in the path (`/api/v1/users`) rather than headers. This makes routing explicit, supports multiple versions simultaneously, and simplifies cache key generation.
 - **Centralize observability**: the gateway is the ideal place for distributed tracing, metrics, and logging. Inject trace IDs at the edge and propagate them to all downstream services. Every request flows through the gateway — use that visibility.
-- **Offload authentication**: validate JWTs or API keys at the gateway. Forward only authenticated requests with user context headers to backends. Services should not need to validate tokens themselves, but they must still enforce authorization.
+- **Offload authentication**: [validate JWTs](/recipes/authentication/jwt-authentication) or API keys at the gateway. Forward only authenticated requests with user context headers to backends. Services should not need to validate tokens themselves, but they must still enforce authorization.
 - **Cache aggressively at the edge**: read-heavy endpoints like product catalogs, user profiles, and configuration data should be cached at the gateway with short TTLs. This reduces backend load and improves response times dramatically.
 
 ## Common mistakes
 
 - **Putting business logic in the gateway**: the gateway should route, authenticate, and rate limit — not calculate prices, apply discounts, or validate business rules. Business logic belongs in domain services. A bloated gateway becomes a new monolith.
-- **No timeout or retry strategy**: forwarding requests without timeout budgets causes threads to block indefinitely when a backend is slow. Set per-route timeouts and implement retries with backoff only for idempotent operations.
-- **Single point of failure**: a single gateway instance is a bottleneck. Deploy multiple instances behind a load balancer with health checks. Use blue/green or canary deployments for gateway updates to prevent downtime.
+- **No timeout or retry strategy**: forwarding requests without timeout budgets causes threads to block indefinitely when a backend is slow. See [Retry Logic](/recipes/architecture/retry-backoff) for backoff strategies. Set per-route timeouts and implement retries with backoff only for idempotent operations.
+- **Single point of failure**: a single gateway instance is a bottleneck. Deploy multiple instances behind a [load balancer](/recipes/api/nginx-reverse-proxy) with health checks. Use blue/green or canary deployments for gateway updates to prevent downtime.
 - **Ignoring client-specific needs**: mobile apps need smaller payloads and fewer round trips than web apps. Implement backend-for-frontend (BFF) gateways — one optimized for mobile, one for web — rather than forcing all clients through a generic API.
 
 ## FAQ

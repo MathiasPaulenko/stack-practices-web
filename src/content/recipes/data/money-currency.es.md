@@ -36,10 +36,10 @@ Los cálculos financieros exigen precisión. Los números de punto flotante (`fl
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Construyas carritos de e-commerce, flujos de checkout o sistemas de facturación
+- Construyas carritos de e-commerce, flujos de checkout o sistemas de facturación. Consulta [Input Validation](/recipes/api/input-validation) para sanitizar datos de ordenes.
 - Agregues transacciones financieras donde la precisión al nivel del centavo importa
 - Muestres precios en múltiples monedas con reglas de redondeo correctas
-- Conviertas entre monedas usando APIs de tasas de cambio externas
+- Conviertas entre monedas usando [APIs de tasas de cambio externas](/recipes/api/call-rest-api)
 
 ## Solución
 
@@ -185,7 +185,7 @@ public class Money {
 2. **Redondea en el límite correcto** — calcula líneas de ítem con precisión completa, redondea por línea, luego suma los valores redondeados para el total.
 3. **Separa dinero de visualización** — mantén `Decimal` / `BigDecimal` / centavos internamente y formatea solo en la capa UI/API.
 4. **Usa redondeo bancario (HALF_UP)** para la mayoría de monedas; algunas jurisdicciones requieren HALF_EVEN — conoce tu dominio.
-5. **Cachea tasas de cambio** con TTL y timestamp; siempre convierte usando la tasa vigente al momento de la transacción.
+5. **[Cachea tasas de cambio](/recipes/data/caching)** con TTL y timestamp; siempre convierte usando la tasa vigente al momento de la transacción.
 
 ## Errores Comunes
 

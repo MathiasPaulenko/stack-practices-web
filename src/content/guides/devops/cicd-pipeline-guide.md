@@ -159,7 +159,7 @@ git revert HEAD
 
 ## Best Practices
 
-- **Fail fast**: Run fastest checks (lint, [unit tests](/recipes/unit-testing)) first
+- **Fail fast**: Run fastest checks (lint, [unit tests](/recipes/testing/unit-testing)) first
 - **Parallelize**: Run independent jobs in parallel
 - **Use environments**: Require approvals for production
 - **Cache aggressively**: Cache dependencies and build artifacts
@@ -168,7 +168,7 @@ git revert HEAD
 
 ## Anti-Patterns
 
-- Deploying without [tests](/guides/testing-strategy-guide)
+- Deploying without [tests](/guides/testing/testing-strategy-guide)
 - Using the same pipeline for all environments
 - Manual steps in the deployment process
 - No rollback plan
@@ -205,7 +205,7 @@ DATABASE_URL=postgres://prod.internal/prod_db
 LOG_LEVEL=warn
 ```
 
-**Never commit secrets to Git.** Use [secret managers](/guides/secrets-management-guide) (AWS Secrets Manager, HashiCorp Vault, GitHub Secrets) and inject at runtime.
+**Never commit secrets to Git.** Use [secret managers](/guides/security/security-best-practices-guide) (AWS Secrets Manager, HashiCorp Vault, GitHub Secrets) and inject at runtime.
 
 ### Database Migrations in CI/CD
 
@@ -237,7 +237,7 @@ A: Yes, if your tests and monitoring are robust. Otherwise, deploy on merge to m
 A: Continuous Delivery means code is always deployable; a human approves the release. Continuous Deployment means every validated change goes to production automatically.
 
 **Q: How do I handle database schema changes in CI/CD?**
-A: Run [migrations](/recipes/schema-evolution) before deployment, make changes backward-compatible when possible, and have rollback scripts ready. Never drop columns in the same deploy that stops reading them.
+A: Run [migrations](/recipes/databases/schema-evolution) before deployment, make changes backward-compatible when possible, and have rollback scripts ready. Never drop columns in the same deploy that stops reading them.
 
 **Q: What should I do when a production deployment fails?**
 A: Follow this order: 1) Alert the on-call team, 2) Assess if rollback is needed, 3) Execute rollback or forward-fix, 4) Document the incident, 5) Run a post-mortem within 48 hours.

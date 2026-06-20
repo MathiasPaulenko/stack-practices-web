@@ -29,13 +29,13 @@ seo:
 ---
 ## Overview
 
-Retry with exponential backoff is the foundational pattern for handling transient failures in [distributed systems](/guides/microservices-architecture-guide). Instead of immediately failing when a network hiccup or temporary overload occurs, the client waits progressively longer between attempts. Adding jitter prevents synchronized retries from creating a thundering herd that overwhelms the recovering service.
+Retry with exponential backoff is the foundational pattern for handling transient failures in [distributed systems](/guides/architecture/microservices-architecture-guide). Instead of immediately failing when a network hiccup or temporary overload occurs, the client waits progressively longer between attempts. Adding jitter prevents synchronized retries from creating a thundering herd that overwhelms the recovering service.
 
 ## When to Use
 
 Use this resource when:
 - Calling external APIs or services over unreliable networks
-- [Database connections](/recipes/database-connection-pooling) occasionally timeout under load
+- [Database connections](/recipes/performance/connection-pooling) occasionally timeout under load
 - You need to distinguish transient errors (retryable) from permanent failures
 - Integrating with cloud services that throttle or have regional outages
 
@@ -159,14 +159,14 @@ var result = await retryPolicy.ExecuteAsync(() => httpClient.GetAsync(url));
 ## Best Practices
 
 - **Set a maximum delay**: Without a cap, backoff can grow to hours
-- **Use idempotency keys**: Retrying POST requests without them creates duplicates. See [message idempotency](/recipes/message-idempotency).
-- **Circuit breaker integration**: Stop retrying when the service is clearly down. Integrate with [circuit breaker](/recipes/circuit-breaker-pattern).
+- **Use idempotency keys**: Retrying POST requests without them creates duplicates. See [message idempotency](/recipes/messaging/rabbitmq-task-queue).
+- **Circuit breaker integration**: Stop retrying when the service is clearly down. Integrate with [circuit breaker](/patterns/design/circuit-breaker-pattern).
 - **Log every retry**: Silent retries hide systemic issues
 - **Respect Retry-After headers**: HTTP 429/503 often include recommended wait times
 
 ## Common Mistakes
 
-1. **Retrying everything**: [Non-idempotent](/recipes/message-idempotency) operations and client errors should fail fast
+1. **Retrying everything**: [Non-idempotent](/recipes/messaging/rabbitmq-task-queue) operations and client errors should fail fast
 2. **No jitter**: Synchronized retries from multiple clients recreate the original overload
 3. **Infinite retries**: A client that retries forever becomes a denial-of-service source
 4. **Blocking the caller**: Synchronous retries in request handlers increase response times
@@ -181,4 +181,4 @@ A: Usually 3-5. More retries increase latency without significantly improving su
 A: For synchronous APIs: retry in client. For background jobs: use a queue with built-in retry.
 
 **Q: How do I handle idempotency for retries?**
-A: Generate a unique `Idempotency-Key` header. The server checks if it has processed this key before. Learn more in [message idempotency](/recipes/message-idempotency).
+A: Generate a unique `Idempotency-Key` header. The server checks if it has processed this key before. Learn more in [message idempotency](/recipes/messaging/rabbitmq-task-queue).

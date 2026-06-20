@@ -29,7 +29,7 @@ seo:
 ---
 ## Visión General
 
-La idempotencia asegura que procesar el mismo mensaje múltiples veces produce el mismo resultado que procesarlo una vez. En [sistemas async](/guides/event-driven-architecture-guide) donde at-least-once delivery es el default, los mensajes duplicados son inevitables — [retries de red](/recipes/retry-backoff), rebalances de consumers y retries de producers todos crean duplicados. Sin idempotencia, los clientes se cobran dos veces, el inventario se decrementa dos veces y los emails se envían dos veces.
+La idempotencia asegura que procesar el mismo mensaje múltiples veces produce el mismo resultado que procesarlo una vez. En [sistemas async](/guides/architecture/event-driven-architecture-guide) donde at-least-once delivery es el default, los mensajes duplicados son inevitables — [retries de red](/recipes/architecture/retry-backoff), rebalances de consumers y retries de producers todos crean duplicados. Sin idempotencia, los clientes se cobran dos veces, el inventario se decrementa dos veces y los emails se envían dos veces.
 
 ## Cuándo Usar
 
@@ -162,7 +162,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 1. **Sin ventana de deduplicación**: Chequear duplicados solo en memoria significa que reinicios de proceso pierden estado
 2. **Colisiones de keys**: Usar timestamps o campos no únicos crea falsos duplicados
 3. **Ignorar el contrato "at-least-once"**: Asumir que el broker entrega exactly-once sin verificación
-4. **Side effects no idempotentes**: Enviar email dentro de la transacción significa que duplicados envían múltiples emails. Para mensajes fallidos, usa [dead letter queues](/recipes/dead-letter-queue).
+4. **Side effects no idempotentes**: Enviar email dentro de la transacción significa que duplicados envían múltiples emails. Para mensajes fallidos, usa [dead letter queues](/recipes/messaging/dead-letter-queue).
 5. **Olvidar limpiar**: Tablas de deduplicación que crecen para siempre se convierten en cuellos de botella de performance
 
 ## Preguntas Frecuentes
@@ -171,7 +171,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 R: La deduplicación previene procesar el mismo mensaje dos veces. La idempotencia significa que procesar dos veces produce el mismo resultado. A menudo se usan juntas.
 
 **P: ¿Puedo lograr exactly-once delivery?**
-R: En práctica, exactly-once es actualmente exactly-once processing con idempotency. El verdadero exactly-once delivery es imposible en [sistemas distribuidos](/guides/microservices-architecture-guide).
+R: En práctica, exactly-once es actualmente exactly-once processing con idempotency. El verdadero exactly-once delivery es imposible en [sistemas distribuidos](/guides/architecture/microservices-architecture-guide).
 
 **P: ¿Cuánto tiempo debería mantener keys de deduplicación?**
 R: Más que tu ventana máxima de redelivery. Para Kafka: `offsets.retention.minutes`. Para SQS: visibility timeout × max retries + buffer.

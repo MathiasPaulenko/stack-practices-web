@@ -49,7 +49,7 @@ Usa el Patrón Timeout cuando:
 - Necesites garantizar tiempos de respuesta máximos a usuarios o llamadores upstream
 - Las operaciones colgadas podrían agotar pools de hilos, conexiones o memoria
 - Quieras fallar rápidamente en lugar de esperar indefinidamente por una respuesta
-- Siempre combínalo con Retry para problemas transitorios, y Circuit Breaker para fallas crónicas
+- Siempre combínalo con [Retry](/patterns/design/retry-pattern) para problemas transitorios, y [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para fallas crónicas
 
 ## Solución
 
@@ -173,7 +173,7 @@ Esto previene el agotamiento de pools de hilos, fugas de conexiones y mala exper
 - **Propaga deadlines** a través de tu cadena de llamadas (ej. contexto gRPC, headers HTTP)
 - **Establece timeouts más cortos en niveles inferiores** — deja margen para reintentos y fallbacks
 - **Registra eventos de timeout** con el nombre del servicio objetivo para depuración
-- **Combina con Circuit Breaker** — si los timeouts son frecuentes, deja de llamar al servicio fallido
+- **Combina con [Circuit Breaker](/patterns/design/circuit-breaker-pattern)** — si los timeouts son frecuentes, deja de llamar al servicio fallido
 - **Usa `Promise.race` en JavaScript** y `Future.get(timeout)` en Java para cancelación limpia
 
 ## Errores comunes
@@ -193,4 +193,4 @@ R: Basalo en tu SLA y en la latencia P99 del servicio descendiente. Si tu API pr
 R: Depende de la implementación. La interrupción de hilos señala cancelación pero no la fuerza. Con frameworks async (Java CompletableFuture, JavaScript AbortController), puedes cancelar apropiadamente el I/O subyacente.
 
 **P: ¿Debería reintentar después de un timeout?**
-R: Sí, si la operación es idempotente y el timeout podría haber sido causado por un problema transitorio de red. Pero si los timeouts son frecuentes, combínalo con Circuit Breaker para evitar reintentos desperdiciados en un servicio crónicamente lento.
+R: Sí, si la operación es idempotente y el timeout podría haber sido causado por un problema transitorio de red. Pero si los timeouts son frecuentes, combínalo con [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para evitar reintentos desperdiciados en un servicio crónicamente lento.

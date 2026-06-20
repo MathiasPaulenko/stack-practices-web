@@ -101,7 +101,7 @@ curl http://localhost:3000/health
 ## Mejores Prácticas
 
 - **Usa `.env.example`** — nunca commitees secrets; commitea un template con valores dummy
-- **Automatiza con `make` o scripts** — un comando debería poner a un nuevo dev en marcha
+- **Automatiza con `make` o scripts** — un comando debería poner a un nuevo dev en marcha. Enlaza a la [Plantilla de Guía de Onboarding](/docs/templates/onboarding-guide-template) para un checklist completo.
 - **Testea el setup mensualmente** — docs de setup stale son peores que no tener docs
 - **Pinea versiones de dependencias** — "latest" causa "en mi máquina funciona"
 - **Documenta diferencias de SO** — macOS, Linux y Windows tienen paths distintos
@@ -109,7 +109,7 @@ curl http://localhost:3000/health
 ## Errores Comunes
 
 - Instrucciones de setup que solo funcionan en la máquina del autor
-- Falta de `.env.example` — nuevos devs adivinan variables requeridas
+- Falta de `.env.example` — nuevos devs adivinan variables requeridas. Combínalo con la [Plantilla de Runbook](/docs/templates/runbook-template) para pasos de troubleshooting.
 - Sin paso de verificación — los devs no saben si el setup funcionó
 - Paths locales hardcodeados — `/Users/alice/project` no funciona para Bob
 
@@ -117,7 +117,7 @@ curl http://localhost:3000/health
 
 ### ¿Debería usar Docker para desarrollo local?
 
-Sí, si tu proyecto tiene más de dos dependencias (base de datos, cache, cola). Un `docker-compose.yml` asegura que cada dev corre las mismas versiones. Para proyectos simples, package managers locales bastan.
+Sí, si tu proyecto tiene más de dos dependencias (base de datos, cache, cola). Consulta la [Guía de Docker para Desarrolladores](/guides/devops/docker-for-developers-guide) para mejores prácticas. Un `docker-compose.yml` asegura que cada dev corre las mismas versiones. Para proyectos simples, package managers locales bastan.
 
 ### ¿Cómo manejo secrets en setup local?
 

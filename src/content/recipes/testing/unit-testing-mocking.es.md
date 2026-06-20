@@ -38,11 +38,11 @@ Un test bien aislado corre en milisegundos, produce el mismo resultado cada vez,
 
 Usa esta receta cuando:
 
-- Escribiendo unit tests para código que llama bases de datos, APIs o servicios de terceros
-- Testeando manejo de errores para escenarios difíciles de disparar en sistemas reales
+- Escribiendo unit tests para código que llama bases de datos, APIs o servicios de terceros. Consulta [Integration Testing](/recipes/testing/integration-testing) para testear con dependencias reales.
+- Testeando manejo de errores para escenarios difíciles de disparar en sistemas reales. Consulta [API Contract Testing](/recipes/testing/api-mocking) para verificar respuestas de error de API.
 - Acelerando un suite de tests lento dominado por tests de estilo integración
 - Verificando que una función llama a un colaborador con los argumentos correctos
-- Reemplazando dependencias no determinísticas (generadores random, hora actual, UUIDs)
+- Reemplazando dependencias no determinísticas (generadores random, hora actual, UUIDs). Consulta [Call REST API](/recipes/api/call-rest-api) para testear lógica de clientes HTTP.
 
 ## Solución
 

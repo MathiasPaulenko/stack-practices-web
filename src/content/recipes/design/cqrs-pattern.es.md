@@ -37,10 +37,10 @@ Command Query Responsibility Segregation (CQRS) divide el modelo de datos en dos
 
 Usa esta receta cuando:
 
-- Los volúmenes de lectura y escritura difieren significativamente (ratios 100:1 de lectura intensiva son comunes)
-- Queries complejas requieren joins entre múltiples aggregates, degradando performance de escritura
+- Los volúmenes de lectura y escritura difieren significativamente (ratios 100:1 de lectura intensiva son comunes). Consulta [Réplicas de Lectura](/recipes/databases/database-read-replicas) para escalado de lecturas.
+- Queries complejas requieren joins entre múltiples aggregates, degradando performance de escritura. Consulta [SQL Joins](/recipes/databases/sql-joins) para optimización de queries.
 - Construyendo dashboards en tiempo real, analytics, o búsqueda que necesita datos con forma diferente al modelo transaccional
-- Trabajando con sistemas event-sourced donde el estado se deriva de una secuencia de eventos
+- Trabajando con sistemas event-sourced donde el estado se deriva de una secuencia de eventos. Consulta [Event Sourcing](/recipes/databases/event-sourcing-relational) para patrones de event store.
 - Equipos necesitan optimizar esquemas de lectura y escritura independientemente sin coordinación
 
 ## Solución
@@ -194,7 +194,7 @@ class OrderProjection {
 ## Preguntas frecuentes
 
 **P: ¿Es CQRS lo mismo que event sourcing?**
-R: No. CQRS separa lecturas y escrituras. Event sourcing almacena estado como eventos. Se usan frecuentemente juntos porque event sourcing produce naturalmente eventos que pueden poblar read models. Pero puedes usar CQRS sin event sourcing (ej. dual databases) y event sourcing sin CQRS (modelo único reconstruido desde eventos).
+R: No. CQRS separa lecturas y escrituras. [Event sourcing](/recipes/databases/event-sourcing-relational) almacena estado como eventos. Se usan frecuentemente juntos porque event sourcing produce naturalmente eventos que pueden poblar read models. Pero puedes usar CQRS sin event sourcing (ej. dual databases) y event sourcing sin CQRS (modelo único reconstruido desde eventos).
 
 **P: ¿Cómo manejo queries que necesitan datos en tiempo real?**
 R: Para requisitos verdaderamente en tiempo real (sub-segundo), consulta el modelo de escritura directamente. Acepta el costo de performance para el pequeño subconjunto de queries que necesitan frescura perfecta. La mayoría de dashboards y listas pueden tolerar consistencia eventual.

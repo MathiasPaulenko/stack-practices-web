@@ -35,7 +35,7 @@ Choose the right unique identifier strategy for your application by comparing UU
 
 ## When to Use This
 
-- Database primary keys need to be globally unique across distributed systems
+- [Database](/recipes/databases/database-transactions) primary keys need to be globally unique across distributed systems
 - Identifier sortability affects query performance and index fragmentation
 - URL-safe, short identifiers are needed for public-facing resources
 
@@ -168,7 +168,7 @@ INSERT INTO events (id, name) VALUES ('018f3bda-7c58-7e8a-8b5e-4f3e8c9d2a1b', 's
 
 ## Production Considerations
 
-- Use UUID v7 for new applications needing time-sortable keys
+- Use UUID v7 for new applications needing time-sortable keys. See [Database Migrations](/recipes/databases/database-migrations) for evolving schemas.
 - Keep UUID v4 for existing systems unless migration is justified
 - Use ULID when identifier length and lexicographic sorting matter
 - Use nanoid for short-lived tokens, short URLs, or when size is critical
@@ -182,7 +182,7 @@ INSERT INTO events (id, name) VALUES ('018f3bda-7c58-7e8a-8b5e-4f3e8c9d2a1b', 's
 ## FAQ
 
 **Q: Should I use auto-incrementing integers instead?**
-A: Use integers for single-node systems where coordination is trivial. Use UUIDs for distributed systems or when identifiers must not reveal sequence information.
+A: Use integers for single-node systems where coordination is trivial. Use UUIDs for distributed systems or when identifiers must not reveal sequence information. See [Database Connection Pooling](/recipes/databases/database-connection-pooling) for managing database connections.
 
 **Q: Is UUID v7 officially standardized?**
 A: It is in RFC draft status and widely considered stable. Major databases and libraries support it.

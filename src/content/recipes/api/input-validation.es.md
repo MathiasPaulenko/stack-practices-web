@@ -45,7 +45,7 @@ Usa esta recipe cuando:
 - Aceptas datos de APIs, formularios o uploads de usuarios
 - Parseas datos externos (JSON, CSV, XML) antes de procesarlos
 - Aplicas reglas de negocio en payloads entrantes
-- Previenes ataques de inyección (SQL, XSS, command injection)
+- Previenes ataques de inyección (SQL, XSS, command injection). Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para patrones de defensa.
 - Conviertes y sanitizas strings no confiables a valores tipados
 
 ## Solución
@@ -156,13 +156,13 @@ for (ConstraintViolation<UserCreate> v : violations) {
 - **Valida temprano**: Rechaza input inválido en el límite de la API, no profundo en la capa de servicio
 - **Usa schemas estrictos**: Prefiere allowlists explícitas sobre tipos catch-all permisivos
 - **Sanitiza después de validar**: Escapa HTML, trim whitespace, normaliza Unicode
-- **Retorna errores estructurados**: Retorna errores a nivel de campo para que la UI los muestre inline
+- **Retorna errores estructurados**: Retorna errores a nivel de campo para que la UI los muestre inline. Consulta [Manejo de Errores](/recipes/api/handle-errors) para patrones de respuesta de error.
 - **Nunca confíes solo en validación frontend**: Siempre re-valida en el servidor
-- **Loguea fallos de validación**: Monitorea patrones que pueden indicar ataques
+- **Loguea fallos de validación**: Monitorea patrones que pueden indicar ataques. Consulta [Logging](/recipes/api/logging) para agregación de logs.
 
 ## Errores comunes
 
-- Confiar en validación client-side como única defensa
+- Confiar en validación client-side como única defensa. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para validación server-side.
 - Usar regex para validación compleja cuando una librería de schemas está disponible
 - Permitir coerción de tipos implícita sin reglas explícitas
 - Retornar errores crudos de base de datos en lugar de mensajes de validación amigables

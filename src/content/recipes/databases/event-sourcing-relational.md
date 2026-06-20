@@ -40,9 +40,9 @@ This recipe implements an event store, projections (read models), and snapshotti
 ## When to Use
 
 Use this resource when:
-- You need a complete audit trail of all state changes (finance, compliance)
-- Temporal queries are required: "What was the inventory level 30 days ago?"
-- You want to decouple write and read models (CQRS)
+- You need a complete [audit trail](/recipes/api/logging) of all state changes (finance, compliance)
+- Temporal queries are required: "What was the inventory level 30 days ago?" See [Date Formatting](/recipes/data/date-formatting) for time-based queries.
+- You want to decouple write and read models ([CQRS](/patterns/design/cqrs-pattern))
 - Rebuilding read models from scratch is preferable to complex schema migrations
 
 ## Solution
@@ -270,15 +270,15 @@ The relational database schema is simple: an `events` table with `aggregate_id`,
 ## Best Practices
 
 - **Version every event**: Optimistic concurrency control prevents lost updates
-- **Use JSONB/JSON for payloads**: Schema flexibility without migrations; validate at the application layer
+- **Use JSONB/JSON for payloads**: Schema flexibility without migrations; validate at the application layer. See [Parse JSON](/recipes/data/parse-json) for structured data.
 - **Create snapshots every N events**: Balance between storage and replay performance
 - **Keep events small**: Large payloads slow down replay and increase storage
-- **Separate projections from the event store**: Projections can be rebuilt; events are the source of truth
+- **Separate projections from the event store**: Projections can be rebuilt; events are the source of truth. See [Redis Caching](/recipes/databases/caching-redis) for read-model caching.
 
 ## Common Mistakes
 
 - **Not versioning events**: Without version numbers, you can't detect concurrent modifications
-- **Storing current state AND events**: This creates dual writes and consistency risks
+- **Storing current state AND events**: This creates dual writes and consistency risks. See [Database Transactions](/recipes/databases/database-transactions) for atomic writes.
 - **Replaying all events on every read**: Use snapshots or dedicated projection tables
 - **Mutable events**: Events must be immutable — never update or delete historical events
 - **Missing event schema evolution**: Old events need migration strategies as the domain model changes

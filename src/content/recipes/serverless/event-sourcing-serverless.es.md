@@ -37,11 +37,11 @@ Event sourcing almacena cada cambio de estado como un evento inmutable en un log
 
 Usa esta receta cuando:
 
-- El historial completo de auditoría de todos los cambios es un requerimiento de negocio
+- El historial completo de auditoría de todos los cambios es un requerimiento de negocio. Consulta [Event-Driven Functions](/recipes/messaging/event-driven-microservices) para arquitecturas event-driven.
 - Necesitas responder preguntas temporales sobre estados pasados
-- Reconstruir modelos de lectura desde cero es una capacidad necesaria
+- Reconstruir modelos de lectura desde cero es una capacidad necesaria. Consulta [Serverless Orchestration](/recipes/devops/background-jobs) para gestionar workflows stateful.
 - El modelo de escritura es complejo y el modelo de lectura necesita optimizarse separadamente
-- Requerimientos de compliance o regulatorios mandatan logs de cambio inmutables
+- Requerimientos de compliance o regulatorios mandatan logs de cambio inmutables. Consulta [CQRS Pattern](/patterns/design/cqrs-pattern) para separar modelos de lectura y escritura.
 
 ## Solución
 

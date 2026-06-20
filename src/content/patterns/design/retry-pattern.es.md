@@ -49,7 +49,7 @@ Usa el Patrón Retry cuando:
 - La operación sea idempotente o pueda repetirse de forma segura
 - Quieras mejorar la confiabilidad percibida sin intervención del usuario
 - Necesites backoff configurable para evitar problemas de thundering herd
-- Combínalo con Circuit Breaker para evitar reintentos cuando un servicio está claramente caído
+- Combínalo con [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para evitar reintentos cuando un servicio está claramente caído
 
 ## Solución
 
@@ -187,7 +187,7 @@ El Patrón Retry tiene tres dimensiones configurables:
 | **Delay Fijo** | Espera constante entre reintentos | Carga predecible en el objetivo |
 | **Backoff Exponencial** | El delay se duplica en cada reintento | Evita saturar servicios en recuperación |
 | **Jitter** | Agrega aleatoriedad al backoff | Previene thundering herd tras recuperación |
-| **Circuit Breaker + Retry** | Omite reintentos cuando el breaker está abierto | Previene reintentos desperdiciados |
+| **[Circuit Breaker](/patterns/design/circuit-breaker-pattern) + Retry** | Omite reintentos cuando el breaker está abierto | Previene reintentos desperdiciados |
 
 ## Mejores prácticas
 
@@ -208,7 +208,7 @@ El Patrón Retry tiene tres dimensiones configurables:
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Retry y Circuit Breaker?**
-R: Retry maneja fallas transitorias individuales. Circuit Breaker previene fallas en cascada deteniendo peticiones a un servicio fallido. Funcionan mejor juntos: Retry maneja errores temporales, Circuit Breaker maneja interrupciones prolongadas.
+R: Retry maneja fallas transitorias individuales. [Circuit Breaker](/patterns/design/circuit-breaker-pattern) previene fallas en cascada deteniendo peticiones a un servicio fallido. Funcionan mejor juntos: Retry maneja errores temporales, Circuit Breaker maneja interrupciones prolongadas.
 
 **P: ¿Debería reintentar errores 500 Internal Server Error?**
 R: Depende. El 500 puede indicar un problema transitorio del servidor que vale la pena reintentar, pero 502/503/504 son más claramente transitorios. Nunca reintentes errores 4xx del cliente (400, 401, 403, 404) sin corregir la petición primero.

@@ -41,7 +41,7 @@ Usa esta receta cuando:
 - Las cargas de trabajo son irregulares y necesitan buffering para suavizar picos de tráfico
 - Los servicios tienen diferentes requisitos de disponibilidad y no pueden bloquearse entre sí
 - Construyendo audit trails donde cada cambio de estado debe ser registrado
-- Implementando event sourcing para queries temporales y reconstrucción de estado
+- Implementando event sourcing para queries temporales y reconstrucción de estado. Consulta [CQRS Pattern](/patterns/design/cqrs-pattern) para separación de lectura/escritura.
 
 ## Solución
 
@@ -121,7 +121,7 @@ async function startInventoryConsumer() {
 
 - **Diseña eventos, no mensajes**: un evento debería describir qué sucedió, no qué debería hacer el consumidor. `OrderPlaced` es correcto. `DecrementInventory` es un command disfrazado de evento. Los eventos son hechos; los commands son instrucciones.
 - **Usa validación de esquemas**: eventos sin validar son fuente de bugs sutiles. Usa Avro, JSON Schema o Protobuf para definir contratos de eventos. Valida en los boundaries de publisher y consumer. Versiona esquemas y mantén compatibilidad hacia atrás.
-- **Haz consumidores idempotentes**: retries de red y redeliveries de brokers significan que el mismo evento puede procesarse múltiples veces. Diseña handlers para que procesar el mismo evento dos veces produzca el mismo estado. Usa `UPSERT` o trackea IDs de eventos procesados en una tabla de deduplicación.
+- **Haz consumidores idempotentes**: retries de red y redeliveries de brokers significan que el mismo evento puede procesarse múltiples veces. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación. Diseña handlers para que procesar el mismo evento dos veces produzca el mismo estado. Usa `UPSERT` o trackea IDs de eventos procesados en una tabla de deduplicación.
 
 ## Errores comunes
 
@@ -135,7 +135,7 @@ async function startInventoryConsumer() {
 R: Kafka para event streaming de alto throughput, event sourcing y replay. RabbitMQ para enrutamiento complejo, patrones request-reply y compatibilidad AMQP. Kafka escala horizontalmente mejor; RabbitMQ es más fácil de operar a pequeña escala.
 
 **P: ¿Cómo manejo ordenamiento de eventos entre servicios?**
-R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa sagas para compensar cuando las asunciones de ordenamiento cross-service se violan.
+R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa [sagas](/recipes/architecture/saga-pattern) para compensar cuando las asunciones de ordenamiento cross-service se violan.
 
 **P: ¿Puedo hacer queries directamente desde Kafka?**
 R: Puedes leer un stream, pero Kafka no es un query engine. Para queries, materializa eventos en una base de datos (read model) vía Kafka Streams o ksqlDB. Consulta la base de datos, no el broker.

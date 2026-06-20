@@ -40,8 +40,8 @@ Esta receta implementa logging estructurado con correlation IDs, captura de peti
 
 Usa este recurso cuando:
 - Necesitas debuggear problemas de API en producción sin reproducirlos localmente
-- Los requisitos de compliance exigen audit trails para operaciones sensibles
-- Ejecutas sistemas distribuidos y necesitas trazar peticiones entre servicios
+- Los requisitos de [compliance](/guides/security/security-best-practices-guide) exigen audit trails para operaciones sensibles
+- Ejecutas [sistemas distribuidos](/guides/architecture/software-architecture-guide) y necesitas trazar peticiones entre servicios
 - Necesitas detectar patrones anómalos de uso de la API
 
 ## Solución
@@ -168,7 +168,7 @@ Separa logs operacionales (debugging) de logs de auditoría (compliance). Los au
 
 ## Mejores Prácticas
 
-- **Nunca logues datos sensibles**: Excluye contraseñas, tokens, PII — enmáscara o hashealos
+- **Nunca logues datos sensibles**: Excluye contraseñas, tokens, PII — enmáscara o hashealos. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para protección de datos.
 - **Usa correlation IDs**: Pasa `X-Correlation-Id` a través de cada llamada a servicio
 - **Loguea asíncronamente**: Usa buffering para evitar bloquear el thread de la petición
 - **Rota y archiva**: Comprime logs antiguos y muévelos a almacenamiento frío (S3 Glacier)

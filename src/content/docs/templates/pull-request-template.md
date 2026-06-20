@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-A pull request template standardizes the information provided when submitting code changes. It ensures reviewers have context and authors verify their work before requesting review.
+A pull request template standardizes the information provided when submitting code changes. See [Contributing Guide](/docs/templates/contributing-guide) for team standards and [Code Review Best Practices](/guides/design/code-review-best-practices-guide) for review culture. It ensures reviewers have context and authors verify their work before requesting review.
 
 ## When to Use
 
@@ -101,21 +101,21 @@ Fixes # (issue)
 
 - **Keep it concise**: Long templates discourage completion
 - **Use checkboxes**: Easy to scan, hard to miss
-- **Link issues**: Always reference related tickets
+- **Link issues**: Always reference related tickets. Use [Bug Report Template](/docs/templates/bug-report-template) or [Feature Request Template](/docs/templates/feature-request-template) for issue structure.
 - **Include screenshots**: For UI changes, visual proof is essential
-- **Automate where possible**: Let CI check what bots can verify
+- **Automate where possible**: Let CI check what bots can verify. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
 
 ## Common Mistakes
 
 - **Empty templates**: Submitting without filling required sections
-- **Missing tests**: Forgetting to update or add tests
+- **Missing tests**: Forgetting to update or add tests. See [Testing Strategy Guide](/guides/testing/testing-strategy-guide) for coverage standards.
 - **No issue links**: Makes tracking context harder
 
 ## Frequently Asked Questions
 
 ### Should every pull request use a template?
 
-Yes. Templates ensure reviewers get consistent context and authors verify their work. Even small fixes benefit from a brief description and testing confirmation.
+Yes. Templates ensure reviewers get consistent context and authors verify their work. See [Code Review Best Practices](/guides/design/code-review-best-practices-guide) for culture. Even small fixes benefit from a brief description and testing confirmation.
 
 ### How detailed should the testing section be?
 
@@ -123,4 +123,4 @@ Include enough detail that a reviewer can reproduce your tests. For UI changes, 
 
 ### What if a PR template feels too heavy for my team?
 
-Start with a minimal template: description, type of change, and a 3-item checklist. Expand sections only when you notice information gaps in reviews.
+Start with a minimal template: description, type of change, and a 3-item checklist. Expand using [Contributing Guide](/docs/templates/contributing-guide) standards. Expand sections only when you notice information gaps in reviews.

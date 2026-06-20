@@ -149,7 +149,7 @@ def login():
 
 ### Checklist
 
-- [ ] Different [limits per endpoint](/recipes/rate-limiting) (stricter for auth, looser for read)
+- [ ] Different [limits per endpoint](/recipes/api/rate-limiting) (stricter for auth, looser for read)
 - [ ] Per-user and per-IP rate limits
 - [ ] Return `429 Too Many Requests` with `Retry-After` header
 - [ ] Log and alert on repeated violations

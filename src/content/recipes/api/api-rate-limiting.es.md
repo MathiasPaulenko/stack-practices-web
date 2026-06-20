@@ -30,14 +30,14 @@ seo:
 ---
 ## Visión General
 
-[Describe what this resource covers and why it matters for developers.]
+El rate limiting protege las APIs de abuso y asegura distribución justa de recursos. Consulta [Rate Limiting de APIs con Redis](/recipes/api/api-rate-limiting-redis) para una implementación completa basada en Redis y [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para prácticas generales de seguridad.
 
 ## Cuándo Usar
 
 Use this resource when:
-- [Scenario 1]
-- [Scenario 2]
-- [Scenario 3]
+- APIs públicas necesitan protección contra brute force y scraping
+- Diferentes tiers de usuarios requieren diferentes rate limits
+- Múltiples nodos de API deben compartir estado de rate limit consistentemente
 
 ## Solución
 
@@ -71,19 +71,19 @@ Use this resource when:
 
 ## Mejores Prácticas
 
-1. [Best practice 1]
-2. [Best practice 2]
-3. [Best practice 3]
-4. [Best practice 4]
-5. [Best practice 5]
+1. Usa token bucket para bursts controlados y ventana deslizante para límites estrictos
+2. Retorna headers `Retry-After` con respuestas 429 para que los clientes sepan cuándo reintentar
+3. Rate limita por ID de usuario, no solo por IP, para evitar bloquear usuarios legítimos detrás de NAT
+4. Loguea violaciones de rate limit para monitoreo de seguridad y detección de abuso
+5. Implementa [circuit breaker](/patterns/design/circuit-breaker-pattern) alrededor de Redis para fail open si el cache cae
 
 ## Errores Comunes
 
-1. [Mistake 1]
-2. [Mistake 2]
-3. [Mistake 3]
-4. [Mistake 4]
-5. [Mistake 5]
+1. Rate limitar solo por IP, bloqueando usuarios legítimos detrás de NAT
+2. No manejar fallos de Redis gracefulmente, causando outages de API
+3. Retornar 429 sin headers `Retry-After`, dejando clientes adivinando
+4. Usar el mismo rate limit para todos los endpoints sin importar costo o sensibilidad
+5. Ignorar violaciones de rate limit en lugar de loguearlas para análisis de seguridad
 
 ## Preguntas Frecuentes
 

@@ -38,10 +38,10 @@ Serverless functions are a natural fit for event-driven systems because they sca
 
 Use this recipe when:
 
-- Processing asynchronous workloads that do not need immediate responses (image processing, report generation, email sending)
-- Decoupling microservices so they can be deployed, scaled, and failed independently
+- Processing asynchronous workloads that do not need immediate responses (image processing, report generation, email sending). See [Scheduled Jobs](/recipes/devops/background-jobs) for recurring task automation.
+- Decoupling microservices so they can be deployed, scaled, and failed independently. See [Serverless Orchestration](/recipes/devops/background-jobs) for coordinating complex workflows.
 - Building systems that must handle traffic spikes without provisioning capacity upfront
-- Reacting to changes in data (database CDC) or external systems (webhooks, file uploads)
+- Reacting to changes in data (database CDC) or external systems (webhooks, file uploads). See [Event Sourcing](/patterns/design/event-sourcing-pattern) for immutable event patterns.
 - Replacing cron jobs with event-triggered functions for more precise timing
 
 ## Solution

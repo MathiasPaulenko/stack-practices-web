@@ -33,15 +33,15 @@ seo:
 ---
 ## Overview
 
-APIs evolve: fields are added, response shapes change, and endpoints are deprecated. Without a versioning strategy, these changes break existing clients. This recipe covers the three dominant versioning approaches — URL path, custom header, and content negotiation (media type) — with middleware implementation in Python, JavaScript, and Java. It also covers deprecation policies and backward-compatible change patterns.
+APIs evolve: fields are added, response shapes change, and endpoints are [deprecated](/docs/templates/api-deprecation-notice-template). Without a versioning strategy, these changes break existing clients. This recipe covers the three dominant versioning approaches — URL path, custom header, and content negotiation (media type) — with middleware implementation in Python, JavaScript, and Java. It also covers deprecation policies and backward-compatible change patterns.
 
 ## When to Use
 
 Use this resource when:
 - Publishing a public API consumed by external clients you cannot update simultaneously
-- Introducing breaking changes (removed fields, renamed resources, new auth requirements)
+- Introducing [breaking changes](/recipes/api/handle-errors) (removed fields, renamed resources, new auth requirements)
 - Supporting multiple client generations (mobile apps, third-party integrations, embedded widgets)
-- Planning a long-term migration from a legacy API shape to a modern design
+- Planning a long-term migration from a legacy API shape to a modern design. See [Call REST API](/recipes/api/call-rest-api) for client patterns.
 
 ## Solution
 
@@ -162,7 +162,7 @@ record UserV2(Long id, String fullName, String email) {}
 - **Header versioning** (`X-API-Version: v2`) keeps URLs clean but requires custom headers, which some clients (browsers, simple scripts) may not support well. It is harder to cache at the CDN level without custom rules.
 - **Content negotiation** (`Accept: application/vnd.myapp.v2+json`) is the most RESTful approach. It uses standard HTTP mechanisms but is complex for consumers and can be confusing with standard `application/json` expectations.
 - **Backward compatibility** means additive-only changes within a version: new optional fields, new endpoints, and expanded enums are safe. Removing or renaming fields requires a new version.
-- **Deprecation** should be signaled with `Sunset` headers and changelog documentation, giving clients a clear migration window (typically 6-12 months for public APIs).
+- **Deprecation** should be signaled with `Sunset` headers and changelog documentation, giving clients a clear migration window. See [API Deprecation Notice Template](/docs/templates/api-deprecation-notice-template) for deprecation communication.
 
 ## Variants
 
@@ -183,7 +183,7 @@ record UserV2(Long id, String fullName, String email) {}
 
 ## Common Mistakes
 
-1. Bumping the version for every minor change, fragmenting the client ecosystem.
+1. Bumping the version for every minor change, fragmenting the client ecosystem. See [Input Validation](/recipes/api/input-validation) for safe additive changes.
 2. Removing old versions without a sunset period, breaking production integrations overnight.
 3. Mixing versioning strategies inconsistently across endpoints in the same API.
 4. Not validating version identifiers, causing `v1.0` and `v1` to be treated as different versions accidentally.
@@ -193,7 +193,7 @@ record UserV2(Long id, String fullName, String email) {}
 
 ### When should I release a new API version?
 
-Only for breaking changes: removed fields, renamed resources, changed auth requirements, or altered behavior that existing clients depend on. Additive changes (new optional fields, new endpoints) do not require a version bump.
+Only for breaking changes: removed fields, renamed resources, changed auth requirements, or altered behavior that existing clients depend on. [Additive changes](/recipes/api/input-validation) (new optional fields, new endpoints) do not require a version bump.
 
 ### Can I support multiple versions with the same codebase?
 

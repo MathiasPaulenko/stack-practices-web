@@ -33,9 +33,9 @@ seo:
 
 Cross-Site Scripting (XSS) es un ataque de inyección donde scripts maliciosos se incrustan en sitios web de confianza. Cuando una víctima visita la página comprometida, el script se ejecuta en su navegador con los mismos privilegios que el sitio legítimo, permitiendo a los atacantes robar cookies de sesión, capturar keystrokes, o realizar acciones en nombre del usuario.
 
-XSS consistentemente aparece en el [OWASP Top 10](/guides/security/web-application-security-guide) porque es tanto común como peligroso. Los tres tipos principales son XSS reflejado (URL maliciosa dispara el script), XSS almacenado (script malicioso se guarda en la base de datos y se sirve a todos los usuarios), y XSS basado en DOM (JavaScript client-side escribe datos no confiables a la página sin escapar).
+XSS consistentemente aparece en el [OWASP Top 10](/guides/security/security-best-practices-guide) porque es tanto común como peligroso. Los tres tipos principales son XSS reflejado (URL maliciosa dispara el script), XSS almacenado (script malicioso se guarda en la base de datos y se sirve a todos los usuarios), y XSS basado en DOM (JavaScript client-side escribe datos no confiables a la página sin escapar).
 
-La defensa fundamental es simple pero frecuentemente olvidada: nunca confíes en el [input](/recipes/security/input-validation) de usuario. Todos los datos de usuarios, APIs o fuentes externas deben ser escapados antes de renderizarse en HTML, JavaScript, CSS o URLs.
+La defensa fundamental es simple pero frecuentemente olvidada: nunca confíes en el [input](/recipes/api/input-validation) de usuario. Todos los datos de usuarios, APIs o fuentes externas deben ser escapados antes de renderizarse en HTML, JavaScript, CSS o URLs.
 
 ## Cuándo usarlo
 
@@ -118,7 +118,7 @@ const clean = DOMPurify.sanitize(dirty);
 - **Implementa un CSP estricto**: empieza con `default-src 'self'` y pon en lista blanca solo los dominios requeridos. Evita `'unsafe-inline'` y `'unsafe-eval'` para scripts.
 - **Configura `HttpOnly` y `Secure` en cookies**: `HttpOnly` previene que JavaScript lea cookies de sesión, mitigando el impacto de XSS. `Secure` asegura que las cookies solo se envíen sobre HTTPS.
 - **Valida input, no solo output**: rechaza caracteres inesperados en el boundary (ej. solo permite usernames alfanuméricos) para que datos malos nunca entren a tu sistema.
-- **Audita dependencias**: XSS también puede venir de paquetes npm comprometidos o scripts de terceros. Usa `npm audit` y [audita dependencias](/recipes/security/dependency-audit-template) cargadas desde dominios externos.
+- **Audita dependencias**: XSS también puede venir de paquetes npm comprometidos o scripts de terceros. Usa `npm audit` y [audita dependencias](/guides/security/security-best-practices-guide) cargadas desde dominios externos.
 
 ## Errores comunes
 

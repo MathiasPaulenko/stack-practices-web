@@ -29,7 +29,7 @@ seo:
 
 # Plantilla de Reporte de Penetration Test
 
-Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de forma clara y accionable.
+Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de forma clara y accionable. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para prácticas de seguridad más amplias.
 
 ## Plantilla
 
@@ -112,21 +112,21 @@ Pasos específicos para arreglar. Incluye ejemplos de código si aplica.
 
 - **Incluye proof of concept** — sin pasos de reproducción, los devs no pueden arreglarlo
 - **Ratea riesgo en contexto de negocio** — un bug teóricamente crítico en una página admin interna-only puede ser riesgo medio
-- **Provee remediación a nivel de código** — "fix the injection" no es suficiente; muestra sintaxis de query parametrizada
+- **Provee remediación a nivel de código** — "fix the injection" no es suficiente; muestra sintaxis de query parametrizada. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para ejemplos de código.
 - **Trackea remediación como un sprint** — asigna owners y fechas límite
 
 ## Errores Comunes
 
 - Hallazgos vagos — "la app tiene XSS" sin URL o parámetro
 - Sin screenshots o PoC — los devs pierden tiempo reproduciendo
-- Fecha de retest faltante — remediación sin verificación está incompleta
+- Fecha de retest faltante — remediación sin verificación está incompleta. Traquea seguimientos con la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/templates/security-incident-response-template).
 - Scoring solo por CVSS — el contexto de negocio importa más que la fórmula
 
 ## Preguntas Frecuentes
 
 ### ¿Cómo priorizo hallazgos cuando todo parece crítico?
 
-Usa la matriz de riesgo: probabilidad × impacto. Una SQL injection en un form de login público es crítica. El mismo bug en un reporte interno read-only puede ser medio. Considera explotabilidad y sensibilidad de datos.
+Usa la matriz de riesgo: probabilidad × impacto. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para contexto de threat modeling. Una SQL injection en un form de login público es crítica. El mismo bug en un reporte interno read-only puede ser medio. Considera explotabilidad y sensibilidad de datos.
 
 ### ¿Cada hallazgo debería ser arreglado?
 

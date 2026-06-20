@@ -93,10 +93,10 @@ Link: </api/v2/orders>; rel="successor-version"
 ## Mejores Prácticas
 
 - **Nunca elimines sin aviso** — mínimo 6 meses para APIs públicas, 30 días para internas
-- **Provee un path de migración funcional** — los consumidores deberían poder cambiar en un PR
+- **Provee un path de migración funcional** — los consumidores deberían poder cambiar en un PR. Enlaza a la [Documentación API](/docs/templates/api-documentation) actualizada y a la [Plantilla de Respuesta de Error](/docs/templates/api-error-response-template).
 - **Agrega headers de deprecación** — herramientas automatizadas pueden flaggear uso en CI
 - **Trackea adopción de consumidores** — sabes quién no ha migrado antes del sunset
-- **Evita breaking changes en patch versions** — semver existe por una razón
+- **Evita breaking changes en patch versions** — sigue convenciones de [Versionado Semántico](/guides/api/rest-api-design-guide)
 
 ## Errores Comunes
 
@@ -113,7 +113,7 @@ APIs públicas: mínimo 6-12 meses. APIs internas: 1-3 meses. Cuantos más consu
 
 ### ¿Qué pasa si un consumidor no migra para la fecha de sunset?
 
-Extiende el sunset si el consumidor es crítico. Para consumidores no críticos, devuelve `410 Gone` con link a la guía de migración. Nunca rompas integraciones silenciosamente.
+Extiende el sunset si el consumidor es crítico. Para consumidores no críticos, devuelve `410 Gone` con link a la guía de migración. Consulta la [Plantilla de Respuesta de Error API](/docs/templates/api-error-response-template) para formatos de error estructurados. Nunca rompas integraciones silenciosamente.
 
 ### ¿Los endpoints deprecados deberían devolver advertencias?
 

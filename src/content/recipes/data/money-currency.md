@@ -36,10 +36,10 @@ Financial calculations demand precision. Floating-point numbers (`float`, `doubl
 ## When to Use
 
 Use this resource when:
-- Building e-commerce carts, checkout flows, or invoicing systems
+- Building e-commerce carts, checkout flows, or invoicing systems. See [Input Validation](/recipes/api/input-validation) for sanitizing order data.
 - Aggregating financial transactions where penny-level accuracy matters
 - Displaying prices in multiple currencies with correct rounding rules
-- Converting between currencies using external exchange rate APIs
+- Converting between currencies using external [exchange rate APIs](/recipes/api/call-rest-api)
 
 ## Solution
 
@@ -185,7 +185,7 @@ public class Money {
 2. **Round at the right boundary** — calculate line items with full precision, round per-line, then sum rounded values for the total.
 3. **Separate money from display** — keep raw `Decimal` / `BigDecimal` / cents internally and format only at the UI/API layer.
 4. **Use banker's rounding (HALF_UP)** for most currencies; some jurisdictions require HALF_EVEN — know your domain.
-5. **Cache exchange rates** with TTL and timestamp; always convert using the rate effective at the transaction time.
+5. **[Cache exchange rates](/recipes/data/caching)** with TTL and timestamp; always convert using the rate effective at the transaction time.
 
 ## Common Mistakes
 

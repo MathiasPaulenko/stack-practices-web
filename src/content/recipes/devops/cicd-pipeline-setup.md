@@ -35,10 +35,10 @@ Continuous Integration and Continuous Deployment (CI/CD) pipelines automate the 
 ## When to Use
 
 Use this resource when:
-- Setting up a new project and want automated testing from day one
-- Migrating from manual deployments to automated releases
-- Adding security scanning, linting, or code quality gates to your workflow
-- Building a multi-environment deployment strategy (dev → staging → prod)
+- Setting up a new project and want automated testing from day one. See [Unit Testing](/recipes/testing/unit-testing) for test fundamentals.
+- Migrating from manual deployments to automated releases. See [GitHub Actions](/recipes/devops/github-actions) for workflow automation.
+- Adding security scanning, linting, or code quality gates to your workflow. See [Container Security Scanning](/recipes/devops/container-security-scanning) for CI security gates.
+- Building a multi-environment deployment strategy (dev → staging → prod). See [Blue-Green Deployment](/recipes/devops/blue-green-deployment) for zero-downtime releases.
 
 ## Solution
 

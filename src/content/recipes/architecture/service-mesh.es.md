@@ -38,9 +38,9 @@ Un service mesh resuelve estos problemas insertando un proxy — un sidecar cont
 
 Usa esta receta cuando:
 
-- Ejecutando 10+ microservicios en Kubernetes con comunicación inter-servicio compleja
+- Ejecutando 10+ [microservicios](/guides/architecture/microservices-architecture-guide) en Kubernetes con comunicación inter-servicio compleja
 - Requiriendo encriptación para todo el tráfico servicio-a-servicio sin modificar aplicaciones
-- Implementando despliegues canary, A/B testing o mirroring de tráfico entre versiones de servicios
+- Implementando [despliegues canary](/recipes/architecture/load-balancing), A/B testing o mirroring de tráfico entre versiones de servicios
 - Necesitando observabilidad unificada (métricas, logs, traces) a través de todos los microservicios
 - Haciendo enforcement de políticas de acceso (ej. "el servicio de pagos solo puede hablar con billing y fraud detection")
 
@@ -120,7 +120,7 @@ spec:
 - **Empieza con mTLS permisivo, luego enforce estricto**: comienza con modo `PERMISSIVE` para asegurar que todos los sidecars están inyectados y funcionando. Después de validar flujos de tráfico, cambia a `STRICT` para rechazar conexiones no encriptadas.
 - **Define service accounts por workload**: las cuentas de servicio de Kubernetes se mapean a identidades de Istio. Usa cuentas de servicio distintas para cada deployment, no la cuenta `default`. Esto habilita políticas de autorización granulares.
 - **Configura retry budgets, no solo retries**: retries ingenuos pueden amplificar fallos. Usa retry budgets de Istio (ej. retry solo si el ratio de error está debajo del 10%) o configura máximo de reintentos con backoff exponencial.
-- **Usa circuit breakers en cada llamada saliente**: configura `outlierDetection` en DestinationRules. Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos. Esto previene fallos en cascada.
+- **Usa [circuit breakers](/recipes/architecture/circuit-breaker-pattern) en cada llamada saliente**: configura `outlierDetection` en DestinationRules. Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos. Esto previene fallos en cascada.
 
 ## Errores comunes
 
@@ -130,7 +130,7 @@ spec:
 
 ## Preguntas frecuentes
 
-**P: ¿Un service mesh reemplaza un API gateway?**
+**P: ¿Un service mesh reemplaza un [API gateway](/recipes/architecture/api-gateway)?**
 R: No. El gateway maneja north-south (externo al cluster). El mesh maneja east-west (servicio-a-servicio). Úsalos ambos. Algunos meshes incluyen un ingress gateway, pero complementa, no reemplaza, tu gateway primario.
 
 **P: ¿Cuál es el overhead de performance de un service mesh?**

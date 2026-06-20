@@ -34,10 +34,10 @@ Structured logging replaces free-text log messages with machine-readable JSON ob
 ## When to Use
 
 Use this resource when:
-- Running more than one service that needs centralized log aggregation
-- Debugging issues that span multiple microservices or async jobs
-- Building dashboards and alerts based on log events
-- Migrating from plain text logs to a modern observability stack
+- Running more than one service that needs centralized log aggregation. See [Prometheus API Monitoring](/recipes/observability/prometheus-api-monitoring) for metrics collection.
+- Debugging issues that span multiple microservices or async jobs. See [Integration Testing](/recipes/testing/integration-testing) for cross-service verification.
+- Building dashboards and alerts based on log events. See [API Status Page Template](/docs/templates/api-status-page-template) for status dashboards.
+- Migrating from plain text logs to a modern observability stack. See [Docker Basics](/recipes/devops/docker-basics) for containerized logging infrastructure.
 
 ## Solution
 

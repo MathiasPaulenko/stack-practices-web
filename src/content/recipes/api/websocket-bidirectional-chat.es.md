@@ -42,7 +42,7 @@ La comunicacion bidireccional permite tanto al cliente como al servidor enviar m
 ## Requisitos Previos
 
 - Node.js 18+ con libreria `ws` o Socket.io
-- Redis para broadcast de mensajes multi-servidor
+- [Redis](/recipes/api/real-time-notifications) para broadcast de mensajes multi-servidor
 
 ## Solucion
 
@@ -255,8 +255,8 @@ function handleTyping(client: ChatClient, isTyping: boolean) {
 ## Consideraciones de Produccion
 
 - Usa **Socket.io** para reconexion automatica, heartbeat y manejo de salas
-- Implementa **rate limiting** por usuario para prevenir spam
-- Almacena mensajes en base de datos persistente con paginacion para historial
+- Implementa [rate limiting](/recipes/api/api-rate-limiting-redis) por usuario para prevenir spam
+- Almacena mensajes en base de datos persistente con [paginacion](/recipes/api/pagination) para historial
 - Agrega **encriptacion end-to-end** para conversaciones sensitivas
 
 ## Errores Comunes
@@ -268,7 +268,7 @@ function handleTyping(client: ChatClient, isTyping: boolean) {
 ## FAQ
 
 **P: Deberia usar WebSocket raw o Socket.io?**
-R: Socket.io para la mayoria de aplicaciones. Maneja reconexion, fallbacks y gestion de salas automaticamente. WebSocket raw es mas ligero pero requiere mas codigo custom.
+R: [Socket.io](/recipes/api/websocket-server) para la mayoria de aplicaciones. Maneja reconexion, fallbacks y gestion de salas automaticamente. WebSocket raw es mas ligero pero requiere mas codigo custom.
 
 **P: Como escalo WebSocket a multiples servidores?**
 R: Usa Redis Pub/Sub o un broker de mensajes para difundir mensajes entre todas las instancias de servidor.

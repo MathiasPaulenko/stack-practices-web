@@ -40,10 +40,10 @@ Más allá del cron del sistema, la mayoría de los ecosistemas de programación
 
 Usa esta recipe cuando:
 
-- Ejecutas tareas periódicas en un servidor (backups, limpiezas, reportes)
-- Programas trabajos en background dentro de una aplicación
-- Reemplazas procesos manuales con scripts automatizados
-- Coordinas ejecución de trabajos distribuidos
+- Ejecutas tareas periódicas en un servidor (backups, limpiezas, reportes). Consulta [Background Jobs](/recipes/devops/background-jobs) para patrones de task queues.
+- Programas trabajos en background dentro de una aplicación. Consulta [Scheduled Jobs](/recipes/devops/background-jobs) para cron serverless.
+- Reemplazas procesos manuales con scripts automatizados. Consulta [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) para automatización de scripts.
+- Coordinas ejecución de trabajos distribuidos. Consulta [RabbitMQ Task Queue](/recipes/messaging/rabbitmq-task-queue) para coordinación de tareas distribuidas.
 
 ## Solución
 

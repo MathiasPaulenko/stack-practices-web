@@ -16,7 +16,7 @@ tags:
 relatedResources:
   - /recipes/security-headers
   - /patterns/design/adapter-pattern-api
-  - /guides/security-best-practices
+  - /guides/security/security-best-practices-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

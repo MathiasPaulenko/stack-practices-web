@@ -35,10 +35,10 @@ Los pre-commit hooks ejecutan verificaciones automáticamente sobre tu código a
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Tu equipo comete repetidamente código que falla checks de lint o formato en CI
-- Quieres enforcear estilo de código sin depender únicamente de revisiones de PR
-- Necesitas ejecutar escaneo de secretos o vulnerabilidades en cada commit
-- Quieres feedback rápido: arregla problemas localmente en lugar de esperar a que CI falle
+- Tu equipo comete repetidamente código que falla checks de lint o formato en CI. Consulta [GitHub Actions](/recipes/devops/github-actions) para configuración de pipeline CI.
+- Quieres enforcear estilo de código sin depender únicamente de revisiones de PR. Consulta [Unit Testing](/recipes/testing/unit-testing) para calidad automatizada.
+- Necesitas ejecutar escaneo de secretos o vulnerabilidades en cada commit. Consulta [Container Security Scanning](/recipes/devops/container-security-scanning) para escaneo de seguridad.
+- Quieres feedback rápido: arregla problemas localmente en lugar de esperar a que CI falle. Consulta [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) para scripts de automatización local.
 
 ## Solución
 

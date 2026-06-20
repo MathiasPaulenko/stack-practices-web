@@ -104,8 +104,8 @@ kubectl scale deployment/api-service --replicas=20
 | Problema | Mitigación Rápida |
 |----------|-----------------|
 | Deploy malo | Rollback a última versión buena |
-| Pico de tráfico | Escalar horizontalmente, activar [rate limiting](/recipes/rate-limiting) |
-| Falla de dependencia | Activar [circuit breaker](/recipes/api/circuit-breaker-pattern), servir cache viejo |
+| Pico de tráfico | Escalar horizontalmente, activar [rate limiting](/recipes/api/rate-limiting) |
+| Falla de dependencia | Activar [circuit breaker](/recipes/architecture/circuit-breaker-pattern), servir cache viejo |
 | Sobrecarga de base de datos | Matar queries lentas, agregar [réplicas de lectura](/guides/databases/database-design-guide) |
 | Error de configuración | [Revertir config](/guides/devops/infrastructure-as-code-guide), reiniciar con valores previos |
 
@@ -154,7 +154,7 @@ Un incidente se considera resuelto cuando:
 
 1. Detén el reloj (registra duración total del incidente)
 2. Agenda postmortem dentro de 24 horas para SEV-1/2
-3. Crea tickets de seguimiento con dueños y fechas límite. Actualiza [CI/CD](/guides/cicd-pipeline-guide) si es necesario.
+3. Crea tickets de seguimiento con dueños y fechas límite. Actualiza [CI/CD](/guides/devops/cicd-pipeline-guide) si es necesario.
 4. Actualiza runbooks con lo aprendido
 
 ## 6. Postmortem
@@ -172,7 +172,7 @@ Problema: La API de pagos devolvió 500 por 20 minutos.
 ¿Por qué? → Los tests de carga no cubren el flujo de checkout.
 ¿Por qué? → Los escenarios de carga no se actualizaron en 6 meses.
 
-Acción: Agregar flujo de checkout a [tests de carga](/recipes/load-testing-k6) semanales; requerir pase de carga en [CI](/guides/cicd-pipeline-guide).
+Acción: Agregar flujo de checkout a [tests de carga](/recipes/performance/load-testing-k6) semanales; requerir pase de carga en [CI](/guides/devops/cicd-pipeline-guide).
 ```
 
 ### Plantilla de Postmortem

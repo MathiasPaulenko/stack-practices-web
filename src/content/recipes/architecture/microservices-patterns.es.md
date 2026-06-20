@@ -38,9 +38,9 @@ Los patrones de resiliencia protegen el sistema de estos modos de fallo. Un circ
 
 Usa esta receta cuando:
 
-- Migrando de un monolito a una arquitectura distribuida con 5+ servicios
+- Migrando de un monolito a una arquitectura distribuida con 5+ servicios. Consulta [Guía de Migración](/guides/architecture/monolith-to-microservices-migration-guide) para estrategias de migración.
 - Experimentando fallos en cascada donde un servicio lento degrada todo el sistema
-- Implementando flujos de pago, gestión de inventario o procesamiento de órdenes entre servicios
+- Implementando flujos de pago, gestión de inventario o procesamiento de órdenes entre servicios. Consulta [Saga Pattern](/recipes/architecture/saga-pattern) para transacciones distribuidas.
 - Operando servicios con diferentes SLAs de confiabilidad en infraestructura compartida
 - Construyendo plataformas donde servicios individuales deben fallar sin impactar el conjunto
 
@@ -204,7 +204,7 @@ await orderSaga.execute();
 - **Establece budgets de timeout apropiados**: cada llamada saliente debería tener un timeout más corto que el timeout del llamador. Si tu API tiene un SLA de 2 segundos, las llamadas downstream deberían timeoutear a los 500ms para dejar margen para retries y fallbacks.
 - **Implementa degradación graceful**: cuando un servicio no está disponible, retorna datos cacheados, valores por defecto o funcionalidad reducida en lugar de fallar completamente. Una página de producto sin recomendaciones es mejor que un error 500.
 - **Monitorea el estado del circuit breaker**: expone estados de breakers (closed/open/half-open) como métricas. Alerta cuando los breakers se abren frecuentemente — esto indica problemas sistémicos, no solo fallos transitorios.
-- **Idempotencia para retries**: los retries pueden causar operaciones duplicadas. Asegura que todos los endpoints de mutación sean idempotentes (acepta IDs de request generados por el cliente, deduplica en el servidor). Sin idempotencia, los retries crean datos inconsistentes.
+- **Idempotencia para retries**: los retries pueden causar operaciones duplicadas. Asegura que todos los endpoints de mutación sean idempotentes. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación. Sin idempotencia, los retries crean datos inconsistentes.
 - **Testea inyección de fallos**: usa herramientas como Chaos Monkey, Gremlin o Toxiproxy para introducir aleatoriamente latencia, errores y particiones de red en staging. Si tus patrones de resiliencia solo funcionan en teoría, fallarán en producción.
 
 ## Errores comunes
@@ -222,9 +222,9 @@ R: La coreografía (event-driven) escala mejor para servicios débilmente acopla
 **P: ¿Cómo prevengo tormentas de retry después de una caída?**
 R: Usa backoff exponencial con jitter, circuit breakers y rate limiters. Cuando un servicio se recupera, distribuye los retries entre la población de clientes para que el servicio en recuperación no sea abrumado por requests sincronizados.
 
-**P: ¿Puedo combinar circuit breakers y retries?**
+**P: ¿Puedo combinar [circuit breakers](/recipes/architecture/circuit-breaker-pattern) y [retries](/recipes/architecture/retry-backoff)?**
 R: Sí — este es el patrón estándar. El retry maneja fallos transitorios. Si los retries se agotan, el circuit breaker se abre. Esto capas defensa: los retries arreglan problemas pequeños, los circuit breakers previenen colapso durante cortes mayores.
 
-**P: ¿Cuál es la diferencia entre una saga y two-phase commit?**
-R: Two-phase commit (2PC) bloquea recursos entre servicios, esperando hasta que todos los participantes confirmen. Las sagas no bloquean — ejecutan pasos secuencialmente y compensan ante fallo. Las sagas intercambian consistencia inmediata por disponibilidad y tolerancia a particiones (BASE vs ACID).
+**P: ¿Cuál es la diferencia entre una [saga](/recipes/architecture/saga-pattern) y two-phase commit?**
+R: Two-phase commit (2PC) bloquea recursos entre servicios, esperando hasta que todos los participantes confirmen. Las sagas no bloquean — ejecutan pasos secuencialmente y compensan ante fallo. Las sagas intercambian consistencia inmediata por disponibilidad y tolerancia a particiones (BASE vs ACID). Consulta [Arquitectura Event-Driven](/recipes/architecture/event-driven-architecture) para coordinación basada en eventos.
 

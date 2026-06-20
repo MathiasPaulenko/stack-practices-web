@@ -189,18 +189,18 @@ When a service needs data owned by another:
 ## Best Practices
 
 - **Own the full lifecycle** — teams build, run, and support their services (you build it, you run it)
-- **Design for failure** — assume any dependency can fail; use [retries with backoff](/recipes/retry-backoff), [circuit breakers](/recipes/circuit-breaker-pattern), and graceful degradation
+- **Design for failure** — assume any dependency can fail; use [retries with backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/architecture/circuit-breaker-pattern), and graceful degradation
 - **Automate everything** — if a deployment or rollback requires a runbook, automate it
-- **Standardize observability** — every service must emit [logs](/recipes/log-aggregation), [metrics](/recipes/metrics-collection), and [traces](/recipes/distributed-tracing) in a consistent format
+- **Standardize observability** — every service must emit [logs](/recipes/observability/log-aggregation), [metrics](/recipes/observability/metrics-collection), and [traces](/recipes/observability/distributed-tracing) in a consistent format
 - **Limit service dependencies** — avoid deep dependency chains; prefer fan-out over deep trees
 
 ## Common Mistakes
 
 - Creating too many services too early — 5 services for 3 engineers is overkill
 - Sharing databases between services — this is a distributed monolith. See [database design](/guides/databases/database-design-guide).
-- Ignoring network latency — every sync call is a potential timeout or [retry storm](/recipes/retry-backoff)
-- Underestimating operational cost — microservices need mature [DevOps practices](/guides/devops-best-practices-guide)
-- Building a custom RPC framework — use proven standards (gRPC, [HTTP/REST](/guides/api/rest-api-design-guide), or [message brokers](/guides/event-driven-architecture-guide))
+- Ignoring network latency — every sync call is a potential timeout or [retry storm](/recipes/architecture/retry-backoff)
+- Underestimating operational cost — microservices need mature [DevOps practices](/guides/devops/docker-for-developers-guide)
+- Building a custom RPC framework — use proven standards (gRPC, [HTTP/REST](/guides/api/rest-api-design-guide), or [message brokers](/guides/architecture/event-driven-architecture-guide))
 
 ## Frequently Asked Questions
 
@@ -214,4 +214,4 @@ Small enough to be rewritten in 2-4 weeks. If a service requires 6+ engineers an
 
 ### What is the biggest risk of microservices?
 
-Distributed complexity. [Debugging](/recipes/distributed-tracing), testing, and reasoning about a system that spans dozens of services is significantly harder than a monolith. Without strong [observability](/recipes/log-aggregation) and automation, the architecture will slow you down rather than speed you up.
+Distributed complexity. [Debugging](/recipes/observability/distributed-tracing), testing, and reasoning about a system that spans dozens of services is significantly harder than a monolith. Without strong [observability](/recipes/observability/log-aggregation) and automation, the architecture will slow you down rather than speed you up.

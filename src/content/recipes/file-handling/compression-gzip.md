@@ -37,11 +37,11 @@ The key insight is that compression should happen transparently at the right lay
 
 Use this recipe when:
 
-- Serving large JavaScript bundles, CSS stylesheets, or HTML documents
-- Reducing API response sizes for mobile clients on metered connections
-- Compressing log files before archiving them to cold storage
-- Uploading large payloads to object storage or transferring files between services
-- Complying with performance budgets that mandate maximum transfer sizes
+- Serving large JavaScript bundles, CSS stylesheets, or HTML documents. See [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) for reducing bundle sizes.
+- Reducing API response sizes for mobile clients on metered connections. See [Call REST API](/recipes/api/call-rest-api) for efficient API design.
+- Compressing log files before archiving them to cold storage. See [Stream Processing](/recipes/file-handling/stream-processing) for log pipeline processing.
+- Uploading large payloads to object storage or transferring files between services. See [Image Optimization](/recipes/file-handling/image-optimization) for media compression.
+- Complying with performance budgets that mandate maximum transfer sizes. See [Lazy Loading Images](/recipes/performance/lazy-loading) for transfer reduction.
 
 ## Solution
 

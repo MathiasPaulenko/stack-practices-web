@@ -39,7 +39,7 @@ Use this recipe when:
 
 - Multiple threads read and write the same collection
 - Implementing producer-consumer patterns with backpressure
-- Building caches, job queues, or connection pools shared by thread pools
+- Building caches, job queues, or [connection pools](/recipes/performance/connection-pooling) shared by thread pools
 - Replacing `synchronized(list)` or `Collections.synchronizedMap()` with higher-performance alternatives
 - Ensuring visibility of writes across threads without explicit memory barriers
 
@@ -169,7 +169,7 @@ class EventDispatcher {
 ## Explanation
 
 - **BlockingQueue**: a queue that blocks producers when full and consumers when empty. This provides natural backpressure — a fast producer cannot overwhelm a slow consumer. `ArrayBlockingQueue` uses a single lock; `LinkedBlockingQueue` uses separate locks for head and tail, allowing higher concurrency for mixed read/write workloads.
-- **ConcurrentHashMap**: unlike `Collections.synchronizedMap()`, which locks the entire map for every operation, `ConcurrentHashMap` uses lock striping — segmenting the map into independently lockable regions. Reads are usually lock-free. `computeIfAbsent` atomically checks and inserts, preventing the classic double-loading race in caches.
+- **ConcurrentHashMap**: unlike `Collections.synchronizedMap()`, which locks the entire map for every operation, `ConcurrentHashMap` uses lock striping — segmenting the map into independently lockable regions similar to [load balancing](/recipes/architecture/load-balancing). Reads are usually lock-free. `computeIfAbsent` atomically checks and inserts, preventing the classic double-loading race in caches.
 - **CopyOnWriteArrayList**: every write creates a full copy of the backing array. Reads are lock-free and fast. Writes are expensive, so this is ideal for collections with few writes and many reads — like event listener lists. An iterator over a copy-on-write list sees a snapshot from the time of iteration creation.
 - **AtomicInteger / AtomicLong**: these are not collections, but they are the building blocks of concurrent counters, sequence generators, and statistics. `incrementAndGet()` uses a CPU `CAS` instruction, making it lock-free and typically faster than `synchronized` for simple counters.
 
@@ -187,7 +187,7 @@ class EventDispatcher {
 
 - **Prefer `ConcurrentHashMap` over `Collections.synchronizedMap()`**: synchronized wrappers lock the entire map for every operation, including `get()`. `ConcurrentHashMap` allows concurrent reads and finer-grained write locking. The performance difference is dramatic under thread contention.
 - **Use `computeIfAbsent` for lazy cache initialization**: `if (!map.containsKey(key)) map.put(key, load())` is a race condition. Two threads may both load and put. `map.computeIfAbsent(key, k -> load())` atomically checks and inserts, ensuring the loader runs at most once per key.
-- **Size bounded queues for backpressure**: an unbounded `LinkedBlockingQueue` can grow until the JVM runs out of memory under a fast producer. Always set a maximum size and use `put()` (blocking) instead of `offer()` (non-blocking) when you want to apply backpressure.
+- **Size bounded queues for backpressure**: an unbounded `LinkedBlockingQueue` can grow until the JVM runs out of memory under a fast producer. Always set a maximum size and use `put()` (blocking) instead of `offer()` (non-blocking) when you want to apply [backpressure](/recipes/api/rate-limiting).
 - **Copy-on-write for listener lists**: if your application registers event listeners at startup and rarely changes them, `CopyOnWriteArrayList` gives lock-free reads. Do not use it for frequently updated lists — the copy cost per write becomes prohibitive.
 - **Iterate with `Iterator`, not `for-each` on synchronized collections**: `for (Item item : synchronizedList)` is not atomic. Another thread can modify the list between iterator steps, throwing `ConcurrentModificationException`. Use explicit `synchronized(list) { ... }` blocks around iteration, or use concurrent collections.
 

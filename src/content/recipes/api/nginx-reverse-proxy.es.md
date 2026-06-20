@@ -35,8 +35,8 @@ Nginx es un servidor web de alto rendimiento que destaca como reverse proxy y AP
 ## Cuando Usar Esto
 
 - Necesitas exponer multiples servicios backend a traves de un unico punto de entrada
-- La terminacion SSL/TLS debe ocurrir en el edge, no en codigo de aplicacion
-- Quieres agregar rate limiting, cacheo o reescritura de peticiones sin modificar backends
+- La terminacion SSL/TLS debe ocurrir en el edge, no en codigo de aplicacion. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para mejores prácticas de TLS.
+- Quieres agregar [rate limiting](/recipes/api/api-rate-limiting-redis), cacheo o reescritura de peticiones sin modificar backends
 
 ## Requisitos Previos
 
@@ -180,7 +180,7 @@ server {
 - Habilita **HTTP/2** en el frontend para conexiones multiplexadas
 - Usa conexiones **keepalive** a backends para reducir overhead de TCP
 - Implementa **sticky sessions** solo cuando sea necesario; prefiere diseno stateless
-- Monitorea **salud upstream** con checks activos o deteccion pasiva de fallos
+- Monitorea **salud upstream** con checks activos o deteccion pasiva de fallos. Consulta [Logging y Auditoría de APIs](/recipes/api/api-logging-audit) para logging de health checks.
 
 ## Errores Comunes
 

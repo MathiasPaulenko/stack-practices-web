@@ -37,9 +37,9 @@ Communicating Sequential Processes (CSP), popularized by Go, inverts this model.
 Use this recipe when:
 
 - Multiple concurrent workers need to coordinate without shared mutable state
-- Building pipelines where the output of one stage is the input of the next
+- Building [pipelines](/guides/architecture/microservices-architecture-guide) where the output of one stage is the input of the next
 - Implementing fan-out (one producer, many consumers) and fan-in (many producers, one consumer)
-- Replacing lock-based concurrency with message-passing for clarity and safety
+- Replacing [lock-based concurrency](/recipes/concurrency/concurrent-data-structures) with message-passing for clarity and safety
 - Writing Go programs where goroutines and channels are the idiomatic concurrency model
 
 ## Solution
@@ -223,7 +223,7 @@ A: Under the hood, channels use locks and condition variables. But the abstracti
 A: Go routinely handles hundreds of thousands of goroutines. They start with a 2KB stack that grows and shrinks. The scheduler multiplexes goroutines onto OS threads (M:N scheduling). The limit is memory — each goroutine consumes some overhead. If you hit memory limits, use a worker pool with a fixed number of goroutines.
 
 **Q: Should I use mutexes or channels?**
-A: Use channels for coordinating and communicating between goroutines. Use mutexes for protecting shared state that must be accessed by multiple goroutines. Go's proverb is "share memory by communicating, do not communicate by sharing memory." When in doubt, start with channels.
+A: Use channels for coordinating and communicating between goroutines. Use mutexes for protecting shared state that must be accessed by multiple goroutines. Go's proverb is "share memory by communicating, do not communicate by sharing memory." When in doubt, start with channels. See [Concurrent Data Structures](/recipes/concurrency/concurrent-data-structures) for lock-based alternatives.
 
 **Q: Can I use CSP patterns in languages other than Go?**
 A: Yes — Rust has `tokio::sync::mpsc`, JavaScript can use async generators, and languages like Clojure have core.async. The fundamental pattern (message passing between sequential processes) is language-agnostic, though Go's built-in syntax (`go`, `chan`, `select`) makes it the most ergonomic.

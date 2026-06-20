@@ -29,14 +29,14 @@ seo:
 ---
 ## Overview
 
-Workflow engines orchestrate complex, multi-step business processes that span services, time, and failure domains. Unlike simple job queues that execute independent tasks, workflows manage state transitions, retries, timeouts, and compensations across [distributed systems](/guides/microservices-architecture-guide). Whether processing an e-commerce order, underwriting an insurance policy, or approving a loan, workflow engines ensure each step executes in the right order with proper error handling.
+Workflow engines orchestrate complex, multi-step business processes that span services, time, and failure domains. Unlike simple job queues that execute independent tasks, workflows manage state transitions, retries, timeouts, and compensations across [distributed systems](/guides/architecture/microservices-architecture-guide). Whether processing an e-commerce order, underwriting an insurance policy, or approving a loan, workflow engines ensure each step executes in the right order with proper error handling.
 
 ## When to Use
 
 Use this resource when:
 - Business processes have 5+ sequential steps with failure handling requirements
 - Steps need to wait for human approval or external events (hours or days)
-- Partial failures require compensating transactions ([saga pattern](/recipes/saga-pattern))
+- Partial failures require compensating transactions ([saga pattern](/recipes/architecture/saga-pattern))
 - You need audit trails and visibility into long-running process state
 
 ## Solution
@@ -155,7 +155,7 @@ order.ship()     # paid -> shipped
 
 ## Best Practices
 
-- **Idempotent activities**: Running the same activity twice should produce the same result. See [message idempotency](/recipes/message-idempotency).
+- **Idempotent activities**: Running the same activity twice should produce the same result. See [message idempotency](/recipes/messaging/rabbitmq-task-queue).
 - **Idempotency keys**: Pass unique keys to external APIs to prevent double charges
 - **Set timeouts on everything**: Default 10-minute timeout prevents stuck workflows
 - **Version workflow definitions**: New deployments shouldn't break in-flight workflows
@@ -164,7 +164,7 @@ order.ship()     # paid -> shipped
 ## Common Mistakes
 
 1. **Tight coupling to orchestrator**: Business logic bleeding into workflow definitions makes testing hard
-2. **No compensation paths**: Failed workflows that already charged the customer need explicit refunds. Learn more in [saga pattern](/recipes/saga-pattern).
+2. **No compensation paths**: Failed workflows that already charged the customer need explicit refunds. Learn more in [saga pattern](/recipes/architecture/saga-pattern).
 3. **Polling instead of events**: Waiting 30 seconds to check status wastes resources; use callbacks
 4. **Ignoring workflow history**: Old completed workflows fill storage; implement retention policies
 5. **No replay testing**: Temporal and similar engines replay history; non-deterministic code breaks
@@ -172,7 +172,7 @@ order.ship()     # paid -> shipped
 ## Frequently Asked Questions
 
 **Q: When should I use a workflow engine instead of a message queue?**
-A: Use [message queues](/guides/event-driven-architecture-guide) for independent, parallel tasks. Use workflow engines for coordinated, sequential processes with state.
+A: Use [message queues](/guides/architecture/event-driven-architecture-guide) for independent, parallel tasks. Use workflow engines for coordinated, sequential processes with state.
 
 **Q: How do workflow engines handle crashes?**
 A: They persist state after each activity. On restart, they resume from the last completed step.

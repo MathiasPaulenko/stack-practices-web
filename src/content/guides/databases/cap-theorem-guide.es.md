@@ -138,9 +138,9 @@ CAP solo discute comportamiento durante una partición. PACELC agrega comportami
 
 - **No uses consistencia fuerte en todas partes** — cuesta latencia y disponibilidad
 - **Identifica tus requerimientos de consistencia por operación** — no todos los datos necesitan las mismas garantías
-- **Usa [patrones saga](/guides/event-driven-architecture-guide) para transacciones distribuidas** — no fuerces ACID entre servicios
-- **Diseña para [idempotencia](/recipes/message-idempotency)** — la consistencia eventual significa reintentos, y los reintentos significan duplicados
-- **Monitorea [lag de replicación](/recipes/database-replication)** — el lag es la distancia entre "escrito" y "visible en todas partes"
+- **Usa [patrones saga](/guides/architecture/event-driven-architecture-guide) para transacciones distribuidas** — no fuerces ACID entre servicios
+- **Diseña para [idempotencia](/recipes/messaging/message-idempotency)** — la consistencia eventual significa reintentos, y los reintentos significan duplicados
+- **Monitorea [lag de replicación](/recipes/databases/database-replication)** — el lag es la distancia entre "escrito" y "visible en todas partes"
 
 ## Errores Comunes
 
@@ -148,7 +148,7 @@ CAP solo discute comportamiento durante una partición. PACELC agrega comportami
 - Construir sistemas distribuidos sin entender los trade-offs — lleva a fallas impredecibles
 - Asumir que "distribuido" significa "más consistente" — usualmente es lo opuesto
 - Usar una base CP para una carga de trabajo AP (o viceversa) — empareja la herramienta al requerimiento. Consulta [selección NoSQL](/guides/databases/nosql-database-selection-guide).
-- Ignorar [lag de replicación](/recipes/database-replication) en escenarios read-after-write — los usuarios pueden no ver sus propias escrituras inmediatamente
+- Ignorar [lag de replicación](/recipes/databases/database-replication) en escenarios read-after-write — los usuarios pueden no ver sus propias escrituras inmediatamente
 
 ## Preguntas Frecuentes
 

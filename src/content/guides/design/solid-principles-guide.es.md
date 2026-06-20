@@ -71,7 +71,7 @@ class ReportGenerator:
         ...
 ```
 
-**Por qué importa:** Cuando una clase tiene múltiples responsabilidades, cambios en una pueden romper otra. Clases pequeñas y enfocadas son más fáciles de entender, probar y reutilizar.
+**Por qué importa:** Cuando una clase tiene múltiples responsabilidades, cambios en una pueden romper otra. Clases pequeñas y enfocadas son más fáciles de entender, probar y reutilizar. Consulta [Clean Code Principles](/guides/design/clean-code-principles-guide) para prácticas relacionadas.
 
 ## O — Principio Abierto/Cerrado (OCP)
 
@@ -115,7 +115,7 @@ class CryptoPayment(PaymentMethod):
         ...
 ```
 
-**Por qué importa:** Modificar código existente que funciona introduce riesgo. Al extender mediante nuevo código, preservas la estabilidad de lo que ya funciona.
+**Por qué importa:** Modificar código existente que funciona introduce riesgo. Al extender mediante nuevo código, preservas la estabilidad de lo que ya funciona. Consulta [Strategy Pattern](/patterns/design/strategy-pattern) para comportamiento intercambiable.
 
 ## L — Principio de Sustitución de Liskov (LSP)
 
@@ -256,7 +256,7 @@ email_notifier = NotificationManager(EmailService())
 sms_notifier = NotificationManager(SMSService())
 ```
 
-**Por qué importa:** Depender de abstracciones hace el sistema flexible. Puedes intercambiar implementaciones (para testing, diferentes entornos, o nuevos requerimientos) sin tocar la lógica de negocio de alto nivel.
+**Por qué importa:** Depender de abstracciones hace el sistema flexible. Puedes intercambiar implementaciones (para testing, diferentes entornos, o nuevos requerimientos) sin tocar la lógica de negocio de alto nivel. Consulta [Factory Pattern](/patterns/design/factory-pattern) para crear abstracciones.
 
 ## Aplicando SOLID Juntos
 

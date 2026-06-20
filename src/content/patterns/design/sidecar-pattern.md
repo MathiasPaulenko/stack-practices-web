@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-The Sidecar Pattern deploys helper components alongside the main application as separate containers or processes. These sidecars extend or enhance the main application with cross-cutting concerns like logging, monitoring, configuration, or networking — without modifying the main application's code.
+The [Sidecar](/patterns/design/sidecar-pattern) Pattern deploys helper components alongside the main application as separate containers or processes. These sidecars extend or enhance the main application with cross-cutting concerns like logging, monitoring, configuration, or networking — without modifying the main application's code.
 
 ## When to Use
 
@@ -214,7 +214,7 @@ The Sidecar Pattern separates concerns into co-located but independent processes
 
 | Variant | Description | Use Case |
 |---------|-------------|----------|
-| **Ambassador Sidecar** | Proxy for external service communication | Service discovery, TLS termination |
+| **[Ambassador](/patterns/design/ambassador-pattern) Sidecar** | Proxy for external service communication | Service discovery, TLS termination |
 | **Adapter Sidecar** | Normalize output from the main app | Logging formats, metrics scraping |
 | **Config Sidecar** | Reload configuration dynamically | Consul, etcd watchers |
 | **Security Sidecar** | Authentication/authorization proxy | OAuth, mTLS, Vault |
@@ -239,7 +239,7 @@ The Sidecar Pattern separates concerns into co-located but independent processes
 ## Frequently Asked Questions
 
 **Q: What is the difference between Sidecar and Ambassador?**
-A: Ambassador is a specific type of sidecar that proxies external service communication. Sidecar is the general pattern — any auxiliary container counts (logging, config, monitoring, proxy).
+A: [Ambassador](/patterns/design/ambassador-pattern) is a specific type of sidecar that proxies external service communication. Sidecar is the general pattern — any auxiliary container counts (logging, config, monitoring, proxy).
 
 **Q: Should I use a sidecar or add the functionality in-process?**
 A: Use a sidecar when the functionality is language-agnostic, needs independent deployment, or when you cannot modify the main app. Use in-process when latency is critical and the logic is simple.

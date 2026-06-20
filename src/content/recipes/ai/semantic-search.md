@@ -40,8 +40,8 @@ This recipe implements semantic search with OpenAI embeddings, sentence-transfor
 Use this resource when:
 - Keyword search misses relevant results due to synonymy or phrasing differences
 - You need to search across large document collections with natural language queries
-- You are building a recommendation engine, Q&A system, or content discovery feature
-- You want to combine semantic and keyword search (hybrid retrieval)
+- You are building a recommendation engine, [Q&A system](/recipes/ai/chatbot-openai), or content discovery feature
+- You want to combine semantic and keyword search ([hybrid retrieval](/recipes/ai/rag-pipeline))
 
 ## Solution
 
@@ -228,4 +228,4 @@ Yes. `sentence-transformers` provides high-quality open-source models like `all-
 
 ### How do I scale to millions of documents?
 
-Use a production vector database like Pinecone, Weaviate, or pgvector with HNSW indexing. Partition by category or tenant, and implement approximate nearest neighbor (ANN) search for sub-second query times at scale.
+Use a production vector database like Pinecone, Weaviate, or pgvector with HNSW indexing. See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) for database optimization. Partition by category or tenant, and implement approximate nearest neighbor (ANN) search for sub-second query times at scale.

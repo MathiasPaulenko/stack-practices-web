@@ -33,9 +33,9 @@ Mongoose proporciona una solucion basada en esquemas para modelar datos de aplic
 
 ## Cuando Usar Esto
 
-- Necesitas una forma estructurada de interactuar con MongoDB desde Node.js
+- Necesitas una forma estructurada de interactuar con MongoDB desde Node.js. Consulta [Parse JSON](/recipes/data/parse-json) para manejo de documentos.
 - Quieres validacion automatica y hooks de middleware
-- Estas construyendo una API que requiere patrones relacionales en una base de datos documental
+- Estas construyendo una API que requiere patrones relacionales en una base de datos documental. Consulta [SQL Joins](/recipes/databases/sql-joins) para patrones relacionales.
 
 ## Requisitos Previos
 
@@ -113,7 +113,7 @@ app.post('/users', async (req, res) => {
   }
 });
 
-// LEER (con paginacion)
+// LEER (con paginacion). Consulta [Pagination](/recipes/api/pagination) para enfoques basados en cursor.
 app.get('/users', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -153,7 +153,7 @@ app.patch('/users/:id', async (req, res) => {
   res.json(user);
 });
 
-// ELIMINAR (eliminacion suave)
+// ELIMINAR (eliminacion suave). Consulta [Soft Deletes](/recipes/databases/soft-deletes) para patrones.
 app.delete('/users/:id', async (req, res) => {
   const user = await User.findByIdAndUpdate(
     req.params.id,
@@ -170,7 +170,7 @@ app.listen(3000, () => console.log('Servidor ejecutandose en el puerto 3000'));
 ### 4. Transacciones
 
 ```javascript
-// Operaciones atomicas entre colecciones
+// Operaciones atomicas entre colecciones. Consulta [Database Transactions](/recipes/databases/database-transactions) para patrones ACID.
 app.post('/orders', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -205,7 +205,7 @@ app.post('/orders', async (req, res) => {
 
 - Habilita **read preference `secondary`** para cargas de trabajo intensivas en lectura en replica sets
 - Usa **indices compuestos** para campos de consulta frecuentemente combinados
-- Implementa **paginacion basada en cursor** para grandes datasets en lugar de skip/limit
+- Implementa **paginacion basada en cursor** para grandes datasets en lugar de skip/limit. Consulta [Pagination](/recipes/api/pagination) para patrones de cursor.
 - Agrega **plugins de Mongoose** para patrones comunes (eliminacion suave, auditoria)
 
 ## FAQ

@@ -282,7 +282,7 @@ Los dos modelos se sincronizan ya sea sincrónicamente (misma transacción) o as
 |----------|-------------|-------------|
 | **Base de Datos Única** | Modelos separados, misma base de datos | CQRS simple; menor complejidad |
 | **Doble Base de Datos** | Escritura a SQL, lectura de NoSQL/búsqueda | Consultas complejas; alta escala de lectura |
-| **Event Sourcing + CQRS** | Los eventos son la fuente de verdad; los modelos de lectura son proyecciones | Trails de auditoría; consultas temporales |
+| **[Event Sourcing](/patterns/design/event-sourcing-pattern) + CQRS** | Los eventos son la fuente de verdad; los modelos de lectura son proyecciones | Trails de auditoría; consultas temporales |
 | **Segregación de API** | Endpoints REST/GraphQL separados para comandos y consultas | Microservicios; límites de equipo |
 
 ## Mejores prácticas
@@ -304,10 +304,10 @@ Los dos modelos se sincronizan ya sea sincrónicamente (misma transacción) o as
 ## Preguntas frecuentes
 
 **P: ¿CQRS requiere Event Sourcing?**
-R: No. CQRS puede usarse con cualquier modelo de persistencia. Event Sourcing a menudo se empareja con CQRS porque los eventos hacen datos de origen naturales para proyecciones de modelos de lectura, pero son patrones independientes.
+R: No. CQRS puede usarse con cualquier modelo de persistencia. [Event Sourcing](/patterns/design/event-sourcing-pattern) a menudo se empareja con CQRS porque los eventos hacen datos de origen naturales para proyecciones de modelos de lectura, pero son patrones independientes.
 
 **P: ¿Cómo mantengo los modelos de lectura y escritura sincronizados?**
 R: En CQRS síncrono, actualiza ambos en la misma transacción. En CQRS asíncrono, publica eventos después de escrituras y haz que los consumidores reconstruyan el modelo de lectura. Acepta la consistencia eventual.
 
 **P: ¿Cuándo debería evitar CQRS?**
-R: Evita CQRS para aplicaciones CRUD simples, equipos pequeños, o cuando las proporciones de lectura/escritura estén balanceadas. La complejidad agregada solo se justifica cuando los dos lados tienen necesidades fundamentalmente diferentes de escalado o modelado.
+R: Evita CQRS para aplicaciones CRUD simples, equipos pequeños, o cuando las proporciones de lectura/escritura estén balanceadas. Consulta [arquitectura de microservicios](/guides/architecture/microservices-architecture-guide) para patrones de sistemas distribuidos que suelen beneficiarse de CQRS. La complejidad agregada solo se justifica cuando los dos lados tienen necesidades fundamentalmente diferentes de escalado o modelado.

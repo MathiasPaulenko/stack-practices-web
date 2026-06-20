@@ -39,7 +39,7 @@ Usa este recurso cuando:
 - Necesitas comunicación de baja latencia y fuertemente tipada entre servicios
 - Tu arquitectura depende de streaming (push del servidor, push del cliente o bidireccional)
 - Quieres generación automática de bibliotecas cliente en múltiples lenguajes
-- Estás construyendo microservicios donde el overhead de parsing JSON es un cuello de botella
+- Estás construyendo [microservicios](/patterns/design/ambassador-pattern-services) donde el overhead de parsing JSON es un cuello de botella
 
 ## Solución
 
@@ -183,7 +183,7 @@ Los flujos de trabajo gRPC son contract-first: defines un esquema `.proto`, lueg
 ## Mejores Prácticas
 
 1. Versiona tus archivos `.proto` y nunca elimines o renumeroes campos existentes
-2. Usa interceptores (middleware) para preocupaciones transversales: auth, logging, reintentos
+2. Usa interceptores ([middleware](/patterns/design/chain-of-responsibility-middleware)) para preocupaciones transversales: auth, logging, reintentos
 3. Establece deadlines/timeouts en cada llamada RPC para prevenir bloqueos en cascada
 4. Usa health checks `grpc.health.v1` para probes de readiness de Kubernetes
 5. Mantén los mensajes pequeños (<1 MB); usa streaming o almacenes de objetos separados para payloads grandes
@@ -204,8 +204,8 @@ No directamente. Los navegadores no pueden hablar HTTP/2 gRPC en crudo. Usa gRPC
 
 ### ¿Debería reemplazar todas mis APIs REST con gRPC?
 
-No. gRPC sobresale en microservicios internos. Para APIs públicas y clientes de navegador, REST o GraphQL suelen ser mejores opciones debido a herramientas más amplias y depuración más fácil.
+No. gRPC sobresale en microservicios internos. Para APIs públicas y clientes de navegador, [REST](/recipes/api/call-rest-api) o [GraphQL](/recipes/api/graphql-api) suelen ser mejores opciones debido a herramientas más amplias y depuración más fácil.
 
 ### ¿Cómo manejo autenticación?
 
-Los metadatos gRPC (headers) transportan tokens. Adjunta un interceptor en el cliente para inyectar metadatos `authorization`, y en el servidor para validarlos. Los patrones estándar de JWT o API key funcionan sin cambios.
+Los metadatos gRPC (headers) transportan tokens. Adjunta un interceptor en el cliente para inyectar metadatos `authorization`, y en el servidor para validarlos. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para patrones de autenticación. Los patrones estándar de JWT o API key funcionan sin cambios.

@@ -38,7 +38,7 @@ Usa esta receta cuando:
 
 - Ejecutando múltiples instancias de una aplicación detrás de un único dominio
 - Experimentando tráfico que excede la capacidad de un solo servidor
-- Requiriendo alta disponibilidad con failover automático entre data centers
+- Requiriendo alta disponibilidad con [failover](/recipes/architecture/circuit-breaker-pattern) automático entre data centers
 - Necesitando persistencia de sesión para que usuarios golpeen el mismo backend a través de requests
 - Implementando despliegues canary o blue/green que enruten porcentajes de tráfico
 
@@ -170,10 +170,10 @@ user_server = ring.get_node("user-123")
 ## Mejores prácticas
 
 - **Implementa health checks activos**: el monitoreo pasivo (detectar fallos de conexión) es demasiado lento. Configura health checks HTTP que golpean `/health` cada 5 segundos. Un servidor retornando 500s debería ser removido de rotación antes de degradar la experiencia de usuario.
-- **Usa connection pooling**: crear una nueva conexión TCP para cada request agrega latencia y overhead de CPU. Configura conexiones `keepalive` entre el load balancer y los backends para que las conexiones se reutilicen entre requests.
+- **Usa [connection pooling](/recipes/performance/connection-pooling)**: crear una nueva conexión TCP para cada request agrega latencia y overhead de CPU. Configura conexiones `keepalive` entre el load balancer y los backends para que las conexiones se reutilicen entre requests.
 - **Termina SSL en el load balancer**: maneja el handshake TLS en el edge, reenviando HTTP plano a backends dentro de una red segura. Esto reduce gestión de certificados y carga de CPU en servidores de aplicación.
 - **Expone IPs reales de clientes**: los backends detrás de un load balancer ven la IP del balancer, no la del cliente. Reenvía headers `X-Forwarded-For` y `X-Real-IP`. Asegura que los backends solo confíen en la IP del load balancer para prevenir spoofing de IP.
-- **Planifica para persistencia de sesión**: si tu aplicación almacena estado de sesión en memoria, usa sesiones pegajosas (basadas en cookies o hash de IP) para que usuarios golpeen consistentemente el mismo backend. Mejor aún, almacena sesiones en Redis y haz todos los requests stateless.
+- **Planifica para persistencia de sesión**: si tu aplicación almacena estado de sesión en memoria, usa sesiones pegajosas (basadas en cookies o hash de IP) para que usuarios golpeen consistentemente el mismo backend. Mejor aún, almacena sesiones en [Redis](/recipes/api/real-time-notifications) y haz todos los requests stateless.
 
 ## Errores comunes
 
@@ -187,10 +187,10 @@ user_server = ring.get_node("user-123")
 **P: ¿Debería usar load balancing de Capa 4 o Capa 7?**
 R: Capa 4 (TCP/UDP) es más rápido pero no puede inspeccionar headers HTTP o enrutar basado en URL. Capa 7 (HTTP) habilita enrutamiento basado en path, stickiness de cookies y reescritura de requests. Usa Capa 7 para aplicaciones web; Capa 4 para bases de datos, servidores de juegos o protocolos no-HTTP.
 
-**P: ¿Cómo manejan los load balancers WebSockets?**
+**P: ¿Cómo manejan los load balancers [WebSockets](/recipes/api/websocket-server)?**
 R: Las conexiones WebSocket son de larga duración. El balancer debe soportar proxying de upgrade HTTP y mantener la conexión. Nginx y HAProxy manejan esto nativamente. Asegura que el timeout del backend exceda la duración esperada del WebSocket.
 
-**P: ¿Cuál es la diferencia entre un load balancer y un reverse proxy?**
+**P: ¿Cuál es la diferencia entre un load balancer y un [reverse proxy](/recipes/api/nginx-reverse-proxy)?**
 R: Un reverse proxy enruta requests a backends y puede modificarlos. Un load balancer agrega algoritmos de distribución, health checks y failover. En la práctica, herramientas modernas (Nginx, HAProxy, Traefik) son ambos. Los términos se usan frecuentemente de forma intercambiable.
 
 **P: ¿Puedo hacer load balancing entre regiones?**

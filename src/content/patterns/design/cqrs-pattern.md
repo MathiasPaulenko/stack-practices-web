@@ -280,7 +280,7 @@ The two models are synchronized either synchronously (same transaction) or async
 |---------|-------------|----------|
 | **Single DB** | Separate models, same database | Simple CQRS; lower complexity |
 | **Dual DB** | Write to SQL, read from NoSQL/search | Complex queries; high read scale |
-| **Event Sourcing + CQRS** | Events are source of truth; read models are projections | Audit trails; temporal queries |
+| **[Event Sourcing](/patterns/design/event-sourcing-pattern) + CQRS** | Events are source of truth; read models are projections | Audit trails; temporal queries |
 | **API Segregation** | Separate REST/GraphQL endpoints for commands and queries | Microservices; team boundaries |
 
 ## Best Practices
@@ -302,10 +302,10 @@ The two models are synchronized either synchronously (same transaction) or async
 ## Frequently Asked Questions
 
 **Q: Does CQRS require Event Sourcing?**
-A: No. CQRS can be used with any persistence model. Event Sourcing is often paired with CQRS because events make natural source data for read model projections, but they are independent patterns.
+A: No. CQRS can be used with any persistence model. [Event Sourcing](/patterns/design/event-sourcing-pattern) is often paired with CQRS because events make natural source data for read model projections, but they are independent patterns.
 
 **Q: How do I keep read and write models in sync?**
 A: In synchronous CQRS, update both in the same transaction. In asynchronous CQRS, publish events after writes and have consumers rebuild the read model. Accept eventual consistency.
 
 **Q: When should I avoid CQRS?**
-A: Avoid CQRS for simple CRUD applications, small teams, or when read/write ratios are balanced. The added complexity is only justified when the two sides have fundamentally different scaling or modeling needs.
+A: Avoid CQRS for simple CRUD applications, small teams, or when read/write ratios are balanced. See [microservices architecture](/guides/architecture/microservices-architecture-guide) for distributed system patterns that often benefit from CQRS. The added complexity is only justified when the two sides have fundamentally different scaling or modeling needs.

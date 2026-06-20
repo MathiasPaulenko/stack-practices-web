@@ -40,10 +40,10 @@ This recipe covers detecting, preventing, and automatically retrying transaction
 ## When to Use
 
 Use this resource when:
-- You see deadlock errors (`40P01` in PostgreSQL, `1213` in MySQL) in production logs
-- Multiple concurrent transactions update the same set of rows in different orders
-- You need to ensure data consistency while maintaining high concurrency
-- Batch jobs and interactive users compete for the same records
+- You see deadlock errors (`40P01` in PostgreSQL, `1213` in MySQL) in production [logs](/recipes/api/logging)
+- Multiple concurrent [transactions](/recipes/databases/database-transactions) update the same set of rows in different orders
+- You need to ensure data consistency while maintaining high concurrency. See [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) for coordination.
+- [Batch jobs](/recipes/data/batch-processing-patterns) and interactive users compete for the same records
 
 ## Solution
 
@@ -171,7 +171,7 @@ Deadlocks require three conditions: mutual exclusion, hold-and-wait, and circula
 - **Hold-and-wait**: Acquire all locks at once using `SELECT ... FOR UPDATE` with consistent ordering
 - **Circular wait**: Always access rows in the same order (e.g., by primary key ascending)
 
-Retry logic uses exponential backoff with jitter to prevent "thundering herd" — where all retrying transactions collide again.
+Retry logic uses [exponential backoff](/recipes/architecture/retry-backoff) with jitter to prevent "thundering herd" — where all retrying transactions collide again.
 
 ## Variants
 

@@ -30,15 +30,15 @@ seo:
 ---
 ## Visión General
 
-Los schemas de base de datos deben evolucionar a medida que las aplicaciones crecen, pero los cambios de schema son una causa principal de [outages en producción](/docs/disaster-recovery-plan-template). El patrón expand-contract, online DDL y migraciones backward-compatible permiten a los equipos agregar features sin downtime. Este recurso cubre técnicas prácticas para evolucionar schemas en PostgreSQL, MySQL y bases de datos distribuidas manteniendo la integridad de datos y disponibilidad de aplicaciones.
+Los schemas de base de datos deben evolucionar a medida que las aplicaciones crecen, pero los cambios de schema son una causa principal de [outages en producción](/guides/devops/on-call-incident-response-guide). El patrón expand-contract, online DDL y migraciones backward-compatible permiten a los equipos agregar features sin downtime. Este recurso cubre técnicas prácticas para evolucionar schemas en PostgreSQL, MySQL y bases de datos distribuidas manteniendo la integridad de datos y disponibilidad de aplicaciones.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Agregas columnas, índices o constraints a tablas con millones de filas
 - Necesitas renombrar columnas o separar tablas sin romper aplicaciones en ejecución
-- Ejecutas migraciones en un [pipeline CI/CD](/guides/cicd-pipeline-guide) que despliega múltiples veces al día
-- Trabajas con [bases de datos distribuidas](/recipes/database-replication) donde los cambios de schema se propagan asíncronamente
+- Ejecutas migraciones en un [pipeline CI/CD](/guides/devops/cicd-pipeline-guide) que despliega múltiples veces al día
+- Trabajas con [bases de datos distribuidas](/recipes/databases/database-replication) donde los cambios de schema se propagan asíncronamente
 
 ## Solución
 
@@ -125,9 +125,9 @@ CREATE INDEX idx_user_preferences_theme ON user_preferences(theme);
 ## Errores Comunes
 
 1. **Migraciones big-bang**: Ejecutar `ALTER TABLE` en una tabla de 100M filas sin `CONCURRENTLY`
-2. **Sin testear rollback**: Si el deploy falla, ¿puedes revertir el cambio de schema? Testea [estrategias de despliegue](/guides/deployment-strategies-guide).
+2. **Sin testear rollback**: Si el deploy falla, ¿puedes revertir el cambio de schema? Testea [estrategias de despliegue](/guides/devops/deployment-strategies-guide).
 3. **Falta de compatibilidad de aplicación**: Nuevo schema rompe código viejo durante rolling deployments
-4. **Ignorar timeouts de lock**: `statement_timeout` de PostgreSQL aborta migraciones largas impredeciblemente. Consulta [connection pooling](/recipes/database-connection-pooling).
+4. **Ignorar timeouts de lock**: `statement_timeout` de PostgreSQL aborta migraciones largas impredeciblemente. Consulta [connection pooling](/recipes/performance/connection-pooling).
 5. **Sin dry runs**: Ejecutar migraciones directamente en producción sin `EXPLAIN` o validación de staging
 
 ## Preguntas Frecuentes
@@ -139,4 +139,4 @@ R: Agregar nueva columna → dual write → migrar datos → update readers → 
 R: PostgreSQL soporta DDL transaccional. MySQL commitea implícitamente después de cada statement DDL.
 
 **P: ¿Cómo manejo cambios de schema en microservicios?**
-R: Cada servicio es dueño de su schema. Usa schema-per-service. [Bases de datos compartidas](/guides/database-design-guide) crean acoplamiento que hace los cambios de schema peligrosos.
+R: Cada servicio es dueño de su schema. Usa schema-per-service. [Bases de datos compartidas](/guides/databases/database-design-guide) crean acoplamiento que hace los cambios de schema peligrosos.

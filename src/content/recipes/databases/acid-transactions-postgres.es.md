@@ -35,9 +35,9 @@ Las propiedades ACID — Atomicidad, Consistencia, Aislamiento, Durabilidad — 
 
 ## Cuando Usar Esto
 
-- Multiples operaciones relacionadas deben tener exito o fallar juntas
-- El acceso concurrente a los mismos registros requiere comportamiento predecible
-- Operaciones financieras, de inventario o reservas no deben dejar datos en estado intermedio
+- Multiples operaciones relacionadas deben tener exito o fallar juntas. Consulta [Database Transactions](/recipes/databases/database-transactions) para patrones específicos por lenguaje.
+- El acceso concurrente a los mismos registros requiere comportamiento predecible. Consulta [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) para primitivas de coordinación.
+- Operaciones financieras, de inventario o reservas no deben dejar datos en estado intermedio. Consulta [Money and Currency](/recipes/data/money-currency) para aritmética exacta.
 
 ## Requisitos Previos
 
@@ -187,9 +187,9 @@ await withAdvisoryLock(pool, orderId, async () => {
 
 ## Consideraciones de Produccion
 
-- Usa **READ COMMITTED** para la mayoria de aplicaciones; actualiza a **SERIALIZABLE** solo cuando sea necesario
+- Usa **READ COMMITTED** para la mayoria de aplicaciones; actualiza a **SERIALIZABLE** solo cuando sea necesario. Consulta [Deadlocks and Retries](/recipes/databases/database-deadlocks-retries) para seguridad de concurrencia.
 - Manten transacciones cortas para minimizar contencion de locks
-- Usa **advisory locks** cuando necesites serializacion a nivel de aplicacion entre servicios
+- Usa **advisory locks** cuando necesites serializacion a nivel de aplicacion entre servicios. Consulta [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) para patrones de locks.
 - Habilita **pg_stat_statements** para identificar transacciones de larga duracion
 
 ## Errores Comunes

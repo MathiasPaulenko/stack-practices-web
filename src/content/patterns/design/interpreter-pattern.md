@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-The Interpreter Pattern is a behavioral design pattern that defines a representation for a language's grammar along with an interpreter that uses the representation to interpret sentences in the language. It is ideal for building small domain-specific languages (DSLs), expression evaluators, query parsers, and rule engines.
+The [Interpreter](/patterns/design/interpreter-pattern-expressions) Pattern is a behavioral design pattern that defines a representation for a language's grammar along with an interpreter that uses the representation to interpret sentences in the language. It is ideal for building small domain-specific languages (DSLs), expression evaluators, query parsers, and rule engines.
 
 ## When to Use
 
@@ -249,7 +249,7 @@ The client builds an AST and then calls `interpret()` on the root node, which re
 | Variant | Description | Use Case |
 |---------|-------------|----------|
 | **Tree Walker** | Traverses a pre-built AST | Rule engines, query evaluators |
-| **Visitor + Interpreter** | Separates evaluation logic from tree nodes | When evaluation strategies vary |
+| **[Visitor](/patterns/design/visitor-pattern) + Interpreter** | Separates evaluation logic from tree nodes | When evaluation strategies vary |
 | **Memoized Interpreter** | Caches sub-expression results | Repeated evaluations with same context |
 | **Compiler + VM** | Compiles to bytecode, then executes | High-performance repeated execution |
 
@@ -275,4 +275,4 @@ The client builds an AST and then calls `interpret()` on the root node, which re
 A: Use Interpreter for very simple grammars with few rules that change infrequently. For anything beyond basic arithmetic or boolean expressions, use ANTLR, PEG.js, or a similar tool.
 
 **Q: Can I combine Interpreter with Visitor?**
-A: Yes, and you often should. The Interpreter Pattern defines the AST structure; the Visitor Pattern adds operations (interpret, serialize, optimize) without modifying the AST nodes.
+A: Yes, and you often should. The Interpreter Pattern defines the AST structure; the [Visitor](/patterns/design/visitor-pattern) Pattern adds operations (interpret, serialize, optimize) without modifying the AST nodes.

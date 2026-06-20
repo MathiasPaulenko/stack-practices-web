@@ -32,11 +32,11 @@ seo:
 
 ## Best Practices
 
-- **Treat the handbook as code** — Version control, PR reviews, and CI checks keep it accurate
+- **Treat the handbook as code** — Version control, PR reviews, and CI checks keep it accurate. See [Onboarding Guide Template](/docs/templates/onboarding-guide-template) for new-hire integration.
 - **Review quarterly** — Outdated handbooks confuse new hires and erode trust
 - **Keep it searchable** — Use a flat structure with clear headings; avoid deep nesting
 - **Make it welcoming** — New hires should feel guided, not policed
-- **Link, do not duplicate** — Reference external docs instead of copying content that changes
+- **Link, do not duplicate** — Reference external docs instead of copying content that changes. Use [ADR Template](/docs/templates/adr-template) for architecture decisions and [Code of Conduct](/docs/templates/code-of-conduct-template) for community standards.
 
 ## Common Mistakes
 
@@ -50,7 +50,7 @@ seo:
 
 ### How long should a team handbook be?
 
-Start with 5-10 pages covering the essentials (standards, workflow, onboarding, ops). Expand based on recurring questions. If a question gets asked more than twice, it belongs in the handbook.
+Start with 5-10 pages covering the essentials (standards, workflow, [onboarding](/docs/templates/onboarding-guide-template), ops). Expand based on recurring questions. If a question gets asked more than twice, it belongs in the handbook.
 
 ### Should every team have its own handbook?
 

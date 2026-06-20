@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-The Prototype Pattern is a creational design pattern that creates new objects by copying existing ones. Instead of building objects from scratch using constructors, you clone a prototype instance and optionally customize it. This is especially useful when object creation is expensive, involves complex configurations, or when you need objects that are similar but not identical.
+The [Prototype](/patterns/design/prototype-pattern-cloning) Pattern is a creational design pattern that creates new objects by copying existing ones. Instead of building objects from scratch using constructors, you clone a prototype instance and optionally customize it. This is especially useful when object creation is expensive, involves complex configurations, or when you need objects that are similar but not identical.
 
 ## When to Use
 
@@ -235,10 +235,10 @@ The key challenge is deciding between **shallow copy** (copies references) and *
 ## Frequently Asked Questions
 
 **Q: What is the difference between Prototype and Factory?**
-A: Factory creates objects using a separate creation method/class. Prototype creates objects by copying an existing instance. Use Factory when creation logic is complex; use Prototype when objects are expensive to construct from scratch.
+A: [Factory](/patterns/design/factory-pattern) creates objects using a separate creation method/class. Prototype creates objects by copying an existing instance. Use Factory when creation logic is complex; use Prototype when objects are expensive to construct from scratch.
 
 **Q: Should I always use deep copy?**
 A: No. Use shallow copy when nested objects are immutable or when you intentionally want shared references. Use deep copy when nested objects are mutable and must be independent.
 
 **Q: How does Prototype compare to the Builder pattern?**
-A: Builder constructs an object step by step. Prototype copies a fully constructed object. They solve different problems — Builder is for complex construction, Prototype is for duplication.
+A: [Builder](/patterns/design/builder-pattern) constructs an object step by step. Prototype copies a fully constructed object. They solve different problems — Builder is for complex construction, Prototype is for duplication.

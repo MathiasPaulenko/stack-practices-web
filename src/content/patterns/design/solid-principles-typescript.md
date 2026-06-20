@@ -30,7 +30,7 @@ seo:
 
 # SOLID Principles in TypeScript with Practical Examples
 
-The SOLID principles provide a framework for writing maintainable object-oriented code. When applied to TypeScript, they help prevent the common pitfalls of tightly coupled classes, brittle inheritance hierarchies, and unmaintainable dependency graphs.
+The [SOLID](/guides/design/solid-principles-guide) principles provide a framework for writing maintainable object-oriented code. When applied to TypeScript, they help prevent the common pitfalls of tightly coupled classes, brittle inheritance hierarchies, and unmaintainable dependency graphs.
 
 ## When to Use This
 
@@ -74,7 +74,7 @@ class OrderNotificationService {
 
 ## O — Open/Closed Principle
 
-Software entities should be open for extension but closed for modification. Use composition and interfaces instead of modifying existing code.
+Software entities should be open for extension but closed for modification. Use composition and interfaces instead of modifying existing code. See [Strategy](/patterns/design/strategy-pattern) and [Decorator](/patterns/design/decorator-pattern) for practical examples.
 
 ```typescript
 interface PaymentProcessor {
@@ -177,7 +177,7 @@ class AllInOne implements Printer, Scanner, Fax {
 
 ## D — Dependency Inversion Principle
 
-Depend on abstractions, not concrete implementations. Use constructor injection to make dependencies explicit and testable.
+Depend on abstractions, not concrete implementations. Use constructor injection to make dependencies explicit and testable. See [Dependency Injection](/patterns/design/dependency-injection-pattern) for wiring patterns.
 
 ```typescript
 interface Logger {

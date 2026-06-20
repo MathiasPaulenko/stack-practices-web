@@ -36,7 +36,7 @@ Copy nested JavaScript objects without shared references using modern and legacy
 ## When to Use This
 
 - State management requires immutable updates without mutating original data
-- API responses are cached and must not be modified by consumers
+- [API responses](/recipes/api/call-rest-api) are cached and must not be modified by consumers
 - Configuration objects are passed to multiple modules that may modify them
 
 ## Solution
@@ -182,12 +182,12 @@ const largeObject = {
 
 - Use `structuredClone` in modern environments for native performance
 - Prefer `klona` over `lodash` if bundle size matters
-- For React state, consider Immer for structural sharing instead of full cloning
+- For React state, consider Immer for structural sharing instead of full cloning. See [Clean Code Guide](/guides/design/clean-code-principles-guide) for maintainable patterns.
 
 ## Common Mistakes
 
 - Using `JSON.parse` for objects containing Dates, Maps, or functions
-- Spreading nested objects (`{ ...obj }`) which only shallow-clones the first level
+- Spreading nested objects (`{ ...obj }`) which only shallow-clones the first level. See [Deep Clone JavaScript](/recipes/data/deep-clone-javascript) for complete strategies.
 - Not handling circular references, causing stack overflow in recursive solutions
 
 ## FAQ

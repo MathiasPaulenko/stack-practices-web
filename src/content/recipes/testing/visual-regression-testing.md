@@ -36,9 +36,9 @@ The core challenge is avoiding false positives. Anti-aliasing, animation frames,
 
 Use this recipe when:
 
-- Maintaining a design system where component changes affect multiple applications
-- Releasing frequent UI updates and needing confidence that changes are intentional
-- Supporting multiple browsers or themes where visual consistency is critical
+- Maintaining a design system where component changes affect multiple applications. See [Component Testing](/recipes/testing/e2e-testing) for testing components in isolation.
+- Releasing frequent UI updates and needing confidence that changes are intentional. See [Jest Snapshot Testing](/recipes/testing/unit-testing) for render output validation.
+- Supporting multiple browsers or themes where visual consistency is critical. See [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) for frontend performance best practices.
 - Migrating CSS frameworks or refactoring global styles with broad impact
 - Collaborating between design and engineering teams with shared visual standards
 

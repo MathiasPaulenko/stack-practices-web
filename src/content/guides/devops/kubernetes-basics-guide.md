@@ -246,9 +246,9 @@ Common namespace strategies:
 - **Set [resource requests and limits](/guides/performance/performance-optimization-guide)** on every container to prevent noisy neighbors
 - **Use readiness probes** to prevent traffic from reaching unready Pods
 - **Use liveness probes** to recover from deadlocks and hangs
-- **Never run as root** — set `securityContext.runAsNonRoot: true`. See [container security](/recipes/container-security).
+- **Never run as root** — set `securityContext.runAsNonRoot: true`. See [container security](/recipes/security/container-security).
 - **Pin image tags** — avoid `:latest` in production
-- **Use ConfigMaps for configuration**, [Secrets](/guides/secrets-management-guide) for credentials
+- **Use ConfigMaps for configuration**, [Secrets](/guides/security/security-best-practices-guide) for credentials
 - **Set graceful termination** — handle SIGTERM in your app (`terminationGracePeriodSeconds`). See [deployment strategies](/guides/devops/deployment-strategies-guide).
 
 ## Common Mistakes

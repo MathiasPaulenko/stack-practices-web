@@ -31,7 +31,7 @@ seo:
 
 # Feature Request Template
 
-Use this template to propose new features in a way that helps product and engineering teams evaluate user value and implementation effort.
+Use this template to propose new features in a way that helps product and engineering teams evaluate user value and implementation effort. Pair it with the [User Story Template](/docs/templates/user-story-template) for narrative-style requirements.
 
 ## Template
 
@@ -82,13 +82,13 @@ Describe the feature. Include mockups, wireframes, or flow diagrams if available
 ## Tips for Requesters
 
 - **Lead with the problem, not the solution** — the team may find a better solution
-- **Include a user quote** — "As a [user], I want [feature] so that [benefit]"
+- **Include a user quote** — "As a [user], I want [feature] so that [benefit]". See [User Story Template](/docs/templates/user-story-template) for the full format.
 - **Define one feature per request** — bundles are hard to evaluate and track
 
 ## Tips for Reviewers
 
 - **Reject unclear requests quickly** — "needs-more-info" label and a 48-hour deadline
-- **Estimate before committing** — t-shirt sizing (S/M/L) is enough for triage
+- **Estimate before committing** — t-shirt sizing (S/M/L) is enough for triage. See [Clean Code Principles Guide](/guides/design/clean-code-principles-guide) for implementation standards.
 - **Link to roadmap** — show where this fits (or does not fit) in quarterly goals
 
 ## Frequently Asked Questions
@@ -103,4 +103,4 @@ Require a "user value" section in every request. If the answer is "it would be c
 
 ### Should internal tools use the same template?
 
-Yes, but relax the "user value" section. Internal requests need a "requesting team" and "time saved per week" instead.
+Yes, but relax the "user value" section. Internal requests need a "requesting team" and "time saved per week" instead. Use the [Bug Report Template](/docs/templates/bug-report-template) for defect tracking.

@@ -37,10 +37,10 @@ Hexagonal architecture (also called ports and adapters) inverts this. The domain
 
 Use this recipe when:
 
-- Business rules are complex and change less frequently than frameworks
+- Business rules are complex and change less frequently than frameworks. See [Domain-Driven Design](/recipes/design/domain-driven-design) for modeling business logic.
 - You need to test core logic without spinning up databases or HTTP servers
-- Migrating between infrastructure technologies (ORMs, message brokers, cloud providers)
-- Working with multiple client interfaces (REST API, CLI, message queue) that share the same core
+- Migrating between infrastructure technologies (ORMs, message brokers, cloud providers). See [Adapter Pattern](/recipes/design/adapter-pattern) for technology swaps.
+- Working with multiple client interfaces (REST API, CLI, message queue) that share the same core. See [API Call REST](/recipes/api/call-rest-api) for interface patterns.
 - Building libraries or frameworks where the core must remain independent of consumers
 
 ## Solution
@@ -193,7 +193,7 @@ app.post('/users', async (req, res) => {
 
 - **Keep the domain pure**: no imports from `node_modules` in domain code. Only language primitives and standard library. If you see `import express` or `import typeorm` in the domain, the boundary is violated.
 - **Use dependency injection**: pass adapters into domain services via constructors. Do not use service locators or global singletons. Constructor injection makes dependencies explicit and testable.
-- **Write tests against in-memory adapters**: unit tests for domain logic should use in-memory repositories, not test databases. They run in milliseconds, require no setup, and prove that domain logic works independently of infrastructure.
+- **Write tests against in-memory adapters**: unit tests for domain logic should use in-memory repositories, not test databases. See [Soft Deletes](/recipes/databases/soft-deletes) for repository patterns. They run in milliseconds, require no setup, and prove that domain logic works independently of infrastructure.
 - **One composition root**: the application bootstrap file (often `main.ts` or `index.js`) is the only place where adapters are instantiated and wired together. This is the only file that knows about PostgreSQL, Express, and SMTP. Everything else is technology-agnostic.
 - **Do not leak framework types into the domain**: if your domain service accepts a `Request` object or returns a `Response`, it is coupled to HTTP. The domain should accept primitives and domain objects. Adapters extract data from HTTP requests and call domain methods.
 

@@ -37,10 +37,10 @@ La arquitectura hexagonal (también llamada ports and adapters) invierte esto. E
 
 Usa esta receta cuando:
 
-- Las reglas de negocio son complejas y cambian menos frecuentemente que los frameworks
+- Las reglas de negocio son complejas y cambian menos frecuentemente que los frameworks. Consulta [Domain-Driven Design](/recipes/design/domain-driven-design) para modelar lógica de negocio.
 - Necesitas testear lógica core sin levantar bases de datos o servidores HTTP
-- Migrando entre tecnologías de infraestructura (ORMs, message brokers, proveedores cloud)
-- Trabajando con múltiples interfaces de cliente (API REST, CLI, cola de mensajes) que comparten el mismo core
+- Migrando entre tecnologías de infraestructura (ORMs, message brokers, proveedores cloud). Consulta [Adapter Pattern](/recipes/design/adapter-pattern) para cambios de tecnología.
+- Trabajando con múltiples interfaces de cliente (API REST, CLI, cola de mensajes) que comparten el mismo core. Consulta [API REST](/recipes/api/call-rest-api) para patrones de interfaz.
 - Construyendo bibliotecas o frameworks donde el core debe permanecer independiente de consumidores
 
 ## Solución
@@ -169,7 +169,7 @@ app.post('/users', async (req, res) => {
 
 - **Mantén el dominio puro**: sin imports de `node_modules` en código de dominio. Solo primitivas del lenguaje y biblioteca estándar. Si ves `import express` o `import typeorm` en el dominio, el límite está violado.
 - **Usa inyección de dependencias**: pasa adapters a los domain services vía constructores. No uses service locators o singletons globales. La inyección por constructor hace las dependencias explícitas y testeables.
-- **Escribe tests contra adapters en memoria**: los unit tests para lógica de dominio deberían usar repositories en memoria, no bases de datos de test. Corren en milisegundos, no requieren setup, y prueban que la lógica de dominio funciona independientemente de infraestructura.
+- **Escribe tests contra adapters en memoria**: los unit tests para lógica de dominio deberían usar repositories en memoria, no bases de datos de test. Consulta [Soft Deletes](/recipes/databases/soft-deletes) para patrones de repository. Corren en milisegundos, no requieren setup, y prueban que la lógica de dominio funciona independientemente de infraestructura.
 - **Un composition root**: el archivo de bootstrap de la aplicación (frecuentemente `main.ts` o `index.js`) es el único lugar donde los adapters se instancian y conectan. Este es el único archivo que sabe sobre PostgreSQL, Express y SMTP. Todo lo demás es agnóstico a la tecnología.
 - **No filtres tipos de framework al dominio**: si tu domain service acepta un objeto `Request` o retorna un `Response`, está acoplado a HTTP. El dominio debería aceptar primitivas y objetos de dominio. Los adapters extraen datos de requests HTTP y llaman métodos de dominio.
 

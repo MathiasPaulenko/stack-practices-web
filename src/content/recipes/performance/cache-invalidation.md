@@ -40,7 +40,7 @@ Use this recipe when:
 - Adding caching to an application that requires data consistency
 - Debugging stale cache issues where users see outdated information
 - Designing distributed systems with multiple writers and readers
-- Choosing between Redis, Memcached, or [CDN](/recipes/performance/cdn-edge-caching) caching layers
+- Choosing between Redis, Memcached, or [CDN](/recipes/data/caching) caching layers
 - Implementing cache warming and eviction policies
 
 ## Solution
@@ -92,7 +92,7 @@ redisClient.publish('user:updated', userId);
 - **TTL expiration**: The simplest approach. Data expires after a fixed time. Suitable for data that changes infrequently or where brief staleness is acceptable. Easy to implement but can serve stale data for the duration of the TTL.
 - **Write-through**: Updates the cache synchronously when the database is written. Guarantees consistency but adds latency to write operations and increases cache load.
 - **Write-behind (write-back)**: Writes go to the cache first, which asynchronously persists to the database. Extremely fast writes but risks data loss if the cache fails before flushing.
-- **Event-driven invalidation**: Services publish [events](/recipes/serverless/event-driven-functions) when data changes. Cache listeners delete or refresh affected keys. Loose coupling but requires a message broker.
+- **Event-driven invalidation**: Services publish [events](/recipes/messaging/event-driven-microservices) when data changes. Cache listeners delete or refresh affected keys. Loose coupling but requires a message broker.
 
 ## Variants
 

@@ -38,11 +38,11 @@ La gestión segura de secretos significa almacenarlos en vaults dedicados con en
 
 Usa esta receta cuando:
 
-- Migrando de archivos `.env` de desarrollo a almacenamiento de secretos de producción
-- Rotando credenciales comprometidas o cumpliendo con requerimientos de auditoría de seguridad
-- Compartiendo secretos entre microservicios, pipelines CI/CD y miembros del equipo
-- Gestionando certificados TLS, claves SSH o strings de conexión a base de datos
-- Auditando quién accedió a qué secreto y cuándo
+- Migrando de archivos `.env` de desarrollo a almacenamiento de secretos de producción. Consulta [Environment Variables](/recipes/devops/environment-variables) para patrones de configuración local.
+- Rotando credenciales comprometidas o cumpliendo con requerimientos de auditoría de seguridad. Consulta [JWT Authentication](/recipes/authentication/jwt-authentication) para estrategias de rotación de tokens.
+- Compartiendo secretos entre microservicios, pipelines CI/CD y miembros del equipo. Consulta [Docker Basics](/recipes/devops/docker-basics) para inyección de secretos en contenedores.
+- Gestionando certificados TLS, claves SSH o strings de conexión a base de datos. Consulta [Parse Config Files](/recipes/devops/parse-config-files) para referencias de secretos por configuración.
+- Auditando quién accedió a qué secreto y cuándo. Consulta [Structured Logging](/recipes/observability/structured-logging) para auditoría de logs.
 
 ## Solución
 

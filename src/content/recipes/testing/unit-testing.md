@@ -192,7 +192,7 @@ Run: `mvn test` or your IDE's test runner.
 - **Name tests after behavior**: `test_addNegativeNumbers` is better than `test_add2` because it describes intent.
 - **One concept per test**: if you need multiple asserts, ensure they verify a single logical outcome. Otherwise, split the test.
 - **Avoid logic in tests**: no `if` statements or loops in tests — they make failures harder to diagnose.
-- **Use fakes over mocks when possible**: a fake in-memory repository is simpler than [mocking](/recipes/testing/unit-testing-mocking) every method call.
+- **Use fakes over mocks when possible**: a fake in-memory repository is simpler than [mocking](/recipes/testing/unit-testing) every method call.
 - **Keep tests close to the code**: place test files next to the source (co-location) or in a mirrored `tests/` directory.
 
 ## Common Mistakes

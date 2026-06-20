@@ -33,14 +33,14 @@ Las agregaciones de Elasticsearch te permiten agrupar y resumir datos indexados 
 
 ## Cuando Usar Esto
 
-- Necesitas busqueda facetada con filtros de conteo por categoria
-- Los dashboards de analitica en tiempo real requieren agregaciones sub-segundo sobre millones de documentos
+- Necesitas busqueda facetada con filtros de conteo por categoria. Consulta [Full-Text Search](/recipes/databases/full-text-search) para implementaciones de busqueda.
+- Los [dashboards de analitica](/recipes/api/logging) en tiempo real requieren agregaciones sub-segundo sobre millones de documentos
 - Datos de series temporales deben agruparse por rangos de fecha con estadisticas anidadas
 
 ## Requisitos Previos
 
 - Cluster de Elasticsearch 8+ ejecutandose localmente o en Elastic Cloud
-- Documentos ya indexados con mappings que soporten campos de agregacion
+- Documentos ya indexados con mappings que soporten campos de agregacion. Consulta [Parse JSON](/recipes/data/parse-json) para manejo de documentos.
 
 ## Solucion
 
@@ -163,13 +163,13 @@ GET /events/_search
 - Configura `size: 0` cuando solo necesites agregaciones, no hits de busqueda
 - Usa subcampos `keyword` para agregaciones de texto para evitar problemas de tokenizacion
 - Habilita `eager_global_ordinals` en campos frecuentemente agregados para ejecucion mas rapida
-- Considera **runtime fields** para agregaciones ad-hoc sobre datos no indexados
+- Considera **runtime fields** para agregaciones ad-hoc sobre datos no indexados. Consulta [Data Validation](/recipes/data/data-validation) para tipado de campos.
 
 ## Errores Comunes
 
 - Agregar sobre campos `text` en lugar de subcampos `keyword`
 - Solicitar demasiados buckets con `size: 10000`, causando presion de memoria
-- No usar agregaciones compuestas cuando se pagina a traves de sets grandes
+- No usar agregaciones compuestas cuando se pagina a traves de sets grandes. Consulta [Pagination](/recipes/api/pagination) para gestion de resultados.
 
 ## FAQ
 

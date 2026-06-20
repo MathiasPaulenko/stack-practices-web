@@ -30,7 +30,7 @@ seo:
 ---
 ## Visión General
 
-Las dead letter queues (DLQs) capturan mensajes que fallan el procesamiento después de intentos repetidos en sistemas [message-driven](/guides/event-driven-architecture-guide). Sin ellas, los mensajes fallidos bloquearían la cola o se perderían por completo. Un sistema DLQ bien diseñado distingue entre poison pills (mensajes permanentemente malos) y fallas transitorias, habilitando a operadores a replayear, inspeccionar o descartar mensajes problemáticos sin impactar el flujo principal de procesamiento.
+Las dead letter queues (DLQs) capturan mensajes que fallan el procesamiento después de intentos repetidos en sistemas [message-driven](/guides/architecture/event-driven-architecture-guide). Sin ellas, los mensajes fallidos bloquearían la cola o se perderían por completo. Un sistema DLQ bien diseñado distingue entre poison pills (mensajes permanentemente malos) y fallas transitorias, habilitando a operadores a replayear, inspeccionar o descartar mensajes problemáticos sin impactar el flujo principal de procesamiento.
 
 ## Cuándo Usar
 
@@ -38,7 +38,7 @@ Usa este recurso cuando:
 - Los consumers de mensajes encuentran errores irrecuperables (payloads malformados, referencias faltantes)
 - Necesitas prevenir que un mensaje malo bloquee una partición de cola completa
 - Los equipos de operaciones requieren visibilidad en mensajes fallidos para intervención manual
-- Compliance requiere audit trails de todos los mensajes procesados y fallidos. Usa una [política de retención de datos](/docs/data-retention-policy-template).
+- Compliance requiere audit trails de todos los mensajes procesados y fallidos. Usa una [política de retención de datos](/guides/databases/database-design-guide).
 
 ## Solución
 
@@ -142,7 +142,7 @@ await consumer.run({
 - **Alerting de profundidad**: DLQ > 10 mensajes dispara PagerDuty
 - **Alerting de edad**: Mensaje en DLQ > 24 horas necesita investigación
 - **Tooling de replay**: UI de admin para reprocesar o purgar mensajes de DLQ
-- **Correlación**: Vincular mensaje de DLQ al trace ID original. Consulta [distributed tracing](/recipes/distributed-tracing).
+- **Correlación**: Vincular mensaje de DLQ al trace ID original. Consulta [distributed tracing](/recipes/observability/distributed-tracing).
 
 ## Variantes
 
@@ -159,13 +159,13 @@ await consumer.run({
 - **Setea counts de retry razonables**: 3-5 intentos balancean tiempo de recuperación contra presión de cola
 - **Incluye contexto completo en DLQ**: Headers originales, retry count, tipo de error y stack trace
 - **Separa DLQs por severidad**: Errores de validación vs. fallas de infraestructura necesitan manejo diferente
-- **Monitorea profundidad de DLQ como métrica**: Es un indicador leading de salud del sistema. Consulta [recolección de métricas](/recipes/metrics-collection).
+- **Monitorea profundidad de DLQ como métrica**: Es un indicador leading de salud del sistema. Consulta [recolección de métricas](/recipes/observability/metrics-collection).
 - **Automatiza replay con cautela**: Replay después de arreglar el bug; replay ciego amplifica fallas
 
 ## Errores Comunes
 
 1. **Sin DLQ**: Mensajes fallidos desaparecen silenciosamente o bloquean consumers para siempre
-2. **Loops infinitos de retry**: Requeuear sin un count máximo crea procesamiento perpetuo. Usa [retry con backoff exponencial](/recipes/retry-backoff).
+2. **Loops infinitos de retry**: Requeuear sin un count máximo crea procesamiento perpetuo. Usa [retry con backoff exponencial](/recipes/architecture/retry-backoff).
 3. **Ignorar mensajes de DLQ**: La DLQ se convierte en un basurero que nadie monitorea
 4. **Sin razón de dead-letter**: Operadores no pueden distinguir "bad JSON" de "database down"
 5. **DLQ compartida para todos los topics**: Un poison pill del topic A no pertenece con fallas del topic B
@@ -179,4 +179,4 @@ R: Solo después de identificar y arreglar la causa raíz. El replay ciego despe
 R: Más que tu SLA de respuesta a incidentes. 7-14 días es típico; archiva a storage barato después.
 
 **P: ¿Cuál es la diferencia entre una DLQ y una cola de retry?**
-R: Las [colas de retry](/recipes/retry-backoff) retienen mensajes para reprocesamiento posterior. Las DLQs retienen mensajes que agotaron todos los retries.
+R: Las [colas de retry](/recipes/architecture/retry-backoff) retienen mensajes para reprocesamiento posterior. Las DLQs retienen mensajes que agotaron todos los retries.

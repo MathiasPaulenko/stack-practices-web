@@ -37,10 +37,10 @@ La mayoría de las aplicaciones necesitan configuración externa para adaptar su
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Cargues credenciales de base de datos, claves de API o feature flags desde archivos externos
-- Necesites soportar múltiples entornos de despliegue con diferentes ajustes
-- Quieras validar configuraciones proporcionadas por usuarios para fallar rápido al iniciar
-- Migres de constantes hard-coded a configuración basada en archivos
+- Cargues credenciales de base de datos, claves de API o feature flags desde archivos externos. Consulta [Environment Variables](/recipes/devops/environment-variables) para inyección de secretos en runtime.
+- Necesites soportar múltiples entornos de despliegue con diferentes ajustes. Consulta [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) para paridad de entorno local.
+- Quieras validar configuraciones proporcionadas por usuarios para fallar rápido al iniciar. Consulta [Input Validation](/recipes/api/input-validation) para patrones de validación.
+- Migres de constantes hard-coded a configuración basada en archivos. Consulta [Bash Scripting Automation](/recipes/devops/bash-scripting-automation) para scripting de migración.
 
 ## Solución
 

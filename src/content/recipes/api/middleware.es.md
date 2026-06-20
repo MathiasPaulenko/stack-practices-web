@@ -40,11 +40,11 @@ El middleware sigue un patrón de pipeline: cada capa puede modificar el request
 
 Usa esta recipe cuando:
 
-- Aplicas autenticación antes de que los route handlers se ejecuten
-- Logueas todos los requests entrantes y tiempos de respuesta
-- Agregas headers CORS o de seguridad a cada response
+- Aplicas autenticación antes de que los route handlers se ejecuten. Consulta [JWT Authentication](/recipes/authentication/jwt-authentication) para patrones de auth.
+- Logueas todos los requests entrantes y tiempos de respuesta. Consulta [Logging](/recipes/api/logging) para logging estructurado.
+- Agregas headers CORS o de seguridad a cada response. Consulta [Manejo de CORS](/recipes/api/handle-cors) para configuración de CORS.
 - Validas cuerpos de request o parámetros de query
-- Implementas rate limiting o throttling de requests
+- Implementas rate limiting o throttling de requests. Consulta [Rate Limiting con Redis](/recipes/api/api-rate-limiting-redis) para rate limiting basado en Redis.
 
 ## Solución
 
@@ -155,7 +155,7 @@ public class WebConfig implements WebMvcConfigurer {
 - **preHandle / before**: Corre antes del route handler. Puede bloquear requests (auth, validación).
 - **postHandle / after**: Corre después del handler pero antes de que el response se envíe.
 - **afterCompletion**: Corre después de que el response se envió completamente. Ideal para cleanup y logging.
-- **Error middleware**: Captura excepciones no atrapadas. Debe registrarse al final del stack.
+- **Error middleware**: Captura excepciones no atrapadas. Debe registrarse al final del stack. Consulta [Manejo de Errores](/recipes/api/handle-errors) para patrones de error.
 
 ## Mejores prácticas
 

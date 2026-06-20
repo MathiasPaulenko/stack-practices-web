@@ -33,14 +33,14 @@ Elasticsearch aggregations allow you to group and summarize indexed data in real
 
 ## When to Use This
 
-- You need faceted search with count-per-category filters
-- Real-time analytics dashboards require sub-second aggregations over millions of documents
+- You need faceted search with count-per-category filters. See [Full-Text Search](/recipes/databases/full-text-search) for search implementations.
+- Real-time [analytics dashboards](/recipes/api/logging) require sub-second aggregations over millions of documents
 - Time-series data must be bucketed by date ranges with nested statistics
 
 ## Prerequisites
 
 - Elasticsearch 8+ cluster running locally or on Elastic Cloud
-- Documents already indexed with mappings that support aggregation fields
+- Documents already indexed with mappings that support aggregation fields. See [Parse JSON](/recipes/data/parse-json) for document handling.
 
 ## Solution
 
@@ -163,13 +163,13 @@ GET /events/_search
 - Set `size: 0` when you only need aggregations, not search hits
 - Use `keyword` subfields for text aggregations to avoid tokenization issues
 - Enable `eager_global_ordinals` on frequently aggregated fields for faster execution
-- Consider **runtime fields** for ad-hoc aggregations on unindexed data
+- Consider **runtime fields** for ad-hoc aggregations on unindexed data. See [Data Validation](/recipes/data/data-validation) for field typing.
 
 ## Common Mistakes
 
 - Aggregating on `text` fields instead of `keyword` subfields
 - Requesting too many buckets with `size: 10000`, causing memory pressure
-- Not using composite aggregations when paginating through large result sets
+- Not using composite aggregations when paginating through large result sets. See [Pagination](/recipes/api/pagination) for result management.
 
 ## FAQ
 

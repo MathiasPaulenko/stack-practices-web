@@ -37,10 +37,10 @@ Los feature flags (o feature toggles) desacoplan el despliegue del lanzamiento. 
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Despliegues gradualmente una función de alto riesgo para monitorear errores
-- Ejecutes tests A/B para comparar dos implementaciones de una función
-- Despliegues código incompleto a `main` sin exponerlo a usuarios
-- Necesites un kill-switch instantáneo para una función causando problemas en producción
+- Despliegues gradualmente una función de alto riesgo para monitorear errores. Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para monitorear salud de la aplicación.
+- Ejecutes tests A/B para comparar dos implementaciones de una función. Consulta [Load Testing](/recipes/testing/load-testing) para medir rendimiento bajo carga.
+- Despliegues código incompleto a `main` sin exponerlo a usuarios. Consulta [Git Workflow](/recipes/devops/git-workflow) para gestión de ramas.
+- Necesites un kill-switch instantáneo para una función causando problemas en producción. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para manejar fallas transitorias gracefulmente.
 
 ## Solución
 

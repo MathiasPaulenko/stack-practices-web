@@ -35,8 +35,8 @@ Deadlocks occur when two transactions hold locks that the other needs, creating 
 
 ## When to Use This
 
-- Concurrent transactions fail intermittently with deadlock errors
-- Batch operations and user-facing transactions compete for the same rows
+- Concurrent [transactions](/recipes/databases/database-transactions) fail intermittently with deadlock errors
+- [Batch operations](/recipes/data/batch-processing-patterns) and user-facing transactions compete for the same rows
 - Row-level locking is required but performance must remain acceptable
 
 ## Problem
@@ -170,14 +170,14 @@ SHOW log_lock_waits;  -- should be 'on'
 ## How It Works
 
 - **Consistent ordering** prevents circular waits by always acquiring locks in the same sequence
-- **Optimistic locking** uses versioning instead of database locks, reducing contention
+- **[Optimistic locking](/recipes/databases/optimistic-locking)** uses versioning instead of database locks, reducing contention
 - **Isolation levels** trade consistency against concurrency; lower levels have fewer deadlocks
 - **Retry logic** with exponential backoff handles transient deadlocks that resolve quickly
 
 ## Production Considerations
 
 - Keep transactions short to minimize lock duration
-- Use `SELECT FOR UPDATE SKIP LOCKED` for queue-like workloads
+- Use `SELECT FOR UPDATE SKIP LOCKED` for queue-like workloads. See [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) for coordination.
 - Monitor `pg_stat_database.deadlocks` to track deadlock frequency
 
 ## Common Mistakes
@@ -189,7 +189,7 @@ SHOW log_lock_waits;  -- should be 'on'
 ## FAQ
 
 **Q: How is this different from a race condition?**
-A: A race condition is a timing-dependent bug in correctness. A deadlock is a blocking condition where transactions wait indefinitely for each other.
+A: A [race condition](/recipes/data/race-condition-prevention) is a timing-dependent bug in correctness. A deadlock is a blocking condition where transactions wait indefinitely for each other.
 
 **Q: Should I always retry deadlocked transactions?**
 A: Yes, with backoff. Deadlocks are transient in well-designed systems and typically succeed on retry.

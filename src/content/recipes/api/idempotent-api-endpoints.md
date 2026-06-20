@@ -39,8 +39,8 @@ Idempotency guarantees that making the same API request multiple times produces 
 ## When to Use
 
 Use this resource when:
-- Building payment or order APIs where duplicate charges must be prevented
-- Designing APIs consumed by mobile apps with unreliable network connectivity
+- Building payment or order APIs where duplicate charges must be prevented. See [API Security Checklist](/guides/security/api-security-checklist-guide) for secure payment patterns.
+- Designing APIs consumed by mobile apps with unreliable network connectivity. See [Call REST API](/recipes/api/call-rest-api) for client retry patterns.
 - Implementing retry logic where the same request may be sent multiple times
 - Creating webhook receivers that may deliver the same event more than once
 
@@ -57,7 +57,7 @@ from typing import Optional
 
 app = FastAPI()
 
-# In-memory store; use Redis in production
+# In-memory store; use [Redis](/recipes/api/api-rate-limiting-redis) in production
 idempotency_store = {}
 IDEMPOTENCY_TTL = 86400  # 24 hours
 
@@ -272,8 +272,8 @@ public class OrderController {
 - **Idempotency key** is a unique client-generated identifier (UUID recommended) sent in a header. The server uses this key to detect duplicate requests and return the cached response.
 - **Processing state** prevents concurrent duplicate requests from executing the same operation twice. If a second request arrives while the first is still processing, return `409 Conflict`.
 - **TTL cleanup** is necessary because idempotency stores grow unbounded. Use Redis with TTL or schedule periodic cleanup. Typical TTL is 24 hours.
-- **Error handling** on failure must remove the "processing" marker so the client can safely retry. Otherwise, a failed request would be permanently blocked.
-- **Natural idempotency** via PUT with resource path (e.g., `PUT /orders/{id}`) is idempotent by HTTP semantics — repeated updates with the same body produce the same state.
+- **Error handling** on failure must remove the "processing" marker so the client can safely retry. See [Error Handling](/recipes/api/handle-errors) for retry patterns. Otherwise, a failed request would be permanently blocked.
+- **Natural idempotency** via PUT with resource path (e.g., `PUT /orders/{id}`) is idempotent by HTTP semantics — repeated updates with the same body produce the same state. See [Call REST API](/recipes/api/call-rest-api) for HTTP method semantics.
 
 ## Variants
 

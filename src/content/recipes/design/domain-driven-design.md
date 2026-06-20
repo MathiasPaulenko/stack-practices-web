@@ -36,11 +36,11 @@ The central insight of DDD is that large domains are too complex to model as a s
 
 Use this recipe when:
 
-- Building applications where business rules are complex, changing frequently, or poorly understood
+- Building applications where business rules are complex, changing frequently, or poorly understood. See [Hexagonal Architecture](/recipes/design/hexagonal-architecture) for isolating domain logic.
 - Working with domain experts who use precise terminology that should be reflected in code
 - Decomposing a monolith where different departments have conflicting models of the same concept
-- Implementing event-sourced systems where the domain model drives persistence
-- Refactoring legacy code where business logic is scattered across layers and frameworks
+- Implementing event-sourced systems where the domain model drives persistence. See [Event Sourcing](/recipes/databases/event-sourcing-relational) for persistence patterns.
+- Refactoring legacy code where business logic is scattered across layers and frameworks. See [Clean Code Guide](/guides/design/clean-code-principles-guide) for maintainable refactoring.
 
 ## Solution
 
@@ -202,7 +202,7 @@ public class OrderToShipmentAdapter {
 - **Keep aggregates small**: an aggregate should fit comfortably in memory and be writable in a single transaction. If loading an order requires joining 50 tables, your aggregate is too large. Split into smaller aggregates and use eventual consistency via domain events.
 - **Design for invariants, not CRUD**: instead of generic `create`, `update`, `delete` methods, expose behavior-focused methods like `add_item`, `submit`, `cancel`. These methods enforce business rules (e.g., "cannot cancel a shipped order") at the domain layer.
 - **Use the ubiquitous language**: name classes, methods, and variables using the same terms domain experts use. If accountants say "post a journal entry," your code should have `journal.post_entry()`, not `create_transaction_record()`. This bridges the gap between code and conversation.
-- **Publish domain events before persistence**: the pattern is — mutate aggregate, collect events, persist aggregate, publish events. If persistence fails, the events were never published, maintaining consistency. Never publish events before the transaction commits.
+- **Publish domain events before persistence**: the pattern is — mutate aggregate, collect events, persist aggregate, publish events. See [Database Transactions](/recipes/databases/database-transactions) for atomic consistency. If persistence fails, the events were never published, maintaining consistency. Never publish events before the transaction commits.
 - **Avoid anemic domain models**: an anemic model has entities with only getters and setters, while all logic lives in service classes. This is just a database schema in code. Push business rules into entities and value objects where they belong.
 
 ## Common mistakes

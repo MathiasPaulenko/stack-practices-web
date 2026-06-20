@@ -196,7 +196,7 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 - **Empieza simple**: Comienza con un [monolito modular](/guides/architecture/monolith-to-microservices-migration-guide); extrae servicios cuando sea necesario
 - **Define contextos acotados**: Usa [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) para encontrar límites naturales
 - **Diseña para observabilidad**: Cada componente debe exponer [métricas, logs, traces](/recipes/observability/metrics-collection)
-- **Automatiza todo**: [CI/CD](/guides/cicd-pipeline-guide), [infraestructura](/guides/devops/infrastructure-as-code-guide), testing, escaneo de seguridad
+- **Automatiza todo**: [CI/CD](/guides/devops/cicd-pipeline-guide), [infraestructura](/guides/devops/infrastructure-as-code-guide), testing, escaneo de seguridad
 - **Documenta decisiones**: ADRs para cada elección arquitectónica significativa
 
 ## FAQ

@@ -44,9 +44,9 @@ Use this recipe when:
 
 - Debugging application behavior in production
 - Monitoring errors, performance, and business events
-- Auditing user actions for compliance or security
+- Auditing user actions for compliance or security. See [Security Guide](/guides/security/security-best-practices-guide) for audit requirements.
 - Building dashboards and alerts from log data
-- Tracing requests across distributed services
+- Tracing requests across distributed services. See [Ambassador Pattern](/patterns/design/ambassador-pattern-services) for service-to-service tracing.
 
 ## Solution
 
@@ -141,7 +141,7 @@ public class UserService {
 
 - Logging too much at INFO level, drowning signal in noise
 - Using `print` or `console.log` in production instead of a logging framework
-- Including raw passwords, tokens, or PII in log output
+- Including raw passwords, tokens, or PII in log output. See [Security Guide](/guides/security/security-best-practices-guide) for data protection.
 - Not configuring log rotation, filling up server disks
 - Swallowing exceptions without logging the full stack trace
 
@@ -177,7 +177,7 @@ Build dashboards that answer these questions:
 ## Frequently Asked Questions
 
 **Q: Should I log every API request?**
-A: Yes, at INFO level with method, path, status code, and duration. Use middleware for automatic request logging.
+A: Yes, at INFO level with method, path, status code, and duration. Use [middleware](/recipes/api/middleware) for automatic request logging.
 
 **Q: What is structured logging and why use it?**
 A: Structured logging outputs JSON or key-value pairs instead of plain text. It enables filtering, aggregation, and alerting in log management systems.

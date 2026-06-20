@@ -35,10 +35,10 @@ Las imágenes son el mayor contribuyente al peso de página. Las imágenes sin o
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Los usuarios suban fotos que necesiten redimensionarse antes de almacenarse
-- Necesites generar múltiples tamaños de imagen para layouts responsivos
-- Tu informe de Core Web Vitales señale imágenes para optimización
-- Quieras convertir formatos legacy (JPEG, PNG) a WebP/AVIF
+- Los usuarios suban fotos que necesiten redimensionarse antes de almacenarse. Consulta [File Upload Validation](/recipes/file-handling/file-upload-validation) para manejo seguro de subidas.
+- Necesites generar múltiples tamaños de imagen para layouts responsivos. Consulta [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) para entrega de assets responsive.
+- Tu informe de Core Web Vitales señale imágenes para optimización. Consulta [Compression Gzip](/recipes/file-handling/compression-gzip) para reducción adicional de payload.
+- Quieras convertir formatos legacy (JPEG, PNG) a WebP/AVIF. Consulta [Stream Processing](/recipes/file-handling/stream-processing) para conversión de formato por lotes.
 
 ## Solución
 

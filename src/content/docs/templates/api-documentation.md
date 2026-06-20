@@ -55,7 +55,7 @@ Authorization: Bearer <your_api_key>
 
 ### Content-Type
 
-Requests and responses use `application/json` unless specified otherwise.
+Requests and responses use `application/json` unless specified otherwise. See [Parse JSON](/recipes/data/parse-json) for handling JSON payloads.
 
 ### Rate Limits
 
@@ -185,7 +185,7 @@ Delete a [resource] by ID.
 
 ## 3. Error Responses
 
-All errors follow this structure:
+All errors follow this structure. For a dedicated error response template, see [API Error Response Template](/docs/templates/api-error-response-template). See [Input Validation](/recipes/api/input-validation) for request validation patterns.
 
 ```json
 {
@@ -249,8 +249,8 @@ Document every endpoint that is consumed by clients, including internal microser
 
 ### What is the difference between API documentation and an OpenAPI spec?
 
-API documentation is the human-readable guide with explanations, examples, and context. An OpenAPI spec is the machine-readable contract that powers interactive docs, client generation, and contract testing. Maintain both.
+API documentation is the human-readable guide with explanations, examples, and context. An [OpenAPI](/docs/templates/api-documentation) spec is the machine-readable contract that powers interactive docs, client generation, and contract testing. Maintain both.
 
 ### How do I keep API docs in sync with code?
 
-Generate documentation from code annotations or OpenAPI specs as part of your CI pipeline. Use tools like Swagger UI, Redoc, or Stoplight to render specs automatically. Manual docs drift quickly without automation.
+Generate documentation from code annotations or OpenAPI specs as part of your CI pipeline. Use tools like Swagger UI, Redoc, or Stoplight to render specs automatically. See [REST API Design Guide](/guides/api/rest-api-design-guide) for API design best practices. Manual docs drift quickly without automation.

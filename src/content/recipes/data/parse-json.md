@@ -39,7 +39,7 @@ Use this recipe when:
 - Consuming a REST API that returns a JSON payload
 - Reading configuration or data files stored as `.json`
 - Deserializing webhook bodies or message-queue events
-- Converting a JSON string into typed objects in your domain model
+- Converting a JSON string into typed objects in your domain model. See [Data Validation Zod](/recipes/security/data-validation-zod) for schema-based parsing.
 
 ## Solution
 
@@ -87,7 +87,7 @@ Each language takes a slightly different approach:
 - **JavaScript** uses the built-in `JSON.parse()`. It returns plain objects and arrays. Never use `eval()` to parse JSON — it is a security risk.
 - **Java** has no built-in parser, so you add a library such as [Jackson](https://github.com/FasterXML/jackson) or Gson. `readTree()` gives you a navigable tree; `readValue()` maps directly onto typed POJOs.
 
-Once you have the parsed data, see [Call a REST API](/recipes/call-rest-api) to fetch JSON over HTTP, or [Read and Write Files](/recipes/read-write-file) to load it from disk.
+Once you have the parsed data, see [Call a REST API](/recipes/api/call-rest-api) to fetch JSON over HTTP, or [Read and Write Files](/recipes/file-handling/read-write-file) to load it from disk.
 
 ## Variants
 

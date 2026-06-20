@@ -153,7 +153,7 @@ class FieldEncryption {
 - **Encripción de sobre**: cada registro se encripta con una data encryption key (DEK) única. La DEK misma se encripta por una key encryption key (KEK) gestionada en un KMS. Esto significa que puedes rotar la KEK sin re-encriptar todos los datos, y puedes revocar acceso a un solo registro eliminando su DEK.
 - **AES-256-GCM**: el estándar de la industria para encripción autenticada. El modo GCM provee confidencialidad (encripción) e integridad (tag de autenticación) en una sola operación. Siempre verifica el tag de autenticación antes de desencriptar para detectar tampering.
 - **Derivación de keys**: en lugar de almacenar DEKs separadamente, derívalas determinísticamente de una master key y un record ID usando HKDF. Esto elimina almacenamiento de DEK pero hace la rotación de keys más compleja — cambiar la master key requiere re-encriptar todos los registros.
-- **Integración con cloud KMS**: AWS KMS, Azure Key Vault y GCP KMS proveen hardware security modules FIPS 140-2 Level 2+. Para prácticas de gestión de secretos, consulta la [guía de gestión de secretos](/guides/devops/secrets-management-guide). Manejan generación de keys, rotación, políticas de acceso y audit logging. Nunca almacenes master keys en archivos de configuración de aplicación.
+- **Integración con cloud KMS**: AWS KMS, Azure Key Vault y GCP KMS proveen hardware security modules FIPS 140-2 Level 2+. Para prácticas de gestión de secretos, consulta la [guía de gestión de secretos](/guides/security/security-best-practices-guide). Manejan generación de keys, rotación, políticas de acceso y audit logging. Nunca almacenes master keys en archivos de configuración de aplicación.
 
 ## Variantes
 
@@ -182,7 +182,7 @@ class FieldEncryption {
 ## Preguntas frecuentes
 
 **P: ¿La encripción en reposo protege contra SQL injection?**
-R: No. La encripción en reposo protege datos en disco. Los ataques de SQL injection operan contra bases de datos en ejecución vía manipulación de queries. Combina encripción con [queries parametrizadas](/recipes/security/sql-injection-prevention) y [validación de input](/recipes/security/input-validation) para defensa en profundidad.
+R: No. La encripción en reposo protege datos en disco. Los ataques de SQL injection operan contra bases de datos en ejecución vía manipulación de queries. Combina encripción con [queries parametrizadas](/recipes/security/sql-injection-prevention) y [validación de input](/recipes/api/input-validation) para defensa en profundidad.
 
 **P: ¿Cuál es la diferencia entre TDE y encripción de aplicación?**
 R: Transparent Data Encryption (TDE) encripta el archivo completo de base de datos a nivel de storage. Es rápida e invisible para aplicaciones pero protege solo contra robo de disco. La encripción de aplicación protege campos individuales, defendiendo contra breaches a nivel de base de datos pero requiriendo cambios en la aplicación.

@@ -31,13 +31,13 @@ seo:
 
 # Flyweight Pattern for Efficient Large-Scale Object Sharing
 
-The Flyweight pattern minimizes memory usage by sharing as much data as possible between similar objects. When an application needs to create thousands of objects that share most of their state, Flyweight extracts the shared (intrinsic) state into a separate shared object, leaving only the unique (extrinsic) state in each instance.
+The [Flyweight](/patterns/design/flyweight-pattern) pattern minimizes memory usage by sharing as much data as possible between similar objects. When an application needs to create thousands of objects that share most of their state, Flyweight extracts the shared (intrinsic) state into a separate shared object, leaving only the unique (extrinsic) state in each instance.
 
 ## When to Use This
 
-- An application uses a large number of objects with shared state
-- Memory cost is high because of the sheer quantity of objects
-- Most object state can be made extrinsic and computed on the fly
+- An application uses a large number of objects with shared state. See [Singleton Pattern](/patterns/design/singleton-pattern) for managing single instances.
+- Memory cost is high because of the sheer quantity of objects. See [Caching Strategies](/recipes/performance/caching-strategies) for reducing redundant storage.
+- Most object state can be made extrinsic and computed on the fly. See [Object Pool](/patterns/design/abstract-factory-pattern) for reusable instance patterns.
 
 ## Problem
 
@@ -194,7 +194,7 @@ class Forest {
 ## FAQ
 
 **Q: How is this different from a cache?**
-A: Flyweight is a design-level decision about object structure. A cache is an optimization for arbitrary data. Flyweights are part of the domain model.
+A: Flyweight is a design-level decision about object structure. A [cache](/patterns/design/cache-aside-pattern) is an optimization for arbitrary data. Flyweights are part of the domain model.
 
 **Q: When should I NOT use Flyweight?**
 A: When the number of shared states approaches the number of instances, or when computing extrinsic state is more expensive than storing it directly.

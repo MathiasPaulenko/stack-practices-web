@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Un README es la puerta de entrada de tu proyecto. Es lo primero que los desarrolladores ven en GitHub, npm, PyPI o Docker Hub. Un README bien estructurado reduce la fricción de onboarding, responde preguntas comunes y establece expectativas para los contribuidores.
+Un README es la puerta de entrada de tu proyecto. Combínalo con la [Guía de Contribución](/docs/templates/contributing-guide) y el [Código de Conducta](/docs/templates/code-of-conduct-template) para estándares de comunidad. Es lo primero que los desarrolladores ven en GitHub, npm, PyPI o Docker Hub. Un README bien estructurado reduce la fricción de onboarding, responde preguntas comunes y establece expectativas para los contribuidores.
 
 Esta plantilla proporciona una estructura probada en batalla que puedes copiar, adaptar y usar en minutos.
 
@@ -132,7 +132,7 @@ Cada sección sirve un propósito específico:
 - **Instalación**: Reduce la barrera para el primer éxito; incluye comandos copiar-pegar
 - **Uso**: Muestra un ejemplo mínimo antes de explicar casos límite
 - **Referencia API**: Enlaza a documentación detallada; mantén el README escaneable
-- **Contribución**: Establece expectativas para PRs, issues y estilo de código
+- **Contribución**: Establece expectativas para PRs, issues y estilo de código. Enlaza a la [Guía de Contribución](/docs/templates/contributing-guide) para detalles.
 - **Licencia**: Protege legalmente tanto a autores como usuarios
 
 ## Variants
@@ -142,7 +142,7 @@ Cada sección sirve un propósito específico:
 | **Biblioteca / SDK** | Referencia API, Changelog | Screenshots |
 | **Herramienta CLI** | Comandos, Flags, Config | Arquitectura |
 | **App Web** | Screenshots, Demo, Deploy | Referencia API |
-| **Herramienta Interna** | Onboarding, Slack interno | Licencia, Contribución |
+| **Herramienta Interna** | [Onboarding](/docs/templates/onboarding-guide-template), Slack interno | Licencia, Contribución |
 
 ## Best Practices
 
@@ -151,7 +151,7 @@ Cada sección sirve un propósito específico:
 - **Enlaza, no incluyas** — documentación detallada pertenece a `/docs`, no al README
 - **Actualiza el TOC** — TOCs obsoletos frustran; usa `doctoc` o auto-genera
 - **Agrega una sección de troubleshooting** — recopila los 3 problemas principales de tu issue tracker
-- **Incluye un link de changelog** — los usuarios necesitan saber qué cambió entre versiones
+- **Incluye un link de changelog** — los usuarios necesitan saber qué cambió entre versiones. Usa la [Plantilla de Changelog](/docs/templates/changelog-template) para estructura.
 
 ## Common Mistakes
 

@@ -33,7 +33,7 @@ seo:
 
 ## Estructura de la Plantilla
 
-Usa esta plantilla para construir respuestas de error consistentes y accionables para cualquier API REST o HTTP.
+Usa esta plantilla para construir respuestas de error consistentes y accionables para cualquier API REST o HTTP. Consulta también la [Plantilla de Documentación API](/docs/templates/api-documentation) para documentación de endpoints.
 
 ---
 
@@ -132,4 +132,4 @@ Usa el arreglo `errors` con un objeto por causa. Cada objeto debe incluir `field
 
 ### ¿Cómo manejo errores de servicios downstream?
 
-Envuelve los errores downstream en tu propio formato. No proxies cuerpos de error de terceros directamente. Mapea el fallo downstream a uno de tus códigos de error documentados, loguea la respuesta upstream original y retorna un mensaje sanitizado al cliente.
+Envuelve los errores downstream en tu propio formato. Considera los patrones [Circuit Breaker](/patterns/design/circuit-breaker-pattern) y [Retry](/patterns/design/retry-pattern) para comunicación downstream resiliente. No proxies cuerpos de error de terceros directamente. Mapea el fallo downstream a uno de tus códigos de error documentados, loguea la respuesta upstream original y retorna un mensaje sanitizado al cliente.

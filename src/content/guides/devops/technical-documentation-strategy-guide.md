@@ -135,8 +135,8 @@ Adopt Apache Kafka as the event streaming platform.
 - Handles backpressure via consumer lag
 
 ### Negative
-- Operational complexity (ZooKeeper, brokers, partitions). See [event-driven architecture](/guides/event-driven-architecture-guide).
-- Team needs to learn [event-driven patterns](/guides/event-driven-architecture-guide)
+- Operational complexity (ZooKeeper, brokers, partitions). See [event-driven architecture](/guides/architecture/event-driven-architecture-guide).
+- Team needs to learn [event-driven patterns](/guides/architecture/event-driven-architecture-guide)
 - Eventual consistency requires Saga pattern for some flows
 ```
 
@@ -183,7 +183,7 @@ If resolution fails after 15 minutes, escalate to Database Team on-call.
 
 - **Write the README first** — if you cannot explain how to run the service, the service is not ready
 - **Keep docs close to code** — docs in a separate repo rot faster than code
-- **Automate link checking** — broken links destroy trust; [CI](/guides/cicd-pipeline-guide) should catch them
+- **Automate link checking** — broken links destroy trust; [CI](/guides/devops/cicd-pipeline-guide) should catch them
 - **Use diagrams as code** — Mermaid and PlantUML keep diagrams versioned and editable
 - **Review docs in PRs** — a code change without a doc change is an incomplete PR
 - **Set a freshness policy** — flag docs not updated in 12 months for review

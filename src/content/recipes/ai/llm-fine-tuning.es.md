@@ -39,7 +39,7 @@ Esta receta cubre la preparación de un dataset de código, fine-tuning con LoRA
 
 Usa este recurso cuando:
 - Necesitas un modelo que entienda tus APIs internas, DSLs o frameworks propietarios
-- El prompt engineering y RAG son insuficientes para patrones de código altamente especializados
+- El [prompt engineering](/recipes/ai/prompt-engineering) y [RAG](/recipes/ai/semantic-search) son insuficientes para patrones de código altamente especializados
 - Tienes 500–10.000 ejemplos de código de alta calidad y quieres mejorar la precisión de completado
 - Quieres reducir costos de inferencia usando un modelo más pequeño y específico de tarea
 
@@ -185,7 +185,7 @@ El fine-tuning actualiza los pesos de un modelo pre-entrenado para mejorar rendi
 | QLoRA | LoRA cuantizada a 4 bits | Cabe 7B en 1x RTX 3090; entrenamiento ligeramente más lento |
 | Prefix tuning | Entrenar embeddings de prompt | Método anterior; LoRA generalmente preferido |
 | Adapter layers | Pequeñas capas bottleneck | Idea similar a LoRA; menos adoptado |
-| OpenAI fine-tuning | Basado en API | Subir JSONL, sin infraestructura; pago por token |
+| [OpenAI fine-tuning](/recipes/ai/chatbot-openai) | Basado en API | Subir JSONL, sin infraestructura; pago por token |
 
 ## Mejores Prácticas
 
@@ -215,4 +215,4 @@ QLoRA en Google Colab (T4 gratis) funciona para modelos 7B con batch sizes muy p
 
 ### ¿Debo usar la API de fine-tuning de OpenAI en su lugar?
 
-Si necesitas calidad de modelo propietario (clase GPT-4) y tienes presupuesto, sí. Para control de costos, privacidad o despliegue on-premise, usa modelos de código abierto con LoRA/QLoRA en tu propio hardware.
+Si necesitas calidad de modelo propietario (clase GPT-4) y tienes presupuesto, sí. Consulta [Chatbot con OpenAI](/recipes/ai/chatbot-openai) para enfoques basados en API. Para control de costos, privacidad o despliegue on-premise, usa modelos de código abierto con LoRA/QLoRA en tu propio hardware.

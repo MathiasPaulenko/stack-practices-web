@@ -33,10 +33,10 @@ SQL JOINs combine rows from two or more tables based on a related column. They a
 
 Use JOINs when:
 
-- You need data from multiple tables in a single result set
+- You need data from multiple tables in a single result set. See [Database Views](/recipes/databases/database-views-materialized) for reusable queries.
 - Normalized schemas split related data across tables (e.g., users, orders, products)
-- Reporting or analytics require aggregated data from several sources
-- You want to find orphaned or unmatched records (e.g., users without orders)
+- Reporting or analytics require aggregated data from several sources. See [Query Optimization](/recipes/databases/postgres-query-optimization) for performance.
+- You want to find orphaned or unmatched records (e.g., users without orders). See [Soft Deletes](/recipes/databases/soft-deletes) for handling missing data.
 
 ## Solution
 
@@ -130,7 +130,7 @@ Returns all users and all orders, with NULLs where there is no match on either s
 
 ## Best Practices
 
-- **Index foreign keys**: the join column (`orders.user_id`) should have an index or foreign-key constraint. Without it, large tables perform full scans.
+- **Index foreign keys**: the join column (`orders.user_id`) should have an index or foreign-key constraint. See [Query Optimization](/recipes/databases/postgres-query-optimization) for indexing. Without it, large tables perform full scans.
 - **Use table aliases**: `users u` makes queries readable and shorter.
 - **Be explicit**: write `INNER JOIN` instead of just `JOIN` — it communicates intent clearly.
 - **Filter in the ON clause for join logic, WHERE for result filtering**: `ON u.id = o.user_id AND o.amount > 100` behaves differently than `WHERE o.amount > 100` with LEFT JOINs.
@@ -140,7 +140,7 @@ Returns all users and all orders, with NULLs where there is no match on either s
 
 - **Using LEFT JOIN when INNER JOIN is meant**: this produces NULL rows that downstream code may not expect.
 - **Joining on the wrong column**: `ON u.name = o.user_id` compiles but gives nonsense results.
-- **N+1 queries in application code**: fetching a list of users, then querying orders for each user individually, is slower than a single JOIN.
+- **N+1 queries in application code**: fetching a list of users, then querying orders for each user individually, is slower than a single JOIN. See [Caching](/recipes/databases/redis-cache-patterns) for query reduction.
 - **Missing indexes**: JOINs on unindexed columns are fast in development with 100 rows and catastrophic in production with millions.
 - **Implicit joins**: comma-separated tables in the `FROM` clause (`FROM users, orders`) are error-prone; always use explicit JOIN syntax.
 

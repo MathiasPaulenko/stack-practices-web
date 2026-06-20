@@ -35,8 +35,8 @@ Los deadlocks ocurren cuando dos transacciones mantienen locks que la otra neces
 
 ## Cuando Usar Esto
 
-- Transacciones concurrentes fallan intermitentemente con errores de deadlock
-- Operaciones batch y transacciones user-facing compiten por las mismas filas
+- [Transacciones](/recipes/databases/database-transactions) concurrentes fallan intermitentemente con errores de deadlock
+- [Operaciones batch](/recipes/data/batch-processing-patterns) y transacciones user-facing compiten por las mismas filas
 - Se requiere row-level locking pero el rendimiento debe permanecer aceptable
 
 ## Problema
@@ -166,14 +166,14 @@ SHOW log_lock_waits;
 ## Como Funciona
 
 - **Ordenamiento consistente** previene esperas circulares adquiriendo locks siempre en la misma secuencia
-- **Optimistic locking** usa versionado en lugar de locks de base de datos, reduciendo contencion
+- **[Optimistic locking](/recipes/databases/optimistic-locking)** usa versionado en lugar de locks de base de datos, reduciendo contencion
 - **Niveles de aislamiento** intercambian consistencia contra concurrencia; niveles mas bajos tienen menos deadlocks
 - **Logica de reintento** con exponential backoff maneja deadlocks transitorios que se resuelven rapidamente
 
 ## Consideraciones de Produccion
 
 - Manten transacciones cortas para minimizar duracion de locks
-- Usa `SELECT FOR UPDATE SKIP LOCKED` para workloads tipo queue
+- Usa `SELECT FOR UPDATE SKIP LOCKED` para workloads tipo queue. Consulta [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) para coordinación.
 - Monitorea `pg_stat_database.deadlocks` para trackear frecuencia de deadlocks
 
 ## Errores Comunes
@@ -185,7 +185,7 @@ SHOW log_lock_waits;
 ## FAQ
 
 **P: En que se diferencia de una race condition?**
-R: Una race condition es un bug dependiente de timing en correccion. Un deadlock es una condicion de bloqueo donde transacciones esperan indefinidamente una a la otra.
+R: Una [race condition](/recipes/data/race-condition-prevention) es un bug dependiente de timing en correccion. Un deadlock es una condicion de bloqueo donde transacciones esperan indefinidamente una a la otra.
 
 **P: Deberia siempre reintentar transacciones deadlock?**
 R: Si, con backoff. Los deadlocks son transitorios en sistemas bien disenados y tipicamente tienen exito en el reintento.

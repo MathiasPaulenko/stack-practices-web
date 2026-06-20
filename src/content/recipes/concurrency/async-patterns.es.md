@@ -40,8 +40,8 @@ Usa esta receta cuando:
 - Construyendo APIs que manejan cientos de requests concurrentes por proceso
 - Obteniendo datos de múltiples servicios que pueden llamarse en paralelo
 - Procesando cargas de trabajo I/O-bound como web scraping, uploads de archivos o colas de mensajes
-- Implementando features en tiempo real como WebSockets, chat o dashboards en vivo
-- Reemplazando modelos de thread-por-request con arquitecturas event-driven para eficiencia
+- Implementando features en tiempo real como [WebSockets](/recipes/api/websocket-server), chat o dashboards en vivo
+- Reemplazando modelos de thread-por-request con [arquitecturas event-driven](/recipes/architecture/event-driven-architecture) para eficiencia
 
 ## Solución
 
@@ -154,7 +154,7 @@ public class AsyncOrderService {
 
 - **Siempre await las promises**: una promise no awaited es una operación fire-and-forget que silenciosamente traga errores. Si una promise rechaza y nada la espera, Node.js emite un warning `unhandledRejection`. En funciones async, siempre `await` o `.catch()` cada promise.
 - **Usa Promise.all para independencia, secuencial para dependencias**: si la tarea B necesita el resultado de la tarea A, deben ejecutarse secuencialmente. Si son independientes, usa `Promise.all` o `asyncio.gather` para ejecutarlas concurrentemente. Ejecutar tareas independientes secuencialmente desperdicia tiempo.
-- **Establece timeouts en todas las llamadas externas**: una API no responiva puede colgar una operación async indefinidamente. Envuelve cada llamada externa en un timeout (ej. `Promise.race([fetch(), sleep(5000)])`). Esto previene filtración de recursos y asegura latencias predecibles.
+- **Establece timeouts en todas las llamadas externas**: una API no responiva puede colgar una operación async indefinidamente. Envuelve cada llamada externa en un timeout con [retry logic](/recipes/architecture/retry-backoff). Esto previene filtración de recursos y asegura latencias predecibles.
 - **Prefiere concurrencia estructurada sobre fire-and-forget**: lanzar una tarea en segundo plano que sobrevive a su padre es una fuente común de filtraciones de memoria y condiciones de carrera. Usa task groups, `asyncio.gather` o tokens de cancelación explícitos para asegurar que los lifetimes sean gestionados.
 - **Profilea el event loop**: en Node.js, usa `clinic.js` o `0x` para detectar lag del event loop. En Python, usa `asyncio.run` con modo debug. Si el event loop está bloqueado por trabajo CPU, muévelo a un worker thread o process pool.
 
@@ -162,8 +162,8 @@ public class AsyncOrderService {
 
 - **Bloquear el event loop**: llamar una lectura de archivo síncrona (`fs.readFileSync`) o una computación pesada dentro de una función async bloquea todo el event loop. Todos los otros requests se detienen. Usa equivalentes async (`fs.promises.readFile`) o descarga trabajo CPU a worker threads.
 - **Callback hell sin async/await**: cadenas profundamente anidadas `.then()` son difíciles de leer y debuggear. El JavaScript moderno debería usar `async/await` para todos excepto los casos más simples. Produce código plano y legible que luce síncrono pero se ejecuta asíncronamente.
-- **Condiciones de carrera en estado mutable compartido**: dos tareas concurrentes incrementando un contador sin sincronización producen resultados incorrectos. En ambientes async, usa operaciones atómicas, locks o paso de mensajes en lugar de estado mutable compartido.
-- **Ignorar backpressure**: aceptar requests más rápido de lo que pueden procesarse lleva a agotamiento de memoria y kills por OOM. Implementa rate limiting, colas acotadas y load shedding. Una respuesta 503 es mejor que un servidor caído.
+- **Condiciones de carrera en estado mutable compartido**: dos tareas concurrentes incrementando un contador sin sincronización producen resultados incorrectos. En ambientes async, usa [operaciones atómicas](/recipes/concurrency/concurrent-data-structures), locks o paso de mensajes en lugar de estado mutable compartido.
+- **Ignorar backpressure**: aceptar requests más rápido de lo que pueden procesarse lleva a agotamiento de memoria y kills por OOM. Implementa [rate limiting](/recipes/api/rate-limiting), colas acotadas y load shedding. Una respuesta 503 es mejor que un servidor caído.
 
 ## Preguntas frecuentes
 

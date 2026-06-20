@@ -42,13 +42,13 @@ By defining your pipeline as code inside your repository, you get version contro
 
 Use this recipe when:
 
-- Running tests on every pull request to catch regressions before they reach production
-- Building and pushing Docker images on release tags for immutable deployments
-- Deploying to staging or production environments with gated approvals
-- Linting and formatting checks before merge to maintain consistent code style
-- Running scheduled tasks (cron-based workflows) such as dependency audits or nightly backups
+- Running tests on every pull request to catch regressions before they reach production. See [Unit Testing](/recipes/testing/unit-testing) for test automation.
+- Building and pushing Docker images on release tags for immutable deployments. See [Docker Basics](/recipes/devops/docker-basics) for image building.
+- Deploying to staging or production environments with gated approvals. See [Environment Variables](/recipes/devops/environment-variables) for managing deployment config.
+- Linting and formatting checks before merge to maintain consistent code style. See [Pre-Commit Hooks](/recipes/devops/pre-commit-hooks) for local code quality.
+- Running scheduled tasks (cron-based workflows) such as dependency audits or nightly backups. See [Scheduled Jobs](/recipes/devops/background-jobs) for cron patterns.
 - Generating and publishing documentation automatically when source files change
-- Scanning for security vulnerabilities in dependencies on every commit
+- Scanning for security vulnerabilities in dependencies on every commit. See [Secret Management](/recipes/devops/secret-management) for credential security.
 
 ## Solution
 

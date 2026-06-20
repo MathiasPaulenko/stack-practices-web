@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-The Strategy Pattern is a behavioral design pattern that defines a family of algorithms, encapsulates each one as a separate class, and makes them interchangeable at runtime. It lets the algorithm vary independently from the clients that use it.
+The [Strategy](/patterns/design/strategy-pattern) Pattern is a behavioral design pattern that defines a family of algorithms, encapsulates each one as a separate class, and makes them interchangeable at runtime. It lets the algorithm vary independently from the clients that use it.
 
 It is ideal when you need to select from multiple ways to perform an operation, such as different sorting strategies, payment methods, or compression algorithms.
 
@@ -174,7 +174,7 @@ This eliminates large conditional blocks and makes adding new strategies as simp
 | Variant | Use Case | Trade-off |
 |---------|----------|-----------|
 | **Simple Strategy** | Single context, few strategies | Easy to start, direct coupling |
-| **Strategy with Factory** | Dynamic strategy selection | More flexible, adds indirection |
+| **[Strategy](/patterns/design/strategy-pattern) with [Factory](/patterns/design/factory-pattern)** | Dynamic strategy selection | More flexible, adds indirection |
 | **Functional Strategy** | Languages with first-class functions | Concise, but less explicit than classes |
 
 ## Best Practices
@@ -196,7 +196,7 @@ This eliminates large conditional blocks and makes adding new strategies as simp
 ## Frequently Asked Questions
 
 **Q: What is the difference between Strategy and State patterns?**
-A: Strategy is about interchangeable algorithms chosen by the client. State is about changing behavior based on the object's internal state transitions.
+A: Strategy is about interchangeable algorithms chosen by the client. [State](/patterns/design/state-pattern) is about changing behavior based on the object's internal state transitions.
 
 **Q: Can I use functions instead of classes for strategies?**
 A: Yes, in languages with first-class functions (JavaScript, Python, Go) you can pass functions directly. Classes are better when strategies need configuration or multiple methods.

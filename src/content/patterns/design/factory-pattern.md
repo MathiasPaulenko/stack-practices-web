@@ -169,7 +169,7 @@ This structure lets you add new notification channels (e.g., Push, Slack) withou
 |---------|----------|-----------|
 | **Simple Factory** | Single method with conditional logic | Easy to start, hard to scale |
 | **Factory Method** | Subclasses override creation | More flexible, more classes |
-| **Abstract Factory** | Families of related objects | Complex, but handles product families |
+| **[Abstract Factory](/patterns/design/abstract-factory-pattern)** | Families of related objects | Complex, but handles product families |
 
 ## Best Practices
 
@@ -190,10 +190,10 @@ This structure lets you add new notification channels (e.g., Push, Slack) withou
 ## Frequently Asked Questions
 
 **Q: What is the difference between Factory Method and Abstract Factory?**
-A: Factory Method lets subclasses decide which class to instantiate. Abstract Factory creates families of related objects (e.g., UI components for Windows vs. Mac).
+A: [Factory Method](/patterns/design/factory-pattern) lets subclasses decide which class to instantiate. [Abstract Factory](/patterns/design/abstract-factory-pattern) creates families of related objects (e.g., UI components for Windows vs. Mac).
 
 **Q: Is the Factory Pattern the same as dependency injection?**
-A: No. DI is about who provides the dependency; Factory is about how the dependency is created. They often work together.
+A: No. [DI](/patterns/design/dependency-injection-pattern) is about who provides the dependency; Factory is about how the dependency is created. They often work together.
 
 **Q: When should I avoid the Factory Pattern?**
 A: Avoid it when object creation is trivial (a simple `new Class()`) and there is only one implementation.

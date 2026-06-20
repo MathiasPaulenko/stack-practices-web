@@ -45,9 +45,9 @@ The Visitor Pattern is a behavioral design pattern that lets you define a new op
 ## When to Use
 
 Use the Visitor Pattern when:
-- You need to perform operations on all elements of a complex object structure
-- The object structure is stable but operations on it change frequently
-- You want to avoid polluting element classes with unrelated operations
+- You need to perform operations on all elements of a complex object structure. See [Composite Pattern](/patterns/design/composite-pattern) for tree structures.
+- The object structure is stable but operations on it change frequently. See [Strategy Pattern](/patterns/design/strategy-pattern) for interchangeable algorithms.
+- You want to avoid polluting element classes with unrelated operations. See [Single Responsibility Principle](/patterns/design/solid-principles-typescript) for focused classes.
 - The operation logic depends on the concrete class of the element, not just the interface
 - Examples: AST traversal (compilers), document export (PDF, HTML), report generation on entity trees
 
@@ -270,7 +270,7 @@ This is known as **double dispatch**: the first dispatch is `shape.accept(visito
 - **Group related operations** into a single visitor instead of many small ones
 - **Consider `instanceof` + sealed classes** (Java 17+) as a modern alternative
 - **Keep visitors stateless** when possible, or clearly document mutable state
-- **Use alongside Composite** for traversing tree structures
+- **Use alongside [Composite](/patterns/design/composite-pattern)** for traversing tree structures
 
 ## Common Mistakes
 
@@ -283,7 +283,7 @@ This is known as **double dispatch**: the first dispatch is `shape.accept(visito
 ## Frequently Asked Questions
 
 **Q: Why not just add methods to the element classes directly?**
-A: If the operation is specific to a client use case (e.g., PDF export) and not intrinsic to the element, adding it directly violates the Single Responsibility Principle. Visitor keeps element classes focused.
+A: If the operation is specific to a client use case (e.g., PDF export) and not intrinsic to the element, adding it directly violates the [Single Responsibility Principle](/patterns/design/solid-principles-typescript). Visitor keeps element classes focused.
 
 **Q: Is there a modern alternative to Visitor?**
 A: In languages with sealed classes and pattern matching (Java 17+, TypeScript 5.3+), you can use `switch` expressions with exhaustive type checking instead of the classic Visitor double-dispatch.

@@ -41,10 +41,10 @@ Before environment variables became the standard, configuration was often embedd
 
 Use this recipe when:
 
-- Configuring apps per environment (dev, staging, prod)
-- Storing secrets like API keys and database credentials
-- Enabling or disabling features with feature flags
-- Managing containerized application configuration in Docker and Kubernetes
+- Configuring apps per environment (dev, staging, prod). See [Docker Basics](/recipes/devops/docker-basics) for containerized app config.
+- Storing secrets like API keys and database credentials. See [JWT Authentication](/recipes/authentication/jwt-authentication) for secure token handling.
+- Enabling or disabling features with feature flags. See [Feature Flags](/recipes/devops/feature-flags) for toggle management.
+- Managing containerized application configuration in Docker and Kubernetes. See [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) for local container orchestration.
 - Avoiding hard-coded values in source code
 - Sharing configuration across microservices without a central config server
 - Switching database endpoints between primary and replica for read scaling

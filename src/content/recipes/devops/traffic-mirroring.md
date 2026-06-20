@@ -30,7 +30,7 @@ seo:
 ---
 ## Overview
 
-Traffic mirroring copies real production requests to a staging or [shadow environment](/recipes/blue-green-deployment) without affecting users. This enables realistic load testing, regression validation, and performance benchmarking against actual traffic patterns. Unlike synthetic tests that simulate user behavior, mirrored traffic reveals how systems behave under genuine request distributions, headers, and payloads.
+Traffic mirroring copies real production requests to a staging or [shadow environment](/recipes/devops/blue-green-deployment) without affecting users. This enables realistic load testing, regression validation, and performance benchmarking against actual traffic patterns. Unlike synthetic tests that simulate user behavior, mirrored traffic reveals how systems behave under genuine request distributions, headers, and payloads.
 
 ## When to Use
 
@@ -38,7 +38,7 @@ Use this resource when:
 - Load testing with synthetic data doesn't capture real-world request complexity
 - Validating a new service version against production traffic before cutover
 - You need to benchmark infrastructure changes (database versions, kernel upgrades)
-- Testing [disaster recovery](/docs/disaster-recovery-plan-template) by replaying production traffic against standby systems
+- Testing [disaster recovery](/guides/devops/on-call-incident-response-guide) by replaying production traffic against standby systems
 
 ## Solution
 
@@ -136,7 +136,7 @@ spec:
 | Shadow | None (async) | Production | Latency-insensitive analysis |
 
 **Key considerations**:
-- **Idempotency**: Mirrored POST/PUT requests must be safe to duplicate. See [message idempotency](/recipes/message-idempotency).
+- **Idempotency**: Mirrored POST/PUT requests must be safe to duplicate. See [message idempotency](/recipes/messaging/rabbitmq-task-queue).
 - **State isolation**: Staging database must not share state with production
 - **Side effects**: Disable email, payment, and notification services in mirror target
 - **Latency**: Mirror should not block the production response path
@@ -161,7 +161,7 @@ spec:
 
 ## Common Mistakes
 
-1. **Mirroring without idempotency**: Charging customers twice because the payment API was mirrored. Use [idempotency keys](/recipes/message-idempotency).
+1. **Mirroring without idempotency**: Charging customers twice because the payment API was mirrored. Use [idempotency keys](/recipes/messaging/rabbitmq-task-queue).
 2. **Shared databases**: Production and mirror writing to the same database corrupt data
 3. **Blocking production**: Mirror target latency added to production response time
 4. **No traffic filtering**: Mirroring health checks and monitoring requests pollutes staging data
@@ -176,4 +176,4 @@ A: Minimal if implemented correctly. Network-level mirroring has near-zero overh
 A: Yes, but latency increases. AWS Traffic Mirroring works within the same VPC; cross-region requires VPN or Transit Gateway.
 
 **Q: How is mirroring different from load testing?**
-A: [Load testing](/recipes/load-testing-k6) generates artificial traffic. Mirroring uses real traffic. Use both: mirror for realism, load testing for capacity limits.
+A: [Load testing](/recipes/performance/load-testing-k6) generates artificial traffic. Mirroring uses real traffic. Use both: mirror for realism, load testing for capacity limits.

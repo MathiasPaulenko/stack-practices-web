@@ -31,13 +31,13 @@ seo:
 
 # MVC Pattern en Aplicaciones Frontend Modernas
 
-Model-View-Controller separa una aplicacion en tres componentes: Model (datos y reglas), View (presentacion) y Controller (manejo de entrada y coordinacion). Aunque frameworks como React y Vue difuminan estos limites, aplicar disciplina MVC previene que los componentes se conviertan en mezclas inmantenibles de estado, UI y efectos secundarios.
+[Model-View-Controller](/patterns/design/mvc-pattern) separa una aplicacion en tres componentes: Model (datos y reglas), View (presentacion) y Controller (manejo de entrada y coordinacion). Aunque frameworks como React y Vue difuminan estos limites, aplicar disciplina MVC previene que los componentes se conviertan en mezclas inmantenibles de estado, UI y efectos secundarios.
 
 ## Cuando Usar Esto
 
-- Los componentes crecen mas de 200 lineas porque mezclan fetching de datos, transformacion y renderizado
-- La misma logica de datos se duplica a traves de multiples paginas
-- Testear la UI requiere mockear redes, stores y DOM simultaneamente
+- Los componentes crecen mas de 200 lineas porque mezclan fetching de datos, transformacion y renderizado. Consulta [Component Testing](/recipes/testing/playwright-component-testing) para patrones de UI testeables.
+- La misma logica de datos se duplica a traves de multiples paginas. Consulta [Repository Pattern](/patterns/design/repository-pattern-typescript) para capas de acceso a datos compartidas.
+- Testear la UI requiere mockear redes, stores y DOM simultaneamente. Consulta [Unit Testing](/recipes/testing/unit-testing-mocking) para estrategias de tests aislados.
 
 ## Problema
 
@@ -157,4 +157,4 @@ function UserListView({ controller }: { controller: UserController }) {
 R: React proporciona bloques de construccion, no arquitectura. Los hooks manejan estado local; no enforcean separacion de preocupaciones. MVC agrega disciplina.
 
 **P: Cuando deberia usar Redux en lugar de MVC?**
-R: MVC funciona bien para funcionalidades localizadas. Redux brilla cuando multiples componentes no relacionados necesitan los mismos datos o cuando el debugging con time-travel es valioso.
+R: MVC funciona bien para funcionalidades localizadas. Para patrones de capa de datos, consulta [Repository](/patterns/design/repository-pattern-typescript). Redux brilla cuando multiples componentes no relacionados necesitan los mismos datos o cuando el debugging con time-travel es valioso.

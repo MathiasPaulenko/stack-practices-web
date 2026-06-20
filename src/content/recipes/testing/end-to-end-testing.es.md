@@ -35,9 +35,9 @@ seo:
 ## Cuándo Usar
 
 Use this resource when:
-- [Scenario 1]
-- [Scenario 2]
-- [Scenario 3]
+- Testeando journeys completos de usuarios a través de toda la aplicación. Consulta [Component Testing](/recipes/testing/e2e-testing) para validación aislada de UI.
+- Verificando paths críticos como checkout, registro o flujos de pago. Consulta [Unit Testing](/recipes/testing/unit-testing) para testear lógica en aislamiento.
+- Detectando regresiones que tests de integración no captan debido a comportamiento real del navegador. Consulta [Integration Testing](/recipes/testing/integration-testing) para verificación a nivel de servicio.
 
 ## Solución
 

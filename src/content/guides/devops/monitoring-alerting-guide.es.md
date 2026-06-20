@@ -75,7 +75,7 @@ Registros de eventos discretos.
 
 ### Traces
 
-Sigue una solicitud individual a través de servicios.
+Sigue una solicitud individual a través de servicios. Consulta [Distributed Tracing](/recipes/observability/distributed-tracing) para implementación.
 
 ```
 [Gateway] 2ms → [Auth] 15ms → [Orders] 45ms → [DB] 30ms → [Payment] 120ms
@@ -104,7 +104,7 @@ Sigue una solicitud individual a través de servicios.
 Responden tres preguntas:
 1. **¿Qué está mal?** — nombre claro de métrica y umbral violado
 2. **¿Dónde está mal?** — nombre de servicio, región, ambiente
-3. **¿Qué debería hacer?** — link a runbook o acción sugerida
+3. **¿Qué debería hacer?** — link a [runbook](/guides/devops/technical-documentation-strategy-guide) o acción sugerida
 
 ### Severidad de Alertas
 

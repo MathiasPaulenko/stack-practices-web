@@ -41,8 +41,8 @@ Esta receta implementa búsqueda semántica con embeddings de OpenAI, sentence-t
 Usa este recurso cuando:
 - La búsqueda por palabras clave pierde resultados relevantes debido a sinonimia o diferencias de redacción
 - Necesitas buscar en grandes colecciones de documentos con consultas en lenguaje natural
-- Estás construyendo un motor de recomendación, sistema de preguntas y respuestas o descubrimiento de contenido
-- Quieres combinar búsqueda semántica y por palabras clave (recuperación híbrida)
+- Estás construyendo un motor de recomendación, [sistema de preguntas y respuestas](/recipes/ai/chatbot-openai) o descubrimiento de contenido
+- Quieres combinar búsqueda semántica y por palabras clave ([recuperación híbrida](/recipes/ai/rag-pipeline))
 
 ## Solución
 
@@ -229,4 +229,4 @@ Sí. `sentence-transformers` provee modelos de código abierto de alta calidad c
 
 ### ¿Cómo escalo a millones de documentos?
 
-Usa una base de datos vectorial de producción como Pinecone, Weaviate o pgvector con indexación HNSW. Particiona por categoría o tenant, e implementa búsqueda aproximada de vecinos más cercanos (ANN) para tiempos de consulta sub-segundo a escala.
+Usa una base de datos vectorial de producción como Pinecone, Weaviate o pgvector con indexación HNSW. Consulta [Guía de Optimización de SQL](/guides/databases/sql-performance-tuning-guide) para optimización de base de datos. Particiona por categoría o tenant, e implementa búsqueda aproximada de vecinos más cercanos (ANN) para tiempos de consulta sub-segundo a escala.

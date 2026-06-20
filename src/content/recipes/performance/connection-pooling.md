@@ -200,4 +200,4 @@ One pool per database per application instance is standard. Creating multiple po
 
 ### How do I handle pool exhaustion?
 
-Set a reasonable `connectionTimeout` so requests fail fast instead of hanging indefinitely. Add [circuit breakers](/recipes/api/circuit-breaker-pattern) or [retries with backoff](/recipes/retry-backoff). Monitor pool saturation and scale the database or application workers before exhaustion becomes critical.
+Set a reasonable `connectionTimeout` so requests fail fast instead of hanging indefinitely. Add [circuit breakers](/patterns/design/circuit-breaker-pattern) or [retries with backoff](/recipes/architecture/retry-backoff). Monitor pool saturation and scale the database or application workers before exhaustion becomes critical.

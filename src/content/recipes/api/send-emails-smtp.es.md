@@ -36,7 +36,7 @@ El email sigue siendo la columna vertebral de la comunicación con usuarios: res
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Tu aplicación necesite enviar emails transaccionales (registro, reset de contraseña, recibos)
+- Tu aplicación necesite enviar emails transaccionales (registro, reset de contraseña, recibos). Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para seguridad de email.
 - Quieras evitar vendor lock-in de plataformas SaaS de email
 - Necesites plantillas de email personalizadas con datos dinámicos
 - Debas enviar adjuntos (facturas, reportes, exports)
@@ -156,7 +156,7 @@ SMTP (Simple Mail Transfer Protocol) es el protocolo estándar para enviar email
 4. **Enviar** vía comandos `MAIL FROM` → `RCPT TO` → `DATA`.
 5. **Manejar** rebotes, reintentos y límites de tasa de forma asíncrona.
 
-Para alto volumen, considera una **cola de mensajes** (Redis, RabbitMQ) que alimente un pool de workers SMTP. Esto desacopla tu API de la latencia y fallos del email.
+Para alto volumen, considera una **cola de mensajes** ([Kafka](/recipes/messaging/kafka-event-streaming), RabbitMQ) que alimente un pool de workers SMTP. Esto desacopla tu API de la latencia y fallos del email.
 
 ## Variantes
 
@@ -180,9 +180,9 @@ Para alto volumen, considera una **cola de mensajes** (Redis, RabbitMQ) que alim
 
 - **Enviar desde localhost sin SPF**: Tus emails irán directo a spam.
 - **Sin fallback de texto plano**: Algunos clientes (reloj, CLI) solo renderizan texto.
-- **Incrustar secretos en código**: Usa variables de entorno o un gestor de secretos.
+- **Incrustar secretos en código**: Usa variables de entorno o un gestor de secretos. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para gestión de secretos.
 - **Ignorar límites de tasa SMTP**: Serás bloqueado temporalmente o blacklisteado.
-- **Envío síncrono en requests**: Usa un worker en background para evitar timeouts HTTP.
+- **Envío síncrono en requests**: Usa un [worker en background](/recipes/api/middleware) para evitar timeouts HTTP.
 
 ## Preguntas Frecuentes
 

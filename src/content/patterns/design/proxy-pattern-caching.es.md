@@ -32,7 +32,7 @@ seo:
 
 # Proxy Pattern para Cacheo de Respuestas de API
 
-El Proxy pattern intercepta el acceso a un objeto para agregar comportamiento sin cambiar la implementacion original. Cuando se aplica a clientes de API, se convierte en una potente capa de cacheo que almacena respuestas, reduce latencia y protege servicios de peticiones redundantes.
+El [Proxy](/patterns/design/proxy-pattern) pattern intercepta el acceso a un objeto para agregar comportamiento sin cambiar la implementacion original. Cuando se aplica a clientes de API, se convierte en una potente capa de cacheo que almacena respuestas, reduce latencia y protege servicios de peticiones redundantes.
 
 ## Cuando Usar Esto
 
@@ -107,7 +107,7 @@ const forecast = await cachedClient.getForecast('London');
 
 ## Mejores Practicas
 
-- Configura TTL basado en volatilidad de datos, no un valor fijo para todo
+- Configura TTL basado en volatilidad de datos, no un valor fijo para todo. Consulta [invalidacion de cache](/patterns/design/cache-aside-pattern) best practices.
 - Implementa hooks de invalidacion de cache para consistencia write-through
 - Usa decorador o composicion para apilar multiples proxies
 
@@ -123,4 +123,4 @@ const forecast = await cachedClient.getForecast('London');
 R: El Proxy pattern implementa la misma interfaz que el objeto real, asi que los llamadores no saben ni les importa si estan usando el cache o el cliente original.
 
 **P: Puedo combinar esto con el Decorator pattern?**
-R: Si. Un Decorator agrega comportamiento; un Proxy controla acceso. Se usan frecuentemente juntos en la practica.
+R: Si. Un [Decorator](/patterns/design/decorator-pattern) agrega comportamiento; un Proxy controla acceso. Se usan frecuentemente juntos en la practica.

@@ -145,7 +145,7 @@ async function eraseUserData(userId) {
 
 1. **Consentimiento implícito**: Checkboxes pre-marcadas o términos escondidos no cuentan bajo [GDPR](/recipes/security/data-privacy-gdpr)
 2. **Sin límites de retención**: Mantener datos de usuario para siempre viola limitación de almacenamiento
-3. **Filtración a terceros**: Analytics, ads y CDNs reciben PII sin conocimiento del usuario. Ejecuta [auditorías de dependencias](/recipes/security/dependency-audit-template) regularmente.
+3. **Filtración a terceros**: Analytics, ads y CDNs reciben PII sin conocimiento del usuario. Ejecuta [auditorías de dependencias](/guides/security/security-best-practices-guide) regularmente.
 4. **Ignorar eliminación de backups**: Los datos de usuario borrados persisten en snapshots antiguos de base de datos
 5. **Consentimiento único para todo**: Las cookies de marketing y funcionales necesitan consentimiento separado
 

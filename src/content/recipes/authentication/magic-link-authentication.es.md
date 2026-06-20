@@ -39,7 +39,7 @@ Usa esta receta cuando:
 - Reduciendo fricción en flujos de onboarding y login de usuarios
 - Construyendo aplicaciones donde los usuarios inician sesión infrecuentemente (semanal o mensualmente)
 - Sirviendo usuarios que luchan con password managers o requisitos complejos
-- Complementando login social (Google, GitHub) con una alternativa basada en email
+- Complementando [login social](/recipes/authentication/oauth2-login) (Google, GitHub) con una alternativa basada en email
 - Creando herramientas internas o productos B2B donde el email es la identidad primaria
 
 ## Solución
@@ -105,6 +105,7 @@ def verify_magic_link(token: str) -> dict:
     )
     db.commit()
 
+    # Crear [sesión](/recipes/authentication/session-management) o [JWT](/recipes/authentication/jwt-authentication) de usuario
     user = get_or_create_user(email)
     session = create_session(user.id)
 
@@ -164,13 +165,13 @@ async function sendMagicLink(email, magicLink) {
 - **Incluye fallback de texto plano**: siempre provee una versión en texto plano del magic link junto a HTML. Algunos clientes de email deshabilitan HTML o lo renderizan mal. El link debe ser cliqueable o copiable en forma de texto.
 - **Invalida al solicitar nuevo**: si un usuario solicita un segundo magic link antes de usar el primero, invalida el token anterior. Esto previene confusión de múltiples links válidos y limita la superficie de ataque.
 - **Registra patrones sospechosos**: alerta cuando múltiples requests de magic links apuntan a diferentes emails desde la misma IP, o cuando un solo email recibe docenas de requests en una ventana corta. Ambos pueden indicar ataques de enumeración.
-- **Combina con confianza de dispositivo**: para seguridad adicional, requiere verificación de email en nuevos dispositivos o navegadores. Almacena una cookie de fingerprint de dispositivo después del primer login exitoso y solicita re-verificación en dispositivos no reconocidos.
+- **Combina con [confianza de dispositivo](/recipes/authentication/two-factor-authentication)**: para seguridad adicional, requiere verificación de email en nuevos dispositivos o navegadores. Almacena una cookie de fingerprint de dispositivo después del primer login exitoso y solicita re-verificación en dispositivos no reconocidos.
 
 ## Errores comunes
 
 - **Permitir reutilización de token**: un magic link que puede cliquearse dos veces es tan peligroso como una contraseña reutilizable. Siempre marca los tokens como consumidos al primer uso y rechaza intentos subsecuentes con el mismo hash.
 - **Enviar tokens en parámetros URL sobre HTTP**: los magic links deben usar `https://` exclusivamente. Un token enviado sobre HTTP es expuesto a sniffers de red, poisoning de DNS y ataques man-in-the-middle.
-- **No limitar requests de links**: sin rate limiting, un atacante puede inundar el inbox de una víctima con miles de emails de login, constituyendo acoso y potencialmente enmascarando un ataque real. Limita a 3-5 requests por email por hora.
+- **No [limitar requests](/recipes/api/rate-limiting) de links**: sin rate limiting, un atacante puede inundar el inbox de una víctima con miles de emails de login, constituyendo acoso y potencialmente enmascarando un ataque real. Limita a 3-5 requests por email por hora.
 - **Almacenar tokens crudos en logs**: nunca loguees la URL completa del magic link. Loguea solo la dirección de email, timestamp y flag de éxito/fracaso. Si los logs filtran, los tokens crudos otorgan acceso inmediato.
 
 ## Preguntas frecuentes
@@ -179,7 +180,7 @@ async function sendMagicLink(email, magicLink) {
 R: Tienen diferentes modelos de amenaza. Los magic links dependen de la seguridad del email; las contraseñas dependen de la memoria del usuario y hashing. Para la mayoría de aplicaciones de consumo, los magic links son tan seguros o más seguros que contraseñas débiles elegidas por usuarios, y eliminan ataques de credential stuffing por completo.
 
 **P: ¿Qué pasa si el email de un usuario es comprometido?**
-R: El atacante puede iniciar sesión interceptando magic links. Esto es equivalente a un compromiso de flujo de reset de contraseña. Mitiga con confianza de dispositivo, alertas de login sospechosas y MFA opcional para acciones sensibles post-login.
+R: El atacante puede iniciar sesión interceptando magic links. Esto es equivalente a un compromiso de flujo de reset de contraseña. Mitiga con confianza de dispositivo, alertas de login sospechosas y MFA opcional para acciones sensibles post-login. Consulta [Gestión de Sesiones](/recipes/authentication/session-management) para capas adicionales de seguridad.
 
 **P: ¿Puedo usar magic links para apps móviles?**
 R: Sí, usando deep links o universal links. El magic link abre la app directamente vía un scheme de URL registrado (`yourapp://auth/verify?token=...`). Asegúrate de que la app valide el token server-side, no solo en el cliente.

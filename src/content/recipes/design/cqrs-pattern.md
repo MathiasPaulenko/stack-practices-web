@@ -37,10 +37,10 @@ Command Query Responsibility Segregation (CQRS) splits the data model into two: 
 
 Use this recipe when:
 
-- Read and write volumes differ significantly (100:1 read-heavy ratios are common)
-- Complex queries require joins across multiple aggregates, degrading write performance
+- Read and write volumes differ significantly (100:1 read-heavy ratios are common). See [Database Read Replicas](/recipes/databases/database-read-replicas) for read scaling.
+- Complex queries require joins across multiple aggregates, degrading write performance. See [SQL Joins](/recipes/databases/sql-joins) for query optimization.
 - Building real-time dashboards, analytics, or search that needs data shaped differently than the transactional model
-- Working with event-sourced systems where state is derived from a sequence of events
+- Working with event-sourced systems where state is derived from a sequence of events. See [Event Sourcing](/recipes/databases/event-sourcing-relational) for event store patterns.
 - Teams need to optimize read and write schemas independently without coordination
 
 ## Solution
@@ -203,7 +203,7 @@ class OrderProjection {
 ## FAQ
 
 **Q: Is CQRS the same as event sourcing?**
-A: No. CQRS separates reads and writes. Event sourcing stores state as events. They are often used together because event sourcing naturally produces events that can populate read models. But you can use CQRS without event sourcing (e.g., dual databases) and event sourcing without CQRS (single model rebuilt from events).
+A: No. CQRS separates reads and writes. [Event sourcing](/recipes/databases/event-sourcing-relational) stores state as events. They are often used together because event sourcing naturally produces events that can populate read models. But you can use CQRS without event sourcing (e.g., dual databases) and event sourcing without CQRS (single model rebuilt from events).
 
 **Q: How do I handle queries that need real-time data?**
 A: For truly real-time requirements (sub-second), query the write model directly. Accept the performance cost for the small subset of queries that need perfect freshness. Most dashboards and lists can tolerate eventual consistency.

@@ -31,7 +31,7 @@ seo:
 
 # Decorator Pattern para Pipelines de Peticiones HTTP
 
-El Decorator pattern envuelve un objeto para agregar responsabilidades dinamicamente. Cuando se aplica a clientes HTTP, se convierte en una forma limpia de componer preocupaciones transversales — logging, reintentos, metricas, autenticacion — sin contaminar la logica central de la peticion.
+El [Decorator](/patterns/design/decorator-pattern) pattern envuelve un objeto para agregar responsabilidades dinamicamente. Cuando se aplica a clientes HTTP, se convierte en una forma limpia de componer preocupaciones transversales — logging, reintentos, metricas, autenticacion — sin contaminar la logica central de la peticion.
 
 ## Cuando Usar Esto
 
@@ -41,7 +41,7 @@ El Decorator pattern envuelve un objeto para agregar responsabilidades dinamicam
 
 ## Problema
 
-Agregar logging, reintentos, metricas y autenticacion a cada llamada HTTP lleva a clases de cliente monoliticas o boilerplate copiado en cada punto de llamada.
+Agregar logging, reintentos, metricas y autenticacion a cada [llamada HTTP](/recipes/api/call-rest-api) lleva a clases de cliente monoliticas o boilerplate copiado en cada punto de llamada.
 
 ## Solucion
 
@@ -131,7 +131,7 @@ const client = new AuthDecorator(
 
 - **Conditional Decorator**: Aplica logica solo para URLs o metodos HTTP especificos
 - **Metrics Decorator**: Envuelve tiempos y distribuciones de codigos de estado a Prometheus
-- **Cache Decorator**: Combina con Proxy pattern para cachear respuestas GET
+- **Cache Decorator**: Combina con [Proxy](/patterns/design/proxy-pattern) pattern para cachear respuestas GET
 
 ## Mejores Practicas
 
@@ -148,7 +148,7 @@ const client = new AuthDecorator(
 ## FAQ
 
 **P: Como se diferencia del middleware en Express?**
-R: El middleware de Express opera en objetos request/response en secuencia. Los decorators envuelven una sola interfaz de cliente y pueden componerse a cualquier granularidad.
+R: El [middleware](/patterns/design/chain-of-responsibility-middleware) de Express opera en objetos request/response en secuencia. Los decorators envuelven una sola interfaz de cliente y pueden componerse a cualquier granularidad.
 
 **P: Los decorators pueden removerse dinamicamente?**
 R: Solo si reasignas la referencia del cliente. Los decorators se componen tipicamente al inicializar y permanecen fijos.

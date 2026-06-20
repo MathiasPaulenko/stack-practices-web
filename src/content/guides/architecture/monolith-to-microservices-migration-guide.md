@@ -183,7 +183,7 @@ def create_order(order):
 | Quarter | Goal |
 |---------|------|
 | Q1 | Extract non-critical service (notifications, reports) using Strangler Fig |
-| Q2 | Implement [API Gateway](/recipes/serverless-api-gateway) and [service discovery](/recipes/service-discovery) |
+| Q2 | Implement [API Gateway](/recipes/serverless/serverless-api-gateway) and [service discovery](/recipes/architecture/service-discovery) |
 | Q3 | Extract a medium-critical service with Branch by Abstraction |
 | Q4 | Parallel run for a high-critical service (recommendations, search) |
 | Year 2 | Extract core services; monolith shrinks to thin orchestration layer |
@@ -193,18 +193,18 @@ def create_order(order):
 
 - **Never do a big-bang rewrite** — incremental extraction preserves optionality
 - **Measure before and after** — track deployment frequency, lead time, and failure rate
-- **Keep the monolith deployable** — do not let the extraction break [CI/CD](/guides/cicd-pipeline-guide)
-- **Invest in testing** — [contract tests](/recipes/api-contract-testing) between monolith and new services catch breaking changes
+- **Keep the monolith deployable** — do not let the extraction break [CI/CD](/guides/devops/cicd-pipeline-guide)
+- **Invest in testing** — [contract tests](/recipes/testing/api-contract-testing) between monolith and new services catch breaking changes
 - **Communicate progress** — stakeholders need to see value, not just engineering activity
 - **Accept that some code never moves** — legacy modules that change once a year may not be worth extracting
 
 ## Common Mistakes
 
 - Extracting services based on technical layers (UI, business logic, data) instead of business capabilities
-- Ignoring data consistency — distributed transactions require [sagas](/guides/event-driven-architecture-guide), not hope
+- Ignoring data consistency — distributed transactions require [sagas](/guides/architecture/event-driven-architecture-guide), not hope
 - Underestimating the "last 10%" — the final services are often the hardest and most coupled
 - Removing the monolith too early — it is your safety net until services are stable
-- Not investing in developer experience — local development and [testing](/guides/testing-strategy-guide) become much harder with microservices
+- Not investing in developer experience — local development and [testing](/guides/testing/testing-strategy-guide) become much harder with microservices
 
 ## Frequently Asked Questions
 

@@ -36,10 +36,10 @@ Las vistas de base de datos son tablas virtuales definidas por una consulta. Sim
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Ejecutas repetidamente la misma consulta de agregación compleja y es lenta
+- Ejecutas repetidamente la misma [consulta de agregación](/recipes/databases/sql-joins) compleja y es lenta
 - Quieres restringir acceso a datos sin duplicar lógica de permisos en código de aplicación
-- Necesitas precomputar joins o agregaciones costosas para dashboards de reportes
-- Quieres abstraer cambios de esquema de consumidores downstream
+- Necesitas precomputar joins o agregaciones costosas para [dashboards de reportes](/recipes/databases/postgres-query-optimization)
+- Quieres abstraer cambios de esquema de consumidores downstream. Consulta [Input Validation](/recipes/api/input-validation) para seguridad de schema.
 
 ## Solución
 
@@ -183,7 +183,7 @@ Una **vista materializada** almacena el resultado de la consulta en disco. Las l
 
 1. Siempre crea un índice único en vistas materializadas antes de usar refresco `CONCURRENTLY`
 2. Usa `CREATE OR REPLACE VIEW` para cambios no disruptivos; elimina y recrea solo cuando sea necesario
-3. Programa refrescos con cron, pg_cron o tu scheduler de jobs; refresca después de ETL, no durante picos de lectura
+3. Programa refrescos con cron, pg_cron o tu scheduler de jobs; refresca después de ETL, no durante picos de lectura. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para programación de jobs.
 4. Usa vistas para exponer solo las columnas necesarias para control de acceso de mínimo privilegio
 5. Monitorea uso de disco; las vistas materializadas pueden crecer mucho con filas anchas o alta cardinalidad
 
@@ -193,7 +193,7 @@ Una **vista materializada** almacena el resultado de la consulta en disco. Las l
 2. **Sin índice único** — `REFRESH CONCURRENTLY` falla sin uno, bloqueando la vista durante el refresco
 3. **Vistas modificables sin reglas/triggers** — no todas las bases de datos soportan `INSERT` en vistas; el código de aplicación debe manejarlo
 4. **Vistas complejas sin índices subyacentes** — una vista no crea índices; asegúrate de que las tablas base estén indexadas
-5. **Usar vistas para consultas transaccionales en tiempo real** — las vistas añaden overhead de consulta; úsalas para reportes, no para caminos calientes OLTP
+5. **Usar vistas para consultas transaccionales en tiempo real** — las vistas añaden overhead de consulta; úsalas para reportes, no para caminos calientes OLTP. Consulta [Database Transactions](/recipes/databases/database-transactions) para patrones transaccionales.
 
 ## Preguntas Frecuentes
 

@@ -37,13 +37,13 @@ This recipe shows the idiomatic way to read and write text files in Python, Java
 
 Use this recipe when:
 
-- Loading configuration or data files at startup
+- Loading configuration or data files at startup. See [Parse JSON](/recipes/data/parse-json) for structured config files.
 - Generating reports, exports, or logs for audit and analytics
 - Processing text line by line (CSV, logs, fixtures)
 - Persisting small amounts of state without a database
 - Reading and writing JSON or YAML configuration files
 - Streaming large log files without loading them entirely into memory
-- Creating temporary files for intermediate processing in data pipelines
+- Creating temporary files for intermediate processing in data pipelines. See [Call REST API](/recipes/api/call-rest-api) for downloading remote data.
 
 ## Solution
 
@@ -94,7 +94,7 @@ cat notes.txt
 - **JavaScript** uses the promise-based `fs/promises` API. Prefer it over the synchronous `readFileSync`/`writeFileSync`, which block the event loop. For large files, use `createReadStream()` to process data in chunks.
 - **Bash** uses redirection: `>` overwrites, `>>` appends. `cat` prints the contents. For structured parsing, combine `cat` with `jq` for JSON or `awk` for CSV.
 
-To turn file contents into structured data, see [Parse JSON](/recipes/parse-json).
+To turn file contents into structured data, see [Parse JSON](/recipes/data/parse-json).
 
 ## Variants
 

@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-Cuando un servidor de base de datos no puede manejar la carga, tienes tres opciones: comprar una máquina más grande (escalado vertical), agregar réplicas de lectura (escalado horizontal de lectura), o dividir los datos entre múltiples servidores (sharding). El sharding es el más difícil pero la única opción para escalado horizontal ilimitado. Esta guía cubre estrategias, trade-offs y consideraciones operativas.
+Cuando un servidor de base de datos no puede manejar la carga, tienes tres opciones: comprar una máquina más grande (escalado vertical), agregar réplicas de lectura (escalado horizontal de lectura), o dividir los datos entre múltiples servidores (sharding). Consulta [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) antes de escalar horizontalmente. El sharding es el más difícil pero la única opción para escalado horizontal ilimitado. Esta guía cubre estrategias, trade-offs y consideraciones operativas.
 
 ## Particionamiento vs Sharding
 
@@ -208,4 +208,4 @@ Técnicamente sí, prácticamente no. Cambiar la shard key requiere reescribir t
 
 ### ¿Cómo manejo consultas que necesitan unir datos de múltiples shards?
 
-Evita los JOINs cross-shard en la base de datos. En su lugar, diseña tu esquema para que las consultas más frecuentes caigan en un único shard (query-based sharding), o usa patrones de aplicación como [CQRS](/guides/event-driven-architecture-guide) con tablas de lectura desnormalizadas. Para reportes analíticos, replica los datos a un data warehouse.
+Evita los JOINs cross-shard en la base de datos. En su lugar, diseña tu esquema para que las consultas más frecuentes caigan en un único shard (query-based sharding), o usa patrones de aplicación como [CQRS](/guides/architecture/event-driven-architecture-guide) con tablas de lectura desnormalizadas. Para reportes analíticos, replica los datos a un data warehouse.

@@ -65,7 +65,7 @@ Lo que realmente sucedió. Incluye capturas de pantalla o mensajes de error.
 - [ ] Bajo — problema cosmético, inconveniente menor
 
 ## Contexto Adicional
-- Link a issue o PR relacionado
+- Link a issue, PR, o [solicitud de feature](/docs/templates/feature-request-template) relacionado. Consulta [Test-Driven Development](/guides/testing/test-driven-development-guide) para escribir tests que reproduzcan bugs.
 - Frecuencia de ocurrencia
 - Cambios recientes que puedan estar relacionados
 ```
@@ -105,4 +105,4 @@ Sí, pero simplifícala. Los clientes reciben un formulario con Resumen, Pasos y
 
 ### ¿Cómo manejo bugs de "en mi máquina funciona"?
 
-Agrega verificaciones de paridad de entorno: Docker, versiones exactas de dependencias, y datos de prueba. Si solo ocurre en producción, el bug está en los datos o la configuración, no en el código.
+Agrega verificaciones de paridad de entorno: [Docker](/recipes/devops/docker-compose-local-dev), versiones exactas de dependencias, y datos de prueba. Consulta [Integration Testing](/recipes/testing/integration-testing-strategies) para verificar fixes en diferentes entornos. Si solo ocurre en producción, el bug está en los datos o la configuración, no en el código.

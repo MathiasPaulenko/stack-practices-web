@@ -37,9 +37,9 @@ Flattening transforms a deeply nested object into a single-level dictionary usin
 ## When to Use
 
 Use this resource when:
-- Converting nested form data into flat key-value pairs for HTTP query strings or CSV export
+- Converting nested form data into flat key-value pairs for [HTTP query strings](/recipes/data/url-encoding) or CSV export
 - Patching only specific deeply nested fields in a MongoDB/Elasticsearch document
-- Normalizing JSON API responses into a flat relational structure for analytics
+- Normalizing [JSON API responses](/recipes/data/parse-json) into a flat relational structure for analytics
 - Building dynamic configuration systems where dot-notation paths access nested settings
 
 ## Solution
@@ -261,7 +261,7 @@ public class FlattenUtil {
 1. **Validate separator choice** — if your data keys might contain dots (e.g., domain names like `example.com`), use a custom separator like `__` or `→` to avoid ambiguous paths.
 2. **Preserve array indices explicitly** — always include array indices in the flattened key (`tags[0]`). Without them, arrays become objects with numeric string keys on unflatten.
 3. **Handle null and empty objects** — `null` values should be preserved as-is. Empty objects `{}` should either be preserved or explicitly omitted based on your use case.
-4. **Type fidelity on round-trip** — flattening loses type information for Dates, Maps, Sets, and typed arrays. Serialize these to strings before flattening if type recovery matters.
+4. **Type fidelity on round-trip** — flattening loses type information for Dates, Maps, Sets, and typed arrays. [Serialize these to strings](/recipes/data/deep-clone-javascript) before flattening if type recovery matters.
 5. **Limit depth for safety** — on untrusted input, cap recursion depth to prevent stack overflow attacks from malicious deeply nested JSON.
 
 ## Common Mistakes

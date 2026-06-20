@@ -38,8 +38,8 @@ Esta receta muestra la forma idiomática y moderna de hacer una petición HTTP y
 
 Usa esta receta cuando:
 
-- Obtienes datos de una API interna o de terceros
-- Envías datos de formularios o eventos a un servicio backend
+- Obtienes datos de una API interna o de terceros. Consulta [Input Validation](/recipes/api/input-validation) para validar datos de requests y responses.
+- Envías datos de formularios o eventos a un servicio backend. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para manejar fallos transitorios.
 - Te integras con plataformas SaaS (pagos, email, analítica)
 - Construyes un SDK cliente o una CLI que habla con un servicio HTTP
 - Subes archivos a una API de almacenamiento o CDN
@@ -101,7 +101,7 @@ System.out.println(response.body());
 - **JavaScript** usa la API `fetch` incorporada (Node 18+ y todos los navegadores modernos). Ojo: `fetch` solo falla ante errores de red — los errores HTTP como 404 o 500 igual resuelven la promesa, por lo que debes comprobar `response.ok` tú mismo.
 - **Java** usa el `java.net.http.HttpClient` incorporado (Java 11+). Soporta llamadas síncronas (`send`) y asíncronas (`sendAsync`), y puede configurarse con connection pooling y timeouts de petición.
 
-Una vez recibas el cuerpo, consulta [Parsear JSON](/es/recipes/parse-json) para convertirlo en datos tipados.
+Una vez recibas el cuerpo, consulta [Parsear JSON](/recipes/data/parse-json) para convertirlo en datos tipados.
 
 ## Variantes
 

@@ -38,10 +38,10 @@ A migration tool turns schema changes into versioned, repeatable, and reversible
 
 Use this recipe when:
 
-- Managing schema evolution across development, staging, and production databases
-- Adding tables, columns, indexes, or constraints as part of a feature release
-- Coordinating schema changes with application code deployments
-- Rolling back schema changes after failed deployments
+- Managing schema evolution across development, staging, and production databases. See [Safe Migrations](/recipes/databases/database-migrations-safely) for zero-downtime strategies.
+- Adding tables, columns, indexes, or constraints as part of a feature release. See [Database Transactions](/recipes/databases/database-transactions) for consistency during deploys.
+- Coordinating schema changes with application code deployments. See [Clean Code Guide](/guides/design/clean-code-principles-guide) for maintainable patterns.
+- Rolling back schema changes after failed deployments. See [Retry Logic](/recipes/architecture/retry-backoff) for recovery strategies.
 - Auditing who changed what in the database and when
 
 ## Solution
@@ -143,7 +143,7 @@ liquibase --changeLogFile=db.changelog.xml update
 
 ## Common Mistakes
 
-- **Adding non-nullable columns without defaults**: existing rows will cause the migration to fail. Add the column as nullable, backfill data, then add the `NOT NULL` constraint in a follow-up migration.
+- **Adding non-nullable columns without defaults**: existing rows will cause the migration to fail. Add the column as nullable, backfill data, then add the `NOT NULL` constraint in a follow-up migration. See [Safe Migrations](/recipes/databases/database-migrations-safely) for the expand-contract pattern.
 - **Deleting data without backups**: dropping a column destroys data permanently. Always back up or copy data before destructive changes.
 - **Locking tables during peak hours**: adding an index or altering a large table can lock for minutes. Schedule heavy migrations during maintenance windows or use online schema change tools.
 - **Forgetting about replicas**: migrations applied to a primary database may not replicate correctly if they contain non-deterministic functions or temporary tables.

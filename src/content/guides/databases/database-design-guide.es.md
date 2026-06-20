@@ -139,7 +139,7 @@ Los índices aceleran lecturas pero ralentizan escrituras.
 
 - Saltarse la normalización por "performance" sin evidencia. Consulta [tuning SQL](/guides/databases/sql-performance-tuning-guide).
 - Usar `ENUM` para valores que cambian frecuentemente
-- Faltar reglas `ON DELETE` / `ON UPDATE` en claves foráneas. Consulta [validación de datos](/recipes/data-validation-zod).
+- Faltar reglas `ON DELETE` / `ON UPDATE` en claves foráneas. Consulta [validación de datos](/recipes/security/data-validation-zod).
 - Almacenar datos derivados/calculados en vez de computar en lectura
 
 ## Preguntas Frecuentes

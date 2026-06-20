@@ -34,10 +34,10 @@ Las migraciones de base de datos evolucionan el esquema a medida que tu aplicaci
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Despliegues cambios de esquema a una base de datos productiva con tráfico en vivo
-- Necesites agregar, renombrar o remover columnas sin romper aplicaciones en ejecución
-- Migres datos entre tablas o formatos
-- Quieras establecer un plan de rollback antes de ejecutar cualquier migración
+- Despliegues cambios de esquema a una base de datos productiva con tráfico en vivo. Consulta [Database Migrations](/recipes/databases/database-migrations) para panorama de herramientas.
+- Necesites agregar, renombrar o remover columnas sin romper aplicaciones en ejecución. Consulta [Input Validation](/recipes/api/input-validation) para seguridad de schema.
+- Migres datos entre tablas o formatos. Consulta [Data Validation](/recipes/data/data-validation) para verificación de integridad.
+- Quieras establecer un plan de rollback antes de ejecutar cualquier migración. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para patrones de recuperación.
 
 ## Solución
 
@@ -159,4 +159,4 @@ Solo para migraciones no-breaking y rápidas (agregar columna nullable, crear í
 - **Backfill por lotes** en chunks de 1,000-10,000 filas con `COMMIT` entre lotes
 - **Agrega índices concurrentemente** para evitar locking
 - **Ejecuta durante ventanas de bajo tráfico** incluso con herramientas online
-- **Monitorea lag de replicación** si corres contra un primary con réplicas
+- **Monitorea lag de replicación** si corres contra un primary con réplicas. Consulta [Read Replicas](/recipes/databases/database-read-replicas) para gestión de replicación.

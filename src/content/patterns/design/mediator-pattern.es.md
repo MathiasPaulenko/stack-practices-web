@@ -40,7 +40,7 @@ seo:
 
 ## Visión General
 
-El Patrón Mediator es un patrón de diseño de comportamiento que define un objeto que encapsula cómo interactúa un conjunto de objetos. En lugar de que los objetos se refieran entre sí directamente, se comunican a través de un mediador central. Esto reduce el número de conexiones directas entre componentes y centraliza la lógica de coordinación compleja.
+El [Patrón Mediator](/patterns/design/mediator-pattern-components) es un patrón de diseño de comportamiento que define un objeto que encapsula cómo interactúa un conjunto de objetos. En lugar de que los objetos se refieran entre sí directamente, se comunican a través de un mediador central. Esto reduce el número de conexiones directas entre componentes y centraliza la lógica de coordinación compleja.
 
 ## Cuándo Usarlo
 
@@ -238,7 +238,7 @@ Sin el mediador, cada usuario necesitaría una referencia a cada otro usuario. C
 ## Preguntas Frecuentes
 
 **P: ¿Es Mediator lo mismo que Observer?**
-R: Relacionados pero diferentes. Observer es una dependencia uno-a-muchos donde los sujetos notifican a los observadores. Mediator centraliza la comunicación muchos-a-muchos. Un event bus puede servir como ambos.
+R: Relacionados pero diferentes. [Observer](/patterns/design/observer-pattern) es una dependencia uno-a-muchos donde los sujetos notifican a los observadores. Mediator centraliza la comunicación muchos-a-muchos. Un event bus puede servir como ambos.
 
 **P: ¿Cuál es la diferencia entre Mediator y Facade?**
-R: Facade proporciona una interfaz simplificada a un subsistema. Mediator coordina la comunicación entre objetos pares. Facade es sobre simplificar acceso; Mediator es sobre desacoplar pares.
+R: [Facade](/patterns/design/adapter-pattern) proporciona una interfaz simplificada a un subsistema. Mediator coordina la comunicación entre objetos pares. Facade es sobre simplificar acceso; Mediator es sobre desacoplar pares.

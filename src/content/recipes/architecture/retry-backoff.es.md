@@ -29,13 +29,13 @@ seo:
 ---
 ## Visión General
 
-El retry con exponential backoff es el patrón fundacional para manejar fallas transitorias en [sistemas distribuidos](/guides/microservices-architecture-guide). En lugar de fallar inmediatamente cuando ocurre un network hiccup o sobrecarga temporal, el cliente espera progresivamente más entre intentos. Agregar jitter previene retries sincronizados que crean un thundering herd que abruma al servicio en recuperación.
+El retry con exponential backoff es el patrón fundacional para manejar fallas transitorias en [sistemas distribuidos](/guides/architecture/microservices-architecture-guide). En lugar de fallar inmediatamente cuando ocurre un network hiccup o sobrecarga temporal, el cliente espera progresivamente más entre intentos. Agregar jitter previene retries sincronizados que crean un thundering herd que abruma al servicio en recuperación.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Llamas a APIs externas o servicios sobre redes poco confiables
-- [Conexiones de base de datos](/recipes/database-connection-pooling) ocasionalmente hacen timeout bajo carga
+- [Conexiones de base de datos](/recipes/performance/connection-pooling) ocasionalmente hacen timeout bajo carga
 - Necesitas distinguir errores transitorios (reintentables) de fallas permanentes
 - Integras con servicios cloud que throttlean o tienen outages regionales
 
@@ -159,14 +159,14 @@ var result = await retryPolicy.ExecuteAsync(() => httpClient.GetAsync(url));
 ## Mejores Prácticas
 
 - **Setea un delay máximo**: Sin un cap, el backoff puede crecer a horas
-- **Usa idempotency keys**: Reintentar POST requests sin ellos crea duplicados. Consulta [idempotencia de mensajes](/recipes/message-idempotency).
-- **Integración con circuit breaker**: Deja de reintentar cuando el servicio está claramente caído. Integra con [circuit breaker](/recipes/circuit-breaker-pattern).
+- **Usa idempotency keys**: Reintentar POST requests sin ellos crea duplicados. Consulta [idempotencia de mensajes](/recipes/messaging/rabbitmq-task-queue).
+- **Integración con circuit breaker**: Deja de reintentar cuando el servicio está claramente caído. Integra con [circuit breaker](/patterns/design/circuit-breaker-pattern).
 - **Loggea cada retry**: Retries silenciosos ocultan issues sistémicos
 - **Respeta headers Retry-After**: HTTP 429/503 a menudo incluyen tiempos de espera recomendados
 
 ## Errores Comunes
 
-1. **Reintentar todo**: Operaciones [no idempotentes](/recipes/message-idempotency) y client errors deberían fallar fast
+1. **Reintentar todo**: Operaciones [no idempotentes](/recipes/messaging/rabbitmq-task-queue) y client errors deberían fallar fast
 2. **Sin jitter**: Retries sincronizados de múltiples clientes recrean la sobrecarga original
 3. **Retries infinitos**: Un cliente que reintenta para siempre se convierte en una fuente de DoS
 4. **Bloquear al caller**: Retries síncronos en request handlers aumentan tiempos de respuesta
@@ -181,4 +181,4 @@ R: Usualmente 3-5. Más retries aumentan latencia sin mejorar significativamente
 R: Para APIs síncronos: retry en cliente. Para jobs en background: usa una queue con retry built-in.
 
 **P: ¿Cómo manejo idempotencia para retries?**
-R: Genera un header `Idempotency-Key` único. El servidor verifica si ya procesó esta key antes. Aprende más en [idempotencia de mensajes](/recipes/message-idempotency).
+R: Genera un header `Idempotency-Key` único. El servidor verifica si ya procesó esta key antes. Aprende más en [idempotencia de mensajes](/recipes/messaging/rabbitmq-task-queue).

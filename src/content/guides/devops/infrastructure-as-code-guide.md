@@ -32,7 +32,7 @@ seo:
 
 ## Introduction
 
-Infrastructure as Code (IaC) is the practice of managing and provisioning infrastructure through machine-readable definition files rather than manual configuration. It turns infrastructure changes into repeatable, reviewable, and versioned operations. This guide compares declarative and imperative approaches, covers Terraform and Pulumi, and provides best practices for production use.
+Infrastructure as Code (IaC) is the practice of managing and provisioning infrastructure through machine-readable definition files rather than manual configuration. It turns infrastructure changes into repeatable, reviewable, and versioned operations. See [CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) for deployment automation. This guide compares declarative and imperative approaches, covers Terraform and Pulumi, and provides best practices for production use.
 
 ## Declarative vs Imperative
 
@@ -176,7 +176,7 @@ terraform validate
 # TFLint: catch provider-specific mistakes
 tflint --deep
 
-# Checkov / Terraform-compliance: [security policies](/guides/security-best-practices-guide)
+# Checkov / Terraform-compliance: [security policies](/guides/security/security-best-practices-guide)
 checkov -d .
 ```
 
@@ -220,13 +220,13 @@ func TestVpc(t *testing.T) {
 - **Use remote state with locking** — prevents concurrent modifications corrupting state
 - **Separate environments** — use workspaces or separate state files per environment
 - **Use modules for reusability** — but avoid over-abstraction; simple is better
-- **Never commit secrets** — use [secret managers](/guides/secrets-management-guide) (AWS Secrets Manager, Vault) and reference by ARN
+- **Never commit secrets** — use [secret managers](/guides/security/security-best-practices-guide) (AWS Secrets Manager, Vault) and reference by ARN
 - **Document your modules** — README with inputs, outputs, and usage examples
 - **Pin provider versions** — prevent breaking changes from automatic provider updates
 
 ## Common Mistakes
 
-- Running `terraform apply` locally instead of through [CI/CD](/guides/cicd-pipeline-guide)
+- Running `terraform apply` locally instead of through [CI/CD](/guides/devops/cicd-pipeline-guide)
 - Storing state files in Git (contains sensitive resource IDs and sometimes secrets)
 - Not using workspaces or separate directories for environments
 - Writing giant monolithic Terraform configs instead of modular components

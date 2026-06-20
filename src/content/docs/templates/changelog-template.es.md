@@ -37,7 +37,7 @@ Un changelog es una lista curada y ordenada cronológicamente de los cambios not
 ## Cuándo Usar
 
 - Mantienes una librería, framework o aplicación con releases versionados
-- Necesitas comunicar breaking changes a los consumidores
+- Necesitas comunicar breaking changes a los consumidores. Combínalo con la [Plantilla de Aviso de Deprecación](/docs/templates/api-deprecation-notice-template) cuando desactives features.
 - Quieres automatizar la generación de notas de release
 
 ## Plantilla
@@ -82,7 +82,7 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 |-----------|-----|
 | **Added** | Nuevas funcionalidades |
 | **Changed** | Cambios en funcionalidad existente |
-| **Deprecated** | Funcionalidades marcadas para eliminación |
+| **Deprecated** | Funcionalidades marcadas para eliminación. Consulta [Plantilla de Aviso de Deprecación](/docs/templates/api-deprecation-notice-template) |
 | **Removed** | Funcionalidades eliminadas en esta release |
 | **Fixed** | Correcciones de bugs |
 | **Security** | Correcciones de vulnerabilidades de seguridad |
@@ -113,4 +113,4 @@ No. Un changelog es curado, no un log raw de git. Incluye solo cambios notables 
 
 ### Qué es el versionado semántico?
 
-Semantic Versioning (SemVer) usa el formato MAJOR.MINOR.PATCH: incrementa MAJOR para breaking changes, MINOR para nuevas features y PATCH para bug fixes.
+[Versionado Semántico](/guides/api/rest-api-design-guide) (SemVer) usa el formato MAJOR.MINOR.PATCH: incrementa MAJOR para breaking changes, MINOR para nuevas features y PATCH para bug fixes.

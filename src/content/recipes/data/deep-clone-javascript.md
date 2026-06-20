@@ -37,8 +37,8 @@ Deep cloning creates a fully independent copy of an object where nested objects,
 ## When to Use
 
 Use this resource when:
-- You need to mutate a copy of nested state without affecting the original (Redux, form handling)
-- Serializing objects for `postMessage`, IndexedDB, or Web Workers
+- You need to mutate a copy of nested state without affecting the original (Redux, form handling). See [Caching](/recipes/data/caching) for memoization patterns.
+- Serializing objects for `postMessage`, IndexedDB, or Web Workers. See [Parse JSON](/recipes/data/parse-json) for serialization.
 - Implementing undo/redo stacks that require immutable snapshots
 - Defensive copying of function arguments or API responses before transformation
 
@@ -269,8 +269,8 @@ Person cloned = DeepCopyUtil.deepCopy(original);
 1. **Prefer `structuredClone` for modern environments** — it's native, fast, handles circular references, and supports Maps, Sets, and typed arrays. No dependency needed.
 2. **Use Lodash when supporting older browsers** — if you target IE11 or Node < 17, `structuredClone` is unavailable and Lodash provides consistent behavior.
 3. **Never use `JSON.parse/stringify` for complex objects** — it's fine for simple config objects, but silently corrupts Dates, functions, `undefined`, Maps, Sets, and circular references.
-4. **Clone defensively at API boundaries** — when receiving objects from external APIs or passing state to child components, clone before mutation to prevent accidental side effects.
-5. **Consider structural sharing for large trees** — for very large immutable data structures, libraries like Immer or Immutable.js use structural sharing to avoid O(n) copy costs on every update.
+4. **Clone defensively at API boundaries** — when receiving objects from external [APIs](/recipes/api/call-rest-api) or passing state to child components, clone before mutation to prevent accidental side effects.
+5. **Consider structural sharing for large trees** — for very large immutable data structures, libraries like Immer use structural sharing to avoid O(n) copy costs on every update. See [Flatten/Unflatten Objects](/recipes/data/flatten-unflatten-objects) for nested data manipulation.
 
 ## Common Mistakes
 

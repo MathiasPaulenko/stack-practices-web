@@ -33,7 +33,7 @@ seo:
 
 # Release Notes Template
 
-Use this template to communicate what changed, why it matters, and what users need to do.
+Use this template to communicate what changed, why it matters, and what users need to do. Pair it with the [Changelog Template](/docs/templates/changelog-template) for tracking and the [Post-Deployment Checklist](/docs/templates/post-deployment-checklist-template) for verification.
 
 ## Template
 
@@ -91,20 +91,20 @@ Link to full commit diff or changelog file.
 - **Write release notes before the release** — they are a forcing function for final review
 - **Highlight breaking changes first** — users scan for things that might break them
 - **Include upgrade instructions** — even for "no action required" releases, say so explicitly
-- **Link to documentation** — every new feature should have a corresponding docs page
+- **Link to documentation** — every new feature should have a corresponding docs page. Link to the [API Documentation Template](/docs/templates/api-documentation) for reference.
 
 ## Common Mistakes
 
 - Listing every commit — users do not care about "refactor helper function"
-- Omitting breaking changes — this breaks trust and causes incidents
-- No upgrade instructions — users waste time guessing the migration path
+- Omitting breaking changes — this breaks trust and causes incidents. See [Incident Postmortem Template](/docs/templates/incident-postmortem-template) for recovery procedures.
+- No upgrade instructions — users waste time guessing the migration path. See [Environment Setup Guide](/docs/templates/environment-setup-guide-template) for configuration context.
 - Skipping known issues — transparency builds trust; hiding problems destroys it
 
 ## Frequently Asked Questions
 
 ### How detailed should release notes be for internal services?
 
-Internal services need the same structure but with additional deployment context: which environments were updated, rollback procedure, and links to monitoring dashboards.
+Internal services need the same structure but with additional deployment context: which environments were updated, rollback procedure, and links to monitoring dashboards. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for deployment automation.
 
 ### Should I include CVE numbers for security fixes?
 

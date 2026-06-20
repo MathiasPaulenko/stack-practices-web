@@ -35,10 +35,10 @@ Event-driven microservices communicate asynchronously through events rather than
 ## When to Use
 
 Use this resource when:
-- Services need to scale independently without tight coupling
-- Handling long-running business processes across multiple domains
-- Ensuring data consistency without distributed transactions
-- Building real-time notification, audit, or analytics pipelines
+- Services need to scale independently without tight coupling. See [Event-Driven Functions](/recipes/messaging/event-driven-microservices) for async messaging patterns.
+- Handling long-running business processes across multiple domains. See [Serverless Orchestration](/recipes/devops/background-jobs) for workflow coordination.
+- Ensuring data consistency without distributed transactions. See [Retry Logic](/recipes/architecture/retry-backoff) for handling transient failures.
+- Building real-time notification, audit, or analytics pipelines. See [Kafka Event Streaming](/recipes/messaging/kafka-event-streaming) for high-throughput event processing.
 
 ## Solution
 

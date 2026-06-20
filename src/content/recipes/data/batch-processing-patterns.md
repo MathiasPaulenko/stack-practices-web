@@ -35,7 +35,7 @@ Batch processing is the backbone of data pipelines, ETL workflows, and report ge
 ## When to Use
 
 Use this resource when:
-- Processing large datasets that do not fit in memory
+- Processing large datasets that do not fit in memory. See [Retry Logic](/recipes/architecture/retry-backoff) for handling transient failures.
 - Building ETL pipelines for data warehouses
 - Generating nightly reports or aggregations
 - Migrating data between systems with downtime windows
@@ -103,9 +103,9 @@ SELECT * FROM job_runs WHERE job_id = 'daily_report_2025_01_15' AND status = 'co
 
 A production batch pipeline needs three properties:
 
-1. **Idempotency**: Running the same job twice must produce the same result. Use job IDs and checksums to skip already-processed work.
+1. **Idempotency**: Running the same job twice must produce the same result. Use job IDs and checksums to skip already-processed work. See [Idempotent API Endpoints](/recipes/api/idempotent-api-endpoints) for deduplication patterns.
 2. **Fault tolerance**: Individual batch failures should not crash the entire job. Implement retry with exponential backoff and a dead-letter queue.
-3. **Observability**: Track progress, throughput, and errors. Emit metrics for processed items, latency, and failure rates.
+3. **Observability**: Track progress, throughput, and errors. [Log](/recipes/api/logging) metrics for processed items, latency, and failure rates.
 
 **Chunking strategy**: Size batches to balance memory usage and throughput. Too small = overhead; too large = OOM risk.
 
@@ -124,7 +124,7 @@ A production batch pipeline needs three properties:
 - **Log everything**: Job start, end, and every batch outcome
 - **Use transactions**: Wrap batch writes in database transactions
 - **Monitor queue depth**: Alert when pending batches exceed thresholds
-- **Implement circuit breakers**: Stop retrying if downstream is unhealthy
+- **Implement [circuit breakers](/recipes/architecture/circuit-breaker-pattern)**: Stop retrying if downstream is unhealthy
 
 ## Common Mistakes
 
@@ -140,7 +140,7 @@ A production batch pipeline needs three properties:
 A: Start with 100-1000 items. Benchmark with your data and memory constraints.
 
 **Q: Should I use a job queue like Celery or a cron job?**
-A: Use Celery/Redis for distributed systems and cron for single-node, simple pipelines.
+A: Use Celery/Redis for distributed systems and cron for single-node, simple pipelines. See [Rate Limiting](/recipes/api/rate-limiting) for controlling throughput.
 
 **Q: How do I handle schema changes mid-pipeline?**
 A: Version your job logic and data schemas. Run old and new versions in parallel during migration.

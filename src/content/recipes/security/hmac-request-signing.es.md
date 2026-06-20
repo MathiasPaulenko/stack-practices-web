@@ -36,7 +36,7 @@ HMAC (Hash-based Message Authentication Code) es el estándar de la industria pa
 
 Usa este recurso cuando:
 - Autenticas llamadas API de servicio a servicio
-- Aseguras que payloads de [webhooks](/recipes/serverless/event-driven-functions) no han sido alterados
+- Aseguras que payloads de [webhooks](/recipes/messaging/event-driven-microservices) no han sido alterados
 - Implementas autenticación de API keys sin la complejidad de OAuth
 - Verificas integridad de requests a través de redes no confiables
 

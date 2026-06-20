@@ -34,11 +34,11 @@ seo:
 
 - **Update every 15-30 minutes during active incidents** — Silence makes consumers assume the worst
 - **Post scheduled maintenance 7 days in advance** — Gives consumers time to prepare workarounds
-- **Use a separate domain** — `status.example.com` must not depend on the API it monitors
+- **Use a separate domain** — `status.example.com` must not depend on the API it monitors. See [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for resilience patterns.
 - **Offer RSS / email / Slack subscriptions** — Let consumers choose how they receive updates
 - **Show historical uptime** — A 30-day or 90-day chart builds confidence
-- **Be honest about degraded performance** — Do not mark a service "operational" when latency is 10x normal
-- **Link to incident postmortems** — Transparency after resolution builds long-term trust
+- **Be honest about degraded performance** — Do not mark a service "operational" when latency is 10x normal. See [Performance Optimization](/guides/performance/performance-optimization-guide) for monitoring metrics.
+- **Link to [incident postmortems](/docs/templates/incident-postmortem-template)** — Transparency after resolution builds long-term trust
 
 ## Common Mistakes
 
@@ -60,4 +60,4 @@ Every 15-30 minutes, even if there is no new information. A message like "Still 
 
 ### What should I do if an incident exceeds the SLA?
 
-Communicate proactively. Do not wait for customers to complain. Issue a summary explaining what happened, why it breached SLA, and what measures are being taken to prevent recurrence. Some companies offer service credits for SLA breaches.
+Communicate proactively. Do not wait for customers to complain. See [Incident Communication Template](/docs/templates/incident-postmortem-template) for structured incident updates. Issue a summary explaining what happened, why it breached SLA, and what measures are being taken to prevent recurrence. Some companies offer service credits for SLA breaches.

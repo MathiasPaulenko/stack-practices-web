@@ -29,7 +29,7 @@ seo:
 
 # Penetration Test Report Template
 
-Use this template to document security assessment findings clearly and actionably.
+Use this template to document security assessment findings clearly and actionably. See [Web Application Security Guide](/guides/security/web-application-security-guide) for broader security practices.
 
 ## Template
 
@@ -112,21 +112,21 @@ Specific steps to fix. Include code examples if applicable.
 
 - **Include proof of concept** — without reproduction steps, developers cannot fix it
 - **Rate risk in business context** — a theoretically critical bug on an internal-only admin page may be medium risk
-- **Provide code-level remediation** — "fix the injection" is not enough; show parameterized query syntax
+- **Provide code-level remediation** — "fix the injection" is not enough; show parameterized query syntax. See [Web Application Security Guide](/guides/security/web-application-security-guide) for code examples.
 - **Track remediation like a sprint** — assign owners and due dates
 
 ## Common Mistakes
 
 - Vague findings — "the app has XSS" without URL or parameter
 - No screenshots or PoC — developers waste time reproducing
-- Missing retest date — remediation without verification is incomplete
+- Missing retest date — remediation without verification is incomplete. Track follow-ups with the [Security Incident Response Template](/docs/templates/security-incident-response-template).
 - Scoring by CVSS alone — business context matters more than formula
 
 ## Frequently Asked Questions
 
 ### How do I prioritize findings when everything seems critical?
 
-Use the risk matrix: likelihood × impact. A SQL injection on a public login form is critical. The same bug on an internal read-only report may be medium. Consider exploitability and data sensitivity.
+Use the risk matrix: likelihood × impact. Consult the [Web Application Security Guide](/guides/security/web-application-security-guide) for threat modeling context. A SQL injection on a public login form is critical. The same bug on an internal read-only report may be medium. Consider exploitability and data sensitivity.
 
 ### Should every finding be fixed?
 

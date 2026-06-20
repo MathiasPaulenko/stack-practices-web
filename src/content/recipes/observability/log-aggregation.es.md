@@ -29,14 +29,14 @@ seo:
 ---
 ## Visión General
 
-La agregación de logs centraliza registros de docenas o cientos de servicios en un único sistema searchable. En lugar de hacer SSH a servidores individuales, los equipos consultan un índice unificado para tracear requests a través de [microservicios](/guides/microservices-architecture-guide), investigar errores y detectar anomalías. Herramientas como el stack ELK, Fluentd y Grafana Loki han hecho el logging centralizado accesible para cualquier tamaño de equipo.
+La agregación de logs centraliza registros de docenas o cientos de servicios en un único sistema searchable. En lugar de hacer SSH a servidores individuales, los equipos consultan un índice unificado para tracear requests a través de [microservicios](/guides/architecture/microservices-architecture-guide), investigar errores y detectar anomalías. Herramientas como el stack ELK, Fluentd y Grafana Loki han hecho el logging centralizado accesible para cualquier tamaño de equipo.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - El debugging requiere correlacionar logs de 5+ servicios para una única request de usuario
 - Compliance manda retención de logs y storage a prueba de manipulación
-- Necesitas [alertado](/recipes/prometheus-monitoring-alerts) en tiempo real basado en patrones de log (spikes de error, eventos de seguridad)
+- Necesitas [alertado](/recipes/devops/prometheus-monitoring-alerts) en tiempo real basado en patrones de log (spikes de error, eventos de seguridad)
 - Los volúmenes de log exceden la capacidad de storage local en hosts individuales
 
 ## Solución
@@ -162,10 +162,10 @@ sum by (service) (
 
 ## Mejores Prácticas
 
-- **Incluye correlation IDs**: Cada entrada de log debería tener un `traceId` vinculando el journey completo de la request. Consulta [distributed tracing](/recipes/distributed-tracing).
+- **Incluye correlation IDs**: Cada entrada de log debería tener un `traceId` vinculando el journey completo de la request. Consulta [distributed tracing](/recipes/observability/distributed-tracing).
 - **Loggea al nivel correcto**: DEBUG para desarrollo; INFO para operaciones normales; ERROR para issues accionables
 - **No loggees secrets**: Enmascara PII, tokens y passwords antes de que lleguen al sistema de agregación
-- **Setea políticas de retención**: 30 días de storage hot para troubleshooting; 1 año de archive cold para compliance. Usa una [plantilla de política de retención de datos](/docs/data-retention-policy-template).
+- **Setea políticas de retención**: 30 días de storage hot para troubleshooting; 1 año de archive cold para compliance. Usa una [plantilla de política de retención de datos](/guides/databases/database-design-guide).
 - **Alerta en patrones, no líneas individuales**: "5 ERRORs en 1 minuto" es más accionable que una línea de log
 
 ## Errores Comunes
@@ -182,7 +182,7 @@ sum by (service) (
 R: Samplea logs DEBUG, agrega métricas en el edge, y usa tiers de storage más baratos (S3, GCS) para logs viejos.
 
 **P: ¿Debería agregar métricas o logs?**
-R: Ambos. [Métricas](/recipes/metrics-collection) para dashboards y alertas. Logs para debugging y audit trails. No alertes solo con logs.
+R: Ambos. [Métricas](/recipes/observability/metrics-collection) para dashboards y alertas. Logs para debugging y audit trails. No alertes solo con logs.
 
 **P: ¿Cómo aseguro logs agregados?**
-R: Acceso role-based, transporte encriptado (TLS), y storage encriptado (AES-256). Trata los logs como datos sensibles. Consulta [mejores prácticas de seguridad](/guides/security-best-practices-guide).
+R: Acceso role-based, transporte encriptado (TLS), y storage encriptado (AES-256). Trata los logs como datos sensibles. Consulta [mejores prácticas de seguridad](/guides/security/security-best-practices-guide).

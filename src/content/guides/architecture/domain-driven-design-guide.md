@@ -162,7 +162,7 @@ class OrderConfirmed:
     confirmed_at: datetime
 ```
 
-Domain events enable loose coupling between bounded contexts. See [event-driven architecture](/guides/event-driven-architecture-guide).
+Domain events enable loose coupling between bounded contexts. See [event-driven architecture](/guides/architecture/event-driven-architecture-guide).
 
 ## Strategic DDD vs. Tactical DDD
 
@@ -210,7 +210,7 @@ Use DDD when:
 A: An aggregate root is a special entity that serves as the entry point to an aggregate. All external references to the aggregate go through the root, and all modifications are done via the root's methods.
 
 **Q: Can I use DDD with microservices?**
-A: Yes. Each [microservice](/guides/microservices-architecture-guide) typically aligns with a bounded context. The service boundary enforces the context boundary, and services communicate via domain events or APIs.
+A: Yes. Each [microservice](/guides/architecture/microservices-architecture-guide) typically aligns with a bounded context. The service boundary enforces the context boundary, and services communicate via domain events or APIs.
 
 **Q: How do I identify bounded contexts?**
-A: Look for areas where terminology changes, different teams have ownership, or where business capabilities are independent. [Event Storming](/guides/event-driven-architecture-guide) workshops are a common technique.
+A: Look for areas where terminology changes, different teams have ownership, or where business capabilities are independent. [Event Storming](/guides/architecture/event-driven-architecture-guide) workshops are a common technique.

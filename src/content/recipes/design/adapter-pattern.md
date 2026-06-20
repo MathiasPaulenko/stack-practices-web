@@ -38,10 +38,10 @@ The adapter pattern solves this by introducing a wrapper class that implements y
 
 Use this recipe when:
 
-- Integrating a third-party library with an incompatible interface
-- Migrating from a legacy system without rewriting dependent code
+- Integrating a third-party library with an incompatible interface. See [Hexagonal Architecture](/recipes/design/hexagonal-architecture) for port/adapter isolation.
+- Migrating from a legacy system without rewriting dependent code. See [Factory Pattern](/recipes/design/factory-pattern) for creating adapter instances.
 - Exposing a simplified facade over a complex subsystem
-- Supporting multiple implementations of the same capability (payments, storage, messaging)
+- Supporting multiple implementations of the same capability (payments, storage, messaging). See [Strategy Pattern](/recipes/design/strategy-pattern) for runtime algorithm selection.
 - Testing code that depends on external services by adapting mocks
 
 ## Solution
@@ -184,7 +184,7 @@ url = storage.upload("report.pdf", pdf_bytes)
 - **Document translation behavior**: adapters do more than rename methods. They may convert units, transform error types, or batch requests. Document these translations clearly.
 - **Handle errors gracefully**: third-party APIs throw vendor-specific exceptions. The adapter should catch these and map them to your application's error taxonomy. `StripeCardError` becomes `PaymentDeclinedError`.
 - **Keep adapters thin**: an adapter with hundreds of lines of logic is a service, not an adapter. Complex transformations belong in application services. The adapter should translate calls and errors, then get out of the way.
-- **Test adapters with contract tests**: write tests that verify the adapter satisfies the target interface, not tests that verify the third-party SDK. Use mocks of the adaptee to test the adapter in isolation.
+- **Test adapters with contract tests**: write tests that verify the adapter satisfies the target interface, not tests that verify the third-party SDK. Use mocks of the adaptee to test the adapter in isolation. See [Input Validation](/recipes/api/input-validation) for boundary contracts.
 
 ## Common mistakes
 

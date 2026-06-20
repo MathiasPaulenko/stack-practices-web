@@ -36,11 +36,11 @@ Writing this coordination inside Lambda functions creates spaghetti code: functi
 
 Use this recipe when:
 
-- A serverless process has more than two dependent steps
-- Steps must be retried with backoff on transient failures
+- A serverless process has more than two dependent steps. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for building individual function units.
+- Steps must be retried with backoff on transient failures. See [Retry Logic](/recipes/architecture/retry-backoff) for exponential backoff patterns.
 - Workflow state must survive function timeouts or crashes
 - Human approval or external event waits are required mid-workflow
-- Multiple functions must be coordinated with parallel branches and join points
+- Multiple functions must be coordinated with parallel branches and join points. See [Event-Driven Functions](/recipes/messaging/event-driven-microservices) for event-driven architectures.
 
 ## Solution
 

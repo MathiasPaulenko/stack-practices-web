@@ -37,7 +37,7 @@ This recipe covers the industry-standard error response format (RFC 7807 Problem
 
 Use this recipe when:
 
-- Building or refactoring a REST API that clients will depend on
+- Building or refactoring a [REST API](/recipes/api/call-rest-api) that clients will depend on
 - Standardizing error responses across multiple backend services
 - Documenting failure modes for API consumers
 - Designing error handling middleware or exception mappers
@@ -161,7 +161,7 @@ public class GlobalExceptionHandler {
 
 - **RFC 7807 Problem Details** defines a standard JSON error shape: `type`, `title`, `detail`, and `status`. Using this format makes your API predictable for clients.
 - **HTTP status codes** carry the semantic meaning of the error. Never return 200 OK for a failed request.
-- **Global error handlers** centralize error serialization so individual route handlers stay focused on business logic.
+- **Global error handlers** centralize error serialization so individual route handlers stay focused on business logic. See [Express Middleware Patterns](/recipes/api/express-middleware-patterns) for Express-specific error handling.
 - **Leak prevention**: in production, never expose stack traces or internal paths in error responses.
 
 ## Variants
@@ -179,14 +179,14 @@ public class GlobalExceptionHandler {
 
 - **Use the correct HTTP status**: 400 for client mistakes, 401/403 for auth issues, 404 for missing resources, 409 for conflicts, 422 for validation failures, 500 for server bugs.
 - **Include a correlation ID**: add a request ID to every error response so support can trace logs.
-- **Document all errors**: list every 4xx and 5xx your endpoint can return in your API docs (OpenAPI).
+- **Document all errors**: list every 4xx and 5xx your endpoint can return in your API docs. See [API Documentation Template](/docs/templates/api-documentation) for docs structure.
 - **Keep messages actionable**: "User name must be between 2 and 50 characters" is better than "Validation failed."
 - **Localize sparingly**: error `detail` can be in English; let the client map `type` URLs to localized UI strings.
 
 ## Common Mistakes
 
-- **Returning 200 with an error body**: some legacy APIs do this — it breaks caching, logging, and monitoring.
-- **Exposing internals**: sending full stack traces or SQL details to the client is a security risk.
+- **Returning 200 with an error body**: some legacy APIs do this — it breaks caching, logging, and monitoring. Use proper [HTTP status codes](/recipes/api/api-versioning) for versioning.
+- **Exposing internals**: sending full stack traces or SQL details to the client is a security risk. See [Security Guide](/guides/security/security-best-practices-guide) for data protection.
 - **Inconsistent shapes**: one endpoint returns `{ error: "msg" }`, another returns `{ message: "msg", code: 123 }` — this confuses client generators.
 - **Wrong status code**: returning 500 for a missing resource (should be 404) or 403 for an unauthenticated request (should be 401).
 - **Swallowing exceptions**: catching everything and returning a generic 500 hides bugs you should fix.

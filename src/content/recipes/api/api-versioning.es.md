@@ -33,15 +33,15 @@ seo:
 ---
 ## Visión General
 
-Las APIs evolucionan: se añaden campos, cambian las formas de respuesta y se deprecan endpoints. Sin una estrategia de versionado, estos cambios rompen clientes existentes. Esta receta cubre los tres enfoques dominantes de versionado — ruta URL, header personalizado y negociación de contenido (media type) — con implementación de middleware en Python, JavaScript y Java. También cubre políticas de deprecación y patrones de cambio compatible hacia atrás.
+Las APIs evolucionan: se añaden campos, cambian las formas de respuesta y se [deprecan](/docs/templates/api-deprecation-notice-template) endpoints. Sin una estrategia de versionado, estos cambios rompen clientes existentes. Esta receta cubre los tres enfoques dominantes de versionado — ruta URL, header personalizado y negociación de contenido (media type) — con implementación de middleware en Python, JavaScript y Java. También cubre políticas de deprecación y patrones de cambio compatible hacia atrás.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Publiques una API pública consumida por clientes externos que no puedes actualizar simultáneamente
-- Introduzcas cambios rotos (campos eliminados, recursos renombrados, nuevos requisitos de auth)
+- Introduzcas [cambios rotos](/recipes/api/handle-errors) (campos eliminados, recursos renombrados, nuevos requisitos de auth)
 - Soportes múltiples generaciones de clientes (apps móviles, integraciones de terceros, widgets embebidos)
-- Planifiques una migración a largo plazo desde una forma legada de API a un diseño moderno
+- Planifiques una migración a largo plazo desde una forma legada de API a un diseño moderno. Consulta [Llamar REST API](/recipes/api/call-rest-api) para patrones de cliente.
 
 ## Solución
 
@@ -162,7 +162,7 @@ record UserV2(Long id, String fullName, String email) {}
 - **Versionado por header** (`X-API-Version: v2`) mantiene URLs limpias pero requiere headers personalizados, que algunos clientes (navegadores, scripts simples) pueden no soportar bien. Es más difícil de cachear a nivel CDN sin reglas custom.
 - **Negociación de contenido** (`Accept: application/vnd.myapp.v2+json`) es el enfoque más RESTful. Usa mecanismos HTTP estándar pero es complejo para consumidores y puede confundir con expectativas de `application/json` estándar.
 - **Compatibilidad hacia atrás** significa cambios solo aditivos dentro de una versión: nuevos campos opcionales, nuevos endpoints y enums expandidos son seguros. Eliminar o renombrar campos requiere una nueva versión.
-- **Deprecación** debe señalarse con headers `Sunset` y documentación de changelog, dando a los clientes una ventana clara de migración (típicamente 6-12 meses para APIs públicas).
+- **Deprecación** debe señalarse con headers `Sunset` y documentación de changelog, dando a los clientes una ventana clara de migración. Consulta [Plantilla de Aviso de Deprecación de API](/docs/templates/api-deprecation-notice-template) para comunicación de deprecación.
 
 ## Variantes
 
@@ -183,7 +183,7 @@ record UserV2(Long id, String fullName, String email) {}
 
 ## Errores Comunes
 
-1. Subir la versión por cada cambio menor, fragmentando el ecosistema de clientes.
+1. Subir la versión por cada cambio menor, fragmentando el ecosistema de clientes. Consulta [Validación de Input](/recipes/api/input-validation) para cambios aditivos seguros.
 2. Eliminar versiones antiguas sin un período de sunset, rompiendo integraciones de producción de la noche a la mañana.
 3. Mezclar estrategias de versionado inconsistentemente entre endpoints de la misma API.
 4. No validar identificadores de versión, provocando que `v1.0` y `v1` se traten como versiones diferentes accidentalmente.
@@ -193,7 +193,7 @@ record UserV2(Long id, String fullName, String email) {}
 
 ### ¿Cuándo debería lanzar una nueva versión de API?
 
-Solo por cambios rotos: campos eliminados, recursos renombrados, requisitos de auth cambiados o comportamiento alterado del que dependen clientes existentes. Cambios aditivos (campos opcionales nuevos, endpoints nuevos) no requieren subir la versión.
+Solo por cambios rotos: campos eliminados, recursos renombrados, requisitos de auth cambiados o comportamiento alterado del que dependen clientes existentes. [Cambios aditivos](/recipes/api/input-validation) (campos opcionales nuevos, endpoints nuevos) no requieren subir la versión.
 
 ### ¿Puedo soportar múltiples versiones con la misma base de código?
 

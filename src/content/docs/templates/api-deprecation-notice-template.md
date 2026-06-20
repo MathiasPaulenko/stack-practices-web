@@ -93,10 +93,10 @@ Link: </api/v2/orders>; rel="successor-version"
 ## Best Practices
 
 - **Never remove without notice** — minimum 6 months for public APIs, 30 days for internal
-- **Provide a working migration path** — consumers should be able to switch in one PR
+- **Provide a working migration path** — consumers should be able to switch in one PR. Link to updated [API Documentation](/docs/templates/api-documentation) and [Error Response Templates](/docs/templates/api-error-response-template).
 - **Add deprecation headers** — automated tools can flag usage in CI
 - **Track consumer adoption** — know who has not migrated before sunset
-- **Avoid breaking changes in patch versions** — semver exists for a reason
+- **Avoid breaking changes in patch versions** — follow [Semantic Versioning](/guides/api/rest-api-design-guide) conventions
 
 ## Common Mistakes
 
@@ -113,7 +113,7 @@ Public APIs: minimum 6-12 months. Internal APIs: 1-3 months. The more consumers,
 
 ### What if a consumer does not migrate by the sunset date?
 
-Extend the sunset if the consumer is critical. For non-critical consumers, return `410 Gone` with a link to the migration guide. Never silently break integrations.
+Extend the sunset if the consumer is critical. For non-critical consumers, return `410 Gone` with a link to the migration guide. See [API Error Response Template](/docs/templates/api-error-response-template) for structured error formats. Never silently break integrations.
 
 ### Should deprecated endpoints return warnings?
 

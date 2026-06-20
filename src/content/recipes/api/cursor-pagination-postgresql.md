@@ -168,7 +168,7 @@ class PostRepository {
 }
 ```
 
-### 4. Express API Endpoint
+### 4. [Express](/recipes/api/express-middleware-patterns) API Endpoint
 
 ```typescript
 // routes/posts.ts
@@ -239,9 +239,9 @@ class PaginatedFeed {
 
 ## Production Considerations
 
-- Always create composite indexes matching the exact sort order used in pagination queries
+- Always create composite indexes matching the exact sort order used in pagination queries. See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) for indexing strategies.
 - Use `timestamptz` (not `timestamp`) to avoid timezone ambiguity in cursors
-- Validate cursor structure to prevent injection via malformed base64 payloads
+- Validate cursor structure to prevent injection via malformed base64 payloads. See [Input Validation](/recipes/api/input-validation) for validation patterns.
 
 ## Common Mistakes
 

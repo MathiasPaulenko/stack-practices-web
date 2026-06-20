@@ -32,7 +32,7 @@ seo:
 
 ## Introduction
 
-When a single database server cannot handle the load, you have three options: buy a bigger machine (vertical scaling), add read replicas (horizontal read scaling), or split the data across multiple servers (sharding). Sharding is the hardest but the only option for unlimited horizontal scaling. This guide covers strategies, trade-offs, and operational considerations.
+When a single database server cannot handle the load, you have three options: buy a bigger machine (vertical scaling), add read replicas (horizontal read scaling), or split the data across multiple servers (sharding). See [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) before scaling horizontally. Sharding is the hardest but the only option for unlimited horizontal scaling. This guide covers strategies, trade-offs, and operational considerations.
 
 ## Partitioning vs Sharding
 
@@ -213,8 +213,8 @@ SELECT * FROM orders WHERE created_at > '2024-01-01';
 |----------|-----------|
 | **Scatter-gather** | Query all shards, aggregate. Slow and resource-heavy. |
 | **Global secondary index** | Maintain an index on a non-shard key. Adds write amplification. |
-| **CQRS / read model** | Replicate data to an analytics store for cross-shard queries. See [event-driven architecture](/guides/event-driven-architecture-guide). |
-| **Avoid cross-shard transactions** | Design around them. Use [sagas](/guides/event-driven-architecture-guide) for multi-shard operations. |
+| **CQRS / read model** | Replicate data to an analytics store for cross-shard queries. See [event-driven architecture](/guides/architecture/event-driven-architecture-guide). |
+| **Avoid cross-shard transactions** | Design around them. Use [sagas](/guides/architecture/event-driven-architecture-guide) for multi-shard operations. |
 
 ## Rebalancing
 

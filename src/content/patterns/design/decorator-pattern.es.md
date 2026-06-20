@@ -39,7 +39,7 @@ seo:
 
 El Patrón Decorator es un patrón de diseño estructural que te permite añadir nuevos comportamientos a objetos colocándolos dentro de objetos envolventes que contienen esos comportamientos. Proporciona una alternativa flexible a la herencia para extender funcionalidad.
 
-Es ampliamente usado en streams de I/O (Java), pipelines de middleware (Express.js) y la sintaxis `@decorator` de Python.
+Es ampliamente usado en streams de I/O (Java), [pipelines de middleware](/patterns/design/decorator-pattern-pipeline) (Express.js) y la sintaxis `@decorator` de Python.
 
 ## Cuándo usarlo
 
@@ -168,7 +168,7 @@ Los decorators pueden anidarse arbitrariamente. Puedes envolver un `MilkDecorato
 |----------|-------------|------------|
 | **Basado en clases** | Lenguajes fuertemente tipados (Java, C#) | Verboso pero type-safe |
 | **Basado en funciones** | Sintaxis `@decorator` de Python | Conciso, pero composición menos explícita |
-| **Pipeline de middleware** | Frameworks web (Express, Koa) | Excelente para procesamiento request/response |
+| **[Pipeline de middleware](/patterns/design/decorator-pattern-pipeline)** | Frameworks web (Express, Koa) | Excelente para procesamiento request/response |
 
 ## Mejores prácticas
 
@@ -189,10 +189,10 @@ Los decorators pueden anidarse arbitrariamente. Puedes envolver un `MilkDecorato
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Decorator y Proxy?**
-R: Decorator añade responsabilidades dinámicamente. Proxy controla el acceso a un objeto (inicialización perezosa, control de acceso, logging). Tienen estructura similar pero intención diferente.
+R: Decorator añade responsabilidades dinámicamente. [Proxy](/patterns/design/proxy-pattern) controla el acceso a un objeto (inicialización perezosa, control de acceso, logging). Tienen estructura similar pero intención diferente.
 
 **P: ¿Se pueden remover decorators en tiempo de ejecución?**
-R: No fácilmente en la mayoría de implementaciones. Si necesitas flexibilidad de añadir/remover, considera el patrón Chain of Responsibility.
+R: No fácilmente en la mayoría de implementaciones. Si necesitas flexibilidad de añadir/remover, considera el [patrón Chain of Responsibility](/patterns/design/chain-of-responsibility-pattern).
 
 **P: ¿Son la sintaxis `@decorator` de Python y el Patrón Decorator lo mismo?**
 R: El `@decorator` de Python es una característica del lenguaje para envolver funciones. El Patrón Decorator es un patrón de diseño OOP para envolver objetos. Comparten el concepto pero se aplican a diferentes niveles.

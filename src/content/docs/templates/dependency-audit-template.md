@@ -29,7 +29,7 @@ seo:
 
 # Third-Party Dependency Audit Template
 
-Use this template to evaluate libraries before adding them or during periodic audits.
+Use this template to evaluate libraries before adding them or during periodic audits. See [Web Application Security Guide](/guides/security/web-application-security-guide) for broader security practices.
 
 ## Template
 
@@ -95,7 +95,7 @@ Use this template to evaluate libraries before adding them or during periodic au
 ## Best Practices
 
 - **Audit before adding** — retroactive audits discover problems too late
-- **Automate scanning** — Dependabot, Snyk, or OWASP Dependency-Check in CI
+- **Automate scanning** — Dependabot, Snyk, or OWASP Dependency-Check in CI. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for integrating security scans.
 - **Pin versions** — lockfiles prevent silent upgrades to compromised versions
 - **Review license compatibility** — AGPL in a SaaS backend is a legal risk
 - **Track deprecation** — libraries die slowly; monitor health quarterly
@@ -111,7 +111,7 @@ Use this template to evaluate libraries before adding them or during periodic au
 
 ### How often should I audit dependencies?
 
-New dependencies before adding. Existing dependencies quarterly. Critical dependencies monthly. After any security incident involving a dependency, audit all dependencies in the same ecosystem.
+New dependencies before adding. Existing dependencies quarterly. Critical dependencies monthly. After any security incident involving a dependency, audit all dependencies in the same ecosystem. Follow [Security Incident Response Template](/docs/templates/security-incident-response-template) procedures.
 
 ### What license is safe for commercial use?
 

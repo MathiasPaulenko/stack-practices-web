@@ -33,7 +33,7 @@ seo:
 ---
 ## Visión General
 
-Server-Sent Events (SSE) es una API de navegador y protocolo basado en HTTP que permite a los servidores enviar actualizaciones en tiempo real a los clientes sobre una única conexión persistente. A diferencia de WebSockets (full-duplex), SSE es unidireccional: solo servidor → cliente. Funciona sobre HTTP estándar, atraviesa la mayoría de firewalls y proxies, tiene reconexión automática integrada con `Last-Event-ID`, y no requiere upgrades de protocolo especiales. Esta receta cubre la implementación de endpoints SSE en Python, JavaScript (Node.js) y Java (Spring Boot), con tipos de eventos, keepalives de heartbeat y broadcasting a múltiples clientes.
+Server-Sent Events (SSE) es una API de navegador y protocolo basado en HTTP que permite a los servidores enviar actualizaciones en tiempo real a los clientes sobre una única conexión persistente. A diferencia de [WebSockets](/recipes/api/websocket-server) (full-duplex), SSE es unidireccional: solo servidor → cliente. Funciona sobre HTTP estándar, atraviesa la mayoría de firewalls y proxies, tiene reconexión automática integrada con `Last-Event-ID`, y no requiere upgrades de protocolo especiales. Esta receta cubre la implementación de endpoints SSE en Python, JavaScript (Node.js) y Java (Spring Boot), con tipos de eventos, keepalives de heartbeat y broadcasting a múltiples clientes.
 
 ## Cuándo Usar
 
@@ -333,7 +333,7 @@ source.addEventListener("update", (e) => {
 
 ## Mejores Prácticas
 
-1. **Siempre establece `X-Accel-Buffering: no`** — los proxies reversos como Nginx bufferan respuestas por defecto. Este header desactiva el buffering para que los mensajes SSE lleguen inmediatamente en lugar de por lotes.
+1. **Siempre establece `X-Accel-Buffering: no`** — [los proxies reversos como Nginx](/recipes/api/nginx-reverse-proxy) bufferan respuestas por defecto. Este header desactiva el buffering para que los mensajes SSE lleguen inmediatamente en lugar de por lotes.
 2. **Usa heartbeats de keepalive** — envía líneas de comentario periódicas (`:heartbeat\n\n`) cada 15-30 segundos para prevenir que proxies y balanceadores de carga cierren conexiones inactivas.
 3. **Maneja desconexiones de clientes** — registra callbacks `onCompletion`, `onTimeout` y `onError` (o `req.on("close")` en Node.js) para remover conexiones muertas del registro de broadcast y prevenir fugas de memoria.
 4. **Establece `Cache-Control` apropiado** — usa `no-cache` para prevenir que navegadores y proxies cacheen el stream. SSE es inherentemente dinámico y el cacheo rompe la entrega en tiempo real.
@@ -344,14 +344,14 @@ source.addEventListener("update", (e) => {
 1. Olvidar `X-Accel-Buffering: no` o `Cache-Control: no-cache`, causando que Nginx o navegadores bufferen mensajes SSE y los entreguen en lotes en lugar de tiempo real.
 2. No manejar desconexiones de clientes, lo que produce fugas de memoria a medida que las conexiones muertas se acumulan en el registro de broadcast.
 3. Enviar datos SSE sin newlines apropiadas (terminador `\n\n`). El navegador espera indefinidamente a que el mensaje se complete.
-4. Usar SSE para comunicación bidireccional. SSE es unidireccional; para chat o data de dos vías, usa WebSockets.
+4. Usar SSE para comunicación bidireccional. SSE es unidireccional; para chat o data de dos vías, usa [WebSockets](/recipes/api/websocket-bidirectional-chat).
 5. Enviar datos binarios directamente. SSE solo soporta texto UTF-8. Codifica payloads binarios en Base64 o usa WebSockets para streaming binario.
 
 ## Preguntas Frecuentes
 
 ### ¿En qué se diferencia SSE de WebSockets?
 
-SSE funciona sobre HTTP estándar (sin upgrade de protocolo), es unidireccional (solo servidor → cliente), tiene reconexión automática integrada con `Last-Event-ID`, y funciona a través de la mayoría de firewalls y proxies. WebSockets requieren un upgrade de protocolo, soportan comunicación bidireccional, pero necesitan lógica de reconexión personalizada. Usa SSE para streaming unidireccional; usa WebSockets para apps en tiempo real bidireccionales como chat o juegos multijugador.
+SSE funciona sobre HTTP estándar (sin upgrade de protocolo), es unidireccional (solo servidor → cliente), tiene reconexión automática integrada con `Last-Event-ID`, y funciona a través de la mayoría de firewalls y proxies. WebSockets requieren un upgrade de protocolo, soportan comunicación bidireccional, pero necesitan lógica de reconexión personalizada. Usa SSE para streaming unidireccional; usa [WebSockets](/recipes/api/websocket-server) para apps en tiempo real bidireccionales como chat o juegos multijugador.
 
 ### ¿Puede SSE funcionar con HTTP/2?
 

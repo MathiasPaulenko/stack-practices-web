@@ -40,8 +40,8 @@ Use this recipe when:
 - Building APIs that handle hundreds of concurrent requests per process
 - Fetching data from multiple services that can be called in parallel
 - Processing I/O-bound workloads like web scraping, file uploads, or message queues
-- Implementing real-time features like WebSockets, chat, or live dashboards
-- Replacing thread-per-request models with event-driven architectures for efficiency
+- Implementing real-time features como [WebSockets](/recipes/api/websocket-server), chat, o live dashboards
+- Replacing thread-per-request models with [event-driven architectures](/recipes/architecture/event-driven-architecture) for efficiency
 
 ## Solution
 
@@ -154,7 +154,7 @@ public class AsyncOrderService {
 
 - **Always await promises**: an unawaited promise is a fire-and-forget operation that silently swallows errors. If a promise rejects and nothing awaits it, Node.js emits an `unhandledRejection` warning. In async functions, always `await` or `.catch()` every promise.
 - **Use Promise.all for independence, sequential for dependencies**: if task B needs the result of task A, they must run sequentially. If they are independent, use `Promise.all` or `asyncio.gather` to run them concurrently. Running independent tasks sequentially wastes time.
-- **Set timeouts on all external calls**: an unresponsive API can hang an async operation indefinitely. Wrap every external call in a timeout (e.g., `Promise.race([fetch(), sleep(5000)])`). This prevents resource leaks and ensures predictable latencies.
+- **Set timeouts on all external calls**: an unresponsive API can hang an async operation indefinitely. Wrap every external call in a timeout with [retry logic](/recipes/architecture/retry-backoff). This prevents resource leaks and ensures predictable latencies.
 - **Prefer structured concurrency over fire-and-forget**: spawning a background task that outlives its parent is a common source of memory leaks and race conditions. Use task groups, `asyncio.gather`, or explicit cancellation tokens to ensure lifetimes are managed.
 - **Profile the event loop**: in Node.js, use `clinic.js` or `0x` to detect event loop lag. In Python, use `asyncio.run` with debug mode. If the event loop is blocked by CPU work, move it to a worker thread or process pool.
 
@@ -162,8 +162,8 @@ public class AsyncOrderService {
 
 - **Blocking the event loop**: calling a synchronous file read (`fs.readFileSync`) or a heavy computation inside an async function blocks the entire event loop. All other requests stall. Use async equivalents (`fs.promises.readFile`) or offload CPU work to worker threads.
 - **Callback hell without async/await**: deeply nested `.then()` chains are hard to read and debug. Modern JavaScript should use `async/await` for all but the simplest cases. It produces flat, readable code that looks synchronous but executes asynchronously.
-- **Race conditions on shared mutable state**: two concurrent tasks incrementing a counter without synchronization produce incorrect results. In async environments, use atomic operations, locks, or message passing rather than shared mutable state.
-- **Ignoring backpressure**: accepting requests faster than they can be processed leads to memory exhaustion and OOM kills. Implement rate limiting, bounded queues, and load shedding. A 503 response is better than a crashed server.
+- **Race conditions on shared mutable state**: two concurrent tasks incrementing a counter without synchronization produce incorrect results. In async environments, use [atomic operations](/recipes/concurrency/concurrent-data-structures), locks, or message passing rather than shared mutable state.
+- **Ignoring backpressure**: accepting requests faster than they can be processed leads to memory exhaustion and OOM kills. Implement [rate limiting](/recipes/api/rate-limiting), bounded queues, and load shedding. A 503 response is better than a crashed server.
 
 ## FAQ
 

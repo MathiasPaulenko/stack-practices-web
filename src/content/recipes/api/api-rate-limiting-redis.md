@@ -31,7 +31,7 @@ seo:
 
 # Implement API Rate Limiting with Redis
 
-Prevent API abuse and ensure fair resource distribution using Redis-backed rate limiters. This recipe implements token bucket and sliding window algorithms with distributed coordination, custom rate limit headers, and per-endpoint configuration for production APIs.
+Prevent API abuse and ensure fair resource distribution using Redis-backed rate limiters. See [Security Guide](/guides/security/security-best-practices-guide) for broader API protection strategies. This recipe implements token bucket and sliding window algorithms with distributed coordination, custom rate limit headers, and per-endpoint configuration for production APIs.
 
 ## When to Use This
 
@@ -222,7 +222,7 @@ async function tieredRateLimit(req: Request, res: Response, next: NextFunction) 
 ## Production Considerations
 
 - Use Redis Cluster for high-availability rate limit state
-- Implement circuit breaker around Redis to fail open if cache is down
+- Implement [circuit breaker](/patterns/design/circuit-breaker-pattern) around Redis to fail open if cache is down
 - Log rate limit violations for security monitoring and abuse detection
 
 ## Common Mistakes
@@ -230,6 +230,7 @@ async function tieredRateLimit(req: Request, res: Response, next: NextFunction) 
 - Rate limiting only by IP, which blocks legitimate users behind NAT
 - Not handling Redis failures gracefully, causing API outages
 - Returning 429 without Retry-After headers, leaving clients guessing
+- **Express middleware**: For Express-specific patterns, see [Express Middleware Patterns](/recipes/api/express-middleware-patterns).
 
 ## FAQ
 

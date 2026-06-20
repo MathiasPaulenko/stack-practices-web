@@ -31,7 +31,7 @@ seo:
 
 ## Resumen
 
-Una guía de onboarding acelera la productividad de nuevos miembros del equipo al proveer un camino claro desde el día uno hasta la primera contribución significativa. Reduce la carga sobre miembros existentes y asegura consistencia.
+Una guía de onboarding acelera la productividad de nuevos miembros del equipo al proveer un camino claro desde el día uno hasta la primera contribución significativa. Consulta la [Plantilla de README](/docs/templates/readme-template) para docs de proyecto y la [Guía de Contribución](/docs/templates/contributing-guide) para estándares de contribución. Reduce la carga sobre miembros existentes y asegura consistencia.
 
 ## Cuándo Usar
 
@@ -56,6 +56,8 @@ Una guía de onboarding acelera la productividad de nuevos miembros del equipo a
 - [ ] Invitaciones de calendario enviadas para standups y rituales del equipo
 
 ## Día 1-2: Configuración del Entorno
+
+Consulta la [Plantilla de Guía de Configuración de Entorno](/docs/templates/environment-setup-guide-template) para instrucciones detalladas.
 
 ### Herramientas Requeridas
 | Herramienta | Versión | Propósito | Link de Instalación |
@@ -110,7 +112,7 @@ Busca issues con labels:
 ## Semana 2+: Profundización
 
 - [ ] Asistir a sesión de overview de arquitectura
-- [ ] Leer ADRs en `/docs/adr/`
+- [ ] Leer [ADRs](/docs/templates/adr-template) en `/docs/adr/`
 - [ ] Observar una rotación de on-call (solo observación)
 - [ ] Pair programming con un compañero
 

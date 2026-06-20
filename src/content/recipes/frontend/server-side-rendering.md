@@ -28,7 +28,7 @@ seo:
 ---
 ## Overview
 
-Server-side rendering (SSR) generates HTML on the server for each request, sending a fully rendered page to the browser. This improves initial page load, [SEO](/guides/performance-optimization-guide), and social sharing previews. Modern frameworks like Next.js, Nuxt, and Astro combine SSR with client-side hydration to deliver fast first paints and interactive experiences without sacrificing crawlability.
+Server-side rendering (SSR) generates HTML on the server for each request, sending a fully rendered page to the browser. This improves initial page load, [SEO](/guides/performance/performance-optimization-guide), and social sharing previews. Modern frameworks like Next.js, Nuxt, and Astro combine SSR with client-side hydration to deliver fast first paints and interactive experiences without sacrificing crawlability.
 
 ## When to Use
 
@@ -36,7 +36,7 @@ Use this resource when:
 - Building content-heavy sites that rely on search engine indexing
 - Social sharing requires accurate Open Graph previews
 - Users on slow networks need meaningful content immediately
-- JavaScript-heavy SPAs have poor [Core Web Vitals](/recipes/web-performance) scores
+- JavaScript-heavy SPAs have poor [Core Web Vitals](/recipes/performance/web-performance) scores
 
 ## Solution
 
@@ -141,7 +141,7 @@ const { data: posts } = await useFetch('/api/posts', {
 - **Use streaming for slow data**: Suspense boundaries let critical UI render while data loads
 - **Avoid hydration mismatches**: Server and client HTML must match exactly
 - **Serialize minimal state**: Only pass data the client needs; avoid full database dumps
-- **Cache SSR responses**: [CDN caching](/recipes/caching) with `stale-while-revalidate` reduces server load
+- **Cache SSR responses**: [CDN caching](/recipes/data/caching) with `stale-while-revalidate` reduces server load
 - **Lazy-load below-fold**: Use `client:visible` (Astro) or dynamic imports for non-critical interactivity
 
 ## Common Mistakes

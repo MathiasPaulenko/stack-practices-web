@@ -33,10 +33,10 @@ Sorting is one of the most common data manipulation tasks. Every language provid
 
 Use this recipe when:
 
-- Displaying data in a specific order (alphabetical, chronological, by priority)
+- Displaying data in a specific order (alphabetical, chronological, by priority). See [Date Formatting](/recipes/data/date-formatting) for chronological sorting.
 - Preparing data for algorithms that require sorted input (binary search, merge)
 - Normalizing data before comparison or deduplication
-- Implementing ranking, leaderboards, or search result ordering
+- Implementing ranking, leaderboards, or search result ordering. See [Pagination](/recipes/api/pagination) for managing ordered results.
 
 ## Solution
 
@@ -154,7 +154,7 @@ users.stream()
 - **Sorting numbers alphabetically in JavaScript**: `[10, 2].sort()` produces `[10, 2]` because default sort converts elements to strings. Always pass a comparator for numbers.
 - **Mutating during sort**: modifying the array being sorted (e.g., in a comparator with side effects) causes unpredictable results.
 - **Inconsistent comparator**: returning only `1` and `-1` without `0` for equality can cause crashes or wrong results in some implementations.
-- **Sorting huge datasets in memory**: for datasets larger than available RAM, use external sorting or database `ORDER BY`.
+- **Sorting huge datasets in memory**: for datasets larger than available RAM, use external sorting or database `ORDER BY`. See [Database Transactions](/recipes/databases/database-transactions) for data consistency.
 - **Assuming all sorts are stable**: while most modern languages use stable sorts, do not rely on stability unless documented. Explicitly sort by secondary keys when order matters.
 
 ## Frequently Asked Questions

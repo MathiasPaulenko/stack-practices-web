@@ -40,7 +40,7 @@ WebSockets provide full-duplex, bidirectional communication channels over a sing
 Use this resource when:
 - You need true bidirectional real-time communication (chat, collaborative editing, multiplayer games)
 - Your application requires low-latency updates in both directions (client → server and server → client)
-- You want to avoid the overhead of HTTP polling or the uni-directional limitation of SSE
+- You want to avoid the overhead of HTTP polling or the uni-directional limitation of [SSE](/recipes/api/server-sent-events)
 - You need to push data to specific clients or groups (rooms/channels) based on business logic
 
 ## Solution
@@ -326,8 +326,8 @@ function sendMessage(room, text) {
 ## Best Practices
 
 1. **Always handle connection errors** — network failures, client crashes, and proxy timeouts can leave stale connections. Wrap send operations in try/catch, handle `onError` callbacks, and implement heartbeat-based cleanup.
-2. **Authenticate during handshake** — pass authentication tokens via query parameters or cookies during the WebSocket upgrade request. Do not attempt to authenticate over the WebSocket message channel after connection; the initial handshake is the safest point.
-3. **Validate all incoming messages** — WebSocket payloads are untrusted. Validate JSON schema, sanitize inputs, enforce message size limits, and rate-limit clients to prevent DoS attacks via oversized or high-frequency messages.
+2. **Authenticate during handshake** — pass [authentication tokens](/recipes/authentication/jwt-authentication) via query parameters or cookies during the WebSocket upgrade request. Do not attempt to authenticate over the WebSocket message channel after connection; the initial handshake is the safest point.
+3. **Validate all incoming messages** — WebSocket payloads are untrusted. [Validate input](/recipes/api/input-validation), sanitize inputs, enforce message size limits, and rate-limit clients to prevent DoS attacks via oversized or high-frequency messages.
 4. **Use rooms for targeted delivery** — instead of broadcasting every message to all clients, organize clients into rooms/channels based on application logic (chat rooms, document IDs, user groups). This reduces server load and client-side filtering.
 5. **Implement reconnection logic on the client** — browsers do not auto-reconnect WebSockets. Wrap your `WebSocket` instance in a manager that detects disconnections, uses exponential backoff, and rejoins rooms after reconnection.
 
@@ -343,7 +343,7 @@ function sendMessage(room, text) {
 
 ### How many concurrent WebSocket connections can a server handle?
 
-It depends on your language, framework, and hardware. Node.js with `ws` can handle 10,000–50,000 connections on a single process. Python with `websockets` (asyncio) typically handles 1,000–10,000. Java (Netty/Spring) can scale to 100,000+ with proper tuning. Horizontal scaling with sticky sessions or shared pub/sub (Redis) is required for truly massive deployments.
+It depends on your language, framework, and hardware. Node.js with `ws` can handle 10,000–50,000 connections on a single process. Python with `websockets` (asyncio) typically handles 1,000–10,000. Java (Netty/Spring) can scale to 100,000+ with proper tuning. Horizontal scaling with sticky sessions or [shared pub/sub (Redis)](/recipes/api/real-time-notifications) is required for truly massive deployments.
 
 ### Should I use raw WebSockets or a library like Socket.IO?
 

@@ -36,10 +36,10 @@ XML sitemaps tell search engines which pages exist on your site, how often they 
 ## When to Use
 
 Use this resource when:
-- Your site has thousands of pages that change regularly and a static sitemap is unmaintainable
-- You run a multi-language site and need `xhtml:link` annotations in sitemaps for hreflang
-- You want to include `lastmod`, `changefreq`, and `priority` metadata derived from content timestamps
-- You need a sitemap index file that references multiple paginated sitemap files for very large sites
+- Your site has thousands of pages that change regularly and a static sitemap is unmaintainable. See [Background Jobs](/recipes/devops/background-jobs) for scheduled regeneration.
+- You run a multi-language site and need `xhtml:link` annotations in sitemaps for hreflang. See [Environment Variables](/recipes/devops/environment-variables) for per-locale configuration.
+- You want to include `lastmod`, `changefreq`, and `priority` metadata derived from content timestamps. See [Cron Jobs](/recipes/devops/cron-jobs) for scheduled updates.
+- You need a sitemap index file that references multiple paginated sitemap files for very large sites. See [Compression Gzip](/recipes/file-handling/compression-gzip) for reducing sitemap transfer size.
 
 ## Solution
 
