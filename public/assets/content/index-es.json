@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 340,
+  "count": 345,
   "entries": [
     {
       "path": "docs/templates/adr-template.es.md",
@@ -7385,6 +7385,50 @@
       }
     },
     {
+      "path": "recipes/data/convert-csv-to-json.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "convert-csv-to-json",
+        "title": "Convertir CSV a JSON",
+        "description": "Cómo convertir datos CSV a formato JSON en Python, Java y JavaScript.",
+        "metaDescription": "Aprende a convertir CSV a JSON en Python, Java y JavaScript. Transforma exports de spreadsheets en payloads estructurados de API con ejemplos de código.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "csv",
+          "json",
+          "conversion",
+          "python",
+          "javascript",
+          "java",
+          "data-processing"
+        ],
+        "relatedResources": [
+          "/recipes/data/convert-json-to-csv",
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-xml-files",
+          "/recipes/data/serialize-deserialize-data",
+          "/recipes/data/validate-json-schema"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a convertir CSV a JSON en Python, Java y JavaScript. Transforma exports de spreadsheets en payloads estructurados de API con ejemplos de código.",
+          "keywords": [
+            "csv",
+            "json",
+            "conversion",
+            "python",
+            "javascript",
+            "java",
+            "data-processing"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/convert-json-to-csv.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7664,6 +7708,50 @@
       }
     },
     {
+      "path": "recipes/data/merge-json-files.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "merge-json-files",
+        "title": "Fusionar Archivos JSON",
+        "description": "Cómo fusionar múltiples archivos JSON en un solo objeto o array en Python, Java y JavaScript.",
+        "metaDescription": "Aprende a fusionar archivos JSON en Python, Java y JavaScript. Combina configs, datasets y respuestas de API con ejemplos prácticos de código.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "json",
+          "merge",
+          "combine",
+          "python",
+          "javascript",
+          "java",
+          "data-processing"
+        ],
+        "relatedResources": [
+          "/recipes/data/convert-csv-to-json",
+          "/recipes/data/convert-json-to-csv",
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-xml-files",
+          "/recipes/data/serialize-deserialize-data"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a fusionar archivos JSON en Python, Java y JavaScript. Combina configs, datasets y respuestas de API con ejemplos prácticos de código.",
+          "keywords": [
+            "json",
+            "merge",
+            "combine",
+            "python",
+            "javascript",
+            "java",
+            "data-processing"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/money-currency.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7787,6 +7875,50 @@
       }
     },
     {
+      "path": "recipes/data/parse-excel-files.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-excel-files",
+        "title": "Analizar Archivos Excel",
+        "description": "Cómo leer y escribir archivos Excel (.xlsx) en Python, Java y JavaScript.",
+        "metaDescription": "Aprende a analizar archivos Excel en Python, Java y JavaScript. Lee worksheets, formatea celdas y maneja grandes spreadsheets con ejemplos de código.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "excel",
+          "xlsx",
+          "parsing",
+          "spreadsheet",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/convert-csv-to-json",
+          "/recipes/data/convert-json-to-csv",
+          "/recipes/data/serialize-deserialize-data",
+          "/recipes/data/parse-json"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a analizar archivos Excel en Python, Java y JavaScript. Lee worksheets, formatea celdas y maneja grandes spreadsheets con ejemplos de código.",
+          "keywords": [
+            "excel",
+            "xlsx",
+            "parsing",
+            "spreadsheet",
+            "python",
+            "javascript",
+            "java"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/data/parse-json.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -7861,6 +7993,94 @@
             "javascript",
             "java",
             "devops"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/parse-markdown-files.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-markdown-files",
+        "title": "Analizar Archivos Markdown",
+        "description": "Cómo analizar Markdown a HTML y extraer datos estructurados en Python, Java y JavaScript.",
+        "metaDescription": "Aprende a analizar archivos Markdown en Python, Java y JavaScript. Convierte MD a HTML y extrae frontmatter con ejemplos de código.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "markdown",
+          "parsing",
+          "html",
+          "frontmatter",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/serialize-deserialize-data",
+          "/recipes/data/parse-json",
+          "/recipes/data/parse-yaml-files",
+          "/recipes/data/parse-xml-files",
+          "/recipes/data/convert-csv-to-json"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a analizar archivos Markdown en Python, Java y JavaScript. Convierte MD a HTML y extrae frontmatter con ejemplos de código.",
+          "keywords": [
+            "markdown",
+            "parsing",
+            "html",
+            "frontmatter",
+            "python",
+            "javascript",
+            "java"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/data/parse-pdf-files.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "parse-pdf-files",
+        "title": "Analizar Archivos PDF",
+        "description": "Cómo extraer texto y metadata de archivos PDF en Python, Java y JavaScript.",
+        "metaDescription": "Aprende a analizar archivos PDF en Python, Java y JavaScript. Extrae texto, metadata y tablas con ejemplos prácticos de código.",
+        "difficulty": "beginner",
+        "topics": [
+          "data"
+        ],
+        "tags": [
+          "pdf",
+          "parsing",
+          "extraction",
+          "text",
+          "python",
+          "javascript",
+          "java"
+        ],
+        "relatedResources": [
+          "/recipes/data/parse-csv-files",
+          "/recipes/data/parse-excel-files",
+          "/recipes/data/parse-xml-files",
+          "/recipes/data/convert-json-to-csv",
+          "/recipes/data/serialize-deserialize-data"
+        ],
+        "lastUpdated": "2026-06-20",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a analizar archivos PDF en Python, Java y JavaScript. Extrae texto, metadata y tablas con ejemplos prácticos de código.",
+          "keywords": [
+            "pdf",
+            "parsing",
+            "extraction",
+            "text",
+            "python",
+            "javascript",
+            "java"
           ]
         }
       }
