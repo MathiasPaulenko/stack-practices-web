@@ -1,0 +1,151 @@
+---
+contentType: docs
+slug: service-level-objective-template
+title: "Service Level Objective Template"
+description: "A template for defining SLOs, SLIs, and error budgets for reliable service management."
+metaDescription: "Use this SLO template to define service level objectives, indicators, error budgets, and tracking dashboards for your engineering team."
+difficulty: intermediate
+topics:
+  - devops
+tags:
+  - devops
+  - slo
+  - sli
+  - error-budget
+  - reliability
+  - operations
+  - template
+relatedResources:
+  - /docs/bug-triage-template
+  - /docs/change-management-template
+  - /docs/escalation-policy-template
+  - /docs/on-call-runbook-template
+  - /docs/patch-management-template
+lastUpdated: "2026-06-21"
+author: "StackPractices"
+seo:
+  metaDescription: "Use this SLO template to define service level objectives, indicators, error budgets, and tracking dashboards for your engineering team."
+  keywords:
+    - devops
+    - slo
+    - sli
+    - error-budget
+    - reliability
+    - operations
+    - template
+---
+## Overview
+
+SLOs separate "uptime theater" from real reliability. A dashboard showing 99.9% uptime means nothing if your users experienced 500 errors during checkout because the metric averaged away a 10-minute outage. Defining clear Service Level Objectives (SLOs), Service Level Indicators (SLIs), and error budgets forces engineering to be honest about what "reliable" means and how much unreliability is acceptable before halting feature work.
+
+## When to Use
+
+Use this resource when:
+- You are setting reliability targets for a new service or API
+- Your team spends every sprint firefighting instead of shipping features
+- You need to negotiate SLAs with customers and want an internal buffer
+
+## Solution
+
+```markdown
+# SLO Definition: `<Service / API>`
+
+## 1. Service Overview
+
+| Field | Value |
+|-------|-------|
+| Service | `name` |
+| Critical User Journeys | `list` |
+| Stakeholders | `team, dependent services, customers` |
+| Review Date | `YYYY-MM-DD` |
+
+## 2. Service Level Indicators (SLIs)
+
+| SLI Name | Metric | Good Events | Bad Events | Measurement Window |
+|----------|--------|-------------|------------|-------------------|
+| Availability | `successful requests / total requests` | HTTP 2xx/3xx | HTTP 5xx, timeouts | Rolling 30 days |
+| Latency | `request duration` | P99 < 200ms | P99 >= 200ms | Rolling 30 days |
+| Error Rate | `failed requests / total requests` | < 0.1% | >= 0.1% | Rolling 30 days |
+| Saturation | `resource utilization` | CPU < 70% | CPU >= 70% | Rolling 7 days |
+
+## 3. Service Level Objectives (SLOs)
+
+| SLI | Target | Rationale | Alert Threshold |
+|-----|--------|-----------|----------------|
+| Availability | 99.9% | 3 nines = 43.8 min downtime/month | Page at 99.8% |
+| Latency P99 | < 200ms | User-perceived responsiveness | Page at 250ms |
+| Error Rate | < 0.1% | Industry standard for APIs | Page at 0.2% |
+| Saturation | < 70% | Headroom for traffic spikes | Warn at 65% |
+
+## 4. Error Budget
+
+| SLO Target | Error Budget (30 days) | Burn Rate | Current Status |
+|------------|------------------------|-----------|----------------|
+| 99.9% availability | 43.8 minutes | `Xx` | Healthy / At Risk / Exhausted |
+
+### Error Budget Policy
+
+- **Healthy (< 50% burned):** Normal feature development
+- **At Risk (50–80% burned):** No non-critical deploys; reliability work prioritized
+- **Exhausted (> 80% burned):** Feature freeze; all engineering focused on reliability
+- **Exhausted (> 100% burned):** Incident declared; executive notification required
+
+## 5. Alerting Rules
+
+| Condition | Severity | Action | Recipient |
+|-----------|----------|--------|-----------|
+| SLO threshold breached for > 5 min | P2 | Page on-call engineer | PagerDuty |
+| Error budget > 50% in 1 day | P1 | Page team lead | PagerDuty + Slack |
+| Error budget > 100% in 7 days | P0 | Page manager + exec summary | PagerDuty + Email |
+
+## 6. Dashboard & Reporting
+
+- Primary dashboard: `link`
+- Error budget burn chart: `link`
+- Monthly SLO review: `calendar link`
+- Post-incident SLO impact assessment: required for SEV 1–2
+```
+
+## Explanation
+
+The template forces a **quantified reliability contract** between engineering and users. SLIs are the raw metrics; SLOs are the targets; the error budget is the amount of "unreliability" you are allowed to spend before stopping feature work. Without an error budget policy, teams either panic at every blip or ignore degradation until customers churn. The policy gives explicit permission to slow down when reliability is at risk.
+
+## Variants
+
+| Context | Key SLIs | Differentiator |
+|---------|----------|----------------|
+| Web / API | Availability, latency P99, error rate | User-facing percentiles matter most |
+| Batch / ETL | Completion rate, freshness, correctness | On-time delivery, not speed |
+| Streaming / Kafka | Consumer lag, throughput, partition health | Lag matters more than latency |
+| Mobile backend | API latency, push delivery rate, payload size | Battery and data cost awareness |
+| ML inference | Prediction latency, throughput, model drift | Accuracy degradation is an SLO too |
+
+## Best Practices
+
+1. Start with 2–3 SLIs; more metrics dilute focus and create alert fatigue
+2. Base SLOs on current performance, not aspirational targets; unrealistic SLOs exhaust budgets instantly
+3. Review SLOs quarterly; traffic patterns change and so should targets
+4. Align SLOs with user pain, not internal metrics; users care about checkout errors, not CPU usage
+5. Document the business impact of each SLO so executives understand why a feature freeze matters
+
+## Common Mistakes
+
+1. Setting SLOs at 100%; perfection is impossible and paralyzes engineering
+2. Using averages instead of percentiles; averages hide tail latency that users actually feel
+3. Alerting on SLI raw values instead of SLO breach; this creates noise without action
+4. Not defining an error budget policy; SLOs without consequences are just dashboards
+5. Separating SLO review from incident review; every SEV 1 should trigger an SLO impact assessment
+
+## Frequently Asked Questions
+
+### How many nines should my SLO target?
+
+99.9% (three nines) is a common starting point for most SaaS APIs. 99.99% (four nines) is expensive and should only be pursued if downtime directly causes revenue loss. 99.999% (five nines) is typically reserved for critical infrastructure like payment processing or healthcare systems. Each additional nine roughly doubles the engineering cost. Start conservative and tighten as your observability and automation mature.
+
+### Should SLOs be the same as customer-facing SLAs?
+
+No. SLOs are internal targets; SLAs are external contracts. Set your SLOs stricter than your SLAs to create a buffer. For example, if your SLA promises 99.9% availability, set your internal SLO at 99.95%. This buffer absorbs minor breaches without violating contracts and gives you negotiation room when customers demand tighter SLAs.
+
+### What happens when we exhaust the error budget?
+
+The error budget policy should trigger a feature freeze and redirect all engineering effort to reliability work. This is not a punishment; it is a safety mechanism. If the team consistently exhausts budgets, the SLO targets are probably unrealistic and should be revised downward. If budgets are never touched, the targets are too loose and you may be over-investing in reliability at the cost of feature velocity.

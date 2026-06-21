@@ -3,7 +3,7 @@ contentType: recipes
 slug: lazy-loading
 title: "Implementar Lazy Loading para Imágenes, Componentes y Datos"
 description: "Cómo diferir la carga de recursos no críticos hasta que sean necesarios, mejorando el tiempo de carga inicial de página, reduciendo el ancho de banda y optimizando Core Web Vitals."
-metaDescription: "Aprende lazy loading para imágenes, componentes y datos. Mejora el tiempo de carga inicial y optimiza Core Web Vitals."
+metaDescription: "Aprende lazy loading para imágenes, componentes y datos. Mejora el tiempo de carga inicial de tu sitio web y optimiza Core Web Vitals con estos ejemplos prácticos."
 difficulty: beginner
 topics:
   - performance
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende lazy loading para imágenes, componentes y datos. Mejora el tiempo de carga inicial y optimiza Core Web Vitals."
+  metaDescription: "Aprende lazy loading para imágenes, componentes y datos. Mejora el tiempo de carga inicial de tu sitio web y optimiza Core Web Vitals con estos ejemplos prácticos."
   keywords:
     - lazy loading
     - carga diferida
