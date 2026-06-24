@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 48 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
+| Guides | 53 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,7 +141,7 @@
 
 ---
 
-### Pending Guides (39)
+### Pending Guides (34)
 
 **Architecture & System Design**
 - `onion-architecture-guide` — Onion Architecture explained
@@ -163,11 +163,6 @@
 - `vector-database-guide` — Vector databases for AI/ML
 
 **DevOps & Cloud**
-- `aws-basics-guide` — AWS core services for developers
-- `azure-basics-guide` — Azure fundamentals for developers
-- `gcp-basics-guide` — Google Cloud Platform essentials
-- `terraform-best-practices-guide` — Terraform modules and state management
-- `kubernetes-advanced-guide` — Kubernetes beyond basics
 - `service-mesh-guide` — Service Mesh (Istio, Linkerd) explained
 - `observability-guide` — Observability (metrics, logs, traces) complete guide
 - `opentelemetry-guide` — OpenTelemetry implementation guide
