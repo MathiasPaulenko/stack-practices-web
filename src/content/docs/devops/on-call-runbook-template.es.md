@@ -3,7 +3,7 @@ contentType: docs
 slug: on-call-runbook-template
 title: "Plantilla de Runbook de Guardia"
 description: "Una plantilla que documenta alertas comunes y procedimientos de respuesta paso a paso para ingenieros de guardia."
-metaDescription: "Usa esta plantilla de runbook de guardia para documentar alertas comunes, procedimientos de respuesta paso a paso y pasos de solución de problemas para ingenieros de guardia."
+metaDescription: "Documenta alertas comunes y procedimientos de respuesta para ingenieros de guardia."
 difficulty: intermediate
 topics:
   - devops
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Usa esta plantilla de runbook de guardia para documentar alertas comunes, procedimientos de respuesta paso a paso y pasos de solución de problemas para ingenieros de guardia."
+  metaDescription: "Documenta alertas comunes y procedimientos de respuesta para ingenieros de guardia."
   keywords:
     - devops
     - guardia
