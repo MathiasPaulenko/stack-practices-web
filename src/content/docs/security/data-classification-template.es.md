@@ -3,7 +3,7 @@ contentType: docs
 slug: data-classification-template
 title: "Plantilla de Clasificación de Datos"
 description: "Plantilla para clasificar datos como públicos, internos, confidenciales o restringidos con reglas de manejo."
-metaDescription: "Usa esta plantilla de clasificación de datos para categorizar los datos de la organización en niveles públicos, internos, confidenciales y restringidos con requisitos de manejo."
+metaDescription: "Clasifica datos de la organización en niveles públicos, internos, confidenciales y restringidos."
 difficulty: beginner
 topics:
   - security
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Usa esta plantilla de clasificación de datos para categorizar los datos de la organización en niveles públicos, internos, confidenciales y restringidos con requisitos de manejo."
+  metaDescription: "Clasifica datos de la organización en niveles públicos, internos, confidenciales y restringidos."
   keywords:
     - security
     - data
