@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 53 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
+| Guides | 59 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,7 +141,7 @@
 
 ---
 
-### Pending Guides (34)
+### Pending Guides (28)
 
 **Architecture & System Design**
 - `onion-architecture-guide` — Onion Architecture explained
@@ -173,12 +173,6 @@
 - `multi-cloud-guide` — Multi-cloud strategies and pitfalls
 
 **Security**
-- `owasp-top-10-guide` — OWASP Top 10 explained with mitigations
-- `secure-coding-guide` — Secure coding practices by language
-- `secrets-management-guide` — Vault, AWS Secrets Manager, Azure Key Vault
-- `zero-trust-architecture-guide` — Zero Trust principles
-- `cryptography-basics-guide` — Encryption, hashing, signing explained
-- `threat-modeling-guide` — Threat modeling for applications
 - `compliance-gdpr-guide` — GDPR compliance for developers
 - `compliance-soc2-guide` — SOC 2 compliance basics
 
