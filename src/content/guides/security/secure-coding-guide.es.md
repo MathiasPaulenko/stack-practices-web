@@ -3,11 +3,11 @@ contentType: guides
 slug: secure-coding-guide
 title: "Prácticas de Codificación Segura — Por Lenguaje y Patrón"
 description: "Guía práctica de prácticas de codificación segura en varios lenguajes: validación de entrada, seguridad de memoria, autenticación y patrones defensivos para Python, Java, JavaScript y Go."
-metaDescription: "Aprende prácticas de codificación segura por lenguaje. Validación de entrada, seguridad de memoria, patrones de autenticación y codificación defensiva para Python, Java, JavaScript y Go."
+metaDescription: "Aprende codificación segura por lenguaje: validación de entrada, seguridad de memoria y patrones defensivos. Guía práctica."
 difficulty: intermediate
 topics:
   - security
-  - code-quality
+  - testing
 tags:
   - secure-coding
   - input-validation
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende prácticas de codificación segura por lenguaje. Validación de entrada, seguridad de memoria, patrones de autenticación y codificación defensiva para Python, Java, JavaScript y Go."
+  metaDescription: "Aprende codificación segura por lenguaje: validación de entrada, seguridad de memoria y patrones defensivos. Guía práctica."
   keywords:
     - secure-coding
     - input-validation

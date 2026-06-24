@@ -7,8 +7,6 @@ metaDescription: "Learn SOC 2 basics for developers: Trust Service Criteria, evi
 difficulty: intermediate
 topics:
   - security
-  - compliance
-  - operations
 tags:
   - soc2
   - compliance

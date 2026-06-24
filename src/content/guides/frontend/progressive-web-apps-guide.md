@@ -7,8 +7,6 @@ metaDescription: "Build Progressive Web Apps with service workers, offline suppo
 difficulty: intermediate
 topics:
   - frontend
-  - web
-  - mobile
 tags:
   - pwa
   - progressive-web-apps

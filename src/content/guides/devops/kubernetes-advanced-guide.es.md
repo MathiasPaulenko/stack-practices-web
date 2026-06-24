@@ -8,7 +8,6 @@ difficulty: advanced
 topics:
   - devops
   - infrastructure
-  - kubernetes
 tags:
   - kubernetes
   - operators

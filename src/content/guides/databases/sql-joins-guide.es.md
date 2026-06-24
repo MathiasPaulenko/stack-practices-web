@@ -7,7 +7,7 @@ metaDescription: "Domina SQL joins con diagramas visuales y ejemplos. Aprende IN
 difficulty: beginner
 topics:
   - databases
-  - sql
+  - data
 tags:
   - sql-joins
   - inner-join

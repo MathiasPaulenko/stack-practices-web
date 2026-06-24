@@ -7,8 +7,6 @@ metaDescription: "Construye Progressive Web Apps con service workers, soporte of
 difficulty: intermediate
 topics:
   - frontend
-  - web
-  - mobile
 tags:
   - pwa
   - progressive-web-apps

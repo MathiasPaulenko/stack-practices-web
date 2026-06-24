@@ -7,7 +7,6 @@ metaDescription: "Learn cryptography basics: symmetric/asymmetric encryption, ha
 difficulty: intermediate
 topics:
   - security
-  - cryptography
 tags:
   - cryptography
   - encryption

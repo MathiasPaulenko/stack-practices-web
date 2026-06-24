@@ -8,7 +8,7 @@ difficulty: intermediate
 topics:
   - devops
   - infrastructure
-  - cloud
+  - data
 tags:
   - terraform
   - infrastructure-as-code

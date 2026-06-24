@@ -7,7 +7,6 @@ metaDescription: "Learn GDPR compliance for developers: data subject rights, law
 difficulty: intermediate
 topics:
   - security
-  - compliance
   - data
 tags:
   - gdpr

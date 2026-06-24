@@ -7,7 +7,7 @@ metaDescription: "Learn OWASP Top 10 security risks with mitigations. Understand
 difficulty: intermediate
 topics:
   - security
-  - web
+  - frontend
 tags:
   - owasp
   - owasp-top-10

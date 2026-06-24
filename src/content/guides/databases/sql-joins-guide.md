@@ -7,7 +7,7 @@ metaDescription: "Master SQL joins with visual diagrams and examples. Learn INNE
 difficulty: beginner
 topics:
   - databases
-  - sql
+  - data
 tags:
   - sql-joins
   - inner-join

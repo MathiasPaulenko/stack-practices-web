@@ -7,7 +7,6 @@ metaDescription: "Aprende cumplimiento GDPR para desarrolladores: derechos de ti
 difficulty: intermediate
 topics:
   - security
-  - compliance
   - data
 tags:
   - gdpr

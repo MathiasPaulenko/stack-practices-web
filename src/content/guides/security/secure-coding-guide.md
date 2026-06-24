@@ -7,7 +7,7 @@ metaDescription: "Learn secure coding practices by language. Input validation, m
 difficulty: intermediate
 topics:
   - security
-  - code-quality
+  - testing
 tags:
   - secure-coding
   - input-validation

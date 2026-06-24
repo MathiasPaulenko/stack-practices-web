@@ -7,7 +7,6 @@ metaDescription: "Aprende bases de criptografía: encriptación simétrica/asim�
 difficulty: intermediate
 topics:
   - security
-  - cryptography
 tags:
   - cryptography
   - encryption

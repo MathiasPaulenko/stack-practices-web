@@ -7,7 +7,7 @@ metaDescription: "Aprende los 10 riesgos OWASP con mitigaciones. Entiende inyecc
 difficulty: intermediate
 topics:
   - security
-  - web
+  - frontend
 tags:
   - owasp
   - owasp-top-10

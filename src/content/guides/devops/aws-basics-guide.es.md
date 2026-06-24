@@ -8,7 +8,7 @@ difficulty: beginner
 topics:
   - devops
   - infrastructure
-  - cloud
+  - data
 tags:
   - aws
   - cloud-computing

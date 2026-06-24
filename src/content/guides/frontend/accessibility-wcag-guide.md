@@ -7,8 +7,6 @@ metaDescription: "Learn WCAG 2.2 accessibility: perceivable, operable, understan
 difficulty: intermediate
 topics:
   - frontend
-  - web
-  - accessibility
 tags:
   - accessibility
   - wcag

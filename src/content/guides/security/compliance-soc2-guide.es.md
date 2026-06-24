@@ -7,8 +7,6 @@ metaDescription: "Aprende SOC 2 para desarrolladores: Criterios de Servicios de 
 difficulty: intermediate
 topics:
   - security
-  - compliance
-  - operations
 tags:
   - soc2
   - compliance

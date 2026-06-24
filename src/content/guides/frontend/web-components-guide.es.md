@@ -7,8 +7,6 @@ metaDescription: "Aprende Web Components: custom elements, Shadow DOM, templates
 difficulty: intermediate
 topics:
   - frontend
-  - web
-  - components
 tags:
   - web-components
   - custom-elements

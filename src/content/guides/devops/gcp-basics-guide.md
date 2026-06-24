@@ -8,7 +8,6 @@ difficulty: beginner
 topics:
   - devops
   - infrastructure
-  - cloud
   - data
 tags:
   - gcp
