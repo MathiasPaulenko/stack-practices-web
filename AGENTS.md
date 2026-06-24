@@ -69,6 +69,26 @@ public/
 └── assets/content/       # Auto-generated content indices (JSON)
 ```
 
+### Reference Documentation (`docs/`)
+
+The `docs/` folder contains detailed project reference documents. Consult these when working on related areas:
+
+| File | Purpose |
+|------|---------|
+| `docs/roadmap.md` | Development roadmap with phases and milestones |
+| `docs/tech-stack.md` | Full technology stack, dependencies, and build configuration |
+| `docs/design-system.md` | Visual design system, color tokens, typography, and UI patterns |
+| `docs/seo.md` | SEO strategy, technical implementation, and on-page guidelines |
+| `docs/structured-data.md` | Schema.org JSON-LD types and implementation rules |
+| `docs/content-architecture.md` | Content model, collections, and frontmatter specifications |
+| `docs/components.md` | Component catalog and usage guidelines |
+| `docs/deployment.md` | GitHub Pages deployment pipeline and CI/CD setup |
+| `docs/performance.md` | Performance targets, Core Web Vitals, and optimization rules |
+| `docs/accessibility.md` | WCAG 2.2 compliance requirements and a11y patterns |
+| `docs/geo.md` | GEO (Generative Engine Optimization) strategy for AI answer engines |
+| `docs/adsense.md` | Google AdSense integration plan (Phase 4+) |
+| `docs/ai-context.md` | AI/LLM context and prompt engineering guidelines |
+
 ### 3. Content Architecture
 
 - **Markdown files** in `src/content/` with YAML frontmatter
