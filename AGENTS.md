@@ -29,7 +29,7 @@ StackPractices is a static, SEO-first developer knowledge base for software engi
 - **Content**: Astro Content Collections with Zod schemas
 - **Search**: Pagefind (static, zero runtime cost)
 - **Hosting**: GitHub Pages (custom domain: stackpractices.com)
-- **Analytics**: Google Analytics (future)
+- **Analytics**: Google Analytics 4 (G-RBE12WJ5KZ) — active in `src/layouts/BaseLayout.astro`
 - **Ads**: Google AdSense (future, Phase 4+)
 - **Icons**: Lucide (consistent iconography)
 
@@ -128,45 +128,30 @@ When working on this project, always use the available Skills:
 
 ## Phase-Based Development
 
-### Current Phase: Phase 0 — Foundation
-**Objective**: Scaffold Astro project, set up build pipeline, create base layouts and design system
+### Current Phase: Phase 3 — Guides Expansion & Content Scale
+**Objective**: Expand guides coverage, scale content depth, and prepare for monetization
+
+**Completed**
+- Phase 0 — Foundation: Astro + Tailwind + CI/CD + SEO + Pagefind + Schemas
+- Phase 1 — Recipes Launch: ~241 recipes live across all major categories
+- Phase 2 — Patterns & Scale: ~56 patterns + tag system + filtering live
+- Phase 3 in progress: Guides section launched; **87 guides** live (Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing)
 
 **Targets**:
 
-- Astro project initialized with Tailwind CSS
-- GitHub Pages deployment pipeline via GitHub Actions
-- Base layout with navigation, footer, and SEO integration
-- Content collection schemas (Zod) for recipes, patterns, docs, guides
-- First recipe content (3-5 recipes) with Spanish translations
-- Pagefind search integration
-- Sitemap generation
-
-### Phase 1 — Recipes Launch
-
-- Launch Recipes section
-- Focus on SEO long-tail queries ("how to parse json python", "how to call rest api javascript")
-- Publish first indexed pages
-- 20+ recipes covering Python, Java, JavaScript, SQL, Bash, Docker, Git
-
-### Phase 2 — Patterns & Scale
-
-- Add Patterns section
-- Expand multi-language content (50+ total resources)
-- Improve internal linking and cross-references
-- Tag system and filtering
-
-### Phase 3 — Documentation & Guides
-
-- Add Documentation templates section
-- Add Guides section
-- Start monetization setup (AdSense, affiliate)
+- Complete all roadmap guides (currently at 87/112 planned)
+- Expand documentation templates section
+- Begin monetization setup (AdSense, affiliate) — Phase 4+
+- Continue SEO long-tail coverage for guides
+- Maintain bilingual parity (EN + ES) for every resource
 
 ### Phase 4 — Polish & Growth
 
 - AI-assisted search enhancement
-- Performance optimization
+- Performance optimization (build time, bundle size)
 - Analytics and tracking refinement
 - Premium product exploration (templates packs, ebooks)
+- Advertising integration (AdSense, affiliate links)
 
 ## Quality Standards
 
@@ -296,38 +281,76 @@ Before implementing any feature:
 - [ ] Run validation scripts (check translations, meta descriptions, broken links)
 - [ ] Regenerate sitemap
 
+## Content Validation Rules (MANDATORY)
+
+Before creating any content file, verify ALL of the following. Build errors from invalid content are unacceptable.
+
+### Topics Enum (Exact Values Only)
+The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handling`, `performance`, `testing`, `architecture`, `design`, `devops`, `databases`, `concurrency`, `security`, `ai`, `frontend`, `infrastructure`, `messaging`, `observability`, `graphql`, `serverless`, `caching`.
+
+**Common replacements:**
+- `web` → `frontend`
+- `cloud` → `data` or `infrastructure`
+- `sql` → `data` or `databases`
+- `kubernetes` → `devops` or `infrastructure`
+- `cryptography` → `security`
+- `compliance` → `security`
+- `operations` → `devops`
+- `code-quality` → `testing`
+
+### metaDescription Length
+- **Minimum:** 50 characters
+- **Maximum:** 170 characters
+- Must appear in BOTH top-level frontmatter AND inside `seo:` block
+- Spanish translations must also fit within 170 characters
+
+### YAML Syntax
+- Every list item MUST start with `- ` (hyphen + space)
+- Missing hyphens break the entire build
+- Always verify the frontmatter renders correctly before committing
+
+### Pre-Commit Checklist (Content)
+1. Verify all `topics` against the enum list
+2. Count `metaDescription` characters in both locations
+3. Verify `relatedResources` point to existing slugs
+4. Run `npm run build` locally and confirm no schema errors
+5. Only then commit and push
+
 ## Common Pitfalls to Avoid
 
 ### Technical Pitfalls
 
-- **Adding backend features** - Stay static-first
-- **Over-engineering** - Keep it simple and maintainable
-- **Ignoring SEO** - SEO is critical for traffic; every page needs unique meta
-- **Performance issues** - Always optimize for speed; Astro helps by shipping zero JS
-- **Hydrating unnecessarily** - Only hydrate interactive islands; keep the rest static
+- **Adding backend features** — Stay static-first
+- **Over-engineering** — Keep it simple and maintainable
+- **Ignoring SEO** — SEO is critical for traffic; every page needs unique meta
+- **Performance issues** — Always optimize for speed; Astro helps by shipping zero JS
+- **Hydrating unnecessarily** — Only hydrate interactive islands; keep the rest static
+- **Invalid content topics** — Always check `src/content.config.ts` topics enum before adding new content
+- **Meta descriptions too long** — Max 170 chars; build fails if exceeded
 
 ### Content Pitfalls
 
-- **Generic content** - Focus on practical, runnable code and real examples
-- **Poor structure** - Use clear headings and logical flow
-- **No SEO optimization** - Include keywords, meta tags, FAQ sections
-- **Inconsistent formatting** - Follow content templates from the skill
-- **No internal linking** - Build logical connections with `relatedResources`
-- **Single-language content** - Never create content without Spanish translation
+- **Generic content** — Focus on practical, runnable code and real examples
+- **Poor structure** — Use clear headings and logical flow
+- **No SEO optimization** — Include keywords, meta tags, FAQ sections
+- **Inconsistent formatting** — Follow content templates from the skill
+- **No internal linking** — Build logical connections with `relatedResources`
+- **Single-language content** — Never create content without Spanish translation
+- **Creating content without running build first** — Always validate locally before pushing
 
 ### Business Pitfalls
 
-- **Early monetization** - Wait for Phase 4
-- **Complex features** - Avoid unnecessary complexity
-- **Ignoring user value** - Always prioritize users
-- **Poor UX for revenue** - Never compromise experience
-- **No content focus** - Content drives everything
+- **Early monetization** — Wait for Phase 4
+- **Complex features** — Avoid unnecessary complexity
+- **Ignoring user value** — Always prioritize users
+- **Poor UX for revenue** — Never compromise experience
+- **No content focus** — Content drives everything
 
 ## Success Metrics
 
 ### Technical Metrics
 
-- **Build time**: Under 30 seconds
+- **Build time**: Under 2 minutes (currently ~1m 50s for 2400+ pages; monitor for degradation)
 - **JavaScript shipped**: Minimal (Astro ships zero JS by default)
 - **Lighthouse score**: 95+ across all metrics
 - **SEO score**: 95+ on SEO tools
@@ -335,7 +358,7 @@ Before implementing any feature:
 
 ### Content Metrics
 
-- **Page count**: Follow roadmap targets
+- **Page count**: 2400+ pages built (growing with content batches)
 - **SEO ranking**: Target first page for key long-tail terms
 - **Organic traffic**: Steady growth month over month
 - **User engagement**: Low bounce rate, high time on page
