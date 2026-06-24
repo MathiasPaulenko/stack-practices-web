@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 72 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
+| Guides | 79 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,16 +141,7 @@
 
 ---
 
-### Pending Guides (15)
-
-**Databases**
-- `database-denormalization-guide` — When and how to denormalize
-- `sql-window-functions-guide` — Window Functions complete guide
-- `sql-cte-guide` — Common Table Expressions (CTEs) guide
-- `nosql-patterns-guide` — NoSQL data modeling patterns
-- `time-series-database-guide` — Time-series databases (InfluxDB, TimescaleDB)
-- `graph-database-guide` — Graph databases (Neo4j) introduction
-- `vector-database-guide` — Vector databases for AI/ML
+### Pending Guides (8)
 
 **DevOps & Cloud**
 - `service-mesh-guide` — Service Mesh (Istio, Linkerd) explained
