@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 38 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
+| Guides | 43 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,17 +141,12 @@
 
 ---
 
-### Pending Guides (49)
+### Pending Guides (44)
 
 **Architecture & System Design**
-- `hexagonal-architecture-guide` — Complete guide to Hexagonal Architecture
 - `onion-architecture-guide` — Onion Architecture explained
 - `layered-architecture-guide` — Layered / N-tier architecture
-- `clean-architecture-guide` — Clean Architecture (Uncle Bob)
 - `vertical-slice-architecture-guide` — Vertical Slice Architecture
-- `modular-monolith-guide` — Modular Monolith pattern
-- `cqrs-guide` — CQRS complete guide with examples
-- `event-sourcing-guide` — Event Sourcing deep dive
 - `serverless-architecture-guide` — Serverless patterns and anti-patterns
 - `cqrs-event-sourcing-combined-guide` — CQRS + Event Sourcing together
 - `data-mesh-guide` — Data Mesh architecture
