@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 43 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
+| Guides | 48 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,7 +141,7 @@
 
 ---
 
-### Pending Guides (44)
+### Pending Guides (39)
 
 **Architecture & System Design**
 - `onion-architecture-guide` — Onion Architecture explained
@@ -154,14 +154,9 @@
 - `lakehouse-guide` — Lakehouse architecture
 
 **Databases**
-- `database-normalization-guide` — Normalization (1NF to 5NF)
 - `database-denormalization-guide` — When and how to denormalize
-- `acid-vs-base-guide` — ACID vs BASE consistency models
-- `sql-joins-guide` — SQL Joins visual guide
 - `sql-window-functions-guide` — Window Functions complete guide
 - `sql-cte-guide` — Common Table Expressions (CTEs) guide
-- `indexing-strategies-guide` — Database indexing strategies
-- `database-replication-guide` — Master-slave and multi-master replication
 - `nosql-patterns-guide` — NoSQL data modeling patterns
 - `time-series-database-guide` — Time-series databases (InfluxDB, TimescaleDB)
 - `graph-database-guide` — Graph databases (Neo4j) introduction
