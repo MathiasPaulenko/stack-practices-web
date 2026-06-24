@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 59 unique | Architecture, Databases, DevOps, Security, Code Quality, Testing |
+| Guides | 64 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,7 +141,7 @@
 
 ---
 
-### Pending Guides (28)
+### Pending Guides (23)
 
 **Architecture & System Design**
 - `onion-architecture-guide` — Onion Architecture explained
@@ -171,15 +171,6 @@
 - `platform-engineering-guide` — Platform Engineering for teams
 - `finops-guide` — Cloud cost optimization (FinOps)
 - `multi-cloud-guide` — Multi-cloud strategies and pitfalls
-
-**Security**
-- `compliance-gdpr-guide` — GDPR compliance for developers
-- `compliance-soc2-guide` — SOC 2 compliance basics
-
-**Frontend & Web**
-- `accessibility-wcag-guide` — WCAG 2.2 accessibility compliance
-- `progressive-web-apps-guide` — PWA complete guide
-- `web-components-guide` — Web Components (Custom Elements, Shadow DOM)
 
 ---
 
