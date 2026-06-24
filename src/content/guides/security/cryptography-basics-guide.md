@@ -1,0 +1,217 @@
+---
+contentType: guides
+slug: cryptography-basics-guide
+title: "Cryptography Basics — Encryption, Hashing, and Signing"
+description: "A developer's guide to cryptography: symmetric and asymmetric encryption, hashing, digital signatures, and key management with practical code examples."
+metaDescription: "Learn cryptography basics: symmetric/asymmetric encryption, hashing, digital signatures, and key management. Practical guide with code examples."
+difficulty: intermediate
+topics:
+  - security
+  - cryptography
+tags:
+  - cryptography
+  - encryption
+  - hashing
+  - digital-signatures
+  - key-management
+  - aes
+  - rsa
+  - guide
+relatedResources:
+  - /guides/secrets-management-guide
+  - /guides/owasp-top-10-guide
+  - /guides/secure-coding-guide
+  - /recipes/security/hash-passwords-bcrypt
+  - /recipes/security/generate-secure-tokens
+lastUpdated: "2026-06-24"
+author: "StackPractices"
+seo:
+  metaDescription: "Learn cryptography basics: symmetric/asymmetric encryption, hashing, digital signatures, and key management. Practical guide with code examples."
+  keywords:
+    - cryptography
+    - encryption
+    - hashing
+    - digital-signatures
+    - key-management
+    - aes
+    - rsa
+    - guide
+---
+
+## Overview
+
+Cryptography is the foundation of digital security. Whether you are storing passwords, transmitting data over TLS, or signing API requests, you are using cryptography. Understanding the primitives — encryption, hashing, and signing — and when to use each prevents a class of vulnerabilities that no framework can protect against. This guide covers the essential concepts every developer needs without requiring a mathematics degree.
+
+## When to Use
+
+- You need to protect data at rest or in transit
+- You are implementing authentication or authorization
+- You need to verify the integrity or origin of data
+- You are choosing between cryptographic libraries or algorithms
+
+## Symmetric Encryption
+
+The same key encrypts and decrypts. Fast and suitable for bulk data.
+
+### AES (Advanced Encryption Standard)
+
+```python
+from cryptography.fernet import Fernet
+
+# Generate a key
+key = Fernet.generate_key()
+cipher = Fernet(key)
+
+# Encrypt
+token = cipher.encrypt(b"sensitive data")
+
+# Decrypt
+data = cipher.decrypt(token)
+```
+
+| Mode | Use Case | Security |
+|------|----------|----------|
+| AES-GCM | Most applications | Authenticated encryption |
+| AES-CBC | Legacy compatibility | Needs HMAC for integrity |
+| AES-CTR | Streaming data | Needs careful IV handling |
+
+### Key Management
+
+- Never hardcode keys; use a key management service (KMS)
+- Rotate keys periodically (annually or on suspected compromise)
+- Separate keys by environment and purpose
+
+## Asymmetric Encryption
+
+Two keys: a public key encrypts, a private key decrypts. Used for key exchange and digital signatures.
+
+### RSA
+
+```python
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import hashes
+
+# Generate key pair
+private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+public_key = private_key.public_key()
+
+# Encrypt with public key
+encrypted = public_key.encrypt(
+    b"secret message",
+    padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()), algorithm=hashes.SHA256(), label=None)
+)
+
+# Decrypt with private key
+decrypted = private_key.decrypt(
+    encrypted,
+    padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()), algorithm=hashes.SHA256(), label=None)
+)
+```
+
+### Elliptic Curve (ECDH/ECDSA)
+
+Faster and smaller keys than RSA at equivalent security.
+
+```python
+from cryptography.hazmat.primitives.asymmetric import ec
+
+private_key = ec.generate_private_key(ec.SECP256R1())
+public_key = private_key.public_key()
+```
+
+## Hashing
+
+One-way functions that produce a fixed-size fingerprint. Used for passwords, data integrity, and checksums.
+
+### Secure Hashing Algorithms
+
+| Algorithm | Output Size | Status |
+|-----------|-------------|--------|
+| SHA-256 | 256 bits | Recommended |
+| SHA-3 | Variable | Recommended |
+| BLAKE3 | 256 bits | Fast, modern |
+| MD5 | 128 bits | Broken, do not use |
+| SHA-1 | 160 bits | Broken, do not use |
+
+```python
+import hashlib
+
+# SHA-256
+digest = hashlib.sha256(b"data").hexdigest()
+
+# For passwords: use Argon2id, bcrypt, or scrypt — not SHA-256
+```
+
+### Password Hashing
+
+```python
+import bcrypt
+
+hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12))
+```
+
+## Digital Signatures
+
+Prove authenticity and integrity of a message.
+
+```python
+from cryptography.hazmat.primitives.asymmetric import padding, rsa
+from cryptography.hazmat.primitives import hashes, serialization
+
+# Sign
+signature = private_key.sign(
+    message,
+    padding.PSS(mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH),
+    hashes.SHA256()
+)
+
+# Verify
+public_key.verify(
+    signature,
+    message,
+    padding.PSS(mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH),
+    hashes.SHA256()
+)
+```
+
+## Transport Layer Security (TLS)
+
+TLS uses asymmetric encryption for key exchange, then symmetric encryption for the session.
+
+```
+Client                           Server
+  │                                 │
+  │ ─────── Client Hello ───────▶ │
+  │ ◀────── Server Hello ─────── │
+  │ ◀──── Certificate + Key Exchange
+  │ ───── Client Key Exchange ───▶ │
+  │ ───── [Encrypted Handshake]──▶│
+  │                                 │
+  │ ←──── Symmetric Session ─────▶ │
+```
+
+Best practices:
+- Use TLS 1.3; disable TLS 1.0 and 1.1
+- Enable HSTS (HTTP Strict Transport Security)
+- Use certificate pinning for mobile apps
+- Monitor certificate expiry (30, 14, 7 days before)
+
+## Common Mistakes
+
+- **Rolling your own crypto** — use well-vetted libraries (libsodium, OpenSSL, Bouncy Castle)
+- **Using ECB mode** — patterns in plaintext leak through ciphertext
+- **Reusing IVs/nonces** — destroys confidentiality in stream modes
+- **Storing keys with data** — keys should be in a separate trust boundary
+- **Ignoring side-channel attacks** — timing and power analysis can leak keys
+
+## FAQ
+
+**What is the difference between encryption and hashing?**
+Encryption is reversible (two-way); hashing is one-way. You encrypt data you need to read later; you hash data you only need to compare (passwords).
+
+**Should I use AES-256 or AES-128?**
+AES-128 is secure for most purposes. AES-256 adds a margin of safety against quantum computing advances but is slightly slower.
+
+**What is authenticated encryption?**
+Authenticated encryption (like AES-GCM) provides both confidentiality and integrity. Without it, attackers can tamper with ciphertext.

@@ -1,0 +1,257 @@
+---
+contentType: guides
+slug: secure-coding-guide
+title: "Prácticas de Codificación Segura — Por Lenguaje y Patrón"
+description: "Guía práctica de prácticas de codificación segura en varios lenguajes: validación de entrada, seguridad de memoria, autenticación y patrones defensivos para Python, Java, JavaScript y Go."
+metaDescription: "Aprende prácticas de codificación segura por lenguaje. Validación de entrada, seguridad de memoria, patrones de autenticación y codificación defensiva para Python, Java, JavaScript y Go."
+difficulty: intermediate
+topics:
+  - security
+  - code-quality
+tags:
+  - secure-coding
+  - input-validation
+  - memory-safety
+  - authentication
+  - defensive-programming
+  - guia
+relatedResources:
+  - /guides/owasp-top-10-guide
+  - /guides/secrets-management-guide
+  - /guides/cryptography-basics-guide
+  - /recipes/security/prevent-sql-injection
+  - /recipes/security/hash-passwords-bcrypt
+lastUpdated: "2026-06-24"
+author: "StackPractices"
+seo:
+  metaDescription: "Aprende prácticas de codificación segura por lenguaje. Validación de entrada, seguridad de memoria, patrones de autenticación y codificación defensiva para Python, Java, JavaScript y Go."
+  keywords:
+    - secure-coding
+    - input-validation
+    - memory-safety
+    - authentication
+    - defensive-programming
+    - guia
+---
+
+## Overview
+
+La codificación segura es la práctica de escribir software que sea resistente a vulnerabilidades y ataques. No es una única técnica sino una mentalidad: valida cada suposición, desconfía de toda entrada y diseña para el fallo. Esta guía cubre patrones específicos por lenguaje y técnicas defensivas universales que aplican independientemente de tu stack.
+
+## When to Use
+
+- Escribes código que procesa entrada de usuarios o datos sensibles
+- Necesitas prevenir las clases de vulnerabilidad más comunes
+- Das onboarding a desarrolladores en una base de código consciente de seguridad
+- Quieres establecer estándares de codificación segura para tu equipo
+
+## Validación de Entrada
+
+El control de seguridad más fundamental: nunca confíes en la entrada de usuarios, archivos, APIs o bases de datos sin validar.
+
+### Validación por Lista Blanca
+
+Rechaza lo que no permitas explícitamente.
+
+```python
+import re
+from pydantic import BaseModel, validator
+
+class UserRegistration(BaseModel):
+    email: str
+    username: str
+
+    @validator('username')
+    def username_alphanumeric(cls, v):
+        if not re.match(r'^[a-zA-Z0-9_]{3,30}$', v):
+            raise ValueError('Usuario inválido')
+        return v
+```
+
+### Seguridad de Tipos
+
+Usa tipado fuerte para prevenir ataques de confusión de tipos.
+
+```typescript
+// Validar payloads de API con Zod
+import { z } from 'zod';
+
+const UserSchema = z.object({
+  id: z.number().int().positive(),
+  email: z.string().email(),
+  role: z.enum(['user', 'admin']),
+});
+
+const user = UserSchema.parse(req.body);
+```
+
+### Validación de Archivos Subidos
+
+```python
+import magic
+
+ALLOWED_TYPES = {'image/png', 'image/jpeg', 'application/pdf'}
+MAX_SIZE = 5 * 1024 * 1024  # 5 MB
+
+def validate_upload(file):
+    if file.size > MAX_SIZE:
+        raise ValueError('Archivo demasiado grande')
+    detected = magic.from_buffer(file.read(1024), mime=True)
+    if detected not in ALLOWED_TYPES:
+        raise ValueError('Tipo de archivo no soportado')
+```
+
+## Seguridad de Memoria
+
+### Rust — Ownership y Borrowing
+
+Rust previene errores de memoria en tiempo de compilación.
+
+```rust
+// Seguro: ownership previene use-after-free
+fn process(data: Vec<u8>) {
+    let slice = &data[0..10];
+    println!("{:?}", slice);
+} // data se libera aquí; no hay referencias colgantes
+
+// Inseguro: requiere bloque unsafe explícito
+unsafe {
+    let raw = some_ptr.as_mut().unwrap();
+}
+```
+
+### Go — Verificación de Límites
+
+```go
+// Acceso seguro a slice con verificación de límites
+func safeAccess(data []byte, index int) byte {
+    if index < 0 || index >= len(data) {
+        panic("índice fuera de límites")
+    }
+    return data[index]
+}
+```
+
+### Java — Evitar Deserialización de Datos No Confiables
+
+```java
+// Peligroso: ObjectInputStream con datos no confiables
+ObjectInputStream ois = new ObjectInputStream(untrustedInput);
+Object obj = ois.readObject(); // Puede ejecutar código arbitrario
+
+// Más seguro: usar JSON con validación estricta de esquema
+MyClass obj = objectMapper.readValue(json, MyClass.class);
+```
+
+## Patrones de Autenticación
+
+### Manejo de Contraseñas
+
+```python
+import bcrypt
+
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12)).decode()
+
+def verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode(), hashed.encode())
+```
+
+### Mejores Prácticas de JWT
+
+```python
+import jwt
+from datetime import datetime, timedelta
+
+def create_token(user_id: str, secret: str) -> str:
+    payload = {
+        'sub': user_id,
+        'iat': datetime.utcnow(),
+        'exp': datetime.utcnow() + timedelta(hours=1),
+        'jti': generate_unique_id()  # Prevenir replay
+    }
+    return jwt.encode(payload, secret, algorithm='HS256')
+
+def verify_token(token: str, secret: str) -> dict:
+    return jwt.decode(token, secret, algorithms=['HS256'])
+```
+
+### Gestión de Sesiones
+
+```java
+// Cookies HttpOnly, Secure, SameSite
+Cookie sessionCookie = new Cookie("session", sessionId);
+sessionCookie.setHttpOnly(true);
+sessionCookie.setSecure(true);
+sessionCookie.setAttribute("SameSite", "Strict");
+sessionCookie.setMaxAge(3600); // 1 hora
+response.addCookie(sessionCookie);
+```
+
+## Patrones Defensivos
+
+### Fallar de Forma Segura
+
+```python
+def withdraw(account, amount):
+    if amount <= 0:
+        raise ValueError("Monto inválido")
+    if account.balance < amount:
+        raise InsufficientFunds("Saldo insuficiente")
+    
+    # Operación atómica: deducir primero, luego transferir
+    account.balance -= amount
+    transaction.record(account, amount)
+```
+
+### Defensa en Profundidad
+
+```
+┌─────────────────────────────────────────┐
+│         WAF / CDN (Capa 7)              │
+├─────────────────────────────────────────┤
+│         API Gateway (Rate Limit)        │
+├─────────────────────────────────────────┤
+│         Aplicación (Validación Entrada) │
+├─────────────────────────────────────────┤
+│         Base de Datos (Consulta Parametrizada)│
+├─────────────────────────────────────────┤
+│         Logs de Auditoría (Monitoreo)    │
+└─────────────────────────────────────────┘
+```
+
+### Valores Seguros por Defecto
+
+- Los nuevos usuarios no tienen permisos hasta que se otorgan explícitamente
+- Las funciones están deshabilitadas hasta que se habilitan
+- Los errores revelan información mínima a atacantes
+- El logging es verboso para eventos de seguridad pero nunca registra secretos
+
+## Lista de Verificación por Lenguaje
+
+| Lenguaje | Riesgos Clave | Mitigaciones |
+|----------|---------------|--------------|
+| Python | Pickle RCE, eval/exec | Usar JSON, evitar `eval`, lint con Bandit |
+| Java | Deserialización, XXE | Usar Jackson de forma segura, desactivar DTDs |
+| JavaScript | Prototype pollution, XSS | Validar objetos, escapar salida |
+| Go | Condiciones de carrera, filtrado de panic | Usar detector `race`, recuperar panics |
+| Rust | Bloques unsafe, abuso de unwrap | Minimizar `unsafe`, usar operador `?` |
+
+## Errores Comunes
+
+- **Registrar datos sensibles** — nunca registres contraseñas, tokens o PII
+- **Ignorar advertencias del compilador** — las advertencias frecuentemente indican problemas de seguridad
+- **Copiar y pegar código de Stack Overflow** — verifica las implicaciones de seguridad
+- **Usar `eval` o equivalentes** — casi siempre innecesario y peligroso
+- **Confiar solo en validación del lado del cliente** — siempre valida en el servidor
+
+## FAQ
+
+**¿Debería escribir mi propia criptografía?**
+No. Usa librerías bien validadas: libsodium, OpenSSL, Bouncy Castle o criptografía nativa de la plataforma.
+
+**¿Cómo manejo secretos en variables de entorno?**
+Las variables de entorno son mejores que hardcodear pero aún visibles en dumps de procesos. Usa gestores de secretos dedicados para producción.
+
+**¿Cuál es el principio más importante de codificación segura?**
+Valida toda entrada, falla de forma segura y minimiza la superficie de ataque. La complejidad es el enemigo de la seguridad.
