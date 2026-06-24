@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 64 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
+| Guides | 72 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,17 +141,7 @@
 
 ---
 
-### Pending Guides (23)
-
-**Architecture & System Design**
-- `onion-architecture-guide` — Onion Architecture explained
-- `layered-architecture-guide` — Layered / N-tier architecture
-- `vertical-slice-architecture-guide` — Vertical Slice Architecture
-- `serverless-architecture-guide` — Serverless patterns and anti-patterns
-- `cqrs-event-sourcing-combined-guide` — CQRS + Event Sourcing together
-- `data-mesh-guide` — Data Mesh architecture
-- `data-lake-guide` — Data Lake vs Data Warehouse
-- `lakehouse-guide` — Lakehouse architecture
+### Pending Guides (15)
 
 **Databases**
 - `database-denormalization-guide` — When and how to denormalize
