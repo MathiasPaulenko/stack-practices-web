@@ -12,7 +12,7 @@ tags:
   - database-normalization
   - 1nf
   - 2nf
-  3nf
+  - 3nf
   - bcnf
   - 4nf
   - 5nf
