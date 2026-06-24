@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 79 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
+| Guides | 87 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -138,20 +138,6 @@
 18. `static-content-hosting-pattern` — Serve assets from object storage
 19. `strangler-fig-pattern` — Incremental legacy migration
 20. `throttling-pattern` — Rate limit resource consumption
-
----
-
-### Pending Guides (8)
-
-**DevOps & Cloud**
-- `service-mesh-guide` — Service Mesh (Istio, Linkerd) explained
-- `observability-guide` — Observability (metrics, logs, traces) complete guide
-- `opentelemetry-guide` — OpenTelemetry implementation guide
-- `chaos-engineering-guide` — Chaos Engineering principles and tools
-- `sre-practices-guide` — Site Reliability Engineering practices
-- `platform-engineering-guide` — Platform Engineering for teams
-- `finops-guide` — Cloud cost optimization (FinOps)
-- `multi-cloud-guide` — Multi-cloud strategies and pitfalls
 
 ---
 
