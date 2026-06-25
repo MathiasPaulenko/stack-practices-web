@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | 103 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
+| Patterns | 108 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -46,19 +46,14 @@ All pending patterns have been completed.
 
 ## New Content
 
-### New Patterns (10)
+### New Patterns (5)
 
 **Infrastructure & Integration**
-1. `idempotent-consumer-pattern` — Exactly-once processing guarantee
-2. `materialized-view-pattern` — Precomputed query result caches
-3. `priority-queue-pattern` — Task scheduling by priority
-4. `queue-based-load-leveling-pattern` — Smooth traffic spikes
-5. `scheduler-agent-supervisor-pattern` — Resilient job scheduling
-6. `sequential-convoy-pattern` — Preserve message ordering
-7. `sharding-pattern` — Horizontal data partitioning
-8. `static-content-hosting-pattern` — Serve assets from object storage
-9. `strangler-fig-pattern` — Incremental legacy migration
-10. `throttling-pattern` — Rate limit resource consumption
+1. `sequential-convoy-pattern` — Preserve message ordering
+2. `sharding-pattern` — Horizontal data partitioning
+3. `static-content-hosting-pattern` — Serve assets from object storage
+4. `strangler-fig-pattern` — Incremental legacy migration
+5. `throttling-pattern` — Rate limit resource consumption
 
 ---
 
