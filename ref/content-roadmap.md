@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~91 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~93 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -36,11 +36,11 @@
 
 ---
 
-### Pending Patterns (2)
+### Pending Patterns (0)
 
-**Behavioral (2)**
-- `type-object-pattern` — Type Object pattern for game entities
-- `inbox-pattern` — Inbox pattern for idempotent consumers
+All pending patterns have been completed.
+
+---
 
 ---
 
