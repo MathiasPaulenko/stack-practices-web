@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~61 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~66 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -36,15 +36,10 @@
 
 ---
 
-### Pending Patterns (32)
+### Pending Patterns (27)
 
-**Creational (1)**
-- `multiton-pattern` — Multiton (named singleton registry)
-
-**Structural (15)**
-- `module-pattern` — Module pattern in JavaScript / ES modules
+**Structural (13)**
 - `mixin-pattern` — Mixin pattern for code reuse
-- `registry-pattern` — Registry / Service Locator pattern
 - `front-controller-pattern` — Front Controller for web apps
 - `page-controller-pattern` — Page Controller pattern
 - `model-view-presenter-pattern` — MVP pattern
@@ -58,7 +53,7 @@
 - `eager-loading-pattern` — Eager Loading pattern
 - `specification-pattern` — Specification pattern for query composition
 
-**Behavioral (16)**
+**Behavioral (14)**
 - `blackboard-pattern` — Blackboard pattern for AI/heuristic systems
 - `business-delegate-pattern` — Business Delegate pattern
 - `composite-entity-pattern` — Composite Entity pattern
@@ -71,9 +66,7 @@
 - `role-pattern` — Role pattern for dynamic behavior
 - `twin-pattern` — Twin pattern (alternative to multiple inheritance)
 - `type-object-pattern` — Type Object pattern for game entities
-- `aggregate-pattern` — Aggregate Root pattern (DDD)
 - `domain-event-pattern` — Domain Event pattern (DDD)
-- `outbox-pattern` — Outbox pattern for reliable messaging
 - `inbox-pattern` — Inbox pattern for idempotent consumers
 
 ---
