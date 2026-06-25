@@ -23,7 +23,7 @@
 
 | Type | Count | Categories |
 |------|-------|------------|
-| Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
+| Recipes | ~246 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
@@ -32,11 +32,7 @@
 
 ## Pending Content
 
-### Pending Recipes (18)
-
-**File Handling & I/O (2)**
-- `generate-temporary-files` — Temp file creation and cleanup
-- `rotate-log-files` — Log rotation implementation
+### Pending Recipes (13)
 
 **Databases & Storage (1)**
 - `seed-database` — Database seeding for development/testing
@@ -58,11 +54,6 @@
 - `setup-ci-gitlab-pipelines` — GitLab CI pipeline configuration
 - `ansible-playbook` — Ansible playbook for server configuration
 - `setup-ssl-certificates` — Let's Encrypt + certbot automation
-
-**Bash & Shell (3)**
-- `bash-loop-over-files` — Loop over files and process them
-- `bash-parallel-execution` — Run commands in parallel with xargs / GNU parallel
-- `bash-text-processing` — awk, sed, grep text processing pipelines
 
 ---
 
