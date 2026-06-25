@@ -1,0 +1,242 @@
+---
+contentType: guides
+slug: capacity-planning-guide
+title: "Capacity Planning — Forecast, Scale, and Optimize Infrastructure"
+description: "A practical guide to capacity planning for cloud and on-premise infrastructure: demand forecasting, load testing, auto-scaling strategies, and avoiding over-provisioning."
+metaDescription: "Learn capacity planning for cloud infrastructure: forecasting demand, load testing, auto-scaling strategies, and avoiding over-provisioning."
+difficulty: intermediate
+topics:
+  - devops
+  - infrastructure
+  - performance
+tags:
+  - capacity-planning
+  - scaling
+  - load-testing
+  - auto-scaling
+  - forecasting
+  - infrastructure
+  - guide
+relatedResources:
+  - /guides/performance-optimization-guide
+  - /guides/devops/finops-guide
+  - /guides/devops/multi-cloud-guide
+  - /guides/devops/sre-practices-guide
+  - /guides/architecture/microservices-architecture-guide
+lastUpdated: "2026-06-25"
+author: "StackPractices"
+seo:
+  metaDescription: "Learn capacity planning for cloud infrastructure: forecasting demand, load testing, auto-scaling strategies, and avoiding over-provisioning."
+  keywords:
+    - capacity-planning
+    - scaling
+    - load-testing
+    - auto-scaling
+    - forecasting
+    - infrastructure
+    - guide
+---
+
+## Overview
+
+Capacity planning ensures your infrastructure can handle current and future demand without wasting resources. It bridges the gap between reactive firefighting and proactive scaling, helping teams deliver reliable services while controlling costs.
+
+This guide covers demand forecasting, load testing, scaling strategies, and cost-aware capacity decisions for cloud and on-premise systems.
+
+## When to Use
+
+- You are preparing for a product launch, marketing campaign, or seasonal traffic spike
+- Your service experiences recurring performance degradation during peak hours
+- You want to reduce cloud infrastructure costs without impacting reliability
+- You need to justify infrastructure budgets with data-driven projections
+- You are migrating from on-premise to cloud and need to right-size resources
+
+## Core Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Current Capacity** | Maximum throughput your system can handle with existing resources |
+| **Headroom** | Buffer above peak usage to absorb unexpected spikes (typically 20-30%) |
+| **Saturation Point** | Resource utilization level where performance degrades (usually >70% CPU, >80% memory) |
+| **Scaling Lead Time** | Time required to provision and deploy additional capacity |
+| **Demand Forecast** | Projected future load based on historical trends and business events |
+
+## Step-by-Step Capacity Planning Process
+
+### 1. Measure Current Baseline
+
+Before planning growth, understand your current state:
+
+```bash
+# Collect metrics over a representative period (2-4 weeks)
+# Key metrics: CPU, memory, disk I/O, network, request latency, error rate
+
+# Example: Prometheus query for CPU utilization
+avg by (instance) (rate(node_cpu_seconds_total{mode!="idle"}[5m])) * 100
+```
+
+**Metrics to track:**
+- **Resource metrics:** CPU, memory, disk, network
+- **Application metrics:** Requests per second, latency percentiles (p50, p95, p99), error rates
+- **Business metrics:** Active users, transactions per minute, data volume growth
+
+### 2. Identify Bottlenecks
+
+Find the first resource that will saturate under load:
+
+```python
+# Example: Analyze which resource hits limits first
+from dataclasses import dataclass
+
+@dataclass
+class ResourceLimit:
+    name: str
+    current_usage: float
+    max_capacity: float
+    saturation_threshold: float
+
+    def headroom(self) -> float:
+        return (self.saturation_threshold - self.current_usage) / self.saturation_threshold * 100
+
+# Evaluate headroom for each resource
+resources = [
+    ResourceLimit("CPU", 45, 100, 70),
+    ResourceLimit("Memory", 60, 100, 80),
+    ResourceLimit("Disk IOPS", 75, 100, 85),
+    ResourceLimit("Network", 30, 100, 70),
+]
+
+bottleneck = min(resources, key=lambda r: r.headroom())
+print(f"Bottleneck: {bottleneck.name} with {bottleneck.headroom():.1f}% headroom")
+```
+
+### 3. Forecast Demand
+
+Use historical data plus business context to project future load:
+
+**Techniques:**
+- **Trend extrapolation:** Extend historical growth curves
+- **Seasonal adjustment:** Account for weekly, monthly, or annual patterns
+- **Event-driven forecasting:** Factor in known traffic events (launches, campaigns)
+- **Business correlation:** Link capacity to business metrics (new customers, revenue)
+
+```yaml
+# Example: Demand forecast with headroom
+peak_qps_current: 5000
+weekly_growth_rate: 0.05  # 5% per week
+headroom_percent: 0.30    # 30% buffer
+
+# Forecast for 3 months (13 weeks)
+peak_qps_forecast: 5000 * (1.05 ** 13) ≈ 9440
+required_capacity: 9440 * 1.30 ≈ 12272 QPS
+```
+
+### 4. Load Test to Validate
+
+Verify your assumptions with controlled load tests:
+
+```bash
+# Example: k6 load test script
+# capacity-test.js
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export let options = {
+  stages: [
+    { duration: '5m', target: 100 },   // Ramp up
+    { duration: '10m', target: 100 }, // Steady state
+    { duration: '5m', target: 200 },  // Stress test
+    { duration: '5m', target: 0 },    // Ramp down
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<200'],
+    http_req_failed: ['rate<0.01'],
+  },
+};
+
+export default function() {
+  let res = http.get('https://api.example.com/health');
+  check(res, {
+    'status is 200': (r) => r.status === 200,
+    'response time < 200ms': (r) => r.timings.duration < 200,
+  });
+  sleep(1);
+}
+```
+
+### 5. Choose Scaling Strategy
+
+| Strategy | When to Use | Pros | Cons |
+|----------|-------------|------|------|
+| **Vertical scaling** | Predictable, steady growth; database workloads | Simple, no code changes | Hard limit, downtime risk, expensive |
+| **Horizontal scaling** | Variable, spiky traffic; stateless services | Elastic, fault-tolerant | Added complexity, data consistency |
+| **Auto-scaling** | Unpredictable or cyclical demand | Cost-efficient, hands-off | Cold start latency, configuration complexity |
+| **Reserved capacity** | Predictable baseline load | Significant cost savings | Less flexible, upfront commitment |
+
+### 6. Plan for Headroom
+
+Always maintain buffer capacity for unexpected events:
+
+- **Minimum headroom:** 20% above expected peak
+- **Critical services:** 30-40% headroom
+- **Cost-constrained environments:** 15% with faster scaling triggers
+- **Seasonal businesses:** Plan headroom around known peak seasons
+
+### 7. Document and Review
+
+Create a capacity plan document that includes:
+
+- Current baseline metrics and bottlenecks
+- Demand forecast with assumptions
+- Scaling strategy and triggers
+- Cost projections
+- Review schedule (monthly or quarterly)
+
+## Best Practices
+
+- **Start with data, not guesses.** Collect at least 2 weeks of production metrics before forecasting.
+- **Test at scale.** Load test at 2-3x expected peak to understand failure modes.
+- **Right-size continuously.** Review instance types and reserved capacity quarterly.
+- **Correlate with business events.** Link capacity to product launches, marketing, and seasonality.
+- **Automate monitoring.** Set up alerts when utilization crosses review thresholds (e.g., 60% sustained).
+- **Plan for degradation.** Define graceful degradation strategies when capacity is exceeded.
+
+## Common Mistakes
+
+- **Planning for averages instead of peaks.** Average load hides burst behavior.
+- **Ignoring scaling lead time.** If it takes 10 minutes to scale, plan for traffic 10 minutes earlier.
+- **Over-provisioning "just in case."** Excess capacity is wasted money; use auto-scaling for variable loads.
+- **Forgetting downstream dependencies.** Scaling frontend without scaling database leads to new bottlenecks.
+- **Not re-testing after changes.** Architecture changes invalidate previous capacity assumptions.
+
+## Variants
+
+- **Cloud-native capacity planning:** Use managed auto-scaling, spot instances, and serverless for elastic workloads.
+- **On-premise capacity planning:** Focus on hardware procurement cycles, virtualization density, and power/cooling constraints.
+- **Database capacity planning:** Monitor query performance, connection limits, storage growth, and replication lag.
+
+## FAQ
+
+**Q: How far ahead should I forecast capacity?**
+Forecast 3-6 months for cloud environments and 12-18 months for on-premise hardware procurement.
+
+**Q: What is the difference between capacity planning and performance tuning?**
+Capacity planning determines how many resources you need. Performance tuning makes existing resources more efficient. Do both.
+
+**Q: How do I balance cost and reliability?**
+Use auto-scaling for variable loads, reserved instances for baselines, and maintain 20-30% headroom. Review monthly.
+
+**Q: Should I plan capacity per service or globally?**
+Plan per service, then aggregate. Each service has different scaling characteristics and bottlenecks.
+
+## Conclusion
+
+Capacity planning is an ongoing practice, not a one-time exercise. Measure, forecast, test, and review regularly to keep your infrastructure aligned with business growth while controlling costs.
+
+## Related Resources
+
+- [Performance Optimization Guide](/guides/performance-optimization-guide)
+- [FinOps Guide](/guides/devops/finops-guide)
+- [Multi-Cloud Strategies](/guides/devops/multi-cloud-guide)
+- [SRE Practices](/guides/devops/sre-practices-guide)
+- [Microservices Architecture](/guides/architecture/microservices-architecture-guide)
