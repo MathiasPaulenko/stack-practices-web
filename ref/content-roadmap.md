@@ -23,7 +23,7 @@
 
 | Type | Count | Categories |
 |------|-------|------------|
-| Recipes | ~256 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
+| Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
@@ -32,12 +32,7 @@
 
 ## Pending Content
 
-### Pending Recipes (3)
-
-**DevOps & Infrastructure (3)**
-- `setup-ci-gitlab-pipelines` — GitLab CI pipeline configuration
-- `ansible-playbook` — Ansible playbook for server configuration
-- `setup-ssl-certificates` — Let's Encrypt + certbot automation
+### Pending Recipes (0)
 
 ---
 
