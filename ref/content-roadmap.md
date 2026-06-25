@@ -23,7 +23,7 @@
 
 | Type | Count | Categories |
 |------|-------|------------|
-| Recipes | ~251 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
+| Recipes | ~256 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
@@ -32,16 +32,7 @@
 
 ## Pending Content
 
-### Pending Recipes (8)
-
-**Databases & Storage (1)**
-- `seed-database` — Database seeding for development/testing
-
-**Authentication & Security (4)**
-- `implement-sso-saml` — SAML-based single sign-on
-- `implement-rbac` — Role-based access control
-- `implement-abac` — Attribute-based access control
-- `hash-passwords-argon2` — Password hashing with Argon2
+### Pending Recipes (3)
 
 **DevOps & Infrastructure (3)**
 - `setup-ci-gitlab-pipelines` — GitLab CI pipeline configuration
