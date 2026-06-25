@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~103 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | 103 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
