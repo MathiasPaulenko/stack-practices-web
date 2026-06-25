@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 102 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability |
+| Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,19 +141,9 @@
 
 ---
 
-### New Guides (10)
+### New Guides (0)
 
-**Data & Storage**
-1. `caching-strategies-guide` — Redis, CDN, and browser caching patterns
-2. `database-sharding-implementation-guide` — Horizontal partitioning in practice
-3. `read-replica-guide` — Scaling reads with replica databases
-4. `connection-pooling-deep-dive-guide` — Optimize database connections
-5. `full-text-search-guide` — Elasticsearch and PostgreSQL search
-6. `blob-storage-guide` — S3, GCS, Azure Blob patterns
-7. `data-migration-guide` — Zero-downtime migration strategies
-8. `etl-pipeline-guide` — Extract, transform, load patterns
-9. `real-time-analytics-guide` — Stream and batch analytics
-10. `stream-processing-guide` — Kafka Streams, Flink, and Spark Streaming
+All planned guides are now complete.
 
 ---
 
