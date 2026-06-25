@@ -23,7 +23,7 @@
 
 | Type | Count | Categories |
 |------|-------|------------|
-| Recipes | ~246 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
+| Recipes | ~251 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
@@ -32,7 +32,7 @@
 
 ## Pending Content
 
-### Pending Recipes (13)
+### Pending Recipes (8)
 
 **Databases & Storage (1)**
 - `seed-database` — Database seeding for development/testing
@@ -42,13 +42,6 @@
 - `implement-rbac` — Role-based access control
 - `implement-abac` — Attribute-based access control
 - `hash-passwords-argon2` — Password hashing with Argon2
-
-**Testing (5)**
-- `setup-test-fixtures` — Test fixture management
-- `generate-test-data` — Faker / factory pattern for test data
-- `measure-test-coverage` — Code coverage reporting setup
-- `implement-property-based-testing` — Property-based testing with Hypothesis / fast-check
-- `implement-mutation-testing` — Mutation testing introduction
 
 **DevOps & Infrastructure (3)**
 - `setup-ci-gitlab-pipelines` — GitLab CI pipeline configuration
