@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~66 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~71 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -36,24 +36,21 @@
 
 ---
 
-### Pending Patterns (27)
+### Pending Patterns (22)
 
-**Structural (13)**
-- `mixin-pattern` — Mixin pattern for code reuse
+**Structural (10)**
 - `front-controller-pattern` — Front Controller for web apps
 - `page-controller-pattern` — Page Controller pattern
 - `model-view-presenter-pattern` — MVP pattern
 - `model-view-viewmodel-pattern` — MVVM pattern
 - `entity-component-system-pattern` — ECS pattern for game engines
 - `data-mapper-pattern` — Data Mapper ORM pattern
-- `active-record-pattern` — Active Record pattern
-- `data-access-object-pattern` — DAO pattern
 - `unit-of-work-pattern` — Unit of Work for transaction management
 - `identity-map-pattern` — Identity Map for object caching
 - `eager-loading-pattern` — Eager Loading pattern
 - `specification-pattern` — Specification pattern for query composition
 
-**Behavioral (14)**
+**Behavioral (12)**
 - `blackboard-pattern` — Blackboard pattern for AI/heuristic systems
 - `business-delegate-pattern` — Business Delegate pattern
 - `composite-entity-pattern` — Composite Entity pattern
@@ -62,11 +59,9 @@
 - `manager-pattern` — Manager / Service pattern
 - `marker-interface-pattern` — Marker Interface pattern
 - `partial-class-pattern` — Partial Class pattern
-- `plugin-pattern` — Plugin / Extension Point pattern
 - `role-pattern` — Role pattern for dynamic behavior
 - `twin-pattern` — Twin pattern (alternative to multiple inheritance)
 - `type-object-pattern` — Type Object pattern for game entities
-- `domain-event-pattern` — Domain Event pattern (DDD)
 - `inbox-pattern` — Inbox pattern for idempotent consumers
 
 ---
