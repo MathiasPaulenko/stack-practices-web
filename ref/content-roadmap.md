@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~71 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~76 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -36,14 +36,9 @@
 
 ---
 
-### Pending Patterns (22)
+### Pending Patterns (17)
 
-**Structural (10)**
-- `front-controller-pattern` — Front Controller for web apps
-- `page-controller-pattern` — Page Controller pattern
-- `model-view-presenter-pattern` — MVP pattern
-- `model-view-viewmodel-pattern` — MVVM pattern
-- `entity-component-system-pattern` — ECS pattern for game engines
+**Structural (5)**
 - `data-mapper-pattern` — Data Mapper ORM pattern
 - `unit-of-work-pattern` — Unit of Work for transaction management
 - `identity-map-pattern` — Identity Map for object caching
