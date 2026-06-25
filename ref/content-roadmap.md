@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | 108 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
+| Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -46,14 +46,9 @@ All pending patterns have been completed.
 
 ## New Content
 
-### New Patterns (5)
+### New Patterns (0)
 
-**Infrastructure & Integration**
-1. `sequential-convoy-pattern` — Preserve message ordering
-2. `sharding-pattern` — Horizontal data partitioning
-3. `static-content-hosting-pattern` — Serve assets from object storage
-4. `strangler-fig-pattern` — Incremental legacy migration
-5. `throttling-pattern` — Rate limit resource consumption
+All new patterns have been completed.
 
 ---
 
