@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~76 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~81 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -36,14 +36,7 @@
 
 ---
 
-### Pending Patterns (17)
-
-**Structural (5)**
-- `data-mapper-pattern` — Data Mapper ORM pattern
-- `unit-of-work-pattern` — Unit of Work for transaction management
-- `identity-map-pattern` — Identity Map for object caching
-- `eager-loading-pattern` — Eager Loading pattern
-- `specification-pattern` — Specification pattern for query composition
+### Pending Patterns (12)
 
 **Behavioral (12)**
 - `blackboard-pattern` — Blackboard pattern for AI/heuristic systems
