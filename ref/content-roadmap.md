@@ -25,7 +25,7 @@
 |------|-------|------------|
 | Recipes | ~241 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing |
 | Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
-| Guides | 87 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing |
+| Guides | 102 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
@@ -141,7 +141,7 @@
 
 ---
 
-### New Guides (25)
+### New Guides (10)
 
 **Data & Storage**
 1. `caching-strategies-guide` — Redis, CDN, and browser caching patterns
@@ -154,27 +154,6 @@
 8. `etl-pipeline-guide` — Extract, transform, load patterns
 9. `real-time-analytics-guide` — Stream and batch analytics
 10. `stream-processing-guide` — Kafka Streams, Flink, and Spark Streaming
-
-**Deployment & Operations**
-11. `ci-cd-security-guide` — Secure your pipelines
-12. `blue-green-deployment-guide` — Zero-downtime deployments
-13. `canary-deployment-guide` — Gradual rollout strategies
-14. `feature-flags-guide` — Progressive release management
-15. `a-b-testing-guide` — Experimentation frameworks
-
-**Observability**
-16. `distributed-tracing-guide` — Jaeger, Zipkin, and OpenTelemetry traces
-17. `log-aggregation-guide` — ELK, Loki, and Splunk setups
-18. `metrics-and-dashboards-guide` — Prometheus, Grafana, and Datadog
-19. `alert-management-guide` — On-call alerting best practices
-20. `incident-response-guide` — Structured incident handling
-21. `postmortem-guide` — Blameless postmortem culture
-
-**Planning & Cost**
-22. `capacity-planning-guide` — Forecast and scale infrastructure
-23. `cost-optimization-cloud-guide` — Reduce cloud spend without sacrificing reliability
-24. `disaster-recovery-guide` — RTO, RPO, and recovery runbooks
-25. `api-rate-limiting-guide` — Design fair and effective rate limits
 
 ---
 
