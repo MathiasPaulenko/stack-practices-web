@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~56 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~61 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -36,14 +36,12 @@
 
 ---
 
-### Pending Patterns (37)
+### Pending Patterns (32)
 
-**Creational (2)**
-- `object-pool-pattern` — Object Pool for expensive resource reuse
+**Creational (1)**
 - `multiton-pattern` — Multiton (named singleton registry)
 
-**Structural (16)**
-- `facade-pattern` — Facade pattern for complex subsystem simplification
+**Structural (15)**
 - `module-pattern` — Module pattern in JavaScript / ES modules
 - `mixin-pattern` — Mixin pattern for code reuse
 - `registry-pattern` — Registry / Service Locator pattern
@@ -60,8 +58,7 @@
 - `eager-loading-pattern` — Eager Loading pattern
 - `specification-pattern` — Specification pattern for query composition
 
-**Behavioral (19)**
-- `null-object-pattern` — Null Object pattern
+**Behavioral (16)**
 - `blackboard-pattern` — Blackboard pattern for AI/heuristic systems
 - `business-delegate-pattern` — Business Delegate pattern
 - `composite-entity-pattern` — Composite Entity pattern
@@ -74,10 +71,8 @@
 - `role-pattern` — Role pattern for dynamic behavior
 - `twin-pattern` — Twin pattern (alternative to multiple inheritance)
 - `type-object-pattern` — Type Object pattern for game entities
-- `value-object-pattern` — Value Object (DDD) pattern
 - `aggregate-pattern` — Aggregate Root pattern (DDD)
 - `domain-event-pattern` — Domain Event pattern (DDD)
-- `event-bus-pattern` — Event Bus / Mediator for decoupled communication
 - `outbox-pattern` — Outbox pattern for reliable messaging
 - `inbox-pattern` — Inbox pattern for idempotent consumers
 
