@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~93 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~98 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -46,29 +46,24 @@ All pending patterns have been completed.
 
 ## New Content
 
-### New Patterns (20)
+### New Patterns (15)
 
 **Infrastructure & Integration**
-1. `anti-corruption-layer-pattern` — Isolate legacy system dependencies
-2. `back-pressure-pattern` — Flow control in streaming pipelines
-3. `backend-for-frontend-pattern` — BFF aggregation for mobile/web
-4. `claim-check-pattern` — Pass reference instead of large payloads
-5. `compensating-transaction-pattern` — Saga rollback operations
-6. `content-delivery-network-pattern` — Edge caching and distribution
-7. `database-per-service-pattern` — Microservice data isolation
-8. `distributed-lock-pattern` — Coordination across distributed nodes
-9. `event-carried-state-transfer-pattern` — Replicate state via events
-10. `gatekeeper-pattern` — Validate requests at the edge
-11. `idempotent-consumer-pattern` — Exactly-once processing guarantee
-12. `materialized-view-pattern` — Precomputed query result caches
-13. `priority-queue-pattern` — Task scheduling by priority
-14. `queue-based-load-leveling-pattern` — Smooth traffic spikes
-15. `scheduler-agent-supervisor-pattern` — Resilient job scheduling
-16. `sequential-convoy-pattern` — Preserve message ordering
-17. `sharding-pattern` — Horizontal data partitioning
-18. `static-content-hosting-pattern` — Serve assets from object storage
-19. `strangler-fig-pattern` — Incremental legacy migration
-20. `throttling-pattern` — Rate limit resource consumption
+1. `content-delivery-network-pattern` — Edge caching and distribution
+2. `database-per-service-pattern` — Microservice data isolation
+3. `distributed-lock-pattern` — Coordination across distributed nodes
+4. `event-carried-state-transfer-pattern` — Replicate state via events
+5. `gatekeeper-pattern` — Validate requests at the edge
+6. `idempotent-consumer-pattern` — Exactly-once processing guarantee
+7. `materialized-view-pattern` — Precomputed query result caches
+8. `priority-queue-pattern` — Task scheduling by priority
+9. `queue-based-load-leveling-pattern` — Smooth traffic spikes
+10. `scheduler-agent-supervisor-pattern` — Resilient job scheduling
+11. `sequential-convoy-pattern` — Preserve message ordering
+12. `sharding-pattern` — Horizontal data partitioning
+13. `static-content-hosting-pattern` — Serve assets from object storage
+14. `strangler-fig-pattern` — Incremental legacy migration
+15. `throttling-pattern` — Rate limit resource consumption
 
 ---
 
