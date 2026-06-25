@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | ~81 unique | Creational, Structural, Behavioral, Resilience |
+| Patterns | ~86 unique | Creational, Structural, Behavioral, Resilience |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -36,14 +36,9 @@
 
 ---
 
-### Pending Patterns (12)
+### Pending Patterns (7)
 
-**Behavioral (12)**
-- `blackboard-pattern` — Blackboard pattern for AI/heuristic systems
-- `business-delegate-pattern` — Business Delegate pattern
-- `composite-entity-pattern` — Composite Entity pattern
-- `context-object-pattern` — Context Object pattern
-- `intercepting-filter-pattern` — Intercepting Filter for web pipelines
+**Behavioral (7)**
 - `manager-pattern` — Manager / Service pattern
 - `marker-interface-pattern` — Marker Interface pattern
 - `partial-class-pattern` — Partial Class pattern
