@@ -26,7 +26,7 @@
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
-| Docs | ~62 unique | ADRs, Runbooks, Checklists, Templates, Policies |
+| Docs | ~63 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
 
@@ -58,12 +58,9 @@ All planned guides are now complete.
 
 ---
 
-### New Docs / Templates (1)
+### New Docs / Templates (0)
 
-**Operations**
-
-**Security & Compliance**
-1. `vulnerability-management-template` — CVE tracking and patching timeline
+All planned docs and templates are now complete.
 
 ---
 
