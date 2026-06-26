@@ -26,7 +26,7 @@
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
-| Docs | ~73 unique | ADRs, Runbooks, Checklists, Templates, Policies |
+| Docs | ~78 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
 
@@ -174,59 +174,52 @@ All pending patterns have been completed.
 
 ---
 
-### New Docs / Templates (40)
-
-**Operations & Runbooks**
-1. `incident-communication-template` — Notify stakeholders during outages
-2. `incident-timeline-template` — Reconstruct events during investigations
+### New Docs / Templates (35)
 
 **Onboarding & Team**
-3. `onboarding-checklist-backend-engineer` — New hire onboarding for backend teams
-4. `engineering-handbook-template` — Team culture, processes, and standards
-5. `git-branching-strategy-document` — Define Git workflow for the team
-6. `code-review-checklist-template` — Ensure consistent review standards
-7. `service-ownership-document-template` — Define team boundaries and contacts
+1. `code-review-checklist-template` — Ensure consistent review standards
+2. `service-ownership-document-template` — Define team boundaries and contacts
 
 **Architecture & Planning**
-8. `architecture-decision-record-adr-template` — Document significant technical decisions
-9. `feature-specification-template` — Define requirements before development
-10. `production-readiness-review-template` — Verify readiness before launch
-11. `capacity-planning-forecast-template` — Plan infrastructure growth
-12. `system-decommissioning-checklist-template` — Safely retire old services
-13. `deprecation-timeline-template` — Plan sunsetting of legacy features
+3. `architecture-decision-record-adr-template` — Document significant technical decisions
+4. `feature-specification-template` — Define requirements before development
+5. `production-readiness-review-template` — Verify readiness before launch
+6. `capacity-planning-forecast-template` — Plan infrastructure growth
+7. `system-decommissioning-checklist-template` — Safely retire old services
+8. `deprecation-timeline-template` — Plan sunsetting of legacy features
 
 **Security & Compliance**
-14. `postmortem-incident-review-template` — Analyze incidents without blame
-15. `data-breach-response-playbook` — Respond to security incidents involving data
-16. `third-party-vendor-assessment-template` — Evaluate vendor security posture
-17. `dependency-vulnerability-report-template` — Report findings from security scans
-18. `access-control-review-template` — Audit user permissions quarterly
-19. `rbac-policy-template` — Define role-based access control rules
-20. `secret-rotation-schedule-template` — Schedule and track secret rotations
-21. `network-segmentation-policy-template` — Document network security zones
-22. `container-security-baseline-template` — Harden container configurations
-23. `pen-test-scope-template` — Define penetration testing boundaries
-24. `compliance-gap-analysis-template` — Map controls to frameworks like SOC2
-25. `vulnerability-scan-report-template` — Summarize scan findings
-26. `endpoint-security-checklist-template` — Secure workstations and devices
-27. `ci-cd-pipeline-security-template` — Secure build and deploy pipelines
-28. `user-access-audit-template` — Review and certify user permissions
-29. `encryption-key-lifecycle-template` — Manage key creation, rotation, and destruction
+9. `postmortem-incident-review-template` — Analyze incidents without blame
+10. `data-breach-response-playbook` — Respond to security incidents involving data
+11. `third-party-vendor-assessment-template` — Evaluate vendor security posture
+12. `dependency-vulnerability-report-template` — Report findings from security scans
+13. `access-control-review-template` — Audit user permissions quarterly
+14. `rbac-policy-template` — Define role-based access control rules
+15. `secret-rotation-schedule-template` — Schedule and track secret rotations
+16. `network-segmentation-policy-template` — Document network security zones
+17. `container-security-baseline-template` — Harden container configurations
+18. `pen-test-scope-template` — Define penetration testing boundaries
+19. `compliance-gap-analysis-template` — Map controls to frameworks like SOC2
+20. `vulnerability-scan-report-template` — Summarize scan findings
+21. `endpoint-security-checklist-template` — Secure workstations and devices
+22. `ci-cd-pipeline-security-template` — Secure build and deploy pipelines
+23. `user-access-audit-template` — Review and certify user permissions
+24. `encryption-key-lifecycle-template` — Manage key creation, rotation, and destruction
 
 **Monitoring & Infrastructure**
-30. `logging-standards-document` — Define structured logging conventions
-31. `monitoring-alerting-policy-template` — Define alert thresholds and escalation
-32. `infrastructure-cost-allocation-template` — Charge back cloud costs to teams
-33. `service-level-objective-slo-template` — Define and measure SLOs
-34. `cloud-resource-tagging-policy-template` — Enforce consistent resource labels
-35. `ssl-certificate-management-template` — Track cert expiry and renewals
-36. `backup-verification-test-template` — Ensure backups are restorable
+25. `logging-standards-document` — Define structured logging conventions
+26. `monitoring-alerting-policy-template` — Define alert thresholds and escalation
+27. `infrastructure-cost-allocation-template` — Charge back cloud costs to teams
+28. `service-level-objective-slo-template` — Define and measure SLOs
+29. `cloud-resource-tagging-policy-template` — Enforce consistent resource labels
+30. `ssl-certificate-management-template` — Track cert expiry and renewals
+31. `backup-verification-test-template` — Ensure backups are restorable
 
 **Configuration & Environment**
-37. `environment-configuration-template` — Document env vars per environment
-38. `zero-downtime-deployment-checklist` — Ensure smooth production releases
-39. `load-test-execution-plan-template` — Plan and execute performance tests
-40. `data-retention-policy-template` — Define data lifecycle and deletion
+32. `environment-configuration-template` — Document env vars per environment
+33. `zero-downtime-deployment-checklist` — Ensure smooth production releases
+34. `load-test-execution-plan-template` — Plan and execute performance tests
+35. `data-retention-policy-template` — Define data lifecycle and deletion
 
 ---
 
