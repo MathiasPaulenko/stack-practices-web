@@ -19,9 +19,6 @@ tags:
 relatedResources:
   - /recipes/data/generate-slugs
   - /recipes/security/escape-html-entities
-  - /recipes/security/prevent-sql-injection
-  - /recipes/security/prevent-xss-attacks
-  - /recipes/security/hash-passwords-bcrypt
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:

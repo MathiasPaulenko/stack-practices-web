@@ -21,7 +21,6 @@ tags:
   - fastly
 relatedResources:
   - /patterns/design/static-content-hosting-pattern
-  - /patterns/design/caching-pattern
   - /patterns/design/throttling-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"

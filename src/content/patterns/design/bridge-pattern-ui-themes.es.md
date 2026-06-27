@@ -15,8 +15,6 @@ tags:
   - design-pattern
 relatedResources:
   - /patterns/design/adapter-pattern-api
-  - /patterns/design/strategy-pattern-algorithms
-  - /guides/react-patterns-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

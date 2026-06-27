@@ -20,8 +20,6 @@ relatedResources:
   - /guides/progressive-web-apps-guide
   - /guides/web-components-guide
   - /patterns/design/circuit-breaker-pattern
-  - /recipes/frontend/implement-accessible-modal
-  - /recipes/frontend/build-responsive-layout
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

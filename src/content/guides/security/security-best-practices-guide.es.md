@@ -18,9 +18,9 @@ tags:
   - vulnerability
   - best-practices
 relatedResources:
-  - /es/recipes/password-hashing
-  - /es/recipes/jwt-authentication
-  - /es/recipes/input-validation
+  - /recipes/password-hashing
+  - /recipes/jwt-authentication
+  - /recipes/input-validation
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

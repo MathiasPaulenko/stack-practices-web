@@ -19,8 +19,6 @@ relatedResources:
   - /guides/accessibility-wcag-guide
   - /guides/progressive-web-apps-guide
   - /patterns/design/factory-pattern
-  - /recipes/frontend/build-responsive-layout
-  - /recipes/frontend/implement-accessible-modal
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

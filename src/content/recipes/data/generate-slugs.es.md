@@ -18,7 +18,6 @@ relatedResources:
   - /recipes/data/parse-csv-files
   - /recipes/data/parse-json
   - /recipes/data/regular-expressions
-  - /guides/software-architecture/clean-code-principles
   - /recipes/api/input-validation
 lastUpdated: "2026-06-20"
 author: "StackPractices"

@@ -15,9 +15,9 @@ tags:
   - reliability
   - sre
 relatedResources:
-  - /es/docs/runbook-template
-  - /es/guides/cicd-pipeline-guide
-  - /es/guides/security-best-practices-guide
+  - /docs/runbook-template
+  - /guides/cicd-pipeline-guide
+  - /guides/security-best-practices-guide
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:

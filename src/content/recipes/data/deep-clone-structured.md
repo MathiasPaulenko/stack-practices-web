@@ -15,8 +15,6 @@ tags:
   - duplication
 relatedResources:
   - /patterns/design/prototype-pattern-cloning
-  - /recipes/data/flatten-nested-objects
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

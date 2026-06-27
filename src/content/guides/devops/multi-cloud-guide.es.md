@@ -22,7 +22,6 @@ relatedResources:
   - /guides/azure-basics-guide
   - /guides/gcp-basics-guide
   - /guides/finops-guide
-  - /recipes/devops/setup-multi-cloud-k8s
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

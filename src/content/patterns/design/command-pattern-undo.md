@@ -14,8 +14,6 @@ tags:
   - design-pattern
 relatedResources:
   - /patterns/design/memento-pattern-state
-  - /patterns/design/observer-pattern-events
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -22,7 +22,7 @@ relatedResources:
   - /guides/deployment/feature-flags-guide
   - /guides/deployment/a-b-testing-guide
   - /guides/devops/sre-practices-guide
-  - /guides/observability/observability-guide
+  - /guides/observability-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

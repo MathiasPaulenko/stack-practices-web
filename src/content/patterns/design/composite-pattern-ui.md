@@ -16,7 +16,6 @@ tags:
 relatedResources:
   - /patterns/design/decorator-pattern-pipeline
   - /patterns/design/adapter-pattern-api
-  - /guides/react-patterns-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -15,8 +15,6 @@ tags:
   - performance
 relatedResources:
   - /recipes/databases/postgres-query-optimization
-  - /patterns/design/singleton-pattern-services
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -15,7 +15,6 @@ tags:
   - microservices
 relatedResources:
   - /recipes/api/server-sent-events-go
-  - /patterns/design/middleware-pattern
   - /patterns/design/ambassador-pattern-services
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"

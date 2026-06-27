@@ -15,7 +15,7 @@ tags:
   - secrets
   - deployment
 relatedResources:
-  - /docs/devops/runbook-template
+  - /docs/runbook-template
   - /docs/devops/deployment-checklist-template
   - /docs/devops/cloud-resource-tagging-policy-template
 lastUpdated: "2026-06-27"

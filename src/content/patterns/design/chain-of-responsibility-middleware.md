@@ -15,8 +15,6 @@ tags:
   - design-pattern
 relatedResources:
   - /patterns/design/decorator-pattern-pipeline
-  - /patterns/design/proxy-pattern-access-control
-  - /guides/api-design-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

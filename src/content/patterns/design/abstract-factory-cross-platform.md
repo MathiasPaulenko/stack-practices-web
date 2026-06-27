@@ -14,9 +14,7 @@ tags:
   - typescript
   - design-pattern
 relatedResources:
-  - /patterns/design/factory-method-injection
   - /patterns/design/bridge-pattern-ui-themes
-  - /guides/react-patterns-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

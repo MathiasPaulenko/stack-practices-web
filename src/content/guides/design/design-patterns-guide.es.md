@@ -19,10 +19,10 @@ tags:
   - strategy
   - structural
 relatedResources:
-  - /es/patterns/design/singleton-pattern
-  - /es/patterns/design/observer-pattern
-  - /es/patterns/design/strategy-pattern
-  - /es/patterns/design/repository-pattern
+  - /recipes/singleton-pattern
+  - /recipes/observer-pattern
+  - /recipes/strategy-pattern
+  - /patterns/repository-pattern
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

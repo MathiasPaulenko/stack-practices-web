@@ -15,8 +15,6 @@ tags:
   - rate-limiting
 relatedResources:
   - /recipes/api/go-rest-api-gin
-  - /patterns/design/circuit-breaker-resilience
-  - /guides/security-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -17,7 +17,6 @@ tags:
   - decoupling
   - state
 relatedResources:
-  - /patterns/design/service-locator-pattern
   - /patterns/design/dependency-injection-pattern
   - /patterns/design/facade-pattern
 lastUpdated: "2026-06-25"

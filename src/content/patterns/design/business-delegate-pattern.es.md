@@ -18,7 +18,6 @@ tags:
   - layers
 relatedResources:
   - /patterns/design/facade-pattern
-  - /patterns/design/service-locator-pattern
   - /patterns/design/proxy-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"

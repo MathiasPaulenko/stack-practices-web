@@ -19,7 +19,7 @@ tags:
 relatedResources:
   - /guides/data/database-sharding-implementation-guide
   - /guides/data/etl-pipeline-guide
-  - /guides/devops/blue-green-deployment-guide
+  - /guides/blue-green-deployment-guide
   - /guides/planning/disaster-recovery-guide
   - /guides/testing/testing-strategy-guide
 lastUpdated: "2026-06-25"

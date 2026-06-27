@@ -19,7 +19,6 @@ tags:
 relatedResources:
   - /recipes/file-handling/generate-temporary-files
   - /recipes/observability/structured-logging
-  - /guides/devops/scaling-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

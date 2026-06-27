@@ -18,7 +18,6 @@ relatedResources:
   - /recipes/data/parse-json
   - /recipes/api/input-validation
   - /recipes/data/parse-xml-files
-  - /guides/software-architecture/clean-code-principles
   - /patterns/design/factory-pattern
 lastUpdated: "2026-06-20"
 author: "StackPractices"

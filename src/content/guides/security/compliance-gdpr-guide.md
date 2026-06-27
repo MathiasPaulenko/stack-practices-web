@@ -19,8 +19,6 @@ relatedResources:
   - /guides/compliance-soc2-guide
   - /guides/secrets-management-guide
   - /guides/secure-coding-guide
-  - /recipes/security/implement-content-security-policy
-  - /recipes/security/hash-passwords-bcrypt
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

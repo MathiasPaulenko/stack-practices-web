@@ -24,7 +24,6 @@ relatedResources:
   - /guides/opentelemetry-guide
   - /guides/sre-practices-guide
   - /guides/service-mesh-guide
-  - /recipes/devops/setup-prometheus-grafana
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

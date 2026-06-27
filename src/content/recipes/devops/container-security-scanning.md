@@ -12,10 +12,6 @@ tags:
   - container
   - docker
   - security
-relatedResources:
-  - /recipes/devops/docker-multi-stage-builds
-  - /recipes/security/secrets-management-vault
-  - /guides/security-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

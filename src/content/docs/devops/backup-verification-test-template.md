@@ -15,9 +15,8 @@ tags:
   - runbook
   - resilience
 relatedResources:
-  - /docs/devops/disaster-recovery-plan-template
-  - /docs/devops/runbook-template
-  - /docs/devops/incident-response-plan-template
+  - /docs/disaster-recovery-plan-template
+  - /docs/runbook-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:

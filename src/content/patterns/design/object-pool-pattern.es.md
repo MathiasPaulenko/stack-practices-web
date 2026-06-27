@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /patterns/design/singleton-pattern
   - /patterns/design/factory-pattern
-  - /guides/performance/connection-pooling-deep-dive-guide
+  - /guides/connection-pooling-deep-dive-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

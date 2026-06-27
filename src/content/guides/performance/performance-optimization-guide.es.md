@@ -19,9 +19,9 @@ tags:
   - lazy-loading
   - performance
 relatedResources:
-  - /es/recipes/caching
-  - /es/guides/cicd-pipeline-guide
-  - /es/recipes/middleware
+  - /recipes/caching
+  - /guides/cicd-pipeline-guide
+  - /recipes/middleware
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

@@ -20,7 +20,6 @@ relatedResources:
   - /guides/database-design-guide
   - /guides/database-normalization-guide
   - /guides/sql-performance-tuning-guide
-  - /recipes/databases/materialized-views
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

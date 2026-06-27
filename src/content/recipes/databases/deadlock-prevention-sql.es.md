@@ -16,7 +16,6 @@ tags:
 relatedResources:
   - /recipes/databases/acid-transactions-postgres
   - /recipes/databases/postgres-query-optimization
-  - /patterns/design/retry-pattern-transient
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

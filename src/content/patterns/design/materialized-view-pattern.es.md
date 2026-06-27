@@ -18,7 +18,6 @@ tags:
   - rendimiento
   - optimizacion-de-consultas
 relatedResources:
-  - /patterns/design/caching-pattern
   - /patterns/design/cqrs-pattern
   - /patterns/design/database-per-service-pattern
 lastUpdated: "2026-06-25"

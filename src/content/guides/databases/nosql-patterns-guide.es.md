@@ -22,7 +22,6 @@ relatedResources:
   - /guides/database-design-guide
   - /guides/time-series-database-guide
   - /guides/graph-database-guide
-  - /recipes/databases/model-data-mongodb
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /docs/devops/feature-specification-template
   - /docs/devops/engineering-handbook-template
-  - /docs/devops/system-diagram-template
+  - /docs/system-diagram-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:

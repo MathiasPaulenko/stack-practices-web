@@ -18,10 +18,7 @@ tags:
   - java
 relatedResources:
   - /recipes/security/sanitize-user-input
-  - /recipes/security/prevent-xss-attacks
   - /recipes/data/parse-markdown-files
-  - /recipes/security/hash-passwords-bcrypt
-  - /recipes/security/implement-content-security-policy
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:

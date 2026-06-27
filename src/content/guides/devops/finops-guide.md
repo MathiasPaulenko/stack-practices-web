@@ -21,7 +21,6 @@ relatedResources:
   - /guides/aws-basics-guide
   - /guides/terraform-best-practices-guide
   - /guides/observability-guide
-  - /recipes/devops/setup-cost-alerts-aws
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

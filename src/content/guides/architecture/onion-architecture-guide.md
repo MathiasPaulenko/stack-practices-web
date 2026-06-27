@@ -21,7 +21,6 @@ relatedResources:
   - /guides/vertical-slice-architecture-guide
   - /patterns/design/dependency-injection-pattern
   - /patterns/design/repository-pattern
-  - /recipes/architecture/implement-repository-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

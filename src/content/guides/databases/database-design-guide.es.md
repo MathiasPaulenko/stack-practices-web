@@ -17,9 +17,9 @@ tags:
   - normalizacion
   - sql
 relatedResources:
-  - /es/recipes/sql-joins
-  - /es/recipes/database-transactions
-  - /es/patterns/repository-pattern
+  - /recipes/sql-joins
+  - /recipes/database-transactions
+  - /patterns/repository-pattern
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

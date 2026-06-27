@@ -21,8 +21,6 @@ relatedResources:
   - /guides/data/database-sharding-implementation-guide
   - /guides/data/read-replica-guide
   - /guides/data/connection-pooling-deep-dive-guide
-  - /guides/performance/performance-testing-guide
-  - /guides/devops/scaling-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

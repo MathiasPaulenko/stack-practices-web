@@ -12,10 +12,6 @@ tags:
   - typescript
   - design-pattern
   - testing
-relatedResources:
-  - /patterns/design/factory-method-injection
-  - /patterns/design/singleton-pattern-services
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

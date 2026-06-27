@@ -20,7 +20,6 @@ relatedResources:
   - /guides/data-lake-guide
   - /guides/lakehouse-guide
   - /guides/cqrs-event-sourcing-combined-guide
-  - /patterns/design/event-driven-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

@@ -21,8 +21,6 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/observability-guide
   - /guides/aws-basics-guide
-  - /recipes/devops/deploy-to-kubernetes
-  - /recipes/infrastructure/helm-chart-template
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

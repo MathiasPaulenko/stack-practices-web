@@ -21,7 +21,6 @@ relatedResources:
   - /guides/data/caching-strategies-guide
   - /guides/devops/multi-cloud-guide
   - /guides/security/secrets-management-guide
-  - /guides/performance/performance-testing-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

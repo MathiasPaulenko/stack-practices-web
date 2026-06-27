@@ -16,7 +16,6 @@ tags:
 relatedResources:
   - /recipes/api/websocket-bidirectional-chat
   - /recipes/messaging/kafka-event-streaming
-  - /guides/api-design-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

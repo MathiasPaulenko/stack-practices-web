@@ -21,7 +21,6 @@ relatedResources:
   - /guides/observability-guide
   - /guides/service-mesh-guide
   - /guides/sre-practices-guide
-  - /recipes/devops/setup-opentelemetry-collector
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

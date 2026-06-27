@@ -15,9 +15,9 @@ tags:
   - paralelismo
   - semaforo
 relatedResources:
-  - /es/recipes/caching
-  - /es/patterns/design/singleton-pattern
-  - /es/guides/software-architecture-guide
+  - /recipes/caching
+  - /recipes/singleton-pattern
+  - /guides/software-architecture-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

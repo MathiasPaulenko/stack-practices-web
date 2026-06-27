@@ -24,7 +24,6 @@ relatedResources:
   - /guides/kubernetes-advanced-guide
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide
-  - /recipes/devops/deploy-static-site-gcp
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

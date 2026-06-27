@@ -20,7 +20,6 @@ tags:
   - frontend
 relatedResources:
   - /patterns/design/content-delivery-network-pattern
-  - /patterns/design/caching-pattern
   - /patterns/design/sharding-pattern
 lastUpdated: "2026-06-26"
 author: "StackPractices"

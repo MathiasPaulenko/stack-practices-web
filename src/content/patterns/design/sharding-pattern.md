@@ -20,7 +20,6 @@ tags:
 relatedResources:
   - /patterns/design/database-per-service-pattern
   - /patterns/design/materialized-view-pattern
-  - /patterns/design/caching-pattern
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:

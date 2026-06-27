@@ -19,8 +19,6 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secrets-management-guide
   - /guides/cryptography-basics-guide
-  - /recipes/security/prevent-sql-injection
-  - /recipes/security/hash-passwords-bcrypt
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

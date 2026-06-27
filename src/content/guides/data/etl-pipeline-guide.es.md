@@ -21,7 +21,6 @@ relatedResources:
   - /guides/data/stream-processing-guide
   - /guides/data/real-time-analytics-guide
   - /guides/data/data-migration-guide
-  - /guides/devops/ci-cd-pipelines-guide
   - /guides/observability/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"

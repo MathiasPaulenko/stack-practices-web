@@ -22,8 +22,6 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/kubernetes-advanced-guide
   - /guides/aws-basics-guide
-  - /recipes/devops/deploy-static-site-azure
-  - /recipes/infrastructure/create-azure-storage-account
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

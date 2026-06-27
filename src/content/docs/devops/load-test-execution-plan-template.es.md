@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /docs/devops/capacity-planning-forecast-template
   - /docs/devops/monitoring-alerting-policy-template
-  - /docs/devops/runbook-template
+  - /docs/runbook-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:

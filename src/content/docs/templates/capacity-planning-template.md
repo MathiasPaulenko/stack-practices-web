@@ -19,7 +19,7 @@ tags:
   - resource-estimation
   - devops
 relatedResources:
-  - /docs/templates/system-diagram-template
+  - /docs/system-diagram-template
   - /guides/performance/performance-optimization-guide
   - /guides/devops/infrastructure-as-code-guide
 lastUpdated: "2026-06-18"

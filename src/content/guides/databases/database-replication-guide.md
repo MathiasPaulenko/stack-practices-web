@@ -21,7 +21,7 @@ relatedResources:
   - /guides/database-denormalization-guide
   - /guides/acid-vs-base-guide
   - /guides/indexing-strategies-guide
-  - /patterns/design/read-replica-guide
+  - /guides/read-replica-guide
   - /recipes/databases/connect-to-postgresql
 lastUpdated: "2026-06-24"
 author: "StackPractices"

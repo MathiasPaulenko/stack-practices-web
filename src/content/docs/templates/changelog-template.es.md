@@ -15,9 +15,9 @@ tags:
   - semver
   - versioning
 relatedResources:
-  - /es/docs/contributing-guide
-  - /es/docs/readme-template
-  - /es/guides/cicd-pipeline-guide
+  - /docs/contributing-guide
+  - /docs/readme-template
+  - /guides/cicd-pipeline-guide
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:

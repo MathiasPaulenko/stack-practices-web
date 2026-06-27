@@ -23,7 +23,6 @@ relatedResources:
   - /guides/azure-basics-guide
   - /guides/gcp-basics-guide
   - /guides/kubernetes-advanced-guide
-  - /recipes/devops/manage-infrastructure-terraform
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

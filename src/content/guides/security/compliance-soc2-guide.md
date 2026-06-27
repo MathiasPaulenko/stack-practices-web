@@ -19,7 +19,6 @@ relatedResources:
   - /guides/secrets-management-guide
   - /guides/owasp-top-10-guide
   - /docs/security-audit-checklist-template
-  - /recipes/security/implement-content-security-policy
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

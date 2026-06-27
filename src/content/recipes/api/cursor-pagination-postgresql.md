@@ -13,9 +13,7 @@ tags:
   - api
   - databases
 relatedResources:
-  - /recipes/databases/indexed-cursor-pagination
   - /recipes/api/go-rest-api-gin
-  - /guides/api-design-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

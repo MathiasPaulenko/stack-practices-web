@@ -14,8 +14,6 @@ tags:
   - design-pattern
 relatedResources:
   - /patterns/design/composite-pattern-ui
-  - /patterns/design/strategy-pattern-algorithms
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

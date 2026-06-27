@@ -21,7 +21,6 @@ relatedResources:
   - /guides/data/database-sharding-implementation-guide
   - /guides/data/connection-pooling-deep-dive-guide
   - /guides/data/caching-strategies-guide
-  - /guides/devops/scaling-guide
   - /guides/observability/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"

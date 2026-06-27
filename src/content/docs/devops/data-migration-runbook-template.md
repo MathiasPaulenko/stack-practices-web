@@ -20,7 +20,7 @@ relatedResources:
   - /docs/devops/runbook-database-failover
   - /docs/devops/deployment-rollback-runbook
   - /docs/devops/disaster-recovery-test-plan
-  - /docs/architecture/feature-specification-template
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:

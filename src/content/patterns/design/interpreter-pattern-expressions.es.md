@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /patterns/design/chain-of-responsibility-middleware
   - /patterns/design/iterator-pattern-collections
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

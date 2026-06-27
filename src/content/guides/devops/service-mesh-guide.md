@@ -20,8 +20,6 @@ tags:
 relatedResources:
   - /guides/observability-guide
   - /guides/kubernetes-advanced-guide
-  - /guides/microservices-patterns-guide
-  - /recipes/devops/istio-traffic-routing
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

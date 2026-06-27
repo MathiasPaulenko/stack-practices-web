@@ -18,7 +18,6 @@ tags:
 relatedResources:
   - /recipes/authentication/implement-rbac
   - /recipes/authentication/implement-sso-saml
-  - /guides/security/zero-trust-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

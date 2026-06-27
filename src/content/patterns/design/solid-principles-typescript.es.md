@@ -14,8 +14,7 @@ tags:
   - design-pattern
 relatedResources:
   - /patterns/design/adapter-pattern-api
-   - /patterns/design/decorator-pattern-pipeline
-  - /guides/clean-code-guide
+  - /patterns/design/decorator-pattern-pipeline
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

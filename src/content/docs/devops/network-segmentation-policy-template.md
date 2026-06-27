@@ -16,7 +16,7 @@ tags:
   - compliance
 relatedResources:
   - /docs/devops/container-security-baseline-template
-  - /docs/devops/api-security-review-template
+  - /docs/api-security-review-template
   - /docs/devops/rbac-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"

@@ -20,8 +20,6 @@ relatedResources:
   - /guides/secrets-management-guide
   - /guides/owasp-top-10-guide
   - /guides/api-gateway-design-guide
-  - /patterns/design/api-gateway-pattern
-  - /recipes/security/implement-content-security-policy
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

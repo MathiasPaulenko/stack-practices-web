@@ -20,8 +20,6 @@ tags:
 relatedResources:
   - /guides/data/real-time-analytics-guide
   - /guides/data/etl-pipeline-guide
-  - /guides/messaging/message-queues-guide
-  - /guides/architecture/event-driven-guide
   - /guides/observability/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"

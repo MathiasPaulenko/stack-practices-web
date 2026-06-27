@@ -19,9 +19,9 @@ tags:
   - sre
   - tracing
 relatedResources:
-  - /es/docs/runbook-template
-  - /es/guides/cicd-pipeline-guide
-  - /es/recipes/logging
+  - /docs/runbook-template
+  - /guides/cicd-pipeline-guide
+  - /recipes/logging
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

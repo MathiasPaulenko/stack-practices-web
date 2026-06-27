@@ -16,8 +16,7 @@ tags:
   - production
 relatedResources:
   - /docs/devops/deployment-checklist-template
-  - /docs/devops/runbook-template
-  - /docs/devops/incident-response-plan-template
+  - /docs/runbook-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:

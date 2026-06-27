@@ -19,8 +19,6 @@ tags:
   - web
   - graphql
 relatedResources:
-  - /patterns/design/api-gateway-pattern
-  - /patterns/design/aggregator-pattern
   - /patterns/design/facade-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"

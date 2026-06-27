@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /docs/devops/monitoring-alerting-policy-template
   - /docs/devops/cloud-resource-tagging-policy-template
-  - /docs/devops/runbook-template
+  - /docs/runbook-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:

@@ -15,9 +15,9 @@ tags:
   - pull-request
   - workflow
 relatedResources:
-  - /es/docs/contributing-guide
-  - /es/docs/adr-template
-  - /es/guides/cicd-pipeline-guide
+  - /docs/contributing-guide
+  - /docs/adr-template
+  - /guides/cicd-pipeline-guide
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:

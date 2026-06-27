@@ -20,7 +20,6 @@ relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-performance-tuning-guide
   - /guides/sql-joins-guide
-  - /recipes/databases/write-recursive-cte
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

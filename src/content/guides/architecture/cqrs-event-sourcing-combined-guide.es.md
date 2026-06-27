@@ -22,8 +22,6 @@ relatedResources:
   - /guides/onion-architecture-guide
   - /guides/data-mesh-guide
   - /patterns/design/saga-pattern
-  - /patterns/design/event-driven-pattern
-  - /recipes/messaging/implement-outbox-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

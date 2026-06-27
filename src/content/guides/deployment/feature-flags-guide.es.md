@@ -21,8 +21,7 @@ relatedResources:
   - /guides/deployment/canary-deployment-guide
   - /guides/deployment/a-b-testing-guide
   - /guides/devops/sre-practices-guide
-  - /guides/observability/observability-guide
-  - /guides/frontend/frontend-performance-guide
+  - /guides/observability-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

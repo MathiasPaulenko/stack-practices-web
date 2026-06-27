@@ -14,9 +14,9 @@ tags:
   - equipo
   - onboarding
 relatedResources:
-  - /es/docs/readme-template
-  - /es/docs/contributing-guide
-  - /es/guides/software-architecture-guide
+  - /docs/readme-template
+  - /docs/contributing-guide
+  - /guides/software-architecture-guide
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:

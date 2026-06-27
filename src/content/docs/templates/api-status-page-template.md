@@ -19,7 +19,7 @@ tags:
   - transparency
   - devops
 relatedResources:
-  - /docs/templates/incident-communication-template
+  - /docs/incident-communication-template
   - /docs/templates/api-deprecation-notice-template
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-18"

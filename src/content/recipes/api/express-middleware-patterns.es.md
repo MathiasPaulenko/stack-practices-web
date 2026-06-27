@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /recipes/api/go-rest-api-gin
   - /recipes/security/data-validation-zod
-  - /guides/api-design-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

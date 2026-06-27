@@ -14,7 +14,6 @@ tags:
   - frontend
 relatedResources:
   - /recipes/api/go-rest-api-gin
-  - /guides/security-guide
   - /recipes/security/data-validation-zod
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"

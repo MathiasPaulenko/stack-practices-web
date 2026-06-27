@@ -18,7 +18,6 @@ tags:
 relatedResources:
   - /recipes/file-handling/bash-loop-over-files
   - /recipes/file-handling/bash-text-processing
-  - /guides/performance/performance-testing-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

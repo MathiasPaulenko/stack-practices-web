@@ -17,7 +17,6 @@ tags:
 relatedResources:
   - /docs/devops/monitoring-alerting-policy-template
   - /docs/devops/escalation-policy-template
-  - /docs/devops/incident-response-plan-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:

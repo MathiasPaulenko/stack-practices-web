@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /patterns/design/adapter-pattern-api
   - /recipes/api/call-rest-api
-  - /guides/api-design-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

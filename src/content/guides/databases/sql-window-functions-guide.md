@@ -22,7 +22,6 @@ relatedResources:
   - /guides/sql-cte-guide
   - /guides/sql-performance-tuning-guide
   - /guides/sql-joins-guide
-  - /recipes/databases/window-functions-ranking
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

@@ -21,7 +21,6 @@ relatedResources:
   - /guides/nosql-patterns-guide
   - /guides/sql-performance-tuning-guide
   - /guides/observability-guide
-  - /recipes/databases/model-time-series-data
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

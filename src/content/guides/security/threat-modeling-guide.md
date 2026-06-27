@@ -21,8 +21,6 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secure-coding-guide
   - /guides/zero-trust-architecture-guide
-  - /recipes/security/implement-content-security-policy
-  - /recipes/security/prevent-sql-injection
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

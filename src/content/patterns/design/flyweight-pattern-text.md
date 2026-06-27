@@ -14,8 +14,7 @@ tags:
   - typescript
   - design-pattern
 relatedResources:
-  - /patterns/design/singleton-pattern-services
-  - /patterns/design/cache-invalidation
+  - /recipes/cache-invalidation
   - /guides/performance-optimization-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"

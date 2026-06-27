@@ -22,7 +22,7 @@ relatedResources:
   - /docs/devops/deployment-rollback-runbook
   - /docs/devops/data-migration-runbook-template
   - /docs/devops/incident-communication-template
-  - /docs/security/data-breach-response-playbook
+  - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:

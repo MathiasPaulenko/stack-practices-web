@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/data/parse-xml-files
   - /recipes/data/validate-json-schema
   - /guides/devops/logging-monitoring-observability-guide
-  - /recipes/devops/log-aggregation
+  - /recipes/log-aggregation
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:

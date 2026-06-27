@@ -21,7 +21,6 @@ relatedResources:
   - /guides/nosql-patterns-guide
   - /guides/vector-database-guide
   - /guides/database-design-guide
-  - /recipes/databases/model-graph-data-neo4j
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

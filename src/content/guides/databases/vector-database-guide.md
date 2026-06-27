@@ -23,8 +23,6 @@ tags:
 relatedResources:
   - /guides/graph-database-guide
   - /guides/nosql-patterns-guide
-  - /guides/ai-llm-integration-guide
-  - /recipes/databases/vector-search-pgvector
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

@@ -14,9 +14,9 @@ tags:
   - gobernanza
   - open-source
 relatedResources:
-  - /es/docs/contributing-guide
-  - /es/docs/readme-template
-  - /es/guides/software-architecture-guide
+  - /docs/contributing-guide
+  - /docs/readme-template
+  - /guides/software-architecture-guide
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:

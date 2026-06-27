@@ -19,7 +19,6 @@ tags:
   - api-gateway
 relatedResources:
   - /patterns/design/anti-corruption-layer-pattern
-  - /patterns/design/gateway-pattern
   - /patterns/design/database-per-service-pattern
 lastUpdated: "2026-06-26"
 author: "StackPractices"

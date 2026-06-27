@@ -18,7 +18,6 @@ tags:
   - problem-solving
 relatedResources:
   - /patterns/design/observer-pattern
-  - /patterns/design/publisher-subscriber-pattern
   - /patterns/design/strategy-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"

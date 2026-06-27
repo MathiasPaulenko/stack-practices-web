@@ -21,8 +21,7 @@ relatedResources:
   - /guides/deployment/feature-flags-guide
   - /guides/deployment/canary-deployment-guide
   - /guides/devops/sre-practices-guide
-  - /guides/observability/observability-guide
-  - /guides/data/data-pipeline-guide
+  - /guides/observability-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

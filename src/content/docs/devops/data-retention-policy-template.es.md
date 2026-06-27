@@ -15,7 +15,6 @@ tags:
   - privacy
   - governance
 relatedResources:
-  - /docs/devops/security-incident-report-template
   - /docs/devops/user-access-audit-template
   - /docs/devops/backup-verification-test-template
 lastUpdated: "2026-06-27"

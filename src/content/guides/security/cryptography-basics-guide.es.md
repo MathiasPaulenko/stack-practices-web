@@ -20,8 +20,6 @@ relatedResources:
   - /guides/secrets-management-guide
   - /guides/owasp-top-10-guide
   - /guides/secure-coding-guide
-  - /recipes/security/hash-passwords-bcrypt
-  - /recipes/security/generate-secure-tokens
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

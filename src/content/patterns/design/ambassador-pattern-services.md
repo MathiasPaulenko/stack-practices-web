@@ -14,8 +14,6 @@ tags:
   - microservices
   - design-pattern
 relatedResources:
-  - /patterns/design/proxy-pattern-access-control
-  - /patterns/design/retry-pattern-transient
   - /patterns/design/circuit-breaker-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"

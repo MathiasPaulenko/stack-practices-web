@@ -21,8 +21,6 @@ relatedResources:
   - /guides/data/stream-processing-guide
   - /guides/data/etl-pipeline-guide
   - /guides/observability/metrics-and-dashboards-guide
-  - /guides/devops/scaling-guide
-  - /guides/architecture/microservices-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

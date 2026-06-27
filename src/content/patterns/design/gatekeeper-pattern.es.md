@@ -19,7 +19,6 @@ tags:
   - api-gateway
   - waf
 relatedResources:
-  - /patterns/design/api-gateway-pattern
   - /patterns/design/throttling-pattern
   - /patterns/design/content-delivery-network-pattern
 lastUpdated: "2026-06-25"

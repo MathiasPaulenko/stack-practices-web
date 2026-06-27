@@ -16,8 +16,7 @@ tags:
   - standards
 relatedResources:
   - /docs/devops/monitoring-alerting-policy-template
-  - /docs/devops/incident-response-plan-template
-  - /docs/devops/runbook-template
+  - /docs/runbook-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:

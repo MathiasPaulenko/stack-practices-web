@@ -13,7 +13,7 @@ tags:
   - microservices
   - devops
 relatedResources:
-  - /recipes/devops/nginx-reverse-proxy
+  - /recipes/nginx-reverse-proxy
   - /patterns/design/ambassador-pattern-services
   - /recipes/databases/redis-cache-patterns
 lastUpdated: "2026-06-18"

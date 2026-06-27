@@ -21,8 +21,6 @@ relatedResources:
   - /guides/secure-coding-guide
   - /guides/cryptography-basics-guide
   - /guides/zero-trust-architecture-guide
-  - /recipes/security/secrets-management-vault
-  - /recipes/devops/ci-cd-secrets-injection
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:

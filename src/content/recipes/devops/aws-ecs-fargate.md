@@ -12,7 +12,6 @@ tags:
   - docker
   - devops
 relatedResources:
-  - /recipes/docker-compose
   - /guides/infrastructure-as-code-guide
   - /patterns/facade-pattern
 lastUpdated: "2026-06-18"

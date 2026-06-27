@@ -19,9 +19,7 @@ tags:
 relatedResources:
   - /guides/data/read-replica-guide
   - /guides/data/caching-strategies-guide
-  - /guides/devops/scaling-guide
   - /guides/observability/metrics-and-dashboards-guide
-  - /guides/performance/performance-testing-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

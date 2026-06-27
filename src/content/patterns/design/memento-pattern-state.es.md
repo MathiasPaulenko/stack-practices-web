@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /patterns/design/command-pattern-undo
   - /patterns/design/prototype-pattern-cloning
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -13,10 +13,6 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
-relatedResources:
-  - /patterns/design/observer-pattern-events
-  - /patterns/design/singleton-pattern-services
-  - /guides/react-patterns-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

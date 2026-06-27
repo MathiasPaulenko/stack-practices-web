@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /recipes/performance/brotli-nginx-compression
   - /recipes/devops/terraform-aws-vpc
-  - /guides/api-design-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

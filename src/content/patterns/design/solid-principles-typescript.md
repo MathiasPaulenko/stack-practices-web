@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /patterns/design/adapter-pattern-api
   - /patterns/design/decorator-pattern-pipeline
-  - /guides/clean-code-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /recipes/devops/prometheus-monitoring-alerts
   - /recipes/devops/helm-chart-deployment
-  - /guides/logging-monitoring-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

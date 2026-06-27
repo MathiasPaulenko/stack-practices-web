@@ -21,8 +21,6 @@ relatedResources:
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide
   - /guides/gcp-basics-guide
-  - /patterns/design/event-driven-pattern
-  - /recipes/serverless/build-serverless-api
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

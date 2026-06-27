@@ -18,7 +18,7 @@ tags:
   - latency
   - guide
 relatedResources:
-  - /guides/observability/observability-guide
+  - /guides/observability-guide
   - /guides/observability/log-aggregation-guide
   - /guides/observability/metrics-and-dashboards-guide
   - /guides/devops/service-mesh-guide

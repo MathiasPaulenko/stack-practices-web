@@ -22,7 +22,6 @@ relatedResources:
   - /guides/sre-practices-guide
   - /guides/observability-guide
   - /guides/terraform-best-practices-guide
-  - /recipes/devops/setup-backstage-idp
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

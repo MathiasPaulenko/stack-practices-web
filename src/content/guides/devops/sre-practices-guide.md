@@ -23,7 +23,6 @@ relatedResources:
   - /guides/observability-guide
   - /guides/chaos-engineering-guide
   - /guides/platform-engineering-guide
-  - /recipes/devops/setup-slo-dashboards
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

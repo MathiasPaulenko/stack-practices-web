@@ -19,7 +19,7 @@ tags:
 relatedResources:
   - /recipes/testing/generate-test-data
   - /recipes/testing/setup-test-fixtures
-  - /guides/databases/database-sharding-implementation-guide
+  - /guides/database-sharding-implementation-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

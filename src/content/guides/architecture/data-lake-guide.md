@@ -23,7 +23,6 @@ relatedResources:
   - /guides/lakehouse-guide
   - /guides/data-mesh-guide
   - /guides/database-sharding-implementation-guide
-  - /patterns/design/event-driven-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

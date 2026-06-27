@@ -19,8 +19,6 @@ relatedResources:
   - /guides/secure-coding-guide
   - /guides/threat-modeling-guide
   - /guides/cryptography-basics-guide
-  - /recipes/security/prevent-sql-injection
-  - /recipes/security/prevent-xss-attacks
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
