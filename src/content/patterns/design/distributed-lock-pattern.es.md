@@ -21,7 +21,7 @@ tags:
 relatedResources:
   - /patterns/design/saga-pattern
   - /patterns/design/idempotent-consumer-pattern
-  - /patterns/design/leader-election-pattern
+  - /patterns/leader-election-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

@@ -24,7 +24,7 @@
 | Type | Count | Categories |
 |------|-------|------------|
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
+| Patterns | 118 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
 | Docs | ~113 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
@@ -127,10 +127,10 @@ All pending patterns have been completed.
 
 **Distributed Systems**
 12. `saga-pattern` — Manage distributed transactions across microservices
-13. `leader-election-pattern` — Coordinate a single active instance
-14. `health-endpoint-monitoring-pattern` — Verify service health with probes
-15. `compute-resource-consolidation-pattern` — Combine workloads to reduce costs
-16. `external-configuration-store-pattern` — Centralize config outside deployments
+13. ~~`leader-election-pattern` — Coordinate a single active instance~~
+14. ~~`health-endpoint-monitoring-pattern` — Verify service health with probes~~
+15. ~~`compute-resource-consolidation-pattern` — Combine workloads to reduce costs~~
+16. ~~`external-configuration-store-pattern` — Centralize config outside deployments~~
 
 **Security & Data**
 17. `federated-identity-pattern` — Delegate authentication to external providers

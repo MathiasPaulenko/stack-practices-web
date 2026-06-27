@@ -4573,6 +4573,96 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/testing-strategy-guide/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/patterns/compute-resource-consolidation-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/compute-resource-consolidation-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/compute-resource-consolidation-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/compute-resource-consolidation-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/compute-resource-consolidation-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/compute-resource-consolidation-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/compute-resource-consolidation-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/compute-resource-consolidation-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/external-configuration-store-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/external-configuration-store-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/external-configuration-store-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/external-configuration-store-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/external-configuration-store-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/external-configuration-store-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/external-configuration-store-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/external-configuration-store-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/gateway-routing-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/gateway-routing-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/gateway-routing-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/gateway-routing-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/gateway-routing-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/gateway-routing-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/gateway-routing-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/gateway-routing-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/health-endpoint-monitoring-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/health-endpoint-monitoring-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/health-endpoint-monitoring-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/health-endpoint-monitoring-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/health-endpoint-monitoring-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/health-endpoint-monitoring-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/health-endpoint-monitoring-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/health-endpoint-monitoring-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/leader-election-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/leader-election-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/leader-election-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/leader-election-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/patterns/leader-election-pattern/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/leader-election-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/leader-election-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/leader-election-pattern/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/patterns/abstract-factory-cross-platform/</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
