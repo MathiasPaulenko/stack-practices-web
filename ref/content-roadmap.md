@@ -26,7 +26,7 @@
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
-| Docs | ~98 unique | ADRs, Runbooks, Checklists, Templates, Policies |
+| Docs | ~103 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
 
@@ -174,28 +174,21 @@ All pending patterns have been completed.
 
 ---
 
-### New Docs / Templates (15)
-
-**Security & Compliance**
-1. `endpoint-security-checklist-template` — Secure workstations and devices
-2. `ci-cd-pipeline-security-template` — Secure build and deploy pipelines
-3. `user-access-audit-template` — Review and certify user permissions
-4. `encryption-key-lifecycle-template` — Manage key creation, rotation, and destruction
+### New Docs / Templates (10)
 
 **Monitoring & Infrastructure**
-5. `logging-standards-document` — Define structured logging conventions
-6. `monitoring-alerting-policy-template` — Define alert thresholds and escalation
-7. `infrastructure-cost-allocation-template` — Charge back cloud costs to teams
-8. `service-level-objective-slo-template` — Define and measure SLOs
-9. `cloud-resource-tagging-policy-template` — Enforce consistent resource labels
-10. `ssl-certificate-management-template` — Track cert expiry and renewals
-11. `backup-verification-test-template` — Ensure backups are restorable
+1. `monitoring-alerting-policy-template` — Define alert thresholds and escalation
+2. `infrastructure-cost-allocation-template` — Charge back cloud costs to teams
+3. `service-level-objective-slo-template` — Define and measure SLOs
+4. `cloud-resource-tagging-policy-template` — Enforce consistent resource labels
+5. `ssl-certificate-management-template` — Track cert expiry and renewals
+6. `backup-verification-test-template` — Ensure backups are restorable
 
 **Configuration & Environment**
-12. `environment-configuration-template` — Document env vars per environment
-13. `zero-downtime-deployment-checklist` — Ensure smooth production releases
-14. `load-test-execution-plan-template` — Plan and execute performance tests
-15. `data-retention-policy-template` — Define data lifecycle and deletion
+7. `environment-configuration-template` — Document env vars per environment
+8. `zero-downtime-deployment-checklist` — Ensure smooth production releases
+9. `load-test-execution-plan-template` — Plan and execute performance tests
+10. `data-retention-policy-template` — Define data lifecycle and deletion
 
 ---
 
