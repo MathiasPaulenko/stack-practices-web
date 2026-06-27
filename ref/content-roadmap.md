@@ -26,7 +26,7 @@
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
-| Docs | ~93 unique | ADRs, Runbooks, Checklists, Templates, Policies |
+| Docs | ~98 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
 
@@ -174,33 +174,28 @@ All pending patterns have been completed.
 
 ---
 
-### New Docs / Templates (20)
+### New Docs / Templates (15)
 
 **Security & Compliance**
-1. `network-segmentation-policy-template` — Document network security zones
-2. `container-security-baseline-template` — Harden container configurations
-3. `pen-test-scope-template` — Define penetration testing boundaries
-4. `compliance-gap-analysis-template` — Map controls to frameworks like SOC2
-5. `vulnerability-scan-report-template` — Summarize scan findings
-6. `endpoint-security-checklist-template` — Secure workstations and devices
-7. `ci-cd-pipeline-security-template` — Secure build and deploy pipelines
-8. `user-access-audit-template` — Review and certify user permissions
-9. `encryption-key-lifecycle-template` — Manage key creation, rotation, and destruction
+1. `endpoint-security-checklist-template` — Secure workstations and devices
+2. `ci-cd-pipeline-security-template` — Secure build and deploy pipelines
+3. `user-access-audit-template` — Review and certify user permissions
+4. `encryption-key-lifecycle-template` — Manage key creation, rotation, and destruction
 
 **Monitoring & Infrastructure**
-10. `logging-standards-document` — Define structured logging conventions
-11. `monitoring-alerting-policy-template` — Define alert thresholds and escalation
-12. `infrastructure-cost-allocation-template` — Charge back cloud costs to teams
-13. `service-level-objective-slo-template` — Define and measure SLOs
-14. `cloud-resource-tagging-policy-template` — Enforce consistent resource labels
-15. `ssl-certificate-management-template` — Track cert expiry and renewals
-16. `backup-verification-test-template` — Ensure backups are restorable
+5. `logging-standards-document` — Define structured logging conventions
+6. `monitoring-alerting-policy-template` — Define alert thresholds and escalation
+7. `infrastructure-cost-allocation-template` — Charge back cloud costs to teams
+8. `service-level-objective-slo-template` — Define and measure SLOs
+9. `cloud-resource-tagging-policy-template` — Enforce consistent resource labels
+10. `ssl-certificate-management-template` — Track cert expiry and renewals
+11. `backup-verification-test-template` — Ensure backups are restorable
 
 **Configuration & Environment**
-17. `environment-configuration-template` — Document env vars per environment
-18. `zero-downtime-deployment-checklist` — Ensure smooth production releases
-19. `load-test-execution-plan-template` — Plan and execute performance tests
-20. `data-retention-policy-template` — Define data lifecycle and deletion
+12. `environment-configuration-template` — Document env vars per environment
+13. `zero-downtime-deployment-checklist` — Ensure smooth production releases
+14. `load-test-execution-plan-template` — Plan and execute performance tests
+15. `data-retention-policy-template` — Define data lifecycle and deletion
 
 ---
 
