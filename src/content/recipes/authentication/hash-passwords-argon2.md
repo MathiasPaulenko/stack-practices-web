@@ -320,3 +320,17 @@ async def login(email, password):
 - **Forgetting to handle encoding consistently.** UTF-8, Latin-1, and ASCII produce different byte sequences for the same password. Standardize on UTF-8 everywhere.
 - **Setting memory too high.** Argon2 with 1 GiB memory may crash under load or cause OOM kills. Start with 64 MiB and increase gradually based on server capacity.
 - **Not upgrading parameters over time.** Hardware gets faster. Schedule annual reviews of your hashing parameters and rehash passwords on login.
+
+## Frequently Asked Questions
+
+**Q: Why is Argon2id preferred over bcrypt?**
+A: Argon2id is memory-hard, which makes GPU and ASIC attacks much more expensive. bcrypt is still secure, but Argon2id is the current recommendation from OWASP and NIST for new systems.
+
+**Q: How do I choose Argon2 parameters?**
+A: Target a hashing time of 250-500ms on production hardware. A common starting point is time_cost=3, memory_cost=65536 (64 MiB), and parallelism=4. Profile and adjust annually.
+
+**Q: How do I migrate passwords from bcrypt?**
+A: Accept both bcrypt and Argon2 hashes during verification. On successful bcrypt login, transparently rehash the password with Argon2 and store the new hash.
+
+**Q: What happens if I set memory_cost too high?**
+A: The server can run out of memory under load, causing OOM kills or denial of service. Start with 64 MiB and increase only after load testing.

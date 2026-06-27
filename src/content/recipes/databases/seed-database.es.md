@@ -300,4 +300,14 @@ if __name__ == "__main__":
 - **Olvidar crear índices.** El seeding evade la aplicación, por lo que los índices que la app espera pueden no existir si el script de seed omite declaraciones `CREATE INDEX`.
 - **Usar dumps de producción como seeds.** Un dump SQL de producción puede contener PII, datos sensibles GDPR o IDs internos que no deberían estar en git o máquinas de desarrollo.
 - **Seeds no determinísticos.** Datos de seed generados aleatoriamente hacen imposible reproducir bugs entre entornos. Usa una seed fija para generadores aleatorios en scripts de seed.
-
+
+## Preguntas Frecuentes
+
+**Q: ¿Cuál es la diferencia entre seeding y migrar una base de datos?**
+A: Las migraciones cambian la estructura del esquema (tablas, índices). El seeding popula la base de datos con datos de referencia o registros de prueba después de que el esquema está listo.
+
+**Q: ¿Debo hacer seeding en bases de datos de producción?**
+A: Solo con datos de referencia necesarios para que la aplicación funcione, como roles, monedas o configuración. Nunca hagas seeding de usuarios reales o datos de prueba en producción.
+
+**Q: ¿Cómo mantengo los datos de seed deterministas?**
+A: Usa IDs fijos, scripts de inserción ordenados y factories que produzcan la misma salida para la misma entrada. Esto hace que los tests sean reproducibles en cualquier entorno.

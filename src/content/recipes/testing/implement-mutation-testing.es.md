@@ -245,3 +245,14 @@ src/cart.js:67  # removido null check en applyDiscount
 - **Ignorar mutantes equivalentes.** Crean ruido y hacen que los desarrolladores desconfíen de la herramienta. Configura exclusiones o anotaciones.
 - **Usar mutation score como KPI de equipo.** Incentiva escribir tests específicamente para matar mutantes en lugar de testear requerimientos reales.
 - **Ejecutar mutation tests en tests de integración sin mock.** Las llamadas a base de datos y requests HTTP hacen el mutation testing imposible de lento; apunta a tests unitarios.
+
+## Preguntas Frecuentes
+
+**Q: ¿En qué se diferencia el mutation testing de la cobertura de código?**
+A: La cobertura mide qué líneas se ejecutaron. El mutation testing mide si los tests pueden detectar pequeños bugs artificiales (mutantes) introducidos en el código.
+
+**Q: ¿Qué significa un mutante sobreviviente?**
+A: Un mutante sobreviviente significa que la suite de tests no falló después de la mutación, lo que sugiere una aserción faltante o débil. Un mutante muerto significa que los tests detectaron el cambio.
+
+**Q: ¿Por qué el mutation testing es lento?**
+A: Ejecuta la suite completa de tests contra cada mutante. Para bases de código grandes, pueden ser miles de ejecuciones. Las herramientas soportan ejecución incremental y paralela para mitigarlo.

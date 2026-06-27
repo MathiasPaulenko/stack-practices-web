@@ -228,3 +228,14 @@ sudo crontab -e
 - **Usar `cert.pem` en lugar de `fullchain.pem`** causa errores "certificado no confiado" en algunos navegadores porque faltan intermedios.
 - **No probar la renovación con `--dry-run`.** Una emisión inicial exitosa no garantiza que la renovación funcionará. Pruébalo antes de los 90 días.
 - **Ejecutar Certbot como root innecesariamente.** Usa `sudo` para la instalación, pero considera ejecutar la renovación como un usuario dedicado con privilegios limitados.
+
+## Preguntas Frecuentes
+
+**Q: ¿Cuál es la diferencia entre un certificado autofirmado y uno firmado por CA?**
+A: Un certificado autofirmado lo emites tú y generará advertencias en el navegador. Un certificado firmado por CA es confiable por defecto porque los navegadores confían en la Autoridad Certificadora emisora.
+
+**Q: ¿Cómo funciona Let's Encrypt?**
+A: Let's Encrypt es una CA gratuita que valida la propiedad del dominio mediante desafíos HTTP o DNS y emite certificados de corta duración, típicamente válidos por 90 días.
+
+**Q: ¿Por qué debería automatizar la renovación de certificados?**
+A: Los certificados TLS expiran. La renovación automatizada previene interrupciones del servicio por certificados vencidos y reduce el trabajo operativo manual.

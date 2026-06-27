@@ -230,3 +230,14 @@ List<User> users = Instancio.ofList(User.class).size(100).create();
 - **Mezclar datos generados y hardcodeados inconsistentemente.** Algunos tests usan Faker, otros literales — el test suite tiene cobertura inconsistente y los desarrolladores no saben cuál usar.
 - **No regenerar archivos de fixture estáticos.** Exportar un fixture JSON una vez y commitearlo a git significa que los datos nunca ejercitan nuevas reglas de validación agregadas después del export.
 - **Generadores que dependen entre sí.** `createOrder()` llamando `createUser()` internamente oculta el usuario del test, haciendo imposibles las aserciones sobre la relación.
+
+## Preguntas Frecuentes
+
+**Q: ¿Por qué debería usar factories en lugar de fixtures estáticos?**
+A: Las factories generan datos bajo demanda y son más fáciles de mantener. Las fixtures estáticas se vuelven obsoletas y fuerzan a los tests a depender de un dataset específico.
+
+**Q: ¿Cómo mantengo los datos de prueba deterministas?**
+A: Inicializa el generador aleatorio con un valor fijo, usa bibliotecas de datos falsos como Faker con semillas controladas y evita depender de sistemas externos reales.
+
+**Q: ¿Qué datos nunca deberían estar en los tests?**
+A: Nunca uses datos personales reales, credenciales de producción o información de pagos en tests. Usa datos sintéticos que se parezcan a los reales sin exponer a nadie.

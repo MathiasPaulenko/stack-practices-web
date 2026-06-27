@@ -182,3 +182,14 @@ test:
 - **Running DIND without TLS** can expose the Docker socket to other jobs on the same runner.
 - **Storing secrets in `.gitlab-ci.yml`** — always use CI/CD variables from the project settings.
 - **Forgetting `tags` for self-hosted runners** causes jobs to queue indefinitely on shared runners.
+
+## Frequently Asked Questions
+
+**Q: What is a GitLab Runner?**
+A: A GitLab Runner is the agent that executes pipeline jobs. It can be shared, group-specific, or project-specific, and runs on Linux, Windows, macOS, or Kubernetes.
+
+**Q: How do I cache dependencies in GitLab CI?**
+A: Use the `cache` keyword to persist directories like `node_modules`, `.m2`, or `.pip` between pipelines. Use `key` to scope caches per branch or lockfile.
+
+**Q: What is the difference between stages and jobs?**
+A: Stages define execution phases (build, test, deploy) that run sequentially. Jobs are the individual tasks within a stage, which can run in parallel if they share a stage.

@@ -293,3 +293,14 @@ public class SamlSecurityConfig {
 - **Trusting the NameID as the only user identifier.** If an attacker can change their NameID at the IdP, they can impersonate another user. Map to a stable, internal user ID.
 - **Ignoring clock skew.** IdP and SP clocks that differ by more than the assertion lifetime cause legitimate logins to fail. Allow a small skew (1-5 minutes) but log warnings.
 - **Not validating the `InResponseTo` field.** Without this check, an attacker can capture a legitimate assertion and replay it against a different authentication request.
+
+## Frequently Asked Questions
+
+**Q: What is the difference between SAML and OAuth 2.0?**
+A: SAML is an XML-based standard for authentication and authorization, often used for enterprise SSO. OAuth 2.0 is a framework for delegated authorization, commonly used for API access and social login.
+
+**Q: What are the roles in SAML?**
+A: The Service Provider (SP) is the application users want to access. The Identity Provider (IdP) authenticates users and issues SAML assertions.
+
+**Q: How do I secure SAML assertions?**
+A: Sign SAML assertions and responses with XML signatures, encrypt assertions in transit, validate the destination and timestamps, and enforce strict certificate pinning.

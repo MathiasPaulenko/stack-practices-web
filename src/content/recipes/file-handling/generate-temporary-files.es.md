@@ -199,3 +199,14 @@ UNIQUE_PATH="${TMPDIR:-/tmp}/batch_$(date +%s)_$$_$RANDOM.csv"
 - **Olvidar la limpieza en rutas de error.** Una excepción antes de la limpieza deja archivos temporales huérfanos que llenan el disco con el tiempo.
 - **Usar `Date.now()` como único aleatorizador en Node.js.** Las colisiones de milisegundos son posibles bajo carga — combina con bytes crypto-aleatorios.
 - **Crear archivos temporales en el directorio de trabajo.** Poluciona el proyecto y puede ser commiteado accidentalmente.
+
+## Preguntas Frecuentes
+
+**Q: ¿Por qué `mktemp` es más seguro que crear archivos en /tmp manualmente?**
+A: `mktemp` genera nombres de archivo únicos con permisos restrictivos, previniendo condiciones de carrera y rutas predecibles que un atacante podría explotar.
+
+**Q: ¿Qué pasa con los archivos temporales después de que el script termina?**
+A: Permanecen a menos que los borres. Usa un trap para limpiar al salir, o almacena archivos en un directorio creado con `mktemp -d` y elimina todo el directorio.
+
+**Q: ¿Puedo usar archivos temporales en un pipeline de CI?**
+A: Sí, pero asegúrate de que el runner tenga suficiente espacio en disco y que datos sensibles nunca queden en artefactos o cachés compartidos.

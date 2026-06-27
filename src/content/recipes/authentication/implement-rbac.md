@@ -345,3 +345,14 @@ public class ResourcePermissionEvaluator implements PermissionEvaluator {
 - **Storing roles in JWTs without expiration.** A user demoted from `admin` to `viewer` will retain admin access until their JWT expires. Use short-lived tokens or maintain a revocation list.
 - **Ignoring the principle of least privilege.** Default roles with broad permissions (`user` can read everything) expose data that should be restricted.
 - **Not testing authorization logic.** Unit tests verify business logic but rarely test that `viewer` cannot call `DELETE /users/1`. Add explicit authorization test cases.
+
+## Frequently Asked Questions
+
+**Q: What is the main benefit of RBAC?**
+A: RBAC simplifies access control by grouping permissions into roles. Users are assigned roles, and administrators manage permissions at the role level instead of per user.
+
+**Q: How granular should roles be?**
+A: Start with coarse roles (admin, editor, viewer) and split them only when real business needs arise. Too many roles create maintenance overhead and role explosion.
+
+**Q: Can RBAC and ABAC be used together?**
+A: Yes. A common pattern is to use RBAC for broad access and ABAC for fine-grained, contextual decisions within a role.

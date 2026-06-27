@@ -180,4 +180,14 @@ sem --id api_calls --wait
 - **Ignorar códigos de salida.** `xargs` con `-P` sale con 123 si algún hijo falla, pero debes verificarlo. Los trabajos en segundo plano requieren loops de `wait` para detectar fallos.
 - **Pasar variables de shell a xargs incorrectamente.** Las comillas simples en `sh -c` previenen la expansión de variables. Usa comillas dobles y escapa cuidadosamente, o pasa variables como argumentos posicionales.
 - **Usar GNU parallel sin aceptar el aviso de citación.** Imprime un recordatorio de citación en el primer uso; usa `--will-cite` o `--cite` para silenciarlo en CI.
-
+
+## Preguntas Frecuentes
+
+**Q: ¿Cuál es el riesgo de ejecutar demasiados jobs en paralelo?**
+A: Puedes agotar CPU, memoria o descriptores de archivo, y saturar servicios o APIs downstream. Siempre limita la concurrencia a un límite probado.
+
+**Q: ¿Cómo limito el paralelismo con GNU parallel?**
+A: Usa `parallel -j 4` para ejecutar como máximo cuatro jobs simultáneamente. Ajusta el número según los núcleos de CPU y restricciones de I/O.
+
+**Q: ¿Cómo manejo fallos en jobs paralelos?**
+A: Usa `parallel --halt soon,fail=1` para detenerte en el primer fallo, o captura los códigos de salida por separado y agrégalos al final.

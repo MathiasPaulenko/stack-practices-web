@@ -257,3 +257,14 @@ jobs:
 - **Incluir archivos de test en cobertura.** Utilidades de test y clases mock inflan el número y ocultan cobertura de producción faltante.
 - **Comparar cobertura entre lenguajes.** Python branch coverage y Java line coverage no son métricas comparables — rastrea tendencias dentro de cada codebase.
 - **Ignorar cobertura en tests de integración.** Los tests de integración lentos a menudo cubiertan las rutas más importantes; excluirlos de cobertura oculta gaps reales.
+
+## Preguntas Frecuentes
+
+**Q: ¿Es 100% de cobertura un buen objetivo?**
+A: 100% de cobertura de líneas es alcanzable pero puede ser engañoso. Un número alto de cobertura con aserciones débiles no significa que el código esté bien probado. Apunta a una cobertura significativa de caminos críticos.
+
+**Q: ¿Cuál es la diferencia entre cobertura de líneas y de ramas?**
+A: La cobertura de líneas cuenta líneas ejecutadas. La cobertura de ramas cuenta si cada rama de decisión (if/else, switch) fue tomada. La cobertura de ramas suele revelar más caminos no probados.
+
+**Q: ¿Cómo debo usar cobertura en CI?**
+A: Establece umbrales mínimos para módulos críticos, rastrea tendencias a lo largo del tiempo y rechaza pull requests que bajen significativamente la cobertura sin justificación. Evita jugar con la métrica.

@@ -242,3 +242,14 @@ class StackMachine {
 - **Ignoring shrinking output.** A 100-element array that fails is hard to debug; the shrunk 3-element array is what you should analyze.
 - **Slow or non-terminating generators.** Generating recursive structures without depth limits can cause infinite loops during test execution.
 - **Flaky properties due to global state.** A property that modifies a module-level counter fails unpredictably depending on execution order.
+
+## Frequently Asked Questions
+
+**Q: What is property-based testing?**
+A: Instead of writing example inputs, you define properties that should always hold for a function. The framework generates hundreds of random inputs and tries to find a counterexample.
+
+**Q: What is shrinking in PBT?**
+A: When a counterexample is found, the framework shrinks the input to the smallest possible value that still fails the property. This makes debugging much faster.
+
+**Q: When is PBT not a good fit?**
+A: PBT is less useful for UI workflows, complex state machines, or properties that are hard to express formally. Example-based tests remain valuable for those cases.

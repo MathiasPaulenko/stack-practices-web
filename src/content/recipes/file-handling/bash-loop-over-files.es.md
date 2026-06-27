@@ -179,3 +179,14 @@ done
 - **Olvidar `nullglob`:** El cuerpo del loop corre una vez con `*.txt` como nombre de archivo cuando no hay coincidencias.
 - **Usar `cat` para alimentar un solo archivo a un programa:** `cat "$file" | grep pattern` es un uso inútil de `cat`. Usa `grep pattern "$file"`.
 - **No manejar el caso de no-coincidencia:** Un directorio vacío con un loop ingenuo puede producir comportamiento inesperado o errores.
+
+## Preguntas Frecuentes
+
+**Q: ¿Por qué debo evitar `for f in $(ls)`?**
+A: Fallan con nombres de archivo que contienen espacios o caracteres especiales. Usa un patrón glob como `for f in *.txt` o `while IFS= read -r` con `find -print0`.
+
+**Q: ¿Cuándo debo usar `find` en lugar de un loop con glob?**
+A: Usa `find` cuando necesites recursión, filtrado por tamaño o fecha, o cuando debas manejar nombres de archivo arbitrarios de forma segura con `-print0`.
+
+**Q: ¿Cómo proceso archivos en subdirectorios?**
+A: Usa `find . -type f -name "*.txt" -print0 | while IFS= read -r -d  file; do ... done` para recorrer directorios anidados de forma segura.

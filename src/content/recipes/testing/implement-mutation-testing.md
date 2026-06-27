@@ -245,3 +245,14 @@ src/cart.js:67  # removed null check in applyDiscount
 - **Ignoring equivalent mutants.** They create noise and make developers distrust the tool. Configure exclusions or annotations.
 - **Using mutation score as a team KPI.** It encourages writing tests specifically to kill mutants rather than testing real requirements.
 - **Running mutation tests on unmocked integration tests.** Database calls and HTTP requests make mutation testing impossibly slow; target unit tests.
+
+## Frequently Asked Questions
+
+**Q: How is mutation testing different from code coverage?**
+A: Code coverage measures which lines were executed. Mutation testing measures whether the tests can detect small, artificial bugs (mutants) introduced into the code.
+
+**Q: What does a survived mutant mean?**
+A: A survived mutant means the test suite did not fail after the mutation, suggesting a missing or weak assertion. A killed mutant means the tests caught the change.
+
+**Q: Why is mutation testing slow?**
+A: It runs the full test suite against every mutant. For large codebases, this can be thousands of executions. Tools support incremental and parallel execution to mitigate this.

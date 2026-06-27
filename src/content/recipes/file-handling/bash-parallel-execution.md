@@ -180,4 +180,14 @@ sem --id api_calls --wait
 - **Ignoring exit codes.** `xargs` with `-P` exits 123 if any child fails, but you must check it. Background jobs require `wait` loops to detect failures.
 - **Passing shell variables into xargs incorrectly.** Single quotes in `sh -c` prevent variable expansion. Use double quotes and escape carefully, or pass variables as positional arguments.
 - **Using GNU parallel without citation notice acceptance.** It prints a citation reminder on first use; use `--will-cite` or `--cite` to silence it in CI.
-
+
+## Frequently Asked Questions
+
+**Q: What is the risk of running too many jobs in parallel?**
+A: You can exhaust CPU, memory, or file descriptors, and overwhelm downstream services or APIs. Always cap concurrency to a tested limit.
+
+**Q: How do I limit parallelism with GNU parallel?**
+A: Use `parallel -j 4` to run at most four jobs simultaneously. Tune the number based on your CPU cores and I/O constraints.
+
+**Q: How do I handle failures in parallel jobs?**
+A: Use `parallel --halt soon,fail=1` to stop at the first failure, or capture exit codes separately and aggregate them at the end.

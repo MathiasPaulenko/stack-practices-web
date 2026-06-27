@@ -257,3 +257,14 @@ jobs:
 - **Including test files in coverage.** Test utilities and mock classes inflate the number and hide missing production coverage.
 - **Comparing coverage across languages.** Python branch coverage and Java line coverage are not comparable metrics — track trends within each codebase.
 - **Ignoring coverage on integration tests.** Slow integration tests often cover the most important paths; excluding them from coverage hides real gaps.
+
+## Frequently Asked Questions
+
+**Q: Is 100% coverage a good goal?**
+A: 100% line coverage is achievable but can be misleading. A high coverage number with weak assertions does not mean the code is well tested. Aim for meaningful coverage of critical paths.
+
+**Q: What is the difference between line and branch coverage?**
+A: Line coverage counts executed lines. Branch coverage counts whether each decision branch (if/else, switch) was taken. Branch coverage usually reveals more untested paths.
+
+**Q: How should I use coverage in CI?**
+A: Set minimum thresholds for critical modules, track trends over time, and reject pull requests that significantly lower coverage without justification. Avoid gaming the metric.

@@ -182,4 +182,14 @@ public class DocumentController {
 - **Ignorar rendimiento de evaluación de políticas.** Evaluar 50 reglas en cada API call añade latencia. Usa caching, políticas compiladas y evaluación lazy.
 - **Almacenar políticas en base de datos sin versionado.** Un cambio de política que accidentalmente abre acceso no puede revertirse rápidamente. Versiona en git.
 - **Over-engineering de control de acceso simple.** Si la política es "admins pueden hacer todo, todos los demás pueden leer", ABAC es excesivo.
-
+
+## Preguntas Frecuentes
+
+**Q: ¿En qué se diferencia ABAC de RBAC?**
+A: RBAC otorga acceso basado en roles (por ejemplo, admin, editor). ABAC otorga acceso basado en atributos del usuario, recurso, acción y entorno, permitiendo políticas más granulares.
+
+**Q: ¿Cuáles son atributos comunes en ABAC?**
+A: Atributos de usuario (departamento, clearance), de recurso (propietario, clasificación), de acción (leer, borrar) y de entorno (hora, ubicación, dispositivo).
+
+**Q: ¿Cuándo debo elegir ABAC sobre RBAC?**
+A: Elige ABAC cuando necesites decisiones contextuales, como permitir acceso solo durante horario laboral o desde una ubicación específica, o cuando los roles solos generen explosión de roles.

@@ -232,4 +232,14 @@ public class LogRotationExample {
 - **Configurar `maxFiles` o `backupCount` demasiado bajo para cumplimiento.** 5 backups de 10MB cada uno son solo 50MB de historial — insuficiente para la mayoría del debugging en producción.
 - **Ignorar zonas horarias en `TimedRotatingFileHandler`.** Usa `utc=True` para evitar comportamiento ambiguo durante transiciones de horario de verano.
 - **Ejecutar múltiples instancias de la aplicación con el mismo archivo de log.** Writers concurrentes sin un mecanismo de bloqueo entrelazan líneas de log o corrompen el archivo.
-
+
+## Preguntas Frecuentes
+
+**Q: ¿Qué es la rotación de logs y por qué importa?**
+A: La rotación de logs archiva o elimina archivos de log antiguos para evitar que se agote el disco. Sin rotación, un solo servicio puede llenar todo el disco.
+
+**Q: ¿Cómo elijo una política de retención?**
+A: Equilibra cumplimiento, necesidades de debugging y costo de almacenamiento. Una aplicación web común conserva 7-30 días de logs localmente y archiva logs más antiguos en almacenamiento frío.
+
+**Q: ¿Debo comprimir logs rotados?**
+A: Sí. La compresión reduce significativamente el uso de almacenamiento. La mayoría de las herramientas de rotación soportan compresión gzip o zstd de forma nativa.

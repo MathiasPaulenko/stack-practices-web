@@ -216,3 +216,14 @@ ansible-playbook site.yml --vault-password-file .vault_pass
 - **Forgetting `become: yes`** when tasks require root privileges, causing cryptic permission errors.
 - **Hardcoding IP addresses** in inventory files. Use DNS names or dynamic inventory scripts (AWS, GCP) that stay current as infrastructure scales.
 - **Not using `handlers` for service restarts.** A playbook that restarts Nginx on every task is unnecessary; handlers only trigger once at the end when notified.
+
+## Frequently Asked Questions
+
+**Q: What is the advantage of Ansible over shell scripts?**
+A: Ansible playbooks are idempotent and declarative. Running the same playbook twice produces the same state without duplicating configuration or causing errors.
+
+**Q: How do I manage secrets in Ansible?**
+A: Use Ansible Vault to encrypt sensitive files, or integrate with external secret managers like HashiCorp Vault or AWS Secrets Manager. Never commit plain-text passwords.
+
+**Q: What is an Ansible inventory?**
+A: An inventory lists the managed hosts and groups them logically (e.g., web, db, cache). Inventories can be static files or dynamic plugins pulled from cloud providers.

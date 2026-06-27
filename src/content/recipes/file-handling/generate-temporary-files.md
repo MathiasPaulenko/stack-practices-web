@@ -199,3 +199,14 @@ UNIQUE_PATH="${TMPDIR:-/tmp}/batch_$(date +%s)_$$_$RANDOM.csv"
 - **Forgetting cleanup in error paths.** An exception before cleanup leaves orphaned temp files that fill the disk over time.
 - **Using `Date.now()` as the only randomizer in Node.js.** Millisecond collisions are possible under load — combine with crypto-random bytes.
 - **Creating temp files in the working directory.** Pollutes the project and may be committed accidentally.
+
+## Frequently Asked Questions
+
+**Q: Why is `mktemp` safer than creating files in /tmp manually?**
+A: `mktemp` generates unique filenames with restrictive permissions, preventing race conditions and predictable paths that attackers could exploit.
+
+**Q: What happens to temporary files after the script exits?**
+A: They remain unless you delete them. Use a trap to clean up on exit, or store files in a directory created with `mktemp -d` and remove the whole directory.
+
+**Q: Can I use temporary files in a CI pipeline?**
+A: Yes, but ensure the runner has enough disk space and that sensitive data is never left in artifacts or shared caches.

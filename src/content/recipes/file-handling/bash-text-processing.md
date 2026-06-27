@@ -200,3 +200,14 @@ awk '{print $9}' access.log | sort | uniq -c | \
 - **Assuming `sort` is stable by default.** `sort` stability varies by implementation; use `sort -s` if you need it.
 - **Using `cat` unnecessarily.** `cat file | grep pattern` is a useless use of `cat`. Use `grep pattern file`.
 - **Not handling empty input.** Many pipelines fail silently on empty files — add `| cat` at the end or check file size first.
+
+## Frequently Asked Questions
+
+**Q: When should I use awk instead of sed?**
+A: Use `awk` for field-based processing, arithmetic, and structured records. Use `sed` for simple substitutions, deletions, and line-oriented transformations.
+
+**Q: How do I handle CSV files safely in Bash?**
+A: Use a proper CSV parser like Python's `csv` module or `csvkit`. Pure `cut` or `awk` breaks on quoted fields and embedded commas.
+
+**Q: Why is grep with regex slower than expected?**
+A: Backtracking regular expressions, especially with alternations and wildcards, can be slow. Use fixed-string search with `grep -F` when you do not need regex.

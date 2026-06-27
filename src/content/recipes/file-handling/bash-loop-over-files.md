@@ -179,3 +179,14 @@ done
 - **Forgetting `nullglob`:** The loop body runs once with `*.txt` as the filename when no matches exist.
 - **Using `cat` to feed a single file to a program:** `cat "$file" | grep pattern` is a useless use of `cat`. Use `grep pattern "$file"`.
 - **Not handling the no-match case:** An empty directory with a naive loop can produce unexpected behavior or errors.
+
+## Frequently Asked Questions
+
+**Q: Why should I avoid `for f in $(ls)`?**
+A: It breaks on filenames with spaces or special characters. Use a glob pattern like `for f in *.txt` or `while IFS= read -r` with `find -print0`.
+
+**Q: When should I use `find` instead of a glob loop?**
+A: Use `find` when you need recursion, filtering by size or date, or when you must handle arbitrary filenames safely with `-print0`.
+
+**Q: How do I process files in subdirectories?**
+A: Use `find . -type f -name "*.txt" -print0 | while IFS= read -r -d  file; do ... done` to safely traverse nested directories.

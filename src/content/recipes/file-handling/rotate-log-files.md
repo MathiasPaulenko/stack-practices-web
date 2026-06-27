@@ -232,4 +232,14 @@ public class LogRotationExample {
 - **Setting `maxFiles` or `backupCount` too low for compliance.** 5 backups at 10MB each is only 50MB of history — insufficient for most production debugging.
 - **Ignoring time zones in `TimedRotatingFileHandler`.** Use `utc=True` to avoid ambiguous behavior around daylight saving time transitions.
 - **Running multiple application instances with the same log file.** Concurrent writers without a locking mechanism interleave log lines or corrupt the file.
-
+
+## Frequently Asked Questions
+
+**Q: What is log rotation and why does it matter?**
+A: Log rotation archives or deletes old log files to prevent disk exhaustion. Without rotation, a single service can fill the entire disk.
+
+**Q: How do I choose a retention policy?**
+A: Balance compliance, debugging needs, and storage cost. A common web application keeps 7-30 days of logs locally and archives older logs to cold storage.
+
+**Q: Should I compress rotated logs?**
+A: Yes. Compression reduces storage usage significantly. Most log rotation tools support gzip or zstd compression out of the box.

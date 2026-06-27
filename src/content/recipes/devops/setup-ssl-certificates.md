@@ -228,3 +228,14 @@ sudo crontab -e
 - **Using `cert.pem` instead of `fullchain.pem`** causes "certificate not trusted" errors in some browsers because intermediates are missing.
 - **Not testing renewal with `--dry-run`.** A working initial issuance does not guarantee renewal will work. Test it before the 90-day deadline.
 - **Running Certbot as root unnecessarily.** Use `sudo` for installation, but consider running the renewal as a dedicated user with limited privileges.
+
+## Frequently Asked Questions
+
+**Q: What is the difference between a self-signed and a CA-signed certificate?**
+A: A self-signed certificate is issued by you and will cause browser warnings. A CA-signed certificate is trusted by default because browsers trust the issuing Certificate Authority.
+
+**Q: How does Let's Encrypt work?**
+A: Let's Encrypt is a free CA that validates domain ownership via HTTP or DNS challenges and issues short-lived certificates, typically valid for 90 days.
+
+**Q: Why should I automate certificate renewal?**
+A: TLS certificates expire. Automated renewal prevents service outages caused by expired certificates and reduces manual operational work.

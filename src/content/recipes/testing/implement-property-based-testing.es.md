@@ -242,3 +242,14 @@ class StackMachine {
 - **Ignorar el output de shrinking.** Un array de 100 elementos que falla es difícil de debuggear; el array shrink de 3 elementos es lo que deberías analizar.
 - **Generadores lentos o no terminantes.** Generar estructuras recursivas sin límites de profundidad puede causar loops infinitos durante la ejecución de tests.
 - **Propiedades flaky debido a estado global.** Una propiedad que modifica un contador a nivel de módulo falla impredeciblemente dependiendo del orden de ejecución.
+
+## Preguntas Frecuentes
+
+**Q: ¿Qué es property-based testing?**
+A: En lugar de escribir entradas de ejemplo, defines propiedades que siempre deberían cumplirse para una función. El framework genera cientos de entradas aleatorias e intenta encontrar un contraejemplo.
+
+**Q: ¿Qué es el shrinking en PBT?**
+A: Cuando se encuentra un contraejemplo, el framework reduce la entrada al valor más pequeño posible que aún falla la propiedad. Esto hace el debugging mucho más rápido.
+
+**Q: ¿Cuándo PBT no es una buena opción?**
+A: PBT es menos útil para flujos de UI, máquinas de estado complejas o propiedades difíciles de expresar formalmente. Los tests basados en ejemplos siguen siendo valiosos para esos casos.

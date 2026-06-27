@@ -219,3 +219,14 @@ public Order updateOrder(Long orderId, OrderUpdateRequest req) { }
 - **Guardar roles en JWTs sin expiración.** Un usuario degradado retiene acceso de admin hasta que el JWT expire. Usa tokens de vida corta o una lista de revocación.
 - **Ignorar el principio de least privilege.** Roles por defecto con permisos amplios exponen datos que deberían estar restringidos.
 - **No testear lógica de autorización.** Los tests de unidad verifican lógica de negocio pero raramente testean que `viewer` no pueda llamar `DELETE /users/1`.
+
+## Preguntas Frecuentes
+
+**Q: ¿Cuál es el principal beneficio de RBAC?**
+A: RBAC simplifica el control de acceso agrupando permisos en roles. Los usuarios se asignan a roles y los administradores gestionan permisos a nivel de rol en lugar de por usuario.
+
+**Q: ¿Qué tan granulares deben ser los roles?**
+A: Comienza con roles gruesos (admin, editor, viewer) y divídelos solo cuando surjan necesidades reales de negocio. Demasiados roles generan sobrecarga de mantenimiento y explosión de roles.
+
+**Q: ¿Se pueden usar RBAC y ABAC juntos?**
+A: Sí. Un patrón común es usar RBAC para acceso amplio y ABAC para decisiones contextuales y granulares dentro de un rol.

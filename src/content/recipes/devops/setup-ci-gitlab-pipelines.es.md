@@ -182,3 +182,14 @@ test:
 - **Ejecutar DIND sin TLS** puede exponer el socket Docker a otros jobs en el mismo runner.
 - **Almacenar secrets en `.gitlab-ci.yml`** — siempre usa variables de CI/CD desde la configuración del proyecto.
 - **Olvidar `tags` para runners propios** hace que los jobs se encolen indefinidamente en runners compartidos.
+
+## Preguntas Frecuentes
+
+**Q: ¿Qué es un GitLab Runner?**
+A: Un GitLab Runner es el agente que ejecuta los jobs de un pipeline. Puede ser compartido, específico de grupo o de proyecto, y corre en Linux, Windows, macOS o Kubernetes.
+
+**Q: ¿Cómo cacheo dependencias en GitLab CI?**
+A: Usa la palabra clave `cache` para persistir directorios como `node_modules`, `.m2` o `.pip` entre pipelines. Usa `key` para delimitar cachés por rama o lockfile.
+
+**Q: ¿Cuál es la diferencia entre stages y jobs?**
+A: Los stages definen fases de ejecución (build, test, deploy) que corren secuencialmente. Los jobs son las tareas individuales dentro de un stage, que pueden correr en paralelo si comparten stage.

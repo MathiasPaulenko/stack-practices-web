@@ -230,3 +230,14 @@ List<User> users = Instancio.ofList(User.class).size(100).create();
 - **Mixing generated and hardcoded data inconsistently.** Some tests use Faker, others use literals — the test suite has inconsistent coverage and developers do not know which to reach for.
 - **Not regenerating static fixture files.** Exporting a JSON fixture once and checking it into git means the data never exercises new validation rules added after the export.
 - **Generators that depend on each other.** `createOrder()` calling `createUser()` internally hides the user from the test, making assertions on the relationship impossible.
+
+## Frequently Asked Questions
+
+**Q: Why should I use factories instead of static fixtures?**
+A: Factories generate data on demand and are easier to maintain. Static fixtures become stale and force tests to depend on a specific dataset.
+
+**Q: How do I keep test data deterministic?**
+A: Seed your random generator with a fixed value, use fake data libraries like Faker with controlled seeds, and avoid depending on real external systems.
+
+**Q: What data should never be in tests?**
+A: Never use real personal data, production credentials, or payment information in tests. Use synthetic data that resembles real data without exposing anyone.

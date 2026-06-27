@@ -216,3 +216,14 @@ ansible-playbook site.yml --vault-password-file .vault_pass
 - **Olvidar `become: yes`** cuando las tareas requieren privilegios de root, causando errores de permisos crípticos.
 - **Hardcodear direcciones IP** en archivos de inventario. Usa nombres DNS o scripts de inventario dinámico (AWS, GCP) que se mantengan actualizados a medida que la infraestructura escala.
 - **No usar `handlers` para reinicios de servicios.** Un playbook que reinicia Nginx en cada tarea es innecesario; los handlers solo se disparan una vez al final cuando son notificados.
+
+## Preguntas Frecuentes
+
+**Q: ¿Cuál es la ventaja de Ansible sobre scripts de shell?**
+A: Los playbooks de Ansible son idempotentes y declarativos. Ejecutar el mismo playbook dos veces produce el mismo estado sin duplicar configuración ni causar errores.
+
+**Q: ¿Cómo manejo secretos en Ansible?**
+A: Usa Ansible Vault para cifrar archivos sensibles, o intégralo con gestores de secretos externos como HashiCorp Vault o AWS Secrets Manager. Nunca commitees contraseñas en texto plano.
+
+**Q: ¿Qué es un inventario de Ansible?**
+A: Un inventario lista los hosts gestionados y los agrupa lógicamente (por ejemplo, web, db, cache). Los inventarios pueden ser archivos estáticos o plugins dinámicos obtenidos de proveedores cloud.

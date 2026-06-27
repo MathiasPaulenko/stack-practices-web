@@ -278,3 +278,14 @@ public class TestFixtures {
 - **Fixtures que hacen demasiado.** Un fixture que crea un usuario, lo loguea y configura 10 órdenes es difícil de reutilizar. Compón fixtures pequeños en su lugar.
 - **Hardcodear tiempo en tests.** Los tests que dependen de `new Date()` fallan a medianoche o en diferentes zonas horarias. Usa un fixture de reloj.
 - **No limpiar recursos externos.** Los archivos temporales, conexiones de base de datos y stubs de red dejados abiertos filtran recursos y causan fallos en cascada.
+
+## Preguntas Frecuentes
+
+**Q: ¿Cuál es la diferencia entre un fixture y un mock?**
+A: Un fixture proporciona el entorno o datos de prueba (por ejemplo, una base de datos sembrada). Un mock reemplaza una dependencia real para aislar el código bajo prueba.
+
+**Q: ¿Cuándo debo limpiar los fixtures después de un test?**
+A: Siempre, a menos que compartas intencionalmente un setup costoso dentro de una clase de tests de alcance reducido. La limpieza previene la contaminación entre tests y resultados flaky.
+
+**Q: ¿Cómo comparto fixtures entre archivos de test?**
+A: Usa fixtures a nivel de framework (pytest conftest, Jest setupFiles) o un módulo helper compartido. Mantén los fixtures compartidos mínimos y deterministas.
