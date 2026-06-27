@@ -182,9 +182,4 @@ public class DocumentController {
 - **Ignorar rendimiento de evaluación de políticas.** Evaluar 50 reglas en cada API call añade latencia. Usa caching, políticas compiladas y evaluación lazy.
 - **Almacenar políticas en base de datos sin versionado.** Un cambio de política que accidentalmente abre acceso no puede revertirse rápidamente. Versiona en git.
 - **Over-engineering de control de acceso simple.** Si la política es "admins pueden hacer todo, todos los demás pueden leer", ABAC es excesivo.
-
-## Recursos Relacionados
-
-- [Implementar RBAC](/recipes/authentication/implement-rbac)
-- [Implementar SSO SAML](/recipes/authentication/implement-sso-saml)
-- [Zero Trust Guide](/guides/security/zero-trust-guide)
+

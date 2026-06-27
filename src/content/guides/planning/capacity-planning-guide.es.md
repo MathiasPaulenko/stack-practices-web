@@ -232,11 +232,3 @@ Planifica por servicio, luego agrega. Cada servicio tiene diferentes caracterís
 ## Conclusion
 
 La planificación de capacidad es una práctica continua, no un ejercicio de una sola vez. Mide, pronostica, prueba y revisa regularmente para mantener tu infraestructura alineada con el crecimiento del negocio mientras controlas costos.
-
-## Related Resources
-
-- [Guía de Optimización de Rendimiento](/guides/performance-optimization-guide)
-- [Guía de FinOps](/guides/devops/finops-guide)
-- [Estrategias Multi-Cloud](/guides/devops/multi-cloud-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Arquitectura de Microservicios](/guides/architecture/microservices-architecture-guide)

@@ -398,11 +398,3 @@ Yes — most platforms support log-based metrics (counting log lines over time, 
 ## Conclusion
 
 Log aggregation transforms scattered application output into a unified debugging and auditing platform. By adopting structured logging, choosing the right shipping strategy, and designing smart retention policies, you build an observability foundation that scales with your infrastructure.
-
-## Related Resources
-
-- [Distributed Tracing](/guides/observability/distributed-tracing-guide)
-- [Metrics and Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Alert Management](/guides/observability/alert-management-guide)
-- [Observability Fundamentals](/guides/devops/observability-guide)
-- [OpenTelemetry](/guides/devops/opentelemetry-guide)

@@ -299,11 +299,3 @@ Multi-cloud DR provides the highest resilience but adds complexity. Start with m
 ## Conclusion
 
 Disaster recovery is insurance for your infrastructure. Define clear objectives, design appropriate strategies, document runbooks, and test regularly. The time to discover a problem with your DR plan is during a drill, not during a real disaster.
-
-## Related Resources
-
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Chaos Engineering](/guides/devops/chaos-engineering-guide)
-- [Multi-Cloud Strategies](/guides/devops/multi-cloud-guide)
-- [Zero Trust Architecture](/guides/security/zero-trust-architecture-guide)
-- [Capacity Planning](/guides/planning/capacity-planning-guide)

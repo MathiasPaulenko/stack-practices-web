@@ -3,7 +3,7 @@ contentType: docs
 slug: patch-management-template
 title: "Plantilla de Gestión de Parches"
 description: "Una plantilla para programar, probar y desplegar parches de seguridad en todos los entornos."
-metaDescription: "Programa parches de seguridad, rastrea pruebas y despliega actualizaciones con mínimo tiempo de inactividad."
+metaDescription: "Plantilla de gestión de parches: programa actualizaciones de seguridad, rastrea pruebas, ventanas de mantenimiento y despliegues con mínimo downtime."
 difficulty: intermediate
 topics:
   - devops
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Programa parches de seguridad, rastrea pruebas y despliega actualizaciones con mínimo tiempo de inactividad."
+  metaDescription: "Plantilla de gestión de parches: programa actualizaciones de seguridad, rastrea pruebas, ventanas de mantenimiento y despliegues con mínimo downtime."
   keywords:
     - devops
     - parche

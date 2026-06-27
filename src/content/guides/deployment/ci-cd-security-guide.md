@@ -279,11 +279,3 @@ Enable Dependabot, use OIDC for cloud auth, pin action versions, enable branch p
 ## Conclusion
 
 CI/CD security is a continuous process, not a one-time hardening task. Every component — from the runner image to the deployment script — is a potential attack surface. Apply defense in depth, verify every artifact, and assume compromise will happen.
-
-## Related Resources
-
-- [Zero Trust Architecture](/guides/security/zero-trust-architecture-guide)
-- [API Security Checklist](/guides/security/api-security-checklist-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Platform Engineering](/guides/devops/platform-engineering-guide)
-- [Disaster Recovery](/guides/planning/disaster-recovery-guide)

@@ -369,11 +369,3 @@ Prometheus is free but requires operational expertise. SaaS solutions reduce ove
 ## Conclusion
 
 Metrics and dashboards transform raw system data into operational intelligence. By instrumenting consistently, designing dashboards for decision-making, and alerting on symptoms rather than causes, you build an observability practice that reduces MTTR and improves system reliability.
-
-## Related Resources
-
-- [Distributed Tracing](/guides/observability/distributed-tracing-guide)
-- [Log Aggregation](/guides/observability/log-aggregation-guide)
-- [Alert Management](/guides/observability/alert-management-guide)
-- [Observability Fundamentals](/guides/devops/observability-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)

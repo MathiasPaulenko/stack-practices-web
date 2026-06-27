@@ -300,9 +300,4 @@ if __name__ == "__main__":
 - **Olvidar crear índices.** El seeding evade la aplicación, por lo que los índices que la app espera pueden no existir si el script de seed omite declaraciones `CREATE INDEX`.
 - **Usar dumps de producción como seeds.** Un dump SQL de producción puede contener PII, datos sensibles GDPR o IDs internos que no deberían estar en git o máquinas de desarrollo.
 - **Seeds no determinísticos.** Datos de seed generados aleatoriamente hacen imposible reproducir bugs entre entornos. Usa una seed fija para generadores aleatorios en scripts de seed.
-
-## Recursos Relacionados
-
-- [Generar Datos de Test](/recipes/testing/generate-test-data)
-- [Configurar Fixtures de Test](/recipes/testing/setup-test-fixtures)
-- [Database Sharding](/guides/databases/database-sharding-implementation-guide)
+

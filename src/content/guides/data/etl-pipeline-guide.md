@@ -654,11 +654,4 @@ A data lake stores raw, unprocessed data in files (S3, GCS) with schema-on-read.
 ## Conclusion
 
 ETL pipelines are the backbone of business intelligence and analytics. By extracting data reliably, transforming it with validation, and loading it efficiently, you create a trustworthy data foundation for reporting, dashboards, and machine learning.
-
-## Related Resources
-
-- [Stream Processing](/guides/data/stream-processing-guide)
-- [Real-Time Analytics](/guides/data/real-time-analytics-guide)
-- [Data Migration](/guides/data/data-migration-guide)
-- [CI/CD Pipelines](/guides/devops/ci-cd-pipelines-guide)
-- [Metrics and Dashboards](/guides/observability/metrics-and-dashboards-guide)
+

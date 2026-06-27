@@ -182,9 +182,3 @@ test:
 - **Running DIND without TLS** can expose the Docker socket to other jobs on the same runner.
 - **Storing secrets in `.gitlab-ci.yml`** — always use CI/CD variables from the project settings.
 - **Forgetting `tags` for self-hosted runners** causes jobs to queue indefinitely on shared runners.
-
-## Related Resources
-
-- [GitHub Actions](/recipes/github-actions)
-- [Docker Basics](/recipes/docker-basics)
-- [Environment Variables](/recipes/environment-variables)

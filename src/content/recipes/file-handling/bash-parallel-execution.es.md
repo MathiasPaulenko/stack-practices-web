@@ -3,7 +3,7 @@ contentType: recipes
 slug: bash-parallel-execution
 title: "Ejecución Paralela en Bash"
 description: "Cómo ejecutar comandos de shell en paralelo con xargs, GNU parallel y trabajos en segundo plano de Bash controlando la concurrencia y recolectando resultados."
-metaDescription: "Ejecuta comandos de shell en paralelo con xargs, GNU parallel y trabajos en segundo plano controlando la concurrencia."
+metaDescription: "Ejecuta comandos de shell en paralelo con xargs, GNU parallel y trabajos en segundo plano, controlando concurrencia y recursos."
 difficulty: intermediate
 topics:
   - file-handling
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Ejecuta comandos de shell en paralelo con xargs, GNU parallel y trabajos en segundo plano controlando la concurrencia."
+  metaDescription: "Ejecuta comandos de shell en paralelo con xargs, GNU parallel y trabajos en segundo plano, controlando concurrencia y recursos."
   keywords:
     - file-handling
     - bash
@@ -180,9 +180,4 @@ sem --id api_calls --wait
 - **Ignorar códigos de salida.** `xargs` con `-P` sale con 123 si algún hijo falla, pero debes verificarlo. Los trabajos en segundo plano requieren loops de `wait` para detectar fallos.
 - **Pasar variables de shell a xargs incorrectamente.** Las comillas simples en `sh -c` previenen la expansión de variables. Usa comillas dobles y escapa cuidadosamente, o pasa variables como argumentos posicionales.
 - **Usar GNU parallel sin aceptar el aviso de citación.** Imprime un recordatorio de citación en el primer uso; usa `--will-cite` o `--cite` para silenciarlo en CI.
-
-## Recursos Relacionados
-
-- [Loop Sobre Archivos en Bash](/recipes/file-handling/bash-loop-over-files)
-- [Procesamiento de Texto en Bash](/recipes/file-handling/bash-text-processing)
-- [Testing de Rendimiento](/guides/performance/performance-testing-guide)
+

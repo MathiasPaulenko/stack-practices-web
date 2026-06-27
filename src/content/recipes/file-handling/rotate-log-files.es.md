@@ -232,9 +232,4 @@ public class LogRotationExample {
 - **Configurar `maxFiles` o `backupCount` demasiado bajo para cumplimiento.** 5 backups de 10MB cada uno son solo 50MB de historial — insuficiente para la mayoría del debugging en producción.
 - **Ignorar zonas horarias en `TimedRotatingFileHandler`.** Usa `utc=True` para evitar comportamiento ambiguo durante transiciones de horario de verano.
 - **Ejecutar múltiples instancias de la aplicación con el mismo archivo de log.** Writers concurrentes sin un mecanismo de bloqueo entrelazan líneas de log o corrompen el archivo.
-
-## Recursos Relacionados
-
-- [Generar Archivos Temporales](/recipes/file-handling/generate-temporary-files)
-- [Logging Estructurado](/recipes/observability/structured-logging)
-- [Escalado](/guides/devops/scaling-guide)
+

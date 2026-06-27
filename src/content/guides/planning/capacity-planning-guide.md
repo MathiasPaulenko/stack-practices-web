@@ -232,11 +232,3 @@ Plan per service, then aggregate. Each service has different scaling characteris
 ## Conclusion
 
 Capacity planning is an ongoing practice, not a one-time exercise. Measure, forecast, test, and review regularly to keep your infrastructure aligned with business growth while controlling costs.
-
-## Related Resources
-
-- [Performance Optimization Guide](/guides/performance-optimization-guide)
-- [FinOps Guide](/guides/devops/finops-guide)
-- [Multi-Cloud Strategies](/guides/devops/multi-cloud-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Microservices Architecture](/guides/architecture/microservices-architecture-guide)

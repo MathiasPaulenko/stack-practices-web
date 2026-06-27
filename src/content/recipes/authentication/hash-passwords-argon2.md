@@ -320,9 +320,3 @@ async def login(email, password):
 - **Forgetting to handle encoding consistently.** UTF-8, Latin-1, and ASCII produce different byte sequences for the same password. Standardize on UTF-8 everywhere.
 - **Setting memory too high.** Argon2 with 1 GiB memory may crash under load or cause OOM kills. Start with 64 MiB and increase gradually based on server capacity.
 - **Not upgrading parameters over time.** Hardware gets faster. Schedule annual reviews of your hashing parameters and rehash passwords on login.
-
-## Related Resources
-
-- [Implement RBAC](/recipes/authentication/implement-rbac)
-- [Implement SSO SAML](/recipes/authentication/implement-sso-saml)
-- [Secrets Management](/guides/security/secrets-management-guide)

@@ -291,11 +291,3 @@ Las alertas te notifican de algo que requiere acción. Los dashboards te ayudan 
 ## Conclusión
 
 Buenas alertas son un producto que construyes para tus ingenieros de guardia. Deben ser precisas, accionables y respetuosas de su tiempo. Al diseñar alertas alrededor del impacto de usuario, crear runbooks claros y reducir activamente el ruido, construyes una cultura operativa que es sostenible y efectiva.
-
-## Recursos Relacionados
-
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Respuesta a Incidentes](/guides/observability/incident-response-guide)
-- [Postmortems](/guides/observability/postmortem-guide)
-- [Prácticas de SRE](/guides/devops/sre-practices-guide)
-- [Fundamentos de Observabilidad](/guides/devops/observability-guide)

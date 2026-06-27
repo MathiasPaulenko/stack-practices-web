@@ -381,11 +381,4 @@ Only if you can tolerate brief data loss and have a retry mechanism. Write-throu
 ## Conclusion
 
 Effective caching transforms application performance. By layering caches from browser to database, choosing appropriate invalidation strategies, and monitoring hit rates, you reduce latency and infrastructure cost while maintaining data consistency.
-
-## Related Resources
-
-- [Database Sharding](/guides/data/database-sharding-implementation-guide)
-- [Read Replicas](/guides/data/read-replica-guide)
-- [Connection Pooling](/guides/data/connection-pooling-deep-dive-guide)
-- [Performance Testing](/guides/performance/performance-testing-guide)
-- [Scaling](/guides/devops/scaling-guide)
+

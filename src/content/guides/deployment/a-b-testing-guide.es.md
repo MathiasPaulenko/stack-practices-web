@@ -292,11 +292,4 @@ Sí, pero asegúrate de que los experimentos sean independientes. Tests superpue
 ## Conclusion
 
 A/B testing transforma el desarrollo de productos de basado-en-opinión a basado-en-evidencia. Siguiendo un diseño riguroso de experimentos, calculando tamaños de muestra apropiados e interpretando resultados correctamente, tomas decisiones que mejoran consistentemente la experiencia de usuario y los resultados de negocio.
-
-## Related Resources
-
-- [Feature Flags](/guides/deployment/feature-flags-guide)
-- [Despliegue Canary](/guides/deployment/canary-deployment-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Observabilidad](/guides/observability/observability-guide)
-- [Data Pipelines](/guides/data/data-pipeline-guide)
+

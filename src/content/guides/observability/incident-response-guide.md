@@ -248,11 +248,3 @@ That is okay. Document what you know, what you tried, and what you will monitor.
 ## Conclusion
 
 Incident response is a team sport with clear rules. By declaring early, assigning roles, communicating relentlessly, and focusing on mitigation before investigation, you turn chaotic outages into structured, learnable events.
-
-## Related Resources
-
-- [Alert Management](/guides/observability/alert-management-guide)
-- [Postmortems](/guides/observability/postmortem-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Chaos Engineering](/guides/devops/chaos-engineering-guide)
-- [Disaster Recovery](/guides/planning/disaster-recovery-guide)

@@ -431,11 +431,4 @@ Yes, but throttle the backfill. Use `pg_sleep` between batches, run during off-p
 ## Conclusion
 
 Data migration is not a single event but a process: plan, dual-write, backfill, validate, shadow-read, cutover, and clean up. By following structured patterns and never skipping validation, you move data safely while keeping systems online.
-
-## Related Resources
-
-- [Database Sharding](/guides/data/database-sharding-implementation-guide)
-- [ETL Pipelines](/guides/data/etl-pipeline-guide)
-- [Blue-Green Deployment](/guides/deployment/blue-green-deployment-guide)
-- [Disaster Recovery](/guides/planning/disaster-recovery-guide)
-- [Testing Strategy](/guides/testing/testing-strategy-guide)
+

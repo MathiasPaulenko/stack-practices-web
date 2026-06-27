@@ -279,11 +279,3 @@ Habilitar Dependabot, usar OIDC para auth cloud, fijar versiones de actions, hab
 ## Conclusion
 
 La seguridad CI/CD es un proceso continuo, no una tarea de hardening de una sola vez. Cada componente — desde la imagen del runner hasta el script de despliegue — es una superficie de ataque potencial. Aplica defensa en profundidad, verifica cada artefacto, y asume que el compromiso ocurrirá.
-
-## Related Resources
-
-- [Arquitectura Zero Trust](/guides/security/zero-trust-architecture-guide)
-- [Checklist de Seguridad de API](/guides/security/api-security-checklist-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Platform Engineering](/guides/devops/platform-engineering-guide)
-- [Recuperación ante Desastres](/guides/planning/disaster-recovery-guide)

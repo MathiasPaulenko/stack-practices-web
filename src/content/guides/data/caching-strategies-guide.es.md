@@ -381,11 +381,4 @@ Solo si puedes tolerar breve pérdida de datos y tienes un mecanismo de reintent
 ## Conclusión
 
 La caché efectiva transforma el rendimiento de la aplicación. Al capas de caché desde el navegador hasta la base de datos, elegir estrategias de invalidación apropiadas, y monitorear tasas de acierto, reduces latencia y costo de infraestructura mientras mantienes consistencia de datos.
-
-## Recursos Relacionados
-
-- [Sharding de Base de Datos](/guides/data/database-sharding-implementation-guide)
-- [Réplicas de Lectura](/guides/data/read-replica-guide)
-- [Pooling de Conexiones](/guides/data/connection-pooling-deep-dive-guide)
-- [Testing de Rendimiento](/guides/performance/performance-testing-guide)
-- [Escalado](/guides/devops/scaling-guide)
+

@@ -219,9 +219,3 @@ public Order updateOrder(Long orderId, OrderUpdateRequest req) { }
 - **Guardar roles en JWTs sin expiración.** Un usuario degradado retiene acceso de admin hasta que el JWT expire. Usa tokens de vida corta o una lista de revocación.
 - **Ignorar el principio de least privilege.** Roles por defecto con permisos amplios exponen datos que deberían estar restringidos.
 - **No testear lógica de autorización.** Los tests de unidad verifican lógica de negocio pero raramente testean que `viewer` no pueda llamar `DELETE /users/1`.
-
-## Recursos Relacionados
-
-- [Implementar ABAC](/recipes/authentication/implement-abac)
-- [Implementar SSO SAML](/recipes/authentication/implement-sso-saml)
-- [Secrets Management](/guides/security/secrets-management-guide)

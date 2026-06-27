@@ -3,7 +3,7 @@ contentType: recipes
 slug: generate-temporary-files
 title: "Generate Temporary Files"
 description: "How to create temporary files and directories safely with automatic cleanup across Python, Node.js, Java, and Bash."
-metaDescription: "Create temporary files and directories safely with automatic cleanup in Python, Node.js, Java, and Bash."
+metaDescription: "Create temporary files and directories safely in Python, Node.js, Java, and Bash, with automatic cleanup and best practices."
 difficulty: beginner
 topics:
   - file-handling
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Create temporary files and directories safely with automatic cleanup in Python, Node.js, Java, and Bash."
+  metaDescription: "Create temporary files and directories safely in Python, Node.js, Java, and Bash, with automatic cleanup and best practices."
   keywords:
     - file-handling
     - temp-files
@@ -199,9 +199,3 @@ UNIQUE_PATH="${TMPDIR:-/tmp}/batch_$(date +%s)_$$_$RANDOM.csv"
 - **Forgetting cleanup in error paths.** An exception before cleanup leaves orphaned temp files that fill the disk over time.
 - **Using `Date.now()` as the only randomizer in Node.js.** Millisecond collisions are possible under load — combine with crypto-random bytes.
 - **Creating temp files in the working directory.** Pollutes the project and may be committed accidentally.
-
-## Related Resources
-
-- [Rotate Log Files](/recipes/file-handling/rotate-log-files)
-- [Read Large Files](/recipes/file-handling/read-large-files)
-- [Caching Strategies](/guides/data/caching-strategies-guide)

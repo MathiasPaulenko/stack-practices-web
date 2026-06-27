@@ -407,11 +407,3 @@ Use progressive penalties (warnings → temporary blocks → permanent bans) and
 ## Conclusion
 
 Effective rate limiting protects your infrastructure, ensures fairness, and maintains API reliability. Choose the right algorithm, set sensible limits, communicate clearly with clients, and monitor continuously.
-
-## Related Resources
-
-- [REST API Design Guide](/guides/api/rest-api-design-guide)
-- [API Gateway Design](/guides/architecture/api-gateway-design-guide)
-- [API Security Checklist](/guides/security/api-security-checklist-guide)
-- [Performance Optimization](/guides/performance/performance-optimization-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)

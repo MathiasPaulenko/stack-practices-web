@@ -293,9 +293,3 @@ public class SamlSecurityConfig {
 - **Confiar en NameID como único identificador de usuario.** Si un atacante puede cambiar su NameID en el IdP, puede suplantar a otro usuario. Mapea a un ID de usuario estable e interno.
 - **Ignorar clock skew.** IdP y SP con relojes que difieren más que el lifetime del assertion causan logins legítimos fallidos. Permite un pequeño skew (1-5 minutos) pero loggea warnings.
 - **No validar el campo `InResponseTo`.** Sin este check, un atacante puede capturar un assertion legítimo y reutilizarlo contra una request de autenticación diferente.
-
-## Recursos Relacionados
-
-- [Implementar RBAC](/recipes/authentication/implement-rbac)
-- [Implementar ABAC](/recipes/authentication/implement-abac)
-- [Secrets Management](/guides/security/secrets-management-guide)

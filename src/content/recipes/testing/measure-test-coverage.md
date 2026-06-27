@@ -3,7 +3,7 @@ contentType: recipes
 slug: measure-test-coverage
 title: "Measure Test Coverage"
 description: "How to measure, report, and enforce code coverage with branch and condition coverage using pytest-cov, nyc, and JaCoCo for meaningful quality gates."
-metaDescription: "Measure, report, and enforce code coverage with branch and condition coverage using pytest-cov, nyc, and JaCoCo."
+metaDescription: "Measure, report, and enforce code coverage with branch and condition coverage using pytest-cov, nyc, and JaCoCo in CI/CD pipelines."
 difficulty: beginner
 topics:
   - testing
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Measure, report, and enforce code coverage with branch and condition coverage using pytest-cov, nyc, and JaCoCo."
+  metaDescription: "Measure, report, and enforce code coverage with branch and condition coverage using pytest-cov, nyc, and JaCoCo in CI/CD pipelines."
   keywords:
     - testing
     - coverage
@@ -257,9 +257,3 @@ jobs:
 - **Including test files in coverage.** Test utilities and mock classes inflate the number and hide missing production coverage.
 - **Comparing coverage across languages.** Python branch coverage and Java line coverage are not comparable metrics — track trends within each codebase.
 - **Ignoring coverage on integration tests.** Slow integration tests often cover the most important paths; excluding them from coverage hides real gaps.
-
-## Related Resources
-
-- [Setup Test Fixtures](/recipes/testing/setup-test-fixtures)
-- [Generate Test Data](/recipes/testing/generate-test-data)
-- [Testing Strategy](/guides/testing/testing-strategy-guide)

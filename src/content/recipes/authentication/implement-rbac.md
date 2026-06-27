@@ -345,9 +345,3 @@ public class ResourcePermissionEvaluator implements PermissionEvaluator {
 - **Storing roles in JWTs without expiration.** A user demoted from `admin` to `viewer` will retain admin access until their JWT expires. Use short-lived tokens or maintain a revocation list.
 - **Ignoring the principle of least privilege.** Default roles with broad permissions (`user` can read everything) expose data that should be restricted.
 - **Not testing authorization logic.** Unit tests verify business logic but rarely test that `viewer` cannot call `DELETE /users/1`. Add explicit authorization test cases.
-
-## Related Resources
-
-- [Implement ABAC](/recipes/authentication/implement-abac)
-- [Implement SSO SAML](/recipes/authentication/implement-sso-saml)
-- [Secrets Management](/guides/security/secrets-management-guide)

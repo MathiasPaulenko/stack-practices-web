@@ -282,11 +282,3 @@ La optimización de costos es técnica. FinOps es cultural — trae responsabili
 ## Conclusion
 
 La optimización de costos cloud es una disciplina continua, no un proyecto de una sola vez. Combina tácticas técnicas (dimensionamiento, capacidad reservada, instancias spot) con prácticas culturales (etiquetado, chargeback, FinOps) para construir infraestructura sostenible y eficiente en costos.
-
-## Related Resources
-
-- [Guía de FinOps](/guides/devops/finops-guide)
-- [Estrategias Multi-Cloud](/guides/devops/multi-cloud-guide)
-- [Planificación de Capacidad](/guides/planning/capacity-planning-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Optimización de Rendimiento](/guides/performance/performance-optimization-guide)

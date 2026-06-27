@@ -278,9 +278,3 @@ public class TestFixtures {
 - **Fixtures that do too much.** A fixture that creates a user, logs them in, and sets up 10 orders is hard to reuse. Compose small fixtures instead.
 - **Hardcoding time in tests.** Tests that depend on `new Date()` fail at midnight or in different time zones. Use a clock fixture.
 - **Not cleaning up external resources.** Temporary files, database connections, and network stubs left open leak resources and cause cascading failures.
-
-## Related Resources
-
-- [Generate Test Data](/recipes/testing/generate-test-data)
-- [Measure Test Coverage](/recipes/testing/measure-test-coverage)
-- [Factory Pattern](/patterns/factory-pattern)

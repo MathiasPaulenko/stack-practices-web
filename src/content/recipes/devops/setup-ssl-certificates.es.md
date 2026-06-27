@@ -228,9 +228,3 @@ sudo crontab -e
 - **Usar `cert.pem` en lugar de `fullchain.pem`** causa errores "certificado no confiado" en algunos navegadores porque faltan intermedios.
 - **No probar la renovación con `--dry-run`.** Una emisión inicial exitosa no garantiza que la renovación funcionará. Pruébalo antes de los 90 días.
 - **Ejecutar Certbot como root innecesariamente.** Usa `sudo` para la instalación, pero considera ejecutar la renovación como un usuario dedicado con privilegios limitados.
-
-## Recursos Relacionados
-
-- [Ansible Playbook](/recipes/ansible-playbook)
-- [Docker Basics](/recipes/docker-basics)
-- [Secret Management](/recipes/secret-management)

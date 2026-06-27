@@ -3,7 +3,7 @@ contentType: docs
 slug: penetration-test-remediation-template
 title: "Plantilla de Remediación de Pruebas de Penetración"
 description: "Plantilla para rastrear hallazgos de seguridad, asignar responsables de remediación y validar correcciones después de pruebas de penetración."
-metaDescription: "Rastrea hallazgos de seguridad, asigna responsables y valida correcciones después de pruebas de penetración."
+metaDescription: "Plantilla de remediación de pruebas de penetración: rastrea hallazgos, asigna responsables, prioriza riesgos y valida correcciones."
 difficulty: intermediate
 topics:
   - security
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Rastrea hallazgos de seguridad, asigna responsables y valida correcciones después de pruebas de penetración."
+  metaDescription: "Plantilla de remediación de pruebas de penetración: rastrea hallazgos, asigna responsables, prioriza riesgos y valida correcciones."
   keywords:
     - security
     - penetration

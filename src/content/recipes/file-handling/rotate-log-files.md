@@ -3,7 +3,7 @@ contentType: recipes
 slug: rotate-log-files
 title: "Rotate Log Files"
 description: "How to implement log rotation by size, date, and count to prevent disk exhaustion across Python, Node.js, Java, and Linux systems."
-metaDescription: "Implement log rotation by size, date, and count in Python, Node.js, Java, and Linux to prevent disk exhaustion."
+metaDescription: "Implement log rotation by size, date, and count in Python, Node.js, Java, and Linux to prevent disk exhaustion and audit log retention."
 difficulty: intermediate
 topics:
   - file-handling
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Implement log rotation by size, date, and count in Python, Node.js, Java, and Linux to prevent disk exhaustion."
+  metaDescription: "Implement log rotation by size, date, and count in Python, Node.js, Java, and Linux to prevent disk exhaustion and audit log retention."
   keywords:
     - file-handling
     - logging
@@ -232,9 +232,4 @@ public class LogRotationExample {
 - **Setting `maxFiles` or `backupCount` too low for compliance.** 5 backups at 10MB each is only 50MB of history — insufficient for most production debugging.
 - **Ignoring time zones in `TimedRotatingFileHandler`.** Use `utc=True` to avoid ambiguous behavior around daylight saving time transitions.
 - **Running multiple application instances with the same log file.** Concurrent writers without a locking mechanism interleave log lines or corrupt the file.
-
-## Related Resources
-
-- [Generate Temporary Files](/recipes/file-handling/generate-temporary-files)
-- [Structured Logging](/recipes/observability/structured-logging)
-- [Scaling](/guides/devops/scaling-guide)
+

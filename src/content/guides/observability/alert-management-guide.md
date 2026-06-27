@@ -291,11 +291,3 @@ Alerts notify you of something that requires action. Dashboards help you underst
 ## Conclusion
 
 Good alerting is a product you build for your on-call engineers. It should be precise, actionable, and respectful of their time. By designing alerts around user impact, creating clear runbooks, and actively reducing noise, you build an operational culture that is sustainable and effective.
-
-## Related Resources
-
-- [Metrics and Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Incident Response](/guides/observability/incident-response-guide)
-- [Postmortems](/guides/observability/postmortem-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Observability Fundamentals](/guides/devops/observability-guide)

@@ -317,11 +317,4 @@ For critical services, yes. For internal tools or low-risk changes, direct deplo
 ## Conclusion
 
 Canary deployment is the safest way to release software at scale. By exposing changes to a small, controlled audience first, you catch issues early, minimize blast radius, and build confidence in every release. Combine automated metric analysis with gradual promotion for a world-class deployment process.
-
-## Related Resources
-
-- [Blue-Green Deployment](/guides/deployment/blue-green-deployment-guide)
-- [Feature Flags](/guides/deployment/feature-flags-guide)
-- [A/B Testing](/guides/deployment/a-b-testing-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Observability](/guides/observability/observability-guide)
+

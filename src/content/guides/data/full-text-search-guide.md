@@ -503,11 +503,4 @@ Yes, with `pg_trgm` extension: `SELECT word FROM words WHERE word % 'parial' ORD
 ## Conclusion
 
 Full-text search is a user-facing feature where performance and relevance directly impact engagement. By choosing the right engine for your scale, designing indexes for your query patterns, and continuously tuning relevance, you build search that users trust and rely on.
-
-## Related Resources
-
-- [Database Sharding](/guides/data/database-sharding-implementation-guide)
-- [Read Replicas](/guides/data/read-replica-guide)
-- [Caching Strategies](/guides/data/caching-strategies-guide)
-- [Performance Testing](/guides/performance/performance-testing-guide)
-- [Scaling](/guides/devops/scaling-guide)
+

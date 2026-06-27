@@ -37,7 +37,7 @@ Un changelog es una lista curada y ordenada cronológicamente de los cambios not
 ## Cuándo Usar
 
 - Mantienes una librería, framework o aplicación con releases versionados
-- Necesitas comunicar breaking changes a los consumidores. Combínalo con la [Plantilla de Aviso de Deprecación](/docs/templates/api-deprecation-notice-template) cuando desactives features.
+- Necesitas comunicar breaking changes a los consumidores. Combínalo con la [Plantilla de Aviso de Deprecación](/docs/api/api-deprecation-notice-template) cuando desactives features.
 - Quieres automatizar la generación de notas de release
 
 ## Plantilla
@@ -82,7 +82,7 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 |-----------|-----|
 | **Added** | Nuevas funcionalidades |
 | **Changed** | Cambios en funcionalidad existente |
-| **Deprecated** | Funcionalidades marcadas para eliminación. Consulta [Plantilla de Aviso de Deprecación](/docs/templates/api-deprecation-notice-template) |
+| **Deprecated** | Funcionalidades marcadas para eliminación. Consulta [Plantilla de Aviso de Deprecación](/docs/api/api-deprecation-notice-template) |
 | **Removed** | Funcionalidades eliminadas en esta release |
 | **Fixed** | Correcciones de bugs |
 | **Security** | Correcciones de vulnerabilidades de seguridad |

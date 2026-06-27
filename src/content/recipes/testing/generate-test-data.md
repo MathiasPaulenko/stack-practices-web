@@ -230,9 +230,3 @@ List<User> users = Instancio.ofList(User.class).size(100).create();
 - **Mixing generated and hardcoded data inconsistently.** Some tests use Faker, others use literals — the test suite has inconsistent coverage and developers do not know which to reach for.
 - **Not regenerating static fixture files.** Exporting a JSON fixture once and checking it into git means the data never exercises new validation rules added after the export.
 - **Generators that depend on each other.** `createOrder()` calling `createUser()` internally hides the user from the test, making assertions on the relationship impossible.
-
-## Related Resources
-
-- [Setup Test Fixtures](/recipes/testing/setup-test-fixtures)
-- [Measure Test Coverage](/recipes/testing/measure-test-coverage)
-- [Factory Pattern](/patterns/factory-pattern)

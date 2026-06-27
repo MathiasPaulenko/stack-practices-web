@@ -242,9 +242,3 @@ class StackMachine {
 - **Ignoring shrinking output.** A 100-element array that fails is hard to debug; the shrunk 3-element array is what you should analyze.
 - **Slow or non-terminating generators.** Generating recursive structures without depth limits can cause infinite loops during test execution.
 - **Flaky properties due to global state.** A property that modifies a module-level counter fails unpredictably depending on execution order.
-
-## Related Resources
-
-- [Generate Test Data](/recipes/testing/generate-test-data)
-- [Setup Test Fixtures](/recipes/testing/setup-test-fixtures)
-- [Mutation Testing](/recipes/testing/implement-mutation-testing)

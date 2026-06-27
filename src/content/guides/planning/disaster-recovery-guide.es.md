@@ -299,11 +299,3 @@ DR multi-cloud provee la mayor resiliencia pero añade complejidad. Empieza con 
 ## Conclusion
 
 La recuperación ante desastres es un seguro para tu infraestructura. Define objetivos claros, diseña estrategias apropiadas, documenta runbooks y prueba regularmente. El momento de descubrir un problema con tu plan de DR es durante un drill, no durante un desastre real.
-
-## Related Resources
-
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Ingeniería del Caos](/guides/devops/chaos-engineering-guide)
-- [Estrategias Multi-Cloud](/guides/devops/multi-cloud-guide)
-- [Arquitectura Zero Trust](/guides/security/zero-trust-architecture-guide)
-- [Planificación de Capacidad](/guides/planning/capacity-planning-guide)

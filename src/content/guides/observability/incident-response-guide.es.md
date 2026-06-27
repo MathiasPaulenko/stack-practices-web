@@ -248,11 +248,3 @@ Está bien. Documenta lo que sabes, lo que intentaste y qué monitorearás. Algu
 ## Conclusión
 
 La respuesta a incidentes es un deporte de equipo con reglas claras. Al declarar temprano, asignar roles, comunicar sin descanso y enfocarse en mitigación antes que investigación, conviertes interrupciones caóticas en eventos estructurados y aprendibles.
-
-## Recursos Relacionados
-
-- [Gestión de Alertas](/guides/observability/alert-management-guide)
-- [Postmortems](/guides/observability/postmortem-guide)
-- [Prácticas de SRE](/guides/devops/sre-practices-guide)
-- [Chaos Engineering](/guides/devops/chaos-engineering-guide)
-- [Recuperación ante Desastres](/guides/planning/disaster-recovery-guide)

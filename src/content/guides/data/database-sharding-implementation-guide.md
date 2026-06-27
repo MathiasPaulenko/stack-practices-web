@@ -355,11 +355,4 @@ Yes, unless you use a natively sharded database (MongoDB, CockroachDB, YugabyteD
 ## Conclusion
 
 Database sharding is a powerful but complex scaling strategy. By choosing the right shard key, implementing robust routing, and planning for rebalancing, you can scale your database layer horizontally. But shard only when necessary — the operational overhead is significant, and many workloads can be solved with simpler approaches.
-
-## Related Resources
-
-- [Read Replicas](/guides/data/read-replica-guide)
-- [Connection Pooling](/guides/data/connection-pooling-deep-dive-guide)
-- [Caching Strategies](/guides/data/caching-strategies-guide)
-- [Microservices](/guides/architecture/microservices-guide)
-- [Scaling](/guides/devops/scaling-guide)
+

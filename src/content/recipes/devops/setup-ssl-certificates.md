@@ -228,9 +228,3 @@ sudo crontab -e
 - **Using `cert.pem` instead of `fullchain.pem`** causes "certificate not trusted" errors in some browsers because intermediates are missing.
 - **Not testing renewal with `--dry-run`.** A working initial issuance does not guarantee renewal will work. Test it before the 90-day deadline.
 - **Running Certbot as root unnecessarily.** Use `sudo` for installation, but consider running the renewal as a dedicated user with limited privileges.
-
-## Related Resources
-
-- [Ansible Playbook](/recipes/ansible-playbook)
-- [Docker Basics](/recipes/docker-basics)
-- [Secret Management](/recipes/secret-management)

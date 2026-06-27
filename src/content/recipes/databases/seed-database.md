@@ -300,9 +300,4 @@ if __name__ == "__main__":
 - **Forgetting to create indexes.** Seeding bypasses the application, so indexes that the app relies on may not exist if the seed script skips `CREATE INDEX` statements.
 - **Using production dumps as seeds.** A production SQL dump may contain PII, GDPR-sensitive data, or internal IDs that should not be in git or developer machines.
 - **Non-deterministic seeds.** Randomly generated seed data makes reproducing bugs across environments impossible. Use a fixed seed for random generators in seed scripts.
-
-## Related Resources
-
-- [Generate Test Data](/recipes/testing/generate-test-data)
-- [Setup Test Fixtures](/recipes/testing/setup-test-fixtures)
-- [Database Sharding](/guides/databases/database-sharding-implementation-guide)
+

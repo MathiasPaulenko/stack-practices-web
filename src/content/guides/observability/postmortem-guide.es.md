@@ -318,11 +318,3 @@ Trátalos como cualquier otro trabajo. Añádelos a sprints, asigna puntos y rev
 ## Conclusión
 
 Los postmortems sin culpa son el motor de la mejora operativa. Al investigar incidentes honestamente, escribir action items específicos y rastrearlos hasta su completitud, conviertes interrupciones en inversiones en confiabilidad.
-
-## Recursos Relacionados
-
-- [Respuesta a Incidentes](/guides/observability/incident-response-guide)
-- [Gestión de Alertas](/guides/observability/alert-management-guide)
-- [Prácticas de SRE](/guides/devops/sre-practices-guide)
-- [Chaos Engineering](/guides/devops/chaos-engineering-guide)
-- [Estrategia de Testing](/guides/testing/testing-strategy-guide)

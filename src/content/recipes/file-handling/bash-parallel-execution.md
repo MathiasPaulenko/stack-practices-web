@@ -3,7 +3,7 @@ contentType: recipes
 slug: bash-parallel-execution
 title: "Bash Parallel Execution"
 description: "How to run shell commands in parallel with xargs, GNU parallel, and Bash background jobs while controlling concurrency and collecting results."
-metaDescription: "Run shell commands in parallel with xargs, GNU parallel, and Bash background jobs while controlling concurrency."
+metaDescription: "Run shell commands in parallel with xargs, GNU parallel, and Bash background jobs while controlling concurrency and resource usage."
 difficulty: intermediate
 topics:
   - file-handling
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Run shell commands in parallel with xargs, GNU parallel, and Bash background jobs while controlling concurrency."
+  metaDescription: "Run shell commands in parallel with xargs, GNU parallel, and Bash background jobs while controlling concurrency and resource usage."
   keywords:
     - file-handling
     - bash
@@ -180,9 +180,4 @@ sem --id api_calls --wait
 - **Ignoring exit codes.** `xargs` with `-P` exits 123 if any child fails, but you must check it. Background jobs require `wait` loops to detect failures.
 - **Passing shell variables into xargs incorrectly.** Single quotes in `sh -c` prevent variable expansion. Use double quotes and escape carefully, or pass variables as positional arguments.
 - **Using GNU parallel without citation notice acceptance.** It prints a citation reminder on first use; use `--will-cite` or `--cite` to silence it in CI.
-
-## Related Resources
-
-- [Bash Loop Over Files](/recipes/file-handling/bash-loop-over-files)
-- [Bash Text Processing](/recipes/file-handling/bash-text-processing)
-- [Performance Testing](/guides/performance/performance-testing-guide)
+

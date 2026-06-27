@@ -317,11 +317,4 @@ Para servicios críticos, sí. Para herramientas internas o cambios de bajo ries
 ## Conclusion
 
 El despliegue canary es la forma más segura de liberar software a escala. Al exponer cambios a una audiencia pequeña y controlada primero, detectas problemas temprano, minimizas el radio de explosión y construyes confianza en cada release. Combina análisis automatizado de métricas con promoción gradual para un proceso de despliegue de clase mundial.
-
-## Related Resources
-
-- [Despliegue Blue-Green](/guides/deployment/blue-green-deployment-guide)
-- [Feature Flags](/guides/deployment/feature-flags-guide)
-- [A/B Testing](/guides/deployment/a-b-testing-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Observabilidad](/guides/observability/observability-guide)
+

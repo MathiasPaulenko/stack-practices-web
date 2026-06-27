@@ -200,9 +200,3 @@ awk '{print $9}' access.log | sort | uniq -c | \
 - **Asumir que `sort` es estable por defecto.** La estabilidad de `sort` varía por implementación; usa `sort -s` si la necesitas.
 - **Usar `cat` innecesariamente.** `cat file | grep pattern` es un uso inútil de `cat`. Usa `grep pattern file`.
 - **No manejar entrada vacía.** Muchos pipelines fallan silenciosamente en archivos vacíos — agrega `| cat` al final o verifica el tamaño del archivo primero.
-
-## Recursos Relacionados
-
-- [Loop Sobre Archivos en Bash](/recipes/file-handling/bash-loop-over-files)
-- [Ejecución Paralela en Bash](/recipes/file-handling/bash-parallel-execution)
-- [Logging Estructurado](/recipes/observability/structured-logging)

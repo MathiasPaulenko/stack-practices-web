@@ -3,7 +3,7 @@ contentType: recipes
 slug: bash-text-processing
 title: "Bash Text Processing"
 description: "How to build powerful text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis and data transformation."
-metaDescription: "Build text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis and data transformation."
+metaDescription: "Build text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis, data transformation, and one-liners."
 difficulty: intermediate
 topics:
   - file-handling
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Build text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis and data transformation."
+  metaDescription: "Build text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis, data transformation, and one-liners."
   keywords:
     - file-handling
     - bash
@@ -200,9 +200,3 @@ awk '{print $9}' access.log | sort | uniq -c | \
 - **Assuming `sort` is stable by default.** `sort` stability varies by implementation; use `sort -s` if you need it.
 - **Using `cat` unnecessarily.** `cat file | grep pattern` is a useless use of `cat`. Use `grep pattern file`.
 - **Not handling empty input.** Many pipelines fail silently on empty files — add `| cat` at the end or check file size first.
-
-## Related Resources
-
-- [Bash Loop Over Files](/recipes/file-handling/bash-loop-over-files)
-- [Bash Parallel Execution](/recipes/file-handling/bash-parallel-execution)
-- [Structured Logging](/recipes/observability/structured-logging)

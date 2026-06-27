@@ -318,11 +318,3 @@ Treat them like any other work. Add them to sprints, assign points, and review c
 ## Conclusion
 
 Blameless postmortems are the engine of operational improvement. By investigating incidents honestly, writing specific action items, and tracking them to completion, you turn outages into investments in reliability.
-
-## Related Resources
-
-- [Incident Response](/guides/observability/incident-response-guide)
-- [Alert Management](/guides/observability/alert-management-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Chaos Engineering](/guides/devops/chaos-engineering-guide)
-- [Testing Strategy](/guides/testing/testing-strategy-guide)

@@ -282,11 +282,3 @@ Cost optimization is technical. FinOps is cultural — it brings financial accou
 ## Conclusion
 
 Cloud cost optimization is an ongoing discipline, not a one-time project. Combine technical tactics (right-sizing, reserved capacity, spot instances) with cultural practices (tagging, chargeback, FinOps) to build sustainable, cost-efficient infrastructure.
-
-## Related Resources
-
-- [FinOps Guide](/guides/devops/finops-guide)
-- [Multi-Cloud Strategies](/guides/devops/multi-cloud-guide)
-- [Capacity Planning](/guides/planning/capacity-planning-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Performance Optimization](/guides/performance/performance-optimization-guide)

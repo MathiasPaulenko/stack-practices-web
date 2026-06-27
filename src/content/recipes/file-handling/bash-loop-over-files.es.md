@@ -179,9 +179,3 @@ done
 - **Olvidar `nullglob`:** El cuerpo del loop corre una vez con `*.txt` como nombre de archivo cuando no hay coincidencias.
 - **Usar `cat` para alimentar un solo archivo a un programa:** `cat "$file" | grep pattern` es un uso inútil de `cat`. Usa `grep pattern "$file"`.
 - **No manejar el caso de no-coincidencia:** Un directorio vacío con un loop ingenuo puede producir comportamiento inesperado o errores.
-
-## Recursos Relacionados
-
-- [Ejecución Paralela en Bash](/recipes/file-handling/bash-parallel-execution)
-- [Procesamiento de Texto en Bash](/recipes/file-handling/bash-text-processing)
-- [Generar Archivos Temporales](/recipes/file-handling/generate-temporary-files)

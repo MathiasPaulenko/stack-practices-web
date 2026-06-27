@@ -495,11 +495,4 @@ Stream processing is the computation layer (Flink, Kafka Streams). Real-time ana
 ## Conclusion
 
 Real-time analytics turns event streams into actionable intelligence within seconds. By instrumenting applications with structured events, processing them through windowed aggregations, and storing results in OLAP databases, you build systems that react to the present rather than reporting on the past.
-
-## Related Resources
-
-- [Stream Processing](/guides/data/stream-processing-guide)
-- [ETL Pipelines](/guides/data/etl-pipeline-guide)
-- [Metrics and Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Scaling](/guides/devops/scaling-guide)
-- [Microservices](/guides/architecture/microservices-guide)
+

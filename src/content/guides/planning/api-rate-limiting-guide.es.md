@@ -407,11 +407,3 @@ Usa penalizaciones progresivas (advertencias → bloqueos temporales → bloqueo
 ## Conclusion
 
 El rate limiting efectivo protege tu infraestructura, asegura justicia y mantiene confiabilidad de API. Elige el algoritmo correcto, establece límites sensatos, comunica claramente con clientes y monitorea continuamente.
-
-## Related Resources
-
-- [Guía de Diseño de REST API](/guides/api/rest-api-design-guide)
-- [Diseño de API Gateway](/guides/architecture/api-gateway-design-guide)
-- [Checklist de Seguridad de API](/guides/security/api-security-checklist-guide)
-- [Optimización de Rendimiento](/guides/performance/performance-optimization-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)

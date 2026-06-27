@@ -33,7 +33,7 @@ seo:
 ---
 ## Overview
 
-APIs evolve: fields are added, response shapes change, and endpoints are [deprecated](/docs/templates/api-deprecation-notice-template). Without a versioning strategy, these changes break existing clients. This recipe covers the three dominant versioning approaches — URL path, custom header, and content negotiation (media type) — with middleware implementation in Python, JavaScript, and Java. It also covers deprecation policies and backward-compatible change patterns.
+APIs evolve: fields are added, response shapes change, and endpoints are [deprecated](/docs/api/api-deprecation-notice-template). Without a versioning strategy, these changes break existing clients. This recipe covers the three dominant versioning approaches — URL path, custom header, and content negotiation (media type) — with middleware implementation in Python, JavaScript, and Java. It also covers deprecation policies and backward-compatible change patterns.
 
 ## When to Use
 
@@ -162,7 +162,7 @@ record UserV2(Long id, String fullName, String email) {}
 - **Header versioning** (`X-API-Version: v2`) keeps URLs clean but requires custom headers, which some clients (browsers, simple scripts) may not support well. It is harder to cache at the CDN level without custom rules.
 - **Content negotiation** (`Accept: application/vnd.myapp.v2+json`) is the most RESTful approach. It uses standard HTTP mechanisms but is complex for consumers and can be confusing with standard `application/json` expectations.
 - **Backward compatibility** means additive-only changes within a version: new optional fields, new endpoints, and expanded enums are safe. Removing or renaming fields requires a new version.
-- **Deprecation** should be signaled with `Sunset` headers and changelog documentation, giving clients a clear migration window. See [API Deprecation Notice Template](/docs/templates/api-deprecation-notice-template) for deprecation communication.
+- **Deprecation** should be signaled with `Sunset` headers and changelog documentation, giving clients a clear migration window. See [API Deprecation Notice Template](/docs/api/api-deprecation-notice-template) for deprecation communication.
 
 ## Variants
 

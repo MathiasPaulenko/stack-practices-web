@@ -398,11 +398,4 @@ Usa un proxy (RDS Proxy, PgBouncer) o mantén una variable global de pool que pe
 ## Conclusión
 
 El pooling de conexiones es un ajuste fundamental de rendimiento de base de datos. Al dimensionar pools correctamente, configurar timeouts apropiadamente y monitorear activamente, eliminas el overhead de conexión y proteges tu base de datos de ser abrumada por tormentas de conexiones.
-
-## Recursos Relacionados
-
-- [Réplicas de Lectura](/guides/data/read-replica-guide)
-- [Estrategias de Caché](/guides/data/caching-strategies-guide)
-- [Escalado](/guides/devops/scaling-guide)
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Testing de Rendimiento](/guides/performance/performance-testing-guide)
+

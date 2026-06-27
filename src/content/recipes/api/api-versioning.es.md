@@ -33,7 +33,7 @@ seo:
 ---
 ## Visión General
 
-Las APIs evolucionan: se añaden campos, cambian las formas de respuesta y se [deprecan](/docs/templates/api-deprecation-notice-template) endpoints. Sin una estrategia de versionado, estos cambios rompen clientes existentes. Esta receta cubre los tres enfoques dominantes de versionado — ruta URL, header personalizado y negociación de contenido (media type) — con implementación de middleware en Python, JavaScript y Java. También cubre políticas de deprecación y patrones de cambio compatible hacia atrás.
+Las APIs evolucionan: se añaden campos, cambian las formas de respuesta y se [deprecan](/docs/api/api-deprecation-notice-template) endpoints. Sin una estrategia de versionado, estos cambios rompen clientes existentes. Esta receta cubre los tres enfoques dominantes de versionado — ruta URL, header personalizado y negociación de contenido (media type) — con implementación de middleware en Python, JavaScript y Java. También cubre políticas de deprecación y patrones de cambio compatible hacia atrás.
 
 ## Cuándo Usar
 
@@ -162,7 +162,7 @@ record UserV2(Long id, String fullName, String email) {}
 - **Versionado por header** (`X-API-Version: v2`) mantiene URLs limpias pero requiere headers personalizados, que algunos clientes (navegadores, scripts simples) pueden no soportar bien. Es más difícil de cachear a nivel CDN sin reglas custom.
 - **Negociación de contenido** (`Accept: application/vnd.myapp.v2+json`) es el enfoque más RESTful. Usa mecanismos HTTP estándar pero es complejo para consumidores y puede confundir con expectativas de `application/json` estándar.
 - **Compatibilidad hacia atrás** significa cambios solo aditivos dentro de una versión: nuevos campos opcionales, nuevos endpoints y enums expandidos son seguros. Eliminar o renombrar campos requiere una nueva versión.
-- **Deprecación** debe señalarse con headers `Sunset` y documentación de changelog, dando a los clientes una ventana clara de migración. Consulta [Plantilla de Aviso de Deprecación de API](/docs/templates/api-deprecation-notice-template) para comunicación de deprecación.
+- **Deprecación** debe señalarse con headers `Sunset` y documentación de changelog, dando a los clientes una ventana clara de migración. Consulta [Plantilla de Aviso de Deprecación de API](/docs/api/api-deprecation-notice-template) para comunicación de deprecación.
 
 ## Variantes
 

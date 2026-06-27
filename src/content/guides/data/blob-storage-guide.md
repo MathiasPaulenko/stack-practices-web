@@ -465,11 +465,4 @@ Use tools like `rclone`, `aws s3 sync`, or cloud-native transfer services (AWS D
 ## Conclusion
 
 Blob storage is the backbone of modern cloud data architectures. By designing buckets for your access patterns, securing access with presigned URLs and IAM policies, automating lifecycle transitions, and optimizing large file uploads, you build a storage layer that scales infinitely while controlling costs.
-
-## Related Resources
-
-- [Data Migration](/guides/data/data-migration-guide)
-- [Caching Strategies](/guides/data/caching-strategies-guide)
-- [Multi-Cloud Strategies](/guides/devops/multi-cloud-guide)
-- [Secrets Management](/guides/security/secrets-management-guide)
-- [Performance Testing](/guides/performance/performance-testing-guide)
+

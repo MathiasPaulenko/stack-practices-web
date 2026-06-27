@@ -242,9 +242,3 @@ class StackMachine {
 - **Ignorar el output de shrinking.** Un array de 100 elementos que falla es difícil de debuggear; el array shrink de 3 elementos es lo que deberías analizar.
 - **Generadores lentos o no terminantes.** Generar estructuras recursivas sin límites de profundidad puede causar loops infinitos durante la ejecución de tests.
 - **Propiedades flaky debido a estado global.** Una propiedad que modifica un contador a nivel de módulo falla impredeciblemente dependiendo del orden de ejecución.
-
-## Recursos Relacionados
-
-- [Generar Datos de Test](/recipes/testing/generate-test-data)
-- [Configurar Fixtures de Test](/recipes/testing/setup-test-fixtures)
-- [Mutation Testing](/recipes/testing/implement-mutation-testing)

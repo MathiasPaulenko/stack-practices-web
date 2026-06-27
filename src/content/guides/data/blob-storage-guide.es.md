@@ -465,11 +465,4 @@ Usa herramientas como `rclone`, `aws s3 sync`, o servicios de transferencia nati
 ## Conclusión
 
 El almacenamiento blob es la columna vertebral de las arquitecturas modernas de datos en la nube. Al diseñar buckets para tus patrones de acceso, asegurar acceso con URLs firmadas y políticas IAM, automatizar transiciones de ciclo de vida, y optimizar subidas de archivos grandes, construyes una capa de almacenamiento que escala infinitamente mientras controlas costos.
-
-## Recursos Relacionados
-
-- [Migración de Datos](/guides/data/data-migration-guide)
-- [Estrategias de Caché](/guides/data/caching-strategies-guide)
-- [Estrategias Multi-Cloud](/guides/devops/multi-cloud-guide)
-- [Gestión de Secretos](/guides/security/secrets-management-guide)
-- [Testing de Rendimiento](/guides/performance/performance-testing-guide)
+

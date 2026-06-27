@@ -420,11 +420,4 @@ Sí — la caché y las réplicas se complementan. La caché maneja datos calien
 ## Conclusión
 
 Las réplicas de lectura son la forma más simple de escalar lecturas de base de datos. Al configurar replicación streaming, enrutar consultas inteligentemente y monitorear el lag, puedes manejar 10x crecimiento de lectura sin cambiar significativamente tu modelo de datos o arquitectura de aplicación.
-
-## Recursos Relacionados
-
-- [Sharding de Base de Datos](/guides/data/database-sharding-implementation-guide)
-- [Pooling de Conexiones](/guides/data/connection-pooling-deep-dive-guide)
-- [Estrategias de Caché](/guides/data/caching-strategies-guide)
-- [Escalado](/guides/devops/scaling-guide)
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
+

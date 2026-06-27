@@ -282,11 +282,4 @@ As soon as the feature is stable and fully rolled out. Target removal within 30 
 ## Conclusion
 
 Feature flags are essential for modern continuous delivery. They let you deploy confidently, release gradually, and react instantly to problems. Treat flags as temporary scaffolding, not permanent architecture, and clean them up aggressively to keep your codebase healthy.
-
-## Related Resources
-
-- [Canary Deployment](/guides/deployment/canary-deployment-guide)
-- [A/B Testing](/guides/deployment/a-b-testing-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Observability](/guides/observability/observability-guide)
-- [Frontend Performance](/guides/frontend/frontend-performance-guide)
+

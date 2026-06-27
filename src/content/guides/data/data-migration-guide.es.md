@@ -431,11 +431,4 @@ Sí, pero throttle el backfill. Usa `pg_sleep` entre lotes, corre durante horas 
 ## Conclusión
 
 La migración de datos no es un evento sino un proceso: planificar, doble escribir, backfill, validar, lectura sombra, cutover y limpieza. Al seguir patrones estructurados y nunca saltarse la validación, mueves datos de forma segura manteniendo los sistemas online.
-
-## Recursos Relacionados
-
-- [Sharding de Base de Datos](/guides/data/database-sharding-implementation-guide)
-- [Pipelines ETL](/guides/data/etl-pipeline-guide)
-- [Despliegue Blue-Green](/guides/deployment/blue-green-deployment-guide)
-- [Recuperación de Desastres](/guides/planning/disaster-recovery-guide)
-- [Estrategia de Testing](/guides/testing/testing-strategy-guide)
+

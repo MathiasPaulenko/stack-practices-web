@@ -216,9 +216,3 @@ ansible-playbook site.yml --vault-password-file .vault_pass
 - **Forgetting `become: yes`** when tasks require root privileges, causing cryptic permission errors.
 - **Hardcoding IP addresses** in inventory files. Use DNS names or dynamic inventory scripts (AWS, GCP) that stay current as infrastructure scales.
 - **Not using `handlers` for service restarts.** A playbook that restarts Nginx on every task is unnecessary; handlers only trigger once at the end when notified.
-
-## Related Resources
-
-- [Terraform AWS VPC](/recipes/terraform-aws-vpc)
-- [Docker Basics](/recipes/docker-basics)
-- [Secret Management](/recipes/secret-management)

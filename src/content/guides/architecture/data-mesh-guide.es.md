@@ -3,7 +3,7 @@ contentType: guides
 slug: data-mesh-guide
 title: "Arquitectura Data Mesh — Propiedad de Datos Descentralizada"
 description: "Guía práctica de Data Mesh: descentralizar la propiedad de datos a equipos de dominio, tratar datos como producto y habilitar infraestructura de datos self-serve."
-metaDescription: "Aprende Data Mesh: propiedad descentralizada, datos como producto e infraestructura self-serve. Guía práctica."
+metaDescription: "Guía de Data Mesh: propiedad descentralizada de datos, dominios como productos, infraestructura self-serve y federación de gobernanza."
 difficulty: advanced
 topics:
   - architecture
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende Data Mesh: propiedad descentralizada, datos como producto e infraestructura self-serve. Guía práctica."
+  metaDescription: "Guía de Data Mesh: propiedad descentralizada de datos, dominios como productos, infraestructura self-serve y federación de gobernanza."
   keywords:
     - data-mesh
     - decentralized-data

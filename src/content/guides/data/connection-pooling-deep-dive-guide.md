@@ -398,11 +398,4 @@ Use a proxy (RDS Proxy, PgBouncer) or keep a global pool variable that persists 
 ## Conclusion
 
 Connection pooling is foundational database performance tuning. By sizing pools correctly, configuring timeouts appropriately, and monitoring actively, you eliminate connection overhead and protect your database from being overwhelmed by connection storms.
-
-## Related Resources
-
-- [Read Replicas](/guides/data/read-replica-guide)
-- [Caching Strategies](/guides/data/caching-strategies-guide)
-- [Scaling](/guides/devops/scaling-guide)
-- [Metrics and Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Performance Testing](/guides/performance/performance-testing-guide)
+

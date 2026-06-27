@@ -369,11 +369,3 @@ Prometheus es gratis pero requiere expertise operacional. Las soluciones SaaS re
 ## Conclusión
 
 Las métricas y dashboards transforman datos de sistema bruto en inteligencia operativa. Al instrumentar consistentemente, diseñar dashboards para toma de decisiones y alertar sobre síntomas en lugar de causas, construyes una práctica de observabilidad que reduce MTTR y mejora la confiabilidad del sistema.
-
-## Recursos Relacionados
-
-- [Trazas Distribuidas](/guides/observability/distributed-tracing-guide)
-- [Agregación de Logs](/guides/observability/log-aggregation-guide)
-- [Gestión de Alertas](/guides/observability/alert-management-guide)
-- [Fundamentos de Observabilidad](/guides/devops/observability-guide)
-- [Prácticas de SRE](/guides/devops/sre-practices-guide)

@@ -20,7 +20,7 @@ tags:
   - devops
 relatedResources:
   - /docs/incident-communication-template
-  - /docs/templates/api-deprecation-notice-template
+  - /docs/api/api-deprecation-notice-template
   - /guides/api/rest-api-design-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"

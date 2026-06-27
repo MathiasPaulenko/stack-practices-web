@@ -286,11 +286,3 @@ Manténlo por al menos un día hábil (24 horas) o hasta que estés seguro de qu
 ## Conclusion
 
 El despliegue blue-green es el estándar de oro para releases sin downtime con rollback instantáneo. Requiere infraestructura duplicada pero proporciona confianza sin igual. Combínalo con health checks automatizados, migraciones de base de datos compatibles hacia atrás y monitoreo exhaustivo para un proceso de release a prueba de balas.
-
-## Related Resources
-
-- [Despliegue Canary](/guides/deployment/canary-deployment-guide)
-- [Feature Flags](/guides/deployment/feature-flags-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Capacity Planning](/guides/planning/capacity-planning-guide)
-- [Recuperación ante Desastres](/guides/planning/disaster-recovery-guide)

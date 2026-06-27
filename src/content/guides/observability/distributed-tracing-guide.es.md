@@ -357,11 +357,4 @@ Sí, pero asegúrate de que el contexto de traza se propague a través de colas 
 ## Conclusión
 
 Las trazas distribuidas son esenciales para operar microservicios a escala. Al instrumentar tus aplicaciones, propagar el contexto fielmente y muestrear inteligentemente, transformas fallas opacas entre servicios en flujos de petición visuales y depurables.
-
-## Recursos Relacionados
-
-- [Fundamentos de Observabilidad](/guides/observability/observability-guide)
-- [Agregación de Logs](/guides/observability/log-aggregation-guide)
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Service Mesh](/guides/devops/service-mesh-guide)
-- [OpenTelemetry](/guides/devops/opentelemetry-guide)
+

@@ -245,9 +245,3 @@ src/cart.js:67  # removido null check en applyDiscount
 - **Ignorar mutantes equivalentes.** Crean ruido y hacen que los desarrolladores desconfíen de la herramienta. Configura exclusiones o anotaciones.
 - **Usar mutation score como KPI de equipo.** Incentiva escribir tests específicamente para matar mutantes en lugar de testear requerimientos reales.
 - **Ejecutar mutation tests en tests de integración sin mock.** Las llamadas a base de datos y requests HTTP hacen el mutation testing imposible de lento; apunta a tests unitarios.
-
-## Recursos Relacionados
-
-- [Medir Cobertura de Test](/recipes/testing/measure-test-coverage)
-- [Property-Based Testing](/recipes/testing/implement-property-based-testing)
-- [Configurar Fixtures de Test](/recipes/testing/setup-test-fixtures)

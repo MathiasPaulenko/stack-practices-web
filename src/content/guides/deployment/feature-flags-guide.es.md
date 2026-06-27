@@ -282,11 +282,4 @@ Tan pronto como la funcionalidad sea estable y completamente lanzada. Apunta a r
 ## Conclusion
 
 Los feature flags son esenciales para la entrega continua moderna. Te permiten desplegar con confianza, lanzar gradualmente y reaccionar instantáneamente a problemas. Trata los flags como andamiaje temporal, no arquitectura permanente, y límpialos agresivamente para mantener tu codebase saludable.
-
-## Related Resources
-
-- [Despliegue Canary](/guides/deployment/canary-deployment-guide)
-- [A/B Testing](/guides/deployment/a-b-testing-guide)
-- [Prácticas SRE](/guides/devops/sre-practices-guide)
-- [Observabilidad](/guides/observability/observability-guide)
-- [Rendimiento Frontend](/guides/frontend/frontend-performance-guide)
+

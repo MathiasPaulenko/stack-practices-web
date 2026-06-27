@@ -420,11 +420,4 @@ Yes — caching and replicas complement each other. Cache handles hot data; repl
 ## Conclusion
 
 Read replicas are the simplest way to scale database reads. By configuring streaming replication, routing queries intelligently, and monitoring lag, you can handle 10x read growth without changing your data model or application architecture significantly.
-
-## Related Resources
-
-- [Database Sharding](/guides/data/database-sharding-implementation-guide)
-- [Connection Pooling](/guides/data/connection-pooling-deep-dive-guide)
-- [Caching Strategies](/guides/data/caching-strategies-guide)
-- [Scaling](/guides/devops/scaling-guide)
-- [Metrics and Dashboards](/guides/observability/metrics-and-dashboards-guide)
+

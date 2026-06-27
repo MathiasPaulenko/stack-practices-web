@@ -3,7 +3,7 @@ contentType: recipes
 slug: generate-temporary-files
 title: "Generar Archivos Temporales"
 description: "Cómo crear archivos y directorios temporales de forma segura con limpieza automática en Python, Node.js, Java y Bash."
-metaDescription: "Crea archivos y directorios temporales de forma segura con limpieza automática en Python, Node.js, Java y Bash."
+metaDescription: "Crea archivos y directorios temporales de forma segura en Python, Node.js, Java y Bash, con limpieza automática y buenas prácticas."
 difficulty: beginner
 topics:
   - file-handling
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Crea archivos y directorios temporales de forma segura con limpieza automática en Python, Node.js, Java y Bash."
+  metaDescription: "Crea archivos y directorios temporales de forma segura en Python, Node.js, Java y Bash, con limpieza automática y buenas prácticas."
   keywords:
     - file-handling
     - temp-files
@@ -199,9 +199,3 @@ UNIQUE_PATH="${TMPDIR:-/tmp}/batch_$(date +%s)_$$_$RANDOM.csv"
 - **Olvidar la limpieza en rutas de error.** Una excepción antes de la limpieza deja archivos temporales huérfanos que llenan el disco con el tiempo.
 - **Usar `Date.now()` como único aleatorizador en Node.js.** Las colisiones de milisegundos son posibles bajo carga — combina con bytes crypto-aleatorios.
 - **Crear archivos temporales en el directorio de trabajo.** Poluciona el proyecto y puede ser commiteado accidentalmente.
-
-## Recursos Relacionados
-
-- [Rotar Archivos de Log](/recipes/file-handling/rotate-log-files)
-- [Leer Archivos Grandes](/recipes/file-handling/read-large-files)
-- [Estrategias de Caché](/guides/data/caching-strategies-guide)

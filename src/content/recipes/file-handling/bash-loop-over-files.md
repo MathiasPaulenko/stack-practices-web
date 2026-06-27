@@ -3,7 +3,7 @@ contentType: recipes
 slug: bash-loop-over-files
 title: "Bash Loop Over Files"
 description: "How to safely loop over files and directories in Bash, handling spaces, globs, and large file lists with correct patterns."
-metaDescription: "Safely loop over files and directories in Bash handling spaces, globs, and large file lists with correct patterns."
+metaDescription: "Safely loop over files and directories in Bash: handle spaces, globs, special characters, and large file lists with correct glob patterns."
 difficulty: beginner
 topics:
   - file-handling
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Safely loop over files and directories in Bash handling spaces, globs, and large file lists with correct patterns."
+  metaDescription: "Safely loop over files and directories in Bash: handle spaces, globs, special characters, and large file lists with correct glob patterns."
   keywords:
     - file-handling
     - bash
@@ -179,9 +179,3 @@ done
 - **Forgetting `nullglob`:** The loop body runs once with `*.txt` as the filename when no matches exist.
 - **Using `cat` to feed a single file to a program:** `cat "$file" | grep pattern` is a useless use of `cat`. Use `grep pattern "$file"`.
 - **Not handling the no-match case:** An empty directory with a naive loop can produce unexpected behavior or errors.
-
-## Related Resources
-
-- [Bash Parallel Execution](/recipes/file-handling/bash-parallel-execution)
-- [Bash Text Processing](/recipes/file-handling/bash-text-processing)
-- [Generate Temporary Files](/recipes/file-handling/generate-temporary-files)

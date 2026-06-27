@@ -3,7 +3,7 @@ contentType: guides
 slug: full-text-search-guide
 title: "Búsqueda de Texto Completo — Implementa una Búsqueda que Realmente Funcione"
 description: "Guía práctica sobre búsqueda de texto completo: tsvector de PostgreSQL, indexación en Elasticsearch, diseño de consultas, ajuste de relevancia, y construcción de búsqueda con autocompletado, faceting y tolerancia a errores tipográficos."
-metaDescription: "Aprende búsqueda de texto completo: PostgreSQL tsvector, Elasticsearch, relevancia, autocompletado y faceting."
+metaDescription: "Guía de búsqueda de texto completo: PostgreSQL tsvector, Elasticsearch, relevancia, autocompletado, faceting e indexación para producción."
 difficulty: intermediate
 topics:
   - databases
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende búsqueda de texto completo: PostgreSQL tsvector, Elasticsearch, relevancia, autocompletado y faceting."
+  metaDescription: "Guía de búsqueda de texto completo: PostgreSQL tsvector, Elasticsearch, relevancia, autocompletado, faceting e indexación para producción."
   keywords:
     - full-text-search
     - elasticsearch
@@ -503,11 +503,4 @@ Sí, con la extensión `pg_trgm`: `SELECT word FROM words WHERE word % 'parial' 
 ## Conclusión
 
 La búsqueda de texto completo es una característica orientada al usuario donde el rendimiento y la relevancia impactan directamente el engagement. Al elegir el motor correcto para tu escala, diseñar índices para tus patrones de consulta, y ajustar continuamente la relevancia, construyes búsqueda en la que los usuarios confían y dependen.
-
-## Recursos Relacionados
-
-- [Sharding de Base de Datos](/guides/data/database-sharding-implementation-guide)
-- [Réplicas de Lectura](/guides/data/read-replica-guide)
-- [Estrategias de Caché](/guides/data/caching-strategies-guide)
-- [Testing de Rendimiento](/guides/performance/performance-testing-guide)
-- [Escalado](/guides/devops/scaling-guide)
+

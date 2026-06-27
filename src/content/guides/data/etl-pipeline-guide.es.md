@@ -654,11 +654,4 @@ Un data lake almacena datos crudos y no procesados en archivos (S3, GCS) con sch
 ## Conclusión
 
 Los pipelines ETL son la columna vertebral de la inteligencia de negocios y el análisis. Al extraer datos de forma confiable, transformarlos con validación y cargarlos eficientemente, creas una base de datos confiable para reportes, dashboards y machine learning.
-
-## Recursos Relacionados
-
-- [Procesamiento de Streams](/guides/data/stream-processing-guide)
-- [Analítica en Tiempo Real](/guides/data/real-time-analytics-guide)
-- [Migración de Datos](/guides/data/data-migration-guide)
-- [Pipelines CI/CD](/guides/devops/ci-cd-pipelines-guide)
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
+

@@ -3,7 +3,7 @@ contentType: recipes
 slug: implement-mutation-testing
 title: "Implement Mutation Testing"
 description: "How to use mutation testing with MutPy, Stryker, and PIT to evaluate whether your tests actually assert behavior or merely execute code."
-metaDescription: "Use mutation testing with MutPy, Stryker, and PIT to evaluate whether tests assert behavior or merely execute code."
+metaDescription: "Use mutation testing with MutPy, Stryker, and PIT to evaluate whether tests assert behavior or merely execute code in Python, Java, and JavaScript."
 difficulty: advanced
 topics:
   - testing
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Use mutation testing with MutPy, Stryker, and PIT to evaluate whether tests assert behavior or merely execute code."
+  metaDescription: "Use mutation testing with MutPy, Stryker, and PIT to evaluate whether tests assert behavior or merely execute code in Python, Java, and JavaScript."
   keywords:
     - testing
     - mutation-testing
@@ -245,9 +245,3 @@ src/cart.js:67  # removed null check in applyDiscount
 - **Ignoring equivalent mutants.** They create noise and make developers distrust the tool. Configure exclusions or annotations.
 - **Using mutation score as a team KPI.** It encourages writing tests specifically to kill mutants rather than testing real requirements.
 - **Running mutation tests on unmocked integration tests.** Database calls and HTTP requests make mutation testing impossibly slow; target unit tests.
-
-## Related Resources
-
-- [Measure Test Coverage](/recipes/testing/measure-test-coverage)
-- [Property-Based Testing](/recipes/testing/implement-property-based-testing)
-- [Setup Test Fixtures](/recipes/testing/setup-test-fixtures)

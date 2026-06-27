@@ -303,9 +303,4 @@ public class DocumentController {
 - **Ignoring policy evaluation performance.** Evaluating 50 rules on every API call adds latency. Use caching, compiled policies (OPA compiles Rego to WASM), and lazy evaluation.
 - **Storing policies in the database without versioning.** A policy change that accidentally opens access cannot be rolled back quickly. Version policies in git and load them from files or a policy bundle.
 - **Over-engineering simple access control.** If the policy is "admins can do everything, everyone else can read", ABAC is overkill. Start with RBAC and evolve to ABAC when requirements demand it.
-
-## Related Resources
-
-- [Implement RBAC](/recipes/authentication/implement-rbac)
-- [Implement SSO SAML](/recipes/authentication/implement-sso-saml)
-- [Zero Trust Guide](/guides/security/zero-trust-guide)
+

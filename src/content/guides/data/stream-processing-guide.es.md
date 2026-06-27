@@ -487,11 +487,4 @@ Sí. Flink SQL, ksqlDB y Spark Structured Streaming soportan SQL sobre streams. 
 ## Conclusión
 
 El procesamiento de streams habilita sistemas que reaccionan a eventos a medida que ocurren. Al elegir el motor correcto, diseñar esquemas de eventos inmutables, manejar estado cuidadosamente e implementar semántica exactly-once, construyes pipelines que procesan millones de eventos por segundo con garantías de corrección.
-
-## Recursos Relacionados
-
-- [Analítica en Tiempo Real](/guides/data/real-time-analytics-guide)
-- [Pipelines ETL](/guides/data/etl-pipeline-guide)
-- [Colas de Mensajes](/guides/messaging/message-queues-guide)
-- [Arquitectura Event-Driven](/guides/architecture/event-driven-guide)
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
+

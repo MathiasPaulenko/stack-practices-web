@@ -357,11 +357,4 @@ Yes, but ensure trace context propagates across message queues, callbacks, and t
 ## Conclusion
 
 Distributed tracing is essential for operating microservices at scale. By instrumenting your applications, propagating context faithfully, and sampling intelligently, you transform opaque cross-service failures into visual, debuggable request flows.
-
-## Related Resources
-
-- [Observability Fundamentals](/guides/observability/observability-guide)
-- [Log Aggregation](/guides/observability/log-aggregation-guide)
-- [Metrics and Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Service Mesh](/guides/devops/service-mesh-guide)
-- [OpenTelemetry](/guides/devops/opentelemetry-guide)
+

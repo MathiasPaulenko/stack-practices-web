@@ -355,11 +355,4 @@ Sí, a menos que uses una base de datos con sharding nativo (MongoDB, CockroachD
 ## Conclusión
 
 El sharding de base de datos es una estrategia de escalado potente pero compleja. Al elegir la clave de shard correcta, implementar enrutamiento robusto y planificar para rebalanceo, puedes escalar tu capa de base de datos horizontalmente. Pero haz shard solo cuando sea necesario — el overhead operativo es significativo y muchas cargas de trabajo pueden resolverse con enfoques más simples.
-
-## Recursos Relacionados
-
-- [Réplicas de Lectura](/guides/data/read-replica-guide)
-- [Pooling de Conexiones](/guides/data/connection-pooling-deep-dive-guide)
-- [Estrategias de Caché](/guides/data/caching-strategies-guide)
-- [Microservicios](/guides/architecture/microservices-guide)
-- [Escalado](/guides/devops/scaling-guide)
+

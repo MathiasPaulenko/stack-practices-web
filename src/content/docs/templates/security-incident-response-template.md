@@ -131,7 +131,7 @@ your [data type]. We have [contained / remediated] the issue and are
 
 ### When should I notify customers about a security incident?
 
-If their data was or may have been accessed, notify them directly and promptly. See [Data Retention Policy Template](/docs/templates/data-retention-policy-template) for data classification guidance. Regulations vary: GDPR requires 72 hours to regulators, customer notification without undue delay. When in doubt, notify.
+If their data was or may have been accessed, notify them directly and promptly. See [Data Retention Policy Template](/docs/devops/data-retention-policy-template) for data classification guidance. Regulations vary: GDPR requires 72 hours to regulators, customer notification without undue delay. When in doubt, notify.
 
 ### Should I pay a ransomware demand?
 

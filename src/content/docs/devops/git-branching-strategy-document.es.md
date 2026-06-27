@@ -3,7 +3,7 @@ contentType: docs
 slug: git-branching-strategy-document
 title: "Documento de Estrategia de Branching en Git"
 description: "Una plantilla de documento para definir flujo de trabajo Git, convenciones de ramas, requisitos de merge y procedimientos de release para equipos de ingenieria."
-metaDescription: "Define el flujo de trabajo Git de tu equipo. Cubre nomenclatura de ramas, requisitos de merge, release y rollback."
+metaDescription: "Documenta la estrategia de branching Git de tu equipo: nomenclatura de ramas, requisitos de merge, flujo de release, rollback y protección de ramas."
 difficulty: beginner
 topics:
   - devops
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
-  metaDescription: "Define el flujo de trabajo Git de tu equipo. Cubre nomenclatura de ramas, requisitos de merge, release y rollback."
+  metaDescription: "Documenta la estrategia de branching Git de tu equipo: nomenclatura de ramas, requisitos de merge, flujo de release, rollback y protección de ramas."
   keywords:
     - estrategia de branching git
     - flujo de trabajo git

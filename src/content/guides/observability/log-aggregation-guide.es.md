@@ -398,11 +398,3 @@ Sí — la mayoría de plataformas soportan métricas basadas en logs (contar l�
 ## Conclusión
 
 La agregación de logs transforma la salida dispersa de aplicaciones en una plataforma unificada de depuración y auditoría. Al adoptar logging estructurado, elegir la estrategia de envío correcta y diseñar políticas de retención inteligentes, construyes una base de observabilidad que escala con tu infraestructura.
-
-## Recursos Relacionados
-
-- [Trazas Distribuidas](/guides/observability/distributed-tracing-guide)
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Gestión de Alertas](/guides/observability/alert-management-guide)
-- [Fundamentos de Observabilidad](/guides/devops/observability-guide)
-- [OpenTelemetry](/guides/devops/opentelemetry-guide)

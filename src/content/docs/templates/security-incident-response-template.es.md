@@ -131,7 +131,7 @@ involucrado su [tipo de dato]. Hemos [contenido / remediado] el issue y estamos
 
 ### ¿Cuándo debería notificar a clientes sobre un incidente de seguridad?
 
-Si sus datos fueron o podrían haber sido accedidos, notifícalos directa y prontamente. Consulta la [Plantilla de Política de Retención de Datos](/docs/templates/data-retention-policy-template) para guía de clasificación de datos. Las regulaciones varían: GDPR requiere 72 horas a reguladores, notificación a clientes sin demora indebida. Cuando en duda, notifica.
+Si sus datos fueron o podrían haber sido accedidos, notifícalos directa y prontamente. Consulta la [Plantilla de Política de Retención de Datos](/docs/devops/data-retention-policy-template) para guía de clasificación de datos. Las regulaciones varían: GDPR requiere 72 horas a reguladores, notificación a clientes sin demora indebida. Cuando en duda, notifica.
 
 ### ¿Debería pagar una demanda de ransomware?
 

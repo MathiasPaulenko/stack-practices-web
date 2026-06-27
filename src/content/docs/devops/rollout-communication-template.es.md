@@ -3,7 +3,7 @@ contentType: docs
 slug: rollout-communication-template
 title: "Plantilla de Comunicación de Despliegues"
 description: "Una plantilla para notas de release y actualizaciones de stakeholders durante despliegues de features."
-metaDescription: "Redacta notas de release y actualizaciones de stakeholders durante despliegues de features."
+metaDescription: "Plantilla de comunicación de despliegues: redacta notas de release, actualizaciones de stakeholders, canales y plan de rollback para releases."
 difficulty: beginner
 topics:
   - devops
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Redacta notas de release y actualizaciones de stakeholders durante despliegues de features."
+  metaDescription: "Plantilla de comunicación de despliegues: redacta notas de release, actualizaciones de stakeholders, canales y plan de rollback para releases."
   keywords:
     - devops
     - despliegue

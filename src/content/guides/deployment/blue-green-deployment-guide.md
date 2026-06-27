@@ -286,11 +286,3 @@ Keep it for at least one business day (24 hours) or until you are confident the 
 ## Conclusion
 
 Blue-green deployment is the gold standard for zero-downtime releases with instant rollback. It requires double infrastructure but provides unmatched confidence. Combine it with automated health checks, backward-compatible database migrations, and thorough monitoring for a bulletproof release process.
-
-## Related Resources
-
-- [Canary Deployment](/guides/deployment/canary-deployment-guide)
-- [Feature Flags](/guides/deployment/feature-flags-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Capacity Planning](/guides/planning/capacity-planning-guide)
-- [Disaster Recovery](/guides/planning/disaster-recovery-guide)

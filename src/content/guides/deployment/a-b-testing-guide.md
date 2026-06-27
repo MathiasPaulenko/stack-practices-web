@@ -292,11 +292,4 @@ Yes, but ensure experiments are independent. Overlapping tests on the same featu
 ## Conclusion
 
 A/B testing transforms product development from opinion-based to evidence-based. By following rigorous experiment design, calculating proper sample sizes, and interpreting results correctly, you make decisions that consistently improve user experience and business outcomes.
-
-## Related Resources
-
-- [Feature Flags](/guides/deployment/feature-flags-guide)
-- [Canary Deployment](/guides/deployment/canary-deployment-guide)
-- [SRE Practices](/guides/devops/sre-practices-guide)
-- [Observability](/guides/observability/observability-guide)
-- [Data Pipelines](/guides/data/data-pipeline-guide)
+

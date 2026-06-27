@@ -3,7 +3,7 @@ contentType: docs
 slug: escalation-policy-template
 title: "Plantilla de Política de Escalamiento"
 description: "Una plantilla para definir niveles de severidad de incidentes y rutas de escalamiento de guardia."
-metaDescription: "Define niveles de severidad, rutas de escalamiento y SLAs de respuesta para tu equipo de guardia."
+metaDescription: "Plantilla de política de escalamiento: define niveles de severidad, rutas de escalamiento, SLAs de respuesta y responsables para tu equipo de guardia."
 difficulty: beginner
 topics:
   - devops
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Define niveles de severidad, rutas de escalamiento y SLAs de respuesta para tu equipo de guardia."
+  metaDescription: "Plantilla de política de escalamiento: define niveles de severidad, rutas de escalamiento, SLAs de respuesta y responsables para tu equipo de guardia."
   keywords:
     - devops
     - escalamiento

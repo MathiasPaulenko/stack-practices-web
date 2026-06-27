@@ -495,11 +495,4 @@ El procesamiento de streams es la capa de computación que transforma eventos (F
 ## Conclusión
 
 La analítica en tiempo real convierte streams de eventos en inteligencia accionable en segundos. Al instrumentar aplicaciones con eventos estructurados, procesarlos a través de agregaciones con ventana, y almacenar resultados en bases de datos OLAP, construyes sistemas que reaccionan al presente en lugar de reportar sobre el pasado.
-
-## Recursos Relacionados
-
-- [Procesamiento de Streams](/guides/data/stream-processing-guide)
-- [Pipelines ETL](/guides/data/etl-pipeline-guide)
-- [Métricas y Dashboards](/guides/observability/metrics-and-dashboards-guide)
-- [Escalado](/guides/devops/scaling-guide)
-- [Microservicios](/guides/architecture/microservices-guide)
+
