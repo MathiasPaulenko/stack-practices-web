@@ -47,7 +47,7 @@ Es la base de arquitecturas basadas en eventos, programación reactiva y la arqu
 
 Usa el Patrón Observer cuando:
 - Los cambios en un objeto requieren actualizar un número desconocido de objetos dependientes. Consulta [Mediator Pattern](/patterns/design/mediator-pattern) para enrutamiento centralizado.
-- Necesitas un modelo de comunicación publicar-suscribir. Consulta [CQRS Pattern](/recipes/design/cqrs-pattern) para arquitecturas event-driven.
+- Necesitas un modelo de comunicación publicar-suscribir. Consulta [CQRS Pattern](/recipes/cqrs-pattern-recipe) para arquitecturas event-driven.
 - Un objeto debe notificar a otros sin saber quiénes son
 - Quieres acoplamiento débil entre productores y consumidores de eventos
 - Construyes componentes de UI reactivos o feeds de datos en tiempo real. Consulta [API REST](/recipes/api/call-rest-api) para fetching de datos en tiempo real.

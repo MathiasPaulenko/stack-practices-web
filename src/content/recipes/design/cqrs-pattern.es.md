@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: cqrs-pattern
+slug: cqrs-pattern-recipe
 title: "Escalar Cargas de Lectura y Escritura con CQRS"
 description: "Cómo separar modelos de lectura y escritura usando Command Query Responsibility Segregation para queries optimizadas, event sourcing, y escalado independiente de rutas de lectura y escritura."
 metaDescription: "Aprende CQRS para escalar lectura y escritura. Separa modelos de lectura y escritura para queries optimizadas, event sourcing, y escalado independiente."

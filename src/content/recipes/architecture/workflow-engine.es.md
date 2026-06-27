@@ -36,7 +36,7 @@ Los workflow engines orquestan procesos de negocio complejos de múltiples pasos
 Usa este recurso cuando:
 - Los procesos de negocio tienen 5+ pasos secuenciales con requisitos de manejo de fallas
 - Los pasos necesitan esperar aprobación humana o eventos externos (horas o días)
-- Las fallas parciales requieren transacciones compensatorias ([patrón saga](/recipes/architecture/saga-pattern))
+- Las fallas parciales requieren transacciones compensatorias ([patrón saga](/recipes/saga-pattern-recipe))
 - Necesitas audit trails y visibilidad del estado de procesos de larga duración
 
 ## Solución
@@ -164,7 +164,7 @@ order.ship()     # paid -> shipped
 ## Errores Comunes
 
 1. **Acoplamiento fuerte al orchestrator**: Lógica de negocio filtrándose en definiciones de workflow dificulta testing
-2. **Sin paths de compensación**: Workflows fallados que ya cobraron al cliente necesitan refunds explícitos. Aprende más en [patrón saga](/recipes/architecture/saga-pattern).
+2. **Sin paths de compensación**: Workflows fallados que ya cobraron al cliente necesitan refunds explícitos. Aprende más en [patrón saga](/recipes/saga-pattern-recipe).
 3. **Polling en lugar de events**: Esperar 30 segundos para check de status desperdicia recursos; usa callbacks
 4. **Ignorar historial de workflow**: Workflows completados viejos llenan storage; implementa retention policies
 5. **No testear replay**: Temporal y similares hacen replay de historial; código no determinístico se rompe

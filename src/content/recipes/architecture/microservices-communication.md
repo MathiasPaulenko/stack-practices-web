@@ -36,8 +36,8 @@ Microservices communicate via [REST](/recipes/api/call-rest-api), [gRPC](/recipe
 
 Use this resource when:
 - Choosing between synchronous ([REST](/recipes/api/call-rest-api), [gRPC](/recipes/api/grpc-api)) and asynchronous ([messaging](/recipes/messaging/kafka-event-streaming), events) communication
-- Designing resilient communication with [circuit breakers](/recipes/architecture/circuit-breaker-pattern) and [retries](/recipes/architecture/retry-backoff)
-- Coordinating distributed transactions with [sagas](/recipes/architecture/saga-pattern)
+- Designing resilient communication with [circuit breakers](/recipes/circuit-breaker-pattern-recipe) and [retries](/recipes/architecture/retry-backoff)
+- Coordinating distributed transactions with [sagas](/recipes/saga-pattern-recipe)
 
 ## Solution
 

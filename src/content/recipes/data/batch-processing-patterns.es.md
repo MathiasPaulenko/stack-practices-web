@@ -124,7 +124,7 @@ Un pipeline de producción por lotes necesita tres propiedades:
 - **Registra todo**: Inicio de trabajo, fin, y resultado de cada batch
 - **Usa transacciones**: Envuelve escrituras de batch en transacciones de base de datos
 - **Monitorea profundidad de cola**: Alerta cuando batches pendientes excedan umbrales
-- **Implementa [circuit breakers](/recipes/architecture/circuit-breaker-pattern)**: Detén reintentos si el downstream está unhealthy
+- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe)**: Detén reintentos si el downstream está unhealthy
 
 ## Errores Comunes
 

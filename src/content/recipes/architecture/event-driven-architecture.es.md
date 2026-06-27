@@ -12,7 +12,7 @@ tags:
   - event-driven
 relatedResources:
   - /recipes/microservices-patterns
-  - /recipes/cqrs-pattern
+  - /recipes/cqrs-pattern-recipe
   - /recipes/serverless-functions
   - /recipes/async-patterns
 lastUpdated: "2026-06-14"
@@ -135,7 +135,7 @@ async function startInventoryConsumer() {
 R: Kafka para event streaming de alto throughput, event sourcing y replay. RabbitMQ para enrutamiento complejo, patrones request-reply y compatibilidad AMQP. Kafka escala horizontalmente mejor; RabbitMQ es más fácil de operar a pequeña escala.
 
 **P: ¿Cómo manejo ordenamiento de eventos entre servicios?**
-R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa [sagas](/recipes/architecture/saga-pattern) para compensar cuando las asunciones de ordenamiento cross-service se violan.
+R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa [sagas](/recipes/saga-pattern-recipe) para compensar cuando las asunciones de ordenamiento cross-service se violan.
 
 **P: ¿Puedo hacer queries directamente desde Kafka?**
 R: Puedes leer un stream, pero Kafka no es un query engine. Para queries, materializa eventos en una base de datos (read model) vía Kafka Streams o ksqlDB. Consulta la base de datos, no el broker.

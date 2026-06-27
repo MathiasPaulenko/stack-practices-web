@@ -39,7 +39,7 @@ Usa esta receta cuando:
 
 - Las reglas de negocio son complejas y cambian menos frecuentemente que los frameworks. Consulta [Domain-Driven Design](/recipes/design/domain-driven-design) para modelar lógica de negocio.
 - Necesitas testear lógica core sin levantar bases de datos o servidores HTTP
-- Migrando entre tecnologías de infraestructura (ORMs, message brokers, proveedores cloud). Consulta [Adapter Pattern](/recipes/design/adapter-pattern) para cambios de tecnología.
+- Migrando entre tecnologías de infraestructura (ORMs, message brokers, proveedores cloud). Consulta [Adapter Pattern](/recipes/adapter-pattern-recipe) para cambios de tecnología.
 - Trabajando con múltiples interfaces de cliente (API REST, CLI, cola de mensajes) que comparten el mismo core. Consulta [API REST](/recipes/api/call-rest-api) para patrones de interfaz.
 - Construyendo bibliotecas o frameworks donde el core debe permanecer independiente de consumidores
 

@@ -36,7 +36,7 @@ Workflow engines orchestrate complex, multi-step business processes that span se
 Use this resource when:
 - Business processes have 5+ sequential steps with failure handling requirements
 - Steps need to wait for human approval or external events (hours or days)
-- Partial failures require compensating transactions ([saga pattern](/recipes/architecture/saga-pattern))
+- Partial failures require compensating transactions ([saga pattern](/recipes/saga-pattern-recipe))
 - You need audit trails and visibility into long-running process state
 
 ## Solution
@@ -164,7 +164,7 @@ order.ship()     # paid -> shipped
 ## Common Mistakes
 
 1. **Tight coupling to orchestrator**: Business logic bleeding into workflow definitions makes testing hard
-2. **No compensation paths**: Failed workflows that already charged the customer need explicit refunds. Learn more in [saga pattern](/recipes/architecture/saga-pattern).
+2. **No compensation paths**: Failed workflows that already charged the customer need explicit refunds. Learn more in [saga pattern](/recipes/saga-pattern-recipe).
 3. **Polling instead of events**: Waiting 30 seconds to check status wastes resources; use callbacks
 4. **Ignoring workflow history**: Old completed workflows fill storage; implement retention policies
 5. **No replay testing**: Temporal and similar engines replay history; non-deterministic code breaks

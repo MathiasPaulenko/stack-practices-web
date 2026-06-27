@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: observer-pattern
+slug: observer-pattern-recipe
 title: "Implementar Sistemas Reactivos con el Observer Pattern"
 description: "Cómo construir sistemas event-driven y reactivos usando el observer pattern con pub/sub, event emitters y reactive streams en JavaScript, Java y Python."
 metaDescription: "Aprende observer pattern para sistemas reactivos. Construye sistemas event-driven con pub/sub, event emitters y reactive streams en JavaScript, Java y Python."
@@ -13,7 +13,7 @@ tags:
 relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/async-patterns
-  - /recipes/factory-pattern
+  - /recipes/factory-pattern-recipe
   - /recipes/microservices-patterns
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"

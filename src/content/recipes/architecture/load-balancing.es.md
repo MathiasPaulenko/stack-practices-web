@@ -38,7 +38,7 @@ Usa esta receta cuando:
 
 - Ejecutando múltiples instancias de una aplicación detrás de un único dominio
 - Experimentando tráfico que excede la capacidad de un solo servidor
-- Requiriendo alta disponibilidad con [failover](/recipes/architecture/circuit-breaker-pattern) automático entre data centers
+- Requiriendo alta disponibilidad con [failover](/recipes/circuit-breaker-pattern-recipe) automático entre data centers
 - Necesitando persistencia de sesión para que usuarios golpeen el mismo backend a través de requests
 - Implementando despliegues canary o blue/green que enruten porcentajes de tráfico
 

@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: cqrs-pattern
+slug: cqrs-pattern-recipe
 title: "Scale Read and Write Workloads with CQRS"
 description: "How to separate read and write models using Command Query Responsibility Segregation for optimized queries, event sourcing, and independent scaling of read and write paths."
 metaDescription: "Learn CQRS to scale read and write workloads. Separate read and write models for optimized queries, event sourcing, and independent scaling of paths."

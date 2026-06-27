@@ -105,7 +105,7 @@ kubectl scale deployment/api-service --replicas=20
 |----------|-----------------|
 | Deploy malo | Rollback a última versión buena |
 | Pico de tráfico | Escalar horizontalmente, activar [rate limiting](/recipes/api/rate-limiting) |
-| Falla de dependencia | Activar [circuit breaker](/recipes/architecture/circuit-breaker-pattern), servir cache viejo |
+| Falla de dependencia | Activar [circuit breaker](/recipes/circuit-breaker-pattern-recipe), servir cache viejo |
 | Sobrecarga de base de datos | Matar queries lentas, agregar [réplicas de lectura](/guides/databases/database-design-guide) |
 | Error de configuración | [Revertir config](/guides/devops/infrastructure-as-code-guide), reiniciar con valores previos |
 

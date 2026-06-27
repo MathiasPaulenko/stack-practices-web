@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: circuit-breaker-pattern
+slug: circuit-breaker-pattern-recipe
 title: "Build Resilient Systems with the Circuit Breaker Pattern"
 description: "How to prevent cascading failures in distributed systems using circuit breakers with open, closed, and half-open states in Java, TypeScript, and Python."
 metaDescription: "Learn circuit breaker pattern for resilient distributed systems. Prevent cascading failures with open, closed, and half-open states in Java, TypeScript, and Python."
@@ -12,7 +12,7 @@ tags:
   - circuit-breaker
 relatedResources:
   - /recipes/microservices-patterns
-  - /recipes/saga-pattern
+  - /recipes/saga-pattern-recipe
   - /recipes/api-gateway
   - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-14"
@@ -225,7 +225,7 @@ A: No — it is a state machine with memory (failure windows), automatic recover
 A: Retry inside. The circuit breaker wraps the retry logic. If the retry exhausts and the call still fails, the circuit breaker counts it as a failure. Retrying outside an open circuit wastes resources — you already know the service is unhealthy.
 
 **Q: Can circuit breakers cause data inconsistency?**
-A: Yes, if the fallback is not carefully designed. If the circuit opens during a payment and the fallback is "assume it succeeded," you may mark unpaid orders as paid. Design fallbacks to be safe: mark as pending, queue for later processing, or notify the user. See [Saga Pattern](/recipes/architecture/saga-pattern) for distributed transaction coordination.
+A: Yes, if the fallback is not carefully designed. If the circuit opens during a payment and the fallback is "assume it succeeded," you may mark unpaid orders as paid. Design fallbacks to be safe: mark as pending, queue for later processing, or notify the user. See [Saga Pattern](/recipes/saga-pattern-recipe) for distributed transaction coordination.
 
 **Q: How do circuit breakers work with async/await?**
 A: Most modern libraries (Resilience4j, Opossum for JS) support async execution natively. The state machine runs in the calling thread (or event loop), and the wrapped function is awaited. Timeouts must be compatible with the async runtime (Promise timeout in JS, CompletableFuture timeout in Java). See [Async Patterns](/recipes/api/call-rest-api) for async execution strategies.

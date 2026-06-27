@@ -12,7 +12,7 @@ tags:
 relatedResources:
   - /recipes/cold-start-optimization
   - /recipes/event-driven-architecture
-  - /recipes/saga-pattern
+  - /recipes/saga-pattern-recipe
   - /recipes/api-gateway
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"

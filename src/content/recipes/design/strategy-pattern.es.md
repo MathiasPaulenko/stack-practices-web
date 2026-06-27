@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: strategy-pattern
+slug: strategy-pattern-recipe
 title: "Intercambiar Algoritmos en Runtime con el Strategy Pattern"
 description: "Cómo encapsular algoritmos y comportamientos intercambiables usando el strategy pattern con inyección de dependencias, function pointers y lambda strategies en Java, TypeScript y Python."
 metaDescription: "Aprende strategy pattern para intercambiar algoritmos en runtime. Encapsula comportamientos intercambiables con DI, function pointers y lambda strategies."
@@ -12,10 +12,10 @@ tags:
   - strategy-pattern
   - behavioral-patterns
 relatedResources:
-  - /recipes/factory-pattern
-  - /recipes/adapter-pattern
+  - /recipes/factory-pattern-recipe
+  - /recipes/adapter-pattern-recipe
   - /recipes/hexagonal-architecture
-  - /recipes/singleton-pattern
+  - /recipes/singleton-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -38,10 +38,10 @@ El strategy pattern separa los algoritmos del contexto que los usa. Cada algorit
 
 Usa esta receta cuando:
 
-- Múltiples algoritmos o comportamientos existen para la misma tarea y solo uno se usa a la vez. Consulta [Factory Pattern](/recipes/design/factory-pattern) para crear algoritmos.
+- Múltiples algoritmos o comportamientos existen para la misma tarea y solo uno se usa a la vez. Consulta [Factory Pattern](/recipes/factory-pattern-recipe) para crear algoritmos.
 - El algoritmo debe seleccionarse en runtime basado en configuración o input del usuario. Consulta [Input Validation](/recipes/api/input-validation) para configuración segura.
 - Quieres aislar la complejidad del algoritmo de la lógica de negocio principal
-- Agregar nuevas variantes no debería requerir modificar código existente. Consulta [Adapter Pattern](/recipes/design/adapter-pattern) para extender interfaces.
+- Agregar nuevas variantes no debería requerir modificar código existente. Consulta [Adapter Pattern](/recipes/adapter-pattern-recipe) para extender interfaces.
 - El estado o configuración específico del algoritmo necesita encapsulación separada del contexto
 
 ## Solución

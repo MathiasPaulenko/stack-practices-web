@@ -16,7 +16,7 @@ tags:
   - semaforo
 relatedResources:
   - /recipes/caching
-  - /recipes/singleton-pattern
+  - /recipes/singleton-pattern-recipe
   - /guides/software-architecture-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"

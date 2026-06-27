@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: saga-pattern
+slug: saga-pattern-recipe
 title: "Gestionar Transacciones Distribuidas con el Saga Pattern"
 description: "Cómo implementar orquestación y coreografía de sagas para mantener consistencia de datos entre microservicios sin transacciones distribuidas ni two-phase commit."
 metaDescription: "Aprende saga pattern para transacciones distribuidas. Implementa orquestación y coreografía para mantener consistencia entre microservicios sin 2PC."
@@ -13,7 +13,7 @@ tags:
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-architecture
-  - /recipes/cqrs-pattern
+  - /recipes/cqrs-pattern-recipe
   - /recipes/database-transactions
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
@@ -236,5 +236,5 @@ R: Reintenta con backoff exponencial. Si los reintentos se agotan, alerta a un o
 R: Sí — mantén una tabla de estado de saga en la base de datos del orquestador. Cada fila representa una instancia de saga con columnas para el paso actual, pasos completados y detalles de error. Expón una API de lectura para equipos de soporte y dashboards de monitoreo.
 
 **P: ¿Debería toda interacción entre microservicios usar saga?**
-R: No. Las sagas agregan complejidad. Úsalas para procesos de negocio de múltiples pasos que deben ser todo-o-nada. Para llamadas simples uno-a-uno que pueden fallar independientemente, usa llamadas API directas con [retries](/recipes/architecture/retry-backoff) y [circuit breakers](/recipes/architecture/circuit-breaker-pattern).
+R: No. Las sagas agregan complejidad. Úsalas para procesos de negocio de múltiples pasos que deben ser todo-o-nada. Para llamadas simples uno-a-uno que pueden fallar independientemente, usa llamadas API directas con [retries](/recipes/architecture/retry-backoff) y [circuit breakers](/recipes/circuit-breaker-pattern-recipe).
 

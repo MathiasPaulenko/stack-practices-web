@@ -36,8 +36,8 @@ Los microservicios se comunican vía [REST](/recipes/api/call-rest-api), [gRPC](
 
 Use this resource when:
 - Elegir entre comunicación síncrona ([REST](/recipes/api/call-rest-api), [gRPC](/recipes/api/grpc-api)) y asíncrona ([messaging](/recipes/messaging/kafka-event-streaming), eventos)
-- Diseñar comunicación resiliente con [circuit breakers](/recipes/architecture/circuit-breaker-pattern) y [retries](/recipes/architecture/retry-backoff)
-- Coordinar transacciones distribuidas con [sagas](/recipes/architecture/saga-pattern)
+- Diseñar comunicación resiliente con [circuit breakers](/recipes/circuit-breaker-pattern-recipe) y [retries](/recipes/architecture/retry-backoff)
+- Coordinar transacciones distribuidas con [sagas](/recipes/saga-pattern-recipe)
 
 ## Solución
 

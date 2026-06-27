@@ -169,7 +169,7 @@ spec:
 - **Start with permissive mTLS, then enforce strict**: begin with `PERMISSIVE` mode to ensure all sidecars are injected and working. After validating traffic flows, switch to `STRICT` to reject unencrypted connections. Sudden strict mode can break services that lack sidecars.
 - **Define service accounts per workload**: Kubernetes service accounts map to Istio identities. Use distinct service accounts for each deployment, not the `default` account. This enables fine-grained authorization policies.
 - **Configure retry budgets, not just retries**: naive retries can amplify failures. Use Istio's retry budgets (e.g., retry only if the error ratio is below 10%) or configure maximum retry attempts with exponential backoff. Unlimited retries create retry storms.
-- **Use [circuit breakers](/recipes/architecture/circuit-breaker-pattern) on every outbound call**: configure `outlierDetection` in DestinationRules. If a downstream service returns 5xx on 50% of requests over a 30-second window, eject it for 30 seconds. This prevents cascading failures.
+- **Use [circuit breakers](/recipes/circuit-breaker-pattern-recipe) on every outbound call**: configure `outlierDetection` in DestinationRules. If a downstream service returns 5xx on 50% of requests over a 30-second window, eject it for 30 seconds. This prevents cascading failures.
 - **Monitor sidecar resource usage**: Envoy consumes CPU and memory. Set resource requests/limits on the sidecar. In high-throughput services, the sidecar can become the bottleneck before the application. Profile and tune proxy concurrency.
 
 ## Common mistakes

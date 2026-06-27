@@ -19,9 +19,9 @@ tags:
   - strategy
   - structural
 relatedResources:
-  - /recipes/singleton-pattern
-  - /recipes/observer-pattern
-  - /recipes/strategy-pattern
+  - /recipes/singleton-pattern-recipe
+  - /recipes/observer-pattern-recipe
+  - /recipes/strategy-pattern-recipe
   - /patterns/repository-pattern
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"

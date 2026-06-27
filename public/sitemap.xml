@@ -7453,22 +7453,22 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/api-gateway/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/circuit-breaker-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/circuit-breaker-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/circuit-breaker-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/circuit-breaker-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/circuit-breaker-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/circuit-breaker-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/circuit-breaker-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/circuit-breaker-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/circuit-breaker-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/circuit-breaker-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/circuit-breaker-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/circuit-breaker-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/circuit-breaker-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/circuit-breaker-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/circuit-breaker-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/circuit-breaker-pattern-recipe/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/dependency-injection/</loc>
@@ -7597,22 +7597,22 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/retry-backoff/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/saga-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/saga-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/saga-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/saga-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/saga-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/saga-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/saga-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/saga-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/saga-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/saga-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/saga-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/saga-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/saga-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/saga-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/saga-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/saga-pattern-recipe/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/service-discovery/</loc>
@@ -9055,40 +9055,40 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/use-orm-crud/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/adapter-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/adapter-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/adapter-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/adapter-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/adapter-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/adapter-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/adapter-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/adapter-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/adapter-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/adapter-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/adapter-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/adapter-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/adapter-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/adapter-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/adapter-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/adapter-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/cqrs-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/cqrs-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cqrs-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cqrs-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cqrs-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cqrs-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cqrs-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cqrs-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/cqrs-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/cqrs-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cqrs-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cqrs-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cqrs-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/cqrs-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/cqrs-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/cqrs-pattern-recipe/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/domain-driven-design/</loc>
@@ -9109,22 +9109,22 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/domain-driven-design/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/factory-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/factory-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/factory-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/factory-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/factory-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/factory-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/factory-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/factory-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/factory-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/factory-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/factory-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/factory-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/factory-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/factory-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/factory-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/factory-pattern-recipe/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/hexagonal-architecture/</loc>
@@ -9145,58 +9145,58 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/hexagonal-architecture/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/observer-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/observer-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/observer-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/observer-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/observer-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/observer-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/observer-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/observer-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/observer-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/observer-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/observer-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/observer-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/observer-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/observer-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/observer-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/observer-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/singleton-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/singleton-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/singleton-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/singleton-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/singleton-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/singleton-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/singleton-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/singleton-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/singleton-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/singleton-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/singleton-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/singleton-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/singleton-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/singleton-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/singleton-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/singleton-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/strategy-pattern/</loc>
+    <loc>https://stackpractices.com/recipes/strategy-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/strategy-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/strategy-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/strategy-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/strategy-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/strategy-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/strategy-pattern-recipe/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/es/recipes/strategy-pattern/</loc>
+    <loc>https://stackpractices.com/es/recipes/strategy-pattern-recipe/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/strategy-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/strategy-pattern/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/strategy-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/strategy-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/strategy-pattern-recipe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/strategy-pattern-recipe/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/ansible-playbook/</loc>

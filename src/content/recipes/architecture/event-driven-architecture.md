@@ -12,7 +12,7 @@ tags:
   - event-driven
 relatedResources:
   - /recipes/microservices-patterns
-  - /recipes/cqrs-pattern
+  - /recipes/cqrs-pattern-recipe
   - /recipes/serverless-functions
   - /recipes/async-patterns
 lastUpdated: "2026-06-14"
@@ -179,7 +179,7 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 A: Kafka for high-throughput event streaming, event sourcing, and replay. RabbitMQ for complex routing, request-reply patterns, and AMQP compatibility. Kafka scales horizontally better; RabbitMQ is easier to operate at small scale.
 
 **Q: How do I handle event ordering across services?**
-A: You cannot guarantee global ordering across services. Ensure ordering within an aggregate (e.g., all events for `order-123` go to the same partition). Use [sagas](/recipes/architecture/saga-pattern) to compensate when cross-service ordering assumptions are violated.
+A: You cannot guarantee global ordering across services. Ensure ordering within an aggregate (e.g., all events for `order-123` go to the same partition). Use [sagas](/recipes/saga-pattern-recipe) to compensate when cross-service ordering assumptions are violated.
 
 **Q: What is the difference between event-driven and message-driven?**
 A: Event-driven: services react to events they subscribe to. Message-driven: services send messages to specific queues. The terms overlap, but event-driven implies pub/sub and loose coupling, while message-driven includes point-to-point patterns.

@@ -124,7 +124,7 @@ A production batch pipeline needs three properties:
 - **Log everything**: Job start, end, and every batch outcome
 - **Use transactions**: Wrap batch writes in database transactions
 - **Monitor queue depth**: Alert when pending batches exceed thresholds
-- **Implement [circuit breakers](/recipes/architecture/circuit-breaker-pattern)**: Stop retrying if downstream is unhealthy
+- **Implement [circuit breakers](/recipes/circuit-breaker-pattern-recipe)**: Stop retrying if downstream is unhealthy
 
 ## Common Mistakes
 

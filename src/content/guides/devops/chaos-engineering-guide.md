@@ -22,7 +22,7 @@ relatedResources:
   - /guides/sre-practices-guide
   - /guides/observability-guide
   - /guides/service-mesh-guide
-  - /recipes/circuit-breaker-pattern
+  - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:

@@ -135,7 +135,7 @@ Mejor para: trabajo en background, alto throughput, desacoplamiento
 ## Mejores Prácticas
 
 - **Posee el ciclo de vida completo** — los equipos construyen, operan y soportan sus servicios
-- **Diseña para el fallo** — asume que cualquier dependencia puede fallar; usa [reintentos con backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/architecture/circuit-breaker-pattern) y degradación graceful
+- **Diseña para el fallo** — asume que cualquier dependencia puede fallar; usa [reintentos con backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/circuit-breaker-pattern-recipe) y degradación graceful
 - **Automatiza todo** — si un deploy o rollback requiere un runbook, automatízalo
 - **Estandariza observabilidad** — cada servicio debe emitir [logs](/recipes/observability/log-aggregation), [métricas](/recipes/observability/metrics-collection) y [trazas](/recipes/observability/distributed-tracing) consistentes
 - **Limita dependencias entre servicios** — evita cadenas profundas; prefiere fan-out sobre árboles profundos

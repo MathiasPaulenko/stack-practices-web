@@ -208,7 +208,7 @@ app.listen(3000, () => console.log('Gateway running on port 3000'));
 
 ## Mejores prácticas
 
-- **Implementa [circuit breakers](/recipes/architecture/circuit-breaker-pattern) en el gateway**: si un servicio backend está fallando, el gateway debería dejar de enviar requests y retornar una respuesta cacheada o 503. Esto previene fallos en cascada y da a servicios en dificultades tiempo para recuperarse.
+- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en el gateway**: si un servicio backend está fallando, el gateway debería dejar de enviar requests y retornar una respuesta cacheada o 503. Esto previene fallos en cascada y da a servicios en dificultades tiempo para recuperarse.
 - **Usa versionado de paths**: incluye la versión de API en el path (`/api/v1/users`) en lugar de headers. Esto hace el enrutamiento explícito, soporta múltiples versiones simultáneamente, y simplifica generación de cache keys.
 - **Centraliza observabilidad**: el gateway es el lugar ideal para tracing distribuido, métricas y logging. Inyecta trace IDs en el edge y propágalos a todos los servicios downstream. Cada request fluye a través del gateway — usa esa visibilidad.
 - **Descarga autenticación**: [valida JWTs](/recipes/authentication/jwt-authentication) o API keys en el gateway. Reenvía solo requests autenticadas con headers de contexto de usuario a los backends. Los servicios no deberían necesitar validar tokens ellos mismos, pero aún deben enforce autorización.

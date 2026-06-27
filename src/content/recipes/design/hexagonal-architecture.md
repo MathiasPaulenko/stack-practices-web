@@ -39,7 +39,7 @@ Use this recipe when:
 
 - Business rules are complex and change less frequently than frameworks. See [Domain-Driven Design](/recipes/design/domain-driven-design) for modeling business logic.
 - You need to test core logic without spinning up databases or HTTP servers
-- Migrating between infrastructure technologies (ORMs, message brokers, cloud providers). See [Adapter Pattern](/recipes/design/adapter-pattern) for technology swaps.
+- Migrating between infrastructure technologies (ORMs, message brokers, cloud providers). See [Adapter Pattern](/recipes/adapter-pattern-recipe) for technology swaps.
 - Working with multiple client interfaces (REST API, CLI, message queue) that share the same core. See [API Call REST](/recipes/api/call-rest-api) for interface patterns.
 - Building libraries or frameworks where the core must remain independent of consumers
 

@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: adapter-pattern
+slug: adapter-pattern-recipe
 title: "Bridge Incompatible Interfaces with the Adapter Pattern"
 description: "How to integrate legacy APIs, third-party libraries, and incompatible interfaces using object adapters, class adapters, and facade adapters in Java, TypeScript, and Python."
 metaDescription: "Learn adapter pattern to integrate incompatible interfaces. Bridge legacy APIs and third-party libraries using object and class adapters in Java, TypeScript, Python."
@@ -13,9 +13,9 @@ tags:
   - structural-patterns
 relatedResources:
   - /recipes/hexagonal-architecture
-  - /recipes/factory-pattern
+  - /recipes/factory-pattern-recipe
   - /recipes/api-gateway
-  - /recipes/singleton-pattern
+  - /recipes/singleton-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -39,9 +39,9 @@ The adapter pattern solves this by introducing a wrapper class that implements y
 Use this recipe when:
 
 - Integrating a third-party library with an incompatible interface. See [Hexagonal Architecture](/recipes/design/hexagonal-architecture) for port/adapter isolation.
-- Migrating from a legacy system without rewriting dependent code. See [Factory Pattern](/recipes/design/factory-pattern) for creating adapter instances.
+- Migrating from a legacy system without rewriting dependent code. See [Factory Pattern](/recipes/factory-pattern-recipe) for creating adapter instances.
 - Exposing a simplified facade over a complex subsystem
-- Supporting multiple implementations of the same capability (payments, storage, messaging). See [Strategy Pattern](/recipes/design/strategy-pattern) for runtime algorithm selection.
+- Supporting multiple implementations of the same capability (payments, storage, messaging). See [Strategy Pattern](/recipes/strategy-pattern-recipe) for runtime algorithm selection.
 - Testing code that depends on external services by adapting mocks
 
 ## Solution

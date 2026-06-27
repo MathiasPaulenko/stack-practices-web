@@ -189,7 +189,7 @@ When a service needs data owned by another:
 ## Best Practices
 
 - **Own the full lifecycle** — teams build, run, and support their services (you build it, you run it)
-- **Design for failure** — assume any dependency can fail; use [retries with backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/architecture/circuit-breaker-pattern), and graceful degradation
+- **Design for failure** — assume any dependency can fail; use [retries with backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/circuit-breaker-pattern-recipe), and graceful degradation
 - **Automate everything** — if a deployment or rollback requires a runbook, automate it
 - **Standardize observability** — every service must emit [logs](/recipes/observability/log-aggregation), [metrics](/recipes/observability/metrics-collection), and [traces](/recipes/observability/distributed-tracing) in a consistent format
 - **Limit service dependencies** — avoid deep dependency chains; prefer fan-out over deep trees

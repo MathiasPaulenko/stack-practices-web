@@ -11,8 +11,8 @@ tags:
   - serverless
   - cqrs
 relatedResources:
-  - /recipes/cqrs-pattern
-  - /recipes/saga-pattern
+  - /recipes/cqrs-pattern-recipe
+  - /recipes/saga-pattern-recipe
   - /recipes/serverless-orchestration
   - /recipes/event-driven-architecture
 lastUpdated: "2026-06-14"

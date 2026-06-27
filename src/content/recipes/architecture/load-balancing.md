@@ -38,7 +38,7 @@ Use this recipe when:
 
 - Running multiple instances of an application behind a single domain
 - Experiencing traffic that exceeds the capacity of a single server
-- Requiring high availability with automatic [failover](/recipes/architecture/circuit-breaker-pattern) between data centers
+- Requiring high availability with automatic [failover](/recipes/circuit-breaker-pattern-recipe) between data centers
 - Needing session persistence so users hit the same backend across requests
 - Implementing canary or blue/green deployments that route percentages of traffic
 

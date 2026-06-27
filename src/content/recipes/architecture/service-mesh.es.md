@@ -120,7 +120,7 @@ spec:
 - **Empieza con mTLS permisivo, luego enforce estricto**: comienza con modo `PERMISSIVE` para asegurar que todos los sidecars están inyectados y funcionando. Después de validar flujos de tráfico, cambia a `STRICT` para rechazar conexiones no encriptadas.
 - **Define service accounts por workload**: las cuentas de servicio de Kubernetes se mapean a identidades de Istio. Usa cuentas de servicio distintas para cada deployment, no la cuenta `default`. Esto habilita políticas de autorización granulares.
 - **Configura retry budgets, no solo retries**: retries ingenuos pueden amplificar fallos. Usa retry budgets de Istio (ej. retry solo si el ratio de error está debajo del 10%) o configura máximo de reintentos con backoff exponencial.
-- **Usa [circuit breakers](/recipes/architecture/circuit-breaker-pattern) en cada llamada saliente**: configura `outlierDetection` en DestinationRules. Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos. Esto previene fallos en cascada.
+- **Usa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en cada llamada saliente**: configura `outlierDetection` en DestinationRules. Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos. Esto previene fallos en cascada.
 
 ## Errores comunes
 

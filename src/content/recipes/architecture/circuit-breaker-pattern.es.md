@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: circuit-breaker-pattern
+slug: circuit-breaker-pattern-recipe
 title: "Construir Sistemas Resilientes con el Circuit Breaker Pattern"
 description: "Cómo prevenir fallas en cascada en sistemas distribuidos usando circuit breakers con estados open, closed y half-open en Java, TypeScript y Python."
 metaDescription: "Aprende circuit breaker pattern para sistemas distribuidos resilientes. Previene fallas en cascada con estados open, closed y half-open en Java, TypeScript y Python."
@@ -12,7 +12,7 @@ tags:
   - circuit-breaker
 relatedResources:
   - /recipes/microservices-patterns
-  - /recipes/saga-pattern
+  - /recipes/saga-pattern-recipe
   - /recipes/api-gateway
   - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-14"
@@ -217,7 +217,7 @@ R: No — es una máquina de estados con memoria (ventanas de falla), recuperaci
 R: Reintenta dentro. El circuit breaker envuelve la lógica de retry. Si el retry se agota y la llamada aún falla, el circuit breaker lo cuenta como falla. Reintentar fuera de un circuito abierto desperdicia recursos — ya sabes que el servicio no está saludable.
 
 **P: ¿Pueden los circuit breakers causar inconsistencia de datos?**
-R: Sí, si el fallback no está cuidadosamente diseñado. Si el circuito se abre durante un pago y el fallback es "asumir que tuvo éxito," puedes marcar órdenes no pagadas como pagadas. Diseña fallbacks seguros: marca como pendiente, encola para procesamiento posterior, o notifica al usuario. Consulta [Saga Pattern](/recipes/architecture/saga-pattern) para coordinación de transacciones distribuidas.
+R: Sí, si el fallback no está cuidadosamente diseñado. Si el circuito se abre durante un pago y el fallback es "asumir que tuvo éxito," puedes marcar órdenes no pagadas como pagadas. Diseña fallbacks seguros: marca como pendiente, encola para procesamiento posterior, o notifica al usuario. Consulta [Saga Pattern](/recipes/saga-pattern-recipe) para coordinación de transacciones distribuidas.
 
 **P: ¿Cómo funcionan los circuit breakers con async/await?**
 R: La mayoría de las librerías modernas (Resilience4j, Opossum para JS) soportan ejecución async nativamente. La máquina de estados corre en el thread llamador (o event loop), y la función envuelta se espera. Los timeouts deben ser compatibles con el runtime async (Promise timeout en JS, CompletableFuture timeout en Java). Consulta [Async Patterns](/recipes/api/call-rest-api) para estrategias de ejecución async.
