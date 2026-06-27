@@ -26,7 +26,7 @@
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
-| Docs | ~108 unique | ADRs, Runbooks, Checklists, Templates, Policies |
+| Docs | ~113 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
 
@@ -171,19 +171,6 @@ All pending patterns have been completed.
 18. `complete-guide-cost-optimization-aws` — Reduce cloud spend by 40%
 19. `complete-guide-python-asyncio` — Master asynchronous Python programming
 20. `complete-guide-llm-prompt-engineering` — Write effective prompts for AI models
-
----
-
-### New Docs / Templates (5)
-
-**Monitoring & Infrastructure**
-1. `backup-verification-test-template` — Ensure backups are restorable
-
-**Configuration & Environment**
-2. `environment-configuration-template` — Document env vars per environment
-3. `zero-downtime-deployment-checklist` — Ensure smooth production releases
-4. `load-test-execution-plan-template` — Plan and execute performance tests
-5. `data-retention-policy-template` — Define data lifecycle and deletion
 
 ---
 

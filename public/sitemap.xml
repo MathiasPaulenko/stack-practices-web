@@ -829,6 +829,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/backup-and-restore-template/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/backup-verification-test-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/backup-verification-test-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/backup-verification-test-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/backup-verification-test-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/backup-verification-test-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/backup-verification-test-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/backup-verification-test-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/backup-verification-test-template/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/docs/bug-triage-template/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -1045,6 +1063,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/data-migration-runbook-template/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/data-retention-policy-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/data-retention-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/data-retention-policy-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/data-retention-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/docs/dependency-upgrade-template/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -1225,6 +1261,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/engineering-handbook-template/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/environment-configuration-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/environment-configuration-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/environment-configuration-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/environment-configuration-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/environment-configuration-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/environment-configuration-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/environment-configuration-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/environment-configuration-template/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/docs/escalation-policy-template/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -1349,6 +1403,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/infrastructure-cost-allocation-template/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/infrastructure-cost-allocation-template/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/infrastructure-cost-allocation-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/load-test-execution-plan-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/load-test-execution-plan-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/load-test-execution-plan-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/load-test-execution-plan-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/load-test-execution-plan-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/load-test-execution-plan-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/load-test-execution-plan-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/load-test-execution-plan-template/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/docs/logging-standards-document/</loc>
@@ -1819,6 +1891,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/weekly-ops-review-template/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/zero-downtime-deployment-checklist/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/zero-downtime-deployment-checklist/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/zero-downtime-deployment-checklist/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/zero-downtime-deployment-checklist/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/zero-downtime-deployment-checklist/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/zero-downtime-deployment-checklist/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/zero-downtime-deployment-checklist/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/zero-downtime-deployment-checklist/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/docs/api-security-review-template/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -2123,24 +2213,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/contributing-guide/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/contributing-guide/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/contributing-guide/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/docs/data-retention-policy-template/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/data-retention-policy-template/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/es/docs/data-retention-policy-template/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/data-retention-policy-template/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/data-retention-policy-template/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/docs/database-migration-runbook-template/</loc>
