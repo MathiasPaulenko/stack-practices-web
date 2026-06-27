@@ -919,6 +919,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/cloud-cost-allocation-template/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/cloud-resource-tagging-policy-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/cloud-resource-tagging-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/cloud-resource-tagging-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/cloud-resource-tagging-policy-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/cloud-resource-tagging-policy-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/cloud-resource-tagging-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/cloud-resource-tagging-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/cloud-resource-tagging-policy-template/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/docs/code-review-checklist-template/</loc>
     <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1315,6 +1333,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/infrastructure-as-code-review-template/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/infrastructure-cost-allocation-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/infrastructure-cost-allocation-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/infrastructure-cost-allocation-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/infrastructure-cost-allocation-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/infrastructure-cost-allocation-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/infrastructure-cost-allocation-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/infrastructure-cost-allocation-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/infrastructure-cost-allocation-template/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/docs/logging-standards-document/</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -1331,6 +1367,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/logging-standards-document/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/logging-standards-document/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/logging-standards-document/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/monitoring-alerting-policy-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/monitoring-alerting-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/monitoring-alerting-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/monitoring-alerting-policy-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/monitoring-alerting-policy-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/monitoring-alerting-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/monitoring-alerting-policy-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/monitoring-alerting-policy-template/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/docs/network-security-template/</loc>
@@ -1585,6 +1639,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/secret-rotation-schedule-template/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/docs/service-level-objective-slo-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/service-level-objective-slo-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/service-level-objective-slo-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/service-level-objective-slo-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/service-level-objective-slo-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/service-level-objective-slo-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/service-level-objective-slo-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/service-level-objective-slo-template/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/docs/service-level-objective-template/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -1619,6 +1691,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/service-ownership-document-template/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/service-ownership-document-template/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/service-ownership-document-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/docs/ssl-certificate-management-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/ssl-certificate-management-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/ssl-certificate-management-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/ssl-certificate-management-template/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/docs/ssl-certificate-management-template/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/ssl-certificate-management-template/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/docs/ssl-certificate-management-template/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/docs/ssl-certificate-management-template/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/docs/ssl-certificate-renewal-template/</loc>

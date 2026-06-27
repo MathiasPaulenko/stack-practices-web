@@ -26,7 +26,7 @@
 | Recipes | ~259 unique | AI, API, Architecture, Auth, Concurrency, Data, Database, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
 | Patterns | 113 unique | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration |
 | Guides | 112 unique | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage |
-| Docs | ~103 unique | ADRs, Runbooks, Checklists, Templates, Policies |
+| Docs | ~108 unique | ADRs, Runbooks, Checklists, Templates, Policies |
 
 ---
 
@@ -174,21 +174,16 @@ All pending patterns have been completed.
 
 ---
 
-### New Docs / Templates (10)
+### New Docs / Templates (5)
 
 **Monitoring & Infrastructure**
-1. `monitoring-alerting-policy-template` — Define alert thresholds and escalation
-2. `infrastructure-cost-allocation-template` — Charge back cloud costs to teams
-3. `service-level-objective-slo-template` — Define and measure SLOs
-4. `cloud-resource-tagging-policy-template` — Enforce consistent resource labels
-5. `ssl-certificate-management-template` — Track cert expiry and renewals
-6. `backup-verification-test-template` — Ensure backups are restorable
+1. `backup-verification-test-template` — Ensure backups are restorable
 
 **Configuration & Environment**
-7. `environment-configuration-template` — Document env vars per environment
-8. `zero-downtime-deployment-checklist` — Ensure smooth production releases
-9. `load-test-execution-plan-template` — Plan and execute performance tests
-10. `data-retention-policy-template` — Define data lifecycle and deletion
+2. `environment-configuration-template` — Document env vars per environment
+3. `zero-downtime-deployment-checklist` — Ensure smooth production releases
+4. `load-test-execution-plan-template` — Plan and execute performance tests
+5. `data-retention-policy-template` — Define data lifecycle and deletion
 
 ---
 
