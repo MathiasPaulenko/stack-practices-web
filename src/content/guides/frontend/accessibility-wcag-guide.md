@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: accessibility-wcag-guide
-title: "WCAG 2.2 Accessibility — A Developer Guide"
+title: "WCAG 2.2 Accessibility: A Developer Guide"
 description: "A practical guide to WCAG 2.2 compliance: perceivable, operable, understandable, and robust principles with code examples for web accessibility."
 metaDescription: "Learn WCAG 2.2 accessibility: perceivable, operable, understandable, robust. Practical guide with code examples for accessible web development."
 difficulty: intermediate
@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Web accessibility (a11y) ensures that people with disabilities can perceive, understand, navigate, and interact with web content. WCAG 2.2 (Web Content Accessibility Guidelines) is the current standard, organized around four principles: Perceivable, Operable, Understandable, and Robust (POUR). This guide covers the most impactful success criteria with practical code examples.
+Web accessibility (a11y) ensures that people with disabilities can perceive, understand, navigate, and interact with web content. WCAG 2.2 (Web Content Accessibility Guidelines) is the current standard, organized around four principles: Perceivable, Operable, Understandable, and Robust (POUR). This guide covers the most important success criteria with practical code examples.
 
 ## When to Use
 

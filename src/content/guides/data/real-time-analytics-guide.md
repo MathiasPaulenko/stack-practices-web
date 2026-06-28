@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: real-time-analytics-guide
-title: "Real-Time Analytics — From Events to Dashboards in Seconds"
+title: "Real-Time Analytics: From Events to Dashboards in Seconds"
 description: "A practical guide to real-time analytics: event collection, stream processing, data warehousing, and building sub-second dashboards with Kafka, ClickHouse, Druid, and modern OLAP databases."
 metaDescription: "Learn real-time analytics: event collection, stream processing, data warehousing, and building sub-second dashboards with Kafka, ClickHouse, Druid, and OLAP."
 difficulty: advanced
@@ -175,7 +175,7 @@ function trackEvent(eventType, properties) {
 trackEvent('button_clicked', { button_id: 'checkout', page: 'cart' });
 ```
 
-**Event schema best practices:**
+**Event schema guidelines:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -453,7 +453,7 @@ LIMIT 20;
 | **Funnel analysis** | Multi-stage filtering with window functions | 1-5 minutes |
 | **Anomaly alerts** | Statistical anomaly detection on aggregates | 1 minute |
 
-## Best Practices
+## What works
 
 - **Use event-time, not processing-time.** Clock skew and late arrivals make processing-time unreliable. Watermarks handle late data gracefully.
 - **Pre-aggregate where possible.** Materialized views in ClickHouse or Druid aggregations reduce query cost by 1000×.
@@ -494,5 +494,5 @@ Stream processing is the computation layer (Flink, Kafka Streams). Real-time ana
 
 ## Conclusion
 
-Real-time analytics turns event streams into actionable intelligence within seconds. By instrumenting applications with structured events, processing them through windowed aggregations, and storing results in OLAP databases, you build systems that react to the present rather than reporting on the past.
-
+Real-time analytics turns event streams into timely intelligence within seconds. By instrumenting applications with structured events, processing them through windowed aggregations, and storing results in OLAP databases, you build systems that react to the present rather than reporting on the past.
+

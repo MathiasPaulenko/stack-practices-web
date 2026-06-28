@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: caching-strategies-guide
-title: "Caching Strategies — From Browser to Database, a Complete Guide"
+title: "Caching Strategies: From Browser to Database, a Complete Guide"
 description: "A practical guide to caching strategies: browser caching, CDN edge caching, application caching with Redis, and database query caching. Learn when to use each and how to avoid cache invalidation nightmares."
 metaDescription: "Learn caching strategies: browser, CDN, Redis, and database query caching. When to use each, how to invalidate, and how to avoid common pitfalls."
 difficulty: intermediate
@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Caching is one of the most effective ways to improve application performance and reduce infrastructure costs. By storing copies of frequently accessed data closer to where it is needed, you reduce latency, decrease database load, and improve user experience. But caching introduces complexity: stale data, invalidation logic, and consistency challenges.
+Caching is one of the most impactful ways to improve application performance and reduce infrastructure costs. By storing copies of frequently accessed data closer to where it is needed, you reduce latency, decrease database load, and improve user experience. But caching introduces complexity: stale data, invalidation logic, and consistency challenges.
 
 This guide covers caching at every layer of the stack, from browser to database.
 
@@ -77,7 +77,7 @@ Disk / Storage
 
 ### 1. Browser Caching
 
-Leverage the browser's built-in cache first:
+Use the browser's built-in cache first:
 
 ```nginx
 # Nginx: Cache static assets aggressively
@@ -303,7 +303,7 @@ query_cache_size = 256M
 query_cache_limit = 8M
 ```
 
-**Database caching best practices:**
+**Database caching guidelines:**
 - Tune `shared_buffers` (PostgreSQL) or `innodb_buffer_pool_size` (MySQL)
 - Use materialized views for expensive aggregations that do not need real-time data
 - Create covering indexes so queries are served entirely from index pages
@@ -340,7 +340,7 @@ p.run_in_thread(sleep_time=0.001)
 r.publish('product-updates', product_id)
 ```
 
-## Best Practices
+## What works
 
 - **Cache at multiple layers.** Browser + CDN + Redis + database buffer pool.
 - **Use TTLs appropriate to data volatility.** User profile: 1 hour. Product catalog: 1 day. Session: 15 minutes.
@@ -380,5 +380,5 @@ Only if you can tolerate brief data loss and have a retry mechanism. Write-throu
 
 ## Conclusion
 
-Effective caching transforms application performance. By layering caches from browser to database, choosing appropriate invalidation strategies, and monitoring hit rates, you reduce latency and infrastructure cost while maintaining data consistency.
-
+Good caching transforms application performance. By layering caches from browser to database, choosing appropriate invalidation strategies, and monitoring hit rates, you reduce latency and infrastructure cost while maintaining data consistency.
+

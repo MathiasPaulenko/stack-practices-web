@@ -170,7 +170,7 @@ async function generateBatch(theme, outputDir) {
 | Midjourney | Alto | Media | Muy alta | Medio | Artístico, contenido premium |
 | Ideogram | Bajo | Rápido | Media | Bajo | Precisión de texto en imagen |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Cachea imágenes generadas**: almacena imágenes generadas en object storage (S3, GCS) con un CDN adelante. Nunca regeneres el mismo prompt dos veces — cachea por hash de prompt o selección de usuario.
 - **Versiona tus prompts**: trackea plantillas de prompts, versiones de modelos y valores de seed en control de versiones. Cuando los modelos se actualizan (ej. DALL-E 3 a 4), testea de regresión tu biblioteca de prompts para consistencia.

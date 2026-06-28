@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: alert-management-guide
-title: "Alert Management — On-Call Alerting Best Practices"
+title: "Alert Management: On-Call Alerting That Works"
 description: "A practical guide to alert management: reducing alert fatigue, defining severity levels, escalation policies, on-call rotation design, and building a sustainable alerting culture."
 metaDescription: "Learn alert management: reduce alert fatigue, define severity levels, design escalation policies, on-call rotations, and build sustainable alerting."
 difficulty: intermediate
@@ -64,7 +64,7 @@ This guide covers alert design, severity classification, on-call structures, esc
 
 ## Severity Levels
 
-Define clear, actionable severity levels:
+Define clear severity levels:
 
 | Level | Name | Response Time | Channel | Example |
 |-------|------|---------------|---------|---------|
@@ -85,7 +85,7 @@ Define clear, actionable severity levels:
 
 ### 1. Design Alerts That Matter
 
-Every alert must be actionable and user-impacting:
+Every alert must be something you can act on and user-impacting:
 
 ```yaml
 # Example: Prometheus alert rules with severity
@@ -161,7 +161,7 @@ Design rotations that are fair and sustainable:
 # Escalation: Manager after 15 minutes
 ```
 
-**Rotation best practices:**
+**Rotation guidelines:**
 - Limit on-call frequency to no more than 1 week in 4
 - Ensure handoff between shifts includes active incidents
 - Compensate for on-call time (pay or time off)
@@ -224,12 +224,12 @@ Users cannot access `{{ $labels.job }}`. Revenue impact if payment or API.
 If unresolved in 15 minutes, escalate to: platform-team@company.com
 ```
 
-**Runbook best practices:**
+**Runbook guidelines:**
 - One runbook per P1/P2 alert
 - Include diagnosis, resolution, and escalation steps
 - Link runbook directly in alert notification
 - Review and update runbooks quarterly
-- Measure runbook effectiveness (time to resolve when followed)
+- Measure how well runbooks work (time to resolve when followed)
 
 ### 5. Reduce Alert Fatigue
 
@@ -250,10 +250,10 @@ Actively measure and reduce alert volume:
 - **Auto-remediate:** Auto-restart, auto-scale for known recoverable issues
 - **Delete:** Remove alerts that fire more than once without action
 
-## Best Practices
+## What works
 
 - **Alert on symptoms, not causes.** Disk full is a cause; slow requests is the symptom.
-- **Every alert must be actionable.** If the response is "wait and see," it should not page.
+- **Every alert must be something you can act on.** If the response is "wait and see," it should not page.
 - **Use `for:` to prevent flapping.** Require sustained threshold breach before alerting.
 - **Separate paging from logging.** Not everything that is interesting needs to wake someone up.
 - **Review alerts monthly.** Track which alerts fire, which are acknowledged, and which are ignored.
@@ -277,7 +277,7 @@ Actively measure and reduce alert volume:
 ## FAQ
 
 **Q: How many alerts per week is too many?**
-More than 5 actionable alerts per person per week is excessive. If you are paging more than once per week, something is wrong with your system or your thresholds.
+More than 5 alerts that demand action per person per week is excessive. If you are paging more than once per week, something is wrong with your system or your thresholds.
 
 **Q: Should I alert on CPU and memory usage?**
 Generally no, unless those metrics directly correlate with user-impacting symptoms. Alert on request latency, error rate, and throughput instead.
@@ -290,4 +290,4 @@ Alerts notify you of something that requires action. Dashboards help you underst
 
 ## Conclusion
 
-Good alerting is a product you build for your on-call engineers. It should be precise, actionable, and respectful of their time. By designing alerts around user impact, creating clear runbooks, and actively reducing noise, you build an operational culture that is sustainable and effective.
+Good alerting is a product you build for your on-call engineers. It should be precise, useful, and respectful of their time. By designing alerts around user impact, creating clear runbooks, and actively reducing noise, you build an operational culture that is sustainable and reliable.
