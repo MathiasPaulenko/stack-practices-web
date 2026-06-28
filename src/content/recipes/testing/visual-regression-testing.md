@@ -142,7 +142,7 @@ driver.quit()
 | Percy | Full page + component | Multi-platform | Paid | Cross-browser testing |
 | Applitools | AI-powered | Enterprise | Paid | Large-scale visual testing |
 
-## Best practices
+## What works
 
 - **Stabilize before capture**: wait for fonts to load, animations to complete, and network requests to settle before taking screenshots. Use `networkidle`, explicit waits, or Chromatic's `delay` parameter. Screenshots of loading spinners are useless.
 - **Isolate components in Storybook**: testing components in isolation (via Storybook) produces more stable baselines than full-page screenshots. A Button component has fewer variables than an entire Dashboard page. Use both: Storybook for component coverage, full-page for integration.

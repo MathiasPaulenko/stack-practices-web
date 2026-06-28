@@ -173,7 +173,7 @@ async function generateBatch(theme, outputDir) {
 | Midjourney | High | Medium | Very high | Medium | Artistic, premium content |
 | Ideogram | Low | Fast | Medium | Low | Text-in-image accuracy |
 
-## Best practices
+## What works
 
 - **Cache generated images**: store generated images in object storage (S3, GCS) with a CDN in front. Never regenerate the same prompt twice — cache by prompt hash or user selection.
 - **Version your prompts**: track prompt templates, model versions, and seed values in version control. When models update (e.g., DALL-E 3 to 4), regression test your prompt library for consistency.

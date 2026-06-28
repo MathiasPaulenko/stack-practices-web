@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: cost-optimization-cloud-guide
-title: "Cloud Cost Optimization — Reduce Spend Without Sacrificing Reliability"
+title: "Cloud Cost Optimization: Reduce Spend Without Sacrificing Reliability"
 description: "A practical guide to cloud cost optimization: right-sizing, reserved instances, spot instances, tagging strategies, and FinOps practices that reduce spend while maintaining performance."
 metaDescription: "Learn cloud cost optimization strategies: right-sizing, reserved instances, spot instances, tagging, and FinOps practices for savings."
 difficulty: intermediate
@@ -115,7 +115,7 @@ for _, row in underutilized.iterrows():
     print(f"{current} -> Consider downsizing (CPU: {cpu:.1f}%, Memory: {mem:.1f}%)")
 ```
 
-**Right-sizing best practices:**
+**Right-sizing guidelines:**
 - Review instance utilization monthly; target 40-70% average CPU
 - Use burstable instances (T-series, B-series) for variable workloads
 - Downsize development and staging environments aggressively
@@ -123,7 +123,7 @@ for _, row in underutilized.iterrows():
 
 ### 3. Purchase Reserved Capacity
 
-Commit to baseline usage for significant discounts:
+Commit to baseline usage for large discounts:
 
 | Purchase Type | Discount | Flexibility | Best For |
 |---------------|----------|-------------|----------|
@@ -144,7 +144,7 @@ Commit to baseline usage for significant discounts:
 - Use convertible RIs or savings plans if workload may change
 - Review reserved capacity quarterly for optimization
 
-### 4. Leverage Spot and Preemptible Instances
+### 4. Use Spot and Preemptible Instances
 
 Use discounted capacity for fault-tolerant workloads:
 
@@ -262,7 +262,7 @@ Proactive monitoring prevents bill shock:
 
 - **AWS-specific:** Focus on Savings Plans, Graviton instances, S3 Intelligent-Tiering
 - **Azure-specific:** Use Hybrid Benefit, Reserved VM Instances, Spot VMs
-- **GCP-specific:** Leverage Committed Use Discounts, Preemptible VMs, Sustained Use Discounts
+- **GCP-specific:** Use Committed Use Discounts, Preemptible VMs, Sustained Use Discounts
 - **Multi-cloud:** Compare pricing across providers for each workload type
 
 ## FAQ
