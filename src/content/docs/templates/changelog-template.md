@@ -4,7 +4,7 @@ templateType: changelog
 slug: changelog-template
 title: "Changelog Template"
 description: "A structured changelog template following Keep a Changelog conventions for tracking project releases."
-metaDescription: "Standardized changelog template following Keep a Changelog. Track releases, features, fixes, and breaking changes consistently."
+metaDescription: "Standardized changelog template following Keep a Changelog. Track releases, functionality, fixes, and breaking changes consistently."
 difficulty: beginner
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
-  metaDescription: "Standardized changelog template following Keep a Changelog. Track releases, features, fixes, and breaking changes consistently."
+  metaDescription: "Standardized changelog template following Keep a Changelog. Track releases, functionality, fixes, and breaking changes consistently."
   keywords:
     - changelog template
     - keep a changelog
@@ -37,7 +37,7 @@ A changelog is a curated, chronologically ordered list of notable changes for ea
 ## When to Use
 
 - You maintain a library, framework, or application with versioned releases
-- You need to communicate breaking changes to consumers. Pair with the [API Deprecation Notice Template](/docs/api/api-deprecation-notice-template) when sunsetting features.
+- You need to communicate breaking changes to consumers. Pair with the [API Deprecation Notice Template](/docs/api/api-deprecation-notice-template) when sunsetting functionality.
 - You want to automate release note generation
 
 ## Template
@@ -53,16 +53,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- New features
+- New functionality
 
 ### Changed
 - Changes in existing functionality
 
 ### Deprecated
-- Soon-to-be removed features
+- Soon-to-be removed functionality
 
 ### Removed
-- Now removed features
+- Now removed functionality
 
 ### Fixed
 - Bug fixes
@@ -80,14 +80,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Category | Use For |
 |----------|---------|
-| **Added** | New features |
+| **Added** | New functionality |
 | **Changed** | Changes to existing functionality |
-| **Deprecated** | Features marked for removal. See [API Deprecation Notice Template](/docs/api/api-deprecation-notice-template) |
-| **Removed** | Features removed in this release |
+| **Deprecated** | Functionality marked for removal. See [API Deprecation Notice Template](/docs/api/api-deprecation-notice-template) |
+| **Removed** | Functionality removed in this release |
 | **Fixed** | Bug fixes |
 | **Security** | Security vulnerability fixes |
 
-## Best Practices
+## What works
 
 - **Date every release** using ISO 8601 format (`YYYY-MM-DD`)
 - **Group changes** by category within each release
@@ -109,8 +109,8 @@ Use the Keep a Changelog format with categories: Added, Changed, Deprecated, Rem
 
 ### Should I include every commit in the changelog?
 
-No. A changelog is curated, not a raw git log. Include only notable changes that affect users: new features, bug fixes, breaking changes, and security patches.
+No. A changelog is curated, not a raw git log. Include only notable changes that affect users: new functionality, bug fixes, breaking changes, and security patches.
 
 ### What is semantic versioning?
 
-[Semantic Versioning](/guides/api/rest-api-design-guide) (SemVer) uses MAJOR.MINOR.PATCH format: increment MAJOR for breaking changes, MINOR for new features, and PATCH for bug fixes.
+[Semantic Versioning](/guides/api/rest-api-design-guide) (SemVer) uses MAJOR.MINOR.PATCH format: increment MAJOR for breaking changes, MINOR for new functionality, and PATCH for bug fixes.

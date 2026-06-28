@@ -41,13 +41,13 @@ seo:
 
 The Content Delivery Network (CDN) Pattern distributes content through a geographically dispersed network of edge servers, placing cached copies of assets closer to end users. Instead of every request traveling to a single origin server, users are routed to the nearest edge location, dramatically reducing latency, improving availability, and offloading traffic from the origin infrastructure.
 
-CDNs serve static content (images, CSS, JavaScript, videos) from edge caches and increasingly support dynamic content acceleration, edge computing (Cloudflare Workers, Lambda@Edge), and DDoS protection. A well-configured CDN can reduce page load times by 50% or more and absorb traffic spikes that would overwhelm an origin server.
+CDNs serve static content (images, CSS, JavaScript, videos) from edge caches and increasingly support live content acceleration, edge computing (Cloudflare Workers, Lambda@Edge), and DDoS protection. A well-configured CDN can reduce page load times by 50% or more and absorb traffic spikes that would overwhelm an origin server.
 
 ## When to Use
 
 Use the CDN Pattern when:
 - Users are geographically distributed and latency matters
-- Static assets (images, CSS, JS, fonts, videos) represent significant traffic
+- Static assets (images, CSS, JS, fonts, videos) account for most of your traffic
 - You need to handle traffic spikes without scaling origin infrastructure
 - DDoS protection and WAF functionality are required at the edge
 - Edge computing logic (A/B testing, geo-routing, authentication) is beneficial
@@ -55,7 +55,7 @@ Use the CDN Pattern when:
 ## When to Avoid
 
 - All users are in the same geographic region as the origin server
-- Content is highly dynamic and cannot be cached (real-time personalized data)
+- Content is highly personalized and cannot be cached (real-time data)
 - The application is entirely internal with no external users
 - The complexity of cache invalidation outweighs the latency benefit
 
@@ -309,12 +309,12 @@ Cache behavior is controlled through:
 | Variant | Use Case | Example |
 |---------|----------|---------|
 | **Static asset CDN** | Images, CSS, JS, fonts | CloudFront + S3 |
-| **Dynamic acceleration** | API responses, HTML pages | Cloudflare Argo, Fastly |
+| **Edge acceleration** | API responses, HTML pages | Cloudflare Argo, Fastly |
 | **Video streaming** | HLS/DASH segments, live streams | AWS MediaPackage, Akamai |
 | **Edge computing** | A/B testing, auth, personalization | Cloudflare Workers, Lambda@Edge |
 | **Multi-CDN** | Resilience and cost optimization | CloudFront + Fastly failover |
 
-## Best Practices
+## What works
 
 - **Use versioned filenames for cache-busting.** `app.v2.js` instead of `app.js` with aggressive caching.
 - **Set appropriate TTLs.** Static assets: 1 year. HTML: short or no cache. API: context-dependent.
@@ -325,7 +325,7 @@ Cache behavior is controlled through:
 ## Common Mistakes
 
 - **Forgetting to invalidate after deployment.** Users see stale content because cache was not purged.
-- **Over-caching dynamic content.** Personalized pages cached publicly leak data between users.
+- **Over-caching personalized content.** Personalized pages cached publicly leak data between users.
 - **Ignoring cache key variations.** `?utm_source=x` and `?utm_source=y` create duplicate cached entries.
 - **Not compressing at the edge.** Gzip/Brotli should be applied by the CDN, not just the origin.
 - **Single point of failure.** Using one CDN provider without origin fallback is risky.
@@ -347,7 +347,7 @@ Shopify uses Fastly to serve millions of storefronts. Each store's theme assets 
 ## Frequently Asked Questions
 
 **Q: Does a CDN only work for static content?**
-A: No. Modern CDNs accelerate dynamic content by optimizing TCP connections, routing, and TLS termination. Edge computing also enables dynamic logic at the edge.
+A: No. Modern CDNs accelerate live content by optimizing TCP connections, routing, and TLS termination. Edge computing also enables live logic at the edge.
 
 **Q: How do I handle cache invalidation?**
 A: Use versioned filenames for static assets (immutable). For named resources, use CDN purge APIs or set short TTLs. A common pattern is `Cache-Control: max-age=0, s-maxage=3600` for CDNs while keeping the browser from caching.

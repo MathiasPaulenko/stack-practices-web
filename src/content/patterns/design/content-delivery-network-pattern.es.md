@@ -41,13 +41,13 @@ seo:
 
 El Patrón Content Delivery Network (CDN) distribuye contenido a través de una red geográficamente dispersa de servidores edge, colocando copias cacheadas de assets más cerca de los usuarios finales. En lugar de que cada request viaje a un único servidor de origen, los usuarios son enrutados a la ubicación edge más cercana, reduciendo dramáticamente la latencia, mejorando la disponibilidad y descargando tráfico de la infraestructura de origen.
 
-Los CDNs sirven contenido estático (imágenes, CSS, JavaScript, videos) desde caches edge e incrementalmente soportan aceleración de contenido dinámico, edge computing (Cloudflare Workers, Lambda@Edge), y protección DDoS. Un CDN bien configurado puede reducir los tiempos de carga de página en un 50% o más y absorber picos de tráfico que abrumarían un servidor de origen.
+Los CDNs sirven contenido estático (imágenes, CSS, JavaScript, videos) desde caches edge e incrementalmente soportan aceleración de contenido en vivo, edge computing (Cloudflare Workers, Lambda@Edge), y protección DDoS. Un CDN bien configurado puede reducir los tiempos de carga de página en un 50% o más y absorber picos de tráfico que abrumarían un servidor de origen.
 
 ## Cuándo Usar
 
 Usa el Patrón CDN cuando:
 - Los usuarios están geográficamente distribuidos y la latencia importa
-- Los assets estáticos (imágenes, CSS, JS, fuentes, videos) representan tráfico significativo
+- Los assets estáticos (imágenes, CSS, JS, fuentes, videos) representan la mayor parte del tráfico
 - Necesitas manejar picos de tráfico sin escalar infraestructura de origen
 - Se requiere protección DDoS y funcionalidad WAF en el edge
 - El edge computing (A/B testing, geo-routing, autenticación) es beneficioso
@@ -55,7 +55,7 @@ Usa el Patrón CDN cuando:
 ## Cuándo Evitar
 
 - Todos los usuarios están en la misma región geográfica que el servidor de origen
-- El contenido es altamente dinámico y no puede ser cacheado (datos personalizados en tiempo real)
+- El contenido es altamente personalizado y no puede ser cacheado (datos en tiempo real)
 - La aplicación es completamente interna sin usuarios externos
 - La complejidad de invalidación de cache supera el beneficio de latencia
 
@@ -307,12 +307,12 @@ El comportamiento de cache se controla a través de:
 | Variante | Caso de Uso | Ejemplo |
 |----------|-------------|---------|
 | **CDN de assets estáticos** | Imágenes, CSS, JS, fuentes | CloudFront + S3 |
-| **Aceleración dinámica** | Respuestas de API, páginas HTML | Cloudflare Argo, Fastly |
+| **Aceleración de edge** | Respuestas de API, páginas HTML | Cloudflare Argo, Fastly |
 | **Video streaming** | Segmentos HLS/DASH, streams en vivo | AWS MediaPackage, Akamai |
 | **Edge computing** | A/B testing, auth, personalización | Cloudflare Workers, Lambda@Edge |
 | **Multi-CDN** | Resiliencia y optimización de costo | CloudFront + Fastly failover |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa nombres de archivo versionados para cache-busting.** `app.v2.js` en lugar de `app.js` con caching agresivo.
 - **Establece TTLs apropiados.** Assets estáticos: 1 año. HTML: corto o sin cache. API: dependiente de contexto.
@@ -323,7 +323,7 @@ El comportamiento de cache se controla a través de:
 ## Errores Comunes
 
 - **Olvidar invalidar después de deployment.** Los usuarios ven contenido obsoleto porque el cache no fue purgado.
-- **Over-caching de contenido dinámico.** Páginas personalizadas cacheadas públicamente filtran datos entre usuarios.
+- **Over-caching de contenido personalizado.** Páginas personalizadas cacheadas públicamente filtran datos entre usuarios.
 - **Ignorar variaciones de clave de cache.** `?utm_source=x` y `?utm_source=y` crean entradas cacheadas duplicadas.
 - **No comprimir en el edge.** Gzip/Brotli debería ser aplicado por el CDN, no solo el origen.
 - **Single point of failure.** Usar un único proveedor CDN sin fallback a origen es riesgoso.
@@ -345,7 +345,7 @@ Shopify usa Fastly para servir millones de storefronts. Los assets de tema de ca
 ## Preguntas Frecuentes
 
 **Q: Un CDN solo funciona para contenido estático?**
-A: No. Los CDNs modernos aceleran contenido dinámico optimizando conexiones TCP, routing y terminación TLS. El edge computing también habilita lógica dinámica en el edge.
+A: No. Los CDNs modernos aceleran contenido en vivo optimizando conexiones TCP, routing y terminación TLS. El edge computing también habilita lógica en vivo en el edge.
 
 **Q: Cómo manejo la invalidación de cache?**
 A: Usa nombres de archivo versionados para assets estáticos (inmutable). Para recursos nombrados, usa APIs de purge de CDN o establece TTLs cortos. Un patrón común es `Cache-Control: max-age=0, s-maxage=3600` para CDNs mientras mantienes el navegador sin cachear.

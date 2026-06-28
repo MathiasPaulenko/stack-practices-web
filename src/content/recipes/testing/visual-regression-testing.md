@@ -30,7 +30,7 @@ seo:
 
 Functional tests verify that buttons click, forms submit, and APIs return correct data. But they do not catch a CSS change that shifts a button 2 pixels left, a font update that breaks line heights, or a theme change that makes text unreadable. Visual regression testing fills this gap by capturing screenshots of your application and comparing them against approved baselines. Any pixel difference is flagged for human review, preventing unintended visual changes from reaching production.
 
-The core challenge is avoiding false positives. Anti-aliasing, animation frames, timestamps, and dynamic content (ads, stock prices, user avatars) create benign differences that must be filtered out. Modern visual testing tools use DOM-based rendering, ignoring sub-pixel noise, and allow masking dynamic regions. This recipe covers Playwright screenshot comparison, Chromatic for component libraries, and strategies for stable, maintainable visual baselines.
+The core challenge is avoiding false positives. Anti-aliasing, animation frames, timestamps, and changing content (ads, stock prices, user avatars) create benign differences that must be filtered out. Modern visual testing tools use DOM-based rendering, ignoring sub-pixel noise, and allow masking changing regions. This recipe covers Playwright screenshot comparison, Chromatic for component libraries, and strategies for stable, maintainable visual baselines.
 
 ## When to use it
 
@@ -63,10 +63,10 @@ const { test, expect } = require('@playwright/test');
 test('homepage visual regression', async ({ page }) => {
   await page.goto('https://app.example.com');
 
-  // Wait for dynamic content to stabilize
+  // Wait for changing content to stabilize
   await page.waitForLoadState('networkidle');
 
-  // Mask dynamic elements (timestamps, user names, ads)
+  // Mask changing elements (timestamps, user names, ads)
   await expect(page).toHaveScreenshot('homepage.png', {
     mask: [
       page.locator('[data-testid="timestamp"]'),
@@ -130,7 +130,7 @@ driver.quit()
 
 - **Screenshot comparison**: visual testing tools capture a screenshot of the current page and compare it pixel-by-pixel against the approved baseline. Differences are highlighted in a diff view. Reviewers approve intentional changes or reject regressions.
 - **Baseline management**: the baseline is the approved version of a screenshot. When a test produces a different image, it is flagged as "changed." The team reviews the diff and either approves it (updating the baseline) or rejects it (fixing the code). Baselines are typically stored in cloud services, not version control.
-- **Masking and exclusion**: dynamic content like timestamps, random user avatars, and ads cause false positives. Mask these elements by selecting their DOM nodes before capture. The tool replaces masked regions with solid colors, ignoring them during comparison.
+- **Masking and exclusion**: changing content like timestamps, random user avatars, and ads cause false positives. Mask these elements by selecting their DOM nodes before capture. The tool replaces masked regions with solid colors, ignoring them during comparison.
 - **Cross-browser rendering**: fonts, anti-aliasing, and layout engines vary between browsers. A screenshot taken in Chrome will not match one from Safari pixel-perfectly. Run visual tests in the browsers you support, maintaining separate baselines for each.
 
 ## Variants
@@ -146,7 +146,7 @@ driver.quit()
 
 - **Stabilize before capture**: wait for fonts to load, animations to complete, and network requests to settle before taking screenshots. Use `networkidle`, explicit waits, or Chromatic's `delay` parameter. Screenshots of loading spinners are useless.
 - **Isolate components in Storybook**: testing components in isolation (via Storybook) produces more stable baselines than full-page screenshots. A Button component has fewer variables than an entire Dashboard page. Use both: Storybook for component coverage, full-page for integration.
-- **Mask all dynamic content**: identify every element that changes between runs — dates, usernames, IDs, random images, A/B test variations. Mask them aggressively. Unmasked dynamic content is the #1 cause of flaky visual tests.
+- **Mask all changing content**: identify every element that changes between runs — dates, usernames, IDs, random images, A/B test variations. Mask them aggressively. Unmasked changing content is the #1 cause of flaky visual tests.
 - **Review diffs in CI, not locally**: visual testing produces many images. Reviewing them in pull requests via CI integrations (GitHub Checks, GitLab MRs) is more efficient than downloading and comparing locally. Approve baselines through the web UI.
 - **Limit viewport combinations**: testing every component at 12 breakpoints is slow and expensive. Identify your top 3 breakpoints (mobile, tablet, desktop) and test only those. Use responsive design principles to infer intermediate behavior.
 

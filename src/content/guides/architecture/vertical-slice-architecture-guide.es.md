@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: vertical-slice-architecture-guide
-title: "Arquitectura por Slices Verticales — Organización por Feature"
+title: "Arquitectura por Slices Verticales: Organización por Feature"
 description: "Guía práctica de Arquitectura por Slices Verticales: organizar código por feature en lugar de por capa técnica, reducir navegación cruzada y mejorar cohesión."
 metaDescription: "Aprende Slices Verticales: organiza código por feature, no por capa. Reduce navegación cruzada, mejora cohesión y simplifica cambios con ejemplos prácticos."
 difficulty: intermediate
@@ -40,11 +40,11 @@ La Arquitectura por Slices Verticales, popularizada por Jimmy Bogard, invierte e
 
 ## Cuándo Usar
 
-- Tu aplicación tiene muchas features que evolucionan independientemente
+- Tu aplicación tiene muchas funcionalidades que evolucionan independientemente
 - Miembros del equipo preguntan frecuentemente "dónde está el código de X?"
 - Cambios cruzados entre capas requieren tocar 5+ archivos en 3+ directorios
-- Quieres minimizar conflictos de merge entre equipos de features
-- Las features tienen complejidad variable — algunas son CRUD simple, otras flujos complejos
+- Quieres minimizar conflictos de merge entre equipos de funcionalidades
+- Algunas funcionalidades son CRUD simple, otras son flujos complejos
 
 ## Organización Horizontal vs Vertical
 

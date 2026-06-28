@@ -4,7 +4,7 @@ templateType: changelog
 slug: changelog-template
 title: "Plantilla de Changelog"
 description: "Plantilla de changelog estructurada siguiendo las convenciones de Keep a Changelog para registrar versiones del proyecto."
-metaDescription: "Plantilla de changelog estandarizada siguiendo Keep a Changelog. Registra releases, features, fixes y breaking changes consistentemente."
+metaDescription: "Plantilla de changelog estandarizada siguiendo Keep a Changelog. Registra releases, funcionalidad, fixes y breaking changes consistentemente."
 difficulty: beginner
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
-  metaDescription: "Plantilla de changelog estandarizada siguiendo Keep a Changelog. Registra releases, features, fixes y breaking changes consistentemente."
+  metaDescription: "Plantilla de changelog estandarizada siguiendo Keep a Changelog. Registra releases, funcionalidad, fixes y breaking changes consistentemente."
   keywords:
     - plantilla changelog
     - keep a changelog
@@ -37,7 +37,7 @@ Un changelog es una lista curada y ordenada cronológicamente de los cambios not
 ## Cuándo Usar
 
 - Mantienes una librería, framework o aplicación con releases versionados
-- Necesitas comunicar breaking changes a los consumidores. Combínalo con la [Plantilla de Aviso de Deprecación](/docs/api/api-deprecation-notice-template) cuando desactives features.
+- Necesitas comunicar breaking changes a los consumidores. Combínalo con la [Plantilla de Aviso de Deprecación](/docs/api/api-deprecation-notice-template) cuando desactives funcionalidades.
 - Quieres automatizar la generación de notas de release
 
 ## Plantilla
@@ -87,7 +87,7 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 | **Fixed** | Correcciones de bugs |
 | **Security** | Correcciones de vulnerabilidades de seguridad |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Fecha cada release** usando formato ISO 8601 (`YYYY-MM-DD`)
 - **Agrupa cambios** por categoría dentro de cada release
@@ -109,8 +109,8 @@ Usa el formato Keep a Changelog con categorías: Added, Changed, Deprecated, Rem
 
 ### Debería incluir cada commit en el changelog?
 
-No. Un changelog es curado, no un log raw de git. Incluye solo cambios notables que afecten a usuarios: nuevas features, bug fixes, breaking changes y parches de seguridad.
+No. Un changelog es curado, no un log raw de git. Incluye solo cambios notables que afecten a usuarios: nuevas funcionalidades, bug fixes, breaking changes y parches de seguridad.
 
 ### Qué es el versionado semántico?
 
-[Versionado Semántico](/guides/api/rest-api-design-guide) (SemVer) usa el formato MAJOR.MINOR.PATCH: incrementa MAJOR para breaking changes, MINOR para nuevas features y PATCH para bug fixes.
+[Versionado Semántico](/guides/api/rest-api-design-guide) (SemVer) usa el formato MAJOR.MINOR.PATCH: incrementa MAJOR para breaking changes, MINOR para nuevas funcionalidades y PATCH para bug fixes.

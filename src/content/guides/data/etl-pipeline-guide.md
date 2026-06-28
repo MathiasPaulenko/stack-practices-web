@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: etl-pipeline-guide
-title: "ETL Pipelines — Extract, Transform, Load for Data Engineers"
+title: "ETL Pipelines: Extract, Transform, Load for Data Engineers"
 description: "A practical guide to ETL pipelines: extracting data from multiple sources, transforming with validation and business logic, and loading into data warehouses. Covers batch scheduling, error handling, and monitoring with Python, dbt, and Airflow."
 metaDescription: "Learn ETL pipelines: extract from multiple sources, transform with validation and business logic, and load into data warehouses with Python, dbt, and Airflow."
 difficulty: intermediate
@@ -40,7 +40,7 @@ seo:
 
 ETL (Extract, Transform, Load) pipelines move data from operational systems into analytical systems where it can be queried, reported on, and used for decision-making. Unlike stream processing, which handles events as they arrive, ETL processes data in scheduled batches, making it simpler to implement and easier to reason about for many business analytics use cases.
 
-This guide covers pipeline architecture, data extraction strategies, transformation patterns, loading techniques, and production operational considerations.
+This guide covers pipeline architecture, data extraction strategies, data shaping patterns, loading techniques, and production operational considerations.
 
 ## When to Use
 
@@ -65,10 +65,10 @@ This guide covers pipeline architecture, data extraction strategies, transformat
 | **Extract** | Reading data from source systems (databases, APIs, files) |
 | **Transform** | Cleaning, validating, enriching, and restructuring data |
 | **Load** | Writing processed data to the destination (data warehouse, lake) |
-| **Staging** | Intermediate storage for raw data before transformation |
+| **Staging** | Intermediate storage for raw data before shaping |
 | **Incremental Load** | Processing only new or changed records since last run |
 | **Full Refresh** | Reprocessing all data from scratch |
-| **SCD** | Slowly Changing Dimension — tracking historical changes |
+| **SCD** | Slowly Changing Dimension: tracking historical changes |
 
 ## ETL Architecture
 
@@ -243,23 +243,23 @@ class APIExtractor:
 Clean, validate, and reshape extracted data:
 
 ```python
-# Example: Transformation pipeline with validation
+# Example: Data pipeline with validation
 import pandas as pd
 from typing import Dict, List, Callable
 
 class DataTransformer:
     def __init__(self):
         self.validators: List[Callable] = []
-        self.transformations: List[Callable] = []
+        self.transforms: List[Callable] = []
     
     def add_validator(self, validator: Callable):
         self.validators.append(validator)
     
-    def add_transformation(self, transform: Callable):
-        self.transformations.append(transform)
+    def add_transform(self, transform: Callable):
+        self.transforms.append(transform)
     
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Run all validations then transformations."""
+        """Run all validations then transforms."""
         # Validation
         errors = []
         for validator in self.validators:
@@ -270,8 +270,8 @@ class DataTransformer:
         if errors:
             raise ValidationError(f"Validation failed with {len(errors)} errors: {errors[:5]}")
         
-        # Transformation
-        for transform in self.transformations:
+        # Transform
+        for transform in self.transforms:
             df = transform(df)
         
         return df
@@ -289,7 +289,7 @@ def validate_email_format(df):
         return [f"{len(invalid)} rows with invalid email format"]
     return []
 
-# Define transformations
+# Define transforms
 def normalize_emails(df):
     df['email'] = df['email'].str.lower().str.strip()
     return df
@@ -312,15 +312,15 @@ def add_derived_columns(df):
 transformer = DataTransformer()
 transformer.add_validator(validate_no_null_ids)
 transformer.add_validator(validate_email_format)
-transformer.add_transformation(normalize_emails)
-transformer.add_transformation(calculate_order_totals)
-transformer.add_transformation(add_derived_columns)
+transformer.add_transform(normalize_emails)
+transformer.add_transform(calculate_order_totals)
+transformer.add_transform(add_derived_columns)
 
 # Run pipeline
 clean_data = transformer.transform(raw_data)
 ```
 
-**Transformation patterns:**
+**Transform patterns:**
 
 | Pattern | Description | Example |
 |---------|-------------|---------|
@@ -521,8 +521,8 @@ with DAG(
         
         # Transform
         transformer = DataTransformer()
-        transformer.add_transformation(calculate_order_totals)
-        transformer.add_transformation(add_derived_columns)
+        transformer.add_transform(calculate_order_totals)
+        transformer.add_transform(add_derived_columns)
         clean_df = transformer.transform(df)
         
         # Write to processed
@@ -575,21 +575,21 @@ with DAG(
 Track how dimension data changes over time:
 
 ```sql
--- SCD Type 2: Keep history with effective dates
+-- SCD Type 2: Keep history with valid dates
 CREATE TABLE dim_customers (
     customer_sk BIGINT PRIMARY KEY,        -- Surrogate key
     customer_id BIGINT NOT NULL,            -- Natural key
     name VARCHAR(255),
     email VARCHAR(255),
     segment VARCHAR(50),
-    effective_date DATE NOT NULL,
+    valid_date DATE NOT NULL,
     expiration_date DATE,
     is_current BOOLEAN DEFAULT TRUE,
-    UNIQUE(customer_id, effective_date)
+    UNIQUE(customer_id, valid_date)
 );
 
 -- Insert new version when customer changes
-INSERT INTO dim_customers (customer_id, name, email, segment, effective_date)
+INSERT INTO dim_customers (customer_id, name, email, segment, valid_date)
 SELECT 
     s.customer_id,
     s.name,
@@ -611,7 +611,7 @@ WHERE d.customer_id = s.customer_id
   AND (d.name <> s.name OR d.email <> s.email OR d.segment <> s.segment);
 ```
 
-## Best Practices
+## What works
 
 - **Use staging tables.** Never transform data directly in production tables. Stage, validate, then load.
 - **Make pipelines idempotent.** Running the same DAG twice should produce the same result.
@@ -619,7 +619,7 @@ WHERE d.customer_id = s.customer_id
 - **Partition large tables.** Load data by partition to enable fast replacement and pruning.
 - **Monitor data freshness.** Alert when tables have not been updated within SLA.
 - **Document lineage.** Track which source tables feed which warehouse tables.
-- **Test transformations.** Unit test business logic just like application code.
+- **Test the transform logic.** Unit test business logic just like application code.
 
 ## Common Mistakes
 
@@ -640,7 +640,7 @@ WHERE d.customer_id = s.customer_id
 ## FAQ
 
 **Q: Should I use ETL or ELT?**
-Use ETL when transformations are complex (Python, external APIs) or when you need to cleanse data before it reaches the warehouse. Use ELT when transformations are SQL-based and your warehouse is powerful enough to handle them (Snowflake, BigQuery, Redshift).
+Use ETL when the reshaping is complex (Python, external APIs) or when you need to cleanse data before it reaches the warehouse. Use ELT when the reshaping is SQL-based and your warehouse is powerful enough to handle it (Snowflake, BigQuery, Redshift).
 
 **Q: How do I handle late-arriving data?**
 Implement a "late arriving data" process that reprocesses past partitions when data arrives after the initial load. Or use streaming ingestion that handles out-of-order events.
@@ -654,4 +654,4 @@ A data lake stores raw, unprocessed data in files (S3, GCS) with schema-on-read.
 ## Conclusion
 
 ETL pipelines are the backbone of business intelligence and analytics. By extracting data reliably, transforming it with validation, and loading it efficiently, you create a trustworthy data foundation for reporting, dashboards, and machine learning.
-
+

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: vertical-slice-architecture-guide
-title: "Vertical Slice Architecture — Feature-First Organization"
+title: "Vertical Slice Architecture: Feature-First Organization"
 description: "A practical guide to Vertical Slice Architecture: organizing code by feature instead of technical concern, reducing cross-layer navigation and improving cohesion."
 metaDescription: "Learn Vertical Slice Architecture: organize code by feature, not layer. Reduce cross-layer navigation, improve cohesion, and simplify changes with practical examples."
 difficulty: intermediate
@@ -40,11 +40,11 @@ Vertical Slice Architecture, popularized by Jimmy Bogard, flips the traditional 
 
 ## When to Use
 
-- Your application has many features that evolve independently
+- Your application has many capabilities that evolve independently
 - Team members frequently ask "where is the code for X?"
 - Cross-layer changes require touching 5+ files in 3+ directories
 - You want to minimize merge conflicts between feature teams
-- Features have varying complexity — some are simple CRUD, others complex workflows
+- Some capabilities are simple CRUD, others are complex workflows
 
 ## Horizontal vs Vertical Organization
 
