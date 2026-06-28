@@ -9019,6 +9019,60 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/soft-deletes/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/sql-find-duplicate-rows/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-find-duplicate-rows/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-find-duplicate-rows/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-find-duplicate-rows/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/sql-find-duplicate-rows/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-find-duplicate-rows/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-find-duplicate-rows/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-find-duplicate-rows/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/sql-full-text-search-setup/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-full-text-search-setup/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-full-text-search-setup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-full-text-search-setup/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/sql-full-text-search-setup/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-full-text-search-setup/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-full-text-search-setup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-full-text-search-setup/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/sql-index-optimization-analysis/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-index-optimization-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-index-optimization-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-index-optimization-analysis/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/sql-index-optimization-analysis/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-index-optimization-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-index-optimization-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-index-optimization-analysis/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/sql-joins/</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -9035,6 +9089,78 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-joins/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-joins/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-joins/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/sql-migration-zero-downtime/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-migration-zero-downtime/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-migration-zero-downtime/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-migration-zero-downtime/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/sql-migration-zero-downtime/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-migration-zero-downtime/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-migration-zero-downtime/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-migration-zero-downtime/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/sql-partitioning-strategies/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-partitioning-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-partitioning-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-partitioning-strategies/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/sql-partitioning-strategies/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-partitioning-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-partitioning-strategies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-partitioning-strategies/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/sql-recursive-cte-query/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-recursive-cte-query/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-recursive-cte-query/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-recursive-cte-query/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/sql-recursive-cte-query/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-recursive-cte-query/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-recursive-cte-query/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-recursive-cte-query/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/sql-window-functions-ranking/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-window-functions-ranking/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-window-functions-ranking/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-window-functions-ranking/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/recipes/sql-window-functions-ranking/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/sql-window-functions-ranking/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/sql-window-functions-ranking/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/sql-window-functions-ranking/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/use-orm-crud/</loc>

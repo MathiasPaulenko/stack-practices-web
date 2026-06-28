@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "count": 609,
+  "count": 616,
   "entries": [
     {
       "path": "docs/api/api-changelog-template.md",
@@ -19289,6 +19289,192 @@
       }
     },
     {
+      "path": "recipes/databases/sql-find-duplicate-rows.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-find-duplicate-rows",
+        "title": "Find and Remove Duplicate Rows in SQL",
+        "description": "Detect duplicate records in SQL tables using GROUP BY and HAVING, then remove them safely while keeping the canonical row.",
+        "metaDescription": "Find and remove duplicate rows in SQL using GROUP BY, HAVING, and CTEs. Learn safe deduplication techniques to keep canonical records and clean tables.",
+        "difficulty": "beginner",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "mysql",
+          "deduplication",
+          "cte"
+        ],
+        "relatedResources": [
+          "/guides/read-replica-guide",
+          "/guides/sql-cte-guide",
+          "/docs/runbook-database-failover",
+          "/docs/database-schema-documentation-template",
+          "/guides/full-text-search-guide"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Find and remove duplicate rows in SQL using GROUP BY, HAVING, and CTEs. Learn safe deduplication techniques to keep canonical records and clean tables.",
+          "keywords": [
+            "databases",
+            "sql",
+            "postgresql",
+            "mysql",
+            "deduplication",
+            "cte",
+            "/guides/read-replica-guide",
+            "/guides/sql-cte-guide",
+            "/docs/runbook-database-failover",
+            "/docs/database-schema-documentation-template",
+            "/guides/full-text-search-guide",
+            "databases",
+            "sql",
+            "postgresql",
+            "mysql",
+            "deduplication",
+            "cte",
+            "/guides/read-replica-guide",
+            "/guides/sql-cte-guide",
+            "/docs/runbook-database-failover",
+            "/docs/database-schema-documentation-template",
+            "/guides/full-text-search-guide",
+            "sql",
+            "postgresql",
+            "mysql",
+            "deduplication",
+            "cte"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-full-text-search-setup.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-full-text-search-setup",
+        "title": "Set Up Full-Text Search Indexes",
+        "description": "Configure full-text search indexes in PostgreSQL to query large text columns with ranking, stemming, and highlighting.",
+        "metaDescription": "Set up full-text search in PostgreSQL. Learn to create GIN indexes, query tsvector columns, rank results, and highlight matching search terms.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "full-text-search",
+          "gin",
+          "tsvector"
+        ],
+        "relatedResources": [
+          "/guides/full-text-search-guide",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-index-optimization-analysis",
+          "/recipes/sql-migration-zero-downtime",
+          "/recipes/sql-partitioning-strategies"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Set up full-text search in PostgreSQL. Learn to create GIN indexes, query tsvector columns, rank results, and highlight matching search terms.",
+          "keywords": [
+            "databases",
+            "sql",
+            "postgresql",
+            "full-text-search",
+            "gin",
+            "tsvector",
+            "/guides/full-text-search-guide",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-index-optimization-analysis",
+            "/recipes/sql-migration-zero-downtime",
+            "/recipes/sql-partitioning-strategies",
+            "databases",
+            "sql",
+            "postgresql",
+            "full-text-search",
+            "gin",
+            "tsvector",
+            "/guides/full-text-search-guide",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-index-optimization-analysis",
+            "/recipes/sql-migration-zero-downtime",
+            "/recipes/sql-partitioning-strategies",
+            "sql",
+            "postgresql",
+            "full-text-search",
+            "gin",
+            "tsvector"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-index-optimization-analysis.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-index-optimization-analysis",
+        "title": "Analyze and Optimize SQL Indexes with EXPLAIN",
+        "description": "Identify missing, unused, and inefficient indexes by reading execution plans and measuring query cost with EXPLAIN.",
+        "metaDescription": "Optimize SQL indexes using EXPLAIN and execution plans. Learn to identify missing indexes, slow sequential scans, and query bottlenecks.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "indexes",
+          "explain",
+          "performance"
+        ],
+        "relatedResources": [
+          "/guides/read-replica-guide",
+          "/guides/sql-performance-tuning-guide",
+          "/recipes/postgres-query-optimization",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-recursive-cte-query"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Optimize SQL indexes using EXPLAIN and execution plans. Learn to identify missing indexes, slow sequential scans, and query bottlenecks.",
+          "keywords": [
+            "databases",
+            "sql",
+            "postgresql",
+            "indexes",
+            "explain",
+            "performance",
+            "/guides/read-replica-guide",
+            "/guides/sql-performance-tuning-guide",
+            "/recipes/postgres-query-optimization",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-recursive-cte-query",
+            "databases",
+            "sql",
+            "postgresql",
+            "indexes",
+            "explain",
+            "performance",
+            "/guides/read-replica-guide",
+            "/guides/sql-performance-tuning-guide",
+            "/recipes/postgres-query-optimization",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-recursive-cte-query",
+            "sql",
+            "postgresql",
+            "indexes",
+            "explain",
+            "performance"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/sql-joins.md",
       "metadata": {
         "contentType": "recipes",
@@ -19318,6 +19504,254 @@
             "inner join",
             "left join",
             "database queries"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-migration-zero-downtime.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-migration-zero-downtime",
+        "title": "Zero-Downtime Column Rename Migration",
+        "description": "Rename columns or change data types without locking tables by using views, triggers, and backfill strategies.",
+        "metaDescription": "Rename columns and change data types with zero downtime in SQL. Learn expand-contract migrations, triggers, and incremental backfill strategies.",
+        "difficulty": "advanced",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "migration",
+          "schema",
+          "zero-downtime"
+        ],
+        "relatedResources": [
+          "/docs/database-schema-documentation-template",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-index-optimization-analysis",
+          "/recipes/sql-partitioning-strategies",
+          "/recipes/sql-recursive-cte-query"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Rename columns and change data types with zero downtime in SQL. Learn expand-contract migrations, triggers, and incremental backfill strategies.",
+          "keywords": [
+            "databases",
+            "sql",
+            "postgresql",
+            "migration",
+            "schema",
+            "zero-downtime",
+            "/docs/database-schema-documentation-template",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-index-optimization-analysis",
+            "/recipes/sql-partitioning-strategies",
+            "/recipes/sql-recursive-cte-query",
+            "databases",
+            "sql",
+            "postgresql",
+            "migration",
+            "schema",
+            "zero-downtime",
+            "/docs/database-schema-documentation-template",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-index-optimization-analysis",
+            "/recipes/sql-partitioning-strategies",
+            "/recipes/sql-recursive-cte-query",
+            "sql",
+            "postgresql",
+            "migration",
+            "schema",
+            "zero-downtime"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-partitioning-strategies.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-partitioning-strategies",
+        "title": "Partition Large Tables by Date or Range",
+        "description": "Split huge SQL tables into smaller partitions by date, range, or list to improve query performance and maintenance.",
+        "metaDescription": "Partition large SQL tables by date, range, or list. Learn strategies to improve query performance, prune partitions, and simplify maintenance.",
+        "difficulty": "advanced",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "partitioning",
+          "performance",
+          "maintenance"
+        ],
+        "relatedResources": [
+          "/recipes/sql-index-optimization-analysis",
+          "/guides/read-replica-guide",
+          "/guides/sql-performance-tuning-guide",
+          "/recipes/postgres-query-optimization",
+          "/recipes/sql-find-duplicate-rows"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Partition large SQL tables by date, range, or list. Learn strategies to improve query performance, prune partitions, and simplify maintenance.",
+          "keywords": [
+            "databases",
+            "sql",
+            "postgresql",
+            "partitioning",
+            "performance",
+            "maintenance",
+            "/recipes/sql-index-optimization-analysis",
+            "/guides/read-replica-guide",
+            "/guides/sql-performance-tuning-guide",
+            "/recipes/postgres-query-optimization",
+            "/recipes/sql-find-duplicate-rows",
+            "databases",
+            "sql",
+            "postgresql",
+            "partitioning",
+            "performance",
+            "maintenance",
+            "/recipes/sql-index-optimization-analysis",
+            "/guides/read-replica-guide",
+            "/guides/sql-performance-tuning-guide",
+            "/recipes/postgres-query-optimization",
+            "/recipes/sql-find-duplicate-rows",
+            "sql",
+            "postgresql",
+            "partitioning",
+            "performance",
+            "maintenance"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-recursive-cte-query.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-recursive-cte-query",
+        "title": "Traverse Hierarchical Data with Recursive CTEs",
+        "description": "Query tree-like or graph-like structures in SQL using recursive common table expressions to walk parent-child relationships.",
+        "metaDescription": "Traverse hierarchical data in SQL with recursive CTEs. Learn how to query parent-child relationships, org charts, and tree structures safely.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "recursive-cte",
+          "postgresql",
+          "hierarchy",
+          "trees"
+        ],
+        "relatedResources": [
+          "/guides/sql-cte-guide",
+          "/recipes/sql-find-duplicate-rows",
+          "/docs/database-schema-documentation-template",
+          "/guides/full-text-search-guide",
+          "/guides/read-replica-guide"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Traverse hierarchical data in SQL with recursive CTEs. Learn how to query parent-child relationships, org charts, and tree structures safely.",
+          "keywords": [
+            "databases",
+            "sql",
+            "recursive-cte",
+            "postgresql",
+            "hierarchy",
+            "trees",
+            "/guides/sql-cte-guide",
+            "/recipes/sql-find-duplicate-rows",
+            "/docs/database-schema-documentation-template",
+            "/guides/full-text-search-guide",
+            "/guides/read-replica-guide",
+            "databases",
+            "sql",
+            "recursive-cte",
+            "postgresql",
+            "hierarchy",
+            "trees",
+            "/guides/sql-cte-guide",
+            "/recipes/sql-find-duplicate-rows",
+            "/docs/database-schema-documentation-template",
+            "/guides/full-text-search-guide",
+            "/guides/read-replica-guide",
+            "sql",
+            "recursive-cte",
+            "postgresql",
+            "hierarchy",
+            "trees"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-window-functions-ranking.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-window-functions-ranking",
+        "title": "Rank Rows and Calculate Running Totals with Window Functions",
+        "description": "Use SQL window functions to rank rows, compute running totals, and compare values within partitions without self-joins.",
+        "metaDescription": "Rank rows and calculate running totals in SQL with window functions. Learn ROW_NUMBER, RANK, SUM OVER, LAG, and practical analytics use cases.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "window-functions",
+          "postgresql",
+          "analytics",
+          "ranking"
+        ],
+        "relatedResources": [
+          "/guides/sql-window-functions-guide",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-recursive-cte-query",
+          "/docs/database-schema-documentation-template",
+          "/guides/full-text-search-guide"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Rank rows and calculate running totals in SQL with window functions. Learn ROW_NUMBER, RANK, SUM OVER, LAG, and practical analytics use cases.",
+          "keywords": [
+            "databases",
+            "sql",
+            "window-functions",
+            "postgresql",
+            "analytics",
+            "ranking",
+            "/guides/sql-window-functions-guide",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-recursive-cte-query",
+            "/docs/database-schema-documentation-template",
+            "/guides/full-text-search-guide",
+            "databases",
+            "sql",
+            "window-functions",
+            "postgresql",
+            "analytics",
+            "ranking",
+            "/guides/sql-window-functions-guide",
+            "/recipes/sql-find-duplicate-rows",
+            "/recipes/sql-recursive-cte-query",
+            "/docs/database-schema-documentation-template",
+            "/guides/full-text-search-guide",
+            "sql",
+            "window-functions",
+            "postgresql",
+            "analytics",
+            "ranking"
           ]
         }
       }

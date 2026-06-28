@@ -1,6 +1,6 @@
 {
   "lang": "es",
-  "count": 609,
+  "count": 616,
   "entries": [
     {
       "path": "docs/api/api-changelog-template.es.md",
@@ -19312,6 +19312,126 @@
       }
     },
     {
+      "path": "recipes/databases/sql-find-duplicate-rows.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-find-duplicate-rows",
+        "title": "Encontrar y eliminar filas duplicadas en SQL",
+        "description": "Detecta y elimina registros duplicados en tablas SQL usando GROUP BY y HAVING, conservando la fila canónica de forma segura.",
+        "metaDescription": "Aprende a encontrar y eliminar filas duplicadas en SQL con GROUP BY, HAVING y CTEs. Limpia tablas y conserva registros canónicos.",
+        "difficulty": "beginner",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "mysql",
+          "deduplication",
+          "cte"
+        ],
+        "relatedResources": [
+          "/guides/read-replica-guide",
+          "/guides/sql-cte-guide",
+          "/docs/runbook-database-failover",
+          "/docs/database-schema-documentation-template",
+          "/guides/full-text-search-guide"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Aprende a encontrar y eliminar filas duplicadas en SQL con GROUP BY, HAVING y CTEs. Limpia tablas y conserva registros canónicos.",
+          "keywords": [
+            "sql",
+            "postgresql",
+            "mysql",
+            "deduplicación",
+            "cte"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-full-text-search-setup.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-full-text-search-setup",
+        "title": "Configurar índices de búsqueda de texto completo",
+        "description": "Configura índices de búsqueda de texto completo en PostgreSQL para consultar grandes columnas de texto con ranking y resaltado.",
+        "metaDescription": "Configura búsqueda de texto completo en PostgreSQL. Crea índices GIN, consulta con tsvector y clasifica resultados por relevancia.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "full-text-search",
+          "gin",
+          "tsvector"
+        ],
+        "relatedResources": [
+          "/guides/full-text-search-guide",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-index-optimization-analysis",
+          "/recipes/sql-migration-zero-downtime",
+          "/recipes/sql-partitioning-strategies"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Configura búsqueda de texto completo en PostgreSQL. Crea índices GIN, consulta con tsvector y clasifica resultados por relevancia.",
+          "keywords": [
+            "sql",
+            "postgresql",
+            "búsqueda de texto completo",
+            "gin",
+            "tsvector"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-index-optimization-analysis.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-index-optimization-analysis",
+        "title": "Analizar y optimizar índices SQL con EXPLAIN",
+        "description": "Identifica índices faltantes, sin uso e ineficientes leyendo planes de ejecución y midiendo el costo de las consultas con EXPLAIN.",
+        "metaDescription": "Optimiza índices SQL usando EXPLAIN y planes de ejecución. Detecta índices faltantes, escaneos secuenciales y cuellos de botella.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "indexes",
+          "explain",
+          "performance"
+        ],
+        "relatedResources": [
+          "/guides/read-replica-guide",
+          "/guides/sql-performance-tuning-guide",
+          "/recipes/postgres-query-optimization",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-recursive-cte-query"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Optimiza índices SQL usando EXPLAIN y planes de ejecución. Detecta índices faltantes, escaneos secuenciales y cuellos de botella.",
+          "keywords": [
+            "sql",
+            "postgresql",
+            "índices",
+            "explain",
+            "rendimiento"
+          ]
+        }
+      }
+    },
+    {
       "path": "recipes/databases/sql-joins.es.md",
       "metadata": {
         "contentType": "recipes",
@@ -19341,6 +19461,166 @@
             "inner join",
             "left join",
             "consultas base de datos"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-migration-zero-downtime.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-migration-zero-downtime",
+        "title": "Migración de columnas sin downtime",
+        "description": "Renombra columnas o cambia tipos de datos sin bloquear tablas usando vistas, triggers y estrategias de relleno incremental.",
+        "metaDescription": "Renombra columnas y cambia tipos de datos en SQL sin detener la aplicación. Usa expand-contract, triggers y relleno por lotes.",
+        "difficulty": "advanced",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "migration",
+          "schema",
+          "zero-downtime"
+        ],
+        "relatedResources": [
+          "/docs/database-schema-documentation-template",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-index-optimization-analysis",
+          "/recipes/sql-partitioning-strategies",
+          "/recipes/sql-recursive-cte-query"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Renombra columnas y cambia tipos de datos en SQL sin detener la aplicación. Usa expand-contract, triggers y relleno por lotes.",
+          "keywords": [
+            "sql",
+            "postgresql",
+            "migración",
+            "esquema",
+            "zero-downtime"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-partitioning-strategies.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-partitioning-strategies",
+        "title": "Particionar tablas grandes por fecha o rango",
+        "description": "Divide tablas SQL enormes en particiones más pequeñas por fecha, rango o lista para mejorar el rendimiento y el mantenimiento.",
+        "metaDescription": "Particiona tablas SQL grandes por fecha, rango o lista. Mejora el rendimiento, poda particiones y simplifica el mantenimiento.",
+        "difficulty": "advanced",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "postgresql",
+          "partitioning",
+          "performance",
+          "maintenance"
+        ],
+        "relatedResources": [
+          "/recipes/sql-index-optimization-analysis",
+          "/guides/read-replica-guide",
+          "/guides/sql-performance-tuning-guide",
+          "/recipes/postgres-query-optimization",
+          "/recipes/sql-find-duplicate-rows"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Particiona tablas SQL grandes por fecha, rango o lista. Mejora el rendimiento, poda particiones y simplifica el mantenimiento.",
+          "keywords": [
+            "sql",
+            "postgresql",
+            "particionamiento",
+            "rendimiento",
+            "mantenimiento"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-recursive-cte-query.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-recursive-cte-query",
+        "title": "Recorrer datos jerárquicos con CTEs recursivas",
+        "description": "Consulta estructuras en árbol o grafo en SQL usando expresiones comunes de tabla recursivas para recorrer relaciones padre-hijo.",
+        "metaDescription": "Recorre datos jerárquicos en SQL con CTEs recursivas. Aprende a consultar organigramas, comentarios anidados y listas de materiales.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "recursive-cte",
+          "postgresql",
+          "hierarchy",
+          "trees"
+        ],
+        "relatedResources": [
+          "/guides/sql-cte-guide",
+          "/recipes/sql-find-duplicate-rows",
+          "/docs/database-schema-documentation-template",
+          "/guides/full-text-search-guide",
+          "/guides/read-replica-guide"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Recorre datos jerárquicos en SQL con CTEs recursivas. Aprende a consultar organigramas, comentarios anidados y listas de materiales.",
+          "keywords": [
+            "sql",
+            "cte recursiva",
+            "postgresql",
+            "jerarquía",
+            "árbol"
+          ]
+        }
+      }
+    },
+    {
+      "path": "recipes/databases/sql-window-functions-ranking.es.md",
+      "metadata": {
+        "contentType": "recipes",
+        "slug": "sql-window-functions-ranking",
+        "title": "Clasificar filas y calcular totales acumulados con funciones de ventana",
+        "description": "Usa funciones de ventana SQL para clasificar filas, calcular totales acumulados y comparar valores dentro de particiones sin self-joins.",
+        "metaDescription": "Clasifica filas y calcula totales acumulados en SQL con funciones de ventana. Usa ROW_NUMBER, RANK, SUM OVER y LAG en consultas analíticas.",
+        "difficulty": "intermediate",
+        "topics": [
+          "databases"
+        ],
+        "tags": [
+          "sql",
+          "window-functions",
+          "postgresql",
+          "analytics",
+          "ranking"
+        ],
+        "relatedResources": [
+          "/guides/sql-window-functions-guide",
+          "/recipes/sql-find-duplicate-rows",
+          "/recipes/sql-recursive-cte-query",
+          "/docs/database-schema-documentation-template",
+          "/guides/full-text-search-guide"
+        ],
+        "lastUpdated": "2026-06-28",
+        "author": "StackPractices",
+        "seo": {
+          "metaDescription": "Clasifica filas y calcula totales acumulados en SQL con funciones de ventana. Usa ROW_NUMBER, RANK, SUM OVER y LAG en consultas analíticas.",
+          "keywords": [
+            "sql",
+            "funciones de ventana",
+            "postgresql",
+            "ranking",
+            "análisis"
           ]
         }
       }
