@@ -317,11 +317,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\recipes\design\domain-driven-design.md | 3.0 | significant → major, best practices → what works | src\content\recipes\design\domain-driven-design.es.md | pending |
-| src\content\recipes\devops\ansible-playbook.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\devops\ansible-playbook.es.md | pending |
-| src\content\recipes\devops\feature-flags.md | 3.0 | best practices → what works, features → capabilities, dynamic → live | src\content\recipes\devops\feature-flags.es.md | pending |
-| src\content\recipes\devops\immutable-infrastructure.md | 3.0 | best practices → what works, features → capabilities | src\content\recipes\devops\immutable-infrastructure.es.md | pending |
-| src\content\recipes\performance\lazy-loading.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\performance\lazy-loading.es.md | pending |
+| src\content\recipes\design\domain-driven-design.md | 3.0 | significant → major, best practices → what works | src\content\recipes\design\domain-driven-design.es.md | completed |
+| src\content\recipes\devops\ansible-playbook.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\devops\ansible-playbook.es.md | completed |
+| src\content\recipes\devops\feature-flags.md | 3.0 | best practices → what works, features → capabilities, dynamic → live | src\content\recipes\devops\feature-flags.es.md | completed |
+| src\content\recipes\devops\immutable-infrastructure.md | 3.0 | best practices → what works, features → capabilities | src\content\recipes\devops\immutable-infrastructure.es.md | completed |
+| src\content\recipes\performance\lazy-loading.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\performance\lazy-loading.es.md | completed |
 
 ### Batch 28 (priority: low)
 
