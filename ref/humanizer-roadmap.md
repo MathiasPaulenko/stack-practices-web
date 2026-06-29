@@ -307,11 +307,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\recipes\authentication\api-key-authentication.md | 3.0 | best practices → what works, features → capabilities, dynamic → live | src\content\recipes\authentication\api-key-authentication.es.md | pending |
-| src\content\recipes\authentication\session-management.md | 3.0 | comprehensive → thorough, best practices → what works, scalability → growth | src\content\recipes\authentication\session-management.es.md | pending |
-| src\content\recipes\concurrency\locks-and-mutexes.md | 3.0 | best practices → what works, effective → useful, effectively → well | src\content\recipes\concurrency\locks-and-mutexes.es.md | pending |
-| src\content\recipes\data\convert-csv-to-json.md | 3.0 | robust → reliable, best practices → what works | src\content\recipes\data\convert-csv-to-json.es.md | pending |
-| src\content\recipes\data\validate-json-schema.md | 3.0 | features → capabilities, best practices → what works | src\content\recipes\data\validate-json-schema.es.md | pending |
+| src\content\recipes\authentication\api-key-authentication.md | 3.0 | best practices → what works, features → capabilities, dynamic → live | src\content\recipes\authentication\api-key-authentication.es.md | completed |
+| src\content\recipes\authentication\session-management.md | 3.0 | comprehensive → thorough, best practices → what works, scalability → growth | src\content\recipes\authentication\session-management.es.md | completed |
+| src\content\recipes\concurrency\locks-and-mutexes.md | 3.0 | best practices → what works, effective → useful, effectively → well | src\content\recipes\concurrency\locks-and-mutexes.es.md | completed |
+| src\content\recipes\data\convert-csv-to-json.md | 3.0 | robust → reliable, best practices → what works | src\content\recipes\data\convert-csv-to-json.es.md | completed |
+| src\content\recipes\data\validate-json-schema.md | 3.0 | features → capabilities, best practices → what works | src\content\recipes\data\validate-json-schema.es.md | completed |
 
 ### Batch 27 (priority: low)
 
