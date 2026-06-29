@@ -2,7 +2,7 @@
 contentType: docs
 slug: security-audit-checklist-template
 title: "Checklist de Auditoría de Seguridad"
-description: "Un checklist completo para realizar auditorías de seguridad de aplicaciones e infraestructura."
+description: "Un checklist exhaustivo para realizar auditorías de seguridad de aplicaciones e infraestructura."
 metaDescription: "Usa este checklist de auditoría de seguridad para revisar autenticación, autorización, protección de datos, seguridad de infraestructura y brechas de cumplimiento."
 difficulty: intermediate
 topics:
@@ -122,7 +122,7 @@ El checklist está organizado por **dominio de seguridad** para que los equipos 
 | Enterprise | Checklist completo + evidencia | Requerir capturas, enlaces a políticas y firmas por ítem |
 | Cloud-native | Agregar ítems específicos de contenedores | Incluir pod security policies, RBAC y network policies |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Ejecutar este checklist antes de cada lanzamiento a producción, no solo anualmente
 2. Asignar cada sección al equipo que posee los sistemas relevantes
@@ -135,14 +135,14 @@ El checklist está organizado por **dominio de seguridad** para que los equipos 
 1. Tratar auditorías de seguridad como un ejercicio de casillas sin corregir hallazgos
 2. Omitir verificaciones de infraestructura porque "el proveedor de nube lo maneja"
 3. Confiar solo en escáners automatizados y omitir revisión manual
-4. No actualizar el checklist a medida que el panorama de amenazas evoluciona
+4. No actualizar el checklist a medida que el escenario de amenazas evoluciona
 5. Mantener resultados de auditoría en un silo en lugar de compartirlos con equipos de ingeniería
 
 ## Preguntas Frecuentes
 
 ### ¿Cuánto tiempo debería tomar una auditoría de seguridad?
 
-Una auditoría ligera para una sola aplicación toma 2-4 horas. Una auditoría empresarial integral a través de infraestructura, aplicaciones y cumplimiento puede tomar 1-2 semanas.
+Una auditoría ligera para una sola aplicación toma 2-4 horas. Una auditoría empresarial exhaustiva a través de infraestructura, aplicaciones y cumplimiento puede tomar 1-2 semanas.
 
 ### ¿Se deben usar auditores externos?
 

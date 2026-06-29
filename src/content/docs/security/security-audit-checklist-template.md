@@ -2,7 +2,7 @@
 contentType: docs
 slug: security-audit-checklist-template
 title: "Security Audit Checklist"
-description: "A comprehensive checklist for conducting security audits of applications and infrastructure."
+description: "A thorough checklist for conducting security audits of applications and infrastructure."
 metaDescription: "Use this security audit checklist to review authentication, authorization, data protection, infrastructure security, and compliance gaps."
 difficulty: intermediate
 topics:
@@ -121,7 +121,7 @@ The checklist is organized by **security domain** so teams can divide work acros
 | Enterprise | Full checklist + evidence | Require screenshots, policy links, and sign-offs per item |
 | Cloud-native | Add container-specific items | Include pod security policies, RBAC, and network policies |
 
-## Best Practices
+## What Works
 
 1. Run this checklist before every production launch, not just annually
 2. Assign each section to the team that owns the relevant systems
@@ -134,14 +134,14 @@ The checklist is organized by **security domain** so teams can divide work acros
 1. Treating security audits as a checkbox exercise without fixing findings
 2. Skipping infrastructure checks because "the cloud provider handles it"
 3. Relying solely on automated scanners and skipping manual review
-4. Not updating the checklist as the threat landscape evolves
+4. Not updating the checklist as the threat space evolves
 5. Keeping audit results in a silo instead of sharing with engineering teams
 
 ## Frequently Asked Questions
 
 ### How long should a security audit take?
 
-A lightweight audit for a single application takes 2-4 hours. A comprehensive enterprise audit across infrastructure, applications, and compliance can take 1-2 weeks.
+A lightweight audit for a single application takes 2-4 hours. A thorough enterprise audit across infrastructure, applications, and compliance can take 1-2 weeks.
 
 ### Should external auditors be used?
 

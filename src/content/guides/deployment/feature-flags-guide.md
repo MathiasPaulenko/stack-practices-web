@@ -38,16 +38,16 @@ seo:
 
 ## Overview
 
-Feature flags (also called feature toggles) decouple deployment from release. You can deploy code to production while keeping new behavior hidden, then turn it on for specific users, regions, or percentages. They also act as kill switches, letting you disable a problematic feature instantly without redeploying.
+Feature flags (also called feature toggles) decouple deployment from release. You can deploy code to production while keeping new behavior hidden, then turn it on for specific users, regions, or percentages. They also act as kill switches, letting you disable a problematic change instantly without redeploying.
 
 This guide explains flag types, implementation patterns, rollout strategies, and proven operational methods.
 
 ## When to Use
 
-- You want to deploy incomplete features without exposing them to users
-- You need to roll out features gradually to monitor impact
-- You want to A/B test features with real users
-- You need emergency kill switches for critical features
+- You want to deploy incomplete changes without exposing them to users
+- You need to roll out changes gradually to monitor impact
+- You want to A/B test changes with real users
+- You need emergency kill switches for critical changes
 - You manage long-lived branches and want to merge code earlier
 
 ## Core Concepts
@@ -55,8 +55,8 @@ This guide explains flag types, implementation patterns, rollout strategies, and
 | Concept | Description |
 |---------|-------------|
 | **Feature Flag** | A conditional check that enables or disables a code path |
-| **Kill Switch** | A flag that instantly disables a feature in production |
-| **Progressive Rollout** | Gradually increasing the percentage of users who see a feature |
+| **Kill Switch** | A flag that instantly disables a change in production |
+| **Progressive Rollout** | Gradually increasing the percentage of users who see a change |
 | **Targeted Flag** | A flag enabled for specific users, groups, or regions |
 | **Flag Lifetime** | The period from creation to permanent removal from code |
 | **Technical Debt** | Accumulated old flags that clutter code and configuration |
@@ -65,11 +65,11 @@ This guide explains flag types, implementation patterns, rollout strategies, and
 
 | Type | Use Case | Lifetime |
 |------|----------|----------|
-| **Release flag** | Hide incomplete features during development | Short (days to weeks) |
+| **Release flag** | Hide incomplete changes during development | Short (days to weeks) |
 | **Experiment flag** | A/B testing and data-driven decisions | Medium (weeks to months) |
 | **Operational flag** | Circuit breakers, rate limits, debug modes | Long (months to permanent) |
-| **Permission flag** | Controls feature access by user tier | Permanent |
-| **Kill switch** | Emergency disable for risky features | Short (removed after stabilization) |
+| **Permission flag** | Controls capability access by user tier | Permanent |
+| **Kill switch** | Emergency disable for risky changes | Short (removed after stabilization) |
 
 ## Step-by-Step Feature Flag Implementation
 
@@ -80,7 +80,7 @@ Build vs buy decision:
 | Option | Best For | Examples |
 |--------|----------|----------|
 | **Open-source** | Self-hosted, full control | Unleash, Flagsmith, Flipt |
-| **SaaS** | Quick setup, enterprise features | LaunchDarkly, Split, Optimizely |
+| **SaaS** | Quick setup, enterprise capabilities | LaunchDarkly, Split, Optimizely |
 | **Custom build** | Simple use cases, tight integration | In-app config + database |
 | **Config files** | Static flags, no runtime changes | YAML/JSON configs |
 
@@ -171,7 +171,7 @@ def advance_rollout(flag_name: str, current_stage: int):
 
 ### 3. Add Kill Switches
 
-Instantly disable features without deploying:
+Instantly disable changes without deploying:
 
 ```python
 # Example: Kill switch pattern
@@ -191,22 +191,22 @@ def process_payment(order):
 ```
 
 **Kill switch guidelines:**
-- Every new feature gets a kill switch by default
-- Document which features have kill switches in your runbook
+- Every new change gets a kill switch by default
+- Document which changes have kill switches in your runbook
 - Practice kill switch drills quarterly
 - Set up alerts when a kill switch is activated
 - Ensure kill switches have minimal latency (cache flag values)
 
 ### 4. Monitor Flag Performance
 
-Track metrics for flagged features:
+Track metrics for flagged changes:
 
 | Metric | Why It Matters |
 |--------|----------------|
 | **Flag evaluation latency** | Slow flag checks add request overhead |
-| **Error rate by flag state** | Detect if enabled features cause errors |
-| **User engagement** | Compare feature usage between on/off groups |
-| **Conversion impact** | Measure business effect of the feature |
+| **Error rate by flag state** | Detect if enabled changes cause errors |
+| **User engagement** | Compare usage between on/off groups |
+| **Conversion impact** | Measure business effect of the change |
 | **Flag staleness** | Identify flags that have been on for too long |
 
 ```yaml
@@ -239,11 +239,11 @@ Flags should not live forever:
 - Set expiration dates on release and experiment flags (30-60 days)
 - Review all flags monthly in engineering standup
 - Archive removed flags in a changelog for audit purposes
-- Never remove a flag before confirming the feature is stable
+- Never remove a flag before confirming the change is stable
 
-## Best Practices
+## What Works
 
-- **Keep flags simple.** One flag per feature, not nested conditionals.
+- **Keep flags simple.** One flag per change, not nested conditionals.
 - **Default to safe.** If the flag system is down, default to the proven behavior.
 - **Evaluate flags once per request.** Cache the result to avoid repeated lookups.
 - **Test both paths.** Unit tests must cover flag enabled and disabled states.
@@ -260,7 +260,7 @@ Flags should not live forever:
 
 ## Variants
 
-- **Runtime configuration:** Broader than flags — includes thresholds, limits, and feature parameters
+- **Runtime configuration:** Broader than flags — includes thresholds, limits, and flag parameters
 - **Contextual flags:** Flags that vary by time of day, geography, or device type
 - **Multi-variate flags:** Flags with multiple states (A/B/C/D testing)
 - **Client-side flags:** Evaluated in browser/mobile for UI variations
@@ -277,7 +277,7 @@ Use a centralized flag service with caching. Evaluate flags at request start and
 Yes, if evaluated frequently. Use in-memory caching, batch evaluations, and avoid flag checks in tight loops.
 
 **Q: When should I remove a feature flag?**
-As soon as the feature is stable and fully rolled out. Target removal within 30 days of full release.
+As soon as the change is stable and fully rolled out. Target removal within 30 days of full release.
 
 ## Conclusion
 

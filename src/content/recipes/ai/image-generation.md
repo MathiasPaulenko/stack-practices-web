@@ -37,7 +37,7 @@ The challenge in production is not calling the API — it is crafting prompts th
 
 Use this recipe when:
 
-- Generating product mockups, marketing banners, or social media assets dynamically. See [Batch Processing](/recipes/data/batch-processing-patterns) for generating assets at scale.
+- Generating product mockups, marketing banners, or social media assets on demand. See [Batch Processing](/recipes/data/batch-processing-patterns) for generating assets at scale.
 - Building avatar creation tools where users describe their desired appearance
 - Creating personalized illustrations for newsletters, blog posts, or children's books
 - Prototyping UI designs and wireframes from text descriptions
@@ -129,7 +129,7 @@ const openai = new OpenAI();
 
 const templates = [
   { category: 'hero', prompt: 'Wide landscape banner of {theme}, golden hour, cinematic composition, no text', size: '1792x1024' },
-  { category: 'thumbnail', prompt: 'Square close-up of {theme}, vibrant colors, high contrast', size: '1024x1024' },
+  { category: 'thumbnail', prompt: 'Square close-up of {theme}, rich colors, high contrast', size: '1024x1024' },
   { category: 'icon', prompt: 'Minimalist flat icon of {theme}, white background, vector style, clean lines', size: '1024x1024' },
 ];
 

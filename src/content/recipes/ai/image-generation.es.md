@@ -37,7 +37,7 @@ El desafío en producción no es llamar a la API — es diseñar prompts que pro
 
 Usa esta receta cuando:
 
-- Generando mockups de productos, banners de marketing o assets de redes sociales dinámicamente. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para generación de assets a escala.
+- Generando mockups de productos, banners de marketing o assets de redes sociales bajo demanda. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para generación de assets a escala.
 - Construyendo herramientas de creación de avatares donde los usuarios describen su apariencia deseada
 - Creando ilustraciones personalizadas para newsletters, posts de blog o libros infantiles
 - Prototipando diseños de UI y wireframes a partir de descripciones de texto
@@ -126,7 +126,7 @@ const openai = new OpenAI();
 
 const templates = [
   { category: 'hero', prompt: 'Wide landscape banner of {theme}, golden hour, cinematic composition, no text', size: '1792x1024' },
-  { category: 'thumbnail', prompt: 'Square close-up of {theme}, vibrant colors, high contrast', size: '1024x1024' },
+  { category: 'thumbnail', prompt: 'Square close-up of {theme}, rich colors, high contrast', size: '1024x1024' },
   { category: 'icon', prompt: 'Minimalist flat icon of {theme}, white background, vector style, clean lines', size: '1024x1024' },
 ];
 

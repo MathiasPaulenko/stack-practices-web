@@ -29,7 +29,7 @@ seo:
 
 # Construye una API GraphQL con Apollo Server y TypeScript
 
-GraphQL permite a los clientes solicitar exactamente los datos que necesitan en una sola consulta. Apollo Server proporciona un framework listo para produccion para construir APIs GraphQL con desarrollo schema-first, soporte integrado de suscripciones y un rico ecosistema de plugins.
+GraphQL permite a los clientes solicitar exactamente los datos que necesitan en una sola consulta. Apollo Server proporciona un framework listo para produccion para construir APIs GraphQL con desarrollo schema-first, soporte integrado de suscripciones y una amplia plataforma de plugins.
 
 ## Cuando Usar Esto
 
@@ -173,7 +173,7 @@ export const authDirective = (schema: GraphQLSchema) =>
 
 ## Como Funciona
 
-1. **Definicion de Schema** sirve como contrato entre cliente y servidor
+1. **Definicion de Schema** funciona como contrato entre cliente y servidor
 2. **Resolvers** obtienen datos para cada campo, componibles y testeables independientemente
 3. **DataLoader** agrupa peticiones en un solo tick del event loop
 4. **Context** transporta autenticacion y conexiones a base de datos por peticion
@@ -188,7 +188,7 @@ export const authDirective = (schema: GraphQLSchema) =>
 ## FAQ
 
 **P: Debo usar Apollo Server o GraphQL Yoga?**
-R: Apollo Server tiene el ecosistema mas grande. Yoga es mas ligero y rapido para casos simples. Ambos son aptos para produccion.
+R: Apollo Server tiene la comunidad más grande. Yoga es mas ligero y rapido para casos simples. Ambos son aptos para produccion.
 
 **P: Como manejo uploads de archivos en GraphQL?**
 R: Usa `graphql-upload-minimal` con peticiones multipart, o prefiere un endpoint REST separado para archivos grandes.

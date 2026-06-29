@@ -38,16 +38,16 @@ seo:
 
 ## Overview
 
-Los feature flags (también llamados feature toggles) desacoplan el despliegue del release. Permiten desplegar código a producción mientras mantienen funcionalidades ocultas, luego habilitarlas gradualmente para usuarios, regiones o porcentajes específicos. También sirven como kill switches para deshabilitar instantáneamente funcionalidades problemáticas sin redeploy.
+Los feature flags (también llamados feature toggles) desacoplan el despliegue del release. Permiten desplegar código a producción mientras mantienen funcionalidades ocultas, luego habilitarlas gradualmente para usuarios, regiones o porcentajes específicos. También sirven como kill switches para deshabilitar instantáneamente cambios problemáticos sin redeploy.
 
-Esta guía cubre tipos de flags, patrones de implementación, estrategias de rollout y mejores prácticas operacionales.
+Esta guía cubre tipos de flags, patrones de implementación, estrategias de rollout y métodos operacionales probados.
 
 ## When to Use
 
-- Quieres desplegar funcionalidades incompletas sin exponerlas a usuarios
-- Necesitas lanzar funcionalidades gradualmente para monitorear impacto
-- Quieres hacer A/B testing de funcionalidades con usuarios reales
-- Necesitas kill switches de emergencia para funcionalidades críticas
+- Quieres desplegar cambios incompletos sin exponerlos a usuarios
+- Necesitas lanzar cambios gradualmente para monitorear impacto
+- Quieres hacer A/B testing de cambios con usuarios reales
+- Necesitas kill switches de emergencia para cambios críticos
 - Manejas branches de larga duración y quieres mergear código más temprano
 
 ## Core Concepts
@@ -55,8 +55,8 @@ Esta guía cubre tipos de flags, patrones de implementación, estrategias de rol
 | Concepto | Descripción |
 |----------|-------------|
 | **Feature Flag** | Un check condicional que habilita o deshabilita un camino de código |
-| **Kill Switch** | Un flag que deshabilita instantáneamente una funcionalidad en producción |
-| **Rollout Progresivo** | Aumentar gradualmente el porcentaje de usuarios que ven una funcionalidad |
+| **Kill Switch** | Un flag que deshabilita instantáneamente un cambio en producción |
+| **Rollout Progresivo** | Aumentar gradualmente el porcentaje de usuarios que ven un cambio |
 | **Flag Dirigido** | Un flag habilitado para usuarios, grupos o regiones específicas |
 | **Vida del Flag** | El período desde creación hasta remoción permanente del código |
 | **Deuda Técnica** | Flags viejos acumulados que saturan código y configuración |
@@ -65,11 +65,11 @@ Esta guía cubre tipos de flags, patrones de implementación, estrategias de rol
 
 | Tipo | Caso de Uso | Vida |
 |------|-------------|------|
-| **Flag de release** | Ocultar funcionalidades incompletas durante desarrollo | Corta (días a semanas) |
+| **Flag de release** | Ocultar cambios incompletos durante desarrollo | Corta (días a semanas) |
 | **Flag de experimento** | A/B testing y decisiones basadas en datos | Media (semanas a meses) |
 | **Flag operacional** | Circuit breakers, límites de rate, modos debug | Larga (meses a permanente) |
-| **Flag de permiso** | Control de acceso a funcionalidades por tier de usuario | Permanente |
-| **Kill switch** | Deshabilitación de emergencia para funcionalidades riesgosas | Corta (removido después de estabilización) |
+| **Flag de permiso** | Control de acceso a capacidades por tier de usuario | Permanente |
+| **Kill switch** | Deshabilitación de emergencia para cambios riesgosos | Corta (removido después de estabilización) |
 
 ## Step-by-Step Feature Flag Implementation
 
@@ -80,7 +80,7 @@ Decisión build vs buy:
 | Opción | Mejor Para | Ejemplos |
 |--------|------------|----------|
 | **Open-source** | Auto-hospedado, control total | Unleash, Flagsmith, Flipt |
-| **SaaS** | Configuración rápida, features enterprise | LaunchDarkly, Split, Optimizely |
+| **SaaS** | Configuración rápida, capacidades enterprise | LaunchDarkly, Split, Optimizely |
 | **Build custom** | Casos simples, integración estrecha | Config en-app + base de datos |
 | **Archivos de config** | Flags estáticos, sin cambios en runtime | YAML/JSON configs |
 
@@ -165,13 +165,13 @@ def advance_rollout(flag_name: str, current_stage: int):
 2. **Usuarios beta:** Habilitar para early adopters amigables (0% + lista beta)
 3. **1% rollout:** Exponer a 1% del tráfico
 4. **10% rollout:** Monitorear métricas a pequeña escala
-5. **50% rollout:** Validar a volumen significativo
+5. **50% rollout:** Validar a gran volumen
 6. **100% rollout:** Release completo
 7. **Remover flag:** Limpiar código condicional
 
 ### 3. Agregar Kill Switches
 
-Deshabilitar instantáneamente funcionalidades sin desplegar:
+Deshabilitar instantáneamente cambios sin desplegar:
 
 ```python
 # Ejemplo: Patrón de kill switch
@@ -190,23 +190,23 @@ def process_payment(order):
         raise
 ```
 
-**Mejores prácticas de kill switch:**
-- Cada nueva funcionalidad obtiene un kill switch por defecto
-- Documenta qué funcionalidades tienen kill switches en tu runbook
+**Lo que funciona para kill switches:**
+- Cada nuevo cambio obtiene un kill switch por defecto
+- Documenta qué cambios tienen kill switches en tu runbook
 - Practica drills de kill switch trimestralmente
 - Configura alertas cuando un kill switch se active
 - Asegúrate de que los kill switches tengan latencia mínima (cachear valores de flags)
 
 ### 4. Monitorear Rendimiento de Flags
 
-Rastrear métricas para funcionalidades con flags:
+Rastrear métricas para cambios con flags:
 
 | Métrica | Por Qué Importa |
 |---------|-----------------|
 | **Latencia de evaluación de flag** | Evaluaciones lentas agregan overhead de request |
-| **Tasa de error por estado de flag** | Detectar si funcionalidades habilitadas causan errores |
-| **Engagement de usuario** | Comparar uso de funcionalidad entre grupos on/off |
-| **Impacto en conversión** | Medir efecto de negocio de la funcionalidad |
+| **Tasa de error por estado de flag** | Detectar si cambios habilitados causan errores |
+| **Engagement de usuario** | Comparar uso entre grupos on/off |
+| **Impacto en conversión** | Medir efecto de negocio del cambio |
 | **Viejez de flag** | Identificar flags que han estado activos por mucho tiempo |
 
 ```yaml
@@ -239,11 +239,11 @@ Los flags no deberían vivir para siempre:
 - Establecer fechas de expiración en flags de release y experimento (30-60 días)
 - Revisar todos los flags mensualmente en standup de ingeniería
 - Archivar flags removidos en un changelog para propósitos de auditoría
-- Nunca remover un flag antes de confirmar que la funcionalidad es estable
+- Nunca remover un flag antes de confirmar que el cambio es estable
 
-## Best Practices
+## Lo que funciona
 
-- **Mantén flags simples.** Un flag por funcionalidad, no condicionales anidados.
+- **Mantén flags simples.** Un flag por cambio, no condicionales anidados.
 - **Default seguro.** Si el sistema de flags cae, default al comportamiento probado.
 - **Evalúa flags una vez por request.** Cachear el resultado para evitar lookups repetidos.
 - **Prueba ambos caminos.** Los tests unitarios deben cubrir estados habilitado y deshabilitado.
@@ -260,7 +260,7 @@ Los flags no deberían vivir para siempre:
 
 ## Variants
 
-- **Configuración dinámica:** Más amplia que flags — incluye umbrales, límites y parámetros de funcionalidad
+- **Configuración dinámica:** Más amplia que flags — incluye umbrales, límites y parámetros de flag
 - **Flags contextuales:** Flags que varían por hora del día, geografía o tipo de dispositivo
 - **Flags multi-variante:** Flags con múltiples estados (testing A/B/C/D)
 - **Flags del lado del cliente:** Evaluados en browser/mobile para variaciones de UI
@@ -277,9 +277,9 @@ Usa un servicio de flags centralizado con caching. Evalúa flags al inicio del r
 Sí, si se evalúan frecuentemente. Usa caching en memoria, evaluaciones batch, y evita checks de flag en bucles ajustados.
 
 **Q: ¿Cuándo debería remover un feature flag?**
-Tan pronto como la funcionalidad sea estable y completamente lanzada. Apunta a remoción dentro de 30 días del release completo.
+Tan pronto como el cambio sea estable y completamente lanzado. Apunta a remoción dentro de 30 días del release completo.
 
 ## Conclusion
 
 Los feature flags son esenciales para la entrega continua moderna. Te permiten desplegar con confianza, lanzar gradualmente y reaccionar instantáneamente a problemas. Trata los flags como andamiaje temporal, no arquitectura permanente, y límpialos agresivamente para mantener tu codebase saludable.
-
+

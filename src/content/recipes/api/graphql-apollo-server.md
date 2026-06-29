@@ -29,7 +29,7 @@ seo:
 
 # Build a GraphQL API with Apollo Server and TypeScript
 
-GraphQL allows clients to request exactly the data they need in a single query. Apollo Server provides a production-ready framework for building GraphQL APIs with schema-first development, built-in subscription support, and a rich plugin ecosystem.
+GraphQL allows clients to request exactly the data they need in a single query. Apollo Server provides a production-ready framework for building GraphQL APIs with schema-first development, built-in subscription support, and a rich plugin platform.
 
 ## When to Use This
 
@@ -173,7 +173,7 @@ export const authDirective = (schema: GraphQLSchema) =>
 
 ## How It Works
 
-1. **Schema Definition** serves as the contract between client and server
+1. **Schema Definition** works as the contract between client and server
 2. **Resolvers** fetch data for each field, composable and testable independently
 3. **DataLoader** batches requests across a single tick of the event loop
 4. **Context** carries authentication and database connections per request
