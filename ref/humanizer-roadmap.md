@@ -427,11 +427,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\guides\security\web-application-security-guide.md | 2.0 | features → capabilities | src\content\guides\security\web-application-security-guide.es.md | pending |
-| src\content\patterns\architecture\gateway-routing-pattern.md | 2.0 | best practices → what works, features → capabilities | src\content\patterns\architecture\gateway-routing-pattern.es.md | pending |
-| src\content\patterns\architecture\health-endpoint-monitoring-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\architecture\health-endpoint-monitoring-pattern.es.md | pending |
-| src\content\patterns\architecture\leader-election-pattern.md | 2.0 | best practices → what works, scalability → growth | src\content\patterns\architecture\leader-election-pattern.es.md | pending |
-| src\content\patterns\design\back-pressure-pattern.md | 2.0 | best practices → what works, scalable → growth-ready | src\content\patterns\design\back-pressure-pattern.es.md | pending |
+| src\content\guides\security\web-application-security-guide.md | 2.0 | features → capabilities | src\content\guides\security\web-application-security-guide.es.md | completed |
+| src\content\patterns\architecture\gateway-routing-pattern.md | 2.0 | best practices → what works, features → capabilities | src\content\patterns\architecture\gateway-routing-pattern.es.md | completed |
+| src\content\patterns\architecture\health-endpoint-monitoring-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\architecture\health-endpoint-monitoring-pattern.es.md | completed |
+| src\content\patterns\architecture\leader-election-pattern.md | 2.0 | best practices → what works, scalability → growth | src\content\patterns\architecture\leader-election-pattern.es.md | completed |
+| src\content\patterns\design\back-pressure-pattern.md | 2.0 | best practices → what works, scalable → growth-ready | src\content\patterns\design\back-pressure-pattern.es.md | completed |
 
 ### Batch 39 (priority: low)
 
