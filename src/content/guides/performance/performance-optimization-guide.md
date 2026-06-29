@@ -2,7 +2,7 @@
 contentType: guides
 slug: performance-optimization-guide
 title: "Web Performance Optimization Guide"
-description: "A comprehensive guide to optimizing web application performance for better Core Web Vitals and user experience."
+description: "A thorough guide to optimizing web application performance for better Core Web Vitals and user experience."
 metaDescription: "Learn web performance optimization: image compression, lazy loading, caching strategies, bundle splitting, and Core Web Vitals improvement techniques."
 difficulty: intermediate
 topics:
@@ -37,7 +37,7 @@ seo:
 
 ## Introduction
 
-Performance is a feature. Slow sites lose users, revenue, and search rankings. This guide covers practical techniques to improve Core Web Vitals and deliver fast experiences.
+Performance is a key factor. Slow sites lose users, revenue, and search rankings. This guide covers practical techniques to improve Core Web Vitals and deliver fast experiences.
 
 ## Core Web Vitals
 
@@ -196,7 +196,7 @@ brotli_types text/plain text/css application/json application/javascript;
 - Use HTTP/2 or HTTP/3 for multiplexing
 - Enable automatic image optimization (Cloudflare, Cloudinary)
 
-## Best Practices
+## What Works
 
 - **Set explicit width/height** on images to prevent CLS
 - **Defer non-critical JavaScript** with `defer` or `async`
@@ -213,7 +213,7 @@ brotli_types text/plain text/css application/json application/javascript;
 
 ## Frequently Asked Questions
 
-### What is the most impactful performance optimization for web apps?
+### What is the most effective performance optimization for web apps?
 
 Image optimization typically delivers the biggest impact. Converting to WebP/AVIF, using responsive images, and lazy loading below-the-fold images often reduces page weight by 50% or more.
 

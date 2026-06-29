@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: sre-practices-guide
-title: "Site Reliability Engineering — Practicas SRE y Presupuestos de Error"
+title: "Site Reliability Engineering: Practicas SRE y Presupuestos de Error"
 description: "Guia practica de SRE: definir SLIs, SLOs y SLAs, gestionar presupuestos de error, reducir toil, rotaciones de guardia y construir una cultura de confiabilidad."
 metaDescription: "Aprende practicas SRE: define SLIs, SLOs, SLAs, gestiona presupuestos de error, reduce toil y construye rotaciones on-call para confiabilidad en produccion."
 difficulty: intermediate
@@ -41,14 +41,14 @@ seo:
 
 ## Overview
 
-Site Reliability Engineering (SRE), pionero en Google, aplica principios de ingenieria de software a las operaciones. En lugar de tratar la confiabilidad como una funcion separada, los equipos SRE escriben codigo para automatizar operaciones, gestionar infraestructura y medir la salud del sistema a traves de Service Level Objectives (SLOs). El principio central: la confiabilidad es una caracteristica, no una ocurrencia tardia. SRE balancea la necesidad de velocidad (enviar features) con la necesidad de estabilidad (mantener sistemas corriendo) a traves de presupuestos de error, presupuestos de toil y postmortems sin culpa.
+Site Reliability Engineering (SRE), pionero en Google, aplica principios de ingenieria de software a las operaciones. En lugar de tratar la confiabilidad como una funcion separada, los equipos SRE escriben codigo para automatizar operaciones, gestionar infraestructura y medir la salud del sistema a traves de Service Level Objectives (SLOs). El principio central: la confiabilidad es una caracteristica, no una ocurrencia tardia. SRE balancea la necesidad de velocidad (enviar cambios) con la necesidad de estabilidad (mantener sistemas corriendo) a traves de presupuestos de error, presupuestos de toil y postmortems sin culpa.
 
 ## When to Use
 
 - Operas sistemas en produccion donde el downtime tiene impacto de negocio
 - Los equipos de desarrollo y operaciones estan en conflicto sobre velocidad de release vs estabilidad
 - Necesitas definiciones objetivas y medibles de "confiable"
-- El trabajo operacional manual consume tiempo significativo de ingenieria
+- El trabajo operacional manual consume tiempo considerable de ingenieria
 - La respuesta a incidentes es reactiva y ad-hoc en lugar de estructurada
 
 ## La Jerarquia de Conceptos de Confiabilidad
@@ -105,13 +105,13 @@ SI 0% < presupuesto_restante < 25%:
     → Priorizar trabajo de confiabilidad
 
 SI presupuesto_agotado:
-    → Todo trabajo de features se detiene
+    → Todo trabajo nuevo se detiene
     → Solo fixes de confiabilidad y mitigacion
 ```
 
 ## Reduccion de Toil
 
-**Toil** es trabajo operacional manual, repetitivo, automatizable sin valor duradero.
+**Toil** es trabajo operacional manual, repetitivo, automatizable sin valor perdurable.
 
 | Tipo de toil | Enfoque de automatizacion |
 |--------------|--------------------------|
@@ -129,7 +129,7 @@ SI presupuesto_agotado:
 |--------|----------|------------------|
 | **Primario/secundario** | Equipos pequenos, servicios criticos | 4-6 personas |
 | **Follow-the-sun** | Equipos globales, cobertura 24/7 | 3+ regiones |
-| **Sin guardia (pagerless)** | Equipos con automatizacion madura | Requiere inversion significativa |
+| **Sin guardia (pagerless)** | Equipos con automatizacion madura | Requiere inversion considerable |
 
 **Metricas de salud on-call:**
 - Paginas por guardia (target: < 2)

@@ -35,7 +35,7 @@ seo:
 
 ## Visión General
 
-YAML es el estándar de facto para archivos de configuración en DevOps, pipelines CI/CD y settings de aplicaciones. Su sintaxis legible por humanos soporta estructuras anidadas, comentarios, anchors y aliases. Analizar YAML programáticamente habilita validación automatizada de configuración, overrides específicos por ambiente y descubrimiento dinámico de servicios.
+YAML es el estándar de facto para archivos de configuración en DevOps, pipelines CI/CD y settings de aplicaciones. Su sintaxis legible por humanos soporta estructuras anidadas, comentarios, anchors y aliases. Analizar YAML programáticamente habilita validación automatizada de configuración, overrides específicos por ambiente y descubrimiento automático de servicios.
 
 ## Cuándo Usar
 
@@ -113,7 +113,7 @@ public class YamlParser {
 
 Los parsers YAML convierten la sintaxis amigable para humanos en estructuras de datos nativas (dicts/maps, listas, escalares). Las variantes `safe_load` / `safe_dump` en Python y `load` en SnakeYAML restringen la construcción de objetos a tipos básicos, previniendo ejecución de código arbitrario desde YAML no confiable.
 
-Características YAML como anchors (`&`) y aliases (`*`) permiten configuración DRY referenciando bloques repetidos. Strings multi-línea usan `|` para bloques literales y `>` para bloques plegados. Tags (`!!str`, `!!int`) tipifican escalares explícitamente.
+Los anchors (`&`) y aliases (`*`) de YAML permiten configuración DRY referenciando bloques repetidos. Strings multi-línea usan `|` para bloques literales y `>` para bloques plegados. Tags (`!!str`, `!!int`) tipifican escalares explícitamente.
 
 ## Variantes
 
@@ -126,7 +126,7 @@ Características YAML como anchors (`&`) y aliases (`*`) permiten configuración
 | Java | Jackson YAML | `ObjectMapper` | Binding a POJOs con Jackson |
 | Go | gopkg.in/yaml.v3 | `yaml.Unmarshal()` | Soporte nativo para structs Go |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa siempre `safe_load`** en Python para evitar ejecutar código arbitrario desde YAML no confiable
 - **Valida YAML contra JSON Schema** después de parsear para detectar errores estructurales temprano

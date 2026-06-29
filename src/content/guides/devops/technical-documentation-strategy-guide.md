@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: technical-documentation-strategy-guide
-title: "Technical Documentation Strategy — Docs as Code"
+title: "Technical Documentation Strategy: Docs as Code"
 description: "A practical guide to treating documentation as code: versioning, review workflows, structure, and tools that keep docs accurate, discoverable, and maintainable."
 metaDescription: "Technical documentation strategy: docs as code, versioning, review workflows, structure. Keep engineering docs accurate, discoverable, and maintainable."
 difficulty: beginner
@@ -31,7 +31,7 @@ seo:
     - documentation best practices
 ---
 
-# Technical Documentation Strategy — Docs as Code
+# Technical Documentation Strategy: Docs as Code
 
 ## Introduction
 
@@ -43,7 +43,7 @@ Every system should have these four docs. They answer different questions at dif
 
 | Document | Answers | Audience | Update Frequency |
 |----------|---------|----------|-----------------|
-| **README** | What is this? How do I run it? | New developers, users | Every significant change |
+| **README** | What is this? How do I run it? | New developers, users | Every major change |
 | **Architecture Decision Record (ADR)** | Why did we choose this? | Current and future maintainers | Once per major decision |
 | **Runbook** | How do I fix it when it breaks? | On-call engineers | After every incident |
 | **API Reference** | What does this endpoint do? | API consumers | Auto-generated from code |
@@ -111,7 +111,7 @@ Link to contribution guidelines and code of conduct.
 
 ## Architecture Decision Records (ADRs)
 
-ADRs capture the context and consequences of significant technical decisions. They prevent future debates about "why did we do it this way?"
+ADRs capture the context and consequences of major technical decisions. They prevent future debates about "why did we do it this way?"
 
 ### ADR Template
 
@@ -179,7 +179,7 @@ If resolution fails after 15 minutes, escalate to Database Team on-call.
 | **Swagger / OpenAPI** | [API reference](/recipes/api/api-documentation-openapi) | Auto-generated from code | Limited to API surface |
 | **Mermaid / PlantUML** | Diagrams as code | Versioned diagrams | Learning curve |
 
-## Best Practices
+## What Works
 
 - **Write the README first** — if you cannot explain how to run the service, the service is not ready
 - **Keep docs close to code** — docs in a separate repo rot faster than code

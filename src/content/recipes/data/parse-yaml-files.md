@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-YAML is the de facto standard for configuration files in DevOps, CI/CD pipelines, and application settings. Its human-readable syntax supports nested structures, comments, anchors, and aliases. Parsing YAML programmatically enables automated configuration validation, environment-specific overrides, and dynamic service discovery.
+YAML is the de facto standard for configuration files in DevOps, CI/CD pipelines, and application settings. Its human-readable syntax supports nested structures, comments, anchors, and aliases. Parsing YAML programmatically enables automated configuration validation, environment-specific overrides, and on-demand service discovery.
 
 ## When to Use
 
@@ -113,7 +113,7 @@ public class YamlParser {
 
 YAML parsers convert the human-friendly syntax into native data structures (dicts/maps, lists, scalars). The `safe_load` / `safe_dump` variants in Python and `load` in SnakeYAML restrict object construction to basic types, preventing arbitrary code execution from untrusted YAML.
 
-YAML features like anchors (`&`) and aliases (`*`) allow DRY configuration by referencing repeated blocks. Multi-line strings use `|` for literal blocks and `>` for folded blocks. Tags (`!!str`, `!!int`) explicitly type scalars.
+YAML's anchors (`&`) and aliases (`*`) allow DRY configuration by referencing repeated blocks. Multi-line strings use `|` for literal blocks and `>` for folded blocks. Tags (`!!str`, `!!int`) explicitly type scalars.
 
 ## Variants
 
@@ -126,7 +126,7 @@ YAML features like anchors (`&`) and aliases (`*`) allow DRY configuration by re
 | Java | Jackson YAML | `ObjectMapper` | Seamless POJO binding with Jackson |
 | Go | gopkg.in/yaml.v3 | `yaml.Unmarshal()` | Native Go structs support |
 
-## Best Practices
+## What Works
 
 - **Always use `safe_load`** in Python to avoid executing arbitrary code from untrusted YAML
 - **Validate YAML against JSON Schema** after parsing to catch structural errors early

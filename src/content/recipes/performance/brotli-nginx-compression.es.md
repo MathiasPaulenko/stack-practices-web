@@ -37,7 +37,7 @@ Brotli es un algoritmo de compresion moderno desarrollado por Google que consist
 
 - Sirves assets estaticos a traves de Nginx y quieres maxima compresion
 - Tus usuarios estan en navegadores modernos que soportan Brotli (95%+ de cobertura)
-- Los costos de ancho de banda son un factor significativo en gasto de infraestructura
+- Los costos de ancho de banda son un factor importante en gasto de infraestructura
 
 ## Requisitos Previos
 
@@ -68,7 +68,7 @@ http {
   load_module modules/ngx_http_brotli_filter_module.so;
   load_module modules/ngx_http_brotli_static_module.so;
 
-  # Habilitar compresion Brotli dinamica
+  # Habilitar compresion Brotli sobre la marcha
   brotli on;
   brotli_comp_level 6;
   brotli_types
@@ -151,7 +151,7 @@ server {
 ## Como Funciona
 
 1. **Algoritmo Brotli** usa un enfoque basado en diccionario optimizado para contenido web
-2. **Compresion Dinamica** comprime respuestas on-the-fly para contenido no cacheado
+2. **Compresion sobre la marcha** comprime respuestas on-the-fly para contenido no cacheado
 3. **Pre-Compresion Estatica** sirve archivos `.br` pre-construidos para evitar overhead de CPU
 4. **Negociacion de Contenido** Nginx selecciona Brotli o Gzip basado en el header `Accept-Encoding`
 

@@ -2,7 +2,7 @@
 contentType: guides
 slug: performance-optimization-guide
 title: "Guía de Optimización de Performance Web"
-description: "Guía completa para optimizar el rendimiento de aplicaciones web con mejores Core Web Vitals y experiencia de usuario."
+description: "Guía exhaustiva para optimizar el rendimiento de aplicaciones web con mejores Core Web Vitals y experiencia de usuario."
 metaDescription: "Aprende optimización de performance web: compresión de imágenes, lazy loading, estrategias de caché, bundle splitting y técnicas de mejora de Core Web Vitals."
 difficulty: intermediate
 topics:
@@ -37,7 +37,7 @@ seo:
 
 ## Resumen
 
-La performance es una feature. Los sitios lentos pierden usuarios, ingresos y rankings de búsqueda. Esta guía cubre técnicas prácticas para mejorar Core Web Vitals y ofrecer experiencias rápidas.
+La performance es un aspecto clave. Los sitios lentos pierden usuarios, ingresos y rankings de búsqueda. Esta guía cubre técnicas prácticas para mejorar Core Web Vitals y ofrecer experiencias rápidas.
 
 ## Core Web Vitals
 
@@ -133,7 +133,7 @@ const Dashboard = () => import('./pages/Dashboard.js');
 - Usar HTTP/2 o HTTP/3 para multiplexación
 - Habilitar optimización automática de imágenes
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Establecer width/height explícitos** en imágenes para prevenir CLS
 - **Diferir JavaScript no crítico** con `defer` o `async`
@@ -150,7 +150,7 @@ const Dashboard = () => import('./pages/Dashboard.js');
 
 ## Preguntas Frecuentes
 
-### Cuál es la optimización de performance más impactante para web apps?
+### Cuál es la optimización de performance más efectiva para web apps?
 
 La optimización de imágenes típicamente entrega el mayor impacto. Convertir a WebP/AVIF, usar imágenes responsive y lazy loading de imágenes below-the-fold a menudo reduce el peso de página en 50% o más.
 

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: technical-documentation-strategy-guide
-title: "Estrategia de Documentación Técnica — Docs as Code"
+title: "Estrategia de Documentación Técnica: Docs as Code"
 description: "Guía práctica para tratar la documentación como código: versionado, flujos de review, estructura y herramientas que mantienen los docs precisos, descubribles y mantenibles."
 metaDescription: "Estrategia de documentación técnica: docs as code, versionado, flujos de review, estructura. Mantén documentación de ingeniería precisa, descubrible y mantenible."
 difficulty: beginner
@@ -31,7 +31,7 @@ seo:
     - mejores practicas documentacion
 ---
 
-# Estrategia de Documentación Técnica — Docs as Code
+# Estrategia de Documentación Técnica: Docs as Code
 
 ## Introducción
 
@@ -43,7 +43,7 @@ Cada sistema debería tener estos cuatro docs. Responden diferentes preguntas a 
 
 | Documento | Responde | Audiencia | Frecuencia de Actualización |
 |-----------|----------|-----------|----------------------------|
-| **README** | ¿Qué es esto? ¿Cómo lo ejecuto? | Nuevos desarrolladores, usuarios | Cada cambio significativo |
+| **README** | ¿Qué es esto? ¿Cómo lo ejecuto? | Nuevos desarrolladores, usuarios | Cada cambio mayor |
 | **ADR** | ¿Por qué elegimos esto? | Mantenedores actuales y futuros | Una vez por decisión mayor |
 | **Runbook** | ¿Cómo lo arreglo cuando se rompe? | Ingenieros on-call | Después de cada incidente |
 | **Referencia de API** | ¿Qué hace este endpoint? | Consumidores de API | Auto-generado desde código |
@@ -111,7 +111,7 @@ Link a guías de contribución y código de conducta.
 
 ## Architecture Decision Records (ADRs)
 
-Los ADRs capturan el contexto y las consecuencias de decisiones técnicas significativas. Previenen debates futuros sobre "¿por qué lo hicimos así?"
+Los ADRs capturan el contexto y las consecuencias de decisiones técnicas mayores. Previenen debates futuros sobre "¿por qué lo hicimos así?"
 
 ### Plantilla de ADR
 
@@ -179,7 +179,7 @@ Si la resolución falla después de 15 minutos, escalar al equipo de Base de Dat
 | **Swagger / OpenAPI** | [Referencia de API](/recipes/api/api-documentation-openapi) | Auto-generado desde código | Limitado a superficie de API |
 | **Mermaid / PlantUML** | Diagramas as code | Diagramas versionados y editables | Curva de aprendizaje |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Escribe el README primero** — si no puedes explicar cómo ejecutar el servicio, el servicio no está listo
 - **Mantén los docs cerca del código** — los docs en un repo separo se pudren más rápido que el código
@@ -200,7 +200,7 @@ Si la resolución falla después de 15 minutos, escalar al equipo de Base de Dat
 
 ### ¿Quién debería escribir la documentación?
 
-El ingeniero que construyó la feature. Ellos tienen el contexto. Los escritores técnicos pueden pulir, pero la fuente de verdad debe venir del implementador. Haz que escribir docs sea parte de la Definition of Done.
+El ingeniero que construyó el cambio. Ellos tienen el contexto. Los escritores técnicos pueden pulir, pero la fuente de verdad debe venir del implementador. Haz que escribir docs sea parte de la Definition of Done.
 
 ### ¿Cómo evito que la documentación se desactualice?
 

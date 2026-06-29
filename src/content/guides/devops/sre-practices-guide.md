@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: sre-practices-guide
-title: "Site Reliability Engineering — SRE Practices and Error Budgets"
+title: "Site Reliability Engineering: SRE Practices and Error Budgets"
 description: "A practical guide to SRE: defining SLIs, SLOs, and SLAs, managing error budgets, toil reduction, on-call rotations, and building a culture of reliability."
 metaDescription: "Learn SRE practices: define SLIs, SLOs, SLAs, manage error budgets, reduce toil, and build on-call rotations for production reliability."
 difficulty: intermediate
@@ -41,14 +41,14 @@ seo:
 
 ## Overview
 
-Site Reliability Engineering (SRE), pioneered at Google, applies software engineering principles to operations. Instead of treating reliability as a separate function, SRE teams write code to automate operations, manage infrastructure, and measure system health through Service Level Objectives (SLOs). The core tenet: reliability is a feature, not an afterthought. SRE balances the need for velocity (shipping features) with the need for stability (keeping systems running) through error budgets, toil budgets, and blameless postmortems.
+Site Reliability Engineering (SRE), pioneered at Google, applies software engineering principles to operations. Instead of treating reliability as a separate function, SRE teams write code to automate operations, manage infrastructure, and measure system health through Service Level Objectives (SLOs). The core tenet: reliability is a feature, not an afterthought. SRE balances the need for velocity (shipping changes) with the need for stability (keeping systems running) through error budgets, toil budgets, and blameless postmortems.
 
 ## When to Use
 
 - You operate production systems where downtime has business impact
 - Development and operations teams are in conflict over release velocity vs stability
 - You need objective, measurable definitions of "reliable"
-- Manual operational work consumes significant engineering time
+- Manual operational work consumes substantial engineering time
 - Incident response is reactive and ad-hoc rather than structured
 
 ## The Hierarchy of Reliability Concepts
@@ -105,13 +105,13 @@ IF 0% < error_budget_remaining < 25%:
     → Prioritize reliability work
 
 IF error_budget_exhausted:
-    → All feature work stops
+    → All new work stops
     → Only reliability fixes and mitigation
 ```
 
 ## Toil Reduction
 
-**Toil** is manual, repetitive, automatable operational work with no enduring value.
+**Toil** is manual, repetitive, automatable operational work with no lasting value.
 
 | Toil type | Automation approach |
 |-----------|-------------------|
@@ -129,7 +129,7 @@ IF error_budget_exhausted:
 |---------|----------|-------------|
 | **Primary/secondary** | Small teams, critical services | 4-6 people |
 | **Follow-the-sun** | Global teams, 24/7 coverage | 3+ regions |
-| **No on-call (pagerless)** | Teams with mature automation | Requires significant investment |
+| **No on-call (pagerless)** | Teams with mature automation | Requires substantial investment |
 
 **On-call health metrics:**
 - Pages per shift (target: < 2)
