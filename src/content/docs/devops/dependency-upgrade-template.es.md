@@ -33,7 +33,7 @@ seo:
 
 ## Visión General
 
-Las dependencias desactualizadas exponen los proyectos a vulnerabilidades de seguridad, problemas de compatibilidad y funcionalidades faltantes. Este runbook proporciona un proceso repetible para actualizar dependencias de forma segura con un riesgo mínimo.
+Las dependencias desactualizadas exponen los proyectos a vulnerabilidades de seguridad, problemas de compatibilidad y capacidades faltantes. Este runbook proporciona un proceso repetible para actualizar dependencias de forma segura con un riesgo mínimo.
 
 ## Cuándo Usar
 
@@ -96,7 +96,7 @@ El runbook divide las actualizaciones en **cinco fases** para reducir el riesgo.
 | Versión mayor | Despliegue con feature flags | Aislar nuevo comportamiento bajo banderas durante la transición |
 | Monorepo | Actualizaciones en lote | Actualizar librerías compartidas primero, luego los consumidores |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Actualizar una dependencia mayor a la vez para simplificar la depuración
 2. Fijar versiones exactas en archivos de bloqueo (`package-lock.json`, `poetry.lock`) y commitearlos

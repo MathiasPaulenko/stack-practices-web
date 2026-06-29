@@ -32,7 +32,7 @@ seo:
 
 ## Descripcion General
 
-Las revisiones de codigo son la puerta de calidad mas efectiva en la entrega de software, pero solo cuando son consistentes. Sin una checklist, los revisores se enfocan en lo que les importa personalmente: un ingeniero verifica inyeccion SQL, otro se obsesiona con nombres de variables, y un tercero solo mira cobertura de tests. Una checklist compartida asegura que cada revision cubra las dimensiones que importan al equipo, dejando espacio para el juicio humano en diseno y arquitectura.
+Las revisiones de codigo son la puerta de calidad mas util en la entrega de software, pero solo cuando son consistentes. Sin una checklist, los revisores se enfocan en lo que les importa personalmente: un ingeniero verifica inyeccion SQL, otro se obsesiona con nombres de variables, y un tercero solo mira cobertura de tests. Una checklist compartida asegura que cada revision cubra las dimensiones que importan al equipo, dejando espacio para el juicio humano en diseno y arquitectura.
 
 ## Cuando Usar
 
@@ -132,7 +132,7 @@ La checklist esta organizada por **preocupacion** en lugar de por tipo de archiv
 | Codigo critico de seguridad | Hacer la seccion de seguridad obligatoria y requerir aprobacion del equipo de seguridad | Finanzas, salud, y sistemas de autenticacion |
 | Hotfix / respuesta a incidente | Acortar la checklist a seguridad, correctitud, y rollback solamente | La velocidad importa; documenta lo que se omitio y por que |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Mantente la checklist visible** — embebela en la plantilla de PR para que los revisores la vean automaticamente
 2. **Distingue nits de bloqueadores** — no cada problema impide el merge; usa etiquetas de severidad para mantener las revisiones fluidas

@@ -40,7 +40,7 @@ Failed deployments are the most common source of production incidents. A deploym
 
 Use this runbook when:
 - Error rates spike immediately after a deployment
-- New features are not functioning as expected in production
+- New capabilities are not functioning as expected in production
 - Performance degrades after a code change
 - A critical bug is discovered post-deployment
 
@@ -226,7 +226,7 @@ The runbook orders operations by **risk**: assess first (don't roll back a non-d
 | Blue-Green | Load balancer switch | Instant, but requires pre-built green environment |
 | VMs with systemd | Binary replacement + restart | Slowest, requires package/binary management |
 
-## Best Practices
+## What works
 
 1. **Always maintain N-1 version** in your container registry for instant rollback
 2. **Snapshot databases before migrations** — restore is your only option for destructive changes

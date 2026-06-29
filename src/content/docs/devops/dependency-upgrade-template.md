@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-Outdated dependencies expose projects to security vulnerabilities, compatibility issues, and missing features. This runbook provides a repeatable process for upgrading dependencies safely with minimal risk.
+Outdated dependencies expose projects to security vulnerabilities, compatibility issues, and missing capabilities. This runbook provides a repeatable process for upgrading dependencies safely with minimal risk.
 
 ## When to Use
 
@@ -95,7 +95,7 @@ The runbook breaks upgrades into **five phases** to reduce risk. Preparation pre
 | Major version | Feature-flag rollout | Isolate new behavior behind flags during transition |
 | Monorepo | Batch upgrades | Upgrade shared libs first, then consumers |
 
-## Best Practices
+## What works
 
 1. Upgrade one major dependency at a time to simplify debugging
 2. Pin exact versions in lock files (`package-lock.json`, `poetry.lock`) and commit them

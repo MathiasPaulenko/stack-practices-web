@@ -130,7 +130,7 @@ Pipeline security is a subset of supply chain security. By protecting the source
 - **Container-native pipeline**: Emphasizes image signing, registry scanning, and Kubernetes admission.
 - **High-compliance pipeline**: Adds SLSA Level 3, dual approval, and signed SBOMs for regulated environments.
 
-## Best Practices
+## What works
 
 - Store pipeline definitions as code and review them like application code.
 - Use short-lived credentials and OIDC instead of long-lived secrets.

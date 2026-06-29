@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-Code reviews are the most effective quality gate in software delivery — but only when they are consistent. Without a checklist, reviewers focus on what they personally care about: one engineer checks for SQL injection, another obsesses over variable names, and a third only looks at test coverage. A shared checklist ensures every review covers the dimensions that matter to the team, while leaving room for human judgment on design and architecture.
+Code reviews are the most useful quality gate in software delivery — but only when they are consistent. Without a checklist, reviewers focus on what they personally care about: one engineer checks for SQL injection, another obsesses over variable names, and a third only looks at test coverage. A shared checklist ensures every review covers the dimensions that matter to the team, while leaving room for human judgment on design and architecture.
 
 ## When to Use
 
@@ -132,7 +132,7 @@ The checklist is organized by **concern** rather than by file type. This prevent
 | Security-critical code | Make security section mandatory and require security team sign-off | Finance, healthcare, and auth systems |
 | Hotfix / incident response | Shorten checklist to security, correctness, and rollback only | Speed matters; document what was skipped and why |
 
-## Best Practices
+## What works
 
 1. **Keep the checklist visible** — embed it in the PR template so reviewers see it automatically
 2. **Distinguish nits from blockers** — not every issue prevents merge; use severity labels to keep reviews moving

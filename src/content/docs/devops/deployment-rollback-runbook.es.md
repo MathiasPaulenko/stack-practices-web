@@ -40,7 +40,7 @@ Los despliegues fallidos son la fuente mas comun de incidentes en produccion. Un
 
 Usa este runbook cuando:
 - Las tasas de error aumentan inmediatamente despues de un despliegue
-- Las nuevas funciones no operan como se espera en produccion
+- Las nuevas capacidades no operan como se espera en produccion
 - El rendimiento se degrada despues de un cambio de codigo
 - Se descubre un error critico despues del despliegue
 
@@ -226,7 +226,7 @@ El runbook ordena las operaciones por **riesgo**: evaluar primero (no revertir u
 | Blue-Green | Cambio de balanceador de carga | Instante, pero requiere entorno green pre-construido |
 | VMs con systemd | Reemplazo de binario + reinicio | Mas lento, requiere gestion de paquetes/binarios |
 
-## Best Practices
+## Lo que funciona
 
 1. **Mantener siempre la version N-1** en tu registry de contenedores para rollback instantaneo
 2. **Tomar snapshots de base de datos antes de migraciones** — la restauracion es tu unica opcion para cambios destructivos

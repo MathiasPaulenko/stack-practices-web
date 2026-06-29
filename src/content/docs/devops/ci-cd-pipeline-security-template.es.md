@@ -130,7 +130,7 @@ La seguridad del pipeline es un subconjunto de la seguridad de la cadena de sumi
 - **Pipeline nativa de contenedores**: Enfatiza firma de imagenes, escaneo de registro y admission de Kubernetes.
 - **Pipeline de alta cumplimiento**: Agrega SLSA Nivel 3, doble aprobacion y SBOMs firmados para entornos regulados.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Almacena las definiciones de pipeline como codigo y revisalas como codigo de aplicacion.
 - Utiliza credenciales de corta duracion y OIDC en lugar de secretos de larga duracion.
