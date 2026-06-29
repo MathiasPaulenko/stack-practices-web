@@ -118,13 +118,13 @@ Clear roles prevent chaos:
     Responders
 ```
 
-**Role best practices:**
+**What works for roles:**
 - IC does not investigate directly; they coordinate
 - Only the IC speaks for the incident team to stakeholders
 - Rotate IC if the current person has been on for >2 hours
 - Scribe timestamps every major action and decision
 
-### 3. Communicate Effectively
+### 3. Communicate Well
 
 Communication is as important as technical response:
 
@@ -207,7 +207,7 @@ Formalize the end of an incident:
 - Schedule postmortem before memory fades
 - Track MTTR and incident frequency as operational metrics
 
-## Best Practices
+## What Works
 
 - **Practice before you need it.** Run game days and chaos engineering exercises.
 - **Start with mitigation, not root cause.** Fix the user impact first; investigate after.
@@ -239,7 +239,7 @@ Declare when user-impacting symptoms are confirmed and the standard alert respon
 **Q: Who should be Incident Commander?**
 The most available senior engineer who is not actively debugging. IC coordinates; they do not investigate.
 
-**Q: How do I run an effective postmortem?**
+**Q: How do I run an useful postmortem?**
 Schedule within 48 hours, focus on process and system improvements, not blame. See the [Postmortem Guide](/guides/observability/postmortem-guide).
 
 **Q: What if we cannot find the root cause?**

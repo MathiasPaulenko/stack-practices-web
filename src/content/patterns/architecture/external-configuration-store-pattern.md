@@ -2,8 +2,8 @@
 contentType: patterns
 slug: external-configuration-store-pattern
 title: "External Configuration Store Pattern"
-description: "Centralize application configuration outside of deployment artifacts to support dynamic updates and multi-environment management."
-metaDescription: "Centralize configuration outside deployments with the External Configuration Store Pattern. Support dynamic updates and multi-environment management."
+description: "Centralize application configuration outside of deployment artifacts to support live updates and multi-environment management."
+metaDescription: "Centralize configuration outside deployments with the External Configuration Store Pattern. Support live updates and multi-environment management."
 difficulty: intermediate
 category: architectural
 topics:
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
-  metaDescription: "Centralize configuration outside deployments with the External Configuration Store Pattern. Support dynamic updates and multi-environment management."
+  metaDescription: "Centralize configuration outside deployments with the External Configuration Store Pattern. Support live updates and multi-environment management."
   keywords:
     - external-configuration-store
     - pattern
@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-The External Configuration Store Pattern moves application settings out of deployment artifacts and into a dedicated configuration service. This allows you to change behavior without rebuilding images, supports multiple environments from the same artifact, and enables dynamic updates at runtime.
+The External Configuration Store Pattern moves application settings out of deployment artifacts and into a dedicated configuration service. This allows you to change behavior without rebuilding images, supports multiple environments from the same artifact, and enables live updates at runtime.
 
 This pattern is essential for cloud-native and microservices systems where hard-coded configuration creates deployment friction and security risks.
 
@@ -100,11 +100,11 @@ A typical external configuration system includes:
 |---------|-------|----------|
 | **Environment variables** | OS process env | Simple containers and local development |
 | **ConfigMap / Secrets** | Kubernetes objects | Native K8s workloads |
-| **Dedicated config service** | Consul, Spring Cloud Config, AWS AppConfig | Centralized management and dynamic updates |
+| **Dedicated config service** | Consul, Spring Cloud Config, AWS AppConfig | Centralized management and live updates |
 | **Secret manager** | HashiCorp Vault, AWS Secrets Manager | Sensitive credentials and rotation |
 | **Feature flag service** | LaunchDarkly, Unleash | Gradual rollouts and experiments |
 
-## Best Practices
+## What Works
 
 - Keep **secrets separate** from non-sensitive configuration
 - Use **environment-specific namespaces** to avoid accidental overrides
@@ -124,7 +124,7 @@ A typical external configuration system includes:
 ## Frequently Asked Questions
 
 **Q: Does this pattern require a dedicated configuration service?**
-A: No. You can start with environment variables, ConfigMaps, or a secrets manager. A dedicated service adds centralization and dynamic updates as you scale.
+A: No. You can start with environment variables, ConfigMaps, or a secrets manager. A dedicated service adds centralization and live updates as you scale.
 
 **Q: How do I update configuration without restarting the application?**
 A: Poll the store on an interval, use a watch mechanism, or push change events through a message bus. Update in-memory caches only after validation.

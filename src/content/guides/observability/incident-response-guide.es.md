@@ -118,13 +118,13 @@ Roles claros previenen el caos:
     Responders
 ```
 
-**Mejores prácticas de roles:**
+**Lo que funciona para roles:**
 - El IC no investiga directamente; coordina
 - Solo el IC habla en nombre del equipo de incidentes a stakeholders
 - Rota al IC si la persona actual lleva más de 2 horas
 - El escriba marca con timestamp cada acción y decisión importante
 
-### 3. Comunicar Efectivamente
+### 3. Comunicar Bien
 
 La comunicación es tan importante como la respuesta técnica:
 
@@ -207,7 +207,7 @@ Formaliza el fin de un incidente:
 - Agenda postmortem antes de que la memoria se desvanezca
 - Rastrea MTTR y frecuencia de incidentes como métricas operativas
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Practica antes de necesitarlo.** Corre game days y ejercicios de chaos engineering.
 - **Comienza con mitigación, no causa raíz.** Arregla el impacto al usuario primero; investiga después.
@@ -239,7 +239,7 @@ Declara cuando síntomas que impactan usuarios son confirmados y la respuesta es
 **P: ¿Quién debería ser Comandante de Incidente?**
 El ingeniero senior más disponible que no esté depurando activamente. El IC coordina; no investiga.
 
-**P: ¿Cómo corro un postmortem efectivo?**
+**P: ¿Cómo corro un postmortem útil?**
 Agéndalo dentro de 48 horas, enfócate en proceso y mejoras de sistemas, no en culpa. Ve la [Guía de Postmortems](/guides/observability/postmortem-guide).
 
 **P: ¿Qué pasa si no podemos encontrar la causa raíz?**

@@ -40,7 +40,7 @@ The Entity-Component-System (ECS) Pattern is an architectural pattern used prima
 
 ECS favors composition over inheritance. Instead of a deep class hierarchy like `Monster extends Creature extends Actor`, a monster is simply an entity with a `PositionComponent`, a `HealthComponent`, and a `RenderComponent`. Systems then process all entities that have the required components.
 
-This architecture enables cache-friendly data layouts, easy serialization, and dynamic behavior modification at runtime.
+This architecture enables cache-friendly data layouts, easy serialization, and live behavior modification at runtime.
 
 ## When to Use
 
@@ -48,7 +48,7 @@ Use the ECS Pattern when:
 - Entities have many orthogonal properties that do not fit a clean inheritance tree
 - You need to query and process groups of entities by their capabilities
 - Performance is critical and cache-friendly data layouts matter
-- Behavior needs to be added and removed dynamically at runtime
+- Behavior needs to be added and removed live at runtime
 
 ## When to Avoid
 
@@ -342,12 +342,12 @@ This separation enables:
 
 | Variant | Storage | Use Case |
 |---------|---------|----------|
-| **Sparse Set** | Hash maps per component type | Dynamic ECS with frequent additions/removals |
+| **Sparse Set** | Hash maps per component type | Live ECS with frequent additions/removals |
 | **Archetype** | Group entities by component set | Unity DOTS, high-performance with millions of entities |
 | **Chunk-based** | Contiguous arrays per component type | Bevy engine, optimal cache locality |
 | **Event-driven** | Systems communicate via events | Decoupled systems with loose coupling |
 
-## Best Practices
+## What Works
 
 - **Components are pure data.** No methods, no constructors with side effects.
 - **Systems have no state.** They read and write components during their update loop.
@@ -375,7 +375,7 @@ Rust game engine built entirely on ECS. Systems are Rust functions with componen
 
 ### Flecs
 
-A C/C++ ECS framework focused on performance and scalability. Used in games and simulations requiring millions of entities.
+A C/C++ ECS framework focused on performance and growth. Used in games and simulations requiring millions of entities.
 
 ## Frequently Asked Questions
 

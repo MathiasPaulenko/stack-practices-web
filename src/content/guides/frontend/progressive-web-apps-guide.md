@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Progressive Web Apps (PWA) use modern web capabilities to deliver an app-like experience: offline access, push notifications, home screen installation, and background sync. Unlike native apps, they run in the browser and require no app store approval. This guide covers the core technologies and best practices for building production PWAs.
+Progressive Web Apps (PWA) use modern web capabilities to deliver an app-like experience: offline access, push notifications, home screen installation, and background sync. Unlike native apps, they run in the browser and require no app store approval. This guide covers the core technologies and what works for building production PWAs.
 
 ## When to Use
 
@@ -49,11 +49,11 @@ Progressive Web Apps (PWA) use modern web capabilities to deliver an app-like ex
 
 ## Core Technologies
 
-| Technology | Purpose | Key Feature |
+| Technology | Purpose | Key Capability |
 |------------|---------|-------------|
 | **Service Worker** | Background proxy for network requests | Offline caching, background sync |
 | **Web App Manifest** | Describes app metadata for installation | Icons, display mode, theme color |
-| **HTTPS** | Secure origin requirement for PWA features | Required for service workers |
+| **HTTPS** | Secure origin requirement for PWA capabilities | Required for service workers |
 | **Push API** | Server-initiated messages | Re-engage users even when app is closed |
 | **Background Sync** | Defer actions until connectivity returns | Queue form submissions offline |
 
@@ -276,7 +276,7 @@ async function installPWA() {
 - **Not handling cache updates** — users may see stale content indefinitely
 - **Caching API responses without versioning** — stale data after deployments
 - **Ignoring storage quotas** — browsers may evict your cache
-- **Over-caching dynamic content** — use Network First for user-specific data
+- **Over-caching live content** — use Network First for user-specific data
 - **Missing HTTPS** — service workers and push require a secure origin
 
 ## FAQ

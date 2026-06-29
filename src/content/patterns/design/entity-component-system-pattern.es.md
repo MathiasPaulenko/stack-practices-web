@@ -40,7 +40,7 @@ El Patrón Entity-Component-System (ECS) es un patrón arquitectónico usado pri
 
 ECS favorece la composición sobre la herencia. En lugar de una jerarquía de clases profunda como `Monster extends Creature extends Actor`, un monstruo es simplemente una entidad con `PositionComponent`, `HealthComponent` y `RenderComponent`. Los Systems procesan todas las entidades que tienen los componentes requeridos.
 
-Esta arquitectura habilita layouts de datos cache-friendly, serialización fácil y modificación dinámica de comportamiento en runtime.
+Esta arquitectura habilita layouts de datos cache-friendly, serialización fácil y modificación en vivo de comportamiento en runtime.
 
 ## Cuándo Usar
 
@@ -48,7 +48,7 @@ Usa el Patrón ECS cuando:
 - Las entidades tienen muchas propiedades ortogonales que no encajan en un árbol de herencia limpio
 - Necesitas consultar y procesar grupos de entidades por sus capacidades
 - El performance es crítico y layouts de datos cache-friendly importan
-- El comportamiento necesita agregarse y removerse dinámicamente en runtime
+- El comportamiento necesita agregarse y removerse en vivo en runtime
 
 ## Cuándo Evitar
 
@@ -342,12 +342,12 @@ Esta separación habilita:
 
 | Variante | Almacenamiento | Caso de Uso |
 |----------|----------------|-------------|
-| **Sparse Set** | Hash maps por tipo de componente | ECS dinámico con agregaciones/eliminaciones frecuentes |
+| **Sparse Set** | Hash maps por tipo de componente | ECS en vivo con agregaciones/eliminaciones frecuentes |
 | **Archetype** | Agrupa entidades por conjunto de componentes | Unity DOTS, alto rendimiento con millones de entidades |
 | **Chunk-based** | Arrays contiguos por tipo de componente | Motor Bevy, optimal cache locality |
 | **Event-driven** | Sistemas se comunican vía eventos | Sistemas desacoplados con loose coupling |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Los componentes son datos puros.** Sin métodos, sin constructores con side effects.
 - **Los sistemas no tienen estado.** Leen y escriben componentes durante su update loop.
@@ -375,7 +375,7 @@ Motor de juegos en Rust construido enteramente sobre ECS. Los sistemas son funci
 
 ### Flecs
 
-Un framework ECS C/C++ enfocado en performance y escalabilidad. Usado en juegos y simulaciones que requieren millones de entidades.
+Un framework ECS C/C++ enfocado en performance y crecimiento. Usado en juegos y simulaciones que requieren millones de entidades.
 
 ## Preguntas Frecuentes
 

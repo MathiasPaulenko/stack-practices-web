@@ -2,8 +2,8 @@
 contentType: patterns
 slug: external-configuration-store-pattern
 title: "Patron de Almacen Externo de Configuracion"
-description: "Centraliza la configuracion de aplicaciones fuera de los artefactos de despliegue para soportar actualizaciones dinamicas y gestion multi-entorno."
-metaDescription: "Centraliza la configuracion fuera de los despliegues con el Patron de Almacen Externo de Configuracion. Soporta actualizaciones dinamicas y gestion multi-entorno."
+description: "Centraliza la configuracion de aplicaciones fuera de los artefactos de despliegue para soportar actualizaciones en vivo y gestion multi-entorno."
+metaDescription: "Centraliza la configuracion fuera de los despliegues con el Patron de Almacen Externo de Configuracion. Soporta actualizaciones en vivo y gestion multi-entorno."
 difficulty: intermediate
 category: architectural
 topics:
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
-  metaDescription: "Centraliza la configuracion fuera de los despliegues con el Patron de Almacen Externo de Configuracion. Soporta actualizaciones dinamicas y gestion multi-entorno."
+  metaDescription: "Centraliza la configuracion fuera de los despliegues con el Patron de Almacen Externo de Configuracion. Soporta actualizaciones en vivo y gestion multi-entorno."
   keywords:
     - almacen externo de configuracion
     - external configuration store
@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-El Patron de Almacen Externo de Configuracion traslada la configuracion de la aplicacion fuera de los artefactos de despliegue hacia un servicio de configuracion dedicado. Esto permite cambiar el comportamiento sin reconstruir imagenes, soporta multiples entornos desde el mismo artefacto y habilita actualizaciones dinamicas en tiempo de ejecucion.
+El Patron de Almacen Externo de Configuracion traslada la configuracion de la aplicacion fuera de los artefactos de despliegue hacia un servicio de configuracion dedicado. Esto permite cambiar el comportamiento sin reconstruir imagenes, soporta multiples entornos desde el mismo artefacto y habilita actualizaciones en vivo en tiempo de ejecucion.
 
 Este patron es esencial para sistemas nativos de la nube y microservicios donde la configuracion codificada crea friccion en el despliegue y riesgos de seguridad.
 
@@ -100,11 +100,11 @@ Un sistema tipico de configuracion externa incluye:
 |----------|---------|------------|
 | **Variables de entorno** | Proceso del SO | Contenedores simples y desarrollo local |
 | **ConfigMap / Secrets** | Objetos de Kubernetes | Cargas de trabajo nativas de K8s |
-| **Servicio de configuracion dedicado** | Consul, Spring Cloud Config, AWS AppConfig | Gestion centralizada y actualizaciones dinamicas |
+| **Servicio de configuracion dedicado** | Consul, Spring Cloud Config, AWS AppConfig | Gestion centralizada y actualizaciones en vivo |
 | **Gestor de secretos** | HashiCorp Vault, AWS Secrets Manager | Credenciales sensibles y rotacion |
 | **Servicio de feature flags** | LaunchDarkly, Unleash | Lanzamientos graduales y experimentos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - Manten los **secretos separados** de la configuracion no sensible
 - Usa **namespaces por entorno** para evitar sobrescrituras accidentales
@@ -124,7 +124,7 @@ Un sistema tipico de configuracion externa incluye:
 ## Preguntas Frecuentes
 
 **P: Este patron requiere un servicio de configuracion dedicado?**
-R: No. Puedes comenzar con variables de entorno, ConfigMaps o un gestor de secretos. Un servicio dedicado agrega centralizacion y actualizaciones dinamicas a medida que escala.
+R: No. Puedes comenzar con variables de entorno, ConfigMaps o un gestor de secretos. Un servicio dedicado agrega centralizacion y actualizaciones en vivo a medida que escala.
 
 **P: Como actualizo configuracion sin reiniciar la aplicacion?**
 R: Sonda el almacen en intervalos, usa un mecanismo de watch, o envia eventos de cambio a traves de un bus de mensajes. Actualiza los caches en memoria solo despues de validar.

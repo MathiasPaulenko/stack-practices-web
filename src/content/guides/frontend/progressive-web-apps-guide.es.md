@@ -37,7 +37,7 @@ seo:
 
 ## Visión General
 
-Las Progressive Web Apps (PWA) usan capacidades web modernas para ofrecer una experiencia similar a una app: acceso offline, notificaciones push, instalación en la pantalla de inicio y sincronización en segundo plano. A diferencia de las apps nativas, funcionan en el navegador y no requieren aprobación de una tienda de apps. Esta guía cubre las tecnologías principales y mejores prácticas para construir PWAs de producción.
+Las Progressive Web Apps (PWA) usan capacidades web modernas para ofrecer una experiencia similar a una app: acceso offline, notificaciones push, instalación en la pantalla de inicio y sincronización en segundo plano. A diferencia de las apps nativas, funcionan en el navegador y no requieren aprobación de una tienda de apps. Esta guía cubre las tecnologías principales y lo que funciona para construir PWAs de producción.
 
 ## Cuándo Usar
 
@@ -49,11 +49,11 @@ Las Progressive Web Apps (PWA) usan capacidades web modernas para ofrecer una ex
 
 ## Tecnologías Principales
 
-| Tecnología | Propósito | Característica Clave |
+| Tecnología | Propósito | Capacidad Clave |
 |------------|-----------|---------------------|
 | **Service Worker** | Proxy en segundo plano para solicitudes de red | Caché offline, sincronización en segundo plano |
 | **Web App Manifest** | Describe metadatos de la app para instalación | Iconos, modo de visualización, color del tema |
-| **HTTPS** | Requisito de origen seguro para funciones PWA | Requerido para service workers |
+| **HTTPS** | Requisito de origen seguro para capacidades PWA | Requerido para service workers |
 | **Push API** | Mensajes iniciados por el servidor | Re-engagement de usuarios incluso cuando la app está cerrada |
 | **Background Sync** | Diferir acciones hasta que la conectividad regrese | Encolar envíos de formularios offline |
 
@@ -276,7 +276,7 @@ async function installPWA() {
 - **No manejar actualizaciones de caché** — los usuarios pueden ver contenido obsoleto indefinidamente
 - **Cachear respuestas de API sin versionado** — datos obsoletos después de despliegues
 - **Ignorar cuotas de almacenamiento** — los navegadores pueden eliminar tu caché
-- **Sobre-cachear contenido dinámico** — usa Red Primero para datos específicos del usuario
+- **Sobre-cachear contenido en vivo** — usa Red Primero para datos específicos del usuario
 - **Faltar HTTPS** — service workers y push requieren un origen seguro
 
 ## FAQ

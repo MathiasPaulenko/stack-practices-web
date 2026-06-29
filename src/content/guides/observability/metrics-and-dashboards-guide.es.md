@@ -189,14 +189,14 @@ scrape_configs:
         regex: (.+)
 ```
 
-**Mejores prácticas de recolección:**
+**Lo que funciona para recolección:**
 - Scrapea cada 10-30 segundos (más rápido para cambios de alta frecuencia)
 - Usa descubrimiento de servicios (Kubernetes, Consul, DNS) en lugar de targets estáticos
 - Ejecuta colectores en cada región/zona para minimizar latencia
 - Usa remote write para almacenamiento a largo plazo (Thanos, Cortex, VictoriaMetrics)
 - Federación para agregación jerárquica (edge → regional → global)
 
-### 3. Construye Dashboards Efectivos
+### 3. Construye Dashboards Útiles
 
 Diseña dashboards que cuenten una historia:
 
@@ -328,7 +328,7 @@ groups:
 - Niveles de severidad: página para crítico (impacto usuario), ticket para advertencia (tendencia)
 - Revisa frecuencia de alertas regularmente y ajusta umbrales
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Nombra métricas consistentemente.** Formato `service_unit`: `orders_service_requests_total`.
 - **Documenta tus métricas.** Cada métrica necesita descripción y unidad.
@@ -350,7 +350,7 @@ groups:
 - **Pull-based:** Prometheus scrapea exporters (estándar para Kubernetes)
 - **Push-based:** StatsD, Telegraf o aplicación empuja a colector (mejor para jobs de corta duración)
 - **Nativo de nube:** AWS CloudWatch, Google Cloud Monitoring, Azure Monitor (gestionado, pero específico de proveedor)
-- **Empresarial:** Datadog, New Relic, Dynatrace (características ricas, precio por host)
+- **Empresarial:** Datadog, New Relic, Dynatrace (capacidades ricas, precio por host)
 
 ## FAQ
 
