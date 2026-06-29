@@ -205,7 +205,7 @@ The Mixin Pattern works by:
 | **Extension Function** | Kotlin-style functions on existing types | Extending classes you do not own |
 | **Protocol** | Duck typing (Go, Python protocols) | Behavior without explicit composition |
 
-## Best Practices
+## What Works
 
 - **Keep mixins stateless when possible.** Stateful mixins create ordering dependencies in method resolution order (MRO).
 - **Document mixin requirements.** If a mixin expects certain methods or fields on the target, document them clearly.

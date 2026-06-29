@@ -363,7 +363,7 @@ Esto evita cadenas de herencia como `CustomerEmployeePerson extends Person` y en
 | **RBAC** | Roles con matriz de permisos | Autorización enterprise |
 | **State Machine** | Roles como estados con transiciones | Motores de workflow |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Mantén la entidad thin.** La entidad solo debería tener identidad y gestión de roles.
 - **Haz los roles stateful cuando sea necesario.** Un `CustomerRole` puede trackear puntos de lealtad.

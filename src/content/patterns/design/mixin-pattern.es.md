@@ -205,7 +205,7 @@ El Patrón Mixin funciona mediante:
 | **Extension Function** | Funciones Kotlin-style sobre tipos existentes | Extender clases que no posees |
 | **Protocol** | Duck typing (Go, Python protocols) | Comportamiento sin composición explícita |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Mantén los mixins stateless cuando sea posible.** Los mixins con estado crean dependencias de orden en el method resolution order (MRO).
 - **Documenta los requisitos del mixin.** Si un mixin espera ciertos métodos o campos en el destino, documentalos claramente.

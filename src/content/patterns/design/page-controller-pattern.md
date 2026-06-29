@@ -271,7 +271,7 @@ The pattern keeps page logic isolated. Adding a new page means adding a new cont
 | **REST Controller** | One controller per resource | APIs with CRUD operations |
 | **Component-based** | Framework routes to methods | Spring `@Controller`, ASP.NET MVC |
 
-## Best Practices
+## What Works
 
 - **Keep controllers thin.** Business logic belongs in services, not controllers.
 - **Use a base class** for shared concerns if not using Front Controller.

@@ -271,7 +271,7 @@ El patrón mantiene la lógica de página aislada. Agregar una nueva página sig
 | **REST Controller** | Un controlador por recurso | APIs con operaciones CRUD |
 | **Component-based** | Framework enruta a métodos | Spring `@Controller`, ASP.NET MVC |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Mantén controladores thin.** La lógica de negocio pertenece a services, no a controladores.
 - **Usa una clase base** para concerns compartidos si no usas Front Controller.

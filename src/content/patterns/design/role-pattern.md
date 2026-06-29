@@ -365,7 +365,7 @@ This avoids inheritance chains like `CustomerEmployeePerson extends Person` and 
 | **RBAC** | Roles with permissions matrix | Enterprise authorization |
 | **State Machine** | Roles as states with transitions | Workflow engines |
 
-## Best Practices
+## What Works
 
 - **Keep the entity thin.** The entity should only hold identity and role management.
 - **Make roles stateful when needed.** A `CustomerRole` can track loyalty points.

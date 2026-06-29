@@ -139,7 +139,7 @@ function UserListView({ controller }: { controller: UserController }) {
 - **MVP**: Presenter updates the View imperatively instead of the View observing state
 - **Flux/Redux**: Unidirectional data flow with a central dispatcher replacing the Controller
 
-## Best Practices
+## What Works
 
 - Keep Models pure — no side effects, no DOM references
 - Controllers orchestrate but do not know how data is rendered

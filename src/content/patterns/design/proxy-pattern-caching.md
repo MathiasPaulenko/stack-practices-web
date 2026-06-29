@@ -105,7 +105,7 @@ const forecast = await cachedClient.getForecast('London');
 - **Smart Proxy**: Add metrics, logging, and circuit breaker alongside caching
 - **Lazy Proxy**: Defer initialization of expensive connections until first use
 
-## Best Practices
+## What Works
 
 - Set TTL based on data volatility, not a fixed value for everything. See [cache invalidation](/patterns/design/cache-aside-pattern) best practices.
 - Implement cache invalidation hooks for write-through consistency

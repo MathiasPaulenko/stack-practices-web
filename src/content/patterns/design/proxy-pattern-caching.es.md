@@ -105,7 +105,7 @@ const forecast = await cachedClient.getForecast('London');
 - **Smart Proxy**: Agrega metricas, logging y circuit breaker junto al cacheo
 - **Lazy Proxy**: Diferencia la inicializacion de conexiones costosas hasta el primer uso
 
-## Mejores Practicas
+## Lo que Funciona
 
 - Configura TTL basado en volatilidad de datos, no un valor fijo para todo. Consulta [invalidacion de cache](/patterns/design/cache-aside-pattern) best practices.
 - Implementa hooks de invalidacion de cache para consistencia write-through
