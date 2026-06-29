@@ -201,7 +201,7 @@ ansible-vault create group_vars/all/secrets.yml
 ansible-playbook site.yml --vault-password-file .vault_pass
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Haz las tareas idempotentes.** Ejecutar un playbook dos veces no debería cambiar nada en la segunda ejecución. Usa `state: present` en lugar de comandos shell que instalan paquetes ciegamente.
 - **Usa roles para reutilización.** Extrae tareas comunes en roles que pueden compartirse entre proyectos y equipos vía Ansible Galaxy o un repositorio Git privado.

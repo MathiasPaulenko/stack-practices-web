@@ -192,7 +192,7 @@ public class OrderToShipmentAdapter {
 | Domain service | Lógica cross-aggregate | Stateless | N/A | PricingEngine |
 | Repository | Abstracción de persistencia | Stateless | N/A | OrderRepository |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén aggregates pequeños**: un aggregate debería caber cómodamente en memoria y ser escribible en una sola transacción. Si cargar una orden requiere unir 50 tablas, tu aggregate es demasiado grande. Separa en aggregates más pequeños y usa consistencia eventual vía domain events.
 - **Diseña para invariantes, no CRUD**: en lugar de métodos genéricos `create`, `update`, `delete`, expón métodos orientados a comportamiento como `add_item`, `submit`, `cancel`. Estos métodos enforce reglas de negocio (ej. "no se puede cancelar una orden enviada") en la capa de dominio.
@@ -219,5 +219,5 @@ R: Sí. Los aggregates mapean a tablas, las entities a filas, los value objects 
 R: Un domain service contiene lógica de negocio que no pertenece a ninguna entidad (ej. calcular costo de envío entre múltiples carriers). Un application service orquesta casos de uso, llamando repositories y domain services, sin contener reglas de negocio.
 
 **P: ¿Todo proyecto debería usar event sourcing con DDD?**
-R: No. Event sourcing almacena estado como una secuencia de eventos. Es poderoso para dominios con fuerte auditoría pero agrega complejidad significativa. Empieza con persistencia estándar y domain events. Solo adopta event sourcing si genuinamente necesitas trails de auditoría completos, queries temporales o capacidades de replay de eventos.
+R: No. Event sourcing almacena estado como una secuencia de eventos. Es poderoso para dominios con fuerte auditoría pero agrega complejidad mayor. Empieza con persistencia estándar y domain events. Solo adopta event sourcing si genuinamente necesitas trails de auditoría completos, queries temporales o capacidades de replay de eventos.
 

@@ -146,7 +146,7 @@ function ProductList() {
 | Lazy loading por ruta | Rutas | Universal | React Router, Vue Router | Navegación SPA |
 | Query infinita | Datos | Universal | React Query, SWR | Listas, feeds |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Establece dimensiones en imágenes lazy**: sin `width` y `height` explícitos, el navegador no puede reservar espacio antes de que la imagen cargue. Esto causa Cumulative Layout Shift (CLS), una penalización de [Core Web Vitals](/guides/performance/performance-optimization-guide).
 - **Usa `eager` para imágenes above-the-fold**: la imagen hero, logo y CTA principal deberían cargar inmediatamente con `loading="eager"`. Solo difiere contenido que el usuario no puede ver en el primer paint.

@@ -140,7 +140,7 @@ resource "aws_autoscaling_group" "app" {
 | Flatcar | Container-optimized OS | Automatic updates; read-only /usr |
 | Bottlerocket | AWS container OS | Minimal attack surface; API-driven |
 
-## Best Practices
+## What works
 
 - **Store images in registries**: ECR, GCR, ACR, or Docker Hub with immutable tags
 - **Scan images before deploy**: Trivy, Clair, or Snyk in [CI pipeline](/guides/devops/cicd-pipeline-guide). For a dedicated guide, see [container security scanning](/recipes/security/container-security).

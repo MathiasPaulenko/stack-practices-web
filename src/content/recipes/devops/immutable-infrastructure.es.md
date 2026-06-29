@@ -140,7 +140,7 @@ resource "aws_autoscaling_group" "app" {
 | Flatcar | OS container-optimized | Actualizaciones automáticas; /usr read-only |
 | Bottlerocket | AWS container OS | Superficie de ataque mínima; API-driven |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Almacena imágenes en registries**: ECR, GCR, ACR o Docker Hub con tags inmutables
 - **Escanea imágenes antes del deploy**: Trivy, Clair o Snyk en [pipeline de CI](/guides/devops/cicd-pipeline-guide). Para una guía dedicada, consulta [escaneo de seguridad de containers](/recipes/security/container-security).

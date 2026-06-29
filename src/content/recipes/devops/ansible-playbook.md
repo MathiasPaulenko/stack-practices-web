@@ -201,7 +201,7 @@ ansible-vault create group_vars/all/secrets.yml
 ansible-playbook site.yml --vault-password-file .vault_pass
 ```
 
-## Best Practices
+## What works
 
 - **Make tasks idempotent.** Running a playbook twice should not change anything on the second run. Use `state: present` instead of shell commands that blindly install packages.
 - **Use roles for reusability.** Extract common tasks into roles that can be shared across projects and teams via Ansible Galaxy or a private Git repository.

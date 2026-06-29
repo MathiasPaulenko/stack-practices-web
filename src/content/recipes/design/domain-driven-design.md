@@ -197,7 +197,7 @@ public class OrderToShipmentAdapter {
 | Domain service | Cross-aggregate logic | Stateless | N/A | PricingEngine |
 | Repository | Persistence abstraction | Stateless | N/A | OrderRepository |
 
-## Best practices
+## What works
 
 - **Keep aggregates small**: an aggregate should fit comfortably in memory and be writable in a single transaction. If loading an order requires joining 50 tables, your aggregate is too large. Split into smaller aggregates and use eventual consistency via domain events.
 - **Design for invariants, not CRUD**: instead of generic `create`, `update`, `delete` methods, expose behavior-focused methods like `add_item`, `submit`, `cancel`. These methods enforce business rules (e.g., "cannot cancel a shipped order") at the domain layer.
@@ -224,5 +224,5 @@ A: Yes. Aggregates map to tables, entities map to rows, value objects can be emb
 A: A domain service contains business logic that does not belong to any entity (e.g., calculating shipping cost across multiple carriers). An application service orchestrates use cases, calling repositories and domain services, without containing business rules itself.
 
 **Q: Should every project use event sourcing with DDD?**
-A: No. Event sourcing stores state as a sequence of events. It is powerful for audit-heavy domains but adds significant complexity. Start with standard persistence and domain events. Only adopt event sourcing if you genuinely need complete audit trails, temporal queries, or event replay capabilities.
+A: No. Event sourcing stores state as a sequence of events. It is powerful for audit-heavy domains but adds major complexity. Start with standard persistence and domain events. Only adopt event sourcing if you genuinely need complete audit trails, temporal queries, or event replay capabilities.
 

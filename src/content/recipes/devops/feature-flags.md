@@ -241,7 +241,7 @@ public class FeatureFlags {
 | Group Target | `{"groups": ["premium"]}` | Feature tiers, role-based access |
 | A/B Test | `{"percentage": 50, "variant": "B"}` | Comparing two implementations |
 
-## Best Practices
+## What works
 
 1. **Keep flags short-lived** — permanent flags become technical debt. Remove them and the dead code paths once a feature is fully rolled out.
 2. **Use deterministic bucketing** — hash `(flag + user_id)` so the same user always gets the same experience, avoiding flip-flopping.
@@ -265,7 +265,7 @@ Remove the flag and its conditional branches once the feature is stable for 100%
 
 ### How do feature flags differ from configuration settings?
 
-Configuration settings are typically static and apply globally (timeout values, feature limits). Feature flags are dynamic, user-scoped, and designed for rapid toggling without redeployment. Flags evaluate per-request; config is loaded at startup.
+Configuration settings are typically static and apply globally (timeout values, feature limits). Feature flags are live, user-scoped, and designed for rapid toggling without redeployment. Flags evaluate per-request; config is loaded at startup.
 
 ### Can I use feature flags for authorization?
 

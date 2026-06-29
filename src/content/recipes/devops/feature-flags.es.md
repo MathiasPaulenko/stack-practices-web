@@ -241,7 +241,7 @@ public class FeatureFlags {
 | Target por Grupo | `{"groups": ["premium"]}` | Tiers de función, acceso basado en roles |
 | A/B Test | `{"percentage": 50, "variant": "B"}` | Comparar dos implementaciones |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Mantén los flags de corta duración** — los flags permanentes se convierten en deuda técnica. Elimínalos y las rutas de código muerto una vez que una función esté completamente desplegada.
 2. **Usa bucketing determinístico** — hashea `(flag + user_id)` para que el mismo usuario siempre obtenga la misma experiencia, evitando alternancias.
@@ -265,7 +265,7 @@ Elimina el flag y sus ramas condicionales una vez que la función es estable par
 
 ### ¿En qué se diferencian los feature flags de los settings de configuración?
 
-Los settings de configuración son típicamente estáticos y aplican globalmente (valores de timeout, límites de funciones). Los feature flags son dinámicos, scoped por usuario, y diseñados para toggle rápido sin redeployment. Los flags evalúan por request; la config se carga al inicio.
+Los settings de configuración son típicamente estáticos y aplican globalmente (valores de timeout, límites de funciones). Los feature flags son live, scoped por usuario, y diseñados para toggle rápido sin redeployment. Los flags evalúan por request; la config se carga al inicio.
 
 ### ¿Puedo usar feature flags para autorización?
 

@@ -146,7 +146,7 @@ function ProductList() {
 | Route-based lazy | Routes | Universal | React Router, Vue Router | SPA navigation |
 | Infinite query | Data | Universal | React Query, SWR | Lists, feeds |
 
-## Best practices
+## What works
 
 - **Set dimensions on lazy images**: without explicit `width` and `height`, the browser cannot reserve space before the image loads. This causes Cumulative Layout Shift (CLS), a [Core Web Vitals](/guides/performance/performance-optimization-guide) penalty.
 - **Use `eager` for above-the-fold images**: the hero image, logo, and primary CTA should load immediately with `loading="eager"`. Only defer content the user cannot see on first paint.
