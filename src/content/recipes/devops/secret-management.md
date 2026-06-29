@@ -113,13 +113,13 @@ spec:
 ## Explanation
 
 - **Encryption at rest**: Secrets are encrypted before being written to disk. AWS uses KMS, Vault uses its own encryption engine, and Kubernetes stores base64-encoded secrets (always enable etcd encryption for K8s).
-- **Dynamic secrets**: Vault and AWS can generate short-lived credentials on demand. A PostgreSQL role might be valid for 1 hour and then automatically revoked, minimizing blast radius if leaked.
+- **Live secrets**: Vault and AWS can generate short-lived credentials on demand. A PostgreSQL role might be valid for 1 hour and then automatically revoked, minimizing blast radius if leaked.
 - **Access control**: IAM policies, Vault policies, and Kubernetes RBAC restrict which services or users can read which secrets. Never grant blanket read access to all secrets.
 - **Audit logging**: every secret read, write, and rotation is logged. Forward these logs to SIEM tools for anomaly detection.
 
 ## Variants
 
-| Tool | Platform | Dynamic Secrets | Auto-Rotation | Best For |
+| Tool | Platform | Live Secrets | Auto-Rotation | Best For |
 |------|----------|-------------------|---------------|----------|
 | AWS Secrets Manager | AWS | Yes | Yes | AWS-native workloads |
 | HashiCorp Vault | Multi | Yes | Yes | Multi-cloud, on-prem |
@@ -127,7 +127,7 @@ spec:
 | GCP Secret Manager | GCP | No | No | GCP-native workloads |
 | Kubernetes Secrets | K8s | No | No | In-cluster injection |
 
-## Best Practices
+## What Works
 
 - **Never commit secrets to Git**: use `.gitignore` for `.env` files and pre-commit hooks (like `git-secrets` or `truffleHog`) to scan for accidental commits.
 - **Rotate secrets regularly**: set automatic rotation policies (30-90 days) and rotate immediately if a secret is exposed or an employee leaves.
@@ -154,5 +154,5 @@ A: Use a team password manager (1Password, Bitwarden) for human credentials and 
 A: The uncontrolled duplication of secrets across systems, repos, and files. Combat it with a centralized vault and strict rotation policies.
 
 **Q: Can I use Kubernetes Secrets for everything?**
-A: K8s Secrets are fine for in-cluster injection but lack advanced features like dynamic generation and cross-cluster sharing. Use a dedicated vault for complex requirements.
+A: K8s Secrets are fine for in-cluster injection but lack advanced capabilities like dynamic generation and cross-cluster sharing. Use a dedicated vault for complex requirements.
 

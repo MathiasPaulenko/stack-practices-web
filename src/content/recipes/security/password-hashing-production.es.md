@@ -2,8 +2,8 @@
 contentType: recipes
 slug: password-hashing-production
 title: "Hashing de Contraseñas en Producción"
-description: "Hashea y verifica contraseñas de forma segura usando bcrypt, scrypt y Argon2 con mejores prácticas."
-metaDescription: "Guía de hashing de contraseñas para producción con bcrypt, scrypt y Argon2. Mejores prácticas para almacenamiento seguro de credenciales en apps web."
+description: "Hashea y verifica contraseñas de forma segura usando bcrypt, scrypt y Argon2 con lo que funciona."
+metaDescription: "Guía de hashing de contraseñas para producción con bcrypt, scrypt y Argon2. Lo que funciona para almacenamiento seguro de credenciales en apps web."
 difficulty: intermediate
 topics:
   - security
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía de hashing de contraseñas para producción con bcrypt, scrypt y Argon2. Mejores prácticas para almacenamiento seguro de credenciales en apps web."
+  metaDescription: "Guía de hashing de contraseñas para producción con bcrypt, scrypt y Argon2. Lo que funciona para almacenamiento seguro de credenciales en apps web."
   keywords:
     - bcrypt
     - security
@@ -109,7 +109,7 @@ func hashPassword(password string) (string, error) {
 | Argon2 | Sí (ganador de PHC) | Tiempo + memoria + paralelismo | Nuevos proyectos, máxima seguridad |
 
 **Reglas críticas**:
-- Nunca inventes tu propia criptografía. Usa librerías bien validadas. Sigue [mejores prácticas de seguridad](/guides/security/security-best-practices-guide).
+- Nunca inventes tu propia criptografía. Usa librerías bien validadas. Sigue [lo que funciona de seguridad](/guides/security/security-best-practices-guide).
 - El salt debe ser único por contraseña y almacenado junto al hash.
 - El pepper (secreto del lado del servidor) agrega defensa en profundidad pero no sustituye el hashing. Almacena peppers en un [secret manager](/recipes/security/vault-dynamic-credentials).
 - Re-hashear en login si los parámetros de costo aumentan.
@@ -124,7 +124,7 @@ func hashPassword(password string) (string, error) {
 | Java | spring-security-crypto | bcrypt, Argon2 | Abstracción de Spring |
 | Rust | argon2 | Argon2 | Soporte zeroize para limpieza de memoria |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa Argon2id para proyectos nuevos**: Ganó el Password Hashing Competition (PHC)
 - **Apunta a 250ms de tiempo de verificación**: Ajusta factores de costo a tu hardware
@@ -134,11 +134,11 @@ func hashPassword(password string) (string, error) {
 
 ## Errores Comunes
 
-1. **Usar SHA-256 o MD5 para contraseñas**: Algoritmos rápidos son triviales de atacar con GPUs. Sigue [mejores prácticas de seguridad](/guides/security/security-best-practices-guide) para almacenamiento de credenciales.
+1. **Usar SHA-256 o MD5 para contraseñas**: Algoritmos rápidos son triviales de atacar con GPUs. Sigue [lo que funciona de seguridad](/guides/security/security-best-practices-guide) para almacenamiento de credenciales.
 2. **Codificar salts en duro**: Cada contraseña necesita un salt aleatorio único
 3. **Ignorar ataques de timing**: Usa comparación en tiempo constante (incluido en librerías modernas)
 4. **Olvidar actualizar factores de costo**: El hardware mejora; reajusta anualmente
-5. **Almacenar contraseñas en texto plano**: Incluso "temporalmente" es un riesgo catastrófico. Consulta [mejores prácticas de seguridad](/guides/security/security-best-practices-guide).
+5. **Almacenar contraseñas en texto plano**: Incluso "temporalmente" es un riesgo catastrófico. Consulta [lo que funciona de seguridad](/guides/security/security-best-practices-guide).
 
 ## Preguntas Frecuentes
 

@@ -2,8 +2,8 @@
 contentType: recipes
 slug: password-hashing-production
 title: "Password Hashing in Production"
-description: "Securely hash and verify passwords using bcrypt, scrypt, and Argon2 with best practices."
-metaDescription: "Production-grade password hashing guide with bcrypt, scrypt, and Argon2. Best practices for secure credential storage in web applications and backend APIs."
+description: "Securely hash and verify passwords using bcrypt, scrypt, and Argon2 with what works."
+metaDescription: "Production-grade password hashing guide with bcrypt, scrypt, and Argon2. What works for secure credential storage in web applications and backend APIs."
 difficulty: intermediate
 topics:
   - security
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Production-grade password hashing guide with bcrypt, scrypt, and Argon2. Best practices for secure credential storage in web applications and backend APIs."
+  metaDescription: "Production-grade password hashing guide with bcrypt, scrypt, and Argon2. What works for secure credential storage in web applications and backend APIs."
   keywords:
     - bcrypt
     - security
@@ -109,7 +109,7 @@ func hashPassword(password string) (string, error) {
 | Argon2 | Yes (winner of PHC) | Time + memory + parallelism | New projects, highest security |
 
 **Critical rules**:
-- Never roll your own crypto. Use well-vetted libraries. Follow [security best practices](/guides/security/security-best-practices-guide).
+- Never roll your own crypto. Use well-vetted libraries. Follow [security what works](/guides/security/security-best-practices-guide).
 - Salt must be unique per password and stored alongside the hash.
 - Pepper (server-side secret) adds defense-in-depth but is not a substitute for hashing. Store peppers in a [secret manager](/recipes/security/vault-dynamic-credentials).
 - Re-hash on login if cost parameters increase.
@@ -124,7 +124,7 @@ func hashPassword(password string) (string, error) {
 | Java | spring-security-crypto | bcrypt, Argon2 | Spring abstraction |
 | Rust | argon2 | Argon2 | zeroize support for memory clearing |
 
-## Best Practices
+## What Works
 
 - **Use Argon2id for new projects**: It won the Password Hashing Competition (PHC)
 - **Target 250ms verification time**: Tune cost factors to your hardware
@@ -134,11 +134,11 @@ func hashPassword(password string) (string, error) {
 
 ## Common Mistakes
 
-1. **Using SHA-256 or MD5 for passwords**: Fast algorithms are trivial to brute-force with GPUs. Follow [security best practices](/guides/security/security-best-practices-guide) for credential storage.
+1. **Using SHA-256 or MD5 for passwords**: Fast algorithms are trivial to brute-force with GPUs. Follow [security what works](/guides/security/security-best-practices-guide) for credential storage.
 2. **Hard-coding salts**: Every password needs a unique, random salt
 3. **Ignoring timing attacks**: Use constant-time comparison (built into modern libraries)
 4. **Forgetting to update cost factors**: Hardware gets faster; re-tune annually
-5. **Storing passwords in plain text**: Even "temporarily" is a catastrophic risk. See [security best practices](/guides/security/security-best-practices-guide).
+5. **Storing passwords in plain text**: Even "temporarily" is a catastrophic risk. See [security what works](/guides/security/security-best-practices-guide).
 
 ## Frequently Asked Questions
 

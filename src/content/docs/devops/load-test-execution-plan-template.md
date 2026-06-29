@@ -37,7 +37,7 @@ Load testing evaluates how a system behaves under realistic or peak traffic. Thi
 ## When to Use
 
 - Before a major product launch or marketing campaign.
-- After significant architecture or infrastructure changes.
+- After major architecture or infrastructure changes.
 - When scaling targets or user growth projections change.
 - When latency or error rate issues appear under load.
 - As part of a regular performance regression test suite.
@@ -152,7 +152,7 @@ Load testing is not just about finding the breaking point. It is about understan
 - **Scalability test plan**: Increase load while adding resources to measure scaling efficiency.
 - **Browser-based load test plan**: Use real browser sessions to measure frontend and API performance together.
 
-## Best Practices
+## What Works
 
 - Test in a production-like environment with representative data and traffic patterns.
 - Define success criteria before running the test.

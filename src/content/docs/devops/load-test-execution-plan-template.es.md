@@ -37,7 +37,7 @@ Las pruebas de carga evaluan como se comporta un sistema bajo trafico realista o
 ## Cuando Usar
 
 - Antes de un lanzamiento de producto importante o campana de marketing.
-- Despues de cambios significativos de arquitectura o infraestructura.
+- Despues de cambios mayores de arquitectura o infraestructura.
 - Cuando cambian los objetivos de escalado o las proyecciones de crecimiento de usuarios.
 - Cuando aparecen problemas de latencia o tasa de error bajo carga.
 - Como parte de una suite regular de pruebas de regresion de rendimiento.
@@ -152,7 +152,7 @@ Las pruebas de carga no solo tratan de encontrar el punto de ruptura. Se trata d
 - **Plan de scalability test**: Aumenta la carga mientras se agregan recursos para medir eficiencia de escalado.
 - **Plan de prueba de carga basada en navegador**: Usa sesiones reales de navegador para medir rendimiento frontend y API juntos.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Prueba en un entorno similar a produccion con datos representativos y patrones de trafico reales.
 - Define criterios de exito antes de ejecutar la prueba.

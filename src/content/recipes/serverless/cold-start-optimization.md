@@ -38,7 +38,7 @@ Cold starts are not a bug; they are a trade-off. Serverless pricing is per-reque
 Use this recipe when:
 
 - Building latency-sensitive APIs on serverless platforms (sub-200ms p99). See [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) for building HTTP APIs with low latency.
-- Experiencing user complaints about slow first requests after idle periods. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for function design best practices.
+- Experiencing user complaints about slow first requests after idle periods. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for function design what works.
 - Migrating from provisioned servers to serverless and needing comparable latency
 - Optimizing Java, .NET, or Ruby functions that suffer from multi-second cold starts
 - Running machine learning inference or heavy initialization in serverless environments. See [Connection Pooling](/recipes/databases/database-connection-pooling) for managing database connections in serverless.
@@ -148,10 +148,10 @@ gcloud run deploy api-service \
 | Lazy initialization | None | 30-50% | Medium | Multi-purpose functions |
 | Dependency trimming | None | 20-40% | Medium | All runtimes |
 
-## Best practices
+## What works
 
 - **Choose the right runtime**: compiled languages (Go, Rust) cold-start in milliseconds. Java and .NET cold-start in seconds unless using SnapStart or Native AOT. Python and Node.js are in the middle. For latency-critical paths, prefer compiled runtimes.
-- **Keep deployment packages small**: every dependency adds initialization time. Audit your `node_modules` or `requirements.txt`. Remove dev dependencies, unused SDK features, and bloated libraries. A 50MB package initializes faster than a 250MB package.
+- **Keep deployment packages small**: every dependency adds initialization time. Audit your `node_modules` or `requirements.txt`. Remove dev dependencies, unused SDK capabilities, and bloated libraries. A 50MB package initializes faster than a 250MB package.
 - **Move initialization out of the handler**: code at the top level of your module runs once per cold start. Code inside the handler runs on every invocation. Initialize databases, clients, and configuration at the module level. Use the handler only for request-specific logic.
 - **Use execution environment reuse**: after a cold start, Lambda containers are reused for subsequent warm invocations. Cache connections, compiled regexes, and parsed configuration in global scope. This free cache persists across hundreds of warm invocations.
 - **Ping functions to keep warm**: for functions that cannot use provisioned concurrency, schedule a CloudWatch EventBridge rule or Cloud Scheduler to ping the function every 5 minutes. This is a crude but effective workaround for low-traffic endpoints.
@@ -169,7 +169,7 @@ gcloud run deploy api-service \
 A: Only with always-on instances (provisioned concurrency, minimum instances). True serverless pay-per-request pricing inherently includes cold starts as a trade-off. For true zero cold start, use containers with minimum replicas or dedicated servers.
 
 **Q: Why does Java have worse cold starts than Python?**
-A: Java must initialize the JVM, load classes, and JIT-compile bytecode. Python loads and interprets source files sequentially. JVM startup is inherently heavier, though GraalVM Native Image and Lambda SnapStart close the gap significantly.
+A: Java must initialize the JVM, load classes, and JIT-compile bytecode. Python loads and interprets source files sequentially. JVM startup is inherently heavier, though GraalVM Native Image and Lambda SnapStart close the gap considerably.
 
 **Q: Does memory size affect cold start time?**
 A: Yes. Lambda allocates CPU proportionally to memory. A 3GB function gets 3x the CPU of a 1GB function. Initialization (module loading, client creation) runs faster with more memory. Increasing memory from 128MB to 512MB often reduces cold start latency by 50%.

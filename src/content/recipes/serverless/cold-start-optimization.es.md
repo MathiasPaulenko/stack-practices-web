@@ -38,7 +38,7 @@ Los cold starts no son un bug; son un trade-off. El pricing serverless es por-re
 Usa esta receta cuando:
 
 - Construyendo APIs sensibles a latencia en plataformas serverless (sub-200ms p99). Consulta [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) para construir APIs HTTP con baja latencia.
-- Experimentando quejas de usuarios sobre requests lentos después de períodos de inactividad. Consulta [Serverless Functions](/recipes/messaging/event-driven-microservices) para mejores prácticas de diseño de funciones.
+- Experimentando quejas de usuarios sobre requests lentos después de períodos de inactividad. Consulta [Serverless Functions](/recipes/messaging/event-driven-microservices) para lo que funciona de diseño de funciones.
 - Migrando de servidores provisionados a serverless y necesitando latencia comparable
 - Optimizando funciones Java, .NET o Ruby que sufren cold starts de varios segundos
 - Ejecutando inferencia de machine learning o inicialización pesada en ambientes serverless. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para gestionar conexiones a base de datos en serverless.
@@ -143,10 +143,10 @@ gcloud run deploy api-service \
 | Inicialización lazy | Ninguno | 30-50% | Media | Funciones multi-propósito |
 | Recorte de dependencias | Ninguno | 20-40% | Media | Todos los runtimes |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Elige el runtime correcto**: lenguajes compilados (Go, Rust) inician en milisegundos. Java y .NET inician en segundos a menos que uses SnapStart o Native AOT. Python y Node.js están en el medio. Para rutas críticas de latencia, prefiere runtimes compilados.
-- **Mantén paquetes de deployment pequeños**: cada dependencia agrega tiempo de inicialización. Audita tus `node_modules` o `requirements.txt`. Remueve dev dependencies, features no usadas del SDK y bibliotecas infladas. Un paquete de 50MB inicializa más rápido que uno de 250MB.
+- **Mantén paquetes de deployment pequeños**: cada dependencia agrega tiempo de inicialización. Audita tus `node_modules` o `requirements.txt`. Remueve dev dependencies, capacidades no usadas del SDK y bibliotecas infladas. Un paquete de 50MB inicializa más rápido que uno de 250MB.
 - **Mueve inicialización fuera del handler**: el código a nivel top de tu módulo se ejecuta una vez por cold start. El código dentro del handler se ejecuta en cada invocación. Inicializa bases de datos, clients y configuración a nivel de módulo. Usa el handler solo para lógica específica del request.
 - **Usa reúso de ambiente de ejecución**: después de un cold start, los contenedores de Lambda son reutilizados para invocaciones cálidas subsecuentes. Cachea conexiones, regexes compiladas y configuración parseada en scope global. Este cache gratis persiste a través de cientos de invocaciones cálidas.
 - **Ping funciones para mantenerlas cálidas**: para funciones que no pueden usar concurrencia provisionada, programa una regla de CloudWatch EventBridge o Cloud Scheduler para hacer ping a la función cada 5 minutos. Esto es una solución rudimentaria pero efectiva para endpoints de bajo tráfico.
@@ -164,7 +164,7 @@ gcloud run deploy api-service \
 R: Solo con instancias always-on (concurrencia provisionada, minimum instances). El pricing serverless true pay-per-request inherentemente incluye cold starts como trade-off. Para cold start realmente cero, usa contenedores con mínimo de réplicas o servidores dedicados.
 
 **P: ¿Por qué Java tiene peores cold starts que Python?**
-R: Java debe inicializar la JVM, cargar clases y compilar bytecode JIT. Python carga e interpreta archivos fuente secuencialmente. El inicio de JVM es inherentemente más pesado, aunque GraalVM Native Image y Lambda SnapStart cierran la brecha significativamente.
+R: Java debe inicializar la JVM, cargar clases y compilar bytecode JIT. Python carga e interpreta archivos fuente secuencialmente. El inicio de JVM es inherentemente más pesado, aunque GraalVM Native Image y Lambda SnapStart cierran la brecha considerablemente.
 
 **P: ¿El tamaño de memoria afecta el tiempo de cold start?**
 R: Sí. Lambda asigna CPU proporcionalmente a la memoria. Una función de 3GB obtiene 3x la CPU de una de 1GB. La inicialización (carga de módulos, creación de clients) corre más rápido con más memoria. Incrementar memoria de 128MB a 512MB frecuentemente reduce la latencia de cold start en un 50%.

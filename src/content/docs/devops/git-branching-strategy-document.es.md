@@ -187,7 +187,7 @@ Closes PROJ-456
 Seguimos [Semantic Versioning](https://semver.org/):
 
 - **MAJOR**: Cambios breaking en API
-- **MINOR**: Nuevas features, backward compatible
+- **MINOR**: Nuevas capacidades, backward compatible
 - **PATCH**: Bug fixes, backward compatible
 
 ### Formato de Tag
@@ -256,7 +256,7 @@ El documento separa la estrategia de branching en **tipos de ramas** (como se ll
 | Trunk-based (solo main) | CD de alta velocidad, feature flags | Requiere CI/CD maduro y feature flags |
 | Release branching (por version) | Productos con versiones LTS | Mas overhead de backporting |
 
-## Best Practices
+## Lo que funciona
 
 1. **Automatiza la proteccion** — reglas de branch protection y CI checks atrapan errores antes del merge
 2. **Mantene ramas de corta vida** — ramas de feature mayores a una semana crean riesgo de integracion
@@ -276,7 +276,7 @@ El documento separa la estrategia de branching en **tipos de ramas** (como se ll
 
 ### Debemos usar GitFlow, GitHub Flow, o trunk-based development?
 
-GitFlow funciona bien para equipos con releases programados y necesidad de estabilizacion de release. GitHub Flow (solo main + ramas de feature) es mas simple y funciona para despliegue continuo. Trunk-based requiere la mayor madurez — feature flags, testing automatizado comprehensivo, y CI/CD rapido. La mayoria de los equipos deberian empezar con GitHub Flow y adoptar GitFlow solo cuando la complejidad de gestion de releases lo demande.
+GitFlow funciona bien para equipos con releases programados y necesidad de estabilizacion de release. GitHub Flow (solo main + ramas de feature) es mas simple y funciona para despliegue continuo. Trunk-based requiere la mayor madurez — feature flags, testing automatizado exhaustivo, y CI/CD rapido. La mayoria de los equipos deberian empezar con GitHub Flow y adoptar GitFlow solo cuando la complejidad de gestion de releases lo demande.
 
 ### Como manejamos ramas de feature de larga duracion?
 

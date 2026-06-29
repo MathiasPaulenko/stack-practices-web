@@ -111,13 +111,13 @@ spec:
 ## Explicación
 
 - **Encriptación at rest**: Los secretos se encriptan antes de escribirse a disco. AWS usa KMS, Vault usa su propio motor de encriptación, y Kubernetes almacena secrets base64-encoded (siempre habilita encriptación de etcd para K8s).
-- **Secretos dinámicos**: Vault y AWS pueden generar credenciales de corta duración bajo demanda. Un rol de PostgreSQL podría ser válido por 1 hora y luego revocarse automáticamente, minimizando el blast radius si se filtran.
+- **Secretos en vivo**: Vault y AWS pueden generar credenciales de corta duración bajo demanda. Un rol de PostgreSQL podría ser válido por 1 hora y luego revocarse automáticamente, minimizando el blast radius si se filtran.
 - **Control de acceso**: Políticas IAM, políticas de Vault y RBAC de Kubernetes restringen qué servicios o usuarios pueden leer qué secretos. Nunca otorgues acceso de lectura a todos los secretos.
 - **Audit logging**: cada lectura, escritura y rotación de secreto se loguea. Reenvía estos logs a herramientas SIEM para detección de anomalías.
 
 ## Variantes
 
-| Herramienta | Plataforma | Secretos dinámicos | Auto-rotación | Mejor para |
+| Herramienta | Plataforma | Secretos en vivo | Auto-rotación | Mejor para |
 |-------------|------------|-------------------|---------------|------------|
 | AWS Secrets Manager | AWS | Sí | Sí | Workloads nativos AWS |
 | HashiCorp Vault | Multi | Sí | Sí | Multi-cloud, on-prem |
@@ -125,7 +125,7 @@ spec:
 | GCP Secret Manager | GCP | No | No | Workloads nativos GCP |
 | Kubernetes Secrets | K8s | No | No | Inyección in-cluster |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Nunca commitees secretos a Git**: usa `.gitignore` para archivos `.env` y hooks pre-commit (como `git-secrets` o `truffleHog`) para escanear commits accidentales.
 - **Rota secretos regularmente**: configura políticas de rotación automática (30-90 días) y rota inmediatamente si un secreto es expuesto o un empleado se va.
@@ -152,5 +152,5 @@ R: Usa un password manager de equipo (1Password, Bitwarden) para credenciales hu
 R: La duplicación no controlada de secretos a través de sistemas, repos y archivos. Combátelo con un vault centralizado y políticas estrictas de rotación.
 
 **P: ¿Puedo usar Kubernetes Secrets para todo?**
-R: Los K8s Secrets están bien para inyección in-cluster pero carecen de features avanzados como generación dinámica y sharing cross-cluster. Usa un vault dedicado para requerimientos complejos.
+R: Los K8s Secrets están bien para inyección in-cluster pero carecen de capacidades avanzadas como generación dinámica y sharing cross-cluster. Usa un vault dedicado para requerimientos complejos.
 

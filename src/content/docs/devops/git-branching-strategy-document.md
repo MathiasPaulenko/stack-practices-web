@@ -238,7 +238,7 @@ Closes PROJ-456
 We follow [Semantic Versioning](https://semver.org/):
 
 - **MAJOR**: Breaking API changes
-- **MINOR**: New features, backward compatible
+- **MINOR**: New capabilities, backward compatible
 - **PATCH**: Bug fixes, backward compatible
 
 ### Tag Format
@@ -327,7 +327,7 @@ The document separates branching strategy into **branch types** (what they are c
 | Trunk-based (main only) | High-velocity CD, feature flags | Requires mature CI/CD and feature flags |
 | Release branching (per version) | Products with LTS versions | More backporting overhead |
 
-## Best Practices
+## What Works
 
 1. **Automate enforcement** — branch protection rules and CI checks catch mistakes before merge
 2. **Keep branches short-lived** — feature branches older than a week create integration risk
@@ -347,7 +347,7 @@ The document separates branching strategy into **branch types** (what they are c
 
 ### Should we use GitFlow, GitHub Flow, or trunk-based development?
 
-GitFlow works well for teams with scheduled releases and a need for release stabilization. GitHub Flow (main + feature branches only) is simpler and works for continuous deployment. Trunk-based requires the most maturity — feature flags, comprehensive automated testing, and fast CI/CD. Most teams should start with GitHub Flow and adopt GitFlow only when release management complexity demands it.
+GitFlow works well for teams with scheduled releases and a need for release stabilization. GitHub Flow (main + feature branches only) is simpler and works for continuous deployment. Trunk-based requires the most maturity — feature flags, thorough automated testing, and fast CI/CD. Most teams should start with GitHub Flow and adopt GitFlow only when release management complexity demands it.
 
 ### How do we handle long-running feature branches?
 
