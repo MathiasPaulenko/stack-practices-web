@@ -2,7 +2,7 @@
 contentType: recipes
 slug: compression-gzip
 title: "Compress and Decompress Files with Gzip and Brotli"
-description: "How to reduce file sizes for APIs, static assets, and log files using Gzip, Brotli, and zlib with streaming compression, content negotiation, and best practices."
+description: "How to reduce file sizes for APIs, static assets, and log files using Gzip, Brotli, and zlib with streaming compression, content negotiation, and what works."
 metaDescription: "Learn file compression with Gzip and Brotli. Reduce file sizes for APIs, static assets, and logs using streaming compression and content negotiation."
 difficulty: beginner
 topics:
@@ -137,12 +137,12 @@ brotli_types text/plain text/css application/javascript application/json image/s
 
 | Algorithm | Compression ratio | Speed | Browser support | Best for |
 |-----------|-------------------|-------|-----------------|----------|
-| Gzip | Good | Fast | Universal | Dynamic responses, legacy support |
+| Gzip | Good | Fast | Universal | Live responses, legacy support |
 | Brotli | Excellent | Medium | Modern browsers | Static assets, pre-compressed files |
 | Zstandard | Very good | Very fast | Limited | Internal APIs, microservices |
 | LZ4 | Low | Extremely fast | Tools | Real-time logs, speed-critical paths |
 
-## Best practices
+## What Works
 
 - **Pre-compress static assets during build**: instead of compressing on every request, run `brotli -q 11` and `gzip -k` during your CI/CD pipeline. Store `.br` and `.gz` variants alongside originals. Nginx can serve these directly with `brotli_static on`.
 - **Do not compress already-compressed formats**: images (JPEG, PNG, WebP), videos (MP4), and archives (ZIP) are already compressed. Running Gzip on them wastes CPU and may increase file size. Skip compression for these MIME types.
@@ -153,14 +153,14 @@ brotli_types text/plain text/css application/javascript application/json image/s
 ## Common mistakes
 
 - **Double compression**: applying Gzip to a response that is already Brotli-compressed, or vice versa, corrupts the data. Ensure your middleware stack does not apply multiple compression layers.
-- **Compressing on every request**: dynamic compression for static assets is wasteful. Pre-compress once at build time and serve the pre-compressed file directly. Dynamic compression should only apply to truly dynamic responses.
+- **Compressing on every request**: live compression for static assets is wasteful. Pre-compress once at build time and serve the pre-compressed file directly. Live compression should only apply to truly live responses.
 - **Forgetting to decompress on the client**: API clients must explicitly decompress responses or use libraries that handle `Content-Encoding` transparently. Raw Gzip bytes passed to a JSON parser will throw syntax errors.
 - **Ignoring memory limits**: decompressing untrusted user input can trigger zip bomb attacks (a small compressed file that expands to terabytes). Limit decompression buffer sizes and use streaming APIs that process chunks incrementally.
 
 ## FAQ
 
 **Q: Should I use Gzip or Brotli for my application?**
-A: Use both. Brotli for static assets (pre-compressed at build time), Gzip for dynamic responses and legacy browser support. Modern CDNs automatically select the best algorithm based on the client's `Accept-Encoding` header.
+A: Use both. Brotli for static assets (pre-compressed at build time), Gzip for live responses and legacy browser support. Modern CDNs automatically select the best algorithm based on the client's `Accept-Encoding` header.
 
 **Q: Does compression affect caching?**
 A: Yes. A cache must store separate copies for each `Content-Encoding` variant. Configure your CDN or cache to vary on `Accept-Encoding`. Otherwise, a cached gzip response may be served to a client that only supports Brotli.

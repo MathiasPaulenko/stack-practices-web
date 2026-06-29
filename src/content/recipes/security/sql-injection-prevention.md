@@ -39,7 +39,7 @@ The root cause is almost always the same: concatenating untrusted user [input](/
 
 Use this recipe when:
 
-- Writing any code that executes SQL queries with dynamic values
+- Writing any code that executes SQL queries with live values
 - Migrating legacy code that uses string concatenation for SQL
 - Auditing existing applications for injection vulnerabilities
 - Training developers on secure database access patterns
@@ -122,7 +122,7 @@ with Session(engine) as session:
 - **Parameterized queries**: The database driver treats user input as data, not as executable SQL. Placeholders (`?`, `$1`, `:name`) are replaced safely by the driver, preventing any injected SQL from being interpreted as commands.
 - **Prepared statements**: The database compiles the query plan once and executes it with different parameters. This is both a security and performance win.
 - **ORMs**: Object-relational mappers like SQLAlchemy, Sequelize, and Hibernate automatically parameterize queries. They are the safest choice for most applications because they abstract SQL entirely.
-- **Stored procedures**: Can add a layer of abstraction, but they do not prevent injection if they themselves concatenate input inside dynamic SQL.
+- **Stored procedures**: Can add a layer of abstraction, but they do not prevent injection if they themselves concatenate input inside live SQL.
 
 ## Variants
 
@@ -131,11 +131,11 @@ with Session(engine) as session:
 | Raw parameterized queries | Excellent | High | Complex queries, reporting |
 | ORM | Excellent | Medium | CRUD-heavy applications |
 | Stored procedures | Good | Low | Legacy systems, strict DBAs |
-| Query builders (Knex, jOOQ) | Good | High | Dynamic query construction |
+| Query builders (Knex, jOOQ) | Good | High | Live query construction |
 
-## Best Practices
+## What Works
 
-- **Never concatenate user input into SQL strings**: not even for `ORDER BY` columns or table names. Use allowlists if dynamic identifiers are unavoidable.
+- **Never concatenate user input into SQL strings**: not even for `ORDER BY` columns or table names. Use allowlists if live identifiers are unavoidable.
 - **Use an ORM by default**: it eliminates entire categories of injection bugs with minimal performance cost.
 - **Validate input before it reaches the database**: [input validation](/recipes/api/input-validation) and parameterized queries are complementary defenses.
 - **Use least-privilege database accounts**: the application user should not have `DROP TABLE` or `GRANT` permissions.
@@ -148,7 +148,7 @@ with Session(engine) as session:
 - **Partial parameterization**: parameterizing the `WHERE` clause but concatenating `ORDER BY` columns or table names.
 - **Trusting client-side validation**: attackers bypass frontend validation entirely. All validation must be server-side.
 - **Using `LIKE` without escaping wildcards**: `%` and `_` in user input can cause unexpected matches even in parameterized queries.
-- **Assuming stored procedures are safe**: procedures that build dynamic SQL internally are still vulnerable unless they use parameterized queries themselves.
+- **Assuming stored procedures are safe**: procedures that build live SQL internally are still vulnerable unless they use parameterized queries themselves.
 
 ## Frequently Asked Questions
 

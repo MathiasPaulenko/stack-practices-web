@@ -40,7 +40,7 @@ La causa raíz es casi siempre la misma: concatenar [input](/recipes/api/input-v
 
 Usa esta receta cuando:
 
-- Escribes cualquier código que ejecute queries SQL con valores dinámicos
+- Escribes cualquier código que ejecute queries SQL con valores en vivo
 - Migras código legacy que usa concatenación de strings para SQL
 - Auditas aplicaciones existentes en busca de vulnerabilidades de inyección
 - Entrenas desarrolladores en patrones seguros de acceso a bases de datos
@@ -123,7 +123,7 @@ with Session(engine) as session:
 - **Queries parametrizadas**: El driver de la base de datos trata el input del usuario como datos, no como SQL ejecutable. Los placeholders (`?`, `$1`, `:name`) son reemplazados de forma segura por el driver, previniendo que cualquier SQL inyectado sea interpretado como comandos.
 - **Prepared statements**: La base de datos compila el plan de ejecución una vez y lo ejecuta con diferentes parámetros. Esto es tanto una victoria de seguridad como de rendimiento.
 - **ORMs**: Los mapeadores objeto-relacional como SQLAlchemy, Sequelize y Hibernate parametrizan queries automáticamente. Son la opción más segura para la mayoría de aplicaciones porque abstraen el SQL por completo.
-- **Stored procedures**: Pueden agregar una capa de abstracción, pero no previenen la inyección si ellos mismos concatenan input dentro de SQL dinámico.
+- **Stored procedures**: Pueden agregar una capa de abstracción, pero no previenen la inyección si ellos mismos concatenan input dentro de SQL en vivo.
 
 ## Variantes
 
@@ -132,11 +132,11 @@ with Session(engine) as session:
 | Raw queries parametrizadas | Excelente | Alta | Queries complejas, reporting |
 | ORM | Excelente | Media | Aplicaciones CRUD-intensive |
 | Stored procedures | Buena | Baja | Sistemas legacy, DBAs estrictos |
-| Query builders (Knex, jOOQ) | Buena | Alta | Construcción dinámica de queries |
+| Query builders (Knex, jOOQ) | Buena | Alta | Construcción en vivo de queries |
 
-## Mejores prácticas
+## Lo que funciona
 
-- **Nunca concatenes input de usuario en strings de SQL**: ni siquiera para columnas `ORDER BY` o nombres de tablas. Usa listas permitidas si identificadores dinámicos son inevitables.
+- **Nunca concatenes input de usuario en strings de SQL**: ni siquiera para columnas `ORDER BY` o nombres de tablas. Usa listas permitidas si identificadores en vivo son inevitables.
 - **Usa un ORM por defecto**: elimina categorías enteras de bugs de inyección con un costo de rendimiento mínimo.
 - **Valida el input antes de que llegue a la base de datos**: la [validación de input](/recipes/api/input-validation) y las queries parametrizadas son defensas complementarias.
 - **Usa cuentas de base de datos de menor privilegio**: el usuario de la aplicación no debería tener permisos `DROP TABLE` o `GRANT`.
@@ -149,7 +149,7 @@ with Session(engine) as session:
 - **Parametrización parcial**: parametrizar la cláusula `WHERE` pero concatenar columnas `ORDER BY` o nombres de tablas.
 - **Confiar en validación client-side**: los atacantes bypassan la validación del frontend por completo. Toda validación debe ser server-side.
 - **Usar `LIKE` sin escapar wildcards**: `%` y `_` en input de usuario pueden causar matches inesperados incluso en queries parametrizadas.
-- **Asumir que los stored procedures son seguros**: los procedures que construyen SQL dinámico internamente siguen siendo vulnerables a menos que usen queries parametrizadas ellos mismos.
+- **Asumir que los stored procedures son seguros**: los procedures que construyen SQL en vivo internamente siguen siendo vulnerables a menos que usen queries parametrizadas ellos mismos.
 
 ## Preguntas frecuentes
 

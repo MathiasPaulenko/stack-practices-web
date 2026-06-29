@@ -28,7 +28,7 @@ seo:
 
 ## Visión general
 
-La fatiga de contraseñas es real. Los usuarios olvidan contraseñas, las reutilizan entre sitios, caen en ataques de phishing o abandonan flujos de registro cuando se les pide crear otra credencial compleja. La autenticación con magic links elimina las contraseñas por completo enviando una URL de tiempo limitado y uso único a la dirección de email del usuario. Al hacer clic en el link, el usuario se autentica instantáneamente, creando una experiencia de login fluida sin requerir contraseña alguna.
+La fatiga de contraseñas es real. Los usuarios olvidan contraseñas, las reutilizan entre sitios, caen en ataques de phishing o abandonan flujos de registro cuando se les pide crear otra credencial compleja. La autenticación con magic links elimina las contraseñas por completo enviando una URL de tiempo limitado y uso único a la dirección de email del usuario. Al hacer clic en el link, el usuario se autentica instantáneamente, creando una experiencia de login suave sin requerir contraseña alguna.
 
 El modelo de seguridad de los magic links se basa en el supuesto de que la cuenta de email del usuario es segura. Si un atacante gana acceso al inbox del usuario, puede interceptar magic links igual que podría interceptar emails de reset de contraseña. La defensa es mantener los tokens de corta duración (5-15 minutos), de uso único, criptográficamente aleatorios, y transmitidos exclusivamente sobre HTTPS. Esta receta cubre generación de tokens, entrega de email, lógica de validación y hardening contra ataques replay.
 
@@ -159,7 +159,7 @@ async function sendMagicLink(email, magicLink) {
 | SMS code | En memoria/Redis | 5 min | Ingreso de código | Apps mobile-first |
 | Push notification | Stateless | 1 min | Tap para aprobar | Banca, alta seguridad |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Envía desde un subdominio dedicado**: usa `auth@login.yourapp.com` o similar. Esto ayuda a usuarios a reconocer emails legítimos y te permite implementar políticas DMARC, DKIM y SPF específicamente para emails de autenticación.
 - **Incluye fallback de texto plano**: siempre provee una versión en texto plano del magic link junto a HTML. Algunos clientes de email deshabilitan HTML o lo renderizan mal. El link debe ser cliqueable o copiable en forma de texto.

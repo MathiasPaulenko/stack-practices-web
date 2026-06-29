@@ -143,11 +143,11 @@ resource "aws_lambda_function" "handler" {
 
 | Platform | API Gateway | Function Runtime | Best For |
 |----------|-------------|------------------|----------|
-| AWS | API Gateway + Lambda | Python, Node, Java, Go | Mature ecosystem, broad integrations |
+| AWS | API Gateway + Lambda | Python, Node, Java, Go | Mature platform, broad integrations |
 | Azure | API Management + Functions | .NET, Node, Python | Microsoft ecosystem, Visual Studio integration |
 | GCP | Cloud Endpoints + Cloud Functions | Node, Python, Go | BigQuery integration, competitive pricing |
 
-## Best Practices
+## What Works
 
 - **Keep functions stateless**: do not assume variables in memory persist between invocations. Use external storage (DynamoDB, S3, Redis) for state.
 - **Minimize deployment package size**: large packages increase cold start time. Use Lambda layers for shared dependencies and tree-shake unused code.

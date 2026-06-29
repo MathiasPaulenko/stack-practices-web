@@ -2,7 +2,7 @@
 contentType: recipes
 slug: compression-gzip
 title: "Comprimir y Descomprimir Archivos con Gzip y Brotli"
-description: "Cómo reducir tamaños de archivos para APIs, assets estáticos y logs usando Gzip, Brotli y zlib con compresión streaming, negociación de contenido y mejores prácticas."
+description: "Cómo reducir tamaños de archivos para APIs, assets estáticos y logs usando Gzip, Brotli y zlib con compresión streaming, negociación de contenido y lo que funciona."
 metaDescription: "Aprende compresión de archivos con Gzip y Brotli. Reduce tamaños para APIs, assets estáticos y logs usando compresión streaming y negociación de contenido."
 difficulty: beginner
 topics:
@@ -135,12 +135,12 @@ brotli_types text/plain text/css application/javascript application/json image/s
 
 | Algoritmo | Ratio de compresión | Velocidad | Soporte de navegador | Mejor para |
 |-----------|---------------------|-----------|----------------------|------------|
-| Gzip | Bueno | Rápida | Universal | Responses dinámicas, soporte legacy |
+| Gzip | Bueno | Rápida | Universal | Responses en vivo, soporte legacy |
 | Brotli | Excelente | Media | Navegadores modernos | Assets estáticos pre-comprimidos |
 | Zstandard | Muy bueno | Muy rápida | Limitado | APIs internas, microservicios |
 | LZ4 | Bajo | Extremadamente rápida | Herramientas | Logs en tiempo real, rutas críticas de velocidad |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Pre-comprime assets estáticos durante build**: en lugar de comprimir en cada request, ejecuta `brotli -q 11` y `gzip -k` durante tu pipeline CI/CD. Almacena variantes `.br` y `.gz` junto a los originales. Nginx puede servirlos directamente con `brotli_static on`.
 - **No compres formatos ya comprimidos**: imágenes (JPEG, PNG, WebP), videos (MP4) y archivos (ZIP) ya están comprimidos. Ejecutar Gzip sobre ellos desperdicia CPU y puede aumentar el tamaño del archivo. Salta compresión para estos MIME types.
@@ -151,14 +151,14 @@ brotli_types text/plain text/css application/javascript application/json image/s
 ## Errores comunes
 
 - **Doble compresión**: aplicar Gzip a una response que ya está comprimida con Brotli, o viceversa, corrompe los datos. Asegúrate de que tu stack de middleware no aplique múltiples capas de compresión.
-- **Comprimir en cada request**: la compresión dinámica para assets estáticos es desperdiciadora. Pre-comprime una vez al momento de build y sirve el archivo pre-comprimido directamente. La compresión dinámica debería aplicarse solo a responses genuinamente dinámicas.
+- **Comprimir en cada request**: la compresión en vivo para assets estáticos es desperdiciadora. Pre-comprime una vez al momento de build y sirve el archivo pre-comprimido directamente. La compresión en vivo debería aplicarse solo a responses genuinamente en vivo.
 - **Olvidar descomprimir en el cliente**: los clientes de API deben descomprimir responses explícitamente o usar bibliotecas que manejen `Content-Encoding` transparentemente. Bytes crudos de Gzip pasados a un parser JSON lanzarán errores de sintaxis.
 - **Ignorar límites de memoria**: descomprimir input no confiable de usuario puede desencadenar ataques de zip bomb (un archivo comprimido pequeño que expande a terabytes). Limita tamaños de buffer de descompresión y usa APIs de streaming que procesen chunks incrementalmente.
 
 ## Preguntas frecuentes
 
 **P: ¿Debería usar Gzip o Brotli para mi aplicación?**
-R: Usa ambos. Brotli para assets estáticos (pre-comprimidos al momento de build), Gzip para responses dinámicas y soporte de navegadores legacy. Los CDNs modernos seleccionan automáticamente el mejor algoritmo basado en el header `Accept-Encoding` del cliente.
+R: Usa ambos. Brotli para assets estáticos (pre-comprimidos al momento de build), Gzip para responses en vivo y soporte de navegadores legacy. Los CDNs modernos seleccionan automáticamente el mejor algoritmo basado en el header `Accept-Encoding` del cliente.
 
 **P: ¿La compresión afecta el caching?**
 R: Sí. Un cache debe almacenar copias separadas para cada variante de `Content-Encoding`. Configura tu CDN o cache para variar sobre `Accept-Encoding`. De lo contrario, una response gzip cacheada puede ser servida a un cliente que solo soporta Brotli.

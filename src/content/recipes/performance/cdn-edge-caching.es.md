@@ -2,8 +2,8 @@
 contentType: recipes
 slug: cdn-edge-caching
 title: "Implementar CDN edge caching"
-description: "Configura redes de entrega de contenido con reglas de edge caching, invalidación de caché y optimización geográfica para contenido estático y dinámico."
-metaDescription: "Implementa CDN edge caching con reglas de caché, invalidación y geo-optimización. Configura CloudFront, Cloudflare y Fastly para contenido estático y dinámico."
+description: "Configura redes de entrega de contenido con reglas de edge caching, invalidación de caché y optimización geográfica para contenido estático y en vivo."
+metaDescription: "Implementa CDN edge caching con reglas de caché, invalidación y geo-optimización. Configura CloudFront, Cloudflare y Fastly para contenido estático y en vivo."
 difficulty: intermediate
 topics:
   - performance
@@ -19,7 +19,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Implementa CDN edge caching con reglas de caché, invalidación y geo-optimización. Configura CloudFront, Cloudflare y Fastly para contenido estático y dinámico."
+  metaDescription: "Implementa CDN edge caching con reglas de caché, invalidación y geo-optimización. Configura CloudFront, Cloudflare y Fastly para contenido estático y en vivo."
   keywords:
     - cdn
     - edge-caching
@@ -32,16 +32,16 @@ seo:
 
 ## Visión General
 
-Una Red de Entrega de Contenido (CDN) distribuye tu contenido a través de servidores edge geográficamente dispersos, reduciendo la latencia al servir a los usuarios desde la ubicación más cercana, mejorando [rendimiento](/guides/performance/performance-optimization-guide). Un edge caching correctamente configurado puede reducir los tiempos de carga de página en un 50–80% y disminuir significativamente la carga del servidor de origen.
+Una Red de Entrega de Contenido (CDN) distribuye tu contenido a través de servidores edge geográficamente dispersos, reduciendo la latencia al servir a los usuarios desde la ubicación más cercana, mejorando [rendimiento](/guides/performance/performance-optimization-guide). Un edge caching correctamente configurado puede reducir los tiempos de carga de página en un 50–80% y disminuir considerablemente la carga del servidor de origen.
 
-Esta receta cubre la configuración de reglas de edge caching de CDN, estrategias de invalidación de caché y optimización geográfica para contenido estático y dinámico.
+Esta receta cubre la configuración de reglas de edge caching de CDN, estrategias de invalidación de caché y optimización geográfica para contenido estático y en vivo.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Tu audiencia global experimenta tiempos de carga lentos desde un único origen
 - Tu servidor de origen está saturado por peticiones repetidas del mismo contenido
-- Necesitas cachear [respuestas de API](/recipes/api/call-rest-api) o páginas generadas dinámicamente
+- Necesitas cachear [respuestas de API](/recipes/api/call-rest-api) o páginas generadas en vivo
 - Quieres reducir costos de ancho de banda y mejorar [tolerancia a fallos](/guides/devops/logging-monitoring-observability-guide)
 
 ## Solución
@@ -118,18 +118,18 @@ Las CDNs operan sobre un principio simple: replicar contenido más cerca de los 
 - **Cache miss**: Contenido no está en el edge; se obtiene del origen y luego se cachea
 - **TTL (Time to Live)**: Cuánto tiempo el contenido cacheado permanece válido antes de revalidación
 
-El cacheo de contenido dinámico requiere configuración cuidadosa de headers. Usa `Cache-Control: max-age=0, s-maxage=60` para permitir cacheo de CDN mientras previenes cacheo de navegador, o usa surrogate keys para invalidación granular.
+El cacheo de contenido en vivo requiere configuración cuidadosa de headers. Usa `Cache-Control: max-age=0, s-maxage=60` para permitir cacheo de CDN mientras previenes cacheo de navegador, o usa surrogate keys para invalidación granular.
 
 ## Variantes
 
-| Proveedor | Configuración | Ideal para | Cacheo dinámico |
+| Proveedor | Configuración | Ideal para | Cacheo en vivo |
 |-----------|--------------|------------|-----------------|
 | Cloudflare | Dashboard, API, Terraform | Uso general, integración DNS | Cache Rules, Workers |
 | AWS CloudFront | Console, Terraform, SAM | Ecosistema AWS, orígenes S3 | Cache Policies, Lambda@Edge |
 | Fastly | VCL, API, Terraform | Alto tráfico, purge en tiempo real | Surrogate Keys, lógica VCL |
 | Akamai | Control Center, PAPI | Empresarial, streaming de media | EdgeWorkers, mPulse |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Configura TTLs largos para assets inmutables**: Versiona nombres de archivo (`app.v2.js`) y cachea por 1 año
 - **Usa cache busting para despliegues**: Cambia URLs en lugar de invalidar — es más rápido y confiable
@@ -147,7 +147,7 @@ El cacheo de contenido dinámico requiere configuración cuidadosa de headers. U
 
 ## Preguntas Frecuentes
 
-**P: ¿Cómo cacheo respuestas dinámicas de API?**
+**P: ¿Cómo cacheo respuestas en vivo de API?**
 R: Usa `s-maxage` (surrogate max age) para cacheo solo de CDN manteniendo `max-age=0` para navegadores. Invalida via surrogate keys cuando los datos subyacentes cambien.
 
 **P: ¿Cuál es la diferencia entre purging e invalidation?**

@@ -2,8 +2,8 @@
 contentType: recipes
 slug: cdn-edge-caching
 title: "Implement CDN Edge Caching"
-description: "Configure content delivery networks with edge caching rules, cache invalidation, and geographic optimization for static and dynamic content."
-metaDescription: "Implement CDN edge caching with cache rules, invalidation, and geo-optimization. Configure CloudFront, Cloudflare, and Fastly for static and dynamic content."
+description: "Configure content delivery networks with edge caching rules, cache invalidation, and geographic optimization for static and live content."
+metaDescription: "Implement CDN edge caching with cache rules, invalidation, and geo-optimization. Configure CloudFront, Cloudflare, and Fastly for static and live content."
 difficulty: intermediate
 topics:
   - performance
@@ -19,7 +19,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Implement CDN edge caching with cache rules, invalidation, and geo-optimization. Configure CloudFront, Cloudflare, and Fastly for static and dynamic content."
+  metaDescription: "Implement CDN edge caching with cache rules, invalidation, and geo-optimization. Configure CloudFront, Cloudflare, and Fastly for static and live content."
   keywords:
     - cdn
     - edge-caching
@@ -32,16 +32,16 @@ seo:
 
 ## Overview
 
-A Content Delivery Network (CDN) distributes your content across geographically dispersed edge servers, reducing latency by serving users from the nearest location, improving [performance](/guides/performance/performance-optimization-guide). Properly configured edge caching can cut page load times by 50–80% and significantly reduce origin server load.
+A Content Delivery Network (CDN) distributes your content across geographically dispersed edge servers, reducing latency by serving users from the nearest location, improving [performance](/guides/performance/performance-optimization-guide). Properly configured edge caching can cut page load times by 50–80% and considerably reduce origin server load.
 
-This recipe covers configuring CDN edge caching rules, cache invalidation strategies, and geographic optimization for both static and dynamic content.
+This recipe covers configuring CDN edge caching rules, cache invalidation strategies, and geographic optimization for both static and live content.
 
 ## When to Use
 
 Use this resource when:
 - Your global audience experiences slow load times from a single origin
 - Your origin server is overwhelmed with repeated requests for the same content
-- You need to cache [API responses](/recipes/api/call-rest-api) or dynamically generated pages
+- You need to cache [API responses](/recipes/api/call-rest-api) or live generated pages
 - You want to reduce bandwidth costs and improve [fault tolerance](/guides/devops/logging-monitoring-observability-guide)
 
 ## Solution
@@ -118,18 +118,18 @@ CDNs operate on a simple principle: replicate content closer to users. Key conce
 - **Cache miss**: Content not at edge; fetched from origin, then cached
 - **TTL (Time to Live)**: How long cached content remains valid before revalidation
 
-Dynamic content caching requires careful header configuration. Use `Cache-Control: max-age=0, s-maxage=60` to allow CDN caching while preventing browser caching, or use surrogate keys for fine-grained invalidation.
+Live content caching requires careful header configuration. Use `Cache-Control: max-age=0, s-maxage=60` to allow CDN caching while preventing browser caching, or use surrogate keys for fine-grained invalidation.
 
 ## Variants
 
-| Provider | Configuration | Best For | Dynamic Caching |
+| Provider | Configuration | Best For | Live Caching |
 |----------|--------------|----------|----------------|
 | Cloudflare | Dashboard, API, Terraform | General purpose, DNS integration | Cache Rules, Workers |
 | AWS CloudFront | Console, Terraform, SAM | AWS ecosystem, S3 origins | Cache Policies, Lambda@Edge |
 | Fastly | VCL, API, Terraform | High-traffic, real-time purge | Surrogate Keys, VCL logic |
 | Akamai | Control Center, PAPI | Enterprise, media streaming | EdgeWorkers, mPulse |
 
-## Best Practices
+## What Works
 
 - **Set long TTLs for immutable assets**: Version filenames (`app.v2.js`) and cache for 1 year
 - **Use cache busting for deployments**: Change URLs instead of invalidating — it's faster and more reliable
@@ -147,7 +147,7 @@ Dynamic content caching requires careful header configuration. Use `Cache-Contro
 
 ## Frequently Asked Questions
 
-**Q: How do I cache dynamic API responses?**
+**Q: How do I cache live API responses?**
 A: Use `s-maxage` (surrogate max age) for CDN-only caching while keeping `max-age=0` for browsers. Invalidate via surrogate keys when underlying data changes.
 
 **Q: What is the difference between purging and invalidation?**
