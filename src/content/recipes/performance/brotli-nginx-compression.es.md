@@ -42,7 +42,7 @@ Brotli es un algoritmo de compresion moderno desarrollado por Google que consist
 ## Requisitos Previos
 
 - Nginx compilado con el modulo `ngx_brotli` o usando el paquete `nginx-full`
-- Certificado SSL/TLS (Brotli solo es efectivo sobre HTTPS en la practica)
+- Certificado SSL/TLS (Brotli solo es util sobre HTTPS en la practica)
 
 ## Solucion
 

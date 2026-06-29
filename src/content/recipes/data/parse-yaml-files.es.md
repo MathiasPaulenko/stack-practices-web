@@ -123,7 +123,7 @@ Los anchors (`&`) y aliases (`*`) de YAML permiten configuración DRY referencia
 | Python | ruamel.yaml | `YAML()` | Preserva comentarios y formato en round-trip |
 | JavaScript | js-yaml | `load()` / `dump()` | Rápido, ampliamente usado, seguro por defecto |
 | Java | SnakeYAML | `Yaml.load()` | Estándar para JVM, soporta tipos custom |
-| Java | Jackson YAML | `ObjectMapper` | Binding a POJOs con Jackson |
+| Java | Jackson YAML | `ObjectMapper` | Binding fluido a POJOs con Jackson |
 | Go | gopkg.in/yaml.v3 | `yaml.Unmarshal()` | Soporte nativo para structs Go |
 
 ## Lo que funciona

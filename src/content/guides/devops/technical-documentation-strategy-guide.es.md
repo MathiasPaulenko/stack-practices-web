@@ -28,7 +28,7 @@ seo:
     - estrategia documentacion tecnica
     - documentacion ingenieria
     - flujo documentacion markdown
-    - mejores practicas documentacion
+    - lo que funciona documentacion
 ---
 
 # Estrategia de Documentación Técnica: Docs as Code
