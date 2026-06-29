@@ -133,7 +133,7 @@ Un postmortem sin culpa se enfoca en fallas de sistema y proceso en lugar de err
 
 ### Cuándo debería escribir un postmortem?
 
-Escribe un postmortem después de cualquier incidente de producción significativo, incumplimiento de SLA, o cualquier evento que el equipo acuerde que vale la pena documentar. Publica dentro de 48 horas de la resolución.
+Escribe un postmortem después de cualquier incidente de producción mayor, incumplimiento de SLA, o cualquier evento que el equipo acuerde que vale la pena documentar. Publica dentro de 48 horas de la resolución.
 
 ### Quién debería participar en un postmortem?
 

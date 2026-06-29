@@ -77,11 +77,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\docs\devops\cloud-resource-tagging-policy-template.md | 7.0 | underscores → (manual review), best practices → what works, scalable → growth-ready | src\content\docs\devops\cloud-resource-tagging-policy-template.es.md | pending |
-| src\content\docs\devops\data-migration-runbook-template.md | 7.0 | transformation → change, best practices → what works | src\content\docs\devops\data-migration-runbook-template.es.md | pending |
-| src\content\docs\devops\deployment-checklist-template.md | 7.0 | learnings → (manual review), best practices → what works, features → capabilities | src\content\docs\devops\deployment-checklist-template.es.md | pending |
-| src\content\docs\templates\incident-postmortem-template.md | 7.0 | features → capabilities, significant → major, actionable → useful | src\content\docs\templates\incident-postmortem-template.es.md | pending |
-| src\content\guides\architecture\api-gateway-design-guide.md | 7.0 | ecosystem → platform, best practices → what works, features → capabilities | src\content\guides\architecture\api-gateway-design-guide.es.md | pending |
+| src\content\docs\devops\cloud-resource-tagging-policy-template.md | 7.0 | underscores → (manual review), best practices → what works, scalable → growth-ready | src\content\docs\devops\cloud-resource-tagging-policy-template.es.md | completed |
+| src\content\docs\devops\data-migration-runbook-template.md | 7.0 | transformation → change, best practices → what works | src\content\docs\devops\data-migration-runbook-template.es.md | completed |
+| src\content\docs\devops\deployment-checklist-template.md | 7.0 | learnings → (manual review), best practices → what works, features → capabilities | src\content\docs\devops\deployment-checklist-template.es.md | completed |
+| src\content\docs\templates\incident-postmortem-template.md | 7.0 | features → capabilities, significant → major, actionable → useful | src\content\docs\templates\incident-postmortem-template.es.md | completed |
+| src\content\guides\architecture\api-gateway-design-guide.md | 7.0 | ecosystem → platform, best practices → what works, features → capabilities | src\content\guides\architecture\api-gateway-design-guide.es.md | completed |
 
 ### Batch 04 (priority: medium)
 
