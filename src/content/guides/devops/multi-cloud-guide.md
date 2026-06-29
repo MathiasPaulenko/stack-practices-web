@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-Multi-cloud is the deliberate use of services from two or more cloud providers to run an organization's workloads. Unlike hybrid cloud (on-prem + cloud), multi-cloud means AWS, Azure, and/or GCP operating together. Motivations include avoiding vendor lock-in, accessing best-of-breed services, meeting regulatory requirements for data residency, and improving resilience through provider diversity. However, multi-cloud significantly increases operational complexity, cost, and skill requirements. It should not be the default — it should be a deliberate, justified architectural choice.
+Multi-cloud is the deliberate use of services from two or more cloud providers to run an organization's workloads. Unlike hybrid cloud (on-prem + cloud), multi-cloud means AWS, Azure, and/or GCP operating together. Motivations include avoiding vendor lock-in, accessing best-of-breed services, meeting regulatory requirements for data residency, and improving resilience through provider diversity. However, multi-cloud considerably increases operational complexity, cost, and skill requirements. It should not be the default — it should be a deliberate, justified architectural choice.
 
 ## When to Use
 
@@ -46,7 +46,7 @@ Multi-cloud is the deliberate use of services from two or more cloud providers t
 - You need best-of-breed services (e.g., BigQuery for analytics, AWS for compute, Azure for enterprise integration)
 - Business continuity demands provider-level fault tolerance
 - You have acquired companies running on different clouds and merger is not feasible
-- Vendor negotiation leverage is a strategic priority
+- Vendor negotiation power is a strategic priority
 
 ## When NOT to Use
 

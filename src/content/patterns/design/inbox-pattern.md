@@ -398,7 +398,7 @@ The Inbox Pattern works in three stages:
 
 1. **Receive**: Incoming messages are immediately persisted to the inbox with a deterministic `message_id`. This makes receipt idempotent — duplicates are rejected by the unique constraint.
 2. **Process**: A background worker polls for `pending` messages, marks them as `processing`, and invokes the business logic. If processing succeeds, the message becomes `completed`; if it fails, it returns to `pending` for retry.
-3. **Monitor**: The inbox table serves as an audit log and operations dashboard, showing pending, failed, and completed message counts.
+3. **Monitor**: The inbox table works as an audit log and operations dashboard, showing pending, failed, and completed message counts.
 
 ## Variants
 
@@ -409,7 +409,7 @@ The Inbox Pattern works in three stages:
 | **Message Queue** | SQS, RabbitMQ | Native redelivery, may need external deduplication |
 | **File-based** | Append-only log | Simple, no DB dependency, harder to query |
 
-## Best Practices
+## What Works
 
 - **Use deterministic message IDs.** Hash the payload + source identifier so duplicates are naturally deduplicated.
 - **Keep processing idempotent.** Even with deduplication, design business logic to handle retries safely.

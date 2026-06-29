@@ -473,11 +473,11 @@ Database per Service enforces boundaries through physical isolation:
 | **Separate collections/tables** | Minimal isolation | Migration phase from monolith |
 | **Schema per tenant + service** | Multi-tenant microservices | SaaS applications with per-tenant data |
 
-## Best Practices
+## What Works
 
 - **Never expose your database directly.** Always access other services through their APIs or events.
 - **Use an outbox pattern for events.** Publish events atomically with database transactions.
-- **Embrace eventual consistency.** Cross-service data will be temporarily inconsistent; design for it.
+- **Adopt eventual consistency.** Cross-service data will be temporarily inconsistent; design for it.
 - **Implement sagas for multi-service transactions.** Compensating transactions handle failures across services.
 - **Keep service databases small.** If a service's database grows too large, consider splitting the service.
 

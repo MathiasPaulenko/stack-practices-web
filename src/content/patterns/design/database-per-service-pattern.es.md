@@ -473,11 +473,11 @@ Database per Service impone boundaries a través de aislamiento físico:
 | **Colecciones/tablas separadas** | Aislamiento mínimo | Fase de migración desde monolito |
 | **Schema por tenant + servicio** | Microservicios multi-tenant | Aplicaciones SaaS con datos por tenant |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Nunca expongas tu base de datos directamente.** Accede a otros servicios siempre a través de sus APIs o eventos.
 - **Usa un outbox pattern para eventos.** Publica eventos atómicamente con transacciones de base de datos.
-- **Abraza la consistencia eventual.** Los datos cross-service estarán temporalmente inconsistentes; diseña para ello.
+- **Adopta la consistencia eventual.** Los datos cross-service estarán temporalmente inconsistentes; diseña para ello.
 - **Implementa sagas para transacciones multi-servicio.** Las transacciones compensatorias manejan fallas entre servicios.
 - **Mantén las bases de datos de servicio pequeñas.** Si la base de datos de un servicio crece demasiado, considera dividir el servicio.
 

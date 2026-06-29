@@ -398,7 +398,7 @@ El Patrón Inbox funciona en tres etapas:
 
 1. **Recibir**: Los mensajes entrantes se persisten inmediatamente en el inbox con un `message_id` determinístico. Esto hace la recepción idempotente — los duplicados son rechazados por la restricción unique.
 2. **Procesar**: Un worker en background hace polling de mensajes `pending`, los marca como `processing` e invoca la lógica de negocio. Si el procesamiento tiene éxito, el mensaje pasa a `completed`; si falla, retorna a `pending` para retry.
-3. **Monitorear**: La tabla de inbox sirve como log de auditoría y dashboard de operaciones, mostrando conteos de mensajes pendientes, fallidos y completados.
+3. **Monitorear**: La tabla de inbox funciona como log de auditoría y dashboard de operaciones, mostrando conteos de mensajes pendientes, fallidos y completados.
 
 ## Variantes
 
@@ -409,7 +409,7 @@ El Patrón Inbox funciona en tres etapas:
 | **Message Queue** | SQS, RabbitMQ | Redelivery nativa, puede necesitar deduplicación externa |
 | **File-based** | Log append-only | Simple, sin dependencia de DB, más difícil de consultar |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa IDs de mensaje determinísticos.** Hashea el payload + identificador de fuente para que los duplicados sean naturalmente deduplicados.
 - **Mantén el procesamiento idempotente.** Incluso con deduplicación, diseña la lógica de negocio para manejar retries de forma segura.

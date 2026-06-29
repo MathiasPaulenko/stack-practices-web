@@ -150,7 +150,7 @@ logger.info({
 });
 ```
 
-**Structured logging best practices:**
+**What works for structured logging:**
 - Always log as JSON in production
 - Use consistent field names (snake_case recommended)
 - Include trace_id, span_id, and request_id in every log
@@ -214,7 +214,7 @@ output.elasticsearch:
   index: "myapp-logs-%{+yyyy.MM.dd}"
 ```
 
-**Shipping best practices:**
+**What works for shipping:**
 - Use backpressure-aware shippers that won't crash the host
 - Add metadata (host, service, environment) at the shipper level
 - Buffer locally to survive temporary network outages
@@ -277,7 +277,7 @@ PUT _ilm/policy/logs_policy
 
 ### 4. Query and Analyze Logs
 
-Make your aggregated logs actionable:
+Make your aggregated logs useful:
 
 ```kibana
 # Example: KQL (Kibana Query Language)
@@ -314,7 +314,7 @@ sum(rate({job="orders-service"} |= "ERROR" [1m]))
 {job="payment-service"} |= "payment_processed" | json | line_format "{{.amount}}"
 ```
 
-**Query best practices:**
+**What works for querying:**
 - Learn the query language of your chosen platform (KQL, LogQL, SPL)
 - Save common queries as dashboards or alerts
 - Use log-based metrics for dashboards (faster than raw log queries)
@@ -357,7 +357,7 @@ groups:
 - Missing logs: `Log volume dropped below expected baseline`
 - Security event: `Pattern matching known attack signatures`
 
-## Best Practices
+## What Works
 
 - **Standardize log levels.** Use ERROR, WARN, INFO, DEBUG consistently across all services.
 - **Include correlation IDs.** Every log must have trace_id, span_id, or request_id for cross-service debugging.
@@ -384,7 +384,7 @@ groups:
 ## FAQ
 
 **Q: Should I use ELK or Loki?**
-ELK is more mature and feature-rich. Loki is simpler, cheaper at scale, and integrates natively with Grafana. Choose ELK for complex search; Loki for cost-efficient observability.
+ELK is more mature and capable. Loki is simpler, cheaper at scale, and integrates natively with Grafana. Choose ELK for complex search; Loki for cost-efficient observability.
 
 **Q: How do I handle multi-line logs (stack traces)?**
 Use log shippers with multiline parsing (Filebeat `multiline.pattern`, Fluent Bit `multiline.parser`) or log directly as JSON with the stack trace as a single field.

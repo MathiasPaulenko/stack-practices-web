@@ -3,7 +3,7 @@ contentType: recipes
 slug: api-documentation-openapi
 title: "Create API Documentation with OpenAPI"
 description: "Generate interactive API docs from OpenAPI specs using Swagger UI, Redoc, and native tools in Python, JavaScript, and Java."
-metaDescription: "Create API documentation with OpenAPI and Swagger. Generate interactive docs from specs in Python, JavaScript, and Java with examples and best practices."
+metaDescription: "Create API documentation with OpenAPI and Swagger. Generate interactive docs from specs in Python, JavaScript, and Java with examples and what works."
 difficulty: beginner
 topics:
   - api
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Create API documentation with OpenAPI and Swagger. Generate interactive docs from specs in Python, JavaScript, and Java with examples and best practices."
+  metaDescription: "Create API documentation with OpenAPI and Swagger. Generate interactive docs from specs in Python, JavaScript, and Java with examples and what works."
   keywords:
     - openapi
     - swagger
@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-OpenAPI (formerly Swagger) is the industry standard for describing [REST APIs](/recipes/api/rest-api-design). A well-maintained OpenAPI spec serves as the single source of truth for your API — generating interactive documentation, client SDKs, and automated tests from one YAML or JSON file.
+OpenAPI (formerly Swagger) is the industry standard for describing [REST APIs](/recipes/api/rest-api-design). A well-maintained OpenAPI spec works as the single source of truth for your API — generating interactive documentation, client SDKs, and automated tests from one YAML or JSON file.
 
 This recipe covers generating interactive API docs from OpenAPI specs using Swagger UI, Redoc, and native framework tools.
 
@@ -119,7 +119,7 @@ The generated spec (`openapi.json`) drives:
 | Express + swagger-ui | JavaScript | Design-first | Serve pre-written YAML |
 | tsoa | TypeScript | Code-first | Generate spec from decorators |
 
-## Best Practices
+## What Works
 
 - **Version your spec**: Use `version` field and document breaking changes
 - **Add examples**: Rich examples in schemas reduce integration friction

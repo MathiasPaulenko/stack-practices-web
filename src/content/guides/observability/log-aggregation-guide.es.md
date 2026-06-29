@@ -150,7 +150,7 @@ logger.info({
 });
 ```
 
-**Mejores prácticas de logging estructurado:**
+**Lo que funciona para logging estructurado:**
 - Siempre loguea como JSON en producción
 - Usa nombres de campo consistentes (snake_case recomendado)
 - Incluye trace_id, span_id y request_id en cada log
@@ -214,7 +214,7 @@ output.elasticsearch:
   index: "myapp-logs-%{+yyyy.MM.dd}"
 ```
 
-**Mejores prácticas de envío:**
+**Lo que funciona para el envío:**
 - Usa shippers conscientes de backpressure que no fallen el host
 - Añade metadatos (host, servicio, entorno) a nivel del shipper
 - Almacena en buffer local para sobrevivir cortes de red temporales
@@ -277,7 +277,7 @@ PUT _ilm/policy/logs_policy
 
 ### 4. Consulta y Analiza Logs
 
-Haz que tus logs agregados sean accionables:
+Haz que tus logs agregados sean útiles:
 
 ```kibana
 # Ejemplo: KQL (Lenguaje de Consulta de Kibana)
@@ -314,7 +314,7 @@ sum(rate({job="orders-service"} |= "ERROR" [1m]))
 {job="payment-service"} |= "payment_processed" | json | line_format "{{.amount}}"
 ```
 
-**Mejores prácticas de consulta:**
+**Lo que funciona para consultar:**
 - Aprende el lenguaje de consulta de tu plataforma elegida (KQL, LogQL, SPL)
 - Guarda consultas comunes como dashboards o alertas
 - Usa métricas basadas en logs para dashboards (más rápido que consultas de logs en bruto)
@@ -357,7 +357,7 @@ groups:
 - Logs faltantes: `Volumen de logs cayó por debajo de la línea base esperada`
 - Evento de seguridad: `Coincidencia de patrones conocidos de ataque`
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Estandariza niveles de log.** Usa ERROR, WARN, INFO, DEBUG consistentemente en todos los servicios.
 - **Incluye IDs de correlación.** Cada log debe tener trace_id, span_id o request_id para depuración entre servicios.
@@ -378,13 +378,13 @@ groups:
 
 - **Nativo de nube:** AWS CloudWatch Logs, Google Cloud Logging, Azure Monitor Logs (gestionado, pero específico de proveedor)
 - **Stack open-source:** ELK (Elasticsearch, Logstash, Kibana) o PLG (Promtail, Loki, Grafana)
-- **Empresarial:** Splunk, Datadog, Sumo Logic (características ricas, mayor costo)
+- **Empresarial:** Splunk, Datadog, Sumo Logic (capacidades, mayor costo)
 - **Agregación edge:** Agregación de logs local antes del envío central (reduce costo de red)
 
 ## FAQ
 
 **P: ¿Debería usar ELK o Loki?**
-ELK es más maduro y rico en características. Loki es más simple, más barato a escala y se integra nativamente con Grafana. Elige ELK para búsquedas complejas; Loki para observabilidad eficiente en costo.
+ELK es más maduro y capaz. Loki es más simple, más barato a escala y se integra nativamente con Grafana. Elige ELK para búsquedas complejas; Loki para observabilidad eficiente en costo.
 
 **P: ¿Cómo manejo logs multi-línea (stack traces)?**
 Usa log shippers con parsing multilínea (Filebeat `multiline.pattern`, Fluent Bit `multiline.parser`) o loguea directamente como JSON con el stack trace como un campo único.

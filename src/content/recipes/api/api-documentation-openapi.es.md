@@ -3,7 +3,7 @@ contentType: recipes
 slug: api-documentation-openapi
 title: "Crear documentación de API con OpenAPI"
 description: "Genera documentación de API interactiva a partir de specs OpenAPI usando Swagger UI, Redoc y herramientas nativas en Python, JavaScript y Java."
-metaDescription: "Crea documentación de API con OpenAPI y Swagger. Genera docs interactivos desde specs en Python, JavaScript y Java con ejemplos y mejores prácticas."
+metaDescription: "Crea documentación de API con OpenAPI y Swagger. Genera docs interactivos desde specs en Python, JavaScript y Java con ejemplos y lo que funciona."
 difficulty: beginner
 topics:
   - api
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Crea documentación de API con OpenAPI y Swagger. Genera docs interactivos desde specs en Python, JavaScript y Java con ejemplos y mejores prácticas."
+  metaDescription: "Crea documentación de API con OpenAPI y Swagger. Genera docs interactivos desde specs en Python, JavaScript y Java con ejemplos y lo que funciona."
   keywords:
     - openapi
     - swagger
@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-OpenAPI (anteriormente Swagger) es el estándar de la industria para describir [APIs REST](/recipes/api/rest-api-design). Un spec OpenAPI bien mantenido sirve como única fuente de verdad para tu API — generando documentación interactiva, clientes SDK y tests automatizados desde un solo archivo YAML o JSON.
+OpenAPI (anteriormente Swagger) es el estándar de la industria para describir [APIs REST](/recipes/api/rest-api-design). Un spec OpenAPI bien mantenido funciona como única fuente de verdad para tu API — generando documentación interactiva, clientes SDK y tests automatizados desde un solo archivo YAML o JSON.
 
 Esta receta cubre la generación de documentación de API interactiva a partir de specs OpenAPI usando Swagger UI, Redoc y herramientas nativas de frameworks.
 
@@ -117,7 +117,7 @@ El spec generado (`openapi.json`) alimenta:
 | Express + swagger-ui | JavaScript | Design-first | Servir YAML pre-escrito |
 | tsoa | TypeScript | Code-first | Generar spec desde decoradores |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Versiona tu spec**: Usa el campo `version` y documenta cambios breaking
 - **Añade ejemplos**: Ejemplos ricos en schemas reducen la fricción de integración
