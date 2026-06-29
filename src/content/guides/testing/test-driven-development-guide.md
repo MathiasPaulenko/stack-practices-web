@@ -223,8 +223,8 @@ class ShoppingCart:
 | | Traditional Unit Testing | TDD |
 |---|--------------------------|-----|
 | **When tests are written** | After code | Before code |
-| **Test coverage** | Often incomplete | Comprehensive by design |
-| **Code design influence** | Minimal | Significant (testability drives design) |
+| **Test coverage** | Often incomplete | Thorough by design |
+| **Code design influence** | Minimal | Major (testability drives design) |
 | **Debugging effort** | Higher | Lower |
 
 ## When TDD Works Best
@@ -240,7 +240,7 @@ Use caution with:
 - Exploratory prototyping
 - Tightly coupled legacy code ([refactor](/guides/design/clean-code-principles-guide) to testability first)
 
-## Best Practices
+## What Works
 
 - **Keep tests fast** — a slow test suite discourages running it
 - **One concept per test** — a test failure should point to exactly one problem

@@ -47,7 +47,7 @@ El Patrón Ambassador despliega un [proxy](/patterns/design/proxy-pattern) del l
 Usa el Patrón Ambassador cuando:
 - La aplicación principal no debería contener lógica de networking (reintentos, timeouts, TLS)
 - Múltiples servicios comparten las mismas preocupaciones salientes y quieres centralizarlas
-- Necesitas funcionalidades de networking agnósticas de lenguaje a través de servicios políglotas
+- Necesitas capacidades de networking agnósticas de lenguaje a través de servicios políglotas
 - Quieres actualizar lógica de networking sin cambiar la aplicación principal
 - Ejemplos: sidecars de service mesh (Envoy/Istio), clientes de API gateway, proxies inteligentes
 
@@ -230,7 +230,7 @@ La aplicación principal hace llamadas simples; el ambassador maneja toda la res
 | **Ambassador Inverso** | Proxy del lado del servidor para llamadas entrantes | API gateway, ingress controller |
 | **Ambassador Multi-Tenant** | Enruta por tenant a diferentes backends | Aplicaciones SaaS |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén la aplicación principal ingenua en networking** — debería solo llamar métodos
 - **Configura reintentos con backoff exponencial y jitter** para evitar thundering herd
@@ -252,4 +252,4 @@ La aplicación principal hace llamadas simples; el ambassador maneja toda la res
 R: Ambassador es un proxy del lado del cliente (por servicio). [API Gateway](/recipes/serverless/serverless-api-gateway) es un proxy del lado del servidor (por clúster/ingress). Ambos manejan preocupaciones transversales pero en capas diferentes.
 
 **P: ¿Debería usar un sidecar de service mesh o una biblioteca embebida?**
-R: Los sidecars de [service mesh](/guides/architecture/microservices-architecture-guide) (Envoy) te dan funcionalidades agnósticas de lenguaje a nivel de infraestructura sin cambios de código. Las bibliotecas embebidas (Resilience4j, Polly) tienen menor latencia pero requieren implementación por lenguaje.
+R: Los sidecars de [service mesh](/guides/architecture/microservices-architecture-guide) (Envoy) te dan capacidades agnósticas de lenguaje a nivel de infraestructura sin cambios de código. Las bibliotecas embebidas (Resilience4j, Polly) tienen menor latencia pero requieren implementación por lenguaje.

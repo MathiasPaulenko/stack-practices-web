@@ -223,8 +223,8 @@ class ShoppingCart:
 | | Pruebas Unitarias Tradicionales | TDD |
 |---|-------------------------------|-----|
 | **Cuándo se escriben los tests** | Después del código | Antes del código |
-| **Cobertura de tests** | A menudo incompleta | Integral por diseño |
-| **Influencia en diseño** | Mínima | Significativa (testabilidad guía el diseño) |
+| **Cobertura de tests** | A menudo incompleta | Exhaustiva por diseño |
+| **Influencia en diseño** | Mínima | Importante (testabilidad guía el diseño) |
 | **Esfuerzo de debugging** | Mayor | Menor |
 
 ## Cuándo TDD Funciona Mejor
@@ -240,7 +240,7 @@ Usa con precaución en:
 - Prototipado exploratorio
 - Código legacy acoplado (refactoriza para testeabilidad primero)
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén los tests rápidos** — una suite lenta desanima ejecutarla
 - **Un concepto por test** — un fallo de test debe apuntar a exactamente un problema

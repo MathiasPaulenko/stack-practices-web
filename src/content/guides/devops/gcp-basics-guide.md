@@ -46,7 +46,7 @@ Google Cloud Platform (GCP) is known for its leadership in data analytics, AI/ML
 
 ## When to Use
 
-- You need best-in-class data analytics and AI/ML services
+- You need leading data analytics and AI/ML services
 - You are building containerized or serverless applications
 - You want deep integration with open-source tools (Kubernetes, TensorFlow, Apache Beam)
 - Your workloads benefit from Google's global network and pricing model
@@ -212,7 +212,7 @@ Global Virtual Private Cloud with automatic routing.
 └─────────────────────────────────────────────┘
 ```
 
-Key networking features:
+Key networking capabilities:
 - **Cloud Load Balancing:** Global, anycast-based load balancing
 - **Cloud CDN:** Content delivery with 140+ edge locations
 - **Cloud Armor:** DDoS protection and WAF
@@ -233,7 +233,7 @@ bindings:
     role: roles/cloudsql.client
 ```
 
-Best practices:
+What works:
 - Use service accounts, not user credentials
 - Enable VPC Service Controls for data exfiltration prevention
 - Use Cloud KMS for key management and encryption

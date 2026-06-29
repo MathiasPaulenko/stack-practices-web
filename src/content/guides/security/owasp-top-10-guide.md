@@ -123,11 +123,11 @@ cursor.execute(f"SELECT * FROM users WHERE email = '{email}'")
 
 **Risk:** Default configurations, incomplete setups, or overly permissive settings.
 
-**Example:** Default admin credentials, exposed cloud storage, or unnecessary features enabled.
+**Example:** Default admin credentials, exposed cloud storage, or unnecessary capabilities enabled.
 
 **Mitigation:**
 - Harden all environments (dev, staging, prod) equally
-- Remove unused features, dependencies, and documentation
+- Remove unused capabilities, dependencies, and documentation
 - Segment application architecture (containers, serverless)
 - Automate configuration validation in CI/CD pipelines
 
@@ -223,7 +223,7 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Max-Age=3600
 Approximately every 3-4 years. The current version is from 2021. Check `owasp.org` for updates.
 
 **Is OWASP Top 10 enough for compliance?**
-It is a great starting point but not exhaustive. Consider OWASP ASVS (Application Security Verification Standard) for comprehensive requirements.
+It is a great starting point but not exhaustive. Consider OWASP ASVS (Application Security Verification Standard) for thorough requirements.
 
 **How do I test for these vulnerabilities?**
 Use automated scanners (OWASP ZAP, Burp Suite) for a baseline, then follow with manual penetration testing and code review.

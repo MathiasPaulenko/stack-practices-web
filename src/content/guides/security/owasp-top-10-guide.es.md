@@ -123,11 +123,11 @@ cursor.execute(f"SELECT * FROM users WHERE email = '{email}'")
 
 **Riesgo:** Configuraciones por defecto, configuraciones incompletas o demasiado permisivas.
 
-**Ejemplo:** Credenciales de administrador por defecto, almacenamiento cloud expuesto o funciones innecesarias habilitadas.
+**Ejemplo:** Credenciales de administrador por defecto, almacenamiento cloud expuesto o capacidades innecesarias habilitadas.
 
 **Mitigación:**
 - Endurecer todos los ambientes (dev, staging, prod) por igual
-- Eliminar funciones, dependencias y documentación no utilizadas
+- Eliminar capacidades, dependencias y documentación no utilizadas
 - Segmentar la arquitectura de la aplicación (containers, serverless)
 - Automatizar la validación de configuración en pipelines CI/CD
 
@@ -223,7 +223,7 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Max-Age=3600
 Aproximadamente cada 3-4 años. La versión actual es de 2021. Consulta `owasp.org` para actualizaciones.
 
 **¿Es OWASP Top 10 suficiente para cumplimiento?**
-Es un excelente punto de partida pero no exhaustivo. Considera OWASP ASVS (Application Security Verification Standard) para requisitos comprehensivos.
+Es un excelente punto de partida pero no exhaustivo. Considera OWASP ASVS (Application Security Verification Standard) para requisitos exhaustivos.
 
 **¿Cómo pruebo estas vulnerabilidades?**
 Usa escáners automatizados (OWASP ZAP, Burp Suite) como línea base, luego realiza pruebas de penetración manuales y revisión de código.

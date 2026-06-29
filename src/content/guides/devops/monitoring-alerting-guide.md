@@ -36,7 +36,7 @@ seo:
 
 ## Introduction
 
-You cannot improve what you cannot measure. Monitoring tells you when systems are unhealthy; alerting wakes you up when action is needed. But poorly designed alerting creates fatigue, burnout, and ignored pages. This guide covers the three pillars of observability, how to design actionable alerts, and how to build dashboards that help during incidents.
+You cannot improve what you cannot measure. Monitoring tells you when systems are unhealthy; alerting wakes you up when action is needed. But poorly designed alerting creates fatigue, burnout, and ignored pages. This guide covers the three pillars of observability, how to design useful alerts, and how to build dashboards that help during incidents.
 
 ## The Three Pillars of Observability
 
@@ -114,7 +114,7 @@ Monitor every resource (CPU, disk, network, memory) with these three:
 
 ## Alert Design
 
-### Good Alerts Are Actionable
+### Good Alerts Are Useful
 
 A good alert answers three questions:
 1. **What is wrong?** — clear metric name and threshold breached
@@ -168,7 +168,7 @@ A dashboard should tell you if the system is healthy in 5 seconds.
 - Dashboards no one looks at — if it is not reviewed weekly, delete it
 - Static thresholds that never change — tune alerts as baselines shift
 
-## Best Practices
+## What Works
 
 - **Instrument before you need it** — adding metrics during an [incident](/guides/devops/on-call-incident-response-guide) is too late
 - **Use percentiles, not averages** — averages hide outliers; p95 and p99 tell the real story

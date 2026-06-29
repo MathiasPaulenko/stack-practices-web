@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-No puedes mejorar lo que no puedes medir. El monitoreo te dice cuándo los sistemas están enfermos; las alertas te despiertan cuando la acción es necesaria. Pero alertas mal diseñadas crean fatiga, burnout y páginas ignoradas. Esta guía cubre los tres pilares de observabilidad, cómo diseñar alertas accionables y cómo construir dashboards que ayudan durante incidentes.
+No puedes mejorar lo que no puedes medir. El monitoreo te dice cuándo los sistemas están enfermos; las alertas te despiertan cuando la acción es necesaria. Pero alertas mal diseñadas crean fatiga, burnout y páginas ignoradas. Esta guía cubre los tres pilares de observabilidad, cómo diseñar alertas útiles y cómo construir dashboards que ayudan durante incidentes.
 
 ## Los Tres Pilares de la Observabilidad
 
@@ -99,7 +99,7 @@ Sigue una solicitud individual a través de servicios. Consulta [Distributed Tra
 
 ## Diseño de Alertas
 
-### Buenas Alertas Son Accionables
+### Buenas Alertas Son Útiles
 
 Responden tres preguntas:
 1. **¿Qué está mal?** — nombre claro de métrica y umbral violado
@@ -129,7 +129,7 @@ Un dashboard debería decirte si el sistema está saludable en 5 segundos.
 | **Fila 3: Recursos** | ¿Nos estamos quedando sin capacidad? | CPU, memoria, disco, red |
 | **Fila 4: Negocio** | ¿Los usuarios están felices? | Registros, checkouts, sesiones activas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - Instrumenta antes de necesitarlo — agregar métricas durante un [incidente](/guides/devops/on-call-incident-response-guide) es demasiado tarde
 - Usa percentiles, no promedios — los promedios ocultan outliers; p95 y p99 cuentan la historia real

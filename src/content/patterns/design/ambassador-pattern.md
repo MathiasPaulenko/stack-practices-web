@@ -45,7 +45,7 @@ The Ambassador Pattern deploys a client-side [proxy](/patterns/design/proxy-patt
 Use the Ambassador Pattern when:
 - The main application should not contain networking logic (retries, timeouts, TLS)
 - Multiple services share the same outbound concerns, and you want to centralize them
-- You need language-agnostic networking features across polyglot services
+- You need language-agnostic networking capabilities across polyglot services
 - You want to upgrade networking logic without changing the main application
 - Examples: service mesh sidecars (Envoy/Istio), API gateway clients, smart proxies
 
@@ -228,7 +228,7 @@ The main application makes simple calls; the ambassador handles all networking r
 | **Reverse Ambassador** | Server-side proxy for incoming calls | API gateway, ingress controller |
 | **Multi-Tenant Ambassador** | Routes per-tenant to different backends | SaaS applications |
 
-## Best Practices
+## What Works
 
 - **Keep the main application networking-naive** — it should just call methods
 - **Configure retries with exponential backoff and jitter** to avoid thundering herd
@@ -250,4 +250,4 @@ The main application makes simple calls; the ambassador handles all networking r
 A: Ambassador is a client-side proxy (per-service). [API Gateway](/recipes/serverless/serverless-api-gateway) is a server-side proxy (per-cluster/ingress). Both handle cross-cutting concerns but at different layers.
 
 **Q: Should I use a service mesh sidecar or an embedded library?**
-A: [Service mesh](/guides/architecture/microservices-architecture-guide) sidecars (Envoy) give you language-agnostic, infrastructure-level features with no code changes. Embedded libraries (Resilience4j, Polly) have lower latency but require per-language implementation.
+A: [Service mesh](/guides/architecture/microservices-architecture-guide) sidecars (Envoy) give you language-agnostic, infrastructure-level capabilities with no code changes. Embedded libraries (Resilience4j, Polly) have lower latency but require per-language implementation.
