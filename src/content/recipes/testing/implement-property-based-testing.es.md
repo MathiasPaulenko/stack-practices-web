@@ -227,12 +227,12 @@ class StackMachine {
 }
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Comienza con propiedades, no con generadores.** La parte difícil del property-based testing es encontrar la propiedad correcta (`encode(decode(x)) == x`), no escribir el generador.
-- **Usa shrinking religiosamente.** El valor del property-based testing es encontrar el caso de fallo mínimo. Asegúrate de que el shrinking de tu framework esté habilitado y sea efectivo.
+- **Usa shrinking religiosamente.** El valor del property-based testing es encontrar el caso de fallo mínimo. Asegúrate de que el shrinking de tu framework esté habilitado y sea útil.
 - **Combina con tests basados en ejemplos.** Las propiedades verifican invariantes; los ejemplos verifican escenarios de negocio específicos. Ambos son necesarios.
-- **Mantén las propiedades puras.** Una propiedad que escribe a base de datos o depende del tiempo actual no es reproducible y no puede hacerse shrink efectivamente.
+- **Mantén las propiedades puras.** Una propiedad que escribe a base de datos o depende del tiempo actual no es reproducible y no puede hacerse shrink bien.
 - **Usa una seed determinística en CI.** Los property tests son aleatorios por naturaleza; una seed asegura que los fallos sean reproducibles entre ejecuciones.
 
 ## Errores Comunes

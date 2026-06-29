@@ -164,7 +164,7 @@ class FieldEncryption {
 | Encripción por columna | Aplicación | Lenta (por celda) | Media | Campos altamente sensibles |
 | Encripción client-side | Key del cliente | Lenta | Fácil | Privacidad end-to-end |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Encripta antes de que llegue a la base de datos**: la encripción a nivel de aplicación protege contra breaches a nivel de base de datos. Si la base de datos es comprometida pero el servidor de aplicación no, los atacantes ven solo ciphertext.
 - **Usa encripción autenticada (AEAD)**: AES-GCM y ChaCha20-Poly1305 proveen tags de autenticación. Nunca uses modos no autenticados como AES-CBC o AES-ECB, que son vulnerables a ataques de padding oracle y tampering.

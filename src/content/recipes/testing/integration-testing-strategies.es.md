@@ -173,10 +173,10 @@ def test_create_order_and_query(db_engine, api_client):
 | Staging compartido | Sistema completo | Lento | Baja | Smoke tests, exploratorios |
 | Contract tests | Límite de API | Rápido | Alta | Límites entre microservicios |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén los tests de integración enfocados**: un test de integración debería verificar un límite de integración a la vez. Un test que golpea la base de datos, una API externa y una message queue es difícil de debuggear cuando falla. Separa en tests distintos para integración de base de datos, contrato de API e integración de message queue.
-- **Usa puertos dinámicos e IDs aleatorios**: puertos hardcodeados causan colisiones cuando los tests corren en paralelo. Usa `RANDOM_PORT` de Spring Boot o mapeo dinámico de puertos de Testcontainers. Usa UUIDs para datos de test para que los tests no interfieran entre sí.
+- **Usa puertos live e IDs aleatorios**: puertos hardcodeados causan colisiones cuando los tests corren en paralelo. Usa `RANDOM_PORT` de Spring Boot o mapeo live de puertos de Testcontainers. Usa UUIDs para datos de test para que los tests no interfieran entre sí.
 - **Limpia entre tests**: trunca tablas, elimina topics de Kafka o resetea stubs de WireMock entre tests. El estado compartido causa tests flaky. Usa `@Transactional` con rollback (para tests en memoria) o estrategia de restart-per-test de Testcontainers.
 - **Corre tests de integración en CI, no localmente**: los tests de integración son más lentos que unit tests. Los desarrolladores corren unit tests durante desarrollo. Los tests de integración corren en CI en cada pull request. Usa profiles de Maven (`-P integration-tests`) o archivos de test separados (`*.integration.test.ts`) para controlar cuándo corren.
 - **Versiona tu infraestructura de test**: pinnea imágenes Docker (`postgres:15.2`, no `postgres:latest`) y versiones de dependencias. Un nuevo release menor de PostgreSQL o un upgrade de WireMock puede cambiar comportamiento y romper tests. El pinning asegura reproducibilidad.

@@ -40,7 +40,7 @@ Use this recipe when:
 - Application response times degrade as data volume grows
 - Database CPU or I/O usage is consistently high. Check [monitoring and observability](/guides/devops/logging-monitoring-observability-guide).
 - [Monitoring tools](/guides/devops/logging-monitoring-observability-guide) flag specific queries as slow query log entries
-- Adding pagination, search, or reporting features to existing tables
+- Adding pagination, search, or reporting capabilities to existing tables
 - Migrating legacy SQL to a new database engine
 
 ## Solution
@@ -103,12 +103,12 @@ customers = db.query("""
 | Partition table | Very high | High | Tables > 10M rows with time-based queries |
 | Materialized view | High | Medium | Complex aggregations queried frequently |
 
-## Best Practices
+## What works
 
 - **Filter early**: apply `WHERE` conditions on indexed columns before joins and sorts. The fewer rows that flow through the query pipeline, the faster it runs.
 - **Avoid `SELECT *`**: fetching unnecessary columns wastes I/O and memory. Select only the columns you need.
 - **Use `EXISTS` instead of `IN` for large subqueries**: `EXISTS` short-circuits on the first match, while `IN` may build a complete intermediate result set.
-- **Update table statistics**: the query optimizer relies on statistics to choose plans. Run `ANALYZE` after bulk loads or significant data changes.
+- **Update table statistics**: the query optimizer relies on statistics to choose plans. Run `ANALYZE` after bulk loads or major data changes.
 - **Monitor query plans over time**: execution plans can change as data distribution shifts. Set up alerts when a previously fast query suddenly slows down.
 
 ## Common Mistakes

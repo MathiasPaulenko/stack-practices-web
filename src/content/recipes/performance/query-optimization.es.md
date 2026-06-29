@@ -40,7 +40,7 @@ Usa esta receta cuando:
 - Los tiempos de respuesta de la aplicación degradan a medida que crece el volumen de datos
 - El uso de CPU o I/O de la base de datos es consistentemente alto. Verifica [monitoreo y observabilidad](/guides/devops/logging-monitoring-observability-guide).
 - [Herramientas de monitoreo](/guides/devops/logging-monitoring-observability-guide) marcan queries específicas como entradas de slow query log
-- Agregando paginación, búsqueda o features de reporting a tablas existentes
+- Agregando paginación, búsqueda o capacidades de reporting a tablas existentes
 - Migrando SQL legacy a un nuevo motor de base de datos
 
 ## Solución
@@ -101,12 +101,12 @@ customers = db.query("""
 | Particionar tabla | Muy alto | Alto | Tablas > 10M filas con queries basadas en tiempo |
 | Vista materializada | Alto | Medio | Agregaciones complejas consultadas frecuentemente |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Filtra temprano**: aplica condiciones `WHERE` en columnas indexadas antes de joins y sorts. Cuantas menos filas fluyan a través del pipeline de la query, más rápido corre.
 - **Evita `SELECT *`**: traer columnas innecesarias desperdicia I/O y memoria. Selecciona solo las columnas que necesitas.
 - **Usa `EXISTS` en lugar de `IN` para subqueries grandes**: `EXISTS` hace short-circuit en el primer match, mientras que `IN` puede construir un result set intermedio completo.
-- **Actualiza estadísticas de tabla**: el query optimizer depende de estadísticas para elegir planes. Corre `ANALYZE` después de bulk loads o cambios de datos significativos.
+- **Actualiza estadísticas de tabla**: el query optimizer depende de estadísticas para elegir planes. Corre `ANALYZE` después de bulk loads o cambios de datos mayores.
 - **Monitorea planes de ejecución a lo largo del tiempo**: los planes pueden cambiar a medida que la distribución de datos se desplaza. Configura alertas cuando una query previamente rápida se vuelve lenta repentinamente.
 
 ## Errores comunes

@@ -173,7 +173,7 @@ class FieldEncryption {
 | Column-level encryption | Application | Slow (per-cell) | Medium | Highly sensitive fields |
 | Client-side encryption | Client key | Slow | Easy | End-to-end privacy |
 
-## Best practices
+## What works
 
 - **Encrypt before it reaches the database**: application-level encryption protects against database-level breaches. If the database is compromised but the application server is not, attackers see only ciphertext.
 - **Use authenticated encryption (AEAD)**: AES-GCM and ChaCha20-Poly1305 both provide authentication tags. Never use unauthenticated modes like AES-CBC or AES-ECB, which are vulnerable to padding oracle and tampering attacks.

@@ -173,10 +173,10 @@ def test_create_order_and_query(db_engine, api_client):
 | Shared staging | Full system | Slow | Low | Smoke tests, exploratory |
 | Contract tests | API boundary | Fast | High | Microservice boundaries |
 
-## Best practices
+## What works
 
 - **Keep integration tests focused**: an integration test should verify one integration boundary at a time. A test that hits the database, an external API, and a message queue is hard to debug when it fails. Split into separate tests for database integration, API contract, and message queue integration.
-- **Use dynamic ports and random IDs**: hardcoded ports cause collisions when tests run in parallel. Use Spring Boot's `RANDOM_PORT` or Testcontainers' dynamic port mapping. Use UUIDs for test data so tests do not interfere with each other.
+- **Use live ports and random IDs**: hardcoded ports cause collisions when tests run in parallel. Use Spring Boot's `RANDOM_PORT` or Testcontainers' live port mapping. Use UUIDs for test data so tests do not interfere with each other.
 - **Clean up between tests**: truncate tables, delete Kafka topics, or reset WireMock stubs between tests. Shared state causes flaky tests. Use `@Transactional` with rollback (for in-memory tests) or Testcontainers' restart-per-test strategy.
 - **Run integration tests in CI, not locally**: integration tests are slower than unit tests. Developers run unit tests during development. Integration tests run in CI on every pull request. Use Maven profiles (`-P integration-tests`) or separate test files (`*.integration.test.ts`) to control when they run.
 - **Version your test infrastructure**: pin Docker images (`postgres:15.2`, not `postgres:latest`) and dependency versions. A new PostgreSQL minor release or a WireMock upgrade can change behavior and break tests. Pinning ensures reproducibility.

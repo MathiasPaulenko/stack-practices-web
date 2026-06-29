@@ -33,7 +33,7 @@ seo:
 
 HTTP security headers are a lightweight, server-side defense layer that instructs browsers how to handle your content. They require no changes to application code and protect against entire classes of attacks: clickjacking via `X-Frame-Options`, [cross-site scripting](/recipes/security/xss-prevention) via `Content-Security-Policy`, protocol downgrade attacks via `Strict-Transport-Security`, and MIME-type sniffing via `X-Content-Type-Options`.
 
-[OWASP](/guides/security/security-best-practices-guide) maintains a dedicated cheat sheet for security headers because they are effective, easy to implement, and frequently forgotten during deployments. A server missing these headers is not immediately vulnerable, but it is significantly less resilient against common web attacks.
+[OWASP](/guides/security/security-best-practices-guide) maintains a dedicated cheat sheet for security headers because they are useful, easy to implement, and frequently forgotten during deployments. A server missing these headers is not immediately vulnerable, but it is considerably less resilient against common web attacks.
 
 ## When to Use
 
@@ -123,7 +123,7 @@ app.add_middleware(SecurityHeadersMiddleware)
 | Referrer-Policy | Information leakage | Recommended | Universal |
 | Permissions-Policy | Feature abuse | Recommended | Modern |
 
-## Best Practices
+## What works
 
 - **Use Helmet as a baseline**: the Helmet middleware for Express sets sensible defaults for all major headers with a single line of code.
 - **Start with a restrictive CSP and relax gradually**: begin with `default-src 'self'` and add domains only when functionality breaks. A too-permissive CSP is almost worthless.
