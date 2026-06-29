@@ -397,11 +397,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\guides\architecture\serverless-architecture-guide.md | 2.0 | best practices → what works, effective → useful | src\content\guides\architecture\serverless-architecture-guide.es.md | pending |
-| src\content\guides\deployment\blue-green-deployment-guide.md | 2.0 | best practices → what works | src\content\guides\deployment\blue-green-deployment-guide.es.md | pending |
-| src\content\guides\deployment\ci-cd-security-guide.md | 2.0 | best practices → what works | src\content\guides\deployment\ci-cd-security-guide.es.md | pending |
-| src\content\guides\devops\cicd-pipeline-guide.md | 2.0 | robust → reliable, best practices → what works | src\content\guides\devops\cicd-pipeline-guide.es.md | pending |
-| src\content\guides\devops\docker-for-developers-guide.md | 2.0 | best practices → what works | src\content\guides\devops\docker-for-developers-guide.es.md | pending |
+| src\content\guides\architecture\serverless-architecture-guide.md | 2.0 | best practices → what works, effective → useful | src\content\guides\architecture\serverless-architecture-guide.es.md | completed |
+| src\content\guides\deployment\blue-green-deployment-guide.md | 2.0 | best practices → what works | src\content\guides\deployment\blue-green-deployment-guide.es.md | completed |
+| src\content\guides\deployment\ci-cd-security-guide.md | 2.0 | best practices → what works | src\content\guides\deployment\ci-cd-security-guide.es.md | completed |
+| src\content\guides\devops\cicd-pipeline-guide.md | 2.0 | robust → reliable, best practices → what works | src\content\guides\devops\cicd-pipeline-guide.es.md | completed |
+| src\content\guides\devops\docker-for-developers-guide.md | 2.0 | best practices → what works | src\content\guides\devops\docker-for-developers-guide.es.md | completed |
 
 ### Batch 36 (priority: low)
 
