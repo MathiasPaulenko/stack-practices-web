@@ -190,8 +190,8 @@ Circuit breakers prevent cascading failures. When a service is struggling, the g
 | **Nginx / OpenResty** | High throughput, simple routing | Lua scripting for custom logic; limited plugin platform |
 | **Kong** | Plugin-rich, enterprise capabilities | Higher latency than Nginx; managed option available |
 | **Envoy** | Cloud-native, service mesh integration | Steep learning curve; YAML configuration verbosity |
-| **AWS API Gateway** | Serverless, AWS ecosystem | Vendor lock-in; cold start latency for v2 |
-| **Spring Cloud Gateway** | Java/Spring ecosystems | JVM memory footprint; tight Spring coupling |
+| **AWS API Gateway** | Serverless, AWS platform | Vendor lock-in; cold start latency for v2 |
+| **Spring Cloud Gateway** | Java/Spring platforms | JVM memory footprint; tight Spring coupling |
 | **Traefik** | Dynamic Docker/K8s discovery | Simpler than Envoy; less advanced traffic management |
 
 ## What Works

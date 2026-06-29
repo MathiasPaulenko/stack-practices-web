@@ -190,8 +190,8 @@ Los circuit breakers previenen fallos en cascada. Cuando un servicio está lucha
 | **Nginx / OpenResty** | Alto throughput, enrutamiento simple | Scripting Lua para lógica personalizada; plataforma de plugins limitada |
 | **Kong** | Rico en plugins, capacidades enterprise | Mayor latencia que Nginx; opción administrada disponible |
 | **Envoy** | Cloud-native, integración con service mesh | Curva de aprendizaje pronunciada; verbosidad de configuración YAML |
-| **AWS API Gateway** | Serverless, ecosistema AWS | Vendor lock-in; latencia de cold start para v2 |
-| **Spring Cloud Gateway** | Ecosistemas Java/Spring | Huella de memoria JVM; acoplamiento fuerte con Spring |
+| **AWS API Gateway** | Serverless, plataforma AWS | Vendor lock-in; latencia de cold start para v2 |
+| **Spring Cloud Gateway** | Plataformas Java/Spring | Huella de memoria JVM; acoplamiento fuerte con Spring |
 | **Traefik** | Descubrimiento dinámico Docker/K8s | Más simple que Envoy; menos gestión avanzada de tráfico |
 
 ## Lo que funciona

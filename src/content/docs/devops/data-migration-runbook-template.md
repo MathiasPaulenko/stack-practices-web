@@ -43,7 +43,7 @@ Use this resource when:
 - Moving data between database versions or engines (MySQL 5.7 to 8.0, PostgreSQL to Aurora)
 - Migrating from monolith to microservices (database per service)
 - Consolidating multiple data sources into a data warehouse
-- Executing large-scale schema changes that require data transformation
+- Executing large-scale schema changes that require data change
 - Migrating between cloud providers (AWS RDS to GCP Cloud SQL)
 
 ## Prerequisites
@@ -282,7 +282,7 @@ The runbook separates **preparation** (backups, dry runs) from **execution** (th
 | Cloud provider migration | AWS DMS / GCP Database Migration Service | Built-in validation, but monitor replication lag |
 | Microservices extraction | Dual-write pattern | Complex, but zero downtime; requires application changes |
 | Data warehouse ETL | Batch loads with Airflow | Schedule during low-traffic windows |
-| NoSQL to SQL | Custom transformation scripts | Schema design is the hardest part; test queries thoroughly |
+| NoSQL to SQL | Custom change scripts | Schema design is the hardest part; test queries thoroughly |
 
 ## What Works
 
@@ -308,7 +308,7 @@ Use an incremental approach: migrate historical data in batches during low-traff
 
 ### What if source and target schemas differ?
 
-Document the transformation in the migration script and validate every transformed field. Common issues: timezone conversions, character encodings, enum values, and nullable columns. Test edge cases in the dry run.
+Document the change in the migration script and validate every changed field. Common issues: timezone conversions, character encodings, enum values, and nullable columns. Test edge cases in the dry run.
 
 ### How long should I keep source data after migration?
 

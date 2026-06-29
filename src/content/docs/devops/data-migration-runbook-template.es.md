@@ -308,7 +308,7 @@ Usa un enfoque incremental: migra datos historicos en lotes durante periodos de 
 
 ### Que pasa si los esquemas fuente y destino difieren?
 
-Documenta la transformacion en el script de migracion y valida cada campo transformado. Problemas comunes: conversiones de zona horaria, codificaciones de caracteres, valores enum y columnas nullable. Prueba casos de borde en la prueba en seco.
+Documenta el cambio en el script de migracion y valida cada campo cambiado. Problemas comunes: conversiones de zona horaria, codificaciones de caracteres, valores enum y columnas nullable. Prueba casos de borde en la prueba en seco.
 
 ### Cuanto tiempo debo mantener los datos fuente despues de la migracion?
 
