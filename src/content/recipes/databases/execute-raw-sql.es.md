@@ -41,7 +41,7 @@ Incluso con ORMs, SQL crudo a veces es necesario para consultas complejas, migra
 Usa este recurso cuando:
 - Escribes consultas analíticas complejas que los ORMs no pueden expresar eficientemente
 - Ejecutas migraciones de base de datos o comandos administrativos
-- Optimizas rendimiento con características SQL específicas de la base de datos
+- Optimizas rendimiento con capacidades SQL específicas de la base de datos
 
 ## Solución
 
@@ -138,12 +138,12 @@ Las **consultas parametrizadas** (prepared statements) separan la lógica SQL de
 | JavaScript | `knex.raw()` | Query builder con SQL crudo y bindings |
 | Java | `Jdbi` | API fluida sobre JDBC con binding de parámetros |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Nunca concatenes input de usuario en strings SQL; usa siempre consultas parametrizadas
 2. Usa `RETURNING` (PostgreSQL) o `getGeneratedKeys()` (JDBC) en lugar de `SELECT MAX(id)`
 3. Envuelve múltiples sentencias en transacciones con rollback apropiado ante errores
-4. Valida y haz whitelist de nombres de tabla/columna cuando deban ser dinámicos
+4. Valida y haz whitelist de nombres de tabla/columna cuando deban ser en vivo
 5. Registra tiempos de ejecución de SQL para detectar consultas lentas y patrones N+1
 
 ## Errores Comunes

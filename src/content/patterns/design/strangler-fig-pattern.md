@@ -40,14 +40,14 @@ seo:
 
 The Strangler Fig Pattern enables incremental migration from a legacy system to a new system by gradually replacing pieces of functionality rather than performing a risky big-bang rewrite. An intermediary layer intercepts requests and routes them to either the legacy system or the new system.
 
-Over time, as more features migrate to the new system, the legacy system shrinks until it can be fully decommissioned. This minimizes risk by allowing teams to validate each component in production before moving on.
+Over time, as more capabilities migrate to the new system, the legacy system shrinks until it can be fully decommissioned. This minimizes risk by allowing teams to validate each component in production before moving on.
 
 ## When to Use
 
 - Migrating from a monolithic legacy application to microservices
 - Replacing an old technology stack without a risky rewrite
 - Modernizing a system where requirements are still evolving
-- Need to deliver new features in the new system while maintaining the legacy one
+- Need to deliver new capabilities in the new system while maintaining the legacy one
 
 ## When to Avoid
 
@@ -148,10 +148,10 @@ The intermediary layer (gateway/proxy) routes requests:
 |---------|----------|----------|
 | API Gateway | Route by path prefix | Microservices migration |
 | Proxy server | NGINX/Apache rewrite rules | Simple URL-based routing |
-| Feature toggle | Dynamic routing per request | Gradual user migration |
+| Feature toggle | Live routing per request | Gradual user migration |
 | Database sync | Dual-write during transition | Data layer migration |
 
-## Best Practices
+## What Works
 
 - Start with low-risk, read-only endpoints
 - Implement shadow traffic to compare responses

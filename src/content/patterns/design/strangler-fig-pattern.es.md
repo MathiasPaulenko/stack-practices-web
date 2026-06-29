@@ -40,14 +40,14 @@ seo:
 
 El Patron de Higuera Estranguladora permite migrar funcionalidad desde un sistema legacy hacia uno nuevo de forma incremental. Una capa intermediaria intercepta solicitudes y las enruta al sistema legacy o al nuevo.
 
-Con el tiempo, a medida que mas funcionalidades migran, el sistema legacy se reduce hasta poder desmantelarse por completo.
+Con el tiempo, a medida que más capacidades migran, el sistema legacy se reduce hasta poder desmantelarse por completo.
 
 ## Cuando Usar
 
 - Migrar de monolito legacy a microservicios
 - Reemplazar stack tecnologico sin rewrite riesgoso
 - Modernizar un sistema con requisitos en evolucion
-- Entregar nuevas funcionalidades en el sistema nuevo mientras se mantiene el legacy
+- Entregar nuevas capacidades en el sistema nuevo mientras se mantiene el legacy
 
 ## Cuando Evitar
 
@@ -138,10 +138,10 @@ La capa intermediaria enruta solicitudes:
 |----------|---------|------------|
 | API Gateway | Enrutar por prefijo de path | Migracion a microservicios |
 | Servidor proxy | Reglas de rewrite de NGINX/Apache | Enrutamiento simple por URL |
-| Feature toggle | Enrutamiento dinamico por solicitud | Migracion gradual de usuarios |
+| Feature toggle | Enrutamiento en vivo por solicitud | Migracion gradual de usuarios |
 | Sync de base de datos | Dual-write durante transicion | Migracion de capa de datos |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Empezar con endpoints de solo lectura de bajo riesgo
 - Implementar trafico shadow para comparar respuestas

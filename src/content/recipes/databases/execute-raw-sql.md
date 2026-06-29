@@ -41,7 +41,7 @@ Even with ORMs, raw SQL is sometimes necessary for complex queries, migrations, 
 Use this resource when:
 - Writing complex analytics queries that ORMs cannot express efficiently
 - Executing database migrations or administrative commands
-- Optimizing performance with database-specific SQL features
+- Optimizing performance with database-specific SQL capabilities
 
 ## Solution
 
@@ -138,12 +138,12 @@ public class RawSQL {
 | JavaScript | `knex.raw()` | Query builder with raw SQL and bindings |
 | Java | `Jdbi` | Fluent API over JDBC with parameter binding |
 
-## Best Practices
+## What Works
 
 1. Never concatenate user input into SQL strings; always use parameterized queries
 2. Use `RETURNING` (PostgreSQL) or `getGeneratedKeys()` (JDBC) instead of separate `SELECT MAX(id)`
 3. Wrap multiple statements in transactions with proper rollback on error
-4. Validate and whitelist table/column names when they must be dynamic
+4. Validate and whitelist table/column names when they must be live
 5. Log SQL execution times to detect slow queries and N+1 patterns
 
 ## Common Mistakes

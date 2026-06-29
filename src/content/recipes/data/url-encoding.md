@@ -35,13 +35,13 @@ seo:
 
 URL encoding (percent-encoding) converts characters into a format that can be transmitted over the internet. It replaces unsafe ASCII characters with a `%` followed by two hexadecimal digits. It is essential for query parameters, path segments, and form submissions.
 
-Failing to encode user input before placing it in a URL can lead to broken links, injection attacks, or unexpected [API behavior](/recipes/api/call-rest-api). See [API Security Checklist](/guides/security/api-security-checklist-guide) for comprehensive protection.
+Failing to encode user input before placing it in a URL can lead to broken links, injection attacks, or unexpected [API behavior](/recipes/api/call-rest-api). See [API Security Checklist](/guides/security/api-security-checklist-guide) for thorough protection.
 
 ## When to Use
 
 Use this recipe when:
 
-- Building query strings with dynamic values from [user input](/recipes/api/input-validation)
+- Building query strings with live values from [user input](/recipes/api/input-validation)
 - Encoding file names or IDs in URL paths
 - Parsing URLs and extracting query parameters
 - Sending form data via GET requests. See [Data Validation](/recipes/data/data-validation) for sanitizing form data.
@@ -128,12 +128,12 @@ System.out.println(parsed.getQuery()); // query=hello%20world&limit=10
 | `urlencode` (Python) | Same as `quote_plus` | Query strings (spaces → `+`) |
 | `URLEncoder` (Java) | All except `a-z A-Z 0-9 - _ . *` | Query strings (spaces → `+`) |
 
-## Best Practices
+## What Works
 
 - **Always encode user input** before embedding it in URLs
 - **Use `encodeURIComponent` (JS)** for query parameter values, not `encodeURI`
 - **Use `urlencode` (Python)** for building complete query strings
-- **Don't encode the entire URL**: Only encode the dynamic parts (values, segments)
+- **Don't encode the entire URL**: Only encode the live parts (values, segments)
 - **Prefer `URLSearchParams`** in modern JavaScript for safe query string construction
 - **Handle plus signs carefully**: In query strings, `+` means space. In paths, `%20` means space.
 

@@ -331,12 +331,12 @@ source.addEventListener("update", (e) => {
 | Long Polling | HTTP | Cliente → Servidor → Cliente | Soporte legacy de navegadores, updates simples |
 | SSE con HTTP/2 | HTTP/2 | Servidor → Cliente | Streams multiplexados, menor overhead |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Siempre establece `X-Accel-Buffering: no`** — [los proxies reversos como Nginx](/recipes/api/nginx-reverse-proxy) bufferan respuestas por defecto. Este header desactiva el buffering para que los mensajes SSE lleguen inmediatamente en lugar de por lotes.
 2. **Usa heartbeats de keepalive** — envía líneas de comentario periódicas (`:heartbeat\n\n`) cada 15-30 segundos para prevenir que proxies y balanceadores de carga cierren conexiones inactivas.
 3. **Maneja desconexiones de clientes** — registra callbacks `onCompletion`, `onTimeout` y `onError` (o `req.on("close")` en Node.js) para remover conexiones muertas del registro de broadcast y prevenir fugas de memoria.
-4. **Establece `Cache-Control` apropiado** — usa `no-cache` para prevenir que navegadores y proxies cacheen el stream. SSE es inherentemente dinámico y el cacheo rompe la entrega en tiempo real.
+4. **Establece `Cache-Control` apropiado** — usa `no-cache` para prevenir que navegadores y proxies cacheen el stream. SSE es inherentemente en vivo y el cacheo rompe la entrega en tiempo real.
 5. **Usa tipos de `event` para routing** — en lugar de poner el tipo de evento dentro del payload JSON, usa el campo nativo `event: typename`. Esto permite al navegador despachar a handlers `addEventListener` específicos sin parsear JSON primero.
 
 ## Errores Comunes
@@ -355,7 +355,7 @@ SSE funciona sobre HTTP estándar (sin upgrade de protocolo), es unidireccional 
 
 ### ¿Puede SSE funcionar con HTTP/2?
 
-Sí, y HTTP/2 mejora significativamente SSE al permitir múltiples streams independientes sobre una única conexión TCP. En HTTP/1.1, los navegadores limitan conexiones SSE a 6 por dominio. HTTP/2 elimina este límite, haciendo SSE mucho más escalable para aplicaciones con múltiples streams de eventos.
+Sí, y HTTP/2 mejora considerablemente SSE al permitir múltiples streams independientes sobre una única conexión TCP. En HTTP/1.1, los navegadores limitan conexiones SSE a 6 por dominio. HTTP/2 elimina este límite, haciendo SSE mucho más escalable para aplicaciones con múltiples streams de eventos.
 
 ### ¿Cómo reanudo después de una interrupción de red?
 

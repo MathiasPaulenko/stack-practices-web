@@ -40,7 +40,7 @@ Use this recipe when:
 - Building APIs that handle hundreds of concurrent requests per process
 - Fetching data from multiple services that can be called in parallel
 - Processing I/O-bound workloads like web scraping, file uploads, or message queues
-- Implementing real-time features como [WebSockets](/recipes/api/websocket-server), chat, o live dashboards
+- Implementing real-time capabilities como [WebSockets](/recipes/api/websocket-server), chat, o live dashboards
 - Replacing thread-per-request models with [event-driven architectures](/recipes/architecture/event-driven-architecture) for efficiency
 
 ## Solution
@@ -150,7 +150,7 @@ public class AsyncOrderService {
 | RxJS/RxPY | JS/Python | Observables | onError | Event streams |
 | Threads | All | OS threads | try/catch | CPU-bound tasks |
 
-## Best practices
+## What works
 
 - **Always await promises**: an unawaited promise is a fire-and-forget operation that silently swallows errors. If a promise rejects and nothing awaits it, Node.js emits an `unhandledRejection` warning. In async functions, always `await` or `.catch()` every promise.
 - **Use Promise.all for independence, sequential for dependencies**: if task B needs the result of task A, they must run sequentially. If they are independent, use `Promise.all` or `asyncio.gather` to run them concurrently. Running independent tasks sequentially wastes time.

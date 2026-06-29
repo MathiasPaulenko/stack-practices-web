@@ -35,13 +35,13 @@ seo:
 
 El URL encoding (percent-encoding) convierte caracteres en un formato que puede transmitirse por internet. Reemplaza caracteres ASCII inseguros con `%` seguido de dos dígitos hexadecimales. Es esencial para parámetros de query, segmentos de path y envíos de formularios.
 
-No codificar input de usuarios antes de colocarlo en una URL puede llevar a links rotos, ataques de inyección o comportamiento inesperado de [APIs](/recipes/api/call-rest-api). Consulta [API Security Checklist](/guides/security/api-security-checklist-guide) para protección comprehensiva.
+No codificar input de usuarios antes de colocarlo en una URL puede llevar a links rotos, ataques de inyección o comportamiento inesperado de [APIs](/recipes/api/call-rest-api). Consulta [API Security Checklist](/guides/security/api-security-checklist-guide) para protección detallada.
 
 ## Cuándo usarlo
 
 Usa esta recipe cuando:
 
-- Construyes query strings con valores dinámicos de [input de usuario](/recipes/api/input-validation)
+- Construyes query strings con valores en vivo de [input de usuario](/recipes/api/input-validation)
 - Codificas nombres de archivo o IDs en paths de URL
 - Parseas URLs y extraes parámetros de query
 - Envías datos de formulario vía requests GET. Consulta [Data Validation](/recipes/data/data-validation) para sanitizar datos de formularios.
@@ -128,12 +128,12 @@ System.out.println(parsed.getQuery()); // query=hello%20world&limit=10
 | `urlencode` (Python) | Igual que `quote_plus` | Query strings (espacios → `+`) |
 | `URLEncoder` (Java) | Todo excepto `a-z A-Z 0-9 - _ . *` | Query strings (espacios → `+`) |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Siempre codifica input de usuarios** antes de embeberlo en URLs
 - **Usa `encodeURIComponent` (JS)** para valores de query parameters, no `encodeURI`
 - **Usa `urlencode` (Python)** para construir query strings completos
-- **No codifiques la URL completa**: Solo codifica las partes dinámicas (valores, segmentos)
+- **No codifiques la URL completa**: Solo codifica las partes en vivo (valores, segmentos)
 - **Prefiere `URLSearchParams`** en JavaScript moderno para construcción segura de query strings
 - **Maneja signos plus con cuidado**: En query strings, `+` significa espacio. En paths, `%20` significa espacio.
 
