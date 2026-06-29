@@ -41,7 +41,7 @@ Auto-scaling is the bridge between cost efficiency and availability. Scale too l
 Use this resource when:
 - Defining scaling rules for a new service deployed to the cloud
 - Auditing why an auto-scaling event caused an outage or excessive cost
-- Migrating from static instance sizes to dynamic scaling
+- Migrating from static instance sizes to live scaling
 
 ## Solution
 
@@ -141,7 +141,7 @@ The template separates **scale-up** (fast, aggressive) from **scale-down** (slow
 | Serverless (Lambda) | Concurrency limits | No traditional scaling; manage max concurrency and reserved concurrency |
 | GPU workloads | Scale on GPU utilization | Longer warm-up, higher cost; avoid spot instances |
 
-## Best Practices
+## What works
 
 1. Always set max instance limits to prevent runaway scaling from infinite loops or DDoS
 2. Use predictive scaling for predictable traffic patterns (nightly batch, business hours)

@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Cada endpoint de API consume recursos: CPU, memoria, conexiones de base de datos y ancho de banda de red. Sin presupuestos explícitos, los equipos agregan funcionalidades hasta que el sistema colapsa bajo carga. Esta plantilla define presupuestos de rendimiento como un contrato entre requisitos de producto y capacidad de infraestructura, haciendo explícitos los trade-offs antes de que se conviertan en caídas.
+Cada endpoint de API consume recursos: CPU, memoria, conexiones de base de datos y ancho de banda de red. Sin presupuestos explícitos, los equipos agregan capacidades hasta que el sistema colapsa bajo carga. Esta plantilla define presupuestos de rendimiento como un contrato entre requisitos de producto y capacidad de infraestructura, haciendo explícitos los trade-offs antes de que se conviertan en caídas.
 
 ## Cuándo Usar
 
@@ -122,7 +122,7 @@ Un **presupuesto de latencia** es una cadena: frontend (100ms) + red (50ms) + AP
 | API de streaming | Throughput por shard | Presupuesto por partición, no global |
 | SDK móvil | Tamaño de bundle + frecuencia de llamadas | Presupuesto incluye tamaño de payload y número de requests paralelos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Establecer presupuestos durante el diseño, no después del lanzamiento
 2. Incluir presupuestos en checklists de revisión de diseño de API

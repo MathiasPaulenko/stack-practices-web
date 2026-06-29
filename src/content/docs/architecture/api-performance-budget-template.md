@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Every API endpoint consumes resources: CPU, memory, database connections, and network bandwidth. Without explicit budgets, teams add features until the system collapses under load. This template defines performance budgets as a contract between product requirements and infrastructure capacity, making trade-offs explicit before they become outages.
+Every API endpoint consumes resources: CPU, memory, database connections, and network bandwidth. Without explicit budgets, teams add capabilities until the system collapses under load. This template defines performance budgets as a contract between product requirements and infrastructure capacity, making trade-offs explicit before they become outages.
 
 ## When to Use
 
@@ -122,7 +122,7 @@ A **latency budget** is a chain: frontend (100ms) + network (50ms) + API (200ms)
 | Streaming API | Throughput per shard | Budget per partition, not global |
 | Mobile SDK | Bundle size + call frequency | Budget includes payload size and number of parallel requests |
 
-## Best Practices
+## What works
 
 1. Set budgets during design, not after launch
 2. Include budgets in API design review checklists

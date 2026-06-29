@@ -118,7 +118,7 @@ La plantilla fuerza una **clasificación estructurada** antes del enrutamiento. 
 | Juego / consumidor | Impacto en monetización, segmento de jugador | Equipo de live ops triaja durante eventos |
 | Bug de seguridad | Puntaje CVSS, explotabilidad, exposición | Directo al equipo de seguridad; omite la cola estándar |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Triajea cada bug nuevo dentro de 24 horas de reportado; triaje viejo es triaje fallido
 2. Usa una única fuente de verdad (JIRA, Linear, GitHub Issues) para que los duplicados sean detectables
@@ -138,7 +138,7 @@ La plantilla fuerza una **clasificación estructurada** antes del enrutamiento. 
 
 ### ¿Qué pasa si un reporte de bug es vago o le faltan pasos de reproducción?
 
-Solicita la información estándar: pasos para reproducir, comportamiento esperado vs real, entorno (navegador, SO, versión), capturas de pantalla o grabaciones, y logs de error. Si el reportador no puede proporcionar esto dentro de 48 horas, reduce a S4 o cierra como "necesita info". No dejes que reportes incompletos bloqueen el triaje de bugs accionables.
+Solicita la información estándar: pasos para reproducir, comportamiento esperado vs real, entorno (navegador, SO, versión), capturas de pantalla o grabaciones, y logs de error. Si el reportador no puede proporcionar esto dentro de 48 horas, reduce a S4 o cierra como "necesita info". No dejes que reportes incompletos bloqueen el triaje de bugs útiles.
 
 ### ¿Cómo evito que el triaje se convierta en un cuello de botella?
 

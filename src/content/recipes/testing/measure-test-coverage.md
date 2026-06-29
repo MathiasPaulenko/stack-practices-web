@@ -242,12 +242,12 @@ jobs:
           files: ./coverage.xml
 ```
 
-## Best Practices
+## What works
 
 - **Measure branch coverage, not just line coverage.** A single line with `if x:` reports as covered if the true branch is taken, even if the false branch is never tested. Branch coverage catches this.
 - **Set thresholds per module, not globally.** Core business logic should have higher thresholds (85-90%) than UI glue code or auto-generated files (50-60%).
 - **Exclude infrastructure code from targets.** Database migrations, generated gRPC clients, and config files should not count against your coverage metric.
-- **Track coverage trends, not absolute numbers.** A drop of 5% on a PR is more actionable than "we are at 82% today."
+- **Track coverage trends, not absolute numbers.** A drop of 5% on a PR is more useful than "we are at 82% today."
 - **Review uncovered lines in PRs, not just the percentage.** A comment bot that lists the 3 uncovered lines is more useful than a red checkmark at 79%.
 
 ## Common Mistakes
@@ -267,4 +267,4 @@ A: 100% line coverage is achievable but can be misleading. A high coverage numbe
 A: Line coverage counts executed lines. Branch coverage counts whether each decision branch (if/else, switch) was taken. Branch coverage usually reveals more untested paths.
 
 **Q: How should I use coverage in CI?**
-A: Set minimum thresholds for critical modules, track trends over time, and reject pull requests that significantly lower coverage without justification. Avoid gaming the metric.
+A: Set minimum thresholds for critical modules, track trends over time, and reject pull requests that considerably lower coverage without justification. Avoid gaming the metric.

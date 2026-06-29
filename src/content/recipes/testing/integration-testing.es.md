@@ -155,11 +155,11 @@ public class UserRepositoryTest {
 | pytest-django | Python | Base de datos de test real | Integración con ORM Django |
 | Spring Boot Test | Java | Contexto de aplicación completo | Microservicios Spring |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa dependencias reales, no mocks**: todo el punto del testing de integración es verificar interacciones reales. Mockea solo sistemas externos que no controles (gateways de pago, APIs de terceros).
 - **Limpia entre tests**: trunca tablas, limpia colas, o recrea contenedores para que el orden de tests no afecte los resultados.
-- **Mantén los tests de integración en un directorio separado**: `tests/integration/` o `src/test/integration/` deja claro que estos son más lentos y más comprehensivos.
+- **Mantén los tests de integración en un directorio separado**: `tests/integration/` o `src/test/integration/` deja claro que estos son más lentos y más exhaustivos.
 - **Ejecútalos en CI, no en cada save de archivo**: configura tu test runner con comandos separados (`npm run test:unit` vs `npm run test:integration`).
 - **Usa puertos aleatorios y bases de datos aisladas**: nunca ejecutes tests de integración contra tu base de datos de desarrollo o producción.
 - **Limita el scope**: testea un punto de integración por test. Un test que ejercita la base de datos, capa HTTP y cola de mensajes es difícil de debuggear cuando falla.
@@ -169,7 +169,7 @@ public class UserRepositoryTest {
 - **Ejecutar tests de integración contra bases de datos de producción**: esto puede corromper datos reales y violar políticas de compliance.
 - **No limpiar después de los tests**: datos residuales causan tests flaky que pasan de forma aislada pero fallan en una suite.
 - **Mockear todo en un test de integración**: si mockeas la base de datos y la capa HTTP, estás escribiendo un test unitario elaborado, no un test de integración.
-- **Usar puertos hard-codeados**: conflictos de puertos causan tests flaky. Usa siempre puerto 0 o asignación dinámica.
+- **Usar puertos hard-codeados**: conflictos de puertos causan tests flaky. Usa siempre puerto 0 o asignación live.
 - **Testear demasiado en un solo test**: cuando un test de integración amplio falla, pasas más tiempo debuggeando qué capa se rompió que escribiendo el fix.
 
 ## Preguntas frecuentes

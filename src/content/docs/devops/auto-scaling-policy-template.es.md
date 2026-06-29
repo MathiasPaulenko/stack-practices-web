@@ -41,7 +41,7 @@ El auto-scaling es el puente entre eficiencia de costos y disponibilidad. Escala
 Usa este recurso cuando:
 - Defines reglas de escalamiento para un nuevo servicio desplegado en la nube
 - Auditas por qué un evento de auto-scaling causó una caída o costo excesivo
-- Migras de tamaños de instancia estáticos a escalamiento dinámico
+- Migras de tamaños de instancia estáticos a escalamiento live
 
 ## Solución
 
@@ -141,7 +141,7 @@ La plantilla separa **scale-up** (rápido, agresivo) de **scale-down** (lento, c
 | Serverless (Lambda) | Límites de concurrencia | No hay escalamiento tradicional; gestionar max concurrency y reserved concurrency |
 | Workloads GPU | Escalar en GPU utilization | Warm-up más largo, costo más alto; evitar instancias spot |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Siempre establecer límites máximos de instancias para prevenir escalamiento desbocado por loops infinitos o DDoS
 2. Usar predictive scaling para patrones de tráfico predecibles (batch nocturno, horario comercial)

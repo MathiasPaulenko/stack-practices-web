@@ -118,7 +118,7 @@ The template forces **structured classification** before routing. Many teams ski
 | Game / consumer | Monetization impact, player segment | Live ops team triages during events |
 | Security bug | CVSS score, exploitability, exposure | Direct to security team; bypass standard queue |
 
-## Best Practices
+## What works
 
 1. Triage every new bug within 24 hours of report; stale triage is failed triage
 2. Use a single source of truth (JIRA, Linear, GitHub Issues) so duplicates are detectable
@@ -138,7 +138,7 @@ The template forces **structured classification** before routing. Many teams ski
 
 ### What if a bug report is vague or missing reproduction steps?
 
-Request the standard information: steps to reproduce, expected vs actual behavior, environment (browser, OS, version), screenshots or screen recordings, and error logs. If the reporter cannot provide this within 48 hours, downgrade to S4 or close as "needs info." Do not let incomplete reports block triage of actionable bugs.
+Request the standard information: steps to reproduce, expected vs actual behavior, environment (browser, OS, version), screenshots or screen recordings, and error logs. If the reporter cannot provide this within 48 hours, downgrade to S4 or close as "needs info." Do not let incomplete reports block triage of useful bugs.
 
 ### How do I prevent triage from becoming a bottleneck?
 

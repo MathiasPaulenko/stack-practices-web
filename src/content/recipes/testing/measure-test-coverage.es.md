@@ -242,12 +242,12 @@ jobs:
           files: ./coverage.xml
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mide branch coverage, no solo line coverage.** Una sola línea con `if x:` reporta como cubierta si la rama true se ejecuta, incluso si la rama false nunca se testea. Branch coverage detecta esto.
 - **Configura thresholds por módulo, no globalmente.** La lógica de negocio core debería tener thresholds más altos (85-90%) que el código glue de UI o archivos auto-generados (50-60%).
 - **Excluye código de infraestructura de los objetivos.** Migraciones de base de datos, clientes gRPC generados y archivos de config no deberían contar contra tu métrica de cobertura.
-- **Rastrea tendencias de cobertura, no números absolutos.** Una caída de 5% en un PR es más accionable que "estamos en 82% hoy".
+- **Rastrea tendencias de cobertura, no números absolutos.** Una caída de 5% en un PR es más útil que "estamos en 82% hoy".
 - **Revisa líneas no cubiertas en PRs, no solo el porcentaje.** Un bot de comentarios que lista las 3 líneas no cubiertas es más útil que un checkmark rojo al 79%.
 
 ## Errores Comunes
@@ -267,4 +267,4 @@ A: 100% de cobertura de líneas es alcanzable pero puede ser engañoso. Un núme
 A: La cobertura de líneas cuenta líneas ejecutadas. La cobertura de ramas cuenta si cada rama de decisión (if/else, switch) fue tomada. La cobertura de ramas suele revelar más caminos no probados.
 
 **Q: ¿Cómo debo usar cobertura en CI?**
-A: Establece umbrales mínimos para módulos críticos, rastrea tendencias a lo largo del tiempo y rechaza pull requests que bajen significativamente la cobertura sin justificación. Evita jugar con la métrica.
+A: Establece umbrales mínimos para módulos críticos, rastrea tendencias a lo largo del tiempo y rechaza pull requests que bajen considerablemente la cobertura sin justificación. Evita jugar con la métrica.
