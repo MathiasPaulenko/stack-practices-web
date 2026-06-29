@@ -177,7 +177,7 @@ Esto elimina bloques condicionales grandes y hace que añadir nuevas estrategias
 | **[Strategy](/patterns/design/strategy-pattern) con [Factory](/patterns/design/factory-pattern)** | Selección dinámica de estrategias | Más flexible, añade indirección |
 | **Strategy funcional** | Lenguajes con funciones de primera clase | Conciso, pero menos explícito que clases |
 
-## Mejores prácticas
+## Lo que Funciona
 
 - **Usa una interfaz o base abstracta** para asegurar que todas las estrategias tengan la misma firma
 - **Mantén las estrategias sin estado** cuando sea posible para facilitar reutilización y testing

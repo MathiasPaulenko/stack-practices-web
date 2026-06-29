@@ -167,7 +167,7 @@ This prevents thread pool exhaustion, connection leaks, and poor user experience
 | **Deadline Propagation** | Pass remaining time through the call chain | End-to-end request latency budgets |
 | **Partial Results** | Return what was fetched before timeout | Streaming, search, aggregation |
 
-## Best Practices
+## What Works
 
 - **Always set timeouts on external calls** — network I/O, database queries, HTTP requests
 - **Propagate deadlines** through your call chain (e.g., gRPC context, HTTP headers)

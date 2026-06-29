@@ -307,7 +307,7 @@ Esto es efectivamente "composición sobre herencia" llevado a su conclusión ló
 | **Twin con interface** | Ambos twins implementan la misma interface | Twins intercambiables |
 | **Twin factory** | Factory crea y vincula twins | Toolkits de UI |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Mantén la clase pública thin.** El widget solo debería delegar; la lógica vive en los twins.
 - **Evita lógica circular.** Los twins no deberían llamar métodos entre sí en loops.

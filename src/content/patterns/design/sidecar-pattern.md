@@ -219,7 +219,7 @@ The Sidecar Pattern separates concerns into co-located but independent processes
 | **Config Sidecar** | Reload configuration dynamically | Consul, etcd watchers |
 | **Security Sidecar** | Authentication/authorization proxy | OAuth, mTLS, Vault |
 
-## Best Practices
+## What Works
 
 - **Keep sidecars lightweight** — they should use minimal CPU/memory
 - **Share a localhost interface** for inter-process communication instead of external networking

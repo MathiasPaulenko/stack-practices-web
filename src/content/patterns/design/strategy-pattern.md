@@ -177,7 +177,7 @@ This eliminates large conditional blocks and makes adding new strategies as simp
 | **[Strategy](/patterns/design/strategy-pattern) with [Factory](/patterns/design/factory-pattern)** | Dynamic strategy selection | More flexible, adds indirection |
 | **Functional Strategy** | Languages with first-class functions | Concise, but less explicit than classes |
 
-## Best Practices
+## What Works
 
 - **Use an interface or abstract base** to ensure all strategies have the same signature
 - **Keep strategies stateless** when possible for easier reuse and testing

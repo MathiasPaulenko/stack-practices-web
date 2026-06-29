@@ -349,7 +349,7 @@ The pattern coordinates between:
 | **Proxy-based** | Proxies intercept setters to track changes | Transparent to the domain model |
 | **Snapshot** | Compare current state to loaded snapshot | Works with immutable objects |
 
-## Best Practices
+## What Works
 
 - **One Unit of Work per transaction.** Do not reuse a committed UoW.
 - **Keep transactions short.** Long-running UoWs hold locks and accumulate state.

@@ -219,7 +219,7 @@ El Patrón Sidecar separa preocupaciones en procesos co-ubicados pero independie
 | **Sidecar Config** | Recarga configuración dinámicamente | Watchers de Consul, etcd |
 | **Sidecar Security** | Proxy de autenticación/autorización | OAuth, mTLS, Vault |
 
-## Mejores prácticas
+## Lo que Funciona
 
 - **Mantén los sidecars ligeros** — deberían usar mínimo CPU/memoria
 - **Comparte una interfaz localhost** para comunicación entre procesos en lugar de networking externo

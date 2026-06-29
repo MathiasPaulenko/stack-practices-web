@@ -349,7 +349,7 @@ El patrón coordina entre:
 | **Proxy-based** | Proxies interceptan setters para trackear cambios | Transparente al modelo de dominio |
 | **Snapshot** | Compara estado actual contra snapshot cargado | Funciona con objetos inmutables |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Un Unit of Work por transacción.** No reutilices un UoW commiteado.
 - **Mantén transacciones cortas.** UoWs de larga duración retienen locks y acumulan estado.

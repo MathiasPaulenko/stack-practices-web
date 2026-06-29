@@ -308,7 +308,7 @@ This is effectively "composition over inheritance" taken to its logical conclusi
 | **Twin with interface** | Both twins implement same interface | Interchangeable twins |
 | **Twin factory** | Factory creates and links twins | UI toolkits |
 
-## Best Practices
+## What Works
 
 - **Keep the public class thin.** The widget should only delegate; logic lives in twins.
 - **Avoid circular logic.** Twins should not call each other's methods in loops.

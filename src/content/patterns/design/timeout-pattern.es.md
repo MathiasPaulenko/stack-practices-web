@@ -167,7 +167,7 @@ Esto previene el agotamiento de pools de hilos, fugas de conexiones y mala exper
 | **Propagación de Deadlines** | Pasa el tiempo restante a través de la cadena de llamadas | Budgets de latencia end-to-end |
 | **Resultados Parciales** | Devuelve lo que se obtuvo antes del timeout | Streaming, búsqueda, agregación |
 
-## Mejores prácticas
+## Lo que Funciona
 
 - **Siempre establece timeouts en llamadas externas** — I/O de red, consultas a base de datos, peticiones HTTP
 - **Propaga deadlines** a través de tu cadena de llamadas (ej. contexto gRPC, headers HTTP)
