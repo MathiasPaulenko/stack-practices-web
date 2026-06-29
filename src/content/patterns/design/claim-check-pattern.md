@@ -417,7 +417,7 @@ The Claim Check Pattern separates message routing from payload transport:
 3. **Retrieve**: The consumer receives the message, uses the token to fetch the payload
 4. **Cleanup**: After processing, the consumer deletes the stored payload to manage storage costs
 
-This keeps the message broker lean while leveraging cheap, scalable object storage for the actual data.
+This keeps the message broker lean while leveraging cheap, growth-ready object storage for the actual data.
 
 ## Variants
 
@@ -429,7 +429,7 @@ This keeps the message broker lean while leveraging cheap, scalable object stora
 | **CDN** | CloudFront / Cloudflare | Public content that consumers download directly |
 | **Streaming** | S3 + byte-range requests | Video/audio where consumers seek to positions |
 
-## Best Practices
+## What Works
 
 - **Use pre-signed URLs for security.** Instead of exposing storage directly, the message includes a time-limited URL.
 - **Set TTL on stored payloads.** Object storage lifecycle rules should auto-delete old claim checks.

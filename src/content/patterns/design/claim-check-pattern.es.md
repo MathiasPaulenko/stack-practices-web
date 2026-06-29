@@ -416,7 +416,7 @@ El Patrón Claim Check separa el enrutamiento de mensajes del transporte de payl
 3. **Recuperar**: El consumidor recibe el mensaje, usa el token para obtener el payload
 4. **Limpiar**: Después de procesar, el consumidor elimina el payload almacenado para gestionar costos de storage
 
-Esto mantiene el broker de mensajes ligero mientras se aprovecha el almacenamiento de objetos barato y escalable para los datos reales.
+Esto mantiene el broker de mensajes ligero mientras se aprovecha el almacenamiento de objetos barato y preparado para crecimiento para los datos reales.
 
 ## Variantes
 
@@ -428,7 +428,7 @@ Esto mantiene el broker de mensajes ligero mientras se aprovecha el almacenamien
 | **CDN** | CloudFront / Cloudflare | Contenido público que los consumidores descargan directamente |
 | **Streaming** | S3 + byte-range requests | Video/audio donde los consumidores buscan posiciones |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa URLs pre-firmadas para seguridad.** En lugar de exponer el storage directamente, el mensaje incluye una URL de tiempo limitado.
 - **Establece TTL en payloads almacenados.** Las reglas de ciclo de vida de object storage deberían auto-eliminar claim checks viejos.

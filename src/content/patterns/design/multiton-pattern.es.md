@@ -48,7 +48,7 @@ Usa el Patrón Multiton cuando:
 
 ## Cuándo Evitar
 
-- Las claves son dinámicas o ilimitadas (usa un caché o pool genérico en su lugar)
+- Las claves son live o ilimitadas (usa un caché o pool genérico en su lugar)
 - Las instancias son livianas y baratas de crear (la instanciación directa es más simple)
 - Necesitas gestión de ciclo de vida por instancia (usa una factory con contenedor DI)
 
@@ -172,17 +172,17 @@ El Patrón Multiton involucra:
 | **Bounded Multiton** | Evicita la más antigua cuando está lleno | Caches sensibles a memoria con capacidad máxima |
 | **Weak Multiton** | Permite GC cuando no hay referencias | Recursos temporales por-request |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa registros thread-safe.** El acceso concurrente al mapa de instancias es la fuente más común de bugs.
-- **Limpia instancias no usadas.** Para claves dinámicas, implementa evicción o TTL para prevenir crecimiento ilimitado.
+- **Limpia instancias no usadas.** Para claves live, implementa evicción o TTL para prevenir crecimiento ilimitado.
 - **Valida las claves.** Rechaza claves desconocidas o malformadas en lugar de crear instancias para ellas.
 - **Documenta el namespace de claves.** Los multitones son difíciles de descubrir; documenta qué claves son válidas y qué representan.
 - **No almacenes estado global mutable** en instancias multiton a menos que sea el comportamiento intencionado.
 
 ## Errores Comunes
 
-- **Crecimiento ilimitado de claves** causa memory leaks cuando las claves se generan dinámicamente (ej., IDs de usuario).
+- **Crecimiento ilimitado de claves** causa memory leaks cuando las claves se generan live (ej., IDs de usuario).
 - **Race conditions** durante la creación de instancias bajo carga llevan a instancias duplicadas para la misma clave.
 - **Hardcodear claves** en código cliente dispersa la configuración. Usa constantes o selección de claves basada en configuración.
 - **Usar Multiton como caché** — los caches necesitan políticas de evicción; los multitones son para familias permanentes de singletons.

@@ -367,10 +367,10 @@ Cada request debe pasar todas las capas antes de alcanzar los servicios internos
 | **API Gateway** | Kong, AWS API Gateway, Azure APIM | Edge full-featured con plugins/políticas |
 | **Reverse Proxy + WAF** | Nginx + ModSecurity, Cloudflare | Protección a nivel de red con rulesets |
 | **Ingress de Service Mesh** | Istio Gateway, Linkerd | Nativo de Kubernetes, mTLS entre servicios |
-| **Edge CDN** | Cloudflare Workers, Lambda@Edge | Computo en el edge para validación dinámica |
+| **Edge CDN** | Cloudflare Workers, Lambda@Edge | Computo en el edge para validación live |
 | **Middleware de Aplicación** | Express, FastAPI, Spring | Control a nivel de código, sin infra adicional |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Fallar cerrado (fail closed).** Si el gatekeeper no puede validar un request, recházalo en lugar de reenviar tráfico incierto.
 - **Usar defensa en profundidad.** Gatekeeper + auth a nivel de servicio + permisos de base de datos.
@@ -403,7 +403,7 @@ La infraestructura edge de GitHub usa HAProxy con módulos Lua personalizados pa
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Gatekeeper y API Gateway?**
-A: Un API Gateway es un tipo de gatekeeper con features adicionales (enrutamiento de requests, traducción de protocolos, caching). Un gatekeeper se enfoca específicamente en validación y seguridad.
+A: Un API Gateway es un tipo de gatekeeper con capacidades adicionales (enrutamiento de requests, traducción de protocolos, caching). Un gatekeeper se enfoca específicamente en validación y seguridad.
 
 **Q: El gatekeeper debería manejar autenticación o solo pasar tokens a los servicios?**
 A: El gatekeeper debería validar tokens (firma, expiración) para rechazar requests inválidos temprano. Las decisiones de autorización ("este usuario puede acceder a este recurso?") pueden estar en el gatekeeper o a nivel de servicio dependiendo de la complejidad.

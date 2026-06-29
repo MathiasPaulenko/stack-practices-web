@@ -48,7 +48,7 @@ Use the Multiton Pattern when:
 
 ## When to Avoid
 
-- Keys are dynamic or unbounded (use a generic cache or pool instead)
+- Keys are live or unbounded (use a generic cache or pool instead)
 - Instances are lightweight and cheap to create (direct instantiation is simpler)
 - You need lifecycle management per instance (use a factory with DI container)
 
@@ -172,17 +172,17 @@ The Multiton Pattern involves:
 | **Bounded Multiton** | Evicts oldest when full | Memory-sensitive caches with max capacity |
 | **Weak Multiton** | Allows GC when unreferenced | Temporary per-request resources |
 
-## Best Practices
+## What Works
 
 - **Use thread-safe registries.** Concurrent access to the instance map is the most common source of bugs.
-- **Clean up unused instances.** For dynamic keys, implement eviction or TTL to prevent unbounded growth.
+- **Clean up unused instances.** For live keys, implement eviction or TTL to prevent unbounded growth.
 - **Validate keys.** Reject unknown or malformed keys instead of creating instances for them.
 - **Document the key namespace.** Multitons are hard to discover; document which keys are valid and what they represent.
 - **Do not store mutable global state** in multiton instances unless it is the intended behavior.
 
 ## Common Mistakes
 
-- **Unbounded key growth** causes memory leaks when keys are generated dynamically (e.g., user IDs).
+- **Unbounded key growth** causes memory leaks when keys are generated live (e.g., user IDs).
 - **Race conditions** during instance creation under load lead to duplicate instances for the same key.
 - **Hardcoding keys** in client code scatters configuration. Use constants or configuration-driven key selection.
 - **Using Multiton as a cache** — caches need eviction policies; multitons are for permanent singleton families.

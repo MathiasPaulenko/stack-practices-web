@@ -367,10 +367,10 @@ Each request must pass all layers before reaching internal services. Rejected re
 | **API Gateway** | Kong, AWS API Gateway, Azure APIM | Full-featured edge with plugins/policies |
 | **Reverse Proxy + WAF** | Nginx + ModSecurity, Cloudflare | Network-level protection with rulesets |
 | **Service Mesh Ingress** | Istio Gateway, Linkerd | Kubernetes-native, mTLS between services |
-| **CDN Edge** | Cloudflare Workers, Lambda@Edge | Compute at the edge for dynamic validation |
+| **CDN Edge** | Cloudflare Workers, Lambda@Edge | Compute at the edge for live validation |
 | **Application Middleware** | Express, FastAPI, Spring | Code-level control, no additional infrastructure |
 
-## Best Practices
+## What Works
 
 - **Fail closed.** If the gatekeeper cannot validate a request, reject it rather than forwarding uncertain traffic.
 - **Use defense in depth.** Gatekeeper + service-level auth + database permissions.
@@ -403,7 +403,7 @@ GitHub's edge infrastructure uses HAProxy with custom Lua modules for request ro
 ## Frequently Asked Questions
 
 **Q: What is the difference between Gatekeeper and API Gateway?**
-A: An API Gateway is a type of gatekeeper with additional features (request routing, protocol translation, caching). A gatekeeper focuses specifically on validation and security.
+A: An API Gateway is a type of gatekeeper with additional capabilities (request routing, protocol translation, caching). A gatekeeper focuses specifically on validation and security.
 
 **Q: Should the gatekeeper handle authentication or just pass tokens to services?**
 A: The gatekeeper should validate tokens (signature, expiry) to reject invalid requests early. Authorization decisions ("can this user access this resource?") can be at the gatekeeper or service level depending on complexity.

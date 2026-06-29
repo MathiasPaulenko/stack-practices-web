@@ -210,7 +210,7 @@ Los clientes nunca verifican por null; tratan todos los objetos uniformemente.
 | **Null Subscription** | Unsubscribe es no-op | Event handler que ignora callbacks safe |
 | **Null Mailer** | Silenciosamente descarta emails | Mailer de desarrollo que imprime a consola |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Retorna null objects desde factories y búsquedas** en lugar de `None` o `null`
 - **Haz null objects inmutables** para que no puedan ser modificados accidentalmente

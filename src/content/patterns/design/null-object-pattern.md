@@ -210,7 +210,7 @@ Clients never check for null; they treat all objects uniformly.
 | **Null Subscription** | Unsubscribe is no-op | Event handler that safely ignores callbacks |
 | **Null Mailer** | Silently drops emails | Development mailer that prints to console |
 
-## Best Practices
+## What Works
 
 - **Return null objects from factories and lookups** instead of `None` or `null`
 - **Make null objects immutable** so they cannot be accidentally modified

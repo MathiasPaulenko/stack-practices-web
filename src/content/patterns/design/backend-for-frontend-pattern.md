@@ -415,12 +415,12 @@ Each BFF is owned by the team responsible for that frontend, allowing them to it
 | Variant | Client Type | Specialization |
 |-----------|-------------|----------------|
 | **Mobile BFF** | iOS/Android | Small payloads, connection resilience, offline support |
-| **Web BFF** | Browser/SPA | SSR, SEO, deep data nesting, real-time features |
+| **Web BFF** | Browser/SPA | SSR, SEO, deep data nesting, real-time capabilities |
 | **IoT BFF** | Embedded devices | Binary protocols, minimal JSON, edge caching |
 | **Partner BFF** | Third-party integrations | Rate limiting, restricted data, API versioning |
 | **GraphQL BFF** | Any | Schema stitching, resolver-based aggregation |
 
-## Best Practices
+## What Works
 
 - **Keep BFFs thin.** They should aggregate and transform, not implement core business logic.
 - **Co-locate BFF with frontend team.** The team that owns the client should own its BFF.
@@ -444,7 +444,7 @@ Netflix uses BFFs per device type (TV, mobile, web). Each BFF aggregates persona
 
 ### Spotify
 
-Spotify's mobile and desktop clients consume different BFFs. The mobile BFF aggressively reduces payload size and pre-fetches likely-next content, while the desktop BFF provides richer metadata and social features.
+Spotify's mobile and desktop clients consume different BFFs. The mobile BFF aggressively reduces payload size and pre-fetches likely-next content, while the desktop BFF provides richer metadata and social capabilities.
 
 ### SoundCloud
 
