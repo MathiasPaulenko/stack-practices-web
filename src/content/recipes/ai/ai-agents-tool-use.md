@@ -117,7 +117,7 @@ Key design decisions:
 | CrewAI | Role-based agents | Business workflows |
 | Custom | ReAct with tool registry | Production systems |
 
-## Best Practices
+## What Works
 
 - **Define clear tool interfaces**: Each tool needs a name, description, and JSON schema
 - **Limit tool count**: 3-5 well-designed tools outperform 20 vague ones

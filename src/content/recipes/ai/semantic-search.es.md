@@ -201,7 +201,7 @@ La búsqueda semántica funciona en tres etapas:
 | pgvector | Extensión de Postgres | Mejor para producción si ya usas PostgreSQL |
 | Pinecone / Weaviate | BD vectorial gestionada | Escalable, alojada, con filtrado por metadatos |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 1. Normaliza embeddings antes de búsqueda por similitud coseno para habilitar aceleración por producto interno
 2. Almacena metadatos (fuente, categoría, fecha) junto a vectores para filtrado y ranking

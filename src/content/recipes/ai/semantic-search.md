@@ -200,7 +200,7 @@ Semantic search works in three stages:
 | pgvector | Postgres extension | Best for production if you already use PostgreSQL |
 | Pinecone / Weaviate | Managed vector DB | Scalable, hosted, with metadata filtering |
 
-## Best Practices
+## What Works
 
 1. Normalize embeddings before cosine similarity search to enable inner-product acceleration
 2. Store metadata (source, category, date) alongside vectors for filtering and ranking

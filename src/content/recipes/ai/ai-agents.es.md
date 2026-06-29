@@ -184,7 +184,7 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 | Reflection | Autocrítica | Loops de reintento | Episódica | Generación de código, escritura |
 | Multi-agent | Delegación | Agente-a-agente | Compartida | Sistemas complejos |
 
-## Mejores prácticas
+## Lo que Funciona
 
 - **Define herramientas con precisión**: los nombres y descripciones de herramientas son prompts. Una descripción vaga como "buscar cosas" conduce a selección incorrecta de herramientas. Sé específico: "Search the web for current news and facts."
 - **Valida salidas de herramientas**: nunca confíes en la salida cruda del LLM como entrada segura para herramientas. Valida el schema JSON, sanitiza argumentos y maneja errores gracefulmente. Un prompt malicioso no debería ejecutar código arbitrario.

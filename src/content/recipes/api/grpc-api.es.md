@@ -180,7 +180,7 @@ Los flujos de trabajo gRPC son contract-first: defines un esquema `.proto`, lueg
 | Go | `google.golang.org/grpc` | Soporte de primera clase; rendimiento más rápido en benchmarks |
 | Rust | `tonic` | Primero async con Tokio; excelente rendimiento |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 1. Versiona tus archivos `.proto` y nunca elimines o renumeroes campos existentes
 2. Usa interceptores ([middleware](/patterns/design/chain-of-responsibility-middleware)) para preocupaciones transversales: auth, logging, reintentos

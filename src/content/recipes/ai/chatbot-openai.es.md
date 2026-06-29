@@ -232,7 +232,7 @@ La OpenAI Assistants API abstrae la complejidad de los chatbots:
 | RAG manual | Control total | Implementa tu propia recuperación de documentos y gestión de contexto |
 | Claude / Gemini APIs | Alternativas de proveedor | APIs similares de Anthropic y Google; prueba múltiples modelos |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 1. Diseña funciones claras con nombres descriptivos y esquemas JSON estrictos
 2. Siempre valida los argumentos de tool calls antes de ejecutar funciones del backend

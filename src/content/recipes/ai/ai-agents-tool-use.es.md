@@ -117,7 +117,7 @@ Decisiones clave de diseño:
 | CrewAI | Agentes basados en roles | Flujos de trabajo de negocio |
 | Custom | ReAct con registro de herramientas | Sistemas de producción |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Define interfaces claras de herramientas**: Cada herramienta necesita nombre, descripción y esquema JSON
 - **Limita la cantidad de herramientas**: 3-5 herramientas bien diseñadas superan a 20 vagas

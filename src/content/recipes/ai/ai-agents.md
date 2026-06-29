@@ -184,7 +184,7 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 | Reflection | Self-critique | Retry loops | Episodic | Code generation, writing |
 | Multi-agent | Delegation | Agent-to-agent | Shared | Complex systems |
 
-## Best practices
+## What Works
 
 - **Define tools precisely**: tool names and descriptions are prompts. A vague description like "search stuff" leads to incorrect tool selection. Be specific: "Search the web for current news and facts."
 - **Validate tool outputs**: never trust raw LLM output as safe input to tools. Validate JSON schema, sanitize arguments, and handle errors gracefully. A malicious prompt should not execute arbitrary code.

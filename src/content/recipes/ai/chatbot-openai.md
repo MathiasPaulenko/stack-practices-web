@@ -227,7 +227,7 @@ Unlike Chat Completions, you do not send the full message history on every reque
 | [LangChain Agents](/recipes/ai/ai-agents-tool-use) | Framework-level abstraction | Swap models, add custom tools, but more boilerplate |
 | Functionary / Local LLMs | Self-hosted function calling | Privacy-first, no API costs, but needs GPU |
 
-## Best Practices
+## What Works
 
 1. Store thread IDs in your database so users can resume conversations
 2. Use `code_interpreter` for calculations and data manipulation instead of trusting LLM arithmetic

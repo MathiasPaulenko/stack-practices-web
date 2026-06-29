@@ -180,7 +180,7 @@ gRPC workflows are contract-first: you define a `.proto` schema, then generate c
 | Go | `google.golang.org/grpc` | First-class support; fastest performance in benchmarks |
 | Rust | `tonic` | Async-first with Tokio; excellent performance |
 
-## Best Practices
+## What Works
 
 1. Version your `.proto` files and never remove or renumber existing fields
 2. Use interceptors ([middleware](/patterns/design/chain-of-responsibility-middleware)) for cross-cutting concerns: auth, logging, retries
