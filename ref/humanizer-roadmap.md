@@ -377,11 +377,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\docs\devops\service-level-objective-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\service-level-objective-template.es.md | pending |
-| src\content\docs\templates\adr-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\templates\adr-template.es.md | pending |
-| src\content\docs\templates\api-error-response-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\templates\api-error-response-template.es.md | pending |
-| src\content\docs\templates\database-migration-runbook-template.md | 2.0 | best practices → what works | src\content\docs\templates\database-migration-runbook-template.es.md | pending |
-| src\content\docs\templates\environment-setup-guide-template.md | 2.0 | best practices → what works | src\content\docs\templates\environment-setup-guide-template.es.md | pending |
+| src\content\docs\devops\service-level-objective-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\service-level-objective-template.es.md | completed |
+| src\content\docs\templates\adr-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\templates\adr-template.es.md | completed |
+| src\content\docs\templates\api-error-response-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\templates\api-error-response-template.es.md | completed |
+| src\content\docs\templates\database-migration-runbook-template.md | 2.0 | best practices → what works | src\content\docs\templates\database-migration-runbook-template.es.md | completed |
+| src\content\docs\templates\environment-setup-guide-template.md | 2.0 | best practices → what works | src\content\docs\templates\environment-setup-guide-template.es.md | completed |
 
 ### Batch 34 (priority: low)
 

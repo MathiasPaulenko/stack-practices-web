@@ -126,7 +126,7 @@ return old
 | Año 2 | Extraer servicios core; monolito se encoge |
 | Año 3 | Retirar monolito |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - Nunca hagas un rewrite big-bang — la extracción incremental preserva opcionalidad
 - Mide antes y después: deploy frequency, lead time, failure rate
@@ -148,9 +148,9 @@ return old
 
 Para un sistema con 100+ ingenieros, espera 1-3 años. El primer servicio toma meses; el décimo toma semanas. El cuello de botella rara vez es técnico — es alineación organizacional y confianza en testing.
 
-### ¿Deberíamos parar el desarrollo de features durante la migración?
+### ¿Deberíamos parar el desarrollo de capacidades durante la migración?
 
-No. El negocio no se detiene. Corre migración como track paralelo: 70% features, 30% migración. Si migración toma 100% de capacidad, estás extrayendo muy agresivamente.
+No. El negocio no se detiene. Corre migración como track paralelo: 70% capacidades, 30% migración. Si migración toma 100% de capacidad, estás extrayendo muy agresivamente.
 
 ### ¿Qué pasa si terminamos con un monolito distribuido?
 

@@ -138,7 +138,7 @@ The template separates **summary** (for executives), **details** (for engineers)
 | Incident recovery | Post-fix validation | Focus on the specific path that failed |
 | Capacity planning | Saturation test | Document the breaking point and limiting resource |
 
-## Best Practices
+## What works
 
 1. Run tests in an environment that mirrors production (hardware, data size, network)
 2. Warm up the system before recording metrics to avoid cold-start bias
@@ -166,4 +166,4 @@ Avoid load testing production directly. Use a production-like environment with s
 
 ### How often should load tests be repeated?
 
-Before every major release, after significant infrastructure changes, and quarterly as a regression check. Automate nightly smoke tests with small load to catch regressions early.
+Before every major release, after major infrastructure changes, and quarterly as a regression check. Automate nightly smoke tests with small load to catch regressions early.

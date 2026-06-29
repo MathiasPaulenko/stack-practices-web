@@ -152,7 +152,7 @@ Return a consistent error envelope:
 }
 ```
 
-## Best Practices
+## What works
 
 - **Use JSON** as the default content type (`application/json`)
 - **Return consistent envelopes** — wrap responses in a predictable structure

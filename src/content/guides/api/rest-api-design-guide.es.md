@@ -154,7 +154,7 @@ Devuelve un envelope de error consistente:
 }
 ```
 
-## Best Practices
+## Lo que funciona
 
 - **Usa JSON** como tipo de contenido por defecto (`application/json`)
 - **Devuelve envelopes consistentes** — envuelve respuestas en una estructura predecible

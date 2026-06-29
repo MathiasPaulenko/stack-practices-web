@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-Lakehouse architecture, pioneered by Databricks, unifies the best of Data Lakes and Data Warehouses. It stores data in open formats (Parquet) on low-cost object storage while adding transactional guarantees, schema enforcement, and time travel — features previously only available in proprietary warehouses. Open table formats like Delta Lake, Apache Iceberg, and Hudi make this possible by maintaining metadata layers that track changes, partitions, and statistics without locking data into a vendor-specific format.
+Lakehouse architecture, pioneered by Databricks, unifies the best of Data Lakes and Data Warehouses. It stores data in open formats (Parquet) on low-cost object storage while adding transactional guarantees, schema enforcement, and time travel — capabilities previously only available in proprietary warehouses. Open table formats like Delta Lake, Apache Iceberg, and Hudi make this possible by maintaining metadata layers that track changes, partitions, and statistics without locking data into a vendor-specific format.
 
 ## When to Use
 
@@ -207,4 +207,4 @@ Gold (Curated)
 Yes. Snowflake supports Iceberg tables natively. BigQuery supports BigLake tables over Iceberg and Delta via connectors.
 
 **Is Lakehouse cheaper than a traditional warehouse?**
-Storage is significantly cheaper (S3/GCS vs proprietary storage). Compute costs depend on engine choice. Overall TCO is usually lower, especially for large datasets.
+Storage is considerably cheaper (S3/GCS vs proprietary storage). Compute costs depend on engine choice. Overall TCO is usually lower, especially for large datasets.

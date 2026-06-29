@@ -169,7 +169,7 @@ gRPC uses HTTP/2 as its transport, which gives it three advantages over REST/HTT
 
 The biggest operational challenge is **load balancing**. HTTP/2 connections are long-lived, so naive L4 load balancers route all requests from one client to one server. You need an L7 (application) load balancer or a service mesh that understands gRPC and can route individual RPCs. Envoy, Linkerd, and NGINX with the gRPC module all support this.
 
-**Streaming** is where gRPC truly differentiates itself. Unlike REST, where streaming requires WebSockets or Server-Sent Events, gRPC has four built-in patterns: unary (request/response), server streaming (server sends a sequence), client streaming (client sends a sequence), and bidirectional streaming (both send sequences). Bidirectional streaming is ideal for real-time features like chat, collaborative editing, or live dashboards.
+**Streaming** is where gRPC truly differentiates itself. Unlike REST, where streaming requires WebSockets or Server-Sent Events, gRPC has four built-in patterns: unary (request/response), server streaming (server sends a sequence), client streaming (client sends a sequence), and bidirectional streaming (both send sequences). Bidirectional streaming is ideal for real-time capabilities like chat, collaborative editing, or live dashboards.
 
 ## Variants
 
@@ -182,7 +182,7 @@ The biggest operational challenge is **load balancing**. HTTP/2 connections are 
 | **gRPC-Web** | Browser clients | Proxy via Envoy; limited streaming support |
 | **gRPC-Gateway** | REST compatibility | Auto-generate REST API from `.proto` |
 
-## Best Practices
+## What works
 
 1. **Use `protoc` plugins** to generate client/server stubs in every language you support
 2. **Version `.proto` files** explicitly; never break field numbers in existing messages

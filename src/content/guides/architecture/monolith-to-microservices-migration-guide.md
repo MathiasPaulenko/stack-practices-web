@@ -189,7 +189,7 @@ def create_order(order):
 | Year 2 | Extract core services; monolith shrinks to thin orchestration layer |
 | Year 3 | Retire monolith; all functionality in services |
 
-## Best Practices
+## What works
 
 - **Never do a big-bang rewrite** — incremental extraction preserves optionality
 - **Measure before and after** — track deployment frequency, lead time, and failure rate
@@ -214,7 +214,7 @@ For a system with 100+ engineers, expect 1-3 years. The first service takes mont
 
 ### Should we stop feature development during migration?
 
-No. The business does not pause. Run migration as a parallel track: 70% features, 30% migration. If migration takes 100% of capacity, you are extracting too aggressively.
+No. The business does not pause. Run migration as a parallel track: 70% capabilities, 30% migration. If migration takes 100% of capacity, you are extracting too aggressively.
 
 ### What if we end up with a distributed monolith?
 

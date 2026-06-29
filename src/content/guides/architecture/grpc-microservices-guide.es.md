@@ -207,7 +207,7 @@ El balanceo de carga en gRPC es más complejo que en HTTP/1.1. Como las conexion
 | **Migración gradual** | gRPC gateway sobre REST | Agrega gRPC, mantiene REST existente |
 | **GraphQL federation** | gRPC para subgrafos | Resolvers GraphQL llaman servicios gRPC |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Define **deadlines (timeouts)** en cada llamada gRPC; los defaults son infinitos
 2. Usa **interceptores** para logging, tracing y autenticación en lugar de replicar código

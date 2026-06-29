@@ -139,7 +139,7 @@ La plantilla separa el **resumen** (para ejecutivos), los **detalles** (para ing
 | Recuperación de incidente | Validación post-corrección | Enfocarse en la ruta específica que falló |
 | Planificación de capacidad | Prueba de saturación | Documentar el punto de ruptura y el recurso limitante |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Ejecutar pruebas en un entorno que refleje producción (hardware, tamaño de datos, red)
 2. Calentar el sistema antes de registrar métricas para evitar sesgo de arranque en frío
@@ -167,4 +167,4 @@ Evita probar producción directamente. Usa un entorno similar a producción con 
 
 ### ¿Con qué frecuencia se deben repetir las pruebas de carga?
 
-Antes de cada lanzamiento mayor, después de cambios significativos de infraestructura, y trimestralmente como verificación de regresión. Automatiza pruebas de humo nocturnas con carga pequeña para detectar regresiones temprano.
+Antes de cada lanzamiento mayor, después de cambios mayores de infraestructura, y trimestralmente como verificación de regresión. Automatiza pruebas de humo nocturnas con carga pequeña para detectar regresiones temprano.
