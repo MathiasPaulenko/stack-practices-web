@@ -316,7 +316,7 @@ service=orders-service | select traceID, spanID, duration
 - **Dependency mapping:** Which services call which?
 - **Bottleneck identification:** Where is time spent in a trace?
 
-## Best Practices
+## What Works
 
 - **Instrument at the framework level first.** HTTP clients, databases, and message queues give the most value with least effort.
 - **Use semantic conventions.** Follow OpenTelemetry semantic conventions for span names and attributes.
@@ -357,4 +357,4 @@ Yes, but ensure trace context propagates across message queues, callbacks, and t
 ## Conclusion
 
 Distributed tracing is essential for operating microservices at scale. By instrumenting your applications, propagating context faithfully, and sampling intelligently, you transform opaque cross-service failures into visual, debuggable request flows.
-
+

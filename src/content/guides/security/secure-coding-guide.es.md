@@ -155,7 +155,7 @@ def verify_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode(), hashed.encode())
 ```
 
-### Mejores Prácticas de JWT
+### Lo que funciona de JWT
 
 ```python
 import jwt
@@ -221,7 +221,7 @@ def withdraw(account, amount):
 ### Valores Seguros por Defecto
 
 - Los nuevos usuarios no tienen permisos hasta que se otorgan explícitamente
-- Las funciones están deshabilitadas hasta que se habilitan
+- Las capacidades están deshabilitadas hasta que se habilitan
 - Los errores revelan información mínima a atacantes
 - El logging es verboso para eventos de seguridad pero nunca registra secretos
 

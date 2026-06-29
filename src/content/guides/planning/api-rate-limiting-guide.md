@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: api-rate-limiting-guide
-title: "API Rate Limiting — Design Fair and Effective Throttling"
+title: "API Rate Limiting — Design Fair and Useful Throttling"
 description: "A practical guide to API rate limiting: token bucket, leaky bucket, sliding window algorithms, choosing limits, and implementing resilient throttling for APIs."
 metaDescription: "Learn API rate limiting design: token bucket, leaky bucket, sliding window, and choosing fair limits for resilient APIs."
 difficulty: intermediate
@@ -366,7 +366,7 @@ Retry-After: 60
 }
 ```
 
-## Best Practices
+## What Works
 
 - **Return informative error messages.** Tell clients exactly what limit they hit and when they can retry.
 - **Use different limits per endpoint.** Search endpoints may tolerate higher limits than write endpoints.

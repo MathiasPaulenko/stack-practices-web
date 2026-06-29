@@ -407,11 +407,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\guides\devops\infrastructure-as-code-guide.md | 2.0 | best practices → what works | src\content\guides\devops\infrastructure-as-code-guide.es.md | pending |
-| src\content\guides\devops\kubernetes-basics-guide.md | 2.0 | best practices → what works, effectively → well | src\content\guides\devops\kubernetes-basics-guide.es.md | pending |
-| src\content\guides\devops\logging-monitoring-observability-guide.md | 2.0 | actionable → useful, best practices → what works | src\content\guides\devops\logging-monitoring-observability-guide.es.md | pending |
-| src\content\guides\devops\on-call-incident-response-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\devops\on-call-incident-response-guide.es.md | pending |
-| src\content\guides\messaging\message-queue-guide.md | 2.0 | best practices → what works, scalability → growth | src\content\guides\messaging\message-queue-guide.es.md | pending |
+| src\content\guides\devops\infrastructure-as-code-guide.md | 2.0 | best practices → what works | src\content\guides\devops\infrastructure-as-code-guide.es.md | completed |
+| src\content\guides\devops\kubernetes-basics-guide.md | 2.0 | best practices → what works, effectively → well | src\content\guides\devops\kubernetes-basics-guide.es.md | completed |
+| src\content\guides\devops\logging-monitoring-observability-guide.md | 2.0 | actionable → useful, best practices → what works | src\content\guides\devops\logging-monitoring-observability-guide.es.md | completed |
+| src\content\guides\devops\on-call-incident-response-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\devops\on-call-incident-response-guide.es.md | completed |
+| src\content\guides\messaging\message-queue-guide.md | 2.0 | best practices → what works, scalability → growth | src\content\guides\messaging\message-queue-guide.es.md | completed |
 
 ### Batch 37 (priority: low)
 

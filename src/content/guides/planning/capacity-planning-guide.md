@@ -171,7 +171,7 @@ export default function() {
 | **Vertical scaling** | Predictable, steady growth; database workloads | Simple, no code changes | Hard limit, downtime risk, expensive |
 | **Horizontal scaling** | Variable, spiky traffic; stateless services | Elastic, fault-tolerant | Added complexity, data consistency |
 | **Auto-scaling** | Unpredictable or cyclical demand | Cost-efficient, hands-off | Cold start latency, configuration complexity |
-| **Reserved capacity** | Predictable baseline load | Significant cost savings | Less flexible, upfront commitment |
+| **Reserved capacity** | Predictable baseline load | Major cost savings | Less flexible, upfront commitment |
 
 ### 6. Plan for Headroom
 
@@ -192,7 +192,7 @@ Create a capacity plan document that includes:
 - Cost projections
 - Review schedule (monthly or quarterly)
 
-## Best Practices
+## What Works
 
 - **Start with data, not guesses.** Collect at least 2 weeks of production metrics before forecasting.
 - **Test at scale.** Load test at 2-3x expected peak to understand failure modes.

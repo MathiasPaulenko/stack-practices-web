@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: api-rate-limiting-guide
-title: "Rate Limiting de APIs — Diseña Throttling Justo y Efectivo"
+title: "Rate Limiting de APIs — Diseña Throttling Justo y Útil"
 description: "Guía práctica para rate limiting de APIs: algoritmos de token bucket, leaky bucket, ventana deslizante, elección de límites e implementación de throttling resiliente para APIs."
 metaDescription: "Aprende diseño de rate limiting para APIs: token bucket, leaky bucket, ventana deslizante y elección de límites justos para APIs resilientes."
 difficulty: intermediate
@@ -366,7 +366,7 @@ Retry-After: 60
 }
 ```
 
-## Best Practices
+## Lo que funciona
 
 - **Retorna mensajes de error informativos.** Dile a clientes exactamente qué límite golpearon y cuándo pueden reintentar.
 - **Usa diferentes límites por endpoint.** Endpoints de búsqueda pueden tolerar límites más altos que endpoints de escritura.

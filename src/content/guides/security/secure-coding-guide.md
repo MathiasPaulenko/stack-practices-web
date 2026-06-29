@@ -155,7 +155,7 @@ def verify_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode(), hashed.encode())
 ```
 
-### JWT Best Practices
+### JWT What Works
 
 ```python
 import jwt
@@ -221,7 +221,7 @@ def withdraw(account, amount):
 ### Secure Defaults
 
 - New users have no permissions until explicitly granted
-- Features are disabled until enabled
+- Capabilities are disabled until enabled
 - Errors reveal minimal information to attackers
 - Logging is verbose for security events but never logs secrets
 

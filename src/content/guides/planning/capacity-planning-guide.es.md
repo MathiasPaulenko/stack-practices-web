@@ -192,7 +192,7 @@ Crea un documento de plan de capacidad que incluya:
 - Proyecciones de costos
 - Calendario de revisión (mensual o trimestral)
 
-## Best Practices
+## Lo que funciona
 
 - **Empieza con datos, no con suposiciones.** Recopila al menos 2 semanas de métricas de producción antes de pronosticar.
 - **Prueba a escala.** Prueba de carga a 2-3x el pico esperado para entender modos de falla.

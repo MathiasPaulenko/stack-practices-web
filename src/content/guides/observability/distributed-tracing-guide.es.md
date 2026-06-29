@@ -316,7 +316,7 @@ service=orders-service | select traceID, spanID, duration
 - **Mapeo de dependencias:** ¿Qué servicios llaman a cuáles?
 - **Identificación de cuellos de botella:** ¿Dónde se gasta el tiempo en una traza?
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Instrumenta a nivel de framework primero.** Clientes HTTP, bases de datos y colas de mensajes dan el mayor valor con menos esfuerzo.
 - **Usa convenciones semánticas.** Sigue las convenciones semánticas de OpenTelemetry para nombres de spans y atributos.
@@ -357,4 +357,4 @@ Sí, pero asegúrate de que el contexto de traza se propague a través de colas 
 ## Conclusión
 
 Las trazas distribuidas son esenciales para operar microservicios a escala. Al instrumentar tus aplicaciones, propagar el contexto fielmente y muestrear inteligentemente, transformas fallas opacas entre servicios en flujos de petición visuales y depurables.
-
+
