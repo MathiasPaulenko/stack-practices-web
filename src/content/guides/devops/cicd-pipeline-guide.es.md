@@ -3,7 +3,7 @@ contentType: guides
 slug: cicd-pipeline-guide
 title: "Guía de Pipelines CI/CD"
 description: "Una guía práctica para construir pipelines CI/CD con GitHub Actions, testing, estrategias de deployment y procedimientos de rollback."
-metaDescription: "Aprende a construir pipelines CI/CD robustos: workflows de GitHub Actions, testing automatizado, estrategias de deployment y rollbacks en producción."
+metaDescription: "Aprende a construir pipelines CI/CD fiables: workflows de GitHub Actions, testing automatizado, estrategias de deployment y rollbacks en producción."
 difficulty: intermediate
 topics:
   - devops
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende a construir pipelines CI/CD robustos: workflows de GitHub Actions, testing automatizado, estrategias de deployment y rollbacks en producción."
+  metaDescription: "Aprende a construir pipelines CI/CD fiables: workflows de GitHub Actions, testing automatizado, estrategias de deployment y rollbacks en producción."
   keywords:
     - cicd pipeline
     - github actions
@@ -231,7 +231,7 @@ Un pipeline sin observabilidad es volar a ciegas. Integra estos checks:
 A: Apunta a menos de 10 minutos para feedback. Menos de 5 minutos es ideal.
 
 **Q: ¿Debería desplegar en cada commit?**
-A: Sí, si tus tests y monitoreo son robustos. De lo contrario, despliega en merge a main.
+A: Sí, si tus tests y monitoreo son fiables. De lo contrario, despliega en merge a main.
 
 **Q: ¿Cuál es la diferencia entre Continuous Delivery y Continuous Deployment?**
 A: Continuous Delivery significa que el código siempre está desplegable; un humano aprueba el release. Continuous Deployment significa que cada cambio validado va a producción automáticamente.

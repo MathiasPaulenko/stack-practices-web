@@ -50,7 +50,7 @@ Un contenedor es una instancia ejecutable de una imagen. Está aislado del siste
 
 Un archivo de texto con instrucciones para construir una imagen. Cada instrucción crea una capa en la imagen.
 
-## Buenas Prácticas de Dockerfile
+## Dockerfile — Lo que funciona
 
 ```dockerfile
 # Usa una versión específica, no 'latest'
@@ -75,7 +75,7 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 ```
 
-### Buenas Prácticas
+### Lo que funciona
 
 - **Usa etiquetas de imagen específicas** — `node:20-alpine` en lugar de `node:latest`
 - **Ejecuta como usuario no root** — práctica de seguridad

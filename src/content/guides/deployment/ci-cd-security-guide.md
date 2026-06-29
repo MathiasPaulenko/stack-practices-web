@@ -130,7 +130,7 @@ Secrets in CI/CD are a common attack vector:
 # Azure: managed identity + federated credentials
 ```
 
-**Secrets best practices:**
+**Secrets — what works:**
 - Rotate secrets automatically (every 30-90 days)
 - Use short-lived tokens (1-hour TTL) where possible
 - Scope secrets to specific job stages, not global pipeline
@@ -238,7 +238,7 @@ sbom-diff expected.sbom generated.sbom
 - Log all deployment events to immutable audit trail
 - Separate staging and production deployment credentials
 
-## Best Practices
+## What Works
 
 - **Assume your pipeline will be compromised.** Design for containment, not just prevention.
 - **Use ephemeral infrastructure.** Fresh runners prevent persistent malware.

@@ -49,7 +49,7 @@ A container is a runnable instance of an image. It is isolated from the host sys
 
 A text file with instructions to build an image. Each instruction creates a layer in the image.
 
-## Dockerfile Best Practices
+## Dockerfile — What Works
 
 ```dockerfile
 # Use a specific version, not 'latest'
@@ -74,7 +74,7 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 ```
 
-### Best Practices
+### What Works
 
 - **Use specific image tags** — `node:20-alpine` instead of `node:latest`
 - **Run as non-root user** — security best practice

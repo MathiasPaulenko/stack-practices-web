@@ -245,7 +245,7 @@ UPDATE users SET email_verified = false WHERE email_verified IS NULL;
 ALTER TABLE users ALTER COLUMN email_verified SET NOT NULL;
 ```
 
-## Best Practices
+## Lo que funciona
 
 - **Mantén entornos verdaderamente idénticos.** Mismo OS, versiones de runtime, límites de recursos y configuración.
 - **Automatiza todo el cambio.** Los cambios manuales de DNS o configuración son propensos a errores.

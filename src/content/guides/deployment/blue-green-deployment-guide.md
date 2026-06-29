@@ -245,7 +245,7 @@ UPDATE users SET email_verified = false WHERE email_verified IS NULL;
 ALTER TABLE users ALTER COLUMN email_verified SET NOT NULL;
 ```
 
-## Best Practices
+## What Works
 
 - **Keep environments truly identical.** Same OS, runtime versions, resource limits, and configuration.
 - **Automate the entire switch.** Manual DNS changes or config edits are error-prone.

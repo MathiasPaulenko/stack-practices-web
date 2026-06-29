@@ -387,11 +387,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\docs\testing\load-test-report-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\testing\load-test-report-template.es.md | pending |
-| src\content\guides\api\rest-api-design-guide.md | 2.0 | best practices → what works | src\content\guides\api\rest-api-design-guide.es.md | pending |
-| src\content\guides\architecture\grpc-microservices-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\architecture\grpc-microservices-guide.es.md | pending |
-| src\content\guides\architecture\lakehouse-guide.md | 2.0 | features → capabilities, significantly → considerably | src\content\guides\architecture\lakehouse-guide.es.md | pending |
-| src\content\guides\architecture\monolith-to-microservices-migration-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\architecture\monolith-to-microservices-migration-guide.es.md | pending |
+| src\content\docs\testing\load-test-report-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\testing\load-test-report-template.es.md | completed |
+| src\content\guides\api\rest-api-design-guide.md | 2.0 | best practices → what works | src\content\guides\api\rest-api-design-guide.es.md | completed |
+| src\content\guides\architecture\grpc-microservices-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\architecture\grpc-microservices-guide.es.md | completed |
+| src\content\guides\architecture\lakehouse-guide.md | 2.0 | features → capabilities, significantly → considerably | src\content\guides\architecture\lakehouse-guide.es.md | completed |
+| src\content\guides\architecture\monolith-to-microservices-migration-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\architecture\monolith-to-microservices-migration-guide.es.md | completed |
 
 ### Batch 35 (priority: low)
 

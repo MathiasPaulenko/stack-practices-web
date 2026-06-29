@@ -3,7 +3,7 @@ contentType: guides
 slug: cicd-pipeline-guide
 title: "CI/CD Pipeline Guide"
 description: "A practical guide to building CI/CD pipelines with GitHub Actions, testing, deployment strategies, and rollback procedures."
-metaDescription: "Learn how to build robust CI/CD pipelines: GitHub Actions workflows, automated testing, deployment strategies, and production rollbacks."
+metaDescription: "Learn how to build reliable CI/CD pipelines: GitHub Actions workflows, automated testing, deployment strategies, and production rollbacks."
 difficulty: intermediate
 topics:
   - devops
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Learn how to build robust CI/CD pipelines: GitHub Actions workflows, automated testing, deployment strategies, and production rollbacks."
+  metaDescription: "Learn how to build reliable CI/CD pipelines: GitHub Actions workflows, automated testing, deployment strategies, and production rollbacks."
   keywords:
     - cicd pipeline
     - github actions
@@ -157,7 +157,7 @@ kubectl rollout undo deployment/my-app
 git revert HEAD
 ```
 
-## Best Practices
+## What Works
 
 - **Fail fast**: Run fastest checks (lint, [unit tests](/recipes/testing/unit-testing)) first
 - **Parallelize**: Run independent jobs in parallel
@@ -231,7 +231,7 @@ A pipeline without observability is flying blind. Integrate these checks:
 A: Target under 10 minutes for feedback. Under 5 minutes is ideal.
 
 **Q: Should I deploy on every commit?**
-A: Yes, if your tests and monitoring are robust. Otherwise, deploy on merge to main.
+A: Yes, if your tests and monitoring are reliable. Otherwise, deploy on merge to main.
 
 **Q: What's the difference between Continuous Delivery and Continuous Deployment?**
 A: Continuous Delivery means code is always deployable; a human approves the release. Continuous Deployment means every validated change goes to production automatically.

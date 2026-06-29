@@ -58,7 +58,7 @@ Serverless architecture lets you run code without provisioning or managing serve
 | **Queue-triggered function** | Decoupled workloads | SQS → Lambda order processor |
 | **Stream-triggered function** | Real-time data | DynamoDB Streams → Lambda cache updater |
 
-## Function Design Best Practices
+## Function Design — What Works
 
 ```python
 # AWS Lambda handler — keep initialization outside handler for reuse

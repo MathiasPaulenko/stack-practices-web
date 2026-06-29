@@ -58,7 +58,7 @@ La arquitectura serverless te permite ejecutar código sin aprovisionar ni gesti
 | **Función triggered por cola** | Cargas de trabajo desacopladas | SQS → Lambda procesador de órdenes |
 | **Función triggered por stream** | Datos en tiempo real | DynamoDB Streams → Lambda actualizador de caché |
 
-## Buenas Prácticas de Diseño de Funciones
+## Diseño de Funciones — Lo que funciona
 
 ```python
 # AWS Lambda handler — mantener inicialización fuera del handler para reutilizar
