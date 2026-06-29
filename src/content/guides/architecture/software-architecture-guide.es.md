@@ -114,7 +114,7 @@ Separa los modelos de lectura y escritura.
 
 **Cuándo usar**
 
-- Las cargas de lectura y escritura difieren significativamente
+- Las cargas de lectura y escritura difieren considerablemente
 - Los modelos de lectura requieren datos denormalizados/optimizados
 - Event sourcing ya está en uso
 
@@ -146,7 +146,7 @@ Los componentes se comunican mediante eventos asíncronos.
 
 ### Registro de Decisiones
 
-Documenta cada elección tecnológica significativa con contexto, alternativas y consecuencias. Usa la [Plantilla de ADR](/docs/templates/adr-template).
+Documenta cada elección tecnológica mayor con contexto, alternativas y consecuencias. Usa la [Plantilla de ADR](/docs/templates/adr-template).
 
 ## Patrones de Escalabilidad
 
@@ -191,13 +191,13 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 - **Not Invented Here**: Reconstruir en vez de comprar/adoptar
 - **Over-Engineering**: Resolver problemas que todavía no tienes
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Empieza simple**: Comienza con un [monolito modular](/guides/architecture/monolith-to-microservices-migration-guide); extrae servicios cuando sea necesario
 - **Define contextos acotados**: Usa [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) para encontrar límites naturales
 - **Diseña para observabilidad**: Cada componente debe exponer [métricas, logs, traces](/recipes/observability/metrics-collection)
 - **Automatiza todo**: [CI/CD](/guides/devops/cicd-pipeline-guide), [infraestructura](/guides/devops/infrastructure-as-code-guide), testing, escaneo de seguridad
-- **Documenta decisiones**: ADRs para cada elección arquitectónica significativa
+- **Documenta decisiones**: ADRs para cada elección arquitectónica mayor
 
 ## FAQ
 

@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Caching is one of the most impactful ways to improve application performance and reduce infrastructure costs. By storing copies of frequently accessed data closer to where it is needed, you reduce latency, decrease database load, and improve user experience. But caching introduces complexity: stale data, invalidation logic, and consistency challenges.
+Caching is one of the most effective ways to improve application performance and reduce infrastructure costs. By storing copies of frequently accessed data closer to where it is needed, you reduce latency, decrease database load, and improve user experience. But caching introduces complexity: stale data, invalidation logic, and consistency challenges.
 
 This guide covers caching at every layer of the stack, from browser to database.
 
@@ -120,7 +120,7 @@ self.addEventListener('fetch', (event) => {
 | Header | Meaning | Example |
 |--------|---------|---------|
 | `Cache-Control: no-store` | Never cache | Sensitive data |
-| `Cache-Control: no-cache` | Revalidate every time | Semi-dynamic content |
+| `Cache-Control: no-cache` | Revalidate every time | Semi-live content |
 | `Cache-Control: max-age=3600` | Cache for 1 hour | Static API responses |
 | `Cache-Control: immutable` | Never revalidate | Hashed asset filenames |
 | `ETag` | Version identifier for conditional requests | API resources |

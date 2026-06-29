@@ -120,7 +120,7 @@ self.addEventListener('fetch', (event) => {
 | Encabezado | Significado | Ejemplo |
 |------------|-------------|---------|
 | `Cache-Control: no-store` | Nunca caché | Datos sensibles |
-| `Cache-Control: no-cache` | Revalidar cada vez | Contenido semi-dinámico |
+| `Cache-Control: no-cache` | Revalidar cada vez | Contenido semi-en vivo |
 | `Cache-Control: max-age=3600` | Caché por 1 hora | Respuestas de API estáticas |
 | `Cache-Control: immutable` | Nunca revalidar | Nombres de archivo con hash |
 | `ETag` | Identificador de versión para peticiones condicionales | Recursos de API |
@@ -381,4 +381,4 @@ Solo si puedes tolerar breve pérdida de datos y tienes un mecanismo de reintent
 ## Conclusión
 
 La caché efectiva transforma el rendimiento de la aplicación. Al capas de caché desde el navegador hasta la base de datos, elegir estrategias de invalidación apropiadas, y monitorear tasas de acierto, reduces latencia y costo de infraestructura mientras mantienes consistencia de datos.
-
+

@@ -187,7 +187,7 @@ Usa DDD cuando:
 - El equipo carece de acceso a expertos de dominio
 - El proyecto es pequeño y de corta duración
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Empieza con el ubiquitous language**, no con el esquema de base de datos
 - **Mantén los aggregates pequeños** — los aggregates grandes dañan la [concurrencia](/guides/concurrency/concurrency-patterns-guide)
@@ -208,7 +208,7 @@ Usa DDD cuando:
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre una entidad y un aggregate root?**
-R: Un aggregate root es una entidad especial que sirve como punto de entrada a un aggregate. Todas las referencias externas al aggregate pasan por la root, y todas las modificaciones se hacen vía los métodos de la root.
+R: Un aggregate root es una entidad especial que funciona como punto de entrada a un aggregate. Todas las referencias externas al aggregate pasan por la root, y todas las modificaciones se hacen vía los métodos de la root.
 
 **P: ¿Puedo usar DDD con microservicios?**
 R: Sí. Cada [microservicio](/guides/architecture/microservices-architecture-guide) típicamente se alinea con un bounded context. El límite del servicio refuerza el límite del contexto, y los servicios se comunican vía domain events o APIs.

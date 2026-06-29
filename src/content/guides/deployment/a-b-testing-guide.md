@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-A/B testing (also called split testing) is a controlled experiment methodology that compares two versions of a product feature to determine which performs better. It removes guesswork from product decisions by letting user behavior data determine winners.
+A/B testing (also called split testing) is a controlled experiment methodology that compares two versions of a product capability to determine which performs better. It removes guesswork from product decisions by letting user behavior data determine winners.
 
 This guide covers experiment design, statistical rigor, implementation patterns, and organizational adoption.
 
@@ -249,7 +249,7 @@ Make decisions based on statistical and practical significance:
 | No | No | Do not ship |
 ```
 
-## Best Practices
+## What Works
 
 - **Run experiments for full weeks.** Day-of-week effects bias results.
 - **Avoid peeking.** Checking significance daily increases false positive rate.
@@ -264,7 +264,7 @@ Make decisions based on statistical and practical significance:
 - **Testing multiple variants without correction.** Use Bonferroni correction or sequential testing.
 - **Underpowered experiments.** Small samples cannot detect small but meaningful effects.
 - **Ignoring Simpson's paradox.** Aggregated data can reverse when segmented.
-- **Novelty and primacy effects.** New features get initial engagement spikes that fade.
+- **Novelty and primacy effects.** New capabilities get initial engagement spikes that fade.
 - **Changing running experiments.** Never modify treatment mid-experiment.
 
 ## Variants
@@ -284,7 +284,7 @@ Minimum 1-2 weeks to capture weekly cycles. Run until you reach pre-calculated s
 Large effects usually indicate a bug (e.g., double-counting) or a fundamental UX issue being fixed. Verify implementation before celebrating.
 
 **Q: Can I run multiple A/B tests simultaneously?**
-Yes, but ensure experiments are independent. Overlapping tests on the same feature can create interaction effects.
+Yes, but ensure experiments are independent. Overlapping tests on the same capability can create interaction effects.
 
 **Q: What p-value threshold should I use?**
 0.05 is standard for most product decisions. Use 0.01 for high-stakes changes (pricing, core algorithms).
@@ -292,4 +292,4 @@ Yes, but ensure experiments are independent. Overlapping tests on the same featu
 ## Conclusion
 
 A/B testing transforms product development from opinion-based to evidence-based. By following rigorous experiment design, calculating proper sample sizes, and interpreting results correctly, you make decisions that consistently improve user experience and business outcomes.
-
+

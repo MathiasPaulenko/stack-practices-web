@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-A/B testing (también llamado split testing) es una metodología de experimentación controlada que compara dos versiones de una funcionalidad de producto para determinar cuál funciona mejor. Elimina la conjetura de las decisiones de producto al dejar que los datos de comportamiento de usuario determinen los ganadores.
+A/B testing (también llamado split testing) es una metodología de experimentación controlada que compara dos versiones de una capacidad de producto para determinar cuál funciona mejor. Elimina la conjetura de las decisiones de producto al dejar que los datos de comportamiento de usuario determinen los ganadores.
 
 Esta guía cubre diseño de experimentos, rigor estadístico, patrones de implementación y adopción organizacional.
 
@@ -249,7 +249,7 @@ Tomar decisiones basadas en significancia estadística y práctica:
 | No | No | No lanzar |
 ```
 
-## Best Practices
+## Lo que funciona
 
 - **Corre experimentos por semanas completas.** Los efectos de día-de-la-semana sesgan resultados.
 - **Evita mirar resultados.** Revisar significancia diariamente aumenta la tasa de falsos positivos.
@@ -264,7 +264,7 @@ Tomar decisiones basadas en significancia estadística y práctica:
 - **Probar múltiples variantes sin corrección.** Usa corrección de Bonferroni o sequential testing.
 - **Experimentos sub-poderados.** Muestras pequeñas no pueden detectar efectos pequeños pero significativos.
 - **Ignorar la paradoja de Simpson.** Los datos agregados pueden revertirse al segmentar.
-- **Efectos de novedad y primacía.** Las nuevas funcionalidades reciben spikes de engagement inicial que decaen.
+- **Efectos de novedad y primacía.** Las nuevas capacidades reciben spikes de engagement inicial que decaen.
 - **Cambiar experimentos en ejecución.** Nunca modifiques el tratamiento a mitad del experimento.
 
 ## Variants
@@ -284,7 +284,7 @@ Mínimo 1-2 semanas para capturar ciclos semanales. Corre hasta que alcances el 
 Mejoras grandes usualmente indican un bug (ej. conteo doble) o un problema fundamental de UX siendo arreglado. Verifica implementación antes de celebrar.
 
 **Q: ¿Puedo correr múltiples A/B tests simultáneamente?**
-Sí, pero asegúrate de que los experimentos sean independientes. Tests superpuestos en la misma funcionalidad pueden crear efectos de interacción.
+Sí, pero asegúrate de que los experimentos sean independientes. Tests superpuestos en la misma capacidad pueden crear efectos de interacción.
 
 **Q: ¿Qué umbral de p-value debería usar?**
 0.05 es estándar para la mayoría de decisiones de producto. Usa 0.01 para cambios de alto riesgo (pricing, algoritmos core).
@@ -292,4 +292,4 @@ Sí, pero asegúrate de que los experimentos sean independientes. Tests superpue
 ## Conclusion
 
 A/B testing transforma el desarrollo de productos de basado-en-opinión a basado-en-evidencia. Siguiendo un diseño riguroso de experimentos, calculando tamaños de muestra apropiados e interpretando resultados correctamente, tomas decisiones que mejoran consistentemente la experiencia de usuario y los resultados de negocio.
-
+

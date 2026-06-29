@@ -186,7 +186,7 @@ Use DDD when:
 - The team lacks access to domain experts
 - The project is small and short-lived
 
-## Best Practices
+## What Works
 
 - **Start with the ubiquitous language**, not the database schema
 - **Keep aggregates small** — large aggregates hurt [concurrency](/guides/concurrency/concurrency-patterns-guide)
@@ -207,7 +207,7 @@ Use DDD when:
 ## Frequently Asked Questions
 
 **Q: What is the difference between an entity and an aggregate root?**
-A: An aggregate root is a special entity that serves as the entry point to an aggregate. All external references to the aggregate go through the root, and all modifications are done via the root's methods.
+A: An aggregate root is a special entity that works as the entry point to an aggregate. All external references to the aggregate go through the root, and all modifications are done via the root's methods.
 
 **Q: Can I use DDD with microservices?**
 A: Yes. Each [microservice](/guides/architecture/microservices-architecture-guide) typically aligns with a bounded context. The service boundary enforces the context boundary, and services communicate via domain events or APIs.

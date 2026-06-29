@@ -40,7 +40,7 @@ seo:
 
 Las réplicas de lectura son copias de tu base de datos primaria que manejan consultas de solo lectura. Son la forma más simple y costo-efectiva de escalar cargas de trabajo intensivas en lectura de base de datos. Al descargar las consultas SELECT a las réplicas, reduces la carga en el primario, mejoras los tiempos de respuesta y aumentas la disponibilidad.
 
-Esta guía cubre configuración de replicación, enrutamiento de consultas, manejo de lag de replicación y mejores prácticas operativas.
+Esta guía cubre configuración de replicación, enrutamiento de consultas, manejo de lag de replicación y lo que funciona operativamente.
 
 ## Cuándo Usar
 
@@ -377,7 +377,7 @@ SET GLOBAL read_only = OFF;
 | **Servicio gestionado** | 0-60s | Ninguna | RDS Multi-AZ, Cloud SQL HA |
 | **Replicación síncrona** | 0s (sin pérdida de datos) | Alta | Sistemas financieros (latencia por seguridad) |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Empieza con una réplica.** Una réplica bien configurada resuelve el 80% de las necesidades de escalado de lectura.
 - **Usa réplicas para reportes y analítica.** Aísla consultas costosas del primario.
@@ -409,15 +409,15 @@ SET GLOBAL read_only = OFF;
 Para la mayoría de aplicaciones, <1 segundo es ideal, <5 segundos es aceptable. Las cargas de trabajo analíticas pueden tolerar minutos. Los sistemas financieros pueden requerir replicación síncrona (lag cero).
 
 **P: ¿Puedo escribir en una réplica de lectura?**
-No — las réplicas son de solo lectura por diseño. Algunos sistemas (MySQL Group Replication, extensiones multi-master de PostgreSQL) permiten escrituras multi-master, pero añaden complejidad significativa.
+No — las réplicas son de solo lectura por diseño. Algunos sistemas (MySQL Group Replication, extensiones multi-master de PostgreSQL) permiten escrituras multi-master, pero añaden complejidad mayor.
 
 **P: ¿Cuántas réplicas puedo tener?**
-PostgreSQL soporta hasta ~10 réplicas de streaming antes de que el overhead de WAL sender se vuelva significativo. Para más, usa réplicas en cascada (réplica de una réplica) o replicación lógica.
+PostgreSQL soporta hasta ~10 réplicas de streaming antes de que el overhead de WAL sender se vuelva considerable. Para más, usa réplicas en cascada (réplica de una réplica) o replicación lógica.
 
 **P: ¿Necesito réplicas si uso caché?**
 Sí — la caché y las réplicas se complementan. La caché maneja datos calientes; las réplicas manejan misses de caché y consultas analíticas.
 
 ## Conclusión
 
-Las réplicas de lectura son la forma más simple de escalar lecturas de base de datos. Al configurar replicación streaming, enrutar consultas inteligentemente y monitorear el lag, puedes manejar 10x crecimiento de lectura sin cambiar significativamente tu modelo de datos o arquitectura de aplicación.
-
+Las réplicas de lectura son la forma más simple de escalar lecturas de base de datos. Al configurar replicación streaming, enrutar consultas inteligentemente y monitorear el lag, puedes manejar 10x crecimiento de lectura sin cambiar considerablemente tu modelo de datos o arquitectura de aplicación.
+

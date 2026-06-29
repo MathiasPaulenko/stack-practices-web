@@ -114,7 +114,7 @@ Separate read and write models.
 
 **When to Use**
 
-- Read and write workloads differ significantly
+- Read and write workloads differ considerably
 - Read models require denormalized / optimized data
 - Event sourcing is already in use
 
@@ -146,7 +146,7 @@ Components communicate via asynchronous events.
 
 ### Decision Log
 
-Document every significant technology choice with context, alternatives, and consequences. Use the [ADR Template](/docs/templates/adr-template).
+Document every major technology choice with context, alternatives, and consequences. Use the [ADR Template](/docs/templates/adr-template).
 
 ## Scalability Patterns
 
@@ -191,13 +191,13 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 - **Not Invented Here**: Rebuilding instead of buying/adopting
 - **Over-Engineering**: Solving problems you don't have yet
 
-## Best Practices
+## What Works
 
 - **Start simple**: Begin with a [modular monolith](/guides/architecture/monolith-to-microservices-migration-guide); extract services when needed
 - **Define bounded contexts**: Use [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) to find natural boundaries
 - **Design for observability**: Every component must expose [metrics, logs, traces](/recipes/observability/metrics-collection)
 - **Automate everything**: [CI/CD](/guides/devops/cicd-pipeline-guide), [infrastructure](/guides/devops/infrastructure-as-code-guide), testing, security scanning
-- **Document decisions**: ADRs for every significant architectural choice
+- **Document decisions**: ADRs for every major architectural choice
 
 ## FAQ
 

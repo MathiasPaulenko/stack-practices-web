@@ -40,7 +40,7 @@ seo:
 
 Read replicas are copies of your primary database that handle read-only queries. They are the simplest and most cost-effective way to scale read-heavy database workloads. By offloading SELECT queries to replicas, you reduce load on the primary, improve response times, and increase availability.
 
-This guide covers replication setup, query routing, replication lag management, and operational best practices.
+This guide covers replication setup, query routing, replication lag management, and what works operationally.
 
 ## When to Use
 
@@ -377,7 +377,7 @@ SET GLOBAL read_only = OFF;
 | **Managed service** | 0-60s | None | RDS Multi-AZ, Cloud SQL HA |
 | **Synchronous replication** | 0s (no data loss) | High | Financial systems (trade latency for safety) |
 
-## Best Practices
+## What Works
 
 - **Start with one replica.** One well-configured replica solves 80% of read scaling needs.
 - **Use replicas for reporting and analytics.** Isolate expensive queries from the primary.
@@ -409,15 +409,15 @@ SET GLOBAL read_only = OFF;
 For most applications, <1 second is ideal, <5 seconds is acceptable. Analytics workloads can tolerate minutes. Financial systems may require synchronous replication (zero lag).
 
 **Q: Can I write to a read replica?**
-No — replicas are read-only by design. Some systems (MySQL Group Replication, PostgreSQL multi-master extensions) allow multi-master writes, but they add significant complexity.
+No — replicas are read-only by design. Some systems (MySQL Group Replication, PostgreSQL multi-master extensions) allow multi-master writes, but they add major complexity.
 
 **Q: How many replicas can I have?**
-PostgreSQL supports up to ~10 streaming replicas before WAL sender overhead becomes significant. For more, use cascading replicas (replica of a replica) or logical replication.
+PostgreSQL supports up to ~10 streaming replicas before WAL sender overhead becomes considerable. For more, use cascading replicas (replica of a replica) or logical replication.
 
 **Q: Do I need replicas if I use caching?**
 Yes — caching and replicas complement each other. Cache handles hot data; replicas handle cache misses and analytical queries.
 
 ## Conclusion
 
-Read replicas are the simplest way to scale database reads. By configuring streaming replication, routing queries intelligently, and monitoring lag, you can handle 10x read growth without changing your data model or application architecture significantly.
-
+Read replicas are the simplest way to scale database reads. By configuring streaming replication, routing queries intelligently, and monitoring lag, you can handle 10x read growth without changing your data model or application architecture considerably.
+
