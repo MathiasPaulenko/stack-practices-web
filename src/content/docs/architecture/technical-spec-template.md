@@ -37,14 +37,14 @@ Technical specifications translate product requirements into an implementable pl
 ## When to Use
 
 Use this resource when:
-- Starting a feature that affects multiple systems or teams
-- Proposing a new service, API, or significant architectural change
+- Starting a capability that affects multiple systems or teams
+- Proposing a new service, API, or major architectural change
 - Handing off implementation to another engineer or team
 
 ## Solution
 
 ```markdown
-# Technical Specification: `<Feature / System Name>`
+# Technical Specification: `<Capability / System Name>`
 
 ## 1. Objective
 
@@ -152,7 +152,7 @@ sequenceDiagram
 
 ## 10. Success Metrics
 
-- **Adoption**: X% of users use the feature within 30 days
+- **Adoption**: X% of users use the capability within 30 days
 - **Performance**: p95 latency < target
 - **Reliability**: < 0.1% error rate
 - **Business**: Revenue impact, cost savings
@@ -170,7 +170,7 @@ The spec separates **what** (requirements) from **how** (design) and **when** (i
 | Enterprise | Full template with approvals | Require sign-off from architecture review board |
 | Open source | RFC format | Publish for community comment before implementation |
 
-## Best Practices
+## What Works
 
 1. Keep the spec under 10 pages; link to detailed docs for deep dives
 2. Assign every requirement a traceable ID for test coverage mapping
@@ -190,7 +190,7 @@ The spec separates **what** (requirements) from **how** (design) and **when** (i
 
 ### How long should a technical spec be?
 
-Most specs are 3-5 pages. Complex multi-system features may need 8-10. If it exceeds 10 pages, split it into multiple specs or move appendices to linked documents.
+Most specs are 3-5 pages. Complex multi-system capabilities may need 8-10. If it exceeds 10 pages, split it into multiple specs or move appendices to linked documents.
 
 ### Who should write the spec?
 

@@ -160,13 +160,13 @@ sum by (service) (
 | Splunk | Universal Forwarder, Indexer | Enterprise; dashboards pre-construidos |
 | CloudWatch | AWS Agent | AWS-native; integración IAM |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Incluye correlation IDs**: Cada entrada de log debería tener un `traceId` vinculando el journey completo de la request. Consulta [distributed tracing](/recipes/observability/distributed-tracing).
-- **Loggea al nivel correcto**: DEBUG para desarrollo; INFO para operaciones normales; ERROR para issues accionables
+- **Loggea al nivel correcto**: DEBUG para desarrollo; INFO para operaciones normales; ERROR para issues útiles
 - **No loggees secrets**: Enmascara PII, tokens y passwords antes de que lleguen al sistema de agregación
 - **Setea políticas de retención**: 30 días de storage hot para troubleshooting; 1 año de archive cold para compliance. Usa una [plantilla de política de retención de datos](/guides/databases/database-design-guide).
-- **Alerta en patrones, no líneas individuales**: "5 ERRORs en 1 minuto" es más accionable que una línea de log
+- **Alerta en patrones, no líneas individuales**: "5 ERRORs en 1 minuto" es más útil que una línea de log
 
 ## Errores Comunes
 
@@ -185,4 +185,4 @@ R: Samplea logs DEBUG, agrega métricas en el edge, y usa tiers de storage más 
 R: Ambos. [Métricas](/recipes/observability/metrics-collection) para dashboards y alertas. Logs para debugging y audit trails. No alertes solo con logs.
 
 **P: ¿Cómo aseguro logs agregados?**
-R: Acceso role-based, transporte encriptado (TLS), y storage encriptado (AES-256). Trata los logs como datos sensibles. Consulta [mejores prácticas de seguridad](/guides/security/security-best-practices-guide).
+R: Acceso role-based, transporte encriptado (TLS), y storage encriptado (AES-256). Trata los logs como datos sensibles. Consulta [lo que funciona en seguridad](/guides/security/security-best-practices-guide).

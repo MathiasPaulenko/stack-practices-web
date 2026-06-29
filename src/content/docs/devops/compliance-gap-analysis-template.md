@@ -39,7 +39,7 @@ A Compliance Gap Analysis compares your current security controls against the re
 - Preparing for a first-time audit or certification.
 - Renewing a certification and identifying changes since the last audit.
 - Merging companies or integrating new business units.
-- After a significant change in architecture, processes, or vendors.
+- After a major change in architecture, processes, or vendors.
 - Building a security roadmap tied to compliance obligations.
 
 ## Prerequisites
@@ -104,7 +104,7 @@ A Compliance Gap Analysis compares your current security controls against the re
 
 ## Explanation
 
-Gap analysis turns compliance from a vague checklist into an actionable project. By mapping each requirement to a control, evidence, and status, you can prioritize work based on risk and audit timeline. The remediation plan becomes the roadmap that drives engineering, security, and legal tasks toward certification.
+Gap analysis turns compliance from a vague checklist into a useful project. By mapping each requirement to a control, evidence, and status, you can prioritize work based on risk and audit timeline. The remediation plan becomes the roadmap that drives engineering, security, and legal tasks toward certification.
 
 ## Variants
 
@@ -114,7 +114,7 @@ Gap analysis turns compliance from a vague checklist into an actionable project.
 - **GDPR compliance mapping**: Tracks data subject rights, processing records, and consent.
 - **Multi-framework mapping**: A unified matrix showing coverage across SOC 2, ISO 27001, and PCI-DSS.
 
-## Best Practices
+## What Works
 
 - Use the official framework version to avoid outdated requirements.
 - Involve control owners, not just the compliance team, in the assessment.

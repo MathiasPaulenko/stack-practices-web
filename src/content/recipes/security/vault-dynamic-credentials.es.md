@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: vault-dynamic-credentials
-title: "Credenciales Dinamicas de Base de Datos con HashiCorp Vault"
+title: "Credenciales en Vivo de Base de Datos con HashiCorp Vault"
 description: "Como usar HashiCorp Vault para generar credenciales de base de datos de corta duracion, eliminando passwords hardcodeados y reduciendo secret sprawl"
-metaDescription: "Credenciales dinamicas de base de datos con HashiCorp Vault. Genera passwords de corta duracion, elimina secretos hardcodeados y audita todo acceso a base de datos."
+metaDescription: "Credenciales en vivo de base de datos con HashiCorp Vault. Genera passwords de corta duracion, elimina secretos hardcodeados y audita todo acceso a base de datos."
 difficulty: intermediate
 topics:
   - security
@@ -20,18 +20,18 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Credenciales dinamicas de base de datos con HashiCorp Vault. Genera passwords de corta duracion, elimina secretos hardcodeados y audita todo acceso a base de datos."
+  metaDescription: "Credenciales en vivo de base de datos con HashiCorp Vault. Genera passwords de corta duracion, elimina secretos hardcodeados y audita todo acceso a base de datos."
   keywords:
     - hashicorp vault
-    - dynamic credentials
+    - live credentials
     - secret management
     - database security
     - password rotation
 ---
 
-# Credenciales Dinamicas de Base de Datos con HashiCorp Vault
+# Credenciales en Vivo de Base de Datos con HashiCorp Vault
 
-Las credenciales de base de datos hardcodeadas en archivos de configuracion son un riesgo persistente de seguridad. HashiCorp Vault resuelve esto generando credenciales dinamicamente gestionadas que se crean bajo demanda y se revocan automaticamente despues de un TTL configurable.
+Las credenciales de base de datos hardcodeadas en archivos de configuracion son un riesgo persistente de seguridad. HashiCorp Vault resuelve esto generando credenciales gestionadas en vivo que se crean bajo demanda y se revocan automaticamente despues de un TTL configurable.
 
 ## Cuando Usar Esto
 
@@ -64,7 +64,7 @@ vault write database/config/postgres \
   password="vaultadmin-password"
 ```
 
-### 3. Crear un Rol Dinamico
+### 3. Crear un Rol en Vivo
 
 ```bash
 vault write database/roles/app \
@@ -75,7 +75,7 @@ vault write database/roles/app \
   max_ttl="24h"
 ```
 
-### 4. Solicitar Credenciales Dinamicas
+### 4. Solicitar Credenciales en Vivo
 
 ```typescript
 // vault-client.ts
@@ -175,7 +175,7 @@ process.on('SIGTERM', async () => {
 R: La aplicacion deberia fallar al iniciar o caer a un connection pool cacheado. Para sistemas criticos, ejecuta Vault en modo HA con multiples replicas.
 
 **P: Puede Vault rotar tambien la password admin estatica?**
-R: Si. Usa `vault write database/rotate-root/postgres` para rotar las credenciales root que Vault usa para gestionar roles dinamicos.
+R: Si. Usa `vault write database/rotate-root/postgres` para rotar las credenciales root que Vault usa para gestionar roles en vivo.
 
 **P: Funciona esto con connection pooling?**
 R: Si, pero el pool debe recrearse cuando las credenciales rotan. Usa un [factory pattern](/patterns/design/factory-pattern) que gestione el ciclo de vida del pool junto con el TTL del lease.

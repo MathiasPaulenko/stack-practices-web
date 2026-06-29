@@ -135,10 +135,10 @@ Data retention is a balance between business value, legal obligation, and storag
 - **Healthcare data retention policy**: HIPAA-aligned retention and access controls for protected health information.
 - **Financial data retention policy**: Tax and audit record retention with immutable storage.
 
-## Best Practices
+## What Works
 
 - Classify data before defining retention periods.
-- Automate lifecycle transitions using native storage or database features.
+- Automate lifecycle transitions using native storage or database capabilities.
 - Apply the shortest retention that satisfies legal and business needs.
 - Keep a centralized inventory of data stores and retention rules.
 - Log every deletion and retention action for audit purposes.

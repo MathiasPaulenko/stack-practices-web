@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: vault-dynamic-credentials
-title: "Dynamic Database Credentials with HashiCorp Vault"
+title: "Live Database Credentials with HashiCorp Vault"
 description: "How to use HashiCorp Vault to generate short-lived database credentials, eliminating hardcoded passwords and reducing secret sprawl"
-metaDescription: "Dynamic database credentials with HashiCorp Vault. Generate short-lived passwords, eliminate hardcoded secrets, and audit all database access with Vault."
+metaDescription: "Live database credentials with HashiCorp Vault. Generate short-lived passwords, eliminate hardcoded secrets, and audit all database access with Vault."
 difficulty: intermediate
 topics:
   - security
@@ -20,18 +20,18 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dynamic database credentials with HashiCorp Vault. Generate short-lived passwords, eliminate hardcoded secrets, and audit all database access with Vault."
+  metaDescription: "Live database credentials with HashiCorp Vault. Generate short-lived passwords, eliminate hardcoded secrets, and audit all database access with Vault."
   keywords:
     - hashicorp vault
-    - dynamic credentials
+    - live credentials
     - secret management
     - database security
     - password rotation
 ---
 
-# Dynamic Database Credentials with HashiCorp Vault
+# Live Database Credentials with HashiCorp Vault
 
-Hardcoded database credentials in configuration files are a persistent security risk. HashiCorp Vault solves this by generating short-lived, dynamically managed credentials that are created on demand and automatically revoked after a configurable TTL.
+Hardcoded database credentials in configuration files are a persistent security risk. HashiCorp Vault solves this by generating short-lived, live-managed credentials that are created on demand and automatically revoked after a configurable TTL.
 
 ## When to Use This
 
@@ -64,7 +64,7 @@ vault write database/config/postgres \
   password="vaultadmin-password"
 ```
 
-### 3. Create a Dynamic Role
+### 3. Create a Live Role
 
 ```bash
 vault write database/roles/app \
@@ -75,7 +75,7 @@ vault write database/roles/app \
   max_ttl="24h"
 ```
 
-### 4. Request Dynamic Credentials
+### 4. Request Live Credentials
 
 ```typescript
 // vault-client.ts
@@ -175,7 +175,7 @@ process.on('SIGTERM', async () => {
 A: The application should fail to start or fall back to a cached connection pool. For critical systems, run Vault in HA mode with multiple replicas.
 
 **Q: Can Vault rotate the static admin password too?**
-A: Yes. Use `vault write database/rotate-root/postgres` to rotate the root credentials Vault uses to manage dynamic roles.
+A: Yes. Use `vault write database/rotate-root/postgres` to rotate the root credentials Vault uses to manage live roles.
 
 **Q: Does this work with connection pooling?**
 A: Yes, but the pool must be recreated when credentials rotate. Use a [factory pattern](/patterns/design/factory-pattern) that manages pool lifecycle alongside lease TTL.

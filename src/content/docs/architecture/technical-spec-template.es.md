@@ -37,14 +37,14 @@ Las especificaciones técnicas traducen requisitos de producto en un plan implem
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Inicias una funcionalidad que afecta múltiples sistemas o equipos
-- Propones un nuevo servicio, API o cambio arquitectónico significativo
+- Inicias una capacidad que afecta múltiples sistemas o equipos
+- Propones un nuevo servicio, API o cambio arquitectónico importante
 - Transfieres la implementación a otro ingeniero o equipo
 
 ## Solución
 
 ```markdown
-# Especificación Técnica: `<Nombre de la Funcionalidad / Sistema>`
+# Especificación Técnica: `<Nombre de la Capacidad / Sistema>`
 
 ## 1. Objetivo
 
@@ -152,7 +152,7 @@ sequenceDiagram
 
 ## 10. Métricas de Éxito
 
-- **Adopción**: X% de usuarios usan la funcionalidad en 30 días
+- **Adopción**: X% de usuarios usan la capacidad en 30 días
 - **Rendimiento**: latencia p95 < objetivo
 - **Fiabilidad**: < 0.1% tasa de error
 - **Negocio**: impacto en ingresos, ahorro de costes
@@ -170,7 +170,7 @@ La especificación separa el **qué** (requisitos) del **cómo** (diseño) y del
 | Enterprise | Plantilla completa con aprobaciones | Requerir sign-off del comité de revisión arquitectónica |
 | Open source | Formato RFC | Publicar para comentarios de la comunidad antes de implementar |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Mantener la especificación bajo 10 páginas; enlazar a documentos detallados para profundizaciones
 2. Asignar un ID trazable a cada requisito para mapeo de cobertura de tests
@@ -190,7 +190,7 @@ La especificación separa el **qué** (requisitos) del **cómo** (diseño) y del
 
 ### ¿Qué longitud debería tener una especificación técnica?
 
-La mayoría de especificaciones son de 3-5 páginas. Las funcionalidades complejas multi-sistema pueden necesitar 8-10. Si excede 10 páginas, divídela en múltiples especificaciones o mueve apéndices a documentos enlazados.
+La mayoría de especificaciones son de 3-5 páginas. Las capacidades complejas multi-sistema pueden necesitar 8-10. Si excede 10 páginas, divídela en múltiples especificaciones o mueve apéndices a documentos enlazados.
 
 ### ¿Quién debería escribir la especificación?
 

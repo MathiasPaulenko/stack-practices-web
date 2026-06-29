@@ -160,13 +160,13 @@ sum by (service) (
 | Splunk | Universal Forwarder, Indexer | Enterprise; pre-built dashboards |
 | CloudWatch | AWS Agent | AWS-native; IAM integration |
 
-## Best Practices
+## What Works
 
 - **Include correlation IDs**: Every log entry should have a `traceId` linking the full request journey. See [distributed tracing](/recipes/observability/distributed-tracing).
-- **Log at the right level**: DEBUG for development; INFO for normal operations; ERROR for actionable issues
+- **Log at the right level**: DEBUG for development; INFO for normal operations; ERROR for useful issues
 - **Don't log secrets**: Mask PII, tokens, and passwords before they reach the aggregation system
 - **Set retention policies**: 30 days hot storage for troubleshooting; 1 year cold archive for compliance. Use a [data retention policy template](/guides/databases/database-design-guide).
-- **Alert on patterns, not single lines**: "5 ERRORs in 1 minute" is more actionable than one log line
+- **Alert on patterns, not single lines**: "5 ERRORs in 1 minute" is more useful than one log line
 
 ## Common Mistakes
 
@@ -185,4 +185,4 @@ A: Sample DEBUG logs, aggregate metrics at the edge, and use cheaper storage tie
 A: Both. [Metrics](/recipes/observability/metrics-collection) for dashboards and alerts. Logs for debugging and audit trails. Don't alert on logs alone.
 
 **Q: How do I secure aggregated logs?**
-A: Role-based access, encrypted transport (TLS), and encrypted storage (AES-256). Treat logs as sensitive data. See [security best practices](/guides/security/security-best-practices-guide).
+A: Role-based access, encrypted transport (TLS), and encrypted storage (AES-256). Treat logs as sensitive data. See [security what works](/guides/security/security-best-practices-guide).

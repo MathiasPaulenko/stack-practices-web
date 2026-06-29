@@ -39,7 +39,7 @@ Un Analisis de Brechas de Cumplimiento compara tus controles de seguridad actual
 - Prepararse para una auditoria o certificacion inicial.
 - Renovar una certificacion e identificar cambios desde la ultima auditoria.
 - Fusionar empresas o integrar nuevas unidades de negocio.
-- Despues de un cambio significativo en arquitectura, procesos o proveedores.
+- Despues de un cambio importante en arquitectura, procesos o proveedores.
 - Construir una hoja de ruta de seguridad vinculada a obligaciones de cumplimiento.
 
 ## Prerequisitos
@@ -104,7 +104,7 @@ Un Analisis de Brechas de Cumplimiento compara tus controles de seguridad actual
 
 ## Explicacion
 
-El analisis de brechas convierte el cumplimiento en un proyecto accionable. Al mapear cada requisito a un control, evidencia y estado, puedes priorizar el trabajo basado en riesgo y cronograma de auditoria. El plan de remediacion se convierte en la hoja de ruta que impulsa las tareas de ingenieria, seguridad y legal hacia la certificacion.
+El analisis de brechas convierte el cumplimiento en un proyecto útil. Al mapear cada requisito a un control, evidencia y estado, puedes priorizar el trabajo basado en riesgo y cronograma de auditoria. El plan de remediacion se convierte en la hoja de ruta que impulsa las tareas de ingenieria, seguridad y legal hacia la certificacion.
 
 ## Variantes
 
@@ -114,7 +114,7 @@ El analisis de brechas convierte el cumplimiento en un proyecto accionable. Al m
 - **Mapeo de cumplimiento GDPR**: Rastrea derechos de los titulares de datos, registros de procesamiento y consentimiento.
 - **Mapeo multi-marco**: Una matriz unificada mostrando cobertura entre SOC 2, ISO 27001 y PCI-DSS.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Usa la version oficial del marco para evitar requisitos obsoletos.
 - Involucra a los duenos de los controles, no solo al equipo de cumplimiento, en la evaluacion.

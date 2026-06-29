@@ -135,10 +135,10 @@ La retencion de datos es un equilibrio entre valor de negocio, obligacion legal 
 - **Politica de retencion de datos de salud**: Alineada con HIPAA para proteccion de informacion de salud.
 - **Politica de retencion de datos financieros**: Retencion de registros fiscales y de auditoria con almacenamiento inmutable.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Clasifica los datos antes de definir periodos de retencion.
-- Automatiza las transiciones del ciclo de vida usando features nativas de almacenamiento o base de datos.
+- Automatiza las transiciones del ciclo de vida usando capacidades nativas de almacenamiento o base de datos.
 - Aplica la retencion mas corta que satisfaga necesidades legales y de negocio.
 - Manten un inventario centralizado de almacenes de datos y reglas de retencion.
 - Registra cada eliminacion y accion de retencion para fines de auditoria.
