@@ -78,7 +78,7 @@ Usa este recurso cuando:
 >
 > - **Estado**: Investigando
 > - **Síntomas**: `breve descripción`
-> - **Impacto**: `regiones / características / segmentos de usuarios afectados`
+> - **Impacto**: `regiones / capacidades / segmentos de usuarios afectados`
 > - **Iniciado**: `hora`
 > - **Acciones**: El equipo de ingeniería está investigando. Actualizaciones cada 15 minutos.
 
@@ -88,7 +88,7 @@ Usa este recurso cuando:
 >
 > Estamos investigando reportes de `síntoma` afectando `servicio`. Proporcionaremos una actualización dentro de 30 minutos o tan pronto como tengamos más información.
 >
-> **Afectado**: `regiones / características`
+> **Afectado**: `regiones / capacidades`
 > **Solución alternativa**: `si existe`
 
 ### 3.3. Actualización (Cada 30–60 Minutos)
@@ -152,7 +152,7 @@ La plantilla separa la comunicación **interna** (detallada, técnica, rápida) 
 | Servicio global | Páginas de estado regionales + emails localizados | Localizado, consciente de zona horaria |
 | Incidente de seguridad | Divulgación limitada + notificación directa al cliente | Cuidadoso, conforme a legal |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Actualiza la página de estado primero; es la única fuente de verdad
 2. Nunca digas "estamos de vuelta a la normalidad" hasta que el monitoreo confirme durante al menos 10 minutos

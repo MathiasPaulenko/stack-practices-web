@@ -40,7 +40,7 @@ La mayoria de los postmortems de incidentes no logran identificar los problemas 
 
 Usa esta plantilla cuando:
 - Realizas un postmortem despues de cualquier incidente P1 o P2
-- Un incidente tomo significativamente mas tiempo de lo esperado en resolverse
+- Un incidente tomo considerablemente mas tiempo de lo esperado en resolverse
 - Necesitas identificar si brechas de alertas, herramientas o procesos contribuyeron a los retrasos
 - Construyes un caso para mejoras de infraestructura o monitoreo
 
@@ -147,7 +147,7 @@ Antes de reconstruir la cronologia:
 
 ## Explanation
 
-La cronologia expone **brechas** — los periodos donde no paso nada util. La mayoria de las mejoras de MTTR provienen de eliminar estas brechas, no de hacer mas rapido el trabajo activo. La plantilla fuerza a documentar la fuente de cada marca de tiempo (linea de log, mensaje de Slack, sistema de monitoreo) para que la cronologia sea verificable, no basada en memoria. El analisis de retrasos convierte la cronologia en mejoras accionables en lugar de solo un registro historico.
+La cronologia expone **brechas** — los periodos donde no paso nada util. La mayoria de las mejoras de MTTR provienen de eliminar estas brechas, no de hacer mas rapido el trabajo activo. La plantilla fuerza a documentar la fuente de cada marca de tiempo (linea de log, mensaje de Slack, sistema de monitoreo) para que la cronologia sea verificable, no basada en memoria. El analisis de retrasos convierte la cronologia en mejoras útiles en lugar de solo un registro historico.
 
 ## Variants
 
@@ -158,7 +158,7 @@ La cronologia expone **brechas** — los periodos donde no paso nada util. La ma
 | Incidente de seguridad | Cronologia del vector de ataque | Incluye acciones del atacante y respuestas defensivas |
 | Degradacion de rendimiento | Correlacion de metricas | Enfocate en cambios de metricas y sus efectos en cascada |
 
-## Best Practices
+## Lo que funciona
 
 1. **Construye la cronologia durante el incidente, no despues** — asigna un escriba para capturar marcas de tiempo en tiempo real
 2. **Incluye eventos "negativos"** — nota cuando las alertas esperadas NO dispararon

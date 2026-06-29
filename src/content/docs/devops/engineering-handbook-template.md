@@ -172,7 +172,7 @@ Before writing the handbook:
 - All services export metrics (RED: Rate, Errors, Duration)
 - All errors logged with structured format and correlation IDs
 - All services have health check endpoints
-- Alerts defined before shipping new features
+- Alerts defined before shipping new capabilities
 - Dashboards created for every service
 
 ---
@@ -217,8 +217,8 @@ Before writing the handbook:
 ### Engineering Levels
 | Level | Scope | Impact | Example |
 |-------|-------|--------|---------|
-| E1 | Task | Individual | Implements assigned features |
-| E2 | Feature | Team | Leads feature development |
+| E1 | Task | Individual | Implements assigned capabilities |
+| E2 | Feature | Team | Leads capability development |
 | E3 | System | Team + Cross-team | Owns service architecture |
 | E4 | Domain | Organization | Sets technical direction for domain |
 | E5 | Organization | Company | Influences company-wide technology |
@@ -266,7 +266,7 @@ The handbook template organizes team knowledge into **philosophy** (why we exist
 | Remote-first | Add async communication norms, timezone coverage, virtual social events | Written documentation is more critical |
 | Regulated industry | Add security, audit, and compliance sections explicitly | SOC2, HIPAA, or PCI requirements |
 
-## Best Practices
+## What Works
 
 1. **Start small, expand gradually** — a 5-page handbook people read beats a 50-page handbook people ignore
 2. **Make it searchable** — new hires look for specific answers, not a narrative

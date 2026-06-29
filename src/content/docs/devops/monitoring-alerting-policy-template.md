@@ -119,7 +119,7 @@ A Monitoring and Alerting Policy defines how an organization detects problems, n
 
 ## Explanation
 
-This policy turns raw monitoring signals into actionable alerts. By assigning severity, routing, and escalation rules, the organization ensures that critical problems get fast attention while low-priority warnings do not disrupt on-call engineers. The review and maintenance section prevents alert fatigue by continuously tuning thresholds and removing noisy alerts.
+This policy turns raw monitoring signals into useful alerts. By assigning severity, routing, and escalation rules, the organization ensures that critical problems get fast attention while low-priority warnings do not disrupt on-call engineers. The review and maintenance section prevents alert fatigue by continuously tuning thresholds and removing noisy alerts.
 
 ## Variants
 
@@ -129,7 +129,7 @@ This policy turns raw monitoring signals into actionable alerts. By assigning se
 - **Business operations alerting**: Tracks KPIs, revenue, and customer-facing metrics with business-hour notifications.
 - **Developer self-service alerting**: Allows teams to define their own alert rules within guardrails.
 
-## Best Practices
+## What Works
 
 - Alert on symptoms that affect users, not just internal metrics.
 - Use multi-window or multi-burn rate thresholds to reduce false positives.
@@ -162,4 +162,4 @@ No. Only P1 and P2 alerts should page the on-call engineer. Lower-severity alert
 
 ### How do we know if our thresholds are right?
 
-Track the ratio of actionable alerts to total alerts, measure mean time to acknowledge and resolve, and review false-positive rates. If an alert fires frequently without action, it is a candidate for tuning or removal.
+Track the ratio of useful alerts to total alerts, measure mean time to acknowledge and resolve, and review false-positive rates. If an alert fires frequently without action, it is a candidate for tuning or removal.

@@ -119,7 +119,7 @@ Una Politica de Monitoreo y Alertas define como una organizacion detecta problem
 
 ## Explicacion
 
-Esta politica convierte senales de monitoreo en alertas accionables. Al asignar severidad, enrutamiento y reglas de escalacion, la organizacion asegura que los problemas criticos reciban atencion rapida mientras que las advertencias de baja prioridad no interrumpen a los ingenieros de guardia. La seccion de revision y mantenimiento previene la fatiga de alertas mediante el ajuste continuo de umbrales y la eliminacion de alertas ruidosas.
+Esta politica convierte senales de monitoreo en alertas útiles. Al asignar severidad, enrutamiento y reglas de escalacion, la organizacion asegura que los problemas criticos reciban atencion rapida mientras que las advertencias de baja prioridad no interrumpen a los ingenieros de guardia. La seccion de revision y mantenimiento previene la fatiga de alertas mediante el ajuste continuo de umbrales y la eliminacion de alertas ruidosas.
 
 ## Variantes
 
@@ -129,7 +129,7 @@ Esta politica convierte senales de monitoreo en alertas accionables. Al asignar 
 - **Alertas de operaciones de negocio**: Rastrea KPIs, ingresos y metricas orientadas al cliente con notificaciones en horario laboral.
 - **Alertas self-service para desarrolladores**: Permite a los equipos definir sus propias reglas de alerta dentro de guardrails.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Alerta sobre sintomas que afectan a los usuarios, no solo metricas internas.
 - Usa umbrales de multi-ventana o multi-tasa de quemado para reducir falsos positivos.
@@ -162,4 +162,4 @@ No. Solo las alertas P1 y P2 deben pagar al ingeniero de guardia. Las alertas de
 
 ### Como sabemos si nuestros umbrales son correctos?
 
-Rastrea la proporcion de alertas accionables respecto al total, mide el tiempo medio de reconocimiento y resolucion, y revisa las tasas de falsos positivos. Si una alerta suena frecuentemente sin generar accion, es candidata a ajuste o eliminacion.
+Rastrea la proporcion de alertas útiles respecto al total, mide el tiempo medio de reconocimiento y resolucion, y revisa las tasas de falsos positivos. Si una alerta suena frecuentemente sin generar accion, es candidata a ajuste o eliminacion.

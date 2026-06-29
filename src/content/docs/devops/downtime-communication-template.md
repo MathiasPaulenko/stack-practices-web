@@ -78,7 +78,7 @@ Use this resource when:
 >
 > - **Status**: Investigating
 > - **Symptoms**: `brief description`
-> - **Impact**: `affected regions / features / user segments`
+> - **Impact**: `affected regions / capabilities / user segments`
 > - **Started**: `time`
 > - **Actions**: Engineering team is investigating. Updates every 15 minutes.
 
@@ -88,7 +88,7 @@ Use this resource when:
 >
 > We are currently investigating reports of `symptom` affecting `service`. We will provide an update within 30 minutes or as soon as we have more information.
 >
-> **Affected**: `regions / features`
+> **Affected**: `regions / capabilities`
 > **Workaround**: `if any`
 
 ### 3.3. Update (Every 30–60 Minutes)
@@ -152,7 +152,7 @@ The template separates **internal** communication (detailed, technical, fast) fr
 | Global service | Regional status pages + localized emails | Localized, time-zone aware |
 | Security incident | Limited disclosure + direct customer notification | Careful, compliant with legal |
 
-## Best Practices
+## What Works
 
 1. Update the status page first; it is the single source of truth
 2. Never say "we are back to normal" until monitoring confirms for at least 10 minutes

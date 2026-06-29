@@ -40,7 +40,7 @@ Most incident postmortems fail to identify the real problems because they lack a
 
 Use this template when:
 - Conducting a postmortem after any P1 or P2 incident
-- An incident took significantly longer to resolve than expected
+- An incident took considerably longer to resolve than expected
 - You need to identify whether alerting, tooling, or process gaps contributed to delays
 - Building a case for infrastructure or monitoring improvements
 
@@ -147,7 +147,7 @@ Before reconstructing the timeline:
 
 ## Explanation
 
-The timeline exposes **gaps** — the periods where nothing useful happened. Most MTTR improvement comes from eliminating these gaps, not from making active work faster. The template forces you to document the source of each timestamp (log line, Slack message, monitoring system) so the timeline is verifiable, not based on memory. The delay analysis converts the timeline into actionable improvements rather than just a historical record.
+The timeline exposes **gaps** — the periods where nothing useful happened. Most MTTR improvement comes from eliminating these gaps, not from making active work faster. The template forces you to document the source of each timestamp (log line, Slack message, monitoring system) so the timeline is verifiable, not based on memory. The delay analysis converts the timeline into useful improvements rather than just a historical record.
 
 ## Variants
 
@@ -158,7 +158,7 @@ The timeline exposes **gaps** — the periods where nothing useful happened. Mos
 | Security incident | Attack vector timeline | Include attacker actions and defensive responses |
 | Performance degradation | Metric correlation | Focus on metric changes and their cascading effects |
 
-## Best Practices
+## What Works
 
 1. **Build the timeline during the incident, not after** — assign a scribe to capture timestamps in real time
 2. **Include "negative" events** — note when expected alerts did NOT fire

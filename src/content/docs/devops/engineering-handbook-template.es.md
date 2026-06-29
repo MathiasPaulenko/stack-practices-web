@@ -172,7 +172,7 @@ Antes de escribir el handbook:
 - Todos los servicios exportan metricas (RED: Rate, Errors, Duration)
 - Todos los errores logueados con formato estructurado y correlation IDs
 - Todos los servicios tienen endpoints de health check
-- Alertas definidas antes de entregar nuevas funcionalidades
+- Alertas definidas antes de entregar nuevas capacidades
 - Dashboards creados para cada servicio
 
 ---
@@ -217,8 +217,8 @@ Antes de escribir el handbook:
 ### Niveles de Ingenieria
 | Nivel | Alcance | Impacto | Ejemplo |
 |-------|---------|---------|---------|
-| E1 | Tarea | Individual | Implementa funcionalidades asignadas |
-| E2 | Feature | Equipo | Lidera desarrollo de funcionalidad |
+| E1 | Tarea | Individual | Implementa capacidades asignadas |
+| E2 | Capacidad | Equipo | Lidera desarrollo de capacidad |
 | E3 | Sistema | Equipo + Cross-team | Posee arquitectura de servicio |
 | E4 | Dominio | Organizacion | Define direccion tecnica para dominio |
 | E5 | Organizacion | Empresa | Influencia tecnologia a nivel empresa |
@@ -266,7 +266,7 @@ El template de handbook organiza el conocimiento del equipo en **filosofia** (po
 | Remoto-first | Agregar normas de comunicacion async, cobertura de zonas horarias, eventos sociales virtuales | La documentacion escrita es mas critica |
 | Industria regulada | Agregar secciones de seguridad, auditoria, y cumplimiento explicitamente | Requisitos SOC2, HIPAA, o PCI |
 
-## Best Practices
+## Lo que funciona
 
 1. **Empieza pequeno, expande gradualmente** — un handbook de 5 paginas que la gente lee gana a uno de 50 paginas que ignoran
 2. **Hazlo buscable** — los nuevos contratados buscan respuestas especificas, no una narrativa
