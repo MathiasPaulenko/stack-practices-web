@@ -437,11 +437,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\patterns\design\dependency-injection-pattern.md | 2.0 | best practices → what works | src\content\patterns\design\dependency-injection-pattern.es.md | pending |
-| src\content\patterns\design\domain-event-pattern.md | 2.0 | best practices → what works, significant → major | src\content\patterns\design\domain-event-pattern.es.md | pending |
-| src\content\patterns\design\eager-loading-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\eager-loading-pattern.es.md | pending |
-| src\content\patterns\design\event-carried-state-transfer-pattern.md | 2.0 | best practices → what works, significantly → considerably | src\content\patterns\design\event-carried-state-transfer-pattern.es.md | pending |
-| src\content\patterns\design\memento-pattern.md | 2.0 | best practices → what works, significant → major | src\content\patterns\design\memento-pattern.es.md | pending |
+| src\content\patterns\design\dependency-injection-pattern.md | 2.0 | best practices → what works | src\content\patterns\design\dependency-injection-pattern.es.md | completed |
+| src\content\patterns\design\domain-event-pattern.md | 2.0 | best practices → what works, significant → major | src\content\patterns\design\domain-event-pattern.es.md | completed |
+| src\content\patterns\design\eager-loading-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\eager-loading-pattern.es.md | completed |
+| src\content\patterns\design\event-carried-state-transfer-pattern.md | 2.0 | best practices → what works, significantly → considerably | src\content\patterns\design\event-carried-state-transfer-pattern.es.md | completed |
+| src\content\patterns\design\memento-pattern.md | 2.0 | best practices → what works, significant → major | src\content\patterns\design\memento-pattern.es.md | completed |
 
 ### Batch 40 (priority: low)
 
