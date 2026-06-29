@@ -91,7 +91,7 @@ Un caché adecuado elimina solicitudes de red redundantes.
 ### Bundle Splitting
 
 ```javascript
-// Vite / Webpack: imports dinámicos para rutas
+// Vite / Webpack: imports en vivo para rutas
 const HomePage = () => import('./pages/HomePage.js');
 const Dashboard = () => import('./pages/Dashboard.js');
 ```
@@ -150,7 +150,7 @@ const Dashboard = () => import('./pages/Dashboard.js');
 
 ## Preguntas Frecuentes
 
-### Cuál es la optimización de performance más efectiva para web apps?
+### Cuál es la optimización de performance más útil para web apps?
 
 La optimización de imágenes típicamente entrega el mayor impacto. Convertir a WebP/AVIF, usar imágenes responsive y lazy loading de imágenes below-the-fold a menudo reduce el peso de página en 50% o más.
 

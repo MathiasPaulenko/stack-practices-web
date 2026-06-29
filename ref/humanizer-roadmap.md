@@ -67,11 +67,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\guides\devops\sre-practices-guide.md | 8.0 | significant → major, enduring → long-lasting, features → capabilities | src\content\guides\devops\sre-practices-guide.es.md | pending |
-| src\content\guides\devops\technical-documentation-strategy-guide.md | 8.0 | significant → major, leverage → use, best practices → what works | src\content\guides\devops\technical-documentation-strategy-guide.es.md | pending |
-| src\content\guides\performance\performance-optimization-guide.md | 8.0 | impactful → effective, best practices → what works, dynamic → live | src\content\guides\performance\performance-optimization-guide.es.md | pending |
-| src\content\recipes\data\parse-yaml-files.md | 8.0 | seamless → smooth, best practices → what works, features → capabilities | src\content\recipes\data\parse-yaml-files.es.md | pending |
-| src\content\recipes\performance\brotli-nginx-compression.md | 8.0 | dynamic → live, significant → major, effective → useful | src\content\recipes\performance\brotli-nginx-compression.es.md | pending |
+| src\content\guides\devops\sre-practices-guide.md | 8.0 | significant → major, enduring → long-lasting, features → capabilities | src\content\guides\devops\sre-practices-guide.es.md | completed |
+| src\content\guides\devops\technical-documentation-strategy-guide.md | 8.0 | significant → major, leverage → use, best practices → what works | src\content\guides\devops\technical-documentation-strategy-guide.es.md | completed |
+| src\content\guides\performance\performance-optimization-guide.md | 8.0 | impactful → effective, best practices → what works, dynamic → live | src\content\guides\performance\performance-optimization-guide.es.md | completed |
+| src\content\recipes\data\parse-yaml-files.md | 8.0 | seamless → smooth, best practices → what works, features → capabilities | src\content\recipes\data\parse-yaml-files.es.md | completed |
+| src\content\recipes\performance\brotli-nginx-compression.md | 8.0 | dynamic → live, significant → major, effective → useful | src\content\recipes\performance\brotli-nginx-compression.es.md | completed |
 
 ### Batch 03 (priority: high)
 
