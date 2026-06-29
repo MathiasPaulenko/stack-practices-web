@@ -153,10 +153,10 @@ return old_checkout.handle(request)
 
 | Use Feature Flags For | Do NOT Use Feature Flags For |
 |----------------------|----------------------------|
-| New UI features | Security fixes (should not be toggleable) |
+| New UI capabilities | Security fixes (should not be toggleable) |
 | A/B tests | Critical bug patches |
-| Gradual feature rollouts | Data migration code |
-| Kill switches for risky features | |
+| Gradual capability rollouts | Data migration code |
+| Kill switches for risky capabilities | |
 
 ## Metrics to Watch During Deployment
 
@@ -167,7 +167,7 @@ return old_checkout.handle(request)
 | Throughput | No drop > 10% | Rollback canary |
 | Custom business metric | No drop | Rollback canary |
 
-## Best Practices
+## What Works
 
 - **Automate rollback** — a human pressing a button at 3 AM is unreliable. See [CI/CD pipelines](/guides/devops/cicd-pipeline-guide).
 - **Use synthetic traffic** — hit the canary with [automated tests](/recipes/performance/load-testing-k6) before real users
@@ -187,7 +187,7 @@ return old_checkout.handle(request)
 
 ### Should every deploy use canary?
 
-No. Low-risk changes (dependency updates, typo fixes) can use rolling deploys. Reserve canary for user-facing features, risky refactors, and changes that touch critical paths (payments, authentication).
+No. Low-risk changes (dependency updates, typo fixes) can use rolling deploys. Reserve canary for user-facing capabilities, risky refactors, and changes that touch critical paths (payments, authentication).
 
 ### How long should a canary run?
 

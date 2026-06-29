@@ -135,10 +135,10 @@ return old_checkout.handle(request)
 
 | Usa Feature Flags Para | NO Uses Feature Flags Para |
 |----------------------|---------------------------|
-| Nuevas features de UI | Fixes de seguridad (no deberían ser toggleables) |
+| Nuevas capacidades de UI | Fixes de seguridad (no deberían ser toggleables) |
 | Tests A/B | Parches de bugs críticos |
-| Rollouts graduales de features | Código de migración de datos |
-| Kill switches para features riesgosas | |
+| Rollouts graduales de capacidades | Código de migración de datos |
+| Kill switches para capacidades riesgosas | |
 
 ## Métricas a Observar Durante Deploy
 
@@ -149,7 +149,7 @@ return old_checkout.handle(request)
 | Throughput | Sin caída > 10% | Rollback canary |
 | Métrica de negocio custom | Sin caída | Rollback canary |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Automatiza rollback** — un humano presionando un botón a las 3 AM es poco confiable. Consulta [pipelines CI/CD](/guides/devops/cicd-pipeline-guide).
 - **Usa tráfico sintético** — golpea el canary con [tests de carga](/recipes/performance/load-testing-k6) antes que usuarios reales
@@ -169,7 +169,7 @@ return old_checkout.handle(request)
 
 ### ¿Cada deploy debería usar canary?
 
-No. Cambios de bajo riesgo (actualizaciones de dependencias, fixes de typos) pueden usar rolling deploys. Reserva canary para features orientadas a usuarios, refactorizaciones riesgosas y cambios que tocan paths críticos (pagos, autenticación).
+No. Cambios de bajo riesgo (actualizaciones de dependencias, fixes de typos) pueden usar rolling deploys. Reserva canary para capacidades orientadas a usuarios, refactorizaciones riesgosas y cambios que tocan paths críticos (pagos, autenticación).
 
 ### ¿Cuánto debería durar un canary?
 

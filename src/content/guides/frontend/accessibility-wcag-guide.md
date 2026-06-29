@@ -2,8 +2,8 @@
 contentType: guides
 slug: accessibility-wcag-guide
 title: "WCAG 2.2 Accessibility: A Developer Guide"
-description: "A practical guide to WCAG 2.2 compliance: perceivable, operable, understandable, and robust principles with code examples for web accessibility."
-metaDescription: "Learn WCAG 2.2 accessibility: perceivable, operable, understandable, robust. Practical guide with code examples for accessible web development."
+description: "A practical guide to WCAG 2.2 compliance: perceivable, operable, understandable, and reliable principles with code examples for web accessibility."
+metaDescription: "Learn WCAG 2.2 accessibility: perceivable, operable, understandable, reliable. Practical guide with code examples for accessible web development."
 difficulty: intermediate
 topics:
   - frontend
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
-  metaDescription: "Learn WCAG 2.2 accessibility: perceivable, operable, understandable, robust. Practical guide with code examples for accessible web development."
+  metaDescription: "Learn WCAG 2.2 accessibility: perceivable, operable, understandable, reliable. Practical guide with code examples for accessible web development."
   keywords:
     - accessibility
     - wcag
@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Web accessibility (a11y) ensures that people with disabilities can perceive, understand, navigate, and interact with web content. WCAG 2.2 (Web Content Accessibility Guidelines) is the current standard, organized around four principles: Perceivable, Operable, Understandable, and Robust (POUR). This guide covers the most important success criteria with practical code examples.
+Web accessibility (a11y) ensures that people with disabilities can perceive, understand, navigate, and interact with web content. WCAG 2.2 (Web Content Accessibility Guidelines) is the current standard, organized around four principles: Perceivable, Operable, Understandable, and Reliable (POUR). This guide covers the most important success criteria with practical code examples.
 
 ## When to Use
 
@@ -53,7 +53,7 @@ Web accessibility (a11y) ensures that people with disabilities can perceive, und
 | **Perceivable** | Information must be presentable in ways users can perceive | Alt text, color contrast, resizable text |
 | **Operable** | Interface components must be operable by all users | Keyboard navigation, focus indicators, timing |
 | **Understandable** | Information and operation must be understandable | Readable text, predictable behavior, error prevention |
-| **Robust** | Content must work with current and future assistive tech | Valid HTML, ARIA roles, name-role-value |
+| **Reliable** | Content must work with current and future assistive tech | Valid HTML, ARIA roles, name-role-value |
 
 ## Perceivable
 
@@ -204,7 +204,7 @@ Prevent errors on legal/financial/data-modifying submissions.
 </form>
 ```
 
-## Robust
+## Reliable
 
 ### Valid HTML and ARIA (4.1.1, 4.1.2)
 
@@ -254,5 +254,5 @@ Level AA is the standard for most legal requirements. Level AAA is aspirational 
 **Do I need to test with actual screen readers?**
 Automated tools catch ~30% of issues. Manual testing with screen readers and keyboard navigation finds the rest.
 
-**How do I handle dynamic content (SPA, AJAX)?**
+**How do I handle live content (SPA, AJAX)?**
 Use ARIA live regions to announce updates, manage focus on route changes, and ensure modals trap focus.

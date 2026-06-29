@@ -39,12 +39,12 @@ seo:
 
 ## Overview
 
-Amazon Web Services (AWS) es la plataforma cloud más adoptada, ofreciendo más de 200 servicios. Para desarrolladores, dominar los servicios core — compute, storage, bases de datos, networking y seguridad — es esencial para construir aplicaciones escalables y rentables. Esta guía se enfoca en los servicios que usarás diariamente y cómo encajan en una arquitectura típica.
+Amazon Web Services (AWS) es la plataforma cloud más adoptada, ofreciendo más de 200 servicios. Para desarrolladores, dominar los servicios core — compute, storage, bases de datos, networking y seguridad — es esencial para construir aplicaciones listas para crecimiento y rentables. Esta guía se enfoca en los servicios que usarás diariamente y cómo encajan en una arquitectura típica.
 
 ## When to Use
 
 - Estás migrando de on-premises a cloud
-- Necesitas compute escalable sin gestionar hardware
+- Necesitas compute listo para crecimiento sin gestionar hardware
 - Quieres bases de datos y storage gestionados
 - Estás construyendo arquitecturas serverless o microservicios
 
@@ -198,7 +198,7 @@ Identity and Access Management controla quién puede hacer qué.
 }
 ```
 
-Mejores prácticas:
+Lo que funciona:
 - Usa roles, no access keys de largo plazo
 - Aplica least privilege
 - Habilita MFA para root y usuarios admin

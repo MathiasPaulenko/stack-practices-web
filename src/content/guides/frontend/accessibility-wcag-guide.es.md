@@ -2,8 +2,8 @@
 contentType: guides
 slug: accessibility-wcag-guide
 title: "WCAG 2.2 Accesibilidad — Guía para Desarrolladores"
-description: "Guía práctica de cumplimiento WCAG 2.2: perceptible, operable, comprensible y robusto, con ejemplos de código para desarrollo web accesible."
-metaDescription: "Aprende accesibilidad WCAG 2.2: perceptible, operable, comprensible, robusto. Guía práctica con ejemplos de código para desarrollo web accesible."
+description: "Guía práctica de cumplimiento WCAG 2.2: perceptible, operable, comprensible y confiable, con ejemplos de código para desarrollo web accesible."
+metaDescription: "Aprende accesibilidad WCAG 2.2: perceptible, operable, comprensible, confiable. Guía práctica con ejemplos de código para desarrollo web accesible."
 difficulty: intermediate
 topics:
   - frontend
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende accesibilidad WCAG 2.2: perceptible, operable, comprensible, robusto. Guía práctica con ejemplos de código para desarrollo web accesible."
+  metaDescription: "Aprende accesibilidad WCAG 2.2: perceptible, operable, comprensible, confiable. Guía práctica con ejemplos de código para desarrollo web accesible."
   keywords:
     - accesibilidad
     - wcag
@@ -37,7 +37,7 @@ seo:
 
 ## Visión General
 
-La accesibilidad web (a11y) asegura que las personas con discapacidades puedan percibir, entender, navegar e interactuar con el contenido web. WCAG 2.2 (Pautas de Accesibilidad para Contenido Web) es el estándar actual, organizado en torno a cuatro principios: Perceptible, Operable, Comprensible y Robusto (POUR). Esta guía cubre los criterios de éxito más impactantes con ejemplos de código prácticos.
+La accesibilidad web (a11y) asegura que las personas con discapacidades puedan percibir, entender, navegar e interactuar con el contenido web. WCAG 2.2 (Pautas de Accesibilidad para Contenido Web) es el estándar actual, organizado en torno a cuatro principios: Perceptible, Operable, Comprensible y Confiable (POUR). Esta guía cubre los criterios de éxito más impactantes con ejemplos de código prácticos.
 
 ## Cuándo Usar
 
@@ -53,7 +53,7 @@ La accesibilidad web (a11y) asegura que las personas con discapacidades puedan p
 | **Perceptible** | La información debe presentarse de formas que los usuarios puedan percibir | Texto alternativo, contraste de color, texto redimensionable |
 | **Operable** | Los componentes de interfaz deben ser operables por todos los usuarios | Navegación por teclado, indicadores de foco, tiempo |
 | **Comprensible** | La información y operación deben ser comprensibles | Texto legible, comportamiento predecible, prevención de errores |
-| **Robusto** | El contenido debe funcionar con tecnologías de asistencia actuales y futuras | HTML válido, roles ARIA, nombre-rol-valor |
+| **Confiable** | El contenido debe funcionar con tecnologías de asistencia actuales y futuras | HTML válido, roles ARIA, nombre-rol-valor |
 
 ## Perceptible
 
@@ -204,7 +204,7 @@ Prevenir errores en envíos legales/financieros/de modificación de datos.
 </form>
 ```
 
-## Robusto
+## Confiable
 
 ### HTML y ARIA Válidos (4.1.1, 4.1.2)
 
@@ -254,5 +254,5 @@ Nivel AA es el estándar para la mayoría de requisitos legales. Nivel AAA es as
 **Necesito probar con lectores de pantalla reales?**
 Las herramientas automatizadas detectan ~30% de los problemas. Las pruebas manuales con lectores de pantalla y navegación por teclado encuentran el resto.
 
-**Cómo manejo contenido dinámico (SPA, AJAX)?**
+**Cómo manejo contenido en vivo (SPA, AJAX)?**
 Usa regiones ARIA live para anunciar actualizaciones, gestiona el foco en cambios de ruta y asegura que los modales atrapen el foco.

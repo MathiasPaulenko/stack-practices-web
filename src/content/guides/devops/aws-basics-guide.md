@@ -39,12 +39,12 @@ seo:
 
 ## Overview
 
-Amazon Web Services (AWS) is the most widely adopted cloud platform, offering over 200 services. For developers, mastering the core services — compute, storage, databases, networking, and security — is essential for building scalable, cost-effective applications. This guide focuses on the services you will use daily and how they fit together in a typical architecture.
+Amazon Web Services (AWS) is the most widely adopted cloud platform, offering over 200 services. For developers, mastering the core services — compute, storage, databases, networking, and security — is essential for building growth-ready, cost-effective applications. This guide focuses on the services you will use daily and how they fit together in a typical architecture.
 
 ## When to Use
 
 - You are migrating from on-premises to cloud
-- You need scalable compute without managing hardware
+- You need growth-ready compute without managing hardware
 - You want managed databases and storage
 - You are building serverless or microservices architectures
 
@@ -198,7 +198,7 @@ Identity and Access Management controls who can do what.
 }
 ```
 
-Best practices:
+What works:
 - Use roles, not long-term access keys
 - Apply least privilege
 - Enable MFA for root and admin users

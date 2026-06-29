@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Microsoft Azure es la segunda plataforma cloud más grande, profundamente integrada con herramientas empresariales como Microsoft 365, Active Directory y .NET. Para desarrolladores, Azure ofrece un conjunto completo de servicios para compute, storage, bases de datos, networking e identity management. Esta guía cubre los servicios que usarás más frecuentemente y cómo se conectan en una arquitectura de aplicación típica.
+Microsoft Azure es la segunda plataforma cloud más grande, profundamente integrada con herramientas empresariales como Microsoft 365, Active Directory y .NET. Para desarrolladores, Azure ofrece un conjunto amplio de servicios para compute, storage, bases de datos, networking e identity management. Esta guía cubre los servicios que usarás más frecuentemente y cómo se conectan en una arquitectura de aplicación típica.
 
 ## When to Use
 
@@ -85,7 +85,7 @@ az webapp create \
   --runtime "NODE|18-lts"
 ```
 
-Features: auto-scaling, deployment slots, dominios custom, certificados gestionados y CI/CD built-in.
+Capacidades: auto-scaling, deployment slots, dominios custom, certificados gestionados y CI/CD built-in.
 
 ### Azure Functions
 
@@ -197,7 +197,7 @@ Azure Active Directory (ahora Entra ID) provee autenticación y autorización.
 }
 ```
 
-Mejores prácticas:
+Lo que funciona:
 - Usa Managed Identity para autenticación service-to-service
 - Habilita Conditional Access policies
 - Usa RBAC a nivel resource group

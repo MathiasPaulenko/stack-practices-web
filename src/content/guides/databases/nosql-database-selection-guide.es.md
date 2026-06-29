@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-Las bases de datos NoSQL intercambian la consistencia estricta y el modelo relacional del SQL por flexibilidad, escalabilidad horizontal y patrones de acceso especializados. Elegir la correcta significa hacer coincidir la forma de tus datos, los patrones de consulta y los requerimientos de consistencia con el store adecuado.
+Las bases de datos NoSQL intercambian la consistencia estricta y el modelo relacional del SQL por flexibilidad, crecimiento horizontal y patrones de acceso especializados. Elegir la correcta significa hacer coincidir la forma de tus datos, los patrones de consulta y los requerimientos de consistencia con el store adecuado.
 
 ## Las Cuatro Familias NoSQL
 
@@ -84,7 +84,7 @@ Mejor para: caching, leaderboards en tiempo real, rate limiting, almacenamiento 
 ### Cuándo Elegir
 
 - Workloads write-heavy (series de tiempo, IoT, mensajería)
-- Necesidad de escalabilidad lineal en hardware commodity
+- Necesidad de crecimiento lineal en hardware commodity
 - Tolerancia a consistencia eventual y CQL
 
 ### Modelo de Datos
@@ -112,7 +112,7 @@ Cassandra es query-first: las tablas se diseñan alrededor de consultas específ
 | Analytics ad-hoc | Usa [change data capture](/guides/architecture/event-driven-architecture-guide) para stream a un data warehouse |
 | Fuente única de verdad | Acepta que diferentes stores pueden tener diferentes vistas de la verdad (CQRS) |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Modela para tus lecturas, no para tus escrituras** — el performance NoSQL depende del patrón de acceso
 - **Evita particiones calientes** — distribuye escrituras uniformemente entre claves de partición
@@ -125,7 +125,7 @@ Cassandra es query-first: las tablas se diseñan alrededor de consultas específ
 - Usar MongoDB como cache (Redis es más barato y rápido)
 - Usar DynamoDB para analytics ad-hoc (Athena/BigQuery son más adecuados)
 - Usar Cassandra para OLTP con consultas complejas (Cassandra brilla en queries simples, scoped a partición)
-- Tratar NoSQL como "SQL que escala mejor" — el modelo de datos es fundamentalmente diferente
+- Tratar NoSQL como "SQL que crece mejor" — el modelo de datos es fundamentalmente diferente
 - Ignorar complejidad operativa — Cassandra y MongoDB sharded requieren expertise operativo dedicado
 
 ## Preguntas Frecuentes

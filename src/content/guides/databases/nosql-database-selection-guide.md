@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-NoSQL databases trade the strict consistency and relational model of SQL for flexibility, horizontal scalability, and specialized access patterns. Choosing the right one means matching your data shape, query patterns, and consistency requirements to the right store.
+NoSQL databases trade the strict consistency and relational model of SQL for flexibility, horizontal growth, and specialized access patterns. Choosing the right one means matching your data shape, query patterns, and consistency requirements to the right store.
 
 ## The Four NoSQL Families
 
@@ -156,7 +156,7 @@ LIMIT 100;
 | Pro | Con |
 |-----|-----|
 | Massive write throughput | No JOINs, no subqueries, no aggregations across partitions |
-| Linear scalability | Operational complexity (gossip, repairs, compaction) |
+| Linear growth | Operational complexity (gossip, repairs, compaction) |
 | Multi-datacenter replication | Eventual consistency by default |
 | Tunable consistency | CQL is limited compared to SQL |
 
@@ -181,7 +181,7 @@ LIMIT 100;
 | Ad-hoc analytics | Use [change data capture](/guides/architecture/event-driven-architecture-guide) to stream to a data warehouse |
 | Single source of truth | Accept that different stores may have different views of truth (CQRS) |
 
-## Best Practices
+## What Works
 
 - **Model for your reads, not your writes** — NoSQL performance is access-pattern dependent
 - **Avoid hot partitions** — distribute writes evenly across partition keys (use random suffixes or time bucketing)
@@ -194,7 +194,7 @@ LIMIT 100;
 - Using MongoDB as a cache (Redis is cheaper and faster)
 - Using DynamoDB for ad-hoc analytics (Athena/BigQuery are better suited)
 - Using Cassandra for OLTP with complex queries (Cassandra excels at simple, partition-scoped queries)
-- Treating NoSQL as "scales better SQL" — the data model is fundamentally different
+- Treating NoSQL as "grows better SQL" — the data model is fundamentally different
 - Ignoring operational complexity — Cassandra and sharded MongoDB require dedicated operational expertise
 
 ## Frequently Asked Questions
