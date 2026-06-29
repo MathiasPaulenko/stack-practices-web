@@ -92,7 +92,7 @@ State the architecture decision in a single sentence. Be clear and direct.
 
 ---
 
-## Best Practices for Writing ADRs
+## What works for Writing ADRs
 
 - **One decision per ADR**: Keep scope focused
 - **Write after the decision**: Document decisions once made, not debates
@@ -111,7 +111,7 @@ State the architecture decision in a single sentence. Be clear and direct.
 
 ### When should I write an ADR?
 
-Write an ADR after a significant architectural decision is made — typically when the decision affects multiple teams, is costly to reverse, or has long-term maintenance implications. For high-impact infrastructure decisions, also document capacity plans using the [Capacity Planning Template](/docs/templates/capacity-planning-template). Do not write ADRs for trivial choices.
+Write an ADR after a major architectural decision is made — typically when the decision affects multiple teams, is costly to reverse, or has long-term maintenance implications. For high-impact infrastructure decisions, also document capacity plans using the [Capacity Planning Template](/docs/templates/capacity-planning-template). Do not write ADRs for trivial choices.
 
 ### Who should read ADRs?
 

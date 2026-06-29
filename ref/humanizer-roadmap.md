@@ -357,21 +357,21 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\docs\devops\deprecation-timeline-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\deprecation-timeline-template.es.md | pending |
-| src\content\docs\devops\environment-configuration-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\environment-configuration-template.es.md | pending |
-| src\content\docs\devops\escalation-policy-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\escalation-policy-template.es.md | pending |
-| src\content\docs\devops\infrastructure-as-code-review-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\infrastructure-as-code-review-template.es.md | pending |
-| src\content\docs\devops\logging-standards-document.md | 2.0 | best practices → what works, dynamic → live | src\content\docs\devops\logging-standards-document.es.md | pending |
+| src\content\docs\devops\deprecation-timeline-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\deprecation-timeline-template.es.md | completed |
+| src\content\docs\devops\environment-configuration-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\environment-configuration-template.es.md | completed |
+| src\content\docs\devops\escalation-policy-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\escalation-policy-template.es.md | completed |
+| src\content\docs\devops\infrastructure-as-code-review-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\infrastructure-as-code-review-template.es.md | completed |
+| src\content\docs\devops\logging-standards-document.md | 2.0 | best practices → what works, dynamic → live | src\content\docs\devops\logging-standards-document.es.md | completed |
 
 ### Batch 32 (priority: low)
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\docs\devops\on-call-handoff-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\on-call-handoff-template.es.md | pending |
-| src\content\docs\devops\onboarding-checklist-backend-engineer.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\onboarding-checklist-backend-engineer.es.md | pending |
-| src\content\docs\devops\pen-test-scope-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\pen-test-scope-template.es.md | pending |
-| src\content\docs\devops\postmortem-incident-review-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\postmortem-incident-review-template.es.md | pending |
-| src\content\docs\devops\service-level-objective-slo-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\service-level-objective-slo-template.es.md | pending |
+| src\content\docs\devops\on-call-handoff-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\on-call-handoff-template.es.md | completed |
+| src\content\docs\devops\onboarding-checklist-backend-engineer.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\onboarding-checklist-backend-engineer.es.md | completed |
+| src\content\docs\devops\pen-test-scope-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\pen-test-scope-template.es.md | completed |
+| src\content\docs\devops\postmortem-incident-review-template.md | 2.0 | best practices → what works, significant → major | src\content\docs\devops\postmortem-incident-review-template.es.md | completed |
+| src\content\docs\devops\service-level-objective-slo-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\service-level-objective-slo-template.es.md | completed |
 
 ### Batch 33 (priority: low)
 

@@ -120,7 +120,7 @@ The template forces a **quantified reliability contract** between engineering an
 | Mobile backend | API latency, push delivery rate, payload size | Battery and data cost awareness |
 | ML inference | Prediction latency, throughput, model drift | Accuracy degradation is an SLO too |
 
-## Best Practices
+## What works
 
 1. Start with 2–3 SLIs; more metrics dilute focus and create alert fatigue
 2. Base SLOs on current performance, not aspirational targets; unrealistic SLOs exhaust budgets instantly

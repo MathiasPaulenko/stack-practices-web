@@ -33,7 +33,7 @@ seo:
 
 ## Estructura de la Plantilla
 
-Usa esta plantilla para construir respuestas de error consistentes y accionables para cualquier API REST o HTTP. Consulta también la [Plantilla de Documentación API](/docs/templates/api-documentation) para documentación de endpoints.
+Usa esta plantilla para construir respuestas de error consistentes y util para cualquier API REST o HTTP. Consulta también la [Plantilla de Documentación API](/docs/templates/api-documentation) para documentación de endpoints.
 
 ---
 
@@ -102,7 +102,7 @@ Para APIs internas o compatibilidad hacia atrás, usa esta estructura ligera:
 
 ---
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre retorna un cuerpo** — Nunca envíes un cuerpo vacío para respuestas `4xx` o `5xx`
 - **Usa RFC 7807 para APIs públicas** — Los consumidores esperan formatos estándar; las bibliotecas pueden analizarlos automáticamente

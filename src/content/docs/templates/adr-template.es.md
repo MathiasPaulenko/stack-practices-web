@@ -93,7 +93,7 @@ Enuncia la decisión de arquitectura en una sola oración. Sé claro y directo.
 
 ---
 
-## Mejores prácticas para escribir ADRs
+## Lo que funciona para escribir ADRs
 
 - **Una decisión por ADR**: Mantén el alcance enfocado
 - **Escribe después de la decisión**: Documenta decisiones ya tomadas, no debates
@@ -112,7 +112,7 @@ Enuncia la decisión de arquitectura en una sola oración. Sé claro y directo.
 
 ### Cuándo debería escribir un ADR?
 
-Escribe un ADR después de tomar una decisión arquitectónica significativa — típicamente cuando la decisión afecta a múltiples equipos, es costosa de revertir o tiene implicaciones de mantenimiento a largo plazo. Para decisiones de infraestructura de alto impacto, documenta también los planes de capacidad usando la [Plantilla de Planificación de Capacidad](/docs/templates/capacity-planning-template). No escribas ADRs para elecciones triviales.
+Escribe un ADR después de tomar una decisión arquitectónica mayor — típicamente cuando la decisión afecta a múltiples equipos, es costosa de revertir o tiene implicaciones de mantenimiento a largo plazo. Para decisiones de infraestructura de alto impacto, documenta también los planes de capacidad usando la [Plantilla de Planificación de Capacidad](/docs/templates/capacity-planning-template). No escribas ADRs para elecciones triviales.
 
 ### Quién debería leer los ADRs?
 

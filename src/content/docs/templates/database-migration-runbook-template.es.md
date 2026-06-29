@@ -129,7 +129,7 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 | **Testear rollback primero** | Un rollback que nunca practicaste es una suposición | Ninguna |
 | **Correr durante bajo tráfico** | Reduce blast radius | Fixes de emergencia |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa expand-contract para cambios breaking** — agregar nuevo esquema, deployar código, eliminar viejo esquema en migraciones separadas
 - **Batch updates grandes** — `UPDATE ... WHERE id BETWEEN 1 AND 10000` en un loop, con sleeps

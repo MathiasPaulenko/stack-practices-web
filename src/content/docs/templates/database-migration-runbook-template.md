@@ -129,7 +129,7 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 | **Test rollback first** | Rollback you have never practiced is a guess | None |
 | **Run during low traffic** | Reduces blast radius | Emergency fixes |
 
-## Best Practices
+## What works
 
 - **Use expand-contract for breaking changes** — add new schema, deploy code, remove old schema in separate migrations
 - **Batch large updates** — `UPDATE ... WHERE id BETWEEN 1 AND 10000` in a loop, with sleeps

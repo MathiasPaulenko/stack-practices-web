@@ -120,7 +120,7 @@ La plantilla fuerza un **contrato de confiabilidad cuantificado** entre ingenier
 | Backend móvil | Latencia de API, tasa de entrega push, tamaño de payload | Consciencia de batería y costo de datos |
 | Inferencia ML | Latencia de predicción, throughput, drift del modelo | La degradación de precisión también es un SLO |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Empieza con 2–3 SLIs; más métricas diluyen el foco y crean fatiga de alertas
 2. Basar SLOs en el rendimiento actual, no en objetivos aspiracionales; SLOs irreales agotan presupuestos instantáneamente

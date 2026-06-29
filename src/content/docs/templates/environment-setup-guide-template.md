@@ -98,7 +98,7 @@ curl http://localhost:3000/health
 | Docker won't start | Docker Desktop not running | Start Docker Desktop |
 ```
 
-## Best Practices
+## What works
 
 - **Use `.env.example`** — never commit secrets; commit a template with dummy values
 - **Automate with `make` or scripts** — one command should get a new developer running. Link to the [Onboarding Guide Template](/docs/templates/onboarding-guide-template) for a full checklist.

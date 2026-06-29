@@ -33,7 +33,7 @@ seo:
 
 ## Template Structure
 
-Use this template to build consistent, actionable error responses for any REST or HTTP API. See also the [API Documentation Template](/docs/templates/api-documentation) for endpoint documentation.
+Use this template to build consistent, useful error responses for any REST or HTTP API. See also the [API Documentation Template](/docs/templates/api-documentation) for endpoint documentation.
 
 ---
 
@@ -102,7 +102,7 @@ For internal APIs or backward compatibility, use this lightweight structure:
 
 ---
 
-## Best Practices
+## What works
 
 - **Always return a body** — Never send an empty body for `4xx` or `5xx` responses
 - **Use RFC 7807 for public APIs** — Consumers expect standard formats; libraries can parse them automatically
