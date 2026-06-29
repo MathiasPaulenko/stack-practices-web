@@ -4,7 +4,7 @@ slug: feature-request-template
 templateType: feature-request
 title: "Plantilla de Solicitud de Feature"
 description: "Plantilla estructurada de solicitud de features para ayudar equipos a evaluar, priorizar e implementar nuevas capacidades con valor de usuario claro y criterios de aceptación."
-metaDescription: "Plantilla de solicitud de features con user story, criterios de aceptación y prioridad. Ayuda a tu equipo a evaluar y construir las features correctas más rápido."
+metaDescription: "Plantilla de solicitud de capacidades con user story, criterios de aceptación y prioridad. Ayuda a tu equipo a evaluar y construir las capacidades correctas más rápido."
 difficulty: beginner
 topics:
   - devops
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Plantilla de solicitud de features con user story, criterios de aceptación y prioridad. Ayuda a tu equipo a evaluar y construir las features correctas más rápido."
+  metaDescription: "Plantilla de solicitud de capacidades con user story, criterios de aceptación y prioridad. Ayuda a tu equipo a evaluar y construir las capacidades correctas más rápido."
   keywords:
     - plantilla solicitud feature
     - formato request producto
@@ -31,7 +31,7 @@ seo:
 
 # Plantilla de Solicitud de Feature
 
-Usa esta plantilla para proponer nuevas features de manera que ayude a equipos de producto e ingeniería a evaluar valor de usuario y esfuerzo de implementación. Combínala con la [Plantilla de User Story](/docs/templates/user-story-template) para requerimientos en formato narrativo.
+Usa esta plantilla para proponer nuevas capacidades de manera que ayude a equipos de producto e ingeniería a evaluar valor de usuario y esfuerzo de implementación. Combínala con la [Plantilla de User Story](/docs/templates/user-story-template) para requerimientos en formato narrativo.
 
 ## Plantilla
 
@@ -39,13 +39,13 @@ Usa esta plantilla para proponer nuevas features de manera que ayude a equipos d
 # Solicitud de Feature
 
 ## Resumen
-Descripción de una oración de la feature.
+Descripción de una oración de la capacidad.
 
 ## Declaración del Problema
 ¿Qué problema resuelve? ¿Quién tiene este problema y con qué frecuencia?
 
 ## Solución Propuesta
-Describe la feature. Incluye mockups, wireframes o diagramas de flujo si están disponibles.
+Describe la capacidad. Incluye mockups, wireframes o diagramas de flujo si están disponibles.
 
 ## Criterios de Aceptación
 - [ ] Criterio 1: comportamiento específico y testeable
@@ -60,7 +60,7 @@ Describe la feature. Incluye mockups, wireframes o diagramas de flujo si están 
 
 ## Prioridad
 - [ ] Crítica — bloquea operación de negocio
-- [ ] Alta — dolor significativo de usuario, sin workaround
+- [ ] Alta — dolor importante de usuario, sin workaround
 - [ ] Media — mejora experiencia, workaround existe
 - [ ] Baja — nice-to-have
 
@@ -82,8 +82,8 @@ Describe la feature. Incluye mockups, wireframes o diagramas de flujo si están 
 ## Consejos para Quienes Solicitan
 
 - **Empieza con el problema, no la solución** — el equipo puede encontrar una solución mejor
-- **Incluye una cita de usuario** — "Como [usuario], quiero [feature] para poder [beneficio]". Consulta la [Plantilla de User Story](/docs/templates/user-story-template) para el formato completo.
-- **Define una feature por solicitud** — los paquetes son difíciles de evaluar y trackear
+- **Incluye una cita de usuario** — "Como [usuario], quiero [capacidad] para poder [beneficio]". Consulta la [Plantilla de User Story](/docs/templates/user-story-template) para el formato completo.
+- **Define una capacidad por solicitud** — los paquetes son difíciles de evaluar y trackear
 
 ## Consejos para Reviewers
 
@@ -97,9 +97,9 @@ Describe la feature. Incluye mockups, wireframes o diagramas de flujo si están 
 
 Agradece por identificar el problema, luego colabora en una solución mejor. El objetivo es resolver el dolor del usuario, no implementar su sugerencia exacta.
 
-### ¿Cómo prevengo el feature bloat?
+### ¿Cómo prevengo el bloat de capacidades?
 
-Requiere una sección de "valor de usuario" en cada solicitud. Si la respuesta es "estaría cool" o "el competidor X lo tiene", resiste. Las features deben resolver dolor real y frecuente.
+Requiere una sección de "valor de usuario" en cada solicitud. Si la respuesta es "estaría cool" o "el competidor X lo tiene", resiste. Las capacidades deben resolver dolor real y frecuente.
 
 ### ¿Las herramientas internas deberían usar la misma plantilla?
 

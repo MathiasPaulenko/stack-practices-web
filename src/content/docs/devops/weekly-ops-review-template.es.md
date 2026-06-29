@@ -38,7 +38,7 @@ seo:
 ---
 ## Visión General
 
-Las revisiones de operaciones son donde los equipos detectan tendencias antes de que se conviertan en incidentes. Una revisión semanal de incidentes, costos y rendimiento transforma alertas dispersas en patrones accionables. Sin estructura, las revisiones de operaciones se convierten en sesiones de quejas o actualizaciones de estado que nadie lee. Esta plantilla crea un formato repetible: qué pasó, qué costó, qué está en tendencia y qué vamos a hacer al respecto.
+Las revisiones de operaciones son donde los equipos detectan tendencias antes de que se conviertan en incidentes. Una revisión semanal de incidentes, costos y rendimiento transforma alertas dispersas en patrones útiles. Sin estructura, las revisiones de operaciones se convierten en sesiones de quejas o actualizaciones de estado que nadie lee. Esta plantilla crea un formato repetible: qué pasó, qué costó, qué está en tendencia y qué vamos a hacer al respecto.
 
 ## Cuándo Usar
 
@@ -144,12 +144,12 @@ La plantilla separa **datos** de **narrativa**. Las tablas fuerzan una revisión
 | Equipo de Plataforma / SRE | Enfoque en infraestructura compartida y salud de tenants | Semanal, 45 min |
 | Organización consciente de costos | Expandir sección de costos; incluir costo por feature | Semanal, 30 min |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Mantén la revisión bajo 30 minutos; reuniones largas matan el engagement
 2. Asigna responsables a cada acción en la reunión, no después
 3. Revisa primero las acciones de la semana pasada; la rendición de cuentas refuerza el hábito
-4. Usa números reales, no anécdotas; "se siente lento" no es accionable
+4. Usa números reales, no anécdotas; "se siente lento" no es útil
 5. Documenta riesgos antes de que se conviertan en incidentes; escalar temprano previene incendios
 
 ## Errores Comunes

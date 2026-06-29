@@ -97,7 +97,7 @@ Fixes # (issue)
 | **Testing** | Evidence that changes work |
 | **Checklist** | Self-verification before review |
 
-## Best Practices
+## What Works
 
 - **Keep it concise**: Long templates discourage completion
 - **Use checkboxes**: Easy to scan, hard to miss

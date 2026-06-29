@@ -51,8 +51,8 @@ Use this template to communicate what changed, why it matters, and what users ne
 - **Impact:** Who is affected and how
 - **Migration:** Exact steps to adapt
 
-## New Features
-- **Feature name** — short description and link to docs
+## New Capabilities
+- **Capability name** — short description and link to docs
 
 ## Improvements
 - **Area** — what got better and by how much
@@ -64,7 +64,7 @@ Use this template to communicate what changed, why it matters, and what users ne
 - **CVE-YYYY-NNNN** — severity and fix summary
 
 ## Deprecations
-- **Feature X** — will be removed in vX.Y+2.0; use Feature Y instead
+- **Capability X** — will be removed in vX.Y+2.0; use Capability Y instead
 
 ## Upgrade Instructions
 1. Step 1
@@ -82,16 +82,16 @@ Link to full commit diff or changelog file.
 
 | Audience | Focus | Tone |
 |----------|-------|------|
-| **End users** | New features and bug fixes that affect their workflow | Friendly, benefit-oriented |
+| **End users** | New capabilities and bug fixes that affect their workflow | Friendly, benefit-oriented |
 | **Operators** | Breaking changes, upgrade steps, security fixes | Precise, action-oriented |
 | **Developers** | API changes, deprecations, library updates | Technical, detailed |
 
-## Best Practices
+## What Works
 
 - **Write release notes before the release** — they are a forcing function for final review
 - **Highlight breaking changes first** — users scan for things that might break them
 - **Include upgrade instructions** — even for "no action required" releases, say so explicitly
-- **Link to documentation** — every new feature should have a corresponding docs page. Link to the [API Documentation Template](/docs/templates/api-documentation) for reference.
+- **Link to documentation** — every new capability should have a corresponding docs page. Link to the [API Documentation Template](/docs/templates/api-documentation) for reference.
 
 ## Common Mistakes
 

@@ -97,7 +97,7 @@ Fixes # (issue)
 | **Testing** | Evidencia de que los cambios funcionan |
 | **Checklist** | Autoverificación antes de review |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Manténlo conciso**: Plantillas largas desaniman completarlas
 - **Usa checkboxes**: Fáciles de escanear, difíciles de olvidar

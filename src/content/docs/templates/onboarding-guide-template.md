@@ -138,9 +138,9 @@ Slack: `@username` | Email: `name@company.com`
 | **First Contributions** | Clear path to first PR |
 | **Resources** | Where to find more info |
 
-## Best Practices
+## What Works
 
-- **Make it actionable**: Every item should be a checkbox or command
+- **Make it useful**: Every item should be a checkbox or command
 - **Assign a buddy**: New hires need a human point of contact
 - **Keep it current**: Review and update quarterly
 - **Start simple**: Day 1 should not overwhelm
@@ -155,7 +155,7 @@ Slack: `@username` | Email: `name@company.com`
 
 ### How long should onboarding take?
 
-Effective onboarding spans 2-4 weeks. The first week focuses on environment setup and small contributions. Weeks 2-4 deepen domain knowledge and increase contribution complexity.
+Useful onboarding spans 2-4 weeks. The first week focuses on environment setup and small contributions. Weeks 2-4 deepen domain knowledge and increase contribution complexity.
 
 ### What if the new hire is remote?
 

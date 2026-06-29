@@ -139,9 +139,9 @@ Slack: `@username` | Email: `name@company.com`
 | **Primeras Contribuciones** | Camino claro al primer PR |
 | **Recursos** | Dónde encontrar más info |
 
-## Buenas Prácticas
+## Lo que funciona
 
-- **Hazlo accionable**: Cada item debe ser un checkbox o comando
+- **Hazlo útil**: Cada item debe ser un checkbox o comando
 - **Asigna un buddy**: Los nuevos necesitan un punto de contacto humano
 - **Manténlo actualizado**: Revisa y actualiza trimestralmente
 - **Empieza simple**: El día 1 no debe ser abrumador
@@ -156,7 +156,7 @@ Slack: `@username` | Email: `name@company.com`
 
 ### Cuánto debería durar el onboarding?
 
-Un onboarding efectivo abarca 2-4 semanas. La primera semana se enfoca en configuración del ambiente y contribuciones pequeñas. Las semanas 2-4 profundizan el conocimiento del dominio y aumentan la complejidad de las contribuciones.
+Un onboarding útil abarca 2-4 semanas. La primera semana se enfoca en configuración del ambiente y contribuciones pequeñas. Las semanas 2-4 profundizan el conocimiento del dominio y aumentan la complejidad de las contribuciones.
 
 ### Qué pasa si el nuevo contratado es remoto?
 

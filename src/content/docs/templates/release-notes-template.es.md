@@ -51,8 +51,8 @@ Usa esta plantilla para comunicar qué cambió, por qué importa y qué deben ha
 - **Impacto:** Quién está afectado y cómo
 - **Migración:** Pasos exactos para adaptarse
 
-## Nuevas Features
-- **Nombre de feature** — descripción corta y link a docs
+## Nuevas Capacidades
+- **Nombre de capacidad** — descripción corta y link a docs
 
 ## Mejoras
 - **Área** — qué mejoró y en cuánto
@@ -64,7 +64,7 @@ Usa esta plantilla para comunicar qué cambió, por qué importa y qué deben ha
 - **CVE-AAAA-NNNN** — severidad y resumen del fix
 
 ## Deprecaciones
-- **Feature X** — será eliminado en vX.Y+2.0; usa Feature Y en su lugar
+- **Capacidad X** — será eliminado en vX.Y+2.0; usa Capacidad Y en su lugar
 
 ## Instrucciones de Upgrade
 1. Paso 1
@@ -82,16 +82,16 @@ Link al diff completo de commits o archivo changelog.
 
 | Audiencia | Enfoque | Tono |
 |-----------|---------|------|
-| **Usuarios finales** | Nuevas features y bug fixes que afectan su flujo | Amigable, orientado a beneficios |
+| **Usuarios finales** | Nuevas capacidades y bug fixes que afectan su flujo | Amigable, orientado a beneficios |
 | **Operadores** | Breaking changes, pasos de upgrade, fixes de seguridad | Preciso, orientado a acción |
 | **Desarrolladores** | Cambios de API, deprecaciones, actualizaciones de librerías | Técnico, detallado |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Escribe release notes antes del release** — son un forcing function para review final
 - **Destaca breaking changes primero** — usuarios escanean por cosas que podrían romperles
 - **Incluye instrucciones de upgrade** — incluso para releases "sin acción requerida", dilo explícitamente
-- **Link a documentación** — cada nueva feature debería tener una página de docs correspondiente. Enlaza a la [Plantilla de Documentación de API](/docs/templates/api-documentation) para referencia.
+- **Link a documentación** — cada nueva capacidad debería tener una página de docs correspondiente. Enlaza a la [Plantilla de Documentación de API](/docs/templates/api-documentation) para referencia.
 
 ## Errores Comunes
 

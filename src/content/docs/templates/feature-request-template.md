@@ -3,8 +3,8 @@ contentType: docs
 slug: feature-request-template
 templateType: feature-request
 title: "Feature Request Template"
-description: "A structured feature request template to help teams evaluate, prioritize, and implement new capabilities with clear user value and acceptance criteria."
-metaDescription: "Feature request template with user story, acceptance criteria, and priority. Help your team evaluate and build the right features faster."
+description: "A structured capability request template to help teams evaluate, prioritize, and implement new capabilities with clear user value and acceptance criteria."
+metaDescription: "Capability request template with user story, acceptance criteria, and priority. Help your team evaluate and build the right capabilities faster."
 difficulty: beginner
 topics:
   - devops
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Feature request template with user story, acceptance criteria, and priority. Help your team evaluate and build the right features faster."
+  metaDescription: "Capability request template with user story, acceptance criteria, and priority. Help your team evaluate and build the right capabilities faster."
   keywords:
     - feature request template
     - product request format
@@ -31,7 +31,7 @@ seo:
 
 # Feature Request Template
 
-Use this template to propose new features in a way that helps product and engineering teams evaluate user value and implementation effort. Pair it with the [User Story Template](/docs/templates/user-story-template) for narrative-style requirements.
+Use this template to propose new capabilities in a way that helps product and engineering teams evaluate user value and implementation effort. Pair it with the [User Story Template](/docs/templates/user-story-template) for narrative-style requirements.
 
 ## Template
 
@@ -39,13 +39,13 @@ Use this template to propose new features in a way that helps product and engine
 # Feature Request
 
 ## Summary
-One-sentence description of the feature.
+One-sentence description of the capability.
 
 ## Problem Statement
 What problem does this solve? Who has this problem and how often?
 
 ## Proposed Solution
-Describe the feature. Include mockups, wireframes, or flow diagrams if available.
+Describe the capability. Include mockups, wireframes, or flow diagrams if available.
 
 ## Acceptance Criteria
 - [ ] Criterion 1: specific, testable behavior
@@ -60,7 +60,7 @@ Describe the feature. Include mockups, wireframes, or flow diagrams if available
 
 ## Priority
 - [ ] Critical — blocking business operation
-- [ ] High — significant user pain, no workaround
+- [ ] High — major user pain, no workaround
 - [ ] Medium — improves experience, workaround exists
 - [ ] Low — nice-to-have
 
@@ -82,8 +82,8 @@ Describe the feature. Include mockups, wireframes, or flow diagrams if available
 ## Tips for Requesters
 
 - **Lead with the problem, not the solution** — the team may find a better solution
-- **Include a user quote** — "As a [user], I want [feature] so that [benefit]". See [User Story Template](/docs/templates/user-story-template) for the full format.
-- **Define one feature per request** — bundles are hard to evaluate and track
+- **Include a user quote** — "As a [user], I want [capability] so that [benefit]". See [User Story Template](/docs/templates/user-story-template) for the full format.
+- **Define one capability per request** — bundles are hard to evaluate and track
 
 ## Tips for Reviewers
 
@@ -97,9 +97,9 @@ Describe the feature. Include mockups, wireframes, or flow diagrams if available
 
 Thank them for identifying the problem, then collaborate on a better solution. The goal is solving the user's pain, not implementing their exact suggestion.
 
-### How do I prevent feature bloat?
+### How do I prevent capability bloat?
 
-Require a "user value" section in every request. If the answer is "it would be cool" or "competitor X has it," push back. Features must solve real, frequent pain.
+Require a "user value" section in every request. If the answer is "it would be cool" or "competitor X has it," push back. Capabilities must solve real, frequent pain.
 
 ### Should internal tools use the same template?
 

@@ -38,7 +38,7 @@ seo:
 ---
 ## Overview
 
-Ops reviews are where teams spot trends before they become incidents. A weekly review of incidents, costs, and performance turns scattered alerts into actionable patterns. Without structure, ops reviews become complaint sessions or status updates that no one reads. This template creates a repeatable format: what happened, what it cost, what is trending, and what we are doing about it.
+Ops reviews are where teams spot trends before they become incidents. A weekly review of incidents, costs, and performance turns scattered alerts into useful patterns. Without structure, ops reviews become complaint sessions or status updates that no one reads. This template creates a repeatable format: what happened, what it cost, what is trending, and what we are doing about it.
 
 ## When to Use
 
@@ -144,12 +144,12 @@ The template separates **data** from **narrative**. The tables force quantitativ
 | Platform / SRE team | Focus on shared infrastructure and tenant health | Weekly, 45 min |
 | Cost-conscious org | Expand cost section; include per-feature costing | Weekly, 30 min |
 
-## Best Practices
+## What Works
 
 1. Keep the review under 30 minutes; long meetings kill engagement
 2. Assign owners to every action item in the meeting, not after
 3. Review last week's action items first; accountability reinforces the habit
-4. Use real numbers, not anecdotes; "feels slow" is not actionable
+4. Use real numbers, not anecdotes; "feels slow" is not useful
 5. Document risks before they become incidents; escalation early prevents fires
 
 ## Common Mistakes
