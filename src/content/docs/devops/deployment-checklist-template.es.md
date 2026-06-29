@@ -113,7 +113,7 @@ Usa este recurso cuando:
 
 - [ ] Feature flags habilitadas incrementalmente (5% → 25% → 100%)
 - [ ] Resultados de tests A/B monitoreados (si aplica)
-- [ ] Soporte al cliente informado de nuevas funcionalidades o cambios
+- [ ] Soporte al cliente informado de nuevas capacidades o cambios
 - [ ] Documentación actualizada (docs de API, runbooks, wiki)
 
 ### 3.2. Monitoreo
@@ -143,7 +143,7 @@ El checklist está ordenado por **riesgo**: calidad de código primero, luego pr
 | Mantenimiento programado | Sección de comunicación extendida | Incluir ventana de mantenimiento, notificaciones a clientes |
 | Cambio solo de base de datos | Sección de base de datos enfatizada | Requerir aprobación del DBA, período de estabilización más largo |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Automatizar cada checkbox que se pueda automatizar (tests, smoke tests, health checks)
 2. Ejecutar el checklist en un documento o herramienta compartida para que múltiples personas confirmen pasos
@@ -167,7 +167,7 @@ No. Para despliegues rutinarios sin cambios de infraestructura, un checklist abr
 
 ### ¿Quién debería ser dueño del checklist?
 
-El ingeniero on-call o release lead es dueño del checklist para un despliegue específico. El equipo de plataforma o SRE es dueño de la plantilla y la actualiza basándose en aprendizajes de incidentes.
+El ingeniero on-call o release lead es dueño del checklist para un despliegue específico. El equipo de plataforma o SRE es dueño de la plantilla y la actualiza basándose en lecciones de incidentes.
 
 ### ¿Cómo manejo hotfixes de emergencia?
 

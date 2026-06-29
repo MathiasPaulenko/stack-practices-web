@@ -284,7 +284,7 @@ The runbook separates **preparation** (backups, dry runs) from **execution** (th
 | Data warehouse ETL | Batch loads with Airflow | Schedule during low-traffic windows |
 | NoSQL to SQL | Custom transformation scripts | Schema design is the hardest part; test queries thoroughly |
 
-## Best Practices
+## What Works
 
 1. **Always run a dry run** on production-scale data in an isolated environment
 2. **Never modify the source** during migration — read-only access prevents accidental corruption

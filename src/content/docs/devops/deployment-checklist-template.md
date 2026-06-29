@@ -113,7 +113,7 @@ Use this resource when:
 
 - [ ] Feature flags enabled incrementally (5% → 25% → 100%)
 - [ ] A/B test results monitored (if applicable)
-- [ ] Customer support briefed on new features or changes
+- [ ] Customer support briefed on new capabilities or changes
 - [ ] Documentation updated (API docs, runbooks, wiki)
 
 ### 3.2. Monitoring
@@ -143,7 +143,7 @@ The checklist is ordered by **risk**: code quality first, then infrastructure re
 | Scheduled maintenance | Extended communication section | Include maintenance window, customer notifications |
 | Database-only change | Database section emphasized | Require DBA sign-off, longer soak period |
 
-## Best Practices
+## What Works
 
 1. Automate every checkbox that can be automated (tests, smoke tests, health checks)
 2. Run the checklist in a shared document or tool so multiple people can confirm steps
@@ -167,7 +167,7 @@ No. For routine deployments with no infrastructure changes, a shortened checklis
 
 ### Who should own the checklist?
 
-The on-call engineer or release lead owns the checklist for a specific deployment. The platform or SRE team owns the template and updates it based on incident learnings.
+The on-call engineer or release lead owns the checklist for a specific deployment. The platform or SRE team owns the template and updates it based on incident lessons.
 
 ### How do I handle emergency hotfixes?
 

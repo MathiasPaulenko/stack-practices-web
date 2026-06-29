@@ -128,7 +128,7 @@ El Etiquetado de Recursos Cloud es la practica de aplicar etiquetas de metadatos
 
 ## Explicacion
 
-Las etiquetas son metadatos que potencian la asignacion de costos, seguridad, operaciones y cumplimiento. Una politica de etiquetado asegura que cada recurso tenga etiquetas consistentes y significativas desde la creacion hasta la retirada. Sin gobernanza, las etiquetas se vuelven inconsistentes, haciendo que la automatizacion y los reportes sean poco confiables. La combinacion de etiquetas requeridas, convenciones de nombres y herramientas de cumplimiento crea un modelo de operacion cloud escalable.
+Las etiquetas son metadatos que potencian la asignacion de costos, seguridad, operaciones y cumplimiento. Una politica de etiquetado asegura que cada recurso tenga etiquetas consistentes y significativas desde la creacion hasta la retirada. Sin gobernanza, las etiquetas se vuelven inconsistentes, haciendo que la automatizacion y los reportes sean poco confiables. La combinacion de etiquetas requeridas, convenciones de nombres y herramientas de cumplimiento crea un modelo de operacion cloud preparado para crecer.
 
 ## Variantes
 
@@ -139,7 +139,7 @@ Las etiquetas son metadatos que potencian la asignacion de costos, seguridad, op
 - **Politica de etiquetado de contenedores**: Se enfoca en labels y annotations de Kubernetes para pods, namespaces y nodos.
 - **Politica de etiquetado centrada en seguridad**: Enfatiza clasificacion de datos, alcance de cumplimiento y etiquetas de segmentacion de red.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Exige etiquetas minimas requeridas al momento de crear recursos.
 - Usa policy-as-code para validar etiquetas en pipelines de CI/CD e IaC.

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: api-gateway-design-guide
-title: "API Gateway Design — Resilience, Routing, and Security"
+title: "API Gateway Design: Resilience, Routing, and Security"
 description: "A practical guide to designing API gateways: routing patterns, rate limiting, authentication, circuit breakers, and observability for resilient APIs."
 metaDescription: "Learn how to design resilient API gateways with routing, rate limiting, authentication, circuit breakers, and observability. Complete guide for engineering teams."
 difficulty: advanced
@@ -187,14 +187,14 @@ Circuit breakers prevent cascading failures. When a service is struggling, the g
 
 | Gateway Type | Best For | Trade-off |
 |--------------|----------|-----------|
-| **Nginx / OpenResty** | High throughput, simple routing | Lua scripting for custom logic; limited plugin ecosystem |
-| **Kong** | Plugin-rich, enterprise features | Higher latency than Nginx; managed option available |
+| **Nginx / OpenResty** | High throughput, simple routing | Lua scripting for custom logic; limited plugin platform |
+| **Kong** | Plugin-rich, enterprise capabilities | Higher latency than Nginx; managed option available |
 | **Envoy** | Cloud-native, service mesh integration | Steep learning curve; YAML configuration verbosity |
 | **AWS API Gateway** | Serverless, AWS ecosystem | Vendor lock-in; cold start latency for v2 |
 | **Spring Cloud Gateway** | Java/Spring ecosystems | JVM memory footprint; tight Spring coupling |
 | **Traefik** | Dynamic Docker/K8s discovery | Simpler than Envoy; less advanced traffic management |
 
-## Best Practices
+## What Works
 
 1. Keep the gateway **stateless**; store session data in Redis or client-side tokens
 2. Use **async I/O** in the gateway to avoid thread pool exhaustion under load

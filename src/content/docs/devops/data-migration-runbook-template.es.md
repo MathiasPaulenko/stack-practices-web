@@ -284,7 +284,7 @@ El runbook separa **preparacion** (backups, pruebas en seco) de **ejecucion** (l
 | ETL a data warehouse | Cargas batch con Airflow | Programar durante ventanas de bajo trafico |
 | NoSQL a SQL | Scripts de transformacion personalizados | El diseno de esquema es la parte mas dificil; probar queries exhaustivamente |
 
-## Best Practices
+## Lo que funciona
 
 1. **Siempre ejecuta una prueba en seco** con datos a escala de produccion en un entorno aislado
 2. **Nunca modifiques la fuente** durante la migracion — acceso solo lectura previene corrupcion accidental

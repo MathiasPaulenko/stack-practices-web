@@ -36,7 +36,7 @@ Un postmortem es un registro escrito de un incidente, su impacto, las acciones t
 
 ## Cuándo Usar
 
-- Después de cualquier incidente significativo en producción
+- Después de cualquier incidente mayor en producción
 - Cuando se violan objetivos de SLA/SLO
 - Para documentar lecciones aprendidas para el equipo
 - Requerido por estándares de cumplimiento o regulatorios
@@ -107,15 +107,15 @@ configuración o diagramas de arquitectura si aplica.]
 | Nivel | Descripción | Ejemplo |
 |-------|-------------|---------|
 | **P1** | Caída crítica | Indisponibilidad total del servicio |
-| **P2** | Degradación mayor | Funcionalidades core rotas |
-| **P3** | Impacto menor | Funcionalidades no críticas afectadas |
+| **P2** | Degradación mayor | Capacidades principales rotas |
+| **P3** | Impacto menor | Capacidades no críticas afectadas |
 | **P4** | Informativo | Sin impacto en usuarios, riesgo potencial |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Sin culpa**: Enfócate en fallas de sistema y proceso, no en individuos
 - **Específico**: Incluye tiempos exactos, métricas y sistemas afectados
-- **Accionable**: Cada postmortem debe tener acciones de seguimiento. Usa la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/templates/security-incident-response-template) para incidentes relacionados con seguridad.
+- **Útil**: Cada postmortem debe tener acciones de seguimiento útiles. Usa la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/templates/security-incident-response-template) para incidentes relacionados con seguridad.
 - **Oportuno**: Publicar dentro de 48 horas de la resolución
 - **Compartido**: Distribuir a todos los stakeholders y almacenar centralmente
 

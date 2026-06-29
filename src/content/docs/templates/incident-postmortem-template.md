@@ -36,7 +36,7 @@ A postmortem is a written record of an incident, its impact, the actions taken t
 
 ## When to Use
 
-- After any significant production incident or outage
+- After any major production incident or outage
 - When SLA/SLO targets are breached
 - To document lessons learned for the team
 - Required by compliance or regulatory standards
@@ -106,15 +106,15 @@ A postmortem is a written record of an incident, its impact, the actions taken t
 | Level | Description | Example |
 |-------|-------------|---------|
 | **P1** | Critical outage | Complete service unavailability |
-| **P2** | Major degradation | Core features broken |
-| **P3** | Minor impact | Non-critical features affected |
+| **P2** | Major degradation | Core capabilities broken |
+| **P3** | Minor impact | Non-critical capabilities affected |
 | **P4** | Informational | No user impact, potential risk |
 
-## Best Practices
+## What Works
 
 - **Blameless**: Focus on system and process failures, not individuals
 - **Specific**: Include exact times, metrics, and affected systems
-- **Actionable**: Every postmortem must have follow-up action items. Use [Security Incident Response Template](/docs/templates/security-incident-response-template) for security-related incidents.
+- **Useful**: Every postmortem must have useful follow-up action items. Use [Security Incident Response Template](/docs/templates/security-incident-response-template) for security-related incidents.
 - **Timely**: Publish within 48 hours of incident resolution
 - **Shared**: Distribute to all stakeholders and store centrally
 
@@ -132,7 +132,7 @@ A blameless postmortem focuses on system and process failures rather than indivi
 
 ### When should I write a postmortem?
 
-Write a postmortem after any significant production incident, SLA breach, or any event the team agrees is worth documenting. Publish within 48 hours of resolution.
+Write a postmortem after any major production incident, SLA breach, or any event the team agrees is worth documenting. Publish within 48 hours of resolution.
 
 ### Who should participate in a postmortem?
 

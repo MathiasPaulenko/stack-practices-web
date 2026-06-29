@@ -128,7 +128,7 @@ Cloud Resource Tagging is the practice of applying metadata labels to cloud reso
 
 ## Explanation
 
-Tags are metadata that power cost allocation, security, operations, and compliance. A tagging policy ensures that every resource has consistent, meaningful labels from creation through retirement. Without governance, tags become inconsistent, making automation and reporting unreliable. The combination of required tags, naming conventions, and enforcement tools creates a scalable cloud operating model.
+Tags are metadata that power cost allocation, security, operations, and compliance. A tagging policy ensures that every resource has consistent, meaningful labels from creation through retirement. Without governance, tags become inconsistent, making automation and reporting unreliable. The combination of required tags, naming conventions, and enforcement tools creates a growth-ready cloud operating model.
 
 ## Variants
 
@@ -139,7 +139,7 @@ Tags are metadata that power cost allocation, security, operations, and complian
 - **Container labeling policy**: Focuses on Kubernetes labels and annotations for pods, namespaces, and nodes.
 - **Security-centric tagging policy**: Emphasizes data classification, compliance scope, and network segmentation tags.
 
-## Best Practices
+## What Works
 
 - Enforce minimum required tags at resource creation time.
 - Use policy-as-code to validate tags in CI/CD and IaC pipelines.
