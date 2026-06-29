@@ -36,7 +36,7 @@ seo:
 ---
 ## Visión General
 
-CSV es el formato de exportación universal para spreadsheets y bases de datos pero carece de estructura anidada y tipos explícitos. Convertir CSV a JSON habilita ingesta en APIs REST, almacenamiento en document stores NoSQL y data binding del lado del cliente. Esta recipe cubre conversión robusta CSV a JSON con inferencia de tipos, mapeo a objetos anidados y streaming para archivos grandes en Python, JavaScript y Java.
+CSV es el formato de exportación universal para spreadsheets y bases de datos pero carece de estructura anidada y tipos explícitos. Convertir CSV a JSON habilita ingesta en APIs REST, almacenamiento en document stores NoSQL y data binding del lado del cliente. Esta recipe cubre conversión fiable CSV a JSON con inferencia de tipos, mapeo a objetos anidados y streaming para archivos grandes en Python, JavaScript y Java.
 
 ## Cuándo Usar
 
@@ -77,7 +77,7 @@ print(json_data)
 ### JavaScript
 
 ```javascript
-// csv-parse para conversión robusta con streaming
+// csv-parse para conversión fiable con streaming
 // npm install csv-parse
 import { parse } from 'csv-parse';
 import fs from 'fs';
@@ -149,7 +149,7 @@ El streaming es crítico para archivos grandes. `csv-parse` (JS) y Jackson (Java
 | Java | `Jackson CSV` | `CsvMapper` + `ObjectMapper` | Streaming, schema-driven, estándar enterprise |
 | Java | `Apache Commons CSV` | `CSVFormat.DEFAULT.parse()` | Alternativa ligera, serialización JSON manual |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa `DictReader` / `columns: true`** para mapear headers CSV directamente a claves JSON en lugar de arrays posicionales
 - **Haz casting de tipos explícitamente**: CSV no tiene booleanos o fechas; define un schema o post-procesa filas para evitar strings `"true"`

@@ -186,7 +186,7 @@ int main() {
 
 ## Explanation
 
-- **Mutex**: ensures mutual exclusion — only one thread holds the lock at a time. Other threads block until the lock is released. Simple and effective, but can become a bottleneck if the critical section is large or frequently accessed.
+- **Mutex**: ensures mutual exclusion — only one thread holds the lock at a time. Other threads block until the lock is released. Simple and useful, but can become a bottleneck if the critical section is large or frequently accessed.
 - **Read-write lock**: allows multiple concurrent readers but only one writer. Ideal for read-heavy workloads where writes are rare. A reader does not block other readers, but a writer blocks everyone. Downgrading from write to read is supported in some implementations.
 - **Semaphore**: a generalized lock with a counter. A mutex is a semaphore with count 1. A pool semaphore with count 10 allows 10 threads to enter simultaneously. Useful for [resource pools](/recipes/performance/connection-pooling), throttling, and backpressure.
 - **Atomic operations**: lock-free updates using CPU instructions like `CAS` (compare-and-swap). Faster than locks for simple operations but limited in scope. Use for counters and flags. Complex updates still require locks.
@@ -201,7 +201,7 @@ int main() {
 | Spinlock | No | No | Very short critical sections | Low CPU |
 | Atomic | N/A (no lock) | N/A | Counters, flags | Lowest |
 
-## Best practices
+## What works
 
 - **Keep critical sections small**: the smaller the locked region, the less contention. Lock, update one variable, unlock. Do not perform I/O, calculations, or external calls while holding a lock. Long critical sections serialize threads and defeat the purpose of concurrency.
 - **Always unlock in finally**: a thread that throws an exception while holding a lock will never release it, deadlocking other threads. Use try/finally (Java), `with` (Python), or RAII (C++ `std::lock_guard`) to ensure unlock happens even on exceptions.
@@ -213,7 +213,7 @@ int main() {
 
 - **Locking on mutable objects**: `synchronized(someList)` fails if the reference changes. Another thread may synchronize on a different object. Use a final private field as the lock monitor, never the data itself.
 - **Forgetting to unlock after early return**: a method with multiple return paths may return without unlocking. This is why Java's `ReentrantLock` requires explicit `unlock()` — it forces you to think about every exit path. Use try/finally religiously.
-- **Over-locking (locking too much)**: wrapping an entire method in `synchronized` may protect data but serializes all callers, making the code effectively single-threaded. Identify the exact shared state that needs protection and lock only that.
+- **Over-locking (locking too much)**: wrapping an entire method in `synchronized` may protect data but serializes all callers, making the code well single-threaded. Identify the exact shared state that needs protection and lock only that.
 - **Testing without concurrency stress**: a race condition may not manifest with 2 threads on a development machine. Use stress tests with hundreds of threads, loop millions of iterations, and run on multi-core hardware. Tools like ThreadSanitizer detect data races at runtime.
 
 ## FAQ

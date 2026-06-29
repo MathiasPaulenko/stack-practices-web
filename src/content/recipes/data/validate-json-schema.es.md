@@ -3,7 +3,7 @@ contentType: recipes
 slug: validate-json-schema
 title: "Validar JSON Schema"
 description: "Cómo validar datos JSON contra schemas en Python, Java y JavaScript."
-metaDescription: "Aprende validación JSON Schema en Python, Java y JavaScript. Valida payloads de API y archivos de configuración con schemas y mejores prácticas."
+metaDescription: "Aprende validación JSON Schema en Python, Java y JavaScript. Valida payloads de API y archivos de configuración con schemas y lo que funciona."
 difficulty: intermediate
 topics:
   - data
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende validación JSON Schema en Python, Java y JavaScript. Valida payloads de API y archivos de configuración con schemas y mejores prácticas."
+  metaDescription: "Aprende validación JSON Schema en Python, Java y JavaScript. Valida payloads de API y archivos de configuración con schemas y lo que funciona."
   keywords:
     - json
     - schema
@@ -122,7 +122,7 @@ if (!errors.isEmpty()) {
 
 ## Explicación
 
-JSON Schema es especificado por la JSON Schema Organization y soporta los drafts 04, 06, 07, 2019-09 y 2020-12. Las palabras clave de validación principales incluyen `type`, `properties`, `required`, `minimum`/`maximum`, `pattern`, `enum` y `format`. Las características avanzadas incluyen `$ref` para composición, `if/then/else` para schemas condicionales y `unevaluatedProperties` para validación estricta.
+JSON Schema es especificado por la JSON Schema Organization y soporta los drafts 04, 06, 07, 2019-09 y 2020-12. Las palabras clave de validación principales incluyen `type`, `properties`, `required`, `minimum`/`maximum`, `pattern`, `enum` y `format`. Las capacidades avanzadas incluyen `$ref` para composición, `if/then/else` para schemas condicionales y `unevaluatedProperties` para validación estricta.
 
 La mayoría de los validadores también soportan formatos personalizados (email, uri, date-time) y vocabularios definidos por el usuario. Ajv además soporta compilación inline a funciones JavaScript para máximo rendimiento.
 
@@ -130,14 +130,14 @@ La mayoría de los validadores también soportan formatos personalizados (email,
 
 | Tecnología | Librería | Soporte de Draft | Notas |
 |------------|----------|------------------|-------|
-| Python | jsonschema | 04, 06, 07, 2019, 2020 | Más features, algo más lento |
+| Python | jsonschema | 04, 06, 07, 2019, 2020 | Más capacidades, algo más lento |
 | Python | fastjsonschema | 07, 2020 | Compila a código Python, muy rápido |
 | JavaScript | Ajv | 04, 06, 07, 2019, 2020 | Validador JS más rápido, compila schemas |
 | JavaScript | zod | N/A (similar) | Schemas type-first, no requiere JSON Schema |
 | Java | networknt | 04, 06, 07, 2019, 2020 | Ligero, integración con Jackson |
 | Java | everit | 04, 06, 07 | Maduro, cumplimiento estricto |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa modo estricto (`additionalProperties: false`)** para rechazar campos inesperados y detectar errores tipográficos
 - **Retorna todos los errores a la vez** (`allErrors: true` en Ajv) para mejor UX en formularios

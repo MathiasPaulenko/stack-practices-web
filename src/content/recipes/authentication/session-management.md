@@ -41,7 +41,7 @@ Use this recipe when:
 - Building traditional server-rendered web applications with login functionality
 - Implementing admin dashboards, e-commerce carts, or user portals
 - Choosing between stateful sessions and stateless [JWT authentication](/recipes/authentication/jwt-authentication)
-- Protecting against session fixation, hijacking, and CSRF attacks. See [API Security Checklist](/guides/security/api-security-checklist-guide) for comprehensive security practices.
+- Protecting against session fixation, hijacking, and CSRF attacks. See [API Security Checklist](/guides/security/api-security-checklist-guide) for thorough security practices.
 - Configuring session stores (Redis, PostgreSQL, memory) for production applications
 
 ## Solution
@@ -114,14 +114,14 @@ def login_view(request):
 
 ## Variants
 
-| Approach | Storage | Scalability | Best For |
+| Approach | Storage | Growth | Best For |
 |----------|---------|-------------|----------|
 | Memory sessions | Server RAM | Poor (single server) | Development, prototypes |
 | Redis sessions | Redis | Excellent | Production web apps |
 | Database sessions | PostgreSQL/MySQL | Good | When Redis is unavailable |
 | [Client JWT](/recipes/authentication/jwt-authentication) | Browser storage | Excellent | SPAs, mobile APIs |
 
-## Best Practices
+## What Works
 
 - **Rotate session IDs after login**: prevent session fixation attacks by generating a new session ID immediately after authentication.
 - **Set short expiration with sliding refresh**: expire sessions after 30 minutes of inactivity, but extend the expiration on each valid request.

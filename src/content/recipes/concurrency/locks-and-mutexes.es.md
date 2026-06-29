@@ -173,7 +173,7 @@ int main() {
 
 ## Explicación
 
-- **Mutex**: asegura exclusión mutua — solo un thread tiene el lock a la vez. Otros threads bloquean hasta que el lock se libera. Simple y efectivo, pero puede convertirse en cuello de botella si la sección crítica es grande o frecuentemente accedida.
+- **Mutex**: asegura exclusión mutua — solo un thread tiene el lock a la vez. Otros threads bloquean hasta que el lock se libera. Simple y útil, pero puede convertirse en cuello de botella si la sección crítica es grande o frecuentemente accedida.
 - **Read-write lock**: permite múltiples lectores concurrentes pero solo un escritor. Ideal para cargas de trabajo dominadas por lecturas donde las escrituras son raras. Un lector no bloquea a otros lectores, pero un escritor bloquea a todos. Algunas implementaciones soportan downgrade de write a read.
 - **Semaphore**: un lock generalizado con un contador. Un mutex es un semaphore con count 1. Un pool semaphore con count 10 permite que 10 threads entren simultáneamente. Útil para [pools de recursos](/recipes/performance/connection-pooling), throttling y backpressure.
 - **Operaciones atómicas**: updates libres de locks usando instrucciones de CPU como `CAS` (compare-and-swap). Más rápidas que locks para operaciones simples pero limitadas en alcance. Usar para contadores y flags. Updates complejos aún requieren locks.
@@ -188,7 +188,7 @@ int main() {
 | Spinlock | No | No | Secciones críticas muy cortas | Bajo CPU |
 | Atómico | N/A (no lock) | N/A | Contadores, flags | Mínimo |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén las secciones críticas pequeñas**: entre más pequeña la región bloqueada, menos contención. Bloquea, actualiza una variable, desbloquea. No hagas I/O, cálculos o llamadas externas mientras sostienes un lock. Las secciones críticas largas serializan threads y derrotan el propósito de la concurrencia.
 - **Siempre desbloquea en finally**: un thread que lanza una excepción mientras sostiene un lock nunca lo liberará, deadlockeando otros threads. Usa try/finally (Java), `with` (Python) o RAII (C++ `std::lock_guard`) para asegurar que el unlock ocurre incluso con excepciones.
@@ -200,7 +200,7 @@ int main() {
 
 - **Lockeando en objetos mutables**: `synchronized(someList)` falla si la referencia cambia. Otro thread puede sincronizar en un objeto diferente. Usa un campo privado final como monitor de lock, nunca los datos mismos.
 - **Olvidar desbloquear después de retorno temprano**: un método con múltiples paths de retorno puede retornar sin desbloquear. Por eso `ReentrantLock` de Java requiere `unlock()` explícito — te fuerza a pensar en cada path de salida. Usa try/finally religiosamente.
-- **Sobre-lockeo (lockear demasiado)**: envolver un método completo en `synchronized` puede proteger datos pero serializa a todos los llamadores, haciendo el código efectivamente single-threaded. Identifica el estado compartido exacto que necesita protección y bloquea solo eso.
+- **Sobre-lockeo (lockear demasiado)**: envolver un método completo en `synchronized` puede proteger datos pero serializa a todos los llamadores, haciendo el código bien single-threaded. Identifica el estado compartido exacto que necesita protección y bloquea solo eso.
 - **Testing sin estrés de concurrencia**: una condición de carrera puede no manifestarse con 2 threads en una máquina de desarrollo. Usa stress tests con cientos de threads, buclea millones de iteraciones y corre en hardware multi-core. Herramientas como ThreadSanitizer detectan data races en runtime.
 
 ## Preguntas frecuentes

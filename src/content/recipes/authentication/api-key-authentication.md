@@ -181,7 +181,7 @@ components:
 | Redis cache | Redis | Fast | TTL-based | High-traffic APIs |
 | API Gateway managed | Cloud provider | Fast | Via dashboard | AWS/GCP/Azure hosted APIs |
 
-## Best practices
+## What works
 
 - **Never commit keys to source control**: use `.gitignore` for `.env` files and run secret-scanning tools (GitGuardian, TruffleHog) in CI pipelines. Rotate any key found in commit history immediately.
 - **Use HTTPS exclusively**: API keys sent over unencrypted HTTP are trivially intercepted by network sniffers. Reject plain HTTP requests at the load balancer or gateway level.
@@ -199,7 +199,7 @@ components:
 ## FAQ
 
 **Q: What is the difference between API keys and [JWT tokens](/recipes/authentication/jwt-authentication)?**
-A: API keys are opaque strings typically used for service-to-service auth with fixed permissions. JWT tokens are self-contained claims used for user sessions, often with shorter lifespans and dynamic permissions. JWTs can encode user identity; API keys usually encode application identity.
+A: API keys are opaque strings typically used for service-to-service auth with fixed permissions. JWT tokens are self-contained claims used for user sessions, often with shorter lifespans and live permissions. JWTs can encode user identity; API keys usually encode application identity.
 
 **Q: How do I revoke a compromised API key?**
 A: If using database-backed keys, delete or disable the key record immediately. If using HMAC-only stateless keys, you cannot revoke individually — you must rotate the master secret (which invalidates all keys) or maintain a blocklist.
@@ -208,5 +208,5 @@ A: If using database-backed keys, delete or disable the key record immediately. 
 A: Yes. Store hashed or encrypted keys in your database. When a key is presented, hash it and compare against the stored hash. This prevents attackers from reading usable keys if the database is breached.
 
 **Q: Can I use API keys for user authentication?**
-A: API keys are designed for machine clients, not human users. For user authentication, use session cookies, OAuth2, or OIDC. API keys lack features like multi-factor authentication and are harder for users to manage securely.
+A: API keys are designed for machine clients, not human users. For user authentication, use session cookies, OAuth2, or OIDC. API keys lack capabilities like multi-factor authentication and are harder for users to manage securely.
 

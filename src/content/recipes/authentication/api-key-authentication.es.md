@@ -176,7 +176,7 @@ components:
 | Redis cache | Redis | Rápida | Basada en TTL | APIs de alto tráfico |
 | API Gateway managed | Cloud provider | Rápida | Vía dashboard | APIs alojadas en AWS/GCP/Azure |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Nunca commitees keys a control de versiones**: usa `.gitignore` para archivos `.env` y ejecuta herramientas de escaneo de secretos (GitGuardian, TruffleHog) en pipelines CI. Rota inmediatamente cualquier key encontrada en historial de commits.
 - **Usa HTTPS exclusivamente**: las API keys enviadas sobre HTTP sin encriptar son trivialmente interceptadas por sniffers de red. Rechaza peticiones HTTP planas en el load balancer o gateway.
@@ -194,7 +194,7 @@ components:
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre API keys y [JWT tokens](/recipes/authentication/jwt-authentication)?**
-R: Las API keys son strings opacos típicamente usados para auth service-to-service con permisos fijos. Los JWT tokens son claims auto-contenidos usados para sesiones de usuario, frecuentemente con lifespans más cortos y permisos dinámicos. Los JWTs pueden codificar identidad de usuario; las API keys usualmente codifican identidad de aplicación.
+R: Las API keys son strings opacos típicamente usados para auth service-to-service con permisos fijos. Los JWT tokens son claims auto-contenidos usados para sesiones de usuario, frecuentemente con lifespans más cortos y permisos live. Los JWTs pueden codificar identidad de usuario; las API keys usualmente codifican identidad de aplicación.
 
 **P: ¿Cómo revoco una API key comprometida?**
 R: Si usas keys respaldadas por base de datos, elimina o deshabilita el registro de key inmediatamente. Si usas keys HMAC-only stateless, no puedes revocar individualmente — debes rotar el master secret (lo cual invalida todas las keys) o mantener una lista de bloqueo.

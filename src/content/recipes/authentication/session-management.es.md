@@ -41,7 +41,7 @@ Usa esta receta cuando:
 - Construyes aplicaciones web tradicionales server-rendered con funcionalidad de login
 - Implementas dashboards de admin, carritos de e-commerce o portales de usuario
 - Eliges entre sesiones stateful y autenticación [JWT](/recipes/authentication/jwt-authentication) stateless
-- Protegiendo contra session fixation, hijacking y ataques CSRF. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para prácticas de seguridad comprehensivas.
+- Protegiendo contra session fixation, hijacking y ataques CSRF. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para prácticas de seguridad minuciosas.
 - Configurando stores de sesión (Redis, PostgreSQL, memoria) para aplicaciones de producción
 
 ## Solución
@@ -111,14 +111,14 @@ def login_view(request):
 
 ## Variantes
 
-| Enfoque | Almacenamiento | Escalabilidad | Mejor para |
+| Enfoque | Almacenamiento | Crecimiento | Mejor para |
 |---------|---------------|---------------|------------|
 | Sesiones en memoria | RAM del servidor | Pobre (servidor único) | Desarrollo, prototipos |
 | Sesiones Redis | Redis | Excelente | Aplicaciones web de producción |
 | Sesiones en base de datos | PostgreSQL/MySQL | Buena | Cuando Redis no está disponible |
 | [JWT cliente](/recipes/authentication/jwt-authentication) | Browser storage | Excelente | SPAs, APIs móviles |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Rota session IDs después del login**: previene ataques de session fixation generando un nuevo ID de sesión inmediatamente después de la autenticación.
 - **Configura expiración corta con refresh deslizante**: expira sesiones después de 30 minutos de inactividad, pero extiende la expiración en cada request válido.
