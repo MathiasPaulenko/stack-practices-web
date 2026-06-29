@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Las bases de datos de series temporales (TSDBs) estan optimizadas para cargas de trabajo donde los datos se indexan principalmente por tiempo: metricas, lecturas de sensores IoT, logs de aplicaciones, datos de ticks financieros y monitoreo de sistemas. A diferencia de las bases de proposito general, las TSDBs aprovechan la naturaleza inmutable y solo-adicion de datos de series temporales para lograr alto rendimiento de ingestion y consultas eficientes por rango de tiempo. Motores especializados como InfluxDB, TimescaleDB y ClickHouse ofrecen diferentes compromisos entre facilidad de uso, compatibilidad SQL y rendimiento crudo.
+Las bases de datos de series temporales (TSDBs) estan optimizadas para cargas de trabajo donde los datos se indexan principalmente por tiempo: metricas, lecturas de sensores IoT, logs de aplicaciones, datos de ticks financieros y monitoreo de sistemas. A diferencia de las bases de proposito general, las TSDBs usan la naturaleza inmutable y solo-adicion de datos de series temporales para lograr alto rendimiento de ingestion y consultas eficientes por rango de tiempo. Motores especializados como InfluxDB, TimescaleDB y ClickHouse ofrecen diferentes compromisos entre facilidad de uso, compatibilidad SQL y rendimiento crudo.
 
 ## When to Use
 

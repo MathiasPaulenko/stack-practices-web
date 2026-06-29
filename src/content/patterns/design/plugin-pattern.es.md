@@ -2,8 +2,8 @@
 contentType: patterns
 slug: plugin-pattern
 title: "Patrón Plugin"
-description: "Habilita extensiones de terceros definiendo puntos de extensión en un sistema host que carga y ejecuta módulos externos dinámicamente."
-metaDescription: "Aprende el Patrón Plugin para construir sistemas extensibles con carga dinámica de módulos. Ejemplos en Python, Java y JavaScript para puntos de extensión."
+description: "Habilita extensiones de terceros definiendo puntos de extensión en un sistema host que carga y ejecuta módulos externos en vivo."
+metaDescription: "Aprende el Patrón Plugin para construir sistemas extensibles con carga en vivo de módulos. Ejemplos en Python, Java y JavaScript para puntos de extensión."
 difficulty: intermediate
 topics:
   - design
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende el Patrón Plugin para construir sistemas extensibles con carga dinámica de módulos. Ejemplos en Python, Java y JavaScript para puntos de extensión."
+  metaDescription: "Aprende el Patrón Plugin para construir sistemas extensibles con carga en vivo de módulos. Ejemplos en Python, Java y JavaScript para puntos de extensión."
   keywords:
     - plugin pattern
     - design pattern
@@ -43,15 +43,15 @@ Este patrón es la base del software extensible: extensiones de VS Code, plugins
 
 Usa el Patrón Plugin cuando:
 - Quieres que desarrolladores de terceros extiendan tu aplicación
-- Las features son opcionales y no toda instalación las necesita
+- Las capacidades son opcionales y no toda instalación las necesita
 - Necesitas cargar o descargar funcionalidad sin reiniciar el host
 - Diferentes deployments requieren diferentes capacidades
 
 ## Cuándo Evitar
 
-- El sistema es pequeño y monolítico (inclusión directa de features es más simple)
+- El sistema es pequeño y monolítico (inclusión directa de capacidades es más simple)
 - El aislamiento de plugins es imposible y un plugin con bugs crashea el host
-- Los requisitos de seguridad hacen que la carga dinámica de código sea inaceptable
+- Los requisitos de seguridad hacen que la carga en vivo de código sea inaceptable
 - El overhead de descubrimiento y registro de plugins excede el beneficio
 
 ## Solución
@@ -233,12 +233,12 @@ El Patrón Plugin tiene tres participantes:
 
 | Variante | Descubrimiento | Caso de Uso |
 |----------|----------------|-------------|
-| **Static registry** | Hardcodeado en fuente | Features built-in que se distribuyen con el host |
-| **Dynamic loading** | Escaneo de filesystem / classpath | Plugins de terceros instalados por usuarios |
+| **Static registry** | Hardcodeado en fuente | Capacidades built-in que se distribuyen con el host |
+| **Carga en vivo** | Escaneo de filesystem / classpath | Plugins de terceros instalados por usuarios |
 | **Remote plugins** | Descargados desde una store | Extensiones de navegador, marketplace de VS Code |
 | **Hook-based** | Callbacks nombrados (WordPress) | Puntos de extensión simples basados en eventos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Define contratos claros.** La interface del host es una API pública. Cambiarla rompe todos los plugins existentes.
 - **Versiona tu contrato.** `FormatterPluginV2` te permite evolucionar sin romper plugins legacy.
@@ -262,7 +262,7 @@ Más de 60,000 plugins extienden WordPress vía hooks `add_action` y `add_filter
 
 ### VS Code Extensions
 
-Las extensiones implementan la API de VS Code para agregar lenguajes, temas, debuggers y comandos. Se cargan dinámicamente desde el marketplace.
+Las extensiones implementan la API de VS Code para agregar lenguajes, temas, debuggers y comandos. Se cargan en vivo desde el marketplace.
 
 ### Jenkins
 

@@ -36,7 +36,7 @@ Construye APIs REST de alto rendimiento en Go usando el framework Gin. Esta reci
 
 - Necesitas un framework HTTP rapido y liviano para servicios en Go
 - Cross-cutting concerns (logging, auth, metrics) deben ser reusables entre endpoints
-- La API sirve como backend para SPAs o aplicaciones mobile. Consulta [Llamar REST API](/recipes/api/call-rest-api) para patrones de cliente.
+- La API funciona como backend para SPAs o aplicaciones mobile. Consulta [Llamar REST API](/recipes/api/call-rest-api) para patrones de cliente.
 
 ## Solucion
 

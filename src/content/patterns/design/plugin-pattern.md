@@ -2,8 +2,8 @@
 contentType: patterns
 slug: plugin-pattern
 title: "Plugin Pattern"
-description: "Enable third-party extensions by defining extension points in a host system that dynamically loads and executes external modules."
-metaDescription: "Learn the Plugin Pattern for building extensible systems with dynamic module loading. Examples in Python, Java, and JavaScript for extension points."
+description: "Enable third-party extensions by defining extension points in a host system that loads and executes live external modules."
+metaDescription: "Learn the Plugin Pattern for building extensible systems with live module loading. Examples in Python, Java, and JavaScript for extension points."
 difficulty: intermediate
 topics:
   - design
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Learn the Plugin Pattern for building extensible systems with dynamic module loading. Examples in Python, Java, and JavaScript for extension points."
+  metaDescription: "Learn the Plugin Pattern for building extensible systems with live module loading. Examples in Python, Java, and JavaScript for extension points."
   keywords:
     - plugin pattern
     - design pattern
@@ -43,7 +43,7 @@ This pattern is the foundation of extensible software: VS Code extensions, WordP
 
 Use the Plugin Pattern when:
 - You want third-party developers to extend your application
-- Features are optional and not every installation needs them
+- Capabilities are optional and not every installation needs them
 - You need to load or unload functionality without restarting the host
 - Different deployments require different capabilities
 
@@ -51,7 +51,7 @@ Use the Plugin Pattern when:
 
 - The system is small and monolithic (direct feature inclusion is simpler)
 - Plugin isolation is impossible and a buggy plugin crashes the host
-- Security requirements make dynamic code loading unacceptable
+- Security requirements make live code loading unacceptable
 - The overhead of plugin discovery and registration exceeds the benefit
 
 ## Solution
@@ -234,12 +234,12 @@ The Plugin Pattern has three participants:
 
 | Variant | Discovery | Use Case |
 |---------|-----------|----------|
-| **Static registry** | Hardcoded in source | Built-in features that ship with the host |
-| **Dynamic loading** | File system / classpath scan | Third-party plugins installed by users |
+| **Static registry** | Hardcoded in source | Built-in capabilities that ship with the host |
+| **Live loading** | File system / classpath scan | Third-party plugins installed by users |
 | **Remote plugins** | Downloaded from a store | Browser extensions, VS Code marketplace |
 | **Hook-based** | Named callbacks (WordPress) | Simple event-driven extension points |
 
-## Best Practices
+## What Works
 
 - **Define clear contracts.** The host interface is a public API. Changing it breaks all existing plugins.
 - **Version your contract.** `FormatterPluginV2` lets you evolve without breaking legacy plugins.
@@ -263,7 +263,7 @@ Over 60,000 plugins extend WordPress via `add_action` and `add_filter` hooks. Th
 
 ### VS Code Extensions
 
-Extensions implement the VS Code API to add languages, themes, debuggers, and commands. They are loaded dynamically from the marketplace.
+Extensions implement the VS Code API to add languages, themes, debuggers, and commands. They are loaded live from the marketplace.
 
 ### Jenkins
 

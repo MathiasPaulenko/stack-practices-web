@@ -2,8 +2,8 @@
 contentType: guides
 slug: postmortem-guide
 title: "Blameless Postmortems — Learning from Incidents Without Blame"
-description: "A practical guide to conducting blameless postmortems: capturing timelines, identifying root causes, writing actionable follow-ups, and building a culture of continuous improvement from outages."
-metaDescription: "Learn blameless postmortems: capture timelines, identify root causes, write actionable follow-ups, and build continuous improvement culture."
+description: "A practical guide to conducting blameless postmortems: capturing timelines, identifying root causes, writing useful follow-ups, and building a culture of continuous improvement from outages."
+metaDescription: "Learn blameless postmortems: capture timelines, identify root causes, write useful follow-ups, and build continuous improvement culture."
 difficulty: intermediate
 topics:
   - observability
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Learn blameless postmortems: capture timelines, identify root causes, write actionable follow-ups, and build continuous improvement culture."
+  metaDescription: "Learn blameless postmortems: capture timelines, identify root causes, write useful follow-ups, and build continuous improvement culture."
   keywords:
     - postmortem
     - blameless
@@ -114,7 +114,7 @@ The timeline is the foundation of the postmortem:
 | 15:15:00 | Incident closed | Incident tracker |
 ```
 
-**Timeline best practices:**
+**What works for timelines:**
 - Build from logs, not memory. Logs do not forget.
 - Include detection, response, and recovery times.
 - Note every decision and who made it.
@@ -271,18 +271,18 @@ Postmortems are worthless without follow-through:
 | **Week 4** | All action items reviewed for completion |
 | **Month 3** | Revisit: has this type of incident recurred? |
 
-**Tracking best practices:**
+**What works for tracking:**
 - Add action items to the same backlog as feature work
 - Assign realistic due dates based on effort
 - Review action item completion at sprint retrospectives
 - Measure postmortem completion rate as a team metric
 
-## Best Practices
+## What Works
 
 - **Schedule within 48 hours.** Details fade; write while memory is fresh.
 - **Assume good intent.** No one comes to work wanting to cause an outage.
 - **Focus on the system.** How did the system allow this to happen?
-- **Be specific.** "Improve testing" is not actionable. "Add load test with 1M rows" is.
+- **Be specific.** "Improve testing" is not useful. "Add load test with 1M rows" is.
 - **Share widely.** Postmortems should be visible to the whole engineering organization.
 - **Track follow-ups.** Unfinished action items mean the postmortem was a waste of time.
 
@@ -304,7 +304,7 @@ Postmortems are worthless without follow-through:
 ## FAQ
 
 **Q: Should we do a postmortem for every incident?**
-Do postmortems for all Sev1/Sev2 incidents and significant near-misses. Sev3/4 can be handled with a lightweight retrospective or ticket.
+Do postmortems for all Sev1/Sev2 incidents and major near-misses. Sev3/4 can be handled with a lightweight retrospective or ticket.
 
 **Q: What if someone made a clear mistake?**
 Ask why the system allowed the mistake to have such impact. Was there a missing guardrail, review step, or safeguard?
