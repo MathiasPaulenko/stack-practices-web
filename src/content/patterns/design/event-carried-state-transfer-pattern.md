@@ -430,7 +430,7 @@ This is fundamentally different from:
 | **Reference + API** | Event carries ID, consumer fetches if needed | Very large entities, selective reads |
 | **Delete tombstones** | Null payload with `isDeleted` flag | Tracking deletions in replicas |
 
-## Best Practices
+## What Works
 
 - **Include a version/sequence number.** Consumers can detect out-of-order or duplicate events.
 - **Make events immutable and additive.** Never modify an event after publishing.

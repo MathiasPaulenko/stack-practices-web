@@ -274,7 +274,7 @@ A Domain Event is:
 | **Event Sourcing** | Events are the source of truth | Full audit trail and temporal queries |
 | **CQRS** | Read model projections | Separate read and write models |
 
-## Best Practices
+## What Works
 
 - **Name events in past tense.** `OrderPlaced`, not `PlaceOrder`. Events describe things that already happened.
 - **Keep events small.** Include only the data needed for consumers. Do not include full aggregate state.

@@ -320,7 +320,7 @@ JOIN authors ON books.author_id = authors.id
 | **Subselect** | Subquery for related data | Databases with poor JOIN optimization |
 | **GraphQL DataLoader** | Batches and deduplicates per-request | APIs with dynamic query shapes |
 
-## Best Practices
+## What Works
 
 - **Profile before optimizing.** Measure query counts before adding eager loading.
 - **Use batch loading for large lists.** JOINs with many-to-many can explode result sets.

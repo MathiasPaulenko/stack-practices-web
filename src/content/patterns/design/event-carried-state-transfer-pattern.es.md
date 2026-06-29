@@ -430,7 +430,7 @@ Esto es fundamentalmente diferente de:
 | **Referencia + API** | Evento lleva ID, consumer obtiene si es necesario | Entidades muy grandes, lecturas selectivas |
 | **Tombstones de delete** | Payload nulo con flag `isDeleted` | Tracking de borrados en réplicas |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Incluye un número de versión/secuencia.** Los consumidores pueden detectar eventos fuera de orden o duplicados.
 - **Haz los eventos inmutables y aditivos.** Nunca modifiques un evento después de publicarlo.

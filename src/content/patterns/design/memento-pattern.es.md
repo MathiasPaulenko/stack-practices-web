@@ -269,7 +269,7 @@ El beneficio clave es que el estado interno del memento es opaco al cuidador, pr
 | **Memento Serializable** | Usa serialización para copia profunda | Grafos de objetos complejos |
 | **[Command](/patterns/design/command-pattern) + Memento** | Comandos almacenan mementos para deshacer | Sistemas transaccionales, editores |
 
-## Buenas Prácticas
+## Lo que Funciona
 
 - **Mantén los mementos inmutables** después de la creación para prevenir manipulación accidental
 - **Limita la vida útil de los mementos** — historiales grandes consumen memoria significativa

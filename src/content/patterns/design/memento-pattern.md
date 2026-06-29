@@ -269,7 +269,7 @@ The key benefit is that the memento's internal state is opaque to the caretaker,
 | **Serializable Memento** | Uses serialization for deep copying | Complex object graphs |
 | **[Command](/patterns/design/command-pattern) + Memento** | Commands store mementos for undo | Transaction systems, editors |
 
-## Best Practices
+## What Works
 
 - **Keep mementos immutable** after creation to prevent accidental tampering
 - **Limit memento lifetime** — large histories consume significant memory

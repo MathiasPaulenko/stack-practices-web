@@ -190,7 +190,7 @@ The core idea is **Inversion of Control**: instead of a class creating its own d
 | **Service Locator** | Class asks a registry for dependencies | Legacy systems; avoid in new code |
 | **[DI Container](/patterns/design/dependency-injection-typescript)** | Framework resolves and injects dependencies automatically | Large applications (Spring, Angular, .NET Core) |
 
-## Best Practices
+## What Works
 
 - **Prefer constructor injection** for required dependencies; it makes the class's needs explicit
 - **Use interfaces or abstractions** as dependency types, not concrete classes

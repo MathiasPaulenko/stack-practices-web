@@ -190,7 +190,7 @@ La idea central es **Inversión de Control**: en lugar de que una clase cree sus
 | **Service Locator** | Clase pide dependencias a un registro | Sistemas legacy; evitar en código nuevo |
 | **[Contenedor DI](/patterns/design/dependency-injection-typescript)** | Framework resuelve e inyecta automáticamente | Aplicaciones grandes (Spring, Angular, .NET Core) |
 
-## Buenas Prácticas
+## Lo que Funciona
 
 - **Prefiere inyección por constructor** para dependencias requeridas; hace explícitas las necesidades de la clase
 - **Usa interfaces o abstracciones** como tipos de dependencia, no clases concretas

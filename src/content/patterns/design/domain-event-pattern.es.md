@@ -274,7 +274,7 @@ Un Domain Event es:
 | **Event Sourcing** | Los eventos son la fuente de verdad | Audit trail completo y queries temporales |
 | **CQRS** | Proyecciones de read model | Separar modelos de lectura y escritura |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Nombrar eventos en pasado.** `OrderPlaced`, no `PlaceOrder`. Los eventos describen cosas que ya pasaron.
 - **Mantener los eventos pequeños.** Incluye solo los datos necesarios para los consumidores. No incluyas el estado completo del aggregate.
