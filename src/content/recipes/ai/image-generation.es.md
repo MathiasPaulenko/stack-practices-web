@@ -125,7 +125,7 @@ const path = require('path');
 const openai = new OpenAI();
 
 const templates = [
-  { category: 'hero', prompt: 'Wide landscape banner of {theme}, golden hour, cinematic composition, no text', size: '1792x1024' },
+  { category: 'hero', prompt: 'Wide space banner of {theme}, golden hour, cinematic composition, no text', size: '1792x1024' },
   { category: 'thumbnail', prompt: 'Square close-up of {theme}, rich colors, high contrast', size: '1024x1024' },
   { category: 'icon', prompt: 'Minimalist flat icon of {theme}, white background, vector style, clean lines', size: '1024x1024' },
 ];

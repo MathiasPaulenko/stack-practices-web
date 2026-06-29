@@ -188,7 +188,7 @@ export const authDirective = (schema: GraphQLSchema) =>
 ## FAQ
 
 **Q: Should I use Apollo Server or GraphQL Yoga?**
-A: Apollo Server has the largest ecosystem. Yoga is lighter and faster for simple use cases. Both are production-ready.
+A: Apollo Server has the largest platform. Yoga is lighter and faster for simple use cases. Both are production-ready.
 
 **Q: How do I handle file uploads in GraphQL?**
 A: Use `graphql-upload-minimal` with multipart requests, or prefer a separate REST endpoint for large files.

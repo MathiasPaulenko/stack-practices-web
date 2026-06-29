@@ -173,7 +173,7 @@ export const authDirective = (schema: GraphQLSchema) =>
 
 ## Como Funciona
 
-1. **Definicion de Schema** funciona como contrato entre cliente y servidor
+1. **Definicion de Schema** trabaja como contrato entre cliente y servidor
 2. **Resolvers** obtienen datos para cada campo, componibles y testeables independientemente
 3. **DataLoader** agrupa peticiones en un solo tick del event loop
 4. **Context** transporta autenticacion y conexiones a base de datos por peticion
