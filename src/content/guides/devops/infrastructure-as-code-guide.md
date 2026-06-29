@@ -23,7 +23,7 @@ seo:
   keywords:
     - infrastructure as code
     - terraform vs pulumi
-    - iac best practices
+    - iac what works
     - terraform state management
     - declarative infrastructure
 ---
@@ -32,7 +32,7 @@ seo:
 
 ## Introduction
 
-Infrastructure as Code (IaC) is the practice of managing and provisioning infrastructure through machine-readable definition files rather than manual configuration. It turns infrastructure changes into repeatable, reviewable, and versioned operations. See [CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) for deployment automation. This guide compares declarative and imperative approaches, covers Terraform and Pulumi, and provides best practices for production use.
+Infrastructure as Code (IaC) is the practice of managing and provisioning infrastructure through machine-readable definition files rather than manual configuration. It turns infrastructure changes into repeatable, reviewable, and versioned operations. See [CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) for deployment automation. This guide compares declarative and imperative approaches, covers Terraform and Pulumi, and provides what works for production use.
 
 ## Declarative vs Imperative
 
@@ -214,7 +214,7 @@ func TestVpc(t *testing.T) {
 }
 ```
 
-## Best Practices
+## What Works
 
 - **Store code in version control** — every infrastructure change is a PR, reviewed, and logged
 - **Use remote state with locking** — prevents concurrent modifications corrupting state

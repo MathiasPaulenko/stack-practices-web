@@ -3,7 +3,7 @@ contentType: guides
 slug: message-queue-guide
 title: "Colas de Mensajes — Inmersión en RabbitMQ, Kafka y SQS"
 description: "Guía completa sobre colas de mensajes: cuándo usar RabbitMQ, Kafka o SQS. Cubre patrones, throughput, ordenamiento y consideraciones operativas."
-metaDescription: "Guía completa de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y mejores prácticas operativas."
+metaDescription: "Guía completa de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."
 difficulty: intermediate
 topics:
   - messaging
@@ -26,7 +26,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y mejores prácticas operativas."
+  metaDescription: "Guía completa de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."
   keywords:
     - colas de mensajes
     - kafka
@@ -164,7 +164,7 @@ La idempotencia es la salvaguardia definitiva contra duplicados. Incluso con exa
 | **RPC asíncrono** | RabbitMQ | Cola de respuesta correlacionada por `correlation_id` |
 | **Agregación de logs** | Kafka | Topic de logs con retención de 30 días |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Siempre diseña **consumidores idempotentes**; la re-entrega es inevitable en sistemas distribuidos
 2. Usa **prefetch bajo** (1-5) cuando el tiempo de procesamiento varía mucho entre mensajes

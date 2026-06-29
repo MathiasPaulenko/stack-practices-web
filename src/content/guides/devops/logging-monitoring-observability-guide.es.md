@@ -117,13 +117,13 @@ Alertar sobre síntomas, no causas.
 | **Warning** | Dentro de 1 hora | Tasa de error elevada, alta latencia |
 | **Info** | Próximo día hábil | Capacidad cercana al límite |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Usar correlation IDs**: Pasa `trace_id` a través de cada llamada de servicio
 - **Loguear en boundaries**: Entrada/salida de requests, jobs y transacciones
 - **Evitar loguear datos sensibles**: No passwords, tokens o PII
 - **Establecer SLOs y error budgets**: Define qué significa "bueno" y mide contra eso. Consulta [monitoreo](/guides/devops/monitoring-alerting-guide).
-- **La alert fatigue es real**: Pagear solo para issues accionables y críticos
+- **La alert fatigue es real**: Pagear solo para issues útiles y críticos
 
 ## Errores Comunes
 

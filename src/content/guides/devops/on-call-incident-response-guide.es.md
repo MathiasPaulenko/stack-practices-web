@@ -210,7 +210,7 @@ v2.4.1 introdujo un loop de retry que filtraba conexiones a base de datos.
 | Agregar alerta de filtrado de conexiones | @alice | 2024-06-15 |
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Rota on-call de forma justa** — nadie debería estar on-call más de 1 semana en 4
 - **Compensa por horas extras** — paga extra o da tiempo libre compensatorio
@@ -235,7 +235,7 @@ Esperado. Tu trabajo es contener el impacto y encontrar a la persona correcta �
 
 ### ¿Cómo balanceo respuesta a incidentes con trabajo de features?
 
-Los incidentes son trabajo no planificado. Rastrealos. Si un equipo gasta > 20% de capacidad de sprint en incidentes, es una señal de invertir en confiabilidad (tests, automatización, refactor) en lugar de nuevas features.
+Los incidentes son trabajo no planificado. Rastrealos. Si un equipo gasta > 20% de capacidad de sprint en incidentes, es una señal de invertir en confiabilidad (tests, automatización, refactor) en lugar de nuevas capacidades.
 
 ### ¿Deberían los ingenieros juniors estar on-call?
 

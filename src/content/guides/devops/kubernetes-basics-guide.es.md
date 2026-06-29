@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-Kubernetes (K8s) es una plataforma open-source de orquestación de contenedores. Automatiza el despliegue, el escalado y la gestión de aplicaciones containerizadas. Como desarrollador, necesitas entender las abstracciones core para desplegar y depurar tus aplicaciones efectivamente.
+Kubernetes (K8s) es una plataforma open-source de orquestación de contenedores. Automatiza el despliegue, el escalado y la gestión de aplicaciones containerizadas. Como desarrollador, necesitas entender las abstracciones core para desplegar y depurar tus aplicaciones bien.
 
 ## Conceptos Clave
 
@@ -242,7 +242,7 @@ Estrategias comunes de namespaces:
 - `dev`, `staging`, `prod` — por entorno
 - Por equipo o por proyecto para aislamiento
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Establece [requests y limits de recursos](/guides/performance/performance-optimization-guide)** en cada contenedor para prevenir vecinos ruidosos
 - **Usa readiness probes** para evitar que el tráfico llegue a Pods no listos

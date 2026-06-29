@@ -192,13 +192,13 @@ groups:
 | **Warning** | Within 1 hour | Elevated error rate, high latency |
 | **Info** | Next business day | Capacity approaching limit |
 
-## Best Practices
+## What Works
 
 - **Use correlation IDs**: Pass `trace_id` through every [service call](/guides/architecture/microservices-architecture-guide)
 - **Log at boundaries**: Entry/exit of requests, jobs, and transactions
 - **Avoid logging sensitive data**: No passwords, tokens, or PII
 - **Set SLOs and error budgets**: Define what "good" means and measure against it. See [monitoring](/guides/devops/monitoring-alerting-guide).
-- **Alert fatigue is real**: Page only for actionable, critical issues
+- **Alert fatigue is real**: Page only for useful, critical issues
 
 ## Common Mistakes
 

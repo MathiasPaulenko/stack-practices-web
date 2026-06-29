@@ -211,7 +211,7 @@ v2.4.1 introduced a retry loop that leaked database connections.
 | Add connection leak alert | @alice | 2024-06-15 |
 ```
 
-## Best Practices
+## What Works
 
 - **Rotate on-call fairly** — no one should be on-call more than 1 week in 4
 - **Compensate for off-hours** — pay extra or give time off in lieu
@@ -236,7 +236,7 @@ That is expected. Your job is to contain the impact and find the right person �
 
 ### How do I balance incident response with feature work?
 
-Incidents are unplanned work. Track them. If a team spends > 20% of sprint capacity on incidents, that is a signal to invest in reliability (tests, automation, refactoring) rather than new features.
+Incidents are unplanned work. Track them. If a team spends > 20% of sprint capacity on incidents, that is a signal to invest in reliability (tests, automation, refactoring) rather than new capabilities.
 
 ### Should junior engineers be on-call?
 
