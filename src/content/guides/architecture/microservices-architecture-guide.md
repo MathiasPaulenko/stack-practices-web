@@ -34,7 +34,7 @@ seo:
 
 ## Introduction
 
-Microservices architecture structures an application as a collection of loosely coupled services, each owned by a small team and deployed independently. It solves organizational and technical scaling problems, but introduces significant operational complexity. This guide helps you decide when the trade-off is worth it.
+Microservices architecture structures an application as a collection of loosely coupled services, each owned by a small team and deployed independently. It solves organizational and technical scaling problems, but introduces major operational complexity. This guide helps you decide when the trade-off is worth it.
 
 ## What Are Microservices?
 
@@ -186,7 +186,7 @@ When a service needs data owned by another:
 | Observability | Centralized logging (ELK/Loki), metrics (Prometheus), dashboards (Grafana) |
 | Local development | Docker Compose, Tilt, or cloud dev environments |
 
-## Best Practices
+## What Works
 
 - **Own the full lifecycle** — teams build, run, and support their services (you build it, you run it)
 - **Design for failure** — assume any dependency can fail; use [retries with backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/circuit-breaker-pattern-recipe), and graceful degradation
@@ -214,4 +214,4 @@ Small enough to be rewritten in 2-4 weeks. If a service requires 6+ engineers an
 
 ### What is the biggest risk of microservices?
 
-Distributed complexity. [Debugging](/recipes/observability/distributed-tracing), testing, and reasoning about a system that spans dozens of services is significantly harder than a monolith. Without strong [observability](/recipes/observability/log-aggregation) and automation, the architecture will slow you down rather than speed you up.
+Distributed complexity. [Debugging](/recipes/observability/distributed-tracing), testing, and reasoning about a system that spans dozens of services is considerably harder than a monolith. Without strong [observability](/recipes/observability/log-aggregation) and automation, the architecture will slow you down rather than speed you up.

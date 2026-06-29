@@ -50,7 +50,7 @@ Las bases de datos vectoriales almacenan vectores numericos de alta dimension (e
 - Los pipelines RAG de LLMs requieren recuperar chunks de contexto relevantes
 - Sistemas de recomendacion sugieren items similares a preferencias de usuario
 - Recuperacion de imagen, audio o video por similitud de contenido
-- Tienes modelos de embedding pre-entrenados y necesitas almacenamiento vectorial escalable
+- Tienes modelos de embedding pre-entrenados y necesitas almacenamiento vectorial preparado para crecimiento
 
 ## Como Funciona la Busqueda Vectorial
 

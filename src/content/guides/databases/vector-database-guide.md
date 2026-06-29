@@ -50,7 +50,7 @@ Vector databases store high-dimensional numerical vectors (embeddings) generated
 - LLM RAG pipelines require retrieving relevant context chunks
 - Recommendation systems suggest items similar to user preferences
 - Image, audio, or video retrieval by content similarity
-- You have pre-trained embedding models and need scalable vector storage
+- You have pre-trained embedding models and need growth-ready vector storage
 
 ## How Vector Search Works
 

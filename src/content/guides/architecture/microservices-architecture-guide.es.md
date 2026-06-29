@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-La arquitectura de microservicios estructura una aplicación como una colección de servicios débilmente acoplados, cada uno propiedad de un equipo pequeño y desplegable de forma independiente. Resuelve problemas de escalamiento organizacional y técnico, pero introduce complejidad operativa significativa. Esta guía te ayuda a decidir cuándo el trade-off vale la pena.
+La arquitectura de microservicios estructura una aplicación como una colección de servicios débilmente acoplados, cada uno propiedad de un equipo pequeño y desplegable de forma independiente. Resuelve problemas de escalamiento organizacional y técnico, pero introduce complejidad operativa importante. Esta guía te ayuda a decidir cuándo el trade-off vale la pena.
 
 ## ¿Qué Son los Microservicios?
 
@@ -132,7 +132,7 @@ Mejor para: trabajo en background, alto throughput, desacoplamiento
 | **Saga** | Manejar transacciones distribuidas entre servicios |
 | **CQRS** | Separar modelos de lectura y escritura para performance |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Posee el ciclo de vida completo** — los equipos construyen, operan y soportan sus servicios
 - **Diseña para el fallo** — asume que cualquier dependencia puede fallar; usa [reintentos con backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/circuit-breaker-pattern-recipe) y degradación graceful
@@ -160,4 +160,4 @@ Lo suficientemente pequeño para ser reescrito en 2-4 semanas. Si un servicio re
 
 ### ¿Cuál es el mayor riesgo de los microservicios?
 
-Complejidad distribuida. [Debuggear](/recipes/observability/distributed-tracing), probar y razonar sobre un sistema que abarca docenas de servicios es significativamente más difícil que un monolito. Sin fuerte [observabilidad](/recipes/observability/log-aggregation) y automatización, la arquitectura te ralentizará en lugar de acelerarte.
+Complejidad distribuida. [Debuggear](/recipes/observability/distributed-tracing), probar y razonar sobre un sistema que abarca docenas de servicios es considerablemente más difícil que un monolito. Sin fuerte [observabilidad](/recipes/observability/log-aggregation) y automatización, la arquitectura te ralentizará en lugar de acelerarte.

@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-La arquitectura orientada a eventos (EDA) es un patrón donde los servicios se comunican produciendo y consumiendo eventos en lugar de llamadas directas. Desacopla productores de consumidores, habilita escalabilidad y soporta desacoplamiento temporal — los consumidores no necesitan estar online cuando los eventos se producen.
+La arquitectura orientada a eventos (EDA) es un patrón donde los servicios se comunican produciendo y consumiendo eventos en lugar de llamadas directas. Desacopla productores de consumidores, habilita crecimiento y soporta desacoplamiento temporal — los consumidores no necesitan estar online cuando los eventos se producen.
 
 ## Eventos vs Comandos
 
@@ -161,7 +161,7 @@ Separa modelos de lectura y escritura. Las escrituras van al modelo de comando; 
                                           └──────────────┘
 ```
 
-**Cuándo usar:** Los patrones de lectura y escritura difieren significativamente (ej: escrituras relacionales, lecturas optimizadas para búsqueda).
+**Cuándo usar:** Los patrones de lectura y escritura difieren considerablemente (ej: escrituras relacionales, lecturas optimizadas para búsqueda).
 
 ### 4. Patrón Saga
 
@@ -194,7 +194,7 @@ def on_payment_failed(event):
 | Modos de fallo simples aceptables | Manejo de fallos complejo aceptable |
 | Latencia baja crítica | Throughput y resiliencia críticos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Diseña eventos como hechos, no instrucciones** — `OrderPlaced`, no `ProcessOrder`
 - **Incluye correlation IDs** — [traza una solicitud](/recipes/observability/distributed-tracing) a través de servicios y tiempo

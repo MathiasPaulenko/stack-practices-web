@@ -49,7 +49,7 @@ Apunta a **200-400 líneas de código cambiadas** por PR. Los PRs grandes abruma
 ```
 
 **Estrategias para PRs pequeños:**
-- Divide features grandes en PRs apilados
+- Divide capacidades grandes en PRs apilados
 - Extrae refactoring en PRs separados
 - Usa feature flags para mergear incrementalmente
 
@@ -94,7 +94,7 @@ Revisa tu propio PR primero. Vas a detectar:
 - Separa "debe arreglarse" de "sería bueno tener" sugerencias
 - Actualiza el PR prontamente después del feedback
 
-## Para Revisores: Dando Feedback Efectivo
+## Para Revisores: Dando Feedback Útil
 
 ### 1. Revisa Dentro de 24 Horas
 

@@ -36,7 +36,7 @@ seo:
 
 ## Introduction
 
-Event-driven architecture (EDA) is a pattern where services communicate by producing and consuming events rather than direct calls. It decouples producers from consumers, enables scalability, and naturally supports temporal decoupling — consumers do not need to be online when events are produced.
+Event-driven architecture (EDA) is a pattern where services communicate by producing and consuming events rather than direct calls. It decouples producers from consumers, enables growth, and naturally supports temporal decoupling — consumers do not need to be online when events are produced.
 
 ## Events vs Commands
 
@@ -160,7 +160,7 @@ Separate read and write models. Writes go to the command model; reads come from 
 └──────────────┘                          └──────────────┘
 ```
 
-**When to use:** Read and write patterns differ significantly (e.g., relational writes, search-optimized reads).
+**When to use:** Read and write patterns differ considerably (e.g., relational writes, search-optimized reads).
 
 ### 4. Saga Pattern
 
@@ -193,7 +193,7 @@ def on_payment_failed(event):
 | Simple failure modes acceptable | Complex failure handling acceptable |
 | Low latency critical | Throughput and resilience critical |
 
-## Best Practices
+## What Works
 
 - **Design events as facts, not instructions** — `OrderPlaced`, not `ProcessOrder`
 - **Include correlation IDs** — [trace a request](/recipes/observability/distributed-tracing) across services and time

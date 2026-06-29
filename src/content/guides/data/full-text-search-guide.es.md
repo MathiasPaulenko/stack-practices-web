@@ -157,7 +157,7 @@ CREATE TRIGGER products_search_trigger
 
 ## Elasticsearch para Búsqueda Avanzada
 
-Cuando PostgreSQL no es suficiente, Elasticsearch proporciona búsqueda distribuida y escalable:
+Cuando PostgreSQL no es suficiente, Elasticsearch proporciona búsqueda distribuida y preparada para crecimiento:
 
 ### 1. Definir un Mapping de Índice
 
@@ -460,9 +460,9 @@ def bulk_sync():
     bulk(es, actions)
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
-- **Comienza con PostgreSQL.** Agrega Elasticsearch solo cuando necesites características que PostgreSQL no puede proporcionar.
+- **Comienza con PostgreSQL.** Agrega Elasticsearch solo cuando necesites capacidades que PostgreSQL no puede proporcionar.
 - **Usa triggers de base de datos o CDC para sincronización.** No confíes en código de aplicación para mantener índices de búsqueda actualizados.
 - **Indexa solo campos buscables.** Incluir blobs de texto grandes en tu índice de búsqueda desperdicia espacio y ralentiza indexación.
 - **Prueba con consultas reales.** Consultas benchmark sintéticas no coinciden con patrones de búsqueda de usuarios reales.
@@ -503,4 +503,4 @@ Sí, con la extensión `pg_trgm`: `SELECT word FROM words WHERE word % 'parial' 
 ## Conclusión
 
 La búsqueda de texto completo es una característica orientada al usuario donde el rendimiento y la relevancia impactan directamente el engagement. Al elegir el motor correcto para tu escala, diseñar índices para tus patrones de consulta, y ajustar continuamente la relevancia, construyes búsqueda en la que los usuarios confían y dependen.
-
+

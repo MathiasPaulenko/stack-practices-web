@@ -157,7 +157,7 @@ CREATE TRIGGER products_search_trigger
 
 ## Elasticsearch for Advanced Search
 
-When PostgreSQL is not enough, Elasticsearch provides distributed, scalable search:
+When PostgreSQL is not enough, Elasticsearch provides distributed, growth-ready search:
 
 ### 1. Define an Index Mapping
 
@@ -460,9 +460,9 @@ def bulk_sync():
     bulk(es, actions)
 ```
 
-## Best Practices
+## What Works
 
-- **Start with PostgreSQL.** Add Elasticsearch only when you need features PostgreSQL cannot provide.
+- **Start with PostgreSQL.** Add Elasticsearch only when you need capabilities PostgreSQL cannot provide.
 - **Use database triggers or CDC for sync.** Do not rely on application code to keep search indexes updated.
 - **Index only searchable fields.** Including large text blobs in your search index wastes space and slows indexing.
 - **Test with real queries.** Synthetic benchmark queries do not match actual user search patterns.
@@ -503,4 +503,4 @@ Yes, with `pg_trgm` extension: `SELECT word FROM words WHERE word % 'parial' ORD
 ## Conclusion
 
 Full-text search is a user-facing feature where performance and relevance directly impact engagement. By choosing the right engine for your scale, designing indexes for your query patterns, and continuously tuning relevance, you build search that users trust and rely on.
-
+

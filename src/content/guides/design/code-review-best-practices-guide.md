@@ -47,7 +47,7 @@ Aim for **200-400 lines of changed code** per PR. Large PRs overwhelm reviewers 
 ```
 
 **Strategies for small PRs:**
-- Split large features into stacked PRs
+- Split large capabilities into stacked PRs
 - Extract refactoring into separate PRs
 - Use feature flags to merge incrementally
 
@@ -92,7 +92,7 @@ Review your own PR first. You will catch:
 - Separate "must fix" from "nice to have" suggestions
 - Update the PR promptly after feedback
 
-## For Reviewers: Giving Effective Feedback
+## For Reviewers: Giving Useful Feedback
 
 ### 1. Review Within 24 Hours
 
