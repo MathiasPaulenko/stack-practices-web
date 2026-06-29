@@ -467,11 +467,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\recipes\ai\ai-agents-tool-use.md | 2.0 | best practices → what works, significantly → considerably | src\content\recipes\ai\ai-agents-tool-use.es.md | pending |
-| src\content\recipes\ai\ai-agents.md | 2.0 | best practices → what works, dynamic → live | src\content\recipes\ai\ai-agents.es.md | pending |
-| src\content\recipes\ai\chatbot-openai.md | 2.0 | best practices → what works, significant → major | src\content\recipes\ai\chatbot-openai.es.md | pending |
-| src\content\recipes\ai\semantic-search.md | 2.0 | best practices → what works, scalable → growth-ready | src\content\recipes\ai\semantic-search.es.md | pending |
-| src\content\recipes\api\grpc-api.md | 2.0 | best practices → what works, significantly → considerably | src\content\recipes\api\grpc-api.es.md | pending |
+| src\content\recipes\ai\ai-agents-tool-use.md | 2.0 | best practices → what works, significantly → considerably | src\content\recipes\ai\ai-agents-tool-use.es.md | completed |
+| src\content\recipes\ai\ai-agents.md | 2.0 | best practices → what works, dynamic → live | src\content\recipes\ai\ai-agents.es.md | completed |
+| src\content\recipes\ai\chatbot-openai.md | 2.0 | best practices → what works, significant → major | src\content\recipes\ai\chatbot-openai.es.md | completed |
+| src\content\recipes\ai\semantic-search.md | 2.0 | best practices → what works, scalable → growth-ready | src\content\recipes\ai\semantic-search.es.md | completed |
+| src\content\recipes\api\grpc-api.md | 2.0 | best practices → what works, significantly → considerably | src\content\recipes\api\grpc-api.es.md | completed |
 
 ### Batch 43 (priority: low)
 
