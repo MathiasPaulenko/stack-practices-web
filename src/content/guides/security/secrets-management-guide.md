@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: secrets-management-guide
-title: "Secrets Management — Vault, Cloud Managers, and Best Practices"
+title: "Secrets Management: Vault, Cloud Managers, and Best Practices"
 description: "A practical guide to secrets management: HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, and GCP Secret Manager with rotation, access control, and CI/CD integration."
 metaDescription: "Learn secrets management with Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager. Rotation, access control, and CI/CD integration guide."
 difficulty: intermediate
@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Secrets — passwords, API keys, tokens, certificates — are the keys to your kingdom. Storing them in source code, configuration files, or environment variables is a common source of breaches. Proper secrets management ensures credentials are encrypted, rotated, audited, and accessible only to authorized services and users. This guide covers the leading secret management solutions and the practices that make them effective.
+Secrets — passwords, API keys, tokens, certificates — are the keys to your kingdom. Storing them in source code, configuration files, or environment variables is a common source of breaches. Proper secrets management ensures credentials are encrypted, rotated, audited, and accessible only to authorized services and users. This guide covers the leading secret management solutions and the practices that make them useful.
 
 ## When to Use
 
@@ -67,9 +67,9 @@ The open-source standard for secrets management.
 | Secrets Engine | Stores or generates secrets (KV, database, PKI, AWS) |
 | Auth Method | How users/services authenticate (Kubernetes, OIDC, AppRole) |
 | Policy | Fine-grained access control (ACL) |
-| Dynamic Secret | Short-lived, automatically revoked credentials |
+| On-demand Secret | Short-lived, automatically revoked credentials |
 
-### Dynamic Database Credentials
+### On-demand Database Credentials
 
 ```bash
 # Enable database secrets engine
@@ -103,7 +103,7 @@ client.auth.kubernetes.login(role='my-app', jwt=service_account_token)
 secret = client.secrets.kv.v2.read_secret_version(path='my-app/config')
 api_key = secret['data']['data']['api_key']
 
-# Generate dynamic database credentials
+# Generate on-demand database credentials
 db_creds = client.secrets.database.generate_credentials(name='app')
 username = db_creds['data']['username']
 password = db_creds['data']['password']
@@ -227,7 +227,7 @@ jobs:
 |----------|----------|------------|
 | Manual | Ad-hoc, small teams | Low |
 | Lambda/Function | AWS RDS, standard databases | Medium |
-| Vault Dynamic | Microservices, multi-cloud | High |
+| Vault On-demand | Microservices, multi-cloud | High |
 | Certificate Auto | TLS certificates (Let's Encrypt, ACM) | Low |
 
 ## Common Mistakes
@@ -241,7 +241,7 @@ jobs:
 ## FAQ
 
 **Should I use Vault or a cloud-native manager?**
-Use Vault for multi-cloud, complex workflows, or dynamic secrets. Use cloud-native managers (AWS, Azure, GCP) for simplicity and tight integration with that cloud.
+Use Vault for multi-cloud, complex workflows, or on-demand secrets. Use cloud-native managers (AWS, Azure, GCP) for simplicity and tight integration with that cloud.
 
 **How often should I rotate secrets?**
 - Database credentials: 30-90 days

@@ -283,7 +283,7 @@ t_env.execute_sql("""
 |-------------|----------|----------|
 | **Tumbling** | Fixed-size, non-overlapping | Hourly metrics, daily counts |
 | **Sliding** | Fixed-size, overlapping | Moving averages, trend detection |
-| **Session** | Dynamic, gaps of inactivity | User session analysis, funnel tracking |
+| **Session** | Variable, gaps of inactivity | User session analysis, funnel tracking |
 | **Global** | All events, triggered manually | Cumulative counters, state machines |
 | **Watermark** | Handles late-arriving events | Out-of-order event streams |
 
@@ -481,7 +481,7 @@ LIMIT 20;
 ## FAQ
 
 **Q: How real-time is "real-time"?**
-True real-time is <1 second from event to insight. Near real-time is 1-60 seconds. The architecture and cost differ significantly.
+True real-time is <1 second from event to insight. Near real-time is 1-60 seconds. The architecture and cost differ considerably.
 
 **Q: Can I use Elasticsearch for real-time analytics?**
 Yes, for text-heavy, low-cardinality aggregations. For high-cardinality numeric aggregations (billions of events), ClickHouse/Druid are 10-100× faster.

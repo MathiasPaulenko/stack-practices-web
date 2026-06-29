@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: git-branching-strategies-guide
-title: "Estrategias de Branching en Git — Guía Práctica"
+title: "Estrategias de Branching en Git: Guía Práctica"
 description: "Compara trunk-based development, GitFlow y GitHub Flow. Elige la estrategia de branching correcta según el tamaño de tu equipo, cadencia de releases y madurez de CI/CD."
 metaDescription: "Guía de estrategias de branching en Git: trunk-based development, GitFlow, GitHub Flow. Elige el modelo correcto para tu equipo y pipeline de CI/CD."
 difficulty: beginner
@@ -38,7 +38,7 @@ Una estrategia de branching define cómo tu equipo usa ramas de Git para desarro
 
 ## Trunk-Based Development
 
-En trunk-based development, los desarrolladores commitean directamente a una única rama principal (el "trunk") usando ramas de feature de corta duración o commits directos con feature flags.
+En trunk-based development, los desarrolladores commitean directamente a una única rama principal (el "trunk") usando ramas de cambio de corta duración o commits directos con feature flags.
 
 ### Flujo de Trabajo
 
@@ -46,7 +46,7 @@ En trunk-based development, los desarrolladores commitean directamente a una ún
 # Traer el último main
 git pull origin main
 
-# Crear una rama de feature de corta duración (horas a un día)
+# Crear una rama de cambio de corta duración (horas a un día)
 git checkout -b feature/login-button
 
 # Hacer cambios, commitear frecuentemente
@@ -61,7 +61,7 @@ git push origin feature/login-button
 
 - **Duración de rama**: Horas a 1-2 días máximo
 - **Rama principal**: Siempre desplegable
-- **Feature flags**: Funcionalidades incompletas se ocultan detrás de toggles
+- **Feature flags**: Cambios incompletos se ocultan detrás de toggles
 - **CI/CD**: Ciclos de feedback rápidos; la rama principal se despliega automáticamente
 
 ### Pros y Contras
@@ -70,7 +70,7 @@ git push origin feature/login-button
 |------|---------|
 | Mínimos conflictos de merge | Requiere CI/CD maduro |
 | Feedback rápido | Requiere feature flags |
-| Modelo mental simple | Menos adecuado para features de larga duración |
+| Modelo mental simple | Menos adecuado para cambios de larga duración |
 | Ideal para continuous delivery | Requiere disciplina del equipo |
 
 ### Mejor Para
@@ -124,8 +124,8 @@ git checkout develop && git merge hotfix/1.2.1
 ### Características
 
 - **Rama main**: Solo código de producción; releases etiquetados
-- **Rama develop**: Rama de integración para features
-- **Ramas de feature**: Creadas desde develop
+- **Rama develop**: Rama de integración para cambios
+- **Ramas de cambio**: Creadas desde develop
 - **Ramas de release**: Preparan y estabilizan releases
 - **Ramas de hotfix**: Fixes de emergencia desde main
 
@@ -135,7 +135,7 @@ git checkout develop && git merge hotfix/1.2.1
 |------|---------|
 | Separación clara de responsabilidades | Complejo; curva de aprendizaje pronunciada |
 | Soporta releases programados | Ramas de larga duración = infierno de merge |
-| Desarrollo paralelo de features | Feedback de integración más lento |
+| Desarrollo paralelo de cambios | Feedback de integración más lento |
 | Aislamiento de hotfixes | Excesivo para equipos pequeños |
 
 ### Mejor Para
@@ -151,7 +151,7 @@ GitHub Flow es una variante ligera de trunk-based development optimizada para el
 ### Flujo de Trabajo
 
 ```bash
-# Crear una rama de feature desde main
+# Crear una rama de cambio desde main
 git checkout -b feature/add-search
 
 # Push y abrir un PR
@@ -168,7 +168,7 @@ git push origin --delete feature/add-search
 ### Características
 
 - **Rama main única**: Siempre desplegable
-- **Ramas de feature**: Creadas desde main, mergeadas via PR
+- **Ramas de cambio**: Creadas desde main, mergeadas via PR
 - **PR como unidad de trabajo**: Revisión, CI, discusión en un solo lugar
 - **Deploy al merge**: La rama main se despliega automáticamente
 
@@ -199,10 +199,10 @@ git push origin --delete feature/add-search
 | **Conflictos de merge** | Raros | Comunes | Raros |
 | **Rollback** | Feature flags | Revertir commits | Revertir commits |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Mantén las ramas de corta duración** — cuanto más vive una rama, más difícil es el merge
-- **Usa feature flags** para funcionalidades incompletas en main/trunk
+- **Usa feature flags** para cambios incompletos en main/trunk
 - **Requiere [revisiones de PR](/guides/design/code-review-best-practices-guide)** antes de mergear a main
 - **Ejecuta el test suite completo** en cada PR; bloquea el merge si falla. Consulta [CI/CD](/guides/devops/cicd-pipeline-guide).
 - **Squash o rebase** para mantener un historial lineal (preferencia del equipo)
@@ -211,7 +211,7 @@ git push origin --delete feature/add-search
 
 ## Errores Comunes
 
-- Permitir ramas de feature de larga duración que divergen significativamente
+- Permitir ramas de cambio de larga duración que divergen considerablemente
 - No eliminar ramas mergeadas, desordenando el repositorio
 - Usar GitFlow para un producto SaaS que se despliega varias veces al día. Consulta [estrategias de deployment](/guides/devops/deployment-strategies-guide).
 - Mergear sin revisión o checks de CI

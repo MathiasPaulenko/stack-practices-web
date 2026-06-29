@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: real-time-analytics-guide
-title: "Analítica en Tiempo Real — De Eventos a Dashboards en Segundos"
+title: "Analítica en Tiempo Real: De Eventos a Dashboards en Segundos"
 description: "Guía práctica sobre analítica en tiempo real: recolección de eventos, procesamiento de streams, data warehousing y construcción de dashboards sub-segundo con Kafka, ClickHouse, Druid y bases de datos OLAP modernas."
 metaDescription: "Aprende analítica en tiempo real: recolección de eventos, procesamiento de streams, data warehousing y dashboards sub-segundo con Kafka, ClickHouse, Druid y OLAP."
 difficulty: advanced
@@ -283,7 +283,7 @@ t_env.execute_sql("""
 |-------------------|----------------|-------------|
 | **Tumbling** | Tamaño fijo, no superpuesta | Métricas por hora, conteos diarios |
 | **Sliding** | Tamaño fijo, superpuesta | Promedios móviles, detección de tendencias |
-| **Session** | Dinámica, gaps de inactividad | Análisis de sesión de usuario, tracking de funnel |
+| **Session** | Variable, gaps de inactividad | Análisis de sesión de usuario, tracking de funnel |
 | **Global** | Todos los eventos, disparada manualmente | Contadores acumulativos, máquinas de estado |
 | **Watermark** | Maneja eventos que llegan tarde | Streams de eventos fuera de orden |
 
@@ -453,7 +453,7 @@ LIMIT 20;
 | **Análisis de funnel** | Filtrado multi-etapa con window functions | 1-5 minutos |
 | **Alertas de anomalía** | Detección estadística de anomalías en agregados | 1 minuto |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa event-time, no processing-time.** Skew de reloj y llegadas tardías hacen processing-time no confiable. Watermarks manejan datos tardíos elegantemente.
 - **Pre-agrega donde sea posible.** Vistas materializadas en ClickHouse o agregaciones de Druid reducen costo de consulta 1000×.
@@ -481,7 +481,7 @@ LIMIT 20;
 ## FAQ
 
 **P: ¿Qué tan "tiempo real" es "tiempo real"?**
-Tiempo real verdadero es <1 segundo de evento a insight. Casi tiempo real es 1-60 segundos. La arquitectura y el costo difieren significativamente.
+Tiempo real verdadero es <1 segundo de evento a insight. Casi tiempo real es 1-60 segundos. La arquitectura y el costo difieren considerablemente.
 
 **P: ¿Puedo usar Elasticsearch para analítica en tiempo real?**
 Sí, para agregaciones de baja cardinalidad intensivas en texto. Para agregaciones numéricas de alta cardinalidad (miles de millones de eventos), ClickHouse/Druid son 10-100× más rápidos.
@@ -495,4 +495,4 @@ El procesamiento de streams es la capa de computación que transforma eventos (F
 ## Conclusión
 
 La analítica en tiempo real convierte streams de eventos en inteligencia accionable en segundos. Al instrumentar aplicaciones con eventos estructurados, procesarlos a través de agregaciones con ventana, y almacenar resultados en bases de datos OLAP, construyes sistemas que reaccionan al presente en lugar de reportar sobre el pasado.
-
+

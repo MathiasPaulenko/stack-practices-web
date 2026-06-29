@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: secrets-management-guide
-title: "Gestión de Secretos — Vault, Cloud Managers y Mejores Prácticas"
+title: "Gestión de Secretos: Vault, Cloud Managers y Mejores Prácticas"
 description: "Guía práctica de gestión de secretos: HashiCorp Vault, AWS Secrets Manager, Azure Key Vault y GCP Secret Manager con rotación, control de acceso e integración CI/CD."
 metaDescription: "Aprende gestión de secretos con Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager. Rotación, control de acceso e integración CI/CD."
 difficulty: intermediate
@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Los secretos — contraseñas, claves de API, tokens, certificados — son las llaves de tu reino. Almacenarlos en código fuente, archivos de configuración o variables de entorno es una fuente común de brechas. Una gestión adecuada de secretos asegura que las credenciales estén encriptadas, rotadas, auditadas y accesibles solo para servicios y usuarios autorizados. Esta guía cubre las soluciones líderes de gestión de secretos y las prácticas que las hacen efectivas.
+Los secretos — contraseñas, claves de API, tokens, certificados — son las llaves de tu reino. Almacenarlos en código fuente, archivos de configuración o variables de entorno es una fuente común de brechas. Una gestión adecuada de secretos asegura que las credenciales estén encriptadas, rotadas, auditadas y accesibles solo para servicios y usuarios autorizados. Esta guía cubre las soluciones líderes de gestión de secretos y las prácticas que las hacen útiles.
 
 ## When to Use
 
@@ -67,9 +67,9 @@ El estándar open-source para gestión de secretos.
 | Secrets Engine | Almacena o genera secretos (KV, database, PKI, AWS) |
 | Auth Method | Cómo usuarios/servicios se autentican (Kubernetes, OIDC, AppRole) |
 | Policy | Control de acceso granular (ACL) |
-| Dynamic Secret | Credenciales de corta duración, revocadas automáticamente |
+| Secreto bajo demanda | Credenciales de corta duración, revocadas automáticamente |
 
-### Credenciales Dinámicas de Base de Datos
+### Credenciales de Base de Datos Bajo Demanda
 
 ```bash
 # Habilitar motor de secretos de base de datos
@@ -103,7 +103,7 @@ client.auth.kubernetes.login(role='my-app', jwt=service_account_token)
 secret = client.secrets.kv.v2.read_secret_version(path='my-app/config')
 api_key = secret['data']['data']['api_key']
 
-# Generar credenciales dinámicas de base de datos
+# Generar credenciales de base de datos bajo demanda
 db_creds = client.secrets.database.generate_credentials(name='app')
 username = db_creds['data']['username']
 password = db_creds['data']['password']
@@ -227,7 +227,7 @@ jobs:
 |------------|------------|-------------|
 | Manual | Ad-hoc, equipos pequeños | Baja |
 | Lambda/Function | AWS RDS, bases de datos estándar | Media |
-| Vault Dynamic | Microservicios, multi-cloud | Alta |
+| Vault Bajo Demanda | Microservicios, multi-cloud | Alta |
 | Certificado Auto | Certificados TLS (Let's Encrypt, ACM) | Baja |
 
 ## Errores Comunes
@@ -241,7 +241,7 @@ jobs:
 ## FAQ
 
 **¿Debería usar Vault o un gestor nativo de cloud?**
-Usa Vault para multi-cloud, flujos complejos o secretos dinámicos. Usa gestores nativos (AWS, Azure, GCP) para simplicidad e integración directa con ese cloud.
+Usa Vault para multi-cloud, flujos complejos o secretos bajo demanda. Usa gestores nativos (AWS, Azure, GCP) para simplicidad e integración directa con ese cloud.
 
 **¿Con qué frecuencia debería rotar secretos?**
 - Credenciales de base de datos: 30-90 días
@@ -250,4 +250,4 @@ Usa Vault para multi-cloud, flujos complejos o secretos dinámicos. Usa gestores
 - Emergencia: inmediatamente ante sospecha de compromiso
 
 **¿Puedo evitar que desarrolladores vean secretos?**
-Sí. Otorga `read` pero no `list` ni `update`. Usa credenciales dinámicas para que los desarrolladores obtengan permisos temporales y limitados sin ver la contraseña raíz.
+Sí. Otorga `read` pero no `list` ni `update`. Usa credenciales bajo demanda para que los desarrolladores obtengan permisos temporales y limitados sin ver la contraseña raíz.

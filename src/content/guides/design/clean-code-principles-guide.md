@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: clean-code-principles-guide
-title: "Clean Code Principles — Writing Maintainable Software"
+title: "Clean Code Principles: Writing Maintainable Software"
 description: "A practical guide to clean code: meaningful names, short functions, DRY, SOLID foundations, and habits that make codebases easier to read and maintain."
 metaDescription: "Clean code principles guide: meaningful names, short functions, DRY, comments, error handling. Write maintainable software that teams enjoy working with."
 difficulty: beginner
@@ -288,7 +288,7 @@ customer.orders[-1].items[0].price
 customer.last_order_first_item_price()
 ```
 
-## Best Practices
+## What Works
 
 - **Leave the code cleaner than you found it** (Boy Scout Rule)
 - **Delete dead code** — commented-out code, unused functions, unreachable branches
@@ -308,10 +308,10 @@ customer.last_order_first_item_price()
 ## Frequently Asked Questions
 
 **Q: Should I refactor legacy code that isn't broken?**
-A: Follow the Boy Scout Rule: clean up the parts you touch. Don't embark on large rewrites without business justification and test coverage.
+A: Follow the Boy Scout Rule: clean up the parts you touch. Don't start large rewrites without business justification and test coverage.
 
 **Q: How do I convince my team to adopt clean code practices?**
 A: Start with automated formatting (zero debate), then introduce [code review checklists](/guides/design/code-review-best-practices-guide). Show concrete examples of bugs caused by unclear code.
 
 **Q: Is clean code slower to write?**
-A: Slightly slower to write, significantly faster to read, debug, and change. The investment pays off within the first modification.
+A: Slightly slower to write, considerably faster to read, debug, and change. The investment pays off within the first modification.

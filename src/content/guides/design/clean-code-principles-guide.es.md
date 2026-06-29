@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: clean-code-principles-guide
-title: "Principios de Código Limpio — Escribir Software Mantenible"
+title: "Principios de Código Limpio: Escribir Software Mantenible"
 description: "Una guía práctica de código limpio: nombres significativos, funciones cortas, DRY, fundamentos SOLID y hábitos que hacen las bases de código más fáciles de leer y mantener."
 metaDescription: "Guía de código limpio: nombres significativos, funciones cortas, DRY, comentarios, manejo de errores. Escribe software mantenible."
 difficulty: beginner
@@ -289,7 +289,7 @@ cliente.ordenes[-1].items[0].precio
 cliente.precio_primer_item_ultima_orden()
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Deja el código más limpio de lo que lo encontraste** (Regla del Boy Scout)
 - **Elimina código muerto** — código comentado, funciones no usadas, ramas inaccesibles
@@ -309,10 +309,10 @@ cliente.precio_primer_item_ultima_orden()
 ## Preguntas Frecuentes
 
 **P: ¿Debería refactorizar código legacy que no está roto?**
-R: Sigue la Regla del Boy Scout: limpia las partes que tocas. No emprendas reescrituras grandes sin justificación de negocio y cobertura de tests.
+R: Sigue la Regla del Boy Scout: limpia las partes que tocas. No empieces reescrituras grandes sin justificación de negocio y cobertura de tests.
 
 **P: ¿Cómo convenzo a mi equipo de adoptar prácticas de código limpio?**
 R: Comienza con formateo automático (cero debate), luego introduce [checklists de code review](/guides/design/code-review-best-practices-guide). Muestra ejemplos concretos de bugs causados por código poco claro.
 
 **P: ¿Es más lento escribir código limpio?**
-R: Ligeramente más lento de escribir, significativamente más rápido de leer, depurar y cambiar. La inversión se recupera en la primera modificación.
+R: Ligeramente más lento de escribir, considerablemente más rápido de leer, depurar y cambiar. La inversión se recupera en la primera modificación.

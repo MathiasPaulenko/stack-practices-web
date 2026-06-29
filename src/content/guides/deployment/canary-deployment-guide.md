@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: canary-deployment-guide
-title: "Canary Deployment — Gradual Rollouts with Safety Controls"
+title: "Canary Deployment: Gradual Rollouts with Safety Controls"
 description: "A practical guide to canary deployments: traffic splitting strategies, automated promotion, rollback triggers, and safely rolling out new versions to a subset of users."
 metaDescription: "Learn canary deployment: gradual rollouts, traffic splitting, automated promotion, rollback triggers, and safe version releases."
 difficulty: intermediate
@@ -45,7 +45,7 @@ This guide covers traffic splitting, health metrics, automated promotion, and ro
 
 ## When to Use
 
-- You want to reduce risk when deploying new features
+- You want to reduce risk when deploying new capabilities
 - Your service has enough traffic to get meaningful metrics from 1-5% of users
 - You need to validate performance under real load before full rollout
 - You want to A/B test behavior alongside infrastructure changes
@@ -276,9 +276,9 @@ echo "Rollback complete. All traffic on stable."
 | **AWS App Mesh** | AWS | Traffic shifting with CloudWatch metrics |
 | **Google Cloud Traffic Director** | GCP | Percentage-based traffic splitting |
 
-## Best Practices
+## What Works
 
-- **Start small.** 1% canary catches most issues without significant user impact.
+- **Start small.** 1% canary catches most issues without major user impact.
 - **Use meaningful metrics.** Business metrics often detect issues that technical metrics miss.
 - **Keep sessions sticky.** Route the same user to the same version to avoid inconsistency.
 - **Have an instant rollback.** Canary should revert in seconds, not minutes.
@@ -288,7 +288,7 @@ echo "Rollback complete. All traffic on stable."
 ## Common Mistakes
 
 - **Rushing promotion.** Skipping bake time because "it looks fine" leads to incidents.
-- **Monitoring only technical metrics.** A feature bug may not show in error rates but will affect conversions.
+- **Monitoring only technical metrics.** A change bug may not show in error rates but will affect conversions.
 - **Inconsistent routing.** Users bouncing between versions creates confusion and bugs.
 - **Forgetting database compatibility.** Both versions must work with the current schema.
 - **Not scaling canary properly.** Under-provisioned canaries fail under load, causing false rollbacks.
@@ -317,4 +317,4 @@ For critical services, yes. For internal tools or low-risk changes, direct deplo
 ## Conclusion
 
 Canary deployment is the safest way to release software at scale. By exposing changes to a small, controlled audience first, you catch issues early, minimize blast radius, and build confidence in every release. Combine automated metric analysis with gradual promotion for a world-class deployment process.
-
+

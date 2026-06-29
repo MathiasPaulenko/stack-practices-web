@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: canary-deployment-guide
-title: "Despliegue Canary — Rollouts Graduales con Controles de Seguridad"
+title: "Despliegue Canary: Rollouts Graduales con Controles de Seguridad"
 description: "Guía práctica sobre despliegues canary: estrategias de división de tráfico, promoción automatizada, disparadores de rollback y despliegue seguro de nuevas versiones a un subconjunto de usuarios."
 metaDescription: "Aprende despliegue canary: rollouts graduales, división de tráfico, promoción automatizada, disparadores de rollback y releases seguros."
 difficulty: intermediate
@@ -45,7 +45,7 @@ Esta guía cubre división de tráfico, métricas de salud, promoción automatiz
 
 ## When to Use
 
-- Quieres reducir riesgo al desplegar nuevas funcionalidades
+- Quieres reducir riesgo al desplegar nuevas capacidades
 - Tu servicio tiene suficiente tráfico para obtener métricas significativas de 1-5% de usuarios
 - Necesitas validar rendimiento bajo carga real antes del rollout completo
 - Quieres hacer A/B testing de comportamiento junto con cambios de infraestructura
@@ -276,9 +276,9 @@ echo "Rollback completo. Todo el tráfico en estable."
 | **AWS App Mesh** | AWS | Traffic shifting con métricas de CloudWatch |
 | **Google Cloud Traffic Director** | GCP | División de tráfico basada en porcentaje |
 
-## Best Practices
+## Lo que funciona
 
-- **Empieza pequeño.** 1% de canary detecta la mayoría de problemas sin impacto significativo de usuarios.
+- **Empieza pequeño.** 1% de canary detecta la mayoría de problemas sin impacto mayor de usuarios.
 - **Usa métricas significativas.** Las métricas de negocio a menudo detectan problemas que las métricas técnicas no ven.
 - **Mantén sesiones persistentes.** Enruta el mismo usuario a la misma versión para evitar inconsistencia.
 - **Ten un rollback instantáneo.** El canary debe revertir en segundos, no minutos.
@@ -288,7 +288,7 @@ echo "Rollback completo. Todo el tráfico en estable."
 ## Common Mistakes
 
 - **Acelerar la promoción.** Saltear bake time porque "se ve bien" lleva a incidentes.
-- **Monitorear solo métricas técnicas.** Un bug de funcionalidad puede no mostrarse en tasas de error pero afectará conversiones.
+- **Monitorear solo métricas técnicas.** Un bug de cambio puede no mostrarse en tasas de error pero afectará conversiones.
 - **Enrutamiento inconsistente.** Usuarios rebotando entre versiones crean confusión y bugs.
 - **Olvidar compatibilidad de base de datos.** Ambas versiones deben funcionar con el schema actual.
 - **No escalar canary apropiadamente.** Canaries sub-provisionados fallan bajo carga, causando rollbacks falsos.
@@ -317,4 +317,4 @@ Para servicios críticos, sí. Para herramientas internas o cambios de bajo ries
 ## Conclusion
 
 El despliegue canary es la forma más segura de liberar software a escala. Al exponer cambios a una audiencia pequeña y controlada primero, detectas problemas temprano, minimizas el radio de explosión y construyes confianza en cada release. Combina análisis automatizado de métricas con promoción gradual para un proceso de despliegue de clase mundial.
-
+

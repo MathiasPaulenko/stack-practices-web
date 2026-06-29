@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: git-branching-strategies-guide
-title: "Git Branching Strategies — A Practical Guide"
+title: "Git Branching Strategies: A Practical Guide"
 description: "Compare trunk-based development, GitFlow, and GitHub Flow. Choose the right branching strategy for your team size, release cadence, and CI/CD maturity."
 metaDescription: "Git branching strategies guide: trunk-based development, GitFlow, GitHub Flow. Choose the right model for your team and CI/CD pipeline."
 difficulty: beginner
@@ -37,7 +37,7 @@ A branching strategy defines how your team uses Git branches to develop, integra
 
 ## Trunk-Based Development
 
-In trunk-based development, developers commit directly to a single main branch (the "trunk") using short-lived feature branches or direct commits with feature flags.
+In trunk-based development, developers commit directly to a single main branch (the "trunk") using short-lived change branches or direct commits with feature flags.
 
 ### Workflow
 
@@ -60,7 +60,7 @@ git push origin feature/login-button
 
 - **Branch lifespan**: Hours to 1-2 days maximum
 - **Main branch**: Always deployable
-- **Feature flags**: Incomplete features are hidden behind toggles
+- **Feature flags**: Incomplete changes are hidden behind toggles
 - **CI/CD**: Fast feedback loops; main branch deploys automatically
 
 ### Pros and Cons
@@ -69,7 +69,7 @@ git push origin feature/login-button
 |------|------|
 | Minimal merge conflicts | Requires mature CI/CD |
 | Fast feedback | Requires feature flags |
-| Simple mental model | Less suitable for long-running features |
+| Simple mental model | Less suitable for long-running changes |
 | Ideal for continuous delivery | Requires team discipline |
 
 ### Best For
@@ -124,7 +124,7 @@ git checkout develop && git merge hotfix/1.2.1
 
 - **Main branch**: Only production code; tagged releases
 - **Develop branch**: Integration branch for features
-- **Feature branches**: Spawned from develop
+- **Change branches**: Spawned from develop
 - **Release branches**: Prepare and stabilize releases
 - **Hotfix branches**: Emergency fixes from main
 
@@ -167,7 +167,7 @@ git push origin --delete feature/add-search
 ### Characteristics
 
 - **Single main branch**: Always deployable
-- **Feature branches**: Created from main, merged via PR
+- **Change branches**: Created from main, merged via PR
 - **PR as the unit of work**: Review, CI, discussion in one place
 - **Deploy on merge**: Main branch deploys automatically
 
@@ -198,7 +198,7 @@ git push origin --delete feature/add-search
 | **Merge conflicts** | Rare | Common | Rare |
 | **Rollback** | Feature flags | Revert commits | Revert commits |
 
-## Best Practices
+## What Works
 
 - **Keep branches short-lived** — the longer a branch lives, the harder the merge
 - **Use feature flags** for incomplete features on main/trunk
@@ -210,7 +210,7 @@ git push origin --delete feature/add-search
 
 ## Common Mistakes
 
-- Allowing long-lived feature branches that diverge significantly
+- Allowing long-lived feature branches that diverge considerably
 - Not deleting merged branches, cluttering the repository
 - Using GitFlow for a SaaS product that deploys multiple times a day. See [deployment strategies](/guides/devops/deployment-strategies-guide).
 - Merging without review or CI checks
