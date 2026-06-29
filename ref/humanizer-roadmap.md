@@ -327,11 +327,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\recipes\performance\query-optimization.md | 3.0 | best practices → what works, features → capabilities, significant → major | src\content\recipes\performance\query-optimization.es.md | pending |
-| src\content\recipes\security\api-security-headers.md | 3.0 | best practices → what works, significantly → considerably, effective → useful | src\content\recipes\security\api-security-headers.es.md | pending |
-| src\content\recipes\security\encryption-at-rest.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\security\encryption-at-rest.es.md | pending |
-| src\content\recipes\testing\implement-property-based-testing.md | 3.0 | best practices → what works, effective → useful, effectively → well | src\content\recipes\testing\implement-property-based-testing.es.md | pending |
-| src\content\recipes\testing\integration-testing-strategies.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\testing\integration-testing-strategies.es.md | pending |
+| src\content\recipes\performance\query-optimization.md | 3.0 | best practices → what works, features → capabilities, significant → major | src\content\recipes\performance\query-optimization.es.md | completed |
+| src\content\recipes\security\api-security-headers.md | 3.0 | best practices → what works, significantly → considerably, effective → useful | src\content\recipes\security\api-security-headers.es.md | completed |
+| src\content\recipes\security\encryption-at-rest.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\security\encryption-at-rest.es.md | completed |
+| src\content\recipes\testing\implement-property-based-testing.md | 3.0 | best practices → what works, effective → useful, effectively → well | src\content\recipes\testing\implement-property-based-testing.es.md | completed |
+| src\content\recipes\testing\integration-testing-strategies.md | 3.0 | dynamic → live, best practices → what works | src\content\recipes\testing\integration-testing-strategies.es.md | completed |
 
 ### Batch 29 (priority: low)
 
