@@ -338,7 +338,7 @@ In Reactive Streams (Java), this is formalized through the `Subscription.request
 | **Token bucket** | Producer needs token to send | Rate-limited APIs |
 | **Pause/resume** | Consumer sends pause signal | Batch processing systems |
 
-## Best Practices
+## What Works
 
 - **Use bounded buffers everywhere.** Unbounded queues are the root cause of most back-pressure failures.
 - **Set buffer sizes based on p99 latency, not average.** A buffer sized for average load will overflow during spikes.

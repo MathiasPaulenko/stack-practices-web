@@ -32,6 +32,7 @@ seo:
     - prevencion inyeccion sql
     - control de acceso roto
     - codificacion segura
+    - capacidades
 ---
 
 # Seguridad de Aplicaciones Web (OWASP Top 10)

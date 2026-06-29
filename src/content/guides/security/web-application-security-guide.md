@@ -32,6 +32,7 @@ seo:
     - sql injection prevention
     - broken access control
     - secure coding
+    - capabilities
 ---
 
 # Web Application Security (OWASP Top 10)

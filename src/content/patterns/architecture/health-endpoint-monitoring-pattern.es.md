@@ -115,7 +115,7 @@ Al verificar dependencias como bases de datos, caches y colas de mensajes, los p
 | **Startup** | Ha terminado de iniciar? | `200` cuando la inicializacion completa |
 | **Deep health** | Estado detallado de subsistemas | JSON con salud por dependencia |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - Manten el probe de **liveness** ligero y libre de dependencias
 - Haz que el probe de **readiness** refleje la capacidad real de atender solicitudes

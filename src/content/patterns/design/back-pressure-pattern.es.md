@@ -287,7 +287,7 @@ En Reactive Streams (Java), esto se formaliza a través del mecanismo `Subscript
 | **Token bucket** | Productor necesita token para enviar | APIs con rate limit |
 | **Pause/resume** | Consumidor envía señal de pausa | Sistemas de procesamiento batch |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - **Usa buffers acotados en todas partes.** Las colas sin límites son la causa raíz de la mayoría de las fallas de back-pressure.
 - **Ajusta tamaños de buffer basado en latencia p99, no promedio.** Un buffer ajustado para carga promedio se desbordará durante picos.

@@ -114,7 +114,7 @@ Responsabilidades clave del gateway:
 | **Edge Gateway** | Gestionar TLS, DDoS y cache en el borde de red | Simplifica origenes pero agrega dependencia de proveedor |
 | **Gateway Interno** | Enrutar trafico dentro de un cluster con mTLS | Mantiene el trafico privado y seguro |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - Manten el gateway **sin estado** para que pueda escalar horizontalmente
 - Almacena las reglas de enrutamiento en **configuracion** en lugar de codificarlas

@@ -114,7 +114,7 @@ Key responsibilities of the gateway include:
 | **Edge Gateway** | Handle TLS, DDoS, and caching at the network edge | Simplifies origins but adds vendor dependency |
 | **Internal Gateway** | Route traffic inside a cluster with mTLS | Keeps traffic private and secure |
 
-## Best Practices
+## What Works
 
 - Keep the gateway **stateless** so it can scale horizontally
 - Store routing rules in **configuration** rather than hard-coding them

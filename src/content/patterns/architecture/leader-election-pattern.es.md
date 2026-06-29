@@ -104,7 +104,7 @@ Un mecanismo tipico de eleccion de lider incluye:
 | **Algoritmo de consenso** | etcd, ZooKeeper | Consistencia fuerte pero mas complejo |
 | **Lease de Kubernetes** | Objeto Lease del API server | Nativo para cargas de trabajo K8s, facil integracion |
 
-## Mejores Prácticas
+## Lo que Funciona
 
 - Usa un **lease corto** con renovacion automatica para detectar fallos rapidamente
 - Genera un **token de aislamiento** por periodo de liderazgo para evitar que lideres obsoletos actuen

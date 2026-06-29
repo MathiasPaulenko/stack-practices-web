@@ -417,11 +417,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\guides\observability\distributed-tracing-guide.md | 2.0 | best practices → what works | src\content\guides\observability\distributed-tracing-guide.es.md | pending |
-| src\content\guides\planning\api-rate-limiting-guide.md | 2.0 | best practices → what works, effective → useful | src\content\guides\planning\api-rate-limiting-guide.es.md | pending |
-| src\content\guides\planning\capacity-planning-guide.md | 2.0 | best practices → what works, significant → major | src\content\guides\planning\capacity-planning-guide.es.md | pending |
-| src\content\guides\planning\disaster-recovery-guide.md | 2.0 | actionable → useful, best practices → what works | src\content\guides\planning\disaster-recovery-guide.es.md | pending |
-| src\content\guides\security\secure-coding-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\security\secure-coding-guide.es.md | pending |
+| src\content\guides\observability\distributed-tracing-guide.md | 2.0 | best practices → what works | src\content\guides\observability\distributed-tracing-guide.es.md | completed |
+| src\content\guides\planning\api-rate-limiting-guide.md | 2.0 | best practices → what works, effective → useful | src\content\guides\planning\api-rate-limiting-guide.es.md | completed |
+| src\content\guides\planning\capacity-planning-guide.md | 2.0 | best practices → what works, significant → major | src\content\guides\planning\capacity-planning-guide.es.md | completed |
+| src\content\guides\planning\disaster-recovery-guide.md | 2.0 | actionable → useful, best practices → what works | src\content\guides\planning\disaster-recovery-guide.es.md | completed |
+| src\content\guides\security\secure-coding-guide.md | 2.0 | best practices → what works, features → capabilities | src\content\guides\security\secure-coding-guide.es.md | completed |
 
 ### Batch 38 (priority: low)
 

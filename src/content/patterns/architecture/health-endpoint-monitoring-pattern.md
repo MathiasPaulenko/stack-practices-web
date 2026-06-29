@@ -115,7 +115,7 @@ By checking dependencies such as databases, caches, and message queues, readines
 | **Startup** | Has it finished starting? | `200` after initialization is complete |
 | **Deep health** | Detailed subsystem status | JSON with per-dependency health |
 
-## Best Practices
+## What Works
 
 - Keep the **liveness** probe lightweight and dependency-free
 - Make the **readiness** probe reflect the actual ability to serve requests

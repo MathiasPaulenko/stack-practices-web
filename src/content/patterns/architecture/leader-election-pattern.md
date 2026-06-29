@@ -104,7 +104,7 @@ A typical leader election mechanism includes:
 | **Consensus Algorithm** | etcd, ZooKeeper | Strong consistency but more complex |
 | **Kubernetes Lease** | API server Lease object | Native for K8s workloads, easy integration |
 
-## Best Practices
+## What Works
 
 - Use a **short lease** with automatic renewal to detect failures quickly
 - Generate a **fencing token** per leadership term to prevent stale leaders from acting
