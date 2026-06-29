@@ -57,11 +57,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\guides\deployment\feature-flags-guide.md | 12.0 | features → capabilities, best practices → what works | src\content\guides\deployment\feature-flags-guide.es.md | pending |
-| src\content\recipes\ai\image-generation.md | 10.0 | landscape → space, vibrant → rich | src\content\recipes\ai\image-generation.es.md | pending |
-| src\content\guides\architecture\vertical-slice-architecture-guide.md | 9.0 | features → capabilities | src\content\guides\architecture\vertical-slice-architecture-guide.es.md | pending |
-| src\content\recipes\api\graphql-apollo-server.md | 9.0 | ecosystem → platform, serves as → works as | src\content\recipes\api\graphql-apollo-server.es.md | pending |
-| src\content\docs\security\security-audit-checklist-template.md | 8.0 | landscape → space, comprehensive → thorough, best practices → what works | src\content\docs\security\security-audit-checklist-template.es.md | pending |
+| src\content\guides\deployment\feature-flags-guide.md | 12.0 | features → capabilities, best practices → what works | src\content\guides\deployment\feature-flags-guide.es.md | completed |
+| src\content\recipes\ai\image-generation.md | 10.0 | landscape → space, vibrant → rich | src\content\recipes\ai\image-generation.es.md | completed |
+| src\content\guides\architecture\vertical-slice-architecture-guide.md | 9.0 | features → capabilities | src\content\guides\architecture\vertical-slice-architecture-guide.es.md | completed |
+| src\content\recipes\api\graphql-apollo-server.md | 9.0 | ecosystem → platform, serves as → works as | src\content\recipes\api\graphql-apollo-server.es.md | completed |
+| src\content\docs\security\security-audit-checklist-template.md | 8.0 | landscape → space, comprehensive → thorough, best practices → what works | src\content\docs\security\security-audit-checklist-template.es.md | completed |
 
 ### Batch 02 (priority: high)
 
