@@ -2,7 +2,7 @@
 contentType: docs
 slug: deprecation-timeline-template
 title: "Plantilla de Linea de Tiempo de Deprecacion"
-description: "Una plantilla para planificar y comunicar la discontinuacion de funciones legacy, APIs o servicios con hitos claros y notificaciones a stakeholders."
+description: "Una plantilla para planificar y comunicar la discontinuacion de capacidades legacy, APIs o servicios con hitos claros y notificaciones a stakeholders."
 metaDescription: "Planifica la discontinuacion de funciones legacy con esta plantilla. Cubre hitos, cronogramas de comunicacion, rutas de migracion y fechas finales de apagado."
 difficulty: intermediate
 topics:
@@ -32,12 +32,12 @@ seo:
 
 ## Descripcion General
 
-Deprecar una funcion o API es facil de anunciar y dificil de terminar. Los usuarios se pierden el correo, las integraciones se rompen en el ultimo minuto y el equipo se queda atascado soportando un sistema que creia muerto. Una linea de tiempo de deprecacion es un contrato entre el equipo y sus consumidores: aqui esta lo que termina, cuando termina, que debes usar en su lugar y como te ayudaremos a migrar.
+Deprecar una capacidad o API es facil de anunciar y dificil de terminar. Los usuarios se pierden el correo, las integraciones se rompen en el ultimo minuto y el equipo se queda atascado soportando un sistema que creia muerto. Una linea de tiempo de deprecacion es un contrato entre el equipo y sus consumidores: aqui esta lo que termina, cuando termina, que debes usar en su lugar y como te ayudaremos a migrar.
 
 ## Cuando Usar
 
 Usa esta plantilla cuando:
-- Un endpoint de API, funcion o integracion esta siendo reemplazado por una version mas nueva
+- Un endpoint de API, capacidad o integracion esta siendo reemplazado por una version mas nueva
 - Una dependencia de terceros esta llegando a fin de vida
 - Un servicio esta siendo consolidado en otro sistema
 - Una libreria cliente o version de SDK esta siendo retirada
@@ -77,7 +77,7 @@ Antes de anunciar la deprecacion:
 | Ejemplos de codigo | ______ | Migraciones de ejemplo en todos los lenguajes soportados | ______ | ______ |
 | Advertencia suave | ______ | La API o UI comienza a mostrar avisos de deprecacion | ______ | ______ |
 | Advertencia fuerte | ______ | Frecuencia o severidad de avisos aumentada | ______ | ______ |
-| Congelamiento de funciones | ______ | Sin nueva funcionalidad en el sistema deprecado | ______ | ______ |
+| Congelamiento de capacidades | ______ | Sin nuevas capacidades en el sistema deprecado | ______ | ______ |
 | Corte final | ______ | El sistema deprecado deja de responder | ______ | ______ |
 | Post-apagado | ______ | Tickets de soporte y retrospectiva | ______ | ______ |
 
@@ -154,7 +154,7 @@ La linea de tiempo es el nucleo de este documento. Cada hito da a los consumidor
 | Remocion de feature flag | Agregar analitica de uso del flag y plan de despliegue gradual | Saber quien aun tiene el flag habilitado |
 | Fin de vida de dependencia de terceros | Agregar comunicacion con el proveedor, revision de contrato y evaluacion de alternativas | No controlas la linea de tiempo |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Anuncia temprano, corta firmemente** — da el maximo aviso, luego cumple la fecha
 2. **Haz la migracion mas facil que quedarse** — ejemplos de codigo, herramientas CLI y documentacion clara reducen la carga de soporte

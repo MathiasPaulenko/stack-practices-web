@@ -29,7 +29,7 @@ seo:
 
 ## Overview
 
-Error handling is what separates robust APIs from fragile ones. A well-designed error response tells the client exactly what went wrong, what to do about it, and how to avoid it in the future — without leaking internal implementation details.
+Error handling is what separates reliable APIs from fragile ones. A well-designed error response tells the client exactly what went wrong, what to do about it, and how to avoid it in the future — without leaking internal implementation details.
 
 This recipe covers the industry-standard error response format (RFC 7807 Problem Details), proper HTTP status code selection, and idiomatic implementation patterns in Python, JavaScript, and Java.
 
@@ -175,12 +175,12 @@ public class GlobalExceptionHandler {
 | Java | Spring Boot | `@ControllerAdvice` | `ResponseStatusException` |
 | Java | JAX-RS | `ExceptionMapper<T>` | `WebApplicationException` |
 
-## Best Practices
+## What Works
 
 - **Use the correct HTTP status**: 400 for client mistakes, 401/403 for auth issues, 404 for missing resources, 409 for conflicts, 422 for validation failures, 500 for server bugs.
 - **Include a correlation ID**: add a request ID to every error response so support can trace logs.
 - **Document all errors**: list every 4xx and 5xx your endpoint can return in your API docs. See [API Documentation Template](/docs/templates/api-documentation) for docs structure.
-- **Keep messages actionable**: "User name must be between 2 and 50 characters" is better than "Validation failed."
+- **Keep messages useful**: "User name must be between 2 and 50 characters" is better than "Validation failed."
 - **Localize sparingly**: error `detail` can be in English; let the client map `type` URLs to localized UI strings.
 
 ## Common Mistakes

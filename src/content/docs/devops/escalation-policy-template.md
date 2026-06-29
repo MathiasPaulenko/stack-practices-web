@@ -53,7 +53,7 @@ Use this resource when:
 | Level | Name | Criteria | Response Time | Resolution Target |
 |-------|------|----------|---------------|-------------------|
 | SEV 1 | Critical | Service down; data loss; security breach; revenue impact | 5 min | 4 hours |
-| SEV 2 | Major | Major feature broken; significant performance degradation | 15 min | 8 hours |
+| SEV 2 | Major | Major capability broken; major performance degradation | 15 min | 8 hours |
 | SEV 3 | Minor | Feature degraded; partial outage affecting subset of users | 1 hour | 24 hours |
 | SEV 4 | Low | Cosmetic issue; documentation error; non-urgent question | 4 hours | Next business day |
 
@@ -131,7 +131,7 @@ The template separates **severity classification** from **escalation timing**. M
 | 24/7 SaaS | Add L0 — NOC / SRE on-call | NOC triages before engineering pages |
 | Follow-the-sun | Regional L1 handoffs | APAC → EMEA → AMER rotation |
 
-## Best Practices
+## What works
 
 1. Print the escalation matrix and post it in the on-call Slack channel topic
 2. Use the same severity criteria across all teams; inconsistent definitions cause confusion

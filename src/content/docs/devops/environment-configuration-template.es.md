@@ -132,12 +132,12 @@ Una unica fuente de verdad para la configuracion de entornos reduce la confusion
 - **Configuracion de entornos para app movil**: Documenta endpoints backend, API keys y feature flags por variante de build.
 - **Configuracion de entornos para base de datos**: Enfoque en cadenas de conexion, endpoints de replicas y ajustes de backup.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Manten los secretos fuera del control de versiones y almacenalos en un vault seguro.
 - Usa los mismos nombres de variables en todos los entornos cuando sea posible.
 - Documenta por que un valor difiere entre entornos.
-- Revisa y actualiza el documento despues de cada despliegue o cambio de infraestructura significativo.
+- Revisa y actualiza el documento despues de cada despliegue o cambio de infraestructura mayor.
 - Separa valores sensibles de la configuracion no sensible.
 - Automatiza la generacion de este documento desde infraestructura como codigo cuando sea posible.
 - Usa una convencion de nombres consistente para variables de entorno.

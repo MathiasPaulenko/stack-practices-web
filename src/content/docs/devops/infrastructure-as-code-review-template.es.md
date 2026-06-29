@@ -133,7 +133,7 @@ Las revisiones de infraestructura difieren de las de código de aplicación porq
 | Pulumi | `pulumi preview` | Checkov | Estado Pulumi Cloud |
 | Ansible | `ansible-lint`, `syntax-check` | Roles de hardening de Ansible | Git + AWX / Tower |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Ejecuta análisis estático en CI/CD antes de que un humano vea el pull request
 2. Requiere dos aprobaciones para cambios de infraestructura en producción, no una

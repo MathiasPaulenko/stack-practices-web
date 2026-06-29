@@ -128,7 +128,7 @@ Rules:
 | Security logs | 1 year | 100% | Compliance requirement |
 | Audit logs | 7 years | 100% | Legal and regulatory |
 | Debug logs | 7 days | 100% | Only when enabled |
-| High-volume trace logs | 14 days | 1% or dynamic | Cost control |
+| High-volume trace logs | 14 days | 1% or live | Cost control |
 
 #### 6. Log Aggregation and Transport
 
@@ -153,7 +153,7 @@ Consistent logging transforms noisy text files into searchable, structured data.
 - **Serverless logging**: Addresses short-lived functions, cold starts, and centralized log collection.
 - **Mobile or client logging**: Focuses on privacy, batching, and offline buffering.
 
-## Best Practices
+## What works
 
 - Use a single structured format across all services.
 - Include a correlation ID in every request to enable distributed tracing.

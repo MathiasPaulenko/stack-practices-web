@@ -2,7 +2,7 @@
 contentType: docs
 slug: deprecation-timeline-template
 title: "Deprecation Timeline Template"
-description: "A template for planning and communicating the sunset of legacy features, APIs, or services with clear milestones and stakeholder notifications."
+description: "A template for planning and communicating the sunset of legacy capabilities, APIs, or services with clear milestones and stakeholder notifications."
 metaDescription: "Plan legacy feature sunsets with this deprecation timeline template. Covers milestones, communication schedules, migration paths, and final shutdown dates."
 difficulty: intermediate
 topics:
@@ -32,12 +32,12 @@ seo:
 
 ## Overview
 
-Deprecating a feature or API is easy to announce and hard to finish. Users miss the email, integrations break at the last minute, and the team is stuck supporting a system they thought was dead. A deprecation timeline is a contract between the team and its consumers: here is what is ending, when it is ending, what you should use instead, and how we will help you migrate.
+Deprecating a capability or API is easy to announce and hard to finish. Users miss the email, integrations break at the last minute, and the team is stuck supporting a system they thought was dead. A deprecation timeline is a contract between the team and its consumers: here is what is ending, when it is ending, what you should use instead, and how we will help you migrate.
 
 ## When to Use
 
 Use this template when:
-- An API endpoint, feature, or integration is being replaced by a newer version
+- An API endpoint, capability, or integration is being replaced by a newer version
 - A third-party dependency is reaching end-of-life
 - A service is being consolidated into another system
 - A client library or SDK version is being retired
@@ -77,7 +77,7 @@ Before announcing deprecation:
 | Code samples | ______ | Example migrations in all supported languages | ______ | ______ |
 | Soft warning | ______ | API or UI begins showing deprecation notices | ______ | ______ |
 | Hard warning | ______ | Increased warning frequency or severity | ______ | ______ |
-| Feature freeze | ______ | No new functionality on deprecated system | ______ | ______ |
+| Feature freeze | ______ | No new capabilities on deprecated system | ______ | ______ |
 | Final cutoff | ______ | Deprecated system stops responding | ______ | ______ |
 | Post-shutdown | ______ | Support tickets and retrospective | ______ | ______ |
 
@@ -154,7 +154,7 @@ The timeline is the core of this document. Each milestone gives consumers multip
 | Feature flag removal | Add analytics on flag usage and phased rollout plan | Know who still has the flag enabled |
 | Third-party dependency EOL | Add vendor communication, contract review, and alternative evaluation | You do not control the timeline |
 
-## Best Practices
+## What works
 
 1. **Announce early, cutoff firmly** — give maximum notice, then stick to the date
 2. **Make migration easier than staying** — code samples, CLI tools, and clear docs reduce support load

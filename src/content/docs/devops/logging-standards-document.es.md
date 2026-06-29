@@ -128,7 +128,7 @@ Reglas:
 | Logs de seguridad | 1 año | 100% | Requisito de cumplimiento |
 | Logs de auditoria | 7 años | 100% | Legal y regulatorio |
 | Logs de debug | 7 dias | 100% | Solo cuando esta habilitado |
-| Logs de traza de alto volumen | 14 dias | 1% o dinamico | Control de costos |
+| Logs de traza de alto volumen | 14 dias | 1% o live | Control de costos |
 
 #### 6. Agregacion y Transporte de Logs
 
@@ -153,7 +153,7 @@ Logging consistente transforma archivos de texto ruidosos en datos estructurados
 - **Logging serverless**: Aborda funciones de corta duracion, cold starts y recoleccion centralizada de logs.
 - **Logging movil o cliente**: Se enfoca en privacidad, batching y almacenamiento offline.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Usa un unico formato estructurado en todos los servicios.
 - Incluye un correlation ID en cada solicitud para habilitar tracing distribuido.

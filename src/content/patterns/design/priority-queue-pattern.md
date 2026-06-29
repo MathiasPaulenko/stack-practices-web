@@ -388,7 +388,7 @@ Priority queues use a **heap data structure** (or sorted set) to maintain orderi
 - **Extraction:** The worker always takes the element at the top of the heap — the highest priority item. If multiple items share the same priority, secondary ordering (timestamp) ensures fairness.
 - **Fairness within priority:** Tasks with the same priority are processed in FIFO order, preventing starvation of newer same-priority tasks.
 
-The priority assignment itself is domain-specific: it can be based on customer tier, SLA deadlines, severity levels, or dynamic load calculations.
+The priority assignment itself is domain-specific: it can be based on customer tier, SLA deadlines, severity levels, or live load calculations.
 
 ## Variants
 
@@ -397,10 +397,10 @@ The priority assignment itself is domain-specific: it can be based on customer t
 | **Binary heap** | In-memory array heap | Single-process, high-throughput task scheduling |
 | **Redis sorted sets** | External sorted structure | Distributed workers, persistent queue |
 | **Weighted fair queuing** | Proportional bandwidth allocation | Network traffic shaping, API rate limiting |
-| **Multi-level feedback queue** | Dynamic priority adjustment | Operating system process scheduling |
+| **Multi-level feedback queue** | Live priority adjustment | Operating system process scheduling |
 | **Deadline-based** | Earliest deadline first | Real-time systems, SLA-driven processing |
 
-## Best Practices
+## What Works
 
 - **Prevent starvation.** Low-priority tasks should eventually run — implement aging (increasing priority over time) or a minimum quota.
 - **Keep priority levels limited.** Too many levels (20+) make the system hard to reason about and don't improve throughput. 3-5 levels suffice.

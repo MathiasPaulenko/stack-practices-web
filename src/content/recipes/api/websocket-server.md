@@ -311,11 +311,11 @@ function sendMessage(room, text) {
 - **Protocol handshake** — WebSockets start as an HTTP request with `Upgrade: websocket` and `Connection: Upgrade` headers. The server returns a `101 Switching Protocols` response, after which the TCP connection transitions to the WebSocket binary framing protocol.
 - **Connection management** — maintain a registry of active connections (using sets or maps). When a client disconnects (gracefully or via network failure), remove the connection from your registry to prevent memory leaks and phantom broadcasts.
 - **Heartbeat keepalive** — WebSocket connections can be silently dropped by proxies, NAT gateways, or load balancers without either side noticing. Implement periodic `ping`/`pong` frames (every 30 seconds) or application-level heartbeats to detect dead connections and close them properly.
-- **Room/channel architecture** — map room names to sets of connections. When a message targets a room, iterate over only that room's members rather than broadcasting to all connected clients. This significantly reduces bandwidth and processing overhead for large deployments.
+- **Room/channel architecture** — map room names to sets of connections. When a message targets a room, iterate over only that room's members rather than broadcasting to all connected clients. This considerably reduces bandwidth and processing overhead for large deployments.
 
 ## Variants
 
-| Framework | Protocol Features | Best For |
+| Framework | Protocol Capabilities | Best For |
 |-----------|-------------------|----------|
 | Python `websockets` | Raw WebSocket, asyncio | Microservices, custom protocols |
 | Node.js `ws` | Raw WebSocket, high performance | Real-time games, chat at scale |
@@ -323,7 +323,7 @@ function sendMessage(room, text) {
 | Socket.IO | WebSocket + HTTP fallback | Browser apps needing fallback transport |
 | AWS API Gateway | Managed WebSocket | Serverless architectures |
 
-## Best Practices
+## What Works
 
 1. **Always handle connection errors** — network failures, client crashes, and proxy timeouts can leave stale connections. Wrap send operations in try/catch, handle `onError` callbacks, and implement heartbeat-based cleanup.
 2. **Authenticate during handshake** — pass [authentication tokens](/recipes/authentication/jwt-authentication) via query parameters or cookies during the WebSocket upgrade request. Do not attempt to authenticate over the WebSocket message channel after connection; the initial handshake is the safest point.

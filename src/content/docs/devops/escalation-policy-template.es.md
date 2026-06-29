@@ -53,7 +53,7 @@ Usa este recurso cuando:
 | Nivel | Nombre | Criterios | Tiempo de Respuesta | Objetivo de Resolución |
 |-------|--------|-----------|---------------------|------------------------|
 | SEV 1 | Crítico | Servicio caído; pérdida de datos; brecha de seguridad; impacto en ingresos | 5 min | 4 horas |
-| SEV 2 | Mayor | Característica principal rota; degradación significativa de rendimiento | 15 min | 8 horas |
+| SEV 2 | Mayor | Capacidad principal rota; degradacion mayor de rendimiento | 15 min | 8 horas |
 | SEV 3 | Menor | Característica degradada; interrupción parcial afectando subconjunto de usuarios | 1 hora | 24 horas |
 | SEV 4 | Bajo | Issue cosmético; error de documentación; pregunta no urgente | 4 horas | Próximo día hábil |
 
@@ -131,7 +131,7 @@ La plantilla separa **clasificación de severidad** de **tiempo de escalamiento*
 | SaaS 24/7 | Agregar L0 — NOC / SRE de guardia | El NOC triaje antes de que ingeniería reciba páginas |
 | Follow-the-sun | Transferencias regionales de L1 | APAC → EMEA → AMER rotación |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Imprime la matriz de escalamiento y publícala en el tema del canal de Slack de guardia
 2. Usa los mismos criterios de severidad en todos los equipos; definiciones inconsistentes causan confusión

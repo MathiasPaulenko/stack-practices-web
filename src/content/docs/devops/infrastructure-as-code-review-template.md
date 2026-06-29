@@ -133,7 +133,7 @@ Infrastructure reviews differ from application code reviews because **the blast 
 | Pulumi | `pulumi preview` | Checkov | Pulumi Cloud state |
 | Ansible | `ansible-lint`, `syntax-check` | Ansible hardening roles | Git + AWX / Tower |
 
-## Best Practices
+## What works
 
 1. Run static analysis in CI/CD before a human ever sees the pull request
 2. Require two approvals for production infrastructure changes, not one

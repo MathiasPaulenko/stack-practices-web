@@ -347,11 +347,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\docs\devops\ci-cd-pipeline-security-template.md | 2.0 | best practices → what works, dynamic → live | src\content\docs\devops\ci-cd-pipeline-security-template.es.md | pending |
-| src\content\docs\devops\code-review-checklist-template.md | 2.0 | best practices → what works, effective → useful | src\content\docs\devops\code-review-checklist-template.es.md | pending |
-| src\content\docs\devops\dependency-upgrade-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\dependency-upgrade-template.es.md | pending |
-| src\content\docs\devops\dependency-vulnerability-report-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\dependency-vulnerability-report-template.es.md | pending |
-| src\content\docs\devops\deployment-rollback-runbook.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\deployment-rollback-runbook.es.md | pending |
+| src\content\docs\devops\ci-cd-pipeline-security-template.md | 2.0 | best practices → what works, dynamic → live | src\content\docs\devops\ci-cd-pipeline-security-template.es.md | completed |
+| src\content\docs\devops\code-review-checklist-template.md | 2.0 | best practices → what works, effective → useful | src\content\docs\devops\code-review-checklist-template.es.md | completed |
+| src\content\docs\devops\dependency-upgrade-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\dependency-upgrade-template.es.md | completed |
+| src\content\docs\devops\dependency-vulnerability-report-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\dependency-vulnerability-report-template.es.md | completed |
+| src\content\docs\devops\deployment-rollback-runbook.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\devops\deployment-rollback-runbook.es.md | completed |
 
 ### Batch 31 (priority: low)
 

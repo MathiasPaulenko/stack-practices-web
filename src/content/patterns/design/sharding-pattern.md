@@ -2,7 +2,7 @@
 contentType: patterns
 slug: sharding-pattern
 title: "Sharding Pattern"
-description: "Split a large dataset into smaller partitions (shards) distributed across multiple servers to improve scalability, performance, and availability beyond single-node limits."
+description: "Split a large dataset into smaller partitions (shards) distributed across multiple servers to improve growth, performance, and availability beyond single-node limits."
 metaDescription: "Learn the Sharding Pattern for horizontal data partitioning. Examples in Python, Java, and JavaScript with hash, range, and directory sharding strategies."
 difficulty: advanced
 topics:
@@ -14,7 +14,7 @@ tags:
   - pattern
   - design-pattern
   - databases
-  - scalability
+  - growth
   - partitioning
   - horizontal-scaling
 relatedResources:
@@ -28,7 +28,7 @@ seo:
     - sharding
     - design pattern
     - databases
-    - scalability
+    - growth
     - partitioning
     - horizontal scaling
     - data partitioning
@@ -40,7 +40,7 @@ seo:
 
 The Sharding Pattern divides a large dataset into smaller, manageable chunks called **shards** and distributes them across multiple servers or database instances. Instead of a single monolithic database handling all read and write traffic, each shard manages a subset of the data, allowing the system to scale horizontally by adding more shard nodes.
 
-This pattern is essential when a single database server can no longer handle the volume of data, query throughput, or concurrent connections. By distributing data, sharding reduces the load on any individual node and enables near-linear scalability.
+This pattern is essential when a single database server can no longer handle the volume of data, query throughput, or concurrent connections. By distributing data, sharding reduces the load on any individual node and enables near-linear growth.
 
 ## When to Use
 
@@ -261,7 +261,7 @@ The key challenge is the **rebalancing problem:** when adding or removing shards
 | **Consistent hashing** | Ring-based mapping | Minimizing rebalancing on shard changes |
 | **Entity-based** | One entity per shard | Multi-tenant SaaS with tenant isolation |
 
-## Best Practices
+## What Works
 
 - **Choose the right shard key.** A poor key creates hotspots (e.g., sharding by country when 90% of users are from one country).
 - **Monitor shard balance.** Uneven distribution negates the benefits — track data size and query load per shard.
@@ -274,7 +274,7 @@ The key challenge is the **rebalancing problem:** when adding or removing shards
 - **Poor shard key choice.** A key with low cardinality creates hotspots. A key with high correlation (e.g., timestamp) creates time-based hotspots.
 - **Ignoring cross-shard queries.** Aggregations across shards require querying all shards and merging results — expensive and complex.
 - **No rebalancing strategy.** Adding shards without migrating data leaves new shards empty and old shards overloaded.
-- **Assuming linear scalability.** Coordination overhead (directory lookups, cross-shard merges) means adding shards yields diminishing returns.
+- **Assuming linear growth.** Coordination overhead (directory lookups, cross-shard merges) means adding shards yields diminishing returns.
 - **Forgetting about joins.** Tables that were joined when unsharded may end up on different shards, requiring application-level joins.
 
 ## Real-World Examples

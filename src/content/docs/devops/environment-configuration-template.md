@@ -131,12 +131,12 @@ A single source of truth for environment configuration reduces confusion and mis
 - **Mobile app environment configuration**: Document backend endpoints, API keys, and feature flags per build variant.
 - **Database environment configuration**: Focus on connection strings, replica endpoints, and backup settings.
 
-## Best Practices
+## What works
 
 - Keep secrets out of version control and store them in a secure vault.
 - Use the same variable names across environments where possible.
 - Document why a value differs between environments.
-- Review and update the document after every significant deployment or infrastructure change.
+- Review and update the document after every major deployment or infrastructure change.
 - Separate sensitive values from non-sensitive configuration.
 - Automate the generation of this document from infrastructure-as-code when possible.
 - Use a consistent naming convention for environment variables.
