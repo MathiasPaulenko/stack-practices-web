@@ -447,11 +447,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\patterns\design\mixin-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\mixin-pattern.es.md | pending |
-| src\content\patterns\design\mvc-pattern-frontend.md | 2.0 | best practices → what works, features → capabilities | src\content\patterns\design\mvc-pattern-frontend.es.md | pending |
-| src\content\patterns\design\page-controller-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\page-controller-pattern.es.md | pending |
-| src\content\patterns\design\proxy-pattern-caching.md | 2.0 | best practices → what works | src\content\patterns\design\proxy-pattern-caching.es.md | pending |
-| src\content\patterns\design\role-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\role-pattern.es.md | pending |
+| src\content\patterns\design\mixin-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\mixin-pattern.es.md | completed |
+| src\content\patterns\design\mvc-pattern-frontend.md | 2.0 | best practices → what works, features → capabilities | src\content\patterns\design\mvc-pattern-frontend.es.md | completed |
+| src\content\patterns\design\page-controller-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\page-controller-pattern.es.md | completed |
+| src\content\patterns\design\proxy-pattern-caching.md | 2.0 | best practices → what works | src\content\patterns\design\proxy-pattern-caching.es.md | completed |
+| src\content\patterns\design\role-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\role-pattern.es.md | completed |
 
 ### Batch 41 (priority: low)
 
