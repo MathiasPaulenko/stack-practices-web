@@ -2,8 +2,8 @@
 contentType: docs
 slug: rollout-communication-template
 title: "Rollout Communication Template"
-description: "A template for release notes and stakeholder updates during feature rollouts."
-metaDescription: "Use this rollout communication template to draft release notes, stakeholder updates, and internal announcements during feature rollouts and deployments."
+description: "A template for release notes and stakeholder updates during capability rollouts."
+metaDescription: "Use this rollout communication template to draft release notes, stakeholder updates, and internal announcements during capability rollouts and deployments."
 difficulty: beginner
 topics:
   - devops
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Use this rollout communication template to draft release notes, stakeholder updates, and internal announcements during feature rollouts and deployments."
+  metaDescription: "Use this rollout communication template to draft release notes, stakeholder updates, and internal announcements during capability rollouts and deployments."
   keywords:
     - devops
     - rollout
@@ -34,12 +34,12 @@ seo:
 ---
 ## Overview
 
-Releasing a feature is only half the work. The other half is telling the right people, in the right way, at the right time. Engineering knows what changed; support needs to answer customer questions; sales needs to demo it; executives need to know it is live. A rollout communication plan ensures no one is surprised, support is prepared, and the feature actually gets used. This template structures internal announcements, release notes, and stakeholder updates for every deployment.
+Releasing a capability is only half the work. The other half is telling the right people, in the right way, at the right time. Engineering knows what changed; support needs to answer customer questions; sales needs to demo it; executives need to know it is live. A rollout communication plan ensures no one is surprised, support is prepared, and the capability actually gets used. This template structures internal announcements, release notes, and stakeholder updates for every deployment.
 
 ## When to Use
 
 Use this resource when:
-- You are releasing a feature that affects users, support workflows, or internal processes
+- You are releasing a capability that affects users, support workflows, or internal processes
 - Multiple teams (sales, support, marketing) need to know about a deployment
 - Previous releases caused confusion because stakeholders were not informed in time
 
@@ -65,7 +65,7 @@ Use this resource when:
 | Audience | Channel | Timing | Owner | Content Type |
 |----------|---------|--------|-------|--------------|
 | Engineering team | Slack #releases | Day before + day of | `@eng-owner` | Technical changelog |
-| Product / Design | Slack #product | Day before | `@product-owner` | Feature summary |
+| Product / Design | Slack #product | Day before | `@product-owner` | Capability summary |
 | Support | Slack #support-alerts + knowledge base | Day before | `@comms-owner` | FAQ + known issues |
 | Sales | Email + Slack #sales | Day of (after deploy) | `@comms-owner` | Talking points + demo notes |
 | Customer Success | Email + Slack #cs | Day of (after deploy) | `@comms-owner` | Impact summary for key accounts |
@@ -155,14 +155,14 @@ Use this resource when:
 |-----------|-----------|--------|
 | Error rate | > 2x baseline for > 10 minutes | Immediate rollback or feature flag off |
 | P95 latency | > 50% increase for > 15 minutes | Immediate rollback or feature flag off |
-| Customer complaints | > 5 tickets in 1 hour about same issue | Assess; disable feature if correlated |
+| Customer complaints | > 5 tickets in 1 hour about same issue | Assess; disable capability if correlated |
 | Revenue impact | Any payment flow error | Immediate rollback |
 | Data integrity | Any data loss or corruption | Immediate rollback + incident declared |
 ```
 
 ## Explanation
 
-The template separates **internal** communication (technical, timeline-focused, actionable) from **external** communication (user-friendly, benefit-focused, reassuring). The audience matrix prevents the common failure mode where engineering announces a release in Slack, support finds out from a customer ticket, and sales learns about it a week later. The rollback trigger criteria give engineering explicit permission to act fast if metrics degrade—without needing a committee meeting at midnight.
+The template separates **internal** communication (technical, timeline-focused, useful) from **external** communication (user-friendly, benefit-focused, reassuring). The audience matrix prevents the common failure mode where engineering announces a release in Slack, support finds out from a customer ticket, and sales learns about it a week later. The rollback trigger criteria give engineering explicit permission to act fast if metrics degrade—without needing a committee meeting at midnight.
 
 ## Variants
 
@@ -175,17 +175,17 @@ The template separates **internal** communication (technical, timeline-focused, 
 | Major redesign | Training webinars, documentation overhaul, feedback channel | Educational, supportive |
 | Security patch | Minimal external detail, emphasis on safety | Calm, reassuring |
 
-## Best Practices
+## What Works
 
 1. Write the release notes before the release, not after; pressure leads to poor documentation
 2. Use the same terminology across all channels; inconsistent names confuse everyone
-3. Include a "what did not change" note for features that were expected but delayed
+3. Include a "what did not change" note for capabilities that were expected but delayed
 4. Make support the second audience notified, not the last; they bear the customer impact
-5. Track release note engagement; unread notes mean the feature will not be adopted
+5. Track release note engagement; unread notes mean the capability will not be adopted
 
 ## Common Mistakes
 
-1. Announcing a feature before it is actually live to 100% of users
+1. Announcing a capability before it is actually live to 100% of users
 2. Using engineering jargon in customer-facing release notes
 3. Forgetting to notify customer success about changes that affect high-value accounts
 4. Not documenting known issues; support discovers them from angry customers

@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-System design interviews evaluate your ability to architect scalable, reliable, and maintainable systems. Unlike coding interviews, there is no single correct answer. The goal is to demonstrate structured thinking, trade-off analysis, and depth of technical knowledge.
+System design interviews evaluate your ability to architect growth-ready, reliable, and maintainable systems. Unlike coding interviews, there is no single correct answer. The goal is to demonstrate structured thinking, trade-off analysis, and depth of technical knowledge.
 
 ## Interview Structure
 
@@ -46,7 +46,7 @@ A strong answer follows a 4S framework:
 Clarify requirements before designing:
 
 **Functional requirements:**
-- What features must the system support?
+- What capabilities must the system support?
 - What are the core use cases?
 
 **Non-functional requirements:**
@@ -75,7 +75,7 @@ Client → Load Balancer → API Servers → Cache → Database
 Key components to consider:
 - **Load Balancer**: Distributes traffic (round-robin, least connections)
 - **API Gateway**: Authentication, rate limiting, routing
-- **Application Servers**: Stateless, horizontally scalable
+- **Application Servers**: Stateless, horizontally growth-ready
 - **Cache**: Redis, Memcached for hot data
 - **Database**: SQL vs. NoSQL choice
 - **Message Queue**: Kafka, RabbitMQ for async processing
@@ -175,7 +175,7 @@ In a distributed system, you can only guarantee two of three:
 | **Video Streaming** | [CDN](/recipes/performance/cdn-edge-caching), adaptive bitrate, encoding |
 | **Rate Limiter** | [Token bucket vs. sliding window](/recipes/api/rate-limiting), distributed state |
 
-## Best Practices
+## What Works
 
 - **Start simple**, then add complexity only when justified
 - **State assumptions explicitly** — interviewers evaluate your reasoning

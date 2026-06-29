@@ -62,7 +62,7 @@ Usa esta plantilla para crear un archivo `CONTRIBUTING.md` en tu repositorio.
 
 - Revisa las etiquetas [good first issue](link)
 - Navega [issues abiertos](link) y comenta para reclamar
-- Abre un issue nuevo si encuentras un bug o tienes una solicitud de feature
+- Abre un issue nuevo si encuentras un bug o tienes una solicitud de capacidad
 
 ## Cómo contribuir
 
@@ -77,11 +77,11 @@ Usa esta plantilla para crear un archivo `CONTRIBUTING.md` en tu repositorio.
    - Detalles del entorno (OS, versión, etc.)
    - Capturas de pantalla o logs si aplica
 
-### Sugerir features
+### Sugerir capacidades
 
-1. Abre un issue nuevo con la [plantilla de solicitud de feature](/docs/templates/feature-request-template)
+1. Abre un issue nuevo con la [plantilla de solicitud de capacidad](/docs/templates/feature-request-template)
 2. Describe el problema y la solución propuesta
-3. Discute con los mantenedores antes de invertir esfuerzo significativo
+3. Discute con los mantenedores antes de invertir esfuerzo mayor
 
 ## Configuración de desarrollo
 
@@ -123,7 +123,7 @@ chore: update dependencies
 
 ### Testing
 
-- Agrega tests para nuevas features
+- Agrega tests para nuevas capacidades
 - Asegúrate de que todos los tests pasen: `[test command]`
 - Apunta a [coverage target]% de cobertura de código
 

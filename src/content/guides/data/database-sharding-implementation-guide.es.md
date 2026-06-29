@@ -312,7 +312,7 @@ SELECT * FROM orders WHERE user_id = 123;  -- Enrutado a un solo shard
 }
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Comienza con enrutamiento basado en directorio.** Es más fácil de rebalancear que el basado en hash.
 - **Mantén shards lo más grandes posible.** Shards más grandes pero menos son más fáciles de manejar que muchos pequeños.
@@ -354,5 +354,5 @@ Sí, a menos que uses una base de datos con sharding nativo (MongoDB, CockroachD
 
 ## Conclusión
 
-El sharding de base de datos es una estrategia de escalado potente pero compleja. Al elegir la clave de shard correcta, implementar enrutamiento robusto y planificar para rebalanceo, puedes escalar tu capa de base de datos horizontalmente. Pero haz shard solo cuando sea necesario — el overhead operativo es significativo y muchas cargas de trabajo pueden resolverse con enfoques más simples.
-
+El sharding de base de datos es una estrategia de escalado potente pero compleja. Al elegir la clave de shard correcta, implementar enrutamiento confiable y planificar para rebalanceo, puedes escalar tu capa de base de datos horizontalmente. Pero haz shard solo cuando sea necesario — el overhead operativo es mayor y muchas cargas de trabajo pueden resolverse con enfoques más simples.
+

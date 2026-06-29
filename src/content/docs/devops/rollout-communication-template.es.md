@@ -2,7 +2,7 @@
 contentType: docs
 slug: rollout-communication-template
 title: "Plantilla de Comunicación de Despliegues"
-description: "Una plantilla para notas de release y actualizaciones de stakeholders durante despliegues de features."
+description: "Una plantilla para notas de release y actualizaciones de stakeholders durante despliegues de capacidades."
 metaDescription: "Plantilla de comunicación de despliegues: redacta notas de release, actualizaciones de stakeholders, canales y plan de rollback para releases."
 difficulty: beginner
 topics:
@@ -34,12 +34,12 @@ seo:
 ---
 ## Visión General
 
-Lanzar una feature es solo la mitad del trabajo. La otra mitad es contarle a las personas correctas, de la manera correcta, en el momento correcto. Ingeniería sabe qué cambió; soporte necesita responder preguntas de clientes; ventas necesita demostrarlo; ejecutivos necesitan saber que está en vivo. Un plan de comunicación de despliegue asegura que nadie se sorprenda, que soporte esté preparado y que la feature realmente se use.
+Lanzar una capacidad es solo la mitad del trabajo. La otra mitad es contarle a las personas correctas, de la manera correcta, en el momento correcto. Ingeniería sabe qué cambió; soporte necesita responder preguntas de clientes; ventas necesita demostrarlo; ejecutivos necesitan saber que está en vivo. Un plan de comunicación de despliegue asegura que nadie se sorprenda, que soporte esté preparado y que la capacidad realmente se use.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Estás lanzando una feature que afecta a usuarios, flujos de trabajo de soporte o procesos internos
+- Estás lanzando una capacidad que afecta a usuarios, flujos de trabajo de soporte o procesos internos
 - Múltiples equipos (ventas, soporte, marketing) necesitan saber sobre un despliegue
 - Releases anteriores causaron confusión porque los stakeholders no fueron informados a tiempo
 
@@ -65,7 +65,7 @@ Usa este recurso cuando:
 | Audiencia | Canal | Momento | Responsable | Contenido |
 |-----------|-------|---------|-------------|-----------|
 | Ingeniería | Slack #releases | Día anterior + día del release | `@eng-owner` | Changelog técnico |
-| Producto / Diseño | Slack #product | Día anterior | `@product-owner` | Resumen de feature |
+| Producto / Diseño | Slack #product | Día anterior | `@product-owner` | Resumen de capacidad |
 | Soporte | Slack #support-alerts + KB | Día anterior | `@comms-owner` | FAQ + issues conocidos |
 | Ventas | Email + Slack #sales | Día del release (después del deploy) | `@comms-owner` | Talking points + demo |
 | Customer Success | Email + Slack #cs | Día del release | `@comms-owner` | Impacto para cuentas clave |
@@ -154,7 +154,7 @@ Usa este recurso cuando:
 
 ## Explicación
 
-La plantilla separa comunicación **interna** (técnica, accionable) de **externa** (amigable, enfocada en beneficios). La matriz de audiencias previene el fallo donde ingeniería anuncia en Slack, soporte se entera por un ticket, y ventas descubre una semana después. Los criterios de rollback dan permiso explícito para actuar rápido sin comité a medianoche.
+La plantilla separa comunicación **interna** (técnica, útil) de **externa** (amigable, enfocada en beneficios). La matriz de audiencias previene el fallo donde ingeniería anuncia en Slack, soporte se entera por un ticket, y ventas descubre una semana después. Los criterios de rollback dan permiso explícito para actuar rápido sin comité a medianoche.
 
 ## Variantes
 
@@ -167,21 +167,21 @@ La plantilla separa comunicación **interna** (técnica, accionable) de **extern
 | Rediseño mayor | Webinars, renovación docs | Educativo, de apoyo |
 | Parche de seguridad | Mínimo detalle externo | Tranquilo, tranquilizador |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Escribe notas de release antes del release; la presión genera mala documentación
 2. Usa la misma terminología en todos los canales
-3. Incluye "qué no cambió" para features retrasadas
+3. Incluye "qué no cambió" para capacidades retrasadas
 4. Notifica a soporte como segunda audiencia, no la última
-5. Mide engagement de notas; notas no leídas = feature no adoptada
+5. Mide engagement de notas; notas no leídas = capacidad no adoptada
 
 ## Errores Comunes
 
-1. Anunciar una feature antes de estar al 100% en vivo
+1. Anunciar una capacidad antes de estar al 100% en vivo
 2. Usar jerga técnica en notas orientadas a clientes
 3. Olvidar notificar a customer success sobre cuentas de alto valor
 4. No documentar issues conocidos
-5. Tratar todo release igual; un parche de seguridad no es una nueva feature
+5. Tratar todo release igual; un parche de seguridad no es una nueva capacidad
 
 ## Preguntas Frecuentes
 

@@ -312,7 +312,7 @@ SELECT * FROM orders WHERE user_id = 123;  -- Routed to single shard
 }
 ```
 
-## Best Practices
+## What Works
 
 - **Start with directory-based routing.** It is easier to rebalance than hash-based routing.
 - **Keep shards as large as possible.** Fewer, larger shards are easier to manage than many small ones.
@@ -354,5 +354,5 @@ Yes, unless you use a natively sharded database (MongoDB, CockroachDB, YugabyteD
 
 ## Conclusion
 
-Database sharding is a powerful but complex scaling strategy. By choosing the right shard key, implementing robust routing, and planning for rebalancing, you can scale your database layer horizontally. But shard only when necessary — the operational overhead is significant, and many workloads can be solved with simpler approaches.
-
+Database sharding is a powerful but complex scaling strategy. By choosing the right shard key, implementing reliable routing, and planning for rebalancing, you can scale your database layer horizontally. But shard only when necessary — the operational overhead is major, and many workloads can be solved with simpler approaches.
+

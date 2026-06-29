@@ -37,7 +37,7 @@ seo:
 
 ## Introducción
 
-Las entrevistas de system design evalúan tu capacidad para diseñar sistemas escalables, confiables y mantenibles. A diferencia de las entrevistas de código, no hay una única respuesta correcta. El objetivo es demostrar pensamiento estructurado, análisis de trade-offs y profundidad de conocimiento técnico.
+Las entrevistas de system design evalúan tu capacidad para diseñar sistemas listos para crecimiento, confiables y mantenibles. A diferencia de las entrevistas de código, no hay una única respuesta correcta. El objetivo es demostrar pensamiento estructurado, análisis de trade-offs y profundidad de conocimiento técnico.
 
 ## Estructura de la Entrevista
 
@@ -48,7 +48,7 @@ Una respuesta fuerte sigue un framework de 4S:
 Clarifica los requerimientos antes de diseñar:
 
 **Requerimientos funcionales:**
-- ¿Qué features debe soportar el sistema?
+- ¿Qué capacidades debe soportar el sistema?
 - ¿Cuáles son los casos de uso principales?
 
 **Requerimientos no funcionales:**
@@ -77,7 +77,7 @@ Cliente → Load Balancer → API Servers → Cache → Database
 Componentes clave a considerar:
 - **Load Balancer**: Distribuye tráfico (round-robin, least connections)
 - **API Gateway**: Autenticación, rate limiting, routing
-- **Application Servers**: Stateless, escalables horizontalmente
+- **Application Servers**: Stateless, listos para crecimiento horizontal
 - **Cache**: Redis, Memcached para datos hot
 - **Database**: Elección SQL vs. NoSQL
 - **Message Queue**: Kafka, RabbitMQ para procesamiento async
@@ -177,7 +177,7 @@ En un sistema distribuido, solo puedes garantizar dos de tres:
 | **Video Streaming** | [CDN](/recipes/performance/cdn-edge-caching), bitrate adaptativo, encoding |
 | **Rate Limiter** | [Token bucket vs. sliding window](/recipes/api/rate-limiting), estado distribuido |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Empieza simple**, luego agrega complejidad solo cuando esté justificada
 - **Establece suposiciones explícitamente** — los entrevistadores evalúan tu razonamiento

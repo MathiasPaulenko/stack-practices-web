@@ -62,7 +62,7 @@ Thank you for your interest in contributing! This document will guide you throug
 
 - Check [good first issue](link) labels
 - Browse [open issues](link) and comment to claim
-- Open a new issue if you find a bug or have a feature request
+- Open a new issue if you find a bug or have a capability request
 
 ## How to Contribute
 
@@ -77,11 +77,11 @@ Thank you for your interest in contributing! This document will guide you throug
    - Environment details (OS, version, etc.)
    - Screenshots or logs if applicable
 
-### Suggesting Features
+### Suggesting Capabilities
 
-1. Open a new issue with the [feature request template](/docs/templates/feature-request-template)
+1. Open a new issue with the [capability request template](/docs/templates/feature-request-template)
 2. Describe the problem and proposed solution
-3. Discuss with maintainers before investing significant effort
+3. Discuss with maintainers before investing major effort
 
 ## Development Setup
 
@@ -123,7 +123,7 @@ chore: update dependencies
 
 ### Testing
 
-- Add tests for new features
+- Add tests for new capabilities
 - Ensure all tests pass: `[test command]`
 - Aim for [coverage target]% code coverage
 

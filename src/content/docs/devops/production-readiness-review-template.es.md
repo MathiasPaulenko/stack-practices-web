@@ -136,12 +136,12 @@ Antes de conducir un PRR:
 - [ ] La documentacion de API esta actualizada (OpenAPI / Swagger / equivalente)
 - [ ] Existen runbooks para: deploy, rollback, incidentes comunes, y escalamiento
 - [ ] El documento de handoff de on-call esta actualizado con cambios y riesgos recientes
-- [ ] Los ADRs cubren decisiones de diseno significativas
+- [ ] Los ADRs cubren decisiones de diseno mayores
 
 ## 10. Preparacion Operacional
 
 - [ ] La rotacion de on-call esta cubierta y entrenada en este servicio
-- [ ] Las alertas de paging llegan a las personas correctas con contexto accionable
+- [ ] Las alertas de paging llegan a las personas correctas con contexto útil
 - [ ] La ruta de escalamiento esta documentada y los contactos verificados
 - [ ] Los runbooks fueron probados por alguien que no escribio el servicio
 - [ ] Los pasos de verificacion post-deploy estan definidos y automatizados donde sea posible
@@ -178,7 +178,7 @@ El PRR esta organizado en **diez dominios** que cubren el ciclo de vida completo
 | Lanzamiento critico de seguridad | Requerir revision de seguridad obligatoria y sign-off del equipo de seguridad | Auth, pagos, y datos de salud |
 | Promocion de herramienta interna | Reducir requerimientos de observabilidad y on-call; enfocarse en documentacion y soporte | Las herramientas internas tienen estandares operativos diferentes |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Corre el PRR temprano** — no esperes al dia del lanzamiento; identifica gaps mientras hay tiempo de arreglarlos
 2. **Hazlo una conversacion, no una puerta** — el objetivo es preparacion, no papeleo; colabora en mitigaciones
@@ -191,7 +191,7 @@ El PRR esta organizado en **diez dominios** que cubren el ciclo de vida completo
 1. **Tratar el PRR como un evento unico** — la preparacion para produccion decae; programa re-revisiones para cambios mayores
 2. **Saltarse la prueba de rollback** — lo unico peor que un mal deploy es no saber como deshacerlo
 3. **No involucrar a operaciones temprano** — SREs y equipos de plataforma detectan restricciones que desarrolladores omiten
-4. **Chequear casillas sin verificar** — "tenemos monitoreo" no es suficiente; confirma que los dashboards son utiles y las alertas son accionables
+4. **Chequear casillas sin verificar** — "tenemos monitoreo" no es suficiente; confirma que los dashboards son utiles y las alertas son útiles
 5. **Olvidar el lado humano** — los ingenieros de on-call necesitan entrenamiento, no solo documentacion; verifica que han corrido los runbooks
 
 ## Preguntas Frecuentes

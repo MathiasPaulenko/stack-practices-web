@@ -136,12 +136,12 @@ Before conducting a PRR:
 - [ ] API documentation is current (OpenAPI / Swagger / equivalent)
 - [ ] Runbooks exist for: deployment, rollback, common incidents, and escalation
 - [ ] On-call handoff document is updated with recent changes and risks
-- [ ] Architecture Decision Records (ADRs) cover significant design choices
+- [ ] Architecture Decision Records (ADRs) cover major design choices
 
 ## 10. Operational Readiness
 
 - [ ] On-call rotation is staffed and trained on this service
-- [ ] Paging alerts reach the right people with actionable context
+- [ ] Paging alerts reach the right people with useful context
 - [ ] Escalation path is documented and contacts are verified
 - [ ] Runbooks have been tested by someone who did not write the service
 - [ ] Post-deployment verification steps are defined and automated where possible
@@ -178,7 +178,7 @@ The PRR is organized into **ten domains** that cover the full lifecycle of opera
 | Security-critical launch | Require mandatory security review and sign-off from security team | Auth, payment, and health data |
 | Internal tool promotion | Reduce observability and on-call requirements; focus on documentation and support | Internal tools have different operational standards |
 
-## Best Practices
+## What Works
 
 1. **Run the PRR early** — do not wait until the day before launch; identify gaps while there is still time to fix them
 2. **Make it a conversation, not a gate** — the goal is readiness, not paperwork; collaborate on mitigations
@@ -191,7 +191,7 @@ The PRR is organized into **ten domains** that cover the full lifecycle of opera
 1. **Treating the PRR as a one-time event** — production readiness decays; schedule re-reviews for major changes
 2. **Skipping the rollback test** — the only thing worse than a bad deploy is not knowing how to undo it
 3. **Not involving operations early** — SREs and platform teams catch constraints that developers miss
-4. **Checking boxes without verifying** — "we have monitoring" is not enough; confirm dashboards are useful and alerts are actionable
+4. **Checking boxes without verifying** — "we have monitoring" is not enough; confirm dashboards are useful and alerts are useful
 5. **Forgetting the human side** — on-call engineers need training, not just documentation; verify they have run through the runbooks
 
 ## Frequently Asked Questions
