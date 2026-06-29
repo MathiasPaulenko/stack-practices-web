@@ -2,8 +2,8 @@
 contentType: recipes
 slug: email-templates-mjml
 title: "Build Responsive Email Templates with MJML"
-description: "Create cross-client responsive email templates using MJML markup, dynamic Handlebars variables, and inline CSS for reliable rendering across Gmail, Outlook, and Apple Mail"
-metaDescription: "Build responsive email templates with MJML. Create cross-client compatible emails with dynamic variables and inline CSS for Gmail, Outlook, and Apple Mail."
+description: "Create cross-client responsive email templates using MJML markup, live Handlebars variables, and inline CSS for reliable rendering across Gmail, Outlook, and Apple Mail"
+metaDescription: "Build responsive email templates with MJML. Create cross-client compatible emails with live variables and inline CSS for Gmail, Outlook, and Apple Mail."
 difficulty: beginner
 topics:
   - frontend
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Build responsive email templates with MJML. Create cross-client compatible emails with dynamic variables and inline CSS for Gmail, Outlook, and Apple Mail."
+  metaDescription: "Build responsive email templates with MJML. Create cross-client compatible emails with live variables and inline CSS for Gmail, Outlook, and Apple Mail."
   keywords:
     - mjml
     - email templates
@@ -29,7 +29,7 @@ seo:
 
 # Build Responsive Email Templates with MJML
 
-Email HTML is notoriously difficult due to inconsistent client rendering engines. MJML abstracts these complexities into a declarative markup language that compiles to battle-tested, responsive HTML with inline styles. This recipe covers MJML structure, dynamic templating with Handlebars, and sending via SMTP/API.
+Email HTML is notoriously difficult due to inconsistent client rendering engines. MJML abstracts these complexity into a declarative markup language that compiles to battle-tested, responsive HTML with inline styles. This recipe covers MJML structure, live templating with Handlebars, and sending via SMTP/API.
 
 ## When to Use This
 
@@ -91,7 +91,7 @@ function compileTemplate(mjmlSource: string, data: WelcomeData): { html: string;
     minify: true,
   });
 
-  // Inject dynamic variables
+  // Inject live variables
   const template = Handlebars.compile(rawHtml);
   const html = template(data);
 

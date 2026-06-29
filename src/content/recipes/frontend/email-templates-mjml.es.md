@@ -2,8 +2,8 @@
 contentType: recipes
 slug: email-templates-mjml
 title: "Templates de Email Responsivos con MJML"
-description: "Crea templates de email responsivos compatibles con multiples clientes usando MJML, variables dinamicas con Handlebars y CSS inline para renderizado confiable en Gmail, Outlook y Apple Mail"
-metaDescription: "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables dinamicas y CSS inline para Gmail, Outlook y Apple Mail."
+description: "Crea templates de email responsivos compatibles con multiples clientes usando MJML, variables en vivo con Handlebars y CSS inline para renderizado confiable en Gmail, Outlook y Apple Mail"
+metaDescription: "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables en vivo y CSS inline para Gmail, Outlook y Apple Mail."
 difficulty: beginner
 topics:
   - frontend
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables dinamicas y CSS inline para Gmail, Outlook y Apple Mail."
+  metaDescription: "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables en vivo y CSS inline para Gmail, Outlook y Apple Mail."
   keywords:
     - mjml
     - email templates
@@ -29,7 +29,7 @@ seo:
 
 # Templates de Email Responsivos con MJML
 
-El HTML de email es notoriamente dificil debido a motores de renderizado inconsistentes entre clientes. MJML abstrae estas complejidades en un lenguaje de markup declarativo que compila a HTML responsivo y probado en batalla con estilos inline. Esta recipe cubre estructura MJML, templating dinamico con Handlebars y envio via SMTP/API.
+El HTML de email es notoriamente dificil debido a motores de renderizado inconsistentes entre clientes. MJML abstrae esta complejidad en un lenguaje de markup declarativo que compila a HTML responsivo y probado en batalla con estilos inline. Esta recipe cubre estructura MJML, templating en vivo con Handlebars y envio via SMTP/API.
 
 ## Cuando Usar Esto
 
@@ -166,7 +166,7 @@ async function sendWelcomeEmail(to: string, data: WelcomeData): Promise<void> {
 
 - **Componentes MJML** abstraen layouts basados en tablas en tags semanticos como `<mj-section>` y `<mj-column>`
 - **Compilacion** genera HTML con estilos inline seguro para Outlook con conditional comments
-- **Handlebars** inyecta variables runtime despues de la compilacion MJML para preservar markup
+- **Handlebars** inyecta variables en vivo despues de la compilacion MJML para preservar markup
 - **Minificacion** reduce tamano de payload para delivery mas rapido
 
 ## Consideraciones de Produccion

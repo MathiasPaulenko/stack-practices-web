@@ -39,7 +39,7 @@ Architecture diagrams communicate system structure to technical and non-technica
 ## When to Use
 
 Use this resource when:
-- Onboarding new engineers who need to understand the system landscape
+- Onboarding new engineers who need to understand the system space
 - Presenting architecture to leadership or external auditors
 - Planning a migration, integration, or refactoring that spans multiple systems
 
@@ -148,7 +148,7 @@ The C4 model solves the **"zoom problem"** in architecture documentation. A sing
 | Legacy system | Context + Container + targeted Components | Focus on the parts being changed |
 | Event-driven | Add event flows to Container diagrams | Show producers, consumers, and topics |
 
-## Best Practices
+## What Works
 
 1. Store diagrams as code (Mermaid, PlantUML, Structurizr DSL) so they version with the codebase
 2. Generate diagrams from the same model to ensure consistency across levels

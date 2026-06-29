@@ -39,7 +39,7 @@ Los diagramas de arquitectura comunican la estructura del sistema a stakeholders
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Integras nuevos ingenieros que necesitan entender el panorama del sistema
+- Integras nuevos ingenieros que necesitan entender el espacio del sistema
 - Presentas arquitectura a directivos o auditores externos
 - Planeas una migración, integración o refactorización que abarca múltiples sistemas
 
@@ -148,7 +148,7 @@ El modelo C4 resuelve el **"problema del zoom"** en la documentación de arquite
 | Sistema legacy | Contexto + Contenedores + Componentes dirigidos | Enfocarse en las partes que se cambian |
 | Event-driven | Agregar flujos de eventos a diagramas de Contenedores | Mostrar productores, consumidores y topics |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Almacenar diagramas como código (Mermaid, PlantUML, DSL de Structurizr) para versionarlos con el código
 2. Generar diagramas desde el mismo modelo para asegurar consistencia entre niveles

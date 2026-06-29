@@ -2,8 +2,8 @@
 contentType: docs
 slug: api-changelog-template
 title: "Plantilla de Changelog de API"
-description: "Plantilla para documentar cambios de API incluyendo cambios breaking, nuevas funciones, deprecaciones y correcciones."
-metaDescription: "Usa esta plantilla de changelog de API para documentar cambios breaking, nuevas funciones, deprecaciones y correcciones con versionado claro."
+description: "Plantilla para documentar cambios de API incluyendo cambios breaking, nuevas capacidades, deprecaciones y correcciones."
+metaDescription: "Usa esta plantilla de changelog de API para documentar cambios breaking, nuevas capacidades, deprecaciones y correcciones con versionado claro."
 difficulty: beginner
 topics:
   - api
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
-  metaDescription: "Usa esta plantilla de changelog de API para documentar cambios breaking, nuevas funciones, deprecaciones y correcciones con versionado claro."
+  metaDescription: "Usa esta plantilla de changelog de API para documentar cambios breaking, nuevas capacidades, deprecaciones y correcciones con versionado claro."
   keywords:
     - changelog api
     - versionado
@@ -38,7 +38,7 @@ Los consumidores de API necesitan saber que cambio, cuando cambio, y si necesita
 ## Cuando Usar
 
 Usa este recurso cuando:
-- Lanaces una nueva version o funcion de API
+- Lanaces una nueva version o capacidad de API
 - Depreces o elimines un endpoint o campo
 - Corrijas un bug que afecte el comportamiento de la API
 - Publiques una actualizacion mensual o trimestral de API
@@ -55,7 +55,7 @@ Usa este recurso cuando:
 - **Cambiado:** Campo `total` renombrado a `totalAmount` en todas las respuestas de orden
 - **Requerido:** Header `X-Request-ID` ahora obligatorio para todas las operaciones de escritura
 
-### Nuevas Funciones
+### Nuevas Capacidades
 - **Agregado:** `POST /v2/orders/bulk` — Crear hasta 100 ordenes en una sola solicitud
 - **Agregado:** Campo `paymentStatus` en respuestas de orden (`pending`, `paid`, `failed`)
 - **Agregado:** Evento de webhook `order.payment_failed` para notificaciones de pago fallido
@@ -70,7 +70,7 @@ Usa este recurso cuando:
 
 ## 2.4.0 — 2026-05-15
 
-### Nuevas Funciones
+### Nuevas Capacidades
 - **Agregado:** `PATCH /v2/orders/{id}` para actualizaciones parciales de orden
 - **Agregado:** Headers de limite de tasa (`X-RateLimit-Limit`, `X-RateLimit-Remaining`) en todas las respuestas
 
@@ -83,7 +83,7 @@ Usa este recurso cuando:
 
 Seguimos [Versionado Semantico](https://semver.org/lang/es/):
 - **MAJOR:** Cambios breaking que requieren accion del consumidor
-- **MINOR:** Nuevas funciones, compatibles hacia atras
+- **MINOR:** Nuevas capacidades, compatibles hacia atras
 - **PATCH:** Correcciones de bugs, compatibles hacia atras
 
 ## Categorias de Cambio
@@ -91,9 +91,9 @@ Seguimos [Versionado Semantico](https://semver.org/lang/es/):
 | Categoria | Descripcion | Accion Requerida del Consumidor |
 |-----------|-------------|--------------------------------|
 | Cambio Breaking | Las integraciones existentes pueden fallar | Si — migracion requerida |
-| Nueva Funcion | Nuevos endpoints, campos o comportamientos | Opcional — adoptar cuando este listo |
+| Nueva Capacidad | Nuevos endpoints, campos o comportamientos | Opcional — adoptar cuando este listo |
 | Correccion | Bug corregido o comportamiento inconsistente | No — pero verificar si dependias del comportamiento anterior |
-| Deprecacion | Funcion programada para eliminacion | Si — antes de la fecha de retiro |
+| Deprecacion | Capacidad programada para eliminacion | Si — antes de la fecha de retiro |
 
 ## Suscribirse a Cambios
 
@@ -115,12 +115,12 @@ El changelog usa una jerarquia de **version-fecha-entrada** para que los consumi
 | API Interna | Slack + resumen corto | Mas rapido, menos ceremonia |
 | API de Partners | Email + enlace a guia de migracion | Los partners necesitan comunicacion de lujo |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Publicar el changelog antes de desplegar el cambio** — no despues de que los consumidores reporten problemas
-2. **Agrupar entradas por severidad** — cambios breaking primero, luego funciones, luego correcciones
+2. **Agrupar entradas por severidad** — cambios breaking primero, luego capacidades, luego correcciones
 3. **Incluir instrucciones de migracion** con cada cambio breaking, no solo una descripcion
-4. **Enlazar a documentacion** para funciones nuevas complejas en lugar de explicar en el changelog
+4. **Enlazar a documentacion** para capacidades nuevas complejas en lugar de explicar en el changelog
 5. **Archivar versiones antiguas** pero mantenerlas accesibles — los clientes enterprise pueden estar varias versiones atras
 
 ## Errores Comunes

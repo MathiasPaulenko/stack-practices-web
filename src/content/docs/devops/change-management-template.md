@@ -123,7 +123,7 @@ Use this resource when:
 
 - [ ] Change completed as planned
 - [ ] Monitoring shows no anomalies for 1 hour post-change
-- [ ] Rollback plan archived / updated based on learnings
+- [ ] Rollback plan archived / updated based on lessons
 - [ ] Ticket closed with outcome summary
 ```
 
@@ -142,7 +142,7 @@ The template enforces **three gates** before any production change: a descriptio
 | Feature flag rollout | Product + engineering | Gradual exposure; instant rollback via flag |
 | Emergency change | Post-hoc approval within 24 hours | Fix first, document second—but document |
 
-## Best Practices
+## What Works
 
 1. Classify risk objectively; if the change touches billing, authentication, or data, it is at least Medium
 2. Never approve your own change; require at least one independent reviewer

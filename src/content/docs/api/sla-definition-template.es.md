@@ -36,7 +36,7 @@ seo:
 
 ## Resumen
 
-Un SLA sin presupuesto de error es solo una promesa que eventualmente romperas. Los equipos de ingenieria necesitan objetivos medibles concretos que equilibren confiabilidad y velocidad. Esta plantilla define compromisos de uptime, latencia y tasa de error — mas los presupuestos de error que permiten a los equipos lanzar funciones mientras respetan esos compromisos.
+Un SLA sin presupuesto de error es solo una promesa que eventualmente romperas. Los equipos de ingenieria necesitan objetivos medibles concretos que equilibren confiabilidad y velocidad. Esta plantilla define compromisos de uptime, latencia y tasa de error — mas los presupuestos de error que permiten a los equipos lanzar cambios mientras respetan esos compromisos.
 
 ## Cuando Usar
 
@@ -141,7 +141,7 @@ La plantilla separa **objetivos** (lo que prometes) de **indicadores** (como mid
 | Plataforma interna | SLA relajado, enfocado en SLOs | Los equipos internos necesitan confiabilidad, no contratos legales |
 | Contrato enterprise | SLA personalizado por trato | Negociado individualmente con aprobacion legal |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Comenzar con SLOs internos antes de publicar SLAs** — un SLA es una promesa, un SLO es un objetivo
 2. **Usar percentiles, no promedios** — la latencia p95 revela lo que los usuarios reales experimentan
@@ -154,7 +154,7 @@ La plantilla separa **objetivos** (lo que prometes) de **indicadores** (como mid
 1. **Establecer 100% de disponibilidad como objetivo** — imposible y costoso, lleva al burnout
 2. **Medir uptime del servidor en lugar de tasa de exito de solicitudes** — el servidor puede estar arriba mientras la app falla
 3. **Ignorar latencia en los SLAs** — lento es el nuevo caido
-4. **No definir presupuestos de error** — los equipos no tienen marco para equilibrar confiabilidad y funciones
+4. **No definir presupuestos de error** — los equipos no tienen marco para equilibrar confiabilidad y cambios
 5. **Hacer las revisiones de SLA solo reactivas** — programar revisiones trimestrales incluso cuando todo esta verde
 
 ## Preguntas Frecuentes

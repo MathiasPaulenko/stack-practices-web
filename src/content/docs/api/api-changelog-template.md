@@ -38,7 +38,7 @@ API consumers need to know what changed, when it changed, and whether they need 
 ## When to Use
 
 Use this resource when:
-- Releasing a new API version or feature
+- Releasing a new API version or capability
 - Deprecating or removing an endpoint or field
 - Fixing a bug that affects API behavior
 - Publishing a monthly or quarterly API update
@@ -55,7 +55,7 @@ Use this resource when:
 - **Changed:** `total` field renamed to `totalAmount` in all order responses
 - **Required:** `X-Request-ID` header now mandatory for all write operations
 
-### New Features
+### New Capabilities
 - **Added:** `POST /v2/orders/bulk` — Create up to 100 orders in a single request
 - **Added:** `paymentStatus` field to order responses (`pending`, `paid`, `failed`)
 - **Added:** Webhook event `order.payment_failed` for failed payment notifications
@@ -70,7 +70,7 @@ Use this resource when:
 
 ## 2.4.0 — 2026-05-15
 
-### New Features
+### New Capabilities
 - **Added:** `PATCH /v2/orders/{id}` for partial order updates
 - **Added:** Rate limit headers (`X-RateLimit-Limit`, `X-RateLimit-Remaining`) to all responses
 
@@ -83,7 +83,7 @@ Use this resource when:
 
 We follow [Semantic Versioning](https://semver.org/):
 - **MAJOR:** Breaking changes that require consumer action
-- **MINOR:** New features, backward compatible
+- **MINOR:** New capabilities, backward compatible
 - **PATCH:** Bug fixes, backward compatible
 
 ## Change Categories
@@ -91,9 +91,9 @@ We follow [Semantic Versioning](https://semver.org/):
 | Category | Description | Consumer Action Required |
 |----------|-------------|--------------------------|
 | Breaking Change | Existing integrations may fail | Yes — migration required |
-| New Feature | New endpoints, fields, or behaviors | Optional — adopt when ready |
+| New Capability | New endpoints, fields, or behaviors | Optional — adopt when ready |
 | Fix | Corrected bug or inconsistent behavior | No — but verify if you relied on old behavior |
-| Deprecation | Feature scheduled for removal | Yes — before sunset date |
+| Deprecation | Capability scheduled for removal | Yes — before sunset date |
 
 ## Subscribe to Changes
 
@@ -115,12 +115,12 @@ The changelog uses a **version-date-entry** hierarchy so consumers can scan for 
 | Internal API | Slack + short summary | Faster, less ceremony |
 | Partner API | Email + migration guide link | Partners need white-glove communication |
 
-## Best Practices
+## What Works
 
 1. **Publish the changelog before deploying the change** — not after consumers report issues
-2. **Group entries by severity** — breaking changes first, then features, then fixes
+2. **Group entries by severity** — breaking changes first, then capabilities, then fixes
 3. **Include migration instructions** with every breaking change, not just a description
-4. **Link to documentation** for complex new features instead of explaining in the changelog
+4. **Link to documentation** for complex new capabilities instead of explaining in the changelog
 5. **Archive old versions** but keep them accessible — enterprise clients may be several versions behind
 
 ## Common Mistakes

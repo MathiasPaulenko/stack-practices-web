@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-An SLA without an error budget is just a promise you will eventually break. Engineering teams need concrete, measurable targets that balance reliability with velocity. This template defines uptime, latency, and error rate commitments — plus the error budgets that let teams ship features while respecting those commitments.
+An SLA without an error budget is just a promise you will eventually break. Engineering teams need concrete, measurable targets that balance reliability with velocity. This template defines uptime, latency, and error rate commitments — plus the error budgets that let teams ship changes while respecting those commitments.
 
 ## When to Use
 
@@ -141,7 +141,7 @@ The template separates **objectives** (what you promise) from **indicators** (ho
 | Internal platform | Relaxed SLA, focus on SLOs | Internal teams need reliability, not legal contracts |
 | Enterprise contract | Custom SLA per deal | Negotiated individually with legal approval |
 
-## Best Practices
+## What Works
 
 1. **Start with internal SLOs before publishing SLAs** — an SLA is a promise, an SLO is a target
 2. **Use percentiles, not averages** — p95 latency reveals what real users experience
@@ -154,7 +154,7 @@ The template separates **objectives** (what you promise) from **indicators** (ho
 1. **Setting 100% availability as a target** — impossible and expensive, leads to burnout
 2. **Measuring server uptime instead of request success rate** — the server can be up while the app is failing
 3. **Ignoring latency in SLAs** — slow is the new down
-4. **Not defining error budgets** — teams have no framework for balancing reliability and features
+4. **Not defining error budgets** — teams have no framework for balancing reliability and changes
 5. **Making SLA reviews reactive only** — schedule quarterly reviews even when everything is green
 
 ## Frequently Asked Questions

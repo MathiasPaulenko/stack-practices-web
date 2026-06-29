@@ -123,7 +123,7 @@ Usa este recurso cuando:
 
 - [ ] Cambio completado según lo planeado
 - [ ] El monitoreo no muestra anomalías durante 1 hora post-cambio
-- [ ] Plan de reversión archivado / actualizado basado en aprendizajes
+- [ ] Plan de reversión archivado / actualizado basado en lecciones
 - [ ] Ticket cerrado con resumen de resultado
 ```
 
@@ -142,7 +142,7 @@ La plantilla impone **tres compuertas** antes de cualquier cambio en producción
 | Despliegue gradual de feature flag | Producto + ingeniería | Exposición gradual; reversión instantánea vía flag |
 | Cambio de emergencia | Aprobación post-hoc dentro de 24 horas | Arreglar primero, documentar después—pero documentar |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Clasifica el riesgo objetivamente; si el cambio toca facturación, autenticación o datos, es al menos Medio
 2. Nunca apruebes tu propio cambio; requiere al menos un revisor independiente
