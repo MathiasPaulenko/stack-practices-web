@@ -2,7 +2,7 @@
 contentType: recipes
 slug: service-discovery
 title: "Service Discovery"
-description: "Implementa service discovery con health checks, resolución DNS-based y service registries para ambientes dinámicos de microservicios."
+description: "Implementa service discovery con health checks, resolución DNS-based y service registries para ambientes en vivo de microservicios."
 metaDescription: "Service discovery: Consul, etcd, Eureka, resolución DNS-based, health checks y registro dinámico de servicios para microservicios."
 difficulty: intermediate
 topics:
@@ -29,7 +29,7 @@ seo:
 ---
 ## Visión General
 
-El service discovery es el mecanismo por el cual los [microservicios](/guides/architecture/microservices-architecture-guide) se localizan y comunican entre sí en ambientes dinámicos donde las direcciones IP cambian constantemente. En lugar de hardcodear endpoints, los servicios se registran en un registro y los clientes lo consultan para encontrar instancias saludables. Combinado con [health checks](/recipes/devops/health-check-endpoint), habilita sistemas auto-curativos que rutean alrededor de fallas automáticamente.
+El service discovery es el mecanismo por el cual los [microservicios](/guides/architecture/microservices-architecture-guide) se localizan y comunican entre sí en ambientes en vivo donde las direcciones IP cambian constantemente. En lugar de hardcodear endpoints, los servicios se registran en un registro y los clientes lo consultan para encontrar instancias saludables. Combinado con [health checks](/recipes/devops/health-check-endpoint), habilita sistemas auto-curativos que rutean alrededor de fallas automáticamente.
 
 ## Cuándo Usar
 
@@ -37,7 +37,7 @@ Usa este recurso cuando:
 - Ejecutas microservicios en Kubernetes, ECS o auto-scaling groups donde las IPs son efímeras
 - Necesitas failover automático cuando instancias de servicio fallan o se vuelven unhealthy
 - Balanceas carga entre múltiples instancias sin actualizaciones manuales de configuración
-- Implementas [despliegues blue-green](/recipes/devops/blue-green-deployment) o canary releases que requieren routing dinámico de tráfico
+- Implementas [despliegues blue-green](/recipes/devops/blue-green-deployment) o canary releases que requieren routing en vivo de tráfico
 
 ## Solución
 
@@ -137,7 +137,7 @@ public class OrderProcessor {
 
 ## Variantes
 
-| Herramienta | Modelo | Lenguaje | Características Destacadas |
+| Herramienta | Modelo | Lenguaje | Capacidades Destacadas |
 |-------------|--------|----------|----------------------------|
 | Consul | Client + server | Cualquiera | Multi-datacenter; KV store; ACLs |
 | Eureka | Client-side | Java | Netflix OSS; integración Spring |
@@ -145,7 +145,7 @@ public class OrderProcessor {
 | Zookeeper | Server-side | Cualquiera | Maduro; consistencia fuerte |
 | AWS Cloud Map | Server-side | Cualquiera | AWS-native; integración ECS |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Heartbeat con TTL**: Los servicios deben renovar su registro o ser auto-deregistrados
 - **Cache con fallback**: Los clientes deben cachear listas de instancias y usar datos stale brevemente si el registry no está disponible
@@ -158,7 +158,7 @@ public class OrderProcessor {
 1. **Sin health checks**: Instancias muertas no deregistradas siguen recibiendo tráfico
 2. **Thundering herd**: Todos los clientes consultando el registry simultáneamente bajo carga
 3. **Ignorar deregistration**: Servicios crashados permanecen en el pool hasta que expire el TTL
-4. **Hard-codear fallback IPs**: Anula el propósito del discovery dinámico
+4. **Hard-codear fallback IPs**: Anula el propósito del discovery en vivo
 5. **Omitir retries**: Una instancia fallida debería disparar un retry en otra, no fallar el request. Usa [retry con backoff exponencial](/recipes/architecture/retry-backoff) para clientes resilientes.
 
 ## Preguntas Frecuentes

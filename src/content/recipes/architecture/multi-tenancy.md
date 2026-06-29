@@ -35,7 +35,7 @@ Multi-tenancy is an architecture where a single software instance serves multipl
 
 Use this resource when:
 - Building SaaS applications serving multiple organizations
-- Meeting compliance requirements (SOC 2, HIPAA) that mandate data segregation. See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance best practices.
+- Meeting compliance requirements (SOC 2, HIPAA) that mandate data segregation. See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance what works.
 - Optimizing infrastructure costs by sharing compute across tenants
 - Scaling from hundreds to thousands of tenants with predictable performance
 
@@ -119,11 +119,11 @@ def migrate_tenant_schema(tenant_id: str):
 | Fully isolated | Enterprise/regulated | Highest cost; strongest isolation |
 | Cell-based | Global scale | Shards tenants across regions |
 
-## Best Practices
+## What Works
 
 - **Never trust tenant ID from user input**: Always resolve from [authenticated context](/recipes/authentication/jwt-authentication)
 - **Index tenant_id first**: Every query filters by tenant; make it the leading column
-- **Use [connection pooling](/recipes/performance/connection-pooling) carefully**: Schema-per-tenant requires dynamic schema switching
+- **Use [connection pooling](/recipes/performance/connection-pooling) carefully**: Schema-per-tenant requires live schema switching
 - **Backup per tenant**: Schema-per-tenant makes pg_dump per-schema trivial
 - **Resource quotas**: Limit CPU, storage, and [API rate](/recipes/api/api-rate-limiting-redis) per tenant to prevent noisy neighbors
 
@@ -138,7 +138,7 @@ def migrate_tenant_schema(tenant_id: str):
 ## Frequently Asked Questions
 
 **Q: Can I migrate from shared DB to schema-per-tenant later?**
-A: Yes, but it requires a significant migration. Start with tenant_id columns and RLS even if you plan to split later.
+A: Yes, but it requires a major migration. Start with tenant_id columns and RLS even if you plan to split later.
 
 **Q: How do I handle tenant-specific customizations?**
 A: Use feature flags per tenant, white-label configuration, or metadata-driven UI. Avoid separate code branches.

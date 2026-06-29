@@ -204,12 +204,12 @@ public class User {
 public Order updateOrder(Long orderId, OrderUpdateRequest req) { }
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Define permisos como pares recurso + acción.** `orders:read` es más claro que `VIEWER` y permite composición fina. Los roles agrupan permisos, no los reemplazan.
 - **Implementa jerarquía de roles, no duplicación.** Si `editor` puede hacer todo lo que `viewer`, haz que `editor` herede de `viewer` en lugar de copiar permisos.
 - **Deniega por defecto.** Sin permiso explícito, la respuesta es siempre `false`. No uses lógica "allow unless denied".
-- **Cachea lookups de permisos.** Recorrer jerarquías y hacer joins en cada request es costoso. Cachea el conjunto efectivo de permisos por usuario.
+- **Cachea lookups de permisos.** Recorrer jerarquías y hacer joins en cada request es costoso. Cachea el conjunto útil de permisos por usuario.
 - **Audita cambios de permisos.** Loggea cada grant, revoke y asignación de rol con quién hizo el cambio y cuándo.
 
 ## Errores Comunes

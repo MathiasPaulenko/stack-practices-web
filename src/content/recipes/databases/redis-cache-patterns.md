@@ -31,7 +31,7 @@ seo:
 
 # Redis Cache Patterns for High-Performance Applications
 
-Redis is an in-memory data structure store that serves as an extremely fast cache layer between your application and persistent database. Choosing the right caching pattern — cache-aside, write-through, or write-behind — determines how your application handles cache misses, consistency, and failure scenarios.
+Redis is an in-memory data structure store that works as an extremely fast cache layer between your application and persistent database. Choosing the right caching pattern — cache-aside, write-through, or write-behind — determines how your application handles cache misses, consistency, and failure scenarios.
 
 ## When to Use This
 

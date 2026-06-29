@@ -36,7 +36,7 @@ Server-Sent Events proporcionan un canal ligero y unidireccional para enviar act
 
 - Necesitas enviar notificaciones, logs o metricas en vivo a navegadores
 - El servidor es el unico emisor; los clientes solo reciben (sin chat bidireccional)
-- Quieres aprovechar infraestructura HTTP existente (load balancers, CDNs)
+- Quieres usar infraestructura HTTP existente (load balancers, CDNs)
 
 ## Requisitos Previos
 

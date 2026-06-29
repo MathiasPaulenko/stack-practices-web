@@ -36,7 +36,7 @@ Server-Sent Events provide a lightweight, uni-directional channel for pushing re
 
 - You need to push notifications, logs, or live metrics to browsers
 - The server is the only sender; clients only receive (no bi-directional chat)
-- You want to leverage existing HTTP infrastructure (load balancers, CDNs)
+- You want to use existing HTTP infrastructure (load balancers, CDNs)
 
 ## Prerequisites
 

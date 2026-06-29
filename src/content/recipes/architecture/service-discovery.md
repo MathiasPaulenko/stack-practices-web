@@ -2,7 +2,7 @@
 contentType: recipes
 slug: service-discovery
 title: "Service Discovery"
-description: "Implement service discovery with health checks, DNS-based resolution, and service registries for dynamic microservices environments."
+description: "Implement service discovery with health checks, DNS-based resolution, and service registries for live microservices environments."
 metaDescription: "Service discovery patterns: Consul, etcd, Eureka, DNS-based resolution, health checks, and dynamic service registration for microservices."
 difficulty: intermediate
 topics:
@@ -29,7 +29,7 @@ seo:
 ---
 ## Overview
 
-Service discovery is the mechanism by which [microservices](/guides/architecture/microservices-architecture-guide) locate and communicate with each other in dynamic environments where IP addresses change constantly. Instead of hard-coding endpoints, services register themselves in a registry and clients query it to find healthy instances. Combined with [health checks](/recipes/devops/health-check-endpoint), it enables self-healing systems that route around failures automatically.
+Service discovery is the mechanism by which [microservices](/guides/architecture/microservices-architecture-guide) locate and communicate with each other in live environments where IP addresses change constantly. Instead of hard-coding endpoints, services register themselves in a registry and clients query it to find healthy instances. Combined with [health checks](/recipes/devops/health-check-endpoint), it enables self-healing systems that route around failures automatically.
 
 ## When to Use
 
@@ -37,7 +37,7 @@ Use this resource when:
 - Running microservices on Kubernetes, ECS, or auto-scaling groups where IPs are ephemeral
 - You need automatic failover when service instances crash or become unhealthy
 - Load balancing across multiple instances without manual configuration updates
-- Implementing [blue-green deployments](/recipes/devops/blue-green-deployment) or canary releases that require dynamic traffic routing
+- Implementing [blue-green deployments](/recipes/devops/blue-green-deployment) or canary releases that require live traffic routing
 
 ## Solution
 
@@ -137,7 +137,7 @@ public class OrderProcessor {
 
 ## Variants
 
-| Tool | Model | Language | Notable Features |
+| Tool | Model | Language | Notable capabilities |
 |------|-------|----------|------------------|
 | Consul | Client + server | Any | Multi-datacenter; KV store; ACLs |
 | Eureka | Client-side | Java | Netflix OSS; Spring integration |
@@ -145,7 +145,7 @@ public class OrderProcessor {
 | Zookeeper | Server-side | Any | Mature; strong consistency |
 | AWS Cloud Map | Server-side | Any | AWS-native; ECS integration |
 
-## Best Practices
+## What Works
 
 - **Heartbeat with TTL**: Services must renew registration or be auto-deregistered
 - **Cache with fallback**: Clients should cache instance lists and use stale data briefly if registry is unreachable
@@ -158,7 +158,7 @@ public class OrderProcessor {
 1. **No health checks**: Unregistered dead instances still receive traffic
 2. **Thundering herd**: All clients querying the registry simultaneously under load
 3. **Ignoring deregistration**: Crashed services remain in the pool until TTL expires
-4. **Hard-coding fallback IPs**: Defeats the purpose of dynamic discovery
+4. **Hard-coding fallback IPs**: Defeats the purpose of live discovery
 5. **Skipping retries**: One failed instance should trigger a retry on another, not fail the request. Use [retry with exponential backoff](/recipes/architecture/retry-backoff) for resilient clients.
 
 ## Frequently Asked Questions

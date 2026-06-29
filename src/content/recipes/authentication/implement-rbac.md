@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Role-Based Access Control (RBAC) assigns permissions to roles, and roles to users. A user inherits all permissions of their roles. This model is simple, auditable, and scales to hundreds of roles without the complexity of attribute-based systems. RBAC is the right choice when access decisions depend primarily on job function rather than dynamic context.
+Role-Based Access Control (RBAC) assigns permissions to roles, and roles to users. A user inherits all permissions of their roles. This model is simple, auditable, and scales to hundreds of roles without the complexity of attribute-based systems. RBAC is the right choice when access decisions depend primarily on job function rather than live context.
 
 ## When to Use
 
@@ -43,14 +43,14 @@ Role-Based Access Control (RBAC) assigns permissions to roles, and roles to user
 - Access control changes infrequently — new roles are added quarterly, not per request
 - You need an audit trail that is easy to explain to non-technical stakeholders
 - Compliance frameworks (SOC 2, ISO 27001) require documented access control matrices
-- You want to avoid the complexity of evaluating dynamic policies on every request
+- You want to avoid the complexity of evaluating live policies on every request
 
 ## When NOT to Use
 
 - Access decisions depend on time, location, device posture, or data sensitivity — use ABAC
 - Users need different permissions for different projects, teams, or resources — use resource-level ACLs or ReBAC
 - The same user needs to act on behalf of multiple organizations with different roles — use multi-tenant RBAC or ABAC
-- You are building a zero-trust architecture where every request is evaluated against dynamic context
+- You are building a zero-trust architecture where every request is evaluated against live context
 
 ## Step-by-Step Implementation
 
@@ -330,12 +330,12 @@ public class ResourcePermissionEvaluator implements PermissionEvaluator {
 }
 ```
 
-## Best Practices
+## What Works
 
 - **Define permissions as resource + action pairs.** `orders:read` is clearer than `VIEWER` and allows fine-grained composition. Roles are groupings of permissions, not replacements for them.
 - **Implement role hierarchy, not role duplication.** If editors can do everything viewers can, make `editor` inherit from `viewer` instead of copying all viewer permissions to the editor role.
 - **Deny by default.** If a user has no explicit permission for an action, the answer is always `false`. Do not implement "allow unless denied" logic.
-- **Cache permission lookups.** Walking role hierarchies and joining tables on every request is expensive. Cache the effective permission set per user in Redis or in the JWT/session.
+- **Cache permission lookups.** Walking role hierarchies and joining tables on every request is expensive. Cache the useful permission set per user in Redis or in the JWT/session.
 - **Audit permission changes.** Log every grant, revoke, and role assignment with who made the change and when. RBAC only works if the assignment trail is trustworthy.
 
 ## Common Mistakes
