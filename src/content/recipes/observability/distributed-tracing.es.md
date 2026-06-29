@@ -133,7 +133,7 @@ def handle_request(headers):
 
 ## Variantes
 
-| Backend | Ideal Para | Características Destacadas |
+| Backend | Ideal Para | Capacidades Destacadas |
 |---------|------------|----------------------------|
 | Jaeger | Open source, self-hosted | OpenTelemetry nativo; buena UI |
 | Zipkin | Setups simples | Mínima huella de recursos |
@@ -141,10 +141,10 @@ def handle_request(headers):
 | Datadog | Enterprise SaaS | APM + traces + logs unificados |
 | Grafana Tempo | Stack Grafana | Costo-efectivo a escala |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Instrumenta a nivel de framework**: Auto-instrumenta clientes HTTP, [gRPC](/recipes/api/grpc-api), [DB](/guides/databases/database-design-guide) y colas de mensajes
-- **Agrega atributos de negocio**: user_id, order_id, tenant_id hacen los traces accionables
+- **Agrega atributos de negocio**: user_id, order_id, tenant_id hacen los traces útiles
 - **Mantén cardinalidad baja**: No pongas IDs únicos en nombres de span (usa atributos en su lugar)
 - **Sample agresivamente en producción**: 1-5% suele ser suficiente para debugging
 - **Vincula traces a logs**: Incluye trace_id en [entradas de log](/recipes/observability/structured-logging) para cross-referencing

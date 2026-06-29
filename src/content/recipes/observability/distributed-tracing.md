@@ -133,7 +133,7 @@ def handle_request(headers):
 
 ## Variants
 
-| Backend | Best For | Notable Features |
+| Backend | Best For | Notable Capabilities |
 |---------|----------|------------------|
 | Jaeger | Open source, self-hosted | Native OpenTelemetry; good UI |
 | Zipkin | Simple setups | Minimal resource footprint |
@@ -141,10 +141,10 @@ def handle_request(headers):
 | Datadog | Enterprise SaaS | APM + traces + logs unified |
 | Grafana Tempo | Grafana stack | Cost-effective at scale |
 
-## Best Practices
+## What Works
 
 - **Instrument at framework level**: Auto-instrument HTTP, [gRPC](/recipes/api/grpc-api), [database](/guides/databases/database-design-guide), and message queue clients
-- **Add business attributes**: user_id, order_id, tenant_id make traces actionable
+- **Add business attributes**: user_id, order_id, tenant_id make traces useful
 - **Keep cardinality low**: Don't put unique IDs in span names (use attributes instead)
 - **Sample aggressively in production**: 1-5% is usually sufficient for debugging
 - **Link traces to logs**: Include trace_id in [log entries](/recipes/observability/structured-logging) for cross-referencing

@@ -121,7 +121,7 @@ const { data: posts } = await useFetch('/api/posts', {
 
 | Estrategia | Tiempo de Render | Caso de Uso |
 |------------|-----------------|-------------|
-| SSR | Por request | Datos dinámicos; contenido personalizado |
+| SSR | Por request | Datos en vivo; contenido personalizado |
 | SSG | Build time | Contenido estático; máxima cacheabilidad |
 | CSR | Lado del cliente | Dashboards altamente interactivos; SPAs |
 | ISR | Híbrido | Sitios de noticias; catálogos de productos |
@@ -136,7 +136,7 @@ const { data: posts } = await useFetch('/api/posts', {
 | SvelteKit | SSR + CSR | Svelte; edge-ready |
 | Remix | SSR + progressive enhancement | Forms funcionan sin JS |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa streaming para datos lentos**: Suspense boundaries permiten que UI crítica renderice mientras datos cargan
 - **Evita hydration mismatches**: El HTML del servidor y cliente debe coincidir exactamente
@@ -150,7 +150,7 @@ const { data: posts } = await useFetch('/api/posts', {
 2. **Blocking en APIs lentas**: Una query de base de datos de 5 segundos retrasa toda la página; usa streaming
 3. **Ignorar memory leaks**: Cada request de SSR crea nuevas instancias de componentes; limpia suscripciones
 4. **Sin error boundaries**: Crashes de SSR deberían retornar una página estática degradada, no un 500
-5. **Over-cachear contenido dinámico**: Cachear SSG dashboards personalizados muestra datos incorrectos al usuario equivocado
+5. **Over-cachear contenido en vivo**: Cachear SSG dashboards personalizados muestra datos incorrectos al usuario equivocado
 
 ## Preguntas Frecuentes
 

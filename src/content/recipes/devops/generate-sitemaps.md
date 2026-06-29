@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: generate-sitemaps
-title: "Generate Sitemaps Dynamically"
-description: "How to build and serve XML sitemaps dynamically from your application data, with multi-language support, pagination, and automatic lastmod dates."
-metaDescription: "Learn dynamic sitemap generation in Python, JavaScript, and Java. Covers XML structure, URL pagination, lastmod dates, and multi-language hreflang support for SEO."
+title: "Generate Sitemaps Live"
+description: "How to build and serve XML sitemaps liveally from your application data, with multi-language support, pagination, and automatic lastmod dates."
+metaDescription: "Learn live sitemap generation in Python, JavaScript, and Java. Covers XML structure, URL pagination, lastmod dates, and multi-language hreflang support for SEO."
 difficulty: intermediate
 topics:
   - devops
@@ -18,12 +18,12 @@ relatedResources:
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Learn dynamic sitemap generation in Python, JavaScript, and Java. Covers XML structure, URL pagination, lastmod dates, and multi-language hreflang support for SEO."
+  metaDescription: "Learn live sitemap generation in Python, JavaScript, and Java. Covers XML structure, URL pagination, lastmod dates, and multi-language hreflang support for SEO."
   keywords:
     - sitemap
     - xml
     - seo
-    - dynamic
+    - live
     - generation
     - python
     - javascript
@@ -31,7 +31,7 @@ seo:
 ---
 ## Overview
 
-XML sitemaps tell search engines which pages exist on your site, how often they change, and their relative priority. While static sitemaps work for small sites, dynamic sitemaps are essential for large or frequently changing content (blogs, e-commerce, user-generated content). This recipe covers generating sitemap XML from database queries or content APIs, handling pagination when URLs exceed the 50,000 limit per file, and adding multi-language `hreflang` annotations for international SEO.
+XML sitemaps tell search engines which pages exist on your site, how often they change, and their relative priority. While static sitemaps work for small sites, live sitemaps are essential for large or frequently changing content (blogs, e-commerce, user-generated content). This recipe covers generating sitemap XML from database queries or content APIs, handling pagination when URLs exceed the 50,000 limit per file, and adding multi-language `hreflang` annotations for international SEO.
 
 ## When to Use
 
@@ -249,7 +249,7 @@ public class SitemapController {
 ## Explanation
 
 - **XML structure** follows the [sitemaps.org protocol](https://www.sitemaps.org/protocol.html): a `<urlset>` root containing `<url>` entries, each with `<loc>`, `<lastmod>`, `<changefreq>`, and `<priority>` child elements. Valid sitemaps must be UTF-8 encoded and escaped properly.
-- **Dynamic generation** queries your database, CMS, or file system at request time to produce fresh sitemaps. For high-traffic sites, cache the generated XML for a few hours instead of rebuilding on every request.
+- **Live generation** queries your database, CMS, or file system at request time to produce fresh sitemaps. For high-traffic sites, cache the generated XML for a few hours instead of rebuilding on every request.
 - **Pagination via sitemap index** — each sitemap file can contain at most 50,000 URLs and must be under 50MB uncompressed. For larger sites, create a sitemap index file that references multiple paginated sitemaps (`sitemap-1.xml`, `sitemap-2.xml`, etc.).
 - **Hreflang annotations** use `<xhtml:link>` elements inside each `<url>` to declare language variants. Every URL must list itself and all alternates, including the canonical version. This is critical for multilingual SEO.
 
@@ -262,7 +262,7 @@ public class SitemapController {
 | API-driven | REST/GraphQL | From API metadata | Headless CMS (Contentful, Strapi) |
 | Cached file | Redis/disk | Static after first request | High-traffic sites with stable content |
 
-## Best Practices
+## What Works
 
 1. **Always escape XML** — URLs must XML-escape `&`, `<`, `>`, `"`, and `'`. An unescaped ampersand in a query string breaks the sitemap parser.
 2. **Set accurate `lastmod`** — use the actual content modification date, not the current date. Google ignores inaccurate `lastmod` values and may stop trusting your sitemap.
@@ -282,7 +282,7 @@ public class SitemapController {
 
 ### How often should I regenerate the sitemap?
 
-For content that changes daily, regenerate at least once per day. For static sites, rebuild the sitemap as part of your deployment pipeline. For highly dynamic sites (forums, marketplaces), generate on-demand with a short cache (e.g., 1 hour) to balance freshness and performance.
+For content that changes daily, regenerate at least once per day. For static sites, rebuild the sitemap as part of your deployment pipeline. For highly live sites (forums, marketplaces), generate on-demand with a short cache (e.g., 1 hour) to balance freshness and performance.
 
 ### Can I include images and videos in the sitemap?
 

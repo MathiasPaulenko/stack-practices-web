@@ -33,7 +33,7 @@ seo:
 ---
 ## Overview
 
-Importing data from CSV or Excel is a staple of admin panels, data migration tools, and bulk-update features. The challenge is not just parsing the file, but validating every row, handling malformed data gracefully, and importing large files without blocking the server. This recipe covers robust CSV/Excel import in Python, JavaScript, and Java.
+Importing data from CSV or Excel is a staple of admin panels, data migration tools, and bulk-update capabilities. The challenge is not just parsing the file, but validating every row, handling malformed data gracefully, and importing large files without blocking the server. This recipe covers reliable CSV/Excel import in Python, JavaScript, and Java.
 
 ## When to Use
 
@@ -41,7 +41,7 @@ Use this resource when:
 - Users upload spreadsheets to bulk-create or bulk-update records. See [File Upload Validation](/recipes/file-handling/file-upload-validation) for secure upload handling.
 - Migrating data from legacy systems or external vendors. See [Export CSV Excel](/recipes/file-handling/export-csv-excel) for the reverse migration workflow.
 - Building ETL pipelines that process scheduled file drops. See [Stream Processing](/recipes/file-handling/stream-processing) for memory-efficient pipelines.
-- Admin panels need a "upload and import" feature. See [Background Jobs](/recipes/devops/background-jobs) for async import processing.
+- Admin panels need a "upload and import" capability. See [Background Jobs](/recipes/devops/background-jobs) for async import processing.
 
 ## Solution
 
@@ -178,7 +178,7 @@ Importing is harder than exporting because **you don't control the input**. User
 - Extra blank rows or columns
 - Wrong encoding (Windows-1252 instead of UTF-8)
 
-The robust pattern is:
+The reliable pattern is:
 1. **Parse**: Read the file row by row (streaming for large files)
 2. **Validate**: Check each row against a schema (required fields, data types, ranges)
 3. **Collect errors**: Don't fail on the first bad row; collect all errors and report them
@@ -195,7 +195,7 @@ The robust pattern is:
 | Excel | `xlsx` (JS) | No | Client-side or small server imports |
 | Excel | Apache POI | Yes (event model) | Very large Excel files |
 
-## Best Practices
+## What Works
 
 - **Validate before inserting**: Never trust user-uploaded files. Validate every cell against expected types and ranges.
 - **Report all errors, not just the first**: Users need to fix everything at once, not trial-and-error one row at a time.

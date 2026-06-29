@@ -148,7 +148,7 @@ Image optimization has three dimensions:
 
 1. **Dimensions (resize)**: Serving a 4000x3000 image on a 400px-wide container wastes 90% of pixels. Resize to the display size.
 2. **Format (transcode)**: WebP is ~25-35% smaller than JPEG at the same quality. AVIF is ~50% smaller but slower to encode.
-3. **Quality (compress)**: Lower quality settings (60-85) are often visually indistinguishable from 100% while saving significant bytes.
+3. **Quality (compress)**: Lower quality settings (60-85) are often visually indistinguishable from 100% while saving major bytes.
 
 For web delivery, combine server-side optimization with `<picture>` elements that serve the right format and size based on device capabilities.
 
@@ -162,7 +162,7 @@ For web delivery, combine server-side optimization with `<picture>` elements tha
 | Client-side | Canvas API | Instant preview | Poor quality, JS overhead |
 | Command line | ImageMagick, cwebp | Scriptable, CI-friendly | Manual, no runtime |
 
-## Best Practices
+## What Works
 
 - **Resize before compressing**: Compressing a 4K image to 10KB produces artifacts; resize first.
 - **Use WebP as default**: Fallback to JPEG for older browsers via `<picture>`.
@@ -182,7 +182,7 @@ For web delivery, combine server-side optimization with `<picture>` elements tha
 
 ### Should I optimize images on upload or on request?
 
-**On upload** is best for predictable workloads: process once, cache forever. **On request** (CDN or lambda) is better for dynamic sizes or when you can't control the source. Many production systems do both: optimize on upload for common sizes, generate rare sizes on-the-fly.
+**On upload** is best for predictable workloads: process once, cache forever. **On request** (CDN or lambda) is better for live sizes or when you can't control the source. Many production systems do both: optimize on upload for common sizes, generate rare sizes on-the-fly.
 
 ### How do I handle animated GIFs?
 

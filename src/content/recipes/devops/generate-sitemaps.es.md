@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: generate-sitemaps
-title: "Generar Sitemaps Dinámicamente"
-description: "Cómo construir y servir sitemaps XML dinámicamente desde los datos de tu aplicación, con soporte multi-idioma, paginación y fechas lastmod automáticas."
-metaDescription: "Aprende generación dinámica de sitemaps en Python, JavaScript y Java. Cubre estructura XML, paginación de URLs, fechas lastmod y soporte hreflang multi-idioma para SEO."
+title: "Generar Sitemaps en Vivo"
+description: "Cómo construir y servir sitemaps XML en vivo desde los datos de tu aplicación, con soporte multi-idioma, paginación y fechas lastmod automáticas."
+metaDescription: "Aprende generación en vivo de sitemaps en Python, JavaScript y Java. Cubre estructura XML, paginación de URLs, fechas lastmod y soporte hreflang multi-idioma para SEO."
 difficulty: intermediate
 topics:
   - devops
@@ -18,12 +18,12 @@ relatedResources:
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende generación dinámica de sitemaps en Python, JavaScript y Java. Cubre estructura XML, paginación de URLs, fechas lastmod y soporte hreflang multi-idioma para SEO."
+  metaDescription: "Aprende generación en vivo de sitemaps en Python, JavaScript y Java. Cubre estructura XML, paginación de URLs, fechas lastmod y soporte hreflang multi-idioma para SEO."
   keywords:
     - sitemap
     - xml
     - seo
-    - dinamico
+    - en vivo
     - generacion
     - python
     - javascript
@@ -31,7 +31,7 @@ seo:
 ---
 ## Visión General
 
-Los sitemaps XML informan a los motores de búsqueda qué páginas existen en tu sitio, cuán a menudo cambian, y su prioridad relativa. Mientras que los sitemaps estáticos funcionan para sitios pequeños, los sitemaps dinámicos son esenciales para contenido grande o que cambia frecuentemente (blogs, e-commerce, contenido generado por usuarios). Esta receta cubre la generación de sitemap XML desde consultas de base de datos o APIs de contenido, el manejo de paginación cuando las URLs exceden el límite de 50.000 por archivo, y la adición de anotaciones multi-idioma `hreflang` para SEO internacional.
+Los sitemaps XML informan a los motores de búsqueda qué páginas existen en tu sitio, cuán a menudo cambian, y su prioridad relativa. Mientras que los sitemaps estáticos funcionan para sitios pequeños, los sitemaps en vivo son esenciales para contenido grande o que cambia frecuentemente (blogs, e-commerce, contenido generado por usuarios). Esta receta cubre la generación de sitemap XML desde consultas de base de datos o APIs de contenido, el manejo de paginación cuando las URLs exceden el límite de 50.000 por archivo, y la adición de anotaciones multi-idioma `hreflang` para SEO internacional.
 
 ## Cuándo Usar
 
@@ -248,7 +248,7 @@ public class SitemapController {
 ## Explicación
 
 - **Estructura XML** sigue el [protocolo sitemaps.org](https://www.sitemaps.org/protocol.html): una raíz `<urlset>` conteniendo entradas `<url>`, cada una con elementos hijos `<loc>`, `<lastmod>`, `<changefreq>` y `<priority>`. Los sitemaps válidos deben estar codificados en UTF-8 y escapados correctamente.
-- **Generación dinámica** consulta tu base de datos, CMS o sistema de archivos en tiempo de request para producir sitemaps frescos. Para sitios de alto tráfico, cachea el XML generado por unas horas en lugar de reconstruir en cada request.
+- **Generación en vivo** consulta tu base de datos, CMS o sistema de archivos en tiempo de request para producir sitemaps frescos. Para sitios de alto tráfico, cachea el XML generado por unas horas en lugar de reconstruir en cada request.
 - **Paginación vía índice de sitemap** — cada archivo de sitemap puede contener como máximo 50.000 URLs y debe estar bajo 50MB sin comprimir. Para sitios más grandes, crea un archivo de índice de sitemap que referencie múltiples sitemaps paginados (`sitemap-1.xml`, `sitemap-2.xml`, etc.).
 - **Anotaciones hreflang** usan elementos `<xhtml:link>` dentro de cada `<url>` para declarar variantes de idioma. Cada URL debe listarse a sí misma y todas sus alternativas, incluyendo la versión canónica. Esto es crítico para SEO multilingüe.
 
@@ -261,7 +261,7 @@ public class SitemapController {
 | API-driven | REST/GraphQL | Desde metadata de API | CMS headless (Contentful, Strapi) |
 | Archivo cacheado | Redis/disco | Estático después del primer request | Sitios de alto tráfico con contenido estable |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Siempre escapa XML** — las URLs deben escapar XML para `&`, `<`, `>`, `"` y `'`. Un ampersand sin escapar en un query string rompe el parser del sitemap.
 2. **Establece `lastmod` preciso** — usa la fecha real de modificación del contenido, no la fecha actual. Google ignora valores `lastmod` imprecisos y puede dejar de confiar en tu sitemap.
@@ -281,7 +281,7 @@ public class SitemapController {
 
 ### ¿Con qué frecuencia debo regenerar el sitemap?
 
-Para contenido que cambia diariamente, regenera al menos una vez al día. Para sitios estáticos, reconstruye el sitemap como parte de tu pipeline de deployment. Para sitios altamente dinámicos (foros, marketplaces), genera on-demand con un cache corto (ej. 1 hora) para balancear frescura y performance.
+Para contenido que cambia diariamente, regenera al menos una vez al día. Para sitios estáticos, reconstruye el sitemap como parte de tu pipeline de deployment. Para sitios altamente en vivo (foros, marketplaces), genera on-demand con un cache corto (ej. 1 hora) para balancear frescura y performance.
 
 ### ¿Puedo incluir imágenes y videos en el sitemap?
 

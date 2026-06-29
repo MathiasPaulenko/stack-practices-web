@@ -29,7 +29,7 @@ seo:
 ---
 ## Visión General
 
-Importar datos desde CSV o Excel es una funcionalidad estándar de paneles de administración, herramientas de migración de datos y actualizaciones masivas. El desafío no es solo parsear el archivo, sino validar cada fila, manejar datos malformados elegantemente e importar archivos grandes sin bloquear el servidor. Esta receta cubre importación robusta de CSV/Excel en Python, JavaScript y Java.
+Importar datos desde CSV o Excel es una funcionalidad estándar de paneles de administración, herramientas de migración de datos y capacidades de actualización masiva. El desafío no es solo parsear el archivo, sino validar cada fila, manejar datos malformados elegantemente e importar archivos grandes sin bloquear el servidor. Esta receta cubre importación confiable de CSV/Excel en Python, JavaScript y Java.
 
 ## Cuándo Usar
 
@@ -37,7 +37,7 @@ Usa este recurso cuando:
 - Los usuarios suban hojas de cálculo para crear o actualizar registros masivamente. Consulta [File Upload Validation](/recipes/file-handling/file-upload-validation) para manejo seguro de subidas.
 - Migres datos desde sistemas legacy o proveedores externos. Consulta [Export CSV Excel](/recipes/file-handling/export-csv-excel) para el flujo inverso de migración.
 - Construyas pipelines ETL que procesen archivos programados. Consulta [Stream Processing](/recipes/file-handling/stream-processing) para pipelines eficientes en memoria.
-- Paneles de administración necesiten una funcionalidad de "subir e importar". Consulta [Background Jobs](/recipes/devops/background-jobs) para procesamiento asíncrono de imports.
+- Paneles de administración necesiten una capacidad de "subir e importar". Consulta [Background Jobs](/recipes/devops/background-jobs) para procesamiento asíncrono de imports.
 
 ## Solución
 
@@ -174,7 +174,7 @@ Importar es más difícil que exportar porque **no controlas la entrada**. Los u
 - Filas o columnas en blanco extra
 - Encoding incorrecto (Windows-1252 en vez de UTF-8)
 
-El patrón robusto es:
+El patrón confiable es:
 1. **Parsear**: Leer el archivo fila por fila (streaming para archivos grandes)
 2. **Validar**: Verificar cada fila contra un esquema (campos requeridos, tipos de datos, rangos)
 3. **Colectar errores**: No fallar en la primera fila mala; colecta todos los errores y repórtalos
@@ -191,7 +191,7 @@ El patrón robusto es:
 | Excel | `xlsx` (JS) | No | Client-side o importaciones pequeñas en servidor |
 | Excel | Apache POI | Sí (event model) | Archivos Excel muy grandes |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Valida antes de insertar**: Nunca confíes en archivos subidos por usuarios. Valida cada celda contra tipos y rangos esperados.
 - **Reporta todos los errores, no solo el primero**: Los usuarios necesitan arreglar todo de una vez, no trial-and-error fila por fila.

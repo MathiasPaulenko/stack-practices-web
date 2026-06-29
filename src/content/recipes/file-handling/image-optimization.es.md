@@ -145,7 +145,7 @@ La optimización de imágenes tiene tres dimensiones:
 
 1. **Dimensiones (redimensionar)**: Servir una imagen de 4000x3000 en un contenedor de 400px desperdicia el 90% de los píxeles. Redimensiona al tamaño de visualización.
 2. **Formato (transcodificar)**: WebP es ~25-35% más pequeño que JPEG a la misma calidad. AVIF es ~50% más pequeño pero más lento de codificar.
-3. **Calidad (comprimir)**: Configuraciones de calidad más bajas (60-85) a menudo son visualmente indistinguibles de 100% mientras ahorran bytes significativos.
+3. **Calidad (comprimir)**: Configuraciones de calidad más bajas (60-85) a menudo son visualmente indistinguibles de 100% mientras ahorran bytes importantes.
 
 Para entrega web, combina optimización server-side con elementos `<picture>` que sirvan el formato y tamaño correcto según las capacidades del dispositivo.
 
@@ -159,7 +159,7 @@ Para entrega web, combina optimización server-side con elementos `<picture>` qu
 | Client-side | Canvas API | Vista previa instantánea | Mala calidad, overhead JS |
 | Línea de comandos | ImageMagick, cwebp | Scriptable, CI-friendly | Manual, sin runtime |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Redimensiona antes de comprimir**: Comprimir una imagen 4K a 10KB produce artefactos; redimensiona primero.
 - **Usa WebP por defecto**: Fallback a JPEG para navegadores antiguos vía `<picture>`.
@@ -179,7 +179,7 @@ Para entrega web, combina optimización server-side con elementos `<picture>` qu
 
 ### Debería optimizar imágenes en subida o en solicitud?
 
-**En subida** es mejor para cargas predecibles: procesa una vez, cachea para siempre. **En solicitud** (CDN o lambda) es mejor para tamaños dinámicos o cuando no puedes controlar la fuente. Muchos sistemas de producción hacen ambos: optimizan en subida para tamaños comunes, generan tamaños raros on-the-fly.
+**En subida** es mejor para cargas predecibles: procesa una vez, cachea para siempre. **En solicitud** (CDN o lambda) es mejor para tamaños en vivo o cuando no puedes controlar la fuente. Muchos sistemas de producción hacen ambos: optimizan en subida para tamaños comunes, generan tamaños raros on-the-fly.
 
 ### Cómo manejo GIFs animados?
 
