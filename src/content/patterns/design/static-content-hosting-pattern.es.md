@@ -41,7 +41,7 @@ seo:
 
 El Patron de Hosting de Contenido Estatico despliega archivos estaticos en almacenamiento dedicado y los sirve a traves de una CDN en lugar del servidor de origen. Los assets estaticos no cambian por solicitud y no requieren procesamiento del lado del servidor.
 
-Al separarlos de la logica de aplicacion dinamica, el servidor origen se enfoca en logica de negocio mientras la CDN maneja contenido de alto volumen y cacheable.
+Al separarlos de la logica de aplicacion en tiempo real, el servidor origen se enfoca en logica de negocio mientras la CDN maneja contenido de alto volumen y cacheable.
 
 ## Cuando Usar
 
@@ -56,7 +56,7 @@ Al separarlos de la logica de aplicacion dinamica, el servidor origen se enfoca 
 - Archivos que cambian en cada solicitud
 - Contenido que requiere autenticacion en cada acceso
 - Aplicaciones pequenas donde el overhead del origen es insignificante
-- HTML dinamico que debe renderizarse por usuario
+- HTML en tiempo real que debe renderizarse por usuario
 
 ## Solucion
 
@@ -137,9 +137,9 @@ class StaticContentManager {
 
 ## Explicacion
 
-El patron separa rutas de contenido **dinamico** y **estatico**:
+El patron separa rutas de contenido **en tiempo real** y **estatico**:
 
-- **Solicitudes dinamicas:** HTML especifico por usuario, llamadas API, logica de negocio — servidor de aplicacion.
+- **Solicitudes en tiempo real:** HTML especifico por usuario, llamadas API, logica de negocio — servidor de aplicacion.
 - **Solicitudes estaticas:** Imagenes, CSS, JS, fuentes, documentos — almacenamiento de objetos via CDN.
 
 Los servidores edge de la CDN cachean contenido estatico geograficamente cerca de usuarios. La primera solicitud lo obtiene del origen y lo cachea. Solicitudes posteriores se sirven directamente del edge cache.
@@ -154,7 +154,7 @@ Los servidores edge de la CDN cachean contenido estatico geograficamente cerca d
 | GitHub Pages | Sitio estatico desde repo | Documentacion, sitios open source |
 | Vercel/Netlify | Hosting Jamstack | SPAs, sitios de marketing estaticos |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Usar cache headers de largo plazo
 - Versionar assets estaticos

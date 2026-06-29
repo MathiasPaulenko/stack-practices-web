@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-El testing no es solo encontrar bugs. Una estrategia bien diseñada provee confianza para refactoring, documenta comportamiento esperado, atrapa regresiones antes de producción y sirve como especificaciones ejecutables.
+El testing no es solo encontrar bugs. Una estrategia bien diseñada provee confianza para refactoring, documenta comportamiento esperado, atrapa regresiones antes de producción y funciona como especificaciones ejecutables.
 
 ## La Pirámide de Testing
 
@@ -165,7 +165,7 @@ jobs:
       - run: npm run test:e2e
 ```
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Escribe tests primero** ([TDD](/guides/testing/test-driven-development-guide)) para lógica compleja o fixes de bugs
 - **Usa test data builders** en lugar de hardcodear fixtures

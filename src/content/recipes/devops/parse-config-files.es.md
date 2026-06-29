@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-La mayoría de las aplicaciones necesitan configuración externa para adaptar su comportamiento entre entornos (desarrollo, staging, producción) sin modificar el código. YAML y JSON son los formatos dominantes, pero analizarlos no es suficiente: configuraciones inválidas causan fallos en tiempo de ejecución. Esta receta cubre el análisis robusto, la validación de esquemas y los overrides por entorno en Python, JavaScript y Java.
+La mayoría de las aplicaciones necesitan configuración externa para adaptar su comportamiento entre entornos (desarrollo, staging, producción) sin modificar el código. YAML y JSON son los formatos dominantes, pero analizarlos no es suficiente: configuraciones inválidas causan fallos en tiempo de ejecución. Esta receta cubre el análisis confiable, la validación de esquemas y los overrides por entorno en Python, JavaScript y Java.
 
 ## Cuándo Usar
 
@@ -170,7 +170,7 @@ public class ConfigLoader {
 - **Análisis** convierte texto raw en estructuras de datos nativas. YAML es amigable para humanos; JSON es estricto y ampliamente soportado.
 - **Validación de esquemas** detecta campos faltantes, tipos incorrectos y rangos inválidos antes de que la app empiece a atender tráfico.
 - **Pydantic** (Python) y **Zod** (JavaScript) proporcionan esquemas declarativos y type-safe con excelentes mensajes de error.
-- **Jakarta Validation** (Java) usa anotaciones en records o clases e integra con Jackson para deserialización YAML/JSON transparente.
+- **Jakarta Validation** (Java) usa anotaciones en records o clases e integra con Jackson para deserialización YAML/JSON fluida.
 - **Fail fast** es el principio clave: valida al iniciar para que las configuraciones erróneas se detecten inmediatamente y no en tiempo de ejecución.
 
 ## Variantes
@@ -182,7 +182,7 @@ public class ConfigLoader {
 | HOCON | `pyhocon` (Python), Lightbend Config (Java) | Configs complejas con includes y sustitución de variables |
 | Variables de Entorno | `python-dotenv`, `dotenv` (JS), Spring `@Value` | Secretos y overrides por entorno sin archivos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Valida al iniciar** — nunca uses configuración raw sin validación de esquema.
 2. **Separa los secretos** — guarda credenciales en variables de entorno o gestores de secretos, nunca en archivos de config en el repositorio.

@@ -115,7 +115,7 @@ spec:
 | mTLS | Sí | Sí | Sí | Sí |
 | Enrutamiento de tráfico | Completo | Básico | Básico | Básico |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Empieza con mTLS permisivo, luego enforce estricto**: comienza con modo `PERMISSIVE` para asegurar que todos los sidecars están inyectados y funcionando. Después de validar flujos de tráfico, cambia a `STRICT` para rechazar conexiones no encriptadas.
 - **Define service accounts por workload**: las cuentas de servicio de Kubernetes se mapean a identidades de Istio. Usa cuentas de servicio distintas para cada deployment, no la cuenta `default`. Esto habilita políticas de autorización granulares.
@@ -134,5 +134,5 @@ spec:
 R: No. El gateway maneja north-south (externo al cluster). El mesh maneja east-west (servicio-a-servicio). Úsalos ambos. Algunos meshes incluyen un ingress gateway, pero complementa, no reemplaza, tu gateway primario.
 
 **P: ¿Cuál es el overhead de performance de un service mesh?**
-R: Espera 1-5ms de latencia por hop y 10-20% de overhead de CPU para el sidecar. Linkerd está optimizado para overhead mínimo. Istio ofrece más features a mayor costo. Para paths sensibles a latencia, haz benchmarking antes de desplegar.
+R: Espera 1-5ms de latencia por hop y 10-20% de overhead de CPU para el sidecar. Linkerd está optimizado para overhead mínimo. Istio ofrece más capacidades a mayor costo. Para paths sensibles a latencia, haz benchmarking antes de desplegar.
 

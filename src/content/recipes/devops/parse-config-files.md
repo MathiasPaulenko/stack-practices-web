@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-Most applications need external configuration to adapt behavior across environments (dev, staging, production) without code changes. YAML and JSON are the dominant formats, but parsing alone is not enough — invalid configs cause runtime failures. This recipe covers robust parsing, schema validation, and environment-specific overrides in Python, JavaScript, and Java.
+Most applications need external configuration to adapt behavior across environments (dev, staging, production) without code changes. YAML and JSON are the dominant formats, but parsing alone is not enough — invalid configs cause runtime failures. This recipe covers reliable parsing, schema validation, and environment-specific overrides in Python, JavaScript, and Java.
 
 ## When to Use
 
@@ -170,7 +170,7 @@ public class ConfigLoader {
 - **Parsing** converts raw text into native data structures. YAML is human-friendly; JSON is strict and widely supported.
 - **Schema validation** catches missing fields, wrong types, and invalid ranges before the app starts serving traffic.
 - **Pydantic** (Python) and **Zod** (JavaScript) provide declarative, type-safe schemas with excellent error messages.
-- **Jakarta Validation** (Java) uses annotations on records or classes and integrates with Jackson for seamless YAML/JSON deserialization.
+- **Jakarta Validation** (Java) uses annotations on records or classes and integrates with Jackson for smooth YAML/JSON deserialization.
 - **Fail fast** is the key principle: validate at startup so misconfigurations surface immediately rather than during runtime.
 
 ## Variants
@@ -182,7 +182,7 @@ public class ConfigLoader {
 | HOCON | `pyhocon` (Python), Lightbend Config (Java) | Complex configs with includes and variable substitution |
 | Environment Variables | `python-dotenv`, `dotenv` (JS), Spring `@Value` | Secrets and per-env overrides without files |
 
-## Best Practices
+## What Works
 
 1. **Validate at startup** — never use raw config without schema validation.
 2. **Separate secrets** — store credentials in environment variables or secret managers, never commit them to config files.

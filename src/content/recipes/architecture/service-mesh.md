@@ -164,7 +164,7 @@ spec:
 | Traffic routing | Full | Basic | Basic | Basic |
 | Resource usage | Higher | Lower | Medium | Low |
 
-## Best practices
+## What Works
 
 - **Start with permissive mTLS, then enforce strict**: begin with `PERMISSIVE` mode to ensure all sidecars are injected and working. After validating traffic flows, switch to `STRICT` to reject unencrypted connections. Sudden strict mode can break services that lack sidecars.
 - **Define service accounts per workload**: Kubernetes service accounts map to Istio identities. Use distinct service accounts for each deployment, not the `default` account. This enables fine-grained authorization policies.

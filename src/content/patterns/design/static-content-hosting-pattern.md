@@ -41,7 +41,7 @@ seo:
 
 The Static Content Hosting Pattern deploys static files — images, CSS, JavaScript, fonts, videos, PDFs — to dedicated storage and serves them through a Content Delivery Network (CDN) rather than from the application origin server. This offloads origin servers from serving large, cacheable files and reduces latency by placing content geographically closer to users.
 
-Static assets do not change per request and require no server-side processing. By separating them from dynamic application logic, the origin server can focus on business logic while the CDN handles high-volume, cache-friendly content delivery.
+Static assets do not change per request and require no server-side processing. By separating them from live application logic, the origin server can focus on business logic while the CDN handles high-volume, cache-friendly content delivery.
 
 ## When to Use
 
@@ -57,7 +57,7 @@ Static assets do not change per request and require no server-side processing. B
 - Files that change on every request and cannot be cached
 - Content requiring authentication or authorization checks on every access
 - Small applications where origin server overhead is negligible
-- Dynamic HTML that must be rendered per user
+- Live HTML that must be rendered per user
 - Environments where CDN costs exceed origin bandwidth savings
 
 ## Solution
@@ -289,9 +289,9 @@ module.exports = { StaticContentManager };
 
 ## Explanation
 
-The pattern separates **dynamic** and **static** content paths:
+The pattern separates **live** and **static** content paths:
 
-- **Dynamic requests:** User-specific HTML, API calls, business logic — served from the origin application server.
+- **Live requests:** User-specific HTML, API calls, business logic — served from the origin application server.
 - **Static requests:** Images, CSS, JS, fonts, documents — served from object storage via a CDN.
 
 CDN edge servers cache static content geographically close to users. The first request for a file fetches it from the origin (S3, GCS, Azure Blob) and caches it. Subsequent requests from nearby users are served directly from the edge cache, often in under 50ms.
@@ -306,7 +306,7 @@ CDN edge servers cache static content geographically close to users. The first r
 | **GitHub Pages** | Static site from Git repo | Documentation, open source sites |
 | **Vercel/Netlify** | Jamstack hosting | SPAs, static marketing sites |
 
-## Best Practices
+## What Works
 
 - **Use far-future cache headers.** `Cache-Control: public, max-age=31536000, immutable` tells browsers and CDNs to cache forever. Combine with versioned filenames for cache busting.
 - **Version static assets.** Append a content hash to filenames (`app.abc123.js`). When content changes, the URL changes, avoiding stale cache issues.
@@ -350,5 +350,5 @@ A: Object storage (S3, GCS) is the source of truth for files. A CDN caches copie
 **Q: How much does using a CDN cost?**
 A: Most CDNs charge per GB transferred. For typical web applications, CDN costs are negligible compared to origin bandwidth savings. Many providers offer generous free tiers.
 
-**Q: Can I use a CDN for dynamic content?**
+**Q: Can I use a CDN for live content?**
 A: Limited — CDNs cache based on URL. Dynamic content that changes per user should not be cached unless using edge functions (Cloudflare Workers, Lambda@Edge) for personalization.
