@@ -29,7 +29,7 @@ seo:
 
 ## Overview
 
-El manejo de errores es lo que separa a las APIs robustas de las frágiles. Una respuesta de error bien diseñada le dice al cliente exactamente qué salió mal, qué hacer al respecto y cómo evitarlo en el futuro, sin filtrar detalles internos de implementación.
+El manejo de errores es lo que separa a las APIs fiableas de las frágiles. Una respuesta de error bien diseñada le dice al cliente exactamente qué salió mal, qué hacer al respecto y cómo evitarlo en el futuro, sin filtrar detalles internos de implementación.
 
 Esta receta cubre el formato estándar de respuesta de error (RFC 7807 Problem Details), la selección correcta de códigos de estado HTTP y patrones de implementación idiomáticos en Python, JavaScript y Java.
 
@@ -175,12 +175,12 @@ public class GlobalExceptionHandler {
 | Java | Spring Boot | `@ControllerAdvice` | `ResponseStatusException` |
 | Java | JAX-RS | `ExceptionMapper<T>` | `WebApplicationException` |
 
-## Best Practices
+## Lo que Funciona
 
 - **Usa el código HTTP correcto**: 400 para errores del cliente, 401/403 para problemas de autenticación, 404 para recursos faltantes, 409 para conflictos, 422 para fallas de validación, 500 para bugs del servidor.
 - **Incluye un ID de correlación**: agrega un ID de solicitud a cada respuesta de error para que soporte pueda rastrear logs.
 - **Documenta todos los errores**: lista cada 4xx y 5xx que tu endpoint puede devolver en la documentación de la API. Consulta [Plantilla de Documentación de API](/docs/templates/api-documentation) para estructura de docs.
-- **Mantén los mensajes accionables**: "El nombre de usuario debe tener entre 2 y 50 caracteres" es mejor que "Validación fallida."
+- **Mantén los mensajes útiles**: "El nombre de usuario debe tener entre 2 y 50 caracteres" es mejor que "Validación fallida."
 - **Localiza con moderación**: el `detail` del error puede estar en inglés; deja que el cliente mapee URLs `type` a cadenas de UI localizadas.
 
 ## Common Mistakes

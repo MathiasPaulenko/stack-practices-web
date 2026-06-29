@@ -287,21 +287,21 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\patterns\design\backend-for-frontend-pattern.md | 3.0 | features → capabilities, best practices → what works | src\content\patterns\design\backend-for-frontend-pattern.es.md | pending |
-| src\content\patterns\design\claim-check-pattern.md | 3.0 | best practices → what works, effective → useful, scalable → growth-ready | src\content\patterns\design\claim-check-pattern.es.md | pending |
-| src\content\patterns\design\gatekeeper-pattern.md | 3.0 | best practices → what works, features → capabilities, dynamic → live | src\content\patterns\design\gatekeeper-pattern.es.md | pending |
-| src\content\patterns\design\multiton-pattern.md | 3.0 | dynamic → live, best practices → what works | src\content\patterns\design\multiton-pattern.es.md | pending |
-| src\content\patterns\design\null-object-pattern.md | 3.0 | best practices → what works, features → capabilities, exceptional → (manual review) | src\content\patterns\design\null-object-pattern.es.md | pending |
+| src\content\patterns\design\backend-for-frontend-pattern.md | 3.0 | features → capabilities, best practices → what works | src\content\patterns\design\backend-for-frontend-pattern.es.md | completed |
+| src\content\patterns\design\claim-check-pattern.md | 3.0 | best practices → what works, effective → useful, scalable → growth-ready | src\content\patterns\design\claim-check-pattern.es.md | completed |
+| src\content\patterns\design\gatekeeper-pattern.md | 3.0 | best practices → what works, features → capabilities, dynamic → live | src\content\patterns\design\gatekeeper-pattern.es.md | completed |
+| src\content\patterns\design\multiton-pattern.md | 3.0 | dynamic → live, best practices → what works | src\content\patterns\design\multiton-pattern.es.md | completed |
+| src\content\patterns\design\null-object-pattern.md | 3.0 | best practices → what works, features → capabilities, exceptional → (manual review) | src\content\patterns\design\null-object-pattern.es.md | completed |
 
 ### Batch 25 (priority: low)
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\patterns\design\priority-queue-pattern.md | 3.0 | dynamic → live, best practices → what works | src\content\patterns\design\priority-queue-pattern.es.md | pending |
-| src\content\patterns\design\sharding-pattern.md | 3.0 | scalability → growth, best practices → what works | src\content\patterns\design\sharding-pattern.es.md | pending |
-| src\content\recipes\api\handle-errors.md | 3.0 | robust → reliable, actionable → useful, best practices → what works | src\content\recipes\api\handle-errors.es.md | pending |
-| src\content\recipes\api\websocket-server.md | 3.0 | best practices → what works, features → capabilities, significantly → considerably | src\content\recipes\api\websocket-server.es.md | pending |
-| src\content\recipes\architecture\retry-backoff.md | 3.0 | comprehensive → thorough, best practices → what works, significantly → considerably | src\content\recipes\architecture\retry-backoff.es.md | pending |
+| src\content\patterns\design\priority-queue-pattern.md | 3.0 | dynamic → live, best practices → what works | src\content\patterns\design\priority-queue-pattern.es.md | completed |
+| src\content\patterns\design\sharding-pattern.md | 3.0 | scalability → growth, best practices → what works | src\content\patterns\design\sharding-pattern.es.md | completed |
+| src\content\recipes\api\handle-errors.md | 3.0 | robust → reliable, actionable → useful, best practices → what works | src\content\recipes\api\handle-errors.es.md | completed |
+| src\content\recipes\api\websocket-server.md | 3.0 | best practices → what works, features → capabilities, significantly → considerably | src\content\recipes\api\websocket-server.es.md | completed |
+| src\content\recipes\architecture\retry-backoff.md | 3.0 | comprehensive → thorough, best practices → what works, significantly → considerably | src\content\recipes\architecture\retry-backoff.es.md | completed |
 
 ### Batch 26 (priority: low)
 

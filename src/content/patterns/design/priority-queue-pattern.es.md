@@ -215,10 +215,10 @@ Las colas de prioridad usan una **estructura de datos heap** (o sorted set) para
 | Heap binario | Heap en array en memoria | Programacion de tareas de un solo proceso, alto throughput |
 | Sorted sets de Redis | Estructura ordenada externa | Workers distribuidos, cola persistente |
 | Fair queuing ponderado | Asignacion de ancho de banda proporcional | Control de trafico de red, rate limiting de APIs |
-| Cola de retroalimentacion multinivel | Ajuste dinamico de prioridad | Programacion de procesos de sistema operativo |
+| Cola de retroalimentacion multinivel | Ajuste live de prioridad | Programacion de procesos de sistema operativo |
 | Basado en plazos | Primero el plazo mas cercano | Sistemas en tiempo real, procesamiento guiado por SLA |
 
-## Mejores Practicas
+## Lo que Funciona
 
 - Prevenir el hambre de tareas de baja prioridad
 - Mantener niveles de prioridad limitados (3-5)

@@ -311,11 +311,11 @@ function sendMessage(room, text) {
 - **Handshake de protocolo** — WebSockets comienzan como una petición HTTP con headers `Upgrade: websocket` y `Connection: Upgrade`. El servidor devuelve una respuesta `101 Switching Protocols`, tras lo cual la conexión TCP transiciona al protocolo de framing binario de WebSocket.
 - **Gestión de conexiones** — mantén un registro de conexiones activas (usando sets o maps). Cuando un cliente se desconecta (gracefulmente o por fallo de red), remueve la conexión de tu registro para prevenir fugas de memoria y broadcasts fantasma.
 - **Heartbeat keepalive** — las conexiones WebSocket pueden ser silenciosamente cerradas por proxies, gateways NAT o balanceadores de carga sin que ningún lado lo note. Implementa `ping`/`pong` periódicos (cada 30 segundos) o heartbeats a nivel de aplicación para detectar conexiones muertas y cerrarlas apropiadamente.
-- **Arquitectura de salas/canales** — mapea nombres de sala a sets de conexiones. Cuando un mensaje apunta a una sala, itera solo sobre los miembros de esa sala en lugar de hacer broadcast a todos los clientes conectados. Esto reduce significativamente el ancho de banda y el overhead de procesamiento para despliegues grandes.
+- **Arquitectura de salas/canales** — mapea nombres de sala a sets de conexiones. Cuando un mensaje apunta a una sala, itera solo sobre los miembros de esa sala en lugar de hacer broadcast a todos los clientes conectados. Esto reduce considerablemente el ancho de banda y el overhead de procesamiento para despliegues grandes.
 
 ## Variantes
 
-| Framework | Características de Protocolo | Mejor Para |
+| Framework | Capacidades de Protocolo | Mejor Para |
 |-----------|------------------------------|------------|
 | Python `websockets` | WebSocket raw, asyncio | Microservicios, protocolos custom |
 | Node.js `ws` | WebSocket raw, alto rendimiento | Juegos en tiempo real, chat a escala |
@@ -323,7 +323,7 @@ function sendMessage(room, text) {
 | Socket.IO | WebSocket + fallback HTTP | Apps de navegador que necesitan fallback |
 | AWS API Gateway | WebSocket gestionado | Arquitecturas serverless |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Siempre maneja errores de conexión** — fallos de red, crashes de clientes y timeouts de proxies pueden dejar conexiones stale. Envuelve operaciones de send en try/catch, maneja callbacks `onError`, e implementa limpieza basada en heartbeat.
 2. **Autentica durante el handshake** — pasa [tokens de autenticación](/recipes/authentication/jwt-authentication) via query parameters o cookies durante la petición de upgrade WebSocket. No intentes autenticar sobre el canal de mensajes WebSocket después de conectar; el handshake inicial es el punto más seguro.

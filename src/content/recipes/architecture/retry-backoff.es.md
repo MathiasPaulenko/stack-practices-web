@@ -156,7 +156,7 @@ var result = await retryPolicy.ExecuteAsync(() => httpClient.GetAsync(url));
 | cockroachdb/errors | Go | Errores estructurados; retry markers |
 | axios-retry | JavaScript | Plugin de Axios; configurable |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Setea un delay máximo**: Sin un cap, el backoff puede crecer a horas
 - **Usa idempotency keys**: Reintentar POST requests sin ellos crea duplicados. Consulta [idempotencia de mensajes](/recipes/messaging/rabbitmq-task-queue).
@@ -175,7 +175,7 @@ var result = await retryPolicy.ExecuteAsync(() => httpClient.GetAsync(url));
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es el número correcto de retries?**
-R: Usualmente 3-5. Más retries aumentan latencia sin mejorar significativamente tasas de éxito.
+R: Usualmente 3-5. Más retries aumentan latencia sin mejorar considerablemente tasas de éxito.
 
 **P: ¿Debería reintentar en el cliente o usar una message queue?**
 R: Para APIs síncronos: retry en cliente. Para jobs en background: usa una queue con retry built-in.

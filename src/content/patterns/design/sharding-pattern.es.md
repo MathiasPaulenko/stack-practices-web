@@ -2,7 +2,7 @@
 contentType: patterns
 slug: sharding-pattern
 title: "Patron de Sharding"
-description: "Divide un dataset grande en particiones mas pequenas distribuidas entre multiples servidores para mejorar escalabilidad, rendimiento y disponibilidad."
+description: "Divide un dataset grande en particiones mas pequenas distribuidas entre multiples servidores para mejorar crecimiento, rendimiento y disponibilidad."
 metaDescription: "Aprende el Patron de Sharding para particionamiento horizontal de datos. Ejemplos en Python, Java y JavaScript con sharding por hash, rango y directorio."
 difficulty: advanced
 topics:
@@ -14,7 +14,7 @@ tags:
   - patron
   - patron-de-diseno
   - bases-de-datos
-  - escalabilidad
+  - crecimiento
   - particionamiento
   - escala-horizontal
 relatedResources:
@@ -28,7 +28,7 @@ seo:
     - sharding
     - patron de diseno
     - bases de datos
-    - escalabilidad
+    - crecimiento
     - particionamiento
     - escala horizontal
     - particion de datos
@@ -38,7 +38,7 @@ seo:
 
 ## Resumen
 
-El Patron de Sharding divide un dataset grande en fragmentos mas pequenos llamados **shards** y los distribuye entre multiples servidores. En lugar de una unica base de datos monolitica, cada shard gestiona un subconjunto de datos, permitiendo escalabilidad horizontal.
+El Patron de Sharding divide un dataset grande en fragmentos mas pequenos llamados **shards** y los distribuye entre multiples servidores. En lugar de una unica base de datos monolitica, cada shard gestiona un subconjunto de datos, permitiendo crecimiento horizontal.
 
 Este patron es esencial cuando un servidor unico no puede manejar el volumen de datos, throughput de consultas o conexiones concurrentes.
 
@@ -133,7 +133,7 @@ Sharding aplica una **funcion de shard** que mapea cada clave a un shard especif
 | Hash consistente | Mapeo en anillo | Minimizar rebalancing al cambiar shards |
 | Por entidad | Una entidad por shard | SaaS multi-tenant con aislamiento |
 
-## Mejores Practicas
+## Lo que Funciona
 
 - Elegir la clave de shard correcta
 - Monitorear balance de shards
@@ -146,7 +146,7 @@ Sharding aplica una **funcion de shard** que mapea cada clave a un shard especif
 - Mala eleccion de clave de shard
 - Ignorar consultas cross-shard
 - Sin estrategia de rebalancing
-- Asumir escalabilidad lineal
+- Asumir crecimiento lineal
 - Olvidar joins entre tablas sharded
 
 ## Ejemplos del Mundo Real
