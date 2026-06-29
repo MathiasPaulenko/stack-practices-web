@@ -96,7 +96,7 @@ Enlace al runbook o guia de troubleshooting relevante.
 
 | Alerta | Estado | Vista por Primera Vez | Notas |
 |--------|--------|----------------------|-------|
-| Alta latencia en API | WARN | hace 2 horas | Correlaciona con pico de trafico, no accionable aun |
+| Alta latencia en API | WARN | hace 2 horas | Correlaciona con pico de trafico, no util aun |
 | Uso de disco > 80% | WARN | hace 1 dia | Limpieza programada para esta noche |
 | Lag de replicacion > 5s | OK | Recien resuelto | Auto-resuelto despues de reconstruccion de indice |
 
@@ -166,7 +166,7 @@ La plantilla estructura la entrega en **incidentes** (que esta roto), **alertas*
 | Cobertura de vacaciones | Version extendida | Agregar contexto de proyecto, calendario de reuniones, contactos de stakeholders |
 | Entrega a mitad de incidente | Enfocado en incidente | Analisis profundo del incidente activo, de-priorizar items rutinarios |
 
-## Best Practices
+## Lo que funciona
 
 1. **Realizar entregas de forma sincronica** — las entregas asincronicas pierden preguntas y matices
 2. **Actualizar la plantilla en tiempo real** — no la reconstruyas de memoria al final del turno

@@ -134,7 +134,7 @@ SLOs give teams a shared language for reliability. By defining SLIs, targets, an
 - **Mobile or client SLO**: Includes crash rates, app startup time, and API response latency.
 - **Data platform SLO**: Emphasizes freshness, completeness, and query performance.
 
-## Best Practices
+## What works
 
 - Start with a few critical user journeys rather than measuring everything.
 - Set targets based on user expectations and business needs, not ideal infrastructure.

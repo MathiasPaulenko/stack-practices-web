@@ -40,7 +40,7 @@ Usa esta plantilla cuando:
 - Un incidente con impacto en el servicio ha sido resuelto
 - Un incidente excedio un umbral de severidad (ej., SEV-2 o mayor)
 - Un incidente causo perdida de datos, exposicion de seguridad o impacto de cumplimiento
-- Un cuasi-incidente revelo un riesgo significativo que no se materializo
+- Un cuasi-incidente revelo un riesgo mayor que no se materializo
 - Un problema recurrente sugiere un problema sistemico mas profundo
 
 ## Requisitos Previos
@@ -162,7 +162,7 @@ La plantilla separa la **historia** (linea de tiempo, que paso) del **analisis**
 | Falla de dependencia de terceros | Agregar cronograma de comunicacion con el proveedor y evaluacion de proveedor alternativo | No puedes arreglar al proveedor, pero puedes reducir la dependencia |
 | Incidente recurrente | Agregar comparacion con incidentes anteriores similares y analisis sistemico mas profundo | Los patrones importan mas que los eventos individuales |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Programa dentro de 48 horas** — la memoria se desvanece y los logs rotan; ejecuta el postmortem mientras los detalles estan frescos
 2. **Invita observadores, no solo respondedores** — personas que no estuvieron en el calor del momento a menudo ven patrones que los respondedores no ven

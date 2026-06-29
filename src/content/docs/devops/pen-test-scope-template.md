@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-A Penetration Test Scope Template defines what will be tested, what will not be tested, how the testing will be conducted, and what the organization expects to receive. A clear scope protects the organization from unintended disruption, prevents legal issues for testers, and ensures the engagement delivers actionable value.
+A Penetration Test Scope Template defines what will be tested, what will not be tested, how the testing will be conducted, and what the organization expects to receive. A clear scope protects the organization from unintended disruption, prevents legal issues for testers, and ensures the engagement delivers useful value.
 
 ## When to Use
 
@@ -130,7 +130,7 @@ The scope template aligns the organization and testers before any traffic is sen
 - **Bug bounty scope**: Public-facing targets with safe harbor language and reward rules.
 - **Internal network test**: Assumes an insider or compromised endpoint perspective.
 
-## Best Practices
+## What works
 
 - Get written authorization before any testing begins.
 - Include both technical and business owners in scope definition.

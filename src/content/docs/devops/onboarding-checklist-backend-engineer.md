@@ -194,7 +194,7 @@ The checklist separates onboarding into **Day 1** (administrative and technical 
 | Remote-first team | Add async communication norms, timezone coordination, virtual coffee chats | No physical setup; stronger emphasis on documentation |
 | Team merge / acquisition | Add legacy system orientation, political sensitivity, new process adoption | Focus on integration rather than fresh start |
 
-## Best Practices
+## What works
 
 1. **Assign a buddy, not just a manager** — buddies answer the "how do I..." questions managers cannot
 2. **Have the first PR ready on day 1** — a documentation fix or test addition builds confidence immediately

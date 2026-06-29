@@ -96,7 +96,7 @@ Link to relevant runbook or troubleshooting guide.
 
 | Alert | Status | First Seen | Notes |
 |-------|--------|------------|-------|
-| High latency on API | WARN | 2 hours ago | Correlates with traffic spike, not actionable yet |
+| High latency on API | WARN | 2 hours ago | Correlates with traffic spike, not useful yet |
 | Disk usage > 80% | WARN | 1 day ago | Cleanup scheduled for tonight |
 | Replication lag > 5s | OK | Just resolved | Auto-resolved after index rebuild |
 
@@ -166,7 +166,7 @@ The template structures the handoff into **incidents** (what's broken), **alerts
 | Vacation coverage | Extended version | Add project context, meeting schedules, stakeholder contacts |
 | Incident mid-handoff | Incident-focused | Deep-dive on the active incident, de-prioritize routine items |
 
-## Best Practices
+## What works
 
 1. **Conduct handoffs synchronously** — async handoffs miss questions and nuance
 2. **Update the template in real-time** — don't reconstruct it from memory at shift end

@@ -40,7 +40,7 @@ Use this template when:
 - A service-impacting incident has been resolved
 - An incident exceeded a severity threshold (e.g., SEV-2 or higher)
 - An incident caused data loss, security exposure, or compliance impact
-- A near-miss revealed a significant risk that did not materialize
+- A near-miss revealed a major risk that did not materialize
 - A recurring issue suggests a deeper systemic problem
 
 ## Prerequisites
@@ -162,7 +162,7 @@ The template separates the **story** (timeline, what happened) from the **analys
 | Third-party dependency failure | Add vendor communication timeline and alternative provider evaluation | You cannot fix the vendor, but you can reduce dependence |
 | Recurring incident | Add a comparison to previous similar incidents and a deeper systemic analysis | Patterns matter more than individual events |
 
-## Best Practices
+## What works
 
 1. **Schedule within 48 hours** — memory fades and logs rotate; run the postmortem while details are fresh
 2. **Invite observers, not just responders** — people not in the heat of the moment often see patterns responders miss

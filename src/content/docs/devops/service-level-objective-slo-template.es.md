@@ -134,7 +134,7 @@ Los SLOs dan a los equipos un lenguaje compartido para la confiabilidad. Al defi
 - **SLO de movil o cliente**: Incluye tasas de crash, tiempo de inicio de app y latencia de respuesta API.
 - **SLO de plataforma de datos**: Enfatiza frescura, completitud y rendimiento de consultas.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Comienza con unos pocos viajes criticos del usuario en lugar de medir todo.
 - Establece objetivos basados en expectativas de usuario y necesidades de negocio, no en infraestructura ideal.

@@ -194,7 +194,7 @@ La checklist separa el onboarding en **Dia 1** (administrativo y configuracion t
 | Equipo remoto | Agregar normas de comunicacion async, coordinacion de zonas horarias, chats virtuales | No hay setup fisico; mayor enfasis en documentacion |
 | Fusion de equipos / adquisicion | Agregar orientacion a sistemas legacy, sensibilidad politica, adopcion de nuevos procesos | Enfocarse en integracion en lugar de inicio fresco |
 
-## Best Practices
+## Lo que funciona
 
 1. **Asigna un companero, no solo un manager** — los companeros responden las preguntas "como hago..." que los managers no pueden
 2. **Ten el primer PR listo el dia 1** — una correccion de documentacion o un test agregan confianza inmediatamente

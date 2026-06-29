@@ -32,7 +32,7 @@ seo:
 
 ## Descripcion General
 
-Una Plantilla de Alcance de Prueba de Penetracion define que se probara, que no se probara, como se conducira la prueba y que espera recibir la organizacion. Un alcance claro protege a la organizacion de interrupciones no deseadas, previene problemas legales para los probadores y asegura que el compromiso entregue valor accionable.
+Una Plantilla de Alcance de Prueba de Penetracion define que se probara, que no se probara, como se conducira la prueba y que espera recibir la organizacion. Un alcance claro protege a la organizacion de interrupciones no deseadas, previene problemas legales para los probadores y asegura que el compromiso entregue valor util.
 
 ## Cuando Usar
 
@@ -130,7 +130,7 @@ La plantilla de alcance alinea a la organizacion y a los probadores antes de env
 - **Alcance de bug bounty**: Objetivos publicos con lenguaje de safe harbor y reglas de recompensa.
 - **Prueba de red interna**: Asume una perspectiva de insider o endpoint comprometido.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Obtener autorizacion escrita antes de comenzar cualquier prueba.
 - Incluir a duenos tecnicos y de negocio en la definicion del alcance.
