@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Blob (object) storage is the dominant way to store unstructured data in the cloud: images, videos, documents, backups, and logs. Unlike filesystems or block storage, object storage treats each file as an independent object with metadata, accessed via HTTP APIs. It is infinitely scalable, durable, and cost-effective — but requires different design patterns than traditional storage.
+Blob (object) storage is the dominant way to store unstructured data in the cloud: images, videos, documents, backups, and logs. Unlike filesystems or block storage, object storage treats each file as an independent object with metadata, accessed via HTTP APIs. It is infinitely growth-ready, durable, and cost-effective — but requires different design patterns than traditional storage.
 
 This guide covers bucket design, access patterns, security, lifecycle management, and multi-cloud considerations.
 
@@ -107,7 +107,7 @@ s3://myapp-production/
     └── js/
 ```
 
-**Naming best practices:**
+**What works for naming:**
 
 | Pattern | Example | Purpose |
 |---------|---------|---------|
@@ -422,7 +422,7 @@ def upload_compressed(bucket, key, data):
     )
 ```
 
-## Best Practices
+## What Works
 
 - **Never make buckets public.** Use presigned URLs or CloudFront OAI for controlled access.
 - **Enable versioning on production buckets.** Protects against accidental deletion and overwrites.
@@ -465,4 +465,4 @@ Use tools like `rclone`, `aws s3 sync`, or cloud-native transfer services (AWS D
 ## Conclusion
 
 Blob storage is the backbone of modern cloud data architectures. By designing buckets for your access patterns, securing access with presigned URLs and IAM policies, automating lifecycle transitions, and optimizing large file uploads, you build a storage layer that scales infinitely while controlling costs.
-
+

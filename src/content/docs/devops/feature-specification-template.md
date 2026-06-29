@@ -164,7 +164,7 @@ The template is organized by **audience**: product owns the summary and goals, d
 | Platform / infrastructure feature | Replace user stories with affected teams and migration requirements | Platform work has users, but they are internal teams |
 | Experiment / A/B test | Add hypothesis, success metrics, sample size, and rollback criteria | Experimental features need clear kill criteria |
 
-## Best Practices
+## What Works
 
 1. **Write the spec before coding starts** — the goal is shared understanding, not documentation after the fact
 2. **Keep the summary on one page** — busy stakeholders should grasp the feature in 60 seconds
@@ -192,4 +192,4 @@ Product owns the problem, goals, and success criteria. Engineering owns the tech
 
 ### What if requirements change during development?
 
-Update the spec and notify stakeholders. If the change is significant, re-estimate and re-prioritize. The spec is a living document, not a contract. What is dangerous is silent divergence — when the code goes one way and the spec says another.
+Update the spec and notify stakeholders. If the change is major, re-estimate and re-prioritize. The spec is a living document, not a contract. What is dangerous is silent divergence — when the code goes one way and the spec says another.

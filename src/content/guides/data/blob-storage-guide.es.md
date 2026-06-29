@@ -36,7 +36,7 @@ seo:
 
 ## Descripción General
 
-El almacenamiento blob (objeto) es la forma dominante de almacenar datos no estructurados en la nube: imágenes, videos, documentos, respaldos y logs. A diferencia de sistemas de archivos o almacenamiento de bloques, el almacenamiento de objetos trata cada archivo como un objeto independiente con metadatos, accedido vía APIs HTTP. Es infinitamente escalable, durable y costo-efectivo, pero requiere diferentes patrones de diseño que el almacenamiento tradicional.
+El almacenamiento blob (objeto) es la forma dominante de almacenar datos no estructurados en la nube: imágenes, videos, documentos, respaldos y logs. A diferencia de sistemas de archivos o almacenamiento de bloques, el almacenamiento de objetos trata cada archivo como un objeto independiente con metadatos, accedido vía APIs HTTP. Es infinitamente preparado para crecer, durable y costo-efectivo, pero requiere diferentes patrones de diseño que el almacenamiento tradicional.
 
 Esta guía cubre diseño de buckets, patrones de acceso, seguridad, gestión de ciclo de vida y consideraciones multi-cloud.
 
@@ -107,7 +107,7 @@ s3://myapp-production/
     └── js/
 ```
 
-**Mejores prácticas de nomenclatura:**
+**Lo que funciona para nomenclatura:**
 
 | Patrón | Ejemplo | Propósito |
 |--------|---------|-----------|
@@ -422,7 +422,7 @@ def upload_compressed(bucket, key, data):
     )
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Nunca hagas buckets públicos.** Usa URLs firmadas o CloudFront OAI para acceso controlado.
 - **Habilita versionamiento en buckets de producción.** Protege contra eliminación accidental y sobreescrituras.
@@ -464,5 +464,5 @@ Usa herramientas como `rclone`, `aws s3 sync`, o servicios de transferencia nati
 
 ## Conclusión
 
-El almacenamiento blob es la columna vertebral de las arquitecturas modernas de datos en la nube. Al diseñar buckets para tus patrones de acceso, asegurar acceso con URLs firmadas y políticas IAM, automatizar transiciones de ciclo de vida, y optimizar subidas de archivos grandes, construyes una capa de almacenamiento que escala infinitamente mientras controlas costos.
-
+El almacenamiento blob es la columna vertebral de las arquitecturas modernas de datos en la nube. Al diseñar buckets para tus patrones de acceso, asegurar acceso con URLs firmadas y políticas IAM, automatizar transiciones de ciclo de vida, y optimizar subidas de archivos grandes, construyes una capa de almacenamiento que crece sin límite mientras controlas costos.
+

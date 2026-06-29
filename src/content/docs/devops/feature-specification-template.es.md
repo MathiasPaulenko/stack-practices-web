@@ -164,7 +164,7 @@ La plantilla esta organizada por **audiencia**: producto posee el resumen y obje
 | Feature de plataforma / infraestructura | Reemplazar user stories con equipos afectados y requerimientos de migracion | El trabajo de plataforma tiene usuarios, pero son equipos internos |
 | Experimento / A/B test | Agregar hipotesis, metricas de exito, tamano de muestra, y criterios de rollback | Los features experimentales necesitan criterios de kill claros |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Escribe la spec antes de que comience el coding** — el objetivo es entendimiento compartido, no documentacion despues del hecho
 2. **Manten el resumen en una pagina** — stakeholders ocupados deberian captar el feature en 60 segundos
@@ -192,4 +192,4 @@ Producto es dueno del problema, objetivos, y criterios de exito. Ingenieria es d
 
 ### Que pasa si los requerimientos cambian durante el desarrollo?
 
-Actualiza la spec y notifica a los stakeholders. Si el cambio es significativo, re-estima y re-prioriza. La spec es un documento viviente, no un contrato. Lo peligroso es la divergencia silenciosa — cuando el codigo va por un lado y la spec dice otro.
+Actualiza la spec y notifica a los stakeholders. Si el cambio es mayor, re-estima y re-prioriza. La spec es un documento viviente, no un contrato. Lo peligroso es la divergencia silenciosa — cuando el codigo va por un lado y la spec dice otro.

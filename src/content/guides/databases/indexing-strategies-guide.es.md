@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Los índices son el mecanismo principal para acelerar consultas de bases de datos. Son estructuras de datos que permiten a la base de datos localizar filas sin escanear cada registro. Pero los índices no son gratis — consumen almacenamiento, ralentizan escrituras y pueden perjudicar el rendimiento si se usan incorrectamente. Entender los diferentes tipos de índice y cuándo aplicarlos es una de las habilidades de mayor leverage en bases de datos.
+Los índices son el mecanismo principal para acelerar consultas de bases de datos. Son estructuras de datos que permiten a la base de datos localizar filas sin escanear cada registro. Pero los índices no son gratis — consumen almacenamiento, ralentizan escrituras y pueden perjudicar el rendimiento si se usan incorrectamente. Entender los diferentes tipos de índice y cuándo aplicarlos es una de las habilidades de mayor valor en bases de datos.
 
 ## When to Use
 

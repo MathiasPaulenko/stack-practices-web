@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Indexes are the primary mechanism for speeding up database queries. They are data structures that allow the database to locate rows without scanning every record. But indexes are not free — they consume storage, slow down writes, and can hurt performance if used incorrectly. Understanding the different index types and when to apply them is one of the highest-leverage database skills.
+Indexes are the primary mechanism for speeding up database queries. They are data structures that allow the database to locate rows without scanning every record. But indexes are not free — they consume storage, slow down writes, and can hurt performance if used incorrectly. Understanding the different index types and when to apply them is one of the highest-value database skills.
 
 ## When to Use
 

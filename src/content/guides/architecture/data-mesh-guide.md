@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Data Mesh, introduced by Zhamak Dehghani, is a socio-technical approach to data architecture. Instead of a central data team owning all pipelines (the monolithic data lake pattern), Data Mesh distributes ownership to domain teams who treat their data as a product. The platform team provides self-serve infrastructure, enabling domains to publish, discover, and consume data without bottlenecks. This shifts the paradigm from "data as a byproduct" to "data as a product."
+Data Mesh, introduced by Zhamak Dehghani, is a socio-technical approach to data architecture. Instead of a central data team owning all pipelines (the monolithic data lake pattern), Data Mesh distributes ownership to domain teams who treat their data as a product. The platform team provides self-serve infrastructure, enabling domains to publish, discover, and consume data without bottlenecks. This shifts the model from "data as a byproduct" to "data as a product."
 
 ## When to Use
 

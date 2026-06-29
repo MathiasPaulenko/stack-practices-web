@@ -2,7 +2,7 @@
 contentType: docs
 slug: architecture-decision-record-adr-template
 title: "Plantilla de Architecture Decision Record (ADR)"
-description: "Una plantilla ligera para documentar decisiones arquitectonicas significativas, su contexto, opciones consideradas, y el razonamiento detras del enfoque elegido."
+description: "Una plantilla ligera para documentar decisiones arquitectonicas mayores, su contexto, opciones consideradas, y el razonamiento detras del enfoque elegido."
 metaDescription: "Documenta decisiones arquitectonicas con esta plantilla ADR. Captura contexto, opciones, trade-offs y consecuencias para referencia futura."
 difficulty: intermediate
 topics:
@@ -32,7 +32,7 @@ seo:
 
 ## Descripcion General
 
-Cada decision arquitectonica significativa crea contexto que se desvanece en meses. Por que elegimos PostgreSQL sobre MongoDB? Por que el service mesh es Envoy y no Linkerd? Por que shard por tenant ID? Sin registros escritos, nuevos ingenieros re-litigan viejas decisiones, equipos repiten enfoques rechazados, y managers hacen planes que entran en conflicto con restricciones tecnicas. Un Architecture Decision Record (ADR) es un documento unico que captura el contexto, opciones, trade-offs, y consecuencias de una eleccion tecnica significativa.
+Cada decision arquitectonica mayor crea contexto que se desvanece en meses. Por que elegimos PostgreSQL sobre MongoDB? Por que el service mesh es Envoy y no Linkerd? Por que shard por tenant ID? Sin registros escritos, nuevos ingenieros re-litigan viejas decisiones, equipos repiten enfoques rechazados, y managers hacen planes que entran en conflicto con restricciones tecnicas. Un Architecture Decision Record (ADR) es un documento unico que captura el contexto, opciones, trade-offs, y consecuencias de una eleccion tecnica mayor.
 
 ## Cuando Usar
 
@@ -46,7 +46,7 @@ Usa esta plantilla cuando:
 ## Prerrequisitos
 
 Antes de escribir un ADR:
-- [ ] Confirma que la decision es lo suficientemente significativa para documentar (no cada PR necesita un ADR)
+- [ ] Confirma que la decision es lo suficientemente mayor para documentar (no cada PR necesita un ADR)
 - [ ] Reune input de stakeholders que seran afectados por la decision
 - [ ] Documenta opciones que consideraste seriamente, no solo la ganadora
 - [ ] Identifica quien tiene autoridad para aprobar o revocar la decision
@@ -154,7 +154,7 @@ El formato ADR es intencionalmente ligero. No requiere diagramas UML ni pruebas 
 | ADR de seguridad | Agregar modelo de amenazas, mapeo de compliance, y sign-off de revision de seguridad | Las decisiones de seguridad necesitan aprobacion explicita |
 | ADR de deprecacion | Documentar por que una vieja decision se revierte y que la reemplaza | La deprecacion merece su propio ADR |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Numera ADRs secuencialmente** — `ADR-001`, `ADR-002` — para que las referencias sean inequivocas
 2. **Almacena ADRs en control de versiones** — deberian revisarse, aprobarse, y rastrearse como codigo
@@ -164,7 +164,7 @@ El formato ADR es intencionalmente ligero. No requiere diagramas UML ni pruebas 
 
 ## Errores Comunes
 
-1. **Escribir ADRs para todo** — no cada PR o upgrade de libreria necesita un ADR; reservalos para elecciones significativas e irreversibles
+1. **Escribir ADRs para todo** — no cada PR o upgrade de libreria necesita un ADR; reservalos para elecciones mayores e irreversibles
 2. **Documentar solo la ganadora** — futuros lectores necesitan saber que fue rechazado y por que, o lo propondran de nuevo
 3. **Ocultar consecuencias negativas** — toda decision tiene trade-offs; documentarlos genera confianza y previene sorpresas
 4. **Dejar que los ADRs se vuelvan obsoletos** — actualiza el estado a "Deprecado" o "Reemplazado" cuando cambien las decisiones
