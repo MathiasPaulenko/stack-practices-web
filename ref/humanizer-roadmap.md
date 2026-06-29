@@ -337,11 +337,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\recipes\testing\integration-testing.md | 3.0 | comprehensive → thorough, best practices → what works, dynamic → live | src\content\recipes\testing\integration-testing.es.md | pending |
-| src\content\recipes\testing\measure-test-coverage.md | 3.0 | actionable → useful, best practices → what works, significantly → considerably | src\content\recipes\testing\measure-test-coverage.es.md | pending |
-| src\content\docs\architecture\api-performance-budget-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\architecture\api-performance-budget-template.es.md | pending |
-| src\content\docs\devops\auto-scaling-policy-template.md | 2.0 | best practices → what works, dynamic → live | src\content\docs\devops\auto-scaling-policy-template.es.md | pending |
-| src\content\docs\devops\bug-triage-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\bug-triage-template.es.md | pending |
+| src\content\recipes\testing\integration-testing.md | 3.0 | comprehensive → thorough, best practices → what works, dynamic → live | src\content\recipes\testing\integration-testing.es.md | completed |
+| src\content\recipes\testing\measure-test-coverage.md | 3.0 | actionable → useful, best practices → what works, significantly → considerably | src\content\recipes\testing\measure-test-coverage.es.md | completed |
+| src\content\docs\architecture\api-performance-budget-template.md | 2.0 | best practices → what works, features → capabilities | src\content\docs\architecture\api-performance-budget-template.es.md | completed |
+| src\content\docs\devops\auto-scaling-policy-template.md | 2.0 | best practices → what works, dynamic → live | src\content\docs\devops\auto-scaling-policy-template.es.md | completed |
+| src\content\docs\devops\bug-triage-template.md | 2.0 | actionable → useful, best practices → what works | src\content\docs\devops\bug-triage-template.es.md | completed |
 
 ### Batch 30 (priority: low)
 
