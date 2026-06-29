@@ -457,11 +457,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\patterns\design\sidecar-pattern.md | 2.0 | best practices → what works, scalable → growth-ready | src\content\patterns\design\sidecar-pattern.es.md | pending |
-| src\content\patterns\design\strategy-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\strategy-pattern.es.md | pending |
-| src\content\patterns\design\timeout-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\timeout-pattern.es.md | pending |
-| src\content\patterns\design\twin-pattern.md | 2.0 | best practices → what works, effectively → well | src\content\patterns\design\twin-pattern.es.md | pending |
-| src\content\patterns\design\unit-of-work-pattern.md | 2.0 | best practices → what works, significant → major | src\content\patterns\design\unit-of-work-pattern.es.md | pending |
+| src\content\patterns\design\sidecar-pattern.md | 2.0 | best practices → what works, scalable → growth-ready | src\content\patterns\design\sidecar-pattern.es.md | completed |
+| src\content\patterns\design\strategy-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\strategy-pattern.es.md | completed |
+| src\content\patterns\design\timeout-pattern.md | 2.0 | best practices → what works, dynamic → live | src\content\patterns\design\timeout-pattern.es.md | completed |
+| src\content\patterns\design\twin-pattern.md | 2.0 | best practices → what works, effectively → well | src\content\patterns\design\twin-pattern.es.md | completed |
+| src\content\patterns\design\unit-of-work-pattern.md | 2.0 | best practices → what works, significant → major | src\content\patterns\design\unit-of-work-pattern.es.md | completed |
 
 ### Batch 42 (priority: low)
 
