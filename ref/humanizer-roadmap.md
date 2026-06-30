@@ -87,11 +87,11 @@ Process each batch left-to-right. For every English file, apply the same edits t
 
 | File | Vocab | Top fixes | ES pair | Status |
 |------|-------|-----------|---------|--------|
-| src\content\guides\data\real-time-analytics-guide.md | 7.0 | beacon → signal, significantly → considerably, dynamic → live | src\content\guides\data\real-time-analytics-guide.es.md | pending |
-| src\content\guides\deployment\canary-deployment-guide.md | 7.0 | best practices → what works, features → capabilities, significant → major | src\content\guides\deployment\canary-deployment-guide.es.md | pending |
-| src\content\guides\design\clean-code-principles-guide.md | 7.0 | embark → start, best practices → what works, significantly → considerably | src\content\guides\design\clean-code-principles-guide.es.md | pending |
-| src\content\guides\devops\git-branching-strategies-guide.md | 7.0 | features → capabilities, best practices → what works, significantly → considerably | src\content\guides\devops\git-branching-strategies-guide.es.md | pending |
-| src\content\guides\security\secrets-management-guide.md | 7.0 | dynamic → live, effective → useful | src\content\guides\security\secrets-management-guide.es.md | pending |
+| src\content\guides\data\real-time-analytics-guide.md | 7.0 | beacon → signal, significantly → considerably, dynamic → live | src\content\guides\data\real-time-analytics-guide.es.md | completed |
+| src\content\guides\deployment\canary-deployment-guide.md | 7.0 | best practices → what works, features → capabilities, significant → major | src\content\guides\deployment\canary-deployment-guide.es.md | completed |
+| src\content\guides\design\clean-code-principles-guide.md | 7.0 | embark → start, best practices → what works, significantly → considerably | src\content\guides\design\clean-code-principles-guide.es.md | completed |
+| src\content\guides\devops\git-branching-strategies-guide.md | 7.0 | features → capabilities, best practices → what works, significantly → considerably | src\content\guides\devops\git-branching-strategies-guide.es.md | completed |
+| src\content\guides\security\secrets-management-guide.md | 7.0 | dynamic → live, effective → useful | src\content\guides\security\secrets-management-guide.es.md | completed |
 
 ### Batch 05 (priority: medium)
 
