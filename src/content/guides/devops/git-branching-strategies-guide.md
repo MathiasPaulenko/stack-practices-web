@@ -80,7 +80,7 @@ git push origin feature/login-button
 
 ## GitFlow
 
-GitFlow is a strict branching model with dedicated branches for features, releases, and hotfixes.
+GitFlow is a strict branching model with dedicated branches for capabilities, releases, and hotfixes.
 
 ### Branch Structure
 
@@ -123,7 +123,7 @@ git checkout develop && git merge hotfix/1.2.1
 ### Characteristics
 
 - **Main branch**: Only production code; tagged releases
-- **Develop branch**: Integration branch for features
+- **Develop branch**: Integration branch for capabilities
 - **Change branches**: Spawned from develop
 - **Release branches**: Prepare and stabilize releases
 - **Hotfix branches**: Emergency fixes from main
@@ -201,7 +201,7 @@ git push origin --delete feature/add-search
 ## What Works
 
 - **Keep branches short-lived** — the longer a branch lives, the harder the merge
-- **Use feature flags** for incomplete features on main/trunk
+- **Use feature flags** for incomplete capabilities on main/trunk
 - **Require [PR reviews](/guides/design/code-review-best-practices-guide)** before merging to main
 - **Run full test suite** on every PR; block merge on failure. See [CI/CD](/guides/devops/cicd-pipeline-guide).
 - **Squash or rebase** to keep a linear history (team preference)

@@ -250,4 +250,4 @@ Use Vault for multi-cloud, complex workflows, or on-demand secrets. Use cloud-na
 - Emergency: immediately on suspected compromise
 
 **Can I prevent developers from seeing secrets?**
-Yes. Grant `read` but not `list` or `update`. Use dynamic credentials so developers get temporary, limited permissions without seeing the root password.
+Yes. Grant `read` but not `list` or `update`. Use live credentials so developers get temporary, limited permissions without seeing the root password.

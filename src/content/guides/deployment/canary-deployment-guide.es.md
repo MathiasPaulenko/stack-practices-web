@@ -268,7 +268,7 @@ echo "Rollback completo. Todo el tráfico en estable."
 
 ## Automated Canary Analysis Tools
 
-| Herramienta | Plataforma | Características Clave |
+| Herramienta | Plataforma | Capacidades Clave |
 |-------------|------------|----------------------|
 | **Flagger** | Kubernetes | Canary automatizado, A/B testing, progressive delivery |
 | **Spinnaker** | Multi-cloud | Canary driven por pipelines con análisis de métricas |

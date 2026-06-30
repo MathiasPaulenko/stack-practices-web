@@ -260,7 +260,7 @@ kubectl scale deployment myapp-canary --replicas=0
 echo "Rollback complete. All traffic on stable."
 ```
 
-**Promotion best practices:**
+**Promotion what works:**
 - Never skip bake time — even if metrics look good
 - Double traffic in stages (1% → 5% → 10% → 25% → 50% → 100%)
 - Require manual approval for stages above 50%
@@ -268,7 +268,7 @@ echo "Rollback complete. All traffic on stable."
 
 ## Automated Canary Analysis Tools
 
-| Tool | Platform | Key Features |
+| Tool | Platform | Key Capabilities |
 |------|----------|--------------|
 | **Flagger** | Kubernetes | Automated canary, A/B testing, progressive delivery |
 | **Spinnaker** | Multi-cloud | Pipeline-driven canary with metric analysis |
@@ -303,7 +303,7 @@ echo "Rollback complete. All traffic on stable."
 ## FAQ
 
 **Q: What percentage should I start with for a canary?**
-Start with 1% for high-traffic services, 5-10% for lower traffic. The goal is enough traffic for statistically significant metrics.
+Start with 1% for high-traffic services, 5-10% for lower traffic. The goal is enough traffic for statistically major metrics.
 
 **Q: How long should each canary stage last?**
 Minimum 10-15 minutes per stage for high-traffic services. For low-traffic, extend to 30-60 minutes to gather enough data.

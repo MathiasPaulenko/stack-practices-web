@@ -57,7 +57,7 @@ git push origin feature/login-button
 # PR mergeado via squash o rebase
 ```
 
-### Características
+### Capacidades
 
 - **Duración de rama**: Horas a 1-2 días máximo
 - **Rama principal**: Siempre desplegable
@@ -121,7 +121,7 @@ git checkout main && git merge hotfix/1.2.1
 git checkout develop && git merge hotfix/1.2.1
 ```
 
-### Características
+### Capacidades
 
 - **Rama main**: Solo código de producción; releases etiquetados
 - **Rama develop**: Rama de integración para cambios
@@ -165,7 +165,7 @@ git push -u origin feature/add-search
 git push origin --delete feature/add-search
 ```
 
-### Características
+### Capacidades
 
 - **Rama main única**: Siempre desplegable
 - **Ramas de cambio**: Creadas desde main, mergeadas via PR
