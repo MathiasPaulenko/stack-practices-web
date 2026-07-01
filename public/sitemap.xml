@@ -136,6 +136,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/ai-agents-tool-use/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/python-sentiment-analysis-nltk/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-sentiment-analysis-nltk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/python-sentiment-analysis-nltk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-sentiment-analysis-nltk/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/slack-bot-openai/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -469,6 +478,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-excel-read-write/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/python-generate-qr-code/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-generate-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/python-generate-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-generate-qr-code/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/serialize-deserialize-data/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -640,6 +658,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/use-orm-crud/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/bash-backup-rotation/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/bash-backup-rotation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/bash-backup-rotation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/bash-backup-rotation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/bash-parallel-commands/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/bash-parallel-commands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/bash-parallel-commands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/bash-parallel-commands/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/bash-scripting-automation/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -809,6 +845,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-image-resize-batch/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/python-image-resize-batch/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-image-resize-batch/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/python-zip-file-extraction/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-zip-file-extraction/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/python-zip-file-extraction/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-zip-file-extraction/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/read-large-files/</loc>
@@ -2881,6 +2926,60 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/architecture/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/sentiment-analysis/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/sentiment-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/sentiment-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/sentiment-analysis/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/python/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/python/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/python/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/python/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/nltk/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nltk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nltk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nltk/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/vader/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/vader/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/vader/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/vader/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/nlp/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nlp/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nlp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nlp/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/text-processing/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/text-processing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/text-processing/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/text-processing/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/chatbot/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -3059,15 +3158,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/java/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/java/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/java/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/python/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/python/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/python/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/python/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/multi-tenancy/</loc>
@@ -3529,6 +3619,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/spreadsheets/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/qr-code/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/qr-code/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/qrcode/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/qrcode/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/qrcode/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/qrcode/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/generation/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/generation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/generation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/generation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/images/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/images/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/images/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/images/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/serialization/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -3736,6 +3862,33 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/bash/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/backup/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/backup/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/backup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/backup/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/rotation/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/rotation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/rotation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/rotation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/script/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/script/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/script/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/script/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/automation/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -3743,6 +3896,42 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/automation/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/automation/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/automation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/parallel/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/parallel/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/parallel/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/parallel/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/xargs/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/xargs/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/xargs/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/xargs/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/gnu-parallel/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/gnu-parallel/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/gnu-parallel/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/gnu-parallel/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/shell/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/shell/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/shell/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/shell/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/blue-green/</loc>
@@ -4024,15 +4213,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/operations/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/images/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/images/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/images/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/images/"/>
-  </url>
-  <url>
     <loc>https://stackpractices.com/tags/pillow/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -4058,6 +4238,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/optimization/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/optimization/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/optimization/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/zipfile/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/zipfile/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/zipfile/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/zipfile/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/archives/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/archives/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/archives/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/archives/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/streaming/</loc>
@@ -6031,15 +6229,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/cloud/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/backup/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/backup/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/backup/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/backup/"/>
-  </url>
-  <url>
     <loc>https://stackpractices.com/tags/restore/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -7226,15 +7415,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/secrets/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/secrets/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/secrets/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/rotation/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/rotation/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/rotation/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/rotation/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/tokens/</loc>
