@@ -32,69 +32,50 @@
 
 ## Pending Content
 
-### Pending Recipes (50)
-
-**Data Processing**
-1. `parse-csv-python-pandas` — Read and filter large CSV files efficiently
-2. `merge-json-files-javascript` — Combine multiple JSON files with conflict resolution
-3. `generate-pdf-report-python` — Create styled PDFs from data with ReportLab
-4. `python-excel-read-write` — Read and write Excel with openpyxl
-5. `python-image-resize-batch` — Bulk resize images with Pillow
-6. `python-zip-file-extraction` — Safely extract and validate zip archives
-7. `python-generate-qr-code` — Create QR codes with qrcode library
-8. `python-sentiment-analysis-nltk` — Basic sentiment scoring for text
-
-**Automation & Shell**
-9. `bash-backup-rotation-script` — Automated backup with retention policies
-10. `bash-parallel-job-execution` — Run shell commands in parallel with xargs
-11. `bash-log-rotation-compression` — Rotate and compress application logs
-12. `bash-ssh-key-management` — Generate, rotate, and distribute SSH keys
-13. `bash-monitoring-disk-usage` — Alert when disk space crosses thresholds
-14. `bash-iptables-firewall-rules` — Configure basic firewall rules
-15. `bash-aws-cli-automation` — Automate AWS resource provisioning
+### Pending Recipes (35)
 
 **API & Web**
-16. `python-api-rate-limiting` — Implement token bucket rate limits in Flask/FastAPI
-17. `nodejs-jwt-authentication` — Verify and refresh JSON Web Tokens securely
-18. `nodejs-file-upload-validation` — Validate file types, size, and content
-19. `nodejs-caching-redis` — Cache API responses with Redis TTL
-20. `nodejs-oauth2-github-login` — Implement GitHub OAuth2 authentication
-21. `nodejs-websocket-realtime` — Build real-time communication with Socket.io
-22. `javascript-fetch-retry-logic` — Retry failed HTTP requests with backoff
-23. `javascript-clipboard-copy-paste` — Copy text to clipboard programmatically
-24. `javascript-localstorage-expiration` — Store data with TTL in browser storage
-25. `javascript-drag-drop-file-upload` — Native HTML5 drag and drop upload
-26. `javascript-infinite-scroll-pagination` — Implement scroll-based data loading
-27. `javascript-service-worker-offline` — Cache assets for offline PWA support
+1. `python-api-rate-limiting` — Implement token bucket rate limits in Flask/FastAPI
+2. `nodejs-jwt-authentication` — Verify and refresh JSON Web Tokens securely
+3. `nodejs-file-upload-validation` — Validate file types, size, and content
+4. `nodejs-caching-redis` — Cache API responses with Redis TTL
+5. `nodejs-oauth2-github-login` — Implement GitHub OAuth2 authentication
+6. `nodejs-websocket-realtime` — Build real-time communication with Socket.io
+7. `javascript-fetch-retry-logic` — Retry failed HTTP requests with backoff
+8. `javascript-clipboard-copy-paste` — Copy text to clipboard programmatically
+9. `javascript-localstorage-expiration` — Store data with TTL in browser storage
+10. `javascript-drag-drop-file-upload` — Native HTML5 drag and drop upload
+11. `javascript-infinite-scroll-pagination` — Implement scroll-based data loading
+12. `javascript-service-worker-offline` — Cache assets for offline PWA support
 
 **Databases**
-28. `sql-find-duplicate-rows` — Detect and remove duplicate records
-29. `sql-recursive-cte-query` — Traverse hierarchical data with recursive CTEs
-30. `sql-window-functions-ranking` — Rank rows and calculate running totals
-31. `sql-index-optimization-analysis` — Identify missing indexes with EXPLAIN
-32. `sql-partitioning-strategies` — Partition large tables by date or range
-33. `sql-migration-zero-downtime` — Rename columns without locking tables
-34. `sql-full-text-search-setup` — Configure full-text indexes for search
+13. `sql-find-duplicate-rows` — Detect and remove duplicate records
+14. `sql-recursive-cte-query` — Traverse hierarchical data with recursive CTEs
+15. `sql-window-functions-ranking` — Rank rows and calculate running totals
+16. `sql-index-optimization-analysis` — Identify missing indexes with EXPLAIN
+17. `sql-partitioning-strategies` — Partition large tables by date or range
+18. `sql-migration-zero-downtime` — Rename columns without locking tables
+19. `sql-full-text-search-setup` — Configure full-text indexes for search
 
 **DevOps & Containers**
-35. `docker-multi-stage-build-optimization` — Reduce image size with proper layering
-36. `docker-health-check-configuration` — Add proper health checks to containers
-37. `docker-compose-dev-prod-split` — Separate development and production configs
-38. `docker-network-isolation` — Secure inter-container communication
-39. `docker-secrets-management` — Inject secrets without hardcoding in images
-40. `docker-logging-fluentd` — Centralize container logs with Fluentd
-41. `python-terraform-provider-custom` — Extend Terraform with Python
-42. `python-prometheus-metrics-exporter` — Expose custom application metrics
+20. `docker-multi-stage-build-optimization` — Reduce image size with proper layering
+21. `docker-health-check-configuration` — Add proper health checks to containers
+22. `docker-compose-dev-prod-split` — Separate development and production configs
+23. `docker-network-isolation` — Secure inter-container communication
+24. `docker-secrets-management` — Inject secrets without hardcoding in images
+25. `docker-logging-fluentd` — Centralize container logs with Fluentd
+26. `python-terraform-provider-custom` — Extend Terraform with Python
+27. `python-prometheus-metrics-exporter` — Expose custom application metrics
 
 **Security & Performance**
-43. `python-encrypt-decrypt-aes` — Encrypt sensitive data with AES-GCM
-44. `python-async-http-requests` — Make concurrent API calls with aiohttp
-45. `javascript-debounce-throttle-implementation` — Control function execution rate
-46. `python-schedule-periodic-tasks` — Run cron-like jobs with APScheduler
-47. `nodejs-read-large-file-stream` — Stream process GB-sized files without memory issues
-48. `python-web-scraping-beautifulsoup` — Extract data from HTML pages
-49. `git-rebase-interactive-tutorial` — Clean commit history step by step
-50. `docker-image-vulnerability-scan` — Scan images for CVEs before deployment
+28. `python-encrypt-decrypt-aes` — Encrypt sensitive data with AES-GCM
+29. `python-async-http-requests` — Make concurrent API calls with aiohttp
+30. `javascript-debounce-throttle-implementation` — Control function execution rate
+31. `python-schedule-periodic-tasks` — Run cron-like jobs with APScheduler
+32. `nodejs-read-large-file-stream` — Stream process GB-sized files without memory issues
+33. `python-web-scraping-beautifulsoup` — Extract data from HTML pages
+34. `git-rebase-interactive-tutorial` — Clean commit history step by step
+35. `docker-image-vulnerability-scan` — Scan images for CVEs before deployment
 
 ---
 
