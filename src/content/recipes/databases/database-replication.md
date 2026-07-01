@@ -139,7 +139,7 @@ await query('UPDATE users SET last_login = NOW() WHERE id = $1', [userId]);
 | Redis | Replication | Async; Sentinel for HA |
 | CockroachDB | Multi-raft | Synchronous by default |
 
-## Best Practices
+## What Works
 
 - **Monitor replication lag**: Alert when lag exceeds application tolerance (usually 1-5 seconds)
 - **Use connection pooling**: [PgBouncer](/recipes/performance/connection-pooling) or ProxySQL manages primary/replica routing

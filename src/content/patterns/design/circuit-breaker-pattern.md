@@ -271,7 +271,7 @@ This prevents resource exhaustion from repeated failed calls and gives failing s
 | **Weighted** | Different failure thresholds for different exception types | Distinguish transient vs. permanent failures |
 | **[Custom Fallback](/patterns/design/cache-aside-pattern)** | Return a default value when open instead of throwing | Graceful degradation (cache, default response) |
 
-## Best Practices
+## What Works
 
 - **Configure recovery timeouts based on the service's typical restart time**
 - **Log state transitions** for observability and alerting

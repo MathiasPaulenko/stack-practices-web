@@ -140,7 +140,7 @@ La asignación de costos solo funciona cuando **cada recurso está taggeado cons
 | SaaS con tenants | Aislamiento de tenant + división de infra compartida | Chargeback al equipo de customer success para la plataforma compartida |
 | Startup / equipo pequeño | Simplificado: env + team solamente | Omite tags de servicio hasta tener > 5 microservicios |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Enforce tags en CI/CD, no como auditoría post-despliegue
 2. Asigna costos compartidos por una base que todos acepten (cantidad de personas, uso, ingresos)

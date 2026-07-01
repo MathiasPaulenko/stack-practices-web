@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-A pull request template standardizes the information provided when submitting code changes. See [Contributing Guide](/docs/templates/contributing-guide) for team standards and [Code Review Best Practices](/guides/design/code-review-best-practices-guide) for review culture. It ensures reviewers have context and authors verify their work before requesting review.
+A pull request template standardizes the information provided when submitting code changes. See [Contributing Guide](/docs/templates/contributing-guide) for team standards and [What Works in Code Review](/guides/design/code-review-best-practices-guide) for review culture. It ensures reviewers have context and authors verify their work before requesting review.
 
 ## When to Use
 
@@ -115,7 +115,7 @@ Fixes # (issue)
 
 ### Should every pull request use a template?
 
-Yes. Templates ensure reviewers get consistent context and authors verify their work. See [Code Review Best Practices](/guides/design/code-review-best-practices-guide) for culture. Even small fixes benefit from a brief description and testing confirmation.
+Yes. Templates ensure reviewers get consistent context and authors verify their work. See [What Works in Code Review](/guides/design/code-review-best-practices-guide) for culture. Even small fixes benefit from a brief description and testing confirmation.
 
 ### How detailed should the testing section be?
 

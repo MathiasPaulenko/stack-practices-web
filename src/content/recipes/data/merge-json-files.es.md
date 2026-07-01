@@ -182,7 +182,7 @@ Los conflictos de claves deben manejarse explícitamente: last-write-wins, merge
 | Java | `Jackson` | Mutación de `ObjectNode` | Compatible con streaming, árbol de nodos type-safe |
 | Java | `json-java` (org.json) | Deep merge de `JSONObject` | Ligero, recursión manual requerida |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa deep merge para configuración**: Los merges superficiales descartan silenciosamente claves anidadas del archivo base
 - **Deduplica arrays después de concatenar**: Fusionar datasets puede producir entradas duplicadas; deduplica por una clave estable

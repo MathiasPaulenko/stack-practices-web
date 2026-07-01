@@ -2,7 +2,7 @@
 contentType: recipes
 slug: generate-test-data
 title: "Generate Test Data"
-description: "How to generate realistic, deterministic test data with Faker, factory-boy, and type-aware generators for robust test suites in Python, JavaScript, and Java."
+description: "How to generate realistic, deterministic test data with Faker, factory-boy, and type-aware generators for reliable test suites in Python, JavaScript, and Java."
 metaDescription: "Generate realistic, deterministic test data with Faker, factory-boy, and type-aware generators in Python, JavaScript, and Java."
 difficulty: beginner
 topics:
@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Hardcoded test data (`name = "John"`, `email = "test@test.com"`) quickly becomes stale, fails to expose edge cases, and does not represent production data distributions. Generators produce realistic, varied, and deterministic data that makes tests more robust while reducing manual fixture maintenance.
+Hardcoded test data (`name = "John"`, `email = "test@test.com"`) quickly becomes stale, fails to expose edge cases, and does not represent production data distributions. Generators produce realistic, varied, and deterministic data that makes tests more reliable while reducing manual fixture maintenance.
 
 ## When to Use
 
@@ -215,7 +215,7 @@ User user = Instancio.of(User.class)
 List<User> users = Instancio.ofList(User.class).size(100).create();
 ```
 
-## Best Practices
+## What Works
 
 - **Always seed your random generator.** Without a seed, a test that fails on CI may pass locally because the data was different. Set `Faker.seed()` or `faker.seed()` in a global setup file.
 - **Override specific fields for scenario tests.** `createUser({ role: 'admin' })` is clearer than hoping the random generator happens to produce an admin.

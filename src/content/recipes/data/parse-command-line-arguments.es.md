@@ -155,7 +155,7 @@ Los frameworks CLI modernos parsean `sys.argv` / `process.argv` / `args[]` en es
 | Java | `picocli` | Anotaciones | Scripts de autocompletado, soporte native-image |
 | Java | `Apache Commons CLI` | Patrón Builder | Más antiguo pero ampliamente usado en enterprise |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa librerías estándar primero** (`argparse`, `process.argv`) para scripts simples para evitar bloat de dependencias
 - **Agrega flags `-h` / `--help`** a toda CLI; los frameworks generan esto automáticamente

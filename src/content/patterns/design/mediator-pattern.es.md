@@ -219,7 +219,7 @@ Sin el mediador, cada usuario necesitaría una referencia a cada otro usuario. C
 | **Command Bus** | Comandos enrutados a través de un handler central | CQRS, despacho de tareas |
 | **Dialog Director** | Widgets UI coordinados por un controlador de diálogo | Validación de formularios, flujos de wizard |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Mantén el mediador enfocado** en coordinación, no en lógica de negocio
 - **Evita convertir el mediador en un objeto dios** — si crece demasiado, divídelo

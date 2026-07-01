@@ -54,7 +54,7 @@ Chaos engineering is the discipline of experimenting on a system to build confid
 1. **Build a hypothesis around steady-state behavior** — define normal metrics (error rate < 0.1%, p99 latency < 200ms)
 2. **Vary real-world events** — inject failures that actually happen: network partitions, disk failures, dependency outages
 3. **Run experiments in production** — staging rarely matches production topology and load
-4. **Automate experiments to run continuously** — manual game days are valuable but not scalable
+4. **Automate experiments to run continuously** — manual game days are valuable but not sustainable
 5. **Minimize blast radius** — start small (one pod, one AZ), abort if SLOs are breached
 
 ## Experiment Design

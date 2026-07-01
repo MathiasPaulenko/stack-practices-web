@@ -2,7 +2,7 @@
 contentType: recipes
 slug: real-time-websockets
 title: "Build Real-Time APIs with WebSockets on Serverless"
-description: "How to implement bidirectional real-time communication using WebSockets with AWS API Gateway, Lambda, DynamoDB, and connection management best practices."
+description: "How to implement bidirectional real-time communication using WebSockets with AWS API Gateway, Lambda, DynamoDB, and what works in connection management."
 metaDescription: "Learn to build real-time APIs with WebSockets on serverless. Implement bidirectional communication with API Gateway, Lambda, DynamoDB, and connection management."
 difficulty: advanced
 topics:
@@ -181,7 +181,7 @@ ws.onclose = () => console.log('Connection closed');
 | Pusher | Pusher Channels | Managed | Rapid prototyping |
 | Ably | Ably Platform | Managed | Enterprise scale |
 
-## Best practices
+## What works
 
 - **Use rooms or channels**: instead of broadcasting to all connections, group connections by topic, room, or user. Query only relevant connections to reduce DynamoDB costs and latency.
 - **Handle stale connections**: connections may drop without triggering `$disconnect`. Periodically scan and clean up connections older than a heartbeat threshold.
@@ -199,7 +199,7 @@ ws.onclose = () => console.log('Connection closed');
 ## FAQ
 
 **Q: How many concurrent connections can API Gateway WebSockets handle?**
-A: API Gateway has a default quota of 10,000 concurrent connections per region, scalable via AWS support request. For higher scale, consider Ably, Pusher, or self-managed infrastructure.
+A: API Gateway has a default quota of 10,000 concurrent connections per region, growth-ready via AWS support request. For higher scale, consider Ably, Pusher, or self-managed infrastructure.
 
 **Q: Can I use WebSockets with HTTP API Gateway?**
 A: No. WebSockets require API Gateway v2 with `protocol_type = "WEBSOCKET"`. HTTP APIs do not support persistent connections.

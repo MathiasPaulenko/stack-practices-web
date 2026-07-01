@@ -145,8 +145,8 @@ CREATE TRIGGER products_search_trigger
 
 **Capacidades de búsqueda de PostgreSQL:**
 
-| Característica | Soporte | Notas |
-|----------------|---------|-------|
+| Capacidad | Soporte | Notas |
+|----------|---------|-------|
 | Stemming | Sí | Integrado en diccionarios de búsqueda de texto |
 | Ranqueo | Sí | `ts_rank()` y `ts_rank_cd()` |
 | Resaltado | Sí | `ts_headline()` para vistas previas de resultados |
@@ -489,7 +489,7 @@ def bulk_sync():
 ## FAQ
 
 **P: ¿Debería usar PostgreSQL o Elasticsearch para búsqueda?**
-Comienza con PostgreSQL si tienes <1M documentos y no necesitas coincidencia difusa o faceting complejo. Mueve a Elasticsearch cuando la búsqueda se convierta en una característica principal con requisitos avanzados.
+Comienza con PostgreSQL si tienes <1M documentos y no necesitas coincidencia difusa o faceting complejo. Mueve a Elasticsearch cuando la búsqueda se convierta en una capacidad principal con requisitos avanzados.
 
 **P: ¿Cómo mantengo Elasticsearch sincronizado con mi base de datos?**
 Usa Change Data Capture (Debezium), triggers de base de datos con una cola de mensajes, o escrituras duales a nivel de aplicación. CDC es el más confiable.
@@ -502,5 +502,5 @@ Sí, con la extensión `pg_trgm`: `SELECT word FROM words WHERE word % 'parial' 
 
 ## Conclusión
 
-La búsqueda de texto completo es una característica orientada al usuario donde el rendimiento y la relevancia impactan directamente el engagement. Al elegir el motor correcto para tu escala, diseñar índices para tus patrones de consulta, y ajustar continuamente la relevancia, construyes búsqueda en la que los usuarios confían y dependen.
+La búsqueda de texto completo es una capacidad orientada al usuario donde el rendimiento y la relevancia impactan directamente el engagement. Al elegir el motor correcto para tu escala, diseñar índices para tus patrones de consulta, y ajustar continuamente la relevancia, construyes búsqueda en la que los usuarios confían y dependen.
 

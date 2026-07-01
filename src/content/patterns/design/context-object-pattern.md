@@ -293,7 +293,7 @@ This keeps method signatures focused on business parameters while still giving d
 | **Async context** | Propagated through async calls | Node.js AsyncLocalStorage |
 | **Global/singleton** | Single app-wide context | CLI tools, desktop apps |
 
-## Best Practices
+## What Works
 
 - **Keep contexts immutable.** Create new instances instead of mutating shared state.
 - **Scope contexts narrowly.** Request-scoped, not global. Avoid singleton contexts.

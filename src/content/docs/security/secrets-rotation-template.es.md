@@ -136,7 +136,7 @@ La plantilla aborda tres problemas comunes: **no saber qué secretos tienes**, *
 | Claves de cifrado HSM | Ceremonia de cifrado manual requerida | Agregar checklists de 4 ojos; ceremonia programada trimestralmente |
 | Ambientes regulados (PCI DSS) | Auditoría requiere trazabilidad | Log de rotación inmutable; aprobación dual para excepciones |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Automatiza todo lo posible; la rotación manual falla consistentemente bajo presión
 2. Rotar durante ventanas de bajo tráfico; la rotación siempre tiene riesgo de interrupción

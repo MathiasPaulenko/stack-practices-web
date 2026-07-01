@@ -182,7 +182,7 @@ Business logic depends only on the interface, so you can swap implementations fo
 | **Specification Pattern** | Complex query composition | Very flexible, but harder to optimize at the database level |
 | **Unit of Work** | Batch multiple operations into a single transaction | Adds complexity, but essential for data integrity |
 
-## Best Practices
+## What Works
 
 - **Return domain objects, not raw data rows**: Map database results to rich domain objects
 - **Use interfaces for repositories**: This is what makes them testable and swappable. See [Dependency Injection](/patterns/design/dependency-injection-pattern) for wiring strategies.

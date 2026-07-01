@@ -153,7 +153,7 @@ La diferencia clave: un **liveness probe fallido dispara un reinicio**, mientras
 | Startup | `/health/startup` | App terminó inicialización | Esperar antes de otros probes |
 | Deep | `/health/deep` | Test end-to-end completo | Alertar, page on-call |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Separa liveness y readiness**: Tienen propósitos diferentes y no deben compartir el mismo endpoint.
 - **Mantén liveness ligero**: Solo verifica que el proceso no se haya bloqueado (deadlock).

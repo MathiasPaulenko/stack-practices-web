@@ -101,7 +101,7 @@ redisClient.publish('user:updated', userId);
 | Write-behind | Débil | Muy baja | Alta | Cargas de escritura intensas |
 | Event-driven | Fuerte | Baja | Alta | Microservicios distribuidos |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa cache-aside para lecturas**: revisa caché, fallback a base de datos, popula caché. Es el patrón más común y resiliente.
 - **Configura TTLs apropiados**: demasiado corto y derrotas el propósito del caching; demasiado largo y los datos obsoletos persisten. Basado en requerimientos de negocio.

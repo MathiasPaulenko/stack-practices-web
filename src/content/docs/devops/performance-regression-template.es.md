@@ -141,7 +141,7 @@ La plantilla fuerza una **decisión cuantificada** en lugar de una corazonada. M
 | Microservicios | Latencia entre servicios, disparos de circuit breaker, tormentas de reintentos | La sobrecarga de red domina |
 | Frontend | Time to Interactive, Largest Contentful Paint, tamaño de bundle | Scores de Lighthouse + datos de RUM |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Ejecuta benchmarks en CI para cada release; bloquea despliegues si la regresión supera el umbral
 2. Establece métricas de línea base a partir de un período estable, no de un objetivo arbitrario

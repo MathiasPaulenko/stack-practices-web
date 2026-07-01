@@ -215,7 +215,7 @@ Clients never check for null; they treat all objects uniformly.
 - **Return null objects from factories and lookups** instead of `None` or `null`
 - **Make null objects immutable** so they cannot be accidentally modified
 - **Log null object usage** in debug mode to catch unexpected absences
-- **Use language features** like Java `Optional` or C# nullable types alongside null objects for APIs that explicitly model absence
+- **Use language capabilities** like Java `Optional` or C# nullable types alongside null objects for APIs that explicitly model absence
 - **Keep null object behavior simple** — complex logic in a null object is a code smell
 
 ## Common Mistakes

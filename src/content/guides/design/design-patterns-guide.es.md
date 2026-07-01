@@ -232,7 +232,7 @@ cart.checkout(99.99)
 | "Necesito abstraer el acceso a base de datos" | Repository | Consulta [diseño de bases de datos](/guides/databases/database-design-guide).
 | "Necesito rastrear y deshacer cambios" | Command + Memento |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **No fuerces patterns**: No todo problema necesita un pattern
 - **Empieza simple**: Refactoriza hacia un pattern cuando aparezca duplicación. Consulta [código limpio](/guides/design/clean-code-principles-guide).

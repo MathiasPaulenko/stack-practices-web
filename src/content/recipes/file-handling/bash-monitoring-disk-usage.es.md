@@ -84,7 +84,7 @@ El script usa `df -Hl` para listar filesystems locales y sus porcentajes de uso.
 | PagerDuty | event API | Escalación on-call en producción |
 | Log de archivo | redirect a syslog | Agregación centralizada de logs |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Configura umbrales por debajo del 100%.** Alerta al 80% y actúa al 90% para tener tiempo de responder.
 2. **Monitorea mount points, no solo el disco total.** Un `/tmp` o `/var/log` pequeño puede llenarse independientemente del disco raíz.

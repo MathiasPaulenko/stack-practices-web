@@ -3,7 +3,7 @@ contentType: recipes
 slug: end-to-end-testing
 title: "End-to-End Testing"
 description: "Escribe tests end-to-end confiables que simulan flujos reales de usuarios a través de toda la pila de aplicación."
-metaDescription: "Mejores prácticas de end-to-end testing: Playwright, Cypress, aislamiento de tests, seeding de datos, integración CI y prevención de tests flaky."
+metaDescription: "Lo que funciona en end-to-end testing: Playwright, Cypress, aislamiento de tests, seeding de datos, integración CI y prevención de tests flaky."
 difficulty: intermediate
 topics:
   - testing
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
-  metaDescription: "Mejores prácticas de end-to-end testing: Playwright, Cypress, aislamiento de tests, seeding de datos, integración CI y prevención de tests flaky."
+  metaDescription: "Lo que funciona en end-to-end testing: Playwright, Cypress, aislamiento de tests, seeding de datos, integración CI y prevención de tests flaky."
   keywords:
     - e2e
     - testing
@@ -118,7 +118,7 @@ La **aserción** debe verificar resultados, no implementación. Asegúrate de qu
 | Puppeteer | JavaScript | Automatización solo Chrome, scraping, generación PDF | API más de bajo nivel que Playwright |
 | WebdriverIO | JavaScript | Cross-browser con soporte móvil | Modular, soporta Appium |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Prueba el happy path y algunos caminos de fallo críticos.** No intentes cubrir cada mensaje de validación; los tests unitarios son más baratos para eso.
 2. **Siembra datos determinísticos antes de cada test.** Usa una factory o API para crear usuarios, productos y pedidos, y límpialos después del test.

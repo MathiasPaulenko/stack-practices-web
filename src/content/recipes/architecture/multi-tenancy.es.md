@@ -35,7 +35,7 @@ La multi-tenancy es una arquitectura donde una única instancia de software sirv
 
 Usa este recurso cuando:
 - Construyes aplicaciones SaaS que sirven a múltiples organizaciones
-- Debes cumplir requisitos de compliance (SOC 2, HIPAA) que exigen segregación de datos. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para lo que funciona para compliance.
+- Debes cumplir requisitos de compliance (SOC 2, HIPAA) que exigen segregación de datos. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para saber lo que funciona en compliance.
 - Optimizas costos de infraestructura compartiendo compute entre tenants
 - Escalas de cientos a miles de tenants con rendimiento predecible
 

@@ -200,7 +200,7 @@ class OrderAggregate {
 | S3 + Athena | S3 | Athena queries | Audit, compliance, analytics |
 | Aurora + Outbox | PostgreSQL | CDC | Event sourcing relacional |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Versiona cada evento**: incluye una versión monotónicamente creciente por agregado. Usa `ConditionExpression` de DynamoDB para rechazar escrituras con versiones stale. Esto previene updates perdidos cuando dos usuarios modifican simultáneamente el mismo agregado.
 - **Haz los eventos inmutables y autocontenidos**: un evento debería llevar todos los datos necesarios para entenderlo, no solo deltas. `OrderCreated` debería incluir customer ID, dirección de envío y líneas de items — no solo "la orden 123 fue creada." Consumidores futuros no deberían necesitar consultar otros sistemas para interpretar el evento.

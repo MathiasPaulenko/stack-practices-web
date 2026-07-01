@@ -181,7 +181,7 @@ By encapsulating requests as objects, you gain the ability to queue, log, and re
 | **Undoable Command** | Operations that can be reversed | Requires maintaining state for reversal |
 | **Macro Command** | Composite of multiple commands | Powerful, but harder to undo atomically |
 
-## Best Practices
+## What Works
 
 - **Implement `undo()` for every command** if your system supports undo
 - **Keep commands stateless when possible**: Store receiver state, not command state

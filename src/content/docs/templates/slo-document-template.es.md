@@ -101,7 +101,7 @@ Presupuesto restante | Política
 < 10%               | Todos en confiabilidad; detener feature work
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Empieza con métricas visibles para usuarios** — "uso de CPU" no es un SLI; "tasa de requests exitosos" sí. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para selección de métricas.
 - **Define SLOs basados en performance actual** — si estás en 99.5% hoy, no prometas 99.99%

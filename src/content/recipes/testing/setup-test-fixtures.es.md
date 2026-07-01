@@ -263,7 +263,7 @@ public class TestFixtures {
 }
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa funciones factory, no datos estáticos.** `createUser({ role: 'admin' })` es más flexible que un objeto `adminUser` hardcodeado y previene el drift de copy-paste.
 - **Resetea estado entre tests.** Los fixtures mutables compartidos causan fallos dependientes del orden. Trunca tablas, limpia mocks y reinicializa objetos en `beforeEach`.

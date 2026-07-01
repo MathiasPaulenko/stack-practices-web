@@ -284,7 +284,7 @@ No. These are guidelines, not laws. Apply them where they reduce complexity and 
 
 ### Do SOLID principles apply only to OOP?
 
-The concepts translate well to other models. Functional programming achieves DIP via higher-order functions, and SRP applies to modules and functions in any paradigm. See [design patterns](/guides/design/design-patterns-guide) for practical examples.
+The concepts translate well to other models. Functional programming achieves DIP via higher-order functions, and SRP applies to modules and functions in any model. See [design patterns](/guides/design/design-patterns-guide) for practical examples.
 
 ### How do I convince my team to refactor toward SOLID?
 

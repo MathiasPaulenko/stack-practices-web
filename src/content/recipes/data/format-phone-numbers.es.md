@@ -159,7 +159,7 @@ E.164 (`+14155552671`) es el formato de almacenamiento canónico: es inequívoco
 | Java | `libphonenumber` | Parse, validate, format | Original de Google, metadata más completa |
 | Java | `AsYouTypeFormatter` | Formateo en tiempo real | Formateo carácter por carácter |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Almacena E.164, muestra nacional**: E.164 remueve ambigüedad; el formato nacional mejora legibilidad
 - **Parsea con una región por defecto**: `parse("4155552671", "US")` resuelve correctamente; sin hint, requiere prefijo `+`

@@ -118,7 +118,7 @@ curl -sI "$URL" | grep -iE \
 | Rails | secure_headers | Gem |
 | Nginx | Nativo | Manual |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Empieza con CSP report-only**: `Content-Security-Policy-Report-Only` logea violaciones sin bloquear
 - **Usa nonce para scripts inline**: `<script nonce="random-value">` en lugar de `'unsafe-inline'`

@@ -344,7 +344,7 @@ The queue acts as a **buffer** between producers and consumers:
 | **Stream** | Kafka, Kinesis | Event sourcing, replay, log-based persistence |
 | **Task queue** | Celery, BullMQ, Hangfire | Job scheduling, retries, result tracking |
 
-## Best Practices
+## What Works
 
 - **Set queue depth limits.** Unbounded queues hide problems and consume memory. Set max-length and define overflow behavior (reject, dead-letter, or drop).
 - **Monitor queue depth.** Queue growth rate is your primary capacity signal — if it grows continuously, you need more consumers.

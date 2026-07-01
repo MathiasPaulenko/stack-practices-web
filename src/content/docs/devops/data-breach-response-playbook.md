@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-A data breach is not just a technical incident — it is a legal, reputational, and operational crisis. The first 24 hours determine whether the breach becomes a manageable incident or a headline. This playbook provides a structured response: contain the damage, preserve evidence, notify the right people, and remediate the root cause. It is designed to be used under pressure, with clear decision points and owner assignments.
+A data breach is not just a technical incident. It is a legal, reputational, and operational crisis. The first 24 hours determine whether the breach becomes a manageable incident or a headline. This playbook provides a structured response: contain the damage, preserve evidence, notify the right people, and remediate the root cause. It is designed to be used under pressure, with clear decision points and owner assignments.
 
 ## When to Use
 
@@ -173,7 +173,7 @@ Before a breach occurs:
 
 ## Explanation
 
-The playbook is divided into **phases** that match the time pressure of a breach: the first hours are about confirming and containing; the next days are about investigating and notifying; the following weeks are about fixing and learning. Each phase has **owner-assigned checkboxes** so nothing is forgotten in the chaos. The **notification decision matrix** is critical — missing a legal deadline can turn a security incident into a regulatory penalty.
+The playbook is divided into phases that match the time pressure of a breach: the first hours are about confirming and containing; the next days are about investigating and notifying; the following weeks are about fixing and learning. Each phase has owner-assigned checkboxes so nothing is forgotten in the chaos. The notification decision matrix is critical. Missing a legal deadline can turn a security incident into a regulatory penalty.
 
 ## Variants
 
@@ -185,21 +185,21 @@ The playbook is divided into **phases** that match the time pressure of a breach
 | Ransomware | Add payment policy, backup restoration plan, and law enforcement engagement | Paying ransom is a business and legal decision |
 | Small startup (no dedicated security team) | Add external security firm engagement steps and simplified role assignments | Speed matters more than completeness when you are small |
 
-## Best Practices
+## What Works
 
-1. **Practice the playbook** — run a tabletop exercise quarterly. A playbook you have never used is a liability
-2. **Preserve before you clean** — forensics depends on evidence; containment that destroys logs makes root cause analysis impossible
-3. **Legal counsel early** — attorney-client privilege can protect investigation findings from discovery in litigation
-4. **Document everything in real time** — memories distort under pressure; a running log is more reliable than recollection
-5. **Do not promise what you cannot verify** — if you do not know the scope, say so. Overstating confidence destroys credibility
+1. Practice the playbook. Run a tabletop exercise quarterly. A playbook you have never used is a liability
+2. Preserve before you clean. Forensics depends on evidence; containment that destroys logs makes root cause analysis impossible
+3. Legal counsel early. Attorney-client privilege can protect investigation findings from discovery in litigation
+4. Document everything in real time. Memories distort under pressure; a running log is more reliable than recollection
+5. Do not promise what you cannot verify. If you do not know the scope, say so. Overstating confidence destroys credibility
 
 ## Common Mistakes
 
-1. **Shutting down systems immediately** — you lose volatile memory and logs. Isolate, do not power off
-2. **Notifying too early or too late** — early notification without facts causes panic; late notification causes regulatory penalties
-3. **Skipping evidence preservation** — without evidence, you cannot prove what happened, defend against lawsuits, or learn
-4. **Communicating over compromised channels** — assume the attacker is reading your incident chat. Use out-of-band communication
-5. **No follow-through on remediation** — the breach is not over when the attacker is out; it is over when the system is demonstrably safer
+1. Shutting down systems immediately. You lose volatile memory and logs. Isolate, do not power off
+2. Notifying too early or too late. Early notification without facts causes panic; late notification causes regulatory penalties
+3. Skipping evidence preservation. Without evidence, you cannot prove what happened, defend against lawsuits, or learn
+4. Communicating over compromised channels. Assume the attacker is reading your incident chat. Use out-of-band communication
+5. No follow-through on remediation. The breach is not over when the attacker is out; it is over when the system is demonstrably safer
 
 ## Frequently Asked Questions
 

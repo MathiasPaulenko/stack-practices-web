@@ -357,7 +357,7 @@ The trade-off is reduced parallelism per entity — all messages for `user-123` 
 | **Database sequence table** | Optimistic locking on sequence numbers | Systems without message broker ordering |
 | **Sagas with orchestration** | Explicit step ordering in workflow engine | Complex multi-step business processes |
 
-## Best Practices
+## What Works
 
 - **Use a deterministic partition key.** The entity ID should consistently map to the same partition. Changing the key invalidates ordering.
 - **Monitor partition skew.** If one entity generates 90% of messages, its partition becomes a bottleneck. Consider splitting hot entities.

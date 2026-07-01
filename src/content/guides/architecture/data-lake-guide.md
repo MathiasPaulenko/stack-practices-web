@@ -45,7 +45,7 @@ A Data Lake is a centralized storage repository that holds structured, semi-stru
 
 - You need to store diverse data types: JSON, CSV, Parquet, images, videos, logs
 - Machine learning workloads require raw, unprocessed data
-- Data volume exceeds what traditional databases can cost-effectively handle
+- Data volume exceeds what traditional databases can handle well
 - You want to defer schema design until data is consumed
 - Historical data must be retained cheaply for future analysis
 

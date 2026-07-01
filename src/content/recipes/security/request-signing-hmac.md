@@ -150,7 +150,7 @@ AWS Signature v4 extends this with credential scopes, signed headers, and region
 | Ed25519 | Asymmetric | 128-bit | Public/private key verification |
 | RSA-SHA256 | Asymmetric | 2048+ bit | Enterprise PKI integration |
 
-## Best Practices
+## What Works
 
 - **Use timing-safe comparison**: `crypto.timingSafeEqual()` prevents timing attacks
 - **Include timestamps**: Reject requests older than 5 minutes to prevent replay attacks

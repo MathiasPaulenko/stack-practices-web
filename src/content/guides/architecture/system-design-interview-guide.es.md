@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: system-design-interview-guide
-title: "Guía de Entrevistas de System Design — Conceptos Clave"
+title: "Guía de Entrevistas de System Design: Conceptos Clave"
 description: "Una guía práctica para entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios y cómo estructurar tu respuesta."
 metaDescription: "Guía de entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios. Aprende a estructurar respuestas para entrevistas técnicas."
 difficulty: advanced
@@ -47,17 +47,19 @@ Una respuesta fuerte sigue un framework de 4S:
 
 Clarifica los requerimientos antes de diseñar:
 
-**Requerimientos funcionales:**
+#### Requerimientos Funcionales
+
 - ¿Qué capacidades debe soportar el sistema?
 - ¿Cuáles son los casos de uso principales?
 
-**Requerimientos no funcionales:**
+#### Requerimientos No Funcionales
+
 - Escala: ¿Cuántos usuarios? ¿Requests por segundo?
 - Latencia: ¿Cuál es el tiempo de respuesta aceptable?
 - Disponibilidad: ¿Qué uptime se requiere (99.9%, 99.99%)?
 - Consistencia vs. disponibilidad: ¿Podemos tolerar consistencia eventual?
 
-**Ejemplo:**
+#### Ejemplo
 > "Diseña un acortador de URLs como bit.ly."
 > - Funcional: Acortar URL, redireccionar, alias personalizados, analytics
 > - Escala: 100M URLs nuevas/día, 10B lecturas/día
@@ -75,14 +77,14 @@ Cliente → Load Balancer → API Servers → Cache → Database
 ```
 
 Componentes clave a considerar:
-- **Load Balancer**: Distribuye tráfico (round-robin, least connections)
-- **API Gateway**: Autenticación, rate limiting, routing
-- **Application Servers**: Stateless, listos para crecimiento horizontal
-- **Cache**: Redis, Memcached para datos hot
-- **Database**: Elección SQL vs. NoSQL
-- **Message Queue**: Kafka, RabbitMQ para procesamiento async
-- **CDN**: Assets estáticos y edge caching
-- **Object Storage**: S3 para archivos/imágenes
+- Load Balancer: Distribuye tráfico (round-robin, least connections)
+- API Gateway: Autenticación, rate limiting, routing
+- Application Servers: Stateless, listos para crecimiento horizontal
+- Cache: Redis, Memcached para datos hot
+- Database: Elección SQL vs. NoSQL
+- Message Queue: Kafka, RabbitMQ para procesamiento async
+- CDN: Assets estáticos y edge caching
+- Object Storage: S3 para archivos/imágenes
 
 ### 3. Scale (10-15 minutos)
 
@@ -96,7 +98,7 @@ Identifica cuellos de botella y propone soluciones:
 | Queries lentos | Índices, desnormalización, índices de búsqueda |
 | Almacenamiento de archivos grandes | Object storage (S3) + presigned URLs |
 
-**Cálculos aproximados:**
+#### Cálculos Aproximados
 
 ```
 100M URLs/día = ~1,160 escrituras/segundo (peak ~3,000/s)
@@ -112,10 +114,10 @@ Almacenamiento anual: ~22 TB/año
 ### 4. Solidify (5 minutos)
 
 Trata casos edge y preocupaciones operacionales:
-- **Monitoreo**: Latencia, tasa de error, throughput
-- **Seguridad**: Rate limiting, validación de inputs, protección DDoS
-- **Retención de datos**: Políticas de archivo, eliminación GDPR
-- **Disaster recovery**: Backups, point-in-time recovery
+- Monitoreo: Latencia, tasa de error, throughput
+- Seguridad: Rate limiting, validación de inputs, protección DDoS
+- Retención de datos: Políticas de archivo, eliminación GDPR
+- Disaster recovery: Backups, point-in-time recovery
 
 ## Conceptos Core
 
@@ -142,7 +144,8 @@ Shard por user_id % 4:
   Usuario 5 → Shard 0
 ```
 
-**Criterios de selección de shard key:**
+#### Criterios de Selección de Shard Key
+
 - Alta cardinalidad (muchos valores distintos)
 - Distribución uniforme (evita hotspots)
 - Localidad de queries (la mayoría de queries incluyen la shard key)
@@ -160,11 +163,13 @@ Shard por user_id % 4:
 
 En un sistema distribuido, solo puedes garantizar dos de tres:
 
-- **Consistencia**: Todos los nodos ven los mismos datos simultáneamente
-- **Disponibilidad**: Cada request recibe una respuesta
-- **Tolerancia a Particiones**: El sistema continúa operando a pesar de fallas de red
+- Consistencia: Todos los nodos ven los mismos datos simultáneamente
+- Disponibilidad: Cada request recibe una respuesta
+- Tolerancia a Particiones: El sistema continúa operando a pesar de fallas de red
 
-**Implicación práctica:** Las particiones de red son inevitables, así que eliges entre sistemas CP (consistentes) o AP (disponibles).
+#### Implicación Práctica
+
+Las particiones de red son inevitables, así que eliges entre sistemas CP (consistentes) o AP (disponibles).
 
 ## Problemas de Diseño Comunes
 
@@ -179,12 +184,12 @@ En un sistema distribuido, solo puedes garantizar dos de tres:
 
 ## Lo que funciona
 
-- **Empieza simple**, luego agrega complejidad solo cuando esté justificada
-- **Establece suposiciones explícitamente** — los entrevistadores evalúan tu razonamiento
-- **Discute trade-offs** — cada decisión tiene pros y contras
-- **Usa números concretos** — la matemática aproximada muestra rigor
-- **Conoce tu stack tecnológico** — no propongas tecnologías que no puedas explicar
-- **Practica con timer** — 45 minutos pasan rápido
+- Empieza simple, luego agrega complejidad solo cuando esté justificada
+- Establece suposiciones explícitamente. Los entrevistadores evalúan tu razonamiento.
+- Discute trade-offs. Cada decisión tiene pros y contras.
+- Usa números concretos. La matemática aproximada muestra rigor.
+- Conoce tu stack tecnológico. No propongas tecnologías que no puedas explicar.
+- Practica con timer. 45 minutos pasan rápido.
 
 ## Errores Comunes
 

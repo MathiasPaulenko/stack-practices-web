@@ -156,7 +156,7 @@ The key difference: a **failing liveness probe triggers a restart**, while a **f
 | Startup | `/health/startup` | App finished initialization | Wait before other probes |
 | Deep | `/health/deep` | Full end-to-end test | Alert, page on-call |
 
-## Best Practices
+## What Works
 
 - **Separate liveness and readiness**: They serve different purposes and should not share the same endpoint.
 - **Keep liveness lightweight**: Only check that the process has not deadlocked.

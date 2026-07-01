@@ -226,7 +226,7 @@ result = processor.charge(99.99, "USD")
 | Builder | High | Complex objects with many optional parameters | Medium |
 | DI container | Highest | Enterprise applications with deep dependency graphs | High |
 
-## Best practices
+## What Works
 
 - **Return abstractions, not concretions**: a factory method should return `Notifier`, not `EmailNotifier`. This allows callers to treat all products uniformly and enables substitution. If the return type is concrete, the factory provides no decoupling.
 - **Keep factories stateless**: a factory should not maintain application state. It creates and returns objects — nothing more. Stateful factories are hard to test and obscure object lifetimes. Pass configuration as parameters.

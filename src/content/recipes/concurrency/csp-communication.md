@@ -199,7 +199,7 @@ async function main() {
 | Closed | N/A | Signal completion | Signaling no more values |
 | Nil | N/A | Never selected | Disabling select cases |
 
-## Best practices
+## What Works
 
 - **Close channels from the sender, not the receiver**: in Go, only the sender should close a channel. Closing from the receiver causes a panic if the sender simultaneously sends. Use a `done` channel or `context.Context` for cancellation signals instead of closing from the consumer side.
 - **Use `select` with a `done` channel for cancellation**: long-running goroutines should accept a `done` or `ctx.Done()` channel. When the parent wants to cancel, it closes the done channel. The child uses `select` to either do work or exit when done is closed.

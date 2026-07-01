@@ -31,7 +31,7 @@ seo:
 
 # Implementa Transacciones ACID en PostgreSQL
 
-Las propiedades ACID — Atomicidad, Consistencia, Aislamiento, Durabilidad — son la fundacion de operaciones de base de datos confiables. PostgreSQL proporciona cumplimiento ACID completo con multiples niveles de aislamiento, savepoints para transacciones anidadas y manejo robusto de errores que asegura integridad de datos incluso en escenarios de fallo.
+Las propiedades ACID — Atomicidad, Consistencia, Aislamiento, Durabilidad — son la fundacion de operaciones de base de datos confiables. PostgreSQL proporciona cumplimiento ACID completo con multiples niveles de aislamiento, savepoints para transacciones anidadas y manejo confiable de errores que asegura integridad de datos incluso en escenarios de fallo.
 
 ## Cuando Usar Esto
 

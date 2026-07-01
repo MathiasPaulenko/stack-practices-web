@@ -229,7 +229,7 @@ WHERE id IN (1, 2, 3, ...);
 | **Contar todas las filas** | `SELECT COUNT(*)` en tablas enormes | Usa conteos aproximados o triggers |
 | **Sin pool de conexiones** | Sobrecarga de conexión domina | Usa [pool de conexiones](/recipes/performance/connection-pooling). |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Indexa claves foráneas** automáticamente — los joins dependen de ellas
 - **Monitorea logs de consultas lentas** semanalmente y atiende los principales ofensores

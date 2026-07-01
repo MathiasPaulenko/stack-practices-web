@@ -32,7 +32,7 @@ seo:
 
 El input de usuario es el vector de ataque principal para aplicaciones web. SQL injection, cross-site scripting y ejecución remota de código comienzan con datos no confiables entrando al sistema. La validación de datos es la primera línea de defensa — rechazar input malformado, excesivamente grande o malicioso antes de que alcance la lógica de aplicación o almacenamiento.
 
-La validación efectiva opera en múltiples capas: client-side para feedback inmediato, server-side para seguridad, y a nivel de base de datos para integridad de datos. Esta receta se enfoca en validación server-side usando librerías de schema que combinan type safety, checking de constraints y mensajes de error automáticos.
+La validación útil opera en múltiples capas: client-side para feedback inmediato, server-side para seguridad, y a nivel de base de datos para integridad de datos. Esta receta se enfoca en validación server-side usando librerías de schema que combinan type safety, checking de constraints y mensajes de error automáticos.
 
 ## Cuándo usarlo
 
@@ -122,7 +122,7 @@ if (error) {
 | JSON Schema | Multi | Via generators | OpenAPI, cross-platform |
 | class-validator | TypeScript | Nativa | NestJS, class-based |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Valida en el boundary, no en todas partes**: centraliza validación en middleware o puntos de entrada de controladores. La lógica de negocio debería asumir que la data ya está limpia. Consulta [Middleware](/recipes/api/middleware) para patrones de procesamiento de requests.
 - **Whitelist, no blacklist**: define lo que está permitido en lugar de lo que está prohibido. Las blacklists son imposibles de completar y siempre dejan brechas.

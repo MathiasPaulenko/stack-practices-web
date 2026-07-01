@@ -127,7 +127,7 @@ EXPIRE rate_limit:ip:192.168.1.1 60
 ### When to Choose
 
 - Write-heavy workloads (time-series, IoT, messaging)
-- Need linear scalability across commodity hardware
+- Need linear growth across commodity hardware
 - Tolerance for eventual consistency and CQL (Cassandra Query Language)
 
 ### Data Model

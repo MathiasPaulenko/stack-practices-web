@@ -187,7 +187,7 @@ Run: `mvn test` or your IDE's test runner.
 | Mocking | `unittest.mock` | `jest.mock` | Mockito |
 | Fixtures | `pytest.fixture` | `beforeEach` / `afterEach` | `@BeforeEach` / `@AfterEach` |
 
-## Best Practices
+## What Works
 
 - **Name tests after behavior**: `test_addNegativeNumbers` is better than `test_add2` because it describes intent.
 - **One concept per test**: if you need multiple asserts, ensure they verify a single logical outcome. Otherwise, split the test.

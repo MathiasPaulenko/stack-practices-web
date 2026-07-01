@@ -212,7 +212,7 @@ JOIN (
 
 - **Implicit INNER JOIN** — using comma-separated tables without WHERE filters creates CROSS JOIN
 - **Missing foreign key indexes** — join columns must be indexed on the many side
-- **LEFT JOIN with WHERE on right table** — filters out NULL rows, effectively making it INNER JOIN
+- **LEFT JOIN with WHERE on right table** — filters out NULL rows, so it might as well be an INNER JOIN
 - **Joining on VARCHAR without collation awareness** — case sensitivity surprises
 - **N+1 queries in ORMs** — fetching related data row-by-row instead of JOINing
 

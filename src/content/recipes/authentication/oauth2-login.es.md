@@ -159,7 +159,7 @@ El **flujo de Código de Autorización** funciona en cuatro pasos:
 | Client Credentials | Máquina a máquina | Sí | No |
 | Device Code | TVs, herramientas CLI | No | No |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa PKCE incluso para apps server**: Es una adición de una línea y elimina el riesgo de interceptación de código.
 - **Valida el parámetro `state`**: Siempre compara el state en el callback con el almacenado en la sesión del usuario.

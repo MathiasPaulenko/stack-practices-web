@@ -107,7 +107,7 @@ RBAC simplifies access management by grouping permissions into roles rather than
 - **Application-level RBAC**: Defines roles inside a single application, independent of corporate identity.
 - **Customer-facing RBAC**: Models tenant, admin, and end-user roles in multi-tenant systems.
 
-## Best Practices
+## What Works
 
 - Start with a small number of roles and expand only when necessary.
 - Avoid role names that match job titles; use functional names like `editor` or `operator`.

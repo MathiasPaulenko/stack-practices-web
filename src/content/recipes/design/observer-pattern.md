@@ -196,7 +196,7 @@ order_subject.on_next({'id': '124', 'total': 250})
 | Reactive streams | Loose | Data pipelines, async flows | Learning curve |
 | Signals (Solid, Vue) | Loose | Fine-grained UI reactivity | Framework-specific |
 
-## Best practices
+## What Works
 
 - **Always provide an unsubscribe mechanism**: dangling subscriptions are the primary cause of memory leaks in observer-based systems. Return a cleanup function from `subscribe()` and ensure components call it on unmount.
 - **Do not mutate the observer list during notification**: if an observer unsubscribes another observer while handling an event, the iteration list changes mid-flight. Copy the list before iterating, or use a copy-on-write data structure.

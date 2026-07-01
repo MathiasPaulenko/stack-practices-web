@@ -321,7 +321,7 @@ The refresh strategy determines staleness:
 | **CQRS read model** | Projection from events | Microservices with separate read/write models |
 | **Cache-based** | Redis/Memcached with TTL | High-throughput, eventually consistent reads |
 
-## Best Practices
+## What Works
 
 - **Use concurrent refresh when available.** PostgreSQL's `REFRESH CONCURRENTLY` allows reads during refresh.
 - **Index the materialized view.** Without indexes, the view may not outperform the raw query.

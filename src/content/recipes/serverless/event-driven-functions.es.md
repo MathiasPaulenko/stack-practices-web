@@ -125,7 +125,7 @@ async function publishOrderPlaced(order) {
 | SNS topics | Débil | Media | Broadcast, notificaciones fan-out |
 | Kinesis streams | Débil | Alta | Analytics en tiempo real, procesamiento ordenado |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Diseña eventos alrededor de hechos de negocio**: `OrderPlaced` es mejor que `ProcessOrder` porque describe lo que ocurrió, no qué hacer. Esto da a los consumidores libertad para reaccionar de diferentes maneras.
 - **Haz eventos inmutables y auto-contenidos**: incluye suficiente contexto (order ID, email de cliente, monto) para que los consumidores no necesiten consultar al productor.

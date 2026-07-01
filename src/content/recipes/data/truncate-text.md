@@ -154,7 +154,7 @@ HTML-aware truncation is more complex: you must close any opened tags before app
 | Java | `StringUtils.abbreviate` | Character | Apache Commons, configurable placeholder |
 | Java | Custom stream builder | Word | Full control over delimiter and ellipsis |
 
-## Best Practices
+## What Works
 
 - **Respect word boundaries for UI text**: "Readability is more important than exact character count in user-facing strings"
 - **Use character truncation for machine output**: Fixed-width files, database columns, and logs need exact lengths

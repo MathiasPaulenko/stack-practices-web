@@ -127,7 +127,7 @@ print(f"Experimento iniciado: {response['experiment']['id']}")
 | AWS FIS | AWS | Fallas EC2, ECS, EKS, RDS |
 | Toxiproxy | Cualquiera | Latencia de red, timeouts |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Define steady state primero**: Conoce tu tasa de error normal, latencia y throughput
 - **Hipótesis-driven**: "Si matamos la base de datos primaria, el failover completa en <30s"

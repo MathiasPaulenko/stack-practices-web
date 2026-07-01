@@ -3,7 +3,7 @@ contentType: recipes
 slug: compress-decompress-files
 title: "Compress and Decompress Files"
 description: "How to handle ZIP, GZIP, and TAR archives programmatically."
-metaDescription: "Learn to compress and decompress ZIP, GZIP, and TAR files in Python, JavaScript, and Java with practical code examples and best practices."
+metaDescription: "Learn to compress and decompress ZIP, GZIP, and TAR files in Python, JavaScript, and Java with practical code examples and what works."
 difficulty: intermediate
 topics:
   - file-handling
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
-  metaDescription: "Learn to compress and decompress ZIP, GZIP, and TAR files in Python, JavaScript, and Java with practical code examples and best practices."
+  metaDescription: "Learn to compress and decompress ZIP, GZIP, and TAR files in Python, JavaScript, and Java with practical code examples and what works."
   keywords:
     - file-handling
     - compression
@@ -128,7 +128,7 @@ public class Compressor {
 | JavaScript | `adm-zip` | In-memory ZIP manipulation, no streams |
 | Java | Apache Commons Compress | Supports BZIP2, LZMA, and 7Z formats |
 
-## Best Practices
+## What Works
 
 1. Stream large files rather than buffering entire archives in memory
 2. Use compression level 6 as a balanced default; level 9 is slower with diminishing returns

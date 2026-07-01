@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: disaster-recovery-guide
-title: "Disaster Recovery — RTO, RPO, and Resilient Recovery Runbooks"
+title: "Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks"
 description: "A practical guide to disaster recovery planning: defining RTO and RPO, backup strategies, multi-region failover, and building recovery runbooks that minimize downtime."
 metaDescription: "Learn disaster recovery planning: RTO, RPO, backup strategies, runbooks, and multi-region failover for resilient infrastructure."
 difficulty: advanced
@@ -118,7 +118,8 @@ Understand what must recover in what order:
 # 7. Analytics / batch jobs
 ```
 
-**Dependency mapping checklist:**
+#### Dependency Mapping Checklist
+
 - Identify single points of failure
 - Map database replication topologies
 - Document external API dependencies
@@ -177,11 +178,12 @@ spec:
                 topologyKey: topology.kubernetes.io/zone
 ```
 
-**Multi-region patterns:**
-- **Read replicas:** Primary region writes; secondary regions read replicas
-- **Active-passive:** Primary active; secondary on standby (pilot light or warm)
-- **Active-active:** Both regions serve traffic (requires data synchronization)
-- **Cell-based:** Sharded architecture with cells in multiple regions
+#### Multi-Region Patterns
+
+- Read replicas: Primary region writes; secondary regions read replicas
+- Active-passive: Primary active; secondary on standby (pilot light or warm)
+- Active-active: Both regions serve traffic (requires data synchronization)
+- Cell-based: Sharded architecture with cells in multiple regions
 
 ### 5. Create Recovery Runbooks
 
@@ -261,26 +263,26 @@ def test_backup_restore():
 
 ## What Works
 
-- **Automate where possible.** Manual failover at 3 AM is error-prone.
-- **Keep runbooks simple.** One person should be able to execute them under pressure.
-- **Test backups by restoring.** A backup you cannot restore is not a backup.
-- **Monitor replication lag.** If lag exceeds RPO, alert immediately.
-- **Document assumptions.** What if DNS is down? What if the runbook author is unavailable?
-- **Separate DR infrastructure.** DR systems should not depend on primary region resources.
+- Automate where possible. Manual failover at 3 AM is error-prone.
+- Keep runbooks simple. One person should be able to execute them under pressure.
+- Test backups by restoring. A backup you cannot restore is not a backup.
+- Monitor replication lag. If lag exceeds RPO, alert immediately.
+- Document assumptions. What if DNS is down? What if the runbook author is unavailable?
+- Separate DR infrastructure. DR systems should not depend on primary region resources.
 
 ## Common Mistakes
 
-- **Untested backups.** Many organizations discover corrupted backups only during a real disaster.
-- **Over-engineering for low-tier systems.** Match DR strategy to business criticality.
-- **Forgetting about data consistency.** Asynchronous replication can lose transactions during failover.
-- **Ignoring runbook maintenance.** Stale runbooks with outdated commands cause confusion.
-- **No communication plan.** During an outage, stakeholders need timely updates.
+- Untested backups. Many organizations discover corrupted backups only during a real disaster.
+- Over-engineering for low-tier systems. Match DR strategy to business criticality.
+- Forgetting about data consistency. Asynchronous replication can lose transactions during failover.
+- Ignoring runbook maintenance. Stale runbooks with outdated commands cause confusion.
+- No communication plan. During an outage, stakeholders need timely updates.
 
 ## Variants
 
-- **Cloud-native DR:** Use managed services with built-in replication (RDS Multi-AZ, Azure Site Recovery, Cloud SQL replicas).
-- **On-premise DR:** Focus on off-site tape backups, warm sites, and hardware procurement timelines.
-- **Hybrid DR:** Cloud-based DR for on-premise workloads (reverse pilot light).
+- Cloud-native DR: Use managed services with built-in replication (RDS Multi-AZ, Azure Site Recovery, Cloud SQL replicas).
+- On-premise DR: Focus on off-site tape backups, warm sites, and hardware procurement timelines.
+- Hybrid DR: Cloud-based DR for on-premise workloads (reverse pilot light).
 
 ## FAQ
 

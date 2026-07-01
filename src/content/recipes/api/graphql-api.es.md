@@ -157,7 +157,7 @@ Diferencias clave entre lenguajes:
 | Java | graphql-java | Schema-first | Bajo nivel, máximo control |
 | Java | DGS Framework | Code-first | Open-source de Netflix, integración Spring |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa DataLoader para queries N+1**: Batch y cachea peticiones a la base de datos entre resolvers
 - **Implementa paginación**: Usa [paginación basada en cursores](/recipes/api/cursor-pagination-postgresql) para listas grandes (spec de Relay Connections)

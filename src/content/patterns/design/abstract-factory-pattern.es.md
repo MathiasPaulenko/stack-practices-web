@@ -203,7 +203,7 @@ Un cliente usa solo las interfaces abstractas. Cambiar de Light a Dark theme sig
 | **Factory Method por familia** | Sistemas más simples | Menos boilerplate, pero sin control centralizado de familia |
 | **Dependency Injection** | Sistemas empresariales grandes | Más flexible, pero requiere un contenedor |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa la misma factory para todos los productos de una feature**: Nunca mezcles factories de diferentes familias
 - **Documenta el contrato de la familia de productos**: Lista qué clases concretas pertenecen juntas

@@ -149,7 +149,7 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 
 ### Should I use a migration tool or raw SQL?
 
-Use a tool (Flyway, Liquibase, Django migrations, Rails migrations). See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) and [Database Sharding Guide](/guides/databases/database-sharding-partitioning-guide) for related database best practices. Tools track applied migrations, enforce ordering, and provide rollback hooks. Raw SQL scripts require manual tracking and are error-prone.
+Use a tool (Flyway, Liquibase, Django migrations, Rails migrations). See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) and [Database Sharding Guide](/guides/databases/database-sharding-partitioning-guide) for related database guidelines. Tools track applied migrations, enforce ordering, and provide rollback hooks. Raw SQL scripts require manual tracking and are error-prone.
 
 ### How do I handle a failed migration in production?
 

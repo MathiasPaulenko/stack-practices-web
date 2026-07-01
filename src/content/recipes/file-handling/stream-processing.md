@@ -110,7 +110,7 @@ public class StreamProcessor {
 | Chunk stream | O(buffer size) | Medium | Binary files, compression |
 | Parallel stream | O(buffer × workers) | High | CPU-intensive transforms |
 
-## Best Practices
+## What Works
 
 - **Use buffered I/O**: unbuffered reads and writes issue a system call per byte. Buffers (8KB default) amortize this overhead.
 - **Handle encoding explicitly**: default encodings vary by platform. Specify `utf-8` to avoid corruption.

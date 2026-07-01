@@ -133,7 +133,7 @@ liquibase --changeLogFile=db.changelog.xml update
 | Liquibase | XML/YAML/JSON | Multi-lenguaje | Enterprise, soporte multi-DB |
 | Sequelize CLI | Código JS | Node.js | Proyectos Express/NestJS |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Nunca modifiques una migración ya aplicada**: una vez que una migración corre en cualquier entorno compartido, trátala como inmutable. Crea una nueva migración para corregir errores.
 - **Haz migraciones idempotentes cuando sea posible**: `CREATE TABLE IF NOT EXISTS` y `DROP INDEX IF EXISTS` previenen fallas durante ejecución repetida.

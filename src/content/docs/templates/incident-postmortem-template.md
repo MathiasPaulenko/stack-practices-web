@@ -86,7 +86,7 @@ A postmortem is a written record of an incident, its impact, the actions taken t
 
 ### What Went Well
 - Monitoring detected the issue within 5 minutes. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for setup.
-- Runbook was up-to-date and effective. See [Runbook Template](/docs/templates/runbook-template) for structure.
+- Runbook was up-to-date and useful. See [Runbook Template](/docs/templates/runbook-template) for structure.
 
 ### What Went Wrong
 - Connection leak was not caught in staging

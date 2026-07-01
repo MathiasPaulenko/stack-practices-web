@@ -71,7 +71,7 @@ Usa este recurso cuando:
 <img src="below-fold-2.webp" alt="Team" loading="lazy" width="400" height="300">
 ```
 
-### Code Splitting con Dynamic Imports (React)
+### Code Splitting con Live Imports (React)
 
 ```tsx
 import { lazy, Suspense } from 'react';
@@ -123,7 +123,7 @@ function Dashboard() {
 | Service Worker | Visitas repetidas instantáneas | Medio |
 | HTTP/3 + QUIC | Más rápido en redes con pérdida | Bajo (CDN) |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mide usuarios reales, no tests de lab**: Field data de Chrome UX Report refleja condiciones actuales
 - **Optimiza el critical path**: Cualquier cosa bloqueando `<head>` debería estar bajo 50KB total. Consulta [server-side rendering](/recipes/performance/spa-code-splitting-lazy).

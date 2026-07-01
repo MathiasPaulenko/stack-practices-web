@@ -103,7 +103,7 @@ redisClient.publish('user:updated', userId);
 | Write-behind | Weak | Very low | High | Write-heavy workloads |
 | Event-driven | Strong | Low | High | Distributed microservices |
 
-## Best Practices
+## What Works
 
 - **Use cache-aside for reads**: check cache, fall back to database, populate cache. This is the most common and resilient pattern.
 - **Set appropriate TTLs**: too short and you defeat the purpose of caching; too long and stale data persists. Base TTL on business requirements.

@@ -285,7 +285,7 @@ public class OrderController {
 | ETag / If-Match | Conditional requests with version | Optimistic concurrency, updates |
 |empotency-Key: * | Not recommended | Never use; always use unique keys |
 
-## Best Practices
+## What Works
 
 1. **Require idempotency keys for state-changing operations** — all POST/PUT/PATCH endpoints that create or modify resources should accept an `Idempotency-Key` header.
 2. **Use UUID v4 for keys** — clients should generate cryptographically random UUIDs. Avoid simple incrementing integers or timestamps that could collide across clients.

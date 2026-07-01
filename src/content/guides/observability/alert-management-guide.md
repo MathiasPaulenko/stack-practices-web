@@ -74,7 +74,8 @@ Define clear severity levels:
 | **P4** | Low | 1-2 business days | Ticket | Cleanup needed, non-urgent optimization |
 | **P5** | Info | None | Dashboard only | Metrics for context, not action required |
 
-**Severity design principles:**
+#### Severity Design Principles
+
 - P1 means drop everything and respond immediately
 - P2 means respond within the current working period
 - P3 and below do not page; they create tickets or Slack messages
@@ -136,7 +137,8 @@ groups:
           summary: "High memory usage on {{ $labels.instance }}"
 ```
 
-**Alert design checklist:**
+#### Alert Design Checklist
+
 - Alert on symptoms users feel (errors, latency), not causes (disk full)
 - Every P1/P2 alert must have a runbook link
 - Use `for:` duration to prevent flapping (require sustained failure)
@@ -161,7 +163,8 @@ Design rotations that are fair and sustainable:
 # Escalation: Manager after 15 minutes
 ```
 
-**Rotation guidelines:**
+#### Rotation Guidelines
+
 - Limit on-call frequency to no more than 1 week in 4
 - Ensure handoff between shifts includes active incidents
 - Compensate for on-call time (pay or time off)
@@ -187,7 +190,8 @@ Alert Fires
                             → Director of Engineering (page)
 ```
 
-**Escalation principles:**
+#### Escalation Principles
+
 - Escalate quickly for P1 (5-10 minute intervals)
 - Escalate more slowly for P2 (30-60 minute intervals)
 - Include the previous responder in the escalation chain
@@ -224,7 +228,8 @@ Users cannot access `{{ $labels.job }}`. Revenue impact if payment or API.
 If unresolved in 15 minutes, escalate to: platform-team@company.com
 ```
 
-**Runbook guidelines:**
+#### Runbook Guidelines
+
 - One runbook per P1/P2 alert
 - Include diagnosis, resolution, and escalation steps
 - Link runbook directly in alert notification
@@ -243,36 +248,37 @@ Actively measure and reduce alert volume:
 | False positive rate | < 10% | Increase `for:` duration, add conditions |
 | Alerts without runbooks | 0 | Create missing runbooks |
 
-**Fatigue reduction tactics:**
-- **Consolidate:** Group related alerts into one notification
-- **Suppress:** Silence known maintenance windows
-- **Deduplicate:** One alert per incident, not per affected host
-- **Auto-remediate:** Auto-restart, auto-scale for known recoverable issues
-- **Delete:** Remove alerts that fire more than once without action
+#### Fatigue Reduction Tactics
+
+- Consolidate: Group related alerts into one notification
+- Suppress: Silence known maintenance windows
+- Deduplicate: One alert per incident, not per affected host
+- Auto-remediate: Auto-restart, auto-scale for known recoverable issues
+- Delete: Remove alerts that fire more than once without action
 
 ## What works
 
-- **Alert on symptoms, not causes.** Disk full is a cause; slow requests is the symptom.
-- **Every alert must be something you can act on.** If the response is "wait and see," it should not page.
-- **Use `for:` to prevent flapping.** Require sustained threshold breach before alerting.
-- **Separate paging from logging.** Not everything that is interesting needs to wake someone up.
-- **Review alerts monthly.** Track which alerts fire, which are acknowledged, and which are ignored.
-- **Compensate on-call fairly.** On-call is work; treat it as such.
+- Alert on symptoms, not causes. Disk full is a cause; slow requests is the symptom.
+- Every alert must be something you can act on. If the response is "wait and see," it should not page.
+- Use `for:` to prevent flapping. Require sustained threshold breach before alerting.
+- Separate paging from logging. Not everything that is interesting needs to wake someone up.
+- Review alerts monthly. Track which alerts fire, which are acknowledged, and which are ignored.
+- Compensate on-call fairly. On-call is work; treat it as such.
 
 ## Common Mistakes
 
-- **Alerting on everything.** More alerts do not mean better coverage; they mean more noise.
-- **No escalation path.** If the primary does not respond, the alert dies silently.
-- **Missing runbooks.** An alert without a runbook forces the responder to guess.
-- **Ignoring alert fatigue.** High alert volume leads to burnout and missed critical alerts.
-- **Static thresholds on cyclical metrics.** CPU spikes during batch jobs are normal; alert on deviation from baseline instead.
+- Alerting on everything. More alerts do not mean better coverage; they mean more noise.
+- No escalation path. If the primary does not respond, the alert dies silently.
+- Missing runbooks. An alert without a runbook forces the responder to guess.
+- Ignoring alert fatigue. High alert volume leads to burnout and missed critical alerts.
+- Static thresholds on cyclical metrics. CPU spikes during batch jobs are normal; alert on deviation from baseline instead.
 
 ## Variants
 
-- **No-ops alerting:** Fully automated remediation without human involvement
-- **Severity-based routing:** Different channels for different severities (Slack for P3, PagerDuty for P1)
-- **Team-specific ownership:** Alerts route to the team that owns the service
-- **AI-assisted alerting:** Anomaly detection that adjusts thresholds dynamically
+- No-ops alerting: Fully automated remediation without human involvement
+- Severity-based routing: Different channels for different severities (Slack for P3, PagerDuty for P1)
+- Team-specific ownership: Alerts route to the team that owns the service
+- AI-assisted alerting: Anomaly detection that adjusts thresholds dynamically
 
 ## FAQ
 

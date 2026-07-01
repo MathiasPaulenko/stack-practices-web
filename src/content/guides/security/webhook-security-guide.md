@@ -192,7 +192,7 @@ Webhook security rests on three pillars: **authenticity** (did this really come 
 | **Slack** | `X-Slack-Signature` | `X-Slack-Request-Timestamp` | Signing secret | Versioned signature scheme |
 | **Custom** | `X-Webhook-Signature` | `X-Webhook-Timestamp` | Raw HMAC key | Full control over scheme |
 
-## Best Practices
+## What Works
 
 1. **Rotate webhook secrets** every 90 days or after any security incident
 2. **Use HTTPS only**; HTTP webhooks expose payloads to passive network sniffing

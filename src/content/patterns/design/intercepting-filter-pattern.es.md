@@ -389,7 +389,7 @@ Los filtros están ordenados. La autenticación debería correr antes de autoriz
 | **Event-driven** | Filtros se suscriben a eventos | Sistemas altamente desacoplados |
 | **Pipeline DAG** | Grafo dirigido acíclico de etapas | Procesamiento complejo de datos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Ordena filtros cuidadosamente.** Autenticación antes de autorización antes de caching.
 - **Haz filtros stateless.** La seguridad de threads depende de instancias de filtros stateless.

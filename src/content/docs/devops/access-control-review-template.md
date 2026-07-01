@@ -109,7 +109,7 @@ The review separates identification of access from approval. By listing every ac
 - **Cloud IAM review**: Targets AWS, Azure, or GCP roles, policies, and groups.
 - **Contractor review**: Reviews time-bounded access and expiration dates.
 
-## Best Practices
+## What Works
 
 - Perform reviews quarterly for privileged access and annually for standard access.
 - Use a manager or system owner as the reviewer, never the account holder.

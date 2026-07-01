@@ -264,7 +264,7 @@ Esto se conoce como **doble despacho**: el primer despacho es `shape.accept(visi
 | **Visitor Acíclico** | Visitor usa interfaz abstracta, no tipos concretos | Cuando la jerarquía de elementos es inestable |
 | **Visitor Reflectivo** | Usa reflexión para evitar métodos `accept()` | Prototipos, scripting |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa solo cuando la jerarquía de elementos sea estable** — agregar un nuevo tipo de elemento requiere cambiar todos los visitors
 - **Agrupa operaciones relacionadas** en un solo visitor en lugar de muchos pequeños

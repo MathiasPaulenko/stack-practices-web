@@ -113,7 +113,7 @@ The approach is called expand-contract. First expand the schema by adding the ne
 | Validate | `COUNT(*)` with mismatch filter | Confirm parity |
 | Switch | Deploy new app version | Read from new column |
 
-## Best Practices
+## What Works
 
 1. **Always run migrations in a transaction when possible.** This keeps the schema consistent.
 2. **Backfill in small batches with a sleep between them.** This reduces lock contention and replication lag.

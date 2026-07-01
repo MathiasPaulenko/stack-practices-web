@@ -29,7 +29,7 @@ seo:
     - template
 ---
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Documenta cada tabla y columna** — Los desarrolladores futuros (incluyéndote) te lo agradecerán. Combina los docs de esquema con un [Runbook de Migración](/docs/templates/database-migration-runbook-template) para tracking de cambios.
 - **Explica el significado de negocio, no solo los tipos** — `status` es obvio; por qué existe `metadata` no lo es

@@ -119,7 +119,7 @@ Los contenedores comparten el kernel del host, asi que un contenedor mal configu
 - **Linea base de alta conformidad**: Agrega requisitos para FIPS, FedRAMP o ambientes PCI-DSS.
 - **Linea base de laptop de desarrollador**: Endurecimiento para Docker Desktop y builds locales de contenedores.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Haz la linea base obligatoria mediante puertas de CI/CD y controladores de admision.
 - Usa imagenes distroless o basadas en scratch cuando sea posible.

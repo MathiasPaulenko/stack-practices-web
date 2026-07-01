@@ -151,7 +151,7 @@ for (ConstraintViolation<UserCreate> v : violations) {
 - **Validadores custom**: Extiende schemas con lógica de negocio (ej. fortaleza de contraseña, checks de unicidad)
 - **Agregación de errores**: Recolecta todos los errores de validación en una sola respuesta para mejor UX
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Valida temprano**: Rechaza input inválido en el límite de la API, no profundo en la capa de servicio
 - **Usa schemas estrictos**: Prefiere allowlists explícitas sobre tipos catch-all permisivos

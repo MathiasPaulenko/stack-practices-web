@@ -131,7 +131,7 @@ Encryption is only as strong as the keys that protect it. The lifecycle template
 - **Database encryption key lifecycle**: Covers transparent data encryption (TDE) and column-level keys.
 - **Backup encryption key lifecycle**: Ensures long-term keys can be recovered for archive retention while remaining secure.
 
-## Best Practices
+## What Works
 
 - Use a centralized KMS or HSM instead of storing keys in application code.
 - Separate key encryption keys from data encryption keys.

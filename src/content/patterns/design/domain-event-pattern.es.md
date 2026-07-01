@@ -2,7 +2,7 @@
 contentType: patterns
 slug: domain-event-pattern
 title: "Patrón Domain Event"
-description: "Captura y publica ocurrencias significativas dentro de un modelo de dominio para desacoplar efectos secundarios de la lógica de negocio central y habilitar workflows reactivos."
+description: "Captura y publica ocurrencias importantes dentro de un modelo de dominio para desacoplar efectos secundarios de la lógica de negocio central y habilitar workflows reactivos."
 metaDescription: "Aprende el Patrón Domain Event para desacoplar lógica de negocio de efectos secundarios. Ejemplos en Python, Java y JavaScript con event sourcing."
 difficulty: intermediate
 topics:
@@ -36,7 +36,7 @@ seo:
 
 ## Descripción General
 
-El Patrón Domain Event captura ocurrencias de negocio significativas dentro de un modelo de dominio como objetos de primera clase. Cuando algo importante sucede — se realiza un pedido, se registra un usuario, falla un pago — el dominio emite un evento. Otras partes del sistema reaccionan a estos eventos en lugar de ser llamadas directamente.
+El Patrón Domain Event captura ocurrencias de negocio importantes dentro de un modelo de dominio como objetos de primera clase. Cuando algo importante sucede — se realiza un pedido, se registra un usuario, falla un pago — el dominio emite un evento. Otras partes del sistema reaccionan a estos eventos en lugar de ser llamadas directamente.
 
 Esto desacopla la lógica de negocio central de efectos secundarios como enviar emails, actualizar analytics o notificar servicios downstream. Los eventos de dominio también habilitan el event sourcing, donde el estado de un aggregate se reconstruye reproduciendo su historial de eventos.
 

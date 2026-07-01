@@ -38,7 +38,7 @@ Las contraseñas solas ya no son suficientes para proteger cuentas de usuario. L
 Usa este recurso cuando:
 - Protejas cuentas de usuario con un paso adicional de verificación más allá de las contraseñas
 - Construyas flujos de login para aplicaciones financieras, de salud o de administración
-- Migres de autenticación solo-contraseña a autenticación multi-factor (MFA). Consulta [Hashing de Contraseñas](/recipes/authentication/password-hashing) para mejores prácticas de almacenamiento de credenciales.
+- Migres de autenticación solo-contraseña a autenticación multi-factor (MFA). Consulta [Hashing de Contraseñas](/recipes/authentication/password-hashing) para lo que funciona para almacenamiento de credenciales.
 - Soportes apps de autenticación (Google Authenticator, Authy, Microsoft Authenticator)
 
 ## Solución
@@ -192,7 +192,7 @@ public class TOTPService {
 | Push Notification | Firebase, OneSignal | Aprobación sin fricción en dispositivos de confianza |
 | Email OTP | Implementación custom | Fallback cuando TOTP no está disponible |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Encripta secretos en reposo** — nunca almacenes secretos TOTP en texto plano; usa AES-256-GCM o un vault de secretos dedicado.
 2. **[Limita intentos](/recipes/api/rate-limiting) de verificación** — bloquea o retrasa tras 5 intentos fallidos de TOTP para prevenir fuerza bruta.

@@ -157,7 +157,7 @@ kubectl rollout undo deployment/my-app
 git revert HEAD
 ```
 
-## Best Practices
+## Lo que funciona
 
 - **Fallar rápido**: Ejecuta los checks más rápidos (lint, [unit tests](/recipes/testing/unit-testing)) primero
 - **Paralelizar**: Ejecuta jobs independientes en paralelo

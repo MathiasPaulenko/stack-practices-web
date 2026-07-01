@@ -328,7 +328,7 @@ If the consumer crashes between step 3 and 4, the message will be redelivered. B
 | **Idempotency keys** | Client-generated key for API calls | Third-party integrations, payment APIs |
 | **Natural idempotency** | Operations that are inherently safe to repeat | Update if newer timestamp, max() aggregations |
 
-## Best Practices
+## What Works
 
 - **Use deterministic message IDs.** Prefer event IDs assigned at creation over consumer-generated hashes.
 - **Make the business operation idempotent.** Deduplication is a safety net — the operation itself should be safe to retry.

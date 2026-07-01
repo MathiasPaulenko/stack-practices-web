@@ -182,7 +182,7 @@ Before the new hire starts:
 
 ## Explanation
 
-The checklist separates onboarding into **Day 1** (administrative and technical setup), **Week 1** (codebase orientation and first contribution), and **Week 2** (production awareness and domain knowledge). The structure recognizes that new engineers need different things at different times: first they need working environments, then they need context, then they need ownership. The buddy system ensures no one gets stuck, and the completion verification creates accountability for both the new hire and the team.
+The checklist separates onboarding into three phases: Day 1 (administrative and technical setup), Week 1 (codebase orientation and first contribution), and Week 2 (production awareness and domain knowledge). The structure recognizes that new engineers need different things at different times: first they need working environments, then they need context, then they need ownership. The buddy system ensures no one gets stuck, and the completion verification creates accountability for both the new hire and the team.
 
 ## Variants
 
@@ -196,19 +196,19 @@ The checklist separates onboarding into **Day 1** (administrative and technical 
 
 ## What works
 
-1. **Assign a buddy, not just a manager** — buddies answer the "how do I..." questions managers cannot
-2. **Have the first PR ready on day 1** — a documentation fix or test addition builds confidence immediately
-3. **Record architecture overviews** — live sessions are valuable but not repeatable; record for future hires
-4. **Measure time-to-first-PR** — track this metric to improve your onboarding process
-5. **Update the checklist after each new hire** — fresh eyes spot gaps immediately
+1. Assign a buddy, not just a manager. Buddies answer the "how do I..." questions managers cannot.
+2. Have the first PR ready on day 1. A documentation fix or test addition builds confidence immediately.
+3. Record architecture overviews. Live sessions are valuable but not repeatable; record for future hires.
+4. Measure time-to-first-PR. Track this metric to improve your onboarding process.
+5. Update the checklist after each new hire. Fresh eyes spot gaps immediately.
 
 ## Common Mistakes
 
-1. **Focusing only on technical setup** — culture, relationships, and process knowledge matter as much as code
-2. **Throwing new hires at complex tasks too early** — first contributions should be achievable in 1-2 days
-3. **Skipping production access explanations** — new engineers need to understand what they can and cannot touch
-4. **Not explaining "why" behind processes** — following rules without understanding creates cargo cult behavior
-5. **Forgetting to check in after week 2** — onboarding continues for 3-6 months; the checklist is just the beginning
+1. Focusing only on technical setup. Culture, relationships, and process knowledge matter as much as code.
+2. Throwing new hires at complex tasks too early. First contributions should be achievable in 1-2 days.
+3. Skipping production access explanations. New engineers need to understand what they can and cannot touch.
+4. Not explaining "why" behind processes. Following rules without understanding creates cargo cult behavior.
+5. Forgetting to check in after week 2. Onboarding continues for 3-6 months; the checklist is just the beginning.
 
 ## Frequently Asked Questions
 

@@ -193,7 +193,7 @@ Las vistas materializadas resuelven el **compromiso de lectura/escritura** separ
 | Modelo de lectura CQRS | Proyeccion desde eventos | Microservicios con modelos separados |
 | Basada en cache | Redis/Memcached con TTL | Lecturas de alto throughput, consistencia eventual |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Usar refresco concurrente cuando este disponible
 - Indexar la vista materializada

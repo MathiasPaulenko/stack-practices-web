@@ -39,7 +39,7 @@ Snapshot testing captures the rendered output of a component and compares it aga
 
 ## When NOT to Use This
 
-- For dynamic data that changes on every render (timestamps, random IDs)
+- For live data that changes on every render (timestamps, random IDs)
 - As a replacement for behavioral or integration tests
 - For third-party components you do not control
 
@@ -182,7 +182,7 @@ npx jest --updateSnapshot --interactive
 - **Review snapshot diffs** in pull requests just like code changes
 - **Use `toMatchInlineSnapshot`** for small, stable outputs to keep tests self-contained
 - **Combine with visual regression** for pixel-perfect UI validation
-- **Mock dates and IDs** to prevent flaky snapshots from dynamic values
+- **Mock dates and IDs** to prevent flaky snapshots from live values
 
 ## FAQ
 

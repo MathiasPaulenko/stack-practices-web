@@ -74,7 +74,7 @@ ON orders (customer_id, created_at DESC);
 | BRIN | Tablas muy grandes, naturalmente ordenadas | Datos de series temporales |
 | Parcial | Subconjunto de filas | `WHERE deleted_at IS NULL` |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Mide siempre antes y después.** `EXPLAIN ANALYZE` da prueba concreta de mejora.
 2. **Indexa columnas de igualdad primero.** Son más selectivas que las de rango.

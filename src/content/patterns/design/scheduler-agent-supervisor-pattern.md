@@ -590,7 +590,7 @@ The key insight is that **agents are cattle, not pets**. The supervisor treats t
 | **Celery with Flower** | Worker monitoring, remote control | Python task queues |
 | **Custom implementation** | Direct process monitoring | Embedded systems, edge computing |
 
-## Best Practices
+## What Works
 
 - **Make agents stateless.** All job state should be in a persistent store so a replacement agent can resume work.
 - **Use heartbeats with timeouts.** Agents must prove they are alive; missed heartbeats trigger replacement.

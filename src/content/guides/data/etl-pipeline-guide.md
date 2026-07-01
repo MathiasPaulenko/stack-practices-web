@@ -53,9 +53,9 @@ This guide covers pipeline architecture, data extraction strategies, data shapin
 
 ## When NOT to Use
 
-- You need sub-second latency from event to insight — use stream processing
+- You need sub-second latency from event to insight. Use stream processing.
 - Your data volume is small enough to query directly from source databases
-- You need real-time fraud detection or alerting — use event streaming
+- You need real-time fraud detection or alerting. Use event streaming.
 - Your data changes are discrete events that should trigger immediate actions
 
 ## Core Concepts
@@ -228,7 +228,7 @@ class APIExtractor:
                 time.sleep(2 ** attempt)
 ```
 
-**Extraction strategies:**
+#### Extraction Strategies
 
 | Strategy | Use Case | Trade-off |
 |----------|----------|-----------|
@@ -320,7 +320,7 @@ transformer.add_transform(add_derived_columns)
 clean_data = transformer.transform(raw_data)
 ```
 
-**Transform patterns:**
+#### Transform Patterns
 
 | Pattern | Description | Example |
 |---------|-------------|---------|
@@ -443,7 +443,7 @@ class SnowflakeLoader:
         self.session.sql(f"DROP TABLE IF EXISTS {temp_table}").collect()
 ```
 
-**Loading strategies:**
+#### Loading Strategies
 
 | Strategy | Best For | Trade-off |
 |----------|----------|-----------|
@@ -613,29 +613,29 @@ WHERE d.customer_id = s.customer_id
 
 ## What works
 
-- **Use staging tables.** Never transform data directly in production tables. Stage, validate, then load.
-- **Make pipelines idempotent.** Running the same DAG twice should produce the same result.
-- **Validate early, validate often.** Catch data quality issues in staging, not in the warehouse.
-- **Partition large tables.** Load data by partition to enable fast replacement and pruning.
-- **Monitor data freshness.** Alert when tables have not been updated within SLA.
-- **Document lineage.** Track which source tables feed which warehouse tables.
-- **Test the transform logic.** Unit test business logic just like application code.
+- Use staging tables. Never transform data directly in production tables. Stage, validate, then load.
+- Make pipelines idempotent. Running the same DAG twice should produce the same result.
+- Validate early, validate often. Catch data quality issues in staging, not in the warehouse.
+- Partition large tables. Load data by partition to enable fast replacement and pruning.
+- Monitor data freshness. Alert when tables have not been updated within SLA.
+- Document lineage. Track which source tables feed which warehouse tables.
+- Test the transform logic. Unit test business logic just like application code.
 
 ## Common Mistakes
 
-- **No data validation.** Bad data silently corrupts reports and dashboards.
-- **Transforming in production.** Running UPDATE statements directly on the warehouse is risky and hard to rollback.
-- **No incremental loading.** Full refreshes of large tables take hours and waste resources.
-- **Missing SLA monitoring.** Stakeholders do not know the pipeline failed until they see stale dashboards.
-- **Hard-coded credentials.** Use connection managers (Airflow, AWS Secrets Manager) instead.
-- **No retry logic.** Transient network failures should not fail the entire pipeline.
+- No data validation. Bad data silently corrupts reports and dashboards.
+- Transforming in production. Running UPDATE statements directly on the warehouse is risky and hard to rollback.
+- No incremental loading. Full refreshes of large tables take hours and waste resources.
+- Missing SLA monitoring. Stakeholders do not know the pipeline failed until they see stale dashboards.
+- Hard-coded credentials. Use connection managers (Airflow, AWS Secrets Manager) instead.
+- No retry logic. Transient network failures should not fail the entire pipeline.
 
 ## Variants
 
-- **ELT (Extract, Load, Transform):** Load raw data to the warehouse first, then transform with SQL (dbt, Snowflake) — simpler for SQL-native teams
-- **Reverse ETL:** Push warehouse data back to operational systems (CRM, marketing tools)
-- **Zero-ETL:** Direct query federation without moving data (BigQuery Federated Queries, Snowflake External Tables)
-- **Change Data Capture (CDC):** Real-time extraction using database logs instead of batch polling
+- ELT (Extract, Load, Transform): Load raw data to the warehouse first, then transform with SQL (dbt, Snowflake). Simpler for SQL-native teams.
+- Reverse ETL: Push warehouse data back to operational systems (CRM, marketing tools)
+- Zero-ETL: Direct query federation without moving data (BigQuery Federated Queries, Snowflake External Tables)
+- Change Data Capture (CDC): Real-time extraction using database logs instead of batch polling
 
 ## FAQ
 

@@ -270,7 +270,7 @@ Event Sourcing reemplaza el modelo CRUD tradicional con un log de eventos append
 | **Consultas Temporales** | Consultar estado en cualquier momento | Depuración; reportes históricos |
 | **Reproducción de Eventos** | Reproducir eventos para reconstruir o migrar | Migraciones de esquema; recuperación de bugs |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Los eventos deben describir intención de negocio** (ej. `OrderPlaced`) no acciones técnicas (`RowInserted`)
 - **Nunca borres o mutues eventos** — el log es inmutable

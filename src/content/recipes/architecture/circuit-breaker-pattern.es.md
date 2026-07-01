@@ -193,7 +193,7 @@ except pybreaker.CircuitBreakerError:
 | Porcentaje | >X% tasa de falla | Timeout | Gran volumen donde conteo absoluto es ruidoso |
 | Métrica custom | Latencia, tasa de error | Manual | Sistemas complejos con múltiples señales de salud |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Siempre provee un fallback**: cuando el circuito está abierto, la aplicación debe seguir funcionando. Un servicio de pagos podría retornar "pago pendiente, reintentar más tarde." Un catálogo de productos podría servir datos stale desde cache. Nunca dejes que un circuito abierto se propague como falla dura al usuario.
 - **Usa circuit breakers con timeouts y [retries](/recipes/architecture/retry-backoff)**: un circuit breaker sin timeout por petición aún puede colgarse. Combina un circuit breaker (salud a nivel macro) con un timeout de petición (límite a nivel micro) y retry (recuperación transitoria). El retry debe estar dentro del circuit breaker, no fuera — reintentar sobre un circuito abierto es esfuerzo desperdiciado.

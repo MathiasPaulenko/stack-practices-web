@@ -225,7 +225,7 @@ def order_orchestrator(context: df.DurableOrchestrationContext):
 | Durable Functions | Código (.NET/JS/Python) | Azure | Usuarios de Azure Functions | Ejecución + storage |
 | Camunda | BPMN | Open-source | Modelado de procesos de negocio | Self-hosted / SaaS |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén las funciones Lambda stateless e idempotentes**: el orquestador maneja el estado; las funciones deben ser puras. Si una función es reintentada, debe producir el mismo resultado sin efectos secundarios. Usa claves de idempotencia pasadas desde el orquestador para deduplicar operaciones en sistemas downstream.
 - **Usa backoff exponencial con jitter para reintentos**: reintentar cada 1 segundo crea thundering herds. Configura `BackoffRate: 2` con un intervalo máximo. Agrega jitter aleatorio para dispersar los reintentos. Step Functions soporta esto nativamente; en Temporal, configura políticas de retry en actividades.

@@ -112,7 +112,7 @@ SHA-256 sin HMAC es vulnerable a ataques de extensión de longitud. HMAC usa dos
 | HMAC-SHA512 | SHA-512 | 256-bit | Más lento; usar en contextos de alta seguridad |
 | HMAC-Blake3 | Blake3 | 256-bit | Rápido; alternativa moderna |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Incluye timestamp**: Rechaza requests más antiguos que 5 minutos para prevenir ataques de replay
 - **Firma todo el request**: Method + path + timestamp + body (headers ordenados si se incluyen)

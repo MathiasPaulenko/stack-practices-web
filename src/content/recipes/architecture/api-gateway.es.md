@@ -206,7 +206,7 @@ app.listen(3000, () => console.log('Gateway running on port 3000'));
 | Custom built | Máxima flexibilidad | Requisitos únicos | Costo de desarrollo |
 | Service mesh (Istio ingress) | Kubernetes-native | Clusters K8s | Complejidad |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en el gateway**: si un servicio backend está fallando, el gateway debería dejar de enviar requests y retornar una respuesta cacheada o 503. Esto previene fallos en cascada y da a servicios en dificultades tiempo para recuperarse.
 - **Usa versionado de paths**: incluye la versión de API en el path (`/api/v1/users`) en lugar de headers. Esto hace el enrutamiento explícito, soporta múltiples versiones simultáneamente, y simplifica generación de cache keys.

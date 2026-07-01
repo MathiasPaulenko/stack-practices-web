@@ -147,7 +147,7 @@ Los algoritmos de throttling balancean justicia y eficiencia:
 | Ventana fija | Contador reseteado por intervalo | Implementaciones simples |
 | Ventana deslizante | Ventana de tiempo rodante | Rate limits precisos por cliente |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Retornar `429 Too Many Requests` con header `Retry-After`
 - Diferenciar tiers de usuario con limites distintos

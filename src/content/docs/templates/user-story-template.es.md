@@ -98,7 +98,7 @@ Entonces [manejo esperado]
 | "Maneja errores gracefulmente" | "Si la API retorna 503, mostrar botón de retry con cuenta regresiva de 5s" |
 | "Soporta mobile" | "Layout renderiza sin scroll horizontal en iPhone SE (375px)" |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Escribe criterios de aceptación antes del código** — son el contrato entre producto e ingeniería. Consulta la [Guía de Principios de Clean Code](/guides/design/clean-code-principles-guide) para estándares de implementación.
 - **Usa Given-When-Then para comportamiento** — es testeable y no ambiguo

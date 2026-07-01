@@ -139,7 +139,7 @@ The checklist enforces a **minimum notice period** that respects consumer timeli
 | Public SaaS API | Long timelines, legal review | May require SLA commitments for deprecation notice |
 | Mobile app backends | Force upgrade via app store | Use minimum app version checks to sunset old endpoints |
 
-## Best Practices
+## What Works
 
 1. Never remove an API without a deprecation period, even for internal use
 2. Return deprecation headers as soon as the decision is made, not at shutdown

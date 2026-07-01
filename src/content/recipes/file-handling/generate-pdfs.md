@@ -31,7 +31,7 @@ seo:
 ---
 ## Overview
 
-PDF generation is a common requirement for invoices, reports, certificates, and legal documents. Modern libraries let you create PDFs from HTML templates, which means your design team can style documents with CSS while your backend fills in dynamic data. This recipe covers the most reliable approaches in Python, JavaScript, and Java.
+PDF generation is a common requirement for invoices, reports, certificates, and legal documents. Modern libraries let you create PDFs from HTML templates, which means your design team can style documents with CSS while your backend fills in live data. This recipe covers the most reliable approaches in Python, JavaScript, and Java.
 
 ## When to Use
 
@@ -159,7 +159,7 @@ HTML-to-PDF is the dominant approach today because it separates presentation (CS
 | Native API | iText / OpenPDF | Fast, small files | Verbose code, no CSS |
 | Native API | PDFBox | Apache license, mature | Complex for simple docs |
 
-## Best Practices
+## What Works
 
 - **Use HTML templates for complex layouts**: Designers can edit CSS without touching code.
 - **Embed fonts**: System fonts vary across OSs. Embed a web font for consistency.

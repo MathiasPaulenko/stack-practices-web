@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: database-sharding-implementation-guide
-title: "Database Sharding — Horizontal Partitioning in Practice"
+title: "Database Sharding: Horizontal Partitioning in Practice"
 description: "A practical guide to database sharding: choosing shard keys, routing queries, rebalancing data, and avoiding common pitfalls when scaling beyond a single database node."
 metaDescription: "Learn database sharding: choosing shard keys, routing queries, rebalancing data, and avoiding common pitfalls when scaling beyond a single node."
 difficulty: advanced
@@ -52,9 +52,9 @@ This guide covers when to shard, how to choose shard keys, query routing, rebala
 
 ## When NOT to Use
 
-- Your database is under 500GB — vertical scaling and read replicas are simpler
-- Your workload is read-heavy — read replicas and caching solve this without sharding
-- You have complex cross-shard joins — sharding makes them prohibitively expensive
+- Your database is under 500GB. Vertical scaling and read replicas are simpler
+- Your workload is read-heavy. Read replicas and caching solve this without sharding
+- You have complex cross-shard joins. Sharding makes them prohibitively expensive
 - Your team lacks operational experience with distributed databases
 - You have not exhausted query optimization and indexing improvements
 
@@ -95,7 +95,8 @@ This guide covers when to shard, how to choose shard keys, query routing, rebala
 
 The shard key is the most important decision. A poor choice creates hot spots and defeats the purpose.
 
-**Good shard key characteristics:**
+#### Good Shard Key Characteristics
+
 - High cardinality (many unique values)
 - Even distribution (no single value dominates)
 - Frequently used in WHERE clauses
@@ -139,11 +140,12 @@ def get_user_orders(user_id):
     return conn.query("SELECT * FROM orders WHERE user_id = %s", user_id)
 ```
 
-**Shard key anti-patterns:**
-- **Auto-increment IDs:** Sequential inserts hit the same shard (monotonic write problem)
-- **Low-cardinality keys:** Gender, status, boolean — creates massive hot spots
-- **Time-only keys:** Recent data hits one shard (time-series need composite keys)
-- **Frequently updated keys:** Changing shard key requires moving data between shards
+#### Shard Key Anti-Patterns
+
+- Auto-increment IDs: Sequential inserts hit the same shard (monotonic write problem)
+- Low-cardinality keys: Gender, status, boolean. Creates massive hot spots
+- Time-only keys: Recent data hits one shard (time-series need composite keys)
+- Frequently updated keys: Changing shard key requires moving data between shards
 
 ### 2. Implement Query Routing
 
@@ -180,7 +182,7 @@ orders = router.route("SELECT * FROM orders WHERE user_id = ?", {"user_id": 123}
 all_orders = router.route("SELECT * FROM orders WHERE amount > ?", {"amount": 100})
 ```
 
-**Routing strategies:**
+#### Routing Strategies
 
 | Strategy | How It Works | Best For |
 |----------|--------------|----------|
@@ -210,7 +212,7 @@ users = user_shard.query("SELECT id, name FROM users WHERE id IN %s", user_ids)
 # Join in application memory
 ```
 
-**Cross-shard strategies:**
+#### Cross-Shard Strategies
 
 | Problem | Solution | Trade-off |
 |---------|----------|-----------|
@@ -252,7 +254,7 @@ def move_data_range(source, target, bytes_to_move):
         bytes_moved += estimate_size(rows)
 ```
 
-**Rebalancing approaches:**
+#### Rebalancing Approaches
 
 | Approach | Downtime | Complexity | Use Case |
 |----------|----------|------------|----------|
@@ -314,29 +316,29 @@ SELECT * FROM orders WHERE user_id = 123;  -- Routed to single shard
 
 ## What Works
 
-- **Start with directory-based routing.** It is easier to rebalance than hash-based routing.
-- **Keep shards as large as possible.** Fewer, larger shards are easier to manage than many small ones.
-- **Design for the rebalancing event.** It will happen. Have runbooks ready.
-- **Avoid cross-shard transactions.** Use sagas, outbox pattern, or design around the need.
-- **Monitor shard balance.** Alert when any shard exceeds 120% of average size or QPS.
-- **Test with production-like data volumes.** Small test datasets hide hot spot problems.
-- **Plan your global tables.** Small lookup tables (countries, currencies) should be replicated to all shards.
+- Start with directory-based routing. It is easier to rebalance than hash-based routing.
+- Keep shards as large as possible. Fewer, larger shards are easier to manage than many small ones.
+- Design for the rebalancing event. It will happen. Have runbooks ready.
+- Avoid cross-shard transactions. Use sagas, outbox pattern, or design around the need.
+- Monitor shard balance. Alert when any shard exceeds 120% of average size or QPS.
+- Test with production-like data volumes. Small test datasets hide hot spot problems.
+- Plan your global tables. Small lookup tables (countries, currencies) should be replicated to all shards.
 
 ## Common Mistakes
 
-- **Sharding too early.** Sharding adds massive complexity. Exhaust vertical scaling and read replicas first.
-- **Poor shard key choice.** A bad shard key is worse than no sharding. Test distribution with production data.
-- **Ignoring cross-shard queries.** Queries that worked on a single node fail or become slow after sharding.
-- **No rebalancing plan.** Uneven shards create hot spots that negate the benefits of sharding.
-- **Losing ACID semantics.** Multi-shard transactions require application-level coordination.
-- **Underestimating operational overhead.** Sharded databases are harder to backup, monitor, and troubleshoot.
+- Sharding too early. Sharding adds massive complexity. Exhaust vertical scaling and read replicas first.
+- Poor shard key choice. A bad shard key is worse than no sharding. Test distribution with production data.
+- Ignoring cross-shard queries. Queries that worked on a single node fail or become slow after sharding.
+- No rebalancing plan. Uneven shards create hot spots that negate the benefits of sharding.
+- Losing ACID semantics. Multi-shard transactions require application-level coordination.
+- Underestimating operational overhead. Sharded databases are harder to backup, monitor, and troubleshoot.
 
 ## Variants
 
-- **Functional sharding:** Split by domain (users db, orders db) rather than by row — simpler, no router needed
-- **Zonal sharding:** Shard by geography (EU data in EU shards) for compliance
-- **Hybrid sharding:** Shard large tables, replicate small tables — the most common pattern
-- **Auto-sharding:** Managed services (Amazon Aurora, Google Spanner, Azure Cosmos DB) handle sharding transparently
+- Functional sharding: Split by domain (users db, orders db) rather than by row. Simpler, no router needed
+- Zonal sharding: Shard by geography (EU data in EU shards) for compliance
+- Hybrid sharding: Shard large tables, replicate small tables. The most common pattern
+- Auto-sharding: Managed services (Amazon Aurora, Google Spanner, Azure Cosmos DB) handle sharding transparently
 
 ## FAQ
 
@@ -354,5 +356,5 @@ Yes, unless you use a natively sharded database (MongoDB, CockroachDB, YugabyteD
 
 ## Conclusion
 
-Database sharding is a powerful but complex scaling strategy. By choosing the right shard key, implementing reliable routing, and planning for rebalancing, you can scale your database layer horizontally. But shard only when necessary — the operational overhead is major, and many workloads can be solved with simpler approaches.
+Database sharding is a powerful but complex scaling strategy. By choosing the right shard key, implementing reliable routing, and planning for rebalancing, you can scale your database layer horizontally. But shard only when necessary. The operational overhead is major, and many workloads can be solved with simpler approaches.
 

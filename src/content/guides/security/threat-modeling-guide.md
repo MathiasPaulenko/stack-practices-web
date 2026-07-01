@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Threat modeling is the process of identifying, communicating, and managing security threats in a system before a single line of code is written. By analyzing the architecture and data flows, teams can anticipate attacks and build mitigations into the design. It is one of the most cost-effective security activities because fixing vulnerabilities in design is orders of magnitude cheaper than fixing them in production.
+Threat modeling is the process of identifying, communicating, and managing security threats in a system before a single line of code is written. By analyzing the architecture and data flows, teams can anticipate attacks and build mitigations into the design. It is one of the most useful security activities because fixing vulnerabilities in design is orders of magnitude cheaper than fixing them in production.
 
 ## When to Use
 

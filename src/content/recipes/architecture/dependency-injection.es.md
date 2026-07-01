@@ -129,7 +129,7 @@ La DI invierte el control: en lugar de que los componentes encuentren o creen su
 | Método | Dependencias por llamada | Verboso; usado para inyección de estrategia |
 | Service Locator | Código legacy | Oculta dependencias; más difícil de testear |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Prefiere inyección por constructor**: Hace las dependencias explícitas e inmutables
 - **Evita service locators**: Ocultan dependencias y dificultan los tests

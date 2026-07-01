@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: postmortem-guide
-title: "Blameless Postmortems — Learning from Incidents Without Blame"
+title: "Blameless Postmortems: Learning from Incidents Without Blame"
 description: "A practical guide to conducting blameless postmortems: capturing timelines, identifying root causes, writing useful follow-ups, and building a culture of continuous improvement from outages."
 metaDescription: "Learn blameless postmortems: capture timelines, identify root causes, write useful follow-ups, and build continuous improvement culture."
 difficulty: intermediate
@@ -87,7 +87,8 @@ Set the meeting while memory is fresh:
 - [ ] Meeting protected: no blame, no judgment, no punishment
 ```
 
-**Scheduling principles:**
+#### Scheduling Principles
+
 - Do not wait more than 72 hours. Details fade quickly.
 - Include everyone who was involved in response.
 - Make attendance optional for people not directly involved.
@@ -114,7 +115,8 @@ The timeline is the foundation of the postmortem:
 | 15:15:00 | Incident closed | Incident tracker |
 ```
 
-**What works for timelines:**
+#### What Works for Timelines
+
 - Build from logs, not memory. Logs do not forget.
 - Include detection, response, and recovery times.
 - Note every decision and who made it.
@@ -148,7 +150,8 @@ Use the Five Whys to find systemic causes:
 **Root Cause:** Test environments lack production-like data, allowing performance regressions to reach production.
 ```
 
-**Analysis principles:**
+#### Analysis Principles
+
 - Ask "why" at least 5 times for Sev1 incidents.
 - Identify multiple contributing factors, not just one root cause.
 - Consider human factors, process gaps, and tool limitations.
@@ -254,7 +257,8 @@ Run a productive, blameless discussion:
 - Schedule 30-day follow-up to verify completion
 ```
 
-**Facilitation rules:**
+#### Facilitation Rules
+
 - The facilitator must actively stop blame language.
 - "Who did X?" becomes "What about the system allowed X to happen?"
 - Do not skip the "what went well" section. Incidents are learning opportunities, not just failures.
@@ -271,7 +275,8 @@ Postmortems are worthless without follow-through:
 | **Week 4** | All action items reviewed for completion |
 | **Month 3** | Revisit: has this type of incident recurred? |
 
-**What works for tracking:**
+#### What Works for Tracking
+
 - Add action items to the same backlog as feature work
 - Assign realistic due dates based on effort
 - Review action item completion at sprint retrospectives
@@ -279,40 +284,44 @@ Postmortems are worthless without follow-through:
 
 ## What Works
 
-- **Schedule within 48 hours.** Details fade; write while memory is fresh.
-- **Assume good intent.** No one comes to work wanting to cause an outage.
-- **Focus on the system.** How did the system allow this to happen?
-- **Be specific.** "Improve testing" is not useful. "Add load test with 1M rows" is.
-- **Share widely.** Postmortems should be visible to the whole engineering organization.
-- **Track follow-ups.** Unfinished action items mean the postmortem was a waste of time.
+- Schedule within 48 hours. Details fade; write while memory is fresh.
+- Assume good intent. No one comes to work wanting to cause an outage.
+- Focus on the system. How did the system allow this to happen?
+- Be specific. "Improve testing" is not useful. "Add load test with 1M rows" is.
+- Share widely. Postmortems should be visible to the whole engineering organization.
+- Track follow-ups. Unfinished action items mean the postmortem was a waste of time.
 
 ## Common Mistakes
 
-- **Blaming individuals.** This destroys psychological safety and reduces report quality.
-- **Skipping postmortems.** "We are too busy" means you are too busy to learn.
-- **Vague action items.** "Be more careful" is not a system improvement.
-- **Hiding postmortems.** Transparency builds trust with customers and teams.
-- **Ignoring near-misses.** Near-misses are free lessons. Learn from them.
+- Blaming individuals. This destroys psychological safety and reduces report quality.
+- Skipping postmortems. "We are too busy" means you are too busy to learn.
+- Vague action items. "Be more careful" is not a system improvement.
+- Hiding postmortems. Transparency builds trust with customers and teams.
+- Ignoring near-misses. Near-misses are free lessons. Learn from them.
 
 ## Variants
 
-- **Pre-mortem:** Hypothetical analysis before launch ("what could go wrong?")
-- **Near-miss review:** Postmortem for incidents that did not cause user impact
-- **Security postmortem:** Specialized format for breaches and vulnerabilities
-- **Chaos engineering review:** Post-game analysis of injected failures
+- Pre-mortem: Hypothetical analysis before launch ("what could go wrong?")
+- Near-miss review: Postmortem for incidents that did not cause user impact
+- Security postmortem: Specialized format for breaches and vulnerabilities
+- Chaos engineering review: Post-game analysis of injected failures
 
 ## FAQ
 
-**Q: Should we do a postmortem for every incident?**
+### Should we do a postmortem for every incident?
+
 Do postmortems for all Sev1/Sev2 incidents and major near-misses. Sev3/4 can be handled with a lightweight retrospective or ticket.
 
-**Q: What if someone made a clear mistake?**
+### What if someone made a clear mistake?
+
 Ask why the system allowed the mistake to have such impact. Was there a missing guardrail, review step, or safeguard?
 
-**Q: How do I handle postmortems in a blame-heavy culture?**
+### How do I handle postmortems in a blame-heavy culture?
+
 Start with leadership commitment. Share examples from Google, Etsy, and Netflix. Frame postmortems as learning, not punishment.
 
-**Q: What if action items are never completed?**
+### What if action items are never completed?
+
 Treat them like any other work. Add them to sprints, assign points, and review completion in retrospectives.
 
 ## Conclusion

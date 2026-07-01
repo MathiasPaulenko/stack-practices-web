@@ -406,4 +406,4 @@ Use progressive penalties (warnings → temporary blocks → permanent bans) and
 
 ## Conclusion
 
-Effective rate limiting protects your infrastructure, ensures fairness, and maintains API reliability. Choose the right algorithm, set sensible limits, communicate clearly with clients, and monitor continuously.
+Proper rate limiting protects your infrastructure, ensures fairness, and maintains API reliability. Choose the right algorithm, set sensible limits, communicate clearly with clients, and monitor continuously.

@@ -136,7 +136,7 @@ PDF es un lenguaje de descripción de página donde el texto se posiciona absolu
 | JavaScript | `pdf-lib` | `PDFDocument.load()` | Lee/escribe/modifica PDFs, no solo extrae |
 | Java | `Apache PDFBox` | `PDFTextStripper` | Estándar enterprise, soporta form filling y signing |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Prefiere `pdfplumber` o `pymupdf` para tablas**: PyPDF2 no puede detectar estructuras tabulares
 - **Valida calidad de texto extraído**: Ejecuta un check de muestreo porque la precisión de extracción varía por generador de PDF

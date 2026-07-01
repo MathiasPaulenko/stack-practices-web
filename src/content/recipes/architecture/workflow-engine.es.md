@@ -153,7 +153,7 @@ order.ship()     # paid -> shipped
 | Netflix Conductor | JSON DSL | Orquestación de microservicios |
 | AWS Step Functions | State machines | Serverless; integración AWS |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Activities idempotentes**: Ejecutar la misma activity dos veces debería producir el mismo resultado. Consulta [idempotencia de mensajes](/recipes/messaging/rabbitmq-task-queue).
 - **Claves de idempotencia**: Pasar keys únicas a APIs externas para prevenir double charges

@@ -124,7 +124,7 @@ job:
 | GCP | Cloud Scheduler | Cloud Functions / Pub/Sub | Competitive pricing, BigQuery integration |
 | Azure | Timer Trigger | Azure Functions | .NET ecosystem, Visual Studio integration |
 
-## Best Practices
+## What Works
 
 - **Keep jobs stateless and idempotent**: store progress in DynamoDB or Redis, not in memory. If the function times out and restarts, it should resume cleanly.
 - **Use Step Functions for multi-step workflows**: if a scheduled job has sequential steps (extract, transform, load), orchestrate them with Step Functions instead of one massive Lambda.

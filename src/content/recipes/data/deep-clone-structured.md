@@ -165,7 +165,7 @@ const largeObject = {
 // JSON.parse:     ~50ms  (fastest but limited)
 // structuredClone: ~80ms (native, no functions)
 // klona:         ~120ms (compact, modern)
-// lodash:        ~200ms (most robust)
+// lodash:        ~200ms (most reliable)
 // recursive:     ~250ms (customizable)
 ```
 

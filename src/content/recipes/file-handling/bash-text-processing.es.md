@@ -185,7 +185,7 @@ awk '{print $9}' access.log | sort | uniq -c | \
     total=$(wc -l < access.log)
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre entrecomilla patrones de regex con caracteres especiales.** `grep "$pattern"` previene que el shell expanda `*` o `?` antes de que grep los vea.
 - **Usa `awk` para datos columnares en lugar de `cut` cuando los campos varían en ancho.** `cut` falla con espaciado variable; `awk` divide en cualquier whitespace por defecto.

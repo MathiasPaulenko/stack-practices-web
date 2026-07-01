@@ -234,7 +234,7 @@ All modifications flow through the root. This ensures invariants like "an order 
 | **Large Aggregate** | Root with many levels | Product catalog with categories, variants, prices |
 | **Event-Sourced Aggregate** | Rehydrated from event stream | Bank account rebuilt from `Deposit` / `Withdraw` events |
 
-## Best Practices
+## What Works
 
 - **Keep aggregates small.** A good aggregate fits in memory and loads in a single database query. Large aggregates hurt performance.
 - **Reference other aggregates by ID.** Do not hold direct object references to other aggregate roots. This prevents loading the entire graph.

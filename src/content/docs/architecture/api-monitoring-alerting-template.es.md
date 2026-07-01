@@ -138,7 +138,7 @@ Los SLIs son **qué** mides, los SLOs son **qué tan bueno** debe ser, y las ale
 | API pública SaaS | SLOs estrictos, paging multi-canal | 99.99% disponibilidad, PagerDuty + SMS |
 | Serverless / Lambda | Enfocarse en cold start y concurrencia | Alertar por throttling, no CPU |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Alertar por síntomas (latencia, errores) no por causas (disco lleno) para reducir ruido
 2. Definir cada umbral de alerta basado en burn rate de SLO, no en porcentajes arbitrarios

@@ -436,7 +436,7 @@ Esto es fundamentalmente diferente de:
 - **Haz los eventos inmutables y aditivos.** Nunca modifiques un evento después de publicarlo.
 - **Maneja replays gracefully.** Los consumidores deberían ser idempotentes (mismo evento dos veces = mismo resultado).
 - **Establece políticas de retención.** Los topics de Kafka necesitan suficiente retención para que los consumidores alcancen después de downtime.
-- **Monitorea el lag de replicación.** Alerta cuando un consumer se retrasa significativamente del productor.
+- **Monitorea el lag de replicación.** Alerta cuando un consumer se retrasa mucho del productor.
 
 ## Errores Comunes
 

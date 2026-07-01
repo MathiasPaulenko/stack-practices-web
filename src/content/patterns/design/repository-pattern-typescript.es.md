@@ -126,7 +126,7 @@ const userService = new UserService(userRepo);
 - **Specification Pattern**: Compone filtros de consulta como objetos de especificacion reutilizables
 - **Unit of Work**: Agrupa multiples operaciones de repositorio en una sola transaccion
 
-## Mejores Practicas
+## Lo que funciona
 
 - Retorna entidades de dominio, no documentos de base de datos, desde metodos de repositorio
 - Manten los repositorios enfocados en persistencia; las reglas de negocio van en servicios

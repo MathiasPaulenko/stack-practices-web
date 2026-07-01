@@ -39,7 +39,7 @@ El snapshot testing captura la salida renderizada de un componente y la compara 
 
 ## Cuando NO Usar Esto
 
-- Para datos dinamicos que cambian en cada renderizado (timestamps, IDs aleatorios)
+- Para datos en vivo que cambian en cada renderizado (timestamps, IDs aleatorios)
 - Como reemplazo de tests de comportamiento o integracion
 - Para componentes de terceros que no controlas
 
@@ -182,7 +182,7 @@ npx jest --updateSnapshot --interactive
 - **Revisa diffs de snapshot** en pull requests igual que cambios de codigo
 - **Usa `toMatchInlineSnapshot`** para salidas pequenas y estables para mantener tests autocontenidos
 - **Combina con regresion visual** para validacion de UI pixel-perfect
-- **Mockea fechas e IDs** para prevenir snapshots intermitentes de valores dinamicos
+- **Mockea fechas e IDs** para prevenir snapshots intermitentes de valores en vivo
 
 ## FAQ
 

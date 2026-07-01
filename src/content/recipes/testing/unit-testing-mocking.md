@@ -134,7 +134,7 @@ class PaymentServiceTest {
 | Spy | Real object + records | Yes | Verifying side effects |
 | Mock | Expected interaction | Yes | Verifying calls made |
 
-## Best Practices
+## What Works
 
 - **Mock at the boundary, not internally**: mock the HTTP client or database driver, not every private method inside your class. Over-mocking makes tests brittle.
 - **Prefer stubs for state verification**: if you can assert on the final state ("balance is $50") rather than the interaction ("withdraw was called once"), do so. State-based tests are more resilient to refactoring.

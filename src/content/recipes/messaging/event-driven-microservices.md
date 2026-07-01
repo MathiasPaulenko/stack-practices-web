@@ -179,7 +179,7 @@ class OrderSaga {
 | NATS | Subject-level | At-most-once | Low latency; simplicity |
 | Pulsar | Global | Exactly-once | Geo-replication; tiered storage |
 
-## Best Practices
+## What Works
 
 - **Design events as facts, not commands**: "OrderPlaced" not "PlaceOrder"
 - **Include schema versions**: V1 events must be readable by V2 consumers

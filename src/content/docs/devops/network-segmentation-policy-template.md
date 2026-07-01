@@ -118,7 +118,7 @@ Segmentation limits the blast radius of a breach by preventing attackers from mo
 - **Multi-tenant segmentation**: Defines isolation between customers, business units, or environments in a shared platform.
 - **Critical-system air gap**: Documents fully isolated segments for industrial control or high-sensitivity systems.
 
-## Best Practices
+## What Works
 
 - Start with a default-deny posture and explicitly allow required traffic.
 - Document business justification for every cross-zone flow.

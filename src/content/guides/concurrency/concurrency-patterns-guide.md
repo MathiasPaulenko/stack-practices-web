@@ -2,7 +2,7 @@
 contentType: guides
 slug: concurrency-patterns-guide
 title: "Concurrency Patterns Guide"
-description: "A guide to common concurrency patterns and best practices for writing safe, efficient concurrent code."
+description: "A guide to common concurrency patterns and what works for writing safe, efficient concurrent code."
 metaDescription: "Learn concurrency patterns: thread pools, async/await, futures, semaphores, and race condition prevention. Practical examples in multiple languages."
 difficulty: advanced
 topics:
@@ -222,7 +222,7 @@ class CachedData {
 | **Thread leak** | Memory grows over time | Use thread pools, always shutdown |
 | **Context switching** | High CPU, low throughput | Reduce thread count, use async I/O |
 
-## Best Practices
+## What Works
 
 - **Share nothing**: Prefer message passing over shared state
 - **Use thread-safe collections**: `ConcurrentHashMap`, `Queue`, `AtomicInteger`

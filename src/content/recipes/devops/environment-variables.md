@@ -43,7 +43,7 @@ Use this recipe when:
 
 - Configuring apps per environment (dev, staging, prod). See [Docker Basics](/recipes/devops/docker-basics) for containerized app config.
 - Storing secrets like API keys and database credentials. See [JWT Authentication](/recipes/authentication/jwt-authentication) for secure token handling.
-- Enabling or disabling features with feature flags. See [Feature Flags](/recipes/devops/feature-flags) for toggle management.
+- Enabling or disabling capabilities with feature flags. See [Feature Flags](/recipes/devops/feature-flags) for toggle management.
 - Managing containerized application configuration in Docker and Kubernetes. See [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) for local container orchestration.
 - Avoiding hard-coded values in source code
 - Sharing configuration across microservices without a central config server
@@ -130,7 +130,7 @@ Add `.env` to `.gitignore`:
 - **Type coercion**: Environment variables are always strings — cast to int/boolean explicitly. A value of `"false"` is truthy in JavaScript if you do not compare it properly.
 - **Scope**: Variables set in the shell are available to the current process and its children. Use `export` in Bash or `setx` in Windows to persist them across sessions.
 
-## Best Practices
+## What Works
 
 - **Never commit secrets**: Add `.env` to `.gitignore` immediately. A single committed `.env` file with production credentials is a permanent security liability, even if you delete it later — Git history retains it forever.
 - **Use a `.env.example`**: Document required variables without real values. New developers can copy this file to `.env` and fill in their own credentials.

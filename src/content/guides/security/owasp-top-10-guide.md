@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: owasp-top-10-guide
-title: "OWASP Top 10 — Explained with Mitigations"
+title: "OWASP Top 10: Explained with Mitigations"
 description: "A developer-focused guide to the OWASP Top 10 security risks: how each vulnerability works, real-world examples, and practical mitigations for web applications."
 metaDescription: "Learn OWASP Top 10 security risks with mitigations. Understand injection, broken auth, XSS, insecure deserialization and how to prevent them in your apps."
 difficulty: intermediate
@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-The OWASP Top 10 is a standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications. Understanding these risks — and more importantly, how to prevent them — is a baseline skill for every developer shipping code to production.
+The OWASP Top 10 is a standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications. Understanding these risks, and more importantly how to prevent them, is a baseline skill for every developer shipping code to production.
 
 ## When to Use
 
@@ -43,13 +43,13 @@ The OWASP Top 10 is a standard awareness document for developers and web applica
 - You are preparing for security audits or penetration tests
 - You want to establish secure coding standards
 
-## A01 — Broken Access Control
+## A01: Broken Access Control
 
-**Risk:** Users can access resources or perform actions outside their intended permissions.
+Risk: Users can access resources or perform actions outside their intended permissions.
 
-**Example:** An attacker changes the URL from `/account/123` to `/account/124` and views another user's data.
+Example: An attacker changes the URL from `/account/123` to `/account/124` and views another user's data.
 
-**Mitigation:**
+Mitigation:
 - Deny by default; validate server-side on every request
 - Use a single, reusable access control mechanism
 - Implement proper CORS policies
@@ -64,13 +64,13 @@ def get_account(account_id: str, user: User):
     return account
 ```
 
-## A02 — Cryptographic Failures
+## A02: Cryptographic Failures
 
-**Risk:** Sensitive data is exposed through weak or missing encryption.
+Risk: Sensitive data is exposed through weak or missing encryption.
 
-**Example:** Passwords stored in plaintext, or credit card numbers transmitted over HTTP.
+Example: Passwords stored in plaintext, or credit card numbers transmitted over HTTP.
 
-**Mitigation:**
+Mitigation:
 - Encrypt data at rest (AES-256) and in transit (TLS 1.3)
 - Use strong password hashing: Argon2id, scrypt, or bcrypt
 - Never store sensitive data you do not need (PCI DSS compliance)
@@ -87,13 +87,13 @@ if bcrypt.checkpw(password.encode(), hashed):
     # Authenticated
 ```
 
-## A03 — Injection
+## A03: Injection
 
-**Risk:** Untrusted data is sent to an interpreter as part of a command or query.
+Risk: Untrusted data is sent to an interpreter as part of a command or query.
 
-**Example:** SQL injection through unsanitized user input in a search field.
+Example: SQL injection through unsanitized user input in a search field.
 
-**Mitigation:**
+Mitigation:
 - Use parameterized queries (prepared statements)
 - Use ORMs that escape queries automatically
 - Validate and sanitize all user input
@@ -107,49 +107,49 @@ cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
 cursor.execute(f"SELECT * FROM users WHERE email = '{email}'")
 ```
 
-## A04 — Insecure Design
+## A04: Insecure Design
 
-**Risk:** Flaws in application design that cannot be fixed by perfect implementation alone.
+Risk: Flaws in application design that cannot be fixed by perfect implementation alone.
 
-**Example:** A password reset flow that sends a predictable token in the URL.
+Example: A password reset flow that sends a predictable token in the URL.
 
-**Mitigation:**
+Mitigation:
 - Establish secure design patterns and threat modeling
 - Use reference architectures with security baked in
 - Segregate domains into bounded contexts with independent auth
 - Implement unit and integration tests for security controls
 
-## A05 — Security Misconfiguration
+## A05: Security Misconfiguration
 
-**Risk:** Default configurations, incomplete setups, or overly permissive settings.
+Risk: Default configurations, incomplete setups, or overly permissive settings.
 
-**Example:** Default admin credentials, exposed cloud storage, or unnecessary capabilities enabled.
+Example: Default admin credentials, exposed cloud storage, or unnecessary capabilities enabled.
 
-**Mitigation:**
+Mitigation:
 - Harden all environments (dev, staging, prod) equally
 - Remove unused capabilities, dependencies, and documentation
 - Segment application architecture (containers, serverless)
 - Automate configuration validation in CI/CD pipelines
 
-## A06 — Vulnerable and Outdated Components
+## A06: Vulnerable and Outdated Components
 
-**Risk:** Using components with known vulnerabilities.
+Risk: Using components with known vulnerabilities.
 
-**Example:** Running Log4j 2.14.1 after the disclosure of CVE-2021-44228.
+Example: Running Log4j 2.14.1 after the disclosure of CVE-2021-44228.
 
-**Mitigation:**
+Mitigation:
 - Maintain a software bill of materials (SBOM)
 - Use dependency scanners (Snyk, OWASP Dependency-Check, npm audit)
 - Subscribe to security advisories for your stack
 - Have a patch SLA (critical: 24h, high: 7 days)
 
-## A07 — Identification and Authentication Failures
+## A07: Identification and Authentication Failures
 
-**Risk:** Authentication weaknesses allow credential stuffing, brute force, or session hijacking.
+Risk: Authentication weaknesses allow credential stuffing, brute force, or session hijacking.
 
-**Example:** No rate limiting on login, sessions that never expire, or weak password policies.
+Example: No rate limiting on login, sessions that never expire, or weak password policies.
 
-**Mitigation:**
+Mitigation:
 - Implement multi-factor authentication (MFA)
 - Use secure session management (httpOnly, secure, SameSite cookies)
 - Enforce strong password policies or passwordless auth
@@ -159,37 +159,37 @@ cursor.execute(f"SELECT * FROM users WHERE email = '{email}'")
 Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Max-Age=3600
 ```
 
-## A08 — Software and Data Integrity Failures
+## A08: Software and Data Integrity Failures
 
-**Risk:** Applications that rely on plugins, libraries, or modules from untrusted sources.
+Risk: Applications that rely on plugins, libraries, or modules from untrusted sources.
 
-**Example:** A CI/CD pipeline that fetches dependencies without verifying signatures.
+Example: A CI/CD pipeline that fetches dependencies without verifying signatures.
 
-**Mitigation:**
+Mitigation:
 - Verify digital signatures of packages and updates
 - Use private repositories with strict access controls
 - Ensure CI/CD pipelines have strong access controls and audit logging
 - Do not auto-update production dependencies
 
-## A09 — Security Logging and Monitoring Failures
+## A09: Security Logging and Monitoring Failures
 
-**Risk:** Insufficient logging prevents detection of breaches and slows incident response.
+Risk: Insufficient logging prevents detection of breaches and slows incident response.
 
-**Example:** A data exfiltration attack that goes unnoticed for months because logs were not collected.
+Example: A data exfiltration attack that goes unnoticed for months because logs were not collected.
 
-**Mitigation:**
+Mitigation:
 - Log all authentication, access control, and input validation failures
 - Ensure logs are tamper-resistant and stored centrally
 - Implement real-time alerting for suspicious patterns
 - Practice incident response drills with your logs
 
-## A10 — Server-Side Request Forgery (SSRF)
+## A10: Server-Side Request Forgery (SSRF)
 
-**Risk:** An attacker forces the server to make requests to internal or restricted resources.
+Risk: An attacker forces the server to make requests to internal or restricted resources.
 
-**Example:** A URL fetcher that follows redirects to `http://169.254.169.254/latest/meta-data/` on AWS.
+Example: A URL fetcher that follows redirects to `http://169.254.169.254/latest/meta-data/` on AWS.
 
-**Mitigation:**
+Mitigation:
 - Validate and sanitize all URLs (scheme, host, port)
 - Use allowlists for outbound requests
 - Disable URL following or validate the final destination
@@ -212,18 +212,21 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Max-Age=3600
 
 ## Common Mistakes
 
-- **Thinking the framework handles everything** — frameworks help, but you still need to configure them correctly
-- **Only testing for XSS and SQLi** — modern applications face supply chain, business logic, and SSRF risks
-- **Treating security as an afterthought** — build security into design, not as a pre-release checklist
-- **Ignoring mobile and API variants** — OWASP has separate lists for mobile and API security
+- Thinking the framework handles everything. Frameworks help, but you still need to configure them correctly
+- Only testing for XSS and SQLi. Modern applications face supply chain, business logic, and SSRF risks
+- Treating security as an afterthought. Build security into design, not as a pre-release checklist
+- Ignoring mobile and API variants. OWASP has separate lists for mobile and API security
 
 ## FAQ
 
-**How often does OWASP update the Top 10?**
+### How often does OWASP update the Top 10?
+
 Approximately every 3-4 years. The current version is from 2021. Check `owasp.org` for updates.
 
-**Is OWASP Top 10 enough for compliance?**
+### Is OWASP Top 10 enough for compliance?
+
 It is a great starting point but not exhaustive. Consider OWASP ASVS (Application Security Verification Standard) for thorough requirements.
 
-**How do I test for these vulnerabilities?**
+### How do I test for these vulnerabilities?
+
 Use automated scanners (OWASP ZAP, Burp Suite) for a baseline, then follow with manual penetration testing and code review.

@@ -364,7 +364,7 @@ En frameworks como Vue o WPF, el binding es automático. En nuestros ejemplos us
 | **Command** | View → ViewModel | Botones, acciones que disparan lógica |
 | **Computed** | Derivado de otras propiedades | Agregaciones, listas filtradas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén el ViewModel framework-agnostic.** No debería importar clases de UI toolkit.
 - **Usa propiedades observables.** El ViewModel debe notificar a la View cuando el estado cambia.

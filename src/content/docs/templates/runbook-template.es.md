@@ -107,7 +107,7 @@ Si este runbook no resuelve el problema dentro de [tiempo], escalar a:
 
 ---
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantenlo corto**: Una página por procedimiento rutinario
 - **Usa checkboxes**: Facilita seguirlo bajo presión

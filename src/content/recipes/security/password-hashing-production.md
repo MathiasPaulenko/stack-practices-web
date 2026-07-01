@@ -109,7 +109,7 @@ func hashPassword(password string) (string, error) {
 | Argon2 | Yes (winner of PHC) | Time + memory + parallelism | New projects, highest security |
 
 **Critical rules**:
-- Never roll your own crypto. Use well-vetted libraries. Follow [security what works](/guides/security/security-best-practices-guide).
+- Never roll your own crypto. Use well-vetted libraries. Follow [what works for security](/guides/security/security-best-practices-guide).
 - Salt must be unique per password and stored alongside the hash.
 - Pepper (server-side secret) adds defense-in-depth but is not a substitute for hashing. Store peppers in a [secret manager](/recipes/security/vault-dynamic-credentials).
 - Re-hash on login if cost parameters increase.
@@ -134,11 +134,11 @@ func hashPassword(password string) (string, error) {
 
 ## Common Mistakes
 
-1. **Using SHA-256 or MD5 for passwords**: Fast algorithms are trivial to brute-force with GPUs. Follow [security what works](/guides/security/security-best-practices-guide) for credential storage.
+1. **Using SHA-256 or MD5 for passwords**: Fast algorithms are trivial to brute-force with GPUs. Follow [what works for security](/guides/security/security-best-practices-guide) when storing credentials.
 2. **Hard-coding salts**: Every password needs a unique, random salt
 3. **Ignoring timing attacks**: Use constant-time comparison (built into modern libraries)
 4. **Forgetting to update cost factors**: Hardware gets faster; re-tune annually
-5. **Storing passwords in plain text**: Even "temporarily" is a catastrophic risk. See [security what works](/guides/security/security-best-practices-guide).
+5. **Storing passwords in plain text**: Even "temporarily" is a catastrophic risk. See [what works for security](/guides/security/security-best-practices-guide).
 
 ## Frequently Asked Questions
 

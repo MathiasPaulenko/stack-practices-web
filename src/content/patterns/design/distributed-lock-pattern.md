@@ -324,7 +324,7 @@ The **Redlock algorithm** (Redis) acquires locks on multiple independent Redis i
 | **Database advisory lock** | PostgreSQL/MySQL | No additional infrastructure, but couples to DB |
 | **Consul** | Consul sessions | Service mesh integration, health-check integration |
 
-## Best Practices
+## What Works
 
 - **Always use a TTL/lease.** A crashed process must not hold a lock forever.
 - **Use fencing tokens for writes.** Include the token in writes to storage to reject stale operations.

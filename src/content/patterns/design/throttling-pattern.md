@@ -177,7 +177,7 @@ Throttling algorithms balance fairness and efficiency:
 | Fixed window | Reset counter per interval | Simple implementations |
 | Sliding window | Rolling time window | Accurate per-client rate limits |
 
-## Best Practices
+## What Works
 
 - Return `429 Too Many Requests` with `Retry-After` header for HTTP APIs
 - Differentiate between user tiers with different limits

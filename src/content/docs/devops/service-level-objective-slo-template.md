@@ -124,7 +124,7 @@ Guidelines:
 
 ## Explanation
 
-SLOs give teams a shared language for reliability. By defining SLIs, targets, and error budgets, an organization can decide when to prioritize new features versus stability work. SLOs also reduce alert fatigue by focusing monitoring on user-impacting reliability rather than every internal metric.
+SLOs give teams a shared language for reliability. By defining SLIs, targets, and error budgets, an organization can decide when to prioritize new capabilities versus stability work. SLOs also reduce alert fatigue by focusing monitoring on user-impacting reliability rather than every internal metric.
 
 ## Variants
 

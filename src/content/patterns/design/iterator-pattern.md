@@ -198,7 +198,7 @@ Modern languages integrate iterators deeply — Python's `__iter__`, JavaScript'
 | **Reverse Iterator** | Traverses in reverse order | Stacks, undo history |
 | **Filtering Iterator** | Skips elements that don't match a predicate | Search, filtering |
 
-## Best Practices
+## What Works
 
 - **Use language-native iterator protocols** when available instead of custom classes
 - **Throw exceptions on invalid `next()` calls** to fail fast

@@ -106,7 +106,7 @@ El patron suele implicar:
 | **Agrupacion serverless** | Combinar funciones en un solo proceso o runtime | Cargas orientadas a eventos |
 | **Programacion por lotes** | Ejecutar trabajos en horarios distintos en recursos compartidos | Cron jobs y pipelines ETL |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - Perfiliza cargas para uso **promedio y pico** antes de consolidar
 - Manten claros los **limites de seguridad**; no mezcles cargas sensibles y publicas

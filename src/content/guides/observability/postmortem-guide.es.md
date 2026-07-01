@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: postmortem-guide
-title: "Postmortems Sin Culpa — Aprendiendo de Incidentes Sin Culpar"
+title: "Postmortems Sin Culpa: Aprendiendo de Incidentes Sin Culpar"
 description: "Guía práctica sobre postmortems sin culpa: capturar timelines, identificar causas raíz, escribir seguimientos útiles y construir una cultura de mejora continua a partir de interrupciones."
 metaDescription: "Aprende postmortems sin culpa: captura timelines, identifica causas raíz, escribe seguimientos útiles y construye cultura de mejora continua."
 difficulty: intermediate
@@ -87,7 +87,8 @@ Programa la reunión mientras la memoria es fresca:
 - [ ] Reunión protegida: sin culpa, sin juicio, sin castigo
 ```
 
-**Principios de agendamiento:**
+#### Principios de Agendamiento
+
 - No esperes más de 72 horas. Los detalles se desvanecen rápidamente.
 - Incluye a todos los que estuvieron involucrados en la respuesta.
 - Haz opcional la asistencia de personas no directamente involucradas.
@@ -114,7 +115,8 @@ El timeline es la base del postmortem:
 | 15:15:00 | Incidente cerrado | Sistema de seguimiento de incidentes |
 ```
 
-**Lo que funciona para timelines:**
+#### Lo Que Funciona para Timelines
+
 - Construye a partir de logs, no de memoria. Los logs no olvidan.
 - Incluye detección, respuesta y tiempos de recuperación.
 - Nota cada decisión y quién la tomó.
@@ -148,7 +150,8 @@ Usa los Five Whys para encontrar causas sistémicas:
 **Causa Raíz:** Los entornos de prueba carecen de datos similares a producción, permitiendo que regresiones de rendimiento lleguen a producción.
 ```
 
-**Principios de análisis:**
+#### Principios de Análisis
+
 - Pregunta "por qué" al menos 5 veces para incidentes Sev1.
 - Identifica múltiples factores contribuyentes, no solo una causa raíz.
 - Considera factores humanos, brechas de proceso y limitaciones de herramientas.
@@ -254,7 +257,8 @@ Corre una discusión productiva y sin culpa:
 - Agenda seguimiento a 30 días para verificar completitud
 ```
 
-**Reglas de facilitación:**
+#### Reglas de Facilitación
+
 - El facilitador debe detener activamente el lenguaje de culpa.
 - "¿Quién hizo X?" se convierte en "¿Qué del sistema permitió que X sucediera?"
 - No saltes la sección "lo que funcionó bien". Los incidentes son oportunidades de aprendizaje, no solo fallas.
@@ -271,7 +275,8 @@ Los postmortems son inútiles sin seguimiento:
 | **Semana 4** | Todos los action items revisados para completitud |
 | **Mes 3** | Revisita: ¿se ha repetido este tipo de incidente? |
 
-**Lo que funciona para seguimiento:**
+#### Lo Que Funciona para Seguimiento
+
 - Añade action items al mismo backlog que el trabajo de funcionalidades
 - Asigna fechas límite realistas basadas en esfuerzo
 - Revisa completitud de action items en retrospectives de sprint
@@ -279,40 +284,44 @@ Los postmortems son inútiles sin seguimiento:
 
 ## Lo que funciona
 
-- **Agenda dentro de 48 horas.** Los detalles se desvanecen; escribe mientras la memoria es fresca.
-- **Asume buena intención.** Nadie viene a trabajar queriendo causar una interrupción.
-- **Enfócate en el sistema.** ¿Cómo permitió el sistema que esto sucediera?
-- **Sé específico.** "Mejorar testing" no es útil. "Añadir prueba de carga con 1M filas" sí lo es.
-- **Comparte ampliamente.** Los postmortems deberían ser visibles para toda la organización de ingeniería.
-- **Rastrea seguimientos.** Action items sin completar significan que el postmortem fue una pérdida de tiempo.
+- Agenda dentro de 48 horas. Los detalles se desvanecen; escribe mientras la memoria es fresca.
+- Asume buena intención. Nadie viene a trabajar queriendo causar una interrupción.
+- Enfócate en el sistema. ¿Cómo permitió el sistema que esto sucediera?
+- Sé específico. "Mejorar testing" no es útil. "Añadir prueba de carga con 1M filas" sí lo es.
+- Comparte ampliamente. Los postmortems deberían ser visibles para toda la organización de ingeniería.
+- Rastrea seguimientos. Action items sin completar significan que el postmortem fue una pérdida de tiempo.
 
 ## Errores Comunes
 
-- **Culpar a individuos.** Esto destruye seguridad psicológica y reduce calidad de reportes.
-- **Saltarse postmortems.** "Estamos muy ocupados" significa que estás muy ocupado para aprender.
-- **Action items vagos.** "Tener más cuidado" no es una mejora de sistema.
-- **Esconder postmortems.** La transparencia construye confianza con clientes y equipos.
-- **Ignorar near-misses.** Los near-misses son lecciones gratuitas. Aprende de ellos.
+- Culpar a individuos. Esto destruye seguridad psicológica y reduce calidad de reportes.
+- Saltarse postmortems. "Estamos muy ocupados" significa que estás muy ocupado para aprender.
+- Action items vagos. "Tener más cuidado" no es una mejora de sistema.
+- Esconder postmortems. La transparencia construye confianza con clientes y equipos.
+- Ignorar near-misses. Los near-misses son lecciones gratuitas. Aprende de ellos.
 
 ## Variantes
 
-- **Pre-mortem:** Análisis hipotético antes del lanzamiento ("¿qué podría salir mal?")
-- **Revisión de near-miss:** Postmortem para incidentes que no causaron impacto a usuario
-- **Postmortem de seguridad:** Formato especializado para brechas y vulnerabilidades
-- **Revisión de chaos engineering:** Análisis post-juego de fallas inyectadas
+- Pre-mortem: Análisis hipotético antes del lanzamiento ("¿qué podría salir mal?")
+- Revisión de near-miss: Postmortem para incidentes que no causaron impacto a usuario
+- Postmortem de seguridad: Formato especializado para brechas y vulnerabilidades
+- Revisión de chaos engineering: Análisis post-juego de fallas inyectadas
 
 ## FAQ
 
-**P: ¿Deberíamos hacer un postmortem para cada incidente?**
+### ¿Deberíamos hacer un postmortem para cada incidente?
+
 Haz postmortems para todos los incidentes Sev1/Sev2 y near-misses mayores. Sev3/4 pueden manejarse con una retrospectiva ligera o ticket.
 
-**P: ¿Qué pasa si alguien cometió un error claro?**
+### ¿Qué pasa si alguien cometió un error claro?
+
 Pregunta por qué el sistema permitió que el error tuviera tanto impacto. ¿Faltó una guardarrail, paso de revisión o salvaguarda?
 
-**P: ¿Cómo manejo postmortems en una cultura de culpa?**
+### ¿Cómo manejo postmortems en una cultura de culpa?
+
 Comienza con compromiso de liderazgo. Comparte ejemplos de Google, Etsy y Netflix. Enmarca postmortems como aprendizaje, no castigo.
 
-**P: ¿Qué pasa si los action items nunca se completan?**
+### ¿Qué pasa si los action items nunca se completan?
+
 Trátalos como cualquier otro trabajo. Añádelos a sprints, asigna puntos y revisa completitud en retrospectives.
 
 ## Conclusión

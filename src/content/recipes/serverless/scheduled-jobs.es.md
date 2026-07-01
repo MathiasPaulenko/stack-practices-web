@@ -123,7 +123,7 @@ job:
 | GCP | Cloud Scheduler | Cloud Functions / Pub/Sub | Pricing competitivo, integración BigQuery |
 | Azure | Timer Trigger | Azure Functions | Ecosistema .NET, integración Visual Studio |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén jobs stateless e idempotentes**: almacena progreso en DynamoDB o Redis, no en memoria. Si la función timeout y se reinicia, debería reanudar limpiamente.
 - **Usa Step Functions para workflows multi-paso**: si un job programado tiene pasos secuenciales (extract, transform, load), orquéstralos con Step Functions en lugar de una Lambda masiva.

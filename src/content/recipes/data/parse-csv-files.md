@@ -162,7 +162,7 @@ Each language offers different levels of abstraction for CSV parsing:
 | Java | Apache Commons CSV | `CSVFormat` | RFC 4180 compliant |
 | Java | OpenCSV | `CSVReader` | Lightweight alternative |
 
-## Best Practices
+## What Works
 
 - **Always specify encoding**: Use `UTF-8` explicitly to avoid character corruption in international data
 - **Handle headers carefully**: Use `DictReader` (Python) or `withFirstRecordAsHeader()` (Java) for column name access

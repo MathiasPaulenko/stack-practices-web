@@ -378,7 +378,7 @@ groups:
 
 - **Nativo de nube:** AWS CloudWatch Logs, Google Cloud Logging, Azure Monitor Logs (gestionado, pero específico de proveedor)
 - **Stack open-source:** ELK (Elasticsearch, Logstash, Kibana) o PLG (Promtail, Loki, Grafana)
-- **Empresarial:** Splunk, Datadog, Sumo Logic (capacidades, mayor costo)
+- **Empresarial:** Splunk, Datadog, Sumo Logic (amplias capacidades, mayor costo)
 - **Agregación edge:** Agregación de logs local antes del envío central (reduce costo de red)
 
 ## FAQ

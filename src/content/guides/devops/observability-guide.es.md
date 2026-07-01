@@ -154,7 +154,7 @@ En Grafana: buscar logs por `trace_id`, saltar al trace correspondiente en Tempo
 
 ## Common Mistakes
 
-- **Alertar por sintomas en lugar de SLOs** — "CPU alto" no es actionable; "tasa de error excede SLO" si
+- **Alertar por sintomas en lugar de SLOs** — "CPU alto" no es útil; "tasa de error excede SLO" si
 - **Sin politica de sampling o retencion de logs** — los logs crecen infinitamente; definir tiers hot/warm/cold
 - **Sampling de traces demasiado agresivo** — samplear 100% del trafico puede abrumar backends; usar head-based o tail-based
 - **Dashboard sprawl** — demasiados dashboards = nadie los usa. Consolidar en golden signals por servicio.

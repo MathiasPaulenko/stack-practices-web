@@ -162,7 +162,7 @@ The **Authorization Code flow** works in four steps:
 | Client Credentials | Machine-to-machine | Yes | No |
 | Device Code | TVs, CLI tools | No | No |
 
-## Best Practices
+## What Works
 
 - **Use PKCE even for server apps**: It's a one-line addition and eliminates code interception risk.
 - **Validate the `state` parameter**: Always compare the state in the callback with the one stored in the user's session.

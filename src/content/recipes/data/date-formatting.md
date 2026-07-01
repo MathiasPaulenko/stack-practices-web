@@ -129,7 +129,7 @@ System.out.println(tokyo.format(formatter)); // 2026-06-10 23:30:00 JST
 | `HH:mm:ss` | 14:30:00 | 24-hour time |
 | `h:mm a` | 2:30 PM | 12-hour time with AM/PM |
 
-## Best Practices
+## What Works
 
 - **Store in UTC**: Persist all dates in UTC to avoid ambiguity
 - **Use ISO 8601 for APIs**: `2026-06-10T14:30:00Z` is unambiguous and universally parseable

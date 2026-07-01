@@ -132,7 +132,7 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 
 ## Variants
 
-| Tool | Type | Notable Features |
+| Tool | Type | Notable Capabilities |
 |------|------|------------------|
 | Google CrUX | Chrome-only | Largest real-world dataset; field data |
 | New Relic Browser | Commercial | Session traces; JS error tracking |
@@ -141,7 +141,7 @@ observer.observe({ entryTypes: ['navigation', 'resource', 'paint'] });
 | SpeedCurve | Commercial | Competitive benchmarking; filmstrips |
 | web-vitals.js | Open source | Google's reference implementation |
 
-## Best Practices
+## What Works
 
 - **Sample intelligently**: 100% sampling overwhelms backends; 5-10% is usually sufficient
 - **Capture context**: Device type, connection speed, and country explain variation

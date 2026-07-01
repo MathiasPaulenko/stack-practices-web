@@ -270,7 +270,7 @@ La clase es tanto un modelo de dominio como un gateway a la base de datos. Esta 
 | **Repository** | Abstracción tipo colección sobre persistencia | Aggregates DDD |
 | **Table Data Gateway** | Métodos estáticos en clase, no instancias | Utilidades CRUD simples |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén validaciones en el modelo.** Chequea constraints antes de guardar y lanza errores significativos.
 - **Usa callbacks con moderación.** Hooks `before_save` y `after_create` crean flujo de control invisible.

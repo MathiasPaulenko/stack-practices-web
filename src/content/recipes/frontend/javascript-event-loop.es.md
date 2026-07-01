@@ -108,7 +108,7 @@ El event loop opera en fases:
 | Node.js | setTimeout, setImmediate | Promise, process.nextTick | nextTick corre antes que Promises |
 | Deno | setTimeout | Promise, queueMicrotask | Se alinea con comportamiento de navegador |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Divide trabajo pesado en chunks**: Usa setTimeout o requestIdleCallback para ceder control
 - **Prefiere microtareas para actualizaciones DOM**: queueMicrotask asegura que las lecturas DOM se agrupen

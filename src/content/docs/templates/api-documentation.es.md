@@ -253,4 +253,4 @@ La documentación de API es la guía legible por humanos con explicaciones, ejem
 
 ### Cómo mantengo la documentación de API sincronizada con el código?
 
-Genera la documentación desde anotaciones de código o specs OpenAPI como parte de tu pipeline de CI. Usa herramientas como Swagger UI, Redoc o Stoplight para renderizar specs automáticamente. Consulta [REST API Design Guide](/guides/api/rest-api-design-guide) para mejores prácticas de diseño de API. La documentación manual se desactualiza rápidamente sin automatización.
+Genera la documentación desde anotaciones de código o specs OpenAPI como parte de tu pipeline de CI. Usa herramientas como Swagger UI, Redoc o Stoplight para renderizar specs automáticamente. Consulta [REST API Design Guide](/guides/api/rest-api-design-guide) para ver lo que funciona en diseño de API. La documentación manual se desactualiza rápidamente sin automatización.

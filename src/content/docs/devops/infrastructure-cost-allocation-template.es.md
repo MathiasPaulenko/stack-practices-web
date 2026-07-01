@@ -130,7 +130,7 @@ La asignacion de costos no es solo un ejercicio contable. Cuando los equipos pue
 - **Modelo chargeback**: Cobra a los equipos internos por su consumo real.
 - **Modelo showback**: Reporta costos sin facturacion interna, para conciencia y responsabilidad.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Exige etiquetas requeridas en la creacion de recursos usando policy-as-code.
 - Asigna recursos sin etiquetar a un centro de costos central y exige remediacion.

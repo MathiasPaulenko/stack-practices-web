@@ -182,7 +182,7 @@ La lógica de reintento usa [backoff exponencial](/recipes/architecture/retry-ba
 | SQL Server | `1205` | Automático | Hints `ROWLOCK`, `HOLDLOCK` |
 | Oracle | `ORA-00060` | Automático | `SELECT ... FOR UPDATE NOWAIT` |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre adquiere locks en orden consistente**: Ordena filas por clave primaria antes de bloquear
 - **Mantén las transacciones cortas**: Cuanto más tiempo una transacción mantenga locks, mayor el riesgo de deadlock

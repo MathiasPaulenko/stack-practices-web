@@ -117,7 +117,7 @@ iterations.....................: 12000
 | Artillery | YAML/JS | Configuración rápida, equipos Node | Self-hosted o cloud |
 | Locust | Python | Ecosistemas Python, lógica custom | Self-hosted |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Testea contra un entorno similar a producción**: testear localhost con CPU single-core da resultados sin sentido. Usa staging con hardware e idéntico volumen de datos.
 - **Calienta el sistema primero**: caches, pools de conexiones y compilación JIT necesitan tiempo para estabilizarse. Corre un warm-up de 5 minutos antes de medir.

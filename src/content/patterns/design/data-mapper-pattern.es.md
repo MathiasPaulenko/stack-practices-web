@@ -305,7 +305,7 @@ Esta separación hace que el modelo de dominio sea portable a través de framewo
 | **Query Object** | Encapsula SQL en un objeto | Queries de base de datos componibles |
 | **Repository** | Media entre dominio y datos | Abstraer detalles de mapper de la app |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén el modelo de dominio puro.** Sin dependencias de framework, sin métodos de persistencia.
 - **Un mapper por clase de dominio.** No dejes que un mapper maneje múltiples tipos no relacionados.

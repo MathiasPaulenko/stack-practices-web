@@ -283,7 +283,7 @@ The two models are synchronized either synchronously (same transaction) or async
 | **[Event Sourcing](/patterns/design/event-sourcing-pattern) + CQRS** | Events are source of truth; read models are projections | Audit trails; temporal queries |
 | **API Segregation** | Separate REST/GraphQL endpoints for commands and queries | Microservices; team boundaries |
 
-## Best Practices
+## What Works
 
 - **Start simple** — separate models within the same database before introducing dual storage
 - **Use eventual consistency** for read models when async projections are acceptable

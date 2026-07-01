@@ -117,7 +117,7 @@ The template replaces vague terms like "sensitive" with four concrete levels. Ea
 | SaaS startup | Often merge Internal + Confidential | Simplicity over completeness when team is small |
 | EU operations | Add "EU Personal Data" flag | GDPR residency and processing agreements required |
 
-## Best Practices
+## What Works
 
 1. Label data at creation, not at storage; retroactive classification is expensive and error-prone
 2. Automate classification where possible; DLP tools can tag data based on patterns (credit cards, SSNs)

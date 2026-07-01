@@ -133,7 +133,7 @@ const client = new AuthDecorator(
 - **Metrics Decorator**: Push timing and status code distributions to Prometheus
 - **Cache Decorator**: Combine with [Proxy](/patterns/design/proxy-pattern) pattern to cache GET responses
 
-## Best Practices
+## What Works
 
 - Keep decorators focused on one responsibility each
 - Ensure decorators delegate to `client.request()` without swallowing errors

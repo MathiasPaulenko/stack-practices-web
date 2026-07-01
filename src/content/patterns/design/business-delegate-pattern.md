@@ -286,7 +286,7 @@ This layered approach means the presentation code never directly references remo
 | **Retry** | Automatic retry on failure | Unreliable remote services |
 | **Async** | Asynchronous invocation | Non-blocking presentation |
 
-## Best Practices
+## What Works
 
 - **Cache service references.** Avoid repeated JNDI or registry lookups.
 - **Translate exceptions.** Convert remote/service exceptions into presentation-friendly errors.

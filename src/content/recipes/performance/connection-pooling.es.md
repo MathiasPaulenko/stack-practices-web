@@ -172,7 +172,7 @@ Para clientes HTTP, `keep-alive` reutiliza la conexión TCP subyacente entre mú
 | HTTP (Node) | axios + http.Agent | `maxSockets` controla conexiones paralelas |
 | HTTP (Java) | Apache HttpClient / OkHttp | Connection managers integrados con límites por ruta |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Ajusta `max pool size` aproximadamente al número de workers concurrentes (threads, procesos o concurrencia del event loop)
 2. Siempre usa `release()` o `putconn()` en un bloque `finally` para evitar fugas

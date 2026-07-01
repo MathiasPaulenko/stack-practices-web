@@ -164,7 +164,7 @@ done
 [ "$error_count" -eq 0 ] || exit 1
 ```
 
-## Best Practices
+## What Works
 
 - **Always quote file variables.** `"$file"` prevents word splitting on spaces and interpretation of glob characters.
 - **Use `find -print0 | while read -r -d ''`** for recursive or complex filtering. It is the only portable way to handle all valid filenames.

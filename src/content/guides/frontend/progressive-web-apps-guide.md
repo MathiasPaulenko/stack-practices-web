@@ -268,7 +268,7 @@ async function installPWA() {
 | Chrome DevTools > Application | Inspect service workers, manifests, caches |
 | Lighthouse | Audit PWA compliance |
 | WebPageTest | Test offline behavior on real devices |
-| ngrok | Test HTTPS-required features locally |
+| ngrok | Test HTTPS-required capabilities locally |
 | Workbox | Library for simplifying service worker patterns |
 
 ## Common Mistakes

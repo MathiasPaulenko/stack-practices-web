@@ -3,7 +3,7 @@ contentType: recipes
 slug: cron-jobs
 title: "Cron Jobs"
 description: "How to schedule and manage recurring tasks using cron syntax across Linux, Python, and Node.js."
-metaDescription: "Practical cron job examples in Linux, Python (schedule library), and Node.js (node-cron). Learn cron syntax, scheduling patterns, and best practices."
+metaDescription: "Practical cron job examples in Linux, Python (schedule library), and Node.js (node-cron). Learn cron syntax, scheduling patterns, and what works."
 difficulty: beginner
 topics:
   - devops
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Practical cron job examples in Linux, Python (schedule library), and Node.js (node-cron). Learn cron syntax, scheduling patterns, and best practices."
+  metaDescription: "Practical cron job examples in Linux, Python (schedule library), and Node.js (node-cron). Learn cron syntax, scheduling patterns, and what works."
   keywords:
     - cron jobs
     - scheduled tasks
@@ -140,7 +140,7 @@ Special characters:
 | `0 0 1 * *` | First day of every month |
 | `0 0 * * 0` | Every Sunday at midnight |
 
-## Best Practices
+## What Works
 
 - **Use absolute paths** for commands and scripts in crontab
 - **Redirect output** to a log file or `/dev/null` to avoid mail spam

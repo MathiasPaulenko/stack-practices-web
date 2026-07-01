@@ -80,7 +80,7 @@ La primera consulta agrupa filas por la columna que debería ser única y usa `H
 | MySQL 5.7 | Self-join | Usa `MIN(id)` para conservar una fila |
 | SQLite | `DELETE` con subconsulta `IN` | Funciona con window functions en 3.25+ |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Previsualiza siempre antes de borrar.** Ejecuta la CTE como `SELECT` primero para ver qué filas se conservarán.
 2. **Haz backup de la tabla o usa una transacción.** Un mal `DELETE` puede eliminar miles de filas.

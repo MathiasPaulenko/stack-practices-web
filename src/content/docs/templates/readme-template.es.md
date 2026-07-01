@@ -144,7 +144,7 @@ Cada sección sirve un propósito específico:
 | **App Web** | Screenshots, Demo, Deploy | Referencia API |
 | **Herramienta Interna** | [Onboarding](/docs/templates/onboarding-guide-template), Slack interno | Licencia, Contribución |
 
-## Best Practices
+## Lo que funciona
 
 - **Mantén las primeras 100 líneas escaneables** — la mayoría de lectores no scrollean más allá
 - **Usa un GIF demo o screenshot** — prueba visual supera párrafos

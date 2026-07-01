@@ -149,7 +149,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 | Bloom filter | Memory-efficient check | False positives possible |
 | Kafka transactional | Stream processing | Higher latency; exactly-once per partition |
 
-## Best Practices
+## What Works
 
 - **TTL your dedup store**: Keep keys for 24-72 hours; message brokers don't redeliver indefinitely
 - **Include processing result**: Storing the result allows returning the same response for duplicates

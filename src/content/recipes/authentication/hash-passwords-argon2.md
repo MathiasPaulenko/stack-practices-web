@@ -305,7 +305,7 @@ async def login(email, password):
     return None
 ```
 
-## Best Practices
+## What Works
 
 - **Never roll your own password hashing.** Use well-vetted libraries (argon2-cffi, argon2-node, Bouncy Castle). Custom implementations introduce timing attacks and memory safety bugs.
 - **Always use Argon2id, not Argon2d or Argon2i.** Argon2id is the recommended variant that balances GPU resistance and side-channel protection.

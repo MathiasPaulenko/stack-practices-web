@@ -135,7 +135,7 @@ spec:
 | Storage tiering | 30-50% | Low | Access latency |
 | Serverless | Variable | Medium | Cold start |
 
-## Best Practices
+## What Works
 
 - **Tag everything**: Cost allocation tags (team, project, environment) enable chargeback
 - **Set budgets and alerts**: Alert at 80% of monthly budget; investigate immediately

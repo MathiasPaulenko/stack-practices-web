@@ -243,7 +243,7 @@ The client builds the chain order. Each handler can also choose to stop the chai
 | **Middleware Pipeline** | Array of functions, each calls `next()` | Web frameworks (Express, Django middleware) |
 | **Event Bus** | Handlers register for specific events | Decoupled event-driven systems |
 
-## Best Practices
+## What Works
 
 - **Keep handlers focused** — each handler should do one thing (auth, validation, logging, etc.)
 - **Provide a default handler** at the end of the chain to avoid unhandled requests

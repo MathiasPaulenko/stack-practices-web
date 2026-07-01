@@ -124,7 +124,7 @@ Buffered writers reduce the number of system calls by accumulating data in memor
 | JavaScript | `pipeline()` | Backpressure-aware piping between streams |
 | Java | `FileOutputStream` with `BufferedOutputStream` | Classic IO, simpler but slightly slower than NIO |
 
-## Best Practices
+## What Works
 
 1. Always close or end streams to flush internal buffers and release file descriptors
 2. Use atomic rename patterns (write to temp file, then rename) to prevent partial files on crash

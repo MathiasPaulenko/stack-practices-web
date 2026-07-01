@@ -108,7 +108,7 @@ Pasos específicos para arreglar. Incluye ejemplos de código si aplica.
 | Baja | Info | Bajo | Medio |
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Incluye proof of concept** — sin pasos de reproducción, los devs no pueden arreglarlo
 - **Ratea riesgo en contexto de negocio** — un bug teóricamente crítico en una página admin interna-only puede ser riesgo medio

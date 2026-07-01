@@ -144,7 +144,7 @@ La plantilla transforma hallazgos de pentesting de texto pasivo en **tickets acc
 | Pentesting Móvil | Enfocar en almacenamiento inseguro, rooting, man-in-the-middle | Requerir verificación en dispositivos físicos |
 | Pentesting Red | Enfocar en segmentación, pivoting, movimiento lateral | Mapear explícitamente la propagación de la red |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Comienza con hallazgos críticos; nunca retrases correcciones críticas para completitud
 2. Asigna un propietario por hallazgo, no un equipo; la rendición de cuentas personal impulsa la velocidad

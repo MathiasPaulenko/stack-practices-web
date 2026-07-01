@@ -241,7 +241,7 @@ Si la base de datos cambia de MySQL a MongoDB, solo cambia la implementación de
 | **Repository** | Queries domain-driven | `findByEmail`, `findActiveSince` |
 | **Active Record** | Entidad conoce su DAO | Modelos simples con persistencia built-in |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Retorna objetos de dominio, no raw result sets.** Mapea filas de base de datos a clases de entidad en el boundary del DAO.
 - **Usa una interface.** Esto habilita mocking para tests y swapping de implementaciones.

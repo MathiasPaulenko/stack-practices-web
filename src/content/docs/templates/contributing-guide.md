@@ -178,4 +178,4 @@ Look for labels like `good first issue`, `help wanted`, or `beginner-friendly` i
 
 ### What if my contribution is rejected?
 
-Do not take it personally. Maintainers may reject contributions that do not align with project goals or need significant rework. Ask for specific feedback and iterate. Every project has different standards and priorities.
+Do not take it personally. Maintainers may reject contributions that do not align with project goals or need major rework. Ask for specific feedback and iterate. Every project has different standards and priorities.

@@ -44,7 +44,7 @@ Usa esta recipe cuando:
 - Validas direcciones de email, números de teléfono o IDs. Consulta [Data Validation](/recipes/data/data-validation) para enfoques basados en schemas.
 - Extraes datos de texto no estructurado o [archivos de log](/recipes/api/logging)
 - Reemplazas o formateas strings con reglas complejas
-- Divides texto en delimitadores dinámicos
+- Divides texto en delimitadores en vivo
 - Buscas patrones dentro de documentos grandes
 
 ## Solución
@@ -173,9 +173,9 @@ for line in lines:
     error_pattern.search(line)
 ```
 
-## Mejores prácticas
+## Lo que funciona
 
-- **Siempre escapa caracteres especiales** cuando construyas regex dinámicamente. Consulta [Input Validation](/recipes/api/input-validation) para manejo seguro de strings.
+- **Siempre escapa caracteres especiales** cuando construyas regex en vivo. Consulta [Input Validation](/recipes/api/input-validation) para manejo seguro de strings.
 - **Usa raw strings** en Python (`r'...'`) para evitar escapes dobles
 - **Prefiere clases de caracteres explícitas** sobre `.` (dot) para matching predecible
 - **Ancla tus patrones** con `^` y `$` al validar strings completos

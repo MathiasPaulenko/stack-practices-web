@@ -219,7 +219,7 @@ The plan structures DR testing into **declared objectives** (RTO/RPO targets), *
 | After infrastructure change | Targeted scenario for changed component | Validate only what changed |
 | Game day / chaos engineering | Unannounced test | Most realistic, requires mature automation |
 
-## Best Practices
+## What Works
 
 1. **Schedule tests during business hours** — the people who need to learn from them must participate
 2. **Measure, don't estimate** — actual RTO is almost always longer than the documented estimate

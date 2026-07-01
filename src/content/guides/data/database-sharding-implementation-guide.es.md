@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: database-sharding-implementation-guide
-title: "Sharding de Base de Datos — Particionamiento Horizontal en la Práctica"
+title: "Sharding de Base de Datos: Particionamiento Horizontal en la Práctica"
 description: "Guía práctica sobre sharding de base de datos: elegir claves de shard, enrutar consultas, rebalancear datos y evitar errores comunes al escalar más allá de un solo nodo de base de datos."
 metaDescription: "Aprende sharding de bases de datos: elige claves de shard, enruta consultas, rebalancea datos y evita errores comunes al escalar más allá de un solo nodo."
 difficulty: advanced
@@ -52,9 +52,9 @@ Esta guía cubre cuándo hacer shard, cómo elegir claves de shard, enrutamiento
 
 ## Cuándo NO Usar
 
-- Tu base de datos tiene menos de 500GB — el escalado vertical y réplicas de lectura son más simples
-- Tu carga de trabajo es principalmente lectura — las réplicas y caché resuelven esto sin sharding
-- Tienes joins complejos entre shards — el sharding los hace prohibitivamente costosos
+- Tu base de datos tiene menos de 500GB. El escalado vertical y réplicas de lectura son más simples
+- Tu carga de trabajo es principalmente lectura. Las réplicas y caché resuelven esto sin sharding
+- Tienes joins complejos entre shards. El sharding los hace prohibitivamente costosos
 - Tu equipo carece de experiencia operativa con bases de datos distribuidas
 - No has agotado las mejoras de optimización de consultas e índices
 
@@ -95,7 +95,8 @@ Esta guía cubre cuándo hacer shard, cómo elegir claves de shard, enrutamiento
 
 La clave de shard es la decisión más importante. Una mala elección crea hot spots y anula el propósito.
 
-**Características de una buena clave de shard:**
+#### Características de una Buena Clave de Shard
+
 - Alta cardinalidad (muchos valores únicos)
 - Distribución uniforme (ningún valor domina)
 - Frecuentemente usada en cláusulas WHERE
@@ -139,11 +140,12 @@ def get_user_orders(user_id):
     return conn.query("SELECT * FROM orders WHERE user_id = %s", user_id)
 ```
 
-**Anti-patrones de clave de shard:**
-- **IDs autoincrementales:** Las inserciones secuenciales golpean el mismo shard (problema de escritura monotónica)
-- **Claves de baja cardinalidad:** Género, estado, booleano — crean hot spots masivos
-- **Claves solo de tiempo:** Los datos recientes golpean un solo shard (las series temporales necesitan claves compuestas)
-- **Claves frecuentemente actualizadas:** Cambiar la clave de shard requiere mover datos entre shards
+#### Anti-Patrones de Clave de Shard
+
+- IDs autoincrementales: Las inserciones secuenciales golpean el mismo shard (problema de escritura monotónica)
+- Claves de baja cardinalidad: Género, estado, booleano. Crea hot spots masivos
+- Claves solo de tiempo: Los datos recientes golpean un solo shard (las series temporales necesitan claves compuestas)
+- Claves frecuentemente actualizadas: Cambiar la clave de shard requiere mover datos entre shards
 
 ### 2. Implementa Enrutamiento de Consultas
 
@@ -180,7 +182,7 @@ orders = router.route("SELECT * FROM orders WHERE user_id = ?", {"user_id": 123}
 all_orders = router.route("SELECT * FROM orders WHERE amount > ?", {"amount": 100})
 ```
 
-**Estrategias de enrutamiento:**
+#### Estrategias de Enrutamiento
 
 | Estrategia | Cómo Funciona | Mejor Para |
 |------------|---------------|------------|
@@ -210,7 +212,7 @@ users = user_shard.query("SELECT id, name FROM users WHERE id IN %s", user_ids)
 # Unir en memoria de aplicación
 ```
 
-**Estrategias cross-shard:**
+#### Estrategias Cross-Shard
 
 | Problema | Solución | Trade-off |
 |----------|----------|-----------|
@@ -252,7 +254,7 @@ def move_data_range(source, target, bytes_to_move):
         bytes_moved += estimate_size(rows)
 ```
 
-**Enfoques de rebalanceo:**
+#### Enfoques de Rebalanceo
 
 | Enfoque | Downtime | Complejidad | Caso de Uso |
 |---------|----------|-------------|-------------|
@@ -314,29 +316,29 @@ SELECT * FROM orders WHERE user_id = 123;  -- Enrutado a un solo shard
 
 ## Lo que funciona
 
-- **Comienza con enrutamiento basado en directorio.** Es más fácil de rebalancear que el basado en hash.
-- **Mantén shards lo más grandes posible.** Shards más grandes pero menos son más fáciles de manejar que muchos pequeños.
-- **Diseña para el evento de rebalanceo.** Sucederá. Ten runbooks listos.
-- **Evita transacciones cross-shard.** Usa sagas, patrón outbox, o diseña alrededor de la necesidad.
-- **Monitorea balance de shards.** Alerta cuando cualquier shard exceda 120% del tamaño o QPS promedio.
-- **Prueba con volúmenes de datos similares a producción.** Datasets de prueba pequeños ocultan problemas de hot spots.
-- **Planifica tus tablas globales.** Tablas de búsqueda pequeñas (países, monedas) deberían replicarse a todos los shards.
+- Comienza con enrutamiento basado en directorio. Es más fácil de rebalancear que el basado en hash.
+- Mantén shards lo más grandes posible. Shards más grandes pero menos son más fáciles de manejar que muchos pequeños.
+- Diseña para el evento de rebalanceo. Sucederá. Ten runbooks listos.
+- Evita transacciones cross-shard. Usa sagas, patrón outbox, o diseña alrededor de la necesidad.
+- Monitorea balance de shards. Alerta cuando cualquier shard exceda 120% del tamaño o QPS promedio.
+- Prueba con volúmenes de datos similares a producción. Datasets de prueba pequeños ocultan problemas de hot spots.
+- Planifica tus tablas globales. Tablas de búsqueda pequeñas (países, monedas) deberían replicarse a todos los shards.
 
 ## Errores Comunes
 
-- **Hacer shard demasiado temprano.** El sharding añade complejidad masiva. Agota el escalado vertical y réplicas de lectura primero.
-- **Mala elección de clave de shard.** Una mala clave es peor que no hacer shard. Prueba la distribución con datos de producción.
-- **Ignorar consultas cross-shard.** Consultas que funcionaban en un solo nodo fallan o se vuelven lentas después del sharding.
-- **Sin plan de rebalanceo.** Shards desiguales crean hot spots que anulan los beneficios del sharding.
-- **Perder semánticas ACID.** Las transacciones multi-shard requieren coordinación a nivel de aplicación.
-- **Subestimar el overhead operativo.** Las bases de datos sharded son más difíciles de respaldar, monitorear y diagnosticar.
+- Hacer shard demasiado temprano. El sharding añade complejidad masiva. Agota el escalado vertical y réplicas de lectura primero.
+- Mala elección de clave de shard. Una mala clave es peor que no hacer shard. Prueba la distribución con datos de producción.
+- Ignorar consultas cross-shard. Consultas que funcionaban en un solo nodo fallan o se vuelven lentas después del sharding.
+- Sin plan de rebalanceo. Shards desiguales crean hot spots que anulan los beneficios del sharding.
+- Perder semánticas ACID. Las transacciones multi-shard requieren coordinación a nivel de aplicación.
+- Subestimar el overhead operativo. Las bases de datos sheded son más difíciles de respaldar, monitorear y diagnosticar.
 
 ## Variantes
 
-- **Sharding funcional:** Dividir por dominio (base de datos de usuarios, base de datos de pedidos) en lugar de por fila — más simple, no requiere router
-- **Sharding zonal:** Shard por geografía (datos de UE en shards de UE) para cumplimiento
-- **Sharding híbrido:** Shard tablas grandes, replica tablas pequeñas — el patrón más común
-- **Auto-sharding:** Servicios gestionados (Amazon Aurora, Google Spanner, Azure Cosmos DB) manejan sharding transparentemente
+- Sharding funcional: Dividir por dominio (base de datos de usuarios, base de datos de pedidos) en lugar de por fila. Más simple, no requiere router
+- Sharding zonal: Shard por geografía (datos de UE en shards de UE) para cumplimiento
+- Sharding híbrido: Shard tablas grandes, replica tablas pequeñas. El patrón más común
+- Auto-sharding: Servicios gestionados (Amazon Aurora, Google Spanner, Azure Cosmos DB) manejan sharding transparentemente
 
 ## FAQ
 
@@ -354,5 +356,5 @@ Sí, a menos que uses una base de datos con sharding nativo (MongoDB, CockroachD
 
 ## Conclusión
 
-El sharding de base de datos es una estrategia de escalado potente pero compleja. Al elegir la clave de shard correcta, implementar enrutamiento confiable y planificar para rebalanceo, puedes escalar tu capa de base de datos horizontalmente. Pero haz shard solo cuando sea necesario — el overhead operativo es mayor y muchas cargas de trabajo pueden resolverse con enfoques más simples.
+El sharding de base de datos es una estrategia de escalado potente pero compleja. Al elegir la clave de shard correcta, implementar enrutamiento confiable y planificar para rebalanceo, puedes escalar tu capa de base de datos horizontalmente. Pero haz shard solo cuando sea necesario. El overhead operativo es mayor y muchas cargas de trabajo pueden resolverse con enfoques más simples.
 

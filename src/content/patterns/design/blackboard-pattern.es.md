@@ -416,7 +416,7 @@ Los Knowledge Sources no se comunican directamente entre sí. Solo interactúan 
 | **Event-driven** | Las fuentes reaccionan a cambios del blackboard | Sistemas de IA reactivos |
 | **Hierarchical** | Múltiples blackboards en diferentes niveles de abstracción | Resolución de problemas multi-etapa |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén Knowledge Sources independientes.** No deberían comunicarse directamente.
 - **Usa una priority queue para el controller.** Selecciona la fuente más prometedora para actuar siguiente.

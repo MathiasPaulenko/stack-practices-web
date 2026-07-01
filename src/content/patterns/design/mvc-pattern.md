@@ -174,7 +174,7 @@ In modern web frameworks, the Controller often maps HTTP routes to Model operati
 | **MVP** | Testable UI layers | Presenter becomes a "god class" |
 | **MVVM** | Frontend frameworks (Vue, Angular) | Two-way binding adds complexity |
 
-## Best Practices
+## What Works
 
 - **Keep Models ignorant of Views**: Models should not know how they are displayed
 - **Make Views read-only from the Model**: Views observe models, but do not modify them directly

@@ -2,7 +2,7 @@
 contentType: patterns
 slug: domain-event-pattern
 title: "Domain Event Pattern"
-description: "Capture and publish significant occurrences within a domain model to decouple side effects from core business logic and enable reactive workflows."
+description: "Capture and publish major occurrences within a domain model to decouple side effects from core business logic and enable reactive workflows."
 metaDescription: "Learn the Domain Event Pattern for decoupling business logic from side effects. Examples in Python, Java, and JavaScript with event sourcing."
 difficulty: intermediate
 topics:
@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-The Domain Event Pattern captures significant business occurrences within a domain model as first-class objects. When something meaningful happens — an order is placed, a user is registered, a payment fails — the domain emits an event. Other parts of the system react to these events rather than being called directly.
+The Domain Event Pattern captures major business occurrences within a domain model as first-class objects. When something meaningful happens — an order is placed, a user is registered, a payment fails — the domain emits an event. Other parts of the system react to these events rather than being called directly.
 
 This decouples core business logic from side effects like sending emails, updating analytics, or notifying downstream services. Domain events also enable event sourcing, where the state of an aggregate is reconstructed by replaying its event history.
 

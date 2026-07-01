@@ -175,7 +175,7 @@ Un pipeline RAG tiene cuatro etapas:
 | Bases vectoriales | Chroma / Pinecone / Weaviate / pgvector | Chroma para local, Pinecone para gestionado, pgvector si ya usas Postgres |
 | Embeddings | OpenAI / Cohere / locales (BGE, E5) | OpenAI por calidad; modelos locales para privacidad y costo |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Agrega metadatos (nombre de archivo, número de página) a los fragmentos para trazabilidad y citación
 2. Usa `chunk_overlap` (10–20% del tamaño de fragmento) para evitar dividir en medio de oraciones

@@ -128,7 +128,7 @@ La plantilla trata tu red como un **sistema de defensa en profundidad**. La segm
 | Kubernetes | Network Policies + Cilium / Calico | Enforce aislamiento de namespaces; default-deny es más seguro |
 | Híbrido / On-prem | Firewall físico + SD-WAN | Documenta tanto rutas lógicas como físicas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Denegar todo por defecto; whitelista solo lo requerido con justificación documentada
 2. Revisa reglas de firewall trimestralmente; elimina reglas que ya no tienen justificación válida

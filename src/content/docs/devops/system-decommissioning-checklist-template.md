@@ -129,7 +129,7 @@ Before decommissioning a system:
 
 ## Explanation
 
-The checklist is ordered by **risk**: discovery first (so you know what you are touching), data handling second (so you do not delete something you must keep), dependency removal third (so upstream systems do not break), shutdown fourth, cleanup fifth, and documentation last. The **verification section** catches the things that always get forgotten: a DNS record with a long TTL, a cron job on a forgotten server, or an IAM role that quietly grants access to something else.
+The checklist is ordered by risk: discovery first (so you know what you are touching), data handling second (so you do not delete something you must keep), dependency removal third (so upstream systems do not break), shutdown fourth, cleanup fifth, and documentation last. The verification section catches the things that always get forgotten: a DNS record with a long TTL, a cron job on a forgotten server, or an IAM role that quietly grants access to something else.
 
 ## Variants
 
@@ -141,21 +141,21 @@ The checklist is ordered by **risk**: discovery first (so you know what you are 
 | Region shutdown | Add data residency checks, user migration, and latency impact assessment | Regions have compliance implications |
 | Experiment teardown | Shorter checklist; focus on data deletion and cost confirmation | Experiments should clean up fast |
 
-## Best Practices
+## What Works
 
-1. **Never delete on the first day** — stop the service, wait, and watch. Deletion should be the last step
-2. **Archive before you delete** — storage is cheap; explaining missing data to auditors is expensive
-3. **Communicate early and often** — the worst decommissioning surprise is finding out another team was still using the service
-4. **Document what was removed** — future engineers will search for the service; leave a tombstone, not a mystery
-5. **Verify billing** — cloud resources have a way of generating charges even after you think they are gone
+1. Never delete on the first day. Stop the service, wait, and watch. Deletion should be the last step
+2. Archive before you delete. Storage is cheap; explaining missing data to auditors is expensive
+3. Communicate early and often. The worst decommissioning surprise is finding out another team was still using the service
+4. Document what was removed. Future engineers will search for the service; leave a tombstone, not a mystery
+5. Verify billing. Cloud resources have a way of generating charges even after you think they are gone
 
 ## Common Mistakes
 
-1. **Skipping discovery** — the service you are shutting down is someone else's critical dependency
-2. **Deleting data too early** — legal hold, audit, or business needs may require retention longer than you expect
-3. **Not waiting after shutdown** — some systems only receive traffic on monthly or quarterly schedules
-4. **Forgetting DNS** — a DNS record pointing to a deleted IP can be hijacked or cause strange errors
-5. **Ignoring certificates** — expired certificates for deleted services still trigger renewal alerts and automation
+1. Skipping discovery. The service you are shutting down is someone else's critical dependency
+2. Deleting data too early. Legal hold, audit, or business needs may require retention longer than you expect
+3. Not waiting after shutdown. Some systems only receive traffic on monthly or quarterly schedules
+4. Forgetting DNS. A DNS record pointing to a deleted IP can be hijacked or cause strange errors
+5. Ignoring certificates. Expired certificates for deleted services still trigger renewal alerts and automation
 
 ## Frequently Asked Questions
 

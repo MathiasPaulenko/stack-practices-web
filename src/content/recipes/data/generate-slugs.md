@@ -135,7 +135,7 @@ This produces ASCII-only, lowercase, hyphen-delimited strings that are safe for 
 | Java | `slugify` (Maven) | `Slugify` | Supports custom replacements and language rules |
 | Java | `Normalizer` + regex | Manual | Built-in JDK, no external deps |
 
-## Best Practices
+## What Works
 
 - **Always normalize Unicode** before stripping accents to handle é, ñ, 中文 correctly
 - **Enforce maximum length** (e.g., 100 characters) to prevent URL bloat and database issues

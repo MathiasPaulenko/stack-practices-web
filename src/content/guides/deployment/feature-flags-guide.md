@@ -160,14 +160,15 @@ def advance_rollout(flag_name: str, current_stage: int):
         print(f"{flag_name} is already at 100%")
 ```
 
-**Rollout progression:**
-1. **Internal only:** Enable for development team (0% + target users)
-2. **Beta users:** Enable for friendly early adopters (0% + beta list)
-3. **1% rollout:** Expose to 1% of traffic
-4. **10% rollout:** Monitor metrics at small scale
-5. **50% rollout:** Validate at large volume
-6. **100% rollout:** Full release
-7. **Remove flag:** Clean up conditional code
+#### Rollout Progression
+
+1. Internal only: Enable for development team (0% + target users)
+2. Beta users: Enable for friendly early adopters (0% + beta list)
+3. 1% rollout: Expose to 1% of traffic
+4. 10% rollout: Monitor metrics at small scale
+5. 50% rollout: Validate at large volume
+6. 100% rollout: Full release
+7. Remove flag: Clean up conditional code
 
 ### 3. Add Kill Switches
 
@@ -190,7 +191,8 @@ def process_payment(order):
         raise
 ```
 
-**Kill switch guidelines:**
+#### Kill Switch Guidelines
+
 - Every new change gets a kill switch by default
 - Document which changes have kill switches in your runbook
 - Practice kill switch drills quarterly
@@ -235,7 +237,8 @@ Flags should not live forever:
 # 7. Verify no regressions
 ```
 
-**Lifecycle rules:**
+#### Lifecycle Rules
+
 - Set expiration dates on release and experiment flags (30-60 days)
 - Review all flags monthly in engineering standup
 - Archive removed flags in a changelog for audit purposes
@@ -243,27 +246,27 @@ Flags should not live forever:
 
 ## What Works
 
-- **Keep flags simple.** One flag per change, not nested conditionals.
-- **Default to safe.** If the flag system is down, default to the proven behavior.
-- **Evaluate flags once per request.** Cache the result to avoid repeated lookups.
-- **Test both paths.** Unit tests must cover flag enabled and disabled states.
-- **Document flag purpose.** Every flag needs an owner, description, and expiration date.
-- **Avoid flag interdependencies.** Combining flags creates combinatorial complexity.
+- Keep flags simple. One flag per change, not nested conditionals.
+- Default to safe. If the flag system is down, default to the proven behavior.
+- Evaluate flags once per request. Cache the result to avoid repeated lookups.
+- Test both paths. Unit tests must cover flag enabled and disabled states.
+- Document flag purpose. Every flag needs an owner, description, and expiration date.
+- Avoid flag interdependencies. Combining flags creates combinatorial complexity.
 
 ## Common Mistakes
 
-- **Leaving flags in code indefinitely.** Stale flags create technical debt and dead code.
-- **Using flags for permanent access control.** Use proper RBAC for long-lived permissions.
-- **Evaluating flags in hot loops.** Flag checks in tight loops hurt performance.
-- **Inconsistent flag state across services.** Ensure flags are synchronized in distributed systems.
-- **Forgetting to test the disabled path.** The default path is what most users see.
+- Leaving flags in code indefinitely. Stale flags create technical debt and dead code.
+- Using flags for permanent access control. Use proper RBAC for long-lived permissions.
+- Evaluating flags in hot loops. Flag checks in tight loops hurt performance.
+- Inconsistent flag state across services. Ensure flags are synchronized in distributed systems.
+- Forgetting to test the disabled path. The default path is what most users see.
 
 ## Variants
 
-- **Runtime configuration:** Broader than flags — includes thresholds, limits, and flag parameters
-- **Contextual flags:** Flags that vary by time of day, geography, or device type
-- **Multi-variate flags:** Flags with multiple states (A/B/C/D testing)
-- **Client-side flags:** Evaluated in browser/mobile for UI variations
+- Runtime configuration: Broader than flags. Includes thresholds, limits, and flag parameters.
+- Contextual flags: Flags that vary by time of day, geography, or device type
+- Multi-variate flags: Flags with multiple states (A/B/C/D testing)
+- Client-side flags: Evaluated in browser/mobile for UI variations
 
 ## FAQ
 

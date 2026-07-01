@@ -211,7 +211,7 @@ app.listen(3000, () => console.log('Gateway running on port 3000'));
 | Custom built | Maximum flexibility | Unique requirements | Development cost |
 | Service mesh (Istio ingress) | Kubernetes-native | K8s clusters | Complexity |
 
-## Best practices
+## What Works
 
 - **Implement [circuit breakers](/recipes/circuit-breaker-pattern-recipe) at the gateway**: if a backend service is failing, the gateway should stop forwarding requests and return a cached response or 503. This prevents cascading failures and gives struggling services time to recover.
 - **Use path versioning**: include API version in the path (`/api/v1/users`) rather than headers. This makes routing explicit, supports multiple versions simultaneously, and simplifies cache key generation.

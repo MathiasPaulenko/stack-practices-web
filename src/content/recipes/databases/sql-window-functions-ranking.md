@@ -56,7 +56,7 @@ seo:
 
 ## Overview
 
-Window functions are one of the most powerful features in SQL. They let you compute values across a set of rows related to the current row without collapsing the result set like `GROUP BY`. Ranking, running totals, and moving averages become straightforward, and they often replace slow self-joins or application-layer loops.
+Window functions are one of the most powerful capabilities in SQL. They let you compute values across a set of rows related to the current row without collapsing the result set like `GROUP BY`. Ranking, running totals, and moving averages become straightforward, and they often replace slow self-joins or application-layer loops.
 
 ## When to Use
 
@@ -96,7 +96,7 @@ FROM employees;
 | SUM OVER | Running totals | Cumulative within partition |
 | LAG/LEAD | Compare adjacent rows | Offset by N rows |
 
-## Best Practices
+## What Works
 
 1. **Index partition and order columns.** The database still needs to sort; indexes help.
 2. **Use ROW_NUMBER for top-N when ties do not matter.** Use RANK or DENSE_RANK when ties matter.

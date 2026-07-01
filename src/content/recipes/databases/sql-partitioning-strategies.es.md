@@ -81,7 +81,7 @@ El particionamiento declarativo en PostgreSQL permite definir una tabla particio
 | Hash | Hash de clave | Distribución pareja, sin rango natural |
 | Compuesto | Rango + Lista | Tablas multi-tenant grandes |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Elige la clave de partición según patrones de consulta.** Particionar por una columna que nunca filtras es overhead desperdiciado.
 2. **Crea particiones futuras antes de que lleguen datos.** Usa un cron job o extensión como `pg_partman` para automatizar.

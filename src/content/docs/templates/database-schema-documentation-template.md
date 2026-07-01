@@ -29,7 +29,7 @@ seo:
     - template
 ---
 
-## Best Practices
+## What Works
 
 - **Document every table and column** — Future developers (including yourself) will thank you. Pair schema docs with a [Migration Runbook](/docs/templates/database-migration-runbook-template) for change tracking.
 - **Explain business meaning, not just types** — `status` is obvious; why `metadata` exists is not

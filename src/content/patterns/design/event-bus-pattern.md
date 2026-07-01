@@ -230,7 +230,7 @@ The Event Bus Pattern consists of:
 | **Prioritized** | Ordered by priority | UI frameworks (DOM events bubble) |
 | **Filtered** | Subscribers define predicates | Large systems with many event types |
 
-## Best Practices
+## What Works
 
 - **Keep event payloads immutable.** Subscribers should not modify shared payload objects.
 - **Use typed event names.** Prefer `"OrderPlaced"` over `"order_event"`. Use constants or enums.

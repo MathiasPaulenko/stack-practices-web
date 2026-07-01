@@ -110,7 +110,7 @@ La rotacion de secretos es un control preventivo, no solo correctivo. El cronogr
 - **Cronograma de credenciales de terceros**: Rastrea API keys de proveedores como cloud, payment gateways o SaaS.
 - **Registro de rotacion de llaves de cifrado**: Documenta llaves KMS, GPG y llaves de cifrado en reposo.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Automatiza la rotacion siempre que sea posible usando un vault o secret manager.
 - Nunca almacenes secretos en repositorios, logs o configuraciones locales.

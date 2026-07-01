@@ -109,7 +109,7 @@ The script takes a source directory and a backup directory as arguments. It crea
 | Monthly | copy on 1st | 3 months |
 | Remote | `rsync` after tar | mirror to S3 or NAS |
 
-## Best Practices
+## What Works
 
 1. **Test restores regularly.** A backup you cannot restore is useless; schedule a monthly restore test.
 2. **Keep backups offsite or in object storage.** Local backups are vulnerable to disk failure and ransomware.

@@ -41,7 +41,7 @@ El escaping de entidades HTML convierte caracteres con significado especial en H
 
 Usa este recurso cuando:
 - Renderices contenido generado por usuarios dentro de templates HTML
-- Construyas strings HTML dinámicos a partir de datos externos (APIs, bases de datos, archivos)
+- Construyas strings HTML en vivo a partir de datos externos (APIs, bases de datos, archivos)
 - Generes emails HTML que incluyan nombres o direcciones de destinatarios
 - Embebas datos JSON dentro de tags `<script>` de forma segura
 
@@ -143,7 +143,7 @@ El `html.escape` de Python cubre los cinco caracteres críticos. `MarkupSafe` es
 | Java | `StringEscapeUtils.escapeHtml4` | HTML body | Apache Commons, cubre muchas entidades |
 | Java | `Encode.forHtml` | HTML body + atributos | OWASP, variantes específicas por contexto |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Escapa en el punto de renderizado**, no en almacenamiento: Datos escapados en una base de datos hacen que búsqueda y display sean inconsistentes
 - **Usa motores de templates con auto-escaping**: Jinja2, Django templates, React JSX y Vue templates escapan por defecto

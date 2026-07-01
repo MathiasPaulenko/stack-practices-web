@@ -95,7 +95,7 @@ The script uses `df -Hl` to list local filesystems and their usage percentages. 
 | PagerDuty | event API | Production on-call escalation |
 | File log | redirect to syslog | Centralized log aggregation |
 
-## Best Practices
+## What Works
 
 1. **Set thresholds below 100%.** Alert at 80% and take action at 90% so you have time to respond.
 2. **Monitor mount points, not just total disk.** A small `/tmp` or `/var/log` can fill independently of the root disk.

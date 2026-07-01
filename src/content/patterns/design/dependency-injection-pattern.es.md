@@ -215,4 +215,4 @@ R: DI es una forma específica de IoC. IoC es el principio más amplio de delega
 R: No. Para proyectos pequeños, la inyección manual por constructor es suficiente. Consulta [DI Container en TypeScript](/patterns/design/dependency-injection-typescript) para una implementación liviana. Los frameworks de DI como Spring, Angular injector o InversifyJS brillan en aplicaciones grandes con muchos servicios interdependientes.
 
 **P: ¿Cómo ayuda DI con el testing?**
-R: Al depender de abstracciones (interfaces), puedes inyectar implementaciones mock o stub durante las pruebas. Consulta [unit testing](/recipes/testing/unit-testing) para mejores prácticas de testing. Esto aísla la clase bajo prueba de sus colaboradores reales.
+R: Al depender de abstracciones (interfaces), puedes inyectar implementaciones mock o stub durante las pruebas. Consulta [unit testing](/recipes/testing/unit-testing) para patrones de testing. Esto aísla la clase bajo prueba de sus colaboradores reales.

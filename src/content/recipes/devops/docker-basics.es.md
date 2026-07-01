@@ -128,7 +128,7 @@ Ejecutar: `docker compose up --build`
 | Inyección de secretos | Usar secretos de BuildKit (`--secret`) o variables de entorno en runtime, nunca `COPY` de secretos |
 | Health checks | Agregar instrucción `HEALTHCHECK` o bloque `healthcheck` de Docker Compose |
 
-## Best Practices
+## Lo que funciona
 
 - **Fija tags de imágenes base**: `node:20-alpine` es mejor que `node:latest` para evitar cambios breaking inesperados.
 - **Un proceso por contenedor**: deja que Docker gestione el ciclo de vida del proceso; usa Compose u un orquestador para setups multi-proceso.

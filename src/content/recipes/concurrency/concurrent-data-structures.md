@@ -183,7 +183,7 @@ class EventDispatcher {
 | ConcurrentLinkedQueue | Lock-free | Lock-free | High-throughput queues | Low |
 | SynchronizedMap | Locked | Locked | Simple migration path | High |
 
-## Best practices
+## What Works
 
 - **Prefer `ConcurrentHashMap` over `Collections.synchronizedMap()`**: synchronized wrappers lock the entire map for every operation, including `get()`. `ConcurrentHashMap` allows concurrent reads and finer-grained write locking. The performance difference is dramatic under thread contention.
 - **Use `computeIfAbsent` for lazy cache initialization**: `if (!map.containsKey(key)) map.put(key, load())` is a race condition. Two threads may both load and put. `map.computeIfAbsent(key, k -> load())` atomically checks and inserts, ensuring the loader runs at most once per key.

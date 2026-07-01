@@ -3,7 +3,7 @@ contentType: recipes
 slug: generate-temporary-files
 title: "Generate Temporary Files"
 description: "How to create temporary files and directories safely with automatic cleanup across Python, Node.js, Java, and Bash."
-metaDescription: "Create temporary files and directories safely in Python, Node.js, Java, and Bash, with automatic cleanup and best practices."
+metaDescription: "Create temporary files and directories safely in Python, Node.js, Java, and Bash, with automatic cleanup and what works."
 difficulty: beginner
 topics:
   - file-handling
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Create temporary files and directories safely in Python, Node.js, Java, and Bash, with automatic cleanup and best practices."
+  metaDescription: "Create temporary files and directories safely in Python, Node.js, Java, and Bash, with automatic cleanup and what works."
   keywords:
     - file-handling
     - temp-files
@@ -184,7 +184,7 @@ trap cleanup EXIT
 UNIQUE_PATH="${TMPDIR:-/tmp}/batch_$(date +%s)_$$_$RANDOM.csv"
 ```
 
-## Best Practices
+## What Works
 
 - **Always use `mktemp` or language-native temp APIs.** Never build temp paths manually with predictable patterns like `/tmp/myapp.pid` — they are vulnerable to race conditions and symlink attacks.
 - **Set `trap` in Bash or `deleteOnExit` in Java** for cleanup guarantees, but prefer explicit cleanup in try-finally or try-with-resources.

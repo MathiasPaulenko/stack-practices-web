@@ -42,7 +42,7 @@ SLOs separate "uptime theater" from real reliability. A dashboard showing 99.9% 
 
 Use this resource when:
 - You are setting reliability targets for a new service or API
-- Your team spends every sprint firefighting instead of shipping features
+- Your team spends every sprint firefighting instead of shipping improvements
 - You need to negotiate SLAs with customers and want an internal buffer
 
 ## Solution

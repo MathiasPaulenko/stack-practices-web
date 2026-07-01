@@ -133,7 +133,7 @@ const client = new AuthDecorator(
 - **Metrics Decorator**: Envuelve tiempos y distribuciones de codigos de estado a Prometheus
 - **Cache Decorator**: Combina con [Proxy](/patterns/design/proxy-pattern) pattern para cachear respuestas GET
 
-## Mejores Practicas
+## Lo que funciona
 
 - Manten los decorators enfocados en una sola responsabilidad cada uno
 - Asegura que los delegates deleguen a `client.request()` sin tragar errores

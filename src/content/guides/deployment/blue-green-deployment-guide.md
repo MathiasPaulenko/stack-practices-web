@@ -41,7 +41,7 @@ seo:
 
 Blue-green deployment is a release strategy that maintains two identical production environments — blue (active) and green (idle). New versions deploy to the idle environment, get validated, and then traffic switches instantly. If problems arise, rollback is just another traffic switch.
 
-This guide covers architecture design, traffic switching mechanisms, database migration handling, and operational best practices.
+This guide covers architecture design, traffic switching mechanisms, database migration handling, and what works operationally.
 
 ## When to Use
 

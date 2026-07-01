@@ -197,7 +197,7 @@ El proxy puede interceptar operaciones para agregar caching, logging, control de
 | **Proxy Remoto** | Transparencia de red | Stub local para un servicio remoto |
 | **Referencia Inteligente** | Conteo de referencias | Rastrear uso de objetos para limpieza |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Mantén la interfaz del proxy idéntica al sujeto real** — los clientes no deben saber que usan un proxy
 - **Usa inicialización perezosa solo cuando el objeto real es costoso** — de lo contrario, el proxy agrega complejidad innecesaria

@@ -130,7 +130,7 @@ Cost allocation is not just an accounting exercise. When teams can see the cost 
 - **Chargeback model**: Bills internal teams for their actual consumption.
 - **Showback model**: Reports costs without actual billing, for awareness and accountability.
 
-## Best Practices
+## What Works
 
 - Enforce required tags at resource creation using policy-as-code.
 - Allocate untagged resources to a central cost center and require remediation.

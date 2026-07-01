@@ -149,7 +149,7 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 
 ### ¿Debería usar una herramienta de migración o SQL raw?
 
-Usa una herramienta (Flyway, Liquibase, Django migrations, Rails migrations). Consulta la [Guía de Optimización de SQL](/guides/databases/sql-performance-tuning-guide) y la [Guía de Sharding de BD](/guides/databases/database-sharding-partitioning-guide) para mejores prácticas relacionadas. Las herramientas trackean migraciones aplicadas, enforcean ordenamiento, y proveen hooks de rollback. Los scripts SQL raw requieren trackeo manual y son propensos a errores.
+Usa una herramienta (Flyway, Liquibase, Django migrations, Rails migrations). Consulta la [Guía de Optimización de SQL](/guides/databases/sql-performance-tuning-guide) y la [Guía de Sharding de BD](/guides/databases/database-sharding-partitioning-guide) para pautas relacionadas. Las herramientas trackean migraciones aplicadas, enforcean ordenamiento, y proveen hooks de rollback. Los scripts SQL raw requieren trackeo manual y son propensos a errores.
 
 ### ¿Cómo manejo una migración fallida en producción?
 

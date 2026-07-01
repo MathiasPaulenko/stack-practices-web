@@ -239,7 +239,7 @@ Los clientes interactúan con todos los objetos a través de la interfaz Compone
 | **Seguro** | Gestión de hijos solo en Composite | Seguridad de tipos, pero los clientes deben distinguir hoja vs. compuesto |
 | **Ponderado** | El compuesto calcula valores agregados de hijos | Tamaños de archivos, precios, totales |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Mantén la interfaz de componente ligera** — demasiados métodos hacen las hojas complejas
 - **Documenta si las operaciones nulas/vacías son válidas** para operaciones de hoja

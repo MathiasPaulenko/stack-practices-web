@@ -301,7 +301,7 @@ El manager mantiene índices (department → employee IDs) para hacer queries ef
 | **Service Manager** | Registry y lookup | Android ServiceManager, plugin registries |
 | **Cache Manager** | Eviction y TTL | Redis cache wrappers, in-memory caches |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén managers enfocados.** Un manager debería manejar un tipo de objeto, no todo.
 - **Retorna vistas inmutables.** No expongas colecciones internas directamente.

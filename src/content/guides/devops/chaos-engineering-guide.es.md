@@ -54,7 +54,7 @@ Chaos engineering es la disciplina de experimentar en un sistema para construir 
 1. **Construye una hipotesis alrededor del comportamiento de estado estable** — define metricas normales (tasa de error < 0.1%, latencia p99 < 200ms)
 2. **Varia eventos del mundo real** — inyecta fallos que realmente ocurren: particiones de red, fallos de disco, caidas de dependencias
 3. **Ejecuta experimentos en produccion** — staging raramente coincide con la topologia y carga de produccion
-4. **Automatiza experimentos para que corran continuamente** — los game days manuales son valiosos pero no escalables
+4. **Automatiza experimentos para que corran continuamente** — los game days manuales son valiosos pero no sostenibles
 5. **Minimiza el radio de impacto** — comienza pequeno (un pod, una AZ), aborta si los SLOs se rompen
 
 ## Diseno de Experimentos

@@ -37,7 +37,7 @@ Command Query Responsibility Segregation (CQRS) splits the data model into two: 
 
 Use this recipe when:
 
-- Read and write volumes differ significantly (100:1 read-heavy ratios are common). See [Database Read Replicas](/recipes/databases/database-read-replicas) for read scaling.
+- Read and write volumes differ considerably (100:1 read-heavy ratios are common). See [Database Read Replicas](/recipes/databases/database-read-replicas) for read scaling.
 - Complex queries require joins across multiple aggregates, degrading write performance. See [SQL Joins](/recipes/databases/sql-joins) for query optimization.
 - Building real-time dashboards, analytics, or search that needs data shaped differently than the transactional model
 - Working with event-sourced systems where state is derived from a sequence of events. See [Event Sourcing](/recipes/databases/event-sourcing-relational) for event store patterns.
@@ -185,7 +185,7 @@ class OrderProjection {
 | Event sourcing | Event store | Multiple projections | Eventual | Audit, temporal queries |
 | Read replicas | Primary DB | Replica DB | Near-strong | Read scaling without complexity |
 
-## Best practices
+## What Works
 
 - **Keep read models simple and disposable**: a read model is a cache, not a source of truth. If corrupted, rebuild it by replaying events from the beginning. Do not put business logic or write operations in read models.
 - **Version your events**: as schemas evolve, older projections must still understand historical events. Include a version field in events and write handlers for each version. This allows gradual migration without downtime.

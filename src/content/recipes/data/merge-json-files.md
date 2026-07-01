@@ -182,7 +182,7 @@ Key conflicts must be handled explicitly: last-write-wins, merge arrays within o
 | Java | `Jackson` | `ObjectNode` mutation | Streaming compatible, type-safe node tree |
 | Java | `json-java` (org.json) | `JSONObject` deep merge | Lightweight, manual recursion required |
 
-## Best Practices
+## What Works
 
 - **Use deep merge for configuration**: Shallow merges silently drop nested keys from the base file
 - **Dedupe arrays after concatenation**: Merging datasets may produce duplicate entries; dedupe by a stable key

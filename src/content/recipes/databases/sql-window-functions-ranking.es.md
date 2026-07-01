@@ -34,7 +34,7 @@ seo:
 
 ## Visión General
 
-Las funciones de ventana son una de las características más potentes de SQL. Permiten calcular valores a través de un conjunto de filas relacionadas con la fila actual sin colapsar el resultado como `GROUP BY`. El ranking, totales acumulados y promedios móviles se vuelven directos, y a menudo reemplazan self-joins lentos o loops en la capa de aplicación.
+Las funciones de ventana son una de las capacidades más potentes de SQL. Permiten calcular valores a través de un conjunto de filas relacionadas con la fila actual sin colapsar el resultado como `GROUP BY`. El ranking, totales acumulados y promedios móviles se vuelven directos, y a menudo reemplazan self-joins lentos o loops en la capa de aplicación.
 
 ## Cuándo Usar
 
@@ -74,7 +74,7 @@ FROM employees;
 | SUM OVER | Totales acumulados | Acumulativo dentro de partición |
 | LAG/LEAD | Comparar filas adyacentes | Offset de N filas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Indexa columnas de partición y orden.** La base de datos aún necesita ordenar; los índices ayudan.
 2. **Usa ROW_NUMBER para top-N cuando los empates no importan.** Usa RANK o DENSE_RANK cuando los empates importan.

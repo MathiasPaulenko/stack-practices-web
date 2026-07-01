@@ -170,7 +170,7 @@ Los decorators pueden anidarse arbitrariamente. Puedes envolver un `MilkDecorato
 | **Basado en funciones** | Sintaxis `@decorator` de Python | Conciso, pero composición menos explícita |
 | **[Pipeline de middleware](/patterns/design/decorator-pattern-pipeline)** | Frameworks web (Express, Koa) | Excelente para procesamiento request/response |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén los decorators transparentes**: Deben implementar exactamente la misma interfaz que el componente
 - **Delega todos los métodos**: A menos que se sobrescriba intencionalmente, pasa cada llamada al objeto envuelto

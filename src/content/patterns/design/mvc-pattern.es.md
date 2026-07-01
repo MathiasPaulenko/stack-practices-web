@@ -174,7 +174,7 @@ En frameworks web modernos, el Controlador suele mapear rutas HTTP a operaciones
 | **MVP** | Capas de UI testeables | El Presenter se convierte en "god class" |
 | **MVVM** | Frameworks frontend (Vue, Angular) | El binding bidireccional añade complejidad |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén los Modelos ignorantes de las Vistas**: Los modelos no deben saber cómo se muestran
 - **Haz las Vistas de solo lectura desde el Modelo**: Las vistas observan modelos, pero no los modifican directamente

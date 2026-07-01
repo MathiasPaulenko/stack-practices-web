@@ -101,7 +101,7 @@ Budget remaining | Policy
 < 10%              | All hands on reliability; halt feature work
 ```
 
-## Best Practices
+## What Works
 
 - **Start with user-visible metrics** — "CPU usage" is not an SLI; "request success rate" is. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for metric selection.
 - **Set SLOs based on current performance** — if you are at 99.5% today, do not promise 99.99%

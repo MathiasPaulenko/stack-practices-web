@@ -234,7 +234,7 @@ Todas las modificaciones fluyen a través de la raíz. Esto asegura que invarian
 | **Large Aggregate** | Root con muchos niveles | Catálogo de productos con categorías, variantes, precios |
 | **Event-Sourced Aggregate** | Rehidratado desde stream de eventos | Cuenta bancaria reconstruida desde eventos `Deposit` / `Withdraw` |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén los aggregates pequeños.** Un buen aggregate cabe en memoria y se carga en una única query de base de datos. Aggregates grandes afectan performance.
 - **Referencia otros aggregates por ID.** No mantengas referencias directas a objectos de otros aggregate roots. Esto previene cargar el grafo completo.

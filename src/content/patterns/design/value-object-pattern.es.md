@@ -208,7 +208,7 @@ Los Value Objects se caracterizan por:
 | **Range Value Object** | DateRange, TemperatureRange con validación |
 | **Calculated Value Object** | TaxAmount calculado desde Money y Rate |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Hazlos inmutables.** Sin setters, campos mutables ni actualizaciones in-place. Retorna nuevas instancias para transformaciones.
 - **Valida al construir.** Un `EmailAddress` inválido debería ser imposible de crear. Falla rápido con errores claros.

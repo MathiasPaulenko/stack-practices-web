@@ -104,7 +104,7 @@ The script iterates over `*.log` files in the target directory. If a log exceeds
 | zstd | Fast, modern | Large log volumes |
 | xz | Smallest, slowest | Compliance archives |
 
-## Best Practices
+## What Works
 
 1. **Rotate before the disk is full.** Monitor free space and rotate at 70-80% usage, not 99%.
 2. **Use copytruncate or signals when possible.** Moving an open log file can cause the app to keep writing to the old inode.

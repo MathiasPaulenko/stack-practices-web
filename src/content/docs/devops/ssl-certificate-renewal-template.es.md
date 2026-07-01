@@ -109,7 +109,7 @@ La plantilla separa el **inventario** (qué certificados tienes) del **flujo de 
 | Servicios internos | PKI interna / Vault | Renovación automática mediante el motor PKI de Vault | Control total, requiere distribución de confianza |
 | IoT / embebidos | Certificados con atestación de dispositivo | Aprovisionamiento de fábrica + actualizaciones OTA | Opciones de validación limitadas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Configura alertas de calendario a 30, 14 y 7 días antes de la caducidad—incluso para certificados con "renovación automática"
 2. Almacena las copias de seguridad de certificados (clave privada + cadena) en un gestor de secretos, no en la laptop de un solo ingeniero

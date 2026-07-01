@@ -263,7 +263,7 @@ public class TestFixtures {
 }
 ```
 
-## Best Practices
+## What Works
 
 - **Use factory functions, not static data.** `createUser({ role: 'admin' })` is more flexible than a hardcoded `adminUser` object and prevents copy-paste drift.
 - **Reset state between tests.** Shared mutable fixtures cause order-dependent failures. Truncate tables, clear mocks, and reinitialize objects in `beforeEach`.

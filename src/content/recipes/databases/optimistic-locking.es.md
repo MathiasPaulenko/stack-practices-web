@@ -169,7 +169,7 @@ UPDATE table SET ... WHERE id = ? AND version = ?
 Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplicación maneja el conflicto: reintenta con datos frescos, devuelve HTTP 409, o fusiona cambios.
 
 **Compromisos:**
-- **Optimista**: sin bloqueos durante lectura; rápido y escalable; requiere lógica de reintento en conflicto
+- **Optimista**: sin bloqueos durante lectura; rápido y listo para crecer; requiere lógica de reintento en conflicto
 - **Pesimista**: `SELECT FOR UPDATE` bloquea la fila inmediatamente; lógica más simple pero serializa acceso y riesgos de deadlocks
 
 ## Variantes
@@ -183,7 +183,7 @@ Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplica
 | DynamoDB | Escrituras condicionales con `Expected` | Sin versionado nativo; usa attribute_exists o comparaciones de valores |
 | MongoDB | `findAndModify` con criterios de consulta | Incluye versión en filtro; reintenta si el documento fue modificado |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Siempre devuelve la versión actual al cliente después de cada lectura para que pueda enviarla en la actualización
 2. Implementa [reintento con backoff exponencial](/recipes/architecture/retry-backoff) (1–3 intentos) para conflictos transitorios en procesos automatizados

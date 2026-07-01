@@ -87,7 +87,7 @@ console.log(csv);
 ```
 
 ```javascript
-// Usando json2csv para conversión robusta
+// Usando json2csv para conversión confiable
 // npm install @json2csv/plainjs
 import { Parser } from '@json2csv/plainjs';
 
@@ -142,7 +142,7 @@ El desafío principal en la conversión JSON a CSV es aplanar datos jerárquicos
 | Java | `Jackson` + `commons-csv` | Iteración manual | Enterprise-grade, boilerplate verbose |
 | Java | `univocity-parsers` | `CsvWriter` | Alternativa de alto rendimiento a commons-csv |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Sanitiza headers** para remover espacios y caracteres especiales que rompen parsers downstream
 - **Maneja campos faltantes gracefulmente**: Usa valores por defecto o strings vacíos en lugar de omitir columnas

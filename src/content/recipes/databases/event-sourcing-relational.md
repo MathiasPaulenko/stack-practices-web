@@ -267,7 +267,7 @@ The relational database schema is simple: an `events` table with `aggregate_id`,
 | SQL Server | Medium | Fast | Enterprise, T-SQL projections |
 | Dedicated (EventStoreDB) | Native | Very fast | Large-scale event sourcing |
 
-## Best Practices
+## What Works
 
 - **Version every event**: Optimistic concurrency control prevents lost updates
 - **Use JSONB/JSON for payloads**: Schema flexibility without migrations; validate at the application layer. See [Parse JSON](/recipes/data/parse-json) for structured data.

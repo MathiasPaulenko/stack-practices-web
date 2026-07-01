@@ -116,7 +116,7 @@ System.out.println(idV4); // 550e8400-e29b-41d4-a716-446655440000
 | **v8** | Custom | Configurable | Extensiones específicas de vendor |
 | **ULID** | Time + random | Sí | URL-safe, lexicográficamente ordenable |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Prefiere UUID v7 o ULID para claves de base de datos**: IDs ordenados por tiempo mejoran el rendimiento de índices B-tree
 - **Almacena como tipo `UUID` en bases de datos** cuando esté disponible (PostgreSQL, SQL Server) en lugar de strings

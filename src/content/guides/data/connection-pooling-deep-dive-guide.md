@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: connection-pooling-deep-dive-guide
-title: "Connection Pooling — Optimize Database Connections for Scale"
+title: "Connection Pooling: Optimize Database Connections for Scale"
 description: "A practical guide to database connection pooling: sizing pools, handling idle timeouts, detecting leaks, and configuring HikariCP, PgBouncer, and cloud-native pools for maximum throughput."
 metaDescription: "Learn connection pooling: size pools, handle idle timeouts, detect leaks, and configure HikariCP, PgBouncer, and cloud-native pools for maximum throughput."
 difficulty: intermediate
@@ -91,7 +91,7 @@ With Pooling:
 
 The most important configuration is pool size. Too small = blocked requests. Too large = wasted memory and database contention.
 
-**Formula for optimal pool size:**
+#### Formula for Optimal Pool Size
 
 ```
 connections = ((core_count * 2) + effective_spindle_count)
@@ -102,7 +102,7 @@ For PostgreSQL on a 16-core SSD server:
 connections = (16 * 2) + 1 = 33 connections for maximum throughput
 ```
 
-**Application pool sizing per service:**
+#### Application Pool Sizing per Service
 
 | Scenario | Max Pool Size | Rationale |
 |----------|---------------|-----------|
@@ -199,12 +199,13 @@ config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 HikariDataSource ds = new HikariDataSource(config);
 ```
 
-**Why these settings matter:**
-- **minIdle:** Prevents connection creation latency during traffic spikes
-- **maxLifetime:** Prevents stale connections and works around firewalls that drop idle TCP
-- **idleTimeout:** Closes unused connections to free database resources
-- **connectionTimeout:** Fails fast instead of hanging indefinitely
-- **leakDetectionThreshold:** Catches code that forgets to close connections
+#### Why These Settings Matter
+
+- minIdle: Prevents connection creation latency during traffic spikes
+- maxLifetime: Prevents stale connections and works around firewalls that drop idle TCP
+- idleTimeout: Closes unused connections to free database resources
+- connectionTimeout: Fails fast instead of hanging indefinitely
+- leakDetectionThreshold: Catches code that forgets to close connections
 
 ### 3. Use Middleware Connection Pooling
 
@@ -256,7 +257,7 @@ mysql_query_rules =
 )
 ```
 
-**Pool modes explained:**
+#### Pool Modes Explained
 
 | Mode | Behavior | Best For |
 |------|----------|----------|
@@ -307,7 +308,7 @@ def get_user(user_id):
     # Connection auto-returned to pool
 ```
 
-**Leak detection strategies:**
+#### Leak Detection Strategies
 
 | Approach | How | When |
 |----------|-----|------|
@@ -347,7 +348,7 @@ def monitor_pool(pool):
     # Alert if waiters > 0 or active == max for > 30s
 ```
 
-**Critical alerts:**
+#### Critical Alerts
 
 | Alert | Threshold | Meaning |
 |-------|-----------|---------|
@@ -357,29 +358,29 @@ def monitor_pool(pool):
 | **Leak detected** | Any leak warning | Code not closing connections |
 | **Connection age** | Avg age > maxLifetime | Connections not rotating properly |
 
-## Best Practices
+## What Works
 
-- **Size pools based on database capacity, not application desire.** Your database has a hard connection limit. Sum all application maxPoolSizes and ensure they fit.
-- **Use transaction-level pooling (PgBouncer) for web apps.** Session-level pooling wastes connections during HTTP request idle time.
-- **Always use try-with-resources or context managers.** Never rely on manual close() calls.
-- **Set maxLifetime shorter than database idle timeout.** Prevents "connection reset" errors from firewalls or database settings.
-- **Enable connection testing (pre-ping).** Verifies connections are alive before handing them to application code.
-- **Use separate pools for different workloads.** OLTP queries and batch jobs should not share a pool.
+- Size pools based on database capacity, not application desire. Your database has a hard connection limit. Sum all application maxPoolSizes and ensure they fit.
+- Use transaction-level pooling (PgBouncer) for web apps. Session-level pooling wastes connections during HTTP request idle time.
+- Always use try-with-resources or context managers. Never rely on manual close() calls.
+- Set maxLifetime shorter than database idle timeout. Prevents "connection reset" errors from firewalls or database settings.
+- Enable connection testing (pre-ping). Verifies connections are alive before handing them to application code.
+- Use separate pools for different workloads. OLTP queries and batch jobs should not share a pool.
 
 ## Common Mistakes
 
-- **Oversized pools.** A pool of 100 connections per instance × 20 instances = 2000 connections. Most PostgreSQL servers struggle beyond 500.
-- **No connection timeout.** Default timeouts of 30s+ cause cascading failures during outages.
-- **Holding connections during HTTP requests.** If your API call takes 5s and you hold a DB connection the whole time, you need 5× more connections.
-- **Not handling pool exhaustion.** When the pool is full, your application should degrade gracefully, not hang indefinitely.
-- **One pool for everything.** Batch jobs that hold connections for minutes starve real-time API requests.
+- Oversized pools. A pool of 100 connections per instance × 20 instances = 2000 connections. Most PostgreSQL servers struggle beyond 500.
+- No connection timeout. Default timeouts of 30s+ cause cascading failures during outages.
+- Holding connections during HTTP requests. If your API call takes 5s and you hold a DB connection the whole time, you need 5× more connections.
+- Not handling pool exhaustion. When the pool is full, your application should degrade gracefully, not hang indefinitely.
+- One pool for everything. Batch jobs that hold connections for minutes starve real-time API requests.
 
 ## Variants
 
-- **Application pool:** HikariCP, SQLAlchemy pool, node-postgres Pool — per-instance, simplest
-- **Middleware pool:** PgBouncer, ProxySQL, pgpool — shared across instances, better resource utilization
-- **Cloud-managed pool:** RDS Proxy, Cloud SQL Proxy, Azure Database Proxy — managed, with IAM integration
-- **Serverless pool:** AWS RDS Proxy, Supabase connection pooling — essential for Lambda/Cloud Run where instances are ephemeral
+- Application pool: HikariCP, SQLAlchemy pool, node-postgres Pool. Per-instance, simplest
+- Middleware pool: PgBouncer, ProxySQL, pgpool. Shared across instances, better resource utilization
+- Cloud-managed pool: RDS Proxy, Cloud SQL Proxy, Azure Database Proxy. Managed, with IAM integration
+- Serverless pool: AWS RDS Proxy, Supabase connection pooling. Essential for Lambda/Cloud Run where instances are ephemeral
 
 ## FAQ
 
@@ -398,4 +399,4 @@ Use a proxy (RDS Proxy, PgBouncer) or keep a global pool variable that persists 
 ## Conclusion
 
 Connection pooling is foundational database performance tuning. By sizing pools correctly, configuring timeouts appropriately, and monitoring actively, you eliminate connection overhead and protect your database from being overwhelmed by connection storms.
-
+

@@ -171,7 +171,7 @@ Esta estructura permite agregar nuevos canales de notificación sin modificar el
 | **Factory Method** | Subclases sobreescriben la creación | Más flexible, más clases |
 | **[Abstract Factory](/patterns/design/abstract-factory-pattern)** | Familias de objetos relacionados | Complejo, pero maneja familias de productos |
 
-## Best Practices
+## Lo que funciona
 
 - **Usa enums para canales/tipos** en lugar de strings raw para evitar errores de tipeo
 - **Lanza errores explícitos** para tipos no soportados en lugar de devolver null

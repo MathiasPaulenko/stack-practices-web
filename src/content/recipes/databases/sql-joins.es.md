@@ -27,7 +27,7 @@ seo:
 
 ## Overview
 
-Los JOINs en SQL combinan filas de dos o más tablas basándose en una columna relacionada. Son una de las características más poderosas y frecuentemente mal entendidas de las bases de datos relacionales. Esta receta demuestra los cuatro tipos comunes de JOIN con un esquema realista de `users` y `orders`.
+Los JOINs en SQL combinan filas de dos o más tablas basándose en una columna relacionada. Son una de las capacidades más poderosas y frecuentemente mal entendidas de las bases de datos relacionales. Esta receta demuestra los cuatro tipos comunes de JOIN con un esquema realista de `users` y `orders`.
 
 ## When to Use
 
@@ -128,7 +128,7 @@ Devuelve todos los usuarios y todas las órdenes, con NULLs donde no hay coincid
 | Órdenes sin usuarios (datos corruptos) | `RIGHT JOIN` o `LEFT JOIN` con tablas intercambiadas |
 | Todos los registros de ambas | `FULL OUTER JOIN` (o `UNION` en MySQL) |
 
-## Best Practices
+## Lo que funciona
 
 - **Indexa claves foráneas**: la columna de join (`orders.user_id`) debería tener un índice o constraint de foreign key. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para indexación. Sin él, tablas grandes hacen full scans.
 - **Usa aliases de tabla**: `users u` hace las consultas legibles y más cortas.

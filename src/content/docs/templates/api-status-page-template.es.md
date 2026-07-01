@@ -4,7 +4,7 @@ slug: api-status-page-template
 templateType: api-status-page
 title: "Plantilla de Página de Estado de API"
 description: "Una plantilla para una página de estado de API pública que comunica uptime, incidentes y ventanas de mantenimiento a los consumidores."
-metaDescription: "Plantilla de página de estado de API con comunicación de incidentes, ventanas de mantenimiento, definiciones de SLA y mejores prácticas de reporte transparente."
+metaDescription: "Plantilla de página de estado de API con comunicación de incidentes, ventanas de mantenimiento, definiciones de SLA y lo que funciona en reporte transparente."
 difficulty: beginner
 topics:
   - api
@@ -25,12 +25,12 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Plantilla de página de estado de API con comunicación de incidentes, ventanas de mantenimiento, definiciones de SLA y mejores prácticas de reporte transparente."
+  metaDescription: "Plantilla de página de estado de API con comunicación de incidentes, ventanas de mantenimiento, definiciones de SLA y lo que funciona en reporte transparente."
   keywords:
     - template
 ---
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Actualiza cada 15-30 minutos durante incidentes activos** — El silencio hace que los consumidores asuman lo peor
 - **Publica mantenimientos programados con 7 días de anticipación** — Da tiempo a los consumidores para preparar alternativas

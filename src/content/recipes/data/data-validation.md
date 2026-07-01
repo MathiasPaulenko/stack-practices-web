@@ -32,7 +32,7 @@ seo:
 
 User input is the primary attack vector for web applications. SQL injection, cross-site scripting, and remote code execution all begin with untrusted data entering the system. Data validation is the first line of defense — rejecting malformed, oversized, or malicious input before it reaches application logic or storage.
 
-Effective validation operates at multiple layers: client-side for immediate feedback, server-side for security, and database-level for data integrity. This recipe focuses on server-side validation using schema libraries that combine type safety, constraint checking, and automatic error messages.
+Useful validation operates at multiple layers: client-side for immediate feedback, server-side for security, and database-level for data integrity. This recipe focuses on server-side validation using schema libraries that combine type safety, constraint checking, and automatic error messages.
 
 ## When to Use
 
@@ -123,7 +123,7 @@ if (error) {
 | JSON Schema | Multi | Via generators | OpenAPI, cross-platform |
 | class-validator | TypeScript | Native | NestJS, class-based |
 
-## Best Practices
+## What Works
 
 - **Validate at the boundary, not everywhere**: centralize validation in middleware or controller entry points. Business logic should assume data is already clean. See [Middleware](/recipes/api/middleware) for request processing patterns.
 - **Whitelist, do not blacklist**: define what is allowed rather than what is forbidden. Blacklists are impossible to complete and always leave gaps.

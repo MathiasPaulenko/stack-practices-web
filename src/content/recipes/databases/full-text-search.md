@@ -159,7 +159,7 @@ PostgreSQL `tsvector` is great for simple use cases with no extra infrastructure
 | SQLite FTS5 | Embedded/mobile apps | None | Limited |
 | Typesense | Instant search, typo tolerance | Low | Yes |
 
-## Best Practices
+## What Works
 
 - **Use GIN indexes on PostgreSQL**: `to_tsvector` queries without an index are full table scans. See [Query Optimization](/recipes/databases/postgres-query-optimization) for indexing.
 - **Limit searchable fields**: Indexing every column wastes space and degrades relevance.
@@ -179,7 +179,7 @@ PostgreSQL `tsvector` is great for simple use cases with no extra infrastructure
 
 ### Should I use PostgreSQL full-text search or a dedicated engine?
 
-Use PostgreSQL if your data lives in PG, search is secondary, and you don't need typo tolerance or faceting. Use Meilisearch or Elasticsearch for primary search features, high traffic, or complex filtering.
+Use PostgreSQL if your data lives in PG, search is secondary, and you don't need typo tolerance or faceting. Use Meilisearch or Elasticsearch for primary search capabilities, high traffic, or complex filtering.
 
 ### How do I handle synonyms (e.g., "laptop" = "notebook")?
 

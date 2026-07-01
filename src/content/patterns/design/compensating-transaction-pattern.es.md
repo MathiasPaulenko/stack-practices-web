@@ -501,7 +501,7 @@ Propiedades clave:
 | **Saga Paralela** | Pasos independientes corren concurrentemente; compensaciones corren para todos al fallar | Alto throughput, pasos débilmente acoplados |
 | **Saga Anidada** | Un paso de saga es en sí mismo una sub-saga con sus propias compensaciones | Procesos de negocio recursivos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Diseña compensaciones desde el inicio.** Son más difíciles de agregar retrospectivamente que las operaciones originales.
 - **Haz compensaciones idempotentes.** Pueden ser reintentadas si el primer intento falla.

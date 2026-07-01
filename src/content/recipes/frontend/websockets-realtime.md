@@ -141,7 +141,7 @@ WebSocket handshake upgrades an HTTP connection:
 | Long Polling | Server-to-client | Legacy browser support |
 | MQTT over WebSocket | Pub/sub | IoT, telemetry |
 
-## Best Practices
+## What Works
 
 - **Implement heartbeat/ping**: Detect dead connections with periodic ping/pong frames
 - **Authenticate during handshake**: Pass JWT in query string or subprotocol

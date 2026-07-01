@@ -249,7 +249,7 @@ El Front Controller centraliza:
 | **Dispatcher** | Spring MVC `DispatcherServlet` | Framework MVC completo con view resolution |
 | **Reverse Proxy** | Nginx / Apache como front controller | Load balancing, SSL termination, caching |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén el controller lean.** Delega lógica de página a command objects o sub-controllers dedicados.
 - **Usa una routing table.** Mapea patrones de URL a handlers declarativamente en lugar de if-else anidados.

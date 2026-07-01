@@ -228,7 +228,7 @@ def order_orchestrator(context: df.DurableOrchestrationContext):
 | Durable Functions | Code (.NET/JS/Python) | Azure | Azure Functions users | Execution + storage |
 | Camunda | BPMN | Open-source | Business process modeling | Self-hosted / SaaS |
 
-## Best practices
+## What Works
 
 - **Keep Lambda functions stateless and idempotent**: the orchestrator handles state; functions should be pure. If a function is retried, it must produce the same result without side effects. Use idempotency keys passed from the orchestrator to deduplicate operations in downstream systems.
 - **Use exponential backoff with jitter for retries**: retrying every 1 second creates thundering herds. Configure `BackoffRate: 2` with a maximum interval. Add random jitter to spread retries. Step Functions supports this natively; in Temporal, configure retry policies on activities.

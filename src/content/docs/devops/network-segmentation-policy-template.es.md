@@ -118,7 +118,7 @@ La segmentacion limita el radio de explosion de una brecha al impedir que los at
 - **Segmentacion multi-inquilino**: Define aislamiento entre clientes, unidades de negocio o ambientes en una plataforma compartida.
 - **Segmentacion critica air-gap**: Documenta segmentos completamente aislados para sistemas de control industrial o alta sensibilidad.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Comienza con una postura de negacion por defecto y permite explicitamente el trafico requerido.
 - Documenta la justificacion de negocio para cada flujo entre zonas.

@@ -129,7 +129,7 @@ The template creates a **closed-loop system**: findings enter the tracker, get a
 | Vendor security review | Vendor contact, contract clause | Third-party risk management |
 | Continuous scanning | Tool (Snyk, Trivy), auto-ticket link | High volume; automation required |
 
-## Best Practices
+## What Works
 
 1. Import findings into your bug tracker within 48 hours of receiving the report; PDFs age quickly
 2. Validate fixes with the same tester who found the issue; they know the exploit path best

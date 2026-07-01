@@ -34,7 +34,7 @@ seo:
 
 ## Visión General
 
-SOC 2 (Service Organization Control 2) es un marco de auditoría desarrollado por el AICPA que evalúa cómo las organizaciones de servicios gestionan los datos de los clientes. A diferencia de las listas de verificación de cumplimiento, SOC 2 Tipo II requiere demostrar que tus controles operan efectivamente a lo largo del tiempo. Para equipos de ingeniería, esto significa construir sistemas con seguridad, disponibilidad, integridad del procesamiento, confidencialidad y privacidad — y probar que funcionan mediante evidencias.
+SOC 2 (Service Organization Control 2) es un marco de auditoría desarrollado por el AICPA que evalúa cómo las organizaciones de servicios gestionan los datos de los clientes. A diferencia de las listas de verificación de cumplimiento, SOC 2 Tipo II requiere demostrar que tus controles operan bien a lo largo del tiempo. Para equipos de ingeniería, esto significa construir sistemas con seguridad, disponibilidad, integridad del procesamiento, confidencialidad y privacidad — y probar que funcionan mediante evidencias.
 
 ## Cuándo Usar
 

@@ -2,8 +2,8 @@
 contentType: recipes
 slug: implement-abac
 title: "Implementar ABAC"
-description: "Cómo implementar control de acceso basado en atributos con motores de políticas, evaluación de contexto dinámico y decisiones de autorización granulares en Python, Node.js y Java."
-metaDescription: "Implementa control de acceso basado en atributos con motores de políticas, evaluación de contexto dinámico y decisiones granulares."
+description: "Cómo implementar control de acceso basado en atributos con motores de políticas, evaluación de contexto en vivo y decisiones de autorización granulares en Python, Node.js y Java."
+metaDescription: "Implementa control de acceso basado en atributos con motores de políticas, evaluación de contexto en vivo y decisiones granulares."
 difficulty: advanced
 topics:
   - authentication
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Implementa control de acceso basado en atributos con motores de políticas, evaluación de contexto dinámico y decisiones granulares."
+  metaDescription: "Implementa control de acceso basado en atributos con motores de políticas, evaluación de contexto en vivo y decisiones granulares."
   keywords:
     - authentication
     - abac
@@ -34,7 +34,7 @@ seo:
 
 ## Descripción General
 
-Attribute-Based Access Control (ABAC) evalúa decisiones de acceso usando atributos del usuario, el recurso, la acción y el entorno. A diferencia de RBAC, que pregunta "¿es Alice admin?", ABAC pregunta "¿Alice, trabajando desde la IP de la oficina, durante horario laboral, en un documento no clasificado, tiene acceso de lectura?" ABAC es la elección correcta cuando el acceso depende de factores contextuales dinámicos.
+Attribute-Based Access Control (ABAC) evalúa decisiones de acceso usando atributos del usuario, el recurso, la acción y el entorno. A diferencia de RBAC, que pregunta "¿es Alice admin?", ABAC pregunta "¿Alice, trabajando desde la IP de la oficina, durante horario laboral, en un documento no clasificado, tiene acceso de lectura?" ABAC es la elección correcta cuando el acceso depende de factores contextuales en vivo.
 
 ## Cuándo Usar
 
@@ -167,7 +167,7 @@ public class DocumentController {
 }
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Separa política del código.** Almacena reglas ABAC en un archivo de política dedicado que puede actualizarse sin redeployar la aplicación.
 - **Cachea atributos de contexto, no decisiones.** Los scores de confianza de dispositivo y geolocalización de IP son costosos. Cachea el contexto durante la duración del request, pero re-evalúa la política cada vez.

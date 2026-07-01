@@ -250,7 +250,7 @@ By pre-creating objects and reusing them, the pool eliminates repeated allocatio
 | **Lazy pool** | Rarely used resources | First request pays creation cost |
 | **Borrow-and-return** | Short-lived operations | Requires discipline to release objects |
 
-## Best Practices
+## What Works
 
 - **Set pool size based on actual limits.** A database connection pool should not exceed the database's `max_connections` minus administrative overhead.
 - **Validate objects on checkout.** A pooled connection may have been closed by the server; verify with a lightweight health check before returning it.

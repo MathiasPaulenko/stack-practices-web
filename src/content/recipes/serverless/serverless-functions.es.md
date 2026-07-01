@@ -110,7 +110,7 @@ Los cold starts ocurren cuando una función no ha sido invocada recientemente. L
 | Cloud Functions | Node, Python, Go, Java | HTTP, Pub/Sub, Storage, Firestore, Cron | 200ms–2s |
 | Azure Functions | Node, Python, Java, C# | HTTP, Blob, Queue, Event Grid, Timer | 200ms–3s |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén las funciones pequeñas y enfocadas**: Una función por responsabilidad; compón workflows complejos con step functions
 - **Minimiza el tamaño del paquete de despliegue**: Elimina dependencias innecesarias para reducir el cold start

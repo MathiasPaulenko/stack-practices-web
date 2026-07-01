@@ -187,7 +187,7 @@ Ejecutar: `mvn test` o el runner de tu IDE.
 | Mocking | `unittest.mock` | `jest.mock` | Mockito |
 | Fixtures | `pytest.fixture` | `beforeEach` / `afterEach` | `@BeforeEach` / `@AfterEach` |
 
-## Best Practices
+## Lo que funciona
 
 - **Nombra tests según comportamiento**: `sumaNumerosNegativos` es mejor que `test_add2` porque describe la intención.
 - **Un concepto por test**: si necesitas múltiples asserts, asegúrate de que verifiquen un solo resultado lógico. De lo contrario, divide el test.

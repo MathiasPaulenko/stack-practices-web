@@ -48,7 +48,7 @@ La cobertura de código te dice qué líneas fueron ejecutadas, pero no si los t
 ## Cuándo NO Usar
 
 - El codebase tiene baja cobertura para empezar — arregla la cobertura antes del mutation testing
-- Los suites de test ya tardan 30+ minutos — el mutation testing multiplica ese tiempo significativamente
+- Los suites de test ya tardan 30+ minutos — el mutation testing multiplica ese tiempo considerablemente
 - Estás en fase de prototipo temprano y los tests son intencionalmente mínimos
 - El equipo no tiene tiempo para investigar y fortalecer tests que no matan mutantes
 
@@ -230,7 +230,7 @@ src/cart.js:45  # cambiado >= a > en calculateTotal
 src/cart.js:67  # removido null check en applyDiscount
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Apunta al código de alto valor primero.** Ejecuta mutation testing en la lógica de negocio core, no en el wiring de controladores o mapeos de DTO. El mutation testing es costoso; enfócalo donde importa.
 - **Distingue mutantes equivalentes de gaps reales.** Un mutante equivalente (`a + 0` cambiado a `a - 0`) no puede ser matado. Márcalos en la configuración para evitar ruido.

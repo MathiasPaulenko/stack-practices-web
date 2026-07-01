@@ -52,9 +52,9 @@ This guide covers event collection, stream processing, OLAP databases, and dashb
 
 ## When NOT to Use
 
-- Historical trend analysis where minutes of delay are acceptable — batch ETL is simpler
-- Complex multi-table joins across petabytes — pre-aggregation may be needed
-- Regulatory reporting requiring full audit trails and reconciliation — batch is more reliable
+- Historical trend analysis where minutes of delay are acceptable. Batch ETL is simpler
+- Complex multi-table joins across petabytes. Pre-aggregation may be needed
+- Regulatory reporting requiring full audit trails and reconciliation. Batch is more reliable
 - Your data volume is small enough that PostgreSQL queries complete in seconds on raw data
 
 ## Core Concepts
@@ -175,7 +175,7 @@ function trackEvent(eventType, properties) {
 trackEvent('button_clicked', { button_id: 'checkout', page: 'cart' });
 ```
 
-**Event schema guidelines:**
+#### Event Schema Guidelines
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -277,7 +277,7 @@ t_env.execute_sql("""
 """)
 ```
 
-**Window types:**
+#### Window Types
 
 | Window Type | Behavior | Use Case |
 |-------------|----------|----------|
@@ -373,7 +373,7 @@ LIMIT 100;
 }
 ```
 
-**OLAP database comparison:**
+#### OLAP Database Comparison
 
 | Feature | ClickHouse | Apache Druid | Apache Pinot | BigQuery | Snowflake |
 |---------|------------|--------------|--------------|----------|-----------|
@@ -443,7 +443,7 @@ ORDER BY requests DESC
 LIMIT 20;
 ```
 
-**Dashboard design for real-time:**
+#### Dashboard Design for Real-Time
 
 | Pattern | Query Strategy | Refresh Rate |
 |---------|---------------|--------------|
@@ -455,28 +455,28 @@ LIMIT 20;
 
 ## What works
 
-- **Use event-time, not processing-time.** Clock skew and late arrivals make processing-time unreliable. Watermarks handle late data gracefully.
-- **Pre-aggregate where possible.** Materialized views in ClickHouse or Druid aggregations reduce query cost by 1000×.
-- **Choose the right window size.** Too small = noisy; too large = delayed insights. Start with 1-minute tumbling windows.
-- **Handle backpressure.** If consumers lag, scale horizontally or use sampling (process 10% of events) rather than dropping data.
-- **Schema evolution with care.** Adding fields is easy; removing or changing types requires reprocessing or dual schemas.
-- **Monitor end-to-end latency.** From event generation to dashboard display. Alert if latency exceeds your SLA.
+- Use event-time, not processing-time. Clock skew and late arrivals make processing-time unreliable. Watermarks handle late data gracefully.
+- Pre-aggregate where possible. Materialized views in ClickHouse or Druid aggregations reduce query cost by 1000×.
+- Choose the right window size. Too small = noisy; too large = delayed insights. Start with 1-minute tumbling windows.
+- Handle backpressure. If consumers lag, scale horizontally or use sampling (process 10% of events) rather than dropping data.
+- Schema evolution with care. Adding fields is easy; removing or changing types requires reprocessing or dual schemas.
+- Monitor end-to-end latency. From event generation to dashboard display. Alert if latency exceeds your SLA.
 
 ## Common Mistakes
 
-- **Using transactional databases for analytics.** PostgreSQL/MySQL cannot handle high-cardinality aggregations at scale.
-- **No event schema validation.** Invalid events silently break downstream aggregations.
-- **Processing-time instead of event-time.** Dashboards show "now" but events are from 5 minutes ago due to network delays.
-- **Over-engineering for small scale.** If you have <100 events/second, PostgreSQL with proper indexes may be sufficient.
-- **Ignoring late data.** Without watermarks, late events corrupt windowed aggregates or are dropped.
-- **Not setting TTL.** Unbounded data growth destroys query performance and storage budgets.
+- Using transactional databases for analytics. PostgreSQL/MySQL cannot handle high-cardinality aggregations at scale.
+- No event schema validation. Invalid events silently break downstream aggregations.
+- Processing-time instead of event-time. Dashboards show "now" but events are from 5 minutes ago due to network delays.
+- Over-engineering for small scale. If you have <100 events/second, PostgreSQL with proper indexes may be sufficient.
+- Ignoring late data. Without watermarks, late events corrupt windowed aggregates or are dropped.
+- Not setting TTL. Unbounded data growth destroys query performance and storage budgets.
 
 ## Variants
 
-- **Lambda architecture:** Batch layer (Hadoop/Spark) + speed layer (Storm/Flink) — complex, largely replaced
-- **Kappa architecture:** Pure streaming with reprocessing capability — simpler, preferred today
-- **Hybrid batch+streaming:** Flink/Spark for complex aggregations, materialized views for simple counts
-- **Cloud-native:** Kinesis + Athena, Pub/Sub + BigQuery, Event Hubs + Synapse — fully managed
+- Lambda architecture: Batch layer (Hadoop/Spark) + speed layer (Storm/Flink). Complex, largely replaced
+- Kappa architecture: Pure streaming with reprocessing capability. Simpler, preferred today
+- Hybrid batch+streaming: Flink/Spark for complex aggregations, materialized views for simple counts
+- Cloud-native: Kinesis + Athena, Pub/Sub + BigQuery, Event Hubs + Synapse. Fully managed
 
 ## FAQ
 

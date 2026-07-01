@@ -213,7 +213,7 @@ brotli_types text/plain text/css application/json application/javascript;
 
 ## Frequently Asked Questions
 
-### What is the most effective performance optimization for web apps?
+### What is the most useful performance optimization for web apps?
 
 Image optimization typically delivers the biggest impact. Converting to WebP/AVIF, using responsive images, and lazy loading below-the-fold images often reduces page weight by 50% or more.
 

@@ -327,7 +327,7 @@ Esto garantiza entrega at-least-once. El message broker puede recibir duplicados
 | **CDC relay** | Lee WAL / binlog de la base de datos | Casi tiempo real, sin overhead de polling |
 | **Transactional outbox** | Relay corre en el mismo proceso de la app | Menos piezas móviles, pero acopla relay a la app |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa `FOR UPDATE SKIP LOCKED`** para que múltiples instancias de relay puedan correr en paralelo sin contención.
 - **Mantén los payloads pequeños.** El outbox no es una cola de mensajes. Almacena referencias, no documentos completos.

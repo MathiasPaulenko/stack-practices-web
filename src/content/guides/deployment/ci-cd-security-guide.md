@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: ci-cd-security-guide
-title: "CI/CD Security — Harden Your Pipelines and Prevent Supply Chain Attacks"
+title: "CI/CD Security: Harden Your Pipelines and Prevent Supply Chain Attacks"
 description: "A practical guide to securing CI/CD pipelines: secrets management, least-privilege runners, artifact signing, dependency scanning, and defending against supply chain attacks."
 metaDescription: "Learn CI/CD security: secrets management, least-privilege runners, artifact signing, dependency scanning, and supply chain attack prevention."
 difficulty: intermediate
@@ -57,12 +57,12 @@ This guide covers practical techniques to harden your CI/CD infrastructure from 
 
 | Concept | Description |
 |---------|-------------|
-| **Supply Chain Attack** | Injecting malicious code via compromised dependencies or build tools |
-| **Least Privilege Runner** | Build agents with minimal access to secrets and infrastructure |
-| **Artifact Signing** | Cryptographically verifying that built artifacts came from a trusted pipeline |
-| **Dependency Scanning** | Automatically detecting known vulnerabilities in libraries |
-| **Pipeline as Code** | Version-controlled CI/CD definitions that enforce security policies |
-| **SBOM (Software Bill of Materials)** | Inventory of all components used in an application |
+| Supply Chain Attack | Injecting malicious code via compromised dependencies or build tools |
+| Least Privilege Runner | Build agents with minimal access to secrets and infrastructure |
+| Artifact Signing | Cryptographically verifying that built artifacts came from a trusted pipeline |
+| Dependency Scanning | Automatically detecting known vulnerabilities in libraries |
+| Pipeline as Code | Version-controlled CI/CD definitions that enforce security policies |
+| SBOM (Software Bill of Materials) | Inventory of all components used in an application |
 
 ## Step-by-Step CI/CD Security Hardening
 
@@ -130,7 +130,7 @@ Secrets in CI/CD are a common attack vector:
 # Azure: managed identity + federated credentials
 ```
 
-**Secrets — what works:**
+**Secrets: what works**
 - Rotate secrets automatically (every 30-90 days)
 - Use short-lived tokens (1-hour TTL) where possible
 - Scope secrets to specific job stages, not global pipeline
@@ -143,11 +143,11 @@ Your build agents are as critical as production servers:
 
 | Strategy | Description | Implementation |
 |----------|-------------|----------------|
-| **Ephemeral runners** | Fresh VM for every build | GitHub-hosted, GitLab SaaS runners |
-| **Network isolation** | Restrict runner egress | VPC, private subnets, no internet |
-| **Least privilege** | Minimal IAM roles | Separate roles per pipeline/project |
-| **Immutable images** | Pre-hardened runner images | Packer, custom AMI/Golden Image |
-| **No secrets on disk** | Memory-only credentials | tmpfs mounts, secret injection |
+| Ephemeral runners | Fresh VM for every build | GitHub-hosted, GitLab SaaS runners |
+| Network isolation | Restrict runner egress | VPC, private subnets, no internet |
+| Least privilege | Minimal IAM roles | Separate roles per pipeline/project |
+| Immutable images | Pre-hardened runner images | Packer, custom AMI/Golden Image |
+| No secrets on disk | Memory-only credentials | tmpfs mounts, secret injection |
 
 ```bash
 # Example: Self-hosted runner hardening checklist
@@ -240,42 +240,46 @@ sbom-diff expected.sbom generated.sbom
 
 ## What Works
 
-- **Assume your pipeline will be compromised.** Design for containment, not just prevention.
-- **Use ephemeral infrastructure.** Fresh runners prevent persistent malware.
-- **Verify everything.** Signatures, SBOMs, and checksums should be mandatory.
-- **Minimize pipeline permissions.** If a job only needs read access, enforce it.
-- **Monitor pipeline behavior.** Alert on unexpected outbound connections or credential usage.
-- **Practice incident response.** Have a plan for rotating all secrets after a compromise.
+- Assume your pipeline will be compromised. Design for containment, not just prevention.
+- Use ephemeral infrastructure. Fresh runners prevent persistent malware.
+- Verify everything. Signatures, SBOMs, and checksums should be mandatory.
+- Minimize pipeline permissions. If a job only needs read access, enforce it.
+- Monitor pipeline behavior. Alert on unexpected outbound connections or credential usage.
+- Practice incident response. Have a plan for rotating all secrets after a compromise.
 
 ## Common Mistakes
 
-- **Using long-lived secrets in CI.** Rotate to OIDC or short-lived tokens.
-- **Running CI on self-hosted runners without hardening.** They often have broader network access than production.
-- **Trusting `pull_request_target` workflows.** These run with write tokens on untrusted code.
-- **Not scanning dependencies.** Known CVEs in dependencies are the most common attack vector.
-- **Ignoring container base image CVEs.** Start with minimal, hardened base images.
+- Using long-lived secrets in CI. Rotate to OIDC or short-lived tokens.
+- Running CI on self-hosted runners without hardening. They often have broader network access than production.
+- Trusting `pull_request_target` workflows. These run with write tokens on untrusted code.
+- Not scanning dependencies. Known CVEs in dependencies are the most common attack vector.
+- Ignoring container base image CVEs. Start with minimal, hardened base images.
 
 ## Variants
 
-- **GitHub Actions security:** Focus on `permissions`, `pull_request` vs `pull_request_target`, OIDC, Dependabot
-- **GitLab CI security:** CI/CD variables, job permissions, runner tags, container scanning
-- **Jenkins security:** Agent isolation, credential scopes, pipeline shared libraries
-- **Cloud-native:** Use managed build services (AWS CodeBuild, Google Cloud Build) with IAM integration
+- GitHub Actions security: Focus on `permissions`, `pull_request` vs `pull_request_target`, OIDC, Dependabot
+- GitLab CI security: CI/CD variables, job permissions, runner tags, container scanning
+- Jenkins security: Agent isolation, credential scopes, pipeline shared libraries
+- Cloud-native: Use managed build services (AWS CodeBuild, Google Cloud Build) with IAM integration
 
 ## FAQ
 
-**Q: How do I migrate from long-lived secrets to OIDC?**
+### How do I migrate from long-lived secrets to OIDC?
+
 Configure workload identity federation in your cloud provider, then update `configure-aws-credentials` (or equivalent) to use `role-to-assume` without access keys.
 
-**Q: Should I use self-hosted or cloud-hosted runners?**
+### Should I use self-hosted or cloud-hosted runners?
+
 Cloud-hosted runners are ephemeral and isolated by default. Self-hosted runners require hardening but offer more control and faster builds with caching.
 
-**Q: How do I prevent dependency confusion attacks?**
+### How do I prevent dependency confusion attacks?
+
 Use private registries with namespace reservation, verify package signatures, and pin exact versions with lock files.
 
-**Q: What is the minimum viable CI/CD security setup?**
+### What is the minimum viable CI/CD security setup?
+
 Enable Dependabot, use OIDC for cloud auth, pin action versions, enable branch protection, and scan containers before deployment.
 
 ## Conclusion
 
-CI/CD security is a continuous process, not a one-time hardening task. Every component — from the runner image to the deployment script — is a potential attack surface. Apply defense in depth, verify every artifact, and assume compromise will happen.
+CI/CD security is a continuous process, not a one-time hardening task. Every component, from the runner image to the deployment script, is a potential attack surface. Apply defense in depth, verify every artifact, and assume compromise will happen.

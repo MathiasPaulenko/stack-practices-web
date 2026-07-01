@@ -3,7 +3,7 @@ contentType: recipes
 slug: deep-clone-javascript
 title: "Deep Clone Objects in JavaScript"
 description: "How to create deep copies of JavaScript objects and arrays correctly, handling circular references, Dates, Maps, Sets, and custom classes."
-metaDescription: "Learn deep cloning in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and cloning best practices."
+metaDescription: "Learn deep cloning in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and what works for cloning."
 difficulty: intermediate
 topics:
   - data
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Learn deep cloning in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and cloning best practices."
+  metaDescription: "Learn deep cloning in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and what works for cloning."
   keywords:
     - deep-clone
     - javascript
@@ -247,7 +247,7 @@ Person cloned = DeepCopyUtil.deepCopy(original);
 
 ## Explanation
 
-- **`structuredClone`** (native API, available in modern browsers, Node 17+, Deno, Bun) is the simplest and most robust built-in method. It handles circular references, Dates, Maps, Sets, typed arrays, and most built-in types. It does NOT clone functions, DOM nodes, or prototype chains.
+- **`structuredClone`** (native API, available in modern browsers, Node 17+, Deno, Bun) is the simplest and most reliable built-in method. It handles circular references, Dates, Maps, Sets, typed arrays, and most built-in types. It does NOT clone functions, DOM nodes, or prototype chains.
 - **`JSON.parse(JSON.stringify(...))`** is fast and simple but discards Dates (serializes to ISO strings), drops `undefined`, functions, Maps, Sets, RegExp, typed arrays, and circular references. Only use for simple plain objects and arrays.
 - **Manual recursion** with a `WeakMap` cache is the most flexible approach. It lets you control which types to clone and how. Use `WeakMap` (not `Map`) for the cache so circular references don't prevent garbage collection.
 - **Lodash `cloneDeep`** is battle-tested, handles edge cases you might miss, and works in all environments. The trade-off is bundle size (~17KB gzipped for full lodash, ~4KB for `cloneDeep` alone via `lodash.cloneDeep`).
@@ -264,7 +264,7 @@ Person cloned = DeepCopyUtil.deepCopy(original);
 | Java serialization | Yes | All `Serializable` types | Slow | Java JVM |
 | Python `copy.deepcopy` | Yes | Most built-in types | Medium | Python |
 
-## Best Practices
+## What Works
 
 1. **Prefer `structuredClone` for modern environments** — it's native, fast, handles circular references, and supports Maps, Sets, and typed arrays. No dependency needed.
 2. **Use Lodash when supporting older browsers** — if you target IE11 or Node < 17, `structuredClone` is unavailable and Lodash provides consistent behavior.

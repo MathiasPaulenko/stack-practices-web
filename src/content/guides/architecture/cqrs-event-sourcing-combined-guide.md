@@ -246,7 +246,7 @@ public async Task<IActionResult> PlaceOrder(PlaceOrderCommand command)
 
 ## Common Mistakes
 
-- **Over-engineering simple CRUD** — CQRS + ES adds significant complexity; use it when the domain justifies it
+- **Over-engineering simple CRUD** — CQRS + ES adds major complexity; use it when the domain justifies it
 - **No versioning strategy** — event schemas evolve; implement upcasting or multiple versions
 - **Missing idempotency** — handlers may process the same event twice; design for idempotency
 - **Large aggregates** — big aggregates generate many events; consider splitting by bounded context

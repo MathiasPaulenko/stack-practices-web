@@ -151,7 +151,7 @@ for (ConstraintViolation<UserCreate> v : violations) {
 - **Custom validators**: Extend schemas with business logic (e.g., password strength, unique checks)
 - **Error aggregation**: Collect all validation errors in a single response for better UX
 
-## Best Practices
+## What Works
 
 - **Validate early**: Reject invalid input at the API boundary, not deep in the service layer
 - **Use strict schemas**: Prefer explicit allowlists over permissive catch-all types

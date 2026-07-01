@@ -39,7 +39,7 @@ El contract testing resuelve esto haciendo que cada consumidor defina sus expect
 Usa esta receta cuando:
 
 - Gestionas 5+ microservicios con comunicación HTTP o por colas de mensajes. Consulta [Integration Testing](/recipes/testing/integration-testing) para verificar interacciones de componentes.
-- Experimentas outages en producción causados por cambios de API en servicios upstream. Consulta [Call REST API](/recipes/api/call-rest-api) para mejores prácticas de clientes API.
+- Experimentas outages en producción causados por cambios de API en servicios upstream. Consulta [Call REST API](/recipes/api/call-rest-api) para lo que funciona con clientes API.
 - Quieres desacoplar pipelines de deployment para que servicios se deployen independientemente. Consulta [Microservices Patterns](/guides/architecture/microservices-architecture-guide) para guía de arquitectura distribuida.
 - Migras de monolito a microservicios y necesitas redes de seguridad para los límites de API
 - Trabajas con proveedores de API externos donde no puedes controlar su ciclo de release
@@ -130,7 +130,7 @@ validate_response(spec, response)
 | Spring Cloud Contract | JVM | Provider-driven | Ecosistemas Spring |
 | BiqQuery data contracts | SQL | Schema-driven | Data warehouses |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén contratos enfocados en campos que usas**: si el consumidor solo necesita `id` y `name`, no asserts el schema de respuesta completo. Esto da al provider libertad para evolucionar campos no usados.
 - **Versiona contratos junto al código**: almacena tests de contrato en el mismo repositorio que el servicio consumidor. CI genera y publica contratos en cada build.

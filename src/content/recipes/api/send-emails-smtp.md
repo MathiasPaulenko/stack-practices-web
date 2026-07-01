@@ -39,7 +39,7 @@ Email remains the backbone of user communication: password resets, order confirm
 Use this resource when:
 - Your application needs to send transactional emails (sign-up, password reset, receipts). See [API Security Checklist](/guides/security/api-security-checklist-guide) for email security.
 - You want to avoid vendor lock-in from email SaaS platforms
-- You need custom email templates with dynamic data
+- You need custom email templates with live data
 - You must send attachments (invoices, reports, exports)
 
 ## Solution
@@ -169,7 +169,7 @@ For high volume, consider a **message queue** ([Kafka](/recipes/messaging/kafka-
 | Go | net/smtp | html/template | Microservices, low latency |
 | Ruby | Action Mailer | ERB | Rails apps |
 
-## Best Practices
+## What Works
 
 - **Use app passwords or OAuth2**: Never hardcode your personal email password.
 - **Set SPF, DKIM, and DMARC**: These DNS records dramatically improve deliverability.

@@ -126,7 +126,7 @@ const userService = new UserService(userRepo);
 - **Specification Pattern**: Compose query filters as reusable specification objects
 - **Unit of Work**: Batch multiple repository operations into a single transaction
 
-## Best Practices
+## What Works
 
 - Return domain entities, not database documents, from repository methods
 - Keep repositories focused on persistence; business rules belong in services

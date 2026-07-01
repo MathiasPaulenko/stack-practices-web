@@ -101,7 +101,7 @@ The recursive CTE has two parts. The anchor member selects the top-level nodes, 
 | Bill of materials | `parent_part_id IS NULL` | `parent_part_id = id` |
 | Path to root | `id = ?` | `id = parent_id` |
 
-## Best Practices
+## What Works
 
 1. **Always include a cycle guard.** Add a `path` array or a `visited` check to prevent infinite recursion when data contains cycles.
 2. **Index the parent/child columns.** An index on `manager_id` makes the recursive join much faster.

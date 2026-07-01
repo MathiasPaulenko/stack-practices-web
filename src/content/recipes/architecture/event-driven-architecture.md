@@ -2,7 +2,7 @@
 contentType: recipes
 slug: event-driven-architecture
 title: "Design Event-Driven Systems with Event Buses and Brokers"
-description: "How to build loosely coupled systems using events, event buses, message brokers, and event sourcing for scalable asynchronous communication between services."
+description: "How to build loosely coupled systems using events, event buses, message brokers, and event sourcing for growth-ready asynchronous communication between services."
 metaDescription: "Learn event-driven architecture with event buses and brokers. Build loosely coupled systems using events, message brokers, and event sourcing for async communication."
 difficulty: intermediate
 topics:
@@ -158,7 +158,7 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 | AWS SNS/SQS | Pub/sub, queues | High | None | High | Cloud-native, serverless |
 | Redis Streams | Pub/sub | Medium | Stream-scoped | Medium | Simple, existing Redis |
 
-## Best practices
+## What Works
 
 - **Design events, not messages**: an event should describe what happened, not what the consumer should do. See [Microservices Patterns](/guides/architecture/microservices-architecture-guide) for service communication strategies. `OrderPlaced` is correct. `DecrementInventory` is a command masquerading as an event. Events are facts; commands are instructions.
 - **Use schema validation**: unvalidated events are a source of subtle bugs. Use Avro, JSON Schema, or Protobuf to define event contracts. Validate at the publisher and consumer boundaries. Version schemas and maintain backward compatibility.

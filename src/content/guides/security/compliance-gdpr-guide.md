@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-The General Data Protection Regulation (GDPR) is the EU's data privacy law, but its reach extends to any organization processing EU residents' data. For developers, compliance is not a legal checkbox — it is a set of technical and architectural requirements: pseudonymization, data minimization, encryption, consent tracking, and deletion capabilities. This guide translates GDPR articles into actionable engineering practices.
+The General Data Protection Regulation (GDPR) is the EU's data privacy law, but its reach extends to any organization processing EU residents' data. For developers, compliance is not a legal checkbox — it is a set of technical and architectural requirements: pseudonymization, data minimization, encryption, consent tracking, and deletion capabilities. This guide translates GDPR articles into useful engineering practices.
 
 ## When to Use
 

@@ -127,7 +127,7 @@ Los índices aceleran lecturas pero ralentizan escrituras.
 | `CHECK` | Valida datos con expresiones |
 | `FOREIGN KEY` | Mantiene integridad referencial |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Usar claves sustitutas** (auto-increment o UUIDs) en vez de claves naturales
 - **Evitar claves foráneas nulas**: usa tablas de intersección para relaciones opcionales

@@ -117,7 +117,7 @@ La plantilla reemplaza términos vagos como "sensible" con cuatro niveles concre
 | Startup SaaS | Frecuentemente fusionan Interno + Confidencial | Simplicidad sobre completitud cuando el equipo es pequeño |
 | Operaciones UE | Agregar bandera "Datos Personales UE" | Residencia GDPR y acuerdos de procesamiento requeridos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Etiqueta datos en la creación, no en el almacenamiento; la clasificación retroactiva es costosa y propensa a errores
 2. Automatiza la clasificación donde sea posible; las herramientas DLP pueden etiquetar datos basados en patrones (tarjetas de crédito, SSNs)

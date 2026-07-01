@@ -406,4 +406,4 @@ Usa penalizaciones progresivas (advertencias → bloqueos temporales → bloqueo
 
 ## Conclusion
 
-El rate limiting efectivo protege tu infraestructura, asegura justicia y mantiene confiabilidad de API. Elige el algoritmo correcto, establece límites sensatos, comunica claramente con clientes y monitorea continuamente.
+El rate limiting adecuado protege tu infraestructura, asegura justicia y mantiene confiabilidad de API. Elige el algoritmo correcto, establece límites sensatos, comunica claramente con clientes y monitorea continuamente.

@@ -32,7 +32,7 @@ seo:
 
 ## Resumen
 
-Una plantilla de pull request estandariza la información provista al enviar cambios de código. Consulta la [Guía de Contribución](/docs/templates/contributing-guide) para estándares de equipo y las [Mejores Prácticas de Code Review](/guides/design/code-review-best-practices-guide) para cultura de revisión. Asegura que los revisores tengan contexto y que los autores verifiquen su trabajo antes de solicitar revisión.
+Una plantilla de pull request estandariza la información provista al enviar cambios de código. Consulta la [Guía de Contribución](/docs/templates/contributing-guide) para estándares de equipo y [Lo que Funciona en Code Review](/guides/design/code-review-best-practices-guide) para cultura de revisión. Asegura que los revisores tengan contexto y que los autores verifiquen su trabajo antes de solicitar revisión.
 
 ## Cuándo Usar
 
@@ -115,7 +115,7 @@ Fixes # (issue)
 
 ### Cada pull request debería usar una plantilla?
 
-Sí. Las plantillas aseguran que los reviewers obtengan contexto consistente y que los autores verifiquen su trabajo. Consulta las [Mejores Prácticas de Code Review](/guides/design/code-review-best-practices-guide) para cultura. Incluso fixes pequeños se benefician de una breve descripción y confirmación de testing.
+Sí. Las plantillas aseguran que los reviewers obtengan contexto consistente y que los autores verifiquen su trabajo. Consulta [Lo que Funciona en Code Review](/guides/design/code-review-best-practices-guide) para cultura. Incluso fixes pequeños se benefician de una breve descripción y confirmación de testing.
 
 ### Qué tan detallada debería ser la sección de testing?
 

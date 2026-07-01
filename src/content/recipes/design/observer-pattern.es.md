@@ -187,7 +187,7 @@ order_subject.on_next({'id': '124', 'total': 250})
 | Reactive streams | Débil | Pipelines de datos, flujos async | Curva de aprendizaje |
 | Signals (Solid, Vue) | Débil | Reactividad UI de grano fino | Específico de framework |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Siempre provee un mecanismo de unsubscribe**: suscripciones colgantes son la causa principal de memory leaks en sistemas basados en observers. Retorna una función de cleanup desde `subscribe()` y asegura que los componentes la llamen al desmontar.
 - **No mutues la lista de observers durante notificación**: si un observer desuscribe a otro observer mientras maneja un evento, la lista de iteración cambia en medio del vuelo. Copia la lista antes de iterar, o usa una estructura copy-on-write.

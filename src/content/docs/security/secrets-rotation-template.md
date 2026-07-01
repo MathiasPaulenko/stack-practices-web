@@ -134,7 +134,7 @@ The template treats rotation as a **lifecycle**, not a one-time event. The inven
 | Startup / small team | Shared 1Password / Bitwarden, quarterly manual rotation | 1Password, Bitwarden |
 | High-frequency microservices | Short-lived mTLS certs (SPIFFE/SPIRE) | SPIRE, Istio |
 
-## Best Practices
+## What Works
 
 1. Automate rotation for certificates and cloud keys; humans forget schedules
 2. Use dual-read (old + new secret) during transition; single-secret rotation causes outages

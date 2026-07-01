@@ -171,7 +171,7 @@ Error budget = 100% - SLO target. For 99.9% availability, the error budget is 0.
 
 ### Should I include latency in the SLA?
 
-Yes, but be realistic. A p95 latency target of 200ms is achievable for most APIs. Targets below 50ms require significant infrastructure investment and may not be cost-effective.
+Yes, but be realistic. A p95 latency target of 200ms is achievable for most APIs. Targets below 50ms require major infrastructure investment and may not be cost-effective.
 
 ### What happens if we burn the entire error budget before the window ends?
 

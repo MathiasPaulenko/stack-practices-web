@@ -190,7 +190,7 @@ Retornando `self` (o `this`) de cada método de configuración, creas una interf
 | **Director + Builder** | Múltiples secuencias de construcción | Más clases, pero recetas reutilizables |
 | **Static Factory Builder** | Patrón `Class.Builder()` de Java | API limpia, pero acoplado al producto |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Retorna `self` de cada método de paso** para habilitar encadenamiento de métodos
 - **Haz el producto inmutable** después de que se llama `build()`

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: blob-storage-guide
-title: "Blob Storage — S3, GCS, and Azure Blob Patterns for Engineers"
+title: "Blob Storage: S3, GCS, and Azure Blob Patterns for Engineers"
 description: "A practical guide to cloud blob storage: bucket design, access control, lifecycle policies, multipart uploads, presigned URLs, and cost optimization patterns for S3, Google Cloud Storage, and Azure Blob."
 metaDescription: "Learn blob storage: bucket design, access control, lifecycle policies, multipart uploads, presigned URLs, and cost optimization for S3, GCS, and Azure Blob."
 difficulty: intermediate
@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Blob (object) storage is the dominant way to store unstructured data in the cloud: images, videos, documents, backups, and logs. Unlike filesystems or block storage, object storage treats each file as an independent object with metadata, accessed via HTTP APIs. It is infinitely growth-ready, durable, and cost-effective — but requires different design patterns than traditional storage.
+Blob (object) storage is the dominant way to store unstructured data in the cloud: images, videos, documents, backups, and logs. Unlike filesystems or block storage, object storage treats each file as an independent object with metadata, accessed via HTTP APIs. It is infinitely growth-ready, durable, and cost-effective. But it requires different design patterns than traditional storage.
 
 This guide covers bucket design, access patterns, security, lifecycle management, and multi-cloud considerations.
 
@@ -107,7 +107,7 @@ s3://myapp-production/
     └── js/
 ```
 
-**What works for naming:**
+#### What Works for Naming
 
 | Pattern | Example | Purpose |
 |---------|---------|---------|
@@ -381,7 +381,7 @@ Automate cost optimization by transitioning or deleting old objects:
 }
 ```
 
-**Lifecycle strategy by data type:**
+#### Lifecycle Strategy by Data Type
 
 | Data Type | Hot (Standard) | Cool (IA/Nearline) | Cold (Glacier/Archive) | Delete |
 |-----------|----------------|--------------------|------------------------|--------|
@@ -424,42 +424,42 @@ def upload_compressed(bucket, key, data):
 
 ## What Works
 
-- **Never make buckets public.** Use presigned URLs or CloudFront OAI for controlled access.
-- **Enable versioning on production buckets.** Protects against accidental deletion and overwrites.
-- **Use server-side encryption by default.** SSE-S3 or SSE-KMS depending on compliance needs.
-- **Implement object locking for compliance.** WORM (Write Once Read Many) for regulatory data.
-- **Monitor with CloudTrail/CloudWatch.** Track access patterns, costs, and unauthorized attempts.
-- **Use checksums for integrity.** ETag, MD5, or SHA-256 verify data was not corrupted in transit.
+- Never make buckets public. Use presigned URLs or CloudFront OAI for controlled access.
+- Enable versioning on production buckets. Protects against accidental deletion and overwrites.
+- Use server-side encryption by default. SSE-S3 or SSE-KMS depending on compliance needs.
+- Implement object locking for compliance. WORM (Write Once Read Many) for regulatory data.
+- Monitor with CloudTrail/CloudWatch. Track access patterns, costs, and unauthorized attempts.
+- Use checksums for integrity. ETag, MD5, or SHA-256 verify data was not corrupted in transit.
 
 ## Common Mistakes
 
-- **Storing small files individually.** S3 has a minimum billable size. Batch small objects or use a database.
-- **Using blob storage as a filesystem.** Listing prefixes is expensive. Store metadata in a database.
-- **No lifecycle policy.** Production buckets accumulate years of unused data without automatic cleanup.
-- **Storing secrets in buckets.** Use parameter stores or secret managers, not S3 objects.
-- **Ignoring egress costs.** Serving large files directly from S3 to users is expensive. Use a CDN.
-- **No multipart for large files.** Uploading a 10GB file as a single PUT is unreliable and slow.
+- Storing small files individually. S3 has a minimum billable size. Batch small objects or use a database.
+- Using blob storage as a filesystem. Listing prefixes is expensive. Store metadata in a database.
+- No lifecycle policy. Production buckets accumulate years of unused data without automatic cleanup.
+- Storing secrets in buckets. Use parameter stores or secret managers, not S3 objects.
+- Ignoring egress costs. Serving large files directly from S3 to users is expensive. Use a CDN.
+- No multipart for large files. Uploading a 10GB file as a single PUT is unreliable and slow.
 
 ## Variants
 
-- **MinIO:** Self-hosted S3-compatible object storage for on-premises or edge
-- **Ceph:** Open-source distributed object store for private cloud
-- **Backblaze B2:** Cost-effective S3-compatible alternative (1/4 the price)
-- **Cloudflare R2:** Zero egress fee object storage, S3-compatible API
-- **NAS/SAN:** Traditional block/file storage for applications needing POSIX semantics
+- MinIO: Self-hosted S3-compatible object storage for on-premises or edge
+- Ceph: Open-source distributed object store for private cloud
+- Backblaze B2: Cost-effective S3-compatible alternative (1/4 the price)
+- Cloudflare R2: Zero egress fee object storage, S3-compatible API
+- NAS/SAN: Traditional block/file storage for applications needing POSIX semantics
 
 ## FAQ
 
-**Q: Should I use one bucket or many?**
+Q: Should I use one bucket or many?
 Use separate buckets for different environments (prod, staging, dev) and different security domains (public assets vs private uploads). Within an environment, use prefixes (folders) rather than many buckets.
 
-**Q: How do I handle millions of small files?**
+Q: How do I handle millions of small files?
 Batch them into larger archive objects (tar, zip), use a database to track individual file metadata, or use an object store designed for small files (DynamoDB for metadata + S3 for blobs).
 
-**Q: What is the maximum file size?**
+Q: What is the maximum file size?
 S3: 5TB (with multipart). GCS: 5TB. Azure: 4.75TB (Block Blob). For larger, split into chunks.
 
-**Q: How do I migrate from one provider to another?**
+Q: How do I migrate from one provider to another?
 Use tools like `rclone`, `aws s3 sync`, or cloud-native transfer services (AWS DataSync, Azure Data Box). For large migrations, consider physical data transfer appliances.
 
 ## Conclusion

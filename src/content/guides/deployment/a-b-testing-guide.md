@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: a-b-testing-guide
-title: "A/B Testing — Experimentation Frameworks for Data-Driven Decisions"
+title: "A/B Testing: Experimentation Frameworks for Data-Driven Decisions"
 description: "A practical guide to A/B testing: experiment design, statistical significance, sample sizing, avoiding pitfalls, and building an experimentation culture in engineering teams."
 metaDescription: "Learn A/B testing: experiment design, statistical significance, sample sizing, common pitfalls, and building an experimentation culture."
 difficulty: intermediate
@@ -54,7 +54,7 @@ This guide covers experiment design, statistical rigor, implementation patterns,
 
 | Concept | Description |
 |---------|-------------|
-| **Control (A)** | The existing version — the baseline for comparison |
+| **Control (A)** | The existing version, the baseline for comparison |
 | **Treatment (B)** | The new version being tested |
 | **Primary Metric** | The key outcome measure that determines success |
 | **Statistical Significance** | Probability that the observed difference is not due to chance |
@@ -83,7 +83,7 @@ for mobile users
 because analytics show 40% drop-off at step 4 on mobile.
 ```
 
-**Hypothesis checklist:**
+#### Hypothesis Checklist
 - Define the primary metric (one metric that matters)
 - Define guardrail metrics (things that must not degrade)
 - Choose the target population
@@ -136,11 +136,12 @@ print(f"Required sample size per group: {sample_size}")
 # Output: ~6,400 users per group
 ```
 
-**Sample size factors:**
-- **Baseline rate:** Lower rates need larger samples
-- **MDE:** Smaller effects need more users
-- **Alpha:** Stricter significance needs more users
-- **Power:** Higher confidence needs more users
+#### Sample Size Factors
+
+- Baseline rate: Lower rates need larger samples
+- MDE: Smaller effects need more users
+- Alpha: Stricter significance needs more users
+- Power: Higher confidence needs more users
 
 ### 3. Implement Assignment
 
@@ -175,11 +176,12 @@ else:
     render_old_checkout()
 ```
 
-**Assignment requirements:**
-- **Random:** Every eligible user has equal chance of each group
-- **Consistent:** Same user always sees same version for experiment duration
-- **Independent:** One experiment must not affect another's assignment
-- **Sticky:** Assignment persists even if user returns days later
+#### Assignment Requirements
+
+- Random: Every eligible user has equal chance of each group
+- Consistent: Same user always sees same version for experiment duration
+- Independent: One experiment must not affect another's assignment
+- Sticky: Assignment persists even if user returns days later
 
 ### 4. Run the Experiment
 
@@ -251,29 +253,29 @@ Make decisions based on statistical and practical significance:
 
 ## What Works
 
-- **Run experiments for full weeks.** Day-of-week effects bias results.
-- **Avoid peeking.** Checking significance daily increases false positive rate.
-- **Use one primary metric.** Multiple primary metrics create conflicting conclusions.
-- **Document everything.** Hypothesis, design, results, and decision rationale.
-- **Segment your results.** Aggregate wins may hide losses in specific groups.
-- **Beware of novelty effects.** Users may engage more with anything new initially.
+- Run experiments for full weeks. Day-of-week effects bias results.
+- Avoid peeking. Checking significance daily increases false positive rate.
+- Use one primary metric. Multiple primary metrics create conflicting conclusions.
+- Document everything. Hypothesis, design, results, and decision rationale.
+- Segment your results. Aggregate wins may hide losses in specific groups.
+- Beware of novelty effects. Users may engage more with anything new initially.
 
 ## Common Mistakes
 
-- **Stopping early when results look good.** This dramatically increases false positives.
-- **Testing multiple variants without correction.** Use Bonferroni correction or sequential testing.
-- **Underpowered experiments.** Small samples cannot detect small but meaningful effects.
-- **Ignoring Simpson's paradox.** Aggregated data can reverse when segmented.
-- **Novelty and primacy effects.** New capabilities get initial engagement spikes that fade.
-- **Changing running experiments.** Never modify treatment mid-experiment.
+- Stopping early when results look good. This dramatically increases false positives.
+- Testing multiple variants without correction. Use Bonferroni correction or sequential testing.
+- Underpowered experiments. Small samples cannot detect small but meaningful effects.
+- Ignoring Simpson's paradox. Aggregated data can reverse when segmented.
+- Novelty and primacy effects. New capabilities get initial engagement spikes that fade.
+- Changing running experiments. Never modify treatment mid-experiment.
 
 ## Variants
 
-- **Multivariate testing:** Test multiple variables simultaneously (A/B/C/D)
-- **Sequential testing:** Analyze continuously without inflating false positive rate
-- **Bandit algorithms:** Dynamically shift traffic to better-performing variants
-- **Holdout groups:** Long-term control groups to measure sustained impact
-- **Geo-experiments:** Test by geography for infrastructure or pricing changes
+- Multivariate testing: Test multiple variables simultaneously (A/B/C/D)
+- Sequential testing: Analyze continuously without inflating false positive rate
+- Bandit algorithms: Dynamically shift traffic to better-performing variants
+- Holdout groups: Long-term control groups to measure sustained impact
+- Geo-experiments: Test by geography for infrastructure or pricing changes
 
 ## FAQ
 

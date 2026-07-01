@@ -215,4 +215,4 @@ A: DI is a specific form of IoC. IoC is the broader principle of delegating cont
 A: No. For small projects, manual constructor injection is sufficient. See [DI Container in TypeScript](/patterns/design/dependency-injection-typescript) for a lightweight implementation. DI frameworks like Spring, Angular's injector, or InversifyJS shine in large applications with many interdependent services.
 
 **Q: How does DI help with testing?**
-A: By depending on abstractions (interfaces), you can inject mock or stub implementations during tests. See [unit testing](/recipes/testing/unit-testing) for testing best practices. This isolates the class under test from its real collaborators.
+A: By depending on abstractions (interfaces), you can inject mock or stub implementations during tests. See [unit testing](/recipes/testing/unit-testing) for testing patterns. This isolates the class under test from its real collaborators.

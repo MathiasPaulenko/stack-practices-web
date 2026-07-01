@@ -189,7 +189,7 @@ El Patrón Retry tiene tres dimensiones configurables:
 | **Jitter** | Agrega aleatoriedad al backoff | Previene thundering herd tras recuperación |
 | **[Circuit Breaker](/patterns/design/circuit-breaker-pattern) + Retry** | Omite reintentos cuando el breaker está abierto | Previene reintentos desperdiciados |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Haz las operaciones idempotentes** antes de aplicar reintentos — los reintentos pueden causar efectos secundarios duplicados
 - **Usa backoff exponencial con jitter** para sistemas distribuidos para evitar reintentos sincronizados

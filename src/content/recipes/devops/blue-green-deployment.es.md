@@ -146,7 +146,7 @@ aws route53 change-resource-record-sets \
 | Canary | Cero | Medio (minutos) | 1x + pequeño surge |
 | Recreate | Alto | N/A | 1x |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén blue caliente por un ciclo de deploy**: No desmantelar hasta que el próximo despliegue tenga éxito
 - **Automatiza la conmutación**: Las actualizaciones manuales de DNS son propensas a errores; usa pipelines CI/CD

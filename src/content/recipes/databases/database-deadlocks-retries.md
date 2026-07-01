@@ -182,7 +182,7 @@ Retry logic uses [exponential backoff](/recipes/architecture/retry-backoff) with
 | SQL Server | `1205` | Automatic | `ROWLOCK`, `HOLDLOCK` hints |
 | Oracle | `ORA-00060` | Automatic | `SELECT ... FOR UPDATE NOWAIT` |
 
-## Best Practices
+## What Works
 
 - **Always acquire locks in a consistent order**: Sort rows by primary key before locking
 - **Keep transactions short**: The longer a transaction holds locks, the higher the deadlock risk

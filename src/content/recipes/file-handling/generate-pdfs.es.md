@@ -29,7 +29,7 @@ seo:
 ---
 ## Visión General
 
-La generación de PDFs es un requisito común para facturas, reportes, certificados y documentos legales. Las librerías modernas permiten crear PDFs desde plantillas HTML, lo que significa que tu equipo de diseño puede estilizar documentos con CSS mientras tu backend llena datos dinámicos. Esta receta cubre los enfoques más confiables en Python, JavaScript y Java.
+La generación de PDFs es un requisito común para facturas, reportes, certificados y documentos legales. Las librerías modernas permiten crear PDFs desde plantillas HTML, lo que significa que tu equipo de diseño puede estilizar documentos con CSS mientras tu backend llena datos en vivo. Esta receta cubre los enfoques más confiables en Python, JavaScript y Java.
 
 ## Cuándo Usar
 
@@ -155,7 +155,7 @@ HTML-to-PDF es el enfoque dominante hoy porque separa presentación (CSS) de dat
 | API Nativa | iText / OpenPDF | Rápido, archivos pequeños | Código verboso, sin CSS |
 | API Nativa | PDFBox | Licencia Apache, maduro | Complejo para docs simples |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa plantillas HTML para layouts complejos**: Los diseñadores pueden editar CSS sin tocar código.
 - **Incrusta fuentes**: Las fuentes del sistema varían entre SOs. Incrusta una web font para consistencia.

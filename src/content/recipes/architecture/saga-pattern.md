@@ -216,7 +216,7 @@ async function orderSaga(orderData: OrderData): Promise<void> {
 | Orchestration | Tighter | Good (central) | Medium | Complex flows, many steps |
 | State machine | Loose | Excellent | High | Long-running, human approval |
 
-## Best practices
+## What Works
 
 - **Make every step idempotent**: a saga may retry steps due to network timeouts. If `reserveInventory` is called twice for the same order, it should return the same reservation ID rather than creating a duplicate reservation. Use order IDs as deduplication keys.
 - **Design compensations before implementing steps**: for every forward action, define the corresponding compensation before writing the action. If you cannot define a compensation (e.g., sending an email cannot be unsent), reconsider whether the saga pattern fits.

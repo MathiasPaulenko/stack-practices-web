@@ -150,7 +150,7 @@ La politica separa los **limites sostenidos** (promedio en el tiempo) de los **l
 | Plataforma interna | Cuotas por equipo con pool compartido | Previene que un equipo ahogue a otros |
 | API de Partners | Limites negociados por contrato | Definidos en acuerdos legales |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Retornar headers en cada respuesta** — no solo cuando los limites estan cerca
 2. **Usar un algoritmo estandar** (token bucket o leaky bucket) — la logica personalizada confunde a los consumidores

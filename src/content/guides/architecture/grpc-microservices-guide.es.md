@@ -39,7 +39,7 @@ seo:
 ---
 ## Visión General
 
-gRPC es el protocolo RPC de alto rendimiento desarrollado por Google. Usa HTTP/2 como transporte y Protocol Buffers como formato de serialización, logrando latencias significativamente menores y throughput mayor que JSON sobre HTTP/1.1. Es especialmente efectivo para comunicación servicio-a-servicio en microservicios, donde el rendimiento importa y ambos lados del wire son sistemas controlados. Esta guía cubre Protocol Buffers, patrones de streaming, balanceo de carga y estrategias de migración desde REST.
+gRPC es el protocolo RPC de alto rendimiento desarrollado por Google. Usa HTTP/2 como transporte y Protocol Buffers como formato de serialización, logrando latencias mucho menores y throughput mayor que JSON sobre HTTP/1.1. Es especialmente adecuado para comunicación servicio-a-servicio en microservicios, donde el rendimiento importa y ambos lados del wire son sistemas controlados. Esta guía cubre Protocol Buffers, patrones de streaming, balanceo de carga y estrategias de migración desde REST.
 
 ## Cuándo Usar
 

@@ -31,7 +31,7 @@ seo:
 
 Rate limiting is a defensive technique that controls how many requests a client can make to an API or web endpoint within a given time window. Without rate limiting, a single misbehaving client — whether malicious or accidentally buggy — can exhaust backend resources, starve legitimate users, and trigger [cascading failures](/patterns/design/circuit-breaker-pattern) across distributed systems.
 
-Effective rate limiting is implemented at multiple layers: [API gateway](/recipes/api/nginx-reverse-proxy) (edge), application middleware (service), and database (query throttling). Each layer uses different algorithms suited to different trade-offs. Token bucket allows bursts, sliding window provides precision, and fixed window is simple but vulnerable to stampede at window boundaries. This recipe covers implementations from in-memory single-node to distributed Redis-backed limiting.
+Useful rate limiting is implemented at multiple layers: [API gateway](/recipes/api/nginx-reverse-proxy) (edge), application middleware (service), and database (query throttling). Each layer uses different algorithms suited to different trade-offs. Token bucket allows bursts, sliding window provides precision, and fixed window is simple but vulnerable to stampede at window boundaries. This recipe covers implementations from in-memory single-node to distributed Redis-backed limiting.
 
 ## When to use it
 
@@ -141,7 +141,7 @@ server {
 | Fixed window | No | Very low | Redis | Simple rate ceilings |
 | Leaky bucket | Yes (smoothed) | Low | Hard | Traffic shaping |
 
-## Best practices
+## What works
 
 - **Return 429 with `Retry-After`**: when a client hits a limit, respond with HTTP 429 and include a `Retry-After` header indicating when they can retry. This helps well-behaved clients back off automatically.
 - **Use different limits per endpoint**: authentication endpoints should be stricter (5 attempts/minute) than read-only data endpoints (100 requests/minute). Tailor limits to the cost and sensitivity of each operation.

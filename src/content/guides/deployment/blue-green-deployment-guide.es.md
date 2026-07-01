@@ -41,7 +41,7 @@ seo:
 
 El despliegue blue-green es una estrategia de release que mantiene dos entornos de producción idénticos: blue (activo) y green (inactivo). Las nuevas versiones se despliegan al entorno inactivo, se validan y luego el tráfico cambia instantáneamente. Si surgen problemas, el rollback es simplemente otro cambio de tráfico.
 
-Esta guía cubre diseño de arquitectura, mecanismos de cambio de tráfico, manejo de migraciones de base de datos y mejores prácticas operacionales.
+Esta guía cubre diseño de arquitectura, mecanismos de cambio de tráfico, manejo de migraciones de base de datos y lo que funciona operacionalmente.
 
 ## When to Use
 

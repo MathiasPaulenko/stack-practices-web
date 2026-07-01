@@ -282,7 +282,7 @@ El Patrón State involucra dos roles:
 | **Tabla de Estados** | Las transiciones se almacenan en tabla de búsqueda | Muchos estados con transiciones predecibles |
 | **Autómata de Pila** | Historial de estado basado en pila | Transiciones de estado deshacer/reversibles. Consulta [Memento](/patterns/design/memento-pattern) |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Delega todo el comportamiento dependiente del estado** a objetos de estado, manteniendo el contexto delgado
 - **Haz los objetos de estado inmutables** o recréalos en transición para evitar bugs de estado compartido

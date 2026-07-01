@@ -150,7 +150,7 @@ When the Subject's state changes, it iterates over its observers and calls their
 | **Pull model** | Subject notifies; observers query for details | More efficient, but adds round-trips |
 | **Event bus** | Central dispatcher decouples subjects and observers | More flexible, adds indirection |
 
-## Best Practices
+## What Works
 
 - **Unsubscribe observers** when they are destroyed to prevent memory leaks
 - **Avoid circular updates** where observers trigger changes back to the subject

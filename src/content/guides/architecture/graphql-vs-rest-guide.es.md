@@ -162,7 +162,7 @@ El versionado en GraphQL se maneja mediante **evolución del schema**: agregar c
 | **Migración gradual desde REST** | GraphQL como capa de agregación | Deja REST intacto, agrega GraphQL sobre él |
 | **Real-time updates** | GraphQL Subscriptions | WebSocket nativo para eventos push |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Usa **DataLoader** siempre que haya relaciones en tu schema; sin batching, GraphQL es lentísimo
 2. Limita la **profundidad de query** (maxDepth) y **complejidad** (complexity score) para prevenir DoS

@@ -154,7 +154,7 @@ await consumer.run({
 | Azure SB | Forwarding | maxDeliveryCount + forwardTo |
 | Google Pub/Sub | Dead letter topic | deadLetterPolicy.maxDeliveryAttempts |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Setea counts de retry razonables**: 3-5 intentos balancean tiempo de recuperación contra presión de cola
 - **Incluye contexto completo en DLQ**: Headers originales, retry count, tipo de error y stack trace

@@ -192,7 +192,7 @@ If your endpoint fails or times out, the source system will **retry** with expon
 | Retry Handling | Exponential backoff | 3, 6, 12, 24... minutes |
 | Retry Handling | Dead letter queue | After max retries, park for manual review |
 
-## Best Practices
+## What Works
 
 - **Verify signatures before any processing**: Reject forged payloads immediately.
 - **Return 200 quickly**: Do heavy processing asynchronously to avoid timeouts.

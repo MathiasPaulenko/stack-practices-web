@@ -182,7 +182,7 @@ Antes de que el nuevo contratado empiece:
 
 ## Explanation
 
-La checklist separa el onboarding en **Dia 1** (administrativo y configuracion tecnica), **Semana 1** (orientacion al codebase y primera contribucion), y **Semana 2** (conciencia de produccion y ownership). La estructura reconoce que los nuevos ingenieros necesitan cosas diferentes en diferentes momentos: primero entornos que funcionen, luego contexto, despues ownership. El sistema de companero asegura que nadie se atasca, y la verificacion de completitud crea responsabilidad tanto para el nuevo contratado como para el equipo.
+La checklist separa el onboarding en tres fases: Dia 1 (administrativo y configuracion tecnica), Semana 1 (orientacion al codebase y primera contribucion), y Semana 2 (conciencia de produccion y ownership). La estructura reconoce que los nuevos ingenieros necesitan cosas diferentes en diferentes momentos: primero entornos que funcionen, luego contexto, despues ownership. El sistema de companero asegura que nadie se atasca, y la verificacion de completitud crea responsabilidad tanto para el nuevo contratado como para el equipo.
 
 ## Variants
 
@@ -196,19 +196,19 @@ La checklist separa el onboarding en **Dia 1** (administrativo y configuracion t
 
 ## Lo que funciona
 
-1. **Asigna un companero, no solo un manager** — los companeros responden las preguntas "como hago..." que los managers no pueden
-2. **Ten el primer PR listo el dia 1** — una correccion de documentacion o un test agregan confianza inmediatamente
-3. **Graba overviews de arquitectura** — las sesiones en vivo son valiosas pero no repetibles; graba para futuros contratados
-4. **Mide tiempo-hasta-primer-PR** — rastrea esta metrica para mejorar tu proceso de onboarding
-5. **Actualiza la checklist despues de cada nuevo ingreso** — ojos frescos detectan brechas inmediatamente
+1. Asigna un companero, no solo un manager. Los companeros responden las preguntas "como hago..." que los managers no pueden.
+2. Ten el primer PR listo el dia 1. Una correccion de documentacion o un test agregan confianza inmediatamente.
+3. Graba overviews de arquitectura. Las sesiones en vivo son valiosas pero no repetibles; graba para futuros contratados.
+4. Mide tiempo-hasta-primer-PR. Rastrea esta metrica para mejorar tu proceso de onboarding.
+5. Actualiza la checklist despues de cada nuevo ingreso. Ojos frescos detectan brechas inmediatamente.
 
 ## Common Mistakes
 
-1. **Enfocarse solo en configuracion tecnica** — la cultura, relaciones, y conocimiento de procesos importan tanto como el codigo
-2. **Lanzar a nuevos contratados a tareas complejas muy temprano** — las primeras contribuciones deberian ser alcanzables en 1-2 dias
-3. **Saltar explicaciones de acceso a produccion** — los nuevos ingenieros necesitan entender que pueden y no pueden tocar
-4. **No explicar el "por que" detras de procesos** — seguir reglas sin entender crea comportamiento de culto de carga
-5. **Olvidar hacer check-in despues de la semana 2** — el onboarding continua por 3-6 meses; la checklist es solo el inicio
+1. Enfocarse solo en configuracion tecnica. La cultura, relaciones, y conocimiento de procesos importan tanto como el codigo.
+2. Lanzar a nuevos contratados a tareas complejas muy temprano. Las primeras contribuciones deberian ser alcanzables en 1-2 dias.
+3. Saltar explicaciones de acceso a produccion. Los nuevos ingenieros necesitan entender que pueden y no pueden tocar.
+4. No explicar el "por que" detras de procesos. Seguir reglas sin entender crea comportamiento de culto de carga.
+5. Olvidar hacer check-in despues de la semana 2. El onboarding continua por 3-6 meses; la checklist es solo el inicio.
 
 ## Frequently Asked Questions
 

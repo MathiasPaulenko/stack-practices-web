@@ -150,7 +150,7 @@ The policy separates **sustained limits** (average over time) from **burst limit
 | Internal platform | Per-team quotas with shared pool | Prevents one team from starving others |
 | Partner API | Negotiated limits per contract | Limits defined in legal agreements |
 
-## Best Practices
+## What Works
 
 1. **Return headers on every response** — not just when limits are close
 2. **Use a standard algorithm** (token bucket or leaky bucket) — custom logic confuses consumers

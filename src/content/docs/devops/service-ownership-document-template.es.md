@@ -199,7 +199,7 @@ La plantilla sigue el principio de **revelacion progresiva**: la primera seccion
 | Libreria compartida | Agregar lista de consumidores, politica de versionado, y proceso de breaking changes | Las librerias tienen impacto transitivo |
 | App mobile | Agregar proceso de release, links a app stores, y estrategia de rollout | Los deploys mobile no son completamente automatizables |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Una pagina por servicio** — si no cabe en una pantalla, no se leera durante un incidente
 2. **Link, no dupliques** — el doc de ownership es un indice, no un repositorio de todo el conocimiento

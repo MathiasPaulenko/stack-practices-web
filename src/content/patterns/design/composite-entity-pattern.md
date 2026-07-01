@@ -389,7 +389,7 @@ The key insight is that dependent objects have no standalone identity. They are 
 | **JSON column** | Dependents stored as JSON | Flexible schema, document databases |
 | **Embedded value** | Flattened into parent columns | Simple value objects |
 
-## Best Practices
+## What Works
 
 - **Make dependent objects immutable.** Changes should go through the aggregate root.
 - **Enforce invariants at the aggregate level.** The composite entity validates the whole.

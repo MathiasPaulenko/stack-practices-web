@@ -2,7 +2,7 @@
 contentType: recipes
 slug: generate-test-data
 title: "Generar Datos de Test"
-description: "Cómo generar datos de test realistas y deterministas con Faker, factory-boy y generadores type-aware para suites de test robustas en Python, JavaScript y Java."
+description: "Cómo generar datos de test realistas y deterministas con Faker, factory-boy y generadores type-aware para suites de test confiables en Python, JavaScript y Java."
 metaDescription: "Genera datos de test realistas y deterministas con Faker, factory-boy y generadores type-aware en Python, JavaScript y Java."
 difficulty: beginner
 topics:
@@ -37,7 +37,7 @@ seo:
 
 ## Descripción General
 
-Los datos de test hardcodeados (`name = "John"`, `email = "test@test.com"`) rápidamente se vuelven obsoletos, fallan en exponer casos edge y no representan las distribuciones de datos de producción. Los generadores producen datos realistas, variados y deterministas que hacen los tests más robustos mientras reducen el mantenimiento manual de fixtures.
+Los datos de test hardcodeados (`name = "John"`, `email = "test@test.com"`) rápidamente se vuelven obsoletos, fallan en exponer casos edge y no representan las distribuciones de datos de producción. Los generadores producen datos realistas, variados y deterministas que hacen los tests más confiables mientras reducen el mantenimiento manual de fixtures.
 
 ## Cuándo Usar
 
@@ -215,7 +215,7 @@ User user = Instancio.of(User.class)
 List<User> users = Instancio.ofList(User.class).size(100).create();
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre siembra tu generador aleatorio.** Sin una seed, un test que falla en CI puede pasar localmente porque los datos eran diferentes. Configura `Faker.seed()` o `faker.seed()` en un archivo de setup global.
 - **Sobrescribe campos específicos para tests de escenario.** `createUser({ role: 'admin' })` es más claro que esperar que el generador aleatorio produzca un admin.

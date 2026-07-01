@@ -208,7 +208,7 @@ Value Objects are characterized by:
 | **Range Value Object** | DateRange, TemperatureRange with validation |
 | **Calculated Value Object** | TaxAmount computed from Money and Rate |
 
-## Best Practices
+## What Works
 
 - **Make them immutable.** No setters, mutable fields, or in-place updates. Return new instances for transformations.
 - **Validate at construction.** An invalid `EmailAddress` should be impossible to create. Fail fast with clear errors.

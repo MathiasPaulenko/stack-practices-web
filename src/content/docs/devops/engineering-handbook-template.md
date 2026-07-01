@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Teams without a written handbook reinvent their culture with every new hire. Decisions that were obvious to founders become mysteries to the tenth engineer. An engineering handbook captures the rules, norms, and reasoning that define how your team builds software. It is not a replacement for conversation — it is the reference that makes conversations productive instead of repetitive.
+Teams without a written handbook reinvent their culture with every new hire. Decisions that were obvious to founders become mysteries to the tenth engineer. An engineering handbook captures the rules, norms, and reasoning that define how your team builds software. It is not a replacement for conversation. It is the reference that makes conversations productive instead of repetitive.
 
 ## When to Use
 
@@ -255,7 +255,7 @@ This handbook is maintained by [owner] and updated through:
 
 ## Explanation
 
-The handbook template organizes team knowledge into **philosophy** (why we exist), **workflow** (how we build), **standards** (what quality means), and **operations** (how we keep systems running). Separating these sections prevents the common mistake of documenting only process while leaving culture and technical standards implicit. The changelog and change process at the end make it clear this is a living document that evolves with the team.
+The handbook template organizes team knowledge into four areas: philosophy (why we exist), workflow (how we build), standards (what quality means), and operations (how we keep systems running). Separating these sections prevents the common mistake of documenting only process while leaving culture and technical standards implicit. The changelog and change process at the end make it clear this is a living document that evolves with the team.
 
 ## Variants
 
@@ -268,19 +268,19 @@ The handbook template organizes team knowledge into **philosophy** (why we exist
 
 ## What Works
 
-1. **Start small, expand gradually** — a 5-page handbook people read beats a 50-page handbook people ignore
-2. **Make it searchable** — new hires look for specific answers, not a narrative
-3. **Review quarterly** — outdated handbooks are worse than none; they create confusion
-4. **Include reasoning, not just rules** — "we do X because Y" creates understanding, not just compliance
-5. **Link, do not duplicate** — the handbook should reference specialized docs (runbooks, API docs) rather than include everything
+1. Start small, expand gradually. A 5-page handbook people read beats a 50-page handbook people ignore.
+2. Make it searchable. New hires look for specific answers, not a narrative.
+3. Review quarterly. Outdated handbooks are worse than none; they create confusion.
+4. Include reasoning, not just rules. "We do X because Y" creates understanding, not just compliance.
+5. Link, do not duplicate. The handbook should reference specialized docs (runbooks, API docs) rather than include everything.
 
 ## Common Mistakes
 
-1. **Writing it once and forgetting it** — handbooks rot faster than code; schedule reviews
-2. **Copying another company's handbook** — culture is context-specific; Netflix's practices may destroy your team
-3. **Making it too long** — if it takes more than 20 minutes to read the essentials, it is too long
-4. **Skipping the "why"** — rules without reasoning feel arbitrary and get ignored
-5. **Not making it discoverable** — buried in a wiki no one checks is as good as not existing
+1. Writing it once and forgetting it. Handbooks rot faster than code; schedule reviews.
+2. Copying another company's handbook. Culture is context-specific; Netflix's practices may destroy your team.
+3. Making it too long. If it takes more than 20 minutes to read the essentials, it is too long.
+4. Skipping the "why". Rules without reasoning feel arbitrary and get ignored.
+5. Not making it discoverable. Buried in a wiki no one checks is as good as not existing.
 
 ## Frequently Asked Questions
 

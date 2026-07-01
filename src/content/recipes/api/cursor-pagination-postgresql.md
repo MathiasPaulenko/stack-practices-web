@@ -244,7 +244,7 @@ class PaginatedFeed {
 ## Common Mistakes
 
 - Paginating by a non-unique column without a tiebreaker (e.g., `created_at` alone), causing skipped or duplicated rows
-- Using large LIMIT values, which still requires significant index scanning
+- Using large LIMIT values, which still requires major index scanning
 - Not handling the case where the cursor row is deleted, which breaks forward navigation
 
 ## FAQ

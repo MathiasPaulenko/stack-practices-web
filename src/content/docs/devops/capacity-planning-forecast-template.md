@@ -170,7 +170,7 @@ The template separates **measurement** (current state) from **prediction** (grow
 | Multi-region | Add cross-region replication bandwidth and per-region capacity | Each region may have different growth |
 | Serverless | Add invocation counts, concurrency limits, and cold-start frequency | Serverless limits are different from instance limits |
 
-## Best Practices
+## What Works
 
 1. **Forecast monthly, review quarterly** — assumptions change; refresh the forecast before it becomes fiction
 2. **Use percentiles, not averages** — p99 latency and peak CPU matter more than mean values

@@ -141,7 +141,7 @@ The checklist follows a **defense-in-depth** model: authentication at the edge, 
 | Partner APIs | Contract + review | Require security questionnaire from partner |
 | Public SaaS APIs | Full review + pen test | Engage third-party penetration testing annually |
 
-## Best Practices
+## What Works
 
 1. Run the checklist before every production release, not just annually
 2. Automate what you can: dependency scans, secret detection, schema validation

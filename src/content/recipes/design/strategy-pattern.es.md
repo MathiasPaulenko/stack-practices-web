@@ -198,7 +198,7 @@ total = checkout.get_total(order)
 | Registry + strategy | Sí | Cualquiera | Algoritmos configurables por usuario |
 | Template method | Heredado | Cualquiera | Estrategias con esqueleto compartido |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa inyección de dependencias para selección de estrategia**: en lugar de que el contexto construya su propia estrategia, inyéctala vía constructor o setter. Esto hace el contexto testeable con mocks de estrategia y permite al llamador controlar la selección de algoritmo sin modificar el contexto.
 - **Mantén las interfaces de estrategia enfocadas**: una interfaz de estrategia debería tener un método principal. Si te encuentras agregando `init()`, `validate()` y `cleanup()` a la interfaz, la estrategia está haciendo demasiado. Separa en interfaces distintas o usa un wrapper de lifecycle.

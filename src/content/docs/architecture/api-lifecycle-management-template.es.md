@@ -139,7 +139,7 @@ El checklist impone un **período mínimo de aviso** que respeta los cronogramas
 | API pública SaaS | Tiempos largos, revisión legal | Puede requerir compromisos SLA para avisos de deprecación |
 | Backends de app móvil | Forzar actualización vía app store | Usar verificaciones de versión mínima para cerrar endpoints antiguos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Nunca eliminar una API sin período de deprecación, ni siquiera para uso interno
 2. Devolver headers de deprecación tan pronto como se toma la decisión, no en el cierre

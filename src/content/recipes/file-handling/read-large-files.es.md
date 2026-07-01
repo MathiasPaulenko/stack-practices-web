@@ -129,7 +129,7 @@ El **streaming línea por línea** mantiene solo una línea en memoria a la vez,
 | JavaScript | Web Streams API | `ReadableStream.getReader()` en navegadores |
 | Java | `Files.lines()` | Stream<String> lazy; auto-cierre |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Siempre usa `with` (Python), `try-with-resources` (Java) o manejo de errores en pipes (JS) para evitar fugas de descriptores de archivo
 2. Elige tamaños de buffer basados en la longitud promedio de línea; 1 MB es un valor razonable por defecto

@@ -134,7 +134,7 @@ Key responsibilities of the gateway include:
 ## Frequently Asked Questions
 
 **Q: What is the difference between Gateway Routing and an API Gateway?**
-A: Gateway Routing is the routing capability. An API Gateway usually adds authentication, rate limiting, transformation, and developer portal features on top of routing.
+A: Gateway Routing is the routing capability. An API Gateway usually adds authentication, rate limiting, transformation, and developer portal capabilities on top of routing.
 
 **Q: Should the gateway handle retries?**
 A: The gateway may retry safe, idempotent requests, but be careful with retries on POST or other state-changing operations to avoid duplicate work.

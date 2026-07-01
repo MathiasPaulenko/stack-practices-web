@@ -215,7 +215,7 @@ Los clientes nunca verifican por null; tratan todos los objetos uniformemente.
 - **Retorna null objects desde factories y búsquedas** en lugar de `None` o `null`
 - **Haz null objects inmutables** para que no puedan ser modificados accidentalmente
 - **Loggea el uso de null objects** en modo debug para detectar ausencias inesperadas
-- **Usa features del lenguaje** como `Optional` de Java o tipos anulables de C# junto con null objects para APIs que modelan explícitamente la ausencia
+- **Usa capacidades del lenguaje** como `Optional` de Java o tipos anulables de C# junto con null objects para APIs que modelan explícitamente la ausencia
 - **Mantén el comportamiento del null object simple** — lógica compleja en un null object es un code smell
 
 ## Errores Comunes

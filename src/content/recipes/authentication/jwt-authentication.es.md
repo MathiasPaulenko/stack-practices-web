@@ -171,7 +171,7 @@ Un JWT tiene tres partes separadas por puntos: `header.payload.signature`.
 | Refrescar | Re-emitir con nuevo `exp` | Re-emitir con nuevo `exp` | Re-emitir con nuevo `exp` |
 | Asimétrico | `jwt.encode(key=private_key)` | `jwt.sign({}, privateKey, {algorithm: 'RS256'})` | `signWith(privateKey, RS256)` |
 
-## Best Practices
+## Lo que funciona
 
 - **Rota claves regularmente**: implementa una versión de clave (`kid` en el header) para poder rotar sin invalidar todos los tokens activos.
 - **Usa tokens de refresco**: almacénalos en cookies `HttpOnly`, `Secure`, `SameSite=Strict`. Mantén los tokens de acceso solo en memoria.

@@ -184,7 +184,7 @@ The core difference is **who controls the data shape**. In REST, the server defi
 | **Real-time Data** | Polling or WebSockets alongside REST | Subscriptions built into the protocol |
 | **Legacy Migration** | Incremental endpoint additions | Wrap REST with GraphQL resolvers (strangler fig pattern) |
 
-## Best Practices
+## What Works
 
 1. **Start with REST** unless you have a specific GraphQL use case; premature GraphQL is expensive
 2. **Use persisted queries** in production to enable caching and prevent malicious queries

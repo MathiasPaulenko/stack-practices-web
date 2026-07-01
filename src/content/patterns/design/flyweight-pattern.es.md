@@ -207,7 +207,7 @@ La **Fábrica Flyweight** (`TreeType.get()`) gestiona un cache de instancias fly
 | **Flyweight Compuesto** | Flyweights compuestos de otros flyweights | Elementos UI complejos |
 | **Internamiento de Strings** | Característica incorporada del lenguaje | `String.intern()` de Java, internamiento de Python |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Aplica solo cuando la presión de memoria sea real** — la optimización prematura agrega complejidad
 - **Haz los flyweights inmutables** para prevenir corrupción de estado compartido

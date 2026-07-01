@@ -204,7 +204,7 @@ Esto asegura que un consumidor descontrolado (ej. un job en segundo plano) no pu
 | **Aislamiento por Semáforo** | Aislamiento ligero, mismo hilo | Cuando la creación de hilos es costosa o limitada |
 | **Aislamiento por Proceso** | Procesos del SO o contenedores separados | Máxima contención de fallas |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Siempre reserva capacidad para rutas críticas** — no dejes que los jobs en segundo plano mueran de hambre las peticiones de usuarios
 - **Monitorea la saturación de pools** — rastrea con qué frecuencia cada bulkhead rechaza o hace timeout

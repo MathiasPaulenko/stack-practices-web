@@ -128,7 +128,7 @@ class PaymentServiceTest {
 | Spy | Objeto real + registra | Sí | Verificar side effects |
 | Mock | Interacción esperada | Sí | Verificar llamadas hechas |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mock en el boundary, no internamente**: mock el cliente HTTP o driver de base de datos, no cada método privado dentro de tu clase. Mock excesivo hace los tests frágiles.
 - **Prefiere stubs para verificación de estado**: si puedes assertar en el estado final ("el balance es $50") en lugar de la interacción ("withdraw fue llamado una vez"), hazlo. Los tests basados en estado son más resilientes al refactoring.

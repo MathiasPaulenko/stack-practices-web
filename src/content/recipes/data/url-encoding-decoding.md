@@ -33,7 +33,7 @@ Correctly encode URLs and URI components to handle special characters, spaces, a
 
 ## When to Use This
 
-- Building query strings from [user input](/recipes/api/input-validation) or dynamic data
+- Building query strings from [user input](/recipes/api/input-validation) or live data
 - Generating URLs with special characters, spaces, or non-ASCII text
 - Parsing and re-encoding URLs from [external sources](/recipes/api/call-rest-api) safely
 

@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-A seeded database is the fastest way to onboard new developers, reproduce bugs, and run integration tests that depend on realistic data distributions. Without seeding, every environment starts empty, forcing developers to manually create accounts, orders, and relationships before they can test any feature. This recipe shows safe, repeatable seeding strategies that do not pollute production.
+A seeded database is the fastest way to onboard new developers, reproduce bugs, and run integration tests that depend on realistic data distributions. Without seeding, every environment starts empty, forcing developers to manually create accounts, orders, and relationships before they can test any capability. This recipe shows safe, repeatable seeding strategies that do not pollute production.
 
 ## When to Use
 
@@ -45,7 +45,7 @@ A seeded database is the fastest way to onboard new developers, reproduce bugs, 
 - Integration and E2E tests that require users, products, or transactions to exist
 - Staging environments that should mirror production data distributions
 - Load testing with realistic data volumes and relationships
-- Demonstrating features to stakeholders without manually creating demo data
+- Demonstrating capabilities to stakeholders without manually creating demo data
 
 ## When NOT to Use
 
@@ -285,7 +285,7 @@ if __name__ == "__main__":
     seed()
 ```
 
-## Best Practices
+## What Works
 
 - **Make seeds idempotent.** Use `ON CONFLICT DO NOTHING`, `upsert`, or existence checks so running the seed script twice does not create duplicates or crash.
 - **Never seed production.** Gate seed scripts with an environment check. Production data should enter through controlled migrations, admin tools, or ETL pipelines.

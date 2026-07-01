@@ -386,7 +386,7 @@ Esto permite que las reglas se definan una vez y se reutilicen a través de quer
 | **SQL Generating** | Convierte a cláusula WHERE | Empujar specs a la base de datos |
 | **Visitor-based** | Recorre el árbol de specification | Optimización de query, serialización |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Haz specifications inmutables.** Sin cambios de estado después de construcción.
 - **Nómbralas como adjetivos.** `Overdue`, `HighValue`, `VIP` — no `CheckIfOverdue`.

@@ -277,7 +277,7 @@ Si el consumidor falla entre los pasos 3 y 4, el mensaje se reentregara. Como el
 | Claves de idempotencia | Clave generada por el cliente para APIs | Integraciones de terceros, APIs de pago |
 | Idempotencia natural | Operaciones inherentemente seguras para reintentar | Actualizar si el timestamp es mas reciente |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Usar IDs de mensaje deterministas
 - Hacer la operacion de negocio idempotente

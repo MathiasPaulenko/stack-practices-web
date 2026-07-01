@@ -157,7 +157,7 @@ public class WebConfig implements WebMvcConfigurer {
 - **afterCompletion**: Corre después de que el response se envió completamente. Ideal para cleanup y logging.
 - **Error middleware**: Captura excepciones no atrapadas. Debe registrarse al final del stack. Consulta [Manejo de Errores](/recipes/api/handle-errors) para patrones de error.
 
-## Mejores prácticas
+## Lo que funciona
 
 - **El orden importa**: Registra middleware en la secuencia correcta (ej. auth antes de rutas, error handler al final)
 - **Fail fast**: Rechaza requests no autorizados o inválidos lo antes posible

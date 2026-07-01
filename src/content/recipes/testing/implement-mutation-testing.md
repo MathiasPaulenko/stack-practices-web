@@ -48,7 +48,7 @@ Code coverage tells you which lines were executed, but not whether the tests wou
 ## When NOT to Use
 
 - The codebase has low coverage to begin with — fix coverage before mutation testing
-- Test suites already take 30+ minutes — mutation testing multiplies that time significantly
+- Test suites already take 30+ minutes — mutation testing multiplies that time considerably
 - You are in early prototype phase and tests are intentionally minimal
 - The team lacks time to investigate and strengthen tests that fail to kill mutants
 
@@ -230,7 +230,7 @@ src/cart.js:45  # changed >= to > in calculateTotal
 src/cart.js:67  # removed null check in applyDiscount
 ```
 
-## Best Practices
+## What Works
 
 - **Target high-value code first.** Run mutation testing on core business logic, not on controller wiring or DTO mappings. Mutation testing is expensive; focus where it matters.
 - **Distinguish equivalent mutants from real gaps.** An equivalent mutant (`a + 0` changed to `a - 0`) cannot be killed. Mark them in configuration to avoid noise.

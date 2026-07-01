@@ -301,7 +301,7 @@ The manager maintains indexes (department → employee IDs) to make queries effi
 | **Service Manager** | Registry and lookup | Android ServiceManager, plugin registries |
 | **Cache Manager** | Eviction and TTL | Redis cache wrappers, in-memory caches |
 
-## Best Practices
+## What Works
 
 - **Keep managers focused.** A manager should handle one type of object, not everything.
 - **Return immutable views.** Do not expose internal collections directly.

@@ -208,7 +208,7 @@ El Patrón Module se basa en:
 | **ES Module** | `export`/`import` | Estándar moderno de JavaScript |
 | **Namespace Module** | Namespace object literal | Organizar utilidades bajo un global |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Un concern por módulo.** Un módulo que cuenta, formatea fechas y hace HTTP requests debería dividirse.
 - **Usa exports explícitos.** No confíes en wildcard exports; ocultan el contrato público.

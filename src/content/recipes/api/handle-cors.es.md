@@ -215,11 +215,11 @@ public class SecurityConfig {
 |---------|-------------|------------|
 | Allowlist | Lista explícita de orígenes | APIs de producción con consumidores conocidos |
 | Patrón regex | `*.example.com` | Wildcards de subdominios (valida cuidadosamente) |
-| Origen dinámico | Origen validado en runtime | APIs multi-tenant con orígenes por tenant |
+| Origen en vivo | Origen validado en runtime | APIs multi-tenant con orígenes por tenant |
 | Wildcard `*` | Sin restricción de origen | APIs públicas de solo lectura sin credenciales |
 | Proxy | Frontend proxy a API | Desarrollo, deployment de mismo origen |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Nunca uses `*` con credenciales** — los navegadores rechazan `Access-Control-Allow-Origin: *` cuando `Allow-Credentials: true`. Siempre refleja el origen del request si está en tu allowlist.
 2. **Valida orígenes explícitamente** — mantén una allowlist de orígenes exactos. No hagas parseo o regex-match de orígenes sin validación cuidadosa para evitar bypasses.
@@ -243,7 +243,7 @@ Postman no es un navegador — no aplica la Same-Origin Policy ni CORS. Los nave
 
 ### ¿Puedo usar un wildcard para subdominios como `*.example.com`?
 
-No directamente en `Access-Control-Allow-Origin`. El header requiere una coincidencia exacta de origen. Puedes validar orígenes dinámicamente: verifica si el origen del request termina en `.example.com` en runtime y refleja el origen exacto de vuelta. Spring Boot `allowedOriginPatterns` soporta esto; en Express/Flask, implementa validación de origen custom.
+No directamente en `Access-Control-Allow-Origin`. El header requiere una coincidencia exacta de origen. Puedes validar orígenes en vivo: verifica si el origen del request termina en `.example.com` en runtime y refleja el origen exacto de vuelta. Spring Boot `allowedOriginPatterns` soporta esto; en Express/Flask, implementa validación de origen custom.
 
 ### ¿Necesito CORS si despliego mi frontend y API en el mismo dominio?
 

@@ -180,7 +180,7 @@ CREATE TABLE shard_directory (
 | **CQRS / read model** | Replica datos a store analítico para queries cross-shard. |
 | **Evita transacciones cross-shard** | Diseña alrededor de ellas. Usa sagas para operaciones multi-shard. |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - Planifica rebalancing desde el día uno — la gravedad de datos es real
 - Mantén transacciones dentro de un shard — cross-shard son dolorosas

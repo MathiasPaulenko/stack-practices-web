@@ -178,7 +178,7 @@ A **materialized view** stores the query result on disk. Reads are as fast as qu
 | Oracle | Full | Full | `ON COMMIT` or `ON DEMAND` refresh options |
 | SQLite | Full | None | Use triggers to simulate materialized tables |
 
-## Best Practices
+## What Works
 
 1. Always create a unique index on materialized views before using `CONCURRENTLY` refresh
 2. Use `CREATE OR REPLACE VIEW` for non-breaking changes; drop and recreate only when necessary

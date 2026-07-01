@@ -223,7 +223,7 @@ El runbook separa **verificacion** (confirmar falla, confirmar salud de replica)
 | AWS RDS Multi-AZ | Failover automatico | Solo usar este runbook para cross-region o promocion manual |
 | Kubernetes StatefulSet | Orquestador Patroni / Stolon | El operador maneja la promocion; runbook para falla del operador |
 
-## Best Practices
+## Lo que funciona
 
 1. **Prueba este runbook mensualmente** en un entorno de staging — no durante el incidente
 2. **Automatiza los health checks** en los pasos 1 y 6 con scripts, no consultas manuales

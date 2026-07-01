@@ -130,7 +130,7 @@ Certificate management is a repetitive operational task that becomes risky at sc
 - **Multi-cloud certificate management**: Centralizes certificates across providers using a vault or certificate manager.
 - **Container-native certificate management**: Uses cert-manager or similar tools in Kubernetes.
 
-## Best Practices
+## What Works
 
 - Maintain a single source of truth for all certificates and their owners.
 - Automate renewal and deployment where possible.

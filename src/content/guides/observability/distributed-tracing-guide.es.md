@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: distributed-tracing-guide
-title: "Trazas Distribuidas — Flujo de Peticiones de Extremo a Extremo en Microservicios"
+title: "Trazas Distribuidas: Flujo de Peticiones de Extremo a Extremo en Microservicios"
 description: "Guía práctica sobre trazas distribuidas: instrumentación de aplicaciones, propagación de trazas, estrategias de muestreo y diagnóstico de latencia en arquitecturas de microservicios con OpenTelemetry, Jaeger y Zipkin."
 metaDescription: "Aprende trazas distribuidas: instrumenta aplicaciones, propaga trazas, estrategias de muestreo y diagnostica latencia con OpenTelemetry, Jaeger y Zipkin."
 difficulty: intermediate
@@ -160,7 +160,7 @@ app.post('/payments', async (req, res) => {
 });
 ```
 
-**Checklist de instrumentación:**
+#### Checklist de Instrumentación
 - Instrumenta frameworks HTTP, clientes de base de datos y librerías de mensajería automáticamente
 - Crea spans manuales para operaciones de negocio (no solo infraestructura)
 - Añade atributos a los spans para filtrado y correlación
@@ -206,11 +206,12 @@ public class OrderController {
 }
 ```
 
-**Requisitos de propagación:**
-- **HTTP:** Usa headers `traceparent` y `tracestate` (estándar W3C)
-- **gRPC:** Usa metadatos `traceparent` y `tracestate`
-- **Colas de mensajes:** Incrusta el contexto de traza en atributos/headers del mensaje
-- **Procesamiento asíncrono:** Asegúrate de que el contexto se propague a pools de hilos y callbacks
+#### Requisitos de Propagación
+
+- HTTP: Usa headers `traceparent` y `tracestate` (estándar W3C)
+- gRPC: Usa metadatos `traceparent` y `tracestate`
+- Colas de mensajes: Incrusta el contexto de traza en atributos/headers del mensaje
+- Procesamiento asíncrono: Asegúrate de que el contexto se propague a pools de hilos y callbacks
 
 ### 3. Configura el Muestreo
 
@@ -249,7 +250,7 @@ sampler = TraceIdRatioBased(0.05)
 provider = TracerProvider(sampler=sampler)
 ```
 
-**Mejores prácticas de muestreo:**
+#### Muestreo: Lo que funciona
 - Comienza con 1-10% de muestreo en producción
 - Muestrea siempre trazas de error y peticiones lentas (tail-based)
 - Usa muestreo consistente entre servicios (mismo trace ID → misma decisión)
@@ -281,11 +282,12 @@ def log_with_trace(message, **kwargs):
 log_with_trace("Processing payment", payment_id="pay-123", amount=99.99)
 ```
 
-**Patrones de correlación:**
-- **Logs:** Incluye `trace_id` y `span_id` en cada entrada de log
-- **Métricas:** Etiqueta métricas de latencia con `trace_id` para profundizar
-- **Errores:** Adjunta contexto de traza al seguimiento de errores (Sentry, Bugsnag)
-- **Dashboards:** Vincula desde picos de latencia directamente a trazas de ejemplo
+#### Patrones de Correlación
+
+- Logs: Incluye `trace_id` y `span_id` en cada entrada de log
+- Métricas: Etiqueta métricas de latencia con `trace_id` para profundizar
+- Errores: Adjunta contexto de traza al seguimiento de errores (Sentry, Bugsnag)
+- Dashboards: Vincula desde picos de latencia directamente a trazas de ejemplo
 
 ### 5. Consulta y Analiza Trazas
 
@@ -310,35 +312,36 @@ tags={"user.id":"user-123"}
 service=orders-service | select traceID, spanID, duration
 ```
 
-**Consultas comunes de análisis de trazas:**
-- **Puntos calientes de latencia:** Agrupa por servicio, encuentra los spans más lentos
-- **Correlación de errores:** ¿Qué servicios fallan juntos?
-- **Mapeo de dependencias:** ¿Qué servicios llaman a cuáles?
-- **Identificación de cuellos de botella:** ¿Dónde se gasta el tiempo en una traza?
+#### Consultas Comunes de Análisis de Trazas
+
+- Puntos calientes de latencia: Agrupa por servicio, encuentra los spans más lentos
+- Correlación de errores: ¿Qué servicios fallan juntos?
+- Mapeo de dependencias: ¿Qué servicios llaman a cuáles?
+- Identificación de cuellos de botella: ¿Dónde se gasta el tiempo en una traza?
 
 ## Lo que funciona
 
-- **Instrumenta a nivel de framework primero.** Clientes HTTP, bases de datos y colas de mensajes dan el mayor valor con menos esfuerzo.
-- **Usa convenciones semánticas.** Sigue las convenciones semánticas de OpenTelemetry para nombres de spans y atributos.
-- **Evita atributos de alta cardinalidad.** Los IDs de usuario en nombres de span causan explosión de índices; usa atributos en su lugar.
-- **Muestrea inteligentemente.** El muestreo tail-based captura las trazas más importantes.
-- **Mantén la profundidad de traza razonable.** Limita a 50-100 spans por traza; la anidación profunda afecta la legibilidad.
-- **Monitoriza el monitoreo.** Alerta si la tasa de recolección de trazas cae o la cola del colector se acumula.
+- Instrumenta a nivel de framework primero. Clientes HTTP, bases de datos y colas de mensajes dan el mayor valor con menos esfuerzo.
+- Usa convenciones semánticas. Sigue las convenciones semánticas de OpenTelemetry para nombres de spans y atributos.
+- Evita atributos de alta cardinalidad. Los IDs de usuario en nombres de span causan explosión de índices; usa atributos en su lugar.
+- Muestrea inteligentemente. El muestreo tail-based captura las trazas más importantes.
+- Mantén la profundidad de traza razonable. Limita a 50-100 spans por traza; la anidación profunda afecta la legibilidad.
+- Monitoriza el monitoreo. Alerta si la tasa de recolección de trazas cae o la cola del colector se acumula.
 
 ## Errores Comunes
 
-- **Falta de propagación de contexto.** Una traza rota es peor que no tener traza — verifica que los headers fluyan en todas partes.
-- **Sobre-instrumentación.** Cada iteración de bucle no necesita un span. Instrumenta operaciones, no iteraciones.
-- **Usar trace IDs como búsqueda de logs.** Las trazas complementan los logs; no las reemplazan.
-- **Ignorar los costos de muestreo.** El muestreo 100% en sistemas de alto tráfico genera terabytes de datos.
-- **No correlacionar con métricas.** Las trazas muestran qué pasó; las métricas muestran qué tan a menudo. Usa ambas.
+- Falta de propagación de contexto. Una traza rota es peor que no tener traza. Verifica que los headers fluyan en todas partes.
+- Sobre-instrumentación. Cada iteración de bucle no necesita un span. Instrumenta operaciones, no iteraciones.
+- Usar trace IDs como búsqueda de logs. Las trazas complementan los logs; no las reemplazan.
+- Ignorar los costos de muestreo. El muestreo 100% en sistemas de alto tráfico genera terabytes de datos.
+- No correlacionar con métricas. Las trazas muestran qué pasó; las métricas muestran qué tan a menudo. Usa ambas.
 
 ## Variantes
 
-- **Shadowing de peticiones:** Duplica tráfico a un entorno shadow con trazas completas
-- **Trazas sintéticas:** Inyecta peticiones falsas para monitorear continuamente las rutas
-- **Trazas basadas en eBPF:** Trazas a nivel de kernel sin instrumentación de aplicación
-- **Trazas de service mesh:** Istio/Linkerd con propagación automática de trazas
+- Shadowing de peticiones: Duplica tráfico a un entorno shadow con trazas completas
+- Trazas sintéticas: Inyecta peticiones falsas para monitorear continuamente las rutas
+- Trazas basadas en eBPF: Trazas a nivel de kernel sin instrumentación de aplicación
+- Trazas de service mesh: Istio/Linkerd con propagación automática de trazas
 
 ## FAQ
 

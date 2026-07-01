@@ -93,7 +93,7 @@ Usa este checklist antes de declarar un deployment exitoso. Combínalo con la [P
 | Validación de métricas | 15 minutos post-deploy | 10 minutos |
 | Validación completa | 1 hora post-deploy | Monitoreo continuo |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Automatiza el checklist** — CI debería fallar el deploy si los health checks no pasan. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para integración.
 - **Testea rollback antes de necesitarlo** — un rollback que nunca testeaste es una apuesta. Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template) para planificación amplia.

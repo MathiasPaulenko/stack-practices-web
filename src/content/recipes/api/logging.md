@@ -2,7 +2,7 @@
 contentType: recipes
 slug: logging
 title: "Logging"
-description: "How to implement structured, level-based logging across Python, JavaScript, and Java with best practices for production observability."
+description: "How to implement structured, level-based logging across Python, JavaScript, and Java with what works for production observability."
 metaDescription: "Practical logging examples in Python, JavaScript, and Java. Learn structured logging, log levels, rotation, and production observability patterns."
 difficulty: beginner
 topics:
@@ -128,7 +128,7 @@ public class UserService {
 | **ERROR** | Failed operations | Database timeout, file not found |
 | **FATAL/CRITICAL** | System unusable | Out of memory, disk full |
 
-## Best Practices
+## What Works
 
 - **Use structured JSON logs** in production for easy parsing by log aggregators (ELK, Datadog, CloudWatch)
 - **Include correlation IDs**: Pass a `request_id` through all logs in a single request chain

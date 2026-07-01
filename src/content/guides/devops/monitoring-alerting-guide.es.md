@@ -28,7 +28,7 @@ seo:
     - monitoreo y alertas
     - observabilidad metricas logs traces
     - metodo red use
-    - diseno alertas mejores practicas
+    - diseno alertas lo que funciona
     - reducir fatiga alertas
 ---
 

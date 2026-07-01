@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: read-replica-guide
-title: "Réplicas de Lectura — Escala Lecturas Sin Cambiar la Lógica de Aplicación"
+title: "Réplicas de Lectura: Escala Lecturas Sin Cambiar la Lógica de Aplicación"
 description: "Guía práctica sobre réplicas de lectura: configurar replicación, enrutar consultas de lectura, manejar lag de replicación, y escalar cargas de trabajo intensivas en lectura con PostgreSQL, MySQL y réplicas gestionadas en la nube."
 metaDescription: "Aprende réplicas de lectura: configura replicación, enruta consultas, maneja lag y escala lecturas con PostgreSQL, MySQL y nube."
 difficulty: intermediate
@@ -53,10 +53,10 @@ Esta guía cubre configuración de replicación, enrutamiento de consultas, mane
 
 ## Cuándo NO Usar
 
-- Tu carga de trabajo es intensiva en escritura (>50% escrituras) — las réplicas no ayudan al escalado de escritura
-- Requieres lecturas fuertemente consistentes inmediatamente después de escrituras — el lag de replicación puede violar esto
-- Tus consultas ya están limitadas por CPU en la réplica — agregar más réplicas es mejor que hacerlas más grandes
-- No has optimizado consultas e índices en el primario — arregla esos primero
+- Tu carga de trabajo es intensiva en escritura (>50% escrituras). Las réplicas no ayudan al escalado de escritura
+- Requieres lecturas fuertemente consistentes inmediatamente después de escrituras. El lag de replicación puede violar esto
+- Tus consultas ya están limitadas por CPU en la réplica. Agregar más réplicas es mejor que hacerlas más grandes
+- No has optimizado consultas e índices en el primario. Arregla esos primero
 
 ## Conceptos Clave
 
@@ -228,7 +228,7 @@ public class UserService {
 }
 ```
 
-**Estrategias de enrutamiento:**
+#### Estrategias de Enrutamiento
 
 | Estrategia | Implementación | Mejor Para |
 |------------|---------------|------------|
@@ -295,7 +295,7 @@ SHOW REPLICA STATUS\G
 -- Buscar: Seconds_Behind_Source
 ```
 
-**Estrategias para manejar lag:**
+#### Estrategias para Manejar Lag
 
 | Enfoque | Cómo Funciona | Trade-off |
 |---------|---------------|-----------|
@@ -342,12 +342,13 @@ groups:
           summary: "Lag de réplica MySQL > 10 segundos"
 ```
 
-**Métricas clave para monitorear:**
-- **Lag en bytes/segundos:** ¿Qué tan atrasada está la réplica?
-- **Estado de replicación:** ¿Está corriendo, pausada o detenida?
-- **Tendencia de lag:** ¿El lag está aumentando (indica que la réplica no puede mantenerse)?
-- **Latencia de consulta en réplica:** ¿Las lecturas siguen siendo rápidas?
-- **Conteo de conexiones:** ¿La réplica está en su límite de conexiones?
+#### Métricas Clave para Monitorear
+
+- Lag en bytes/segundos: ¿Qué tan atrasada está la réplica?
+- Estado de replicación: ¿Está corriendo, pausada o detenida?
+- Tendencia de lag: ¿El lag está aumentando (indica que la réplica no puede mantenerse)?
+- Latencia de consulta en réplica: ¿Las lecturas siguen siendo rápidas?
+- Conteo de conexiones: ¿La réplica está en su límite de conexiones?
 
 ### 5. Planifica para Failover
 
@@ -368,7 +369,7 @@ RESET REPLICA ALL;
 SET GLOBAL read_only = OFF;
 ```
 
-**Enfoques de failover:**
+#### Enfoques de Failover
 
 | Enfoque | RTO | Complejidad | Mejor Para |
 |---------|-----|-------------|------------|
@@ -379,29 +380,29 @@ SET GLOBAL read_only = OFF;
 
 ## Lo que funciona
 
-- **Empieza con una réplica.** Una réplica bien configurada resuelve el 80% de las necesidades de escalado de lectura.
-- **Usa réplicas para reportes y analítica.** Aísla consultas costosas del primario.
-- **Monitorea el lag sin descanso.** Lag que crece sin control indica que la réplica no puede mantenerse.
-- **Prueba failover antes de necesitarlo.** Promueve una réplica en staging trimestralmente.
-- **Mantén hardware de réplica igual al primario.** Una réplica más lenta crea lag durante carga pico.
-- **Usa pooling de conexiones en réplicas también.** Las réplicas tienen los mismos límites de conexión que los primarios.
+- Empieza con una réplica. Una réplica bien configurada resuelve el 80% de las necesidades de escalado de lectura.
+- Usa réplicas para reportes y analítica. Aísla consultas costosas del primario.
+- Monitorea el lag sin descanso. Lag que crece sin control indica que la réplica no puede mantenerse.
+- Prueba failover antes de necesitarlo. Promueve una réplica en staging trimestralmente.
+- Mantén hardware de réplica igual al primario. Una réplica más lenta crea lag durante carga pico.
+- Usa pooling de conexiones en réplicas también. Las réplicas tienen los mismos límites de conexión que los primarios.
 
 ## Errores Comunes
 
-- **Enrutar todas las lecturas a réplicas.** Estado de sesión, datos recientemente modificados, y lecturas críticas deberían quedarse en el primario.
-- **Ignorar lag de replicación.** Los usuarios ven datos obsoletos y reportan "bugs" que en realidad son lag.
-- **Una sola réplica sin plan de failover.** Si la réplica falla, tu capacidad de lectura cae a cero.
-- **Ejecutar escrituras en réplicas.** Las escrituras accidentales rompen la replicación y requieren reinicialización.
-- **Sin monitoreo de lag.** Solo descubres problemas de lag cuando los usuarios se quejan.
-- **Usar réplicas para escalado de escritura.** Las réplicas solo escalan lecturas. Para escalado de escritura, considera sharding o particionamiento.
+- Enrutar todas las lecturas a réplicas. Estado de sesión, datos recientemente modificados, y lecturas críticas deberían quedarse en el primario.
+- Ignorar lag de replicación. Los usuarios ven datos obsoletos y reportan "bugs" que en realidad son lag.
+- Una sola réplica sin plan de failover. Si la réplica falla, tu capacidad de lectura cae a cero.
+- Ejecutar escrituras en réplicas. Las escrituras accidentales rompen la replicación y requieren reinicialización.
+- Sin monitoreo de lag. Solo descubres problemas de lag cuando los usuarios se quejan.
+- Usar réplicas para escalado de escritura. Las réplicas solo escalan lecturas. Para escalado de escritura, considera sharding o particionamiento.
 
 ## Variantes
 
-- **Replicación en cascada:** Réplica → Réplica → Réplica para distribución geográfica
-- **Multi-primario (master-master):** Escrituras aceptadas en múltiples nodos — complejo, usar con cautela
-- **Replicación lógica:** Replicación selectiva de tabla/columna (PostgreSQL 10+, filtrado de binlog MySQL)
-- **Réplicas en diferentes regiones:** Réplicas gestionadas por proveedores cloud para reducción de latencia global
-- **Réplica retrasada:** Réplica intencionalmente atrasada por horas para recuperación punto-en-tiempo
+- Replicación en cascada: Réplica → Réplica → Réplica para distribución geográfica
+- Multi-primario (master-master): Escrituras aceptadas en múltiples nodos. Complejo, usar con cautela
+- Replicación lógica: Replicación selectiva de tabla/columna (PostgreSQL 10+, filtrado de binlog MySQL)
+- Réplicas en diferentes regiones: Réplicas gestionadas por proveedores cloud para reducción de latencia global
+- Réplica retrasada: Réplica intencionalmente atrasada por horas para recuperación punto-en-tiempo
 
 ## FAQ
 

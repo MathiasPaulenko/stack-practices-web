@@ -150,7 +150,7 @@ For configuration drift detection, a structural diff is sufficient. For snapshot
 | Java | `zjsonpatch` | `JsonDiff.asJson(old, new)` | RFC 6902 via Jackson, battle-tested |
 | Java | `Jackson` | Custom recursive visitor | Full control over comparison logic |
 
-## Best Practices
+## What Works
 
 - **Normalize before diffing**: Sort object keys and arrays if order is irrelevant; use `ignore_order=True` in DeepDiff
 - **Use RFC 6902 patches for API operations**: They are standard, compact, and can be applied/reverted

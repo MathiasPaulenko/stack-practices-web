@@ -243,7 +243,7 @@ cart.checkout(99.99)
 | "I need to abstract database access" | Repository | See [database design](/guides/databases/database-design-guide).
 | "I need to track and undo changes" | Command + Memento |
 
-## Best Practices
+## What Works
 
 - **Don't force patterns**: Not every problem needs a pattern
 - **Start simple**: Refactor into a pattern when duplication appears. See [clean code](/guides/design/clean-code-principles-guide).

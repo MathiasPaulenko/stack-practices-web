@@ -151,7 +151,7 @@ El playbook impone un **único Incident Commander** para evitar decisiones confl
 | On-premise | Procedimientos de aislamiento físico | Requerir acceso a data center, imagenado de hardware |
 | Equipo pequeño | Combinar roles (Commander + Líder Técnico) | Documentar quién cubre cada rol si el primario no está disponible |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Realizar ejercicios de simulacro (tabletop) trimestralmente para que el equipo conozca el playbook antes de un incidente real
 2. Mantener una hoja de contactos con números telefónicos, no solo handles de Slack

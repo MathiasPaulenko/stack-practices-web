@@ -3,7 +3,7 @@ contentType: recipes
 slug: pagination
 title: "Paginación"
 description: "Cómo implementar paginación basada en cursor y offset en APIs y bases de datos en Python, JavaScript y SQL."
-metaDescription: "Ejemplos prácticos de paginación en Python, JavaScript y SQL. Aprende paginación offset vs cursor, LIMIT/OFFSET y APIs cursor-based para fetching escalable."
+metaDescription: "Ejemplos prácticos de paginación en Python, JavaScript y SQL. Aprende paginación offset vs cursor, LIMIT/OFFSET y APIs cursor-based para fetching listo para crecer."
 difficulty: intermediate
 topics:
   - api
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Ejemplos prácticos de paginación en Python, JavaScript y SQL. Aprende paginación offset vs cursor, LIMIT/OFFSET y APIs cursor-based para fetching escalable."
+  metaDescription: "Ejemplos prácticos de paginación en Python, JavaScript y SQL. Aprende paginación offset vs cursor, LIMIT/OFFSET y APIs cursor-based para fetching listo para crecer."
   keywords:
     - paginación
     - api pagination
@@ -137,7 +137,7 @@ SELECT COUNT(*) FROM users;
 | Cursor-based | Rápido, consistente | No puede saltar a página arbitraria | Feeds sociales, scroll infinito |
 | Seek / Keyset | Rápido, sorting estable | Requiere clave única ordenada | Datasets ordenados grandes |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa cursor pagination para APIs de alto tráfico**: Previene cliffs de rendimiento
 - **Siempre ORDER BY**: Sin ordenar, la paginación es no determinística. Consulta [SQL Joins](/recipes/databases/sql-joins) para optimización de queries.
@@ -151,7 +151,7 @@ SELECT COUNT(*) FROM users;
 - No ordenar resultados, causando que items se desplacen entre páginas
 - Usar `SELECT COUNT(*)` innecesariamente en tablas masivas
 - Permitir `page_size` ilimitado
-- Usar paginación offset en datasets con millones de filas. Consulta [Paginación con Cursor](/recipes/api/cursor-pagination-postgresql) para paginación escalable.
+- Usar paginación offset en datasets con millones de filas. Consulta [Paginación con Cursor](/recipes/api/cursor-pagination-postgresql) para paginación lista para crecer.
 - Ignorar race conditions donde los datos se insertan/eliminan entre requests de página
 
 ## Preguntas frecuentes

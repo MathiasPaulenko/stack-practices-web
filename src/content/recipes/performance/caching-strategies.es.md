@@ -2,7 +2,7 @@
 contentType: recipes
 slug: caching-strategies
 title: "Estrategias de Caching"
-description: "Implementa estrategias de caching efectivas para bases de datos, APIs y frontends usando Redis, CDNs y caches de navegador."
+description: "Implementa estrategias de caching útiles para bases de datos, APIs y frontends usando Redis, CDNs y caches de navegador."
 metaDescription: "Estrategias de caching para aplicaciones web: Redis, CDN, cache de navegador, invalidación de cache, stale-while-revalidate y prevención de stampede."
 difficulty: intermediate
 topics:
@@ -30,7 +30,7 @@ seo:
 ---
 ## Visión General
 
-El caching es la técnica más efectiva para mejorar el rendimiento de aplicaciones. Almacenando datos frecuentemente accedidos cerca de los consumidores — en memoria del navegador, bordes de CDN o almacenamiento in-memory — reduces latencia, disminuyes carga de base de datos y mejoras la experiencia del usuario. Elegir la estrategia correcta depende de los requisitos de frescura de datos y patrones de lectura/escritura.
+El caching es la técnica más útil para mejorar el rendimiento de aplicaciones. Almacenando datos frecuentemente accedidos cerca de los consumidores — en memoria del navegador, bordes de CDN o almacenamiento in-memory — reduces latencia, disminuyes carga de base de datos y mejoras la experiencia del usuario. Elegir la estrategia correcta depende de los requisitos de frescura de datos y patrones de lectura/escritura.
 
 ## Cuándo Usar
 
@@ -111,7 +111,7 @@ app.get('/api/products', (req, res) => {
 | Base de datos | Query cache, vistas materializadas | ~1-10ms | Queries complejas repetidas |
 | Disco | Page cache, buffers del OS | ~0.1ms | Lecturas de file system |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Ajusta TTLs según volatilidad**: Perfiles de usuario (1h), catálogos de productos (24h), precios de acciones (10s)
 - **Cachea en múltiples capas**: Navegador + CDN + Redis + query cache de DB

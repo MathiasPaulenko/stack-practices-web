@@ -416,7 +416,7 @@ Knowledge Sources do not communicate directly with each other. They only interac
 | **Event-driven** | Sources react to blackboard changes | Reactive AI systems |
 | **Hierarchical** | Multiple blackboards at different abstraction levels | Multi-stage problem solving |
 
-## Best Practices
+## What Works
 
 - **Keep Knowledge Sources independent.** They should not communicate directly.
 - **Use a priority queue for the controller.** Select the most promising source to act next.

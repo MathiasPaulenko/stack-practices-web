@@ -111,7 +111,7 @@ refactor: extract payment service
 | Trunk-based | Monorepos, very fast CI | Low |
 | Release branches | Long-term support versions | Medium |
 
-## Best Practices
+## What Works
 
 - **Keep branches short-lived**: a branch open for weeks accumulates merge conflicts and stale code. Aim for days, not weeks.
 - **Write meaningful commit messages**: explain *why*, not just *what*. Future you (and your teammates) will thank you.
@@ -123,7 +123,7 @@ refactor: extract payment service
 
 - **Long-running branches**: the longer a branch lives, the harder it is to merge. Rebase frequently.
 - **Committing to main directly**: even in a solo project, using branches keeps your history clean and rollback easy.
-- **Giant pull requests**: PRs with hundreds of files are impossible to review well. Split large features into stacked PRs.
+- **Giant pull requests**: PRs with hundreds of files are impossible to review well. Split large capabilities into stacked PRs.
 - **Ignoring merge conflicts**: resolving conflicts hastily without understanding both sides introduces bugs.
 - **Messy commit history**: "fix", "fix again", "actually fix" makes `git blame` useless. Squash or amend before pushing.
 

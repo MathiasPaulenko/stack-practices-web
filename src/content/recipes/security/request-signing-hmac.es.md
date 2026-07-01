@@ -148,7 +148,7 @@ AWS Signature v4 extiende esto con scopes de credenciales, headers firmados e id
 | Ed25519 | Asimétrica | 128-bit | Verificación con clave pública/privada |
 | RSA-SHA256 | Asimétrica | 2048+ bit | Integración con PKI empresarial |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa comparación de tiempo constante**: `crypto.timingSafeEqual()` previene ataques de timing
 - **Incluye timestamps**: Rechaza peticiones mayores a 5 minutos para prevenir replay attacks

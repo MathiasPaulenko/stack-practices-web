@@ -103,7 +103,7 @@ Declarative partitioning in PostgreSQL lets you define a partitioned table and a
 | Hash | Hash of key | Even distribution, no natural range |
 | Composite | Range + List | Large multi-tenant tables |
 
-## Best Practices
+## What Works
 
 1. **Choose the partition key based on query patterns.** Partitioning by a column you never filter on is wasted overhead.
 2. **Create future partitions before data arrives.** Use a cron job or extension like `pg_partman` to automate this.

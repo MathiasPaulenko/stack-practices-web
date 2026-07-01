@@ -32,7 +32,7 @@ seo:
 
 ## Descripcion General
 
-Una violacion de datos no es solo un incidente tecnico — es una crisis legal, reputacional y operativa. Las primeras 24 horas determinan si la violacion se convierte en un incidente manejable o en un titular. Este playbook proporciona una respuesta estructurada: contener el dano, preservar evidencia, notificar a las personas correctas y remediar la causa raiz. Esta disenado para usarse bajo presion, con puntos de decision claros y asignaciones de responsables.
+Una violacion de datos no es solo un incidente tecnico. Es una crisis legal, reputacional y operativa. Las primeras 24 horas determinan si la violacion se convierte en un incidente manejable o en un titular. Este playbook proporciona una respuesta estructurada: contener el dano, preservar evidencia, notificar a las personas correctas y remediar la causa raiz. Esta disenado para usarse bajo presion, con puntos de decision claros y asignaciones de responsables.
 
 ## Cuando Usar
 
@@ -173,7 +173,7 @@ Antes de que ocurra una violacion:
 
 ## Explicacion
 
-El playbook esta dividido en **fases** que coinciden con la presion temporal de una violacion: las primeras horas son sobre confirmar y contener; los siguientes dias sobre investigar y notificar; las siguientes semanas sobre arreglar y aprender. Cada fase tiene **casillas de verificacion con responsables asignados** para que nada se olvide en el caos. La **matriz de decision de notificacion** es critica — omitir un plazo legal puede convertir un incidente de seguridad en una multa regulatoria.
+El playbook esta dividido en fases que coinciden con la presion temporal de una violacion: las primeras horas son sobre confirmar y contener; los siguientes dias sobre investigar y notificar; las siguientes semanas sobre arreglar y aprender. Cada fase tiene casillas de verificacion con responsables asignados para que nada se olvide en el caos. La matriz de decision de notificacion es critica. Omitir un plazo legal puede convertir un incidente de seguridad en una multa regulatoria.
 
 ## Variantes
 
@@ -185,21 +185,21 @@ El playbook esta dividido en **fases** que coinciden con la presion temporal de 
 | Ransomware | Agregar politica de pago, plan de restauracion de respaldos y contacto con fuerzas del orden | Pagar el rescate es una decision de negocio y legal |
 | Startup pequena (sin equipo de seguridad dedicado) | Agregar pasos de enganche de firma de seguridad externa y asignacion simplificada de roles | La velocidad importa mas que la exhaustividad cuando eres pequeno |
 
-## Mejores Practicas
+## Lo que funciona
 
-1. **Practica el playbook** — ejecuta un ejercicio de mesa trimestral. Un playbook que nunca has usado es un pasivo
-2. **Preserva antes de limpiar** — la forensia depende de la evidencia; la contencion que destruye logs hace el analisis de causa raiz imposible
-3. **Asesor legal temprano** — el privilegio cliente-abogado puede proteger los hallazgos de la investigacion del descubrimiento en litigios
-4. **Documenta todo en tiempo real** — los recuerdos se distorsionan bajo presion; un registro continuo es mas confiable que la memoria
-5. **No prometas lo que no puedes verificar** — si no sabes el alcance, dilo. Sobreestimar la confianza destruye la credibilidad
+1. Practica el playbook. Ejecuta un ejercicio de mesa trimestral. Un playbook que nunca has usado es un pasivo
+2. Preserva antes de limpiar. La forensia depende de la evidencia; la contencion que destruye logs hace el analisis de causa raiz imposible
+3. Asesor legal temprano. El privilegio cliente-abogado puede proteger los hallazgos de la investigacion del descubrimiento en litigios
+4. Documenta todo en tiempo real. Los recuerdos se distorsionan bajo presion; un registro continuo es mas confiable que la memoria
+5. No prometas lo que no puedes verificar. Si no sabes el alcance, dilo. Sobreestimar la confianza destruye la credibilidad
 
 ## Errores Comunes
 
-1. **Apagar sistemas inmediatamente** — pierdes memoria volatil y logs. Aisla, no apagues
-2. **Notificar demasiado temprano o demasiado tarde** — notificar temprano sin datos causa panico; notificar tarde causa multas regulatorias
-3. **Saltarse la preservacion de evidencia** — sin evidencia, no puedes probar que paso, defenderte de demandas ni aprender
-4. **Comunicar sobre canales comprometidos** — asume que el atacante esta leyendo tu chat de incidentes. Usa comunicacion fuera de banda
-5. **Sin seguimiento de remediacion** — la violacion no termina cuando el atacante sale; termina cuando el sistema es demostrablemente mas seguro
+1. Apagar sistemas inmediatamente. Pierdes memoria volatil y logs. Aisla, no apagues
+2. Notificar demasiado temprano o demasiado tarde. Notificar temprano sin datos causa panico; notificar tarde causa multas regulatorias
+3. Saltarse la preservacion de evidencia. Sin evidencia, no puedes probar que paso, defenderte de demandas ni aprender
+4. Comunicar sobre canales comprometidos. Asume que el atacante esta leyendo tu chat de incidentes. Usa comunicacion fuera de banda
+5. Sin seguimiento de remediacion. La violacion no termina cuando el atacante sale; termina cuando el sistema es demostrablemente mas seguro
 
 ## Preguntas Frecuentes
 

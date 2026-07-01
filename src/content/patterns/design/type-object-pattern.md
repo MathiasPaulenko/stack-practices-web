@@ -282,7 +282,7 @@ All `Goblin` monsters share the same `MonsterType` object, drastically reducing 
 | **Scripted** | Lua/Python scripts | Complex behavior per type |
 | **Hybrid ECS** | Type as Component archetype | Unity DOTS, modern engines |
 
-## Best Practices
+## What Works
 
 - **Keep types immutable.** Modifying a shared type affects all instances unexpectedly.
 - **Separate instance state from type data.** Current HP and position belong to instances; base stats belong to types.

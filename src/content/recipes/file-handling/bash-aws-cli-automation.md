@@ -99,7 +99,7 @@ The script reads the AWS region from an environment variable and accepts project
 | Delete old | `aws ec2 describe-snapshots` | Filter by date, then delete |
 | Assume role | `aws sts assume-role` | Use temporary credentials |
 
-## Best Practices
+## What Works
 
 1. **Use `--query` and `--output text` to parse IDs.** Avoid fragile text parsing of JSON or tables.
 2. **Tag everything immediately.** Tags are easier to add at creation than to retroactively apply.

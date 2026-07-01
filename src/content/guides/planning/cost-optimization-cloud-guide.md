@@ -241,7 +241,7 @@ Proactive monitoring prevents bill shock:
 | Resource sprawl | New resources >$500/day | Require approval workflow |
 | Idle resources | <5% CPU for 7 days | Auto-tag for review |
 
-## Best Practices
+## What Works
 
 - **Optimize continuously, not annually.** Review costs monthly and act on findings.
 - **Start with the biggest spend.** Focus on compute, then storage, then networking.

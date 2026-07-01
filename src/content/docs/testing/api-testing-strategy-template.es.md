@@ -143,7 +143,7 @@ Los tests de contrato son el **ciclo de retroalimentación más rápido** para c
 | Event-driven / async | Testear productor + consumidor por separado | Usar bus de mensajes de test, verificar consistencia eventual |
 | Monolito legacy | Envolver API en tests de contrato antes de refactorizar | Pact con monolito como proveedor |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Tratar tests de contrato fallidos como fallos de build, no como advertencias
 2. Ejecutar tests de integración contra la misma versión de base de datos usada en producción

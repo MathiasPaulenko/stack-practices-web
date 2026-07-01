@@ -271,7 +271,7 @@ Event Sourcing replaces the traditional CRUD model with an append-only event log
 | **Temporal Queries** | Query state at any point in time | Debugging; historical reporting |
 | **Event Replay** | Replay events to rebuild or migrate | Schema migrations; bug recovery |
 
-## Best Practices
+## What Works
 
 - **Events should describe business intent** (e.g., `OrderPlaced`) not technical actions (`RowInserted`)
 - **Never delete or mutate events** — the log is immutable

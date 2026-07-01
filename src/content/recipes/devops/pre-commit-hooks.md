@@ -177,7 +177,7 @@ Git hooks are executable scripts in `.git/hooks/` that run at specific lifecycle
 | Rust | `pre-commit` + `rustfmt` / `clippy` | Same framework; community hooks available |
 | Secrets scanning | `gitleaks`, `trufflehog` | Pre-commit hooks prevent API keys and passwords from entering history |
 
-## Best Practices
+## What Works
 
 1. Keep hooks fast: lint only staged files, not the entire codebase
 2. Auto-fix when possible: formatters should rewrite files, not just report errors

@@ -30,7 +30,7 @@ seo:
     - template
 ---
 
-## Best Practices
+## What Works
 
 - **Plan before the bottleneck** — Capacity planning is proactive, not reactive. If you are already at 80% utilization, you are late
 - **Use load testing data** — Do not guess; run [load tests](/recipes/testing/load-testing) to find real breaking points

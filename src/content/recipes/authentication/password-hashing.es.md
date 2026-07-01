@@ -48,7 +48,7 @@ Usa esta recipe cuando:
 - Implementas [sistemas de autenticación](/recipes/authentication/session-management) con flujos de usuario y contraseña
 - Migras sistemas legacy desde hashes rápidos (MD5, SHA-1) a almacenamiento moderno de contraseñas
 - Validas contraseñas durante el login y los flujos de reset de contraseña
-- Cumples con estándares de seguridad (PCI-DSS, SOC 2, GDPR) que mandatan protección adecuada de credenciales. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para mejores prácticas de compliance.
+- Cumples con estándares de seguridad (PCI-DSS, SOC 2, GDPR) que mandatan protección adecuada de credenciales. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para lo que funciona para compliance.
 - Construyes paneles de administración o herramientas CLI que crean cuentas de servicio con contraseñas
 
 ## Solución
@@ -131,7 +131,7 @@ System.out.println(matches);
 | PBKDF2 | Buena | Lenta | Cumplimiento NIST/FIPS |
 | scrypt | Buena | Memory-hard | Resiste ataques GPU/ASIC |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Nunca inventes tu propia criptografía**: Usa librerías establecidas (bcrypt, argon2, passlib). La criptografía es notoriamente fácil de hacer mal de formas sutiles que solo se hacen evidentes bajo ataque.
 - **Usa siempre salt**: Único por contraseña, manejado automáticamente por bcrypt. Sin salt, dos usuarios con la misma contraseña tendrán hashes idénticos, filtrando esa relación a cualquiera con acceso a la base de datos.

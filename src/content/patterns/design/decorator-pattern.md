@@ -170,7 +170,7 @@ Decorators can be nested arbitrarily. You can wrap a `MilkDecorator` with a `Sug
 | **Function-based** | Python `@decorator` syntax | Concise, but less explicit composition |
 | **[Middleware pipeline](/patterns/design/decorator-pattern-pipeline)** | Web frameworks (Express, Koa) | Great for request/response processing |
 
-## Best Practices
+## What Works
 
 - **Keep decorators transparent**: They should implement the exact same interface as the component
 - **Delegate all methods**: Unless intentionally overriding, pass every call to the wrapped object

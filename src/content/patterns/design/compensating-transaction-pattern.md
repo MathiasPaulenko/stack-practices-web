@@ -501,7 +501,7 @@ Key properties:
 | **Parallel Saga** | Independent steps run concurrently; compensations run for all on failure | High-throughput, loosely coupled steps |
 | **Nested Saga** | A saga step is itself a sub-saga with its own compensations | Recursive business processes |
 
-## Best Practices
+## What Works
 
 - **Design compensations upfront.** They are harder to retrofit than the original operations.
 - **Make compensations idempotent.** They may be retried if the first attempt fails.

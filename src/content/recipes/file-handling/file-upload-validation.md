@@ -37,7 +37,7 @@ File uploads are one of the most common attack vectors in web applications. Unva
 
 Use this resource when:
 - Building a web app that accepts user-generated images, documents, or media. See [Image Optimization](/recipes/file-handling/image-optimization) for post-upload processing.
-- Implementing a CMS, forum, or SaaS with attachment support. See [Export CSV Excel](/recipes/file-handling/export-csv-excel) for data export features.
+- Implementing a CMS, forum, or SaaS with attachment support. See [Export CSV Excel](/recipes/file-handling/export-csv-excel) for data export capabilities.
 - You need to comply with security standards (PCI-DSS, SOC 2). See [Secret Management](/recipes/devops/secret-management) for secure credential storage.
 - Processing files from untrusted sources (public forms, APIs). See [Input Validation](/recipes/api/input-validation) for untrusted input handling.
 
@@ -154,7 +154,7 @@ Each layer catches different threats. Never rely on a single check.
 | Go | mimetype | Fast, pure Go, zero-allocation reads |
 | Ruby | Marcel | Rails default, uses both extension and magic |
 
-## Best Practices
+## What Works
 
 - **Validate before saving to disk**: Check everything in memory or a temp buffer first.
 - **Use random filenames**: Never store files with original user-provided names. Map to UUIDs internally.

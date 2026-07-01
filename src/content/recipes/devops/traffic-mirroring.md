@@ -151,7 +151,7 @@ spec:
 | Envoy | Sidecar | Low | Custom proxy configurations |
 | GoReplay | Application | Medium | TCP-level replay |
 
-## Best Practices
+## What Works
 
 - **Start with small percentages**: Mirror 1% of traffic initially; scale to 100% for full validation
 - **Sanitize mirrored requests**: Strip PII, auth tokens, and payment data before sending to staging

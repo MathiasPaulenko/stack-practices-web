@@ -129,7 +129,7 @@ public class LargeFileReader {
 | JavaScript | Web Streams API | `ReadableStream.getReader()` in browsers |
 | Java | `Files.lines()` | Lazy Stream<String>; auto-closes |
 
-## Best Practices
+## What Works
 
 1. Always use `with` (Python), `try-with-resources` (Java), or pipe error handling (JS) to prevent file descriptor leaks
 2. Choose buffer sizes based on average line length; 1 MB is a sane default

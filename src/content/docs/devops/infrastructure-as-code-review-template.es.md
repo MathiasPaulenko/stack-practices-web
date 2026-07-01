@@ -107,7 +107,7 @@ Usa este recurso cuando:
 ## 6. Documentación
 
 - [ ] README actualizado con inputs, outputs y ejemplo de uso
-- [ ] Architecture Decision Record (ADR) incluido para cambios significativos
+- [ ] Architecture Decision Record (ADR) incluido para cambios importantes
 - [ ] Runbook actualizado para nuevos procedimientos operacionales
 - [ ] Playbooks de alertas de on-call cubren nuevas señales de monitoreo
 

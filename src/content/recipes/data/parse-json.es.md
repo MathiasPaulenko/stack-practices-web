@@ -3,7 +3,7 @@ contentType: recipes
 slug: parse-json
 title: "Parsear JSON"
 description: "Cómo parsear cadenas JSON a estructuras de datos nativas en varios lenguajes de programación."
-metaDescription: "Ejemplos prácticos de parseo de JSON en Python, JavaScript y Java con fragmentos de código, casos límite y buenas prácticas para desarrolladores."
+metaDescription: "Ejemplos prácticos de parseo de JSON en Python, JavaScript y Java con fragmentos de código, casos límite y lo que funciona para desarrolladores."
 difficulty: beginner
 topics:
   - data
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-09"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Ejemplos prácticos de parseo de JSON en Python, JavaScript y Java con fragmentos de código, casos límite y buenas prácticas para desarrolladores."
+  metaDescription: "Ejemplos prácticos de parseo de JSON en Python, JavaScript y Java con fragmentos de código, casos límite y lo que funciona para desarrolladores."
   keywords:
     - parsear json
     - json python
@@ -97,7 +97,7 @@ Una vez tengas los datos parseados, consulta [Llamar a una API REST](/recipes/ap
 | JavaScript | `JSON.parse()` (nativo) | `Object` / `Array` | leer archivo y luego parsear |
 | Java | Jackson / Gson | `JsonNode` / POJO | `mapper.readValue(file, T.class)` |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Maneja siempre los errores de parseo**: envuelve el parseo en `try/except` (Python) o `try/catch` (JS/Java); el JSON externo no es de confianza.
 - **Prefiere modelos tipados en Java**: mapea a POJOs con `readValue()` en lugar de navegar `JsonNode` por claves de texto.

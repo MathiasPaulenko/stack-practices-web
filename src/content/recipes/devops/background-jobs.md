@@ -163,7 +163,7 @@ Cron jobs are a special case: instead of being triggered by user events, they ru
 | Spring @Scheduled | Java | N/A (in-process) | Cron expressions | Simple scheduled tasks |
 | AWS Lambda + EventBridge | Any | N/A (serverless) | EventBridge rules | Cloud-native, pay-per-use |
 
-## Best Practices
+## What Works
 
 - **Make jobs idempotent**: Running the same job twice should produce the same result. Use unique job IDs to prevent duplicates.
 - **Set retry policies with backoff**: Transient failures (network blips) should retry 3-5 times with exponential backoff.

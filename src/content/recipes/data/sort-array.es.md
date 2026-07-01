@@ -141,7 +141,7 @@ users.stream()
 | Por clave/propiedad | `sorted(lst, key=fn)` | `toSorted((a,b)=>a.p-b.p)` | `sorted(Comparator.comparing(...))` |
 | In-place | `lst.sort()` | `lst.sort(...)` | `list.sort(...)` |
 
-## Best Practices
+## Lo que funciona
 
 - **Usa sorts built-in**: no implementes tu propio algoritmo de ordenamiento a menos que tengas un perfil de rendimiento muy específico (ej. datos casi ordenados).
 - **Mantén comparadores puros**: las funciones comparadoras no deben mutar datos ni depender de estado externo.

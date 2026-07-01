@@ -108,7 +108,7 @@ Specific steps to fix. Include code examples if applicable.
 | Low | Info | Low | Medium |
 ```
 
-## Best Practices
+## What Works
 
 - **Include proof of concept** — without reproduction steps, developers cannot fix it
 - **Rate risk in business context** — a theoretically critical bug on an internal-only admin page may be medium risk

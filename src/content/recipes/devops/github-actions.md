@@ -186,7 +186,7 @@ jobs:
       node-version: '20'
 ```
 
-## Best Practices
+## What Works
 
 - **Pin action versions** using full commit SHAs for supply-chain security. While tags like `v4` are convenient, a compromised action maintainer could repoint the tag to malicious code. Pinning to a SHA ensures the exact code runs every time.
 - **Use `npm ci`** instead of `npm install` in CI for reproducible builds. `npm ci` strictly respects `package-lock.json`, eliminating drift between local and CI environments.

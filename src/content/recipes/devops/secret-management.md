@@ -154,5 +154,5 @@ A: Use a team password manager (1Password, Bitwarden) for human credentials and 
 A: The uncontrolled duplication of secrets across systems, repos, and files. Combat it with a centralized vault and strict rotation policies.
 
 **Q: Can I use Kubernetes Secrets for everything?**
-A: K8s Secrets are fine for in-cluster injection but lack advanced capabilities like dynamic generation and cross-cluster sharing. Use a dedicated vault for complex requirements.
+A: K8s Secrets are fine for in-cluster injection but lack advanced capabilities like live generation and cross-cluster sharing. Use a dedicated vault for complex requirements.
 

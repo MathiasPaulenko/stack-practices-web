@@ -138,7 +138,7 @@ DI inverts control: instead of components finding or creating their dependencies
 | Method | Per-call dependencies | Verbose; used for strategy injection |
 | Service Locator | Legacy code | Hides dependencies; harder to test |
 
-## Best Practices
+## What Works
 
 - **Prefer constructor injection**: Makes dependencies explicit and immutable
 - **Avoid service locators**: They hide dependencies and make testing harder

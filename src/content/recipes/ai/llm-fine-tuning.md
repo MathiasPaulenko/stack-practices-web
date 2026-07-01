@@ -186,7 +186,7 @@ Fine-tuning updates a pre-trained model's weights to improve performance on a na
 | Adapter layers | Small bottleneck layers | Similar idea to LoRA; less widely adopted |
 | [OpenAI fine-tuning](/recipes/ai/chatbot-openai) | API-based | Upload JSONL, no infrastructure; pay per token |
 
-## Best Practices
+## What Works
 
 1. Curate high-quality examples: 500 great examples beat 10,000 mediocre ones
 2. Format prompts consistently (e.g., `### Task: ...\n### Response: ...`) so the model learns the pattern

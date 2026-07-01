@@ -123,7 +123,7 @@ The template collects consistent evidence across vendors, which makes it easier 
 - **AI/ML vendor assessment**: Adds questions about model training data, bias, output ownership, and explainability.
 - **Renewal-only review**: Skips basic onboarding questions and focuses on changes since the last assessment.
 
-## Best Practices
+## What Works
 
 - Reuse the same template for every vendor to keep comparisons fair.
 - Request evidence, not just yes/no answers.

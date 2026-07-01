@@ -219,7 +219,7 @@ La plantilla estructura las pruebas de DR en **objetivos declarados** (metas de 
 | Despues de cambio de infraestructura | Escenario dirigido al componente cambiado | Validar solo lo que cambio |
 | Game day / chaos engineering | Prueba no anunciada | Mas realista, requiere automatizacion madura |
 
-## Best Practices
+## Lo que funciona
 
 1. **Programar pruebas durante horario laboral** — las personas que necesitan aprender deben participar
 2. **Medir, no estimar** — el RTO real casi siempre es mayor que la estimacion documentada

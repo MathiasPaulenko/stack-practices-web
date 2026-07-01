@@ -38,7 +38,7 @@ El email sigue siendo la columna vertebral de la comunicación con usuarios: res
 Usa este recurso cuando:
 - Tu aplicación necesite enviar emails transaccionales (registro, reset de contraseña, recibos). Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para seguridad de email.
 - Quieras evitar vendor lock-in de plataformas SaaS de email
-- Necesites plantillas de email personalizadas con datos dinámicos
+- Necesites plantillas de email personalizadas con datos en vivo
 - Debas enviar adjuntos (facturas, reportes, exports)
 
 ## Solución
@@ -168,7 +168,7 @@ Para alto volumen, considera una **cola de mensajes** ([Kafka](/recipes/messagin
 | Go | net/smtp | html/template | Microservicios, baja latencia |
 | Ruby | Action Mailer | ERB | Apps Rails |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa contraseñas de app o OAuth2**: Nunca hardcodees tu contraseña personal de email.
 - **Configura SPF, DKIM y DMARC**: Estos registros DNS mejoran dramáticamente la entregabilidad.

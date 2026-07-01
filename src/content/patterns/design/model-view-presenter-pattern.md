@@ -276,7 +276,7 @@ The key characteristic is that the **View is passive** — it does not pull data
 | **MVC** | Controller handles input, View observes Model | Frameworks like Rails, Django |
 | **MVVM** | View binds to ViewModel properties | Reactive UIs (WPF, Vue, Angular) |
 
-## Best Practices
+## What Works
 
 - **Make the View an interface.** This enables unit testing the Presenter with a mock View.
 - **Keep the View dumb.** No business logic, no data transformation, no decision-making.

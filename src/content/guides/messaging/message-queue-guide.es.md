@@ -39,7 +39,7 @@ seo:
 ---
 ## Visión General
 
-Las colas de mensajes son el sistema circulatorio de la arquitectura distribuida. Te permiten desacoplar componentes, manejar picos de tráfico, procesar tareas en segundo plano y construir sistemas resilientes. Sin embargo, elegir la tecnología equivocada o usar patrones incorrectos puede llevar a pérdida de mensajes, procesamiento duplicado o cuello de botella en la capacidad de procesamiento. Esta guía compara tres sistemas principales — RabbitMQ, Kafka y AWS SQS — y cubre patrones, throughput, garantías de ordenamiento y mejores prácticas operativas.
+Las colas de mensajes son el sistema circulatorio de la arquitectura distribuida. Te permiten desacoplar componentes, manejar picos de tráfico, procesar tareas en segundo plano y construir sistemas resilientes. Sin embargo, elegir la tecnología equivocada o usar patrones incorrectos puede llevar a pérdida de mensajes, procesamiento duplicado o cuello de botella en la capacidad de procesamiento. Esta guía compara tres sistemas principales — RabbitMQ, Kafka y AWS SQS — y cubre patrones, throughput, garantías de ordenamiento y pautas operativas.
 
 ## Cuándo Usar
 

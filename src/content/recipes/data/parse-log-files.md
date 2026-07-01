@@ -148,7 +148,7 @@ The Apache Combined Log Format is the de facto standard: `host ident authuser [d
 | CSV logs | `csv.reader` / `csv-parser` | Standard CSV tools |
 | Custom application | Named regex groups | Language-specific regex |
 
-## Best Practices
+## What Works
 
 - **Stream large files line by line** instead of loading the entire log into memory
 - **Use named regex groups** (`(?P<name>...)`) for self-documenting parsers
@@ -176,4 +176,4 @@ Use `tail -f` or language-specific file tailing libraries (Python `pygtail`, Nod
 
 ### How do I detect anomalies in logs?
 
-After parsing, aggregate by status code, response time percentiles, and error rate per endpoint. Set thresholds (e.g., >1% 5xx errors) and alert via PagerDuty or Slack. For advanced detection, feed parsed features into an ML model or use tools like the ELK stack with anomaly detection plugins.
+After parsing, aggregate by status code, response time percentiles, and error rate per endpoint. Set thresholds (e.g., >1% 5xx errors) and alert via PagerDuty or Slack. For advanced detection, feed parsed log data into an ML model or use tools like the ELK stack with anomaly detection plugins.

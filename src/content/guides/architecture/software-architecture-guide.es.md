@@ -48,44 +48,44 @@ La arquitectura de software define la estructura de un sistema, las relaciones e
 
 ### Arquitectura Monolítica
 
-**Estructura**: Unidad desplegable única que contiene toda la funcionalidad.
+Estructura: Unidad desplegable única que contiene toda la funcionalidad.
 
-**Cuándo elegir**
+#### Cuándo Elegir
 
 - Equipo pequeño (< 10 desarrolladores)
 - Dominio simple con baja complejidad
 - Fase de prototipado rápido
 - Requerimientos de latencia estrictos entre componentes
 
-**Pros**: Despliegue simple, testing fácil, bajo overhead operacional.
-**Contras**: Alto acoplamiento, más difícil escalar componentes individuales, riesgo de fallas en cascada.
+Pros: Despliegue simple, testing fácil, bajo overhead operacional.
+Contras: Alto acoplamiento, más difícil escalar componentes individuales, riesgo de fallas en cascada.
 
 ### Arquitectura de Microservicios
 
-**Estructura**: Servicios independientes que se comunican por red.
+Estructura: Servicios independientes que se comunican por red.
 
-**Cuándo elegir**
+#### Cuándo Elegir
 
 - Equipo grande (> 20 desarrolladores)
 - Dominio complejo con contextos acotados claros
 - Necesidad de escalar y desplegar independientemente
 - Múltiples stacks tecnológicos requeridos
 
-**Pros**: Despliegue independiente, autonomía de equipo, persistencia políglota.
-**Contras**: Latencia de red, complejidad operacional, dificultad de debugging distribuido.
+Pros: Despliegue independiente, autonomía de equipo, persistencia políglota.
+Contras: Latencia de red, complejidad operacional, dificultad de debugging distribuido.
 
 ### Monolito Modular
 
-**Estructura**: Unidad desplegable única con módulos internos bien definidos.
+Estructura: Unidad desplegable única con módulos internos bien definidos.
 
-**Cuándo elegir**
+#### Cuándo Elegir
 
 - Equipo mediano (10–30 desarrolladores)
 - Quieres postergar la complejidad de microservicios
 - Límites de dominio claros pero infraestructura compartida
 
-**Pros**: Operaciones más simples que microservicios, mejor estructura que big-ball-of-mud.
-**Contras**: Requiere disciplina para mantener límites de módulos.
+Pros: Operaciones más simples que microservicios, mejor estructura que big-ball-of-mud.
+Contras: Requiere disciplina para mantener límites de módulos.
 
 ## Arquitectura en Capas
 
@@ -104,7 +104,7 @@ La arquitectura de software define la estructura de un sistema, las relaciones e
 └──────────────────────────────┘
 ```
 
-**Regla de Dependencia**: Las capas internas no deben depender de las externas. Consulta [principios SOLID](/guides/design/solid-principles-guide).
+Regla de Dependencia: Las capas internas no deben depender de las externas. Consulta [principios SOLID](/guides/design/solid-principles-guide).
 
 ## Patrones de Flujo de Datos
 
@@ -112,25 +112,25 @@ La arquitectura de software define la estructura de un sistema, las relaciones e
 
 Separa los modelos de lectura y escritura.
 
-**Cuándo usar**
+#### Cuándo Usar
 
 - Las cargas de lectura y escritura difieren considerablemente
 - Los modelos de lectura requieren datos denormalizados/optimizados
 - Event sourcing ya está en uso
 
-**Trade-off**: Agrega complejidad; úsalo solo cuando lecturas y escrituras escalan independientemente.
+Trade-off: Agrega complejidad; úsalo solo cuando lecturas y escrituras escalan independientemente.
 
 ### Arquitectura Event-Driven
 
 Los componentes se comunican mediante eventos asíncronos.
 
-**Cuándo usar**
+#### Cuándo Usar
 
 - Se requiere desacoplamiento entre servicios
 - Las acciones pueden procesarse asíncronamente
 - La trazabilidad de cambios de estado es valiosa
 
-**Opciones de Event Bus**: Apache Kafka, RabbitMQ, AWS SNS/SQS, NATS.
+Opciones de Event Bus: Apache Kafka, RabbitMQ, AWS SNS/SQS, NATS.
 
 ## Framework de Selección de Tecnología
 
@@ -158,7 +158,7 @@ Agrega más instancias detrás de un load balancer.
 Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 ```
 
-**Requerimiento**: El estado debe externalizarse (base de datos, cache, object storage).
+Requerimiento: El estado debe externalizarse (base de datos, cache, object storage).
 
 ### Escalado de Base de Datos
 
@@ -173,39 +173,39 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 
 ### Síncrona (REST / gRPC)
 
-- **Pros**: Modelo mental simple, feedback inmediato.
-- **Contras**: Acoplamiento fuerte, posibles fallas en cascada.
-- **Usar para**: Operaciones orientadas al usuario que requieren respuesta inmediata.
+- Pros: Modelo mental simple, feedback inmediato.
+- Contras: Acoplamiento fuerte, posibles fallas en cascada.
+- Usar para: Operaciones orientadas al usuario que requieren respuesta inmediata.
 
 ### Asíncrona (Events / Message Queues)
 
-- **Pros**: Desacoplada, resiliente, escalable.
-- **Contras**: Consistencia eventual, más difícil de debuggear.
-- **Usar para**: Procesamiento en background, notificaciones, analytics.
+- Pros: Desacoplada, resiliente, escalable.
+- Contras: Consistencia eventual, más difícil de debuggear.
+- Usar para: Procesamiento en background, notificaciones, analytics.
 
 ## Anti-Patrones
 
-- **Big Ball of Mud**: Sin arquitectura, todo acoplado
-- **Microservicios prematuros**: Dividir antes de entender los límites
-- **Golden Hammer**: Usar la tecnología favorita para todo
-- **Not Invented Here**: Reconstruir en vez de comprar/adoptar
-- **Over-Engineering**: Resolver problemas que todavía no tienes
+- Big Ball of Mud: Sin arquitectura, todo acoplado
+- Microservicios prematuros: Dividir antes de entender los límites
+- Golden Hammer: Usar la tecnología favorita para todo
+- Not Invented Here: Reconstruir en vez de comprar/adoptar
+- Over-Engineering: Resolver problemas que todavía no tienes
 
 ## Lo que funciona
 
-- **Empieza simple**: Comienza con un [monolito modular](/guides/architecture/monolith-to-microservices-migration-guide); extrae servicios cuando sea necesario
-- **Define contextos acotados**: Usa [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) para encontrar límites naturales
-- **Diseña para observabilidad**: Cada componente debe exponer [métricas, logs, traces](/recipes/observability/metrics-collection)
-- **Automatiza todo**: [CI/CD](/guides/devops/cicd-pipeline-guide), [infraestructura](/guides/devops/infrastructure-as-code-guide), testing, escaneo de seguridad
-- **Documenta decisiones**: ADRs para cada elección arquitectónica mayor
+- Empieza simple: Comienza con un [monolito modular](/guides/architecture/monolith-to-microservices-migration-guide); extrae servicios cuando sea necesario
+- Define contextos acotados: Usa [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) para encontrar límites naturales
+- Diseña para observabilidad: Cada componente debe exponer [métricas, logs, traces](/recipes/observability/metrics-collection)
+- Automatiza todo: [CI/CD](/guides/devops/cicd-pipeline-guide), [infraestructura](/guides/devops/infrastructure-as-code-guide), testing, escaneo de seguridad
+- Documenta decisiones: ADRs para cada elección arquitectónica mayor
 
 ## FAQ
 
-**Q: ¿Cuándo debería dividir de monolito a microservicios?**
+Q: ¿Cuándo debería dividir de monolito a microservicios?
 A: Cuando los equipos se pisan durante los despliegues, o cuando el escalado independiente de componentes se vuelve crítico. La mayoría de los equipos debería empezar con un monolito modular.
 
-**Q: ¿Cómo elijo entre REST y gRPC?**
+Q: ¿Cómo elijo entre REST y gRPC?
 A: REST para APIs públicas y clientes de navegador; gRPC para comunicación interna servicio-a-servicio que requiere performance y type safety.
 
-**Q: ¿Debería usar un event bus o llamadas HTTP directas?**
+Q: ¿Debería usar un event bus o llamadas HTTP directas?
 A: Usa HTTP para operaciones que requieren consistencia inmediata y feedback al usuario. Usa eventos para trabajo en background, notificaciones y cuando necesitas desacoplamiento temporal.

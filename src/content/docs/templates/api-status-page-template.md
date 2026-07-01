@@ -4,7 +4,7 @@ slug: api-status-page-template
 templateType: api-status-page
 title: "API Status Page Template"
 description: "A template for a public API status page that communicates uptime, incidents, and maintenance windows to consumers."
-metaDescription: "API status page template with incident communication, maintenance windows, SLA definitions, and best practices for transparent uptime reporting."
+metaDescription: "API status page template with incident communication, maintenance windows, SLA definitions, and what works for transparent uptime reporting."
 difficulty: beginner
 topics:
   - api
@@ -25,12 +25,12 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "API status page template with incident communication, maintenance windows, SLA definitions, and best practices for transparent uptime reporting."
+  metaDescription: "API status page template with incident communication, maintenance windows, SLA definitions, and what works for transparent uptime reporting."
   keywords:
     - template
 ---
 
-## Best Practices
+## What Works
 
 - **Update every 15-30 minutes during active incidents** — Silence makes consumers assume the worst
 - **Post scheduled maintenance 7 days in advance** — Gives consumers time to prepare workarounds

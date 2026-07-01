@@ -327,7 +327,7 @@ This guarantees at-least-once delivery. The message broker may receive duplicate
 | **CDC relay** | Reads database WAL / binlog | Near real-time, no polling overhead |
 | **Transactional outbox** | Relay runs in same app process | Fewer moving parts, but couples relay to app |
 
-## Best Practices
+## What Works
 
 - **Use `FOR UPDATE SKIP LOCKED`** so multiple relay instances can run in parallel without contention.
 - **Keep payloads small.** The outbox is not a message queue. Store references, not full documents.

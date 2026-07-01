@@ -159,7 +159,7 @@ The timeline is the core of this document. Each milestone gives consumers multip
 1. **Announce early, cutoff firmly** — give maximum notice, then stick to the date
 2. **Make migration easier than staying** — code samples, CLI tools, and clear docs reduce support load
 3. **Monitor adoption** — track how many consumers have migrated; target the stragglers directly
-4. **Do not add features to a deprecated system** — it signals that deprecation is not serious
+4. **Do not add capabilities to a deprecated system** — it signals that deprecation is not serious
 5. **Document the decision** — write an ADR or brief explaining why the system is being deprecated
 
 ## Common Mistakes

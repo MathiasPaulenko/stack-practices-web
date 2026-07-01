@@ -2,8 +2,8 @@
 contentType: recipes
 slug: spa-code-splitting-lazy
 title: "SPA Performance: Code Splitting and Lazy Loading"
-description: "Improve single-page application load times by splitting bundles at route and component level, implementing lazy loading with React.lazy and dynamic imports"
-metaDescription: "Improve SPA performance with code splitting and lazy loading. Split bundles at route and component level using React.lazy and dynamic imports for faster loads."
+description: "Improve single-page application load times by splitting bundles at route and component level, implementing lazy loading with React.lazy and live imports"
+metaDescription: "Improve SPA performance with code splitting and lazy loading. Split bundles at route and component level using React.lazy and live imports for faster loads."
 difficulty: intermediate
 topics:
   - frontend
@@ -20,18 +20,18 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Improve SPA performance with code splitting and lazy loading. Split bundles at route and component level using React.lazy and dynamic imports for faster loads."
+  metaDescription: "Improve SPA performance with code splitting and lazy loading. Split bundles at route and component level using React.lazy and live imports for faster loads."
   keywords:
     - code splitting
     - lazy loading
     - react lazy
     - spa performance
-    - dynamic imports
+    - live imports
 ---
 
 # SPA Performance: Code Splitting and Lazy Loading
 
-Reduce initial bundle size in [single-page applications](/recipes/performance/lazy-loading) by splitting code at the route and component level. This recipe demonstrates React.lazy, dynamic imports, and preload strategies that keep time-to-interactive low without sacrificing user experience.
+Reduce initial bundle size in [single-page applications](/recipes/performance/lazy-loading) by splitting code at the route and component level. This recipe demonstrates React.lazy, live imports, and preload strategies that keep time-to-interactive low without sacrificing user experience.
 
 ## When to Use This
 
@@ -145,7 +145,7 @@ export default defineConfig({
 
 ## How It Works
 
-- `React.lazy` wraps a dynamic import and renders a fallback while loading
+- `React.lazy` wraps a live import and renders a fallback while loading
 - `Suspense` boundaries catch loading states and show fallback UI
 - Prefetching on hover starts loading before the user clicks
 - Manual chunks group shared vendor code into cacheable bundles

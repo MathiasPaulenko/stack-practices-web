@@ -285,7 +285,7 @@ Los dos modelos se sincronizan ya sea sincrónicamente (misma transacción) o as
 | **[Event Sourcing](/patterns/design/event-sourcing-pattern) + CQRS** | Los eventos son la fuente de verdad; los modelos de lectura son proyecciones | Trails de auditoría; consultas temporales |
 | **Segregación de API** | Endpoints REST/GraphQL separados para comandos y consultas | Microservicios; límites de equipo |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Empieza simple** — separa modelos dentro de la misma base de datos antes de introducir almacenamiento dual
 - **Usa consistencia eventual** para modelos de lectura cuando las proyecciones asíncronas sean aceptables

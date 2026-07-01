@@ -243,7 +243,7 @@ El cliente construye el orden de la cadena. Cada manejador también puede elegir
 | **Pipeline de Middleware** | Array de funciones, cada una llama `next()` | Frameworks web (Express, Django middleware) |
 | **Bus de Eventos** | Manejadores se registran para eventos específicos | Sistemas desacoplados orientados a eventos |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Mantén los manejadores enfocados** — cada manejador debe hacer una sola cosa (auth, validación, logging, etc.)
 - **Proporciona un manejador por defecto** al final de la cadena para evitar solicitudes no manejadas

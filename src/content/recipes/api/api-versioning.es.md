@@ -173,7 +173,7 @@ record UserV2(Long id, String fullName, String email) {}
 | Media Type | `Accept: application/vnd.app.v2+json` | Diseño RESTful estricto, APIs orientadas a contenido |
 | Query Parameter | `?version=v2` | Prototipado rápido, implementación más simple para clientes |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Empieza con versionado por ruta URL** — es el más descubrible y no requiere lógica especial del cliente.
 2. **Nunca rompas versiones existentes** — una vez publicada una versión, mantenla hasta una fecha de sunset publicada.

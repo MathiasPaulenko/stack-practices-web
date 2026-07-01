@@ -135,7 +135,7 @@ Prometheus sigue un modelo de pull:
 | Java | Micrometer | Integración Spring Boot |
 | Rust | prometheus | Compatible con async |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa labels con moderación**: Alta cardinalidad (combinaciones únicas de labels) degrada performance
 - **Prefiere histograms sobre summaries**: Los histograms permiten agregación across instances

@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-Code reviews are the most useful quality gate in software delivery — but only when they are consistent. Without a checklist, reviewers focus on what they personally care about: one engineer checks for SQL injection, another obsesses over variable names, and a third only looks at test coverage. A shared checklist ensures every review covers the dimensions that matter to the team, while leaving room for human judgment on design and architecture.
+Code reviews are the most useful quality gate in software delivery, but only when they are consistent. Without a checklist, reviewers focus on what they personally care about: one engineer checks for SQL injection, another obsesses over variable names, and a third only looks at test coverage. A shared checklist ensures every review covers the dimensions that matter to the team, while leaving room for human judgment on design and architecture.
 
 ## When to Use
 
@@ -120,7 +120,7 @@ Before adopting this checklist:
 
 ## Explanation
 
-The checklist is organized by **concern** rather than by file type. This prevents reviewers from getting lost in line-by-line diff reading and instead evaluating the change against the dimensions that matter to the team: correctness, security, performance, testing, maintainability, documentation, and operations. Separating automated concerns (linting, formatting) from human concerns (design, readability) keeps reviews focused on what humans do best.
+The checklist is organized by concern rather than by file type. This prevents reviewers from getting lost in line-by-line diff reading and instead evaluating the change against the dimensions that matter to the team: correctness, security, performance, testing, maintainability, documentation, and operations. Separating automated concerns (linting, formatting) from human concerns (design, readability) keeps reviews focused on what humans do best.
 
 ## Variants
 
@@ -134,19 +134,19 @@ The checklist is organized by **concern** rather than by file type. This prevent
 
 ## What works
 
-1. **Keep the checklist visible** — embed it in the PR template so reviewers see it automatically
-2. **Distinguish nits from blockers** — not every issue prevents merge; use severity labels to keep reviews moving
-3. **Rotate reviewers** — checklists reduce the expertise gap, making it easier to spread review load
-4. **Review the checklist quarterly** — remove items that are now automated; add items that keep slipping through
-5. **Time-box reviews** — if a review takes more than 30 minutes, the PR is probably too large
+1. Keep the checklist visible. Embed it in the PR template so reviewers see it automatically
+2. Distinguish nits from blockers. Not every issue prevents merge; use severity labels to keep reviews moving
+3. Rotate reviewers. Checklists reduce the expertise gap, making it easier to spread review load
+4. Review the checklist quarterly. Remove items that are now automated; add items that keep slipping through
+5. Time-box reviews. If a review takes more than 30 minutes, the PR is probably too large
 
 ## Common Mistakes
 
-1. **Treating the checklist as a substitute for thinking** — the checklist catches common omissions, not design flaws
-2. **Making every item mandatory** — this slows reviews without improving quality; only block on correctness, security, and tests
-3. **Not updating the checklist** — as tools improve, manual checks should be automated
-4. **Reviewing alone** — pair reviews on critical changes catch issues solo reviewers miss
-5. **Focusing only on the diff** — reviewers should also check that the PR description, tests, and documentation are consistent
+1. Treating the checklist as a substitute for thinking. The checklist catches common omissions, not design flaws
+2. Making every item mandatory. This slows reviews without improving quality; only block on correctness, security, and tests
+3. Not updating the checklist. As tools improve, manual checks should be automated
+4. Reviewing alone. Pair reviews on critical changes catch issues solo reviewers miss
+5. Focusing only on the diff. Reviewers should also check that the PR description, tests, and documentation are consistent
 
 ## Frequently Asked Questions
 
@@ -160,4 +160,4 @@ Yes. Code review is a learning opportunity as much as a quality gate. Junior rev
 
 ### What if the author disagrees with a review comment?
 
-Discuss it. If the conversation stalls, escalate to a tech lead or the team's documented tiebreaker. The checklist exists to reduce subjective debates by making expectations explicit — but it cannot eliminate all disagreement.
+Discuss it. If the conversation stalls, escalate to a tech lead or the team's documented tiebreaker. The checklist exists to reduce subjective debates by making expectations explicit, but it cannot eliminate all disagreement.

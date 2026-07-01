@@ -69,7 +69,7 @@ Use this resource when:
 |------------|----------|-------|
 | [Technology] | [Approach] | [Notes] |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Usa token bucket para bursts controlados y ventana deslizante para límites estrictos
 2. Retorna headers `Retry-After` con respuestas 429 para que los clientes sepan cuándo reintentar

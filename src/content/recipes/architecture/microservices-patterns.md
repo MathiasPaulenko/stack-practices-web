@@ -218,7 +218,7 @@ await orderSaga.execute();
 | Saga (choreography) | Event-driven rollback | Eventual | High | Loosely coupled services |
 | Saga (orchestration) | Central coordinator | Eventual | High | Complex workflows |
 
-## Best practices
+## What Works
 
 - **Set appropriate timeout budgets**: every outgoing call should have a timeout shorter than the caller's own timeout. If your API has a 2-second SLA, downstream calls should timeout at 500ms to leave room for retries and fallbacks.
 - **Implement graceful degradation**: when a service is unavailable, return cached data, default values, or reduced functionality rather than failing entirely. A product page without recommendations is better than a 500 error.

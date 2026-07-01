@@ -37,7 +37,7 @@ seo:
 
 ## Descripción General
 
-La caché es una de las formas más efectivas de mejorar el rendimiento de aplicaciones y reducir costos de infraestructura. Al almacenar copias de datos frecuentemente accedidos más cerca de donde se necesitan, reduces latencia, disminuyes la carga en la base de datos y mejoras la experiencia de usuario. Pero la caché introduce complejidad: datos obsoletos, lógica de invalidación y desafíos de consistencia.
+La caché es una de las formas más útiles de mejorar el rendimiento de aplicaciones y reducir costos de infraestructura. Al almacenar copias de datos frecuentemente accedidos más cerca de donde se necesitan, reduces latencia, disminuyes la carga en la base de datos y mejoras la experiencia de usuario. Pero la caché introduce complejidad: datos obsoletos, lógica de invalidación y desafíos de consistencia.
 
 Esta guía cubre caché en cada capa del stack, desde el navegador hasta la base de datos.
 
@@ -303,7 +303,7 @@ query_cache_size = 256M
 query_cache_limit = 8M
 ```
 
-**Mejores prácticas de caché de base de datos:**
+**Pautas de caché de base de datos:**
 - Ajusta `shared_buffers` (PostgreSQL) o `innodb_buffer_pool_size` (MySQL)
 - Usa vistas materializadas para agregaciones costosas que no necesitan datos en tiempo real
 - Crea índices de cobertura para que las consultas se sirvan completamente desde páginas de índice
@@ -340,7 +340,7 @@ p.run_in_thread(sleep_time=0.001)
 r.publish('product-updates', product_id)
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Caché en múltiples capas.** Navegador + CDN + Redis + buffer pool de base de datos.
 - **Usa TTLs apropiados a la volatilidad de los datos.** Perfil de usuario: 1 hora. Catálogo de productos: 1 día. Sesión: 15 minutos.
@@ -380,5 +380,5 @@ Solo si puedes tolerar breve pérdida de datos y tienes un mecanismo de reintent
 
 ## Conclusión
 
-La caché efectiva transforma el rendimiento de la aplicación. Al capas de caché desde el navegador hasta la base de datos, elegir estrategias de invalidación apropiadas, y monitorear tasas de acierto, reduces latencia y costo de infraestructura mientras mantienes consistencia de datos.
+La buena caché transforma el rendimiento de la aplicación. Al capas de caché desde el navegador hasta la base de datos, elegir estrategias de invalidación apropiadas, y monitorear tasas de acierto, reduces latencia y costo de infraestructura mientras mantienes consistencia de datos.
 

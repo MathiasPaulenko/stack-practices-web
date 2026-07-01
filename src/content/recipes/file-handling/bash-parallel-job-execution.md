@@ -103,7 +103,7 @@ The script shows three common approaches. `xargs -P` is portable and available o
 | GNU parallel | parallel | Powerful, resumable, ordered output | Extra dependency |
 | Background jobs | bash builtin | No external deps | Manual bookkeeping, race-prone |
 
-## Best Practices
+## What Works
 
 1. **Cap concurrency to a tested limit.** Too many jobs exhaust CPU, memory, or file descriptors.
 2. **Make jobs idempotent.** A retried job should produce the same result without side effects.
@@ -122,7 +122,7 @@ The script shows three common approaches. `xargs -P` is portable and available o
 ## Frequently Asked Questions
 
 **Q: What is the difference between xargs and GNU parallel?**
-A: xargs is a coreutils tool with limited parallelism features. GNU parallel is designed for concurrency, offering better output ordering, resumability, and progress bars.
+A: xargs is a coreutils tool with limited parallelism capabilities. GNU parallel is designed for concurrency, offering better output ordering, resumability, and progress bars.
 
 **Q: How do I handle tasks with spaces in names?**
 A: Use `xargs -0` with `find -print0` or GNU parallel with quoted arguments. Never pass unquoted filenames to shell commands.

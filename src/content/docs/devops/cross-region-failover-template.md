@@ -148,7 +148,7 @@ The template forces you to **test the entire loop**: detect → failover → ver
 | Blue-green | Secondary region is a mirror; switch DNS | Good for databases with streaming replication |
 | Cell-based | Users assigned to a cell; move cells | Used by Netflix, requires stateless design |
 
-## Best Practices
+## What Works
 
 1. Run failover tests quarterly in production, not just in staging
 2. Document every command; do not rely on memory during an incident

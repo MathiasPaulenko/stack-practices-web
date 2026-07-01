@@ -270,7 +270,7 @@ The class is both a domain model and a gateway to the database. This simplicity 
 | **Repository** | Collection-like abstraction over persistence | DDD aggregates |
 | **Table Data Gateway** | Static methods on a class, not instances | Simple CRUD utilities |
 
-## Best Practices
+## What Works
 
 - **Keep validations in the model.** Check constraints before saving and raise meaningful errors.
 - **Use callbacks sparingly.** `before_save` and `after_create` hooks create invisible control flow.

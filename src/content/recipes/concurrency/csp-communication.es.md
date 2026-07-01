@@ -199,7 +199,7 @@ async function main() {
 | Cerrado | N/A | Señal de completitud | Señalizar no más valores |
 | Nil | N/A | Nunca seleccionado | Deshabilitar casos de select |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Cierra channels desde el emisor, no desde el receptor**: en Go, solo el emisor debe cerrar un channel. Cerrar desde el receptor causa panic si el emisor envía simultáneamente. Usa un channel `done` o `context.Context` para señales de cancelación en lugar de cerrar desde el lado del consumidor.
 - **Usa `select` con un channel `done` para cancelación**: las goroutines de larga duración deben aceptar un channel `done` o `ctx.Done()`. Cuando el padre quiere cancelar, cierra el channel done. El hijo usa `select` para hacer trabajo o salir cuando done se cierra.

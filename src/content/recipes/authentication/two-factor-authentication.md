@@ -38,7 +38,7 @@ Passwords alone are no longer sufficient to protect user accounts. Two-factor au
 Use this resource when:
 - Protecting user accounts with an additional verification step beyond passwords
 - Building login flows for financial, healthcare, or admin applications
-- Migrating from password-only auth to multi-factor authentication (MFA). See [Password Hashing](/recipes/authentication/password-hashing) for credential storage best practices.
+- Migrating from password-only auth to multi-factor authentication (MFA). See [Password Hashing](/recipes/authentication/password-hashing) for what works for credential storage.
 - Supporting authenticator apps (Google Authenticator, Authy, Microsoft Authenticator)
 
 ## Solution
@@ -192,7 +192,7 @@ public class TOTPService {
 | Push Notification | Firebase, OneSignal | Frictionless approval on trusted devices |
 | Email OTP | Custom implementation | Fallback when TOTP is unavailable |
 
-## Best Practices
+## What Works
 
 1. **Encrypt secrets at rest** — never store TOTP secrets in plaintext; use AES-256-GCM or a dedicated secrets vault.
 2. **[Rate limit](/recipes/api/rate-limiting) verification attempts** — lock or delay after 5 failed TOTP attempts to prevent brute force.

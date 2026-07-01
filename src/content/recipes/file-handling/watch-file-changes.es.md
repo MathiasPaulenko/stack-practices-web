@@ -118,7 +118,7 @@ Los watchers se registran en el kernel del SO, que luego empuja eventos a tu pro
 | JavaScript | Paquete `chokidar` | Más confiable que `fs.watch` en macOS y Windows |
 | Java | Apache Commons IO `FileAlterationMonitor` | Fallback por polling para JDKs antiguos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Debounce eventos rápidos (los editores suelen disparar múltiples escrituras)
 2. Siempre maneja el evento `error` / excepciones de `WatchService`

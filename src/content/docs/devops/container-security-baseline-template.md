@@ -119,7 +119,7 @@ Containers share the host kernel, so a misconfigured container can compromise th
 - **High-compliance baseline**: Adds requirements for FIPS, FedRAMP, or PCI-DSS environments.
 - **Developer laptop baseline**: Hardening for Docker Desktop and local container builds.
 
-## Best Practices
+## What Works
 
 - Make the baseline mandatory via CI/CD gates and admission controllers.
 - Use distroless or scratch-based images when possible.

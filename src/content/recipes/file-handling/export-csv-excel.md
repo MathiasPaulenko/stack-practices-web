@@ -165,7 +165,7 @@ For Excel specifically, `.xlsx` files are ZIP archives of XML. Libraries like `o
 | Excel | `xlsx` (JS) | No | Client-side generation |
 | Excel | Apache POI SXSSF | Yes | Large Excel files (>100K rows) |
 
-## Best Practices
+## What Works
 
 - **Stream for anything over 10K rows**: Holding millions of objects in memory will crash your server.
 - **Set `Content-Disposition` headers**: Name the file meaningfully (`report-2024-01-users.csv`) so users know what they downloaded.

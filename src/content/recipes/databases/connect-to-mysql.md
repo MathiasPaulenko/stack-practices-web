@@ -126,7 +126,7 @@ MySQL uses **prepared statements** through protocol-level placeholders (`%s` in 
 | JavaScript | `mysql` (non-promise) | Callback-based legacy driver |
 | Java | `HikariCP` + MySQL Connector/J | Industry-standard pooling for Spring Boot |
 
-## Best Practices
+## What Works
 
 1. Use connection pooling with a limit appropriate to your database's `max_connections`
 2. Enable SSL with certificate verification in production environments

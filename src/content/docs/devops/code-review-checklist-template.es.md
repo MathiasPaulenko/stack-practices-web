@@ -120,7 +120,7 @@ Antes de adoptar esta checklist:
 
 ## Explicacion
 
-La checklist esta organizada por **preocupacion** en lugar de por tipo de archivo. Esto evita que los revisores se pierdan leyendo diff linea por linea y en su lugar evaluen el cambio contra las dimensiones que importan al equipo: correctitud, seguridad, rendimiento, testing, mantenibilidad, documentacion y operaciones. Separar las preocupaciones automaticas (linting, formato) de las humanas (diseno, legibilidad) mantiene las revisiones enfocadas en lo que los humanos hacen mejor.
+La checklist esta organizada por preocupacion en lugar de por tipo de archivo. Esto evita que los revisores se pierdan leyendo diff linea por linea y en su lugar evaluen el cambio contra las dimensiones que importan al equipo: correctitud, seguridad, rendimiento, testing, mantenibilidad, documentacion y operaciones. Separar las preocupaciones automaticas (linting, formato) de las humanas (diseno, legibilidad) mantiene las revisiones enfocadas en lo que los humanos hacen mejor.
 
 ## Variantes
 
@@ -134,19 +134,19 @@ La checklist esta organizada por **preocupacion** en lugar de por tipo de archiv
 
 ## Lo que funciona
 
-1. **Mantente la checklist visible** — embebela en la plantilla de PR para que los revisores la vean automaticamente
-2. **Distingue nits de bloqueadores** — no cada problema impide el merge; usa etiquetas de severidad para mantener las revisiones fluidas
-3. **Rota revisores** — las checklists reducen la brecha de experiencia, facilitando distribuir la carga de revision
-4. **Revisa la checklist trimestralmente** — elimina items que ahora son automaticos; agrega items que siguen escapandose
-5. **Limita el tiempo de revision** — si una revision toma mas de 30 minutos, el PR probablemente es demasiado grande
+1. Mantente la checklist visible. Embebela en la plantilla de PR para que los revisores la vean automaticamente
+2. Distingue nits de bloqueadores. No cada problema impide el merge; usa etiquetas de severidad para mantener las revisiones fluidas
+3. Rota revisores. Las checklists reducen la brecha de experiencia, facilitando distribuir la carga de revision
+4. Revisa la checklist trimestralmente. Elimina items que ahora son automaticos; agrega items que siguen escapandose
+5. Limita el tiempo de revision. Si una revision toma mas de 30 minutos, el PR probablemente es demasiado grande
 
 ## Errores Comunes
 
-1. **Tratar la checklist como sustituto del pensamiento** — la checklist atrapa omissiones comunes, no fallas de diseno
-2. **Hacer cada item obligatorio** — esto ralentiza las revisiones sin mejorar la calidad; solo bloquea en correctitud, seguridad y tests
-3. **No actualizar la checklist** — a medida que las herramientas mejoran, las verificaciones manuales deberian automatizarse
-4. **Revisar solo** — las revisiones en pareja en cambios criticos atrapan problemas que los revisores solitarios omiten
-5. **Enfocarse solo en el diff** — los revisores tambien deberian verificar que la descripcion del PR, tests, y documentacion sean consistentes
+1. Tratar la checklist como sustituto del pensamiento. La checklist atrapa omissiones comunes, no fallas de diseno
+2. Hacer cada item obligatorio. Esto ralentiza las revisiones sin mejorar la calidad; solo bloquea en correctitud, seguridad y tests
+3. No actualizar la checklist. A medida que las herramientas mejoran, las verificaciones manuales deberian automatizarse
+4. Revisar solo. Las revisiones en pareja en cambios criticos atrapan problemas que los revisores solitarios omiten
+5. Enfocarse solo en el diff. Los revisores tambien deberian verificar que la descripcion del PR, tests, y documentacion sean consistentes
 
 ## Preguntas Frecuentes
 

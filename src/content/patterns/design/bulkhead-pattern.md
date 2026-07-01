@@ -203,7 +203,7 @@ This ensures that a runaway consumer (e.g., a background job) cannot consume all
 | **Semaphore Isolation** | Lightweight, same-thread isolation | When thread overhead is too high |
 | **Process Isolation** | Separate OS processes or containers | Maximum fault containment |
 
-## Best Practices
+## What Works
 
 - **Always reserve capacity for critical paths** — don't let background jobs starve user requests
 - **Monitor pool saturation** — track how often each bulkhead rejects or times out

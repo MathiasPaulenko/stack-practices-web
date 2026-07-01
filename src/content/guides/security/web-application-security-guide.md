@@ -155,12 +155,12 @@ def request_password_reset(email):
 
 ## 5. Security Misconfiguration
 
-**Risk:** Incomplete or ad-hoc configurations, default accounts, unnecessary features.
+**Risk:** Incomplete or ad-hoc configurations, default accounts, unnecessary capabilities.
 
 ### Prevention Checklist
 
 - [ ] Remove default accounts and credentials
-- [ ] Disable unnecessary features, ports, and HTTP methods
+- [ ] Disable unnecessary capabilities, ports, and HTTP methods
 - [ ] Send security headers (HSTS, X-Frame-Options, CSP)
 - [ ] Keep all frameworks, libraries, and OS patches current
 - [ ] Run in minimal privilege mode (not root)

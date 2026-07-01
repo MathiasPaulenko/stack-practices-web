@@ -150,7 +150,7 @@ Cuando el estado del Subject cambia, itera sobre sus observadores y llama su mé
 | **Modelo pull** | El subject notifica; los observadores consultan detalles | Más eficiente, pero añade idas y vueltas |
 | **Event bus** | Un despachador central desacopla subjects y observers | Más flexible, añade indirección |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Desuscríbete de observadores** cuando se destruyen para prevenir fugas de memoria
 - **Evita actualizaciones circulares** donde observadores disparan cambios de vuelta al subject

@@ -134,7 +134,7 @@ Backup verification is the only way to prove that a disaster recovery plan works
 - **Cloud snapshot verification**: Create a temporary volume from snapshot, mount it, and validate data integrity.
 - **Application-level backup verification**: Restore data into a fresh application instance and run end-to-end smoke tests.
 
-## Best Practices
+## What Works
 
 - Test backups on a recurring schedule, not just once a year.
 - Use an isolated environment that mirrors production topology.

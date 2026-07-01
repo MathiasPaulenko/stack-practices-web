@@ -41,7 +41,7 @@ HTML entity escaping converts characters with special meaning in HTML (`<`, `>`,
 
 Use this resource when:
 - Rendering user-generated content inside HTML templates
-- Building dynamic HTML strings from external data (APIs, databases, files)
+- Building live HTML strings from external data (APIs, databases, files)
 - Generating HTML emails that include recipient names or addresses
 - Embedding JSON data inside `<script>` tags safely
 
@@ -143,7 +143,7 @@ Python's `html.escape` covers the five critical characters. `MarkupSafe` is the 
 | Java | `StringEscapeUtils.escapeHtml4` | HTML body | Apache Commons, covers many entities |
 | Java | `Encode.forHtml` | HTML body + attributes | OWASP, context-specific variants |
 
-## Best Practices
+## What Works
 
 - **Escape at the point of rendering**, not at storage: Escaped data in a database makes search and display inconsistent
 - **Use auto-escaping template engines**: Jinja2, Django templates, React JSX, and Vue templates escape by default

@@ -133,9 +133,9 @@ async function eraseUserData(userId) {
 | Pseudonymization | Hashing + key rotation | Medium |
 | DPO dashboard | Custom admin tool | High |
 
-## Best Practices
+## What Works
 
-- **Privacy by default**: New features opt-out by default; explicit opt-in required
+- **Privacy by default**: New capabilities opt-out by default; explicit opt-in required
 - **Encrypt PII at rest**: Use [AES-256 encryption](/recipes/security/encryption-at-rest) for databases, S3, and backups
 - **Log access to personal data**: [Audit](/guides/devops/logging-monitoring-observability-guide) who accessed what and when
 - **Separate analytics data**: Pseudonymize before sending to BI tools

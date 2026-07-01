@@ -191,5 +191,5 @@ A: It depends on request frequency. If each user makes a request every 30 second
 **Q: Can k6 test WebSocket connections?**
 A: Yes, through the experimental `k6/ws` module, though dedicated WebSocket tools may be more appropriate.
 
-**Q: How do I handle dynamic data in load tests?**
+**Q: How do I handle live data in load tests?**
 A: Use `papaparse` to read CSV files or generate randomized data with built-in `random` functions.

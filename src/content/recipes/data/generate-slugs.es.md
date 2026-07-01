@@ -135,7 +135,7 @@ Esto produce strings ASCII-only, minúsculas, delimitados por guiones, seguros p
 | Java | `slugify` (Maven) | `Slugify` | Soporta reemplazos custom y reglas por idioma |
 | Java | `Normalizer` + regex | Manual | Incluido en JDK, sin deps externas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre normaliza Unicode** antes de quitar acentos para manejar é, ñ, 中文 correctamente
 - **Impón longitud máxima** (ej. 100 caracteres) para prevenir URLs excesivamente largas y problemas de base de datos

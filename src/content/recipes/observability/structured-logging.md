@@ -3,7 +3,7 @@ contentType: recipes
 slug: structured-logging
 title: "Structured Logging"
 description: "Implement structured logging with JSON output, correlation IDs, and log aggregation for production observability."
-metaDescription: "Structured logging best practices: JSON format, correlation IDs, log levels, aggregation with ELK/Loki, and distributed tracing integration."
+metaDescription: "What works in structured logging: JSON format, correlation IDs, log levels, aggregation with ELK/Loki, and distributed tracing integration."
 difficulty: intermediate
 topics:
   - observability
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Structured logging best practices: JSON format, correlation IDs, log levels, aggregation with ELK/Loki, and distributed tracing integration."
+  metaDescription: "What works in structured logging: JSON format, correlation IDs, log levels, aggregation with ELK/Loki, and distributed tracing integration."
   keywords:
     - logging
     - observability
@@ -141,10 +141,10 @@ func CorrelationIDMiddleware(next http.Handler) http.Handler {
 | Datadog | SaaS | APM + logs + traces unified |
 | Splunk | Enterprise | Compliance; advanced analytics |
 
-## Best Practices
+## What Works
 
 - **Always include request_id**: Trace a single user journey across 10+ services
-- **Use log levels consistently**: debug for dev; info for normal operations; error for actionable issues
+- **Use log levels consistently**: debug for dev; info for normal operations; error for useful issues
 - **Never log sensitive data**: Mask PII, tokens, and passwords before serialization
 - **Log at service boundaries**: Entry/exit of every HTTP handler, queue consumer, and background job
 - **Emit metrics from logs**: Use log-derived metrics for dashboards instead of custom instrumentation

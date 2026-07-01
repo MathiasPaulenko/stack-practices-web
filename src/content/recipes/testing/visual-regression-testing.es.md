@@ -30,7 +30,7 @@ seo:
 
 Los tests funcionales verifican que los botones clickeen, los forms se envíen y las APIs retornen datos correctos. Pero no detectan un cambio de CSS que desplaza un botón 2 píxeles a la izquierda, una actualización de fuente que rompe alturas de línea, o un cambio de tema que hace texto ilegible. El visual regression testing llena este vacío capturando screenshots de tu aplicación y comparándolos contra baselines aprobadas. Cualquier diferencia de píxel es marcada para revisión humana, previniendo que cambios visuales no intencionales lleguen a producción.
 
-El desafío core es evitar falsos positivos. El anti-aliasing, frames de animación, timestamps y contenido dinámico (ads, precios de acciones, avatares de usuario) crean diferencias benignas que deben filtrarse. Las herramientas modernas de visual testing usan rendering basado en DOM, ignorando ruido sub-pixel, y permiten enmascarar regiones dinámicas. Esta receta cubre comparación de screenshots con Playwright, Chromatic para bibliotecas de componentes y estrategias para baselines estables y mantenibles.
+El desafío core es evitar falsos positivos. El anti-aliasing, frames de animación, timestamps y contenido en vivo (ads, precios de acciones, avatares de usuario) crean diferencias benignas que deben filtrarse. Las herramientas modernas de visual testing usan rendering basado en DOM, ignorando ruido sub-pixel, y permiten enmascarar regiones en vivo. Esta receta cubre comparación de screenshots con Playwright, Chromatic para bibliotecas de componentes y estrategias para baselines estables y mantenibles.
 
 ## Cuándo usarlo
 
@@ -38,7 +38,7 @@ Usa esta receta cuando:
 
 - Manteniendo un design system donde cambios de componentes afectan múltiples aplicaciones. Consulta [Component Testing](/recipes/testing/e2e-testing) para testear componentes en aislamiento.
 - Releasing actualizaciones frecuentes de UI y necesitando confianza de que los cambios son intencionales. Consulta [Jest Snapshot Testing](/recipes/testing/unit-testing) para validación de render output.
-- Soportando múltiples navegadores o temas donde la consistencia visual es crítica. Consulta [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) para mejores prácticas de rendimiento frontend.
+- Soportando múltiples navegadores o temas donde la consistencia visual es crítica. Consulta [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) para lo que funciona en rendimiento frontend.
 - Migrando frameworks de CSS o refactorizando estilos globales con impacto amplio
 - Colaborando entre equipos de diseño e ingeniería con estándares visuales compartidos
 
@@ -109,7 +109,7 @@ driver.quit()
 
 - **Comparación de screenshots**: las herramientas de visual testing capturan un screenshot de la página actual y lo comparan píxel por píxel contra el baseline aprobado. Las diferencias son resaltadas en una vista de diff. Los revisores aprueban cambios intencionales o rechazan regresiones.
 - **Gestión de baselines**: el baseline es la versión aprobada de un screenshot. Cuando un test produce una imagen diferente, se marca como "cambiada". El equipo revisa el diff y o bien la aprueba (actualizando el baseline) o la rechaza (arreglando el código). Los baselines típicamente se almacenan en servicios cloud, no en control de versiones.
-- **Enmascaramiento y exclusión**: contenido dinámico como timestamps, avatares aleatorios de usuario y ads causan falsos positivos. Enmascara estos elementos seleccionando sus nodos DOM antes de la captura. La herramienta reemplaza las regiones enmascaradas con colores sólidos, ignorándolas durante la comparación.
+- **Enmascaramiento y exclusión**: contenido en vivo como timestamps, avatares aleatorios de usuario y ads causan falsos positivos. Enmascara estos elementos seleccionando sus nodos DOM antes de la captura. La herramienta reemplaza las regiones enmascaradas con colores sólidos, ignorándolas durante la comparación.
 - **Rendering cross-browser**: fuentes, anti-aliasing y motores de layout varían entre navegadores. Un screenshot tomado en Chrome no coincidirá pixel-perfecto con uno de Safari. Ejecuta tests visuales en los navegadores que soportas, manteniendo baselines separados para cada uno.
 
 ## Variantes
@@ -121,11 +121,11 @@ driver.quit()
 | Percy | Página completa + componente | Multi-plataforma | Pago | Testing cross-browser |
 | Applitools | AI-powered | Enterprise | Pago | Visual testing a gran escala |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Estabiliza antes de capturar**: espera a que las fuentes carguen, las animaciones completen y los requests de red se resuelvan antes de tomar screenshots. Usa `networkidle`, waits explícitas o el parámetro `delay` de Chromatic. Screenshots de spinners de carga son inútiles.
 - **Aísla componentes en Storybook**: testear componentes en aislamiento (vía Storybook) produce baselines más estables que screenshots de página completa. Un componente Button tiene menos variables que una página Dashboard completa. Usa ambos: Storybook para cobertura de componentes, página completa para integración.
-- **Enmascara todo contenido dinámico**: identifica cada elemento que cambia entre ejecuciones — fechas, usernames, IDs, imágenes random, variaciones de A/B tests. Enmáscaralos agresivamente. Contenido dinámico no enmascarado es la causa #1 de tests visuales flaky.
+- **Enmascara todo contenido en vivo**: identifica cada elemento que cambia entre ejecuciones — fechas, usernames, IDs, imágenes random, variaciones de A/B tests. Enmáscaralos agresivamente. Contenido en vivo no enmascarado es la causa #1 de tests visuales flaky.
 - **Revisa diffs en CI, no localmente**: el visual testing produce muchas imágenes. Revisarlas en pull requests vía integraciones CI (GitHub Checks, GitLab MRs) es más eficiente que descargar y comparar localmente. Aprueba baselines a través de la web UI.
 - **Limita combinaciones de viewport**: testear cada componente en 12 breakpoints es lento y costoso. Identifica tus top 3 breakpoints (mobile, tablet, desktop) y testea solo esos. Usa principios de diseño responsive para inferir comportamiento intermedio.
 
@@ -148,5 +148,5 @@ R: Cuando un PR intencionalmente cambia la UI, el test visual marcará un diff. 
 R: La mayoría de herramientas de visual testing capturan screenshots estáticos, no videos. Para animaciones, usa un delay para capturar el estado final, o enmascara la región animada. Para testing específico de motion, usa herramientas dedicadas de test de animación o QA manual.
 
 **P: ¿Qué causa tests visuales flaky?**
-R: Datos inestables, estados de carga, animaciones, diferencias de versión de navegador y rendering no determinístico. Arregla flakiness enmascarando regiones dinámicas, usando datos mockeados, esperando estabilidad y fijando versiones de navegador en CI.
+R: Datos inestables, estados de carga, animaciones, diferencias de versión de navegador y rendering no determinístico. Arregla flakiness enmascarando regiones en vivo, usando datos mockeados, esperando estabilidad y fijando versiones de navegador en CI.
 

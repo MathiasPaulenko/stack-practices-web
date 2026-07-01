@@ -174,7 +174,7 @@ A RAG pipeline has four stages:
 | Vector DBs | Chroma / Pinecone / Weaviate / pgvector | Chroma for local, Pinecone for managed, pgvector if you already use Postgres |
 | Embeddings | OpenAI / Cohere / local (BGE, E5) | OpenAI for quality; local models for privacy and cost |
 
-## Best Practices
+## What Works
 
 1. Add metadata (source filename, page number) to chunks for traceability and citation
 2. Use `chunk_overlap` (10–20% of chunk size) to prevent splitting across sentence boundaries

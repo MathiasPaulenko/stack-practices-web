@@ -107,7 +107,7 @@ const forecast = await cachedClient.getForecast('London');
 
 ## Lo que Funciona
 
-- Configura TTL basado en volatilidad de datos, no un valor fijo para todo. Consulta [invalidacion de cache](/patterns/design/cache-aside-pattern) best practices.
+- Configura TTL basado en volatilidad de datos, no un valor fijo para todo. Consulta [invalidacion de cache](/patterns/design/cache-aside-pattern) patrones.
 - Implementa hooks de invalidacion de cache para consistencia write-through
 - Usa decorador o composicion para apilar multiples proxies
 

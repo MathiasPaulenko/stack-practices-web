@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: blob-storage-guide
-title: "Almacenamiento Blob — Patrones S3, GCS y Azure Blob para Ingenieros"
+title: "Almacenamiento Blob: Patrones S3, GCS y Azure Blob para Ingenieros"
 description: "Guía práctica sobre almacenamiento blob en la nube: diseño de buckets, control de acceso, políticas de ciclo de vida, subidas multipartes, URLs firmadas, y patrones de optimización de costos para S3, Google Cloud Storage y Azure Blob."
 metaDescription: "Aprende almacenamiento blob: diseño de buckets, control de acceso, ciclo de vida y optimización de costos para S3, GCS y Azure."
 difficulty: intermediate
@@ -107,7 +107,7 @@ s3://myapp-production/
     └── js/
 ```
 
-**Lo que funciona para nomenclatura:**
+#### Lo que Funciona para Nomenclatura
 
 | Patrón | Ejemplo | Propósito |
 |--------|---------|-----------|
@@ -381,7 +381,7 @@ Automatiza la optimización de costos transicionando o eliminando objetos antigu
 }
 ```
 
-**Estrategia de ciclo de vida por tipo de dato:**
+#### Estrategia de Ciclo de Vida por Tipo de Dato
 
 | Tipo de Dato | Hot (Standard) | Cool (IA/Nearline) | Cold (Glacier/Archive) | Eliminar |
 |--------------|----------------|--------------------|------------------------|----------|
@@ -424,42 +424,42 @@ def upload_compressed(bucket, key, data):
 
 ## Lo que funciona
 
-- **Nunca hagas buckets públicos.** Usa URLs firmadas o CloudFront OAI para acceso controlado.
-- **Habilita versionamiento en buckets de producción.** Protege contra eliminación accidental y sobreescrituras.
-- **Usa encriptación del lado del servidor por defecto.** SSE-S3 o SSE-KMS dependiendo de necesidades de cumplimiento.
-- **Implementa bloqueo de objetos para cumplimiento.** WORM (Write Once Read Many) para datos regulatorios.
-- **Monitorea con CloudTrail/CloudWatch.** Rastrea patrones de acceso, costos e intentos no autorizados.
-- **Usa checksums para integridad.** ETag, MD5 o SHA-256 verifican que los datos no se corrompieron en tránsito.
+- Nunca hagas buckets públicos. Usa URLs firmadas o CloudFront OAI para acceso controlado.
+- Habilita versionamiento en buckets de producción. Protege contra eliminación accidental y sobreescrituras.
+- Usa encriptación del lado del servidor por defecto. SSE-S3 o SSE-KMS dependiendo de necesidades de cumplimiento.
+- Implementa bloqueo de objetos para cumplimiento. WORM (Write Once Read Many) para datos regulatorios.
+- Monitorea con CloudTrail/CloudWatch. Rastrea patrones de acceso, costos e intentos no autorizados.
+- Usa checksums para integridad. ETag, MD5 o SHA-256 verifican que los datos no se corrompieron en tránsito.
 
 ## Errores Comunes
 
-- **Almacenar archivos pequeños individualmente.** S3 tiene un tamaño mínimo facturable. Agrupa objetos pequeños o usa una base de datos.
-- **Usar almacenamiento blob como sistema de archivos.** Listar prefijos es costoso. Almacena metadatos en una base de datos.
-- **Sin política de ciclo de vida.** Los buckets de producción acumulan años de datos sin limpieza automática.
-- **Almacenar secretos en buckets.** Usa parameter stores o secret managers, no objetos S3.
-- **Ignorar costos de egreso.** Servir archivos grandes directamente desde S3 a usuarios es costoso. Usa un CDN.
-- **Sin multipartes para archivos grandes.** Subir un archivo de 10GB como PUT único es poco confiable y lento.
+- Almacenar archivos pequeños individualmente. S3 tiene un tamaño mínimo facturable. Agrupa objetos pequeños o usa una base de datos.
+- Usar almacenamiento blob como sistema de archivos. Listar prefijos es costoso. Almacena metadatos en una base de datos.
+- Sin política de ciclo de vida. Los buckets de producción acumulan años de datos sin limpieza automática.
+- Almacenar secretos en buckets. Usa parameter stores o secret managers, no objetos S3.
+- Ignorar costos de egreso. Servir archivos grandes directamente desde S3 a usuarios es costoso. Usa un CDN.
+- Sin multipartes para archivos grandes. Subir un archivo de 10GB como PUT único es poco confiable y lento.
 
 ## Variantes
 
-- **MinIO:** Almacenamiento de objetos auto-hospedado compatible con S3 para on-premises o edge
-- **Ceph:** Almacenamiento de objetos distribuido open-source para nube privada
-- **Backblaze B2:** Alternativa compatible con S3 de bajo costo (1/4 del precio)
-- **Cloudflare R2:** Almacenamiento de objetos sin tarifas de egreso, API compatible con S3
-- **NAS/SAN:** Almacenamiento tradicional de bloques/archivos para aplicaciones que necesitan semántica POSIX
+- MinIO: Almacenamiento de objetos auto-hospedado compatible con S3 para on-premises o edge
+- Ceph: Almacenamiento de objetos distribuido open-source para nube privada
+- Backblaze B2: Alternativa compatible con S3 de bajo costo (1/4 del precio)
+- Cloudflare R2: Almacenamiento de objetos sin tarifas de egreso, API compatible con S3
+- NAS/SAN: Almacenamiento tradicional de bloques/archivos para aplicaciones que necesitan semántica POSIX
 
 ## FAQ
 
-**P: ¿Debería usar un bucket o varios?**
+P: ¿Debería usar un bucket o varios?
 Usa buckets separados para diferentes ambientes (prod, staging, dev) y diferentes dominios de seguridad (activos públicos vs subidas privadas). Dentro de un ambiente, usa prefijos (carpetas) en lugar de muchos buckets.
 
-**P: ¿Cómo manejo millones de archivos pequeños?**
+P: ¿Cómo manejo millones de archivos pequeños?
 Agrúpalos en archivos de archivo más grandes (tar, zip), usa una base de datos para rastrear archivos individuales, o usa un almacenamiento de objetos diseñado para archivos pequeños (DynamoDB para metadatos + S3 para blobs).
 
-**P: ¿Cuál es el tamaño máximo de archivo?**
+P: ¿Cuál es el tamaño máximo de archivo?
 S3: 5TB (con multipartes). GCS: 5TB. Azure: 4.75TB (Block Blob). Para más grandes, divide en chunks.
 
-**P: ¿Cómo migro de un proveedor a otro?**
+P: ¿Cómo migro de un proveedor a otro?
 Usa herramientas como `rclone`, `aws s3 sync`, o servicios de transferencia nativos de la nube (AWS DataSync, Azure Data Box). Para migraciones grandes, considera dispositivos de transferencia física de datos.
 
 ## Conclusión

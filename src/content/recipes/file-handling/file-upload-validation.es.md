@@ -37,7 +37,7 @@ Las subidas de archivos son uno de los vectores de ataque más comunes en aplica
 
 Usa este recurso cuando:
 - Construyas una app web que acepte imágenes, documentos o media generados por usuarios. Consulta [Optimización de Imágenes](/recipes/file-handling/image-optimization) para procesamiento post-subida.
-- Implementes un CMS, foro o SaaS con soporte de adjuntos. Consulta [Exportar CSV Excel](/recipes/file-handling/export-csv-excel) para funcionalidades de exportación de datos.
+- Implementes un CMS, foro o SaaS con soporte de adjuntos. Consulta [Exportar CSV Excel](/recipes/file-handling/export-csv-excel) para capacidades de exportación de datos.
 - Necesites cumplir con estándares de seguridad (PCI-DSS, SOC 2). Consulta [Gestión de Secretos](/recipes/devops/secret-management) para almacenamiento seguro de credenciales.
 - Proceses archivos de fuentes no confiables (formularios públicos, APIs). Consulta [Input Validation](/recipes/api/input-validation) para manejo de entrada no confiable.
 
@@ -154,7 +154,7 @@ Cada capa detecta amenazas diferentes. Nunca confíes en una sola verificación.
 | Go | mimetype | Rápido, puro Go, lecturas sin allocación |
 | Ruby | Marcel | Default de Rails, usa extensión y magic |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Valida antes de guardar en disco**: Verifica todo en memoria o un buffer temporal primero.
 - **Usa nombres de archivo aleatorios**: Nunca guardes archivos con los nombres originales del usuario. Mapea a UUIDs internamente.

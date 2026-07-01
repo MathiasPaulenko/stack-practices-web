@@ -152,7 +152,7 @@ El compromiso es paralelismo reducido por entidad — todos los mensajes para `u
 | Single active consumer de RabbitMQ | Consumidor exclusivo | Ordenamiento basado en colas |
 | Tabla de secuencia en base de datos | Bloqueo optimista | Sin broker de mensajeria |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Usar una clave de particion determinista
 - Monitorear skew de particiones

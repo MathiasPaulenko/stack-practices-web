@@ -139,7 +139,7 @@ Key design decisions:
 A: [RAG](/recipes/ai/semantic-search) retrieves documents and answers once. Agents can take multiple actions, use tools, and iterate until a goal is met.
 
 **Q: How many tools should an agent have?**
-A: Start with 2-3. Research shows accuracy drops significantly beyond 5-7 tools.
+A: Start with 2-3. Research shows accuracy drops sharply beyond 5-7 tools.
 
 **Q: Can agents run without OpenAI?**
 A: Yes. Local models (Llama, Mistral) support tool calling via structured output formats like JSON mode.

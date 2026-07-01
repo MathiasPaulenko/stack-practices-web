@@ -74,7 +74,7 @@ with open('output.toml', 'wb') as f:
 ### JavaScript
 
 ```javascript
-// @iarna/toml es un parser TOML robusto para Node.js
+// @iarna/toml es un parser TOML confiable para Node.js
 // npm install @iarna/toml
 import toml from '@iarna/toml';
 import fs from 'fs';
@@ -125,7 +125,7 @@ Python 3.11 agregó `tomllib` a la librería estándar, eliminando la necesidad 
 | Java | `tomlj` | `Toml.parse()` | Moderno, soporta acceso por dotted keys |
 | Java | `toml4j` | `Toml.read()` | Más antiguo pero ampliamente usado |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa `tomllib` en Python 3.11+** en lugar de paquetes `toml` o `tomli` deprecados para lectura
 - **Quottea strings con caracteres especiales** para evitar ambigüedad en parsers TOML

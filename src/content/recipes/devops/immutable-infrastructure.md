@@ -132,7 +132,7 @@ resource "aws_autoscaling_group" "app" {
 
 ## Variants
 
-| Technology | Use Case | Notable Features |
+| Technology | Use Case | Notable Capabilities |
 |------------|----------|------------------|
 | Packer | Multi-cloud images | One config → AWS, GCP, Azure, VMware |
 | Docker | Container images | Layer caching; registries |
@@ -152,7 +152,7 @@ resource "aws_autoscaling_group" "app" {
 
 1. **Mutable containers**: Running `apt-get install` inside a running container defeats immutability
 2. **Latest tags**: `:latest` is mutable and non-deterministic; always pin digests or SHAs
-3. **Storing secrets in images**: Bake credentials into AMIs and containers create permanent exposure. Follow [secrets management best practices](/guides/security/security-best-practices-guide).
+3. **Storing secrets in images**: Bake credentials into AMIs and containers create permanent exposure. Follow [secrets management guidelines](/guides/security/security-best-practices-guide).
 4. **Forgetting data volumes**: Read-only rootfs means logs and uploads need external storage
 5. **No image lifecycle policy**: Old images accumulate storage costs and become security liabilities
 

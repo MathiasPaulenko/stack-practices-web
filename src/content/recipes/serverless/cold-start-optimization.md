@@ -38,7 +38,7 @@ Cold starts are not a bug; they are a trade-off. Serverless pricing is per-reque
 Use this recipe when:
 
 - Building latency-sensitive APIs on serverless platforms (sub-200ms p99). See [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) for building HTTP APIs with low latency.
-- Experiencing user complaints about slow first requests after idle periods. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for function design what works.
+- Experiencing user complaints about slow first requests after idle periods. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for what works for function design.
 - Migrating from provisioned servers to serverless and needing comparable latency
 - Optimizing Java, .NET, or Ruby functions that suffer from multi-second cold starts
 - Running machine learning inference or heavy initialization in serverless environments. See [Connection Pooling](/recipes/databases/database-connection-pooling) for managing database connections in serverless.
@@ -154,7 +154,7 @@ gcloud run deploy api-service \
 - **Keep deployment packages small**: every dependency adds initialization time. Audit your `node_modules` or `requirements.txt`. Remove dev dependencies, unused SDK capabilities, and bloated libraries. A 50MB package initializes faster than a 250MB package.
 - **Move initialization out of the handler**: code at the top level of your module runs once per cold start. Code inside the handler runs on every invocation. Initialize databases, clients, and configuration at the module level. Use the handler only for request-specific logic.
 - **Use execution environment reuse**: after a cold start, Lambda containers are reused for subsequent warm invocations. Cache connections, compiled regexes, and parsed configuration in global scope. This free cache persists across hundreds of warm invocations.
-- **Ping functions to keep warm**: for functions that cannot use provisioned concurrency, schedule a CloudWatch EventBridge rule or Cloud Scheduler to ping the function every 5 minutes. This is a crude but effective workaround for low-traffic endpoints.
+- **Ping functions to keep warm**: for functions that cannot use provisioned concurrency, schedule a CloudWatch EventBridge rule or Cloud Scheduler to ping the function every 5 minutes. This is a crude but functional workaround for low-traffic endpoints.
 
 ## Common mistakes
 

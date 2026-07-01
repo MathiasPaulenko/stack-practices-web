@@ -190,7 +190,7 @@ La cola actua como un **buffer** entre productores y consumidores:
 | Stream | Kafka, Kinesis | Event sourcing, reproduccion, persistencia basada en log |
 | Cola de tareas | Celery, BullMQ, Hangfire | Programacion de trabajos, reintentos, seguimiento de resultados |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Establecer limites de profundidad de cola
 - Monitorear la profundidad de la cola

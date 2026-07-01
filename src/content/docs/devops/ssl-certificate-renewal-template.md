@@ -109,7 +109,7 @@ The template separates **inventory** (what certificates you have) from **workflo
 | Internal services | Internal PKI / Vault | Auto-renewal via Vault PKI engine | Full control, requires trust distribution |
 | IoT / embedded | Device-attested certs | Factory provisioning + OTA updates | Limited validation options |
 
-## Best Practices
+## What Works
 
 1. Set calendar alerts at 30, 14, and 7 days before expiration—even for "auto-renewing" certificates
 2. Store certificate backups (private key + chain) in a secrets manager, not on a single engineer's laptop

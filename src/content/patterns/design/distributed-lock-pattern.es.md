@@ -325,7 +325,7 @@ El **algoritmo Redlock** (Redis) adquiere locks en múltiples instancias Redis i
 | **Database advisory lock** | PostgreSQL/MySQL | Sin infraestructura adicional, pero acoplado a BD |
 | **Consul** | Sesiones de Consul | Integración con service mesh, health-check integration |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre usa un TTL/lease.** Un proceso caído no debe mantener un lock para siempre.
 - **Usa fencing tokens para escrituras.** Incluye el token en escrituras al storage para rechazar operaciones obsoletas.

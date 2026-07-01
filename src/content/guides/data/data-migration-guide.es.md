@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: data-migration-guide
-title: "Migración de Datos — Estrategias Zero-Downtime que Funcionan"
+title: "Migración de Datos: Estrategias Zero-Downtime que Funcionan"
 description: "Guía práctica sobre migración de datos: planificación, patrones de doble escritura, estrategias de backfill, evolución de esquemas, validación y procedimientos de rollback para mover datos sin interrupción de servicio."
 metaDescription: "Aprende migración de datos: patrones de doble escritura, backfill, evolución de esquemas, validación y rollback para mover datos sin interrupción de servicio."
 difficulty: advanced
@@ -388,24 +388,24 @@ ON CONFLICT (user_id) DO NOTHING;
 -- Paso 5: Eliminar columnas de users (después de ventana de rollback)
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
-- **Siempre prueba migraciones en una copia de datos de producción.** Los datos de staging raramente coinciden con volumen o casos edge de producción.
-- **Haz migraciones idempotentes.** Si un script falla en la fila 500,000, reiniciarlo no debería crear duplicados.
-- **Throttle backfills.** Correr a máxima velocidad priva a las consultas de producción. Usa rate limiting.
-- **Valida con más que conteos de filas.** Compara checksums, muestra filas aleatorias, ejecuta tests de integración.
-- **Nunca elimines datos viejos inmediatamente.** Mantén la ventana de rollback abierta (24-72 horas mínimo).
-- **Monitorea durante todo el proceso.** Configura dashboards específicamente para la migración.
-- **Comunica ampliamente.** Las migraciones de datos afectan a cada equipo que toca la base de datos.
+- Siempre prueba migraciones en una copia de datos de producción. Los datos de staging raramente coinciden con volumen o casos edge de producción.
+- Haz migraciones idempotentes. Si un script falla en la fila 500,000, reiniciarlo no debería crear duplicados.
+- Throttle backfills. Correr a máxima velocidad priva a las consultas de producción. Usa rate limiting.
+- Valida con más que conteos de filas. Compara checksums, muestra filas aleatorias, ejecuta tests de integración.
+- Nunca elimines datos viejos inmediatamente. Mantén la ventana de rollback abierta (24-72 horas mínimo).
+- Monitorea durante todo el proceso. Configura dashboards específicamente para la migración.
+- Comunica ampliamente. Las migraciones de datos afectan a cada equipo que toca la base de datos.
 
 ## Errores Comunes
 
-- **Sin plan de rollback.** Una vez que eliminas columnas viejas, revertir requiere otra migración compleja.
-- **Ejecutar migraciones en horas pico.** Programa backfills durante ventanas de bajo tráfico.
-- **Olvidar foreign keys.** Migrar una tabla padre sin actualizar referencias de tabla hija rompe constraints.
-- **Sin validación.** Asumir que la migración funcionó porque terminó sin errores.
-- **Eliminar datos demasiado pronto.** El patrón "expandir-contraer" existe porque los rollbacks son necesarios.
-- **Subestimar duración.** Una migración que toma 2 horas en staging puede tomar 20 en producción.
+- Sin plan de rollback. Una vez que eliminas columnas viejas, revertir requiere otra migración compleja.
+- Ejecutar migraciones en horas pico. Programa backfills durante ventanas de bajo tráfico.
+- Olvidar foreign keys. Migrar una tabla padre sin actualizar referencias de tabla hija rompe constraints.
+- Sin validación. Asumir que la migración funcionó porque terminó sin errores.
+- Eliminar datos demasiado pronto. El patrón "expandir-contraer" existe porque los rollbacks son necesarios.
+- Subestimar duración. Una migración que toma 2 horas en staging puede tomar 20 en producción.
 
 ## Variantes
 
@@ -431,4 +431,4 @@ Sí, pero throttle el backfill. Usa `pg_sleep` entre lotes, corre durante horas 
 ## Conclusión
 
 La migración de datos no es un evento sino un proceso: planificar, doble escribir, backfill, validar, lectura sombra, cutover y limpieza. Al seguir patrones estructurados y nunca saltarse la validación, mueves datos de forma segura manteniendo los sistemas online.
-
+

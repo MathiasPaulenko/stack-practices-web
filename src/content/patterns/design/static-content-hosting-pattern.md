@@ -351,4 +351,4 @@ A: Object storage (S3, GCS) is the source of truth for files. A CDN caches copie
 A: Most CDNs charge per GB transferred. For typical web applications, CDN costs are negligible compared to origin bandwidth savings. Many providers offer generous free tiers.
 
 **Q: Can I use a CDN for live content?**
-A: Limited — CDNs cache based on URL. Dynamic content that changes per user should not be cached unless using edge functions (Cloudflare Workers, Lambda@Edge) for personalization.
+A: Limited — CDNs cache based on URL. Live content that changes per user should not be cached unless using edge functions (Cloudflare Workers, Lambda@Edge) for personalization.

@@ -189,7 +189,7 @@ The Retry Pattern has three configurable dimensions:
 | **Jitter** | Adds randomness to backoff | Prevents thundering herd after recovery |
 | **[Circuit Breaker](/patterns/design/circuit-breaker-pattern) + Retry** | Skip retries when breaker is open | Prevents wasted retry attempts |
 
-## Best Practices
+## What Works
 
 - **Make operations idempotent** before applying retries — retries can cause duplicate side effects
 - **Use exponential backoff with jitter** for distributed systems to avoid synchronized retries

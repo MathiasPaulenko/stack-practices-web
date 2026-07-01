@@ -151,7 +151,7 @@ The playbook enforces a **single Incident Commander** to avoid conflicting decis
 | On-premise | Physical isolation procedures | Require data center access, hardware imaging |
 | Small team | Combine roles (Commander + Technical Lead) | Document who covers which role if primary is unavailable |
 
-## Best Practices
+## What Works
 
 1. Run tabletop exercises quarterly so the team knows the playbook before a real incident
 2. Maintain a contact sheet with phone numbers, not just Slack handles

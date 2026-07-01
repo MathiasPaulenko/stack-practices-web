@@ -93,7 +93,7 @@ Use this checklist before declaring a deployment successful. Pair it with [Relea
 | Metric validation | 15 minutes post-deploy | 10 minutes |
 | Full validation | 1 hour post-deploy | Ongoing monitoring |
 
-## Best Practices
+## What Works
 
 - **Automate the checklist** — CI should fail the deploy if health checks do not pass. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for integration.
 - **Test rollback before you need it** — a rollback that has never been tested is a gamble. See [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template) for broader planning.

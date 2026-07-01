@@ -286,7 +286,7 @@ No. Son guías, no leyes. Aplícalos donde reduzcan complejidad y acoplamiento. 
 
 ### ¿Los principios SOLID aplican solo a POO?
 
-Los conceptos se traducen bien a otros modelos. La programación funcional logra DIP mediante funciones de orden superior, y SRP aplica a módulos y funciones en cualquier paradigma. Consulta [design patterns](/guides/design/design-patterns-guide) para ejemplos prácticos.
+Los conceptos se traducen bien a otros modelos. La programación funcional logra DIP mediante funciones de orden superior, y SRP aplica a módulos y funciones en cualquier modelo. Consulta [design patterns](/guides/design/design-patterns-guide) para ejemplos prácticos.
 
 ### ¿Cómo convenzo a mi equipo de refactorizar hacia SOLID?
 

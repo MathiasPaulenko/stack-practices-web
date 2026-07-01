@@ -253,7 +253,7 @@ The key advantage over annotations is compile-time type checking. If a method re
 | **Annotation** | `@Marker` with reflection | Java (modern alternative) |
 | **Trait** | Empty trait bounds | Rust |
 
-## Best Practices
+## What Works
 
 - **Use sparingly.** Too many marker interfaces pollute the type hierarchy.
 - **Document the contract.** Even empty interfaces should explain what implementers promise.

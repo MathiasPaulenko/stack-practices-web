@@ -163,7 +163,7 @@ El cifrado de payload es raramente necesario si ya usas TLS, pero puede requerir
 | **Shopify** | `hmac=<sig>` | Clave API | Query string HMAC para webhooks de app |
 | **Genérico** | `X-Webhook-Signature` | Secreto compartido | Implementación personalizada recomendada |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Usa **TLS 1.3** y rechaza HTTP plano — redirige a HTTPS sin procesar el payload
 2. Almacena **secretos en variables de entorno** o secret managers, nunca en código

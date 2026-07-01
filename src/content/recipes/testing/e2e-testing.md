@@ -133,7 +133,7 @@ jobs:
 
 - **Real browser automation**: Playwright and Cypress drive real Chromium, Firefox, and WebKit browsers. They simulate clicks, typing, navigation, and network conditions more accurately than headless HTTP clients.
 - **Auto-waiting**: both frameworks automatically wait for elements to appear, become enabled, or stop animating before interacting. This eliminates the `sleep(1)` anti-pattern that causes flakiness in Selenium.
-- **Trace and debug**: Playwright generates traces (screenshots, network logs, DOM snapshots) on failure. Cypress runs inside the browser and provides time-travel debugging. Both make diagnosing failures significantly faster.
+- **Trace and debug**: Playwright generates traces (screenshots, network logs, DOM snapshots) on failure. Cypress runs inside the browser and provides time-travel debugging. Both make diagnosing failures considerably faster.
 - **Test isolation**: each test should create and clean up its own data. Shared database state between tests causes ordering dependencies and hidden failures. Use APIs or database fixtures to reset state in `beforeEach`.
 
 ## Variants
@@ -145,7 +145,7 @@ jobs:
 | Selenium | Multi | All major | Via Grid | Legacy enterprise support |
 | Puppeteer | JavaScript | Chromium only | Manual | Chrome-specific scraping/testing |
 
-## Best practices
+## What works
 
 - **Use `data-testid` selectors**: avoid selecting by CSS class or DOM position. Classes change during refactors; `data-testid` attributes are stable contracts between frontend and test suite.
 - **Test user journeys, not implementation details**: a good E2E test reads like a user story — "the user logs in, adds a product to cart, and checks out." It does not assert internal Redux state or API response payloads.

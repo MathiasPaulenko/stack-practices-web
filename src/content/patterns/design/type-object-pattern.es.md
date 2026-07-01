@@ -282,7 +282,7 @@ Todos los monstruos `Goblin` comparten el mismo objeto `MonsterType`, reduciendo
 | **Scripted** | Scripts Lua/Python | Comportamiento complejo por tipo |
 | **Hybrid ECS** | Tipo como Component archetype | Unity DOTS, motores modernos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén los tipos inmutables.** Modificar un tipo compartido afecta a todas las instancias inesperadamente.
 - **Separa estado de instancia de datos de tipo.** El HP actual y posición pertenecen a instancias; los stats base pertenecen a los tipos.

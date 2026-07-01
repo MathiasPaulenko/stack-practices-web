@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: rest-api-design
-title: "Diseño de APIs REST: Mejores Prácticas"
+title: "Diseño de APIs REST: Lo que funciona"
 description: "Diseña APIs REST robustas y escalables con métodos HTTP adecuados, códigos de estado, versionado y estrategias de paginación."
-metaDescription: "Mejores prácticas para diseñar APIs REST: métodos HTTP, códigos de estado, versionado, paginación, HATEOAS y convenciones de nomenclatura de recursos."
+metaDescription: "Lo que funciona para diseñar APIs REST: métodos HTTP, códigos de estado, versionado, paginación, HATEOAS y convenciones de nomenclatura de recursos."
 difficulty: intermediate
 topics:
   - api
@@ -19,7 +19,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Mejores prácticas para diseñar APIs REST: métodos HTTP, códigos de estado, versionado, paginación, HATEOAS y convenciones de nomenclatura de recursos."
+  metaDescription: "Lo que funciona para diseñar APIs REST: métodos HTTP, códigos de estado, versionado, paginación, HATEOAS y convenciones de nomenclatura de recursos."
   keywords:
     - rest-api
     - api-design
@@ -105,7 +105,7 @@ REST aprovecha HTTP como protocolo de aplicación, no solo como transporte:
 | gRPC | Microservicios internos | Binario; streaming; schema-first |
 | JSON-RPC | RPC simple | Liviano; menos nativo HTTP |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa sustantivos plurales**: /orders, no /order ni /getOrder
 - **Versiona en la URL**: /v1/users (más explícito que headers)

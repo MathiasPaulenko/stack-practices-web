@@ -118,7 +118,7 @@ La plantilla separa **que** esta cambiando de **por que** y **como** migrar. La 
 | API Interna | Aviso de 30 dias, anuncio en Slack | Iteracion mas rapida, base de consumidores menor |
 | Parche de seguridad de emergencia | Aviso de 7 dias, contacto directo | La seguridad tiene prioridad sobre la conveniencia |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Enviar headers de deprecacion en respuestas de API** al menos 90 dias antes del retiro (`Deprecation: true`, `Sunset: <fecha>`)
 2. **Proporcionar un reemplazo funcional** antes de eliminar el endpoint antiguo

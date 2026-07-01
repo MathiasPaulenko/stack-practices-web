@@ -155,7 +155,7 @@ El `bleach` de Python es ideal para campos de rich-text porque permite una allow
 | Java | `JSoup` | Sanitización HTML | Perfiles `Safelist` para casos de uso comunes |
 | Java | `OWASP Java Encoder` | Encoding específico por contexto | HTML, JS, CSS, URL, attribute encoding |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Valida primero, luego sanitiza**: Rechaza input inválido temprano; la sanitización es red de seguridad, no guardián
 - **Usa allow-lists, no block-lists**: Define lo que se permite (tags, protocolos, caracteres) en lugar de intentar bloquear cada vector de ataque
@@ -165,7 +165,7 @@ El `bleach` de Python es ideal para campos de rich-text porque permite una allow
 
 ## Errores Comunes
 
-- **Black-listing de tags HTML**: Los atacantes inventan nuevos tags y atributos; las allow-lists son el único enfoque robusto
+- **Black-listing de tags HTML**: Los atacantes inventan nuevos tags y atributos; las allow-lists son el único enfoque confiable
 - **Sanitizar después de validar**: La validación debe ocurrir sobre input crudo; sanitizar primero puede saltear reglas de validación
 - **Usar regex para parsear HTML**: Regex no puede parsear HTML correctamente; siempre usa un parser HTML apropiado para sanitización
 - **Encoding una vez y reutilizar en todos lados**: Output HTML-escaped es inseguro dentro de strings JavaScript; codifica por contexto

@@ -131,7 +131,7 @@ El cifrado es tan fuerte como las claves que lo protegen. La plantilla de ciclo 
 - **Ciclo de vida de claves de cifrado de base de datos**: Cubre cifrado transparente de datos (TDE) y claves a nivel de columna.
 - **Ciclo de vida de claves de backup**: Asegura que las claves de largo plazo puedan recuperarse para retencion de archivos mientras permanecen seguras.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Utiliza un KMS o HSM centralizado en lugar de almacenar claves en el codigo de aplicacion.
 - Separa las claves de cifrado de datos de las claves de cifrado de claves.

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: feature-flags-guide
-title: "Feature Flags — Release Progresivo y Experimentación Segura"
+title: "Feature Flags: Release Progresivo y Experimentación Segura"
 description: "Guía práctica sobre feature flags: patrones de implementación, rollouts progresivos, kill switches, integración con A/B testing y gestión del ciclo de vida de feature flags a escala."
 metaDescription: "Aprende feature flags: patrones de implementación, rollouts progresivos, kill switches, A/B testing y gestión de ciclo de vida a escala."
 difficulty: intermediate
@@ -160,14 +160,15 @@ def advance_rollout(flag_name: str, current_stage: int):
         print(f"{flag_name} ya está al 100%")
 ```
 
-**Progresión de rollout:**
-1. **Solo internos:** Habilitar para equipo de desarrollo (0% + usuarios target)
-2. **Usuarios beta:** Habilitar para early adopters amigables (0% + lista beta)
-3. **1% rollout:** Exponer a 1% del tráfico
-4. **10% rollout:** Monitorear métricas a pequeña escala
-5. **50% rollout:** Validar a gran volumen
-6. **100% rollout:** Release completo
-7. **Remover flag:** Limpiar código condicional
+#### Progresión de Rollout
+
+1. Solo internos: Habilitar para equipo de desarrollo (0% + usuarios target)
+2. Usuarios beta: Habilitar para early adopters amigables (0% + lista beta)
+3. 1% rollout: Exponer a 1% del tráfico
+4. 10% rollout: Monitorear métricas a pequeña escala
+5. 50% rollout: Validar a gran volumen
+6. 100% rollout: Release completo
+7. Remover flag: Limpiar código condicional
 
 ### 3. Agregar Kill Switches
 
@@ -190,7 +191,8 @@ def process_payment(order):
         raise
 ```
 
-**Lo que funciona para kill switches:**
+#### Lo que Funciona para Kill Switches
+
 - Cada nuevo cambio obtiene un kill switch por defecto
 - Documenta qué cambios tienen kill switches en tu runbook
 - Practica drills de kill switch trimestralmente
@@ -235,7 +237,8 @@ Los flags no deberían vivir para siempre:
 # 7. Verificar que no hay regresiones
 ```
 
-**Reglas de ciclo de vida:**
+#### Reglas de Ciclo de Vida
+
 - Establecer fechas de expiración en flags de release y experimento (30-60 días)
 - Revisar todos los flags mensualmente en standup de ingeniería
 - Archivar flags removidos en un changelog para propósitos de auditoría
@@ -243,27 +246,27 @@ Los flags no deberían vivir para siempre:
 
 ## Lo que funciona
 
-- **Mantén flags simples.** Un flag por cambio, no condicionales anidados.
-- **Default seguro.** Si el sistema de flags cae, default al comportamiento probado.
-- **Evalúa flags una vez por request.** Cachear el resultado para evitar lookups repetidos.
-- **Prueba ambos caminos.** Los tests unitarios deben cubrir estados habilitado y deshabilitado.
-- **Documenta propósito del flag.** Cada flag necesita un owner, descripción y fecha de expiración.
-- **Evita interdependencias de flags.** Combinar flags crea complejidad combinatoria.
+- Mantén flags simples. Un flag por cambio, no condicionales anidados.
+- Default seguro. Si el sistema de flags cae, default al comportamiento probado.
+- Evalúa flags una vez por request. Cachear el resultado para evitar lookups repetidos.
+- Prueba ambos caminos. Los tests unitarios deben cubrir estados habilitado y deshabilitado.
+- Documenta propósito del flag. Cada flag necesita un owner, descripción y fecha de expiración.
+- Evita interdependencias de flags. Combinar flags crea complejidad combinatoria.
 
 ## Common Mistakes
 
-- **Dejar flags en código indefinidamente.** Flags estancados crean deuda técnica y código muerto.
-- **Usar flags para control de acceso permanente.** Usa RBAC apropiado para permisos de larga duración.
-- **Evaluar flags en bucles calientes.** Las evaluaciones de flag en bucles ajustados dañan rendimiento.
-- **Estado de flag inconsistente entre servicios.** Asegúrate de que los flags estén sincronizados en sistemas distribuidos.
-- **Olvidar probar el camino deshabilitado.** El camino default es lo que la mayoría de usuarios ven.
+- Dejar flags en código indefinidamente. Flags estancados crean deuda técnica y código muerto.
+- Usar flags para control de acceso permanente. Usa RBAC apropiado para permisos de larga duración.
+- Evaluar flags en bucles calientes. Las evaluaciones de flag en bucles ajustados dañan rendimiento.
+- Estado de flag inconsistente entre servicios. Asegúrate de que los flags estén sincronizados en sistemas distribuidos.
+- Olvidar probar el camino deshabilitado. El camino default es lo que la mayoría de usuarios ven.
 
 ## Variants
 
-- **Configuración dinámica:** Más amplia que flags — incluye umbrales, límites y parámetros de flag
-- **Flags contextuales:** Flags que varían por hora del día, geografía o tipo de dispositivo
-- **Flags multi-variante:** Flags con múltiples estados (testing A/B/C/D)
-- **Flags del lado del cliente:** Evaluados en browser/mobile para variaciones de UI
+- Configuración dinámica: Más amplia que flags. Incluye umbrales, límites y parámetros de flag.
+- Flags contextuales: Flags que varían por hora del día, geografía o tipo de dispositivo
+- Flags multi-variante: Flags con múltiples estados (testing A/B/C/D)
+- Flags del lado del cliente: Evaluados en browser/mobile para variaciones de UI
 
 ## FAQ
 

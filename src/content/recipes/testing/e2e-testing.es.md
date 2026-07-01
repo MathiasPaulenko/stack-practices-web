@@ -133,7 +133,7 @@ jobs:
 
 - **Automatización de navegador real**: Playwright y Cypress controlan navegadores reales de Chromium, Firefox y WebKit. Simulan clics, escritura, navegación y condiciones de red más precisamente que clientes HTTP headless.
 - **Espera automática**: ambos frameworks esperan automáticamente a que los elementos aparezcan, se habiliten o dejen de animarse antes de interactuar. Esto elimina el anti-patrón `sleep(1)` que causa flakiness en Selenium.
-- **Traza y debug**: Playwright genera trazas (screenshots, logs de red, snapshots del DOM) en fallo. Cypress corre dentro del navegador y proporciona debugging de time-travel. Ambos hacen que diagnosticar fallos sea significativamente más rápido.
+- **Traza y debug**: Playwright genera trazas (screenshots, logs de red, snapshots del DOM) en fallo. Cypress corre dentro del navegador y proporciona debugging de time-travel. Ambos hacen que diagnosticar fallos sea considerablemente más rápido.
 - **Aislamiento de tests**: cada test debería crear y limpiar sus propios datos. El estado compartido de base de datos entre tests causa dependencias de ordenamiento y fallos ocultos. Usa APIs o fixtures de base de datos para resetear estado en `beforeEach`.
 
 ## Variantes
@@ -145,7 +145,7 @@ jobs:
 | Selenium | Multi | Todos los principales | Vía Grid | Soporte enterprise legacy |
 | Puppeteer | JavaScript | Solo Chromium | Manual | Scraping/testing específico de Chrome |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa selectores `data-testid`**: evita seleccionar por clase CSS o posición del DOM. Las clases cambian durante refactors; los atributos `data-testid` son contratos estables entre frontend y suite de tests.
 - **Testea viajes de usuario, no detalles de implementación**: un buen test E2E se lee como una historia de usuario — "el usuario inicia sesión, agrega un producto al carrito y compra." No aserta sobre estado interno de Redux ni payloads de respuesta de API.

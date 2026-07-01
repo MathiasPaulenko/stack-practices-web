@@ -185,4 +185,4 @@ A: Sample DEBUG logs, aggregate metrics at the edge, and use cheaper storage tie
 A: Both. [Metrics](/recipes/observability/metrics-collection) for dashboards and alerts. Logs for debugging and audit trails. Don't alert on logs alone.
 
 **Q: How do I secure aggregated logs?**
-A: Role-based access, encrypted transport (TLS), and encrypted storage (AES-256). Treat logs as sensitive data. See [security what works](/guides/security/security-best-practices-guide).
+A: Role-based access, encrypted transport (TLS), and encrypted storage (AES-256). Treat logs as sensitive data. See [what works for security](/guides/security/security-best-practices-guide).

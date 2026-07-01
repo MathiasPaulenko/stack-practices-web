@@ -48,44 +48,44 @@ Software architecture defines the structure of a system, the relationships betwe
 
 ### Monolithic Architecture
 
-**Structure**: Single deployable unit containing all functionality.
+Structure: Single deployable unit containing all functionality.
 
-**When to Choose**
+#### When to Choose
 
 - Small team (< 10 developers)
 - Simple domain with low complexity
 - Rapid prototyping phase
 - Tight latency requirements within components
 
-**Pros**: Simple deployment, easy testing, low operational overhead.
-**Cons**: Tight coupling, harder to scale individual components, risk of cascading failures.
+Pros: Simple deployment, easy testing, low operational overhead.
+Cons: Tight coupling, harder to scale individual components, risk of cascading failures.
 
 ### Microservices Architecture
 
-**Structure**: Independent services communicating over the network.
+Structure: Independent services communicating over the network.
 
-**When to Choose**
+#### When to Choose
 
 - Large team (> 20 developers)
 - Complex domain with clear bounded contexts
 - Need for independent scaling and deployment
 - Multiple technology stacks required
 
-**Pros**: Independent deployment, team autonomy, polyglot persistence.
-**Cons**: Network latency, operational complexity, distributed debugging difficulty.
+Pros: Independent deployment, team autonomy, polyglot persistence.
+Cons: Network latency, operational complexity, distributed debugging difficulty.
 
 ### Modular Monolith
 
-**Structure**: Single deployable unit with well-defined internal modules.
+Structure: Single deployable unit with well-defined internal modules.
 
-**When to Choose**
+#### When to Choose
 
 - Mid-sized team (10–30 developers)
 - Want to defer [microservices complexity](/guides/architecture/microservices-architecture-guide)
 - Clear domain boundaries but shared infrastructure
 
-**Pros**: Simpler operations than microservices, better structure than big-ball-of-mud.
-**Cons**: Requires discipline to maintain module boundaries.
+Pros: Simpler operations than microservices, better structure than big-ball-of-mud.
+Cons: Requires discipline to maintain module boundaries.
 
 ## Layered Architecture
 
@@ -104,7 +104,7 @@ Software architecture defines the structure of a system, the relationships betwe
 └──────────────────────────────┘
 ```
 
-**Dependency Rule**: Inner layers must not depend on outer layers. See [SOLID principles](/guides/design/solid-principles-guide).
+Dependency Rule: Inner layers must not depend on outer layers. See [SOLID principles](/guides/design/solid-principles-guide).
 
 ## Data Flow Patterns
 
@@ -112,25 +112,25 @@ Software architecture defines the structure of a system, the relationships betwe
 
 Separate read and write models.
 
-**When to Use**
+#### When to Use
 
 - Read and write workloads differ considerably
 - Read models require denormalized / optimized data
 - Event sourcing is already in use
 
-**Trade-off**: Adds complexity; only use when reads and writes scale independently.
+Trade-off: Adds complexity; only use when reads and writes scale independently.
 
 ### Event-Driven Architecture
 
 Components communicate via asynchronous events.
 
-**When to Use**
+#### When to Use
 
 - Loose coupling between services is required
 - Actions can be processed asynchronously
 - Audit trail of state changes is valuable
 
-**Event Bus Options**: Apache Kafka, RabbitMQ, AWS SNS/SQS, NATS.
+Event Bus Options: Apache Kafka, RabbitMQ, AWS SNS/SQS, NATS.
 
 ## Technology Selection Framework
 
@@ -158,7 +158,7 @@ Add more instances behind a load balancer.
 Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 ```
 
-**Requirement**: State must be externalized (database, cache, object storage).
+Requirement: State must be externalized (database, cache, object storage).
 
 ### Database Scaling
 
@@ -173,39 +173,39 @@ Client -> Load Balancer -> [Instance 1, Instance 2, Instance 3]
 
 ### Synchronous (REST / gRPC)
 
-- **Pros**: Simple mental model, immediate feedback.
-- **Cons**: Tight coupling, cascading failures possible.
-- **Use for**: User-facing operations requiring immediate response.
+- Pros: Simple mental model, immediate feedback.
+- Cons: Tight coupling, cascading failures possible.
+- Use for: User-facing operations requiring immediate response.
 
 ### Asynchronous (Events / Message Queues)
 
-- **Pros**: Decoupled, resilient, scalable.
-- **Cons**: Eventual consistency, harder to debug.
-- **Use for**: Background processing, notifications, analytics.
+- Pros: Decoupled, resilient, scalable.
+- Cons: Eventual consistency, harder to debug.
+- Use for: Background processing, notifications, analytics.
 
 ## Anti-Patterns
 
-- **Big Ball of Mud**: No architecture, everything coupled
-- **Premature Microservices**: Splitting before understanding boundaries
-- **Golden Hammer**: Using favorite tech for every problem
-- **Not Invented Here**: Rebuilding instead of buying/adopting
-- **Over-Engineering**: Solving problems you don't have yet
+- Big Ball of Mud: No architecture, everything coupled
+- Premature Microservices: Splitting before understanding boundaries
+- Golden Hammer: Using favorite tech for every problem
+- Not Invented Here: Rebuilding instead of buying/adopting
+- Over-Engineering: Solving problems you don't have yet
 
 ## What Works
 
-- **Start simple**: Begin with a [modular monolith](/guides/architecture/monolith-to-microservices-migration-guide); extract services when needed
-- **Define bounded contexts**: Use [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) to find natural boundaries
-- **Design for observability**: Every component must expose [metrics, logs, traces](/recipes/observability/metrics-collection)
-- **Automate everything**: [CI/CD](/guides/devops/cicd-pipeline-guide), [infrastructure](/guides/devops/infrastructure-as-code-guide), testing, security scanning
-- **Document decisions**: ADRs for every major architectural choice
+- Start simple: Begin with a [modular monolith](/guides/architecture/monolith-to-microservices-migration-guide); extract services when needed
+- Define bounded contexts: Use [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) to find natural boundaries
+- Design for observability: Every component must expose [metrics, logs, traces](/recipes/observability/metrics-collection)
+- Automate everything: [CI/CD](/guides/devops/cicd-pipeline-guide), [infrastructure](/guides/devops/infrastructure-as-code-guide), testing, security scanning
+- Document decisions: ADRs for every major architectural choice
 
 ## FAQ
 
-**Q: When should I split from monolith to microservices?**
+Q: When should I split from monolith to microservices?
 A: When teams are stepping on each other during deployments, or when independent scaling of components becomes critical. Most teams should start with a modular monolith.
 
-**Q: How do I choose between REST and gRPC?**
+Q: How do I choose between REST and gRPC?
 A: REST for public APIs and browser clients; gRPC for internal service-to-service communication requiring performance and type safety.
 
-**Q: Should I use an event bus or direct HTTP calls?**
+Q: Should I use an event bus or direct HTTP calls?
 A: Use HTTP for operations requiring immediate consistency and user feedback. Use events for background work, notifications, and when you need temporal decoupling.

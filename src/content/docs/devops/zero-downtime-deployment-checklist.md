@@ -139,14 +139,14 @@ Zero-downtime deployments rely on three things: safe rollout mechanics, reliable
 
 ## Variants
 
-- **Kubernetes rolling update checklist**: Focus on readiness probes, max surge, max unavailable, and pod disruption budgets.
-- **Blue-green deployment checklist**: Focus on traffic switch, database compatibility, and version retention.
-- **Canary deployment checklist**: Focus on metric thresholds, progressive traffic weights, and automated rollback gates.
-- **Serverless deployment checklist**: Focus on function versioning, alias routing, and API Gateway stage management.
-- **Database-heavy deployment checklist**: Focus on schema compatibility, migration order, and rollback scripts.
-- **Mobile or client deployment checklist**: Focus on staged rollout, forced update handling, and API compatibility.
+- Kubernetes rolling update checklist: Focus on readiness probes, max surge, max unavailable, and pod disruption budgets.
+- Blue-green deployment checklist: Focus on traffic switch, database compatibility, and version retention.
+- Canary deployment checklist: Focus on metric thresholds, progressive traffic weights, and automated rollback gates.
+- Serverless deployment checklist: Focus on function versioning, alias routing, and API Gateway stage management.
+- Database-heavy deployment checklist: Focus on schema compatibility, migration order, and rollback scripts.
+- Mobile or client deployment checklist: Focus on staged rollout, forced update handling, and API compatibility.
 
-## Best Practices
+## What Works
 
 - Keep deployments small and frequent to reduce risk.
 - Make database changes backward compatible with both old and new code.

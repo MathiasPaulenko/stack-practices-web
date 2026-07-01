@@ -157,7 +157,7 @@ Los cron jobs son un caso especial: en vez de activarse por eventos de usuario, 
 | Spring @Scheduled | Java | N/A (en proceso) | Expresiones cron | Tareas programadas simples |
 | AWS Lambda + EventBridge | Cualquiera | N/A (serverless) | Reglas EventBridge | Cloud-native, pago por uso |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Haz trabajos idempotentes**: Ejecutar el mismo trabajo dos veces debería producir el mismo resultado. Usa IDs únicos de trabajo para prevenir duplicados.
 - **Configura reintentos con backoff**: Fallos transitorios (cortes de red) deberían reintentar 3-5 veces con backoff exponencial.

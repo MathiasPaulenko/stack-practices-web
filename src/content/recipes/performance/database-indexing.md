@@ -112,10 +112,10 @@ Look for:
 | GiST / GIN | Full-text search, JSON, arrays | Larger, slower to build |
 | BRIN | Very large, naturally ordered tables | Tiny size, approximate results |
 
-## Best Practices
+## What Works
 
 - **Index the columns in your WHERE clause**: if a query filters on `user_id` and `status`, an index on `(user_id, status)` is the first thing to try.
-- **Put equality columns before range columns**: in `(a, b)` where `a = 1` and `b > 100`, the index on `(a, b)` is far more effective than `(b, a)`.
+- **Put equality columns before range columns**: in `(a, b)` where `a = 1` and `b > 100`, the index on `(a, b)` is far more useful than `(b, a)`.
 - **Avoid indexing low-cardinality columns alone**: a `status` column with only 3 values (active, pending, archived) does not benefit from a standalone index. Combine it with a high-cardinality column.
 - **Remove unused indexes**: every index slows down writes. Monitor index usage statistics and drop indexes that are never scanned.
 - **Index foreign key columns**: databases do not always auto-index foreign keys. Missing indexes on `JOIN` columns cause expensive nested loop scans. See [database design](/guides/databases/database-design-guide). See [SQL Joins](/recipes/databases/sql-joins) for join optimization.

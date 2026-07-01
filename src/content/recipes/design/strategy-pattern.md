@@ -209,7 +209,7 @@ total = checkout.get_total(order)
 | Registry + strategy | Yes | Any | User-configurable algorithms |
 | Template method | Inherited | Any | Strategies with shared skeleton |
 
-## Best practices
+## What Works
 
 - **Use dependency injection for strategy selection**: instead of the context constructing its own strategy, inject it via constructor or setter. This makes the context testable with mock strategies and allows the caller to control algorithm selection without modifying the context.
 - **Keep strategy interfaces focused**: a strategy interface should have one primary method. If you find yourself adding `init()`, `validate()`, and `cleanup()` to the interface, the strategy is doing too much. Split into separate interfaces or use a lifecycle wrapper.

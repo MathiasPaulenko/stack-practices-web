@@ -33,7 +33,7 @@ Codifica URLs y componentes URI correctamente para manejar caracteres especiales
 
 ## Cuando Usar Esto
 
-- Construyendo query strings desde [input de usuario](/recipes/api/input-validation) o datos dinamicos
+- Construyendo query strings desde [input de usuario](/recipes/api/input-validation) o datos en vivo
 - Generando URLs con caracteres especiales, espacios o texto non-ASCII
 - Parseando y recodificando URLs de [fuentes externas](/recipes/api/call-rest-api) de forma segura
 

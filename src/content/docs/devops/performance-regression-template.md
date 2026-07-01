@@ -141,7 +141,7 @@ The template forces a **quantified decision** rather than gut feeling. Many team
 | Microservices | Inter-service latency, circuit breaker trips, retry storms | Network overhead dominates |
 | Frontend | Time to Interactive, Largest Contentful Paint, bundle size | Lighthouse scores + RUM data |
 
-## Best Practices
+## What Works
 
 1. Run benchmarks in CI for every release; block deploys on regression > threshold
 2. Establish baseline metrics from a stable period, not an arbitrary target

@@ -203,7 +203,7 @@ The abstraction holds a reference to the implementation and delegates work to it
 | **Driver Bridge** | Abstraction over hardware/OS APIs | Cross-platform UI frameworks |
 | **Remote Bridge** | Local abstraction over remote implementation | RPC stubs and proxies |
 
-## Best Practices
+## What Works
 
 - **Identify independent dimensions** before applying the pattern — not every multi-hierarchy problem needs a bridge
 - **Keep the implementation interface minimal** — only expose what the abstraction needs

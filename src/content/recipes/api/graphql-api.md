@@ -157,7 +157,7 @@ Key differences across languages:
 | Java | graphql-java | Schema-first | Low-level, maximum control |
 | Java | DGS Framework | Code-first | Netflix open-source, Spring integration |
 
-## Best Practices
+## What Works
 
 - **Use DataLoader for N+1 queries**: Batch and cache database requests across resolvers
 - **Implement pagination**: Use [cursor-based pagination](/recipes/api/cursor-pagination-postgresql) for large lists (Relay Connection spec)

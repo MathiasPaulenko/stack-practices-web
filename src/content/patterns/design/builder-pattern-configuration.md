@@ -130,7 +130,7 @@ const config = new DatabaseConfigBuilder()
 - **[Director](/patterns/design/builder-pattern)**: Encapsulate common configurations behind a director class
 - **Step Builder**: Enforce build order through separate interfaces for each step
 
-## Best Practices
+## What Works
 
 - Validate only at `build()` time, not on every setter; see [Builder pattern](/patterns/design/builder-pattern) for validation strategies
 - Return `this` for method chaining (fluent interface)

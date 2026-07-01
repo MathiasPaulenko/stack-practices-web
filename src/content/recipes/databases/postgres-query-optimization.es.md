@@ -150,7 +150,7 @@ LIMIT 20;
 
 ## Consideraciones de Produccion
 
-- Corre `ANALYZE` despues de bulk loads o cambios significativos de datos para actualizar estadisticas
+- Corre `ANALYZE` despues de bulk loads o cambios importantes de datos para actualizar estadisticas
 - Usa `pg_stat_statements` para identificar las queries mas lentas por tiempo total. Consulta [Logging](/recipes/api/logging) para observabilidad de queries.
 - Monitorea bloat de indexes con `pgstattuple` y rebuild con `REINDEX`
 

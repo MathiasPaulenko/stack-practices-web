@@ -105,10 +105,11 @@ canary:
       traffic_percentage: 100
 ```
 
-**Key metrics to monitor:**
-- **Technical:** Error rate, latency (p50/p95/p99), throughput, CPU, memory
-- **Business:** Conversion rate, cart abandonment, login success, payment completion
-- **Custom:** Feature-specific KPIs relevant to the change being deployed
+#### Key Metrics to Monitor
+
+- Technical: Error rate, latency (p50/p95/p99), throughput, CPU, memory
+- Business: Conversion rate, cart abandonment, login success, payment completion
+- Custom: Feature-specific KPIs relevant to the change being deployed
 
 ### 2. Deploy the Canary
 
@@ -215,7 +216,7 @@ result, reason = analyze_canary("v1.2.3", "v1.3.0")
 print(f"Decision: {result} - {reason}")
 ```
 
-**Monitoring checklist:**
+#### Monitoring Checklist
 - Compare canary metrics to baseline, not just absolute values
 - Look for error rate spikes, latency regressions, and resource exhaustion
 - Monitor business metrics (revenue, conversion) alongside technical metrics
@@ -260,8 +261,9 @@ kubectl scale deployment myapp-canary --replicas=0
 echo "Rollback complete. All traffic on stable."
 ```
 
-**Promotion what works:**
-- Never skip bake time — even if metrics look good
+#### Promotion What Works
+
+- Never skip bake time. Even if metrics look good.
 - Double traffic in stages (1% → 5% → 10% → 25% → 50% → 100%)
 - Require manual approval for stages above 50%
 - Keep the old version scaled up until 100% promotion
@@ -278,27 +280,27 @@ echo "Rollback complete. All traffic on stable."
 
 ## What Works
 
-- **Start small.** 1% canary catches most issues without major user impact.
-- **Use meaningful metrics.** Business metrics often detect issues that technical metrics miss.
-- **Keep sessions sticky.** Route the same user to the same version to avoid inconsistency.
-- **Have an instant rollback.** Canary should revert in seconds, not minutes.
-- **Practice the rollback.** Test your rollback procedure before you need it.
-- **Document every canary.** Note what changed, what was observed, and the final decision.
+- Start small. 1% canary catches most issues without major user impact.
+- Use meaningful metrics. Business metrics often detect issues that technical metrics miss.
+- Keep sessions sticky. Route the same user to the same version to avoid inconsistency.
+- Have an instant rollback. Canary should revert in seconds, not minutes.
+- Practice the rollback. Test your rollback procedure before you need it.
+- Document every canary. Note what changed, what was observed, and the final decision.
 
 ## Common Mistakes
 
-- **Rushing promotion.** Skipping bake time because "it looks fine" leads to incidents.
-- **Monitoring only technical metrics.** A change bug may not show in error rates but will affect conversions.
-- **Inconsistent routing.** Users bouncing between versions creates confusion and bugs.
-- **Forgetting database compatibility.** Both versions must work with the current schema.
-- **Not scaling canary properly.** Under-provisioned canaries fail under load, causing false rollbacks.
+- Rushing promotion. Skipping bake time because "it looks fine" leads to incidents.
+- Monitoring only technical metrics. A change bug may not show in error rates but will affect conversions.
+- Inconsistent routing. Users bouncing between versions creates confusion and bugs.
+- Forgetting database compatibility. Both versions must work with the current schema.
+- Not scaling canary properly. Under-provisioned canaries fail under load, causing false rollbacks.
 
 ## Variants
 
-- **Shadow canary:** Send duplicate traffic to canary without user impact (no risk, but doubles load)
-- **Dark launch:** Deploy to production but hide behind feature flags
-- **Geographic canary:** Roll out region by region (US-East first, then Europe, then Asia)
-- **Time-based canary:** Route internal users during business hours, then external users after validation
+- Shadow canary: Send duplicate traffic to canary without user impact (no risk, but doubles load)
+- Dark launch: Deploy to production but hide behind feature flags
+- Geographic canary: Roll out region by region (US-East first, then Europe, then Asia)
+- Time-based canary: Route internal users during business hours, then external users after validation
 
 ## FAQ
 
@@ -316,5 +318,5 @@ For critical services, yes. For internal tools or low-risk changes, direct deplo
 
 ## Conclusion
 
-Canary deployment is the safest way to release software at scale. By exposing changes to a small, controlled audience first, you catch issues early, minimize blast radius, and build confidence in every release. Combine automated metric analysis with gradual promotion for a world-class deployment process.
+Canary deployment is the safest way to release software at scale. By exposing changes to a small, controlled audience first, you catch issues early, minimize blast radius, and build confidence in every release. Combine automated metric analysis with gradual promotion for a top-tier deployment process.
 

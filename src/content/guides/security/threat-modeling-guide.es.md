@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-El modelado de amenazas es el proceso de identificar, comunicar y gestionar amenazas de seguridad en un sistema antes de escribir una sola línea de código. Al analizar la arquitectura y los flujos de datos, los equipos pueden anticipar ataques y construir mitigaciones en el diseño. Es una de las actividades de seguridad más rentables porque corregir vulnerabilidades en diseño es órdenes de magnitud más barato que corregirlas en producción.
+El modelado de amenazas es el proceso de identificar, comunicar y gestionar amenazas de seguridad en un sistema antes de escribir una sola línea de código. Al analizar la arquitectura y los flujos de datos, los equipos pueden anticipar ataques y construir mitigaciones en el diseño. Es una de las actividades de seguridad más útiles porque corregir vulnerabilidades en diseño es órdenes de magnitud más barato que corregirlas en producción.
 
 ## When to Use
 

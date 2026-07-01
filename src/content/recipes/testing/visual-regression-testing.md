@@ -38,7 +38,7 @@ Use this recipe when:
 
 - Maintaining a design system where component changes affect multiple applications. See [Component Testing](/recipes/testing/e2e-testing) for testing components in isolation.
 - Releasing frequent UI updates and needing confidence that changes are intentional. See [Jest Snapshot Testing](/recipes/testing/unit-testing) for render output validation.
-- Supporting multiple browsers or themes where visual consistency is critical. See [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) for frontend performance best practices.
+- Supporting multiple browsers or themes where visual consistency is critical. See [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) for what works in frontend performance.
 - Migrating CSS frameworks or refactoring global styles with broad impact
 - Collaborating between design and engineering teams with shared visual standards
 
@@ -169,5 +169,5 @@ A: When a PR intentionally changes the UI, the visual test will flag a diff. The
 A: Most visual testing tools capture static screenshots, not videos. For animations, use a delay to capture the final state, or mask the animated region. For motion-specific testing, use dedicated animation testing tools or manual QA.
 
 **Q: What causes flaky visual tests?**
-A: Unstable data, loading states, animations, browser version differences, and non-deterministic rendering. Fix flakiness by masking dynamic regions, using stubbed data, waiting for stability, and pinning browser versions in CI.
+A: Unstable data, loading states, animations, browser version differences, and non-deterministic rendering. Fix flakiness by masking live regions, using stubbed data, waiting for stability, and pinning browser versions in CI.
 

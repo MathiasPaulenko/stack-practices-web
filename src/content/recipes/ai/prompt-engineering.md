@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: prompt-engineering
-title: "Apply Prompt Engineering Best Practices"
-description: "How to write effective prompts for LLMs using role assignment, few-shot examples, chain-of-thought reasoning, and structured output formatting."
-metaDescription: "Learn prompt engineering for LLMs. Write effective prompts with role assignment, few-shot examples, chain-of-thought reasoning, and structured output formats."
+title: "Apply Prompt Engineering: What Works"
+description: "How to write useful prompts for LLMs using role assignment, few-shot examples, chain-of-thought reasoning, and structured output formatting."
+metaDescription: "Learn prompt engineering for LLMs. Write useful prompts with role assignment, few-shot examples, chain-of-thought reasoning, and structured output formats."
 difficulty: intermediate
 topics:
   - ai
@@ -16,7 +16,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Learn prompt engineering for LLMs. Write effective prompts with role assignment, few-shot examples, chain-of-thought reasoning, and structured output formats."
+  metaDescription: "Learn prompt engineering for LLMs. Write useful prompts with role assignment, few-shot examples, chain-of-thought reasoning, and structured output formats."
   keywords:
     - prompt engineering
     - llm prompts
@@ -117,7 +117,7 @@ response = openai.chat.completions.create(
 | Chain-of-thought | Complex reasoning, math | Higher tokens |
 | Function calling | Tool use, API integration | Medium tokens |
 
-## Best Practices
+## What Works
 
 - **Be specific and explicit**: vague prompts produce vague answers. Instead of "summarize this," say "summarize in 3 bullet points focusing on financial impact."
 - **Use delimiters for long inputs**: wrap the user content in XML tags (`<article>...</article>`) or triple backticks so the model distinguishes instructions from data.

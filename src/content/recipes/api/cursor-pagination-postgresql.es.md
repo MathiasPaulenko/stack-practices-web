@@ -237,7 +237,7 @@ class PaginatedFeed {
 ## Errores Comunes
 
 - Paginar por una columna no unica sin un tiebreaker (ej. `created_at` solo), causando filas saltadas o duplicadas
-- Usar valores LIMIT grandes, que aun requieren escaneo significativo de indice
+- Usar valores LIMIT grandes, que aun requieren escaneo importante de indice
 - No manejar el caso donde la fila del cursor es borrada, rompiendo navegacion forward
 
 ## FAQ

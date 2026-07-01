@@ -96,7 +96,7 @@ ON orders (customer_id, created_at DESC);
 | BRIN | Very large, naturally ordered tables | Time-series data |
 | Partial | Subset of rows | `WHERE deleted_at IS NULL` |
 
-## Best Practices
+## What Works
 
 1. **Always measure before and after.** `EXPLAIN ANALYZE` gives concrete proof of improvement.
 2. **Index equality columns first.** They are more selective than range columns.

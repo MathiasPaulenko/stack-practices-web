@@ -128,7 +128,7 @@ The template treats your network as a **defense-in-depth system**. Segmentation 
 | Kubernetes | Network Policies + Cilium / Calico | Enforce namespace isolation; default-deny is safest |
 | Hybrid / On-prem | Physical firewall + SD-WAN | Document both logical and physical paths |
 
-## Best Practices
+## What Works
 
 1. Default-deny all traffic; whitelist only what is required with documented justification
 2. Review firewall rules quarterly; remove rules that no longer have a valid justification

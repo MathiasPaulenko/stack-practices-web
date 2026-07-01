@@ -26,7 +26,7 @@ seo:
 
 # Escaneo de Seguridad de Imagenes de Contenedores con Trivy
 
-Las imagenes de contenedor empaquetan codigo de aplicacion con librerias del sistema operativo, haciendolas una superficie de ataque significativa. Trivy escanea imagenes para vulnerabilidades de paquetes OS, dependencias de aplicacion, configuraciones incorrectas y secretos expuestos. Esta recipe cubre escaneo local, integracion CI/CD, aplicacion de politicas y flujos de trabajo de remediacion para seguridad de contenedores en produccion.
+Las imagenes de contenedor empaquetan codigo de aplicacion con librerias del sistema operativo, haciendolas una superficie de ataque importante. Trivy escanea imagenes para vulnerabilidades de paquetes OS, dependencias de aplicacion, configuraciones incorrectas y secretos expuestos. Esta recipe cubre escaneo local, integracion CI/CD, aplicacion de politicas y flujos de trabajo de remediacion para seguridad de contenedores en produccion.
 
 ## Cuando Usar Esto
 

@@ -136,7 +136,7 @@ PDF is a page-description language where text is positioned absolutely via coord
 | JavaScript | `pdf-lib` | `PDFDocument.load()` | Read/write/modify PDFs, not just extract |
 | Java | `Apache PDFBox` | `PDFTextStripper` | Enterprise standard, supports form filling and signing |
 
-## Best Practices
+## What Works
 
 - **Prefer `pdfplumber` or `pymupdf` for tables**: PyPDF2 cannot detect tabular structures
 - **Validate extracted text quality**: Run a sampling check because extraction accuracy varies by PDF generator

@@ -30,7 +30,7 @@ seo:
     - template
 ---
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Planifica antes del cuello de botella** — La planificación de capacidad es proactiva, no reactiva. Si ya estás al 80% de utilización, llegaste tarde
 - **Usa datos de pruebas de carga** — No adivines; ejecuta [load tests](/recipes/testing/load-testing) para encontrar puntos de ruptura reales

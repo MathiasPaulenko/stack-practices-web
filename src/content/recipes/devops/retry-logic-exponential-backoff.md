@@ -33,7 +33,7 @@ seo:
 ---
 ## Overview
 
-Transient failures — network timeouts, rate limits, temporary service outages — are inevitable in distributed systems. Naively retrying immediately can overload struggling services. Exponential backoff spaces out retries exponentially (1s, 2s, 4s, 8s...) while jitter randomizes wait times to prevent thundering herds. This recipe covers building a robust retry decorator with configurable backoff strategies, circuit breaker integration, and idempotency awareness in Python, JavaScript, and Java.
+Transient failures — network timeouts, rate limits, temporary service outages — are inevitable in distributed systems. Naively retrying immediately can overload struggling services. Exponential backoff spaces out retries exponentially (1s, 2s, 4s, 8s...) while jitter randomizes wait times to prevent thundering herds. This recipe covers building a reliable retry decorator with configurable backoff strategies, circuit breaker integration, and idempotency awareness in Python, JavaScript, and Java.
 
 ## When to Use
 
@@ -238,7 +238,7 @@ public class RetryExecutor {
 | Exponential + Jitter | `random * exponential` | Production APIs, prevents thundering herd |
 | Circuit Breaker | Fail-fast after N errors | Cascading failure protection |
 
-## Best Practices
+## What Works
 
 1. **Always add jitter in production** — without it, coordinated retries from thousands of clients can DDoS a recovering service.
 2. **Only retry idempotent operations** — POST without idempotency key or non-transactional writes can create duplicates on retry.

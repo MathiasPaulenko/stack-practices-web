@@ -124,7 +124,7 @@ Los escritores bufferizados reducen la cantidad de system calls acumulando datos
 | JavaScript | `pipeline()` | Piping consciente de backpressure entre streams |
 | Java | `FileOutputStream` con `BufferedOutputStream` | IO clásica, más simple pero ligeramente más lenta que NIO |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Siempre cierra o finaliza streams para volcar buffers internos y liberar descriptores
 2. Usa patrones de renombrado atómico (escribir en archivo temporal, luego renombrar) para prevenir archivos parciales ante un crash

@@ -181,7 +181,7 @@ A good CLI framework handles the boring parts so you can focus on business logic
 | Java | `picocli` | Annotations, GraalVM native | Enterprise, native-image compilation |
 | Java | `Apache Commons CLI` | Builder pattern | Legacy Java projects |
 
-## Best Practices
+## What Works
 
 - **Provide `--help` and `--version`**: Every CLI should self-document. Users should never need to read the source to understand usage.
 - **Use exit codes correctly**: Return `0` for success, `1` for general errors, `2` for misuse, and `130` for SIGINT (Ctrl+C). CI/CD depends on this.

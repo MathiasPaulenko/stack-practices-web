@@ -126,7 +126,7 @@ const service = new PaymentService(new StripeAdapter());
 - **Caching Adapter**: Combina con [Proxy](/patterns/design/proxy-pattern) para cachear busquedas externas
 - **Batch Adapter**: Adapta endpoints de lista a consultas internas paginadas
 
-## Mejores Practicas
+## Lo que funciona
 
 - Manten los adapters stateless y enfocados solo en traduccion
 - Mapea IDs externos a UUIDs internos para evitar filtrar nombres de proveedor

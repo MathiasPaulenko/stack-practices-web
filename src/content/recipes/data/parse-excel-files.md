@@ -123,7 +123,7 @@ public class ExcelParser {
 
 ## Explanation
 
-Excel files are ZIP archives containing XML files that follow the Open XML specification. Libraries abstract this complexity into sheet, row, and cell APIs. `openpyxl` (Python) supports modern `.xlsx` features like charts, images, and conditional formatting. `xlsx` (JS) is lightweight and supports both reading and writing in browser and Node.js. Apache POI (Java) is the enterprise standard but has a heavier memory footprint.
+Excel files are ZIP archives containing XML files that follow the Open XML specification. Libraries abstract this complexity into sheet, row, and cell APIs. `openpyxl` (Python) supports modern `.xlsx` capabilities like charts, images, and conditional formatting. `xlsx` (JS) is lightweight and supports both reading and writing in browser and Node.js. Apache POI (Java) is the enterprise standard but has a heavier memory footprint.
 
 When reading, decide between `values_only=True` (Python) or `sheet_to_json` (JS) to get plain values, versus accessing cell objects for formatting, formulas, and metadata. For large files (>10k rows), use streaming readers to avoid loading the entire workbook into memory.
 
@@ -138,7 +138,7 @@ When reading, decide between `values_only=True` (Python) or `sheet_to_json` (JS)
 | Java | `Apache POI` | `XSSFWorkbook` | Enterprise standard, supports formulas and charts |
 | Java | `FastExcel` | Streaming API | Low-memory alternative to POI for large files |
 
-## Best Practices
+## What Works
 
 - **Use `read_only=True` in openpyxl** for large read-only files to reduce memory usage
 - **Validate sheet names** before accessing them; user-provided files may have unexpected names

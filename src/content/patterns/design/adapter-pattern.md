@@ -144,7 +144,7 @@ The adapter translates calls from the target interface into calls the adaptee un
 | **Class Adapter** | Inherits from adaptee (multiple inheritance) | Less flexible, not possible in all languages |
 | **Two-way Adapter** | Both interfaces are usable | More complex, but bidirectional |
 
-## Best Practices
+## What Works
 
 - **Favor composition over inheritance** for adapters (object adapter pattern)
 - **Keep the adapter thin**: It should translate calls, not add business logic

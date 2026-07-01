@@ -250,7 +250,7 @@ Al pre-crear objetos y reutilizarlos, el pool elimina el overhead repetido de al
 | **Pool perezoso** | Recursos raramente usados | El primer request paga el costo de creación |
 | **Borrow-and-return** | Operaciones de corta duración | Requiere disciplina para devolver objetos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Configura el tamaño del pool basado en límites reales.** Un pool de conexiones a base de datos no debería exceder `max_connections` menos overhead administrativo.
 - **Valida objetos al checkout.** Una conexión en pool puede haber sido cerrada por el servidor; verifica con un health check ligero antes de devolverla.

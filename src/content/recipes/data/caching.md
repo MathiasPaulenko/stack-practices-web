@@ -35,7 +35,7 @@ seo:
 
 Caching stores the result of expensive computations so that subsequent requests for the same data can be served faster. Memoization is a specific form of caching where function return values are cached based on their arguments.
 
-Caching is one of the most effective performance optimizations, but it introduces complexity: stale data, cache invalidation, and distributed consistency.
+Caching is one of the most useful performance optimizations, but it introduces complexity: stale data, cache invalidation, and distributed consistency.
 
 ## When to Use
 
@@ -147,7 +147,7 @@ userCache.invalidate(userId);
 | **Cache-aside** | Flexibility, read-heavy | Application manages cache logic |
 | **Eviction (LRU/LFU)** | Memory constraints | May evict hot data prematurely |
 
-## Best Practices
+## What Works
 
 - **Cache at the right level**: Don't cache everything. Cache the most expensive and most frequently accessed data.
 - **Set TTLs thoughtfully**: Too short = useless. Too long = stale data.

@@ -228,7 +228,7 @@ Instances can be registered directly or lazily created via factories on first ac
 | **Hierarchical Registry** | Parent fallback chain | Child registries override parent defaults |
 | **Event Registry** | `on(event, handler)` | Event bus / pub-sub systems |
 
-## Best Practices
+## What Works
 
 - **Register at startup, not during requests.** Runtime registration causes race conditions and unpredictable behavior.
 - **Use factory registration for expensive objects.** Lazy creation avoids startup delays for services that may not be used.

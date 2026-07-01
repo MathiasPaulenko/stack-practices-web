@@ -162,7 +162,7 @@ Cada lenguaje ofrece diferentes niveles de abstracción para el análisis de CSV
 | Java | Apache Commons CSV | `CSVFormat` | Cumple RFC 4180 |
 | Java | OpenCSV | `CSVReader` | Alternativa ligera |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Especifica siempre la codificación**: Usa `UTF-8` explícitamente para evitar corrupción de caracteres en datos internacionales
 - **Maneja los headers con cuidado**: Usa `DictReader` (Python) o `withFirstRecordAsHeader()` (Java) para acceso por nombre de columna

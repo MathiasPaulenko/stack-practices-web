@@ -297,7 +297,7 @@ The Twin Pattern works by mutual delegation:
 3. Each twin holds a back-reference to the widget to access shared state
 4. The widget delegates method calls to the appropriate twin
 
-This is effectively "composition over inheritance" taken to its logical conclusion: instead of inheriting from multiple parents, the class composes multiple delegates and exposes their methods through its own interface.
+This is essentially "composition over inheritance" taken to its logical conclusion: instead of inheriting from multiple parents, the class composes multiple delegates and exposes their methods through its own interface.
 
 ## Variants
 

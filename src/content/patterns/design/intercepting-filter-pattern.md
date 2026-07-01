@@ -390,7 +390,7 @@ Filters are ordered. Authentication should run before authorization, which shoul
 | **Event-driven** | Filters subscribe to events | Highly decoupled systems |
 | **DAG pipeline** | Directed acyclic graph of stages | Complex data processing |
 
-## Best Practices
+## What Works
 
 - **Order filters carefully.** Authentication before authorization before caching.
 - **Make filters stateless.** Thread safety depends on stateless filter instances.

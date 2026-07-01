@@ -164,7 +164,7 @@ done
 [ "$error_count" -eq 0 ] || exit 1
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre entrecomilla variables de archivo.** `"$file"` previene el splitting de palabras en espacios y la interpretación de caracteres glob.
 - **Usa `find -print0 | while read -r -d ''`** para filtrado recursivo o complejo. Es la única forma portable de manejar todos los nombres de archivo válidos.

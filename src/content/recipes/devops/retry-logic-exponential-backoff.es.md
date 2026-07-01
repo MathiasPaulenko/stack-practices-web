@@ -33,7 +33,7 @@ seo:
 ---
 ## Visión General
 
-Los fallos transitorios —timeouts de red, rate limits, cortes temporales de servicio— son inevitables en sistemas distribuidos. Reintentar inmediatamente puede sobrecargar servicios que ya están luchando. El backoff exponencial espacia los reintentos de forma exponencial (1s, 2s, 4s, 8s...) mientras que el jitter aleatoriza los tiempos de espera para prevenir manadas de reintentos sincronizados (thundering herd). Esta receta cubre la construcción de un decorador de retry robusto con estrategias de backoff configurables, integración con circuit breaker y conciencia de idempotencia en Python, JavaScript y Java.
+Los fallos transitorios —timeouts de red, rate limits, cortes temporales de servicio— son inevitables en sistemas distribuidos. Reintentar inmediatamente puede sobrecargar servicios que ya están luchando. El backoff exponencial espacia los reintentos de forma exponencial (1s, 2s, 4s, 8s...) mientras que el jitter aleatoriza los tiempos de espera para prevenir manadas de reintentos sincronizados (thundering herd). Esta receta cubre la construcción de un decorador de retry confiable con estrategias de backoff configurables, integración con circuit breaker y conciencia de idempotencia en Python, JavaScript y Java.
 
 ## Cuándo Usar
 
@@ -238,7 +238,7 @@ public class RetryExecutor {
 | Exponencial + Jitter | `random * exponencial` | APIs de producción, previene thundering herd |
 | Circuit Breaker | Fail-fast tras N errores | Protección contra fallos en cascada |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Siempre añade jitter en producción** — sin él, reintentos coordinados desde miles de clientes pueden DDoSear un servicio en recuperación.
 2. **Solo reintenta operaciones idempotentes** — un POST sin idempotency key o escrituras no transaccionales pueden crear duplicados al reintentar.

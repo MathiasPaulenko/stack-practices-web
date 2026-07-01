@@ -3,7 +3,7 @@ contentType: recipes
 slug: structured-logging
 title: "Logging Estructurado"
 description: "Implementa logging estructurado con salida JSON, correlation IDs y agregación de logs para observabilidad en producción."
-metaDescription: "Mejores prácticas de logging estructurado: formato JSON, correlation IDs, niveles de log, agregación con ELK/Loki e integración con trazas distribuidas."
+metaDescription: "Lo que funciona en logging estructurado: formato JSON, correlation IDs, niveles de log, agregación con ELK/Loki e integración con trazas distribuidas."
 difficulty: intermediate
 topics:
   - observability
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Mejores prácticas de logging estructurado: formato JSON, correlation IDs, niveles de log, agregación con ELK/Loki e integración con trazas distribuidas."
+  metaDescription: "Lo que funciona en logging estructurado: formato JSON, correlation IDs, niveles de log, agregación con ELK/Loki e integración con trazas distribuidas."
   keywords:
     - logging
     - observability
@@ -139,10 +139,10 @@ func CorrelationIDMiddleware(next http.Handler) http.Handler {
 | Datadog | SaaS | APM + logs + trazas unificados |
 | Splunk | Enterprise | Cumplimiento; analytics avanzados |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre incluye request_id**: Traza un viaje de usuario a través de 10+ servicios
-- **Usa niveles de log consistentemente**: debug para dev; info para operaciones normales; error para issues accionables
+- **Usa niveles de log consistentemente**: debug para dev; info para operaciones normales; error para issues útiles
 - **Nunca loguees datos sensibles**: Enmascara PII, tokens y passwords antes de serialización
 - **Loguea en boundaries de servicio**: Entrada/salida de cada handler HTTP, consumer de cola y job en background
 - **Emite métricas desde logs**: Usa métricas derivadas de logs para dashboards en lugar de instrumentación custom

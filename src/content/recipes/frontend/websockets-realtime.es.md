@@ -129,7 +129,7 @@ El handshake de WebSocket actualiza una conexión HTTP:
 | Long Polling | Servidor-a-cliente | Soporte de navegadores legacy |
 | MQTT sobre WebSocket | Pub/sub | IoT, telemetría |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Implementa heartbeat/ping**: Detecta conexiones muertas con frames ping/pong periódicos
 - **Autentica durante el handshake**: Pasa JWT en query string o subprotocolo

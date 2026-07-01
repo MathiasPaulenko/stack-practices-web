@@ -27,7 +27,7 @@ seo:
 
 ## Overview
 
-SQL JOINs combine rows from two or more tables based on a related column. They are one of the most powerful and frequently misunderstood features of relational databases. This recipe demonstrates the four common JOIN types with a realistic `users` and `orders` schema.
+SQL JOINs combine rows from two or more tables based on a related column. They are one of the most powerful and frequently misunderstood capabilities of relational databases. This recipe demonstrates the four common JOIN types with a realistic `users` and `orders` schema.
 
 ## When to Use
 
@@ -128,7 +128,7 @@ Returns all users and all orders, with NULLs where there is no match on either s
 | Orders without users (bad data) | `RIGHT JOIN` or `LEFT JOIN` with tables swapped |
 | All records from both | `FULL OUTER JOIN` (or `UNION` in MySQL) |
 
-## Best Practices
+## What Works
 
 - **Index foreign keys**: the join column (`orders.user_id`) should have an index or foreign-key constraint. See [Query Optimization](/recipes/databases/postgres-query-optimization) for indexing. Without it, large tables perform full scans.
 - **Use table aliases**: `users u` makes queries readable and shorter.

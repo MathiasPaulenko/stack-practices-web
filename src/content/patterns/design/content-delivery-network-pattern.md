@@ -2,7 +2,7 @@
 contentType: patterns
 slug: content-delivery-network-pattern
 title: "Content Delivery Network (CDN) Pattern"
-description: "Distribute static and dynamic content through geographically dispersed edge servers to reduce latency, improve availability, and offload origin infrastructure."
+description: "Distribute static and live content through geographically dispersed edge servers to reduce latency, improve availability, and offload origin infrastructure."
 metaDescription: "Learn the CDN Pattern for edge caching and content distribution. Examples in JavaScript, Python, and Terraform with CloudFront, Fastly, and Vercel Edge."
 difficulty: beginner
 topics:
@@ -202,7 +202,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
-  # Origin: ALB for dynamic API
+  # Origin: ALB for live API
   origin {
     domain_name = aws_lb.main.dns_name
     origin_id   = "ALB-api"

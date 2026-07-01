@@ -216,7 +216,7 @@ The key challenge is deciding between **shallow copy** (copies references) and *
 | **Registry-based** | Multiple prototypes identified by key | Flexible lookup, adds registry management |
 | **Serialization Clone** | Deep copy via serialize/deserialize | Handles complex graphs, but slower and language-specific |
 
-## Best Practices
+## What Works
 
 - **Use deep copy for mutable nested objects** to prevent unintended shared state between clones
 - **Implement `clone()` explicitly** rather than relying on default language behavior for predictable results

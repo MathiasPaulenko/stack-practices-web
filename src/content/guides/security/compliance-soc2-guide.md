@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-SOC 2 (Service Organization Control 2) is an audit framework developed by the AICPA that evaluates how service organizations manage customer data. Unlike compliance checklists, SOC 2 Type II requires demonstrating that your controls operate effectively over time. For engineering teams, this means building systems with security, availability, processing integrity, confidentiality, and privacy — and proving they work through evidence.
+SOC 2 (Service Organization Control 2) is an audit framework developed by the AICPA that evaluates how service organizations manage customer data. Unlike compliance checklists, SOC 2 Type II requires demonstrating that your controls operate well over time. For engineering teams, this means building systems with security, availability, processing integrity, confidentiality, and privacy — and proving they work through evidence.
 
 ## When to Use
 

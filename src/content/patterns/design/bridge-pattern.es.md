@@ -204,7 +204,7 @@ La abstracción mantiene una referencia a la implementación y delega el trabajo
 | **Bridge de Drivers** | Abstracción sobre APIs de hardware/OS | Frameworks UI multiplataforma |
 | **Bridge Remoto** | Abstracción local sobre implementación remota | Stubs RPC y proxies |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Identifica dimensiones independientes** antes de aplicar el patrón — no todo problema de múltiples jerarquías necesita un bridge
 - **Mantén la interfaz de implementación minimalista** — solo expón lo que la abstracción necesita

@@ -154,7 +154,7 @@ def create_order(items, total):
 | Datadog | Agent push | SaaS; out-of-box dashboards |
 | CloudWatch | AWS integration | AWS-native apps |
 
-## Best Practices
+## What Works
 
 - **Use histograms for latency**: Counters and gauges lose distribution shape
 - **Add `le` buckets for SLOs**: `histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))`

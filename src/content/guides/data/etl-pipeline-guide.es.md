@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: etl-pipeline-guide
-title: "Pipelines ETL — Extract, Transform, Load para Ingenieros de Datos"
+title: "Pipelines ETL: Extract, Transform, Load para Ingenieros de Datos"
 description: "Guía práctica sobre pipelines ETL: extraer datos de múltiples fuentes, transformar con validación y lógica de negocio, y cargar en data warehouses. Cubre programación de batches, manejo de errores y monitoreo con Python, dbt y Airflow."
 metaDescription: "Aprende pipelines ETL: extrae de múltiples fuentes, transforma con validación y lógica de negocio, carga en data warehouses con Python, dbt y Airflow."
 difficulty: intermediate
@@ -53,9 +53,9 @@ Esta guía cubre arquitectura de pipelines, estrategias de extracción de datos,
 
 ## Cuándo NO Usar
 
-- Necesitas latencia sub-segundo de evento a insight — usa procesamiento de streams
+- Necesitas latencia sub-segundo de evento a insight. Usa procesamiento de streams.
 - Tu volumen de datos es lo suficientemente pequeño para consultar directamente en las bases de datos fuente
-- Necesitas detección de fraude o alertas en tiempo real — usa streaming de eventos
+- Necesitas detección de fraude o alertas en tiempo real. Usa streaming de eventos.
 - Tus cambios de datos son eventos discretos que deberían disparar acciones inmediatas
 
 ## Conceptos Clave
@@ -228,7 +228,7 @@ class APIExtractor:
                 time.sleep(2 ** attempt)
 ```
 
-**Estrategias de extracción:**
+#### Estrategias de Extracción
 
 | Estrategia | Caso de Uso | Trade-off |
 |------------|-------------|-----------|
@@ -320,7 +320,7 @@ transformer.add_transformation(add_derived_columns)
 clean_data = transformer.transform(raw_data)
 ```
 
-**Patrones de transformación:**
+#### Patrones de Transformación
 
 | Patrón | Descripción | Ejemplo |
 |--------|-------------|---------|
@@ -443,7 +443,7 @@ class SnowflakeLoader:
         self.session.sql(f"DROP TABLE IF EXISTS {temp_table}").collect()
 ```
 
-**Estrategias de carga:**
+#### Estrategias de Carga
 
 | Estrategia | Mejor Para | Trade-off |
 |------------|------------|-----------|
@@ -611,31 +611,31 @@ WHERE d.customer_id = s.customer_id
   AND (d.name <> s.name OR d.email <> s.email OR d.segment <> s.segment);
 ```
 
-## Mejores Prácticas
+## Lo que Funciona
 
-- **Usa tablas de staging.** Nunca transformes datos directamente en tablas de producción. Stage, valida, luego carga.
-- **Haz pipelines idempotentes.** Correr el mismo DAG dos veces debería producir el mismo resultado.
-- **Valida temprano, valida frecuentemente.** Atrapa problemas de calidad de datos en staging, no en el warehouse.
-- **Particiona tablas grandes.** Carga datos por partición para habilitar reemplazo rápido y pruning.
-- **Monitorea frescura de datos.** Alerta cuando tablas no han sido actualizadas dentro del SLA.
-- **Documenta lineage.** Rastrea qué tablas fuente alimentan qué tablas del warehouse.
-- **Prueba transformaciones.** Prueba lógica de negocio como código de aplicación.
+- Usa tablas de staging. Nunca transformes datos directamente en tablas de producción. Stage, valida, luego carga.
+- Haz pipelines idempotentes. Correr el mismo DAG dos veces debería producir el mismo resultado.
+- Valida temprano, valida frecuentemente. Atrapa problemas de calidad de datos en staging, no en el warehouse.
+- Particiona tablas grandes. Carga datos por partición para habilitar reemplazo rápido y pruning.
+- Monitorea frescura de datos. Alerta cuando tablas no han sido actualizadas dentro del SLA.
+- Documenta lineage. Rastrea qué tablas fuente alimentan qué tablas del warehouse.
+- Prueba transformaciones. Prueba lógica de negocio como código de aplicación.
 
 ## Errores Comunes
 
-- **Sin validación de datos.** Datos malos corrompen silenciosamente reportes y dashboards.
-- **Transformar en producción.** Correr UPDATE directamente en el warehouse es riesgoso y difícil de revertir.
-- **Sin carga incremental.** Full refreshes de tablas grandes toman horas y desperdician recursos.
-- **Sin monitoreo de SLA.** Los stakeholders no saben que el pipeline falló hasta que ven dashboards obsoletos.
-- **Credenciales hard-coded.** Usa manejadores de conexión (Airflow, AWS Secrets Manager) en su lugar.
-- **Sin lógica de reintento.** Fallos transitorios de red no deberían hacer fallar todo el pipeline.
+- Sin validación de datos. Datos malos corrompen silenciosamente reportes y dashboards.
+- Transformar en producción. Correr UPDATE directamente en el warehouse es riesgoso y difícil de revertir.
+- Sin carga incremental. Full refreshes de tablas grandes toman horas y desperdician recursos.
+- Sin monitoreo de SLA. Los stakeholders no saben que el pipeline falló hasta que ven dashboards obsoletos.
+- Credenciales hard-coded. Usa manejadores de conexión (Airflow, AWS Secrets Manager) en su lugar.
+- Sin lógica de reintento. Fallos transitorios de red no deberían hacer fallar todo el pipeline.
 
 ## Variantes
 
-- **ELT (Extract, Load, Transform):** Cargar datos crudos al warehouse primero, luego transformar con SQL (dbt, Snowflake) — más simple para equipos nativos de SQL
-- **Reverse ETL:** Empujar datos del warehouse de vuelta a sistemas operacionales (CRM, herramientas de marketing)
-- **Zero-ETL:** Consulta federada directa sin mover datos (BigQuery Federated Queries, Snowflake External Tables)
-- **Change Data Capture (CDC):** Extracción en tiempo real usando logs de base de datos en lugar de polling por batch
+- ELT (Extract, Load, Transform): Cargar datos crudos al warehouse primero, luego transformar con SQL (dbt, Snowflake). Más simple para equipos nativos de SQL.
+- Reverse ETL: Empujar datos del warehouse de vuelta a sistemas operacionales (CRM, herramientas de marketing)
+- Zero-ETL: Consulta federada directa sin mover datos (BigQuery Federated Queries, Snowflake External Tables)
+- Change Data Capture (CDC): Extracción en tiempo real usando logs de base de datos en lugar de polling por batch
 
 ## FAQ
 
@@ -654,4 +654,4 @@ Un data lake almacena datos crudos y no procesados en archivos (S3, GCS) con sch
 ## Conclusión
 
 Los pipelines ETL son la columna vertebral de la inteligencia de negocios y el análisis. Al extraer datos de forma confiable, transformarlos con validación y cargarlos eficientemente, creas una base de datos confiable para reportes, dashboards y machine learning.
-
+

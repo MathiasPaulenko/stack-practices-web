@@ -2,7 +2,7 @@
 contentType: guides
 slug: concurrency-patterns-guide
 title: "Guía de Patrones de Concurrencia"
-description: "Guía de patrones de concurrencia comunes y mejores prácticas para escribir código concurrente seguro y eficiente."
+description: "Guía de patrones de concurrencia comunes y lo que funciona para escribir código concurrente seguro y eficiente."
 metaDescription: "Aprende patrones de concurrencia: thread pools, async/await, futures, semáforos y prevención de race conditions. Ejemplos prácticos en múltiples lenguajes."
 difficulty: advanced
 topics:
@@ -144,7 +144,7 @@ class SafeCounter:
 | **Thread leak** | Memoria crece con el tiempo | Usar thread pools, siempre hacer shutdown |
 | **Context switching** | CPU alta, throughput bajo | Reducir cantidad de threads, usar async I/O |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Share nothing**: Prefiere paso de mensajes sobre estado compartido
 - **Usa colecciones thread-safe**: `ConcurrentHashMap`, `Queue`, `AtomicInteger`

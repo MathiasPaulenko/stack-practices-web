@@ -3,7 +3,7 @@ contentType: recipes
 slug: event-driven-functions
 title: "Build Event-Driven Serverless Architectures"
 description: "How to design loosely coupled systems using serverless functions triggered by events from message queues, databases, and webhooks."
-metaDescription: "Learn event-driven serverless architecture. Design loosely coupled systems with Lambda, SQS, EventBridge, and webhook triggers for scalable async processing."
+metaDescription: "Learn event-driven serverless architecture. Design loosely coupled systems with Lambda, SQS, EventBridge, and webhook triggers for growth-ready async processing."
 difficulty: intermediate
 topics:
   - serverless
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Learn event-driven serverless architecture. Design loosely coupled systems with Lambda, SQS, EventBridge, and webhook triggers for scalable async processing."
+  metaDescription: "Learn event-driven serverless architecture. Design loosely coupled systems with Lambda, SQS, EventBridge, and webhook triggers for growth-ready async processing."
   keywords:
     - event driven serverless
     - lambda sqs
@@ -126,7 +126,7 @@ async function publishOrderPlaced(order) {
 | SNS topics | Loose | Medium | Broadcast, fan-out notifications |
 | Kinesis streams | Loose | High | Real-time analytics, ordered processing |
 
-## Best Practices
+## What Works
 
 - **Design events around business facts**: `OrderPlaced` is better than `ProcessOrder` because it describes what happened, not what to do. This gives consumers freedom to react in different ways.
 - **Make events immutable and self-contained**: include enough context (order ID, customer email, amount) so consumers do not need to query back to the producer.

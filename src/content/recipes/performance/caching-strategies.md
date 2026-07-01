@@ -2,7 +2,7 @@
 contentType: recipes
 slug: caching-strategies
 title: "Caching Strategies"
-description: "Implement effective caching strategies for databases, APIs, and frontends using Redis, CDNs, and browser caches."
+description: "Implement useful caching strategies for databases, APIs, and frontends using Redis, CDNs, and browser caches."
 metaDescription: "Caching strategies for web applications: Redis, CDN, browser cache, cache invalidation, stale-while-revalidate, and cache stampede prevention."
 difficulty: intermediate
 topics:
@@ -30,7 +30,7 @@ seo:
 ---
 ## Overview
 
-Caching is the single most effective technique for improving application performance. By storing frequently accessed data closer to consumers — in browser memory, CDN edges, or in-memory stores — you reduce latency, decrease database load, and improve user experience. Choosing the right caching strategy depends on data freshness requirements and read/write patterns.
+Caching is the single most useful technique for improving application performance. By storing frequently accessed data closer to consumers — in browser memory, CDN edges, or in-memory stores — you reduce latency, decrease database load, and improve user experience. Choosing the right caching strategy depends on data freshness requirements and read/write patterns.
 
 ## When to Use
 
@@ -115,7 +115,7 @@ app.get('/api/products', (req, res) => {
 | Database | Query cache, materialized views | ~1-10ms | Repeated complex queries |
 | Disk | Page cache, OS buffers | ~0.1ms | File system reads |
 
-## Best Practices
+## What Works
 
 - **Set TTLs based on data volatility**: User profiles (1h), product catalogs (24h), stock prices (10s)
 - **Cache at multiple layers**: Browser + CDN + Redis + DB query cache

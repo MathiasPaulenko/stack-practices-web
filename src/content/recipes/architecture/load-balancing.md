@@ -169,7 +169,7 @@ user_server = ring.get_node("user-123")
 | IP hash | O(1) | Medium | Strong | Medium | Session persistence |
 | Consistent hash | O(log n) | Medium | Strong | Strong | Distributed caches |
 
-## Best practices
+## What Works
 
 - **Implement active health checks**: passive monitoring (detecting connection failures) is too slow. Configure HTTP health checks that hit `/health` every 5 seconds. A server returning 500s should be removed from rotation before it degrades user experience.
 - **Use [connection pooling](/recipes/performance/connection-pooling)**: creating a new TCP connection for every request adds latency and CPU overhead. Configure `keepalive` connections between the load balancer and backends so connections are reused across requests.

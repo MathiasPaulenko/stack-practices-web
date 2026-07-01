@@ -3,7 +3,7 @@ contentType: recipes
 slug: batch-processing-patterns
 title: "Patrones de Procesamiento por Lotes"
 description: "Diseña pipelines robustos de procesamiento por lotes para grandes datasets con retry, idempotencia y observabilidad."
-metaDescription: "Patrones de procesamiento por lotes para grandes datasets: diseño robusto de pipelines, retry, idempotencia y mejores prácticas de observabilidad para ETL."
+metaDescription: "Patrones de procesamiento por lotes para grandes datasets: diseño robusto de pipelines, retry, idempotencia y lo que funciona de observabilidad para ETL."
 difficulty: intermediate
 topics:
   - data
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Patrones de procesamiento por lotes para grandes datasets: diseño robusto de pipelines, retry, idempotencia y mejores prácticas de observabilidad para ETL."
+  metaDescription: "Patrones de procesamiento por lotes para grandes datasets: diseño robusto de pipelines, retry, idempotencia y lo que funciona de observabilidad para ETL."
   keywords:
     - batch-processing
     - data
@@ -118,7 +118,7 @@ Un pipeline de producción por lotes necesita tres propiedades:
 | MapReduce | Agregación distribuida | Escala horizontalmente |
 | Change Data Capture | Sincronización incremental | Requiere soporte de la fuente |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Diseña para idempotencia**: Cada trabajo debe ser seguro de reintentar
 - **Registra todo**: Inicio de trabajo, fin, y resultado de cada batch

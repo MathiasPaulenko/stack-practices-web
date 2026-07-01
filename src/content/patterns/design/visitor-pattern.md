@@ -264,7 +264,7 @@ This is known as **double dispatch**: the first dispatch is `shape.accept(visito
 | **Acyclic Visitor** | Visitor uses abstract interface, not concrete types | When element hierarchy is unstable |
 | **Reflective Visitor** | Uses reflection to avoid `accept()` methods | Prototypes, scripting |
 
-## Best Practices
+## What Works
 
 - **Use only when the element hierarchy is stable** — adding a new element type requires changing all visitors
 - **Group related operations** into a single visitor instead of many small ones

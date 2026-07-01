@@ -286,7 +286,7 @@ Este approach layered significa que el código de presentación nunca referencia
 | **Retry** | Retry automático ante fallo | Servicios remotos no confiables |
 | **Async** | Invocación asíncrona | Presentación no bloqueante |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Cachea referencias de servicio.** Evita lookups repetidos de JNDI o registro.
 - **Traduce excepciones.** Convierte excepciones remotas/de servicio en errores amigables para presentación.

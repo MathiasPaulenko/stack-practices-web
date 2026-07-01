@@ -35,7 +35,7 @@ Multi-tenancy is an architecture where a single software instance serves multipl
 
 Use this resource when:
 - Building SaaS applications serving multiple organizations
-- Meeting compliance requirements (SOC 2, HIPAA) that mandate data segregation. See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance what works.
+- Meeting compliance requirements (SOC 2, HIPAA) that mandate data segregation. See [API Security Checklist](/guides/security/api-security-checklist-guide) for what works in compliance.
 - Optimizing infrastructure costs by sharing compute across tenants
 - Scaling from hundreds to thousands of tenants with predictable performance
 

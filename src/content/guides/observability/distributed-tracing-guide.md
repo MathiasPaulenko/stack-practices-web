@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: distributed-tracing-guide
-title: "Distributed Tracing — End-to-End Request Flow Across Microservices"
+title: "Distributed Tracing: End-to-End Request Flow Across Microservices"
 description: "A practical guide to distributed tracing: instrumenting applications, trace propagation, sampling strategies, and diagnosing latency in microservice architectures with OpenTelemetry, Jaeger, and Zipkin."
 metaDescription: "Learn distributed tracing: instrument applications, propagate traces, sampling strategies, and diagnose latency with OpenTelemetry, Jaeger, and Zipkin."
 difficulty: intermediate
@@ -160,7 +160,7 @@ app.post('/payments', async (req, res) => {
 });
 ```
 
-**Instrumentation checklist:**
+#### Instrumentation Checklist
 - Auto-instrument HTTP frameworks, database clients, and messaging libraries
 - Create manual spans for business operations (not just infrastructure)
 - Add attributes to spans for filtering and correlation
@@ -206,11 +206,12 @@ public class OrderController {
 }
 ```
 
-**Propagation requirements:**
-- **HTTP:** Use `traceparent` and `tracestate` headers (W3C standard)
-- **gRPC:** Use metadata keys `traceparent` and `tracestate`
-- **Message queues:** Embed trace context in message attributes/headers
-- **Async processing:** Ensure context propagates to thread pools and callbacks
+#### Propagation Requirements
+
+- HTTP: Use `traceparent` and `tracestate` headers (W3C standard)
+- gRPC: Use metadata keys `traceparent` and `tracestate`
+- Message queues: Embed trace context in message attributes/headers
+- Async processing: Ensure context propagates to thread pools and callbacks
 
 ### 3. Configure Sampling
 
@@ -249,7 +250,7 @@ sampler = TraceIdRatioBased(0.05)
 provider = TracerProvider(sampler=sampler)
 ```
 
-**Sampling best practices:**
+#### Sampling: What Works
 - Start with 1-10% sampling in production
 - Always sample error traces and slow requests (tail-based)
 - Use consistent sampling across services (same trace ID → same decision)
@@ -281,11 +282,12 @@ def log_with_trace(message, **kwargs):
 log_with_trace("Processing payment", payment_id="pay-123", amount=99.99)
 ```
 
-**Correlation patterns:**
-- **Logs:** Include `trace_id` and `span_id` in every log entry
-- **Metrics:** Tag latency metrics with `trace_id` for drill-down
-- **Errors:** Attach trace context to error tracking (Sentry, Bugsnag)
-- **Dashboards:** Link from latency spikes directly to example traces
+#### Correlation Patterns
+
+- Logs: Include `trace_id` and `span_id` in every log entry
+- Metrics: Tag latency metrics with `trace_id` for drill-down
+- Errors: Attach trace context to error tracking (Sentry, Bugsnag)
+- Dashboards: Link from latency spikes directly to example traces
 
 ### 5. Query and Analyze Traces
 
@@ -310,35 +312,36 @@ tags={"user.id":"user-123"}
 service=orders-service | select traceID, spanID, duration
 ```
 
-**Common trace analysis queries:**
-- **Latency hotspots:** Group by service, find slowest spans
-- **Error correlation:** Which services fail together?
-- **Dependency mapping:** Which services call which?
-- **Bottleneck identification:** Where is time spent in a trace?
+#### Common Trace Analysis Queries
+
+- Latency hotspots: Group by service, find slowest spans
+- Error correlation: Which services fail together?
+- Dependency mapping: Which services call which?
+- Bottleneck identification: Where is time spent in a trace?
 
 ## What Works
 
-- **Instrument at the framework level first.** HTTP clients, databases, and message queues give the most value with least effort.
-- **Use semantic conventions.** Follow OpenTelemetry semantic conventions for span names and attributes.
-- **Avoid high-cardinality attributes.** User IDs in span names cause index explosion; use attributes instead.
-- **Sample intelligently.** Tail-based sampling captures the most important traces.
-- **Keep trace depth reasonable.** Limit to 50-100 spans per trace; deep nesting hurts readability.
-- **Monitor the monitoring.** Alert if trace collection rate drops or collector queue backs up.
+- Instrument at the framework level first. HTTP clients, databases, and message queues give the most value with least effort.
+- Use semantic conventions. Follow OpenTelemetry semantic conventions for span names and attributes.
+- Avoid high-cardinality attributes. User IDs in span names cause index explosion; use attributes instead.
+- Sample intelligently. Tail-based sampling captures the most important traces.
+- Keep trace depth reasonable. Limit to 50-100 spans per trace; deep nesting hurts readability.
+- Monitor the monitoring. Alert if trace collection rate drops or collector queue backs up.
 
 ## Common Mistakes
 
-- **Missing context propagation.** A broken trace is worse than no trace — verify headers flow everywhere.
-- **Over-instrumenting.** Every loop iteration does not need a span. Instrument operations, not iterations.
-- **Using trace IDs as log search.** Traces complement logs; they do not replace them.
-- **Ignoring sampling costs.** 100% sampling in high-traffic systems generates terabytes of data.
-- **Not correlating with metrics.** Traces show what happened; metrics show how often. Use both.
+- Missing context propagation. A broken trace is worse than no trace. Verify headers flow everywhere.
+- Over-instrumenting. Every loop iteration does not need a span. Instrument operations, not iterations.
+- Using trace IDs as log search. Traces complement logs; they do not replace them.
+- Ignoring sampling costs. 100% sampling in high-traffic systems generates terabytes of data.
+- Not correlating with metrics. Traces show what happened; metrics show how often. Use both.
 
 ## Variants
 
-- **Request shadowing:** Duplicate traffic to a shadow environment with full tracing
-- **Synthetic tracing:** Inject fake requests to continuously monitor paths
-- **eBPF-based tracing:** Kernel-level tracing without application instrumentation
-- **Service mesh tracing:** Istio/Linkerd automatic trace propagation
+- Request shadowing: Duplicate traffic to a shadow environment with full tracing
+- Synthetic tracing: Inject fake requests to continuously monitor paths
+- eBPF-based tracing: Kernel-level tracing without application instrumentation
+- Service mesh tracing: Istio/Linkerd automatic trace propagation
 
 ## FAQ
 

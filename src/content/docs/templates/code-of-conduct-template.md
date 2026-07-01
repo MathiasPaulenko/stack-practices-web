@@ -100,7 +100,7 @@ version 2.1.
 | **Scope** | Where the code applies |
 | **Reporting** | How to report violations |
 
-## Best Practices
+## What Works
 
 - **Adapt, don't copy**: Customize the template to your community's needs
 - **Make it visible**: Link prominently in [README](/docs/templates/readme-template) and repository

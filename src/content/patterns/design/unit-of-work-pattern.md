@@ -385,7 +385,7 @@ Django does not have a classical Unit of Work, but atomic transactions via `tran
 A: A database transaction is the ACID boundary at the DB level. Unit of Work is the application-level coordinator that tracks changes and drives the transaction.
 
 **Q: Can Unit of Work span multiple databases?**
-A: Yes, with distributed transactions (2PC) or saga patterns, but it adds significant complexity.
+A: Yes, with distributed transactions (2PC) or saga patterns, but it adds considerable complexity.
 
 **Q: How does Unit of Work relate to Repository?**
 A: The Repository abstracts persistence. The Unit of Work tracks what the repositories changed and coordinates the commit.

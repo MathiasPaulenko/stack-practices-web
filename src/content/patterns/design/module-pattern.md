@@ -208,7 +208,7 @@ The Module Pattern relies on:
 | **ES Module** | `export`/`import` | Modern JavaScript standard |
 | **Namespace Module** | Object literal namespace | Organizing utilities under one global |
 
-## Best Practices
+## What Works
 
 - **One concern per module.** A module that counts, formats dates, and makes HTTP requests should be split.
 - **Use explicit exports.** Do not rely on wildcard exports; they hide the public contract.

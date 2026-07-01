@@ -168,7 +168,7 @@ UPDATE table SET ... WHERE id = ? AND version = ?
 If `rowsAffected == 0`, the version changed between read and write. The application then handles the conflict: retry with fresh data, return HTTP 409, or merge changes.
 
 **Trade-offs:**
-- **Optimistic**: no locks during read; fast and scalable; requires retry logic on conflict
+- **Optimistic**: no locks during read; fast and growth-ready; requires retry logic on conflict
 - **Pessimistic**: `SELECT FOR UPDATE` locks the row immediately; simpler logic but serializes access and risks deadlocks
 
 ## Variants
@@ -182,7 +182,7 @@ If `rowsAffected == 0`, the version changed between read and write. The applicat
 | DynamoDB | Conditional writes with `Expected` | No native versioning; use attribute_exists or value comparisons |
 | MongoDB | `findAndModify` with query criteria | Include version in filter; retry if document was modified |
 
-## Best Practices
+## What Works
 
 1. Always return the current version to the client after every read so it can send it back on update
 2. Implement [exponential backoff retry](/recipes/architecture/retry-backoff) (1–3 attempts) for transient conflicts in automated processes

@@ -318,7 +318,7 @@ This guarantees that `find_by_id(5)` called three times in one transaction retur
 | **Process-scoped** | Lives for the app lifetime | Read-heavy reference data |
 | **Distributed** | Shared across services | Microservices with shared caches |
 
-## Best Practices
+## What Works
 
 - **Scope the Identity Map to the transaction.** Long-lived maps cause stale data.
 - **Use alongside Unit of Work.** The two patterns complement each other perfectly.

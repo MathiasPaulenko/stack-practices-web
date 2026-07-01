@@ -135,7 +135,7 @@ subprocess.run(["convert", user_filename, "output.png"], check=True)
 
 ## 4. Diseño Inseguro
 
-**Riesgo:** Controles de seguridad ausentes o inefectivos en la arquitectura de la aplicación.
+**Riesgo:** Controles de seguridad ausentes o deficientes en la arquitectura de la aplicación.
 
 ### Prevención
 

@@ -226,7 +226,7 @@ The runbook treats every alert as a **diagnostic workflow**, not just a problem 
 | Data pipeline | Job failures, schema drift, late data | Airflow / Dagster task retry procedures |
 | Multi-region | Region-specific latency, replication lag | Failover runbook section |
 
-## Best Practices
+## What Works
 
 1. Keep each procedure under one page; long runbooks are not read during incidents
 2. Include exact commands, not just "check logs"; stress reduces typing accuracy

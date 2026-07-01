@@ -123,12 +123,12 @@ Los tres ejemplos usan **consultas preparadas** (parameterized queries) para pre
 | JavaScript | `pg-promise` | Librería helper con transacciones y tareas |
 | Java | `HikariCP` | Pool de conexiones JDBC de alto rendimiento |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Usa siempre pools de conexiones en producción en lugar de crear conexiones por petición
 2. Almacena credenciales en variables de entorno o gestores de secretos, nunca en código
 3. Usa SSL (`sslmode=require`) para todas las conexiones de producción
-4. Prefiere consultas preparadas sobre concatenación de strings para valores dinámicos
+4. Prefiere consultas preparadas sobre concatenación de strings para valores en vivo
 5. Cierra cursores y conexiones explícitamente o usa context managers
 
 ## Errores Comunes

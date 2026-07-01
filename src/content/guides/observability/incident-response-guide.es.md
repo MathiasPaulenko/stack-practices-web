@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: incident-response-guide
-title: "Respuesta a Incidentes — Manejo Estructurado de Interrupciones en Producción"
+title: "Respuesta a Incidentes: Manejo Estructurado de Interrupciones en Producción"
 description: "Guía práctica sobre respuesta a incidentes: declarar incidentes, construir una estructura de comando de incidentes, protocolos de comunicación y reducir el tiempo medio de resolución con procesos estructurados."
 metaDescription: "Aprende respuesta a incidentes: declaración, estructura de comando, protocolos de comunicación y reducción de MTTR con procesos estructurados."
 difficulty: intermediate
@@ -87,7 +87,8 @@ Reconoce cuándo una alerta se convierte en incidente:
 - [ ] Stakeholders notificados (Sev1)
 ```
 
-**Principios de declaración:**
+#### Principios de Declaración
+
 - En caso de duda, declara. Bajar severidad es más fácil que recuperarse.
 - Los incidentes Sev1 obtienen un Comandante de Incidente inmediatamente.
 - Crea un canal dedicado para cada incidente Sev1/Sev2.
@@ -118,7 +119,8 @@ Roles claros previenen el caos:
     Responders
 ```
 
-**Lo que funciona para roles:**
+#### Lo Que Funciona para Roles
+
 - El IC no investiga directamente; coordina
 - Solo el IC habla en nombre del equipo de incidentes a stakeholders
 - Rota al IC si la persona actual lleva más de 2 horas
@@ -152,7 +154,8 @@ La comunicación es tan importante como la respuesta técnica:
 Siguiente actualización: 15:00 UTC
 ```
 
-**Principios de comunicación:**
+#### Principios de Comunicación
+
 - Promete menos y entrega más en las ETAs
 - No especules sobre causa raíz hasta estar seguro
 - Actualiza incluso si nada ha cambiado ("seguimos investigando")
@@ -175,7 +178,8 @@ Respuesta técnica estructurada:
 8. **Verificar recuperación:** Confirma métricas regresan a normal, reportes de usuarios resueltos
 ```
 
-**Estrategias de mitigación:**
+#### Estrategias de Mitigación
+
 | Estrategia | Cuándo Usar | Riesgo |
 |------------|-------------|--------|
 | **Rollback** | Despliegue reciente causó el problema | Bajo, si fue probado |
@@ -201,7 +205,8 @@ Formaliza el fin de un incidente:
 - [ ] Incidente cerrado formalmente en sistema de seguimiento
 ```
 
-**Principios de resolución:**
+#### Principios de Resolución
+
 - No cierres hasta tener confirmación del monitoreo
 - Mantén el canal de incidente abierto por 24 horas para preguntas de seguimiento
 - Agenda postmortem antes de que la memoria se desvanezca
@@ -209,40 +214,44 @@ Formaliza el fin de un incidente:
 
 ## Lo que funciona
 
-- **Practica antes de necesitarlo.** Corre game days y ejercicios de chaos engineering.
-- **Comienza con mitigación, no causa raíz.** Arregla el impacto al usuario primero; investiga después.
-- **Un Comandante de Incidente.** La autoridad de decisión debe ser clara y singular.
-- **Comunica temprano y a menudo.** El silencio durante un incidente crea pánico.
-- **Documenta todo.** Las notas del escriba son la base del postmortem.
-- **Aprende de cada incidente.** Si tienes el mismo incidente dos veces, tu proceso está roto.
+- Practica antes de necesitarlo. Corre game days y ejercicios de chaos engineering.
+- Comienza con mitigación, no causa raíz. Arregla el impacto al usuario primero; investiga después.
+- Un Comandante de Incidente. La autoridad de decisión debe ser clara y singular.
+- Comunica temprano y a menudo. El silencio durante un incidente crea pánico.
+- Documenta todo. Las notas del escriba son la base del postmortem.
+- Aprende de cada incidente. Si tienes el mismo incidente dos veces, tu proceso está roto.
 
 ## Errores Comunes
 
-- **Sin IC claro.** Múltiples personas dando órdenes crea confusión y retraso.
-- **Saltarse comunicación.** Los stakeholders hacen sus propias (usualmente erróneas) suposiciones.
-- **Perseguir causa raíz antes de mitigar.** A los usuarios no les importa por qué falló; les importa que funcione.
-- **Olvidar verificar.** Marcar resuelto muy temprano lleva a incidentes reabiertos.
-- **Sin seguimiento.** Incidentes sin postmortems son oportunidades de aprendizaje desperdiciadas.
+- Sin IC claro. Múltiples personas dando órdenes crea confusión y retraso.
+- Saltarse comunicación. Los stakeholders hacen sus propias (usualmente erróneas) suposiciones.
+- Perseguir causa raíz antes de mitigar. A los usuarios no les importa por qué falló; les importa que funcione.
+- Olvidar verificar. Marcar resuelto muy temprano lleva a incidentes reabiertos.
+- Sin seguimiento. Incidentes sin postmortems son oportunidades de aprendizaje desperdiciadas.
 
 ## Variantes
 
-- **Respuesta a incidentes automatizada:** Runbooks de auto-remediación disparados por alertas
-- **Respuesta follow-the-sun:** Equipos regionales transfieren incidentes entre zonas horarias
-- **Incidentes de dependencia externa:** Escalamiento predefinido a vendors de terceros
-- **Respuesta a incidentes de seguridad:** Playbook separado para brechas y exposición de datos
+- Respuesta a incidentes automatizada: Runbooks de auto-remediación disparados por alertas
+- Respuesta follow-the-sun: Equipos regionales transfieren incidentes entre zonas horarias
+- Incidentes de dependencia externa: Escalamiento predefinido a vendors de terceros
+- Respuesta a incidentes de seguridad: Playbook separado para brechas y exposición de datos
 
 ## FAQ
 
-**P: ¿Cuándo debería declarar un incidente vs manejar como alerta normal?**
+### ¿Cuándo debería declarar un incidente vs manejar como alerta normal?
+
 Declara cuando síntomas que impactan usuarios son confirmados y la respuesta estándar de alerta es insuficiente. En caso de duda, declara.
 
-**P: ¿Quién debería ser Comandante de Incidente?**
+### ¿Quién debería ser Comandante de Incidente?
+
 El ingeniero senior más disponible que no esté depurando activamente. El IC coordina; no investiga.
 
-**P: ¿Cómo corro un postmortem útil?**
+### ¿Cómo corro un postmortem útil?
+
 Agéndalo dentro de 48 horas, enfócate en proceso y mejoras de sistemas, no en culpa. Ve la [Guía de Postmortems](/guides/observability/postmortem-guide).
 
-**P: ¿Qué pasa si no podemos encontrar la causa raíz?**
+### ¿Qué pasa si no podemos encontrar la causa raíz?
+
 Está bien. Documenta lo que sabes, lo que intentaste y qué monitorearás. Algunos incidentes permanecen parcialmente inexplicados.
 
 ## Conclusión

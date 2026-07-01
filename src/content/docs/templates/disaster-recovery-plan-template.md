@@ -124,7 +124,7 @@ aws route53 change-resource-record-sets --hosted-zone-id Z123 \
 
 If your database backups run every hour and your RPO is 15 minutes, your backup strategy does not meet the objective.
 
-## Best Practices
+## What Works
 
 - **Test recovery quarterly** — an untested plan is a fantasy. See [Infrastructure as Code Guide](/guides/devops/infrastructure-as-code-guide) for automated environment provisioning.
 - **Automate failover where possible** — human-driven failover takes 10x longer

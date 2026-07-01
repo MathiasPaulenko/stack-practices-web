@@ -228,7 +228,7 @@ Las instancias pueden registrarse directamente o crearse lazy vía factories en 
 | **Hierarchical Registry** | Cadena de fallback a padre | Registros hijos que sobreescriben defaults |
 | **Event Registry** | `on(event, handler)` | Sistemas de event bus / pub-sub |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Registra al inicio, no durante requests.** El registro en runtime causa race conditions y comportamiento impredecible.
 - **Usa factory registration para objetos costosos.** La creación lazy evita demoras de startup para servicios que pueden no usarse.

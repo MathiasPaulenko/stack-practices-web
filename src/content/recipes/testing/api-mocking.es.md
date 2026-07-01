@@ -170,7 +170,7 @@ def test_payment_api():
 | responses | Python | Basado en decoradores; assertions simples |
 | Nock | Node.js | API encadenada; modo recorder |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mock en el boundary**: Mockea HTTP, no métodos internos — los tests deberían ejercitar el stack completo. Para cobertura de integración completa, consulta [end-to-end testing](/recipes/testing/e2e-testing).
 - **Verifica requests, no solo responses**: Asegúrate de que tu código envía el payload y headers correctos

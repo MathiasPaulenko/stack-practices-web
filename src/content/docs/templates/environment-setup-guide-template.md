@@ -117,7 +117,7 @@ curl http://localhost:3000/health
 
 ### Should I use Docker for local development?
 
-Yes, if your project has more than two dependencies (database, cache, queue). See [Docker for Developers Guide](/guides/devops/docker-for-developers-guide) for best practices. A `docker-compose.yml` ensures every developer runs the same versions. For simple projects, local package managers suffice.
+Yes, if your project has more than two dependencies (database, cache, queue). See [Docker for Developers Guide](/guides/devops/docker-for-developers-guide) for setup guidelines. A `docker-compose.yml` ensures every developer runs the same versions. For simple projects, local package managers suffice.
 
 ### How do I handle secrets in local setup?
 

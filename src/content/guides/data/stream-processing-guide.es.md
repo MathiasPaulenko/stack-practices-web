@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: stream-processing-guide
-title: "Procesamiento de Streams — Pipelines de Datos Event-Driven con Kafka, Flink y Spark"
+title: "Procesamiento de Streams: Pipelines de Datos Event-Driven con Kafka, Flink y Spark"
 description: "Guía práctica sobre procesamiento de streams: elegir entre Kafka Streams, Flink y Spark Streaming, diseñar esquemas de eventos, manejar operaciones stateful, y construir pipelines exactly-once para datos en tiempo real."
 metaDescription: "Aprende procesamiento de streams: Kafka, Flink, Spark, esquemas de eventos, stateful y exactly-once para pipelines en tiempo real."
 difficulty: advanced
@@ -52,9 +52,9 @@ Esta guía cubre fundamentos de procesamiento de streams, selección de motor, o
 
 ## Cuándo NO Usar
 
-- Tu caso de uso tolera minutos u horas de latencia — ETL por batch es más simple y barato
+- Tu caso de uso tolera minutos u horas de latencia. ETL por batch es más simple y barato
 - Tus transformaciones requieren acceso a datos históricos que no caben en memoria
-- Necesitas joins complejos multi-tabla a través de sistemas dispares — batch u OLAP es mejor
+- Necesitas joins complejos multi-tabla a través de sistemas dispares. Batch u OLAP es mejor
 - Tu equipo carece de experiencia operativa con procesadores de streams distribuidos
 - El ordenamiento de eventos es crítico pero tu fuente no lo garantiza (la mayoría de logs, algunas APIs)
 
@@ -134,7 +134,7 @@ Esquemas bien diseñados hacen el procesamiento de streams confiable y evolvable
 }
 ```
 
-**Principios de diseño de esquemas:**
+#### Principios de Diseño de Esquemas
 
 | Principio | Por Qué Importa |
 |-----------|-----------------|
@@ -238,7 +238,7 @@ public class OrderAnalyticsApp {
 }
 ```
 
-**Patrones de Kafka Streams:**
+#### Patrones de Kafka Streams
 
 | Patrón | Descripción | Caso de Uso |
 |--------|-------------|-------------|
@@ -360,7 +360,7 @@ public class FraudDetectionJob {
 }
 ```
 
-**Patrones de Flink:**
+#### Patrones de Flink
 
 | Patrón | API | Caso de Uso |
 |--------|-----|-------------|
@@ -395,7 +395,7 @@ ValueStateDescriptor<MyState> descriptor = new ValueStateDescriptor<>("myState",
 descriptor.enableTimeToLive(ttlConfig);
 ```
 
-**Estrategias de manejo de estado:**
+#### Estrategias de Manejo de Estado
 
 | Estrategia | Mejor Para | Trade-off |
 |------------|------------|-----------|
@@ -436,7 +436,7 @@ FlinkKafkaProducer<String> kafkaSink = new FlinkKafkaProducer<>(
 );
 ```
 
-**Garantías de entrega:**
+#### Garantías de Entrega
 
 | Garantía | Comportamiento | Caso de Uso |
 |----------|---------------|-------------|
@@ -444,31 +444,31 @@ FlinkKafkaProducer<String> kafkaSink = new FlinkKafkaProducer<>(
 | **At-least-once** | Los eventos pueden duplicarse | La mayoría de analítica, conteo |
 | **Exactly-once** | Sin pérdida, sin duplicados | Transacciones financieras, facturación |
 
-## Mejores Prácticas
+## Lo que funciona
 
-- **Usa event time, no processing time.** El processing time es no confiable a través de reinicios y replays. Event time con watermarks da resultados correctos.
-- **Mantén estado acotado.** Usa TTL, expiración de ventana y limpieza periódica para prevenir crecimiento ilimitado de estado.
-- **Sinks idempotentes.** Incluso con exactly-once, diseña tus consumidores downstream para manejar duplicados elegantemente.
-- **Monitorea lag.** El consumer lag es la métrica operacional primaria para salud de procesamiento de streams.
-- **Prueba con replay.** Reproduce eventos históricos a través de tu job para validar corrección y rendimiento.
-- **Evolución de esquema.** Usa Confluent Schema Registry o similar para enforce compatibilidad backward/forward.
+- Usa event time, no processing time. El processing time es no confiable a través de reinicios y replays. Event time con watermarks da resultados correctos.
+- Mantén estado acotado. Usa TTL, expiración de ventana y limpieza periódica para prevenir crecimiento ilimitado de estado.
+- Sinks idempotentes. Incluso con exactly-once, diseña tus consumidores downstream para manejar duplicados elegantemente.
+- Monitorea lag. El consumer lag es la métrica operacional primaria para salud de procesamiento de streams.
+- Prueba con replay. Reproduce eventos históricos a través de tu job para validar corrección y rendimiento.
+- Evolución de esquema. Usa Confluent Schema Registry o similar para enforce compatibilidad backward/forward.
 
 ## Errores Comunes
 
-- **Ventanas de processing time.** Los resultados difieren en cada replay. Siempre usa event time para agregaciones.
-- **Crecimiento ilimitado de estado.** Olvidar configurar TTL en estado lleva a crashes OOM después de días o semanas.
-- **Ignorar backpressure.** Cuando los consumidores no pueden mantenerse al día, ocurre pérdida de datos o fallos en cascada. Monitorea y escala.
-- **Sin dead letter queue.** Eventos inválidos no deberían crashear el pipeline. Róutalos a un DLQ para inspección.
-- **Operaciones stateful sin checkpoints.** Un reinicio del job pierde todo el estado y debe reprocesar desde el principio.
-- **Kafka auto.offset.reset=latest.** Esto silenciosamente saltea datos en nuevos grupos de consumidores. Usa earliest u offsets explícitos.
+- Ventanas de processing time. Los resultados difieren en cada replay. Siempre usa event time para agregaciones.
+- Crecimiento ilimitado de estado. Olvidar configurar TTL en estado lleva a crashes OOM después de días o semanas.
+- Ignorar backpressure. Cuando los consumidores no pueden mantenerse al día, ocurre pérdida de datos o fallos en cascada. Monitorea y escala.
+- Sin dead letter queue. Eventos inválidos no deberían crashear el pipeline. Róutalos a un DLQ para inspección.
+- Operaciones stateful sin checkpoints. Un reinicio del job pierde todo el estado y debe reprocesar desde el principio.
+- Kafka auto.offset.reset=latest. Esto silenciosamente saltea datos en nuevos grupos de consumidores. Usa earliest u offsets explícitos.
 
 ## Variantes
 
-- **Kafka Streams:** Librería embebida, no requiere cluster separado — mejor para transformaciones simples sobre Kafka
-- **Flink:** Procesador de streams full-featured — mejor para procesamiento complejo de event time y operaciones stateful
-- **Spark Streaming:** Procesamiento micro-batch — mejor para equipos ya usando Spark, o cuando unificación batch+streaming importa
-- **ksqlDB:** Interfaz SQL sobre Kafka Streams — mejor para procesamiento declarativo de streams sin Java
-- **Pulsar Functions:** Computación liviana sobre Apache Pulsar — mejor para arquitecturas centradas en Pulsar
+- Kafka Streams: Librería embebida, no requiere cluster separado. Mejor para transformaciones simples sobre Kafka
+- Flink: Procesador de streams full-featured. Mejor para procesamiento complejo de event time y operaciones stateful
+- Spark Streaming: Procesamiento micro-batch. Mejor para equipos ya usando Spark, o cuando unificación batch+streaming importa
+- ksqlDB: Interfaz SQL sobre Kafka Streams. Mejor para procesamiento declarativo de streams sin Java
+- Pulsar Functions: Computación liviana sobre Apache Pulsar. Mejor para arquitecturas centradas en Pulsar
 
 ## FAQ
 
@@ -487,4 +487,4 @@ Sí. Flink SQL, ksqlDB y Spark Structured Streaming soportan SQL sobre streams. 
 ## Conclusión
 
 El procesamiento de streams habilita sistemas que reaccionan a eventos a medida que ocurren. Al elegir el motor correcto, diseñar esquemas de eventos inmutables, manejar estado cuidadosamente e implementar semántica exactly-once, construyes pipelines que procesan millones de eventos por segundo con garantías de corrección.
-
+

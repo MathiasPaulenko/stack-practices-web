@@ -148,7 +148,7 @@ El formato Apache Combined Log es el estándar de facto: `host ident authuser [d
 | CSV logs | `csv.reader` / `csv-parser` | Herramientas CSV estándar |
 | Aplicación custom | Grupos regex nombrados | Regex específico del lenguaje |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Stream archivos grandes línea por línea** en lugar de cargar todo el log en memoria
 - **Usa grupos regex nombrados** (`(?P<name>...)`) para parsers auto-documentados
@@ -176,4 +176,4 @@ Usa `tail -f` o librerías de file tailing específicas del lenguaje (Python `py
 
 ### ¿Cómo detecto anomalías en logs?
 
-Después de parsear, agrega por código de estado, percentiles de tiempo de respuesta y tasa de error por endpoint. Establece umbrales (ej. >1% errores 5xx) y alerta vía PagerDuty o Slack. Para detección avanzada, alimenta features parseados a un modelo de ML o usa herramientas como el stack ELK con plugins de detección de anomalías.
+Después de parsear, agrega por código de estado, percentiles de tiempo de respuesta y tasa de error por endpoint. Establece umbrales (ej. >1% errores 5xx) y alerta vía PagerDuty o Slack. Para detección avanzada, alimenta datos de log parseados a un modelo de ML o usa herramientas como el stack ELK con plugins de detección de anomalías.

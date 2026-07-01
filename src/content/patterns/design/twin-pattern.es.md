@@ -296,7 +296,7 @@ El Patrón Twin funciona por delegación mutua:
 3. Cada twin mantiene una referencia back al widget para acceder al estado compartido
 4. El widget delega llamadas de método al twin apropiado
 
-Esto es efectivamente "composición sobre herencia" llevado a su conclusión lógica: en lugar de heredar de múltiples padres, la clase compone múltiples delegates y expone sus métodos a través de su propia interfaz.
+Esto es esencialmente "composición sobre herencia" llevado a su conclusión lógica: en lugar de heredar de múltiples padres, la clase compone múltiples delegates y expone sus métodos a través de su propia interfaz.
 
 ## Variantes
 

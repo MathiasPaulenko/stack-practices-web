@@ -206,7 +206,7 @@ Graceful shutdown is a three-phase process:
 | Spring Boot | `server.shutdown=graceful` + readiness probe | Built-in since 2.3; Kubernetes-native |
 | Gunicorn | `graceful-timeout` config | Pre-fork workers exit after finishing requests |
 
-## Best Practices
+## What Works
 
 1. Always implement a `/health` endpoint that returns 503 during shutdown so load balancers route away
 2. Set `terminationGracePeriodSeconds` (K8s) or `stop-timeout` (Docker) to match your drain timeout

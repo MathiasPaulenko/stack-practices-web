@@ -158,7 +158,7 @@ public class RawSQL {
 
 ### Is `cursor.execute(f"SELECT * FROM {table}")` safe?
 
-No. Table and column names cannot be parameterized in most drivers. If dynamic table names are required, whitelist them against a known set of valid names.
+No. Table and column names cannot be parameterized in most drivers. If live table names are required, whitelist them against a known set of valid names.
 
 ### Can I use parameterized queries for `IN` clauses?
 

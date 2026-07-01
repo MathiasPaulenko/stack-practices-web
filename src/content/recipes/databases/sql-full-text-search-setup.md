@@ -100,7 +100,7 @@ The `to_tsvector` function parses text into a list of normalized tokens called l
 | Trigram index | GIN | Fuzzy search, `LIKE` patterns |
 | External | Elasticsearch | Complex faceting, distributed search |
 
-## Best Practices
+## What Works
 
 1. **Use the right text search configuration.** PostgreSQL supports multiple dictionaries; choose one matching your content language.
 2. **Index the tsvector, not the raw text.** GIN on `tsvector` is far more efficient than scanning text.

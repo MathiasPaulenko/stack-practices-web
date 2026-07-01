@@ -91,7 +91,7 @@ El enfoque se llama expand-contract. Primero expandes el esquema agregando la nu
 | Validar | `COUNT(*)` con filtro de mismatch | Confirmar paridad |
 | Cambiar | Desplegar nueva versión de app | Leer de nueva columna |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Ejecuta migraciones en una transacción cuando sea posible.** Esto mantiene el esquema consistente.
 2. **Rellena en lotes pequeños con pausas entre ellos.** Esto reduce contención de bloqueos y lag de replicación.

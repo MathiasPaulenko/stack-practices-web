@@ -115,7 +115,7 @@ for _, row in underutilized.iterrows():
     print(f"{current} -> Considerar reducir tamaño (CPU: {cpu:.1f}%, Memoria: {mem:.1f}%)")
 ```
 
-**Mejores prácticas de dimensionamiento:**
+**Pautas de dimensionamiento:**
 - Revisar utilización de instancias mensualmente; apuntar a 40-70% de CPU promedio
 - Usar instancias burst (serie T, serie B) para cargas variables
 - Reducir agresivamente entornos de desarrollo y staging
@@ -241,7 +241,7 @@ El monitoreo proactivo previene sustos de facturación:
 | Crecimiento de recursos | Nuevos recursos >$500/día | Requerir flujo de aprobación |
 | Recursos ociosos | <5% CPU por 7 días | Auto-etiquetar para revisión |
 
-## Best Practices
+## Lo que funciona
 
 - **Optimiza continuamente, no anualmente.** Revisa costos mensualmente y actúa sobre hallazgos.
 - **Empieza con el gasto más grande.** Enfócate en computación, luego almacenamiento, luego red.

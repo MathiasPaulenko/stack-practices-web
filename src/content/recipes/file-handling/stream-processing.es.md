@@ -110,7 +110,7 @@ public class StreamProcessor {
 | Stream por chunks | O(tamaño buffer) | Media | Archivos binarios, compresión |
 | Stream paralelo | O(buffer × workers) | Alta | Transformaciones CPU-intensivas |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa I/O buffered**: las lecturas y escrituras sin buffer emiten una system call por byte. Los buffers (8KB default en la mayoría de lenguajes) amortizan este overhead.
 - **Maneja encoding explícitamente**: los encodings default varían por plataforma. Especifica `utf-8` para evitar corrupción con texto internacional.

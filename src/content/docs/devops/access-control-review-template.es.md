@@ -109,7 +109,7 @@ La revision separa la identificacion del acceso de la aprobacion. Al listar cada
 - **Revision de IAM en la nube**: Apunta a roles, politicas y grupos de AWS, Azure o GCP.
 - **Revision de contratistas**: Revisa acceso con duracion limitada y fechas de vencimiento.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Realiza revisiones trimestrales para acceso privilegiado y anuales para acceso estandar.
 - Usa como revisor un manager o dueno del sistema, nunca al titular de la cuenta.

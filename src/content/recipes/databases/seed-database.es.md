@@ -37,7 +37,7 @@ seo:
 
 ## Descripción General
 
-Una base de datos sembrada es la forma más rápida de incorporar nuevos desarrolladores, reproducir bugs y ejecutar tests de integración que dependen de distribuciones de datos realistas. Sin seeding, cada entorno comienza vacío, obligando a los desarrolladores a crear manualmente cuentas, órdenes y relaciones antes de poder testear cualquier característica. Esta receta muestra estrategias de seeding seguras y repetibles que no polucionan producción.
+Una base de datos sembrada es la forma más rápida de incorporar nuevos desarrolladores, reproducir bugs y ejecutar tests de integración que dependen de distribuciones de datos realistas. Sin seeding, cada entorno comienza vacío, obligando a los desarrolladores a crear manualmente cuentas, órdenes y relaciones antes de poder testear cualquier capacidad. Esta receta muestra estrategias de seeding seguras y repetibles que no polucionan producción.
 
 ## Cuándo Usar
 
@@ -45,7 +45,7 @@ Una base de datos sembrada es la forma más rápida de incorporar nuevos desarro
 - Tests de integración y E2E que requieren que usuarios, productos o transacciones existan
 - Entornos de staging que deberían reflejar distribuciones de datos de producción
 - Testing de carga con volúmenes y relaciones de datos realistas
-- Demostrar características a stakeholders sin crear datos demo manualmente
+- Demostrar capacidades a stakeholders sin crear datos demo manualmente
 
 ## Cuándo NO Usar
 
@@ -285,7 +285,7 @@ if __name__ == "__main__":
     seed()
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Haz los seeds idempotentes.** Usa `ON CONFLICT DO NOTHING`, `upsert` o verificaciones de existencia para que ejecutar el script de seed dos veces no cree duplicados ni falle.
 - **Nunca siembres producción.** Protege los scripts de seed con una verificación de entorno. Los datos de producción deberían entrar a través de migraciones controladas, herramientas de admin o pipelines ETL.

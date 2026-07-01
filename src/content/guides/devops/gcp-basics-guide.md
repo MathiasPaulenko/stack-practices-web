@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: gcp-basics-guide
-title: "GCP Basics — Core Services for Developers"
+title: "GCP Basics: Core Services for Developers"
 description: "A practical guide to Google Cloud Platform core services for developers: compute, storage, databases, networking, and data analytics with hands-on examples."
 metaDescription: "Learn GCP core services for developers: Compute Engine, Cloud Storage, Cloud SQL, Cloud Run, BigQuery. Practical guide for cloud applications."
 difficulty: beginner
@@ -51,7 +51,7 @@ Google Cloud Platform (GCP) is known for its leadership in data analytics, AI/ML
 - You want deep integration with open-source tools (Kubernetes, TensorFlow, Apache Beam)
 - Your workloads benefit from Google's global network and pricing model
 
-## Compute — GCE, GKE, and Cloud Run
+## Compute: GCE, GKE, and Cloud Run
 
 ### Compute Engine (GCE)
 
@@ -107,7 +107,7 @@ gcloud run deploy hello-service \
 
 Cloud Run automatically scales to zero and handles HTTPS termination.
 
-## Storage — Cloud Storage and Persistent Disks
+## Storage: Cloud Storage and Persistent Disks
 
 ### Cloud Storage
 
@@ -148,7 +148,7 @@ gcloud compute instances attach-disk my-vm --disk=my-disk --zone=us-central1-a
 | pd-ssd | 30,000 | 480 MB/s | Databases, high I/O |
 | pd-extreme | 120,000 | 2,200 MB/s | SAP, HPC |
 
-## Databases — Cloud SQL, Firestore, and BigQuery
+## Databases: Cloud SQL, Firestore, and BigQuery
 
 ### Cloud SQL
 
@@ -192,7 +192,7 @@ ORDER BY total_births DESC
 LIMIT 10;
 ```
 
-## Networking — VPC
+## Networking: VPC
 
 Global Virtual Private Cloud with automatic routing.
 
@@ -213,12 +213,12 @@ Global Virtual Private Cloud with automatic routing.
 ```
 
 Key networking capabilities:
-- **Cloud Load Balancing:** Global, anycast-based load balancing
-- **Cloud CDN:** Content delivery with 140+ edge locations
-- **Cloud Armor:** DDoS protection and WAF
-- **Private Service Connect:** Secure access to managed services
+- Cloud Load Balancing: Global, anycast-based load balancing
+- Cloud CDN: Content delivery with 140+ edge locations
+- Cloud Armor: DDoS protection and WAF
+- Private Service Connect: Secure access to managed services
 
-## Security — IAM and Cloud KMS
+## Security: IAM and Cloud KMS
 
 Identity and Access Management with resource-based policies.
 
@@ -241,21 +241,24 @@ What works:
 
 ## Common Mistakes
 
-- **Using default VPC without segmentation** — create custom networks with subnets per environment
-- **Over-provisioning Compute Engine** — use rightsizing recommendations
-- **Ignoring egress costs** — data transfer between regions is expensive
-- **Not using Cloud NAT for private instances** — private instances need outbound internet for updates
-- **Storing secrets in environment variables** — use Secret Manager instead
+- Using default VPC without segmentation. Create custom networks with subnets per environment
+- Over-provisioning Compute Engine. Use rightsizing recommendations
+- Ignoring egress costs. Data transfer between regions is expensive
+- Not using Cloud NAT for private instances. Private instances need outbound internet for updates
+- Storing secrets in environment variables. Use Secret Manager instead
 
 ## FAQ
 
-**Is GCP free?**
+### Is GCP free?
+
 GCP offers a Free Tier with 300 USD credit for 90 days and always-free limits on Compute Engine, Cloud Storage, and BigQuery.
 
-**GCP vs AWS vs Azure?**
+### GCP vs AWS vs Azure?
+
 - GCP: Best for data analytics, AI/ML, Kubernetes, open-source
 - AWS: Broadest services, largest ecosystem
 - Azure: Best for Microsoft integration, hybrid cloud
 
-**How do I deploy from GitHub?**
+### How do I deploy from GitHub?
+
 Use Cloud Build triggers connected to GitHub repositories, or GitHub Actions with `google-github-actions/setup-gcloud` and `google-github-actions/deploy-cloudrun`.

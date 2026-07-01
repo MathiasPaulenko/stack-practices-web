@@ -170,14 +170,14 @@ Redis pub/sub es ideal para broadcasting porque los suscriptores reciben mensaje
 
 ## Variantes
 
-| Tecnología | Transporte | Escalabilidad | Caso de uso |
+| Tecnología | Transporte | Crecimiento | Caso de uso |
 |------------|------------|---------------|-------------|
 | WebSockets | TCP full-duplex | Redis pub/sub | Chat, actualizaciones en vivo |
 | Server-Sent Events | HTTP unidireccional | Redis pub/sub | Precios de acciones, logs |
 | Long Polling | Fallback HTTP | No necesario | Soporte para navegadores legacy |
 | MQTT | TCP ligero | Broker cluster | Dispositivos IoT |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Heartbeat/ping cada 30 segundos**: Detecta conexiones muertas y libera recursos
 - **Segmentación por rooms/canales**: Difunde a subconjuntos de usuarios, no a todas las conexiones

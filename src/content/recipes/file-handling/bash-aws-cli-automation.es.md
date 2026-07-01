@@ -88,7 +88,7 @@ El script lee la región de AWS desde una variable de entorno y acepta nombres d
 | Borrar antiguos | `aws ec2 describe-snapshots` | Filtrar por fecha, luego eliminar |
 | Asumir rol | `aws sts assume-role` | Usar credenciales temporales |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Usa `--query` y `--output text` para parsear IDs.** Evita el parsing frágil de JSON o tablas.
 2. **Etiqueta todo inmediatamente.** Es más fácil agregar tags al crear que aplicarlos retroactivamente.

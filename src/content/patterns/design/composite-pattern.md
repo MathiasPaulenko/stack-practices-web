@@ -237,7 +237,7 @@ Clients interact with all objects through the Component interface, making the tr
 | **Safe** | Child management only on Composite | Type safety, but clients must distinguish leaf vs. composite |
 | **Weight-based** | Composite computes aggregate values from children | File sizes, pricing, totals |
 
-## Best Practices
+## What Works
 
 - **Keep the component interface lean** — too many methods make leaves complex
 - **Document whether null/empty returns are valid** for leaf child operations

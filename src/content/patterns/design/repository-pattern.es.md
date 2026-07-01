@@ -182,7 +182,7 @@ La lógica de negocio depende solo de la interfaz, por lo que puedes intercambia
 | **Specification Pattern** | Composición de queries complejas | Muy flexible, pero más difícil de optimizar a nivel de base de datos |
 | **Unit of Work** | Lote de múltiples operaciones en una sola transacción | Añade complejidad, pero esencial para integridad de datos |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Retorna objetos de dominio, no filas de datos crudos**: Mapea resultados de base de datos a objetos de dominio ricos
 - **Usa interfaces para repositories**: Esto es lo que los hace testeables e intercambiables. Consulta [Inyección de Dependencias](/patterns/design/dependency-injection-pattern) para estrategias de wiring.

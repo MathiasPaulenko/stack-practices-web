@@ -188,7 +188,7 @@ Client                           Server
   │ ←──── Symmetric Session ─────▶ │
 ```
 
-Best practices:
+What works:
 - Use TLS 1.3; disable TLS 1.0 and 1.1
 - Enable HSTS (HTTP Strict Transport Security)
 - Use certificate pinning for mobile apps

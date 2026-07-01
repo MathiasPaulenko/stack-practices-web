@@ -153,7 +153,7 @@ La guia obliga a que cada error incluya un codigo legible por maquina (`INVALID_
 | API Interna | Formato ligero | Payload menor, consumidores mas simples |
 | Microservicios | Incluir request ID para tracing | Esencial para debugging distribuido |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Nunca retornar stack traces o SQL en respuestas de error** — loguearlos internamente
 2. **Usar un registro de errores centralizado** para prevenir que los equipos inventen nuevos codigos

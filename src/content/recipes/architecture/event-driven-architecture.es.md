@@ -2,7 +2,7 @@
 contentType: recipes
 slug: event-driven-architecture
 title: "Diseñar Sistemas Event-Driven con Event Buses y Brokers"
-description: "Cómo construir sistemas débilmente acoplados usando eventos, event buses, message brokers y event sourcing para comunicación asíncrona escalable entre servicios."
+description: "Cómo construir sistemas débilmente acoplados usando eventos, event buses, message brokers y event sourcing para comunicación asíncrona que escala entre servicios."
 metaDescription: "Aprende arquitectura event-driven con event buses y brokers. Construye sistemas débilmente acoplados usando eventos, message brokers y event sourcing para async."
 difficulty: intermediate
 topics:
@@ -117,7 +117,7 @@ async function startInventoryConsumer() {
 | NATS | Pub/sub | Baja | Ninguno | Muy alta | Baja latencia, simple |
 | AWS SNS/SQS | Pub/sub, colas | Alta | Ninguno | Alta | Cloud-native, serverless |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Diseña eventos, no mensajes**: un evento debería describir qué sucedió, no qué debería hacer el consumidor. `OrderPlaced` es correcto. `DecrementInventory` es un command disfrazado de evento. Los eventos son hechos; los commands son instrucciones.
 - **Usa validación de esquemas**: eventos sin validar son fuente de bugs sutiles. Usa Avro, JSON Schema o Protobuf para definir contratos de eventos. Valida en los boundaries de publisher y consumer. Versiona esquemas y mantén compatibilidad hacia atrás.

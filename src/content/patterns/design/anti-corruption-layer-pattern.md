@@ -349,7 +349,7 @@ The ACL is typically organized as a **facade** (the entry point) plus **translat
 | **Event-driven ACL** | Event translator between message formats | Async event-based integration |
 | **CQRS read ACL** | Separate read model translating to query DTOs | Reporting over legacy data |
 
-## Best Practices
+## What Works
 
 - **Keep the ACL thin.** Business logic belongs in the domain, not the translation layer.
 - **Test translations independently.** Unit test translator classes with fixture data from both systems.

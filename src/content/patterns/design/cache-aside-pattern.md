@@ -212,7 +212,7 @@ The application is the **single point of control** — it decides when to read f
 | **Refresh-Ahead** | Proactively refresh before TTL expires | Predictable access patterns |
 | **Multi-Level** | L1 (in-memory) + L2 (Redis) + L3 (DB) | High-scale applications |
 
-## Best Practices
+## What Works
 
 - **Always set a TTL** — stale data is worse than a cache miss
 - **Invalidate on writes** — delete the cache key after DB updates to maintain consistency

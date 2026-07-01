@@ -208,7 +208,7 @@ class OrderAggregate {
 | S3 + Athena | S3 | Athena queries | Audit, compliance, analytics |
 | Aurora + Outbox | PostgreSQL | CDC | Relational event sourcing |
 
-## Best practices
+## What Works
 
 - **Version every event**: include a monotonically increasing version per aggregate. Use DynamoDB `ConditionExpression` to reject writes with stale versions. This prevents lost updates when two users simultaneously modify the same aggregate.
 - **Make events immutable and self-contained**: an event should carry all data needed to understand it, not just deltas. `OrderCreated` should include customer ID, shipping address, and line items — not just "order 123 was created." Future consumers should not need to query other systems to interpret the event.

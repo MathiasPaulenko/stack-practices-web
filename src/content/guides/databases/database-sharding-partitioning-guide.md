@@ -226,7 +226,7 @@ When shards become uneven, you must move data.
 | **Consistent hashing** | Minimal data movement when adding nodes |
 | **Planned migration window** | Accept downtime for simplicity (rarely acceptable in production) |
 
-## Best Practices
+## What Works
 
 - **Plan for rebalancing from day one** — data gravity is real; moving terabytes is slow
 - **Keep transactions within a single shard** — cross-shard transactions are painful

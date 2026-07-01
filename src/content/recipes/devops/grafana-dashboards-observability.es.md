@@ -127,7 +127,7 @@ datasources:
 }
 ```
 
-### 3. Variables de Template para Filtrado Dinamico
+### 3. Variables de Template para Filtrado en Vivo
 
 ```json
 {
@@ -189,7 +189,7 @@ resource "grafana_dashboard" "api" {
 ## Como Funciona
 
 - **Panels** despliegan queries en formatos de tabla, graficos, gauges y stat
-- **Variables** permiten filtrar por servicio, region o ruta dinamicamente
+- **Variables** permiten filtrar por servicio, region o ruta en vivo
 - **Rows** organizan paneles en secciones colapsables para vistas enfocadas
 - **Alerts** pueden configurarse directamente en Grafana o via Prometheus Alertmanager
 
@@ -221,7 +221,7 @@ rate(node_disk_io_time_seconds_total[5m])
 ## FAQ
 
 **P: Como se compara Grafana con la UI built-in de Prometheus?**
-R: Grafana es una plataforma dedicada de visualizacion con ricos tipos de paneles, variables y opciones de layout. La UI de Prometheus es util para queries ad-hoc pero carece de features de composicion de dashboards.
+R: Grafana es una plataforma dedicada de visualizacion con ricos tipos de paneles, variables y opciones de layout. La UI de Prometheus es util para queries ad-hoc pero carece de capacidades de composicion de dashboards.
 
 **P: Puedo usar Grafana con otros data sources?**
 R: Si. Grafana soporta Elasticsearch, InfluxDB, CloudWatch, Loki, Jaeger y muchos otros nativamente.

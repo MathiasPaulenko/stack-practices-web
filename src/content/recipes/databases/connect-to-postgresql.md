@@ -123,12 +123,12 @@ All three examples use **prepared statements** (parameterized queries) to preven
 | JavaScript | `pg-promise` | Helper library with transactions and tasks |
 | Java | `HikariCP` | High-performance JDBC connection pool |
 
-## Best Practices
+## What Works
 
 1. Always use connection pools in production rather than creating connections per request
 2. Store credentials in environment variables or secret managers, never in code
 3. Use SSL (`sslmode=require`) for all production connections
-4. Prefer prepared statements over string concatenation for dynamic values
+4. Prefer prepared statements over string concatenation for live values
 5. Close cursors and connections explicitly or use context managers
 
 ## Common Mistakes

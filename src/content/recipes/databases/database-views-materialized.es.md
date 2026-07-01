@@ -179,7 +179,7 @@ Una **vista materializada** almacena el resultado de la consulta en disco. Las l
 | Oracle | Completo | Completo | Opciones de refresco `ON COMMIT` u `ON DEMAND` |
 | SQLite | Completo | Ninguno | Usa triggers para simular tablas materializadas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Siempre crea un índice único en vistas materializadas antes de usar refresco `CONCURRENTLY`
 2. Usa `CREATE OR REPLACE VIEW` para cambios no disruptivos; elimina y recrea solo cuando sea necesario

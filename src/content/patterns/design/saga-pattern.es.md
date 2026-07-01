@@ -308,7 +308,7 @@ Ambos enfoques usan **transacciones compensatorias** para deshacer trabajo cuand
 | **Saga Paralela** | Pasos independientes ejecutan concurrentemente | Operaciones no dependientes |
 | **Saga Anidada** | Una saga llama a otra | Descomposiciones complejas de dominio |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Diseña compensaciones primero** — cada paso debe tener una operación de deshacer confiable
 - **Idempotencia**: Los pasos y compensaciones deberían ser seguros de ejecutar múltiples veces

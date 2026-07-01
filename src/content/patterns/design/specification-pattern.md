@@ -386,7 +386,7 @@ This allows rules to be defined once and reused across queries, validation, and 
 | **SQL Generating** | Converts to WHERE clause | Pushing specs to the database |
 | **Visitor-based** | Walks the specification tree | Query optimization, serialization |
 
-## Best Practices
+## What Works
 
 - **Make specifications immutable.** No state changes after construction.
 - **Name them as adjectives.** `Overdue`, `HighValue`, `VIP` — not `CheckIfOverdue`.

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: ci-cd-security-guide
-title: "Seguridad CI/CD — Fortalece tus Pipelines y Previene Ataques de Supply Chain"
+title: "Seguridad CI/CD: Fortalece tus Pipelines y Previene Ataques de Supply Chain"
 description: "Guía práctica para asegurar pipelines CI/CD: gestión de secretos, runners de mínimo privilegio, firma de artefactos, escaneo de dependencias y defensa contra ataques de supply chain."
 metaDescription: "Aprende seguridad CI/CD: gestión de secretos, runners de mínimo privilegio, firma de artefactos, escaneo de dependencias y prevención de supply chain."
 difficulty: intermediate
@@ -57,12 +57,12 @@ Esta guía cubre técnicas prácticas para fortalecer tu infraestructura CI/CD d
 
 | Concepto | Descripción |
 |----------|-------------|
-| **Ataque de Supply Chain** | Inyectar código malicioso vía dependencias o herramientas de build comprometidas |
-| **Runner de Mínimo Privilegio** | Agentes de build con acceso mínimo a secretos e infraestructura |
-| **Firma de Artefactos** | Verificar criptográficamente que artefactos construidos vinieron de un pipeline de confianza |
-| **Escaneo de Dependencias** | Detectar automáticamente vulnerabilidades conocidas en librerías |
-| **Pipeline as Code** | Definiciones de CI/CD versionadas que enforced políticas de seguridad |
-| **SBOM (Software Bill of Materials)** | Inventario de todos los componentes usados en una aplicación |
+| Ataque de Supply Chain | Inyectar código malicioso vía dependencias o herramientas de build comprometidas |
+| Runner de Mínimo Privilegio | Agentes de build con acceso mínimo a secretos e infraestructura |
+| Firma de Artefactos | Verificar criptográficamente que artefactos construidos vinieron de un pipeline de confianza |
+| Escaneo de Dependencias | Detectar automáticamente vulnerabilidades conocidas en librerías |
+| Pipeline as Code | Definiciones de CI/CD versionadas que enforced políticas de seguridad |
+| SBOM (Software Bill of Materials) | Inventario de todos los componentes usados en una aplicación |
 
 ## Step-by-Step CI/CD Security Hardening
 
@@ -130,7 +130,7 @@ Los secretos en CI/CD son un vector de ataque común:
 # Azure: managed identity + federated credentials
 ```
 
-**Mejores prácticas de secretos:**
+**Secretos: lo que funciona**
 - Rotar secretos automáticamente (cada 30-90 días)
 - Usar tokens de corta duración (TTL 1 hora) donde sea posible
 - Scopear secretos a etapas específicas de job, no al pipeline global
@@ -143,11 +143,11 @@ Tus agentes de build son tan críticos como servidores de producción:
 
 | Estrategia | Descripción | Implementación |
 |------------|-------------|----------------|
-| **Runners efímeros** | VM fresca para cada build | GitHub-hosted, GitLab SaaS runners |
-| **Aislamiento de red** | Restringir egress de runner | VPC, subnets privadas, sin internet |
-| **Mínimo privilegio** | Roles IAM mínimos | Roles separados por pipeline/proyecto |
-| **Imágenes inmutables** | Imágenes de runner pre-hardened | Packer, custom AMI/Golden Image |
-| **Sin secretos en disco** | Credenciales solo en memoria | Mounts tmpfs, inyección de secretos |
+| Runners efímeros | VM fresca para cada build | GitHub-hosted, GitLab SaaS runners |
+| Aislamiento de red | Restringir egress de runner | VPC, subnets privadas, sin internet |
+| Mínimo privilegio | Roles IAM mínimos | Roles separados por pipeline/proyecto |
+| Imágenes inmutables | Imágenes de runner pre-hardened | Packer, custom AMI/Golden Image |
+| Sin secretos en disco | Credenciales solo en memoria | Mounts tmpfs, inyección de secretos |
 
 ```bash
 # Ejemplo: Checklist de hardening de runner auto-hospedado
@@ -238,44 +238,48 @@ sbom-diff expected.sbom generated.sbom
 - Loggear todos los eventos de despliegue a traza de auditoría inmutable
 - Separar credenciales de despliegue de staging y producción
 
-## Best Practices
+## Lo que funciona
 
-- **Asume que tu pipeline será comprometida.** Diseña para contención, no solo prevención.
-- **Usa infraestructura efímera.** Runners frescos previenen malware persistente.
-- **Verifica todo.** Firmas, SBOMs y checksums deben ser mandatorios.
-- **Minimiza permisos de pipeline.** Si un job solo necesita acceso de lectura, enforzalo.
-- **Monitorea comportamiento de pipeline.** Alerta en conexiones outbound inesperadas o uso de credenciales.
-- **Practica respuesta a incidentes.** Ten un plan para rotar todos los secretos después de un compromiso.
+- Asume que tu pipeline será comprometida. Diseña para contención, no solo prevención.
+- Usa infraestructura efímera. Runners frescos previenen malware persistente.
+- Verifica todo. Firmas, SBOMs y checksums deben ser mandatorios.
+- Minimiza permisos de pipeline. Si un job solo necesita acceso de lectura, enforzalo.
+- Monitorea comportamiento de pipeline. Alerta en conexiones outbound inesperadas o uso de credenciales.
+- Practica respuesta a incidentes. Ten un plan para rotar todos los secretos después de un compromiso.
 
 ## Common Mistakes
 
-- **Usar secretos de larga duración en CI.** Migrar a OIDC o tokens de corta duración.
-- **Ejecutar CI en runners auto-hospedados sin hardening.** Frecuentemente tienen acceso de red más amplio que producción.
-- **Confiar en workflows `pull_request_target`.** Estos ejecutan con tokens de escritura en código no confiable.
-- **No escanear dependencias.** CVEs conocidas en dependencias son el vector de ataque más común.
-- **Ignorar CVEs en imágenes base de contenedor.** Empieza con imágenes base mínimas y hardened.
+- Usar secretos de larga duración en CI. Migrar a OIDC o tokens de corta duración.
+- Ejecutar CI en runners auto-hospedados sin hardening. Frecuentemente tienen acceso de red más amplio que producción.
+- Confiar en workflows `pull_request_target`. Estos ejecutan con tokens de escritura en código no confiable.
+- No escanear dependencias. CVEs conocidas en dependencias son el vector de ataque más común.
+- Ignorar CVEs en imágenes base de contenedor. Empieza con imágenes base mínimas y hardened.
 
 ## Variants
 
-- **Seguridad en GitHub Actions:** Enfocarse en `permissions`, `pull_request` vs `pull_request_target`, OIDC, Dependabot
-- **Seguridad en GitLab CI:** Variables CI/CD, permisos de jobs, tags de runner, escaneo de contenedores
-- **Seguridad en Jenkins:** Aislamiento de agentes, scopes de credenciales, shared libraries de pipeline
-- **Cloud-native:** Usar servicios de build administrados (AWS CodeBuild, Google Cloud Build) con integración IAM
+- Seguridad en GitHub Actions: Enfocarse en `permissions`, `pull_request` vs `pull_request_target`, OIDC, Dependabot
+- Seguridad en GitLab CI: Variables CI/CD, permisos de jobs, tags de runner, escaneo de contenedores
+- Seguridad en Jenkins: Aislamiento de agentes, scopes de credenciales, shared libraries de pipeline
+- Cloud-native: Usar servicios de build administrados (AWS CodeBuild, Google Cloud Build) con integración IAM
 
 ## FAQ
 
-**Q: ¿Cómo migro de secretos de larga duración a OIDC?**
+### ¿Cómo migro de secretos de larga duración a OIDC?
+
 Configura workload identity federation en tu proveedor cloud, luego actualiza `configure-aws-credentials` (o equivalente) para usar `role-to-assume` sin access keys.
 
-**Q: ¿Debería usar runners auto-hospedados o cloud-hosted?**
+### ¿Debería usar runners auto-hospedados o cloud-hosted?
+
 Los runners cloud-hosted son efímeros y aislados por defecto. Los runners auto-hospedados requieren hardening pero ofrecen más control y builds más rápidos con caching.
 
-**Q: ¿Cómo prevengo ataques de dependency confusion?**
+### ¿Cómo prevengo ataques de dependency confusion?
+
 Usa registries privadas con reserva de namespace, verifica firmas de paquetes, y fija versiones exactas con lock files.
 
-**Q: ¿Cuál es la configuración mínima viable de seguridad CI/CD?**
+### ¿Cuál es la configuración mínima viable de seguridad CI/CD?
+
 Habilitar Dependabot, usar OIDC para auth cloud, fijar versiones de actions, habilitar protección de branch, y escanear contenedores antes de despliegue.
 
 ## Conclusion
 
-La seguridad CI/CD es un proceso continuo, no una tarea de hardening de una sola vez. Cada componente — desde la imagen del runner hasta el script de despliegue — es una superficie de ataque potencial. Aplica defensa en profundidad, verifica cada artefacto, y asume que el compromiso ocurrirá.
+La seguridad CI/CD es un proceso continuo, no una tarea de hardening de una sola vez. Cada componente, desde la imagen del runner hasta el script de despliegue, es una superficie de ataque potencial. Aplica defensa en profundidad, verifica cada artefacto, y asume que el compromiso ocurrirá.

@@ -305,7 +305,7 @@ This separation makes the domain model portable across frameworks and databases.
 | **Query Object** | Encapsulate SQL in an object | Composable database queries |
 | **Repository** | Mediate between domain and data | Abstract away mapper details from app |
 
-## Best Practices
+## What Works
 
 - **Keep the domain model pure.** No framework dependencies, no persistence methods.
 - **One mapper per domain class.** Do not let one mapper handle multiple unrelated types.

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: data-migration-guide
-title: "Data Migration — Zero-Downtime Strategies That Work"
+title: "Data Migration: Zero-Downtime Strategies That Work"
 description: "A practical guide to data migration: planning, dual-write patterns, backfill strategies, schema evolution, validation, and rollback procedures for moving data without service interruption."
 metaDescription: "Learn data migration: dual-write patterns, backfill strategies, schema evolution, validation, and rollback procedures for zero-downtime data moves."
 difficulty: advanced
@@ -388,24 +388,24 @@ ON CONFLICT (user_id) DO NOTHING;
 -- Step 5: Remove columns from users table (after rollback window)
 ```
 
-## Best Practices
+## What Works
 
-- **Always test migrations on a copy of production data.** Staging data rarely matches production volume or edge cases.
-- **Make migrations idempotent.** If a script crashes at row 500,000, restarting it should not create duplicates.
-- **Throttle backfills.** Running at maximum speed starves production queries. Use rate limiting.
-- **Validate with more than row counts.** Compare checksums, sample random rows, and run integration tests.
-- **Never drop old data immediately.** Keep the rollback window open (24-72 hours minimum).
-- **Monitor during the entire process.** Set up dashboards specifically for the migration.
-- **Communicate broadly.** Data migrations affect every team that touches the database.
+- Always test migrations on a copy of production data. Staging data rarely matches production volume or edge cases.
+- Make migrations idempotent. If a script crashes at row 500,000, restarting it should not create duplicates.
+- Throttle backfills. Running at maximum speed starves production queries. Use rate limiting.
+- Validate with more than row counts. Compare checksums, sample random rows, and run integration tests.
+- Never drop old data immediately. Keep the rollback window open (24-72 hours minimum).
+- Monitor during the entire process. Set up dashboards specifically for the migration.
+- Communicate broadly. Data migrations affect every team that touches the database.
 
 ## Common Mistakes
 
-- **No rollback plan.** Once you delete old columns, rolling back requires another complex migration.
-- **Running migrations during peak hours.** Schedule backfills during low-traffic windows.
-- **Forgetting about foreign keys.** Migrating a parent table without updating child table references breaks constraints.
-- **No validation.** Assuming the migration worked because it finished without errors.
-- **Deleting data too early.** The "expand-contract" pattern exists because rollbacks are necessary.
-- **Underestimating duration.** A migration that takes 2 hours in staging may take 20 hours in production.
+- No rollback plan. Once you delete old columns, rolling back requires another complex migration.
+- Running migrations during peak hours. Schedule backfills during low-traffic windows.
+- Forgetting about foreign keys. Migrating a parent table without updating child table references breaks constraints.
+- No validation. Assuming the migration worked because it finished without errors.
+- Deleting data too early. The "expand-contract" pattern exists because rollbacks are necessary.
+- Underestimating duration. A migration that takes 2 hours in staging may take 20 hours in production.
 
 ## Variants
 
@@ -431,4 +431,4 @@ Yes, but throttle the backfill. Use `pg_sleep` between batches, run during off-p
 ## Conclusion
 
 Data migration is not a single event but a process: plan, dual-write, backfill, validate, shadow-read, cutover, and clean up. By following structured patterns and never skipping validation, you move data safely while keeping systems online.
-
+

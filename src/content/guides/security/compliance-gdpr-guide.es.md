@@ -34,7 +34,7 @@ seo:
 
 ## Visión General
 
-El Reglamento General de Protección de Datos (GDPR) es la ley de privacidad de la UE, pero su alcance se extiende a cualquier organización que procese datos de residentes de la UE. Para desarrolladores, el cumplimiento no es una casilla legal: es un conjunto de requisitos técnicos y arquitectónicos: pseudonimización, minimización de datos, cifrado, seguimiento de consentimientos y capacidades de eliminación. Esta guía traduce los artículos del GDPR en prácticas de ingeniería accionables.
+El Reglamento General de Protección de Datos (GDPR) es la ley de privacidad de la UE, pero su alcance se extiende a cualquier organización que procese datos de residentes de la UE. Para desarrolladores, el cumplimiento no es una casilla legal: es un conjunto de requisitos técnicos y arquitectónicos: pseudonimización, minimización de datos, cifrado, seguimiento de consentimientos y capacidades de eliminación. Esta guía traduce los artículos del GDPR en prácticas de ingeniería útiles.
 
 ## Cuándo Usar
 

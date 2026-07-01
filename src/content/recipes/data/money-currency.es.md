@@ -179,13 +179,13 @@ public class Money {
 | Librería de dinero | Dinero.js, Money PHP, JSR-354 (Java) | APIs ricas de formateo, asignación y comparación |
 | Almacenamiento en DB | `DECIMAL(19,4)` (SQL), `NUMERIC` (PostgreSQL) | Valores exactos persistentes con precisión de 4 decimales para tasas |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Almacena cantidades en unidades menores** (centavos) o tipos decimales exactos; nunca almacenes dinero como punto flotante en bases de datos.
 2. **Redondea en el límite correcto** — calcula líneas de ítem con precisión completa, redondea por línea, luego suma los valores redondeados para el total.
 3. **Separa dinero de visualización** — mantén `Decimal` / `BigDecimal` / centavos internamente y formatea solo en la capa UI/API.
 4. **Usa redondeo bancario (HALF_UP)** para la mayoría de monedas; algunas jurisdicciones requieren HALF_EVEN — conoce tu dominio.
-5. **[Cachea tasas de cambio](/recipes/data/caching)** con TTL y timestamp; siempre convierte usando la tasa vigente al momento de la transacción.
+5. **[Cachea tasas de cambio](/recipes/data/caching)** con TTL y timestamp; siempre convierte usando la tasa que se aplicaba al momento de la transacción.
 
 ## Errores Comunes
 

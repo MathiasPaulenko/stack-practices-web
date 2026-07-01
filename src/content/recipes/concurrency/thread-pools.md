@@ -198,7 +198,7 @@ ThreadPool.SetMaxThreads(8, 8);
 | Scheduled | N | N | Delayed queue | Timed/recurring tasks |
 | Work stealing | CPU count | CPU count | Deque per thread | Fork-join parallelism |
 
-## Best practices
+## What Works
 
 - **Size CPU pools to core count**: for CPU-bound work, use `Runtime.getRuntime().availableProcessors()` or `os.cpu_count()`. Additional threads just compete for cores, causing context switches without throughput gains. See [Load Balancing](/recipes/architecture/load-balancing) for distributing work across cores.
 - **Size I/O pools higher than core count**: for I/O-bound work, threads block on network/disk. A thread waiting for a response is not using a core. Use 2x-4x core count for I/O pools, depending on latency. Measure to find the sweet spot.
@@ -225,5 +225,5 @@ A: Thread pools use OS threads — expensive but truly parallel. Coroutine pools
 A: `CallerRunsPolicy` provides natural backpressure — the submitter slows down when the system is overloaded. `AbortPolicy` forces you to handle rejection explicitly. Use `CallerRunsPolicy` for batch processing where slowing down is acceptable. Use `AbortPolicy` for interactive systems where you need to return errors quickly.
 
 **Q: Can I change the pool size at runtime?**
-A: Yes — Java's `ThreadPoolExecutor` supports `setCorePoolSize()` and `setMaximumPoolSize()`. This is useful for dynamic scaling based on load metrics. However, growing the pool creates new threads (expensive), and shrinking does not interrupt active threads.
+A: Yes — Java's `ThreadPoolExecutor` supports `setCorePoolSize()` and `setMaximumPoolSize()`. This is useful for live scaling based on load metrics. However, growing the pool creates new threads (expensive), and shrinking does not interrupt active threads.
 

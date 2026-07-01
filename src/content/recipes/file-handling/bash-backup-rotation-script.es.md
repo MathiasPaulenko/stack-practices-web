@@ -98,7 +98,7 @@ El script recibe un directorio fuente y un directorio de backup como argumentos.
 | Mensual | copiar el día 1 | 3 meses |
 | Remoto | `rsync` después del tar | mirror a S3 o NAS |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Prueba restauraciones regularmente.** Un backup que no puedes restaurar es inútil; programa una prueba mensual de restauración.
 2. **Mantén backups fuera del sitio o en object storage.** Los backups locales son vulnerables a fallos de disco y ransomware.

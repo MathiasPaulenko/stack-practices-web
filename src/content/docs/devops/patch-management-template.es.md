@@ -130,7 +130,7 @@ La plantilla separa **urgencia** de **rigor**. Los parches críticos se aplican 
 | Dependencias de aplicación | Dependabot, Snyk, Renovate | PR automatizados con CI; merge semanal |
 | Sistemas heredados | Parche manual con ventana de mantenimiento | Cambio de control riguroso; plan de rollback detallado |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Automatiza parches de seguridad de bajo riesgo; los humanos se cansan de tareas repetitivas
 2. Mantén un entorno de staging que refleje producción; testing inútil en entornos que difieren

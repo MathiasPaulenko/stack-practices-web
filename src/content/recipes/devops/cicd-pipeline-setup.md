@@ -2,8 +2,8 @@
 contentType: recipes
 slug: cicd-pipeline-setup
 title: "CI/CD Pipeline Setup"
-description: "Set up automated CI/CD pipelines for testing, building, and deploying applications with GitHub Actions and best practices."
-metaDescription: "CI/CD pipeline setup with GitHub Actions: automated testing, building, deployment, environment management, and pipeline security best practices."
+description: "Set up automated CI/CD pipelines for testing, building, and deploying applications with GitHub Actions and what works."
+metaDescription: "CI/CD pipeline setup with GitHub Actions: automated testing, building, deployment, environment management, and pipeline security what works."
 difficulty: beginner
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "CI/CD pipeline setup with GitHub Actions: automated testing, building, deployment, environment management, and pipeline security best practices."
+  metaDescription: "CI/CD pipeline setup with GitHub Actions: automated testing, building, deployment, environment management, and pipeline security what works."
   keywords:
     - ci-cd
     - devops
@@ -144,7 +144,7 @@ A production CI/CD pipeline typically includes:
 | Jenkins | On-premise, custom plugins | Self-hosted; high maintenance |
 | ArgoCD | Kubernetes GitOps | Declarative; syncs cluster to Git state |
 
-## Best Practices
+## What Works
 
 - **Fail fast**: Run linting and fast unit tests before expensive integration tests
 - **Parallelize jobs**: Split tests by file or module to reduce wall-clock time

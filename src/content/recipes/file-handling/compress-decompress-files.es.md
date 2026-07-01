@@ -128,7 +128,7 @@ public class Compressor {
 | JavaScript | `adm-zip` | Manipulación de ZIP en memoria, sin streams |
 | Java | Apache Commons Compress | Soporta BZIP2, LZMA y formatos 7Z |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Transmite archivos grandes en lugar de bufferizar archivos completos en memoria
 2. Usa nivel de compresión 6 como default balanceado; nivel 9 es más lento con rendimientos decrecientes

@@ -144,7 +144,7 @@ resource "aws_lambda_function" "handler" {
 | Plataforma | API Gateway | Runtime de función | Mejor para |
 |------------|-------------|--------------------|------------|
 | AWS | API Gateway + Lambda | Python, Node, Java, Go | Plataforma madura, integraciones amplias |
-| Azure | API Management + Functions | .NET, Node, Python | Ecosistema Microsoft, integración Visual Studio |
+| Azure | API Management + Functions | .NET, Node, Python | Plataforma Microsoft, integración Visual Studio |
 | GCP | Cloud Endpoints + Cloud Functions | Node, Python, Go | Integración BigQuery, pricing competitivo |
 
 ## Lo que funciona

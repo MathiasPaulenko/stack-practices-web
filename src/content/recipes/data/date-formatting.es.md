@@ -129,7 +129,7 @@ System.out.println(tokyo.format(formatter)); // 2026-06-10 23:30:00 JST
 | `HH:mm:ss` | 14:30:00 | Hora 24h |
 | `h:mm a` | 2:30 PM | Hora 12h con AM/PM |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Almacena en UTC**: Persiste todas las fechas en UTC para evitar ambigüedad
 - **Usa ISO 8601 para APIs**: `2026-06-10T14:30:00Z` es inequívoco y universalmente parseable

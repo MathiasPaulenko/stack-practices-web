@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: code-review-best-practices-guide
-title: "Code Review Best Practices — For Authors and Reviewers"
-description: "A practical guide to effective code reviews: how to write reviewable code, give constructive feedback, and keep reviews fast and focused."
-metaDescription: "Code review best practices for authors and reviewers. Learn to write reviewable code, give constructive feedback, and keep reviews fast."
+title: "What Works in Code Review — For Authors and Reviewers"
+description: "A practical guide to useful code reviews: how to write reviewable code, give constructive feedback, and keep reviews fast and focused."
+metaDescription: "What works in code review for authors and reviewers. Learn to write reviewable code, give constructive feedback, and keep reviews fast."
 difficulty: beginner
 topics:
   - design
@@ -20,16 +20,16 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Code review best practices for authors and reviewers. Learn to write reviewable code, give constructive feedback, and keep reviews fast."
+  metaDescription: "What works in code review for authors and reviewers. Learn to write reviewable code, give constructive feedback, and keep reviews fast."
   keywords:
-    - code review best practices
+    - code review what works
     - pull request review
     - code review checklist
     - peer review software
     - constructive feedback code
 ---
 
-# Code Review Best Practices
+# What Works in Code Review
 
 ## Introduction
 

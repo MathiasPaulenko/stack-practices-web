@@ -39,7 +39,7 @@ Use this resource when:
 - Users need to recover accidentally deleted data. See [Database Transactions](/recipes/databases/database-transactions) for rollback patterns.
 - You must maintain audit trails for compliance (GDPR, HIPAA, SOC2). See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance.
 - Foreign key constraints prevent hard deletes. See [SQL Joins](/recipes/databases/sql-joins) for relational patterns.
-- You want to show "recently deleted" trash/recycle bin features
+- You want to show "recently deleted" trash/recycle bin capabilities
 
 ## Solution
 
@@ -171,7 +171,7 @@ For true removal, implement a "hard delete" or "purge" operation that runs `DELE
 | Separate archive table | Full copy | Compliance, performance | Most complex, triggers or app-level |
 | Partition by deletion status | Native PG/MySQL | Very large tables | Use table partitioning for active vs deleted |
 
-## Best Practices
+## What Works
 
 - **Always filter by default**: Your ORM or query builder should exclude deleted records unless explicitly asked.
 - **Include `deleted_at` in unique indexes**: Otherwise you can't recreate a record with the same unique key after soft delete.

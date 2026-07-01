@@ -230,7 +230,7 @@ El Patrón Event Bus consiste en:
 | **Priorizada** | Ordenada por prioridad | Frameworks de UI (DOM events burbujean) |
 | **Filtrada** | Suscriptores definen predicados | Sistemas grandes con muchos tipos de eventos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén los payloads de eventos inmutables.** Los suscriptores no deberían modificar objetos de payload compartidos.
 - **Usa nombres de eventos tipados.** Prefiere `"OrderPlaced"` sobre `"order_event"`. Usa constantes o enums.

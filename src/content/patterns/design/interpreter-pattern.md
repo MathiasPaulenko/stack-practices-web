@@ -253,7 +253,7 @@ The client builds an AST and then calls `interpret()` on the root node, which re
 | **Memoized Interpreter** | Caches sub-expression results | Repeated evaluations with same context |
 | **Compiler + VM** | Compiles to bytecode, then executes | High-performance repeated execution |
 
-## Best Practices
+## What Works
 
 - **Keep the grammar simple** — complex grammars are better handled by parser generators
 - **Build the AST first**, then interpret — don't interpret during parsing

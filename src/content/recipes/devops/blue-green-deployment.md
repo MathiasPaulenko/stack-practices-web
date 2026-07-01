@@ -146,7 +146,7 @@ aws route53 change-resource-record-sets \
 | Canary | Zero | Medium (minutes) | 1x + small surge |
 | Recreate | High | N/A | 1x |
 
-## Best Practices
+## What Works
 
 - **Keep blue warm for one deploy cycle**: Don't decommission until the next deployment succeeds
 - **Automate the switch**: Manual DNS updates are error-prone; use CI/CD pipelines

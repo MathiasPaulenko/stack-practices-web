@@ -177,7 +177,7 @@ Un buen framework CLI maneja las partes aburridas para que te enfoques en la ló
 | Java | `picocli` | Anotaciones, GraalVM native | Enterprise, compilación native-image |
 | Java | `Apache Commons CLI` | Builder pattern | Proyectos Java legacy |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Proporciona `--help` y `--version`**: Cada CLI debe auto-documentarse. Los usuarios nunca deberían necesitar leer el código fuente para entender el uso.
 - **Usa códigos de salida correctamente**: Retorna `0` en éxito, `1` en errores generales, `2` en mal uso y `130` para SIGINT (Ctrl+C). CI/CD depende de esto.

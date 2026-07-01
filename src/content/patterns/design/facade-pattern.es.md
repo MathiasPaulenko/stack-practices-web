@@ -196,7 +196,7 @@ El facade no agrega nueva funcionalidad; compone operaciones existentes del subs
 | **API Gateway** | Facade a nivel HTTP que agrega múltiples microservicios |
 | **Module Facade** | API pública de módulo que oculta la estructura interna de archivos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén el facade delgado.** Debería orquestar, no implementar. La lógica de negocio pertenece al subsistema o a una capa de servicio separada.
 - **Permite acceso directo al subsistema.** Los clientes avanzados deberían poder saltear el facade para control de grano fino.

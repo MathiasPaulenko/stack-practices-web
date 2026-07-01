@@ -189,7 +189,7 @@ result = processor.charge(99.99, "USD")
 | Builder | Alto | Objetos complejos con muchos parámetros opcionales | Media |
 | DI container | Máximo | Aplicaciones enterprise con grafos profundos de dependencias | Alta |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Retorna abstracciones, no concreciones**: un factory method debería retornar `Notifier`, no `EmailNotifier`. Esto permite a los llamadores tratar todos los productos uniformemente y habilita sustitución. Si el tipo de retorno es concreto, la factory no provee desacoplamiento.
 - **Mantén las factories stateless**: una factory no debería mantener estado de aplicación. Crea y retorna objetos — nada más. Las factories con estado son difíciles de testear y oscurecen lifetimes de objetos. Pasa configuración como parámetros.

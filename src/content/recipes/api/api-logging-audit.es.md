@@ -166,7 +166,7 @@ Separa logs operacionales (debugging) de logs de auditoría (compliance). Los au
 | Pino | JavaScript | JSON | Logging de alto rendimiento en Node.js |
 | Logback + MDC | Java | JSON/Pattern | Contexto thread-local en Spring |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Nunca logues datos sensibles**: Excluye contraseñas, tokens, PII — enmáscara o hashealos. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para protección de datos.
 - **Usa correlation IDs**: Pasa `X-Correlation-Id` a través de cada llamada a servicio

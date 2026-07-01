@@ -153,7 +153,7 @@ The guideline forces every error to include a machine-readable code (`INVALID_PA
 | Internal API | Lightweight format | Smaller payload, simpler consumers |
 | Microservices | Include request ID for tracing | Essential for distributed debugging |
 
-## Best Practices
+## What Works
 
 1. **Never return stack traces or SQL in error responses** — log them internally
 2. **Use a central error registry** to prevent teams from inventing new codes

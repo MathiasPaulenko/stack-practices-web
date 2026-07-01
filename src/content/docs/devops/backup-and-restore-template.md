@@ -134,7 +134,7 @@ The template separates **backup** (creating copies) from **restore testing** (pr
 | S3 / Object storage | Cross-region replication | Versioning + lifecycle policies |
 | Kubernetes PVCs | Velero + CSI snapshots | Include cluster metadata in backup |
 
-## Best Practices
+## What Works
 
 1. Test restores to a different environment, not the source, to avoid accidentally overwriting production
 2. Automate backup verification as much as possible; manual checks are forgotten during incidents

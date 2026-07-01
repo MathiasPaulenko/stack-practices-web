@@ -436,7 +436,7 @@ This is fundamentally different from:
 - **Make events immutable and additive.** Never modify an event after publishing.
 - **Handle replays gracefully.** Consumers should be idempotent (same event twice = same result).
 - **Set retention policies.** Kafka topics need enough retention for consumers to catch up after downtime.
-- **Monitor replication lag.** Alert when a consumer falls significantly behind the producer.
+- **Monitor replication lag.** Alert when a consumer falls far behind the producer.
 
 ## Common Mistakes
 

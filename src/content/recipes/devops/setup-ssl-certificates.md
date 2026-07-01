@@ -213,7 +213,7 @@ sudo crontab -e
 # 0 3 * * * certbot renew --quiet --deploy-hook "systemctl reload nginx"
 ```
 
-## Best Practices
+## What Works
 
 - **Use the web server plugin** (`--nginx`, `--apache`) when possible. It handles configuration automatically and reduces human error.
 - **Set up auto-renewal from day one.** Let's Encrypt certificates expire every 90 days. A forgotten cron job causes production downtime.

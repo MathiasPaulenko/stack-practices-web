@@ -145,8 +145,8 @@ CREATE TRIGGER products_search_trigger
 
 **PostgreSQL search capabilities:**
 
-| Feature | Support | Notes |
-|---------|---------|-------|
+| Capability | Support | Notes |
+|------------|---------|-------|
 | Stemming | Yes | Built into text search dictionaries |
 | Ranking | Yes | `ts_rank()` and `ts_rank_cd()` |
 | Highlighting | Yes | `ts_headline()` for result previews |
@@ -489,7 +489,7 @@ def bulk_sync():
 ## FAQ
 
 **Q: Should I use PostgreSQL or Elasticsearch for search?**
-Start with PostgreSQL if you have <1M documents and do not need fuzzy matching or complex faceting. Move to Elasticsearch when search becomes a core feature with advanced requirements.
+Start with PostgreSQL if you have <1M documents and do not need fuzzy matching or complex faceting. Move to Elasticsearch when search becomes a core capability with advanced requirements.
 
 **Q: How do I keep Elasticsearch in sync with my database?**
 Use Change Data Capture (CDC) with Debezium, database triggers with a message queue, or application-level dual writes. CDC is the most reliable.
@@ -502,5 +502,5 @@ Yes, with `pg_trgm` extension: `SELECT word FROM words WHERE word % 'parial' ORD
 
 ## Conclusion
 
-Full-text search is a user-facing feature where performance and relevance directly impact engagement. By choosing the right engine for your scale, designing indexes for your query patterns, and continuously tuning relevance, you build search that users trust and rely on.
+Full-text search is a user-facing capability where performance and relevance directly impact engagement. By choosing the right engine for your scale, designing indexes for your query patterns, and continuously tuning relevance, you build search that users trust and rely on.
 

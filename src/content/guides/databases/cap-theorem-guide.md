@@ -153,7 +153,7 @@ session.execute(
 | Like a post | Eventual | AP — increment counter, reconcile later |
 | Delete account | Strong | CP — ensure all replicas delete |
 
-## Best Practices
+## What Works
 
 - **Do not default to strong consistency everywhere** — it costs latency and availability
 - **Identify your consistency requirements per operation** — not all data needs the same guarantees

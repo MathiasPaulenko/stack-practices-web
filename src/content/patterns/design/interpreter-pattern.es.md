@@ -253,7 +253,7 @@ El cliente construye un AST y luego llama `interpret()` en el nodo raíz, que ev
 | **Interpreter Memoizado** | Cachea resultados de sub-expresiones | Evaluaciones repetidas con el mismo contexto |
 | **Compiler + VM** | Compila a bytecode, luego ejecuta | Ejecución repetida de alto rendimiento |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén la gramática simple** — las gramáticas complejas se manejan mejor con generadores de parsers
 - **Construye el AST primero**, luego interpreta — no interpretes durante el parsing

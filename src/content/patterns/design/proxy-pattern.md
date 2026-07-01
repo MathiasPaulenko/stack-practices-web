@@ -197,7 +197,7 @@ The proxy can intercept operations to add caching, logging, access control, or l
 | **Remote Proxy** | Network transparency | Local stub for a remote service |
 | **Smart Reference** | Reference counting | Tracking object usage for cleanup |
 
-## Best Practices
+## What Works
 
 - **Keep the proxy interface identical to the real subject** — clients should not know they are using a proxy
 - **Use lazy initialization only when the real object is expensive** — otherwise, the proxy adds unnecessary complexity

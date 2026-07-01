@@ -112,7 +112,7 @@ involucrado su [tipo de dato]. Hemos [contenido / remediado] el issue y estamos
 [pasos tomados]. Le actualizaremos dentro de 72 horas.
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Designa un comandante de incidente inmediatamente** — una persona coordina, otros ejecutan
 - **Preserva evidencia antes de contención** — dumps de memoria y logs desaparecen al reiniciar. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para gestión de logs.

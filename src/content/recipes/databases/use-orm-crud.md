@@ -171,7 +171,7 @@ public class UserRepository {
 | JavaScript | `TypeORM` | Decorator-based ORM with strong TypeScript support |
 | Java | `Spring Data JPA` | Repository abstraction on top of Hibernate |
 
-## Best Practices
+## What Works
 
 1. Define explicit schemas and constraints in the ORM, not just the database
 2. Use transactions for multi-step operations to ensure atomicity

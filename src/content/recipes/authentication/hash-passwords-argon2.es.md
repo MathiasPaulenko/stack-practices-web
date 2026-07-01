@@ -220,7 +220,7 @@ async def login(email, password):
     return None
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Nunca implementes tu propio hash de contraseñas.** Usa librerías bien auditadas. Implementaciones custom introducen ataques de timing y bugs de memory safety.
 - **Siempre usa Argon2id, no Argon2d o Argon2i.** Argon2id es la variante recomendada que balancea resistencia GPU y protección contra side-channels.

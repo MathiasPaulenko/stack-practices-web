@@ -155,7 +155,7 @@ Jackson (Java) uses reflection to bind JSON fields to POJO properties via getter
 | Java | JSON | `Jackson` | `writeValueAsString()` / `readValue()` | POJO binding, streaming, tree model |
 | Java | XML | `JAXB` / `Jackson XML` | Annotation-driven | JAXB is deprecated; prefer Jackson XML |
 
-## Best Practices
+## What Works
 
 - **Use `safe_load` for YAML** in untrusted contexts to prevent arbitrary code execution
 - **Validate JSON Schema** after deserialization to ensure structural correctness before business logic

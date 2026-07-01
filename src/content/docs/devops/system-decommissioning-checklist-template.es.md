@@ -129,7 +129,7 @@ Antes de desmantelar un sistema:
 
 ## Explicacion
 
-La checklist esta ordenada por **riesgo**: descubrimiento primero (para saber que estas tocando), manejo de datos segundo (para no eliminar algo que debes conservar), eliminacion de dependencias tercero (para que sistemas upstream no se rompan), apagado cuarto, limpieza quinto y documentacion al final. La **seccion de verificacion** atrapa lo que siempre se olvida: un registro DNS con TTL largo, un trabajo cron en un servidor olvidado, o un rol IAM que silenciosamente otorga acceso a otra cosa.
+La checklist esta ordenada por riesgo: descubrimiento primero (para saber que estas tocando), manejo de datos segundo (para no eliminar algo que debes conservar), eliminacion de dependencias tercero (para que sistemas upstream no se rompan), apagado cuarto, limpieza quinto y documentacion al final. La seccion de verificacion atrapa lo que siempre se olvida: un registro DNS con TTL largo, un trabajo cron en un servidor olvidado, o un rol IAM que silenciosamente otorga acceso a otra cosa.
 
 ## Variantes
 
@@ -141,21 +141,21 @@ La checklist esta ordenada por **riesgo**: descubrimiento primero (para saber qu
 | Cierre de region | Agregar verificaciones de residencia de datos, migracion de usuarios y evaluacion de impacto de latencia | Las regiones tienen implicaciones de cumplimiento |
 | Desmantelamiento de experimento | Checklist mas corta; enfocarse en eliminacion de datos y confirmacion de costos | Los experimentos deben limpiarse rapido |
 
-## Mejores Practicas
+## Lo que funciona
 
-1. **Nunca elimines el primer dia** — deten el servicio, espera y observa. La eliminacion debe ser el ultimo paso
-2. **Archiva antes de eliminar** — el almacenamiento es barato; explicar datos faltantes a auditores es costoso
-3. **Comunica temprano y frecuentemente** — la peor sorpresa de desmantelamiento es descubrir que otro equipo aun usaba el servicio
-4. **Documenta lo que fue removido** — futuros ingenieros buscaran el servicio; deja una lapida, no un misterio
-5. **Verifica la facturacion** — los recursos cloud tienen una forma de generar cargos incluso despues de que crees que se fueron
+1. Nunca elimines el primer dia. Deten el servicio, espera y observa. La eliminacion debe ser el ultimo paso
+2. Archiva antes de eliminar. El almacenamiento es barato; explicar datos faltantes a auditores es costoso
+3. Comunica temprano y frecuentemente. La peor sorpresa de desmantelamiento es descubrir que otro equipo aun usaba el servicio
+4. Documenta lo que fue removido. Futuros ingenieros buscaran el servicio; deja una lapida, no un misterio
+5. Verifica la facturacion. Los recursos cloud tienen una forma de generar cargos incluso despues de que crees que se fueron
 
 ## Errores Comunes
 
-1. **Saltarse el descubrimiento** — el servicio que estas apagando es una dependencia critica de alguien mas
-2. **Eliminar datos muy temprano** — una retencion legal, auditoria o necesidad de negocio puede requerir conservacion mas larga de lo que esperas
-3. **No esperar despues del apagado** — algunos sistemas solo reciben trafico en ciclos mensuales o trimestrales
-4. **Olvidar el DNS** — un registro DNS apuntando a una IP eliminada puede ser secuestrado o causar errores extranos
-5. **Ignorar certificados** — los certificados expirados de servicios eliminados aun disparan alertas y automatizaciones de renovacion
+1. Saltarse el descubrimiento. El servicio que estas apagando es una dependencia critica de alguien mas
+2. Eliminar datos muy temprano. Una retencion legal, auditoria o necesidad de negocio puede requerir conservacion mas larga de lo que esperas
+3. No esperar despues del apagado. Algunos sistemas solo reciben trafico en ciclos mensuales o trimestrales
+4. Olvidar el DNS. Un registro DNS apuntando a una IP eliminada puede ser secuestrado o causar errores extranos
+5. Ignorar certificados. Los certificados expirados de servicios eliminados aun disparan alertas y automatizaciones de renovacion
 
 ## Preguntas Frecuentes
 

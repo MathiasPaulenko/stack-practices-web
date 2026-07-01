@@ -106,7 +106,7 @@ The pattern often involves:
 | **Serverless bundling** | Combine functions into a single process or runtime | Event-driven workloads |
 | **Batch scheduling** | Run jobs at different times on shared compute | Cron jobs and ETL pipelines |
 
-## Best Practices
+## What Works
 
 - Profile workloads for **average and peak** usage before consolidating
 - Keep **security boundaries** clear; do not mix sensitive and public workloads

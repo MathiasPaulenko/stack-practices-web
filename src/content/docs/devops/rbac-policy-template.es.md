@@ -107,7 +107,7 @@ RBAC simplifica la gestion de acceso al agrupar permisos en roles en lugar de as
 - **RBAC a nivel aplicacion**: Define roles dentro de una sola aplicacion, independiente de la identidad corporativa.
 - **RBAC orientado a clientes**: Modela roles de inquilino, admin y usuario final en sistemas multi-tenant.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Comienza con pocos roles y expande solo cuando sea necesario.
 - Evita nombres de roles que coincidan con titulos de trabajo; usa nombres funcionales como editor u operator.

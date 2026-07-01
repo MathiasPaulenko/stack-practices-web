@@ -272,7 +272,7 @@ El beneficio clave es que el estado interno del memento es opaco al cuidador, pr
 ## Lo que Funciona
 
 - **Mantén los mementos inmutables** después de la creación para prevenir manipulación accidental
-- **Limita la vida útil de los mementos** — historiales grandes consumen memoria significativa
+- **Limita la vida útil de los mementos** — historiales grandes consumen memoria sustancial
 - **Considera serialización** para grafos de objetos complejos, pero sé consciente de los costos de rendimiento
 - **Implementa una interfaz de memento** que solo expone métodos de restauración de estado al originador
 - **Usa mementos delta** para objetos grandes donde solo cambian algunos campos

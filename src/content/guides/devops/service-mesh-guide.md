@@ -42,7 +42,7 @@ A service mesh is a dedicated infrastructure layer that handles service-to-servi
 
 - You run 10+ microservices with complex inter-service call graphs
 - You need mutual TLS (mTLS) between all services without code changes
-- Traffic management features are needed: canary deploys, blue-green, A/B testing
+- Traffic management capabilities are needed: canary deploys, blue-green, A/B testing
 - Observability gaps exist: distributed tracing, request-level metrics, service topology
 - Retry, timeout, and circuit breaker logic is duplicated across services
 

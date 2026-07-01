@@ -166,7 +166,7 @@ test:
     - npm test
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa `npm ci` en lugar de `npm install`** en CI para builds reproducibles que respeten estrictamente `package-lock.json`.
 - **Cachea dependencias** entre jobs usando la keyword `cache` para reducir drásticamente los tiempos de build.

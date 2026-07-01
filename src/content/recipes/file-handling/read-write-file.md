@@ -3,7 +3,7 @@ contentType: recipes
 slug: read-write-file
 title: "Read and Write Files"
 description: "How to read from and write to files safely across multiple programming languages."
-metaDescription: "Learn how to read and write files in Python, JavaScript, and Bash with practical examples, encoding tips, and error handling best practices."
+metaDescription: "Learn how to read and write files in Python, JavaScript, and Bash with practical examples, encoding tips, and error handling what works."
 difficulty: beginner
 topics:
   - file-handling
@@ -17,7 +17,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Learn how to read and write files in Python, JavaScript, and Bash with practical examples, encoding tips, and error handling best practices."
+  metaDescription: "Learn how to read and write files in Python, JavaScript, and Bash with practical examples, encoding tips, and error handling what works."
   keywords:
     - files
     - io
@@ -104,7 +104,7 @@ To turn file contents into structured data, see [Parse JSON](/recipes/data/parse
 | JavaScript | `readFile(p)` | `writeFile(p, data)` | `appendFile(p, data)` |
 | Bash | `cat p` | `> p` | `>> p` |
 
-## Best Practices
+## What Works
 
 - **Always set encoding**: explicit `utf-8` avoids platform-dependent defaults that can corrupt non-ASCII characters on Windows or macOS.
 - **Use context managers / async APIs**: `with` in Python, `fs/promises` in Node, to avoid descriptor leaks and event-loop blocking. These abstractions guarantee cleanup even when exceptions occur.

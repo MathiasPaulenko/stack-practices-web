@@ -233,7 +233,7 @@ v2.4.1 introdujo un loop de retry que filtraba conexiones a base de datos.
 
 Esperado. Tu trabajo es contener el impacto y encontrar a la persona correcta — no saber cada sistema. Escalá temprano y claramente. Una escalación de 5 minutos es mejor que 30 minutos solo.
 
-### ¿Cómo balanceo respuesta a incidentes con trabajo de features?
+### ¿Cómo balanceo respuesta a incidentes con trabajo de funcionalidades?
 
 Los incidentes son trabajo no planificado. Rastrealos. Si un equipo gasta > 20% de capacidad de sprint en incidentes, es una señal de invertir en confiabilidad (tests, automatización, refactor) en lugar de nuevas capacidades.
 

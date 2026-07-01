@@ -69,7 +69,7 @@ Use this resource when:
 |------------|----------|-------|
 | [Technology] | [Approach] | [Notes] |
 
-## Best Practices
+## What Works
 
 1. Use token bucket for controlled bursts and sliding window for strict limits
 2. Return `Retry-After` headers with 429 responses so clients know when to retry

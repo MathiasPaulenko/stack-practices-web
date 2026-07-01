@@ -155,7 +155,7 @@ Python's `bleach` is ideal for rich-text fields because it allows an explicit al
 | Java | `JSoup` | HTML sanitization | `Safelist` profiles for common use cases |
 | Java | `OWASP Java Encoder` | Context-specific encoding | HTML, JS, CSS, URL, attribute encoding |
 
-## Best Practices
+## What Works
 
 - **Validate first, then sanitize**: Reject invalid input early; sanitization is a safety net, not a gatekeeper
 - **Use allow-lists, not block-lists**: Define what is permitted (tags, protocols, characters) rather than trying to block every attack vector
@@ -165,7 +165,7 @@ Python's `bleach` is ideal for rich-text fields because it allows an explicit al
 
 ## Common Mistakes
 
-- **Black-listing HTML tags**: Attackers invent new tags and attributes; allow-lists are the only robust approach
+- **Black-listing HTML tags**: Attackers invent new tags and attributes; allow-lists are the only reliable approach
 - **Sanitizing after validation**: Validation should happen on raw input; sanitizing first can bypass validation rules
 - **Using regex for HTML parsing**: Regex cannot parse HTML correctly; always use a proper HTML parser for sanitization
 - **Encoding once and reusing everywhere**: HTML-encoded output is unsafe inside JavaScript strings; encode per context

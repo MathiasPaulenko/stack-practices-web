@@ -214,11 +214,11 @@ Before sending communications:
 
 ## Communication Rules
 
-1. **Be honest about what you know** — do not guess at root causes
-2. **Provide ETAs only if confident** — missed ETAs destroy trust faster than no ETA
-3. **Update on schedule even if no progress** — silence breeds anxiety
-4. **Use the same channel for updates** — do not make stakeholders hunt for information
-5. **Match technical depth to audience** — executives need impact, engineers need details
+1. Be honest about what you know. Do not guess at root causes
+2. Provide ETAs only if confident. Missed ETAs destroy trust faster than no ETA
+3. Update on schedule even if no progress. Silence breeds anxiety
+4. Use the same channel for updates. Do not make stakeholders hunt for information
+5. Match technical depth to audience. Executives need impact, engineers need details
 
 ## Communication Frequency by Severity
 
@@ -244,21 +244,21 @@ The template separates communications by **audience** (customers need reassuranc
 | Data breach | Regulatory notification | May require 72-hour notification under GDPR |
 | Mobile app outage | In-app banner + social media | Users may not check email during app outage |
 
-## Best Practices
+## What Works
 
-1. **Draft templates during calm periods** — create specific versions for your services before an incident happens
-2. **Assign a communication lead** separate from the incident commander during P1s
-3. **Review messages for tone** — avoid jargon, blame, or over-technical explanations
-4. **Include a human signature** — signed messages feel more authentic than generic status updates
-5. **Track communication delays** — if it takes 20 minutes to draft an update, your process is too slow
+1. Draft templates during calm periods. Create specific versions for your services before an incident happens
+2. Assign a communication lead separate from the incident commander during P1s
+3. Review messages for tone. Avoid jargon, blame, or over-technical explanations
+4. Include a human signature. Signed messages feel more authentic than generic status updates
+5. Track communication delays. If it takes 20 minutes to draft an update, your process is too slow
 
 ## Common Mistakes
 
-1. **Saying "we are investigating" for hours** — provide meaningful updates or admit you are stuck
-2. **Over-promising resolution times** — give ranges ("1-2 hours") instead of exact times
-3. **Using different terminology across channels** — "degraded" on status page and "outage" in Slack creates confusion
-4. **Forgetting to notify internal teams** — customer communication is visible, but internal teams need coordination too
-5. **Sending resolution before verification** — confirming resolution prematurely leads to reopening
+1. Saying "we are investigating" for hours. Provide meaningful updates or admit you are stuck
+2. Over-promising resolution times. Give ranges ("1-2 hours") instead of exact times
+3. Using different terminology across channels. "degraded" on status page and "outage" in Slack creates confusion
+4. Forgetting to notify internal teams. Customer communication is visible, but internal teams need coordination too
+5. Sending resolution before verification. Confirming resolution prematurely leads to reopening
 
 ## Frequently Asked Questions
 

@@ -48,7 +48,7 @@ Use this recipe when:
 - Implementing [authentication systems](/recipes/authentication/session-management) with username and password flows
 - Migrating legacy systems from fast hashes (MD5, SHA-1) to modern password storage
 - Validating passwords during login and password-reset flows
-- Complying with security standards (PCI-DSS, SOC 2, GDPR) that mandate proper credential protection. See [API Security Checklist](/guides/security/api-security-checklist-guide) for compliance best practices.
+- Complying with security standards (PCI-DSS, SOC 2, GDPR) that mandate proper credential protection. See [API Security Checklist](/guides/security/api-security-checklist-guide) for what works for compliance.
 - Building admin panels or CLI tools that create service accounts with passwords
 
 ## Solution
@@ -131,7 +131,7 @@ System.out.println(matches);
 | PBKDF2 | Good | Slow | Compliance with NIST/FIPS requirements |
 | scrypt | Good | Memory-hard | Resists GPU/ASIC attacks |
 
-## Best Practices
+## What Works
 
 - **Never roll your own crypto**: Use established libraries (bcrypt, argon2, passlib). Cryptography is notoriously easy to get wrong in subtle ways that only become apparent under attack.
 - **Always use a salt**: Unique per password, automatically handled by bcrypt. Without salt, two users with the same password will have identical hashes, leaking that relationship to anyone with database access.

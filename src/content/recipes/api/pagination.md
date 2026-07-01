@@ -3,7 +3,7 @@ contentType: recipes
 slug: pagination
 title: "Pagination"
 description: "How to implement cursor-based and offset-based pagination in APIs and databases across Python, JavaScript, and SQL."
-metaDescription: "Practical pagination examples in Python, JavaScript, and SQL. Learn offset vs cursor pagination, LIMIT/OFFSET, and cursor-based APIs for scalable data fetching."
+metaDescription: "Practical pagination examples in Python, JavaScript, and SQL. Learn offset vs cursor pagination, LIMIT/OFFSET, and cursor-based APIs for growth-ready data fetching."
 difficulty: intermediate
 topics:
   - api
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Practical pagination examples in Python, JavaScript, and SQL. Learn offset vs cursor pagination, LIMIT/OFFSET, and cursor-based APIs for scalable data fetching."
+  metaDescription: "Practical pagination examples in Python, JavaScript, and SQL. Learn offset vs cursor pagination, LIMIT/OFFSET, and cursor-based APIs for growth-ready data fetching."
   keywords:
     - pagination
     - api pagination
@@ -137,7 +137,7 @@ SELECT COUNT(*) FROM users;
 | Cursor-based | Fast, consistent | Cannot jump to arbitrary page | Social feeds, infinite scroll |
 | Seek / Keyset | Fast, stable sorting | Requires ordered unique key | Large sorted datasets |
 
-## Best Practices
+## What Works
 
 - **Use cursor pagination for high-traffic APIs**: Prevents performance cliffs
 - **Always ORDER BY**: Without ordering, pagination is non-deterministic. See [SQL Joins](/recipes/databases/sql-joins) for query optimization.
@@ -151,7 +151,7 @@ SELECT COUNT(*) FROM users;
 - Not ordering results, causing items to shift between pages
 - Using `SELECT COUNT(*)` unnecessarily on massive tables
 - Allowing unlimited `page_size` parameters
-- Using offset pagination on datasets with millions of rows. See [Cursor Pagination](/recipes/api/cursor-pagination-postgresql) for scalable pagination.
+- Using offset pagination on datasets with millions of rows. See [Cursor Pagination](/recipes/api/cursor-pagination-postgresql) for growth-ready pagination.
 - Ignoring race conditions where data is inserted/deleted between page requests
 
 ## Frequently Asked Questions

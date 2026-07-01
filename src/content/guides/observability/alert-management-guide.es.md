@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: alert-management-guide
-title: "Gestión de Alertas — Mejores Prácticas de Alertas en Guardia"
+title: "Gestión de Alertas: Alertas en Guardia que Funcionan"
 description: "Guía práctica sobre gestión de alertas: reducir fatiga de alertas, definir niveles de severidad, políticas de escalamiento, diseño de rotaciones de guardia y construir una cultura de alertas sostenible."
 metaDescription: "Aprende gestión de alertas: reduce fatiga de alertas, define niveles de severidad, diseña políticas de escalamiento, rotaciones de guardia y alertas sostenibles."
 difficulty: intermediate
@@ -74,7 +74,8 @@ Define niveles de severidad claros y accionables:
 | **P4** | Baja | 1-2 días hábiles | Ticket | Limpieza necesaria, optimización no urgente |
 | **P5** | Info | Ninguno | Solo dashboard | Métricas para contexto, no requiere acción |
 
-**Principios de diseño de severidad:**
+#### Principios de Diseño de Severidad
+
 - P1 significa dejar todo y responder inmediatamente
 - P2 significa responder dentro del período laboral actual
 - P3 y below no paginan; crean tickets o mensajes de Slack
@@ -136,7 +137,8 @@ groups:
           summary: "High memory usage on {{ $labels.instance }}"
 ```
 
-**Checklist de diseño de alertas:**
+#### Checklist de Diseño de Alertas
+
 - Alerta sobre síntomas que sienten los usuarios (errores, latencia), no causas (disco lleno)
 - Cada alerta P1/P2 debe tener un link a runbook
 - Usa `for:` para prevenir oscilación (requiere falla sostenida)
@@ -161,7 +163,8 @@ Diseña rotaciones justas y sostenibles:
 # Escalamiento: Manager después de 15 minutos
 ```
 
-**Mejores prácticas de rotación:**
+#### Prácticas de Rotación
+
 - Limita frecuencia de guardia a no más de 1 semana en 4
 - Asegura transferencia entre turnos incluyendo incidentes activos
 - Compensa por tiempo de guardia (pago o tiempo libre)
@@ -187,7 +190,8 @@ Alerta Dispara
                             → Director de Ingeniería (página)
 ```
 
-**Principios de escalamiento:**
+#### Principios de Escalamiento
+
 - Escala rápidamente para P1 (intervalos de 5-10 minutos)
 - Escala más lentamente para P2 (intervalos de 30-60 minutos)
 - Incluye al respondedor anterior en la cadena de escalamiento
@@ -224,7 +228,8 @@ Usuarios no pueden acceder a `{{ $labels.job }}`. Impacto en ingresos si es pago
 Si no se resuelve en 15 minutos, escalar a: platform-team@company.com
 ```
 
-**Mejores prácticas de runbooks:**
+#### Prácticas de Runbooks
+
 - Un runbook por alerta P1/P2
 - Incluye diagnóstico, resolución y escalamiento
 - Vincula runbook directamente en notificación de alerta
@@ -243,36 +248,37 @@ Mide y reduce activamente el volumen de alertas:
 | Tasa de falsos positivos | < 10% | Aumentar `for:`, añadir condiciones |
 | Alertas sin runbooks | 0 | Crear runbooks faltantes |
 
-**Tácticas de reducción de fatiga:**
-- **Consolida:** Agrupa alertas relacionadas en una notificación
-- **Suprime:** Silencia ventanas de mantenimiento conocidas
-- **Deduplica:** Una alerta por incidente, no por host afectado
-- **Auto-remedia:** Auto-reinicio, auto-escala para problemas recuperables conocidos
-- **Elimina:** Remueve alertas que disparan más de una vez sin acción
+#### Tácticas de Reducción de Fatiga
 
-## Mejores Prácticas
+- Consolida: Agrupa alertas relacionadas en una notificación
+- Suprime: Silencia ventanas de mantenimiento conocidas
+- Deduplica: Una alerta por incidente, no por host afectado
+- Auto-remedia: Auto-reinicio, auto-escala para problemas recuperables conocidos
+- Elimina: Remueve alertas que disparan más de una vez sin acción
 
-- **Alerta sobre síntomas, no causas.** Disco lleno es una causa; peticiones lentas es el síntoma.
-- **Cada alerta debe ser accionable.** Si la respuesta es "esperar y ver", no debería paginar.
-- **Usa `for:` para prevenir oscilación.** Requiere violación sostenida del umbral antes de alertar.
-- **Separa paginado de logging.** No todo lo interesante necesita despertar a alguien.
-- **Revisa alertas mensualmente.** Rastrea qué alertas disparan, cuáles son reconocidas y cuáles ignoradas.
-- **Compensa guardia justamente.** La guardia es trabajo; trátala como tal.
+## Lo que funciona
+
+- Alerta sobre síntomas, no causas. Disco lleno es una causa; peticiones lentas es el síntoma.
+- Cada alerta debe ser accionable. Si la respuesta es "esperar y ver", no debería paginar.
+- Usa `for:` para prevenir oscilación. Requiere violación sostenida del umbral antes de alertar.
+- Separa paginado de logging. No todo lo interesante necesita despertar a alguien.
+- Revisa alertas mensualmente. Rastrea qué alertas disparan, cuáles son reconocidas y cuáles ignoradas.
+- Compensa guardia justamente. La guardia es trabajo; trátala como tal.
 
 ## Errores Comunes
 
-- **Alertar sobre todo.** Más alertas no significan mejor cobertura; significan más ruido.
-- **Sin ruta de escalamiento.** Si el primario no responde, la alerta muere en silencio.
-- **Runbooks faltantes.** Una alerta sin runbook fuerza al respondedor a adivinar.
-- **Ignorar fatiga de alertas.** Alto volumen de alertas lleva a agotamiento y alertas críticas perdidas.
-- **Umbrales estáticos en métricas cíclicas.** Picos de CPU durante jobs batch son normales; alerta sobre desviación de línea base en su lugar.
+- Alertar sobre todo. Más alertas no significan mejor cobertura; significan más ruido.
+- Sin ruta de escalamiento. Si el primario no responde, la alerta muere en silencio.
+- Runbooks faltantes. Una alerta sin runbook fuerza al respondedor a adivinar.
+- Ignorar fatiga de alertas. Alto volumen de alertas lleva a agotamiento y alertas críticas perdidas.
+- Umbrales estáticos en métricas cíclicas. Picos de CPU durante jobs batch son normales; alerta sobre desviación de línea base en su lugar.
 
 ## Variantes
 
-- **Respuesta a incidentes sin operador:** Remediación totalmente automatizada sin involucramiento humano
-- **Enrutamiento basado en severidad:** Canales diferentes para diferentes severidades (Slack para P3, PagerDuty para P1)
-- **Propiedad por equipo:** Las alertas se enrutan al equipo que posee el servicio
-- **Alertas asistidas por IA:** Detección de anomalías que ajusta umbrales dinámicamente
+- Respuesta a incidentes sin operador: Remediación totalmente automatizada sin involucramiento humano
+- Enrutamiento basado en severidad: Canales diferentes para diferentes severidades (Slack para P3, PagerDuty para P1)
+- Propiedad por equipo: Las alertas se enrutan al equipo que posee el servicio
+- Alertas asistidas por IA: Detección de anomalías que ajusta umbrales dinámicamente
 
 ## FAQ
 
@@ -290,4 +296,4 @@ Las alertas te notifican de algo que requiere acción. Los dashboards te ayudan 
 
 ## Conclusión
 
-Buenas alertas son un producto que construyes para tus ingenieros de guardia. Deben ser precisas, accionables y respetuosas de su tiempo. Al diseñar alertas alrededor del impacto de usuario, crear runbooks claros y reducir activamente el ruido, construyes una cultura operativa que es sostenible y efectiva.
+Buenas alertas son un producto que construyes para tus ingenieros de guardia. Deben ser precisas, accionables y respetuosas de su tiempo. Al diseñar alertas alrededor del impacto de usuario, crear runbooks claros y reducir activamente el ruido, construyes una cultura operativa que es sostenible y confiable.

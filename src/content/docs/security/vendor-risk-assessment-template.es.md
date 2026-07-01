@@ -137,7 +137,7 @@ La plantilla trata la evaluación de proveedores como un **proceso estructurado 
 | Procesador de pagos | PCI DSS | Requerir AoC (Attestation of Compliance) y SAQ |
 | Proveedor de IA / ML | Datos de entrenamiento del modelo | Verificar que tus datos no se usen para entrenar modelos a menos que se acuerde explícitamente |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Evalúa proveedores **antes** de la firma del contrato, no después del onboarding
 2. Requiere un Acuerdo de Procesamiento de Datos (DPA) para cualquier proveedor que toque PII

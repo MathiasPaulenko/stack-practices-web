@@ -144,7 +144,7 @@ El adapter traduce llamadas desde la interfaz target a llamadas que el adaptee e
 | **Class Adapter** | Hereda del adaptee (herencia múltiple) | Menos flexible, no posible en todos los lenguajes |
 | **Two-way Adapter** | Ambas interfaces son usables | Más complejo, pero bidireccional |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Prefiere composición sobre herencia** para adapters (object adapter pattern)
 - **Mantén el adapter delgado**: Debería traducir llamadas, no añadir lógica de negocio

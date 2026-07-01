@@ -3,7 +3,7 @@ contentType: recipes
 slug: read-write-file
 title: "Leer y Escribir Archivos"
 description: "Cómo leer y escribir archivos de forma segura en varios lenguajes de programación."
-metaDescription: "Aprende a leer y escribir archivos en Python, JavaScript y Bash con ejemplos prácticos, consejos de codificación y buenas prácticas de manejo de errores."
+metaDescription: "Aprende a leer y escribir archivos en Python, JavaScript y Bash con ejemplos prácticos, consejos de codificación y lo que funciona para manejo de errores."
 difficulty: beginner
 topics:
   - file-handling
@@ -17,7 +17,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende a leer y escribir archivos en Python, JavaScript y Bash con ejemplos prácticos, consejos de codificación y buenas prácticas de manejo de errores."
+  metaDescription: "Aprende a leer y escribir archivos en Python, JavaScript y Bash con ejemplos prácticos, consejos de codificación y lo que funciona para manejo de errores."
   keywords:
     - leer archivo
     - escribir archivo
@@ -104,7 +104,7 @@ Para convertir el contenido de un archivo en datos estructurados, consulta [Pars
 | JavaScript | `readFile(p)` | `writeFile(p, data)` | `appendFile(p, data)` |
 | Bash | `cat p` | `> p` | `>> p` |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Define siempre la codificación**: un `utf-8` explícito evita valores por defecto dependientes de la plataforma que pueden corromper caracteres no-ASCII en Windows o macOS.
 - **Usa context managers / APIs async**: `with` en Python, `fs/promises` en Node, para evitar fugas de descriptores y bloqueos del event loop. Estas abstracciones garantizan limpieza incluso cuando ocurren excepciones.

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: incident-response-guide
-title: "Incident Response — Structured Handling for Production Outages"
+title: "Incident Response: Structured Handling for Production Outages"
 description: "A practical guide to incident response: declaring incidents, building an incident command structure, communication protocols, and reducing mean time to resolution with structured processes."
 metaDescription: "Learn incident response: declaring incidents, command structure, communication protocols, and reducing MTTR with structured processes."
 difficulty: intermediate
@@ -87,7 +87,8 @@ Recognize when an alert becomes an incident:
 - [ ] Stakeholders notified (Sev1)
 ```
 
-**Declaration principles:**
+#### Declaration Principles
+
 - When in doubt, declare. Downgrading is easier than catching up.
 - Sev1 incidents get an Incident Commander immediately.
 - Create a dedicated channel for every Sev1/Sev2 incident.
@@ -118,7 +119,8 @@ Clear roles prevent chaos:
     Responders
 ```
 
-**What works for roles:**
+#### What Works for Roles
+
 - IC does not investigate directly; they coordinate
 - Only the IC speaks for the incident team to stakeholders
 - Rotate IC if the current person has been on for >2 hours
@@ -152,7 +154,8 @@ Communication is as important as technical response:
 Next update: 15:00 UTC
 ```
 
-**Communication principles:**
+#### Communication Principles
+
 - Under-promise and over-deliver on ETAs
 - Do not speculate on root cause until confident
 - Update even if nothing has changed ("still investigating")
@@ -175,7 +178,8 @@ Structured technical response:
 8. **Verify recovery:** Confirm metrics return to normal, user reports resolved
 ```
 
-**Mitigation strategies:**
+#### Mitigation Strategies
+
 | Strategy | When to Use | Risk |
 |----------|-------------|------|
 | **Rollback** | Recent deployment caused issue | Low, if tested |
@@ -201,7 +205,8 @@ Formalize the end of an incident:
 - [ ] Incident formally closed in tracking system
 ```
 
-**Resolution principles:**
+#### Resolution Principles
+
 - Do not close until you have monitoring confirmation
 - Keep the incident channel open for 24 hours for follow-up questions
 - Schedule postmortem before memory fades
@@ -209,40 +214,44 @@ Formalize the end of an incident:
 
 ## What Works
 
-- **Practice before you need it.** Run game days and chaos engineering exercises.
-- **Start with mitigation, not root cause.** Fix the user impact first; investigate after.
-- **One incident commander.** Decision authority must be clear and singular.
-- **Communicate early and often.** Silence during an incident creates panic.
-- **Document everything.** The scribe's notes are the foundation of the postmortem.
-- **Learn from every incident.** If you are having the same incident twice, your process is broken.
+- Practice before you need it. Run game days and chaos engineering exercises.
+- Start with mitigation, not root cause. Fix the user impact first; investigate after.
+- One incident commander. Decision authority must be clear and singular.
+- Communicate early and often. Silence during an incident creates panic.
+- Document everything. The scribe's notes are the foundation of the postmortem.
+- Learn from every incident. If you are having the same incident twice, your process is broken.
 
 ## Common Mistakes
 
-- **No clear IC.** Multiple people giving orders creates confusion and delay.
-- **Skipping communication.** Stakeholders make their own (often wrong) assumptions.
-- **Chasing root cause before mitigating.** Users do not care why it broke; they care that it works.
-- **Forgetting to verify.** Marking resolved too early leads to re-opened incidents.
-- **No follow-up.** Incidents without postmortems are wasted learning opportunities.
+- No clear IC. Multiple people giving orders creates confusion and delay.
+- Skipping communication. Stakeholders make their own (often wrong) assumptions.
+- Chasing root cause before mitigating. Users do not care why it broke; they care that it works.
+- Forgetting to verify. Marking resolved too early leads to re-opened incidents.
+- No follow-up. Incidents without postmortems are wasted learning opportunities.
 
 ## Variants
 
-- **Automated incident response:** Auto-remediation runbooks triggered by alerts
-- **Follow-the-sun response:** Regional teams hand off incidents across time zones
-- **External dependency incidents:** Pre-defined escalation to third-party vendors
-- **Security incident response:** Separate playbook for breaches and data exposure
+- Automated incident response: Auto-remediation runbooks triggered by alerts
+- Follow-the-sun response: Regional teams hand off incidents across time zones
+- External dependency incidents: Pre-defined escalation to third-party vendors
+- Security incident response: Separate playbook for breaches and data exposure
 
 ## FAQ
 
-**Q: When should I declare an incident vs. handle as a normal alert?**
+### When should I declare an incident vs. handle as a normal alert?
+
 Declare when user-impacting symptoms are confirmed and the standard alert response is insufficient. When in doubt, declare.
 
-**Q: Who should be Incident Commander?**
+### Who should be Incident Commander?
+
 The most available senior engineer who is not actively debugging. IC coordinates; they do not investigate.
 
-**Q: How do I run an useful postmortem?**
+### How do I run an useful postmortem?
+
 Schedule within 48 hours, focus on process and system improvements, not blame. See the [Postmortem Guide](/guides/observability/postmortem-guide).
 
-**Q: What if we cannot find the root cause?**
+### What if we cannot find the root cause?
+
 That is okay. Document what you know, what you tried, and what you will monitor. Some incidents remain partially unexplained.
 
 ## Conclusion

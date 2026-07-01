@@ -121,7 +121,7 @@ app.add_middleware(SecurityHeadersMiddleware)
 | X-Frame-Options | Clickjacking | Sí | Universal |
 | X-Content-Type-Options | MIME sniffing | Sí | Universal |
 | Referrer-Policy | Fuga de información | Recomendado | Universal |
-| Permissions-Policy | Abuso de features | Recomendado | Moderno |
+| Permissions-Policy | Abuso de funcionalidades | Recomendado | Moderno |
 
 ## Lo que funciona
 

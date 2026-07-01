@@ -31,7 +31,7 @@ seo:
 
 # Implement ACID Transactions in PostgreSQL
 
-ACID properties — Atomicity, Consistency, Isolation, Durability — are the foundation of reliable database operations. PostgreSQL provides full ACID compliance with multiple isolation levels, savepoints for nested transactions, and robust error handling that ensures data integrity even in failure scenarios.
+ACID properties — Atomicity, Consistency, Isolation, Durability — are the foundation of reliable database operations. PostgreSQL provides full ACID compliance with multiple isolation levels, savepoints for nested transactions, and reliable error handling that ensures data integrity even in failure scenarios.
 
 ## When to Use This
 

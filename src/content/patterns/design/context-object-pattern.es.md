@@ -287,7 +287,7 @@ Esto mantiene las firmas de métodos enfocadas en parámetros de negocio mientra
 | **Async context** | Propagado a través de llamadas async | Node.js AsyncLocalStorage |
 | **Global/singleton** | Un único contexto por app | CLI tools, desktop apps |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén contextos inmutables.** Crea nuevas instancias en lugar de mutar estado compartido.
 - **Scopea contextos estrechamente.** Request-scoped, no global. Evita contextos singleton.

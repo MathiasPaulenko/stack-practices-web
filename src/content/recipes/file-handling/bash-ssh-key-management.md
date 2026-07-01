@@ -109,7 +109,7 @@ The script first ensures the `~/.ssh` directory exists with the correct permissi
 | Distribute | `ssh-copy-id` | Appends to authorized_keys safely |
 | Audit | `ssh-keygen -lf key.pub` | Shows fingerprint and comment |
 
-## Best Practices
+## What Works
 
 1. **Prefer Ed25519 over RSA.** Ed25519 is faster, shorter, and avoids RSA parameter weaknesses.
 2. **Protect private keys with a passphrase for interactive use.** Use `ssh-agent` to avoid typing it repeatedly.

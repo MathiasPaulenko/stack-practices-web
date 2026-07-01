@@ -32,7 +32,7 @@ seo:
 
 ## Descripcion General
 
-Enviar a produccion no es la linea de meta — es la linea de salida para la responsabilidad operativa. Un Production Readiness Review (PRR) es un checkpoint estructurado que verifica que un servicio o feature esta listo para correr en produccion: puede monitorearse, revertirse, asegurarse, y operarse por personas distintas al autor. Los PRRs previenen las sorpresas a las 3 AM donde nadie sabe como reiniciar un servicio, como se ve "normal", o como revertir un mal deploy.
+Enviar a produccion no es la linea de meta. Es la linea de salida para la responsabilidad operativa. Un Production Readiness Review (PRR) es un checkpoint estructurado que verifica que un servicio o feature esta listo para correr en produccion: puede monitorearse, revertirse, asegurarse, y operarse por personas distintas al autor. Los PRRs previenen las sorpresas a las 3 AM donde nadie sabe como reiniciar un servicio, como se ve "normal", o como revertir un mal deploy.
 
 ## Cuando Usar
 
@@ -166,7 +166,7 @@ Antes de conducir un PRR:
 
 ## Explicacion
 
-El PRR esta organizado en **diez dominios** que cubren el ciclo de vida completo de operar software en produccion. Cada dominio tiene checkboxes concretas que pueden verificarse objetivamente. La **seccion de sign-off** asegura que ninguna persona pueda declarar un servicio listo sin input de ingenieria, producto, seguridad, y operaciones. La **tabla de notas de revision** captura gaps que no son bloqueadores pero necesitan seguimiento.
+El PRR esta organizado en diez dominios que cubren el ciclo de vida completo de operar software en produccion. Cada dominio tiene checkboxes concretas que pueden verificarse objetivamente. La seccion de sign-off asegura que ninguna persona pueda declarar un servicio listo sin input de ingenieria, producto, seguridad, y operaciones. La tabla de notas de revision captura gaps que no son bloqueadores pero necesitan seguimiento.
 
 ## Variantes
 
@@ -180,19 +180,19 @@ El PRR esta organizado en **diez dominios** que cubren el ciclo de vida completo
 
 ## Lo que funciona
 
-1. **Corre el PRR temprano** — no esperes al dia del lanzamiento; identifica gaps mientras hay tiempo de arreglarlos
-2. **Hazlo una conversacion, no una puerta** — el objetivo es preparacion, no papeleo; colabora en mitigaciones
-3. **Rastrea gaps explicitamente** — items no chequeados deberian tener duenos y fechas limite, no ser ignorados
-4. **Revisa trimestralmente servicios existentes** — los servicios se desvian de la preparacion con el tiempo; programa revisiones periodicas
-5. **Automatiza lo que puedas** — reportes de cobertura, scans de dependencias, y checks de salud de deploy deberian alimentar el PRR automaticamente
+1. Corre el PRR temprano. No esperes al dia del lanzamiento; identifica gaps mientras hay tiempo de arreglarlos
+2. Hazlo una conversacion, no una puerta. El objetivo es preparacion, no papeleo; colabora en mitigaciones
+3. Rastrea gaps explicitamente. Items no chequeados deberian tener duenos y fechas limite, no ser ignorados
+4. Revisa trimestralmente servicios existentes. Los servicios se desvian de la preparacion con el tiempo; programa revisiones periodicas
+5. Automatiza lo que puedas. Reportes de cobertura, scans de dependencias, y checks de salud de deploy deberian alimentar el PRR automaticamente
 
 ## Errores Comunes
 
-1. **Tratar el PRR como un evento unico** — la preparacion para produccion decae; programa re-revisiones para cambios mayores
-2. **Saltarse la prueba de rollback** — lo unico peor que un mal deploy es no saber como deshacerlo
-3. **No involucrar a operaciones temprano** — SREs y equipos de plataforma detectan restricciones que desarrolladores omiten
-4. **Chequear casillas sin verificar** — "tenemos monitoreo" no es suficiente; confirma que los dashboards son utiles y las alertas son útiles
-5. **Olvidar el lado humano** — los ingenieros de on-call necesitan entrenamiento, no solo documentacion; verifica que han corrido los runbooks
+1. Tratar el PRR como un evento unico. La preparacion para produccion decae; programa re-revisiones para cambios mayores
+2. Saltarse la prueba de rollback. Lo unico peor que un mal deploy es no saber como deshacerlo
+3. No involucrar a operaciones temprano. SREs y equipos de plataforma detectan restricciones que desarrolladores omiten
+4. Chequear casillas sin verificar. "tenemos monitoreo" no es suficiente; confirma que los dashboards son utiles y las alertas son útiles
+5. Olvidar el lado humano. Los ingenieros de on-call necesitan entrenamiento, no solo documentacion; verifica que han corrido los runbooks
 
 ## Preguntas Frecuentes
 

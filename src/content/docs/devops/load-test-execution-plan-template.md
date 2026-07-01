@@ -141,7 +141,7 @@ Load testing evaluates how a system behaves under realistic or peak traffic. Thi
 
 ## Explanation
 
-Load testing is not just about finding the breaking point. It is about understanding how a system degrades, where the bottlenecks are, and whether the current capacity meets user and business expectations. A documented execution plan makes performance testing repeatable, comparable across releases, and actionable for engineering teams.
+Load testing is not just about finding the breaking point. It is about understanding how a system degrades, where the bottlenecks are, and whether the current capacity meets user and business expectations. A documented execution plan makes performance testing repeatable, comparable across releases, and useful for engineering teams.
 
 ## Variants
 

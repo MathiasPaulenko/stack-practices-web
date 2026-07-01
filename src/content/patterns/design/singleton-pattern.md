@@ -128,7 +128,7 @@ In multi-threaded environments (like Java), use `synchronized` or eager initiali
 | **Eager initialization** | Instance created at class load | No thread issues, may waste resources |
 | **Double-checked locking** | High-performance lazy init | More complex, error-prone in some languages |
 
-## Best Practices
+## What Works
 
 - **Make the constructor private** to prevent accidental direct instantiation
 - **Use lazy initialization** only when startup cost matters

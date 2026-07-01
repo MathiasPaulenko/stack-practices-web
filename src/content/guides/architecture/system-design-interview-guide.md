@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: system-design-interview-guide
-title: "System Design Interview Guide — Key Concepts"
+title: "System Design Interview Guide: Key Concepts"
 description: "A practical guide to system design interviews: scalability, databases, caching, load balancing, microservices, and how to structure your answer."
 metaDescription: "System design interview guide: scalability, databases, caching, load balancing, microservices. Learn to structure answers for tech interviews."
 difficulty: advanced
@@ -45,17 +45,19 @@ A strong answer follows a 4S framework:
 
 Clarify requirements before designing:
 
-**Functional requirements:**
+#### Functional Requirements
+
 - What capabilities must the system support?
 - What are the core use cases?
 
-**Non-functional requirements:**
+#### Non-Functional Requirements
+
 - Scale: How many users? Requests per second?
 - Latency: What is the acceptable response time?
 - Availability: What uptime is required (99.9%, 99.99%)?
 - Consistency vs. availability: Can we tolerate eventual consistency?
 
-**Example:**
+#### Example
 > "Design a URL shortener like bit.ly."
 > - Functional: Shorten URL, redirect, custom aliases, analytics
 > - Scale: 100M new URLs/day, 10B reads/day
@@ -73,14 +75,14 @@ Client → Load Balancer → API Servers → Cache → Database
 ```
 
 Key components to consider:
-- **Load Balancer**: Distributes traffic (round-robin, least connections)
-- **API Gateway**: Authentication, rate limiting, routing
-- **Application Servers**: Stateless, horizontally growth-ready
-- **Cache**: Redis, Memcached for hot data
-- **Database**: SQL vs. NoSQL choice
-- **Message Queue**: Kafka, RabbitMQ for async processing
-- **CDN**: Static assets and edge caching
-- **Object Storage**: S3 for files/images
+- Load Balancer: Distributes traffic (round-robin, least connections)
+- API Gateway: Authentication, rate limiting, routing
+- Application Servers: Stateless, horizontally growth-ready
+- Cache: Redis, Memcached for hot data
+- Database: SQL vs. NoSQL choice
+- Message Queue: Kafka, RabbitMQ for async processing
+- CDN: Static assets and edge caching
+- Object Storage: S3 for files/images
 
 ### 3. Scale (10-15 minutes)
 
@@ -94,7 +96,7 @@ Identify bottlenecks and propose solutions:
 | Slow queries | Indexes, denormalization, search indexes |
 | Large file storage | Object storage (S3) + presigned URLs |
 
-**Back-of-the-envelope calculations:**
+#### Back-of-the-Envelope Calculations
 
 ```
 100M URLs/day = ~1,160 writes/second (peak ~3,000/s)
@@ -110,10 +112,10 @@ Yearly storage: ~22 TB/year
 ### 4. Solidify (5 minutes)
 
 Address edge cases and operational concerns:
-- **Monitoring**: Latency, error rate, throughput metrics
-- **Security**: Rate limiting, input validation, DDoS protection
-- **Data retention**: Archival policies, GDPR deletion
-- **Disaster recovery**: Backups, point-in-time recovery
+- Monitoring: Latency, error rate, throughput metrics
+- Security: Rate limiting, input validation, DDoS protection
+- Data retention: Archival policies, GDPR deletion
+- Disaster recovery: Backups, point-in-time recovery
 
 ## Core Concepts
 
@@ -140,7 +142,8 @@ Shard by user_id % 4:
   User 5 → Shard 0
 ```
 
-**Shard key selection criteria:**
+#### Shard Key Selection Criteria
+
 - High cardinality (many distinct values)
 - Even distribution (avoid hotspots)
 - Query locality (most queries include the shard key)
@@ -158,11 +161,13 @@ Shard by user_id % 4:
 
 In a distributed system, you can only guarantee two of three:
 
-- **Consistency**: All nodes see the same data simultaneously
-- **Availability**: Every request receives a response
-- **Partition Tolerance**: The system continues operating despite network failures
+- Consistency: All nodes see the same data simultaneously
+- Availability: Every request receives a response
+- Partition Tolerance: The system continues operating despite network failures
 
-**Practical implication:** Network partitions are unavoidable, so you choose between CP (consistent) or AP (available) systems.
+#### Practical Implication
+
+Network partitions are unavoidable, so you choose between CP (consistent) or AP (available) systems.
 
 ## Common Design Problems
 
@@ -177,12 +182,12 @@ In a distributed system, you can only guarantee two of three:
 
 ## What Works
 
-- **Start simple**, then add complexity only when justified
-- **State assumptions explicitly** — interviewers evaluate your reasoning
-- **Discuss trade-offs** — every decision has pros and cons
-- **Use concrete numbers** — back-of-the-envelope math shows rigor
-- **Know your tech stack** — don't propose technologies you can't explain
-- **Practice with a timer** — 45 minutes goes fast
+- Start simple, then add complexity only when justified
+- State assumptions explicitly. Interviewers evaluate your reasoning.
+- Discuss trade-offs. Every decision has pros and cons.
+- Use concrete numbers. Back-of-the-envelope math shows rigor.
+- Know your tech stack. Don't propose technologies you can't explain.
+- Practice with a timer. 45 minutes goes fast.
 
 ## Common Mistakes
 

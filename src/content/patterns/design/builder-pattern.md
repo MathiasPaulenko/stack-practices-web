@@ -190,7 +190,7 @@ By returning `self` (or `this`) from each configuration method, you create a flu
 | **Director + Builder** | Multiple construction sequences | More classes, but reusable recipes |
 | **Static Factory Builder** | Java's `Class.Builder()` pattern | Clean API, but tightly coupled to the product |
 
-## Best Practices
+## What Works
 
 - **Return `self` from each step method** to enable method chaining
 - **Make the product immutable** after `build()` is called

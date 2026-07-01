@@ -171,7 +171,7 @@ public class UserRepository {
 | JavaScript | `TypeORM` | ORM basado en decoradores con fuerte soporte de TypeScript |
 | Java | `Spring Data JPA` | Abstracción de repositorio sobre Hibernate |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Define schemas y constraints explícitos en el ORM, no solo en la base de datos
 2. Usa transacciones para operaciones multi-paso para garantizar atomicidad

@@ -173,7 +173,7 @@ record UserV2(Long id, String fullName, String email) {}
 | Media Type | `Accept: application/vnd.app.v2+json` | Strict RESTful design, content-driven APIs |
 | Query Parameter | `?version=v2` | Quick prototyping, simplest client implementation |
 
-## Best Practices
+## What Works
 
 1. **Start with URL path versioning** — it is the most discoverable and requires no special client logic.
 2. **Never break existing versions** — once a version is published, maintain it until a published sunset date.

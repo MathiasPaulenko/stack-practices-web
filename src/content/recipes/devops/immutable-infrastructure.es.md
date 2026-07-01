@@ -152,7 +152,7 @@ resource "aws_autoscaling_group" "app" {
 
 1. **Containers mutables**: Ejecutar `apt-get install` dentro de un container en ejecución anula la inmutabilidad
 2. **Tags latest**: `:latest` es mutable y no determinístico; siempre fija digests o SHAs
-3. **Almacenar secrets en imágenes**: Bakear credenciales en AMIs y containers crea exposición permanente. Sigue [mejores prácticas de secrets management](/guides/security/security-best-practices-guide).
+3. **Almacenar secrets en imágenes**: Bakear credenciales en AMIs y containers crea exposición permanente. Sigue [pautas de secrets management](/guides/security/security-best-practices-guide).
 4. **Olvidar data volumes**: Un rootfs read-only significa que logs y uploads necesitan storage externo
 5. **Sin política de lifecycle de imágenes**: Las imágenes viejas acumulan costos de storage y se convierten en liabilities de seguridad
 

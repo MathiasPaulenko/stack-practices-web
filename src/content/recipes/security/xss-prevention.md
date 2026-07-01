@@ -111,7 +111,7 @@ const clean = DOMPurify.sanitize(dirty);
 | HTML sanitization | Server/Client | Strong | Rich text, WYSIWYG editors |
 | HttpOnly cookies | Server | Strong | Session cookie theft prevention |
 
-## Best Practices
+## What Works
 
 - **Escape all untrusted data**: URL parameters, form inputs, database fields, API responses, [file uploads](/recipes/file-handling/file-upload-validation), and even HTTP headers can be manipulated by attackers.
 - **Use framework defaults**: let React, Vue, or Angular handle escaping. Only use raw HTML insertion when absolutely necessary and sanitize the input first.
@@ -134,7 +134,7 @@ const clean = DOMPurify.sanitize(dirty);
 A: Only if you escape or sanitize correctly. A single mistake in your escaping logic exposes your users. Prefer sanitization libraries like DOMPurify over manual escaping.
 
 **Q: Can CSP completely prevent XSS?**
-A: No, but it significantly raises the bar. A strict CSP blocks inline scripts and unauthorized external scripts, turning XSS from a critical vulnerability into a non-issue in many cases.
+A: No, but it considerably raises the bar. A strict CSP blocks inline scripts and unauthorized external scripts, turning XSS from a critical vulnerability into a non-issue in many cases.
 
 **Q: What about DOM-based XSS?**
 A: DOM XSS occurs when client-side JavaScript reads from `location.hash`, `document.URL`, or `localStorage` and writes to the DOM without escaping. Treat all DOM sources as untrusted and escape before insertion.

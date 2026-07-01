@@ -226,7 +226,7 @@ WHERE id IN (1, 2, 3, ...);
 | **Counting all rows** | `SELECT COUNT(*)` on huge tables | Use approximate counts or triggers |
 | **No connection pooling** | Connection overhead dominates | Use [connection pooling](/recipes/performance/connection-pooling). |
 
-## Best Practices
+## What Works
 
 - **Index foreign keys** automatically — joins depend on them
 - **Monitor slow query logs** weekly and address the top offenders

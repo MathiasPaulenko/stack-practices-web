@@ -98,7 +98,7 @@ El script primero asegura que el directorio `~/.ssh` exista con los permisos cor
 | Distribuir | `ssh-copy-id` | Agrega a authorized_keys de forma segura |
 | Auditar | `ssh-keygen -lf key.pub` | Muestra fingerprint y comentario |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Prefiere Ed25519 sobre RSA.** Ed25519 es más rápido, más corto y evita debilidades de parámetros de RSA.
 2. **Protege claves privadas con passphrase para uso interactivo.** Usa `ssh-agent` para evitar escribirla repetidamente.

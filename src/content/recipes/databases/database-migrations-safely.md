@@ -132,7 +132,7 @@ This pattern guarantees that any running instance of your app (including during 
 | Backfill in batches | Large table migrations | Update 10k rows per transaction to avoid long locks |
 | Blue/Green deploy | Critical systems | Run new schema on green, switch traffic, then drop old |
 
-## Best Practices
+## What Works
 
 - **Always make new columns nullable first**: Existing rows must not fail during the migration.
 - **Backfill before making non-nullable**: Update existing rows with sensible defaults before adding `NOT NULL`.

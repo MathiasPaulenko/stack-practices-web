@@ -150,7 +150,7 @@ spec:
 ## Explanation
 
 - **Sidecar proxy**: Envoy runs as a sidecar in every pod. It intercepts all network traffic via iptables rules. Applications still talk to `localhost:8080`, but Envoy routes, encrypts, and logs the actual request. The application code requires zero changes.
-- **Mutual TLS (mTLS)**: the sidecar presents a certificate to prove its identity and validates the peer's certificate. Traffic is encrypted in transit and authenticated at both ends. Even within the same cluster, services cannot impersonate each other without stealing a certificate.
+- **Mutual TLS (mTLS)**: the sidecar provides a certificate to prove its identity and validates the peer's certificate. Traffic is encrypted in transit and authenticated at both ends. Even within the same cluster, services cannot impersonate each other without stealing a certificate.
 - **Traffic management**: VirtualService defines routing rules — canary deployments, retries, timeouts, fault injection. DestinationRule configures load balancing, connection pools, and outlier detection (circuit breaker). Traffic policies are declarative and versioned in Git.
 - **Observability**: Envoy generates metrics (request count, latency, errors), access logs, and distributed traces. Istio aggregates these in Kiali (topology), Grafana (metrics), and Jaeger (traces). You see the entire service graph without adding instrumentation to applications.
 
@@ -185,7 +185,7 @@ spec:
 A: No. The gateway handles north-south (external to cluster). The mesh handles east-west (service-to-service). Use both. Some meshes include an ingress gateway, but it complements, not replaces, your primary API gateway.
 
 **Q: What is the performance overhead of a service mesh?**
-A: Expect 1-5ms latency per hop and 10-20% CPU overhead for the sidecar. Linkerd is optimized for minimal overhead. Istio offers more features at higher cost. For latency-sensitive paths, benchmark before deploying.
+A: Expect 1-5ms latency per hop and 10-20% CPU overhead for the sidecar. Linkerd is optimized for minimal overhead. Istio offers more capabilities at higher cost. For latency-sensitive paths, benchmark before deploying.
 
 **Q: Can I use a service mesh without Kubernetes?**
 A: Istio and Linkerd are Kubernetes-native. Consul Connect supports VMs. For non-K8s environments, use application-level mTLS (e.g., AWS App Mesh with ECS) or language-specific libraries.

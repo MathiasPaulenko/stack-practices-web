@@ -178,7 +178,7 @@ Las read replicas usan replicación streaming (física) o lógica:
 | Cloud RDS | Streaming administrado | CloudWatch/Cloud Monitoring | RDS Proxy, custom |
 | CockroachDB | Multi-active (Raft) | Built-in | Automático |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Monitorea el replication lag**: Alerta cuando el lag excede 1–5 segundos dependiendo del caso de uso
 - **Enruta lecturas sensibles al tiempo a la primaria**: Lecturas de perfil de usuario después de editar deben ir a la primaria

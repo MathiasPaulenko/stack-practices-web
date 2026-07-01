@@ -215,11 +215,11 @@ public class SecurityConfig {
 |----------|--------------|----------|
 | Allowlist | Explicit origin list | Production APIs with known consumers |
 | Regex pattern | `*.example.com` | Subdomain wildcards (validate carefully) |
-| Dynamic origin | Origin validated at runtime | Multi-tenant APIs with per-tenant origins |
+| Live origin | Origin validated at runtime | Multi-tenant APIs with per-tenant origins |
 | `*` wildcard | No origin restriction | Public read-only APIs without credentials |
 | Proxy | Frontend proxy to API | Development, same-origin deployment |
 
-## Best Practices
+## What Works
 
 1. **Never use `*` with credentials** — browsers reject `Access-Control-Allow-Origin: *` when `Allow-Credentials: true`. Always reflect the requesting origin if it's in your allowlist.
 2. **Validate origins explicitly** — maintain an allowlist of exact origins. Don't parse or regex-match origins without careful validation to avoid bypasses.
@@ -243,7 +243,7 @@ Postman is not a browser — it doesn't enforce the Same-Origin Policy or CORS. 
 
 ### Can I use a wildcard for subdomains like `*.example.com`?
 
-Not directly in `Access-Control-Allow-Origin`. The header requires an exact origin match. You can validate origins dynamically: check if the request origin ends with `.example.com` at runtime and reflect the exact origin back. Spring Boot's `allowedOriginPatterns` supports this; in Express/Flask, implement custom origin validation.
+Not directly in `Access-Control-Allow-Origin`. The header requires an exact origin match. You can validate origins live: check if the request origin ends with `.example.com` at runtime and reflect the exact origin back. Spring Boot's `allowedOriginPatterns` supports this; in Express/Flask, implement custom origin validation.
 
 ### Do I need CORS if I deploy my frontend and API on the same domain?
 

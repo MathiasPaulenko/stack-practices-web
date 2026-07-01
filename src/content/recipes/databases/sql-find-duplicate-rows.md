@@ -102,7 +102,7 @@ The first query groups rows by the column that should be unique and uses `HAVING
 | MySQL 5.7 | Self-join | Use `MIN(id)` to keep one row |
 | SQLite | `DELETE` with `IN` subquery | Works with window functions in 3.25+ |
 
-## Best Practices
+## What Works
 
 1. **Always preview before deleting.** Run the CTE as a `SELECT` first to see which rows will be kept.
 2. **Back up the table or use a transaction.** A single bad `DELETE` can remove thousands of rows.

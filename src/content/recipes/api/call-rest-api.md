@@ -3,7 +3,7 @@ contentType: recipes
 slug: call-rest-api
 title: "Call a REST API"
 description: "How to make HTTP requests to a REST API and handle the JSON response in multiple languages."
-metaDescription: "Learn how to call a REST API in Python, JavaScript, and Java with practical HTTP request examples, error handling, and best practices."
+metaDescription: "Learn how to call a REST API in Python, JavaScript, and Java with practical HTTP request examples, error handling, and what works."
 difficulty: beginner
 topics:
   - api
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Learn how to call a REST API in Python, JavaScript, and Java with practical HTTP request examples, error handling, and best practices."
+  metaDescription: "Learn how to call a REST API in Python, JavaScript, and Java with practical HTTP request examples, error handling, and what works."
   keywords:
     - rest
     - http
@@ -112,7 +112,7 @@ Once you receive the body, see [Parse JSON](/recipes/data/parse-json) for turnin
 | JavaScript | `fetch` (builtin) | native promises | check `response.ok` |
 | Java | `HttpClient` (Java 11+) | `sendAsync` | no extra dependency |
 
-## Best Practices
+## What Works
 
 - **Always set a timeout**: a hung request can block a thread or worker indefinitely. For Python, pass `timeout=10` to `requests.get`; for Node, use `AbortController` with `fetch`; for Java, set a timeout on the `HttpClient` builder.
 - **Check the status code**: don't assume `2xx`; handle `4xx`/`5xx` explicitly. A `401` means authentication failed; a `429` means you are rate-limited; a `503` means the service is temporarily unavailable.

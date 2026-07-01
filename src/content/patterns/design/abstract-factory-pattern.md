@@ -203,7 +203,7 @@ A client uses only the abstract interfaces. Switching from Light to Dark theme m
 | **Factory Method per family** | Simpler systems | Less boilerplate, but no centralized family control |
 | **Dependency Injection** | Large enterprise systems | More flexible, but requires a container |
 
-## Best Practices
+## What Works
 
 - **Use the same factory for all products in a feature**: Never mix factories from different families
 - **Document the product family contract**: List which concrete classes belong together

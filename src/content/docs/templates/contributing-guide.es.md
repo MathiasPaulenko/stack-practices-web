@@ -178,4 +178,4 @@ Busca labels como `good first issue`, `help wanted` o `beginner-friendly` en el 
 
 ### Qué pasa si mi contribución es rechazada?
 
-No lo tomes personalmente. Los mantenedores pueden rechazar contribuciones que no se alinean con los objetivos del proyecto o necesitan rework significativo. Pide feedback específico e itera. Cada proyecto tiene diferentes estándares y prioridades.
+No lo tomes personalmente. Los mantenedores pueden rechazar contribuciones que no se alinean con los objetivos del proyecto o necesitan rework mayor. Pide feedback específico e itera. Cada proyecto tiene diferentes estándares y prioridades.

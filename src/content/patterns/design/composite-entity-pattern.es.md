@@ -389,7 +389,7 @@ La insight clave es que los objetos dependientes no tienen identidad standalone.
 | **JSON column** | Dependientes almacenados como JSON | Schema flexible, bases de datos document |
 | **Embedded value** | Aplanado en columnas del padre | Value objects simples |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Haz objetos dependientes inmutables.** Los cambios deberían ir a través del aggregate root.
 - **Enfuerza invariantes a nivel de aggregate.** La entidad composite valida el todo.

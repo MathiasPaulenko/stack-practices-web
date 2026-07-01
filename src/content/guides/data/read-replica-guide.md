@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: read-replica-guide
-title: "Read Replicas — Scale Reads Without Changing Application Logic"
+title: "Read Replicas: Scale Reads Without Changing Application Logic"
 description: "A practical guide to read replicas: setting up replication, routing read queries, handling replication lag, and scaling read-heavy workloads with PostgreSQL, MySQL, and cloud-managed replicas."
 metaDescription: "Learn read replicas: setup replication, route read queries, handle replication lag, and scale read-heavy workloads with PostgreSQL, MySQL, and cloud replicas."
 difficulty: intermediate
@@ -53,10 +53,10 @@ This guide covers replication setup, query routing, replication lag management, 
 
 ## When NOT to Use
 
-- Your workload is write-heavy (>50% writes) — replicas do not help write scaling
-- You require strongly consistent reads immediately after writes — replication lag may violate this
-- Your queries are already CPU-bound on the replica — adding more replicas is better than bigger ones
-- You have not optimized queries and indexes on the primary — fix those first
+- Your workload is write-heavy (>50% writes). Replicas do not help write scaling
+- You require strongly consistent reads immediately after writes. Replication lag may violate this
+- Your queries are already CPU-bound on the replica. Adding more replicas is better than bigger ones
+- You have not optimized queries and indexes on the primary. Fix those first
 
 ## Core Concepts
 
@@ -228,7 +228,7 @@ public class UserService {
 }
 ```
 
-**Routing strategies:**
+#### Routing Strategies
 
 | Strategy | Implementation | Best For |
 |----------|---------------|----------|
@@ -295,7 +295,7 @@ SHOW REPLICA STATUS\G
 -- Look for: Seconds_Behind_Source
 ```
 
-**Strategies for handling lag:**
+#### Strategies for Handling Lag
 
 | Approach | How It Works | Trade-off |
 |----------|--------------|-----------|
@@ -342,12 +342,13 @@ groups:
           summary: "MySQL replica lag > 10 seconds"
 ```
 
-**Key metrics to monitor:**
-- **Lag in bytes/seconds:** How far behind is the replica?
-- **Replication state:** Is replication running, paused, or stopped?
-- **Lag trend:** Is lag increasing (indicates replica cannot keep up)?
-- **Query latency on replica:** Are reads still fast?
-- **Connection count:** Is the replica at connection capacity?
+#### Key Metrics to Monitor
+
+- Lag in bytes/seconds: How far behind is the replica?
+- Replication state: Is replication running, paused, or stopped?
+- Lag trend: Is lag increasing (indicates replica cannot keep up)?
+- Query latency on replica: Are reads still fast?
+- Connection count: Is the replica at connection capacity?
 
 ### 5. Plan for Failover
 
@@ -368,7 +369,7 @@ RESET REPLICA ALL;
 SET GLOBAL read_only = OFF;
 ```
 
-**Failover approaches:**
+#### Failover Approaches
 
 | Approach | RTO | Complexity | Best For |
 |----------|-----|------------|----------|
@@ -379,29 +380,29 @@ SET GLOBAL read_only = OFF;
 
 ## What Works
 
-- **Start with one replica.** One well-configured replica solves 80% of read scaling needs.
-- **Use replicas for reporting and analytics.** Isolate expensive queries from the primary.
-- **Monitor lag relentlessly.** Lag that grows unchecked indicates the replica cannot keep up.
-- **Test failover before you need it.** Promote a replica in staging quarterly.
-- **Keep replica hardware equal to primary.** A slower replica creates lag during peak load.
-- **Use connection pooling on replicas too.** Replicas have the same connection limits as primaries.
+- Start with one replica. One well-configured replica solves 80% of read scaling needs.
+- Use replicas for reporting and analytics. Isolate expensive queries from the primary.
+- Monitor lag relentlessly. Lag that grows unchecked indicates the replica cannot keep up.
+- Test failover before you need it. Promote a replica in staging quarterly.
+- Keep replica hardware equal to primary. A slower replica creates lag during peak load.
+- Use connection pooling on replicas too. Replicas have the same connection limits as primaries.
 
 ## Common Mistakes
 
-- **Routing all reads to replicas.** Session state, recently modified data, and critical reads should stay on the primary.
-- **Ignoring replication lag.** Users see stale data and report "bugs" that are actually lag.
-- **Single replica with no failover plan.** If the replica fails, your read capacity drops to zero.
-- **Running writes on replicas.** Accidental writes break replication and require re-initialization.
-- **No lag monitoring.** You only discover lag problems when users complain.
-- **Using replicas for write scaling.** Replicas only scale reads. For write scaling, consider sharding or partitioning.
+- Routing all reads to replicas. Session state, recently modified data, and critical reads should stay on the primary.
+- Ignoring replication lag. Users see stale data and report "bugs" that are actually lag.
+- Single replica with no failover plan. If the replica fails, your read capacity drops to zero.
+- Running writes on replicas. Accidental writes break replication and require re-initialization.
+- No lag monitoring. You only discover lag problems when users complain.
+- Using replicas for write scaling. Replicas only scale reads. For write scaling, consider sharding or partitioning.
 
 ## Variants
 
-- **Cascade replication:** Replica → Replica → Replica for geographic distribution
-- **Multi-primary (master-master):** Writes accepted on multiple nodes — complex, use with caution
-- **Logical replication:** Selective table/column replication (PostgreSQL 10+, MySQL binlog filtering)
-- **Read replicas in different regions:** Cloud provider managed replicas for global latency reduction
-- **Delayed replica:** Replica intentionally lagging by hours for point-in-time recovery
+- Cascade replication: Replica → Replica → Replica for geographic distribution
+- Multi-primary (master-master): Writes accepted on multiple nodes. Complex, use with caution
+- Logical replication: Selective table/column replication (PostgreSQL 10+, MySQL binlog filtering)
+- Read replicas in different regions: Cloud provider managed replicas for global latency reduction
+- Delayed replica: Replica intentionally lagging by hours for point-in-time recovery
 
 ## FAQ
 

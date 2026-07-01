@@ -130,7 +130,7 @@ La gestion de certificados es una tarea operativa repetitiva que se vuelve riesg
 - **Gestion de certificados multi-cloud**: Centraliza certificados entre proveedores usando un vault o gestor de certificados.
 - **Gestion de certificados nativa de contenedores**: Usa cert-manager o herramientas similares en Kubernetes.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Manten una unica fuente de verdad para todos los certificados y sus duenos.
 - Automatiza la renovacion y el despliegue siempre que sea posible.

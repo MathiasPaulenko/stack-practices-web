@@ -347,7 +347,7 @@ El ACL típicamente se organiza como una **facade** (el punto de entrada) más *
 | **Event-driven ACL** | Traductor de eventos entre formatos de mensaje | Integración basada en eventos async |
 | **CQRS read ACL** | Read model separado traduciendo a DTOs de query | Reportes sobre datos legacy |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Mantén el ACL thin.** La lógica de negocio pertenece al dominio, no a la capa de traducción.
 - **Testea traducciones independientemente.** Unit test de clases translator con datos de fixture de ambos sistemas.

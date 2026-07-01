@@ -241,7 +241,7 @@ If the database changes from MySQL to MongoDB, only the DAO implementation chang
 | **Repository** | Domain-driven queries | `findByEmail`, `findActiveSince` |
 | **Active Record** | Entity knows its DAO | Simple models with built-in persistence |
 
-## Best Practices
+## What Works
 
 - **Return domain objects, not raw result sets.** Map database rows to entity classes at the DAO boundary.
 - **Use an interface.** This enables mocking for tests and swapping implementations.

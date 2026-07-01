@@ -134,7 +134,7 @@ CAP solo discute comportamiento durante una partición. PACELC agrega comportami
 | Dar like | Eventual | AP — incrementar contador, reconciliar después |
 | Eliminar cuenta | Fuerte | CP — asegurar que todos los réplicas eliminen |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **No uses consistencia fuerte en todas partes** — cuesta latencia y disponibilidad
 - **Identifica tus requerimientos de consistencia por operación** — no todos los datos necesitan las mismas garantías

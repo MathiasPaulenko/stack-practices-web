@@ -154,7 +154,7 @@ El truncamiento consciente de HTML es más complejo: debes cerrar cualquier tag 
 | Java | `StringUtils.abbreviate` | Caracter | Apache Commons, placeholder configurable |
 | Java | Custom stream builder | Palabra | Control total sobre delimitador y ellipsis |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Respeta límites de palabras para texto de UI**: "La legibilidad es más importante que el conteo exacto de caracteres en strings orientados al usuario"
 - **Usa truncamiento por caracteres para output de máquina**: Archivos de ancho fijo, columnas de base de datos y logs necesitan longitudes exactas

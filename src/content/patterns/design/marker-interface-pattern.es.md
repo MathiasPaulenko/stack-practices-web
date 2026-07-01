@@ -252,7 +252,7 @@ La ventaja clave sobre anotaciones es el type checking en tiempo de compilación
 | **Annotation** | `@Marker` con reflexión | Java (alternativa moderna) |
 | **Trait** | Trait bounds vacíos | Rust |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Usa con moderación.** Demasiados marker interfaces polucionan la jerarquía de tipos.
 - **Documenta el contrato.** Aun las interfaces vacías deberían explicar qué prometen los implementadores.

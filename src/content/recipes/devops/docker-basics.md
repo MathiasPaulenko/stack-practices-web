@@ -128,7 +128,7 @@ Run: `docker compose up --build`
 | Secret injection | Use BuildKit secrets (`--secret`) or runtime env vars, never `COPY` secrets |
 | Health checks | Add `HEALTHCHECK` instruction or Docker Compose `healthcheck` block |
 
-## Best Practices
+## What Works
 
 - **Pin base image tags**: `node:20-alpine` is better than `node:latest` to avoid surprise breaking changes.
 - **One process per container**: let Docker manage process lifecycle; use Compose or an orchestrator for multi-process setups.

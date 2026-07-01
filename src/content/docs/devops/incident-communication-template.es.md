@@ -214,11 +214,11 @@ Antes de enviar comunicaciones:
 
 ## Reglas de Comunicacion
 
-1. **Se honesto sobre lo que sabes** — no adivines causas raiz
-2. **Proporciona ETAs solo si estas confiado** — ETAs incumplidos destruyen confianza mas rapido que ningun ETA
-3. **Actualiza segun lo programado aunque no haya progreso** — el silencio genera ansiedad
-4. **Usa el mismo canal para actualizaciones** — no hagas que los stakeholders busquen informacion
-5. **Adapta la profundidad tecnica a la audiencia** — los ejecutivos necesitan impacto, los ingenieros necesitan detalles
+1. Se honesto sobre lo que sabes. No adivines causas raiz
+2. Proporciona ETAs solo si estas confiado. ETAs incumplidos destruyen confianza mas rapido que ningun ETA
+3. Actualiza segun lo programado aunque no haya progreso. El silencio genera ansiedad
+4. Usa el mismo canal para actualizaciones. No hagas que los stakeholders busquen informacion
+5. Adapta la profundidad tecnica a la audiencia. Los ejecutivos necesitan impacto, los ingenieros necesitan detalles
 
 ## Frecuencia de Comunicacion por Severidad
 
@@ -244,21 +244,21 @@ La plantilla separa las comunicaciones por **audiencia** (los clientes necesitan
 | Brecha de datos | Notificacion regulatoria | Puede requerir notificacion de 72 horas bajo GDPR |
 | Interrupcion de app movil | Banner en app + redes sociales | Los usuarios pueden no revisar email durante la interrupcion |
 
-## Best Practices
+## Lo que funciona
 
-1. **Redacta plantillas durante periodos de calma** — crea versiones especificas para tus servicios antes de que ocurra un incidente
-2. **Asigna un responsable de comunicacion** separado del comandante del incidente durante P1s
-3. **Revisa mensajes por tono** — evita jerga, culpa, o explicaciones demasiado tecnicas
-4. **Incluye una firma humana** — los mensajes firmados se sienten mas autenticos que actualizaciones genericas
-5. **Monitorea retrasos en comunicacion** — si toma 20 minutos redactar una actualizacion, tu proceso es demasiado lento
+1. Redacta plantillas durante periodos de calma. Crea versiones especificas para tus servicios antes de que ocurra un incidente
+2. Asigna un responsable de comunicacion separado del comandante del incidente durante P1s
+3. Revisa mensajes por tono. Evita jerga, culpa, o explicaciones demasiado tecnicas
+4. Incluye una firma humana. Los mensajes firmados se sienten mas autenticos que actualizaciones genericas
+5. Monitorea retrasos en comunicacion. Si toma 20 minutos redactar una actualizacion, tu proceso es demasiado lento
 
 ## Common Mistakes
 
-1. **Decir "estamos investigando" por horas** — proporciona actualizaciones significativas o admite que estas atascado
-2. **Prometer tiempos de resolucion excesivos** — da rangos ("1-2 horas") en lugar de tiempos exactos
-3. **Usar terminologia diferente entre canales** — "degradado" en la pagina de estado y "interrupcion" en Slack crea confusion
-4. **Olvidar notificar a equipos internos** — la comunicacion al cliente es visible, pero los equipos internos tambien necesitan coordinacion
-5. **Enviar resolucion antes de verificar** — confirmar resolucion prematuramente lleva a reaperturas
+1. Decir "estamos investigando" por horas. Proporciona actualizaciones significativas o admite que estas atascado
+2. Prometer tiempos de resolucion excesivos. Da rangos ("1-2 horas") en lugar de tiempos exactos
+3. Usar terminologia diferente entre canales. "degradado" en la pagina de estado y "interrupcion" en Slack crea confusion
+4. Olvidar notificar a equipos internos. La comunicacion al cliente es visible, pero los equipos internos tambien necesitan coordinacion
+5. Enviar resolucion antes de verificar. Confirmar resolucion prematuramente lleva a reaperturas
 
 ## Frequently Asked Questions
 

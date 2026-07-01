@@ -170,7 +170,7 @@ La plantilla separa la **medicion** (estado actual) de la **prediccion** (suposi
 | Multi-region | Agrega ancho de banda de replicacion entre regiones y capacidad por region | Cada region puede tener un crecimiento diferente |
 | Serverless | Agrega conteo de invocaciones, limites de concurrencia y frecuencia de cold starts | Los limites serverless son diferentes a los de instancias |
 
-## Mejores Practicas
+## Lo que funciona
 
 1. **Pronostica mensualmente, revisa trimestralmente** — las suposiciones cambian; actualiza el pronostico antes de que se convierta en ficcion
 2. **Usa percentiles, no promedios** — la latencia p99 y el pico de CPU importan mas que los valores medios

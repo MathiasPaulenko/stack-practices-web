@@ -196,7 +196,7 @@ The facade does not add new functionality; it composes existing subsystem operat
 | **API Gateway** | HTTP-level facade that aggregates multiple microservices |
 | **Module Facade** | Public module API that hides internal file structure |
 
-## Best Practices
+## What Works
 
 - **Keep the facade thin.** It should orchestrate, not implement. Business logic belongs in the subsystem or a separate service layer.
 - **Allow direct subsystem access.** Advanced clients should still be able to bypass the facade for fine-grained control.

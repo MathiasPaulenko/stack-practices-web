@@ -105,10 +105,11 @@ canary:
       traffic_percentage: 100
 ```
 
-**Métricas clave a monitorear:**
-- **Técnicas:** Tasa de error, latencia (p50/p95/p99), throughput, CPU, memoria
-- **Negocio:** Tasa de conversión, abandono de carrito, éxito de login, finalización de pago
-- **Custom:** KPIs específicas de funcionalidad relevantes al cambio desplegado
+#### Métricas Clave a Monitorear
+
+- Técnicas: Tasa de error, latencia (p50/p95/p99), throughput, CPU, memoria
+- Negocio: Tasa de conversión, abandono de carrito, éxito de login, finalización de pago
+- Custom: KPIs específicas de funcionalidad relevantes al cambio desplegado
 
 ### 2. Desplegar el Canary
 
@@ -215,7 +216,7 @@ result, reason = analyze_canary("v1.2.3", "v1.3.0")
 print(f"Decision: {result} - {reason}")
 ```
 
-**Checklist de monitoreo:**
+#### Checklist de Monitoreo
 - Comparar métricas canary con baseline, no solo valores absolutos
 - Buscar picos de tasa de error, regresiones de latencia y agotamiento de recursos
 - Monitorear métricas de negocio (revenue, conversión) junto con métricas técnicas
@@ -260,8 +261,9 @@ kubectl scale deployment myapp-canary --replicas=0
 echo "Rollback completo. Todo el tráfico en estable."
 ```
 
-**Mejores prácticas de promoción:**
-- Nunca saltear bake time — incluso si las métricas se ven bien
+#### Promoción: Lo que Funciona
+
+- Nunca saltear bake time. Incluso si las métricas se ven bien.
 - Duplicar tráfico por etapas (1% → 5% → 10% → 25% → 50% → 100%)
 - Requerir aprobación manual para etapas sobre 50%
 - Mantener versión vieja escalada hasta 100% de promoción
@@ -278,27 +280,27 @@ echo "Rollback completo. Todo el tráfico en estable."
 
 ## Lo que funciona
 
-- **Empieza pequeño.** 1% de canary detecta la mayoría de problemas sin impacto mayor de usuarios.
-- **Usa métricas significativas.** Las métricas de negocio a menudo detectan problemas que las métricas técnicas no ven.
-- **Mantén sesiones persistentes.** Enruta el mismo usuario a la misma versión para evitar inconsistencia.
-- **Ten un rollback instantáneo.** El canary debe revertir en segundos, no minutos.
-- **Practica el rollback.** Prueba tu procedimiento de rollback antes de necesitarlo.
-- **Documenta cada canary.** Nota qué cambió, qué se observó y la decisión final.
+- Empieza pequeño. 1% de canary detecta la mayoría de problemas sin impacto mayor de usuarios.
+- Usa métricas significativas. Las métricas de negocio a menudo detectan problemas que las métricas técnicas no ven.
+- Mantén sesiones persistentes. Enruta el mismo usuario a la misma versión para evitar inconsistencia.
+- Ten un rollback instantáneo. El canary debe revertir en segundos, no minutos.
+- Practica el rollback. Prueba tu procedimiento de rollback antes de necesitarlo.
+- Documenta cada canary. Nota qué cambió, qué se observó y la decisión final.
 
 ## Common Mistakes
 
-- **Acelerar la promoción.** Saltear bake time porque "se ve bien" lleva a incidentes.
-- **Monitorear solo métricas técnicas.** Un bug de cambio puede no mostrarse en tasas de error pero afectará conversiones.
-- **Enrutamiento inconsistente.** Usuarios rebotando entre versiones crean confusión y bugs.
-- **Olvidar compatibilidad de base de datos.** Ambas versiones deben funcionar con el schema actual.
-- **No escalar canary apropiadamente.** Canaries sub-provisionados fallan bajo carga, causando rollbacks falsos.
+- Acelerar la promoción. Saltear bake time porque "se ve bien" lleva a incidentes.
+- Monitorear solo métricas técnicas. Un bug de cambio puede no mostrarse en tasas de error pero afectará conversiones.
+- Enrutamiento inconsistente. Usuarios rebotando entre versiones crean confusión y bugs.
+- Olvidar compatibilidad de base de datos. Ambas versiones deben funcionar con el schema actual.
+- No escalar canary apropiadamente. Canaries sub-provisionados fallan bajo carga, causando rollbacks falsos.
 
 ## Variants
 
-- **Shadow canary:** Enviar tráfico duplicado a canary sin impactar al usuario (sin riesgo, pero duplica carga)
-- **Dark launch:** Desplegar a producción pero ocultar detrás de feature flags
-- **Canary geográfico:** Rollout región por región (US-East primero, luego Europa, luego Asia)
-- **Canary basado en tiempo:** Enrutar usuarios internos durante horas hábiles, luego externos después de validación
+- Shadow canary: Enviar tráfico duplicado a canary sin impactar al usuario (sin riesgo, pero duplica carga)
+- Dark launch: Desplegar a producción pero ocultar detrás de feature flags
+- Canary geográfico: Rollout región por región (US-East primero, luego Europa, luego Asia)
+- Canary basado en tiempo: Enrutar usuarios internos durante horas hábiles, luego externos después de validación
 
 ## FAQ
 
@@ -316,5 +318,5 @@ Para servicios críticos, sí. Para herramientas internas o cambios de bajo ries
 
 ## Conclusion
 
-El despliegue canary es la forma más segura de liberar software a escala. Al exponer cambios a una audiencia pequeña y controlada primero, detectas problemas temprano, minimizas el radio de explosión y construyes confianza en cada release. Combina análisis automatizado de métricas con promoción gradual para un proceso de despliegue de clase mundial.
+El despliegue canary es la forma más segura de liberar software a escala. Al exponer cambios a una audiencia pequeña y controlada primero, detectas problemas temprano, minimizas el radio de explosión y construyes confianza en cada release. Combina análisis automatizado de métricas con promoción gradual para un proceso de despliegue de primer nivel.
 

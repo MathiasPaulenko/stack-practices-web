@@ -125,7 +125,7 @@ The map separates **upstream** (what the service needs) from **downstream** (wha
 | Enterprise | C4 diagrams + CMDB integration | Use tools like ServiceNow or Backstage |
 | Serverless | Add function-level granularity | Map individual Lambdas to triggers and destinations |
 
-## Best Practices
+## What Works
 
 1. Update the map after every architectural change, not just quarterly
 2. Store maps in version control alongside service code

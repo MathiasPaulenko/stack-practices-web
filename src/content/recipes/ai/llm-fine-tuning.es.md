@@ -187,7 +187,7 @@ El fine-tuning actualiza los pesos de un modelo pre-entrenado para mejorar rendi
 | Adapter layers | Pequeñas capas bottleneck | Idea similar a LoRA; menos adoptado |
 | [OpenAI fine-tuning](/recipes/ai/chatbot-openai) | Basado en API | Subir JSONL, sin infraestructura; pago por token |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Curaduría de ejemplos de alta calidad: 500 ejemplos excelentes superan 10.000 mediocres
 2. Formatea prompts consistentemente (ej. `### Task: ...\n### Response: ...`) para que el modelo aprenda el patrón

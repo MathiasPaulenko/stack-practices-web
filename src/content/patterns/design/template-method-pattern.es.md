@@ -250,7 +250,7 @@ El Patrón Template Method tiene dos tipos de métodos en la clase base:
 | **Basada en Strategy** | Composición con objetos strategy inyectados | Cuando necesitas flexibilidad en tiempo de ejecución |
 | **Basada en Callbacks** | Funciones pasadas como argumentos | Streams Node.js |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Haz el método template `final`** para prevenir que las subclases rompan el flujo del algoritmo
 - **Mantén los hooks opcionales** — documenta claramente qué métodos son requeridos vs. opcionales

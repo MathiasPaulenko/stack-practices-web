@@ -267,7 +267,7 @@ El esquema de base de datos relacional es simple: una tabla `events` con `aggreg
 | SQL Server | Media | Rápida | Empresarial, proyecciones T-SQL |
 | Dedicado (EventStoreDB) | Nativa | Muy rápida | Event sourcing a gran escala |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Versiona cada evento**: El control de concurrencia optimista previene actualizaciones perdidas
 - **Usa JSONB/JSON para payloads**: Flexibilidad de esquema sin migraciones; valida en la capa de aplicación. Consulta [Parse JSON](/recipes/data/parse-json) para datos estructurados.

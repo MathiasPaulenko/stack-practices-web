@@ -133,9 +133,9 @@ async function eraseUserData(userId) {
 | Pseudonimización | Hashing + rotación de claves | Medio |
 | Dashboard DPO | Herramienta admin custom | Alto |
 
-## Mejores Prácticas
+## Lo que funciona
 
-- **Privacy by default**: Nuevas features opt-out por defecto; requiere opt-in explícito
+- **Privacy by default**: Nuevas capacidades opt-out por defecto; requiere opt-in explícito
 - **Encripta PII en reposo**: Usa [AES-256](/recipes/security/encryption-at-rest) para bases de datos, S3 y backups
 - **Loguea acceso a datos personales**: [Audita](/guides/devops/logging-monitoring-observability-guide) quién accedió qué y cuándo
 - **Separa datos de analytics**: Pseudonimiza antes de enviar a herramientas BI

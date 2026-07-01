@@ -188,7 +188,7 @@ Cliente                         Servidor
   │ ←──── Sesión Simétrica ─────▶ │
 ```
 
-Mejores prácticas:
+Lo que funciona:
 - Usar TLS 1.3; desactivar TLS 1.0 y 1.1
 - Habilitar HSTS (HTTP Strict Transport Security)
 - Usar certificate pinning para aplicaciones móviles

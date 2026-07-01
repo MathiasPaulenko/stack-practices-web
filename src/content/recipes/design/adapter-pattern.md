@@ -178,7 +178,7 @@ url = storage.upload("report.pdf", pdf_bytes)
 | Facade adapter | High | Medium | Simplifying complex subsystems |
 | Registry + adapter | High | Medium | Multiple provider support |
 
-## Best practices
+## What Works
 
 - **Adapt at the boundary, not everywhere**: introduce adapters at system boundaries where external interfaces meet internal abstractions. Do not let third-party types leak into business logic.
 - **Document translation behavior**: adapters do more than rename methods. They may convert units, transform error types, or batch requests. Document these translations clearly.

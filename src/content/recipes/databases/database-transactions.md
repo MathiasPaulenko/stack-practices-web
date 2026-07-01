@@ -138,7 +138,7 @@ COMMIT;
 | REPEATABLE READ | Prevented | Prevented | Allowed | Default (MySQL) |
 | SERIALIZABLE | Prevented | Prevented | Prevented | Slowest, safest |
 
-## Best Practices
+## What Works
 
 - **Keep transactions short**: Long transactions hold locks and block other queries
 - **Use the lowest isolation level** that meets your correctness requirements

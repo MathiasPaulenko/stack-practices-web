@@ -42,7 +42,7 @@ seo:
 
 ## Overview
 
-La normalización de bases de datos es el proceso de organizar datos para minimizar la redundancia y eliminar anomalías durante operaciones de inserción, actualización y eliminación. Las formas normales — desde 1NF hasta 5NF — proporcionan reglas progresivas para estructurar bases de datos relacionales. Entender cuándo aplicar cada forma, y cuándo romperlas intencionalmente por rendimiento, separa a diseñadores competentes de excepcionales.
+La normalización de bases de datos es el proceso de organizar datos para minimizar la redundancia y eliminar anomalías durante operaciones de inserción, actualización y eliminación. Las formas normales — desde 1NF hasta 5NF — proporcionan reglas progresivas para estructurar bases de datos relacionales. Entender cuándo aplicar cada forma, y cuándo romperlas intencionalmente por rendimiento, separa a diseñadores competentes de expertos.
 
 ## When to Use
 

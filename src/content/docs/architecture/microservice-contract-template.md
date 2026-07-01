@@ -126,7 +126,7 @@ The contract acts as a **shared source of truth** between provider and consumer 
 | External partners | Legal SLA appendix | May require formal signatures |
 | Event-driven | Async schema registry | Use Avro / JSON Schema with compatibility rules |
 
-## Best Practices
+## What Works
 
 1. Store contracts in version control and require PR review for changes
 2. Link contracts to automated API tests and schema validation

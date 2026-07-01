@@ -129,7 +129,7 @@ public class RedisExample {
 
 ## Explicación
 
-Redis almacena datos **en memoria**, haciendo lecturas y escrituras extremadamente rápidas (sub-milisegundo). Los **Strings** son el tipo más simple, frecuentemente usados para cachear objetos serializados. Las **Lists** implementan colas (`LPUSH` + `BRPOP` para consumo bloqueante). Los **Hashes** almacenan objetos con múltiples campos de forma compacta. Los tres ejemplos usan buenas prácticas de gestión de conexiones: Python `redis.Redis` maneja reconexiones, JavaScript `ioredis` soporta clustering y pub/sub, y Java `JedisPool` reutiliza conexiones vía pooling.
+Redis almacena datos **en memoria**, haciendo lecturas y escrituras extremadamente rápidas (sub-milisegundo). Los **Strings** son el tipo más simple, frecuentemente usados para cachear objetos serializados. Las **Lists** implementan colas (`LPUSH` + `BRPOP` para consumo bloqueante). Los **Hashes** almacenan objetos con múltiples campos de forma compacta. Los tres ejemplos usan una gestión de conexiones sólida: Python `redis.Redis` maneja reconexiones, JavaScript `ioredis` soporta clustering y pub/sub, y Java `JedisPool` reutiliza conexiones vía pooling.
 
 ## Variantes
 
@@ -139,7 +139,7 @@ Redis almacena datos **en memoria**, haciendo lecturas y escrituras extremadamen
 | JavaScript | `node-redis` | Alternativa a ioredis, soporte nativo de Promise |
 | Java | `Lettuce` | Cliente Redis reactivo y async para Spring |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Usa pooling de conexiones en todos los lenguajes para evitar agotamiento de conexiones
 2. Establece expiración explícita (`EX`, `PX`, `EXAT`) en claves de cache para prevenir crecimiento descontrolado de memoria

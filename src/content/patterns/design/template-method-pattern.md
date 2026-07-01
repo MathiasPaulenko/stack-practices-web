@@ -250,7 +250,7 @@ The Template Method Pattern has two types of methods in the base class:
 | **Strategy-based** | Composition with strategy objects injected | When you need runtime flexibility |
 | **Callback-based** | Functions passed as arguments | JavaScript/Node.js streams |
 
-## Best Practices
+## What Works
 
 - **Make the template method `final`** to prevent subclasses from breaking the algorithm flow
 - **Keep hooks optional** — document clearly which methods are required vs. optional

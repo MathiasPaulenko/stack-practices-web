@@ -153,7 +153,7 @@ order.ship()     # paid -> shipped
 | Netflix Conductor | JSON DSL | Microservices orchestration |
 | AWS Step Functions | State machines | Serverless; AWS integration |
 
-## Best Practices
+## What Works
 
 - **Idempotent activities**: Running the same activity twice should produce the same result. See [message idempotency](/recipes/messaging/rabbitmq-task-queue).
 - **Idempotency keys**: Pass unique keys to external APIs to prevent double charges

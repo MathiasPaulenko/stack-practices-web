@@ -282,7 +282,7 @@ The State Pattern involves two roles:
 | **State Table** | Transitions stored in a lookup table | Many states with predictable transitions |
 | **Pushdown Automaton** | Stack-based state history | Undo/reversible state transitions. See [Memento](/patterns/design/memento-pattern) |
 
-## Best Practices
+## What Works
 
 - **Delegate all state-dependent behavior** to state objects, keeping the context thin
 - **Make state objects immutable** or recreate them on transition to avoid shared state bugs

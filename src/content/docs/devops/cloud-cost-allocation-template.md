@@ -140,7 +140,7 @@ Cost allocation only works when **every resource is tagged consistently**. Witho
 | SaaS with tenants | Tenant isolation + shared infra split | Chargeback to customer success for shared platform |
 | Startup / small team | Simplified: env + team only | Skip service tags until > 5 microservices |
 
-## Best Practices
+## What Works
 
 1. Enforce tagging in CI/CD, not as a post-deployment audit
 2. Allocate shared costs by a basis everyone agrees to (headcount, usage, revenue)

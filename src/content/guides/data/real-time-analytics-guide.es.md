@@ -52,9 +52,9 @@ Esta guía cubre recolección de eventos, procesamiento de streams, bases de dat
 
 ## Cuándo NO Usar
 
-- Análisis de tendencias históricas donde minutos de delay son aceptables — ETL por batch es más simple
-- Joins complejos multi-tabla a través de petabytes — pre-agregación puede ser necesaria
-- Reportes regulatorios requiriendo trazas completas de auditoría y reconciliación — batch es más confiable
+- Análisis de tendencias históricas donde minutos de delay son aceptables. ETL por batch es más simple
+- Joins complejos multi-tabla a través de petabytes. Pre-agregación puede ser necesaria
+- Reportes regulatorios requiriendo trazas completas de auditoría y reconciliación. Batch es más confiable
 - Tu volumen de datos es lo suficientemente pequeño para que consultas de PostgreSQL completen en segundos sobre datos crudos
 
 ## Conceptos Clave
@@ -175,7 +175,7 @@ function trackEvent(eventType, properties) {
 trackEvent('button_clicked', { button_id: 'checkout', page: 'cart' });
 ```
 
-**Mejores prácticas de esquema de eventos:**
+#### Guía de Esquema de Eventos
 
 | Campo | Tipo | Requerido | Descripción |
 |-------|------|-----------|-------------|
@@ -277,7 +277,7 @@ t_env.execute_sql("""
 """)
 ```
 
-**Tipos de ventana:**
+#### Tipos de Ventana
 
 | Tipo de Ventana | Comportamiento | Caso de Uso |
 |-------------------|----------------|-------------|
@@ -373,7 +373,7 @@ LIMIT 100;
 }
 ```
 
-**Comparación de bases de datos OLAP:**
+#### Comparación de Bases de Datos OLAP
 
 | Característica | ClickHouse | Apache Druid | Apache Pinot | BigQuery | Snowflake |
 |----------------|------------|--------------|--------------|----------|-----------|
@@ -443,7 +443,7 @@ ORDER BY requests DESC
 LIMIT 20;
 ```
 
-**Diseño de dashboards para tiempo real:**
+#### Diseño de Dashboards para Tiempo Real
 
 | Patrón | Estrategia de Consulta | Frecuencia de Refresh |
 |--------|----------------------|----------------------|
@@ -455,28 +455,28 @@ LIMIT 20;
 
 ## Lo que funciona
 
-- **Usa event-time, no processing-time.** Skew de reloj y llegadas tardías hacen processing-time no confiable. Watermarks manejan datos tardíos elegantemente.
-- **Pre-agrega donde sea posible.** Vistas materializadas en ClickHouse o agregaciones de Druid reducen costo de consulta 1000×.
-- **Elige el tamaño de ventana correcto.** Demasiado pequeño = ruidoso; demasiado grande = insights retrasados. Empieza con ventanas tumbling de 1 minuto.
-- **Maneja backpressure.** Si los consumidores se quedan atrás, escala horizontalmente o usa sampling (procesa 10% de eventos) en lugar de descartar datos.
-- **Evoluciona esquemas con cuidado.** Agregar campos es fácil; remover o cambiar tipos requiere reprocesamiento o dual schemas.
-- **Monitorea latencia end-to-end.** Desde generación de evento hasta visualización en dashboard. Alerta si la latencia excede tu SLA.
+- Usa event-time, no processing-time. Skew de reloj y llegadas tardías hacen processing-time no confiable. Watermarks manejan datos tardíos elegantemente.
+- Pre-agrega donde sea posible. Vistas materializadas en ClickHouse o agregaciones de Druid reducen costo de consulta 1000×.
+- Elige el tamaño de ventana correcto. Demasiado pequeño = ruidoso; demasiado grande = insights retrasados. Empieza con ventanas tumbling de 1 minuto.
+- Maneja backpressure. Si los consumidores se quedan atrás, escala horizontalmente o usa sampling (procesa 10% de eventos) en lugar de descartar datos.
+- Evoluciona esquemas con cuidado. Agregar campos es fácil; remover o cambiar tipos requiere reprocesamiento o dual schemas.
+- Monitorea latencia end-to-end. Desde generación de evento hasta visualización en dashboard. Alerta si la latencia excede tu SLA.
 
 ## Errores Comunes
 
-- **Usar bases de datos transaccionales para analítica.** PostgreSQL/MySQL no pueden manejar agregaciones de alta cardinalidad a escala.
-- **Sin validación de esquema de eventos.** Eventos inválidos rompen silenciosamente agregaciones downstream.
-- **Processing-time en lugar de event-time.** Dashboards muestran "ahora" pero los eventos son de hace 5 minutos debido a delays de red.
-- **Sobre-ingeniería para escala pequeña.** Si tienes <100 eventos/segundo, PostgreSQL con índices apropiados puede ser suficiente.
-- **Ignorar datos tardíos.** Sin watermarks, eventos tardíos corrompen agregaciones con ventana o son descartados.
-- **No configurar TTL.** Crecimiento de datos sin límites destruye rendimiento de consulta y presupuestos de almacenamiento.
+- Usar bases de datos transaccionales para analítica. PostgreSQL/MySQL no pueden manejar agregaciones de alta cardinalidad a escala.
+- Sin validación de esquema de eventos. Eventos inválidos rompen silenciosamente agregaciones downstream.
+- Processing-time en lugar de event-time. Dashboards muestran "ahora" pero los eventos son de hace 5 minutos debido a delays de red.
+- Sobre-ingeniería para escala pequeña. Si tienes <100 eventos/segundo, PostgreSQL con índices apropiados puede ser suficiente.
+- Ignorar datos tardíos. Sin watermarks, eventos tardíos corrompen agregaciones con ventana o son descartados.
+- No configurar TTL. Crecimiento de datos sin límites destruye rendimiento de consulta y presupuestos de almacenamiento.
 
 ## Variantes
 
-- **Arquitectura Lambda:** Capa batch (Hadoop/Spark) + capa speed (Storm/Flink) — compleja, en gran parte reemplazada
-- **Arquitectura Kappa:** Streaming puro con capacidad de reprocesamiento — más simple, preferida hoy
-- **Batch + streaming híbrido:** Flink/Spark para agregaciones complejas, vistas materializadas para conteos simples
-- **Cloud-native:** Kinesis + Athena, Pub/Sub + BigQuery, Event Hubs + Synapse — completamente gestionado
+- Arquitectura Lambda: Capa batch (Hadoop/Spark) + capa speed (Storm/Flink). Compleja, en gran parte reemplazada
+- Arquitectura Kappa: Streaming puro con capacidad de reprocesamiento. Más simple, preferida hoy
+- Batch + streaming híbrido: Flink/Spark para agregaciones complejas, vistas materializadas para conteos simples
+- Cloud-native: Kinesis + Athena, Pub/Sub + BigQuery, Event Hubs + Synapse. Completamente gestionado
 
 ## FAQ
 

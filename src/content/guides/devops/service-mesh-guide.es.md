@@ -135,7 +135,7 @@ Con modo `STRICT`, todos los servicios en el namespace rechazan trafico en texto
 |----------------|-------|---------|
 | **Proxy** | Envoy (C++) | Linkerd-proxy (Rust) |
 | **Huella de recursos** | Mayor | Menor |
-| **Profundidad de features** | Profunda (extensible) | Opinada (mas simple) |
+| **Profundidad de capacidades** | Profunda (extensible) | Opinada (mas simple) |
 | **Curva de aprendizaje** | Empinada | Suave |
 | **Mejor para** | Entornos grandes y complejos | Equipos que quieren simplicidad |
 | **Graduacion CNCF** | Incubating | Graduated |

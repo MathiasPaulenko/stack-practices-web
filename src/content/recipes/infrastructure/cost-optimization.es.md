@@ -135,7 +135,7 @@ spec:
 | Storage tiering | 30-50% | Bajo | Latencia de acceso |
 | Serverless | Variable | Medio | Cold start |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Taggea todo**: Tags de allocación de costos (equipo, proyecto, ambiente) habilitan chargeback
 - **Setea budgets y alertas**: Alerta al 80% del budget mensual; investiga inmediatamente

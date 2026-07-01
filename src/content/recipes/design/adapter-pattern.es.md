@@ -178,7 +178,7 @@ url = storage.upload("report.pdf", pdf_bytes)
 | Facade adapter | Alta | Medio | Simplificar subsistemas complejos |
 | Registry + adapter | Alta | Medio | Soporte de múltiples proveedores |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Adapta en el límite, no en todas partes**: introduce adapters en los límites del sistema donde las interfaces externas se encuentran con abstracciones internas. No dejes que los tipos de terceros se filtren a la lógica de negocio.
 - **Documenta el comportamiento de traducción**: los adapters hacen más que renombrar métodos. Pueden convertir unidades, transformar tipos de error, o batch requests. Documenta estas traducciones claramente.

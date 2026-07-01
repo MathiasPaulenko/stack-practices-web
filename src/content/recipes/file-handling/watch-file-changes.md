@@ -118,7 +118,7 @@ Watchers register with the OS kernel, which then pushes events to your process r
 | JavaScript | `chokidar` npm package | More reliable than `fs.watch` on macOS and Windows |
 | Java | Apache Commons IO `FileAlterationMonitor` | Polling fallback for older JDKs |
 
-## Best Practices
+## What Works
 
 1. Debounce rapid events (editors often trigger multiple writes)
 2. Always handle the `error` event / `WatchService` exceptions

@@ -139,7 +139,7 @@ public class SlidingWindow {
 | **Token Bucket** | Allows bursts up to capacity | Complex to implement correctly | APIs with burst tolerance |
 | **Leaky Bucket** | Strict constant output rate | Can drop requests | Downstream protection |
 
-## Best Practices
+## What Works
 
 - **Return 429 status** with `Retry-After` header when rate limited
 - **Use Redis** for distributed rate limiting across multiple servers. See [Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for production patterns.

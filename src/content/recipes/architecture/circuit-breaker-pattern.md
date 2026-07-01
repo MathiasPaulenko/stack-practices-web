@@ -201,7 +201,7 @@ except pybreaker.CircuitBreakerError:
 | Percentage | >X% failure rate | Timeout | Large volume where absolute count is noisy |
 | Custom metric | Latency, error rate | Manual | Complex systems with multiple health signals |
 
-## Best practices
+## What Works
 
 - **Always provide a fallback**: when the circuit is open, the application must still function. A payment service might return "payment pending, retry later." A product catalog might serve stale data from a cache. Never let an open circuit propagate as a hard failure to the user.
 - **Use circuit breakers with timeouts and [retries](/recipes/architecture/retry-backoff)**: a circuit breaker without a per-request timeout can still hang. Combine a circuit breaker (macro-level health) with a request timeout (micro-level limit) and retry (transient recovery). The retry should be inside the circuit breaker, not outside — retrying on an open circuit is wasted effort.

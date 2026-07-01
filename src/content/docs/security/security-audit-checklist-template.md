@@ -126,7 +126,7 @@ The checklist is organized by **security domain** so teams can divide work acros
 1. Run this checklist before every production launch, not just annually
 2. Assign each section to the team that owns the relevant systems
 3. Track findings in a vulnerability management tool with severity and due dates
-4. Re-test items after significant infrastructure or application changes
+4. Re-test items after major infrastructure or application changes
 5. Share results with leadership to justify security investment
 
 ## Common Mistakes

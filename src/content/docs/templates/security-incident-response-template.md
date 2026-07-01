@@ -112,7 +112,7 @@ your [data type]. We have [contained / remediated] the issue and are
 [steps taken]. We will update you within 72 hours.
 ```
 
-## Best Practices
+## What Works
 
 - **Designate an incident commander immediately** — one person coordinates, others execute
 - **Preserve evidence before containment** — memory dumps and logs disappear when you restart. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for log management.

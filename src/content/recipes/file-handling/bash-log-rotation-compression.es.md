@@ -93,7 +93,7 @@ El script itera sobre archivos `*.log` en el directorio objetivo. Si un log exce
 | zstd | Rápido, moderno | Grandes volúmenes de logs |
 | xz | Más pequeño, más lento | Archivos de cumplimiento |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Rota antes de que el disco se llene.** Monitorea el espacio libre y rota al 70-80% de uso, no al 99%.
 2. **Usa copytruncate o señales cuando sea posible.** Mover un archivo de log abierto puede hacer que la app siga escribiendo en el antiguo inode.

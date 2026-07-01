@@ -68,13 +68,13 @@ Use this resource when:
 |------------|----------|-------|
 | [Technology] | [Approach] | [Notes] |
 
-## Mejores Prácticas
+## Lo que funciona
 
-1. [Best practice 1]
-2. [Best practice 2]
-3. [Best practice 3]
-4. [Best practice 4]
-5. [Best practice 5]
+1. [Lo que funciona 1]
+2. [Lo que funciona 2]
+3. [Lo que funciona 3]
+4. [Lo que funciona 4]
+5. [Lo que funciona 5]
 
 ## Errores Comunes
 

@@ -121,7 +121,7 @@ The template connects identities to permissions, business justification, and acc
 - **Contractor access review**: Time-bound review for external users with temporary access.
 - **Data access audit**: Focuses on users who can access sensitive databases, data lakes, or analytics tools.
 
-## Best Practices
+## What Works
 
 - Automate identity collection from the SSO or identity provider.
 - Send reminders to reviewers before the due date.

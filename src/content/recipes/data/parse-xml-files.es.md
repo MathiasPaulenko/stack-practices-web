@@ -155,7 +155,7 @@ parser.parse(new File("data.xml"), new XmlHandler());
 | Java | JAXP DOM | DOM | Documentos pequeños |
 | Java | SAX / StAX | Event-driven | Streams XML grandes |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Desactiva DTDs y entidades externas** para prevenir ataques XXE
 - **Usa SAX/StAX para archivos >10MB** para mantener el uso de memoria bajo

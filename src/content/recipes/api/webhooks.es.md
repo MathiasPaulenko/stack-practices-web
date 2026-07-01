@@ -190,7 +190,7 @@ Si tu endpoint falla o hace timeout, el sistema fuente **reintentará** con back
 | Manejo de Reintentos | Backoff exponencial | 3, 6, 12, 24... minutos |
 | Manejo de Reintentos | Dead letter queue | Después de max retries, estacionar para revisión manual |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Verifica firmas antes de cualquier procesamiento**: Rechaza payloads forjados inmediatamente.
 - **Retorna 200 rápidamente**: Haz procesamiento pesado de forma asíncrona para evitar timeouts.

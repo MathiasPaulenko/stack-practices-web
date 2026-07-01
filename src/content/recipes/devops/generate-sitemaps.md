@@ -2,7 +2,7 @@
 contentType: recipes
 slug: generate-sitemaps
 title: "Generate Sitemaps Live"
-description: "How to build and serve XML sitemaps liveally from your application data, with multi-language support, pagination, and automatic lastmod dates."
+description: "How to build and serve live XML sitemaps from your application data, with multi-language support, pagination, and automatic lastmod dates."
 metaDescription: "Learn live sitemap generation in Python, JavaScript, and Java. Covers XML structure, URL pagination, lastmod dates, and multi-language hreflang support for SEO."
 difficulty: intermediate
 topics:

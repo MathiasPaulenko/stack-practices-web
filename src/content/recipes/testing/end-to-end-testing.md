@@ -3,7 +3,7 @@ contentType: recipes
 slug: end-to-end-testing
 title: "End-to-End Testing"
 description: "Write reliable end-to-end tests that simulate real user journeys across the entire application stack."
-metaDescription: "End-to-end testing best practices: Playwright, Cypress, test isolation, data seeding, CI integration, and flaky test prevention strategies."
+metaDescription: "End-to-end testing what works: Playwright, Cypress, test isolation, data seeding, CI integration, and flaky test prevention strategies."
 difficulty: intermediate
 topics:
   - testing
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
-  metaDescription: "End-to-end testing best practices: Playwright, Cypress, test isolation, data seeding, CI integration, and flaky test prevention strategies."
+  metaDescription: "End-to-end testing what works: Playwright, Cypress, test isolation, data seeding, CI integration, and flaky test prevention strategies."
   keywords:
     - e2e
     - testing
@@ -118,7 +118,7 @@ A well-architected E2E test has four layers: **isolation**, **setup**, **interac
 | Puppeteer | JavaScript | Chrome-only automation, scraping, PDF generation | Lower-level API than Playwright |
 | WebdriverIO | JavaScript | Cross-browser with mobile support | Modular, supports Appium |
 
-## Best Practices
+## What Works
 
 1. **Test the happy path and a few critical failure paths.** Do not try to cover every validation message; unit tests are cheaper for that.
 2. **Seed deterministic data before each test.** Use a factory or API to create users, products, and orders, and clean them up after the test.

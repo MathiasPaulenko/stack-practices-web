@@ -212,7 +212,7 @@ La aplicación es el **único punto de control** — decide cuándo leer del cac
 | **Refresh-Ahead** | Refresca proactivamente antes de que expire el TTL | Patrones de acceso predecibles |
 | **Multi-Nivel** | L1 (en-memoria) + L2 (Redis) + L3 (DB) | Aplicaciones de alta escala |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Siempre establece un TTL** — datos obsoletos son peores que un cache miss
 - **Invalida en escrituras** — elimina la clave del caché después de actualizaciones de DB para mantener consistencia

@@ -199,7 +199,7 @@ The template follows the principle of **progressive disclosure**: the first sect
 | Shared library | Add consumers list, versioning policy, and breaking change process | Libraries have transitive impact |
 | Mobile app | Add release process, app store links, and rollout strategy | Mobile deployments are not fully automated |
 
-## Best Practices
+## What Works
 
 1. **One page per service** — if it does not fit on one screen, it will not be read during an incident
 2. **Link, do not duplicate** — the ownership doc is an index, not a repository for all knowledge

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: a-b-testing-guide
-title: "A/B Testing — Frameworks de Experimentación para Decisiones Basadas en Datos"
+title: "A/B Testing: Frameworks de Experimentación para Decisiones Basadas en Datos"
 description: "Guía práctica sobre A/B testing: diseño de experimentos, significancia estadística, tamaño de muestra, evitando pitfalls y construyendo cultura de experimentación en equipos de ingeniería."
 metaDescription: "Aprende A/B testing: diseño de experimentos, significancia estadística, tamaño de muestra, pitfalls comunes y cultura de experimentación."
 difficulty: intermediate
@@ -54,7 +54,7 @@ Esta guía cubre diseño de experimentos, rigor estadístico, patrones de implem
 
 | Concepto | Descripción |
 |----------|-------------|
-| **Control (A)** | La versión existente — la baseline para comparación |
+| **Control (A)** | La versión existente, la baseline para comparación |
 | **Tratamiento (B)** | La nueva versión siendo probada |
 | **Métrica Primaria** | La medida de resultado clave que determina éxito |
 | **Significancia Estadística** | Probabilidad de que la diferencia observada no se deba al azar |
@@ -83,7 +83,7 @@ para usuarios móviles
 porque analytics muestra 40% de abandono en paso 4 en móvil.
 ```
 
-**Checklist de hipótesis:**
+#### Checklist de Hipótesis
 - Define la métrica primaria (una métrica que importa)
 - Define métricas guardrail (cosas que no deben degradar)
 - Elige la población objetivo
@@ -136,11 +136,12 @@ print(f"Tamaño de muestra requerido por grupo: {sample_size}")
 # Output: ~6,400 usuarios por grupo
 ```
 
-**Factores de tamaño de muestra:**
-- **Tasa baseline:** Tasas más bajas necesitan muestras más grandes
-- **MDE:** Efectos más pequeños necesitan más usuarios
-- **Alpha:** Significancia más estricta necesita más usuarios
-- **Power:** Mayor confianza necesita más usuarios
+#### Factores de Tamaño de Muestra
+
+- Tasa baseline: Tasas más bajas necesitan muestras más grandes
+- MDE: Efectos más pequeños necesitan más usuarios
+- Alpha: Significancia más estricta necesita más usuarios
+- Power: Mayor confianza necesita más usuarios
 
 ### 3. Implementar Asignación
 
@@ -175,11 +176,12 @@ else:
     render_old_checkout()
 ```
 
-**Requisitos de asignación:**
-- **Aleatorio:** Cada usuario elegible tiene igual chance de cada grupo
-- **Consistente:** El mismo usuario siempre ve la misma versión durante la duración del experimento
-- **Independiente:** Un experimento no debe afectar la asignación de otro
-- **Sticky:** La asignación persiste incluso si el usuario regresa días después
+#### Requisitos de Asignación
+
+- Aleatorio: Cada usuario elegible tiene igual chance de cada grupo
+- Consistente: El mismo usuario siempre ve la misma versión durante la duración del experimento
+- Independiente: Un experimento no debe afectar la asignación de otro
+- Sticky: La asignación persiste incluso si el usuario regresa días después
 
 ### 4. Ejecutar el Experimento
 
@@ -251,29 +253,29 @@ Tomar decisiones basadas en significancia estadística y práctica:
 
 ## Lo que funciona
 
-- **Corre experimentos por semanas completas.** Los efectos de día-de-la-semana sesgan resultados.
-- **Evita mirar resultados.** Revisar significancia diariamente aumenta la tasa de falsos positivos.
-- **Usa una métrica primaria.** Múltiples métricas primarias crean conclusiones conflictivas.
-- **Documenta todo.** Hipótesis, diseño, resultados y racional de decisión.
-- **Segmenta tus resultados.** Las victorias agregadas pueden ocultar pérdidas en grupos específicos.
-- **Cuidado con efectos de novedad.** Los usuarios pueden interactuar más con cualquier cosa nueva inicialmente.
+- Corre experimentos por semanas completas. Los efectos de día-de-la-semana sesgan resultados.
+- Evita mirar resultados. Revisar significancia diariamente aumenta la tasa de falsos positivos.
+- Usa una métrica primaria. Múltiples métricas primarias crean conclusiones conflictivas.
+- Documenta todo. Hipótesis, diseño, resultados y racional de decisión.
+- Segmenta tus resultados. Las victorias agregadas pueden ocultar pérdidas en grupos específicos.
+- Cuidado con efectos de novedad. Los usuarios pueden interactuar más con cualquier cosa nueva inicialmente.
 
 ## Common Mistakes
 
-- **Detener temprano cuando los resultados se ven bien.** Esto aumenta dramáticamente falsos positivos.
-- **Probar múltiples variantes sin corrección.** Usa corrección de Bonferroni o sequential testing.
-- **Experimentos sub-poderados.** Muestras pequeñas no pueden detectar efectos pequeños pero significativos.
-- **Ignorar la paradoja de Simpson.** Los datos agregados pueden revertirse al segmentar.
-- **Efectos de novedad y primacía.** Las nuevas capacidades reciben spikes de engagement inicial que decaen.
-- **Cambiar experimentos en ejecución.** Nunca modifiques el tratamiento a mitad del experimento.
+- Detener temprano cuando los resultados se ven bien. Esto aumenta dramáticamente falsos positivos.
+- Probar múltiples variantes sin corrección. Usa corrección de Bonferroni o sequential testing.
+- Experimentos sub-poderados. Muestras pequeñas no pueden detectar efectos pequeños pero significativos.
+- Ignorar la paradoja de Simpson. Los datos agregados pueden revertirse al segmentar.
+- Efectos de novedad y primacía. Las nuevas capacidades reciben spikes de engagement inicial que decaen.
+- Cambiar experimentos en ejecución. Nunca modifiques el tratamiento a mitad del experimento.
 
 ## Variants
 
-- **Multivariate testing:** Probar múltiples variables simultáneamente (A/B/C/D)
-- **Sequential testing:** Analizar continuamente sin inflar falsos positivos
-- **Bandit algorithms:** Cambiar dinámicamente tráfico a variantes de mejor rendimiento
-- **Holdout groups:** Grupos de control de larga duración para medir impacto sostenido
-- **Geo-experiments:** Testear por geografía para cambios de infraestructura o pricing
+- Multivariate testing: Probar múltiples variables simultáneamente (A/B/C/D)
+- Sequential testing: Analizar continuamente sin inflar falsos positivos
+- Bandit algorithms: Cambiar dinámicamente tráfico a variantes de mejor rendimiento
+- Holdout groups: Grupos de control de larga duración para medir impacto sostenido
+- Geo-experiments: Testear por geografía para cambios de infraestructura o pricing
 
 ## FAQ
 

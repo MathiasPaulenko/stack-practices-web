@@ -128,7 +128,7 @@ En entornos multi-hilo (como Java), usa `synchronized` o inicialización eager p
 | **Inicialización eager** | Instancia creada al cargar la clase | Sin problemas de hilos, puede desperdiciar recursos |
 | **Doble verificación de bloqueo** | Inicialización perezosa de alto rendimiento | Más complejo, propenso a errores en algunos lenguajes |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Haz el constructor privado** para prevenir la instanciación directa accidental
 - **Usa inicialización perezosa** solo cuando el costo de inicio importa

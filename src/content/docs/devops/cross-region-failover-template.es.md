@@ -148,7 +148,7 @@ La plantilla fuerza a **probar todo el ciclo**: detectar → failover → verifi
 | Blue-green | Región secundaria es un espejo; cambiar DNS | Bueno para bases de datos con streaming replication |
 | Cell-based | Usuarios asignados a una celda; mover celdas | Usado por Netflix, requiere diseño stateless |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Ejecuta pruebas de failover trimestralmente en producción, no solo en staging
 2. Documenta cada comando; no confíes en la memoria durante un incidente

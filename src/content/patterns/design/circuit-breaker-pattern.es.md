@@ -270,7 +270,7 @@ Esto previene agotamiento de recursos por llamadas fallidas repetidas y da tiemp
 | **Ponderado** | Umbrales diferentes para distintos tipos de excepción | Distinguir fallos transitorios vs. permanentes |
 | **[Fallback Personalizado](/patterns/design/cache-aside-pattern)** | Retorna valor por defecto cuando está abierto | Degradación elegante (cache, respuesta por defecto) |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Configura timeouts de recuperación** basados en el tiempo típico de reinicio del servicio
 - **Registra transiciones de estado** para observabilidad y alertas

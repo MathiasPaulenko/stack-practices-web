@@ -294,7 +294,7 @@ public class RateLimiters {
 | Throttle (trailing) | Limita, dispara el último | Sync periódico, heartbeat |
 | requestAnimationFrame | Sincroniza al refresco de display | Animaciones, actualizaciones visuales |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Usa debounce para inputs de texto** — consultar una API en cada pulsación desperdicia recursos; espera la pausa de escritura (típicamente 200-500ms).
 2. **Usa throttle para eventos visuales** — scroll, resize y mousemove pueden disparar 60+ veces por segundo. Throttle a 100ms o usa `requestAnimationFrame`.
@@ -305,7 +305,7 @@ public class RateLimiters {
 ## Errores Comunes
 
 1. Usar debounce donde se necesita throttle, causando que eventos intermedios importantes se pierdan completamente.
-2. Olvidar limpiar timers al desmontar componentes, causando memory leaks y ejecuciones obsoletas. Consulta [mejores prácticas de rendimiento](/guides/performance/performance-optimization-guide).
+2. Olvidar limpiar timers al desmontar componentes, causando memory leaks y ejecuciones obsoletas. Consulta [optimización de rendimiento](/guides/performance/performance-optimization-guide).
 3. Poner delays de debounce muy largos (ej. 2 segundos), haciendo que la UI se sienta poco responsiva.
 4. Usar throttle sin trailing edge, perdiendo el evento final de una ráfaga (ej. última posición de scroll).
 5. No manejar condiciones de carrera en ambientes multi-hilo donde los timers pueden superponerse.

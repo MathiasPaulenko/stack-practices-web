@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Copiar y mover archivos es una operación esencial en automatización, despliegue y pipelines de datos. Hacerlo de forma segura entre plataformas requiere atención a separadores de ruta, permisos y atomicidad. Esta receta muestra patrones robustos en Python, JavaScript y Java.
+Copiar y mover archivos es una operación esencial en automatización, despliegue y pipelines de datos. Hacerlo de forma segura entre plataformas requiere atención a separadores de ruta, permisos y atomicidad. Esta receta muestra patrones confiables en Python, JavaScript y Java.
 
 ## Cuándo Usar
 
@@ -114,7 +114,7 @@ public class FileMover {
 | JavaScript | `ncp` o `fs-extra` | Copia recursiva de directorios con filtros |
 | Java | Apache Commons IO `FileUtils` | Helpers de alto nivel para operaciones batch |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Usa `COPYFILE_EXCL` / `COPY_ATTRIBUTES` para preservar permisos y timestamps
 2. Prefiere movimientos atómicos cuando sea posible para evitar archivos parciales

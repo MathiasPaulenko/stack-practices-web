@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: code-review-best-practices-guide
-title: "Mejores Prácticas de Code Review — Para Autores y Revisores"
-description: "Una guía práctica para revisiones de código efectivas: cómo escribir código revisable, dar feedback constructivo y mantener las revisiones rápidas y enfocadas."
-metaDescription: "Mejores prácticas de code review para autores y revisores. Aprende a escribir código revisable, dar feedback constructivo y mantener revisiones rápidas."
+title: "Lo que Funciona en Code Review — Para Autores y Revisores"
+description: "Una guía práctica para revisiones de código útiles: cómo escribir código revisable, dar feedback constructivo y mantener las revisiones rápidas y enfocadas."
+metaDescription: "Lo que funciona en code review para autores y revisores. Aprende a escribir código revisable, dar feedback constructivo y mantener revisiones rápidas."
 difficulty: beginner
 topics:
   - design
@@ -22,16 +22,16 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Mejores prácticas de code review para autores y revisores. Aprende a escribir código revisable, dar feedback constructivo y mantener revisiones rápidas."
+  metaDescription: "Lo que funciona en code review para autores y revisores. Aprende a escribir código revisable, dar feedback constructivo y mantener revisiones rápidas."
   keywords:
-    - mejores practicas code review
+    - lo que funciona code review
     - revision pull request
     - checklist code review
     - revision entre pares
     - feedback constructivo codigo
 ---
 
-# Mejores Prácticas de Code Review
+# Lo que Funciona en Code Review
 
 ## Introducción
 

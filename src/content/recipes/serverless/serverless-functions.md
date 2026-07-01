@@ -110,7 +110,7 @@ Cold starts occur when a function hasn't been invoked recently. The platform mus
 | Cloud Functions | Node, Python, Go, Java | HTTP, Pub/Sub, Storage, Firestore, Cron | 200ms–2s |
 | Azure Functions | Node, Python, Java, C# | HTTP, Blob, Queue, Event Grid, Timer | 200ms–3s |
 
-## Best Practices
+## What Works
 
 - **Keep functions small and focused**: One function per responsibility; compose complex workflows with step functions
 - **Minimize deployment package size**: Remove unnecessary dependencies to reduce cold start time

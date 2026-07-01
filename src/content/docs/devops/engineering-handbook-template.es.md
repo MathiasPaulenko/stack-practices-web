@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Los equipos sin un handbook escrito reinventan su cultura con cada nueva contratacion. Decisiones que eran obvias para los fundadores se convierten en misterios para el decimo ingeniero. Un engineering handbook captura las reglas, normas y razonamientos que definen como tu equipo construye software. No es un reemplazo de la conversacion — es la referencia que hace las conversaciones productivas en lugar de repetitivas.
+Los equipos sin un handbook escrito reinventan su cultura con cada nueva contratacion. Decisiones que eran obvias para los fundadores se convierten en misterios para el decimo ingeniero. Un engineering handbook captura las reglas, normas y razonamientos que definen como tu equipo construye software. No es un reemplazo de la conversacion. Es la referencia que hace las conversaciones productivas en lugar de repetitivas.
 
 ## When to Use
 
@@ -255,7 +255,7 @@ Este handbook es mantenido por [responsable] y actualizado a traves de:
 
 ## Explanation
 
-El template de handbook organiza el conocimiento del equipo en **filosofia** (por que existimos), **flujo de trabajo** (como construimos), **estandares** (que significa calidad), y **operaciones** (como mantenemos sistemas funcionando). Separar estas secciones previene el error comun de documentar solo procesos mientras se dejan implicitos la cultura y los estandares tecnicos. El changelog y proceso de cambio al final dejan claro que es un documento vivo que evoluciona con el equipo.
+El template de handbook organiza el conocimiento del equipo en cuatro areas: filosofia (por que existimos), flujo de trabajo (como construimos), estandares (que significa calidad), y operaciones (como mantenemos sistemas funcionando). Separar estas secciones previene el error comun de documentar solo procesos mientras se dejan implicitos la cultura y los estandares tecnicos. El changelog y proceso de cambio al final dejan claro que es un documento vivo que evoluciona con el equipo.
 
 ## Variants
 
@@ -268,19 +268,19 @@ El template de handbook organiza el conocimiento del equipo en **filosofia** (po
 
 ## Lo que funciona
 
-1. **Empieza pequeno, expande gradualmente** — un handbook de 5 paginas que la gente lee gana a uno de 50 paginas que ignoran
-2. **Hazlo buscable** — los nuevos contratados buscan respuestas especificas, no una narrativa
-3. **Revisa trimestralmente** — handbooks desactualizados son peores que ninguno; crean confusion
-4. **Incluye razonamiento, no solo reglas** — "hacemos X porque Y" crea entendimiento, no solo cumplimiento
-5. **Enlaza, no dupliques** — el handbook deberia referenciar docs especializados (runbooks, docs de API) en lugar de incluir todo
+1. Empieza pequeno, expande gradualmente. Un handbook de 5 paginas que la gente lee gana a uno de 50 paginas que ignoran.
+2. Hazlo buscable. Los nuevos contratados buscan respuestas especificas, no una narrativa.
+3. Revisa trimestralmente. Handbooks desactualizados son peores que ninguno; crean confusion.
+4. Incluye razonamiento, no solo reglas. "Hacemos X porque Y" crea entendimiento, no solo cumplimiento.
+5. Enlaza, no dupliques. El handbook deberia referenciar docs especializados (runbooks, docs de API) en lugar de incluir todo.
 
 ## Common Mistakes
 
-1. **Escribirlo una vez y olvidarlo** — los handbooks se pudren mas rapido que el codigo; programa revisiones
-2. **Copiar el handbook de otra empresa** — la cultura es especifica del contexto; las practicas de Netflix pueden destruir tu equipo
-3. **Hacerlo demasiado largo** — si toma mas de 20 minutos leer lo esencial, es demasiado largo
-4. **Saltarse el "por que"** — reglas sin razonamiento se sienten arbitrarias y se ignoran
-5. **No hacerlo descubrible** — enterrado en un wiki que nadie consulta es como no existir
+1. Escribirlo una vez y olvidarlo. Los handbooks se pudren mas rapido que el codigo; programa revisiones.
+2. Copiar el handbook de otra empresa. La cultura es especifica del contexto; las practicas de Netflix pueden destruir tu equipo.
+3. Hacerlo demasiado largo. Si toma mas de 20 minutos leer lo esencial, es demasiado largo.
+4. Saltarse el "por que". Reglas sin razonamiento se sienten arbitrarias y se ignoran.
+5. No hacerlo descubrible. Enterrado en un wiki que nadie consulta es como no existir.
 
 ## Frequently Asked Questions
 

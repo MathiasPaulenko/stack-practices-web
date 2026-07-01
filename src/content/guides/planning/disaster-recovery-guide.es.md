@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: disaster-recovery-guide
-title: "Recuperación ante Desastres — RTO, RPO y Runbooks de Recuperación Resilientes"
+title: "Recuperación ante Desastres: RTO, RPO y Runbooks de Recuperación Resilientes"
 description: "Guía práctica para la planificación de recuperación ante desastres: definición de RTO y RPO, estrategias de backup, failover multi-región y construcción de runbooks de recuperación que minimizan downtime."
 metaDescription: "Aprende planificación de recuperación ante desastres: RTO, RPO, estrategias de backup, runbooks y failover multi-región para infraestructura resiliente."
 difficulty: advanced
@@ -118,7 +118,8 @@ Entiende qué debe recuperarse y en qué orden:
 # 7. Analytics / jobs por lotes
 ```
 
-**Checklist de mapeo de dependencias:**
+#### Checklist de Mapeo de Dependencias
+
 - Identificar puntos únicos de falla
 - Mapear topologías de replicación de bases de datos
 - Documentar dependencias de APIs externas
@@ -177,11 +178,12 @@ spec:
                 topologyKey: topology.kubernetes.io/zone
 ```
 
-**Patrones multi-región:**
-- **Réplicas de lectura:** Región primaria escribe; regiones secundarias leen réplicas
-- **Activo-pasivo:** Primaria activa; secundaria en standby (pilot light o warm)
-- **Activo-activo:** Ambas regiones sirven tráfico (requiere sincronización de datos)
-- **Basado en celdas:** Arquitectura sharded con celdas en múltiples regiones
+#### Patrones Multi-Región
+
+- Réplicas de lectura: Región primaria escribe; regiones secundarias leen réplicas
+- Activo-pasivo: Primaria activa; secundaria en standby (pilot light o warm)
+- Activo-activo: Ambas regiones sirven tráfico (requiere sincronización de datos)
+- Basado en celdas: Arquitectura sharded con celdas en múltiples regiones
 
 ### 5. Crear Runbooks de Recuperación
 
@@ -261,26 +263,26 @@ def test_backup_restore():
 
 ## Lo que funciona
 
-- **Automatiza donde sea posible.** El failover manual a las 3 AM es propenso a errores.
-- **Mantén runbooks simples.** Una persona debería poder ejecutarlos bajo presión.
-- **Prueba backups restaurándolos.** Un backup que no puedes restaurar no es un backup.
-- **Monitorea lag de replicación.** Si el lag excede el RPO, alerta inmediatamente.
-- **Documenta suposiciones.** ¿Qué pasa si DNS está caído? ¿Qué pasa si el autor del runbook no está disponible?
-- **Separa infraestructura de DR.** Los sistemas de DR no deberían depender de recursos de la región primaria.
+- Automatiza donde sea posible. El failover manual a las 3 AM es propenso a errores.
+- Mantén runbooks simples. Una persona debería poder ejecutarlos bajo presión.
+- Prueba backups restaurándolos. Un backup que no puedes restaurar no es un backup.
+- Monitorea lag de replicación. Si el lag excede el RPO, alerta inmediatamente.
+- Documenta suposiciones. ¿Qué pasa si DNS está caído? ¿Qué pasa si el autor del runbook no está disponible?
+- Separa infraestructura de DR. Los sistemas de DR no deberían depender de recursos de la región primaria.
 
 ## Common Mistakes
 
-- **Backups no probados.** Muchas organizaciones descubren backups corruptos solo durante un desastre real.
-- **Sobre-ingeniería para sistemas de bajo nivel.** Coincidir estrategia de DR con criticidad de negocio.
-- **Olvidar consistencia de datos.** La replicación asíncrona puede perder transacciones durante failover.
-- **Ignorar mantenimiento de runbooks.** Runbooks obsoletos con comandos desactualizados causan confusión.
-- **Sin plan de comunicación.** Durante una interrupción, los stakeholders necesitan actualizaciones oportunas.
+- Backups no probados. Muchas organizaciones descubren backups corruptos solo durante un desastre real.
+- Sobre-ingeniería para sistemas de bajo nivel. Coincidir estrategia de DR con criticidad de negocio.
+- Olvidar consistencia de datos. La replicación asíncrona puede perder transacciones durante failover.
+- Ignorar mantenimiento de runbooks. Runbooks obsoletos con comandos desactualizados causan confusión.
+- Sin plan de comunicación. Durante una interrupción, los stakeholders necesitan actualizaciones oportunas.
 
 ## Variants
 
-- **DR cloud-native:** Usar servicios administrados con replicación integrada (RDS Multi-AZ, Azure Site Recovery, réplicas Cloud SQL).
-- **DR on-premise:** Enfocarse en backups off-site en cinta, sitios warm y ciclos de adquisición de hardware.
-- **DR híbrido:** DR basado en cloud para cargas on-premise (pilot light inverso).
+- DR cloud-native: Usar servicios administrados con replicación integrada (RDS Multi-AZ, Azure Site Recovery, réplicas Cloud SQL).
+- DR on-premise: Enfocarse en backups off-site en cinta, sitios warm y ciclos de adquisición de hardware.
+- DR híbrido: DR basado en cloud para cargas on-premise (pilot light inverso).
 
 ## FAQ
 

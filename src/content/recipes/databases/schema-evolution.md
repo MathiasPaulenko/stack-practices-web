@@ -30,7 +30,7 @@ seo:
 ---
 ## Overview
 
-Database schemas must evolve as applications grow, but schema changes are a leading cause of [production outages](/guides/devops/on-call-incident-response-guide). The expand-contract pattern, online DDL, and backward-compatible migrations allow teams to add features without downtime. This resource covers practical techniques for evolving schemas in PostgreSQL, MySQL, and distributed databases while maintaining data integrity and application availability.
+Database schemas must evolve as applications grow, but schema changes are a leading cause of [production outages](/guides/devops/on-call-incident-response-guide). The expand-contract pattern, online DDL, and backward-compatible migrations allow teams to add capabilities without downtime. This resource covers practical techniques for evolving schemas in PostgreSQL, MySQL, and distributed databases while maintaining data integrity and application availability.
 
 ## When to Use
 
@@ -114,7 +114,7 @@ CREATE INDEX idx_user_preferences_theme ON user_preferences(theme);
 | Blue-green schema | Major restructuring | Two databases + dual-write |
 | Logical replication | Cross-version migration | pglogical, Debezium |
 
-## Best Practices
+## What Works
 
 - **Never drop before adding**: Always add the replacement before removing the original
 - **Use `IF EXISTS` and `IF NOT EXISTS`**: Prevents migration failures on partial runs

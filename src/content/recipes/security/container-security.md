@@ -122,7 +122,7 @@ trufflehog filesystem --directory=.
 | Grype | Fast | OS + language | Syft SBOM integration |
 | Twistlock | Medium | Full stack | Enterprise runtime protection |
 
-## Best Practices
+## What Works
 
 - **Scan on every build**: Vulnerabilities are discovered daily; yesterday's clean image is today's risk
 - **Use distroless or minimal bases**: `distroless`, `alpine`, or `scratch` reduce attack surface

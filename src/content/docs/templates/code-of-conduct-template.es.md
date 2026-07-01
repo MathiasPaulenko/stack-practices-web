@@ -104,7 +104,7 @@ versión 2.1.
 | **Alcance** | Dónde aplica el código |
 | **Reporte** | Cómo reportar violaciones |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Adapta, no copies**: Personaliza la plantilla a las necesidades de tu comunidad
 - **Hazlo visible**: Enlaza prominentemente en el [README](/docs/templates/readme-template) y repositorio

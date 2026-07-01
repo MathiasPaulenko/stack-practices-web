@@ -278,7 +278,7 @@ public class SamlSecurityConfig {
 }
 ```
 
-## Best Practices
+## What Works
 
 - **Validate the SAML response signature before parsing any assertions.** XML Signature Wrapping (XSW) attacks inject malicious assertions that bypass signature checks if the code looks in the wrong XML node.
 - **Use HTTPS everywhere.** SAML assertions contain authentication tokens; transmitting them over HTTP allows interception and replay.

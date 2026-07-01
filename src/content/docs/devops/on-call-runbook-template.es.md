@@ -226,7 +226,7 @@ El runbook trata cada alerta como un **flujo de trabajo de diagnóstico**, no so
 | Pipeline de datos | Fallas de trabajos, drift de schema, datos tardíos | Procedimientos de reintento de tareas Airflow / Dagster |
 | Multi-región | Latencia específica por región, lag de replicación | Sección de runbook de failover |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Mantén cada procedimiento en una página; los runbooks largos no se leen durante incidentes
 2. Incluye comandos exactos, no solo "revisa logs"; el estrés reduce la precisión al tipear

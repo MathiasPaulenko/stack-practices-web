@@ -34,7 +34,7 @@ Nginx is a high-performance web server that excels as a reverse proxy and API ga
 ## When to Use This
 
 - You need to expose multiple backend services through a single entry point
-- SSL/TLS termination should happen at the edge, not in application code. See [Security Guide](/guides/security/security-best-practices-guide) for TLS best practices.
+- SSL/TLS termination should happen at the edge, not in application code. See [Security Guide](/guides/security/security-best-practices-guide) for what works for TLS.
 - You want to add [rate limiting](/recipes/api/api-rate-limiting-redis), caching, or request rewriting without modifying backends
 
 ## Prerequisites
@@ -190,7 +190,7 @@ server {
 ## FAQ
 
 **Q: Should I use Nginx or an API gateway like Kong or Traefik?**
-A: Nginx is sufficient for routing, SSL, and rate limiting. Use Kong or Traefik when you need plugins, service discovery, or Kubernetes-native features.
+A: Nginx is sufficient for routing, SSL, and rate limiting. Use Kong or Traefik when you need plugins, service discovery, or Kubernetes-native capabilities.
 
 **Q: How do I handle WebSocket connections through Nginx?**
 A: Add `proxy_set_header Upgrade $http_upgrade;` and `proxy_set_header Connection "upgrade";` to the location block.

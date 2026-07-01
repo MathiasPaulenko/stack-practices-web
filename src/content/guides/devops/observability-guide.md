@@ -154,7 +154,7 @@ In Grafana: search logs by `trace_id`, jump to the corresponding trace in Tempo/
 
 ## Common Mistakes
 
-- **Alerting on symptoms instead of SLOs** — "CPU is high" is not actionable; "error rate exceeds SLO" is
+- **Alerting on symptoms instead of SLOs** — "CPU is high" is not useful; "error rate exceeds SLO" is
 - **No log sampling or retention policy** — logs grow infinitely; define hot/warm/cold storage tiers
 - **Trace sampling too aggressive** — sampling 100% of traffic can overwhelm backends; use head-based or tail-based sampling
 - **Dashboard sprawl** — too many dashboards = no one uses them. Consolidate into golden signals per service.

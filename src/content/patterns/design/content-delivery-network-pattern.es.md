@@ -2,7 +2,7 @@
 contentType: patterns
 slug: content-delivery-network-pattern
 title: "Patrón Content Delivery Network (CDN)"
-description: "Distribuye contenido estático y dinámico a través de servidores edge geográficamente dispersos para reducir latencia, mejorar disponibilidad y descargar infraestructura de origen."
+description: "Distribuye contenido estático y en vivo a través de servidores edge geográficamente dispersos para reducir latencia, mejorar disponibilidad y descargar infraestructura de origen."
 metaDescription: "Aprende el Patrón CDN para edge caching y distribución de contenido. Ejemplos en JavaScript, Python y Terraform con CloudFront, Fastly y Vercel Edge."
 difficulty: beginner
 topics:

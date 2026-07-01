@@ -43,7 +43,7 @@ Usa esta recipe cuando:
 
 - Configuras apps por entorno (dev, staging, prod). Consulta [Docker Basics](/recipes/devops/docker-basics) para configuración de apps containerizadas.
 - Almacenas secretos como claves API y credenciales de base de datos. Consulta [JWT Authentication](/recipes/authentication/jwt-authentication) para manejo seguro de tokens.
-- Habilitas o deshabilitas features con feature flags. Consulta [Feature Flags](/recipes/devops/feature-flags) para gestión de toggles.
+- Habilitas o deshabilitas capacidades con feature flags. Consulta [Feature Flags](/recipes/devops/feature-flags) para gestión de toggles.
 - Gestionas configuración de aplicaciones containerizadas en Docker y Kubernetes. Consulta [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) para orquestación local de contenedores.
 - Evitas valores hard-codeados en el código fuente
 - Compartes configuración entre microservicios sin un servidor de configuración central
@@ -130,7 +130,7 @@ Agrega `.env` a `.gitignore`:
 - **Coerción de tipos**: Las variables de entorno son siempre strings — haz cast a int/boolean explícitamente. Un valor de `"false"` es truthy en JavaScript si no lo comparas apropiadamente.
 - **Scope**: Las variables establecidas en el shell están disponibles para el proceso actual y sus hijos. Usa `export` en Bash o `setx` en Windows para persistirlas entre sesiones.
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Nunca commitees secretos**: Agrega `.env` a `.gitignore` inmediatamente. Un solo archivo `.env` commiteado con credenciales de producción es un liability de seguridad permanente, incluso si lo borras después — el historial de Git lo retiene para siempre.
 - **Usa un `.env.example`**: Documenta las variables requeridas sin valores reales. Los nuevos desarrolladores pueden copiar este archivo a `.env` y llenar sus propias credenciales.

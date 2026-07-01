@@ -130,7 +130,7 @@ const config = new DatabaseConfigBuilder()
 - **[Director](/patterns/design/builder-pattern)**: Encapsula configuraciones comunes detras de una clase director
 - **Step Builder**: Refuerza orden de construccion a traves de interfaces separadas para cada paso
 
-## Mejores Practicas
+## Lo que funciona
 
 - Valida solo al llamar `build()`, no en cada setter; consulta [Builder pattern](/patterns/design/builder-pattern) para estrategias de validacion
 - Retorna `this` para encadenamiento de metodos (interfaz fluida)

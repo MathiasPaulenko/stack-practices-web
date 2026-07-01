@@ -105,7 +105,7 @@ The script starts by flushing existing rules and resetting counters. It sets a d
 | Rate limit | `-m recent` | Slow brute force |
 | Log and drop | `-j LOG --log-prefix` | Audit blocked traffic |
 
-## Best Practices
+## What Works
 
 1. **Default deny, allow explicitly.** A default drop policy is safer than a default allow policy.
 2. **Save rules before reboot.** Use `iptables-save` and a systemd service or a netfilter-persistent package.

@@ -111,7 +111,7 @@ const clean = DOMPurify.sanitize(dirty);
 | Sanitización de HTML | Server/Client | Fuerte | Rich text, editores WYSIWYG |
 | Cookies HttpOnly | Server | Fuerte | Prevención de robo de cookies de sesión |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Escapa todos los datos no confiables**: parámetros de URL, inputs de formularios, campos de base de datos, respuestas de API, [uploads de archivos](/recipes/file-handling/file-upload-validation), e incluso headers HTTP pueden ser manipulados por atacantes.
 - **Usa los defaults del framework**: deja que React, Vue o Angular manejen el escaping. Solo usa inserción de HTML raw cuando sea absolutamente necesario y sanitiza el input primero.
@@ -134,7 +134,7 @@ const clean = DOMPurify.sanitize(dirty);
 R: Solo si escapas o sanitizas correctamente. Un solo error en tu lógica de escaping expone a tus usuarios. Prefiere librerías de sanitización como DOMPurify sobre escaping manual.
 
 **P: ¿Puede CSP prevenir completamente XSS?**
-R: No, pero eleva significativamente la barrera. Un CSP estricto bloquea scripts inline y scripts externos no autorizados, convirtiendo XSS de una vulnerabilidad crítica en un no-problema en muchos casos.
+R: No, pero eleva considerablemente la barrera. Un CSP estricto bloquea scripts inline y scripts externos no autorizados, convirtiendo XSS de una vulnerabilidad crítica en un no-problema en muchos casos.
 
 **P: ¿Qué pasa con XSS basado en DOM?**
 R: El XSS DOM ocurre cuando JavaScript client-side lee de `location.hash`, `document.URL`, o `localStorage` y escribe al DOM sin escapar. Trata todas las fuentes del DOM como no confiables y escapa antes de la inserción.

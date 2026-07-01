@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-Shipping to production is not the finish line — it is the starting line for operational responsibility. A production readiness review (PRR) is a structured checkpoint that verifies a service or feature is ready to run in production: it can be monitored, rolled back, secured, and operated by people other than the author. PRRs prevent the 3 AM surprises where no one knows how to restart a service, what "normal" looks like, or how to roll back a bad deployment.
+Shipping to production is not the finish line. It is the starting line for operational responsibility. A production readiness review (PRR) is a structured checkpoint that verifies a service or feature is ready to run in production: it can be monitored, rolled back, secured, and operated by people other than the author. PRRs prevent the 3 AM surprises where no one knows how to restart a service, what "normal" looks like, or how to roll back a bad deployment.
 
 ## When to Use
 
@@ -166,7 +166,7 @@ Before conducting a PRR:
 
 ## Explanation
 
-The PRR is organized into **ten domains** that cover the full lifecycle of operating software in production. Each domain has concrete checkboxes that can be verified objectively. The **sign-off section** ensures that no single person can declare a service ready without input from engineering, product, security, and operations. The **review notes table** captures gaps that are not blockers but need tracking.
+The PRR is organized into ten domains that cover the full lifecycle of operating software in production. Each domain has concrete checkboxes that can be verified objectively. The sign-off section ensures that no single person can declare a service ready without input from engineering, product, security, and operations. The review notes table captures gaps that are not blockers but need tracking.
 
 ## Variants
 
@@ -180,19 +180,19 @@ The PRR is organized into **ten domains** that cover the full lifecycle of opera
 
 ## What Works
 
-1. **Run the PRR early** — do not wait until the day before launch; identify gaps while there is still time to fix them
-2. **Make it a conversation, not a gate** — the goal is readiness, not paperwork; collaborate on mitigations
-3. **Track gaps explicitly** — items that are not checked should have owners and due dates, not be ignored
-4. **Review quarterly for existing services** — services drift from readiness over time; schedule periodic reviews
-5. **Automate what you can** — coverage reports, dependency scans, and deployment health checks should feed into the PRR automatically
+1. Run the PRR early. Do not wait until the day before launch; identify gaps while there is still time to fix them
+2. Make it a conversation, not a gate. The goal is readiness, not paperwork; collaborate on mitigations
+3. Track gaps explicitly. Items that are not checked should have owners and due dates, not be ignored
+4. Review quarterly for existing services. Services drift from readiness over time; schedule periodic reviews
+5. Automate what you can. Coverage reports, dependency scans, and deployment health checks should feed into the PRR automatically
 
 ## Common Mistakes
 
-1. **Treating the PRR as a one-time event** — production readiness decays; schedule re-reviews for major changes
-2. **Skipping the rollback test** — the only thing worse than a bad deploy is not knowing how to undo it
-3. **Not involving operations early** — SREs and platform teams catch constraints that developers miss
-4. **Checking boxes without verifying** — "we have monitoring" is not enough; confirm dashboards are useful and alerts are useful
-5. **Forgetting the human side** — on-call engineers need training, not just documentation; verify they have run through the runbooks
+1. Treating the PRR as a one-time event. Production readiness decays; schedule re-reviews for major changes
+2. Skipping the rollback test. The only thing worse than a bad deploy is not knowing how to undo it
+3. Not involving operations early. SREs and platform teams catch constraints that developers miss
+4. Checking boxes without verifying. "We have monitoring" is not enough; confirm dashboards are useful and alerts are useful
+5. Forgetting the human side. On-call engineers need training, not just documentation; verify they have run through the runbooks
 
 ## Frequently Asked Questions
 

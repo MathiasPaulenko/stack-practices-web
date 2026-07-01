@@ -216,7 +216,7 @@ El desafío clave es decidir entre **copia superficial** (copia referencias) y *
 | **Basado en Registro** | Múltiples prototipos identificados por clave | Búsqueda flexible, agrega gestión de registro |
 | **Clon por Serialización** | Copia profunda vía serializar/deserializar | Maneja grafos complejos, pero más lento |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Usa copia profunda para objetos mutables anidados** para prevenir estado compartido no deseado entre clones
 - **Implementa `clone()` explícitamente** en lugar de confiar en el comportamiento por defecto del lenguaje

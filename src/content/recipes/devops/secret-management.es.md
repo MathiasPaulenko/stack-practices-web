@@ -152,5 +152,5 @@ R: Usa un password manager de equipo (1Password, Bitwarden) para credenciales hu
 R: La duplicación no controlada de secretos a través de sistemas, repos y archivos. Combátelo con un vault centralizado y políticas estrictas de rotación.
 
 **P: ¿Puedo usar Kubernetes Secrets para todo?**
-R: Los K8s Secrets están bien para inyección in-cluster pero carecen de capacidades avanzadas como generación dinámica y sharing cross-cluster. Usa un vault dedicado para requerimientos complejos.
+R: Los K8s Secrets están bien para inyección in-cluster pero carecen de capacidades avanzadas como generación en vivo y sharing cross-cluster. Usa un vault dedicado para requerimientos complejos.
 

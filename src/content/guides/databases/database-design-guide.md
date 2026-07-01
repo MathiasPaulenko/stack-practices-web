@@ -193,7 +193,7 @@ CREATE TABLE products (
 | `CHECK` | Validates data with expressions |
 | `FOREIGN KEY` | Maintains referential integrity |
 
-## Best Practices
+## What Works
 
 - **Use surrogate keys** (auto-increment integers or UUIDs) instead of natural keys
 - **Avoid nullable foreign keys** — use junction tables for optional relationships

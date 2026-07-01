@@ -137,7 +137,7 @@ The template treats vendor assessment as a **structured, evidence-based process*
 | Payment processor | PCI DSS | Require AoC (Attestation of Compliance) and SAQ |
 | AI / ML vendor | Model training data | Verify your data is not used to train models unless explicitly agreed |
 
-## Best Practices
+## What Works
 
 1. Assess vendors **before** contract signature, not after onboarding
 2. Require a Data Processing Agreement (DPA) for any vendor touching PII

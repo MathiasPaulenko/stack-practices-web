@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: rest-api-design
-title: "REST API Design Best Practices"
+title: "REST API Design: What Works"
 description: "Design robust, scalable REST APIs with proper HTTP methods, status codes, versioning, and pagination strategies."
-metaDescription: "REST API design best practices: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for scalable backends."
+metaDescription: "REST API design what works: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for growth-ready backends."
 difficulty: intermediate
 topics:
   - api
@@ -19,7 +19,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "REST API design best practices: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for scalable backends."
+  metaDescription: "REST API design what works: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for growth-ready backends."
   keywords:
     - rest-api
     - api-design
@@ -105,7 +105,7 @@ REST leverages HTTP as an application protocol, not just a transport:
 | gRPC | Internal microservices | Binary; streaming; schema-first |
 | JSON-RPC | Simple RPC | Lightweight; less HTTP-native |
 
-## Best Practices
+## What Works
 
 - **Use plural nouns**: /orders, not /order or /getOrder
 - **Version in URL**: /v1/users (more explicit than headers)

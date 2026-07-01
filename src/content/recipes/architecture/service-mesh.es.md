@@ -103,7 +103,7 @@ spec:
 ## Explicación
 
 - **Sidecar proxy**: Envoy corre como sidecar en cada pod. Intercepta todo el tráfico de red vía reglas de iptables. Las aplicaciones aún hablan a `localhost:8080`, pero Envoy enruta, encripta y loguea el request real. El código de aplicación no requiere cambios.
-- **Mutual TLS (mTLS)**: el sidecar presenta un certificado para probar su identidad y valida el certificado del peer. El tráfico está encriptado en tránsito y autenticado en ambos extremos. Incluso dentro del mismo cluster, los servicios no pueden impersonarse entre sí sin robar un certificado.
+- **Mutual TLS (mTLS)**: el sidecar proporciona un certificado para probar su identidad y valida el certificado del peer. El tráfico está encriptado en tránsito y autenticado en ambos extremos. Incluso dentro del mismo cluster, los servicios no pueden impersonarse entre sí sin robar un certificado.
 - **Gestión de tráfico**: VirtualService define reglas de enrutamiento — despliegues canary, retries, timeouts, inyección de fallos. DestinationRule configura load balancing, connection pools y outlier detection (circuit breaker). Las políticas de tráfico son declarativas y versionadas en Git.
 
 ## Variantes

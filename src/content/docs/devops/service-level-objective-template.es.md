@@ -36,13 +36,13 @@ seo:
 ---
 ## Visión General
 
-Los SLO separan el "teatro de disponibilidad" de la confiabilidad real. Un dashboard que muestra 99.9% de uptime no significa nada si tus usuarios experimentaron errores 500 durante el checkout porque la métrica promedió una interrupción de 10 minutos. Definir objetivos de nivel de servicio (SLOs), indicadores de nivel de servicio (SLIs) y presupuestos de error claros obliga a la ingeniería a ser honesta sobre qué significa "confiable" y cuánta falta de confiabilidad es aceptable antes de detener el trabajo de features.
+Los SLO separan el "teatro de disponibilidad" de la confiabilidad real. Un dashboard que muestra 99.9% de uptime no significa nada si tus usuarios experimentaron errores 500 durante el checkout porque la métrica promedió una interrupción de 10 minutos. Definir objetivos de nivel de servicio (SLOs), indicadores de nivel de servicio (SLIs) y presupuestos de error claros obliga a la ingeniería a ser honesta sobre qué significa "confiable" y cuánta falta de confiabilidad es aceptable antes de detener el trabajo de funcionalidades.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
 - Estás estableciendo objetivos de confiabilidad para un nuevo servicio o API
-- Tu equipo pasa cada sprint apagando incendios en lugar de entregar features
+- Tu equipo pasa cada sprint apagando incendios en lugar de entregar funcionalidades
 - Necesitas negociar SLAs con clientes y quieres un margen interno
 
 ## Solución
@@ -85,9 +85,9 @@ Usa este recurso cuando:
 
 ### Política de Presupuesto de Error
 
-- **Saludable (< 50% quemado):** Desarrollo normal de features
+- **Saludable (< 50% quemado):** Desarrollo normal de funcionalidades
 - **En Riesgo (50–80% quemado):** Sin deploys no críticos; prioridad a trabajo de confiabilidad
-- **Agotado (> 80% quemado):** Congelamiento de features; toda la ingeniería enfocada en confiabilidad
+- **Agotado (> 80% quemado):** Congelamiento de funcionalidades; toda la ingeniería enfocada en confiabilidad
 - **Agotado (> 100% quemado):** Incidente declarado; notificación ejecutiva requerida
 
 ## 5. Reglas de Alerta
@@ -108,7 +108,7 @@ Usa este recurso cuando:
 
 ## Explicación
 
-La plantilla fuerza un **contrato de confiabilidad cuantificado** entre ingeniería y usuarios. Los SLIs son las métricas brutas; los SLOs son los objetivos; el presupuesto de error es la cantidad de "falta de confiabilidad" que puedes gastar antes de detener el trabajo de features. Sin una política de presupuesto de error, los equipos o entran en pánico con cada fluctuación o ignoran la degradación hasta que los clientes se van. La política da permiso explícito para frenar cuando la confiabilidad está en riesgo.
+La plantilla fuerza un **contrato de confiabilidad cuantificado** entre ingeniería y usuarios. Los SLIs son las métricas brutas; los SLOs son los objetivos; el presupuesto de error es la cantidad de "falta de confiabilidad" que puedes gastar antes de detener el trabajo de funcionalidades. Sin una política de presupuesto de error, los equipos o entran en pánico con cada fluctuación o ignoran la degradación hasta que los clientes se van. La política da permiso explícito para frenar cuando la confiabilidad está en riesgo.
 
 ## Variantes
 
@@ -126,7 +126,7 @@ La plantilla fuerza un **contrato de confiabilidad cuantificado** entre ingenier
 2. Basar SLOs en el rendimiento actual, no en objetivos aspiracionales; SLOs irreales agotan presupuestos instantáneamente
 3. Revisar SLOs trimestralmente; los patrones de tráfico cambian y los objetivos también deberían
 4. Alinear SLOs con el dolor del usuario, no con métricas internas; los usuarios se preocupan por errores de checkout, no por uso de CPU
-5. Documentar el impacto empresarial de cada SLO para que los ejecutivos entiendan por qué un congelamiento de features importa
+5. Documentar el impacto empresarial de cada SLO para que los ejecutivos entiendan por qué un congelamiento de funcionalidades importa
 
 ## Errores Comunes
 
@@ -148,4 +148,4 @@ No. Los SLOs son objetivos internos; los SLAs son contratos externos. Establece 
 
 ### ¿Qué pasa cuando agotamos el presupuesto de error?
 
-La política de presupuesto de error debería activar un congelamiento de features y redirigir todo el esfuerzo de ingeniería a trabajo de confiabilidad. Esto no es un castigo; es un mecanismo de seguridad. Si el equipo agota presupuestos consistentemente, los objetivos SLO probablemente son irreales y deberían revisarse hacia abajo. Si los presupuestos nunca se tocan, los objetivos son demasiado laxos y podrías estar sobre-invirtiendo en confiabilidad a costa de la velocidad de features.
+La política de presupuesto de error debería activar un congelamiento de funcionalidades y redirigir todo el esfuerzo de ingeniería a trabajo de confiabilidad. Esto no es un castigo; es un mecanismo de seguridad. Si el equipo agota presupuestos consistentemente, los objetivos SLO probablemente son irreales y deberían revisarse hacia abajo. Si los presupuestos nunca se tocan, los objetivos son demasiado laxos y podrías estar sobre-invirtiendo en confiabilidad a costa de la velocidad de entregas.

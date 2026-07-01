@@ -134,7 +134,7 @@ La verificacion de backups es la unica forma de probar que un plan de recuperaci
 - **Verificacion de snapshots en la nube**: Crear un volumen temporal desde el snapshot, montarlo y validar la integridad de datos.
 - **Verificacion de backups a nivel de aplicacion**: Restaurar datos en una nueva instancia de aplicacion y ejecutar pruebas de humo end-to-end.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Prueba los backups en una programacion recurrente, no solo una vez al ano.
 - Usa un entorno aislado que refleje la topologia de produccion.

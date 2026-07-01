@@ -108,13 +108,13 @@ Los endpoints son el primer objetivo de phishing, malware y robo de credenciales
 
 ## Variantes
 
-- **Checklist para trabajadores remotos**: Agrega VPN, seguridad del router de casa y precauciones de privacidad de camaras.
-- **Checklist BYOD**: Se enfoca en la contenedorizacion y separacion de datos personales vs. corporativos.
-- **Checklist para dispositivos ejecutivos**: Agrega capas de seguridad adicionales, precauciones de viaje y soporte dedicado.
-- **Checklist para endpoints de desarrolladores**: Agrega firma de codigo segura, seguridad del runtime de contenedores y gestion de secretos.
-- **Checklist solo para moviles**: Controles simplificados para telefonos y tablets con restricciones a nivel de aplicacion.
+- Checklist para trabajadores remotos: Agrega VPN, seguridad del router de casa y precauciones de privacidad de camaras.
+- Checklist BYOD: Se enfoca en la contenedorizacion y separacion de datos personales vs. corporativos.
+- Checklist para dispositivos ejecutivos: Agrega capas de seguridad adicionales, precauciones de viaje y soporte dedicado.
+- Checklist para endpoints de desarrolladores: Agrega firma de codigo segura, seguridad del runtime de contenedores y gestion de secretos.
+- Checklist solo para moviles: Controles simplificados para telefonos y tablets con restricciones a nivel de aplicacion.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Aplica el checklist antes de que el dispositivo se use para trabajo.
 - Automatiza las verificaciones de cumplimiento a traves de politicas de MDM o EDR.

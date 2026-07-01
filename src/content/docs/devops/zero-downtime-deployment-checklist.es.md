@@ -139,14 +139,14 @@ Los despliegues sin tiempo de inactividad dependen de tres cosas: mecanismos de 
 
 ## Variantes
 
-- **Checklist de rolling update en Kubernetes**: Enfoque en readiness probes, max surge, max unavailable y pod disruption budgets.
-- **Checklist de despliegue blue-green**: Enfoque en el switch de trafico, compatibilidad de base de datos y retencion de versiones.
-- **Checklist de despliegue canary**: Enfoque en umbrales de metricas, pesos de trafico progresivos y puertas de rollback automatico.
-- **Checklist de despliegue serverless**: Enfoque en versionado de funciones, enrutamiento de alias y gestion de etapas de API Gateway.
-- **Checklist de despliegue con mucha base de datos**: Enfoque en compatibilidad de esquema, orden de migraciones y scripts de rollback.
-- **Checklist de despliegue movil o cliente**: Enfoque en rollout escalonado, manejo de actualizaciones forzadas y compatibilidad de API.
+- Checklist de rolling update en Kubernetes: Enfoque en readiness probes, max surge, max unavailable y pod disruption budgets.
+- Checklist de despliegue blue-green: Enfoque en el switch de trafico, compatibilidad de base de datos y retencion de versiones.
+- Checklist de despliegue canary: Enfoque en umbrales de metricas, pesos de trafico progresivos y puertas de rollback automatico.
+- Checklist de despliegue serverless: Enfoque en versionado de funciones, enrutamiento de alias y gestion de etapas de API Gateway.
+- Checklist de despliegue con mucha base de datos: Enfoque en compatibilidad de esquema, orden de migraciones y scripts de rollback.
+- Checklist de despliegue movil o cliente: Enfoque en rollout escalonado, manejo de actualizaciones forzadas y compatibilidad de API.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Manten los despliegues pequenos y frecuentes para reducir el riesgo.
 - Haz que los cambios de base de datos sean compatibles hacia atras con el codigo viejo y nuevo.

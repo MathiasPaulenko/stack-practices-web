@@ -79,7 +79,7 @@ La CTE recursiva tiene dos partes. El miembro ancla selecciona los nodos de nive
 | Lista de materiales | `parent_part_id IS NULL` | `parent_part_id = id` |
 | Camino a la raíz | `id = ?` | `id = parent_id` |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Incluye siempre un guarda contra ciclos.** Agrega un array `path` o una verificación `visited` para evitar recursión infinita cuando los datos contienen ciclos.
 2. **Indexa las columnas padre/hijo.** Un índice en `manager_id` hace el join recursivo mucho más rápido.

@@ -40,7 +40,7 @@ Use this resource when:
 - Converting nested form data into flat key-value pairs for [HTTP query strings](/recipes/data/url-encoding) or CSV export
 - Patching only specific deeply nested fields in a MongoDB/Elasticsearch document
 - Normalizing [JSON API responses](/recipes/data/parse-json) into a flat relational structure for analytics
-- Building dynamic configuration systems where dot-notation paths access nested settings
+- Building live configuration systems where dot-notation paths access nested settings
 
 ## Solution
 
@@ -256,7 +256,7 @@ public class FlattenUtil {
 | Lodash `_.set` | `.` | Auto-detection | Quick one-liners with library dependency |
 | JSON Pointer | `/` | `/0` | JSON Patch, RFC 6901 compliance |
 
-## Best Practices
+## What Works
 
 1. **Validate separator choice** — if your data keys might contain dots (e.g., domain names like `example.com`), use a custom separator like `__` or `→` to avoid ambiguous paths.
 2. **Preserve array indices explicitly** — always include array indices in the flattened key (`tags[0]`). Without them, arrays become objects with numeric string keys on unflatten.

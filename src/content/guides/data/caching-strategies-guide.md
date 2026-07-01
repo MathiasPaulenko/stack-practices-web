@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Caching is one of the most effective ways to improve application performance and reduce infrastructure costs. By storing copies of frequently accessed data closer to where it is needed, you reduce latency, decrease database load, and improve user experience. But caching introduces complexity: stale data, invalidation logic, and consistency challenges.
+Caching is one of the most useful ways to improve application performance and reduce infrastructure costs. By storing copies of frequently accessed data closer to where it is needed, you reduce latency, decrease database load, and improve user experience. But caching introduces complexity: stale data, invalidation logic, and consistency challenges.
 
 This guide covers caching at every layer of the stack, from browser to database.
 
@@ -340,7 +340,7 @@ p.run_in_thread(sleep_time=0.001)
 r.publish('product-updates', product_id)
 ```
 
-## What works
+## What Works
 
 - **Cache at multiple layers.** Browser + CDN + Redis + database buffer pool.
 - **Use TTLs appropriate to data volatility.** User profile: 1 hour. Product catalog: 1 day. Session: 15 minutes.

@@ -138,7 +138,7 @@ SLIs are **what** you measure, SLOs are **how good** it must be, and alerts are 
 | Public SaaS API | Strict SLOs, multi-channel paging | 99.99% availability, PagerDuty + SMS |
 | Serverless / Lambda | Focus on cold start and concurrency | Alert on throttling, not CPU |
 
-## Best Practices
+## What Works
 
 1. Alert on symptoms (latency, errors) not causes (disk full) to reduce noise
 2. Set every alert threshold based on SLO burn rate, not arbitrary percentages

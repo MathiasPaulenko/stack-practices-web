@@ -272,7 +272,7 @@ The key benefit is that the memento's internal state is opaque to the caretaker,
 ## What Works
 
 - **Keep mementos immutable** after creation to prevent accidental tampering
-- **Limit memento lifetime** — large histories consume significant memory
+- **Limit memento lifetime** — large histories consume substantial memory
 - **Consider serialization** for complex object graphs, but be aware of performance costs
 - **Implement a memento interface** that only exposes state restoration methods to the originator
 - **Use delta mementos** for large objects where only a few fields change

@@ -181,7 +181,7 @@ Al encapsular peticiones como objetos, ganas la habilidad de encolar, loggear y 
 | **Command deshacible** | Operaciones que pueden revertirse | Requiere mantener estado para la reversión |
 | **Macro Command** | Compuesto de múltiples commands | Potente, pero más difícil de deshacer atómicamente |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Implementa `undo()` para cada command** si tu sistema soporta deshacer
 - **Mantén los commands sin estado cuando sea posible**: Almacena estado del receptor, no del command

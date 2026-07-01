@@ -78,7 +78,7 @@ La función `to_tsvector` analiza el texto en una lista de tokens normalizados l
 | Índice trigram | GIN | Búsqueda difusa, patrones `LIKE` |
 | Externo | Elasticsearch | Facetado complejo, búsqueda distribuida |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Usa la configuración correcta de búsqueda de texto.** PostgreSQL soporta múltiples diccionarios; elige uno que coincida con el idioma de tu contenido.
 2. **Indexa el tsvector, no el texto raw.** GIN sobre `tsvector` es mucho más eficiente que escanear texto.

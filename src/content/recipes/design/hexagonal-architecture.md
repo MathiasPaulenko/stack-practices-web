@@ -189,7 +189,7 @@ app.post('/users', async (req, res) => {
 | Adapters | Controllers, repositories, external clients | Domain + frameworks | Integration tests |
 | Framework | HTTP server, database, message queue | Adapters | E2E tests |
 
-## Best practices
+## What Works
 
 - **Keep the domain pure**: no imports from `node_modules` in domain code. Only language primitives and standard library. If you see `import express` or `import typeorm` in the domain, the boundary is violated.
 - **Use dependency injection**: pass adapters into domain services via constructors. Do not use service locators or global singletons. Constructor injection makes dependencies explicit and testable.

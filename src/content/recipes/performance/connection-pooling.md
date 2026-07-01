@@ -172,7 +172,7 @@ For HTTP clients, `keep-alive` reuses the underlying TCP connection across multi
 | HTTP (Node) | axios + http.Agent | `maxSockets` controls parallel connections |
 | HTTP (Java) | Apache HttpClient / OkHttp | Built-in connection managers with per-route limits |
 
-## Best Practices
+## What Works
 
 1. Set `max pool size` to roughly the number of concurrent workers (threads, processes, or event loop concurrency)
 2. Always `release()` or `putconn()` connections in a `finally` block to prevent leaks

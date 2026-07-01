@@ -364,7 +364,7 @@ In frameworks like Vue or WPF, the binding is automatic. In our examples above, 
 | **Command** | View → ViewModel | Buttons, actions that trigger logic |
 | **Computed** | Derived from other properties | Aggregations, filtered lists |
 
-## Best Practices
+## What Works
 
 - **Keep the ViewModel framework-agnostic.** It should not import UI toolkit classes.
 - **Use observable properties.** The ViewModel must notify the View when state changes.

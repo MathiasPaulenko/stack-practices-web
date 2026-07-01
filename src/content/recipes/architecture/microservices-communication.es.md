@@ -138,7 +138,7 @@ Las **sagas** reemplazan a las transacciones distribuidas. Una saga es una secue
 | Event-driven | Kafka, event bus | Múltiples consumidores, auditoría, flujos complejos | Evolución de esquemas de eventos, coordinación de consumidores |
 | GraphQL | HTTP | Queries flexibles, clientes móviles | Complejidad del servidor, desafíos de caché |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Prefiere la comunicación asíncrona para operaciones de larga duración o no críticas.** Usa mensajería o eventos cuando el llamador no necesita un resultado inmediato.
 2. **Configura timeouts agresivos y presupuestos de reintento pequeños.** Una tormenta de reintentos puede amplificar una interrupción parcial. Limita los reintentos a 3 intentos y usa backoff exponencial con jitter.

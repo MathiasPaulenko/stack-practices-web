@@ -172,7 +172,7 @@ public class OrderService {
 | Registro | Sí | Sí | Bueno | Múltiples singletons nombrados |
 | DI container | Sí | Sí | Excelente | Aplicaciones modernas |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Prefiere DI sobre singletons manuales**: un container de inyección de dependencias gestiona singletons declarativamente. Configuras `services.AddSingleton<IConfig, AppConfig>()` y el container maneja creación, cacheo y disposición. Las dependencias son explícitas y el testing es trivial.
 - **Haz singletons stateless o inmutables**: un singleton mutable es estado global, y el estado global es el enemigo del testing y la concurrencia. Consulta [Prevención de Race Conditions](/recipes/data/race-condition-prevention) para seguridad concurrente. Si el singleton debe mantener estado, hazlo thread-safe (usa locks u operaciones atómicas) y documenta las garantías de thread-safety.

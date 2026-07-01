@@ -206,7 +206,7 @@ The **Flyweight Factory** (`TreeType.get()`) manages a cache of shared flyweight
 | **Compound Flyweight** | Flyweights composed of other flyweights | Complex UI elements |
 | **String Interning** | Built-in language feature | Java `String.intern()`, Python string interning |
 
-## Best Practices
+## What Works
 
 - **Only apply when memory pressure is real** — premature optimization adds complexity
 - **Make flyweights immutable** to prevent shared state corruption

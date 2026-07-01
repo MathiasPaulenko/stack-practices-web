@@ -2,7 +2,7 @@
 contentType: recipes
 slug: kafka-event-streaming
 title: "Event Streaming with Apache Kafka and Node.js"
-description: "Build scalable event-driven systems using Apache Kafka with producers, consumers, consumer groups, and exactly-once semantics for reliable asynchronous messaging"
+description: "Build growth-ready event-driven systems using Apache Kafka with producers, consumers, consumer groups, and exactly-once semantics for reliable asynchronous messaging"
 metaDescription: "Build event-driven systems with Apache Kafka. Implement producers, consumers, consumer groups, and exactly-once semantics for reliable asynchronous messaging."
 difficulty: intermediate
 topics:
@@ -30,7 +30,7 @@ seo:
 
 # Event Streaming with Apache Kafka and Node.js
 
-Build resilient, scalable event-driven systems using Apache Kafka. This recipe covers producer configuration, consumer groups with auto-rebalancing, offset management, and exactly-once processing semantics for reliable asynchronous communication between microservices.
+Build resilient, growth-ready event-driven systems using Apache Kafka. This recipe covers producer configuration, consumer groups with auto-rebalancing, offset management, and exactly-once processing semantics for reliable asynchronous communication between microservices.
 
 ## When to Use This
 

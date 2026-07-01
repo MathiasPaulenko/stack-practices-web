@@ -203,5 +203,5 @@ R: Si usas keys respaldadas por base de datos, elimina o deshabilita el registro
 R: Sí. Almacena keys hasheadas o encriptadas en tu base de datos. Cuando se presenta una key, hasheala y compara contra el hash almacenado. Esto previene que atacantes lean keys utilizables si la base de datos es vulnerada.
 
 **P: ¿Puedo usar API keys para autenticación de usuarios?**
-R: Las API keys están diseñadas para clientes machine, no usuarios humanos. Para autenticación de usuarios, usa session cookies, OAuth2 o OIDC. Las API keys carecen de features como autenticación multifactor y son más difíciles de gestionar de forma segura por usuarios.
+R: Las API keys están diseñadas para clientes machine, no usuarios humanos. Para autenticación de usuarios, usa session cookies, OAuth2 o OIDC. Las API keys carecen de capacidades como autenticación multifactor y son más difíciles de gestionar de forma segura por usuarios.
 

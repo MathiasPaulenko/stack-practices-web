@@ -171,7 +171,7 @@ This structure lets you add new notification channels (e.g., Push, Slack) withou
 | **Factory Method** | Subclasses override creation | More flexible, more classes |
 | **[Abstract Factory](/patterns/design/abstract-factory-pattern)** | Families of related objects | Complex, but handles product families |
 
-## Best Practices
+## What Works
 
 - **Use enums for channel/types** instead of raw strings to avoid typos
 - **Throw explicit errors** for unsupported types instead of returning null

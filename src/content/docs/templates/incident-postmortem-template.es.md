@@ -87,7 +87,7 @@ configuración o diagramas de arquitectura si aplica.]
 
 ### Qué Funcionó Bien
 - El monitoreo detectó el problema en 5 minutos. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para configuración.
-- El runbook estaba actualizado y fue efectivo. Consulta la [Plantilla de Runbook](/docs/templates/runbook-template) para estructura.
+- El runbook estaba actualizado y fue útil. Consulta la [Plantilla de Runbook](/docs/templates/runbook-template) para estructura.
 
 ### Qué Salió Mal
 - El leak de conexión no se detectó en staging

@@ -217,7 +217,7 @@ public class LogRotationExample {
 }
 ```
 
-## Best Practices
+## What Works
 
 - **Use `copytruncate` or `create` with a postrotate signal** to avoid losing log entries between copy and reopen. Applications must handle `SIGHUP` to reopen file descriptors.
 - **Set `totalSizeCap` or equivalent** to cap total storage across all rotated logs, not just the count of files.
@@ -242,4 +242,4 @@ A: Log rotation archives or deletes old log files to prevent disk exhaustion. Wi
 A: Balance compliance, debugging needs, and storage cost. A common web application keeps 7-30 days of logs locally and archives older logs to cold storage.
 
 **Q: Should I compress rotated logs?**
-A: Yes. Compression reduces storage usage significantly. Most log rotation tools support gzip or zstd compression out of the box.
+A: Yes. Compression reduces storage usage considerably. Most log rotation tools support gzip or zstd compression out of the box.

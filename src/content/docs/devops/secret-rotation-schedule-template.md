@@ -106,7 +106,7 @@ The schedule makes secret lifecycle visible. Without it, credentials expire unex
 - **CI/CD secret schedule**: Manages pipeline tokens, signing keys, and deployment credentials.
 - **Database credential schedule**: Tracks database passwords and connection strings with rolling rotation to avoid downtime.
 
-## Best Practices
+## What Works
 
 - Store secrets in a dedicated vault, never in source code or plaintext files.
 - Automate rotation where possible to reduce human error.

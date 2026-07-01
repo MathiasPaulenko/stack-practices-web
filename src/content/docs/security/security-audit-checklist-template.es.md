@@ -127,7 +127,7 @@ El checklist está organizado por **dominio de seguridad** para que los equipos 
 1. Ejecutar este checklist antes de cada lanzamiento a producción, no solo anualmente
 2. Asignar cada sección al equipo que posee los sistemas relevantes
 3. Rastrear hallazgos en una herramienta de gestión de vulnerabilidades con severidad y fechas límite
-4. Re-probar ítems después de cambios significativos de infraestructura o aplicación
+4. Re-probar ítems después de cambios importantes de infraestructura o aplicación
 5. Compartir resultados con liderazgo para justificar inversión en seguridad
 
 ## Errores Comunes

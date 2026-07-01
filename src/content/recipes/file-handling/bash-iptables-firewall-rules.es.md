@@ -94,7 +94,7 @@ El script comienza eliminando reglas existentes y reiniciando contadores. Establ
 | Rate limit | `-m recent` | Ralentizar fuerza bruta |
 | Log y drop | `-j LOG --log-prefix` | Auditar tráfico bloqueado |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. **Denegación por defecto, permitir explícitamente.** Una política de drop por defecto es más segura que una de allow.
 2. **Guarda reglas antes del reinicio.** Usa `iptables-save` y un servicio systemd o el paquete netfilter-persistent.

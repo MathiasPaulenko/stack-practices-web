@@ -165,7 +165,7 @@ wait
 sem --id api_calls --wait
 ```
 
-## Best Practices
+## What Works
 
 - **Always set `-P` or `-j` explicitly.** Unlimited parallelism exhausts file descriptors, memory, or remote quotas.
 - **Use `-print0 | xargs -0` or GNU parallel's default line handling.** Filenames with spaces break naive pipelines.

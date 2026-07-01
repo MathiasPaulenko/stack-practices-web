@@ -186,7 +186,7 @@ jobs:
       node-version: '20'
 ```
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Fija versiones de actions** usando full commit SHAs para seguridad de supply chain. Aunque tags como `v4` son convenientes, un maintainer comprometido podría repuntar el tag a código malicioso. Fijar a un SHA garantiza que se ejecuta exactamente el mismo código siempre.
 - **Usa `npm ci`** en lugar de `npm install` en CI para builds reproducibles. `npm ci` respeta estrictamente `package-lock.json`, eliminando la deriva entre entornos local y CI.

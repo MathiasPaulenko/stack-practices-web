@@ -127,7 +127,7 @@ Este patrón garantiza que cualquier instancia en ejecución de tu app (incluyen
 | Backfill por lotes | Migraciones de tablas grandes | Actualizar 10k filas por transacción para evitar locks largos |
 | Despliegue Blue/Green | Sistemas críticos | Ejecutar nuevo esquema en green, cambiar tráfico, luego eliminar viejo |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre haz nuevas columnas nullable primero**: Las filas existentes no deben fallar durante la migración.
 - **Backfill antes de hacer non-nullable**: Actualiza filas existentes con valores sensatos antes de agregar `NOT NULL`.

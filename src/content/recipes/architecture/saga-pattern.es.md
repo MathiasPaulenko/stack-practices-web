@@ -209,7 +209,7 @@ async function orderSaga(orderData: OrderData): Promise<void> {
 | Orquestación | Más fuerte | Buena (central) | Media | Flujos complejos, muchos pasos |
 | Máquina de estados | Débil | Excelente | Alta | Larga duración, aprobación humana |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Haz cada paso idempotente**: una saga puede reintentar pasos por timeouts de red. Si `reserveInventory` se llama dos veces para la misma orden, debe devolver el mismo ID de reserva en lugar de crear una duplicada. Usa IDs de orden como claves de deduplicación.
 - **Diseña compensaciones antes de implementar pasos**: para cada acción hacia adelante, define la compensación correspondiente antes de escribir la acción. Si no puedes definir una compensación (ej. enviar un email no se puede deshacer), reconsidera si el saga pattern encaja.

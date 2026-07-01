@@ -278,7 +278,7 @@ public class SamlSecurityConfig {
 }
 ```
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Valida la firma de la respuesta SAML antes de parsear assertions.** Los ataques XML Signature Wrapping (XSW) inyectan assertions maliciosas que evaden verificación de firma si el código busca en el nodo XML incorrecto.
 - **Usa HTTPS en todas partes.** Los assertions SAML contienen tokens de autenticación; transmitirlos por HTTP permite interceptación y replay.

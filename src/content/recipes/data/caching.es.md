@@ -35,7 +35,7 @@ seo:
 
 El caching almacena el resultado de computaciones costosas para que requests posteriores por los mismos datos puedan ser servidos más rápido. La memoización es una forma específica de caching donde los valores de retorno de funciones se cachean basados en sus argumentos.
 
-El caching es una de las optimizaciones de rendimiento más efectivas, pero introduce complejidad: datos stale, invalidación de cache y consistencia distribuida.
+El caching es una de las optimizaciones de rendimiento más útiles, pero introduce complejidad: datos stale, invalidación de cache y consistencia distribuida.
 
 ## Cuándo usarlo
 
@@ -147,7 +147,7 @@ userCache.invalidate(userId);
 | **Cache-aside** | Flexibilidad, lectura intensiva | La aplicación maneja la lógica de cache |
 | **Eviction (LRU/LFU)** | Restricciones de memoria | Puede evictar datos hot prematuramente |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Cachea al nivel correcto**: No cachees todo. Cachea los datos más costosos y más frecuentemente accedidos.
 - **Establece TTLs consideradamente**: Demasiado corto = inútil. Demasiado largo = datos stale.

@@ -28,7 +28,7 @@ seo:
     - monitoring and alerting
     - observability metrics logs traces
     - red use method
-    - alert design best practices
+    - alert design what works
     - reduce alert fatigue
 ---
 

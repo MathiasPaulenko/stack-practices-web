@@ -168,7 +168,7 @@ Separate operational logs (debugging) from audit logs (compliance). Audit logs s
 | Pino | JavaScript | JSON | High-performance Node.js logging |
 | Logback + MDC | Java | JSON/Pattern | Thread-local context in Spring |
 
-## Best Practices
+## What Works
 
 - **Never log sensitive data**: Exclude passwords, tokens, PII — mask or hash them. See [Security Guide](/guides/security/security-best-practices-guide) for data protection.
 - **Use correlation IDs**: Pass `X-Correlation-Id` through every service call

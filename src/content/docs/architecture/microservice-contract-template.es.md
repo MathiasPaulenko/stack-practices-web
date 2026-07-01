@@ -127,7 +127,7 @@ El contrato actúa como una **fuente de verdad compartida** entre los equipos pr
 | Socios externos | Apéndice legal de SLA | Puede requerir firmas formales |
 | Event-driven | Registro de esquemas async | Usar Avro / JSON Schema con reglas de compatibilidad |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Almacenar contratos en control de versiones y requerir revisión por PR para cambios
 2. Enlazar contratos a pruebas de API automatizadas y validación de esquemas

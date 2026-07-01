@@ -253,4 +253,4 @@ API documentation is the human-readable guide with explanations, examples, and c
 
 ### How do I keep API docs in sync with code?
 
-Generate documentation from code annotations or OpenAPI specs as part of your CI pipeline. Use tools like Swagger UI, Redoc, or Stoplight to render specs automatically. See [REST API Design Guide](/guides/api/rest-api-design-guide) for API design best practices. Manual docs drift quickly without automation.
+Generate documentation from code annotations or OpenAPI specs as part of your CI pipeline. Use tools like Swagger UI, Redoc, or Stoplight to render specs automatically. See [REST API Design Guide](/guides/api/rest-api-design-guide) for what works in API design. Manual docs drift quickly without automation.

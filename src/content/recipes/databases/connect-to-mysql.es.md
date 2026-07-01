@@ -126,7 +126,7 @@ MySQL usa **consultas preparadas** a través de placeholders a nivel de protocol
 | JavaScript | `mysql` (no promise) | Driver legacy basado en callbacks |
 | Java | `HikariCP` + MySQL Connector/J | Pooling estándar de la industria para Spring Boot |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Usa pools de conexiones con un límite apropiado para `max_connections` de tu base de datos
 2. Habilita SSL con verificación de certificado en entornos de producción

@@ -141,7 +141,7 @@ Las pruebas de carga evaluan como se comporta un sistema bajo trafico realista o
 
 ## Explicacion
 
-Las pruebas de carga no solo tratan de encontrar el punto de ruptura. Se trata de entender como se degrada un sistema, donde estan los cuellos de botella y si la capacidad actual cumple con las expectativas de usuarios y negocio. Un plan de ejecucion documentado hace que las pruebas de rendimiento sean repetibles, comparables entre releases y accionables para los equipos de ingenieria.
+Las pruebas de carga no solo tratan de encontrar el punto de ruptura. Se trata de entender como se degrada un sistema, donde estan los cuellos de botella y si la capacidad actual cumple con las expectativas de usuarios y negocio. Un plan de ejecucion documentado hace que las pruebas de rendimiento sean repetibles, comparables entre releases y útiles para los equipos de ingenieria.
 
 ## Variantes
 

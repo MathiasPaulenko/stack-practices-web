@@ -365,7 +365,7 @@ La idea clave es que **los agentes son ganado, no mascotas**. El supervisor los 
 | Celery con Flower | Monitoreo de workers, control remoto | Colas de tareas Python |
 | Implementacion personalizada | Monitoreo directo de procesos | Sistemas embebidos, edge computing |
 
-## Mejores Practicas
+## Lo que funciona
 
 - Hacer los agentes sin estado
 - Usar heartbeats con timeouts

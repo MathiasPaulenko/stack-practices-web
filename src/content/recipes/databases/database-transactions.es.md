@@ -138,7 +138,7 @@ COMMIT;
 | REPEATABLE READ | Prevenido | Prevenido | Permitido | Default (MySQL) |
 | SERIALIZABLE | Prevenido | Prevenido | Prevenido | Más lento, más seguro |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén transacciones cortas**: Las transacciones largas retienen locks y bloquean otros queries
 - **Usa el nivel de aislamiento más bajo** que cumpla tus requerimientos de corrección

@@ -134,7 +134,7 @@ AST traversal enables custom transformations: link validation, heading anchor in
 | Java | `commonmark-java` | `Parser` + `HtmlRenderer` | Spec-compliant, minimal dependencies |
 | Java | `flexmark-java` | `Parser` + `HtmlRenderer` | Extensible, supports GFM, tables, and YAML frontmatter |
 
-## Best Practices
+## What Works
 
 - **Sanitize HTML output**: Markdown can contain raw HTML; use DOMPurify (JS), Bleach (Python), or OWASP Java HTML Sanitizer before rendering user-generated content
 - **Use CommonMark-compliant parsers** for cross-platform consistency; avoid deprecated parsers like `markdown-js`

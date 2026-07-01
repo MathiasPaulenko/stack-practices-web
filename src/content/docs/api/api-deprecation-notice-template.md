@@ -118,7 +118,7 @@ The template separates **what** is changing from **why** and **how** to migrate.
 | Internal API | 30 days notice, Slack announcement | Faster iteration, smaller consumer base |
 | Emergency security patch | 7 days notice, direct outreach | Security takes priority over convenience |
 
-## Best Practices
+## What Works
 
 1. **Send deprecation headers in API responses** at least 90 days before sunset (`Deprecation: true`, `Sunset: <date>`)
 2. **Provide a working replacement** before removing the old endpoint

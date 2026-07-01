@@ -276,7 +276,7 @@ La característica clave es que la **View es pasiva** — no extrae datos del Mo
 | **MVC** | El Controller maneja input, la View observa el Model | Frameworks como Rails, Django |
 | **MVVM** | La View se bind a propiedades del ViewModel | UIs reactivas (WPF, Vue, Angular) |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Haz la View una interfaz.** Esto habilita unit testing del Presenter con una View mockeada.
 - **Mantén la View tonta.** Sin lógica de negocio, sin transformación de datos, sin toma de decisiones.

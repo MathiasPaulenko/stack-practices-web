@@ -308,7 +308,7 @@ Both approaches use **compensating transactions** to undo work when a step fails
 | **Parallel Saga** | Independent steps run concurrently | Non-dependent operations |
 | **Nested Saga** | A saga calls another saga | Complex domain decompositions |
 
-## Best Practices
+## What Works
 
 - **Design compensations first** — every step must have a reliable undo operation
 - **Idempotency**: Steps and compensations should be safe to run multiple times

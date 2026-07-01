@@ -171,7 +171,7 @@ Presupuesto de error = 100% - Objetivo SLO. Para 99.9% de disponibilidad, el pre
 
 ### Deberia incluir latencia en el SLA?
 
-Si, pero se realista. Un objetivo de latencia p95 de 200ms es alcanzable para la mayoria de APIs. Objetivos por debajo de 50ms requieren inversion significativa en infraestructura y pueden no ser rentables.
+Si, pero se realista. Un objetivo de latencia p95 de 200ms es alcanzable para la mayoria de APIs. Objetivos por debajo de 50ms requieren inversion importante en infraestructura y pueden no ser rentables.
 
 ### Que pasa si quemamos todo el presupuesto de error antes de que termine la ventana?
 

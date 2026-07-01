@@ -92,7 +92,7 @@ Use this template to evaluate libraries before adding them or during periodic au
 | Native binaries without reproducible builds | Supply chain attack risk |
 | > 100 transitive dependencies | Each is a new attack surface |
 
-## Best Practices
+## What Works
 
 - **Audit before adding** — retroactive audits discover problems too late
 - **Automate scanning** — Dependabot, Snyk, or OWASP Dependency-Check in CI. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for integrating security scans.

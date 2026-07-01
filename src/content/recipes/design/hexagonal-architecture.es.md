@@ -165,7 +165,7 @@ app.post('/users', async (req, res) => {
 | Adapters | Controllers, repositories, clientes externos | Dominio + frameworks | Tests de integración |
 | Framework | Servidor HTTP, base de datos, cola de mensajes | Adapters | Tests E2E |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Mantén el dominio puro**: sin imports de `node_modules` en código de dominio. Solo primitivas del lenguaje y biblioteca estándar. Si ves `import express` o `import typeorm` en el dominio, el límite está violado.
 - **Usa inyección de dependencias**: pasa adapters a los domain services vía constructores. No uses service locators o singletons globales. La inyección por constructor hace las dependencias explícitas y testeables.

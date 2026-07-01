@@ -139,7 +139,7 @@ Decisiones clave de diseño:
 R: [RAG](/recipes/ai/semantic-search) recupera documentos y responde una vez. Los agentes pueden tomar múltiples acciones, usar herramientas e iterar hasta cumplir una meta.
 
 **P: ¿Cuántas herramientas debería tener un agente?**
-R: Comienza con 2-3. La investigación muestra que la precisión cae significativamente más allá de 5-7 herramientas.
+R: Comienza con 2-3. La investigación muestra que la precisión cae bruscamente más allá de 5-7 herramientas.
 
 **P: ¿Los agentes pueden funcionar sin OpenAI?**
 R: Sí. Modelos locales (Llama, Mistral) soportan llamado de herramientas vía formatos de salida estructurada como JSON mode.

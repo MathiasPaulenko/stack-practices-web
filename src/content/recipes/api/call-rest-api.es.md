@@ -3,7 +3,7 @@ contentType: recipes
 slug: call-rest-api
 title: "Llamar a una API REST"
 description: "Cómo hacer peticiones HTTP a una API REST y manejar la respuesta JSON en varios lenguajes."
-metaDescription: "Aprende a llamar a una API REST en Python, JavaScript y Java con ejemplos prácticos de peticiones HTTP, manejo de errores y buenas prácticas."
+metaDescription: "Aprende a llamar a una API REST en Python, JavaScript y Java con ejemplos prácticos de peticiones HTTP, manejo de errores y lo que funciona."
 difficulty: beginner
 topics:
   - api
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende a llamar a una API REST en Python, JavaScript y Java con ejemplos prácticos de peticiones HTTP, manejo de errores y buenas prácticas."
+  metaDescription: "Aprende a llamar a una API REST en Python, JavaScript y Java con ejemplos prácticos de peticiones HTTP, manejo de errores y lo que funciona."
   keywords:
     - llamar api rest
     - peticiones http
@@ -111,7 +111,7 @@ Una vez recibas el cuerpo, consulta [Parsear JSON](/recipes/data/parse-json) par
 | JavaScript | `fetch` (nativo) | promesas nativas | comprueba `response.ok` |
 | Java | `HttpClient` (Java 11+) | `sendAsync` | sin dependencias extra |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Define siempre un timeout**: una petición colgada puede bloquear un hilo o worker indefinidamente. En Python, pasa `timeout=10` a `requests.get`; en Node, usa `AbortController` con `fetch`; en Java, setea un timeout en el builder de `HttpClient`.
 - **Comprueba el código de estado**: no asumas `2xx`; maneja `4xx`/`5xx` explícitamente. Un `401` significa que la autenticación falló; un `429` significa que estás rate-limited; un `503` significa que el servicio está temporalmente no disponible.

@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Copying and moving files is a staple operation in automation, deployment, and data pipelines. Doing it safely across platforms requires attention to path separators, permissions, and atomicity. This recipe shows robust patterns in Python, JavaScript, and Java.
+Copying and moving files is a staple operation in automation, deployment, and data pipelines. Doing it safely across platforms requires attention to path separators, permissions, and atomicity. This recipe shows reliable patterns in Python, JavaScript, and Java.
 
 ## When to Use
 
@@ -114,7 +114,7 @@ public class FileMover {
 | JavaScript | `ncp` or `fs-extra` | Recursive directory copy with filters |
 | Java | Apache Commons IO `FileUtils` | Higher-level helpers for batch operations |
 
-## Best Practices
+## What Works
 
 1. Use `COPYFILE_EXCL` / `COPY_ATTRIBUTES` to preserve permissions and timestamps
 2. Prefer atomic moves when possible to avoid partial files

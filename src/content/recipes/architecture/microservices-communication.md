@@ -138,7 +138,7 @@ async function publishOrderCreated(order) {
 | Event-driven | Kafka, event bus | Multiple consumers, audit logs, complex workflows | Event schema evolution, consumer coordination |
 | GraphQL | HTTP | Flexible queries, mobile clients | Server complexity, caching challenges |
 
-## Best Practices
+## What Works
 
 1. **Prefer asynchronous communication for long-running or non-critical operations.** Use messaging or events when the caller does not need an immediate result.
 2. **Set aggressive timeouts and small retry budgets.** A retry storm can amplify a partial outage. Cap retries at 3 attempts and use exponential backoff with jitter.

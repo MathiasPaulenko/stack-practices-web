@@ -142,7 +142,7 @@ Esta plantilla agrupa la seguridad de API en capas concéntricas. La **autentica
 | WebSocket | Validar origen y rate limitar frames | Prevenir DoS por flooding de frames |
 | API Socio | Revisar HMAC request signing | Verificar timestamp y replay attacks |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Ejecutar esta revisión en cada PR que modifica autenticación, autorización o validación de entrada
 2. Automatizar lo que se pueda: linting de secretos, análisis estático de seguridad (SAST)

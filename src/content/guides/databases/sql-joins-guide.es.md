@@ -212,7 +212,7 @@ JOIN (
 
 - **INNER JOIN implícito** — usar tablas separadas por coma sin filtros WHERE crea CROSS JOIN
 - **Índices de foreign key faltantes** — las columnas de join deben estar indexadas del lado "muchos"
-- **LEFT JOIN con WHERE sobre tabla derecha** — filtra filas NULL, efectivamente convirtiéndolo en INNER JOIN
+- **LEFT JOIN con WHERE sobre tabla derecha** — filtra filas NULL, así que también podría ser un INNER JOIN
 - **Join en VARCHAR sin awareness de collation** — sorpresas de sensibilidad a mayúsculas
 - **Consultas N+1 en ORMs** — fetch de datos relacionados fila-por-fila en lugar de JOIN
 

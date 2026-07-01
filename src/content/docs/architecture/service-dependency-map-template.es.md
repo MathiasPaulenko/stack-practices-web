@@ -126,7 +126,7 @@ El mapa separa **upstream** (lo que el servicio necesita) de **downstream** (lo 
 | Enterprise | Diagramas C4 + integración CMDB | Usar herramientas como ServiceNow o Backstage |
 | Serverless | Granularidad a nivel de función | Mapear Lambdas individuales a triggers y destinos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Actualizar el mapa después de cada cambio arquitectónico, no solo trimestralmente
 2. Almacenar mapas en control de versiones junto al código del servicio

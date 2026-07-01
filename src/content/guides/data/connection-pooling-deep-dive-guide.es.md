@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: connection-pooling-deep-dive-guide
-title: "Pooling de Conexiones — Optimiza Conexiones de Base de Datos para Escalar"
+title: "Pooling de Conexiones: Optimiza Conexiones de Base de Datos para Escalar"
 description: "Guía práctica sobre pooling de conexiones de base de datos: dimensionar pools, manejar timeouts de inactividad, detectar fugas, y configurar HikariCP, PgBouncer y pools nativos en la nube para máximo throughput."
 metaDescription: "Aprende pooling de conexiones: dimensiona pools, timeouts, fugas y configura HikariCP, PgBouncer y pools nativos en la nube."
 difficulty: intermediate
@@ -91,7 +91,7 @@ Con Pooling:
 
 La configuración más importante es el tamaño del pool. Demasiado pequeño = peticiones bloqueadas. Demasiado grande = memoria desperdiciada y contención en base de datos.
 
-**Fórmula para tamaño óptimo de pool:**
+#### Fórmula para Tamaño Óptimo de Pool
 
 ```
 conexiones = ((núcleos * 2) + discos_efectivos)
@@ -102,7 +102,7 @@ Para PostgreSQL en un servidor de 16 núcleos con SSD:
 conexiones = (16 * 2) + 1 = 33 conexiones para throughput máximo
 ```
 
-**Dimensionamiento de pool por servicio:**
+#### Dimensionamiento de Pool por Servicio
 
 | Escenario | Tamaño Máximo del Pool | Razonamiento |
 |-----------|------------------------|--------------|
@@ -199,12 +199,13 @@ config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 HikariDataSource ds = new HikariDataSource(config);
 ```
 
-**Por qué importan estos settings:**
-- **minIdle:** Previene latencia de creación de conexión durante picos de tráfico
-- **maxLifetime:** Previene conexiones obsoletas y trabaja alrededor de firewalls que eliminan TCP inactivo
-- **idleTimeout:** Cierra conexiones no usadas para liberar recursos de base de datos
-- **connectionTimeout:** Falla rápido en lugar de quedar colgado indefinidamente
-- **leakDetectionThreshold:** Atrapa código que olvida cerrar conexiones
+#### Por Qué Importan Estos Settings
+
+- minIdle: Previene latencia de creación de conexión durante picos de tráfico
+- maxLifetime: Previene conexiones obsoletas y trabaja alrededor de firewalls que eliminan TCP inactivo
+- idleTimeout: Cierra conexiones no usadas para liberar recursos de base de datos
+- connectionTimeout: Falla rápido en lugar de quedar colgado indefinidamente
+- leakDetectionThreshold: Atrapa código que olvida cerrar conexiones
 
 ### 3. Usa Pooling de Conexiones en Middleware
 
@@ -256,7 +257,7 @@ mysql_query_rules =
 )
 ```
 
-**Modos de pool explicados:**
+#### Modos de Pool Explicados
 
 | Modo | Comportamiento | Mejor Para |
 |------|---------------|------------|
@@ -307,7 +308,7 @@ def get_user(user_id):
     # Conexión auto-devuelta al pool
 ```
 
-**Estrategias de detección de fugas:**
+#### Estrategias de Detección de Fugas
 
 | Enfoque | Cómo | Cuándo |
 |---------|------|--------|
@@ -347,7 +348,7 @@ def monitor_pool(pool):
     # Alertar si waiters > 0 o active == max por > 30s
 ```
 
-**Alertas críticas:**
+#### Alertas Críticas
 
 | Alerta | Umbral | Significado |
 |--------|--------|-------------|
@@ -357,29 +358,29 @@ def monitor_pool(pool):
 | **Fuga detectada** | Cualquier advertencia de fuga | Código no cerrando conexiones |
 | **Edad de conexión** | Edad promedio > maxLifetime | Conexiones no rotando correctamente |
 
-## Mejores Prácticas
+## Lo que funciona
 
-- **Dimensiona pools basado en capacidad de base de datos, no deseo de aplicación.** Tu base de datos tiene un límite duro de conexiones. Suma todos los maxPoolSizes y asegúrate de que quepan.
-- **Usa pooling a nivel de transacción (PgBouncer) para apps web.** El pooling a nivel de sesión desperdicia conexiones durante el tiempo inactivo de petición HTTP.
-- **Siempre usa try-with-resources o context managers.** Nunca confíes en llamadas manuales a close().
-- **Configura maxLifetime menor que el timeout de inactividad de base de datos.** Previene errores de "connection reset" de firewalls o configuraciones de base de datos.
-- **Habilita verificación de conexión (pre-ping).** Verifica que las conexiones estén vivas antes de entregarlas al código de aplicación.
-- **Usa pools separados para diferentes cargas de trabajo.** Trabajos batch y APIs en tiempo real no deberían compartir un pool.
+- Dimensiona pools basado en capacidad de base de datos, no deseo de aplicación. Tu base de datos tiene un límite duro de conexiones. Suma todos los maxPoolSizes y asegúrate de que quepan.
+- Usa pooling a nivel de transacción (PgBouncer) para apps web. El pooling a nivel de sesión desperdicia conexiones durante el tiempo inactivo de petición HTTP.
+- Siempre usa try-with-resources o context managers. Nunca confíes en llamadas manuales a close().
+- Configura maxLifetime menor que el timeout de inactividad de base de datos. Previene errores de "connection reset" de firewalls o configuraciones de base de datos.
+- Habilita verificación de conexión (pre-ping). Verifica que las conexiones estén vivas antes de entregarlas al código de aplicación.
+- Usa pools separados para diferentes cargas de trabajo. Trabajos batch y APIs en tiempo real no deberían compartir un pool.
 
 ## Errores Comunes
 
-- **Pools sobredimensionados.** Un pool de 100 conexiones por instancia × 20 instancias = 2000 conexiones. La mayoría de servidores PostgreSQL luchan más allá de 500.
-- **Sin timeout de conexión.** Timeouts por defecto de 30s+ causan fallos en cascada durante cortes.
-- **Mantener conexiones durante peticiones HTTP.** Si tu llamada a API toma 5s y mantienes una conexión DB todo ese tiempo, necesitas 5× más conexiones.
-- **No manejar agotamiento de pool.** Cuando el pool está lleno, tu aplicación debería degradarse elegantemente, no quedarse colgada indefinidamente.
-- **Un pool para todo.** Trabajos batch que mantienen conexiones por minutos privan a peticiones API en tiempo real.
+- Pools sobredimensionados. Un pool de 100 conexiones por instancia × 20 instancias = 2000 conexiones. La mayoría de servidores PostgreSQL luchan más allá de 500.
+- Sin timeout de conexión. Timeouts por defecto de 30s+ causan fallos en cascada durante cortes.
+- Mantener conexiones durante peticiones HTTP. Si tu llamada a API toma 5s y mantienes una conexión DB todo ese tiempo, necesitas 5× más conexiones.
+- No manejar agotamiento de pool. Cuando el pool está lleno, tu aplicación debería degradarse elegantemente, no quedarse colgada indefinidamente.
+- Un pool para todo. Trabajos batch que mantienen conexiones por minutos privan a peticiones API en tiempo real.
 
 ## Variantes
 
-- **Pool de aplicación:** HikariCP, SQLAlchemy pool, node-postgres Pool — por instancia, el más simple
-- **Pool de middleware:** PgBouncer, ProxySQL, pgpool — compartido entre instancias, mejor utilización de recursos
-- **Pool gestionado en la nube:** RDS Proxy, Cloud SQL Proxy, Azure Database Proxy — gestionado, con integración IAM
-- **Pool serverless:** AWS RDS Proxy, Supabase connection pooling — esencial para Lambda/Cloud Run donde las instancias son efímeras
+- Pool de aplicación: HikariCP, SQLAlchemy pool, node-postgres Pool. Por instancia, el más simple
+- Pool de middleware: PgBouncer, ProxySQL, pgpool. Compartido entre instancias, mejor utilización de recursos
+- Pool gestionado en la nube: RDS Proxy, Cloud SQL Proxy, Azure Database Proxy. Gestionado, con integración IAM
+- Pool serverless: AWS RDS Proxy, Supabase connection pooling. Esencial para Lambda/Cloud Run donde las instancias son efímeras
 
 ## FAQ
 
@@ -398,4 +399,4 @@ Usa un proxy (RDS Proxy, PgBouncer) o mantén una variable global de pool que pe
 ## Conclusión
 
 El pooling de conexiones es un ajuste fundamental de rendimiento de base de datos. Al dimensionar pools correctamente, configurar timeouts apropiadamente y monitorear activamente, eliminas el overhead de conexión y proteges tu base de datos de ser abrumada por tormentas de conexiones.
-
+

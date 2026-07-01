@@ -233,7 +233,7 @@ Unlike Chat Completions, you do not send the full message history on every reque
 2. Use `code_interpreter` for calculations and data manipulation instead of trusting LLM arithmetic
 3. Validate and sanitize all function arguments before executing them
 4. Set clear `instructions` to constrain the assistant's personality and scope
-5. Monitor token usage per run; retrieval and code interpreter add significant cost
+5. Monitor token usage per run; retrieval and code interpreter add considerable cost
 
 ## Common Mistakes
 

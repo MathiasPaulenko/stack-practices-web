@@ -2,7 +2,7 @@
 contentType: recipes
 slug: real-time-websockets
 title: "Construir APIs en Tiempo Real con WebSockets en Serverless"
-description: "Cómo implementar comunicación bidireccional en tiempo real usando WebSockets con AWS API Gateway, Lambda, DynamoDB y mejores prácticas de gestión de conexiones."
+description: "Cómo implementar comunicación bidireccional en tiempo real usando WebSockets con AWS API Gateway, Lambda, DynamoDB y lo que funciona en gestión de conexiones."
 metaDescription: "Aprende a construir APIs en tiempo real con WebSockets en serverless. Implementa comunicación bidireccional con API Gateway, Lambda, DynamoDB y gestión de conexiones."
 difficulty: advanced
 topics:
@@ -181,7 +181,7 @@ ws.onclose = () => console.log('Connection closed');
 | Pusher | Pusher Channels | Gestionado | Prototipado rápido |
 | Ably | Ably Platform | Gestionado | Escala empresarial |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa salas o canales**: en lugar de transmitir a todas las conexiones, agrúpalas por tema, sala o usuario. Consulta solo las conexiones relevantes para reducir costos de DynamoDB y latencia.
 - **Maneja conexiones obsoletas**: las conexiones pueden caer sin disparar `$disconnect`. Escanea y limpia conexiones periódicamente más antiguas que un umbral de heartbeat.
@@ -199,7 +199,7 @@ ws.onclose = () => console.log('Connection closed');
 ## Preguntas frecuentes
 
 **P: ¿Cuántas conexiones concurrentes puede manejar API Gateway WebSockets?**
-R: API Gateway tiene una cuota predeterminada de 10,000 conexiones concurrentes por región, escalable mediante solicitud a soporte AWS. Para mayor escala, considera Ably, Pusher o infraestructura autogestionada.
+R: API Gateway tiene una cuota predeterminada de 10,000 conexiones concurrentes por región, preparado para crecer mediante solicitud a soporte AWS. Para mayor escala, considera Ably, Pusher o infraestructura autogestionada.
 
 **P: ¿Puedo usar WebSockets con HTTP API Gateway?**
 R: No. Los WebSockets requieren API Gateway v2 con `protocol_type = "WEBSOCKET"`. Las APIs HTTP no soportan conexiones persistentes.

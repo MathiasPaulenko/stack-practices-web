@@ -134,7 +134,7 @@ El traversing del AST habilita transformaciones custom: validación de links, in
 | Java | `commonmark-java` | `Parser` + `HtmlRenderer` | Spec-compliant, dependencias mínimas |
 | Java | `flexmark-java` | `Parser` + `HtmlRenderer` | Extensible, soporta GFM, tablas y YAML frontmatter |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Sanitiza HTML de salida**: Markdown puede contener HTML raw; usa DOMPurify (JS), Bleach (Python) o OWASP Java HTML Sanitizer antes de renderizar contenido generado por usuarios
 - **Usa parsers CommonMark-compliant** para consistencia cross-platform; evita parsers deprecados como `markdown-js`

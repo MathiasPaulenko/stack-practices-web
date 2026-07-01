@@ -98,7 +98,7 @@ Then [expected handling]
 | "Handle errors gracefully" | "If the API returns 503, show retry button with 5s countdown" |
 | "Support mobile" | "Layout renders without horizontal scroll on iPhone SE (375px)" |
 
-## Best Practices
+## What Works
 
 - **Write acceptance criteria before code** — they are the contract between product and engineering. See [Clean Code Principles Guide](/guides/design/clean-code-principles-guide) for implementation standards.
 - **Use Given-When-Then for behavior** — it is testable and unambiguous

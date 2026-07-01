@@ -179,13 +179,13 @@ public class Money {
 | Money library | Dinero.js, Money PHP, JSR-354 (Java) | Rich formatting, allocation, and comparison APIs |
 | Database storage | `DECIMAL(19,4)` (SQL), `NUMERIC` (PostgreSQL) | Persistent exact values with 4-decimal precision for rates |
 
-## Best Practices
+## What Works
 
 1. **Store amounts in minor units** (cents) or exact decimal types; never store money as floating-point in databases.
 2. **Round at the right boundary** — calculate line items with full precision, round per-line, then sum rounded values for the total.
 3. **Separate money from display** — keep raw `Decimal` / `BigDecimal` / cents internally and format only at the UI/API layer.
 4. **Use banker's rounding (HALF_UP)** for most currencies; some jurisdictions require HALF_EVEN — know your domain.
-5. **[Cache exchange rates](/recipes/data/caching)** with TTL and timestamp; always convert using the rate effective at the transaction time.
+5. **[Cache exchange rates](/recipes/data/caching)** with TTL and timestamp; always convert using the rate that applied at the transaction time.
 
 ## Common Mistakes
 

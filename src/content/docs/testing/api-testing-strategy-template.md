@@ -143,7 +143,7 @@ Contract tests are the **fastest feedback loop** for API changes because they ru
 | Event-driven / async | Test producer + consumer separately | Use test message bus, verify eventual consistency |
 | Legacy monolith | Wrap API in contract tests before refactoring | Pact with monolith as provider |
 
-## Best Practices
+## What Works
 
 1. Treat failing contract tests as build failures, not warnings
 2. Run integration tests against the same database version used in production

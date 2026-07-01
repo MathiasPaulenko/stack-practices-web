@@ -3,7 +3,7 @@ contentType: recipes
 slug: cron-jobs
 title: "Cron Jobs"
 description: "Cómo programar y gestionar tareas recurrentes usando sintaxis cron en Linux, Python y Node.js."
-metaDescription: "Ejemplos prácticos de cron jobs en Linux, Python (librería schedule) y Node.js (node-cron). Aprende sintaxis cron, patrones de scheduling y mejores prácticas."
+metaDescription: "Ejemplos prácticos de cron jobs en Linux, Python (librería schedule) y Node.js (node-cron). Aprende sintaxis cron, patrones de scheduling y lo que funciona."
 difficulty: beginner
 topics:
   - devops
@@ -18,7 +18,7 @@ relatedResources:
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Ejemplos prácticos de cron jobs en Linux, Python (librería schedule) y Node.js (node-cron). Aprende sintaxis cron, patrones de scheduling y mejores prácticas."
+  metaDescription: "Ejemplos prácticos de cron jobs en Linux, Python (librería schedule) y Node.js (node-cron). Aprende sintaxis cron, patrones de scheduling y lo que funciona."
   keywords:
     - cron jobs
     - tareas programadas
@@ -140,7 +140,7 @@ Caracteres especiales:
 | `0 0 1 * *` | Primer día de cada mes |
 | `0 0 * * 0` | Cada domingo a medianoche |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Usa rutas absolutas** para comandos y scripts en crontab
 - **Redirecciona la salida** a un archivo de log o `/dev/null` para evitar spam de mail

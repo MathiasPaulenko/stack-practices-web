@@ -3,7 +3,7 @@ contentType: docs
 slug: feature-request-template
 templateType: feature-request
 title: "Plantilla de Solicitud de Feature"
-description: "Plantilla estructurada de solicitud de features para ayudar equipos a evaluar, priorizar e implementar nuevas capacidades con valor de usuario claro y criterios de aceptación."
+description: "Plantilla estructurada de solicitud de capacidades para ayudar equipos a evaluar, priorizar e implementar nuevas capacidades con valor de usuario claro y criterios de aceptación."
 metaDescription: "Plantilla de solicitud de capacidades con user story, criterios de aceptación y prioridad. Ayuda a tu equipo a evaluar y construir las capacidades correctas más rápido."
 difficulty: beginner
 topics:

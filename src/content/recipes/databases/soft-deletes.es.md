@@ -37,7 +37,7 @@ Usa este recurso cuando:
 - Los usuarios necesiten recuperar datos eliminados accidentalmente. Consulta [Database Transactions](/recipes/databases/database-transactions) para patrones de rollback.
 - Debas mantener trails de auditoría para compliance (GDPR, HIPAA, SOC2). Consulta [API Security Checklist](/guides/security/api-security-checklist-guide) para compliance.
 - Las restricciones de clave foránea impidan eliminaciones duras. Consulta [SQL Joins](/recipes/databases/sql-joins) para patrones relacionales.
-- Quieras mostrar características de papelera/reciclaje con elementos "recientemente eliminados"
+- Quieras mostrar capacidades de papelera/reciclaje con elementos "recientemente eliminados"
 
 ## Solución
 
@@ -169,7 +169,7 @@ Para eliminación real, implementa una operación de "hard delete" o "purge" que
 | Tabla de archivo separada | Copia completa | Compliance, rendimiento | Más complejo, triggers o app-level |
 | Partición por estado de eliminación | PG/MySQL nativo | Tablas muy grandes | Usa particionamiento de tabla para activos vs eliminados |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Siempre filtra por defecto**: Tu ORM o query builder debería excluir registros eliminados a menos que se solicite explícitamente.
 - **Incluye `deleted_at` en índices únicos**: De lo contrario, no puedes recrear un registro con la misma clave única después de soft delete.

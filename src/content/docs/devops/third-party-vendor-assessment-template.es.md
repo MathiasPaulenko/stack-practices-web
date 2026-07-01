@@ -123,7 +123,7 @@ La plantilla recolecta evidencia consistente entre proveedores, lo que facilita 
 - **Evaluacion de proveedor AI/ML**: Agrega preguntas sobre datos de entrenamiento, sesgo, propiedad de outputs y explicabilidad.
 - **Revision de renovacion**: Omite preguntas basicas de onboarding y se enfoca en cambios desde la ultima evaluacion.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Reutiliza la misma plantilla para cada proveedor para mantener comparaciones justas.
 - Solicita evidencia, no solo respuestas si/no.

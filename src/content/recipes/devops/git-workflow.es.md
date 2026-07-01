@@ -111,7 +111,7 @@ refactor: extract payment service
 | Trunk-based | Monorepos, CI muy rápido | Baja |
 | Release branches | Versiones con soporte a largo plazo | Media |
 
-## Best Practices
+## Lo que funciona
 
 - **Mantén ramas de corta vida**: una rama abierta por semanas acumula conflictos de merge y código obsoleto. Apunta a días, no semanas.
 - **Escribe mensajes de commit significativos**: explica *por qué*, no solo *qué*. Tu yo futuro (y tus compañeros) te lo agradecerán.
@@ -123,7 +123,7 @@ refactor: extract payment service
 
 - **Ramas de larga duración**: cuanto más vive una rama, más difícil es mergearla. Haz rebase frecuentemente.
 - **Commit directo a main**: incluso en proyectos solitarios, usar ramas mantiene tu historial limpio y el rollback fácil.
-- **Pull requests gigantes**: PRs con cientos de archivos son imposibles de revisar bien. Divide features grandes en PRs apiladas.
+- **Pull requests gigantes**: PRs con cientos de archivos son imposibles de revisar bien. Divide capacidades grandes en PRs apiladas.
 - **Ignorar conflictos de merge**: resolver conflictos apresuradamente sin entender ambos lados introduce bugs.
 - **Historial de commits desordenado**: "fix", "fix again", "actually fix" hacen que `git blame` sea inútil. Haz squash o amend antes de pushear.
 

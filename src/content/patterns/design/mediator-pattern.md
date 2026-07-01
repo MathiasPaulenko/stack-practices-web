@@ -219,7 +219,7 @@ Without the mediator, each user would need a reference to every other user. With
 | **Command Bus** | Commands routed through a central handler | CQRS, task dispatching |
 | **Dialog Director** | UI widgets coordinated by a dialog controller | Form validation, wizard flows |
 
-## Best Practices
+## What Works
 
 - **Keep the mediator focused** on coordination, not business logic
 - **Avoid turning the mediator into a god object** — if it grows too large, split it

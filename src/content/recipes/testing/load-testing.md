@@ -118,7 +118,7 @@ iterations.....................: 12000
 | Artillery | YAML/JS | Quick configuration, Node teams | Self-hosted or cloud |
 | Locust | Python | Python ecosystems, custom logic | Self-hosted |
 
-## Best Practices
+## What Works
 
 - **Test against a production-like environment**: testing localhost with a single-core CPU gives meaningless results. Use staging with identical hardware and data volume.
 - **Warm up the system first**: caches, connection pools, and JIT compilation need time to stabilize. Run a 5-minute warm-up before measuring.

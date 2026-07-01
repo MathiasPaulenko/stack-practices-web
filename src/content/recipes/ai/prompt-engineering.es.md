@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: prompt-engineering
-title: "Aplicar Mejores Prácticas de Prompt Engineering"
-description: "Cómo escribir prompts efectivos para LLMs usando asignación de roles, few-shot examples, razonamiento chain-of-thought y formato de salida estructurada."
-metaDescription: "Aprende prompt engineering para LLMs. Escribe prompts efectivos con asignación de roles, few-shot examples, chain-of-thought reasoning y formatos de salida estructurados."
+title: "Aplicar lo que funciona en Prompt Engineering"
+description: "Cómo escribir prompts útiles para LLMs usando asignación de roles, few-shot examples, razonamiento chain-of-thought y formato de salida estructurada."
+metaDescription: "Aprende prompt engineering para LLMs. Escribe prompts útiles con asignación de roles, few-shot examples, chain-of-thought reasoning y formatos de salida estructurados."
 difficulty: intermediate
 topics:
   - ai
@@ -16,7 +16,7 @@ relatedResources:
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende prompt engineering para LLMs. Escribe prompts efectivos con asignación de roles, few-shot examples, chain-of-thought reasoning y formatos de salida estructurados."
+  metaDescription: "Aprende prompt engineering para LLMs. Escribe prompts útiles con asignación de roles, few-shot examples, chain-of-thought reasoning y formatos de salida estructurados."
   keywords:
     - prompt engineering
     - llm prompts
@@ -117,7 +117,7 @@ response = openai.chat.completions.create(
 | Chain-of-thought | Razonamiento complejo, matemáticas | Más tokens |
 | Function calling | Uso de herramientas, integración API | Tokens medio |
 
-## Mejores prácticas
+## Lo que funciona
 
 - **Sé específico y explícito**: los prompts vagos producen respuestas vagas. En lugar de "resume esto," di "resume en 3 bullets enfocándote en impacto financiero."
 - **Usa delimitadores para inputs largos**: envuelve el contenido del usuario en tags XML (`<article>...</article>`) o triples backticks para que el modelo distinga instrucciones de datos.

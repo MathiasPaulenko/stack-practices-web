@@ -103,7 +103,7 @@ public class CookieConfig implements WebMvcConfigurer {
 
 - **Synchronizer tokens**: The server generates a random token per session (or per request) and embeds it in every form. The token is stored server-side and validated on submission. Because `evil.com` cannot read the token from `bank.com`'s DOM or cookies, it cannot forge valid requests.
 - **Double-submit cookie**: A random token is set as a cookie and also sent in a form field or header. The server verifies both values match. This is stateless — no server-side storage required — but relies on the attacker not being able to read the cookie.
-- **SameSite cookies**: Setting `SameSite=Strict` or `Lax` on session cookies prevents the browser from sending them with cross-origin requests. This is the simplest and most robust defense, but not all browsers and scenarios support it perfectly.
+- **SameSite cookies**: Setting `SameSite=Strict` or `Lax` on session cookies prevents the browser from sending them with cross-origin requests. This is the simplest and most reliable defense, but not all browsers and scenarios support it perfectly.
 
 ## Variants
 
@@ -114,7 +114,7 @@ public class CookieConfig implements WebMvcConfigurer {
 | SameSite cookie | No | Yes | Modern browsers |
 | Custom headers | No | Yes | AJAX only |
 
-## Best Practices
+## What Works
 
 - **Use SameSite=Strict on session cookies**: this alone blocks most CSRF attacks. Combine it with tokens for defense in depth.
 - **Rotate CSRF tokens per session, not per request**: per-request tokens break the back button and multi-tab workflows. Per-session tokens are secure and usable.

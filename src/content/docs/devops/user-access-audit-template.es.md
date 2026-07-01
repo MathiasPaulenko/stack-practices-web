@@ -121,7 +121,7 @@ La plantilla conecta identidades con permisos, justificacion de negocio y reviso
 - **Revision de acceso de contratistas**: Revision con plazo definido para usuarios externos con acceso temporal.
 - **Auditoria de acceso a datos**: Se enfoca en usuarios que pueden acceder a bases de datos sensibles, data lakes o herramientas de analisis.
 
-## Mejores Practicas
+## Lo que funciona
 
 - Automatiza la recoleccion de identidades desde el proveedor SSO o gestion de identidades.
 - Envia recordatorios a los revisores antes de la fecha limite.

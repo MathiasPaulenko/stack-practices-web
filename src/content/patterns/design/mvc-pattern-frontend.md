@@ -157,4 +157,4 @@ function UserListView({ controller }: { controller: UserController }) {
 A: React provides building blocks, not architecture. Hooks manage local state; they do not enforce separation of concerns. MVC adds discipline.
 
 **Q: When should I use Redux instead of MVC?**
-A: MVC works well for localized features. For data layer patterns, see [Repository](/patterns/design/repository-pattern-typescript). Redux shines when multiple unrelated components need the same data or when time-travel debugging is valuable.
+A: MVC works well for localized capabilities. For data layer patterns, see [Repository](/patterns/design/repository-pattern-typescript). Redux shines when multiple unrelated components need the same data or when time-travel debugging is valuable.

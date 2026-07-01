@@ -191,5 +191,5 @@ R: Depende de la frecuencia de peticiones. Si cada usuario hace una peticion cad
 **P: Puede k6 testear conexiones WebSocket?**
 R: Si, a traves del modulo experimental `k6/ws`, aunque herramientas dedicadas de WebSocket pueden ser mas apropiadas.
 
-**P: Como manejo datos dinamicos en tests de carga?**
+**P: Como manejo datos en vivo en tests de carga?**
 R: Usa `papaparse` para leer archivos CSV o genera datos randomizados con funciones `random` integradas.

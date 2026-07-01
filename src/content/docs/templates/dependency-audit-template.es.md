@@ -92,7 +92,7 @@ Usa esta plantilla para evaluar librerías antes de agregarlas o durante auditor
 | Binarios nativos sin builds reproducibles | Riesgo de ataque de supply chain |
 | > 100 dependencias transitivas | Cada una es una nueva superficie de ataque |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Audita antes de agregar** — auditorías retroactivas descubren problemas demasiado tarde
 - **Automatiza scanning** — Dependabot, Snyk, o OWASP Dependency-Check en CI. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para integrar scans de seguridad.

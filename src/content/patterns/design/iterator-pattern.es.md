@@ -198,7 +198,7 @@ Los lenguajes modernos integran profundamente los iteradores — los protocolos 
 | **Iterator Inverso** | Recorre en orden inverso | Pilas, historial de undo |
 | **Iterator de Filtro** | Salta elementos que no coinciden con un predicado | Búsqueda, filtrado |
 
-## Buenas Prácticas
+## Lo que funciona
 
 - **Usa protocolos de iterador nativos del lenguaje** cuando estén disponibles en lugar de clases personalizadas
 - **Lanza excepciones en llamadas `next()` inválidas** para fallar rápido

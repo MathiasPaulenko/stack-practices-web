@@ -134,7 +134,7 @@ La plantilla separa **backup** (crear copias) de **prueba de restauración** (de
 | S3 / Almacenamiento de objetos | Replicación cross-region | Versionamiento + políticas de ciclo de vida |
 | PVCs de Kubernetes | Velero + snapshots CSI | Incluye metadatos del cluster en el backup |
 
-## Mejores Prácticas
+## Lo que funciona
 
 1. Prueba restauraciones en un entorno diferente, no en la fuente, para evitar sobrescribir producción accidentalmente
 2. Automatiza la verificación de backups tanto como sea posible; las verificaciones manuales se olvidan durante incidentes

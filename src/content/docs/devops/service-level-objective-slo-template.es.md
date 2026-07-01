@@ -94,7 +94,7 @@ Un Objetivo de Nivel de Servicio (SLO) define un objetivo de confiabilidad para 
 |----------|----------------------|--------------------------|--------------------------------|
 | 99.9% | 0.1% | ~0.003% | Revisar politica de releases y congelar cambios no criticos |
 | 99.95% | 0.05% | ~0.0017% | Endurecer rollout y requerir revision de incidentes |
-| 99.99% | 0.01% | ~0.0003% | Detener releases de features y priorizar trabajo de confiabilidad |
+| 99.99% | 0.01% | ~0.0003% | Detener releases de funcionalidades y priorizar trabajo de confiabilidad |
 
 Lineamientos:
 - Un presupuesto de error mide cuanta falta de confiabilidad es aceptable en una ventana.
@@ -163,7 +163,7 @@ Un SLI es una metrica. Un SLO es el objetivo para esa metrica. Un SLA es un comp
 
 ### Como elegimos el objetivo SLO correcto?
 
-Comienza con datos historicos, considera los puntos de dolor del usuario y equilibra la confiabilidad contra el costo y la velocidad de features. Puntos de partida comunes son 99.9% para servicios importantes y 99.95% o mas para servicios criticos.
+Comienza con datos historicos, considera los puntos de dolor del usuario y equilibra la confiabilidad contra el costo y la velocidad de entregas. Puntos de partida comunes son 99.9% para servicios importantes y 99.95% o mas para servicios criticos.
 
 ### Que pasa cuando se agota el presupuesto de error?
 

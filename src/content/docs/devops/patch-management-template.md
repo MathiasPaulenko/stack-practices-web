@@ -114,7 +114,7 @@ The template separates **patch inventory** (what needs fixing) from **patch work
 | Cloud-managed (RDS, EKS) | Provider-managed | Verify application compatibility after platform update | AWS / GCP notify in advance; schedule maintenance windows |
 | Third-party SaaS | Vendor-managed | Monitor vendor status page; verify your integration | You cannot patch SaaS; verify their SOC 2 includes patch SLAs |
 
-## Best Practices
+## What Works
 
 1. Automate dependency scanning in CI; catch new CVEs before they reach production
 2. Maintain a staging environment that mirrors production for patch testing

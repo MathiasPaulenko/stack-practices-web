@@ -318,7 +318,7 @@ Esto garantiza que `find_by_id(5)` llamado tres veces en una transacción retorn
 | **Process-scoped** | Vive para el lifetime de la app | Datos de referencia read-heavy |
 | **Distributed** | Compartido a través de servicios | Microservicios con caches compartidos |
 
-## Mejores Prácticas
+## Lo que funciona
 
 - **Scope el Identity Map a la transacción.** Mapas de larga vida causan datos stale.
 - **Usa junto con Unit of Work.** Los dos patrones se complementan perfectamente.

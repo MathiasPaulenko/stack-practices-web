@@ -158,7 +158,7 @@ Las **consultas parametrizadas** (prepared statements) separan la lógica SQL de
 
 ### ¿Es seguro `cursor.execute(f"SELECT * FROM {table}")`?
 
-No. Los nombres de tabla y columna no pueden parametrizarse en la mayoría de drivers. Si necesitas nombres de tabla dinámicos, haz whitelist contra un conjunto conocido de nombres válidos.
+No. Los nombres de tabla y columna no pueden parametrizarse en la mayoría de drivers. Si necesitas nombres de tabla en vivo, haz whitelist contra un conjunto conocido de nombres válidos.
 
 ### ¿Puedo usar consultas parametrizadas para cláusulas `IN`?
 
