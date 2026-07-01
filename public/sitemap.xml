@@ -352,6 +352,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/format-phone-numbers/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/generate-pdf-report-python/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/generate-pdf-report-python/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/generate-pdf-report-python/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/generate-pdf-report-python/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/merge-json-files-javascript/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/merge-json-files-javascript/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/merge-json-files-javascript/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/merge-json-files-javascript/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/merge-json-files/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -377,6 +395,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-csv-files/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-csv-files/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-csv-files/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/parse-csv-python-pandas/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-csv-python-pandas/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-csv-python-pandas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-csv-python-pandas/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/parse-excel-files/</loc>
@@ -431,6 +458,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-yaml-files/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/parse-yaml-files/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/parse-yaml-files/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/python-excel-read-write/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-excel-read-write/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/python-excel-read-write/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-excel-read-write/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/serialize-deserialize-data/</loc>
@@ -764,6 +800,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/copy-move-files/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/copy-move-files/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/copy-move-files/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/python-image-resize-batch/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-image-resize-batch/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/python-image-resize-batch/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-image-resize-batch/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/read-large-files/</loc>
@@ -3259,6 +3304,51 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/libphonenumber/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/pdf/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pdf/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pdf/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/reportlab/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/reportlab/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/reportlab/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/reportlab/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/fpdf/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/fpdf/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/fpdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/fpdf/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/reports/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/reports/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/reports/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/reports/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/nodejs/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nodejs/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nodejs/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nodejs/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/combine/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -3293,6 +3383,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/parsing/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/parsing/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/parsing/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/pandas/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pandas/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pandas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pandas/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/file-handling/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/file-handling/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/file-handling/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/file-handling/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/excel/</loc>
@@ -3349,15 +3457,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/frontmatter/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/pdf/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pdf/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pdf/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pdf/"/>
-  </url>
-  <url>
     <loc>https://stackpractices.com/tags/extraction/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -3410,6 +3509,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/yaml/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/yaml/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/yaml/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/openpyxl/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/openpyxl/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/openpyxl/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/openpyxl/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/spreadsheets/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/spreadsheets/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/spreadsheets/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/spreadsheets/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/serialization/</loc>
@@ -3554,15 +3671,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/mongodb/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/mongodb/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/mongodb/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/nodejs/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nodejs/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nodejs/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nodejs/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/concurrency/</loc>
@@ -3871,15 +3979,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/traffic-mirroring/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/file-handling/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/file-handling/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/file-handling/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/file-handling/"/>
-  </url>
-  <url>
     <loc>https://stackpractices.com/tags/compression/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -3923,6 +4022,42 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/operations/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/operations/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/operations/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/images/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/images/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/images/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/images/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/pillow/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pillow/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pillow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pillow/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/resize/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/resize/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/resize/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/resize/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/optimization/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/optimization/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/optimization/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/optimization/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/streaming/</loc>
@@ -4130,15 +4265,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/lazy-loading/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/lazy-loading/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/lazy-loading/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/images/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/images/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/images/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/images/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/benchmarks/</loc>
