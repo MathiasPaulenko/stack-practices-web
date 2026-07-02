@@ -550,6 +550,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-generate-qr-code/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/python-web-scraping-beautifulsoup/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-web-scraping-beautifulsoup/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/python-web-scraping-beautifulsoup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/python-web-scraping-beautifulsoup/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/serialize-deserialize-data/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -838,6 +847,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/docker-health-check-configuration/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/recipes/docker-image-vulnerability-scan/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/docker-image-vulnerability-scan/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/docker-image-vulnerability-scan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/docker-image-vulnerability-scan/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/recipes/docker-logging-fluentd/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -881,6 +899,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/feature-flags/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/feature-flags/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/feature-flags/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/recipes/git-rebase-interactive-tutorial/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/git-rebase-interactive-tutorial/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/git-rebase-interactive-tutorial/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/git-rebase-interactive-tutorial/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/git-workflow/</loc>
@@ -4168,6 +4195,51 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/images/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/beautifulsoup/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/beautifulsoup/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/beautifulsoup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/beautifulsoup/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/web-scraping/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/web-scraping/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/web-scraping/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/web-scraping/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/html-parsing/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/html-parsing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/html-parsing/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/html-parsing/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/requests/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/requests/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/requests/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/requests/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/data-extraction/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/data-extraction/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/data-extraction/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/data-extraction/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/serialization/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -4690,6 +4762,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/dockerfile/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/trivy/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/trivy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/trivy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/trivy/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/grype/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/grype/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/grype/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/grype/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/vulnerability-scanning/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/vulnerability-scanning/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/vulnerability-scanning/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/vulnerability-scanning/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/cve/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/cve/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/cve/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/cve/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/fluentd/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -4832,6 +4940,51 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/git/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/git/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/git/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/rebase/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/rebase/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/rebase/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/rebase/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/commit-history/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/commit-history/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/commit-history/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/commit-history/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/version-control/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/version-control/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/version-control/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/version-control/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/squash/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/squash/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/squash/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/squash/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/interactive-rebase/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/interactive-rebase/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/interactive-rebase/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/interactive-rebase/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/workflow/</loc>
@@ -7768,15 +7921,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/branching/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/version-control/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/version-control/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/version-control/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/version-control/"/>
-  </url>
-  <url>
     <loc>https://stackpractices.com/tags/incident-management/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -8342,15 +8486,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/vendor/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/vendor/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/vendor/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/cve/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/cve/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/cve/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/cve/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/patching/</loc>
