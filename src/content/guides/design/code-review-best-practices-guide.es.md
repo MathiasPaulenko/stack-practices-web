@@ -181,4 +181,4 @@ R: Enfócate en lo que puedes evaluar: cobertura de tests, nombres de variables,
 R: Discútelo. Si es un issue bloqueante y no pueden ponerse de acuerdo, escala al tech lead. Para sugerencias, deja que el autor decida y sigue adelante.
 
 **P: ¿Debería bloquear un PR por falta de tests?**
-R: Sí, si el PR agrega lógica que puede ser testeada. No, si es un refactor puro con cobertura existente, o cambios de UI que requieren [tests E2E](/recipes/testing/e2e-testing) a cargo de otro equipo.
+R: Sí, si el PR agrega lógica que puede ser testeada. No, si es un refactor puro con cobertura existente, o cambios de UI que requieren tests E2E a cargo de otro equipo.

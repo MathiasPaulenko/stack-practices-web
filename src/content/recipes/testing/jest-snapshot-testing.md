@@ -13,7 +13,6 @@ tags:
   - react
 relatedResources:
   - /recipes/unit-testing-mocking
-  - /recipes/visual-regression-testing
   - /guides/testing-strategy-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"

@@ -1540,15 +1540,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/api-mocking/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/recipes/e2e-testing/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/e2e-testing/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/e2e-testing/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/e2e-testing/"/>
-  </url>
-  <url>
     <loc>https://stackpractices.com/recipes/integration-testing/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -1565,15 +1556,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/jest-snapshot-testing/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/jest-snapshot-testing/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/jest-snapshot-testing/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/recipes/playwright-component-testing/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/playwright-component-testing/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/playwright-component-testing/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/playwright-component-testing/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/unit-testing/</loc>
@@ -6056,15 +6038,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/mocking/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/mocking/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/mocking/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/playwright/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/playwright/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/playwright/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/playwright/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/pytest/</loc>

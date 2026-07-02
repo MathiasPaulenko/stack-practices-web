@@ -195,7 +195,7 @@ jobs:
 
 ### Qué es la pirámide de testing?
 
-La pirámide de testing es un modelo que sugiere tener muchos [unit tests](/recipes/testing/unit-testing) en la base, menos [integration tests](/recipes/testing/integration-testing) en el medio y muy pocos [end-to-end tests](/recipes/testing/e2e-testing) en la cima. Esto mantiene el test suite rápido, confiable y económico.
+La pirámide de testing es un modelo que sugiere tener muchos [unit tests](/recipes/testing/unit-testing) en la base, menos [integration tests](/recipes/testing/integration-testing) en el medio y muy pocos end-to-end tests en la cima. Esto mantiene el test suite rápido, confiable y económico.
 
 ### Cuánto coverage de tests debería aspirar?
 

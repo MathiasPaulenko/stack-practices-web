@@ -179,4 +179,4 @@ A: Focus on what you can evaluate: test coverage, variable naming, obvious logic
 A: Discuss it. If it's a blocking issue and you cannot agree, escalate to the team lead. For suggestions, let the author decide and move on.
 
 **Q: Should I block a PR for missing tests?**
-A: Yes, if the PR adds logic that can be tested. No, if it's a pure refactor with existing coverage, or UI changes that require [E2E tests](/recipes/testing/e2e-testing) owned by another team.
+A: Yes, if the PR adds logic that can be tested. No, if it's a pure refactor with existing coverage, or UI changes that require E2E tests owned by another team.

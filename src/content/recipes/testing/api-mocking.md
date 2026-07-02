@@ -15,7 +15,6 @@ tags:
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/testing-strategy-guide
-  - /recipes/end-to-end-testing
   - /guides/test-driven-development-guide
   - /recipes/load-testing-k6
 lastUpdated: "2026-06-19"
@@ -172,7 +171,7 @@ def test_payment_api():
 
 ## What Works
 
-- **Mock at the boundary**: Mock HTTP, not internal methods — tests should exercise the full stack. For full integration coverage, see [end-to-end testing](/recipes/testing/e2e-testing).
+- **Mock at the boundary**: Mock HTTP, not internal methods — tests should exercise the full stack.
 - **Verify requests, not just responses**: Ensure your code sends the right payload and headers
 - **Use record/replay for complex APIs**: Capture real traffic once, then replay in tests
 - **Keep mocks close to reality**: Update mocks when the real API changes; stale mocks hide bugs

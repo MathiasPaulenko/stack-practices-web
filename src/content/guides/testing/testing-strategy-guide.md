@@ -200,7 +200,7 @@ jobs:
 
 ### What is the testing pyramid?
 
-The testing pyramid is a model that suggests having many [unit tests](/recipes/testing/unit-testing) at the base, fewer [integration tests](/recipes/testing/integration-testing) in the middle, and very few [end-to-end tests](/recipes/testing/e2e-testing) at the top. This keeps the test suite fast, reliable, and cost-effective.
+The testing pyramid is a model that suggests having many [unit tests](/recipes/testing/unit-testing) at the base, fewer [integration tests](/recipes/testing/integration-testing) in the middle, and very few end-to-end tests at the top. This keeps the test suite fast, reliable, and cost-effective.
 
 ### How much test coverage should I aim for?
 

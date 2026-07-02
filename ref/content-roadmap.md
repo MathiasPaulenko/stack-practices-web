@@ -143,10 +143,9 @@ All pending patterns have been completed.
 13. `complete-guide-mobile-responsive-design` — Build responsive layouts with CSS Grid
 14. `complete-guide-web-security-headers` — Implement CSP, HSTS, and secure headers
 
-**DevOps & Testing**
+**DevOps**
 15. `complete-guide-ci-cd-github-actions` — Build pipelines from scratch
 16. `complete-guide-observability-grafana-stack` — Metrics, logs, and traces
-17. `complete-guide-cypress-e2e-testing` — End-to-end testing best practices
 
 **Cloud & Cost**
 18. `complete-guide-cost-optimization-aws` — Reduce cloud spend by 40%

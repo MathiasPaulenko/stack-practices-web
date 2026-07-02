@@ -236,7 +236,7 @@ Use TDD for:
 - Code you expect to change frequently
 
 Use caution with:
-- UI components (use component/[E2E tests](/recipes/testing/e2e-testing) instead)
+- UI components (use component tests instead)
 - Exploratory prototyping
 - Tightly coupled legacy code ([refactor](/guides/design/clean-code-principles-guide) to testability first)
 
