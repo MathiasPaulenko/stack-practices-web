@@ -1630,6 +1630,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/leader-election-pattern/"/>
   </url>
   <url>
+    <loc>https://stackpractices.com/patterns/multi-tenant-data-isolation-pattern/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/multi-tenant-data-isolation-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/multi-tenant-data-isolation-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/multi-tenant-data-isolation-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/pipes-and-filters-pattern/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/pipes-and-filters-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/pipes-and-filters-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/pipes-and-filters-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/federated-identity-pattern/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/federated-identity-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/federated-identity-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/federated-identity-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/patterns/voucher-pattern/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/voucher-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/patterns/voucher-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/patterns/voucher-pattern/"/>
+  </url>
+  <url>
     <loc>https://stackpractices.com/patterns/active-record-pattern/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -2915,6 +2951,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/ci-cd-security-guide/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/ci-cd-security-guide/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/ci-cd-security-guide/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/guides/complete-guide-kubernetes-ingress/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/complete-guide-kubernetes-ingress/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/guides/complete-guide-kubernetes-ingress/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/guides/complete-guide-kubernetes-ingress/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/guides/message-queue-guide/</loc>
@@ -5959,13 +6004,22 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/consensus/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/active-record/</loc>
+    <loc>https://stackpractices.com/tags/multi-tenant/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/active-record/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/active-record/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/active-record/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/multi-tenant/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/multi-tenant/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/multi-tenant/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/data-isolation/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/data-isolation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/data-isolation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/data-isolation/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/design-pattern/</loc>
@@ -5975,6 +6029,150 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/design-pattern/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/design-pattern/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/design-pattern/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/saas/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/saas/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/saas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/saas/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/row-level-security/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/row-level-security/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/row-level-security/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/row-level-security/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/tenant/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/tenant/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/tenant/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/tenant/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/pipes-and-filters/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pipes-and-filters/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pipes-and-filters/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pipes-and-filters/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/pipeline/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pipeline/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pipeline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pipeline/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/data-transformation/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/data-transformation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/data-transformation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/data-transformation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/composable/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/composable/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/composable/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/composable/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/federated-identity/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/federated-identity/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/federated-identity/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/federated-identity/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/sso/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/sso/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/sso/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/sso/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/oidc/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/oidc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/oidc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/oidc/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/saml/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/saml/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/saml/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/saml/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/voucher/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/voucher/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/voucher/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/voucher/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/token-based-auth/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/token-based-auth/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/token-based-auth/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/token-based-auth/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/claims/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/claims/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/claims/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/claims/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/delegation/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/delegation/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/delegation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/delegation/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/active-record/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/active-record/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/active-record/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/active-record/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/structural/</loc>
@@ -6490,15 +6688,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/intercepting-filter/"/>
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/pipeline/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pipeline/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pipeline/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pipeline/"/>
-  </url>
-  <url>
     <loc>https://stackpractices.com/tags/manager/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -7010,15 +7199,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/twin/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/twin/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/twin/"/>
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/delegation/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/delegation/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/delegation/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/delegation/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/type-object/</loc>
@@ -9116,6 +9296,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/dependency-scanning/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/dependency-scanning/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/dependency-scanning/"/>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/ingress/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/ingress/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/ingress/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/ingress/"/>
   </url>
   <url>
     <loc>https://stackpractices.com/tags/message-queue/</loc>
