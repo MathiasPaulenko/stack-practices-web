@@ -24,10 +24,10 @@
 | Type | Unique Count | Total Files (EN+ES) | Categories |
 |------|-------------|---------------------|------------|
 | Recipes | 349 | 698 | AI, API, Architecture, Auth, Concurrency, Data, Databases, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | 122 | 244 | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration, Architecture, Authentication |
+| Patterns | 128 | 256 | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration, Architecture, Authentication |
 | Guides | 129 | 258 | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage, API, AI, Concurrency, Infrastructure |
 | Docs | 112 | 224 | ADRs, Runbooks, Checklists, Templates, Policies |
-| **Total** | **712** | **1424** | |
+| **Total** | **718** | **1436** | |
 
 ---
 
@@ -196,9 +196,9 @@ All roadmap docs have been completed.
 
 **Resilience & Architecture Patterns (8)**
 103. ✅ `graceful-degradation-pattern` — Degrade functionality instead of failing
-104. `timeout-pattern` — Bound wait time on all external calls
+104. ✅ `timeout-pattern` — Bound wait time on all external calls
 105. ✅ `shed-load-pattern` — Drop requests under extreme load
-106. `throttling-pattern` — Limit request rate per client
+106. ✅ `throttling-pattern` — Limit request rate per client
 107. ✅ `geode-pattern` — Distribute data across nodes with partitioning
 108. ✅ `deployment-ring-pattern` — Progressive rollout in rings
 109. ✅ `blue-green-deployment-pattern` — Zero-downtime with two environments
