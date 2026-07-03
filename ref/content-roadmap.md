@@ -185,14 +185,14 @@ All roadmap docs have been completed.
 94. `lock-free-queue-pattern` — High-throughput queues without locks
 
 **AI Patterns (8) — new AI patterns**
-95. `rag-hybrid-search-pattern` — Combine keyword and semantic search in RAG
-96. `llm-router-pattern` — Route queries to the right model by complexity
-97. `agent-tool-selection-pattern` — Dynamic tool selection for LLM agents
-98. `prompt-chaining-pattern` — Chain multiple LLM calls for complex tasks
-99. `llm-guardrails-pattern` — Input/output validation for LLM apps
-100. `embedding-cache-pattern` — Cache embeddings to reduce API calls
-101. `human-in-the-loop-pattern` — Pause agent execution for human approval
-102. `llm-fallback-pattern` — Fallback to cheaper model on simple queries
+95. ✅ `rag-hybrid-search-pattern` — Combine keyword and semantic search in RAG
+96. ✅ `llm-router-pattern` — Route queries to the right model by complexity
+97. ✅ `agent-tool-selection-pattern` — Dynamic tool selection for LLM agents
+98. ✅ `prompt-chaining-pattern` — Chain multiple LLM calls for complex tasks
+99. ✅ `llm-guardrails-pattern` — Input/output validation for LLM apps
+100. ✅ `embedding-cache-pattern` — Cache embeddings to reduce API calls
+101. ✅ `human-in-the-loop-pattern` — Pause agent execution for human approval
+102. ✅ `llm-fallback-pattern` — Fallback to cheaper model on simple queries
 
 **Resilience & Architecture Patterns (8)**
 103. `graceful-degradation-pattern` — Degrade functionality instead of failing
