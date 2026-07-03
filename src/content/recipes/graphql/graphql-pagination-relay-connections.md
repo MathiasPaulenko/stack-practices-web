@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/graphql-apollo-server
   - /recipes/data/cursor-pagination-postgresql
-  - /patterns/graphql/graphql-connection-pagination-pattern
+  - /patterns/graphql/graphql-batched-resolver-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

@@ -18,9 +18,9 @@ tags:
   - guide
   - frontend
 relatedResources:
-  - /guides/frontend/web-performance-guide
+  - /guides/frontend/web-components-guide
   - /guides/frontend/complete-guide-react-performance-optimization
-  - /guides/frontend/accessibility-guide
+  - /guides/frontend/accessibility-wcag-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

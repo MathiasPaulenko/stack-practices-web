@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/javascript-clipboard-copy-paste
   - /recipes/javascript-drag-drop-file-upload
   - /recipes/javascript-infinite-scroll-pagination
-  - /guides/frontend-best-practices
+  - /guides/terraform-best-practices-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

@@ -19,8 +19,8 @@ tags:
 relatedResources:
   - /patterns/graphql-schema-stitching-pattern
   - /patterns/graphql-error-extension-pattern
-  - /guides/complete-guide-graphql-schema-design
-  - /guides/complete-guide-graphql-testing
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

@@ -3,7 +3,7 @@ contentType: recipes
 slug: seed-database
 title: "Sembrar Base de Datos"
 description: "Cómo sembrar bases de datos con datos realistas para desarrollo, testing y staging usando scripts de seed, migraciones y factories en PostgreSQL, MongoDB y Prisma."
-metaDescription: " Siembra bases de datos con datos realistas para desarrollo, testing y staging usando scripts de seed, migraciones y factories en PostgreSQL, MongoDB y Prisma."
+metaDescription: "Siembra bases de datos con datos realistas para desarrollo, testing y staging usando scripts de seed, migraciones y factories en PostgreSQL, MongoDB y Prisma."
 difficulty: beginner
 topics:
   - databases

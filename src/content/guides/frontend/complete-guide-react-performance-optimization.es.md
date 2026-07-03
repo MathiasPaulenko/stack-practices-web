@@ -18,9 +18,9 @@ tags:
   - guide
   - frontend
 relatedResources:
-  - /guides/frontend/web-performance-guide
-  - /guides/performance/bundle-size-optimization-guide
-  - /guides/frontend/accessibility-guide
+  - /guides/frontend/web-components-guide
+  - /guides/performance/performance-optimization-guide
+  - /guides/frontend/accessibility-wcag-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

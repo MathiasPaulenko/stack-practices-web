@@ -19,8 +19,8 @@ relatedResources:
   - /recipes/devops/docker-network-isolation
   - /recipes/devops/docker-health-check-configuration
   - /guides/infrastructure-as-code-guide
-  - /patterns/infrastructure-as-code-pattern
-  - /guides/terraform-modules-guide
+  - /patterns/infrastructure-as-code-guide
+  - /guides/complete-guide-terraform-modules
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

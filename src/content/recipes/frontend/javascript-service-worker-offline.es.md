@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/javascript-infinite-scroll-pagination
   - /recipes/javascript-localstorage-expiration
   - /recipes/javascript-drag-drop-file-upload
-  - /guides/frontend-best-practices
+  - /guides/terraform-best-practices-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

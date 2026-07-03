@@ -19,8 +19,8 @@ relatedResources:
   - /recipes/devops/docker-logging-fluentd
   - /recipes/devops/docker-health-check-configuration
   - /guides/observability-guide
-  - /guides/structured-logging-guide
-  - /patterns/health-check-pattern
+  - /guides/structured-logging
+  - /patterns/claim-check-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

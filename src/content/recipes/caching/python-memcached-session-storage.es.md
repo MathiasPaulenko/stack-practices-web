@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/caching/python-redis-cache-decorator
   - /recipes/authentication/python-jwt-refresh-token-rotation
-  - /guides/complete-guide-redis-caching-strategies
-  - /guides/complete-guide-session-management
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

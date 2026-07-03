@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/concurrency/python-asyncio-gather-task-groups
   - /recipes/concurrency/python-thread-pool-executor
-  - /guides/complete-guide-concurrency-patterns
-  - /guides/complete-guide-async-java
+  - /guides/concurrency-patterns-guide
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

@@ -19,8 +19,8 @@ tags:
   - concurrency
 relatedResources:
   - /guides/architecture/complete-guide-kafka-stream-processing
-  - /guides/performance/bundle-size-optimization-guide
-  - /guides/concurrency/async-patterns-guide
+  - /guides/performance/performance-optimization-guide
+  - /guides/concurrency/concurrency-patterns-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

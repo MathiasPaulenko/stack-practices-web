@@ -18,8 +18,8 @@ relatedResources:
   - /recipes/websocket-server
   - /recipes/websocket-bidirectional-chat
   - /recipes/websocket-authentication
-  - /guides/real-time-communication
-  - /patterns/pub-sub-pattern
+  - /guides/real-time-notifications
+  - /patterns/redis-pub-sub-python
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/caching/python-redis-cache-decorator
   - /recipes/caching/python-django-cache-framework
-  - /guides/complete-guide-redis-caching-strategies
-  - /guides/complete-guide-database-performance
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

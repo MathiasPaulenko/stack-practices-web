@@ -3,7 +3,7 @@ contentType: recipes
 slug: connect-to-redis
 title: "[ES] Connect to Redis"
 description: "[ES] How to connect to Redis and perform basic operations in Python, JavaScript, and Java."
-metaDescription: "[ES] Learn how to connect to Redis using Python redis-py, Node.js ioredis, and Java Jedis with practical code examples for caching and sessions."
+metaDescription: "Learn how to connect to Redis using Python redis-py, Node.js ioredis, and Java Jedis with practical code examples for caching and sessions."
 difficulty: beginner
 topics:
   - databases
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende a conectar a Redis usando Python redis-py, Node.js ioredis y Java Jedis con ejemplos de código prácticos para caching y sesiones."
+  metaDescription: "Learn how to connect to Redis using Python redis-py, Node.js ioredis, and Java Jedis with practical code examples for caching and sessions."
   keywords:
     - databases
     - redis

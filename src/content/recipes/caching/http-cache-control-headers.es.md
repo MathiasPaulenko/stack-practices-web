@@ -16,8 +16,7 @@ tags:
   - caching
 relatedResources:
   - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/performance/http-caching-strategy
-  - /patterns/caching/cdn-cache-pattern
+  - /patterns/caching/cache-aside-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

@@ -18,8 +18,7 @@ tags:
 relatedResources:
   - /recipes/concurrency/python-async-http-requests
   - /recipes/file-handling/nodejs-read-large-file-stream
-  - /guides/data-pipeline-guide
-  - /patterns/rate-limiter-pattern
+  - /guides/data-lake-guide
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

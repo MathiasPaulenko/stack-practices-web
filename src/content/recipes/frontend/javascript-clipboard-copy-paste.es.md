@@ -18,8 +18,8 @@ relatedResources:
   - /recipes/javascript-localstorage-expiration
   - /recipes/javascript-drag-drop-file-upload
   - /recipes/javascript-infinite-scroll-pagination
-  - /guides/frontend-best-practices
-  - /docs/frontend-checklist-template
+  - /guides/terraform-best-practices-guide
+  - /docs/deployment-checklist-template
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

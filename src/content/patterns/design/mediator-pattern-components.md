@@ -13,6 +13,10 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
+relatedResources:
+  - /patterns/design/observer-pattern
+  - /patterns/design/facade-pattern
+  - /patterns/design/backend-for-frontend-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -12,6 +12,10 @@ tags:
   - typescript
   - design-pattern
   - testing
+relatedResources:
+  - /patterns/design/singleton-pattern
+  - /patterns/design/factory-pattern
+  - /recipes/testing/unit-testing-mocking
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/caching/caching-redis
   - /recipes/caching/python-redis-cache-decorator
-  - /patterns/caching/two-level-cache-pattern
+  - /patterns/caching/cache-aside-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

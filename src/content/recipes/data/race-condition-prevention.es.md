@@ -13,6 +13,10 @@ tags:
   - concurrency
   - javascript
   - async
+relatedResources:
+  - /recipes/concurrency/python-thread-pool-executor
+  - /recipes/concurrency/python-asyncio-gather-task-groups
+  - /patterns/messaging/idempotent-consumer-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

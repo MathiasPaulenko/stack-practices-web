@@ -19,7 +19,7 @@ tags:
   - databases
   - infrastructure
 relatedResources:
-  - /guides/databases/database-indexing-guide
+  - /guides/databases/database-denormalization-guide
   - /guides/architecture/complete-guide-kafka-stream-processing
   - /guides/devops/deployment-strategies-guide
 lastUpdated: "2026-07-02"

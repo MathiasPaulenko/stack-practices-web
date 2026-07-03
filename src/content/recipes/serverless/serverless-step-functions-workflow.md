@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/serverless/serverless-event-driven-sqs-lambda
   - /recipes/serverless/serverless-dynamodb-single-table
-  - /guides/complete-guide-serverless-architecture
-  - /guides/complete-guide-workflow-orchestration
+  - /guides/serverless-architecture-guide
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

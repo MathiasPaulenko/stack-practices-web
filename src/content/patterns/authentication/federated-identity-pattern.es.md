@@ -22,7 +22,7 @@ tags:
   - java
 relatedResources:
   - /patterns/design/ambassador-pattern
-  - /patterns/design/api-gateway-pattern
+  - /patterns/design/gateway-routing-pattern
   - /patterns/design/back-pressure-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

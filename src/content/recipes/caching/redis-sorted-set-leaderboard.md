@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/caching/redis-cache-aside-pattern
   - /recipes/caching/redis-pubsub-messaging
-  - /patterns/caching/redis-data-structures
+  - /patterns/caching/concurrent-data-structures
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

@@ -18,8 +18,8 @@ relatedResources:
   - /recipes/javascript-clipboard-copy-paste
   - /recipes/javascript-localstorage-expiration
   - /recipes/nodejs-file-upload-validation
-  - /guides/file-handling-best-practices
-  - /patterns/file-upload-pipeline
+  - /guides/graphql-error-handling-best-practices
+  - /patterns/file-upload-validation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

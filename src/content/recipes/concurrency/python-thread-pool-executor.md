@@ -17,8 +17,8 @@ tags:
 relatedResources:
   - /recipes/concurrency/python-asyncio-gather-task-groups
   - /recipes/concurrency/python-asyncio-semaphore-rate-limiting
-  - /guides/complete-guide-concurrency-patterns
-  - /guides/complete-guide-async-python
+  - /guides/concurrency-patterns-guide
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

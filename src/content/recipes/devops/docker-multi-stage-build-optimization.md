@@ -17,9 +17,8 @@ tags:
 relatedResources:
   - /recipes/docker-health-check-configuration
   - /recipes/docker-compose-dev-prod-split
-  - /guides/docker-best-practices
-  - /patterns/container-build-pattern
-  - /docs/docker-deployment-checklist
+  - /guides/terraform-best-practices-guide
+  - /docs/deployment-checklist-template
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

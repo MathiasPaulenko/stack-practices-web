@@ -18,8 +18,8 @@ tags:
   - guide
   - databases
 relatedResources:
-  - /guides/databases/database-indexing-guide
-  - /guides/performance/sql-query-optimization-guide
+  - /guides/databases/database-denormalization-guide
+  - /guides/performance/sql-cte-guide
   - /guides/data/data-migration-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"

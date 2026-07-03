@@ -20,7 +20,7 @@ tags:
 relatedResources:
   - /guides/api/rest-api-design-guide
   - /guides/architecture/graphql-vs-rest-guide
-  - /patterns/architecture/api-gateway-pattern
+  - /patterns/architecture/gateway-routing-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

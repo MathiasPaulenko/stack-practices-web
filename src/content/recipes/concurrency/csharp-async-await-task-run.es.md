@@ -18,7 +18,7 @@ tags:
 relatedResources:
   - /recipes/concurrency/java-completable-future-composition
   - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /guides/complete-guide-concurrency-patterns
+  - /guides/concurrency-patterns-guide
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

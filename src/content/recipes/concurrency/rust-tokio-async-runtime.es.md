@@ -3,7 +3,7 @@ contentType: recipes
 slug: rust-tokio-async-runtime
 title: "Construir Sistemas Async con Rust Tokio Runtime"
 description: "Construir sistemas async en Rust usando el runtime Tokio con tasks, channels, select, primitivas de sincronizacion, graceful shutdown y patrones de concurrencia estructurada."
-metaDescription: "Construye sistemas async en Rust con Tokio. Usa tasks, channels, select, mutexes, graceful shutdown y concurrencia estructurada para networking de alto rendimiento."
+metaDescription: "Construye sistemas async en Rust con Tokio. Usa tasks, channels, mutexes, graceful shutdown y concurrencia estructurada para networking de alto rendimiento."
 difficulty: intermediate
 topics:
   - concurrency
@@ -18,11 +18,11 @@ tags:
 relatedResources:
   - /recipes/concurrency/go-goroutines-channels-patterns
   - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /guides/complete-guide-concurrency-patterns
+  - /guides/concurrency-patterns-guide
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Construye sistemas async en Rust con Tokio. Usa tasks, channels, select, mutexes, graceful shutdown y concurrencia estructurada para networking de alto rendimiento."
+  metaDescription: "Construye sistemas async en Rust con Tokio. Usa tasks, channels, mutexes, graceful shutdown y concurrencia estructurada para networking de alto rendimiento."
   keywords:
     - rust tokio async
     - rust async runtime

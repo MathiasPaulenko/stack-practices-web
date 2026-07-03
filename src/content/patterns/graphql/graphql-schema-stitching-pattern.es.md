@@ -17,10 +17,10 @@ tags:
   - api-gateway
   - schema-merging
 relatedResources:
-  - /patterns/graphql-federated-entity-pattern
+  - /patterns/federated-identity-pattern
   - /patterns/graphql-batched-resolver-pattern
-  - /guides/complete-guide-graphql-schema-design
-  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

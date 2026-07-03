@@ -18,7 +18,7 @@ tags:
 relatedResources:
   - /recipes/graphql/graphql-dataloader-batching
   - /recipes/api/graphql-apollo-server
-  - /recipes/databases/database-query-optimization
+  - /recipes/databases/postgres-query-optimization
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

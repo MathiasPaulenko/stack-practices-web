@@ -3,7 +3,7 @@ contentType: recipes
 slug: execute-raw-sql
 title: "[ES] Execute Raw SQL"
 description: "[ES] How to execute raw SQL queries safely with parameterized statements."
-metaDescription: "[ES] Learn to execute raw SQL queries safely in Python, JavaScript, and Java using parameterized statements to prevent SQL injection."
+metaDescription: "Learn to execute raw SQL queries safely in Python, JavaScript, and Java using parameterized statements to prevent SQL injection."
 difficulty: beginner
 topics:
   - databases
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende a ejecutar consultas SQL de forma segura en Python, JavaScript y Java usando consultas parametrizadas para prevenir inyección SQL."
+  metaDescription: "Learn to execute raw SQL queries safely in Python, JavaScript, and Java using parameterized statements to prevent SQL injection."
   keywords:
     - databases
     - sql

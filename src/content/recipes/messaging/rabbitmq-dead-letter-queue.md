@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/messaging/rabbitmq-python-pika-consumer
   - /recipes/messaging/python-celery-task-queue
-  - /guides/complete-guide-message-queues
-  - /guides/complete-guide-rabbitmq-patterns
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

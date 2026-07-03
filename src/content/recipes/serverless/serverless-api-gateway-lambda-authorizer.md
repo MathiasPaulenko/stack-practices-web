@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/serverless/aws-lambda-python-dependencies
   - /recipes/security/python-jwt-refresh-token-rotation
-  - /guides/complete-guide-serverless-architecture
-  - /guides/complete-guide-api-security
+  - /guides/serverless-architecture-guide
+  - /guides/api-security-checklist-guide
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

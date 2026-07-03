@@ -18,8 +18,7 @@ tags:
 relatedResources:
   - /recipes/frontend/javascript-infinite-scroll-pagination
   - /recipes/frontend/javascript-localstorage-expiration
-  - /guides/frontend-performance-guide
-  - /patterns/rate-limiter-pattern
+  - /guides/performance-optimization-guide
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

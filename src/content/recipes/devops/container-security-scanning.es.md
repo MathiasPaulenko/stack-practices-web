@@ -12,6 +12,10 @@ tags:
   - container
   - docker
   - security
+relatedResources:
+  - /recipes/devops/docker-multi-stage-build-optimization
+  - /recipes/security/sql-injection-prevention
+  - /guides/devops/docker-for-developers-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

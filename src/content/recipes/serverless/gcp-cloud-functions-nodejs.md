@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/serverless/aws-lambda-python-dependencies
   - /recipes/serverless/azure-functions-python-http
-  - /guides/complete-guide-serverless-architecture
-  - /guides/complete-guide-gcp-cloud-functions
+  - /guides/serverless-architecture-guide
+  - /guides/gcp-cloud-functions-nodejs
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

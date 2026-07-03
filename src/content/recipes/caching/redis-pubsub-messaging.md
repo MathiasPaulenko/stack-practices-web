@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/caching/redis-cache-aside-pattern
   - /recipes/caching/python-redis-cache-decorator
-  - /patterns/messaging/pubsub-pattern
+  - /patterns/messaging/voucher-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

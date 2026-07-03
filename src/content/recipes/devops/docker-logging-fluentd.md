@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/devops/docker-health-check-configuration
   - /recipes/devops/docker-compose-dev-prod-split
   - /guides/observability-guide
-  - /guides/structured-logging-guide
+  - /guides/structured-logging
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

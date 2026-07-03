@@ -19,7 +19,7 @@ tags:
   - security
 relatedResources:
   - /guides/security/owasp-top-10-guide
-  - /guides/frontend/web-performance-guide
+  - /guides/frontend/web-components-guide
   - /guides/security/secrets-management-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"

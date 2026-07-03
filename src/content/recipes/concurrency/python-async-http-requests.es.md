@@ -18,9 +18,7 @@ tags:
 relatedResources:
   - /recipes/api/javascript-fetch-retry-logic
   - /recipes/api/nodejs-websocket-realtime
-  - /guides/async-programming-guide
   - /patterns/circuit-breaker-pattern
-  - /patterns/rate-limiter-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

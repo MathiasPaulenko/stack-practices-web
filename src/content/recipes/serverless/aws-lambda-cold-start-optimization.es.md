@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/serverless/aws-lambda-python-dependencies
   - /recipes/serverless/serverless-dynamodb-single-table
-  - /guides/complete-guide-serverless-architecture
-  - /guides/complete-guide-aws-lambda-performance
+  - /guides/serverless-architecture-guide
+  - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

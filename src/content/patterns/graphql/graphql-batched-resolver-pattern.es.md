@@ -18,9 +18,8 @@ tags:
   - graphql-performance
 relatedResources:
   - /patterns/graphql-dataloader-pattern
-  - /patterns/graphql-n-plus-1-detection
-  - /guides/complete-guide-graphql-caching
-  - /guides/complete-guide-graphql-schema-design
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

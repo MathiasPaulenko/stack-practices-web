@@ -18,7 +18,6 @@ tags:
   - guide
   - ai
 relatedResources:
-  - /guides/ai/building-llm-applications-guide
   - /guides/concurrency/complete-guide-python-asyncio
   - /guides/api/complete-guide-api-versioning-strategies
 lastUpdated: "2026-07-02"

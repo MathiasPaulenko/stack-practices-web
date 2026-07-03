@@ -17,8 +17,8 @@ tags:
 relatedResources:
   - /recipes/devops/docker-secrets-management
   - /recipes/devops/docker-network-isolation
-  - /guides/security-guide
-  - /patterns/encryption-at-rest-pattern
+  - /guides/webhook-security-guide
+  - /patterns/encryption-at-rest
   - /guides/secrets-management-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"

@@ -18,8 +18,6 @@ tags:
 relatedResources:
   - /recipes/concurrency/python-async-http-requests
   - /recipes/devops/docker-health-check-configuration
-  - /guides/async-programming-guide
-  - /patterns/background-job-pattern
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

@@ -3,7 +3,7 @@ contentType: recipes
 slug: connect-to-mysql
 title: "[ES] Connect to MySQL"
 description: "[ES] How to connect to MySQL databases in Python, JavaScript, and Java."
-metaDescription: "[ES] Learn how to connect to MySQL databases using Python mysql-connector, Node.js mysql2, and Java JDBC with practical code examples."
+metaDescription: "Learn how to connect to MySQL databases using Python mysql-connector, Node.js mysql2, and Java JDBC with practical code examples."
 difficulty: beginner
 topics:
   - databases
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende a conectar a bases de datos MySQL usando Python mysql-connector, Node.js mysql2 y Java JDBC con ejemplos de código prácticos."
+  metaDescription: "Learn how to connect to MySQL databases using Python mysql-connector, Node.js mysql2, and Java JDBC with practical code examples."
   keywords:
     - databases
     - mysql

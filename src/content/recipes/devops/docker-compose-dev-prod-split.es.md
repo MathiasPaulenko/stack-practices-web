@@ -17,9 +17,8 @@ tags:
 relatedResources:
   - /recipes/docker-multi-stage-build-optimization
   - /recipes/docker-health-check-configuration
-  - /guides/docker-best-practices
-  - /patterns/multi-environment-pattern
-  - /docs/docker-deployment-checklist
+  - /guides/terraform-best-practices-guide
+  - /docs/deployment-checklist-template
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

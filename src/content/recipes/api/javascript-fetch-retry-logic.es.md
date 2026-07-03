@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/retry-logic-exponential-backoff
   - /recipes/nodejs-websocket-realtime
-  - /guides/api-error-handling
+  - /guides/api-error-handling-guideline
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

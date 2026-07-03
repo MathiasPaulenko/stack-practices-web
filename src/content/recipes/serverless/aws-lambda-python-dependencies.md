@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/serverless/aws-lambda-cold-start-optimization
   - /recipes/serverless/serverless-dynamodb-single-table
-  - /guides/complete-guide-serverless-architecture
-  - /guides/complete-guide-aws-lambda-deployment
+  - /guides/serverless-architecture-guide
+  - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

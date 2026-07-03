@@ -18,9 +18,8 @@ tags:
   - n-plus-1
 relatedResources:
   - /patterns/graphql-batched-resolver-pattern
-  - /patterns/graphql-n-plus-1-detection
-  - /guides/complete-guide-graphql-caching
-  - /guides/complete-guide-graphql-testing
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

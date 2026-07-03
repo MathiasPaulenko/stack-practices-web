@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/devops/docker-health-check-configuration
   - /recipes/devops/docker-compose-dev-prod-split
   - /recipes/devops/docker-multi-stage-build-optimization
-  - /guides/docker-security-guide
+  - /guides/webhook-security-guide
   - /patterns/sidecar-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"

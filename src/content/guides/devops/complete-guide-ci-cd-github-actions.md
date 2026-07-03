@@ -20,7 +20,7 @@ tags:
 relatedResources:
   - /guides/devops/deployment-strategies-guide
   - /guides/devops/complete-guide-gitops-argocd
-  - /guides/testing/tdd-guide
+  - /guides/testing/contributing-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

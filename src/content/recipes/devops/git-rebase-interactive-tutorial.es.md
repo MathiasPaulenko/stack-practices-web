@@ -17,9 +17,8 @@ tags:
 relatedResources:
   - /recipes/devops/docker-compose-dev-prod-split
   - /recipes/devops/docker-multi-stage-build-optimization
-  - /guides/git-workflow-guide
-  - /patterns/trunk-based-development-pattern
-  - /patterns/code-review-pattern
+  - /guides/git-workflow
+  - /patterns/code-review-checklist-template
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

@@ -19,8 +19,8 @@ relatedResources:
   - /recipes/api-rate-limiting
   - /recipes/api-rate-limiting-redis
   - /recipes/nodejs-caching-redis
-  - /docs/api-security-checklist-template
-  - /guides/api-design-best-practices
+  - /docs/endpoint-security-checklist-template
+  - /guides/rest-api-design-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

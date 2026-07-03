@@ -18,9 +18,9 @@ tags:
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/javascript-drag-drop-file-upload
-  - /docs/api-security-checklist-template
-  - /guides/file-handling-best-practices
-  - /patterns/file-upload-pipeline
+  - /docs/endpoint-security-checklist-template
+  - /guides/graphql-error-handling-best-practices
+  - /patterns/file-upload-validation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

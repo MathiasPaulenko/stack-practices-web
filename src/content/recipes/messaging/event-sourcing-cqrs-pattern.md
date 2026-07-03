@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/messaging/kafka-python-consumer-groups
   - /recipes/messaging/python-celery-task-queue
-  - /guides/complete-guide-event-driven-design
-  - /guides/complete-guide-cqrs-patterns
+  - /guides/domain-driven-design-guide
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

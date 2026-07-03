@@ -18,7 +18,7 @@ tags:
 relatedResources:
   - /recipes/api/graphql-apollo-server
   - /recipes/graphql/graphql-subscriptions-realtime
-  - /patterns/graphql/graphql-federated-entity-pattern
+  - /patterns/graphql/federated-identity-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

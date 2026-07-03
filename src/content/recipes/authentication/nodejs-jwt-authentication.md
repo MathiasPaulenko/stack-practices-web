@@ -18,9 +18,8 @@ tags:
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/nodejs-oauth2-github-login
-  - /docs/api-security-checklist-template
-  - /guides/authentication-and-authorization
-  - /patterns/token-refresh-rotation
+  - /docs/endpoint-security-checklist-template
+  - /patterns/python-jwt-refresh-token-rotation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/concurrency/python-asyncio-semaphore-rate-limiting
   - /recipes/concurrency/python-thread-pool-executor
-  - /guides/complete-guide-async-python
-  - /guides/complete-guide-concurrency-patterns
+  - /guides/complete-guide-python-asyncio
+  - /guides/concurrency-patterns-guide
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

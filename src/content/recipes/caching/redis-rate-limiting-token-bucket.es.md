@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/caching/redis-cache-aside-pattern
   - /recipes/caching/redis-sorted-set-leaderboard
-  - /patterns/caching/rate-limiting-pattern
+  - /patterns/caching/api-rate-limiting
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

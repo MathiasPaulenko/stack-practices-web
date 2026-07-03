@@ -3,7 +3,7 @@ contentType: recipes
 slug: graphql-api
 title: "Implementar una API GraphQL"
 description: "Construye una API GraphQL lista para producción con schemas tipados, resolvers y optimización de queries en Python, JavaScript y Java."
-metaDescription: "[ES] Build a GraphQL API in Python (Strawberry), JavaScript (Apollo), and Java. Type-safe schemas, resolvers, mutations, and subscriptions with practical examples."
+metaDescription: "Build a GraphQL API in Python (Strawberry), JavaScript (Apollo), and Java. Type-safe schemas, resolvers, mutations, and subscriptions with practical examples."
 difficulty: intermediate
 topics:
   - api
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Construye una API GraphQL en Python (Strawberry), JavaScript (Apollo) y Java. Schemas tipados, resolvers, mutaciones y suscripciones con ejemplos prácticos."
+  metaDescription: "Build a GraphQL API in Python (Strawberry), JavaScript (Apollo), and Java. Type-safe schemas, resolvers, mutations, and subscriptions with practical examples."
   keywords:
     - graphql
     - api

@@ -18,8 +18,8 @@ relatedResources:
   - /recipes/javascript-localstorage-expiration
   - /recipes/javascript-drag-drop-file-upload
   - /recipes/javascript-clipboard-copy-paste
-  - /guides/frontend-best-practices
-  - /patterns/lazy-loading-pattern
+  - /guides/terraform-best-practices-guide
+  - /patterns/eager-loading-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

@@ -18,8 +18,7 @@ tags:
 relatedResources:
   - /recipes/caching/python-redis-cache-decorator
   - /recipes/caching/python-memcached-session-storage
-  - /guides/complete-guide-redis-caching-strategies
-  - /guides/complete-guide-application-level-caching
+  - /guides/complete-guide-api-versioning-strategies
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

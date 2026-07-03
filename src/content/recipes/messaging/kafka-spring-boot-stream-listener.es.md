@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/messaging/kafka-python-consumer-groups
   - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /guides/complete-guide-message-queues
-  - /guides/complete-guide-kafka-patterns
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-kafka-stream-processing
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

@@ -19,8 +19,7 @@ relatedResources:
   - /recipes/oauth2-login
   - /recipes/nodejs-jwt-authentication
   - /recipes/oauth2-pkce-spa
-  - /docs/api-security-checklist-template
-  - /guides/authentication-and-authorization
+  - /docs/endpoint-security-checklist-template
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

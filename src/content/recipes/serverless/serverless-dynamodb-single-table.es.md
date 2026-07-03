@@ -18,8 +18,8 @@ tags:
 relatedResources:
   - /recipes/serverless/aws-lambda-python-dependencies
   - /recipes/serverless/aws-lambda-cold-start-optimization
-  - /guides/complete-guide-serverless-architecture
-  - /guides/complete-guide-dynamodb-design
+  - /guides/serverless-architecture-guide
+  - /guides/complete-guide-mobile-responsive-design
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

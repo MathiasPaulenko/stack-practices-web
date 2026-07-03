@@ -18,9 +18,9 @@ tags:
 relatedResources:
   - /recipes/file-handling/javascript-drag-drop-file-upload
   - /recipes/frontend/javascript-service-worker-offline
-  - /guides/frontend-performance-guide
-  - /patterns/stream-processing-pattern
-  - /patterns/backpressure-pattern
+  - /guides/performance-optimization-guide
+  - /patterns/stream-processing-guide
+  - /patterns/voucher-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:

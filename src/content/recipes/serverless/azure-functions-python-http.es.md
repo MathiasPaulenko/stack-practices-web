@@ -18,8 +18,7 @@ tags:
 relatedResources:
   - /recipes/serverless/aws-lambda-python-dependencies
   - /recipes/serverless/gcp-cloud-functions-nodejs
-  - /guides/complete-guide-serverless-architecture
-  - /guides/complete-guide-azure-functions-deployment
+  - /guides/serverless-architecture-guide
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
