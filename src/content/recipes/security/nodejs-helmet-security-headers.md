@@ -32,7 +32,7 @@ seo:
 
 # Configure HTTP Security Headers with Helmet in Node.js
 
-HTTP security headers protect your web app from common attacks: clickjacking, XSS, MIME sniffing, and man-in-the-middle. Helmet is an Express middleware that sets these headers automatically. This recipe covers configuring Helmet with a Content Security Policy (CSP), HSTS, CORS, and custom headers for OWASP compliance.
+HTTP security headers protect your web app from clickjacking, XSS, MIME sniffing, and man-in-the-middle attacks. Helmet is an Express middleware that sets them automatically. Below: configuring Helmet with Content Security Policy (CSP), HSTS, CORS, and custom headers for OWASP compliance.
 
 ## When to Use This
 

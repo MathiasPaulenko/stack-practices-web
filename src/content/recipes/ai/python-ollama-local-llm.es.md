@@ -31,7 +31,7 @@ seo:
 
 # Ejecuta LLMs localmente con Ollama para inferencia privada
 
-Ollama ejecuta LLMs open-source (Llama 3, Mistral, Phi-3, etc.) localmente en tu maquina. Sin API keys, sin costos por token, sin datos saliendo de tu red. Esta receta cubre instalar Ollama, ejecutar modelos con Python, streaming de respuestas, generar embeddings y usar function calling — todo localmente.
+Ollama ejecuta LLMs open-source (Llama 3, Mistral, Phi-3, etc.) localmente en tu maquina. Sin API keys, sin costos por token, sin datos saliendo de tu red. A continuacion: instalar Ollama, ejecutar modelos con Python, streaming de respuestas, generar embeddings y usar function calling — todo localmente.
 
 ## Cuando Usar Esto
 

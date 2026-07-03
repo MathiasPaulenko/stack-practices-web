@@ -32,7 +32,7 @@ seo:
 
 # Distributed Rate Limiting with FastAPI and Redis
 
-Rate limiting protects APIs from abuse, DDoS, and resource exhaustion. In distributed deployments with multiple server instances, in-memory rate limiters don't work — each instance has its own counter. Redis provides a shared, atomic counter that works across all instances. This recipe implements sliding window and token bucket algorithms in FastAPI with Redis.
+Rate limiting protects APIs from abuse, DDoS, and resource exhaustion. In distributed deployments with multiple server instances, in-memory rate limiters don't work — each instance has its own counter. Redis provides a shared, atomic counter across all instances. Below: sliding window and token bucket algorithms in FastAPI with Redis.
 
 ## When to Use This
 

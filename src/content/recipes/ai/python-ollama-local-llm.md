@@ -31,7 +31,7 @@ seo:
 
 # Run LLMs Locally with Ollama for Private Inference
 
-Ollama runs open-source LLMs (Llama 3, Mistral, Phi-3, etc.) locally on your machine. No API keys, no per-token costs, no data leaving your network. This recipe covers installing Ollama, running models with Python, streaming responses, generating embeddings, and using function calling — all locally.
+Ollama runs open-source LLMs (Llama 3, Mistral, Phi-3, etc.) on your machine. No API keys, no per-token costs, no data leaving your network. Below: installing Ollama, running models with Python, streaming responses, generating embeddings, and function calling — all locally.
 
 ## When to Use This
 

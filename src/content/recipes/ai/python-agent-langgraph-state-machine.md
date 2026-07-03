@@ -31,7 +31,7 @@ seo:
 
 # Build Stateful AI Agents with LangGraph State Machines
 
-LangGraph extends LangChain with stateful, cyclic graphs for building agentic workflows. Instead of linear chains, you define a state machine with nodes (functions), edges (transitions), and conditional routing. This enables multi-step agents that can loop, call tools, and maintain state across turns. This recipe covers building a research agent with tool calling, conditional routing, and checkpointing.
+LangGraph extends LangChain with stateful, cyclic graphs for building agentic workflows. Instead of linear chains, you define a state machine with nodes (functions), edges (transitions), and conditional routing. This enables multi-step agents that can loop, call tools, and maintain state across turns. Below: building a research agent with tool calling, conditional routing, and checkpointing.
 
 ## When to Use This
 

@@ -31,7 +31,7 @@ seo:
 
 # Compara similitud semantica de texto con embeddings de OpenAI y coseno
 
-Los embeddings de texto capturan significado semantico como vectores de alta dimension. La similitud coseno mide el angulo entre dos vectores, indicando que tan semanticamente similares son los textos. Esta receta cubre generar embeddings con OpenAI, calcular similitud coseno y construir un indice simple de busqueda por similitud.
+Los embeddings de texto capturan significado semantico como vectores de alta dimension. La similitud coseno mide el angulo entre dos vectores, indicando que tan semanticamente similares son los textos. A continuacion: generar embeddings con OpenAI, calcular similitud coseno y construir un indice simple de busqueda por similitud.
 
 ## Cuando Usar Esto
 

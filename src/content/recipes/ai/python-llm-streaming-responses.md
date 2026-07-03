@@ -32,7 +32,7 @@ seo:
 
 # Stream LLM Output with Server-Sent Events (SSE)
 
-Streaming LLM output improves perceived latency — users see tokens as they are generated instead of waiting for the full response. Server-Sent Events (SSE) is the standard protocol for streaming from server to client over HTTP. This recipe implements SSE streaming with FastAPI, the OpenAI streaming API, and async generators.
+Streaming LLM output improves perceived latency — users see tokens as they are generated instead of waiting for the full response. Server-Sent Events (SSE) is the standard protocol for streaming from server to client over HTTP. Below: SSE streaming with FastAPI, the OpenAI streaming API, and async generators.
 
 ## When to Use This
 

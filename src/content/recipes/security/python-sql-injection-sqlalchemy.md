@@ -32,7 +32,7 @@ seo:
 
 # Prevent SQL Injection with SQLAlchemy Parameterized Queries
 
-SQL injection is the #1 web application security risk (OWASP Top 10). It occurs when user input is concatenated into SQL strings instead of being parameterized. SQLAlchemy's ORM and Core query APIs use parameterized queries by default, making injection nearly impossible when used correctly. This recipe shows safe and unsafe patterns.
+SQL injection happens when user input is concatenated into SQL strings instead of parameterized. It tops the OWASP Top 10 year after year. SQLAlchemy's ORM and Core query APIs parameterize by default, making injection nearly impossible when used correctly. Below: safe and unsafe patterns side by side.
 
 ## When to Use This
 

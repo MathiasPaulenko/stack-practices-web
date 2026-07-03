@@ -31,7 +31,7 @@ seo:
 
 # Almacenar y consultar embeddings en Pinecone Vector Database
 
-Pinecone es una base de datos vectorial gestionada optimizada para busqueda semantica y RAG. Almacena embeddings de alta dimension y recupera los vectores mas similares en milisegundos. Esta receta cubre crear un indice, upsertear embeddings con metadatos, consultar con filtros y usar namespaces para aislamiento multi-tenant.
+Pinecone es una base de datos vectorial gestionada optimizada para busqueda semantica y RAG. Almacena embeddings de alta dimension y recupera los vectores mas similares en milisegundos. A continuacion: crear un indice, upsertear embeddings con metadatos, consultar con filtros y usar namespaces para aislamiento multi-tenant.
 
 ## Cuando Usar Esto
 

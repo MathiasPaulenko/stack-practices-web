@@ -31,7 +31,7 @@ seo:
 
 # Componer cadenas LCEL en LangChain para workflows LLM multi-paso
 
-LangChain Expression Language (LCEL) es una forma declarativa de componer workflows LLM usando el operador pipe (`|`). Las cadenas se vuelven componibles, streamables y reintentables sin boilerplate. Esta receta muestra como construir pipelines multi-paso con prompts, modelos, parsers, ramas paralelas y componentes runnable personalizados.
+LangChain Expression Language (LCEL) es una forma declarativa de componer workflows LLM usando el operador pipe (`|`). Las cadenas se vuelven componibles, streamables y reintentables sin boilerplate. A continuacion: pipelines multi-paso con prompts, modelos, parsers, ramas paralelas y componentes runnable personalizados.
 
 ## Cuando Usar Esto
 

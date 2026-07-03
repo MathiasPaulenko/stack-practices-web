@@ -32,7 +32,7 @@ seo:
 
 # Gestiona secretos de aplicacion con HashiCorp Vault y Python
 
-Los secretos hardcodeados en variables de entorno o archivos de configuracion son un riesgo de seguridad. HashiCorp Vault centraliza el almacenamiento de secretos con cifrado, control de acceso, audit logging y secretos dinamicos. Esta receta cubre conectarse a Vault con Python (`hvac`), almacenar y recuperar secretos estaticos, usar credenciales dinamicas de base de datos y renovar leases automaticamente.
+Los secretos hardcodeados en variables de entorno o archivos de configuracion son un riesgo de seguridad. HashiCorp Vault centraliza el almacenamiento de secretos con cifrado, control de acceso, audit logging y secretos dinamicos. A continuacion: conectarse a Vault con Python (`hvac`), almacenar y recuperar secretos estaticos, usar credenciales dinamicas de base de datos y renovar leases automaticamente.
 
 ## Cuando Usar Esto
 

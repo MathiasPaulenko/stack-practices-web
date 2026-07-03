@@ -32,7 +32,7 @@ seo:
 
 # Stream de salida LLM con Server-Sent Events (SSE)
 
-El streaming de salida LLM mejora la latencia percibida — los usuarios ven tokens a medida que se generan en lugar de esperar la respuesta completa. Server-Sent Events (SSE) es el protocolo estandar para streaming del servidor al cliente sobre HTTP. Esta receta implementa streaming SSE con FastAPI, la API de streaming de OpenAI y async generators.
+El streaming de salida LLM mejora la latencia percibida — los usuarios ven tokens a medida que se generan en lugar de esperar la respuesta completa. Server-Sent Events (SSE) es el protocolo estandar para streaming del servidor al cliente sobre HTTP. A continuacion: streaming SSE con FastAPI, la API de streaming de OpenAI y async generators.
 
 ## Cuando Usar Esto
 

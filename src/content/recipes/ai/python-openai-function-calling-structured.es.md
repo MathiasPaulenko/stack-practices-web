@@ -31,7 +31,7 @@ seo:
 
 # Salida JSON estructurada con OpenAI Function Calling
 
-Los LLMs generan texto, pero las aplicaciones necesitan datos estructurados. Function calling y structured outputs de OpenAI fuerzan al modelo a retornar JSON que coincide con un esquema. Combinado con Pydantic para validacion, esto te da salida estructurada type-safe y confiable de cualquier llamada LLM. Esta receta cubre function calling, `response_format` con JSON schema y manejo de errores.
+Los LLMs generan texto, pero las aplicaciones necesitan datos estructurados. Function calling y structured outputs de OpenAI fuerzan al modelo a retornar JSON que coincide con un esquema. Combinado con Pydantic para validacion, esto te da salida estructurada type-safe y confiable de cualquier llamada LLM. A continuacion: function calling, `response_format` con JSON schema y manejo de errores.
 
 ## Cuando Usar Esto
 

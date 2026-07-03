@@ -2,7 +2,7 @@
 contentType: recipes
 slug: python-async-gather-concurrent-requests
 title: "Concurrent HTTP Requests with asyncio.gather and aiohttp"
-description: "Fetch multiple HTTP endpoints concurrently using asyncio.gather and aiohttp with error handling, rate limiting, timeouts, and connection pooling for 10x throughput"
+description: "Fetch multiple HTTP endpoints concurrently using asyncio.gather and aiohttp with error handling, rate limiting, timeouts, and connection pooling"
 metaDescription: "Make concurrent HTTP requests with asyncio.gather and aiohttp. Handle errors, set timeouts, limit concurrency with semaphores, and reuse connections."
 difficulty: intermediate
 topics:
@@ -32,7 +32,7 @@ seo:
 
 # Concurrent HTTP Requests with asyncio.gather and aiohttp
 
-Sequential HTTP requests are slow — fetching 100 endpoints one by one takes 100x the latency of a single request. `asyncio.gather` runs requests concurrently, reducing total time to the slowest single request. This recipe covers concurrent fetching with `aiohttp`, error handling, rate limiting with semaphores, timeouts, and connection pooling.
+Fetching 100 endpoints sequentially takes 100x the latency of a single request. `asyncio.gather` runs them concurrently, cutting total time to the slowest request. Below: concurrent fetching with `aiohttp`, error handling, semaphores for rate limiting, timeouts, and connection pooling.
 
 ## When to Use This
 

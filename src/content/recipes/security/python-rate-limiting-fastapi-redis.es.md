@@ -32,7 +32,7 @@ seo:
 
 # Rate limiting distribuido con FastAPI y Redis
 
-El rate limiting protege las APIs de abuso, DDoS y agotamiento de recursos. En despliegues distribuidos con multiples instancias de servidor, los rate limiters en memoria no funcionan — cada instancia tiene su propio contador. Redis proporciona un contador compartido y atomico que funciona en todas las instancias. Esta receta implementa algoritmos sliding window y token bucket en FastAPI con Redis.
+El rate limiting protege las APIs de abuso, DDoS y agotamiento de recursos. En despliegues distribuidos con multiples instancias de servidor, los rate limiters en memoria no funcionan — cada instancia tiene su propio contador. Redis proporciona un contador compartido y atomico que funciona en todas las instancias. A continuacion: algoritmos sliding window y token bucket en FastAPI con Redis.
 
 ## Cuando Usar Esto
 

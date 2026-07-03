@@ -31,7 +31,7 @@ seo:
 
 # Evaluate RAG Quality with RAGAS Metrics
 
-RAG pipelines are hard to evaluate — how do you know if the retrieved context was relevant or if the answer is grounded? RAGAS (Retrieval-Augmented Generation Assessment) provides automated metrics using an LLM-as-judge approach. This recipe covers evaluating a RAG pipeline with the four core RAGAS metrics: faithfulness, answer relevancy, context precision, and context recall.
+RAG pipelines are hard to evaluate — how do you know if the retrieved context was relevant or if the answer is grounded? RAGAS (Retrieval-Augmented Generation Assessment) provides automated metrics using an LLM-as-judge approach. Below: evaluating a RAG pipeline with the four core RAGAS metrics: faithfulness, answer relevancy, context precision, and context recall.
 
 ## When to Use This
 

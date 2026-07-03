@@ -31,7 +31,7 @@ seo:
 
 # Build a Local RAG Pipeline with ChromaDB and Sentence Transformers
 
-RAG (Retrieval-Augmented Generation) combines document retrieval with LLM generation. ChromaDB is a local vector database that runs in-process — no external service needed. Paired with sentence-transformers for local embeddings, you can build a complete RAG pipeline without API keys or cloud dependencies. This recipe covers chunking, embedding, retrieval, and generation.
+RAG (Retrieval-Augmented Generation) combines document retrieval with LLM generation. ChromaDB is a local vector database that runs in-process — no external service needed. Paired with sentence-transformers for local embeddings, you can build a complete RAG pipeline without API keys or cloud dependencies. Below: chunking, embedding, retrieval, and generation.
 
 ## When to Use This
 

@@ -31,7 +31,7 @@ seo:
 
 # Construye agentes IA con estado con maquinas de estados LangGraph
 
-LangGraph extiende LangChain con grafos con estado y ciclicos para construir workflows agenticos. En lugar de cadenas lineales, defines una maquina de estados con nodos (funciones), aristas (transiciones) y enrutamiento condicional. Esto habilita agentes multi-paso que pueden iterar, llamar herramientas y mantener estado entre turnos. Esta receta cubre construir un agente de investigacion con tool calling, enrutamiento condicional y checkpointing.
+LangGraph extiende LangChain con grafos con estado y ciclicos para construir workflows agenticos. En lugar de cadenas lineales, defines una maquina de estados con nodos (funciones), aristas (transiciones) y enrutamiento condicional. Esto habilita agentes multi-paso que pueden iterar, llamar herramientas y mantener estado entre turnos. A continuacion: construir un agente de investigacion con tool calling, enrutamiento condicional y checkpointing.
 
 ## Cuando Usar Esto
 

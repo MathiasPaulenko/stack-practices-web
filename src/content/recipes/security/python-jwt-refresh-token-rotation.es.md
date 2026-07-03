@@ -32,7 +32,7 @@ seo:
 
 # Rotacion segura de JWT refresh tokens con Python
 
-Los JWT access tokens son de corta duracion (15-30 minutos) para limitar la ventana de exposicion si son robados. Los refresh tokens son de larga duracion pero deben rotarse — cada uso emite un nuevo refresh token e invalida el anterior. Esta receta implementa rotacion segura de tokens con deteccion de reuso y blacklisting.
+Los JWT access tokens son de corta duracion (15-30 minutos) para limitar la ventana de exposicion si son robados. Los refresh tokens son de larga duracion pero deben rotarse — cada uso emite un nuevo refresh token e invalida el anterior. A continuacion: rotacion segura de tokens con deteccion de reuso y blacklisting.
 
 ## Cuando Usar Esto
 
