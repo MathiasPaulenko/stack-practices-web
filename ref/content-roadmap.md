@@ -195,14 +195,14 @@ All roadmap docs have been completed.
 102. ✅ `llm-fallback-pattern` — Fallback to cheaper model on simple queries
 
 **Resilience & Architecture Patterns (8)**
-103. `graceful-degradation-pattern` — Degrade functionality instead of failing
+103. ✅ `graceful-degradation-pattern` — Degrade functionality instead of failing
 104. `timeout-pattern` — Bound wait time on all external calls
-105. `shed-load-pattern` — Drop requests under extreme load
+105. ✅ `shed-load-pattern` — Drop requests under extreme load
 106. `throttling-pattern` — Limit request rate per client
-107. `geode-pattern` — Distribute data across nodes with partitioning
-108. `deployment-ring-pattern` — Progressive rollout in rings
-109. `blue-green-deployment-pattern` — Zero-downtime with two environments
-110. `canary-release-pattern` — Roll out to a subset before full deployment
+107. ✅ `geode-pattern` — Distribute data across nodes with partitioning
+108. ✅ `deployment-ring-pattern` — Progressive rollout in rings
+109. ✅ `blue-green-deployment-pattern` — Zero-downtime with two environments
+110. ✅ `canary-release-pattern` — Roll out to a subset before full deployment
 
 ---
 
