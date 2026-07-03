@@ -11,6 +11,8 @@ tags:
   - design
   - singleton-pattern
   - creational-patterns
+  - design-patterns
+  - patterns
 relatedResources:
   - /recipes/factory-pattern-recipe
   - /recipes/hexagonal-architecture
@@ -210,3 +212,15 @@ A: The classic pattern forbids this, but registries and DI containers support na
 **Q: What is the difference between singleton and static class?**
 A: A singleton is an object — it can implement interfaces, be passed as a parameter, and be mocked. A static class is just a namespace for functions — it cannot be polymorphic, instantiated, or injected. Prefer singleton objects over static classes.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

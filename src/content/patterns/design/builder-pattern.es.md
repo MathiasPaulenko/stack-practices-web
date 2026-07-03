@@ -216,3 +216,15 @@ R: No. Úsalo cuando los constructores se vuelven incómodos (más de 3-4 parám
 
 **P: ¿Puede un Builder producir diferentes tipos de producto?**
 R: Típicamente no. Un Builder está acoplado a una clase de producto. Usa [Abstract Factory](/patterns/design/abstract-factory-pattern) si necesitas diferentes familias de productos.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

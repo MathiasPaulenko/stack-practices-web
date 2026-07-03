@@ -11,6 +11,8 @@ tags:
   - ai
   - chatbot
   - llm
+  - machine-learning
+  - neural-networks
 relatedResources:
   - /recipes/rag-pipeline
   - /recipes/semantic-search

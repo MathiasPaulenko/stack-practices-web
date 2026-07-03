@@ -248,3 +248,15 @@ A: Java usa composición o herencia; Python usa monkey-patching o mixins. Ningun
 
 **Q: Pueden existir métodos partial sin implementación?**
 A: En C#, sí. Una declaración de método partial puede existir en el archivo generado sin implementación en el archivo custom. El compilador remueve el sitio de llamada por completo si no existe implementación, produciendo cero overhead.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

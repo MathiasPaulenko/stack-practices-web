@@ -473,3 +473,15 @@ A: Usa el Patrón Claim Check: almacena el payload completo en object storage y 
 
 **Q: Cómo manejo un consumidor que ha estado caído por días?**
 A: Los consumidores de Kafka reanudan desde su último offset commiteado. Si la retención expiró, implementa un patrón de snapshot + catch-up donde el consumidor primero obtiene el estado actual, luego consume desde el offset más reciente.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

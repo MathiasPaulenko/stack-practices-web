@@ -9,6 +9,10 @@ topics:
   - data
 tags:
   - data
+  - parsing
+  - json
+  - csv
+  - processing
 relatedResources:
   - /recipes/date-formatting
   - /recipes/caching

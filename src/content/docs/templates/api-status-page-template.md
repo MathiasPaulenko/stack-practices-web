@@ -28,6 +28,11 @@ seo:
   metaDescription: "API status page template with incident communication, maintenance windows, SLA definitions, and what works for transparent uptime reporting."
   keywords:
     - template
+    - api
+    - status-page
+    - uptime
+    - incident-communication
+
 ---
 
 ## What Works

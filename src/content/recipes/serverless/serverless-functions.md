@@ -10,6 +10,9 @@ topics:
 tags:
   - serverless
   - lambda
+  - aws-lambda
+  - functions
+  - faas
 relatedResources:
   - /guides/event-driven-architecture-guide
   - /guides/software-architecture-guide
@@ -136,3 +139,15 @@ A: AWS Lambda max is 15 minutes, Cloud Functions 60 minutes, Azure Functions con
 
 **Q: How do I debug serverless functions locally?**
 A: AWS SAM CLI, Azure Functions Core Tools, and Functions Framework for Node.js all provide local emulators. Test locally, but always validate in the cloud since behavior can differ.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

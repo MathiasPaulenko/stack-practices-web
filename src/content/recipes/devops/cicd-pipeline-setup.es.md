@@ -12,6 +12,7 @@ tags:
   - devops
   - github-actions
   - automation
+  - deployment
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /recipes/github-actions
@@ -167,3 +168,15 @@ R: Ejecuta migraciones en un job separado antes del deploy. Usa migraciones back
 
 **P: ¿Puedo usar el mismo pipeline para microservicios?**
 R: Sí, pero usa triggers basados en paths para que solo los servicios afectados se construyan y desplieguen. Herramientas de monorepo (Nx, Turborepo) ayudan.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

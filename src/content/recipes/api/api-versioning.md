@@ -11,6 +11,8 @@ tags:
   - api
   - versioning
   - rest
+  - http
+  - backend
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

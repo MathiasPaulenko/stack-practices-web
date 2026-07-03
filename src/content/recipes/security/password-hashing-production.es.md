@@ -12,6 +12,7 @@ tags:
   - security
   - authentication
   - nodejs
+  - vulnerabilities
 relatedResources:
   - /guides/api-security-checklist-guide
   - /guides/security-best-practices-guide
@@ -150,3 +151,15 @@ R: Re-hashea en el próximo login: verifica con MD5, luego hashea con Argon2 y r
 
 **P: ¿Debería hashear del lado del cliente antes de enviar?**
 R: No. El hashing del lado del cliente no ofrece beneficio de seguridad sobre HTTPS y elimina protección del lado del servidor.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

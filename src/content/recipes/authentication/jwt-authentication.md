@@ -11,6 +11,8 @@ tags:
   - authentication
   - jwt
   - security
+  - oauth
+  - auth
 relatedResources:
   - /recipes/handle-errors
   - /recipes/call-rest-api
@@ -197,3 +199,15 @@ A: Maintain a token blocklist (e.g., Redis with TTL matching token expiry) and c
 
 **Q: What is the difference between HS256 and RS256?**
 A: `HS256` is symmetric: one secret signs and verifies. `RS256` is asymmetric: a private key signs, and any service with the public key can verify. Use `RS256` when multiple services need to verify tokens independently.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

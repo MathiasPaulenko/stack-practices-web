@@ -10,6 +10,9 @@ topics:
 tags:
   - file-handling
   - java
+  - io
+  - streams
+  - files
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/send-emails-smtp

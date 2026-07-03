@@ -9,6 +9,10 @@ topics:
   - databases
 tags:
   - database
+  - databases
+  - sql
+  - postgresql
+  - mysql
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/database-deadlocks-retries

@@ -242,3 +242,15 @@ R: No. Usa copia superficial cuando los objetos anidados son inmutables o cuando
 
 **P: ¿Cómo se compara Prototype con el patrón Builder?**
 R: [Builder](/patterns/design/builder-pattern) construye un objeto paso a paso. Prototype copia un objeto completamente construido. Resuelven problemas diferentes: Builder es para construcción compleja, Prototype es para duplicación.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

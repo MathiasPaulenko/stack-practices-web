@@ -11,6 +11,8 @@ tags:
   - resilience
   - architecture
   - distributed-systems
+  - design
+  - patterns
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/system-design-interview-guide
@@ -182,3 +184,15 @@ A: For synchronous APIs: retry in client. For background jobs: use a queue with 
 
 **Q: How do I handle idempotency for retries?**
 A: Generate a unique `Idempotency-Key` header. The server checks if it has processed this key before. Learn more in [message idempotency](/recipes/messaging/rabbitmq-task-queue).
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

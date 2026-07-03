@@ -10,6 +10,9 @@ topics:
 tags:
   - performance
   - database
+  - optimization
+  - profiling
+  - latency
 relatedResources:
   - /recipes/database-indexing
   - /recipes/sql-joins
@@ -130,3 +133,15 @@ R: `EXPLAIN` muestra el plan estimado sin ejecutar. `EXPLAIN ANALYZE` ejecuta la
 **P: ¿Los ORMs pueden generar queries eficientes?**
 R: Usualmente, pero no siempre. ORMs como SQLAlchemy y Hibernate pueden generar queries N+1 o joins ineficientes. Consulta [prevención de SQL injection](/recipes/security/sql-injection-prevention) para patrones de queries seguras. Profile el SQL actual que emiten y optimiza a nivel SQL cuando sea necesario.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

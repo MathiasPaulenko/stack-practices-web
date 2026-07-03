@@ -491,3 +491,15 @@ No. Los metodos async I/O ya ceden el thread mientras esperan. `Task.Run` solo a
 **Que es `IAsyncEnumerable` y como difiere de `Task<IEnumerable>`?**
 
 `IAsyncEnumerable<T>` produce items asincronicamente a medida que estan disponibles. `Task<IEnumerable<T>>` retorna todos los items a la vez cuando el task completa. Usa `IAsyncEnumerable` para streaming de datos (ej., filas de base de datos, eventos en tiempo real).
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

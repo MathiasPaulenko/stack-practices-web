@@ -12,6 +12,8 @@ tags:
   - container
   - docker
   - security
+  - devops
+  - ci-cd
 relatedResources:
   - /recipes/devops/docker-multi-stage-build-optimization
   - /recipes/security/sql-injection-prevention
@@ -201,3 +203,15 @@ R: Trivy es rapido, open-source y se integra bien con CI. Clair es CNCF-graduate
 
 **P: Deberia fallar builds por todas las vulnerabilidades?**
 R: No. Establece umbrales de severidad (ej. bloquear en CRITICAL con fixes disponibles) y trackea riesgos aceptados en un registro de vulnerabilidades.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

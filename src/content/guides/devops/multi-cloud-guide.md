@@ -135,3 +135,15 @@ Use a third-party tool (CloudHealth, Flexera, Kubecost) or build a unified FinOp
 
 **What is the operational model for a multi-cloud team?**
 Either platform engineers with cross-cloud expertise or cloud-specific squads with a platform team providing shared abstractions. The latter scales better but requires strong internal APIs.
+
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.

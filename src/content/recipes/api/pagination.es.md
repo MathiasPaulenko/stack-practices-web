@@ -11,6 +11,8 @@ tags:
   - api
   - pagination
   - database
+  - rest
+  - http
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/sql-joins
@@ -164,3 +166,15 @@ R: Incluye las columnas de filtro/sort en tu cursor. El cursor debe identificar 
 
 **P: ¿Cuál es el máximo page size que debería permitir?**
 R: Típicamente 50-100. Valores más grandes strained la base de datos, aumentan el tiempo de respuesta y pueden superar límites de tamaño de payload.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

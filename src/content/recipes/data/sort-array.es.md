@@ -10,6 +10,9 @@ topics:
 tags:
   - data
   - java
+  - parsing
+  - json
+  - csv
 relatedResources:
   - /recipes/parse-json
   - /recipes/unit-testing
@@ -167,3 +170,15 @@ A: En Python, devuelve una tupla desde la key function: `sorted(users, key=lambd
 
 **Q: ¿El ordenamiento in-place es más rápido que crear una copia ordenada nueva?**
 A: Ligeramente, porque evita asignar un nuevo array. Sin embargo, para la mayoría de aplicaciones la diferencia es despreciable. Prefiere inmutabilidad a menos que el profiling muestre un bottleneck.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

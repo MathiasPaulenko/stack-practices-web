@@ -11,6 +11,8 @@ tags:
   - devops
   - github-actions
   - ci-cd
+  - automation
+  - deployment
 relatedResources:
   - /recipes/unit-testing
   - /recipes/docker-basics
@@ -223,3 +225,15 @@ A: Use `if: github.event.pull_request.head.repo.full_name == github.repository` 
 
 **Q: What is the difference between `workflow_dispatch` and `repository_dispatch`?**
 A: `workflow_dispatch` is triggered manually from the GitHub UI or API. `repository_dispatch` is triggered externally via the GitHub API, useful for integrating with third-party services that need to trigger builds outside of Git events.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

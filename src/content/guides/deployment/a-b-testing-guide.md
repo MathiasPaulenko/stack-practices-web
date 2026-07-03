@@ -291,6 +291,18 @@ Yes, but ensure experiments are independent. Overlapping tests on the same capab
 **Q: What p-value threshold should I use?**
 0.05 is standard for most product decisions. Use 0.01 for high-stakes changes (pricing, core algorithms).
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 A/B testing transforms product development from opinion-based to evidence-based. By following rigorous experiment design, calculating proper sample sizes, and interpreting results correctly, you make decisions that consistently improve user experience and business outcomes.

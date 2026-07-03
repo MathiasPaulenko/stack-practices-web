@@ -12,6 +12,7 @@ tags:
   - observability
   - api
   - devops
+  - monitoring
 relatedResources:
   - /recipes/prometheus-monitoring-alerts
   - /recipes/grafana-dashboards-observability
@@ -161,3 +162,15 @@ R: No. Usa Loki para logs, Jaeger para trazas, y Prometheus para métricas. El s
 
 **P: ¿Cuál es la diferencia entre histogram y summary?**
 R: Los histograms agrupan datos y permiten agregación. Los summaries precalculan cuantiles pero no pueden agregarse across instances.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

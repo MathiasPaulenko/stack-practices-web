@@ -283,6 +283,18 @@ Blue-green cambia todo el tráfico a la vez. Canary enruta un pequeño porcentaj
 **Q: ¿Cuánto tiempo debo mantener el entorno viejo después del cambio?**
 Manténlo por al menos un día hábil (24 horas) o hasta que estés seguro de que la nueva versión es estable.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusion
 
 El despliegue blue-green es el estándar de oro para releases sin downtime con rollback instantáneo. Requiere infraestructura duplicada pero proporciona confianza sin igual. Combínalo con health checks automatizados, migraciones de base de datos compatibles hacia atrás y monitoreo exhaustivo para un proceso de release a prueba de balas.

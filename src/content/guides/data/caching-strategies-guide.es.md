@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: caching-strategies-guide
-title: "Estrategias de Caché — Desde el Navegador hasta la Base de Datos, una Guía Completa"
+title: "Estrategias de Caché — Desde el Navegador hasta la Base de Datos, una Guía..."
 description: "Guía práctica sobre estrategias de caché: caché del navegador, caché perimetral de CDN, caché de aplicación con Redis, y caché de consultas de base de datos. Aprende cuándo usar cada una y cómo evitar pesadillas de invalidación de caché."
 metaDescription: "Aprende estrategias de caché: navegador, CDN, Redis, y caché de consultas de base de datos. Cuándo usar cada una y cómo evitar errores comunes de invalidación."
 difficulty: intermediate
@@ -377,6 +377,18 @@ Caché de aplicación: >85% es bueno, >95% es excelente. Buffer pool de base de 
 
 **P: ¿Debería cachéar escrituras (write-behind)?**
 Solo si puedes tolerar breve pérdida de datos y tienes un mecanismo de reintento. Write-through o cache-aside son más seguros para la mayoría de aplicaciones.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
 
 ## Conclusión
 

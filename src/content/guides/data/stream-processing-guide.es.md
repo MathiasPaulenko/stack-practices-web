@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: stream-processing-guide
-title: "Procesamiento de Streams: Pipelines de Datos Event-Driven con Kafka, Flink y Spark"
+title: "Procesamiento de Streams: Pipelines de Datos Event-Driven con Kafka, Flink y..."
 description: "Guía práctica sobre procesamiento de streams: elegir entre Kafka Streams, Flink y Spark Streaming, diseñar esquemas de eventos, manejar operaciones stateful, y construir pipelines exactly-once para datos en tiempo real."
 metaDescription: "Aprende procesamiento de streams: Kafka, Flink, Spark, esquemas de eventos, stateful y exactly-once para pipelines en tiempo real."
 difficulty: advanced
@@ -483,6 +483,18 @@ El procesamiento de streams es el motor que transforma eventos. La analítica en
 
 **P: ¿Puedo usar SQL para procesamiento de streams?**
 Sí. Flink SQL, ksqlDB y Spark Structured Streaming soportan SQL sobre streams. Estos son excelentes para agregaciones simples y joins. Lógica stateful compleja aún requiere la API DataStream/funcional.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
 
 ## Conclusión
 

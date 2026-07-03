@@ -11,6 +11,8 @@ tags:
   - serverless
   - event-driven
   - lambda
+  - aws-lambda
+  - functions
 relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/webhooks
@@ -154,3 +156,15 @@ R: Usa correlation IDs. Genera un ID único en el punto de entrada y propágalo 
 **P: ¿Cuál es el tamaño máximo de evento?**
 R: Los mensajes SQS están limitados a 256 KB. Los eventos de EventBridge están limitados a 256 KB. Para payloads más grandes, almacena los datos en S3 e incluye una referencia en el evento.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

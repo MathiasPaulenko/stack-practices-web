@@ -148,6 +148,41 @@ Mejor para: trabajo en background, alto throughput, desacoplamiento
 - Subestimar costo operativo — los microservicios necesitan [prácticas DevOps](/guides/devops/docker-for-developers-guide) maduras
 - Construir un framework RPC custom — usa estándares probados (gRPC, [HTTP/REST](/guides/api/rest-api-design-guide), o [brokers de mensajes](/guides/architecture/event-driven-architecture-guide))
 
+## Ejemplo de Arquitectura
+
+```yaml
+# docker-compose.yml — dos microservicios con API Gateway
+services:
+  api-gateway:
+    image: nginx:alpine
+    ports: ["8080:80"]
+    depends_on: [user-service, order-service]
+
+  user-service:
+    build: ./services/user
+    environment:
+      DB_URL: postgres://db:5432/users
+    depends_on: [db]
+
+  order-service:
+    build: ./services/order
+    environment:
+      DB_URL: postgres://db:5432/orders
+      AMQP_URL: amqp://rabbitmq:5672
+    depends_on: [db, rabbitmq]
+
+  db:
+    image: postgres:16
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports: ["5672:5672", "15672:15672"]
+
+volumes:
+  pgdata:
+```
+
 ## Preguntas Frecuentes
 
 ### ¿Debería toda startup comenzar con microservicios?

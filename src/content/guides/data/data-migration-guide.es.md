@@ -428,6 +428,18 @@ Usa Change Data Capture (Debezium) o sincronización de snapshot + incremental. 
 **P: ¿Puedo migrar una base de datos mientras está bajo carga pesada?**
 Sí, pero throttle el backfill. Usa `pg_sleep` entre lotes, corre durante horas de bajo tráfico, y monitorea el lag de replicación.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 La migración de datos no es un evento sino un proceso: planificar, doble escribir, backfill, validar, lectura sombra, cutover y limpieza. Al seguir patrones estructurados y nunca saltarse la validación, mueves datos de forma segura manteniendo los sistemas online.

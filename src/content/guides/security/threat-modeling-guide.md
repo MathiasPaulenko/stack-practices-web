@@ -176,3 +176,15 @@ Helpful but not required. A developer trained in STRIDE can lead the session. Ex
 
 **How do I prioritize threats?**
 Use a risk matrix: likelihood × impact. Address high-likelihood, high-impact threats first. Document accepted risks for low-priority items.
+
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.

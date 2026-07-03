@@ -28,6 +28,11 @@ seo:
   metaDescription: "System capacity planning template with resource estimation, load forecasting, bottleneck analysis, and scaling strategies for engineering teams."
   keywords:
     - template
+    - capacity-planning
+    - scalability
+    - performance
+    - infrastructure
+
 ---
 
 ## What Works

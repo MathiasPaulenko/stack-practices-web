@@ -12,8 +12,11 @@ tags:
   - pagination
   - api
   - databases
+  - rest
+  - http
 relatedResources:
   - /recipes/api/go-rest-api-gin
+  - /recipes/api/api-documentation-openapi
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -247,3 +250,15 @@ R: Solo para datasets pequenos (< 10.000 filas) o interfaces de admin donde salt
 
 **P: Como manejo ordenamiento por multiples columnas?**
 R: Incluye todas las columnas de sort en el indice compuesto y codifica todos los valores en el cursor.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

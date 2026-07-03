@@ -178,3 +178,15 @@ R: Inyecta el singleton como dependencia en lugar de llamarlo directamente, o pr
 
 **P: ¿Cuáles son alternativas al Singleton?**
 R: [Inyección de dependencias](/patterns/design/dependency-injection-pattern), localizadores de servicios, o variables a nivel de módulo en lenguajes que lo soporten (los módulos de Python son singletons naturales). Estos enfoques hacen las dependencias explícitas y más fáciles de testear.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

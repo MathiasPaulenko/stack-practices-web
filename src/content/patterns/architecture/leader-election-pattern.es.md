@@ -131,3 +131,15 @@ R: Si. Puedes elegir un lider por particion, shard o tipo de tarea, lo que mejor
 
 **P: Es la eleccion de lider suficiente para el consenso?**
 R: No. La eleccion de lider elige un coordinador, pero los algoritmos de consenso como Raft o Paxos tambien garantizan acuerdo sobre valores entre nodos.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

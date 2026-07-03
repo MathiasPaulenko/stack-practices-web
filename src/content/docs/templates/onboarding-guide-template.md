@@ -12,6 +12,8 @@ tags:
   - devops
   - documentation
   - onboarding
+  - ci-cd
+  - automation
 relatedResources:
   - /docs/readme-template
   - /docs/contributing-guide

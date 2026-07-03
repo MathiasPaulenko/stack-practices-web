@@ -11,6 +11,8 @@ tags:
   - file-handling
   - java
   - javascript
+  - io
+  - streams
 relatedResources:
   - /recipes/input-validation
   - /recipes/jwt-authentication

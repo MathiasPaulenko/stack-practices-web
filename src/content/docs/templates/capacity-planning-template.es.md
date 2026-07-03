@@ -28,6 +28,11 @@ seo:
   metaDescription: "Plantilla de planificación de capacidad con estimación de recursos, pronóstico de carga y estrategias de escalado para equipos de ingeniería."
   keywords:
     - template
+    - capacity-planning
+    - scalability
+    - performance
+    - infrastructure
+
 ---
 
 ## Lo que funciona

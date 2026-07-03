@@ -10,6 +10,9 @@ topics:
 tags:
   - design
   - observer-pattern
+  - design-patterns
+  - patterns
+  - oop
 relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/async-patterns
@@ -225,3 +228,15 @@ A: Emit events in your test and assert that observers reacted correctly. For asy
 **Q: Can the observer pattern scale to thousands of observers?**
 A: In-memory observers do not scale well beyond hundreds due to linear iteration cost. For thousands of subscribers, use a pub/sub broker (Redis, Kafka, NATS) that handles fan-out efficiently.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -11,6 +11,8 @@ tags:
   - api
   - api-documentation
   - java
+  - rest
+  - http
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api
@@ -143,3 +145,15 @@ R: Genera el spec en CI desde tu código, publícalo en un registro (SwaggerHub,
 
 **P: ¿Puedo convertir Swagger 2.0 a OpenAPI 3.0?**
 R: Sí. Usa la herramienta CLI `swagger2openapi` o el conversor integrado de Swagger Editor. La mayoría de herramientas modernas soportan 3.0 nativamente.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

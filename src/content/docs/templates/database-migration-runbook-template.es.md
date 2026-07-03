@@ -13,6 +13,7 @@ tags:
   - rollback
   - runbook
   - template
+  - databases
 relatedResources:
   - /guides/databases/sql-performance-tuning-guide
   - /guides/databases/database-sharding-partitioning-guide

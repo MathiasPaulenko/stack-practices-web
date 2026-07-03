@@ -11,6 +11,8 @@ tags:
   - api
   - sse
   - server-sent-events
+  - rest
+  - http
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api

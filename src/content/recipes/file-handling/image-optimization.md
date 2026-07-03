@@ -11,6 +11,8 @@ tags:
   - file-handling
   - compression
   - images
+  - io
+  - streams
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs

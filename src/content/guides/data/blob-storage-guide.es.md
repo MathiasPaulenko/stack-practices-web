@@ -462,6 +462,18 @@ S3: 5TB (con multipartes). GCS: 5TB. Azure: 4.75TB (Block Blob). Para más grand
 P: ¿Cómo migro de un proveedor a otro?
 Usa herramientas como `rclone`, `aws s3 sync`, o servicios de transferencia nativos de la nube (AWS DataSync, Azure Data Box). Para migraciones grandes, considera dispositivos de transferencia física de datos.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 El almacenamiento blob es la columna vertebral de las arquitecturas modernas de datos en la nube. Al diseñar buckets para tus patrones de acceso, asegurar acceso con URLs firmadas y políticas IAM, automatizar transiciones de ciclo de vida, y optimizar subidas de archivos grandes, construyes una capa de almacenamiento que crece sin límite mientras controlas costos.

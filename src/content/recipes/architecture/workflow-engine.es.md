@@ -11,6 +11,8 @@ tags:
   - workflow-engine
   - architecture
   - distributed-systems
+  - design
+  - patterns
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/system-design-interview-guide
@@ -179,3 +181,15 @@ R: Persisten estado después de cada activity. Al reiniciar, reanudan desde el �
 
 **P: ¿Los business analysts pueden modificar workflows sin developers?**
 R: Los engines basados en BPMN (Camunda) permiten esto. Los engines basados en código (Temporal) requieren developers pero ofrecen más flexibilidad.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

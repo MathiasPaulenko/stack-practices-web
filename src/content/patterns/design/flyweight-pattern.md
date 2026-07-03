@@ -232,3 +232,15 @@ A: Avoid it when objects are few, state is mostly unique, or the memory savings 
 
 **Q: How does Flyweight differ from Object Pool?**
 A: Object Pool reuses objects to avoid allocation overhead. Flyweight shares objects to reduce memory footprint. Object Pool objects are typically mutable and returned to the pool; flyweights are shared simultaneously across contexts.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

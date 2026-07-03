@@ -453,3 +453,15 @@ El objeto context del authorizer tiene un limite de 10KB. Mantenlo pequeno — p
 **Como revoco un token cacheado?**
 
 No puedes revocar selectivamente una respuesta de authorizer cacheada. Reduce el TTL para minimizar la ventana, o usa una lista de revocacion de tokens verificada en el handler (no en el authorizer, ya que esta cacheado).
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

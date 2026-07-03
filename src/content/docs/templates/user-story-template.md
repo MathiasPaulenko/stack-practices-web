@@ -12,6 +12,8 @@ tags:
   - product-management
   - template
   - user-story
+  - design-patterns
+  - patterns
 relatedResources:
   - /docs/templates/feature-request-template
   - /guides/design/clean-code-principles-guide

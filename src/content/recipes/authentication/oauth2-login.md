@@ -10,6 +10,9 @@ topics:
 tags:
   - authentication
   - oauth2
+  - security
+  - oauth
+  - jwt
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/password-hashing

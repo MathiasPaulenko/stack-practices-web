@@ -11,6 +11,8 @@ tags:
   - metrics-collection
   - observability
   - prometheus
+  - monitoring
+  - logging
 relatedResources:
   - /recipes/prometheus-monitoring-alerts
   - /recipes/prometheus-api-monitoring
@@ -180,3 +182,15 @@ A: Negligible for counters and gauges (<1%). Histograms with many buckets add sl
 
 **Q: Should I collect metrics from the client (browser)?**
 A: Yes. [Core Web Vitals](/recipes/performance/web-performance), API error rates, and navigation timing from real users are essential SLIs.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

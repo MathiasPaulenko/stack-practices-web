@@ -11,6 +11,9 @@ topics:
 tags:
   - devops
   - template
+  - ci-cd
+  - automation
+  - deployment
 relatedResources:
   - /guides/devops/infrastructure-as-code-guide
   - /docs/templates/runbook-template

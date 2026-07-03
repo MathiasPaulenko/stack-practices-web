@@ -492,6 +492,18 @@ Usa watermarks con lateness permitida. Flink soporta `allowedLateness()` en vent
 **P: ¿Cuál es la diferencia entre procesamiento de streams y analítica en tiempo real?**
 El procesamiento de streams es la capa de computación que transforma eventos (Flink, Kafka Streams). La analítica en tiempo real es el sistema end-to-end que incluye colección, procesamiento, almacenamiento y visualización. El procesamiento de streams alimenta a la analítica en tiempo real.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 La analítica en tiempo real convierte streams de eventos en inteligencia accionable en segundos. Al instrumentar aplicaciones con eventos estructurados, procesarlos a través de agregaciones con ventana, y almacenar resultados en bases de datos OLAP, construyes sistemas que reaccionan al presente en lugar de reportar sobre el pasado.

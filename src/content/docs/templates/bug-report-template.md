@@ -12,6 +12,8 @@ tags:
   - devops
   - issue-tracking
   - template
+  - ci-cd
+  - automation
 relatedResources:
   - /guides/testing/test-driven-development-guide
   - /guides/devops/on-call-incident-response-guide

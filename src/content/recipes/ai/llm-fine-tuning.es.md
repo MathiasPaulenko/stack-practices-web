@@ -10,6 +10,9 @@ topics:
 tags:
   - ai
   - llm
+  - machine-learning
+  - neural-networks
+  - nlp
 relatedResources:
   - /recipes/chatbot-openai
   - /recipes/rag-pipeline

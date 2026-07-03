@@ -194,3 +194,15 @@ R: Depende de la implementación. La interrupción de hilos señala cancelación
 
 **P: ¿Debería reintentar después de un timeout?**
 R: Sí, si la operación es idempotente y el timeout podría haber sido causado por un problema transitorio de red. Pero si los timeouts son frecuentes, combínalo con [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para evitar reintentos desperdiciados en un servicio crónicamente lento.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

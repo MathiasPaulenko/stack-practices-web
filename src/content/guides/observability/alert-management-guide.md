@@ -294,6 +294,18 @@ Temporarily silence them with an expiration date, create a ticket to fix the roo
 **Q: What is the difference between an alert and a dashboard?**
 Alerts notify you of something that requires action. Dashboards help you understand what is happening. Use alerts for urgent issues; dashboards for investigation.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Good alerting is a product you build for your on-call engineers. It should be precise, useful, and respectful of their time. By designing alerts around user impact, creating clear runbooks, and actively reducing noise, you build an operational culture that is sustainable and reliable.

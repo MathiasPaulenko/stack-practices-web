@@ -12,6 +12,7 @@ tags:
   - testing
   - mocking
   - automation
+  - unit-tests
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/testing-strategy-guide
@@ -195,3 +196,15 @@ R: Los stubs retornan respuestas predefinidas. Los mocks también verifican inte
 
 **P: ¿Los mocks pueden reemplazar el contract testing?**
 R: No. Los mocks testean tus suposiciones sobre la API. El contract testing verifica que ambos lados concuerden en el schema.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

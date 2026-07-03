@@ -9,6 +9,10 @@ topics:
   - devops
 tags:
   - devops
+  - ci-cd
+  - automation
+  - deployment
+  - infrastructure
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

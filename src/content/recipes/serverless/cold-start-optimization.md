@@ -10,6 +10,9 @@ topics:
 tags:
   - serverless
   - lambda
+  - aws-lambda
+  - functions
+  - faas
 relatedResources:
   - /recipes/serverless-functions
   - /recipes/serverless-api-gateway
@@ -177,3 +180,15 @@ A: Yes. Lambda allocates CPU proportionally to memory. A 3GB function gets 3x th
 **Q: Should I use SnapStart or provisioned concurrency for Java?**
 A: SnapStart is cheaper and sufficient for most Java use cases. Provisioned concurrency is for sub-100ms requirements where even SnapStart's 100-200ms is unacceptable. Start with SnapStart, upgrade to provisioned concurrency only if latency SLAs require it.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -13,6 +13,7 @@ tags:
   - structural-patterns
   - react
   - design-pattern
+  - design-patterns
 relatedResources:
   - /patterns/design/decorator-pattern-pipeline
   - /patterns/design/adapter-pattern-api
@@ -212,3 +213,15 @@ R: Composite construye estructuras de arbol con semantica de contenedor. [Decora
 
 **P: Cuando deberia evitar Composite?**
 R: Cuando la jerarquia es plana (solo un nivel) o cuando operaciones de hijo no tienen sentido para nodos hoja. Para estructuras planas, considera [Decorator](/patterns/design/decorator-pattern) en su lugar.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

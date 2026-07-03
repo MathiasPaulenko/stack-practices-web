@@ -500,6 +500,18 @@ Muestra productos populares, categorías relacionadas, o una sugerencia de "¿qu
 **P: ¿Puedo usar PostgreSQL para autocompletado?**
 Sí, con la extensión `pg_trgm`: `SELECT word FROM words WHERE word % 'parial' ORDER BY similarity(word, 'parial') DESC LIMIT 5;`
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 La búsqueda de texto completo es una capacidad orientada al usuario donde el rendimiento y la relevancia impactan directamente el engagement. Al elegir el motor correcto para tu escala, diseñar índices para tus patrones de consulta, y ajustar continuamente la relevancia, construyes búsqueda en la que los usuarios confían y dependen.

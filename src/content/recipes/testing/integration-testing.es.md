@@ -10,6 +10,9 @@ topics:
 tags:
   - testing
   - pytest
+  - unit-tests
+  - integration
+  - tdd
 relatedResources:
   - /recipes/unit-testing
   - /recipes/handle-errors
@@ -186,3 +189,15 @@ R: Reusa contenedores entre tests (Testcontainers lo soporta), paraleliza la eje
 **P: ¿Necesito tests de integración si tengo 100% de cobertura de unit tests?**
 R: Sí. Los unit tests con dependencias mockeadas no pueden capturar errores de wiring, discrepancias de schema, o comportamiento real de timeouts de red. Ambos tipos se complementan.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

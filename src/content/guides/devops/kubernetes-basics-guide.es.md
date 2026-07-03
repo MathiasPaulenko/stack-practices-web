@@ -271,3 +271,15 @@ R: Usa `kubectl port-forward` para reenviar un puerto local a un Pod o Service. 
 
 **P: ¿Qué sucede durante una rolling update?**
 R: Kubernetes crea nuevos Pods con la imagen actualizada, espera a que las readiness probes pasen, y luego reduce gradualmente los Pods antiguos. Si la actualización falla, puedes hacer `kubectl rollout undo`.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

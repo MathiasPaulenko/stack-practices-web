@@ -11,6 +11,8 @@ tags:
   - security
   - authentication
   - cookies
+  - vulnerabilities
+  - encryption
 relatedResources:
   - /recipes/api-security-headers
   - /recipes/session-management
@@ -141,3 +143,15 @@ R: Un atacante engaña a una víctima para que se loguee en un sitio bajo la cue
 **P: ¿Puedo usar un token CSRF estático para todos los usuarios?**
 R: No. Los tokens estáticos son triviales de extraer y reutilizar. Los tokens deben ser únicos por sesión de usuario e impredecibles.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

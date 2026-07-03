@@ -12,8 +12,10 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
+  - design-patterns
 relatedResources:
   - /patterns/design/memento-pattern-state
+  - /patterns/design/abstract-factory-cross-platform
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -202,3 +204,15 @@ R: Command almacena la operacion para revertir. [Memento](/patterns/design/memen
 
 **P: Puedo usar esto para logging de peticiones API?**
 R: Si. Envuelve [peticiones HTTP](/recipes/api/call-rest-api) como commands para replicar secuencias para debugging o testing.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

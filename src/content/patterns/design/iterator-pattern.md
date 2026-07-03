@@ -221,3 +221,15 @@ A: Rarely. Most languages provide built-in iterator support. Only implement a cu
 
 **Q: What is the difference between Iterator and Visitor?**
 A: Iterator traverses elements. [Visitor](/patterns/design/visitor-pattern) performs operations on elements. They are often used together: an iterator walks the structure, and a visitor processes each element.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

@@ -11,6 +11,8 @@ tags:
   - api
   - email
   - java
+  - rest
+  - http
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

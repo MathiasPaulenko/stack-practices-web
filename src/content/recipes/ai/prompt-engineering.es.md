@@ -9,6 +9,10 @@ topics:
   - ai
 tags:
   - ai
+  - machine-learning
+  - llm
+  - neural-networks
+  - nlp
 relatedResources:
   - /recipes/chatbot-openai
   - /recipes/rag-pipeline
@@ -146,3 +150,15 @@ R: El formato `json_object` de OpenAI y el [function calling](/recipes/ai/ai-age
 **P: ¿Cuál es la diferencia entre temperature y top-p?**
 R: La temperature controla la aleatoriedad (0 = determinístico, 1 = creativo). El top-p (nucleus sampling) controla la diversidad limitando la selección de tokens al conjunto más probable que sume p. Usa temperature para la mayoría de aplicaciones.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

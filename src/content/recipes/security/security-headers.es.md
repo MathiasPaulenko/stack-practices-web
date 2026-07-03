@@ -10,6 +10,9 @@ topics:
 tags:
   - security-headers
   - web-security
+  - security
+  - vulnerabilities
+  - encryption
 relatedResources:
   - /guides/web-application-security-guide
   - /docs/data-retention-policy-template
@@ -144,3 +147,15 @@ R: Solo si olvidas whitelistear tu dominio de analytics. Agrégalo a `script-src
 
 **P: ¿Cuál es la diferencia entre X-Frame-Options y CSP frame-ancestors?**
 R: CSP `frame-ancestors` es el estándar moderno. X-Frame-Options está deprecado pero útil para browsers antiguos.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

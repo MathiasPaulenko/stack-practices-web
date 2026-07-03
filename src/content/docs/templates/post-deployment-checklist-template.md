@@ -12,6 +12,8 @@ tags:
   - deployment
   - devops
   - template
+  - ci-cd
+  - automation
 relatedResources:
   - /docs/templates/release-notes-template
   - /guides/devops/cicd-pipeline-guide

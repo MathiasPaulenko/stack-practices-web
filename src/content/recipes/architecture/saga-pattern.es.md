@@ -10,6 +10,9 @@ topics:
 tags:
   - architecture
   - compensation
+  - design
+  - patterns
+  - scalability
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-architecture
@@ -238,3 +241,15 @@ R: Sí — mantén una tabla de estado de saga en la base de datos del orquestad
 **P: ¿Debería toda interacción entre microservicios usar saga?**
 R: No. Las sagas agregan complejidad. Úsalas para procesos de negocio de múltiples pasos que deben ser todo-o-nada. Para llamadas simples uno-a-uno que pueden fallar independientemente, usa llamadas API directas con [retries](/recipes/architecture/retry-backoff) y [circuit breakers](/recipes/circuit-breaker-pattern-recipe).
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -229,6 +229,18 @@ Use auto-scaling for variable loads, reserved instances for baselines, and maint
 **Q: Should I plan capacity per service or globally?**
 Plan per service, then aggregate. Each service has different scaling characteristics and bottlenecks.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Capacity planning is an ongoing practice, not a one-time exercise. Measure, forecast, test, and review regularly to keep your infrastructure aligned with business growth while controlling costs.

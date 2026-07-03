@@ -142,3 +142,15 @@ R: Debe devolver `503 Service Unavailable`. Esto le indica al orquestador que de
 
 **P: Puedo exponer endpoints de salud a internet publica?**
 R: Solo si no filtran informacion sensible. Los endpoints de deep-health internos deben estar protegidos por politicas de red o autenticacion.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

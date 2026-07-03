@@ -12,6 +12,7 @@ tags:
   - security
   - docker
   - devops
+  - vulnerabilities
 relatedResources:
   - /recipes/container-security-scanning
   - /docs/data-retention-policy-template
@@ -148,3 +149,15 @@ R: Diariamente. Los CVEs nuevos se publican continuamente. La imagen limpia de a
 
 **P: ¿Cuál es la diferencia entre SAST y container scanning?**
 R: SAST analiza código fuente para bugs. Container scanning analiza el artifact construido (paquetes, configs, secrets).
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

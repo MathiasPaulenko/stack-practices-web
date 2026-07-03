@@ -10,6 +10,9 @@ topics:
 tags:
   - file-handling
   - brotli
+  - io
+  - streams
+  - files
 relatedResources:
   - /recipes/cdn-edge-caching
   - /recipes/lazy-loading
@@ -169,3 +172,15 @@ R: WebSocket per-message deflate está soportado en RFC 7692. Sin embargo, la co
 **P: ¿Cómo mido la efectividad de la compresión?**
 R: Compara el `Content-Length` de responses comprimidas vs sin comprimir. Un ratio de compresión de 70-85% es típico para JSON y HTML. Si tu ratio está por debajo del 50%, verifica que no estés comprimiendo formatos ya comprimidos o que tus datos sean genuinamente incompresibles.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

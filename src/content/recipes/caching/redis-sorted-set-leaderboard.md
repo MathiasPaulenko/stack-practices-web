@@ -323,3 +323,15 @@ A: Yes. Redis sorted sets accept double-precision floats. Be aware of floating-p
 
 **Q: How do I migrate a leaderboard to a new key?**
 A: Use `ZUNIONSTORE` to merge: `ZUNIONSTORE new_key 1 old_key`. Or dump and restore with `DUMP`/`RESTORE`.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -28,6 +28,11 @@ seo:
   metaDescription: "Plantilla de página de estado de API con comunicación de incidentes, ventanas de mantenimiento, definiciones de SLA y lo que funciona en reporte transparente."
   keywords:
     - template
+    - api
+    - status-page
+    - uptime
+    - incident-communication
+
 ---
 
 ## Lo que funciona

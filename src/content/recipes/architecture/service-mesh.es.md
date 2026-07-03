@@ -11,6 +11,8 @@ tags:
   - architecture
   - istio
   - kubernetes
+  - design
+  - patterns
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway
@@ -136,3 +138,15 @@ R: No. El gateway maneja north-south (externo al cluster). El mesh maneja east-w
 **P: ¿Cuál es el overhead de performance de un service mesh?**
 R: Espera 1-5ms de latencia por hop y 10-20% de overhead de CPU para el sidecar. Linkerd está optimizado para overhead mínimo. Istio ofrece más capacidades a mayor costo. Para paths sensibles a latencia, haz benchmarking antes de desplegar.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -13,8 +13,10 @@ tags:
   - behavioral-patterns
   - nodejs
   - design-pattern
+  - design-patterns
 relatedResources:
   - /patterns/design/decorator-pattern-pipeline
+  - /patterns/design/abstract-factory-cross-platform
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -224,3 +226,15 @@ R: [Decorator](/patterns/design/decorator-pattern) agrega responsabilidades dina
 
 **P: Puedo agregar handlers en runtime?**
 R: Si. Esta es la ventaja principal — el middleware puede registrarse dinamicamente basado en rutas o configuracion.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

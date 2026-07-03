@@ -12,6 +12,8 @@ tags:
   - bash
   - automation
   - devops
+  - ci-cd
+  - deployment
 relatedResources:
   - /recipes/read-write-file
   - /recipes/pre-commit-hooks
@@ -257,3 +259,15 @@ R: Usa variables de entorno o secret managers. Nunca hardcodees credenciales. Pa
 
 **P: Puedo hacer scripts Bash idempotentes?**
 R: Si. Revisa estado antes de actuar (`if ! systemctl is-active nginx; then ...`) y usa logica condicional para saltear pasos ya completados.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

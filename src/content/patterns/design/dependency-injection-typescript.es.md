@@ -12,6 +12,7 @@ tags:
   - typescript
   - design-pattern
   - testing
+  - design-patterns
 relatedResources:
   - /patterns/design/singleton-pattern
   - /patterns/design/factory-pattern
@@ -201,3 +202,15 @@ R: Service Locator pide un registro global por dependencias. DI inyecta dependen
 
 **P: Puedo usar esto sin decorators?**
 R: Si. Usa una factory function o registration manual con arrays de dependencias explicitas: `container.register(UserService, { deps: [UserRepository] })`.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

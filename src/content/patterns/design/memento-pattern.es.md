@@ -292,3 +292,15 @@ R: [Prototype](/patterns/design/prototype-pattern) crea un nuevo objeto copiando
 
 **P: ¿Puedo usar serialización en lugar de Memento?**
 R: Sí, pero la serialización es a menudo más lenta y menos controlada. Memento te da control granular sobre qué estado se guarda y cómo se restaura.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

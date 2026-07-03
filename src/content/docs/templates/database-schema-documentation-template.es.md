@@ -27,6 +27,11 @@ seo:
   metaDescription: "Plantilla de documentación de esquema de base de datos con definiciones de entidades, relaciones, indexación y seguimiento de migraciones."
   keywords:
     - template
+    - database
+    - schema
+    - documentation
+    - sql
+
 ---
 
 ## Lo que funciona

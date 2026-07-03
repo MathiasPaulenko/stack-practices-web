@@ -238,6 +238,44 @@ Skills y languages son hechos multivaluados independientes.
 - **Normalizar antes de entender las queries** — el esquema debe servir la carga de trabajo
 - **Ignorar BCNF** — 3NF no maneja todas las anomalías; BCNF es el estándar más estricto
 
+## Ejemplo: Pasos de Normalizacion
+
+```sql
+-- 1NF: Eliminar grupos repetitivos
+-- Desnormalizado: orders(id, customer_name, items_csv)
+-- 1NF:            orders(id, customer_name, item_name, qty)
+
+-- 2NF: Eliminar dependencias parciales (clave compuesta)
+-- 1NF:  order_items(order_id, product_id, product_name, qty)
+-- 2NF:  orders(order_id, customer_id)
+--       products(product_id, product_name)
+--       order_items(order_id, product_id, qty)
+
+-- 3NF: Eliminar dependencias transitivas
+-- 2NF:  orders(order_id, customer_id, customer_name, customer_city)
+-- 3NF:  orders(order_id, customer_id)
+--       customers(customer_id, customer_name, customer_city)
+
+CREATE TABLE customers (
+  customer_id SERIAL PRIMARY KEY,
+  customer_name VARCHAR(200) NOT NULL,
+  customer_city VARCHAR(100)
+);
+
+CREATE TABLE orders (
+  order_id SERIAL PRIMARY KEY,
+  customer_id INT REFERENCES customers(customer_id),
+  order_date DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE order_items (
+  order_id INT REFERENCES orders(order_id),
+  product_id INT REFERENCES products(product_id),
+  qty INT NOT NULL CHECK (qty > 0),
+  PRIMARY KEY (order_id, product_id)
+);
+```
+
 ## FAQ
 
 **¿Las bases de datos NoSQL necesitan normalización?**
@@ -248,3 +286,15 @@ Apunta a BCNF en sistemas transaccionales. Para analítica heavy de lectura, des
 
 **¿Cómo afecta la normalización al indexing?**
 Los esquemas normalizados necesitan más joins, que requieren indexing cuidadoso. Los esquemas desnormalizados necesitan menos joins pero más almacenamiento y lógica de actualización.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

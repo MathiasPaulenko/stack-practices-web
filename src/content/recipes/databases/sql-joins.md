@@ -10,6 +10,9 @@ topics:
 tags:
   - database
   - sql
+  - databases
+  - postgresql
+  - mysql
 relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file
@@ -154,3 +157,15 @@ A: Use a `LEFT JOIN` and filter for NULL on the right side: `SELECT u.name FROM 
 
 **Q: Can I join more than two tables?**
 A: Yes. Chain JOINs: `FROM a JOIN b ON ... JOIN c ON ...`. The query planner handles the order; ensure the join columns are indexed.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

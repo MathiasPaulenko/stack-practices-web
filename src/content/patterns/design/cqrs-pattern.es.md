@@ -311,3 +311,15 @@ R: En CQRS síncrono, actualiza ambos en la misma transacción. En CQRS asíncro
 
 **P: ¿Cuándo debería evitar CQRS?**
 R: Evita CQRS para aplicaciones CRUD simples, equipos pequeños, o cuando las proporciones de lectura/escritura estén balanceadas. Consulta [arquitectura de microservicios](/guides/architecture/microservices-architecture-guide) para patrones de sistemas distribuidos que suelen beneficiarse de CQRS. La complejidad agregada solo se justifica cuando los dos lados tienen necesidades fundamentalmente diferentes de escalado o modelado.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

@@ -128,6 +128,29 @@ Cassandra es query-first: las tablas se diseñan alrededor de consultas específ
 - Tratar NoSQL como "SQL que crece mejor" — el modelo de datos es fundamentalmente diferente
 - Ignorar complejidad operativa — Cassandra y MongoDB sharded requieren expertise operativo dedicado
 
+## Ejemplo: Modelado de Datos NoSQL
+
+```javascript
+// MongoDB — modelo de documento embebido para e-commerce
+db.products.insertOne({
+  _id: "prod-001",
+  name: "Laptop Pro 15",
+  price: 1299.99,
+  category: "electronics",
+  specs: { cpu: "i7", ram: "16GB", storage: "512GB SSD" },
+  reviews: [
+    { user: "alice", rating: 5, comment: "Excelente", date: "2026-01-15" },
+    { user: "bob", rating: 4, comment: "Buen producto", date: "2026-02-01" }
+  ]
+});
+
+// Consulta eficiente sin joins
+db.products.find(
+  { category: "electronics", "specs.ram": "16GB" },
+  { name: 1, price: 1, "specs.cpu": 1 }
+).sort({ price: 1 }).limit(20);
+```
+
 ## Preguntas Frecuentes
 
 ### ¿Debería migrar de PostgreSQL a MongoDB por flexibilidad?

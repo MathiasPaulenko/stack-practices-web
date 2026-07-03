@@ -10,6 +10,9 @@ topics:
 tags:
   - architecture
   - event-driven
+  - design
+  - patterns
+  - scalability
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/cqrs-pattern-recipe
@@ -140,3 +143,15 @@ R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamient
 **P: ¿Puedo hacer queries directamente desde Kafka?**
 R: Puedes leer un stream, pero Kafka no es un query engine. Para queries, materializa eventos en una base de datos (read model) vía Kafka Streams o ksqlDB. Consulta la base de datos, no el broker.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

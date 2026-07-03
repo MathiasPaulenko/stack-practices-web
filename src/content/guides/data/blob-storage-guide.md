@@ -462,6 +462,18 @@ S3: 5TB (with multipart). GCS: 5TB. Azure: 4.75TB (Block Blob). For larger, spli
 Q: How do I migrate from one provider to another?
 Use tools like `rclone`, `aws s3 sync`, or cloud-native transfer services (AWS DataSync, Azure Data Box). For large migrations, consider physical data transfer appliances.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Blob storage is the backbone of modern cloud data architectures. By designing buckets for your access patterns, securing access with presigned URLs and IAM policies, automating lifecycle transitions, and optimizing large file uploads, you build a storage layer that scales infinitely while controlling costs.

@@ -207,3 +207,15 @@ A: Yes. The undo capability is optional. Many systems use Command solely for que
 
 **Q: How do I implement multi-level undo?**
 A: Maintain a stack of executed commands. Undo pops the stack and calls `undo()`. See [Command with Undo/Redo](/patterns/design/command-pattern-undo) for a full implementation. Redo pushes the command back and calls `execute()`.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

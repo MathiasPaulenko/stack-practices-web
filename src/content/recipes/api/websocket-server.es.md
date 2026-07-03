@@ -11,6 +11,8 @@ tags:
   - api
   - bidirectional
   - java
+  - rest
+  - http
 relatedResources:
   - /recipes/server-sent-events
   - /recipes/webhooks

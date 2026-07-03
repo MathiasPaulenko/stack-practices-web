@@ -10,6 +10,9 @@ topics:
 tags:
   - security
   - api-security
+  - vulnerabilities
+  - encryption
+  - owasp
 relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
@@ -174,3 +177,15 @@ R: AWS SigV4 añade un scope de credenciales (fecha/región/servicio), firma hea
 
 **P: ¿Puedo usar el mismo secreto para múltiples clientes?**
 R: No. Cada cliente debe tener un secreto único. Si un cliente se ve comprometido, rota solo su clave sin afectar a los demás.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

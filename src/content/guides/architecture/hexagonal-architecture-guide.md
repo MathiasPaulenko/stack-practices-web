@@ -189,3 +189,15 @@ No. You can use simple entities and value objects. DDD complements hexagonal but
 
 **When should I NOT use Hexagonal?**
 Simple CRUD applications, prototypes, or scripts where the extra structure does not provide value.
+
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.

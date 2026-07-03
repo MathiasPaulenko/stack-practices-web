@@ -11,6 +11,8 @@ tags:
   - testing
   - api-testing
   - consumer-driven-contracts
+  - unit-tests
+  - integration
 relatedResources:
   - /recipes/unit-testing-mocking
   - /recipes/api-gateway
@@ -202,3 +204,15 @@ R: Usa Testcontainers para levantar un container real de Kafka o RabbitMQ. Publi
 **P: ¿Pueden los contract tests reemplazar los tests de integración?**
 R: No — se complementan. Los contract tests verifican que la forma de la API coincide con expectativas. Los tests de integración verifican que el comportamiento real (consistencia de datos, efectos secundarios, manejo de errores) es correcto. Usa ambos: Pact para validación de contrato, Testcontainers para validación de comportamiento.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

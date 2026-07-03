@@ -9,6 +9,10 @@ topics:
   - design
 tags:
   - design
+  - design-patterns
+  - patterns
+  - oop
+  - solid
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-functions
@@ -221,3 +225,15 @@ R: Un domain service contiene lógica de negocio que no pertenece a ninguna enti
 **P: ¿Todo proyecto debería usar event sourcing con DDD?**
 R: No. Event sourcing almacena estado como una secuencia de eventos. Es poderoso para dominios con fuerte auditoría pero agrega complejidad mayor. Empieza con persistencia estándar y domain events. Solo adopta event sourcing si genuinamente necesitas trails de auditoría completos, queries temporales o capacidades de replay de eventos.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

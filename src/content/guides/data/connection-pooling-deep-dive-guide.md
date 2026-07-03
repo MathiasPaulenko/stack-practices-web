@@ -396,6 +396,18 @@ Usually because `maxLifetime` exceeds your database or firewall idle timeout. Se
 **Q: How do I pool connections for serverless functions?**
 Use a proxy (RDS Proxy, PgBouncer) or keep a global pool variable that persists across warm invocations. Cold starts will still create connections, but warm invocations reuse them.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Connection pooling is foundational database performance tuning. By sizing pools correctly, configuring timeouts appropriately, and monitoring actively, you eliminate connection overhead and protect your database from being overwhelmed by connection storms.

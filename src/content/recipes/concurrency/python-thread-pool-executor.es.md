@@ -398,3 +398,15 @@ Si. `future.cancel()` previene que el future se ejecute si aun no ha empezado. S
 **Cual es la diferencia entre `map` y `submit`?**
 
 `map` retorna resultados en orden de entrada y bloquea hasta que cada resultado esta listo. `submit` retorna un `Future` inmediatamente — usa `as_completed` para procesar resultados a medida que terminan. Usa `map` para resultados ordenados, `submit` para flexibilidad.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

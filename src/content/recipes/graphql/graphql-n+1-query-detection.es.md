@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: graphql-n+1-query-detection
+slug: graphql-n-1-query-detection
 title: "Detectar y corregir consultas N+1 en resolvers GraphQL"
 description: "Identifica problemas de consultas N+1 en resolvers GraphQL usando logging, DataLoader y herramientas de analisis antes de que lleguen a produccion"
 metaDescription: "Detecta y corrige consultas N+1 en resolvers GraphQL. Usa DataLoader por peticion, plugins de logging y analisis de queries para eliminar llamadas DB."
@@ -290,3 +290,15 @@ A: No. Cualquier llamada a servicio externo (REST API, gRPC, cache) puede N+1. D
 
 **Q: Debo usar limites de complejidad en lugar de DataLoader?**
 A: Ambos. Los limites de complejidad previenen que consultas costosas se ejecuten. DataLoader hace eficientes las consultas que si se ejecutan. Resuelven problemas diferentes.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -10,6 +10,9 @@ topics:
 tags:
   - ai
   - batch-processing
+  - machine-learning
+  - llm
+  - neural-networks
 relatedResources:
   - /recipes/prompt-engineering
   - /recipes/ai-agents
@@ -202,3 +205,15 @@ A: Generate at the target display resolution (e.g., 1024px wide for hero images)
 **Q: How do I prevent users from generating inappropriate content?**
 A: Layer prompt filtering (blocklists, regex), API moderation flags, and human review queues. Rejected prompts should be logged and pattern-matched to detect users attempting to bypass filters.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

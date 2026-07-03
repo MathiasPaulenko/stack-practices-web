@@ -10,6 +10,9 @@ topics:
 tags:
   - database
   - schema
+  - databases
+  - sql
+  - postgresql
 relatedResources:
   - /recipes/database-transactions
   - /recipes/full-text-search

@@ -190,3 +190,15 @@ Enmarca los SLOs como gestion de riesgos. Responden "Que tan rapido podemos envi
 
 **Deberia cada equipo tener un SRE?**
 No necesariamente. Comienza con SLOs y presupuestos de error. A medida que crece el toil, dedica tiempo de ingenieria a automatizacion. Cuando eso no es suficiente, forma un equipo SRE dedicado.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

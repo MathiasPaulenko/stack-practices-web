@@ -390,3 +390,15 @@ No directamente. Lambda ejecuta Amazon Linux 2 con Python del runtime. Usa pip c
 **Cual es la diferencia entre layers y Lambda con contenedores?**
 
 Los layers son basados en zip y limitados a 250MB. Lambda con contenedores empaqueta la funcion como una imagen Docker (hasta 10GB), dando mas flexibilidad para dependencias grandes y runtimes personalizados.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

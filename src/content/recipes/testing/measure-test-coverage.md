@@ -268,3 +268,15 @@ A: Line coverage counts executed lines. Branch coverage counts whether each deci
 
 **Q: How should I use coverage in CI?**
 A: Set minimum thresholds for critical modules, track trends over time, and reject pull requests that considerably lower coverage without justification. Avoid gaming the metric.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

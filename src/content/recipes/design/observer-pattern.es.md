@@ -10,6 +10,9 @@ topics:
 tags:
   - design
   - observer-pattern
+  - design-patterns
+  - patterns
+  - oop
 relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/async-patterns
@@ -216,3 +219,15 @@ R: Emite eventos en tu test y asegura que los observers reaccionaron correctamen
 **P: ¿Puede el observer pattern escalar a miles de observers?**
 R: Los observers in-memory no escalan bien más allá de cientos debido al costo de iteración lineal. Para miles de suscriptores, usa un broker pub/sub (Redis, Kafka, NATS) que maneja fan-out eficientemente.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

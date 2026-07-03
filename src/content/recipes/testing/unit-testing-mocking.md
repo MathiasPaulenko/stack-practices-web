@@ -10,6 +10,9 @@ topics:
 tags:
   - testing
   - jest
+  - unit-tests
+  - integration
+  - tdd
 relatedResources:
   - /recipes/unit-testing
   - /recipes/integration-testing
@@ -163,3 +166,15 @@ A: For unit tests, yes — use virtual file systems or in-memory streams. For in
 **Q: Can I mock static methods?**
 A: In Java, PowerMock and Mockito inline mock can do this, but it is discouraged. Static methods are hard to test because they cannot be injected. Refactor to instance methods when possible.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -273,3 +273,15 @@ A: At least annually, or immediately if compromised. Use key versioning to rotat
 
 **Q: Is GraphQL less secure than REST?**
 A: Not inherently, but it requires different controls: query depth limits, complexity analysis, and field-level authorization to prevent resource exhaustion.
+
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.

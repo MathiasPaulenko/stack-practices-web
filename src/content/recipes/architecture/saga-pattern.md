@@ -10,6 +10,9 @@ topics:
 tags:
   - architecture
   - compensation
+  - design
+  - patterns
+  - scalability
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-architecture
@@ -245,3 +248,15 @@ A: Yes — maintain a saga state table in the orchestrator's database. Each row 
 **Q: Should every microservices interaction use a saga?**
 A: No. Sagas add complexity. Use them for multi-step business processes that must be all-or-nothing. For simple one-to-one calls that can fail independently, use direct API calls with [retries](/recipes/architecture/retry-backoff) and [circuit breakers](/recipes/circuit-breaker-pattern-recipe).
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

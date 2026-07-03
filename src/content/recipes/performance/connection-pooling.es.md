@@ -10,6 +10,9 @@ topics:
 tags:
   - performance
   - database
+  - optimization
+  - profiling
+  - latency
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /guides/performance-optimization-guide

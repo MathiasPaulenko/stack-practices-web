@@ -9,6 +9,10 @@ topics:
   - api
 tags:
   - api
+  - rest
+  - http
+  - backend
+  - web-services
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors

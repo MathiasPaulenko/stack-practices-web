@@ -332,3 +332,15 @@ Las respuestas streaming (`client.stream()`) no se cachean por defecto porque el
 **Que pasa cuando el cache esta lleno?**
 
 Los caches basados en archivos no tienen un limite de tamano integrado. Las entradas viejas se remueven cuando expiran (basado en `max-age`). Para caching con limite de tamano, usa Redis con `maxmemory` y una politica de eviction.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

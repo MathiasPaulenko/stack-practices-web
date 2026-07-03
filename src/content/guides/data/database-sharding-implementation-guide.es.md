@@ -354,6 +354,18 @@ Cambiar una clave de shard requiere migrar todos los datos. Es posible pero dolo
 **P: ¿Necesito un router de shard?**
 Sí, a menos que uses una base de datos con sharding nativo (MongoDB, CockroachDB, YugabyteDB). Para PostgreSQL y MySQL, usa Citus o Vitess.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 El sharding de base de datos es una estrategia de escalado potente pero compleja. Al elegir la clave de shard correcta, implementar enrutamiento confiable y planificar para rebalanceo, puedes escalar tu capa de base de datos horizontalmente. Pero haz shard solo cuando sea necesario. El overhead operativo es mayor y muchas cargas de trabajo pueden resolverse con enfoques más simples.

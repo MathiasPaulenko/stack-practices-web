@@ -11,6 +11,8 @@ tags:
   - design
   - adapter-pattern
   - structural-patterns
+  - design-patterns
+  - patterns
 relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/factory-pattern-recipe
@@ -207,3 +209,15 @@ R: El adapter aísla el impacto del upgrade. Cuando el SDK cambia, actualiza sol
 **P: ¿Pueden usarse adapters para testing?**
 R: Sí. Escribe un `InMemoryPaymentAdapter` que implemente `PaymentProcessor` usando un `Map`. Los tests inyectan este adapter en lugar del adapter real de Stripe, permitiendo tests rápidos y deterministas sin llamadas de red.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

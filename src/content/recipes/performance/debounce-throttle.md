@@ -9,6 +9,10 @@ topics:
   - performance
 tags:
   - performance
+  - optimization
+  - profiling
+  - latency
+  - throughput
 relatedResources:
   - /recipes/rate-limiting
   - /recipes/webhooks

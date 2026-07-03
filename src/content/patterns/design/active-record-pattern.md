@@ -310,3 +310,15 @@ A: No, but it is a poor fit for complex domains. It excels in CRUD-heavy applica
 
 **Q: How do I test Active Record objects without a database?**
 A: Use an in-memory SQLite database for tests, or refactor persistence into a separate layer that can be mocked.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

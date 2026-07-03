@@ -10,6 +10,9 @@ topics:
 tags:
   - file-handling
   - csv
+  - io
+  - streams
+  - files
 relatedResources:
   - /recipes/export-csv-excel
   - /recipes/file-upload-validation

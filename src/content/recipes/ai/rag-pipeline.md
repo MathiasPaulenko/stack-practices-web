@@ -11,6 +11,8 @@ tags:
   - ai
   - embeddings
   - llm
+  - machine-learning
+  - neural-networks
 relatedResources:
   - /recipes/semantic-search
   - /recipes/chatbot-openai

@@ -256,3 +256,15 @@ A: Un mutante sobreviviente significa que la suite de tests no falló después d
 
 **Q: ¿Por qué el mutation testing es lento?**
 A: Ejecuta la suite completa de tests contra cada mutante. Para bases de código grandes, pueden ser miles de ejecuciones. Las herramientas soportan ejecución incremental y paralela para mitigarlo.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

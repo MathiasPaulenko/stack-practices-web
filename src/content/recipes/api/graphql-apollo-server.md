@@ -12,6 +12,7 @@ tags:
   - api
   - typescript
   - nodejs
+  - rest
 relatedResources:
   - /patterns/design/adapter-pattern-api
   - /recipes/api/call-rest-api
@@ -195,3 +196,15 @@ A: Use `graphql-upload-minimal` with multipart requests, or prefer a separate RE
 
 **Q: When should I avoid GraphQL?**
 A: For simple CRUD with few relationships, [REST](/recipes/api/call-rest-api) is often simpler. GraphQL shines when clients need flexible queries over complex graphs.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

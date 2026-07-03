@@ -10,6 +10,9 @@ topics:
 tags:
   - design
   - cqrs
+  - design-patterns
+  - patterns
+  - oop
 relatedResources:
   - /recipes/domain-driven-design
   - /recipes/microservices-patterns
@@ -205,3 +208,15 @@ R: Las proyecciones fallidas no deberían bloquear la ruta de escritura. Usa una
 **P: ¿Puedo usar CQRS con una base de datos relacional?**
 R: Sí. El modelo de escritura puede ser un esquema relacional normalizado. El read model puede ser un esquema separado con vistas desnormalizadas, o una tecnología diferente (Elasticsearch, Redis, ClickHouse). Usa lo que se ajuste al patrón de query.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

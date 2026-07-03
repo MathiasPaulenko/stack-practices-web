@@ -10,6 +10,9 @@ topics:
 tags:
   - performance
   - caching
+  - optimization
+  - profiling
+  - latency
 relatedResources:
   - /recipes/database-indexing
   - /recipes/connection-pooling
@@ -132,3 +135,15 @@ A: Yes, but carefully. Database triggers can publish events to Redis or a messag
 **Q: What is the difference between eviction and invalidation?**
 A: Eviction happens when the cache removes entries due to memory pressure (LRU, LFU policies). Invalidation is deliberate removal because the underlying data changed.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

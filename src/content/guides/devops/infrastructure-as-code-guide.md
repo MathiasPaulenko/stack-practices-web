@@ -12,6 +12,7 @@ tags:
   - guide
   - pulumi
   - terraform
+  - ci-cd
 relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /guides/devops/docker-for-developers-guide

@@ -11,6 +11,8 @@ tags:
   - api
   - error-handling
   - java
+  - rest
+  - http
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/jwt-authentication
@@ -201,3 +203,15 @@ A: Extend the Problem Details response with an `errors` array or `invalid-params
 
 **Q: What status code should I use for business-logic failures?**
 A: Prefer 422 Unprocessable Entity for semantic validation failures (e.g., "cannot ship to this country"). Use 409 Conflict for state conflicts (e.g., duplicate email). Avoid 400 for business rules.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

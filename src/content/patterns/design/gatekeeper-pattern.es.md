@@ -413,3 +413,15 @@ A: Un service mesh (Istio, Linkerd) agrega gatekeeping entre servicios (tráfico
 
 **Q: Qué pasa si el gatekeeper se convierte en cuello de botella?**
 A: Escalar horizontalmente con load balancers, usar diseño stateless para replicación fácil, y descargar tareas de computo pesado (detección de bots) a servicios especializados o edge computing.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

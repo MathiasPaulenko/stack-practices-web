@@ -598,3 +598,15 @@ Reproduce eventos desde el event store. El log de eventos proporciona un histori
 **Es event sourcing siempre CQRS?**
 
 No, pero se usan comunmente juntos. Event sourcing separa naturalmente escritura (agregar eventos) de lectura (proyecciones). Puedes usar event sourcing sin CQRS derivando el estado actual en cada lectura, pero esto es lento para aggregates complejos.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

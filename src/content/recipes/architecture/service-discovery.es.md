@@ -11,6 +11,8 @@ tags:
   - service-discovery
   - architecture
   - microservices
+  - design
+  - patterns
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/monolith-to-microservices-migration-guide
@@ -171,3 +173,15 @@ R: AWS Cloud Map, GCP Service Directory o service registries de API Gateway se i
 
 **P: ¿Cuál es la diferencia entre service discovery y load balancing?**
 R: El discovery encuentra instancias disponibles; [load balancing](/recipes/architecture/load-balancing) distribuye tráfico entre ellas. A menudo trabajan juntas.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

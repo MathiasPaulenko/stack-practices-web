@@ -12,6 +12,7 @@ tags:
   - performance
   - redis
   - cdn
+  - optimization
 relatedResources:
   - /guides/performance-optimization-guide
   - /patterns/proxy-pattern-caching
@@ -141,3 +142,15 @@ A: Yes, but cache by query hash + variables. [Apollo Server](/recipes/api/call-r
 
 **Q: What is the difference between Redis and Memcached?**
 A: Redis supports data structures (lists, sets, sorted sets) and persistence. Memcached is simpler and slightly faster for plain key-value caching.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

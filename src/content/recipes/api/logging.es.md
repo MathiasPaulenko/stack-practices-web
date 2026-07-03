@@ -11,6 +11,8 @@ tags:
   - api
   - java
   - javascript
+  - rest
+  - http
 relatedResources:
   - /recipes/handle-errors
   - /recipes/middleware
@@ -190,3 +192,15 @@ R: Retén logs ERROR/FATAL por al menos 90 días para debugging. Logs INFO por 7
 
 **P: ¿Debería loguear en desarrollo de la misma forma que en producción?**
 R: Usa la misma configuración de logger pero cambia el formato de salida: texto plano legible para local dev, JSON estructurado para producción. Esto previene sorpresas de "funciona en mi máquina" causadas por comportamiento de logging diferente.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

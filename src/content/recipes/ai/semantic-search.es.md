@@ -11,6 +11,8 @@ tags:
   - ai
   - embeddings
   - openai
+  - machine-learning
+  - llm
 relatedResources:
   - /recipes/rag-pipeline
   - /recipes/chatbot-openai

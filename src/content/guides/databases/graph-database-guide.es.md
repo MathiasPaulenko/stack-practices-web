@@ -132,3 +132,15 @@ Si, con extensiones como Apache AGE o CTEs recursivos, pero el rendimiento se de
 
 **Que es RDF vs grafo de propiedades?**
 RDF es un estandar W3C para grafos semanticos (tripletas). Los grafos de propiedades (Neo4j, Amazon Neptune) son mas amigables para desarrolladores con nodos etiquetados, relaciones tipadas y propiedades en ambos.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

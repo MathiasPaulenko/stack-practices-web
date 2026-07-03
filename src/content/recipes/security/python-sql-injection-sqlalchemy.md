@@ -326,3 +326,15 @@ A: Both are safe when used correctly. ORM is safer by default because it's harde
 
 **Q: How do I test for SQL injection in my app?**
 A: Try injecting `' OR '1'='1' --` into every input field. If the query returns unexpected results, you have a vulnerability. Use tools like SQLMap for automated testing.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

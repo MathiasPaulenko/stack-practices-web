@@ -13,6 +13,7 @@ tags:
   - documentacion
   - equipo
   - onboarding
+  - ci-cd
 relatedResources:
   - /docs/readme-template
   - /docs/contributing-guide

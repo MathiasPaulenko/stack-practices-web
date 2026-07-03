@@ -13,6 +13,7 @@ tags:
   - reliability
   - sre
   - template
+  - ci-cd
 relatedResources:
   - /guides/devops/on-call-incident-response-guide
   - /guides/devops/monitoring-alerting-guide

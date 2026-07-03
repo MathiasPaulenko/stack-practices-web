@@ -13,6 +13,7 @@ tags:
   - devops
   - gobernanza
   - open-source
+  - ci-cd
 relatedResources:
   - /docs/contributing-guide
   - /docs/readme-template

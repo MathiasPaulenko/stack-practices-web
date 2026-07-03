@@ -651,6 +651,18 @@ Corre tu pipeline en un loop sobre rangos de fechas históricas, o usa un DAG pa
 **P: ¿Cuál es la diferencia entre un data lake y un data warehouse?**
 Un data lake almacena datos crudos y no procesados en archivos (S3, GCS) con schema-on-read. Un data warehouse almacena datos estructurados y procesados en tablas con schema-on-write. ETL típicamente mueve datos de fuentes → lake → warehouse.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 Los pipelines ETL son la columna vertebral de la inteligencia de negocios y el análisis. Al extraer datos de forma confiable, transformarlos con validación y cargarlos eficientemente, creas una base de datos confiable para reportes, dashboards y machine learning.

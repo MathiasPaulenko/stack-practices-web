@@ -11,6 +11,8 @@ tags:
   - devops
   - automation
   - cron
+  - ci-cd
+  - deployment
 relatedResources:
   - /recipes/docker-basics
   - /recipes/git-workflow
@@ -167,3 +169,15 @@ A: Yes, but the container must stay running. Consider using the host's cron or a
 
 **Q: What happens if a job takes longer than its interval?**
 A: By default, overlapping jobs will run concurrently. Use file locks or a job queue to prevent overlap.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

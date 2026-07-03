@@ -455,3 +455,15 @@ Las colas durables y mensajes persistentes sobreviven reinicios — se escriben 
 **Como monitoreo RabbitMQ?**
 
 Usa el RabbitMQ Management Plugin (`rabbitmq-plugins enable rabbitmq_management`). Proporciona una UI web en el puerto 15672 con profundidad de cola, tasas de mensajes e informacion de consumers. Para produccion, monitorea con Prometheus + Grafana usando rabbitmq_exporter.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

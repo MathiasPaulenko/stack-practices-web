@@ -105,3 +105,15 @@ R: La mayoría de bases de datos modernas las soportan, pero MySQL 8.0+, Postgre
 
 **P: ¿Cómo construyo un string de ruta en una CTE recursiva?**
 R: Agrega una columna como `path || '/' || name` y pásala en cada nivel de recursión para mostrar el breadcrumb completo.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

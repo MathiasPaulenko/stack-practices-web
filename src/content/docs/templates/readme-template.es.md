@@ -172,3 +172,15 @@ A: Sí, si el README excede 300 líneas. GitHub auto-genera una desde los encabe
 
 **Q: ¿Puedo usar HTML en un README?**
 A: Sí, GitHub Flavored Markdown soporta un subconjunto de HTML. Úsalo con moderación para layout (ej. centrado de badges) pero prefiere Markdown para contenido.
+
+### ¿Puedo modificar esta plantilla para mi organización?
+
+Sí. Adapta las secciones, campos y estructura para coincidir con las necesidades de tu organización. Mantén la plantilla mínima para que los miembros del equipo la usen consistentemente.
+
+### ¿Quién debe revisar los documentos creados de esta plantilla?
+
+Asigna revisores según el tipo de documento. Los documentos técnicos necesitan revisión de ingeniería. Los documentos de proceso necesitan revisión de stakeholders. Siempre ten al menos un revisor.
+
+### ¿Cómo versiono los documentos creados de esta plantilla?
+
+Usa tu sistema de control de versiones. Guarda los documentos en un directorio docs/ con naming claro. Tag o branch versiones significativas. Revisa y actualiza documentos vivos trimestralmente.

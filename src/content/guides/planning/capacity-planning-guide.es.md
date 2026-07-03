@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: capacity-planning-guide
-title: "Planificación de Capacidad — Pronóstico, Escalado y Optimización de Infraestructura"
+title: "Planificación de Capacidad — Pronóstico, Escalado y Optimización de..."
 description: "Guía práctica para la planificación de capacidad en infraestructura cloud y on-premise: pronóstico de demanda, pruebas de carga, estrategias de auto-escalado y evitando el sobreaprovisionamiento."
 metaDescription: "Aprende planificación de capacidad para infraestructura cloud: pronóstico de demanda, pruebas de carga, auto-escalado y evitando el sobreaprovisionamiento."
 difficulty: intermediate
@@ -228,6 +228,18 @@ Usa auto-escalado para cargas variables, instancias reservadas para líneas base
 
 **Q: ¿Debo planificar capacidad por servicio o globalmente?**
 Planifica por servicio, luego agrega. Cada servicio tiene diferentes características y cuellos de botella de escalado.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
 
 ## Conclusion
 

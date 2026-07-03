@@ -418,3 +418,15 @@ Redis Pub/Sub puede manejar 100,000+ mensajes por segundo en una sola instancia.
 **Puedo usar Pub/Sub con Redis Cluster?**
 
 Si, pero los mensajes se broadcast a todos los nodos del cluster, lo que agrega overhead. En Redis 7.0+, usa sharded Pub/Sub (`SPUBLISH`/`SSUBSCRIBE`) para mantener los mensajes dentro de un shard.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

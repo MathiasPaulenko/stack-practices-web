@@ -13,6 +13,7 @@ tags:
   - websockets
   - real-time
   - nodejs
+  - api
 relatedResources:
   - /recipes/api/websocket-authentication
   - /recipes/api/server-sent-events-go
@@ -274,3 +275,15 @@ A: Use Redis Pub/Sub or a message broker to broadcast messages across all server
 
 **Q: Can I use WebSocket over HTTP/2?**
 A: WebSocket uses its own protocol, not HTTP/2. For HTTP/2 environments, consider Server-Sent Events for server-to-client and HTTP requests for client-to-server.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

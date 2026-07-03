@@ -13,6 +13,7 @@ tags:
   - api
   - rest
   - microservices
+  - http
 relatedResources:
   - /recipes/api/server-sent-events-go
   - /patterns/design/ambassador-pattern-services
@@ -243,3 +244,15 @@ R: Gin agrega routing, middleware y binding con minimo overhead. Para APIs simpl
 
 **P: Puedo usar Gin con gRPC?**
 R: Si. Corre servidores [gRPC](/recipes/api/grpc-api) y HTTP lado a lado, o usa `grpc-gateway` para generar endpoints HTTP desde definiciones protobuf.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

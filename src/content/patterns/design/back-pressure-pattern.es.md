@@ -334,3 +334,15 @@ A: Entonces necesitas una estrategia de buffering, descarte, o load shedding. El
 
 **Q: Cómo se relaciona el back-pressure con el Circuit Breaker?**
 A: Resuelven problemas diferentes. El back-pressure maneja la tasa de flujo. El Circuit Breaker detiene todo el flujo cuando un servicio está fallando. Se complementan en pipelines resilientes.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

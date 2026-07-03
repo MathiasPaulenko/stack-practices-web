@@ -193,3 +193,15 @@ A: Atributos de usuario (departamento, clearance), de recurso (propietario, clas
 
 **Q: ¿Cuándo debo elegir ABAC sobre RBAC?**
 A: Elige ABAC cuando necesites decisiones contextuales, como permitir acceso solo durante horario laboral o desde una ubicación específica, o cuando los roles solos generen explosión de roles.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

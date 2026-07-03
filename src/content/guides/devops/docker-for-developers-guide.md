@@ -12,6 +12,7 @@ tags:
   - devops
   - docker
   - guide
+  - ci-cd
 relatedResources:
   - /guides/devops/cicd-pipeline-guide
   - /guides/devops/kubernetes-basics-guide
@@ -238,3 +239,15 @@ A: Use `docker logs <container>` for stdout/stderr, `docker exec -it <container>
 
 **Q: Should I use Docker Swarm or Kubernetes?**
 A: For most new projects, use Kubernetes (or a managed service like EKS, GKE, AKS). See [orchestration](/recipes/serverless/serverless-orchestration). Docker Swarm is simpler but has limited ecosystem support and is no longer actively developed by Docker Inc.
+
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.

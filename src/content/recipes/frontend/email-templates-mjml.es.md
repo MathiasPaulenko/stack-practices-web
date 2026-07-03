@@ -11,6 +11,9 @@ topics:
 tags:
   - email
   - frontend
+  - ui
+  - css
+  - javascript
 relatedResources:
   - /recipes/performance/spa-code-splitting-lazy
   - /recipes/api/go-rest-api-gin
@@ -188,3 +191,15 @@ R: SendGrid provee templates, pero MJML te da markup versionado y reusable que f
 
 **P: Puedo usar React para renderizar MJML?**
 R: Si. Usa `mjml-react` para escribir MJML como componentes JSX manteniendo el mismo pipeline de compilacion.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

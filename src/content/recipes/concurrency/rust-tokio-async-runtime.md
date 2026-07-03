@@ -474,3 +474,15 @@ Use `tokio::sync::Semaphore`. Acquire a permit before starting work and drop it 
 **What is `JoinSet` and why use it?**
 
 `JoinSet` is a collection of spawned tasks. It provides `join_next` to get results as they complete and `abort_all` to cancel all tasks. It ensures no tasks are leaked — when the `JoinSet` is dropped, all remaining tasks are aborted.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

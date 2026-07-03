@@ -525,3 +525,15 @@ El patron outbox proporciona entrega at-least-once. Para exactly-once, usa trans
 **Polling vs CDC — cual deberia usar?**
 
 Polling es mas simple pero agrega 1-5 segundos de latencia. CDC (Debezium, wal2json) transmite cambios de base de datos en near-real-time (milisegundos) pero requiere mas infraestructura. Usa polling para simplicidad, CDC para requisitos de baja latencia.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

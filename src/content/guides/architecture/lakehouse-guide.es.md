@@ -202,3 +202,15 @@ Sí. Snowflake soporta tablas Iceberg nativamente. BigQuery soporta BigLake tabl
 
 **Es Lakehouse más barato que un warehouse tradicional?**
 El almacenamiento es considerablemente más barato (S3/GCS vs propietario). Los costos de cómputo dependen del motor elegido. El TCO total suele ser menor, especialmente para datasets grandes.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

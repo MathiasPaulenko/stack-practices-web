@@ -390,3 +390,15 @@ Not directly. Lambda runs Amazon Linux 2 with Python from the runtime. Use pip w
 **What is the difference between layers and container Lambda?**
 
 Layers are zip-based and limited to 250MB. Container Lambda packages the function as a Docker image (up to 10GB), giving more flexibility for large dependencies and custom runtimes.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

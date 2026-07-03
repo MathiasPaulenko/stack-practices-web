@@ -10,6 +10,9 @@ topics:
 tags:
   - authentication
   - hmac
+  - security
+  - oauth
+  - jwt
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login
@@ -205,3 +208,15 @@ R: Sí. Almacena keys hasheadas o encriptadas en tu base de datos. Cuando se pre
 **P: ¿Puedo usar API keys para autenticación de usuarios?**
 R: Las API keys están diseñadas para clientes machine, no usuarios humanos. Para autenticación de usuarios, usa session cookies, OAuth2 o OIDC. Las API keys carecen de capacidades como autenticación multifactor y son más difíciles de gestionar de forma segura por usuarios.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

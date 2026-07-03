@@ -296,3 +296,15 @@ R: Para sistemas de producción, usa librerías establecidas: Resilience4j (Java
 
 **P: ¿Cómo monitoreo la salud del circuit breaker?**
 R: Expón métricas para transiciones de estado, tasas de fallo y duración en estado abierto. Integra con tu stack de monitoreo (Prometheus, Grafana) para alertar sobre saltos frecuentes del circuito.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

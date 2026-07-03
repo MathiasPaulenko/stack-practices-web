@@ -12,8 +12,10 @@ tags:
   - creational-patterns
   - typescript
   - design-pattern
+  - design-patterns
 relatedResources:
   - /patterns/design/builder-pattern
+  - /patterns/design/abstract-factory-cross-platform
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -192,3 +194,15 @@ R: [Factory Method](/patterns/design/factory-pattern) crea objetos a traves de u
 
 **P: Puedo usar esto con JSON?**
 R: Si. `JSON.parse(JSON.stringify(obj))` es un clone prototype crude para objetos plain, pero `structuredClone` es preferido para runtimes modernos.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

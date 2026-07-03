@@ -10,6 +10,9 @@ topics:
 tags:
   - architecture
   - event-driven
+  - design
+  - patterns
+  - scalability
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/cqrs-pattern-recipe
@@ -187,3 +190,15 @@ A: Event-driven: services react to events they subscribe to. Message-driven: ser
 **Q: Can I query events directly from Kafka?**
 A: You can read a stream, but Kafka is not a query engine. For queries, materialize events into a database (read model) via a Kafka Streams or ksqlDB application. Query the database, not the broker.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

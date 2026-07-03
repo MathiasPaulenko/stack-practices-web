@@ -10,6 +10,9 @@ topics:
 tags:
   - database
   - elasticsearch
+  - databases
+  - sql
+  - postgresql
 relatedResources:
   - /recipes/database-transactions
   - /patterns/abstract-factory-pattern

@@ -20,6 +20,7 @@ tags:
   - graphql
 relatedResources:
   - /patterns/design/facade-pattern
+  - /patterns/design/abstract-factory-cross-platform
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -463,3 +464,15 @@ A: Los BFFs típicamente validan tokens y propagan identidad, pero el proveedor 
 
 **Q: Cómo se relacionan los BFFs con los microservicios?**
 A: Los BFFs se sientan arriba de los microservicios. Son consumidores de la capa de microservicios, no reemplazos de ella.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

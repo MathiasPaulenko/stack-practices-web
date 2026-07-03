@@ -428,6 +428,18 @@ Use Change Data Capture (Debezium) or snapshot + incremental sync. These require
 **Q: Can I migrate a database while it is under heavy load?**
 Yes, but throttle the backfill. Use `pg_sleep` between batches, run during off-peak hours, and monitor replication lag.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Data migration is not a single event but a process: plan, dual-write, backfill, validate, shadow-read, cutover, and clean up. By following structured patterns and never skipping validation, you move data safely while keeping systems online.

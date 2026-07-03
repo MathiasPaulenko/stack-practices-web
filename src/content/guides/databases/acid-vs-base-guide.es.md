@@ -198,3 +198,15 @@ Usa relojes vectoriales, last-write-wins con timestamps, o resolución de confli
 
 **¿Es BASE más rápido que ACID?**
 Generalmente sí, porque evita overhead de coordinación (locks, two-phase commit). Pero la diferencia de velocidad depende de la carga de trabajo e implementación.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

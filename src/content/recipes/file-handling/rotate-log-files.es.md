@@ -243,3 +243,15 @@ A: Equilibra cumplimiento, necesidades de debugging y costo de almacenamiento. U
 
 **Q: ¿Debo comprimir logs rotados?**
 A: Sí. La compresión reduce considerablemente el uso de almacenamiento. La mayoría de las herramientas de rotación soportan compresión gzip o zstd de forma nativa.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

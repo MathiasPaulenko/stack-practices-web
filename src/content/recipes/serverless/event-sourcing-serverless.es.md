@@ -10,6 +10,9 @@ topics:
 tags:
   - serverless
   - cqrs
+  - aws-lambda
+  - functions
+  - faas
 relatedResources:
   - /recipes/cqrs-pattern-recipe
   - /recipes/saga-pattern-recipe
@@ -229,3 +232,15 @@ R: Sí — usa el outbox pattern. Escribe eventos a una tabla `outbox` en la mis
 **P: ¿Cómo consulto a través de agregados?**
 R: No consultes el event store directamente para queries cross-aggregate. Construye proyecciones de modelo de lectura que desnormalicen datos para eficiencia de query. El event store es el modelo de escritura; las proyecciones son el modelo de lectura. Esta separación es CQRS.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

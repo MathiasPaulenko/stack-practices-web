@@ -11,6 +11,8 @@ tags:
   - data
   - database
   - guid
+  - parsing
+  - json
 relatedResources:
   - /recipes/parse-json
   - /recipes/caching
@@ -200,3 +202,15 @@ R: UUID v4 causa inserciones random en B-tree, lo que perjudica el rendimiento d
 
 **P: ¿Puedo combinar UUIDs con IDs auto-incrementales?**
 R: Sí. Usa un entero auto-incremental como clave primaria interna (para clustering/rendimiento) y un UUID como identificador externo (para APIs y URLs). Esto te da lo mejor de ambos mundos.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -179,3 +179,15 @@ El Agent corre en cada host (DaemonSet) para coleccion local. El Gateway es un c
 
 **Puedo usar OpenTelemetry con AWS/GCP/Azure?**
 Si. Todos los proveedores cloud principales tienen endpoints OTLP o exporters de OpenTelemetry Collector para sus servicios nativos de observabilidad.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

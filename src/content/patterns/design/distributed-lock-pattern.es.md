@@ -368,3 +368,15 @@ A: Los locks distribuidos típicamente son de corta duración y liberados rápid
 
 **Q: Puedo usar una base de datos en lugar de Redis/ZooKeeper?**
 A: Sí. Los advisory locks de PostgreSQL (`pg_advisory_lock`) y `GET_LOCK()` de MySQL funcionan pero acoplan tu locking a la disponibilidad de tu base de datos y pueden no escalar tan bien como servicios de lock dedicados.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

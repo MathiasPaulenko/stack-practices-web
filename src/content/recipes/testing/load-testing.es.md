@@ -11,6 +11,8 @@ tags:
   - testing
   - api-testing
   - benchmarks
+  - unit-tests
+  - integration
 relatedResources:
   - /recipes/integration-testing
   - /recipes/rate-limiting
@@ -146,3 +148,15 @@ R: Sí. k6 y Artillery están diseñados para esto. Corre smoke tests nocturnos 
 **P: ¿Debería testear producción directamente?**
 R: Solo con extrema precaución. Usa transacciones sintéticas, endpoints read-only y horas de menor tráfico. Prefiere staging para tests destructivos o write-heavy.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

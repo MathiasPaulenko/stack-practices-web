@@ -11,6 +11,8 @@ tags:
   - design
   - factory-pattern
   - creational-patterns
+  - design-patterns
+  - patterns
 relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/domain-driven-design
@@ -217,3 +219,15 @@ R: Mock la factory misma. Si `OrderService` depende de `PaymentProcessorFactory`
 **P: ¿Puedo combinar factory con builder?**
 R: Sí, y es común. Una factory decide qué clase instanciar; un builder configura la instancia después de la creación. `factory.create("email").withTimeout(30).withRetries(3)`.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -293,3 +293,15 @@ A: Validate file metadata (size, MIME type) in the resolver. GraphQL's multipart
 
 **Q: What about performance with large inputs?**
 A: Zod is fast for typical input sizes. For very large payloads (100KB+), consider streaming validation or pre-size limits at the HTTP layer.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

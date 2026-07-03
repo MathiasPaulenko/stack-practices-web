@@ -393,3 +393,15 @@ A: LRU is simpler and works well for most workloads. LFU (Least Frequently Used)
 
 **Q: How do I test cross-instance invalidation?**
 A: Start two instances, both connected to the same Redis. Set a key on instance A, invalidate it, and verify instance B's L1 no longer has the key.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

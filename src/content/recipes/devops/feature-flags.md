@@ -10,6 +10,9 @@ topics:
 tags:
   - devops
   - feature-flags
+  - ci-cd
+  - automation
+  - deployment
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

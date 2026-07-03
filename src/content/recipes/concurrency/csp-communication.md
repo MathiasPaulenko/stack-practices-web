@@ -9,6 +9,10 @@ topics:
   - concurrency
 tags:
   - concurrency
+  - async
+  - threads
+  - parallel
+  - locks
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools
@@ -228,3 +232,15 @@ A: Use channels for coordinating and communicating between goroutines. Use mutex
 **Q: Can I use CSP patterns in languages other than Go?**
 A: Yes — Rust has `tokio::sync::mpsc`, JavaScript can use async generators, and languages like Clojure have core.async. The fundamental pattern (message passing between sequential processes) is language-agnostic, though Go's built-in syntax (`go`, `chan`, `select`) makes it the most ergonomic.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

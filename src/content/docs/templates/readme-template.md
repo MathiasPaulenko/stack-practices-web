@@ -172,3 +172,15 @@ A: Yes, if the README exceeds 300 lines. GitHub auto-generates one from H2 headi
 
 **Q: Can I use HTML in a README?**
 A: Yes, GitHub Flavored Markdown supports a subset of HTML. Use it sparingly for layout (e.g., centering badges) but prefer Markdown for content.
+
+### Can I modify this template for my organization?
+
+Yes. Adapt the sections, fields, and structure to match your organization's needs. Keep the template minimal so team members actually use it consistently.
+
+### Who should review documents created from this template?
+
+Assign reviewers based on the document type. Technical documents need engineering review. Process documents need stakeholder review. Always have at least one reviewer.
+
+### How do I version documents created from this template?
+
+Use your version control system. Store documents in a docs/ directory with clear naming. Tag or branch significant versions. Review and update living documents quarterly.

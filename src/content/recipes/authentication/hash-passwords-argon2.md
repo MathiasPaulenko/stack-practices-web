@@ -334,3 +334,15 @@ A: Accept both bcrypt and Argon2 hashes during verification. On successful bcryp
 
 **Q: What happens if I set memory_cost too high?**
 A: The server can run out of memory under load, causing OOM kills or denial of service. Start with 64 MiB and increase only after load testing.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

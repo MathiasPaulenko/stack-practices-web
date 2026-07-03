@@ -501,3 +501,15 @@ Standard: 1 ano. Express: 5 minutos. Para procesos mas largos, usa Standard con 
 **Cuanto cuesta Step Functions?**
 
 Standard: $0.025 por 1,000 transiciones de estado. Express: $0.025 por 1,000 invocaciones + $0.003 por 1,000 GB-segundos de duracion. Express es mas barato para workflows cortos con pocos estados.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

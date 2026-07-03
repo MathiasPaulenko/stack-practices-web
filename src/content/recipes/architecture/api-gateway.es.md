@@ -11,6 +11,8 @@ tags:
   - architecture
   - api-gateway
   - authentication
+  - design
+  - patterns
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/load-balancing
@@ -235,3 +237,15 @@ R: Sí, pero típicamente 1-5ms para gateways bien tuneados. Los beneficios — 
 **P: ¿Cómo aseguro llamadas servicio-a-servicio detrás de un gateway?**
 R: El gateway valida tokens externos. Para llamadas internas, usa mTLS (service mesh) o tokens internos firmados. Nunca confíes en headers de auth orientados a usuarios para comunicación interna de servicios — un atacante que comprometa un servicio podría forjarlos.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

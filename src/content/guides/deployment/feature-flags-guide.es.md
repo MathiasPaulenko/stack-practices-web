@@ -282,6 +282,18 @@ Sí, si se evalúan frecuentemente. Usa caching en memoria, evaluaciones batch, 
 **Q: ¿Cuándo debería remover un feature flag?**
 Tan pronto como el cambio sea estable y completamente lanzado. Apunta a remoción dentro de 30 días del release completo.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusion
 
 Los feature flags son esenciales para la entrega continua moderna. Te permiten desplegar con confianza, lanzar gradualmente y reaccionar instantáneamente a problemas. Trata los flags como andamiaje temporal, no arquitectura permanente, y límpialos agresivamente para mantener tu codebase saludable.

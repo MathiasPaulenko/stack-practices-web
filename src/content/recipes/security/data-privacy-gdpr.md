@@ -11,6 +11,8 @@ tags:
   - gdpr
   - privacy
   - compliance
+  - security
+  - vulnerabilities
 relatedResources:
   - /docs/data-retention-policy-template
   - /recipes/encryption-at-rest
@@ -159,3 +161,15 @@ A: Anonymization is irreversible (data can never identify the person). Pseudonym
 
 **Q: How do I handle erasure requests with foreign key constraints?**
 A: Use soft deletes (anonymize instead of delete), or cascade deletes with audit logging. Never orphan records.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

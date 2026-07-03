@@ -11,6 +11,8 @@ tags:
   - api
   - cors
   - http
+  - rest
+  - backend
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/api-versioning

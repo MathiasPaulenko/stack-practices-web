@@ -12,6 +12,8 @@ tags:
   - devops
   - onboarding
   - template
+  - ci-cd
+  - automation
 relatedResources:
   - /docs/templates/onboarding-guide-template
   - /docs/templates/runbook-template

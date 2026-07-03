@@ -9,6 +9,10 @@ topics:
   - devops
 tags:
   - devops
+  - ci-cd
+  - automation
+  - deployment
+  - infrastructure
 relatedResources:
   - /docs/bug-report-template
   - /docs/changelog-template

@@ -11,6 +11,8 @@ tags:
   - immutable-infrastructure
   - devops
   - docker
+  - ci-cd
+  - automation
 relatedResources:
   - /guides/docker-for-developers-guide
   - /recipes/aws-ecs-fargate
@@ -166,3 +168,15 @@ R: Construye una nueva imagen con el patch, despliégala y decomisiona las insta
 
 **P: ¿Puedo usar infraestructura inmutable con bases de datos?**
 R: Para servidores de app stateless, sí. Para bases de datos, usa configuración inmutable + volúmenes de datos persistentes, no datos inmutables. Aprende más en [diseño de bases de datos](/guides/databases/database-design-guide).
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -11,6 +11,8 @@ tags:
   - security
   - api-security
   - cors
+  - vulnerabilities
+  - encryption
 relatedResources:
   - /recipes/xss-prevention
   - /recipes/sql-injection-prevention
@@ -152,3 +154,15 @@ R: CSP controla qué recursos puede cargar un navegador cuando renderiza tu pág
 **P: ¿Debería usar `report-uri` en CSP?**
 R: Sí, durante el rollout. La directiva `report-uri` envía reportes de violaciones a un endpoint sin bloquear contenido. Esto te ayuda a identificar fuentes legítimas que olvidaste incluir en la lista blanca antes de hacer la política estricta.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

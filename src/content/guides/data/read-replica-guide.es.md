@@ -418,6 +418,18 @@ PostgreSQL soporta hasta ~10 réplicas de streaming antes de que el overhead de 
 **P: ¿Necesito réplicas si uso caché?**
 Sí — la caché y las réplicas se complementan. La caché maneja datos calientes; las réplicas manejan misses de caché y consultas analíticas.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 Las réplicas de lectura son la forma más simple de escalar lecturas de base de datos. Al configurar replicación streaming, enrutar consultas inteligentemente y monitorear el lag, puedes manejar 10x crecimiento de lectura sin cambiar considerablemente tu modelo de datos o arquitectura de aplicación.

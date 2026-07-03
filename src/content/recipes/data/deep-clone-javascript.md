@@ -11,6 +11,8 @@ tags:
   - data
   - deep-clone
   - javascript
+  - parsing
+  - json
 relatedResources:
   - /recipes/caching
   - /recipes/date-formatting

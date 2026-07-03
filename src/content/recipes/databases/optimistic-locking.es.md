@@ -10,6 +10,9 @@ topics:
 tags:
   - database
   - concurrency
+  - databases
+  - sql
+  - postgresql
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas

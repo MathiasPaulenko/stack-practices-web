@@ -11,6 +11,8 @@ tags:
   - devops
   - containers
   - deployment
+  - ci-cd
+  - automation
 relatedResources:
   - /guides/deployment-strategies-guide
   - /docs/post-deployment-checklist-template

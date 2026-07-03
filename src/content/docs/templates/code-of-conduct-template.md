@@ -12,6 +12,8 @@ tags:
   - community
   - devops
   - open-source
+  - ci-cd
+  - automation
 relatedResources:
   - /docs/contributing-guide
   - /docs/readme-template

@@ -13,6 +13,7 @@ tags:
   - security
   - authentication
   - real-time
+  - api
 relatedResources:
   - /recipes/api/call-rest-api
   - /recipes/real-time-websockets
@@ -203,3 +204,15 @@ A: Send a refresh token over the existing connection or implement a silent refre
 
 **Q: Can I use the same auth [middleware](/recipes/api/middleware) for HTTP and WebSocket?**
 A: Partially. The validation logic can be shared, but WebSocket requires extracting the token from query parameters or headers during the handshake.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

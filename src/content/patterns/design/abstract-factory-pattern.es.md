@@ -229,3 +229,15 @@ R: Sí. La factory puede retornar [builders](/patterns/design/builder-pattern) p
 
 **P: ¿Cómo añado un nuevo tipo de producto a una familia existente?**
 R: Debes añadir un nuevo método abstracto a la interfaz de factory e implementarlo en cada factory concreta. Este es el principal inconveniente del patrón.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

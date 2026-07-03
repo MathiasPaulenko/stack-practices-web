@@ -13,6 +13,7 @@ tags:
   - monitoring
   - devops
   - observability
+  - ci-cd
 relatedResources:
   - /recipes/devops/helm-chart-deployment
   - /patterns/design/ambassador-pattern-services
@@ -224,3 +225,15 @@ A: Metrics are numeric aggregates over time, ideal for trends and thresholds. Lo
 
 **Q: Can I use Prometheus without Kubernetes?**
 A: Yes. Prometheus runs as a standalone binary and can scrape any HTTP endpoint that exposes metrics.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -11,6 +11,8 @@ tags:
   - api
   - distributed-systems
   - http
+  - rest
+  - backend
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-cors

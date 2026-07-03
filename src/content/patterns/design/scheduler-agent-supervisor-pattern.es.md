@@ -403,3 +403,15 @@ R: El sistema pierde supervision. Mitigar ejecutando supervisores en pares con e
 
 **P: ¿Puede este patron manejar millones de trabajos?**
 R: Si — pero el programador se convierte en cuello de botella. Usar programacion particionada (un programador por tipo de trabajo o shard) y pools de agentes de nada compartida para escalar horizontalmente.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

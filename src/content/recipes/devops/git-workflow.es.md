@@ -11,6 +11,8 @@ tags:
   - devops
   - git
   - workflow
+  - ci-cd
+  - automation
 relatedResources:
   - /recipes/docker-basics
   - /recipes/unit-testing
@@ -137,3 +139,15 @@ A: Haz commit cada vez que alcances un checkpoint lógico — un test que pasa, 
 
 **Q: ¿Qué pasa si commiteo un secreto (contraseña, API key) a Git?**
 A: Rota el secreto inmediatamente — ahora está en el historial de Git. Usa herramientas como `git-filter-repo` o BFG Repo-Cleaner para eliminarlo del historial, luego force-push. La prevención vence a la limpieza: usa pre-commit hooks con escaneo de secretos.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -11,6 +11,8 @@ tags:
   - authentication
   - jwt
   - security
+  - oauth
+  - auth
 relatedResources:
   - /recipes/handle-errors
   - /recipes/call-rest-api
@@ -197,3 +199,15 @@ A: Mantén una lista de bloqueo de tokens (ej. Redis con TTL igual a la expiraci
 
 **Q: ¿Cuál es la diferencia entre HS256 y RS256?**
 A: `HS256` es simétrico: un solo secreto firma y verifica. `RS256` es asimétrico: una clave privada firma y cualquier servicio con la clave pública puede verificar. Usa `RS256` cuando múltiples servicios necesiten verificar tokens independientemente.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

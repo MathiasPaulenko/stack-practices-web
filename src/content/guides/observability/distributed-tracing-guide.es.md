@@ -357,6 +357,18 @@ Todos soportan OpenTelemetry. Jaeger tiene la comunidad más grande. Zipkin es m
 **P: ¿Puedo trazar flujos de trabajo asíncronos?**
 Sí, pero asegúrate de que el contexto de traza se propague a través de colas de mensajes, callbacks y pools de hilos. Esta es la fuente más común de trazas rotas.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 Las trazas distribuidas son esenciales para operar microservicios a escala. Al instrumentar tus aplicaciones, propagar el contexto fielmente y muestrear inteligentemente, transformas fallas opacas entre servicios en flujos de petición visuales y depurables.

@@ -404,3 +404,15 @@ A: Strictly speaking yes. Without binding, you are doing MVP. However, simple ma
 
 **Q: Can I use MVVM with React?**
 A: React's hooks (`useState`, `useReducer`) and context API implement MVVM concepts. Custom hooks often serve as ViewModels.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

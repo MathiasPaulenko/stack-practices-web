@@ -11,6 +11,8 @@ tags:
   - file-handling
   - csv
   - data
+  - io
+  - streams
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs

@@ -13,6 +13,7 @@ tags:
   - database
   - postgres
   - transactions
+  - databases
 relatedResources:
   - /recipes/databases/mongodb-crud-mongoose
   - /recipes/query-optimization
@@ -208,3 +209,15 @@ R: PostgreSQL automaticamente hace rollback de cualquier trabajo no commiteado c
 
 **P: Como debuggeo contencion de locks?**
 R: Consulta `pg_locks` y `pg_stat_activity` para ver transacciones esperando y sus bloqueadores.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

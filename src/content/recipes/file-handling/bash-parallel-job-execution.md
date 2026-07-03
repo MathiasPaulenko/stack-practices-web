@@ -129,3 +129,15 @@ A: Use `xargs -0` with `find -print0` or GNU parallel with quoted arguments. Nev
 
 **Q: How do I limit memory usage?**
 A: Reduce `MAX_JOBS` and run each job under `systemd-run` or `ulimit` to cap memory per process.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

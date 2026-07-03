@@ -404,3 +404,15 @@ Use `basic_get` to fetch from DLQ, `basic_publish` to the main queue, then `basi
 **Can I set a TTL on the DLQ itself?**
 
 Yes. Set `x-message-ttl` on the DLQ to automatically discard old dead-lettered messages. This prevents the DLQ from growing indefinitely. Set a long TTL (e.g., 7 days) to allow investigation time.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

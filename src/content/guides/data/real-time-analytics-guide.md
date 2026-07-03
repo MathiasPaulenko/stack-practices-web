@@ -492,6 +492,18 @@ Use watermarks (Flink/Kafka Streams) or late-data handling (Druid/ClickHouse). A
 **Q: What is the difference between stream processing and real-time analytics?**
 Stream processing is the computation layer (Flink, Kafka Streams). Real-time analytics is the end-to-end system including collection, processing, storage, and visualization.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Real-time analytics turns event streams into timely intelligence within seconds. By instrumenting applications with structured events, processing them through windowed aggregations, and storing results in OLAP databases, you build systems that react to the present rather than reporting on the past.

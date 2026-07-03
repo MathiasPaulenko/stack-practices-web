@@ -13,6 +13,7 @@ tags:
   - architecture
   - documentation
   - template
+  - design
 relatedResources:
   - /docs/templates/readme-template
   - /guides/api/rest-api-design-guide

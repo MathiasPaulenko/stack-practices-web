@@ -9,6 +9,10 @@ topics:
   - authentication
 tags:
   - authentication
+  - security
+  - oauth
+  - jwt
+  - auth
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login

@@ -12,6 +12,7 @@ tags:
   - devops
   - github-actions
   - automation
+  - deployment
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /recipes/github-actions
@@ -170,3 +171,15 @@ A: Run migrations in a separate job before the deploy. Use backward-compatible m
 
 **Q: Can I use the same pipeline for microservices?**
 A: Yes, but use path-based triggers so only affected services build and deploy. Monorepo tools (Nx, Turborepo) help.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

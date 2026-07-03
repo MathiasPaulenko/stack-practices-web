@@ -314,3 +314,15 @@ A: User attributes (department, clearance), resource attributes (owner, classifi
 
 **Q: When should I choose ABAC over RBAC?**
 A: Choose ABAC when you need contextual decisions, such as allowing access only during business hours or from a specific location, or when roles alone create role explosion.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

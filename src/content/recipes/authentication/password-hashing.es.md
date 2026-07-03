@@ -10,6 +10,9 @@ topics:
 tags:
   - authentication
   - bcrypt
+  - security
+  - oauth
+  - jwt
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/handle-errors
@@ -167,3 +170,15 @@ R: Sí, para sistemas nuevos. Argon2 es memory-hard, haciendo los ataques GPU y 
 
 **P: ¿Puedo usar el mismo hash tanto para autenticación como para tokens de API?**
 R: No. Los hashes de autenticación son lentos por diseño. Los tokens de API deberían usar hashes rápidos y deterministas (como HMAC-SHA-256) porque se verifican en cada petición y no deben agregar latencia a cada llamada de API.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

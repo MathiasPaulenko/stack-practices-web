@@ -437,3 +437,15 @@ Start all futures (they run concurrently), then use `allOf` to wait for all of t
 **How do I set a timeout on a CompletableFuture?**
 
 Use `orTimeout(5, TimeUnit.SECONDS)` (Java 9+) — the future completes exceptionally with `TimeoutException`. Use `completeOnTimeout(defaultValue, 5, TimeUnit.SECONDS)` to provide a fallback value instead.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

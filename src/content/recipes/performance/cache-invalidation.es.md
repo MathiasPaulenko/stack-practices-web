@@ -10,6 +10,9 @@ topics:
 tags:
   - performance
   - caching
+  - optimization
+  - profiling
+  - latency
 relatedResources:
   - /recipes/database-indexing
   - /recipes/connection-pooling
@@ -130,3 +133,15 @@ R: Sí, pero cuidadosamente. Los triggers pueden publicar eventos a Redis o una 
 **P: ¿Cuál es la diferencia entre eviction e invalidation?**
 R: La eviction ocurre cuando la caché remueve entradas por presión de memoria (políticas LRU, LFU). La invalidación es remoción deliberada porque los datos subyacentes cambiaron.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

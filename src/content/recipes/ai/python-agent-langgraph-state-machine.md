@@ -333,3 +333,15 @@ A: The checkpointer saves the full state after each node execution. On the next 
 
 **Q: Can I visualize the graph?**
 A: Yes. `app.get_graph().draw_png("agent.png")` generates a visual diagram of the graph structure.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

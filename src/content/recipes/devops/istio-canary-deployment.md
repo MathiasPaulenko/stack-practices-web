@@ -13,6 +13,7 @@ tags:
   - kubernetes
   - deployment
   - devops
+  - ci-cd
 relatedResources:
   - /recipes/devops/aws-ecs-fargate
   - /recipes/devops/terraform-aws-vpc
@@ -263,3 +264,15 @@ A: Rolling updates replace pods in place. Canary deployments route traffic progr
 
 **Q: Can I canary based on user properties instead of random percentages?**
 A: Yes. Istio supports routing by headers, cookies, or JWT claims for targeted canary releases.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

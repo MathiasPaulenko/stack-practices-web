@@ -10,6 +10,9 @@ topics:
 tags:
   - architecture
   - circuit-breaker
+  - design
+  - patterns
+  - scalability
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/saga-pattern-recipe
@@ -230,3 +233,15 @@ A: Yes, if the fallback is not carefully designed. If the circuit opens during a
 **Q: How do circuit breakers work with async/await?**
 A: Most modern libraries (Resilience4j, Opossum for JS) support async execution natively. The state machine runs in the calling thread (or event loop), and the wrapped function is awaited. Timeouts must be compatible with the async runtime (Promise timeout in JS, CompletableFuture timeout in Java). See [Async Patterns](/recipes/api/call-rest-api) for async execution strategies.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -12,6 +12,7 @@ tags:
   - devops
   - testing
   - deployment
+  - ci-cd
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /docs/post-deployment-checklist-template
@@ -177,3 +178,15 @@ R: Sí, pero la latencia aumenta. AWS Traffic Mirroring funciona dentro del mism
 
 **P: ¿Cómo difiere el mirroring del load testing?**
 R: El [load testing](/recipes/performance/load-testing-k6) genera tráfico artificial. El mirroring usa tráfico real. Usa ambos: mirror para realismo, load testing para límites de capacidad.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

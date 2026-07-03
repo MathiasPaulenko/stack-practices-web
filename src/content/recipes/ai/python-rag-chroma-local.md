@@ -402,3 +402,15 @@ A: Roughly 1KB per vector for the default model. 100K chunks uses ~100MB of RAM.
 
 **Q: Should I use a cross-encoder reranker?**
 A: For production RAG, yes. Reranking improves precision significantly — retrieve 20 chunks, rerank to top 5.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

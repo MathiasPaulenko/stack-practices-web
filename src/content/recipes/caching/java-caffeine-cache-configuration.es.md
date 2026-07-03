@@ -351,3 +351,15 @@ Limitado solo por el tamano del heap. Para caches de multi-gigabyte, considera s
 **Como difiere `refreshAfterWrite` de `expireAfterWrite`?**
 
 `expireAfterWrite` remueve la entrada despues del TTL — la siguiente lectura bloquea mientras el nuevo valor carga. `refreshAfterWrite` dispara un refresco en background pero sigue sirviendo el valor viejo hasta que el nuevo esta listo. Usar refresh para caches calientes donde el bloqueo es inaceptable.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

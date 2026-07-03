@@ -189,3 +189,15 @@ A: HATEOAS (Hypermedia as the Engine of Application State) incluye links en resp
 
 **Q: ¿Cómo autentico una API REST?**
 A: Para server-to-server, usa [API keys](/recipes/security/api-security-headers) o OAuth 2.0 client credentials. Para apps orientadas a usuarios, usa [OAuth 2.0 con PKCE](/recipes/security/oauth2-pkce-spa) o auth basada en sesiones con [protección CSRF](/recipes/security/csrf-protection).
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

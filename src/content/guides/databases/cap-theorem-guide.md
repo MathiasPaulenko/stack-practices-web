@@ -13,6 +13,7 @@ tags:
   - database
   - distributed-systems
   - guide
+  - databases
 relatedResources:
   - /guides/databases/nosql-database-selection-guide
   - /guides/databases/database-sharding-partitioning-guide

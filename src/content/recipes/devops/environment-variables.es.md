@@ -9,6 +9,10 @@ topics:
   - devops
 tags:
   - devops
+  - ci-cd
+  - automation
+  - deployment
+  - infrastructure
 relatedResources:
   - /recipes/docker-basics
   - /recipes/jwt-authentication
@@ -167,3 +171,15 @@ R: Los archivos `.env` son cargados por el código de la aplicación al inicio y
 
 **P: ¿Debería validar variables de entorno en código o usar una librería de schema?**
 R: Ambos enfoques funcionan. Para proyectos pequeños, la validación manual al inicio está bien. Para aplicaciones más grandes, librerías de schema como `envalid` (Node), `pydantic-settings` (Python) o `@ConfigurationProperties` de Spring (Java) proporcionan type safety, defaults y validación automática.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

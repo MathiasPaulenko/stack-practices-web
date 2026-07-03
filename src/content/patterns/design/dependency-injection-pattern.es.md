@@ -216,3 +216,15 @@ R: No. Para proyectos pequeños, la inyección manual por constructor es suficie
 
 **P: ¿Cómo ayuda DI con el testing?**
 R: Al depender de abstracciones (interfaces), puedes inyectar implementaciones mock o stub durante las pruebas. Consulta [unit testing](/recipes/testing/unit-testing) para patrones de testing. Esto aísla la clase bajo prueba de sus colaboradores reales.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

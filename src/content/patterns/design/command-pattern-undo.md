@@ -12,8 +12,10 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
+  - design-patterns
 relatedResources:
   - /patterns/design/memento-pattern-state
+  - /patterns/design/abstract-factory-cross-platform
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -202,3 +204,15 @@ A: Command stores the operation to reverse. [Memento](/patterns/design/memento-p
 
 **Q: Can I use this for API request logging?**
 A: Yes. Wrap [HTTP requests](/recipes/api/call-rest-api) as commands to replay sequences for debugging or testing.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

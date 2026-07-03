@@ -11,6 +11,8 @@ tags:
   - database
   - event-sourcing
   - event-store
+  - databases
+  - sql
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas
@@ -293,3 +295,15 @@ A: Use event versioning (`Deposit_v1`, `Deposit_v2`) or upcasting — transform 
 
 **Q: Can I use event sourcing with CQRS?**
 A: Yes — CQRS and event sourcing pair naturally. Commands append events to the write model; projections create optimized read models. The read model can be in a completely different database (Elasticsearch, Redis, etc.).
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

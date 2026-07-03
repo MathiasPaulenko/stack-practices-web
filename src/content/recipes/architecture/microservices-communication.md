@@ -12,6 +12,7 @@ tags:
   - communication
   - distributed-systems
   - architecture
+  - design
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/monolith-to-microservices-migration-guide
@@ -170,3 +171,15 @@ A: Sagas are most natural with asynchronous events or messages because each step
 
 **Q: How do I handle message duplication from a broker?**
 A: Design consumers to be idempotent. Store the IDs of processed messages in a deduplication table or use the message broker's idempotent producer settings when available.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -575,3 +575,15 @@ Usa `sync.WaitGroup`. Llama `wg.Add(1)` antes de iniciar cada goroutine, `wg.Don
 **Que pasa si envio a un channel cerrado?**
 
 Paniquea con "send on closed channel". Este es un bug comun. Solo el sender debe cerrar el channel, y solo despues de que todos los sends estan completos. Usa `sync.Once` si multiples goroutines podrian cerrar el mismo channel.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

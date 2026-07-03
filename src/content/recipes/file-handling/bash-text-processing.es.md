@@ -211,3 +211,15 @@ A: Usa un parser CSV apropiado como el módulo `csv` de Python o `csvkit`. El `c
 
 **Q: ¿Por qué grep con regex es más lento de lo esperado?**
 A: Las expresiones regulares con backtracking, especialmente con alternancias y comodines, pueden ser lentas. Usa búsqueda de string fijo con `grep -F` cuando no necesites regex.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -11,6 +11,8 @@ tags:
   - api
   - error-handling
   - java
+  - rest
+  - http
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/jwt-authentication
@@ -201,3 +203,15 @@ A: Extiende la respuesta Problem Details con un arreglo `errors` o campo `invali
 
 **Q: ¿Qué código de estado uso para fallas de lógica de negocio?**
 A: Prefiere 422 Unprocessable Entity para fallas de validación semántica (ej. "no se puede enviar a este país"). Usa 409 Conflict para conflictos de estado (ej. email duplicado). Evita 400 para reglas de negocio.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -13,6 +13,7 @@ tags:
   - product-management
   - template
   - user-story
+  - ci-cd
 relatedResources:
   - /docs/templates/bug-report-template
   - /docs/templates/user-story-template

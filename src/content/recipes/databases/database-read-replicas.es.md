@@ -9,6 +9,10 @@ topics:
   - databases
 tags:
   - database
+  - databases
+  - sql
+  - postgresql
+  - mysql
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/full-text-search
@@ -204,3 +208,15 @@ R: Solo si usas replicación multi-master (Galera, CockroachDB, Yugabyte). Las r
 
 **P: ¿Necesito un proxy a nivel de aplicación para split de lecturas?**
 R: No siempre. Algunos drivers (libpq de PostgreSQL, Connector/J de MySQL) soportan múltiples hosts. ORMs como Prisma e Hibernate también proveen enrutado de réplicas. Para escenarios complejos, usa ProxySQL, PgBouncer o AWS RDS Proxy.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

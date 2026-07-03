@@ -11,6 +11,8 @@ tags:
   - database-replication
   - databases
   - performance
+  - sql
+  - postgresql
 relatedResources:
   - /recipes/uuid-generation-strategies
   - /recipes/database-connection-pooling
@@ -165,3 +167,15 @@ R: Sí. `pg_basebackup` desde una réplica descarga la primaria. Asegúrate de q
 
 **P: ¿Cuál es la diferencia entre replicación lógica y física?**
 R: La física copia byte-por-byte (rápida; base de datos completa). La lógica replica cambios de fila (tablas selectivas; compatible entre versiones).
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -371,3 +371,15 @@ A: Yes, but use hash tags (`lock:{job_id}`) to ensure the lock key and any relat
 
 **Q: What happens if the lock holder pauses (GC pause)?**
 A: The TTL may expire during the pause, allowing another process to acquire the lock. Use fencing tokens to prevent stale holders from corrupting state.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

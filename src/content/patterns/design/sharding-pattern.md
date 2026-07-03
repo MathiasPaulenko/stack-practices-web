@@ -307,3 +307,15 @@ A: Not natively in most databases. Application-level joins query both shards and
 
 **Q: How do I handle auto-incrementing IDs with sharding?**
 A: Use UUIDs, snowflake IDs (Twitter-style), or a central ID allocator. Auto-increment per shard creates conflicts and complicates global ordering.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

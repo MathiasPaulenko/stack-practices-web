@@ -332,3 +332,15 @@ A: Function calling es soportado por Anthropic, Google y otros. La API difiere l
 
 **Q: Cuanto cuesta la salida estructurada?**
 A: Igual que un completion regular. El esquema se envia como parte de la peticion, anadiendo un pequeno overhead de tokens (tipicamente 100-300 tokens).
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

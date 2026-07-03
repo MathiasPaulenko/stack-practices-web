@@ -12,6 +12,7 @@ tags:
   - creational
   - design-pattern
   - fluent-interface
+  - design-patterns
 relatedResources:
   - /patterns/design/abstract-factory-pattern
   - /patterns/design/proxy-pattern-caching
@@ -149,3 +150,15 @@ R: Cuando se necesita validacion, los valores por defecto son complejos, o la mi
 
 **P: El Builder pattern sigue siendo relevante con la sintaxis de spread de objetos?**
 R: Si. Los spreads son convenientes para casos simples pero no enforcean validacion, valores por defecto ni orden de construccion.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

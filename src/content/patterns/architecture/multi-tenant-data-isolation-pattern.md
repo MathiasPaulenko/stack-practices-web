@@ -332,3 +332,15 @@ A: Write a migration runner that iterates over all tenants. For schema-per-tenan
 
 **Q: Can I mix strategies?**
 A: Yes. Start with RLS for small tenants on a shared database. Promote large tenants to their own database when they outgrow the shared instance. Route requests based on tenant configuration. This is called the hybrid or tiered approach.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

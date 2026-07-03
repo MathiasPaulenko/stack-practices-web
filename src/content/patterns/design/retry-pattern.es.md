@@ -212,3 +212,15 @@ R: Retry maneja fallas transitorias individuales. [Circuit Breaker](/patterns/de
 
 **P: ¿Debería reintentar errores 500 Internal Server Error?**
 R: Depende. El 500 puede indicar un problema transitorio del servidor que vale la pena reintentar, pero 502/503/504 son más claramente transitorios. Nunca reintentes errores 4xx del cliente (400, 401, 403, 404) sin corregir la petición primero.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

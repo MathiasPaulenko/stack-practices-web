@@ -10,6 +10,9 @@ topics:
 tags:
   - data
   - java
+  - parsing
+  - json
+  - csv
 relatedResources:
   - /recipes/caching
   - /recipes/date-formatting

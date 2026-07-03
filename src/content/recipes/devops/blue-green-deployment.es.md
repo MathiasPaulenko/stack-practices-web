@@ -12,6 +12,7 @@ tags:
   - deployment
   - zero-downtime
   - devops
+  - ci-cd
 relatedResources:
   - /guides/deployment-strategies-guide
   - /docs/post-deployment-checklist-template
@@ -172,3 +173,15 @@ R: Sí. Los alias de AWS Lambda, las etapas canary de API Gateway y los desplieg
 
 **P: ¿Cuál es la diferencia entre blue-green y canary?**
 R: Blue-green conmuta el 100% del tráfico de una vez. Canary dirige un pequeño porcentaje primero, luego aumenta gradualmente.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -11,6 +11,9 @@ topics:
 tags:
   - security
   - template
+  - vulnerabilities
+  - encryption
+  - owasp
 relatedResources:
   - /guides/security/web-application-security-guide
   - /docs/templates/security-incident-response-template

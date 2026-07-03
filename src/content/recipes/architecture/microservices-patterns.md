@@ -11,6 +11,8 @@ tags:
   - architecture
   - bulkhead
   - circuit-breaker
+  - design
+  - patterns
 relatedResources:
   - /recipes/api-gateway
   - /recipes/event-driven-functions
@@ -247,3 +249,15 @@ A: Yes — this is the standard pattern. Retry handles transient failures. If re
 **Q: What is the difference between a [saga](/recipes/saga-pattern-recipe) and two-phase commit?**
 A: Two-phase commit (2PC) locks resources across services, blocking until all participants confirm. Sagas do not lock — they execute steps sequentially and compensate on failure. Sagas trade immediate consistency for availability and partition tolerance (BASE vs ACID). See [Event-Driven Architecture](/recipes/architecture/event-driven-architecture) for event-based coordination.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

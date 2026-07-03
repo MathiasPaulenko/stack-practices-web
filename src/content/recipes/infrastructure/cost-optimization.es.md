@@ -12,6 +12,7 @@ tags:
   - infrastructure
   - aws
   - devops
+  - cloud
 relatedResources:
   - /docs/capacity-planning-template
   - /recipes/helm-chart-deployment
@@ -161,3 +162,15 @@ R: Las [SCPs (Service Control Policies)](/guides/security/security-best-practice
 
 **P: ¿Cuál es la diferencia entre FinOps y DevOps?**
 R: [DevOps](/guides/devops/docker-for-developers-guide) optimiza para velocidad y confiabilidad. FinOps agrega costo como métrica de primera clase, con accountability cross-funcional.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

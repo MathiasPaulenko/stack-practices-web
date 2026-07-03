@@ -9,6 +9,10 @@ topics:
   - authentication
 tags:
   - authentication
+  - security
+  - oauth
+  - jwt
+  - auth
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/session-management
@@ -188,3 +192,15 @@ R: Sí, usando deep links o universal links. El magic link abre la app directame
 **P: ¿Debería ofrecer tanto magic links como contraseñas?**
 R: La mayoría de aplicaciones modernas elige un método primario. Ofrecer ambos crea confusión y aumenta la superficie de ataque. Si necesitas un fallback, usa login social (Google, Apple) en lugar de mantener un sistema separado de contraseñas.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -484,6 +484,18 @@ Stream processing is the engine that transforms events. Real-time analytics is t
 **Q: Can I use SQL for stream processing?**
 Yes. Flink SQL, ksqlDB, and Spark Structured Streaming all support SQL over streams. These are excellent for simple aggregations and joins. Complex stateful logic still requires the DataStream/functional API.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Stream processing enables systems that react to events as they happen. By choosing the right engine, designing immutable event schemas, managing state carefully, and implementing exactly-once semantics, you build pipelines that process millions of events per second with correctness guarantees.

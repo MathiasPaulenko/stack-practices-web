@@ -11,6 +11,8 @@ tags:
   - devops
   - health-check
   - java
+  - ci-cd
+  - automation
 relatedResources:
   - /recipes/environment-variables
   - /recipes/cron-jobs

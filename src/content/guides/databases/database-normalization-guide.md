@@ -238,6 +238,44 @@ Skills and languages are independent multi-valued facts.
 - **Normalizing before understanding queries** — the schema should serve the workload
 - **Ignoring BCNF** — 3NF does not handle all anomalies; BCNF is the stricter standard
 
+## Example: Normalization Steps
+
+```sql
+-- 1NF: Remove repeating groups
+-- Unnormalized: orders(id, customer_name, items_csv)
+-- 1NF:         orders(id, customer_name, item_name, qty)
+
+-- 2NF: Remove partial dependencies (composite key)
+-- 1NF:  order_items(order_id, product_id, product_name, qty)
+-- 2NF:  orders(order_id, customer_id)
+--       products(product_id, product_name)
+--       order_items(order_id, product_id, qty)
+
+-- 3NF: Remove transitive dependencies
+-- 2NF:  orders(order_id, customer_id, customer_name, customer_city)
+-- 3NF:  orders(order_id, customer_id)
+--       customers(customer_id, customer_name, customer_city)
+
+CREATE TABLE customers (
+  customer_id SERIAL PRIMARY KEY,
+  customer_name VARCHAR(200) NOT NULL,
+  customer_city VARCHAR(100)
+);
+
+CREATE TABLE orders (
+  order_id SERIAL PRIMARY KEY,
+  customer_id INT REFERENCES customers(customer_id),
+  order_date DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE order_items (
+  order_id INT REFERENCES orders(order_id),
+  product_id INT REFERENCES products(product_id),
+  qty INT NOT NULL CHECK (qty > 0),
+  PRIMARY KEY (order_id, product_id)
+);
+```
+
 ## FAQ
 
 **Do NoSQL databases need normalization?**
@@ -248,3 +286,15 @@ Aim for BCNF in transactional systems. For read-heavy analytics, denormalize del
 
 **How does normalization affect indexing?**
 Normalized schemas need more joins, which require careful indexing. Denormalized schemas need fewer joins but more storage and update logic.
+
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.

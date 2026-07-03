@@ -10,6 +10,9 @@ topics:
 tags:
   - devops
   - java
+  - ci-cd
+  - automation
+  - deployment
 relatedResources:
   - /recipes/input-validation
   - /recipes/background-jobs

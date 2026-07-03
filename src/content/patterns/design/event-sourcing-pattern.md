@@ -299,3 +299,15 @@ A: You cannot delete events, but you can encrypt them with a user-specific key a
 
 **Q: How do snapshots work?**
 A: After every N events, save the computed entity state. On rehydration, load the latest snapshot and replay only events after it. This keeps replay time constant. See [CQRS](/patterns/design/cqrs-pattern) for read model patterns that work well with Event Sourcing.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

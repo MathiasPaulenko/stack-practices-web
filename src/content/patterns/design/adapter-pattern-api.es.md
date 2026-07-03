@@ -13,6 +13,7 @@ tags:
   - api
   - structural
   - design-pattern
+  - design-patterns
 relatedResources:
   - /patterns/design/decorator-pattern-pipeline
   - /patterns/design/facade-pattern
@@ -145,3 +146,15 @@ R: Un [adapter](/patterns/design/adapter-pattern) implementa una interfaz conoci
 
 **P: Deberia probar adapters con llamadas HTTP reales?**
 R: Prefiere respuestas grabadas o stubs para velocidad. Prueba el adapter real en una suite de test de contrato separada.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

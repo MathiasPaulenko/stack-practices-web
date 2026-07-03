@@ -291,6 +291,18 @@ Sí, pero asegúrate de que los experimentos sean independientes. Tests superpue
 **Q: ¿Qué umbral de p-value debería usar?**
 0.05 es estándar para la mayoría de decisiones de producto. Usa 0.01 para cambios de alto riesgo (pricing, algoritmos core).
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusion
 
 A/B testing transforma el desarrollo de productos de basado-en-opinión a basado-en-evidencia. Siguiendo un diseño riguroso de experimentos, calculando tamaños de muestra apropiados e interpretando resultados correctamente, tomas decisiones que mejoran consistentemente la experiencia de usuario y los resultados de negocio.

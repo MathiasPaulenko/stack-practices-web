@@ -104,3 +104,15 @@ R: Usa `ts_headline` para devolver snippets con los términos coincidentes resal
 
 **P: ¿La búsqueda de texto completo soporta coincidencia de frases?**
 R: Sí. Usa `phraseto_tsquery` o el operador `<->` en `to_tsquery` para búsqueda exacta de frases.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -227,3 +227,15 @@ R: Crea una rama de hotfix desde main, fixea, PR, mergea, y despliega inmediatam
 
 **P: ¿Es trunk-based development lo mismo que continuous deployment?**
 R: No exactamente, pero van de la mano. Trunk-based development es un prerequisito para continuous deployment, pero aún necesitas tests automatizados, feature flags y monitoreo.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

@@ -27,6 +27,11 @@ seo:
   metaDescription: "Database schema documentation template with entity definitions, relationship diagrams, field constraints, indexing strategy, and migration tracking for engineering teams."
   keywords:
     - template
+    - database
+    - schema
+    - documentation
+    - sql
+
 ---
 
 ## What Works

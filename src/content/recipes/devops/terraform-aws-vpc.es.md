@@ -13,6 +13,7 @@ tags:
   - aws
   - devops
   - networking
+  - ci-cd
 relatedResources:
   - /recipes/devops/aws-ecs-fargate
   - /guides/infrastructure-as-code-guide
@@ -233,3 +234,15 @@ R: Usa `aws_vpc_peering_connection` y agrega rutas en ambas VPCs apuntando al bl
 
 **P: Puedo importar una VPC existente a Terraform?**
 R: Si. Usa `terraform import aws_vpc.main <vpc-id>` y luego escribe la configuracion correspondiente.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -268,3 +268,15 @@ A: Algunos lo consideran un anti-patrón más liviano que las variables globales
 
 **Q: Cómo testeo código que usa un Registry?**
 A: Limpia el registry antes de cada test, registra mocks, y ejecuta el test. Mejor aún, refactoriza para aceptar dependencias vía constructor injection.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

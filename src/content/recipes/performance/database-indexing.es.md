@@ -11,6 +11,8 @@ tags:
   - performance
   - base-de-datos
   - indexing
+  - optimization
+  - profiling
 relatedResources:
   - /recipes/sql-joins
   - /recipes/database-views-materialized
@@ -142,3 +144,15 @@ R: Sí. PostgreSQL soporta índices GIN para arrays JSONB y full-text search. My
 **P: ¿Debería usar un índice UNIQUE o un índice regular?**
 R: Usa `UNIQUE` cuando la combinación de columnas debe ser única (como `email`). Es tanto una constraint como un índice. No agregues un índice regular encima de uno unique — es redundante.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

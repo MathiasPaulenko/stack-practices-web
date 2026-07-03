@@ -11,6 +11,8 @@ tags:
   - devops
   - circuit-breaker
   - exponential-backoff
+  - ci-cd
+  - automation
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing

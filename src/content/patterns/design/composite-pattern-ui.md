@@ -13,6 +13,7 @@ tags:
   - structural-patterns
   - react
   - design-pattern
+  - design-patterns
 relatedResources:
   - /patterns/design/decorator-pattern-pipeline
   - /patterns/design/adapter-pattern-api
@@ -212,3 +213,15 @@ A: Composite builds tree structures with container semantics. [Decorator](/patte
 
 **Q: When should I avoid Composite?**
 A: When the hierarchy is flat (only one level) or when child operations make no sense for leaf nodes. For flat structures, consider [Decorator](/patterns/design/decorator-pattern) instead.
+
+### Is this pattern suitable for small projects?
+
+For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+
+### How does this pattern compare to alternatives?
+
+Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+
+### Can I partially apply this pattern?
+
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.

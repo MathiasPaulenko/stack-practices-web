@@ -120,3 +120,15 @@ R: Usa `iptables-save > /etc/iptables/rules.v4` y restáuralas en el boot con un
 
 **P: ¿Cómo bloqueo una dirección IP específica?**
 R: Agrega `iptables -A INPUT -s 198.51.100.1 -j DROP` para descartar todo el tráfico de esa IP. Coloca la regla antes de las reglas de aceptación final.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

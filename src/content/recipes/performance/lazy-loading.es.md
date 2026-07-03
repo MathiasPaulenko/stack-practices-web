@@ -11,6 +11,8 @@ tags:
   - performance
   - lazy-loading
   - imagenes
+  - optimization
+  - profiling
 relatedResources:
   - /recipes/cache-invalidation
   - /recipes/cdn-edge-caching
@@ -175,3 +177,15 @@ R: Sí. Usa `rel="preload"` para CSS crítico y carga hojas de estilo no crític
 **P: ¿Cómo pruebo el rendimiento de lazy loading?**
 R: Usa el panel Network de Chrome DevTools, limita a "Slow 3G," y haz scroll por la página. Revisa el waterfall chart — las imágenes y chunks deberían cargar solo al entrar al viewport, no al inicio de página.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

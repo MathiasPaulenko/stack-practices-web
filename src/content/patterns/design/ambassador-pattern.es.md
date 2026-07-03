@@ -253,3 +253,15 @@ R: Ambassador es un proxy del lado del cliente (por servicio). [API Gateway](/re
 
 **P: ¿Debería usar un sidecar de service mesh o una biblioteca embebida?**
 R: Los sidecars de [service mesh](/guides/architecture/microservices-architecture-guide) (Envoy) te dan capacidades agnósticas de lenguaje a nivel de infraestructura sin cambios de código. Las bibliotecas embebidas (Resilience4j, Polly) tienen menor latencia pero requieren implementación por lenguaje.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

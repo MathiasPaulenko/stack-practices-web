@@ -366,6 +366,18 @@ Use static label values (status code class, not exact URL). Drop high-cardinalit
 **Q: Should I use Prometheus or a SaaS solution?**
 Prometheus is free but requires operational expertise. SaaS solutions reduce overhead but increase cost at scale. Many teams use both: Prometheus for real-time, SaaS for long-term.
 
+### How do I get started with this in an existing project?
+
+Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+
+### What tools do I need?
+
+The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+
+### How do I measure success after implementing this?
+
+Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
 ## Conclusion
 
 Metrics and dashboards transform raw system data into operational intelligence. By instrumenting consistently, designing dashboards for decision-making, and alerting on symptoms rather than causes, you build an observability practice that reduces MTTR and improves system reliability.

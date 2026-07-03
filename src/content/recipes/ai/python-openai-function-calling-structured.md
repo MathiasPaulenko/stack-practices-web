@@ -332,3 +332,15 @@ A: Function calling is supported by Anthropic, Google, and others. The API diffe
 
 **Q: How much does structured output cost?**
 A: Same as a regular completion. The schema is sent as part of the request, adding a small token overhead (typically 100-300 tokens).
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

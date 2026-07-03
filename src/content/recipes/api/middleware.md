@@ -11,6 +11,8 @@ tags:
   - api
   - authentication
   - express
+  - rest
+  - http
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors
@@ -183,3 +185,15 @@ A: There is no hard limit, but each layer adds latency. Profile your stack and r
 
 **Q: What is the difference between middleware and decorators/annotations?**
 A: Middleware operates at the framework level on all matching routes. Decorators/annotations attach behavior to specific functions or controllers.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

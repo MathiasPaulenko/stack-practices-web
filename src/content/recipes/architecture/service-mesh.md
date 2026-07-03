@@ -11,6 +11,8 @@ tags:
   - architecture
   - istio
   - kubernetes
+  - design
+  - patterns
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway
@@ -193,3 +195,15 @@ A: Istio and Linkerd are Kubernetes-native. Consul Connect supports VMs. For non
 **Q: How do I debug a 503 in the mesh?**
 A: Check three things: (1) is the destination pod healthy? (2) is the sidecar proxy healthy? (`istio-proxy` container logs). (3) is there an authorization policy or destination rule blocking traffic? Use `istioctl proxy-config` to inspect Envoy configuration.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -10,6 +10,9 @@ topics:
 tags:
   - api
   - microservices
+  - rest
+  - http
+  - backend
 relatedResources:
   - /recipes/server-sent-events
   - /docs/api-documentation

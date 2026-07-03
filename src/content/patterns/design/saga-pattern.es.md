@@ -334,3 +334,15 @@ R: Registra el fallo y alerta a un operador. Algunas compensaciones pueden reque
 
 **P: ¿Orquestación vs. Coreografía — cuál debería usar?**
 R: Usa orquestación para flujos complejos donde la visibilidad y el control sean críticos. Usa coreografía para flujos más simples donde el acoplamiento débil y la autonomía sean más importantes.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

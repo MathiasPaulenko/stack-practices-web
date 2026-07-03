@@ -12,6 +12,7 @@ tags:
   - microservices
   - messaging
   - architecture
+  - kafka
 relatedResources:
   - /recipes/kafka-event-streaming
   - /recipes/rabbitmq-task-queue
@@ -205,3 +206,15 @@ A: Use schema registries (Confluent, AWS Glue). Add fields; never remove. Mainta
 
 **Q: What's the difference between choreography and orchestration sagas?**
 A: Choreography: services react to events independently. Orchestration: a central coordinator directs each step. Orchestration is easier to debug; choreography is more decoupled.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

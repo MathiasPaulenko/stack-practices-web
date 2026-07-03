@@ -12,6 +12,8 @@ tags:
   - event-driven
   - messaging
   - microservices
+  - kafka
+  - rabbitmq
 relatedResources:
   - /recipes/devops/docker-compose-local-dev
   - /recipes/event-driven-architecture
@@ -218,3 +220,15 @@ R: Kafka es un log distribuido optimizado para alto throughput y replay. RabbitM
 
 **P: Cuando deberia usar un schema registry?**
 R: Cuando multiples equipos producen y consumen de topics compartidos, enforcear schemas previene mismatches de serializacion.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

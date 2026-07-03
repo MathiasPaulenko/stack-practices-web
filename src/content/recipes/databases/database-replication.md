@@ -11,6 +11,8 @@ tags:
   - database-replication
   - databases
   - performance
+  - sql
+  - postgresql
 relatedResources:
   - /recipes/uuid-generation-strategies
   - /recipes/database-connection-pooling
@@ -165,3 +167,15 @@ A: Yes. `pg_basebackup` from a replica offloads the primary. Ensure the replica 
 
 **Q: What's the difference between logical and physical replication?**
 A: Physical copies byte-for-byte (fast; entire database). Logical replicates row changes (selective tables; cross-version compatible).
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

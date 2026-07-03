@@ -316,6 +316,18 @@ Canary prueba salud de infraestructura y regresión. A/B testing prueba comporta
 **Q: ¿Debería usar canary para cada despliegue?**
 Para servicios críticos, sí. Para herramientas internas o cambios de bajo riesgo, el despliegue directo puede ser aceptable.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusion
 
 El despliegue canary es la forma más segura de liberar software a escala. Al exponer cambios a una audiencia pequeña y controlada primero, detectas problemas temprano, minimizas el radio de explosión y construyes confianza en cada release. Combina análisis automatizado de métricas con promoción gradual para un proceso de despliegue de primer nivel.

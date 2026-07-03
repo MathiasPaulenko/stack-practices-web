@@ -396,6 +396,18 @@ Usualmente porque `maxLifetime` excede el timeout de inactividad de tu base de d
 **P: ¿Cómo hago pooling para funciones serverless?**
 Usa un proxy (RDS Proxy, PgBouncer) o mantén una variable global de pool que persista entre invocaciones calientes. Los arranques en frío aún crearán conexiones, pero las invocaciones calientes las reutilizan.
 
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
 ## Conclusión
 
 El pooling de conexiones es un ajuste fundamental de rendimiento de base de datos. Al dimensionar pools correctamente, configurar timeouts apropiadamente y monitorear activamente, eliminas el overhead de conexión y proteges tu base de datos de ser abrumada por tormentas de conexiones.

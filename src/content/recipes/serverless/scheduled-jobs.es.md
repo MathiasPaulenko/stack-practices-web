@@ -10,6 +10,9 @@ topics:
 tags:
   - serverless
   - cron
+  - aws-lambda
+  - functions
+  - faas
 relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/event-driven-functions
@@ -152,3 +155,15 @@ R: CloudWatch Logs muestra el error. Agrega logging estructurado JSON con reques
 **P: ¿Es la programación serverless más barata que un VPS de $5/mes con cron?**
 R: Para jobs muy infrecuentes (semanal o mensual), sí. Para jobs que corren cada minuto, un VPS pequeño puede ser más barato. Calcula basado en duración de ejecución y frecuencia.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

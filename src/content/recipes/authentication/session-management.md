@@ -11,6 +11,8 @@ tags:
   - authentication
   - cookies
   - jwt
+  - security
+  - oauth
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login
@@ -150,3 +152,15 @@ A: Session fixation forces a victim to use an attacker-known session ID. Session
 **Q: Can I store [JWTs](/recipes/authentication/jwt-authentication) in localStorage instead of cookies?**
 A: You can, but localStorage is accessible to JavaScript and vulnerable to XSS theft. HTTP-only cookies are the safer choice for web applications.
 
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

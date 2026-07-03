@@ -11,6 +11,8 @@ tags:
   - database
   - cache
   - cache-aside
+  - databases
+  - sql
 relatedResources:
   - /recipes/caching
   - /recipes/database-migrations-safely

@@ -10,6 +10,9 @@ topics:
 tags:
   - design
   - hexagonal-architecture
+  - design-patterns
+  - patterns
+  - oop
 relatedResources:
   - /recipes/domain-driven-design
   - /recipes/microservices-patterns
@@ -194,3 +197,15 @@ R: Sí. El handler de Lambda es un adapter. Deserializa el evento, llama al doma
 **P: ¿Necesito un adapter separado para cada servicio externo?**
 R: Sí — cada dependencia externa recibe su propio adapter implementando un port definido por el dominio. Esto aísla cambios. Si cambias de SendGrid a Mailgun, solo cambia el adapter de email. Las capas de dominio y aplicación permanecen intactas.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

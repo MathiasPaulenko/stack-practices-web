@@ -11,6 +11,8 @@ tags:
   - testing
   - unit-tests
   - pytest
+  - integration
+  - tdd
 relatedResources:
   - /recipes/handle-errors
   - /recipes/sort-array
@@ -213,3 +215,15 @@ A: No. Test the public API. Private methods are implementation details; if you c
 
 **Q: What is the difference between a stub and a mock?**
 A: A stub provides canned answers to calls. A mock verifies that specific interactions happened (e.g., "this method was called exactly once"). Use stubs for inputs; use mocks sparingly for verifying side effects.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

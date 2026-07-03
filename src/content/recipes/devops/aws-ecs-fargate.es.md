@@ -11,6 +11,8 @@ tags:
   - aws
   - docker
   - devops
+  - ci-cd
+  - automation
 relatedResources:
   - /guides/infrastructure-as-code-guide
   - /patterns/facade-pattern
@@ -228,3 +230,15 @@ R: Si, almacenalas en Amazon ECR o usa `image_pull_secret` para registros extern
 
 **P: Como depuro tareas fallidas?**
 R: Revisa CloudWatch Logs para la familia de tareas y usa ECS Exec para SSH en contenedores en ejecucion.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

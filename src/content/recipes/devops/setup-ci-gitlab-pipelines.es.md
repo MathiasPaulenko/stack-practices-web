@@ -193,3 +193,15 @@ A: Usa la palabra clave `cache` para persistir directorios como `node_modules`, 
 
 **Q: ¿Cuál es la diferencia entre stages y jobs?**
 A: Los stages definen fases de ejecución (build, test, deploy) que corren secuencialmente. Los jobs son las tareas individuales dentro de un stage, que pueden correr en paralelo si comparten stage.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

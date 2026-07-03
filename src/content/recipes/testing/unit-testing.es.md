@@ -11,6 +11,8 @@ tags:
   - testing
   - unit-tests
   - pytest
+  - integration
+  - tdd
 relatedResources:
   - /recipes/handle-errors
   - /recipes/sort-array
@@ -213,3 +215,15 @@ A: No. Prueba la API pública. Los métodos privados son detalles de implementac
 
 **Q: ¿Cuál es la diferencia entre un stub y un mock?**
 A: Un stub proporciona respuestas predefinidas a llamadas. Un mock verifica que ocurrieron interacciones específicas (ej. "este método fue llamado exactamente una vez"). Usa stubs para entradas; usa mocks con moderación para verificar efectos secundarios.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

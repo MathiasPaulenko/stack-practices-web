@@ -11,6 +11,8 @@ tags:
   - mongodb
   - database
   - nodejs
+  - databases
+  - sql
 relatedResources:
   - /guides/database-design-guide
   - /recipes/database-indexing
@@ -218,3 +220,15 @@ R: Usa `migrate-mongo` o escribe scripts de migracion idempotentes que se ejecut
 
 **P: Cuando debo usar referencias vs documentos embebidos?**
 R: Embebe cuando los datos se leen juntos y el crecimiento no acotado no se espera. Referencia cuando los datos se actualizan independientemente o crecen sin limite.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

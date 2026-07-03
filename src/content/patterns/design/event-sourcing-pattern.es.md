@@ -298,3 +298,15 @@ R: No puedes borrar eventos, pero puedes encriptarlos con una clave específica 
 
 **P: ¿Cómo funcionan los snapshots?**
 R: Después de cada N eventos, guarda el estado computado de la entidad. Al rehidratar, carga el último snapshot y reproduce solo los eventos posteriores a este. Esto mantiene el tiempo de reproducción constante. Consulta [CQRS](/patterns/design/cqrs-pattern) para patrones de modelos de lectura que funcionan bien con Event Sourcing.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

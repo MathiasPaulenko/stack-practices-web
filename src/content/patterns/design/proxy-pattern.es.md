@@ -223,3 +223,15 @@ R: Sí. Puedes apilar proxies — por ejemplo, un proxy de cache envolviendo un 
 
 **P: ¿Cuándo debería usar un Proxy en lugar de un Factory?**
 R: Usa [Factory](/patterns/design/factory-pattern) cuando quieras controlar qué clase se instancia. Usa Proxy cuando quieras controlar el acceso a un objeto ya instanciado o retrasar su creación.
+
+### ¿Es este patrón adecuado para proyectos pequeños?
+
+Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+### ¿Cómo se compara este patrón con alternativas?
+
+Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+### ¿Puedo aplicar este patrón parcialmente?
+
+Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

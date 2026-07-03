@@ -10,6 +10,9 @@ topics:
 tags:
   - file-handling
   - java
+  - io
+  - streams
+  - files
 relatedResources:
   - /recipes/input-validation
   - /recipes/jwt-authentication

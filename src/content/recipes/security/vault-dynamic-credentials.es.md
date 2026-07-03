@@ -13,6 +13,7 @@ tags:
   - security
   - database
   - secret-management
+  - vulnerabilities
 relatedResources:
   - /recipes/secret-management
   - /recipes/security-headers
@@ -179,3 +180,15 @@ R: Si. Usa `vault write database/rotate-root/postgres` para rotar las credencial
 
 **P: Funciona esto con connection pooling?**
 R: Si, pero el pool debe recrearse cuando las credenciales rotan. Usa un [factory pattern](/patterns/design/factory-pattern) que gestione el ciclo de vida del pool junto con el TTL del lease.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

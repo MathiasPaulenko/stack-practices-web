@@ -11,6 +11,8 @@ tags:
   - devops
   - secret-management
   - vault
+  - ci-cd
+  - automation
 relatedResources:
   - /recipes/environment-variables
   - /recipes/docker-basics
@@ -154,3 +156,15 @@ R: La duplicación no controlada de secretos a través de sistemas, repos y arch
 **P: ¿Puedo usar Kubernetes Secrets para todo?**
 R: Los K8s Secrets están bien para inyección in-cluster pero carecen de capacidades avanzadas como generación en vivo y sharing cross-cluster. Usa un vault dedicado para requerimientos complejos.
 
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

@@ -251,3 +251,15 @@ Usa Vault para multi-cloud, flujos complejos o secretos bajo demanda. Usa gestor
 
 **¿Puedo evitar que desarrolladores vean secretos?**
 Sí. Otorga `read` pero no `list` ni `update`. Usa credenciales bajo demanda para que los desarrolladores obtengan permisos temporales y limitados sin ver la contraseña raíz.
+
+### ¿Cómo empiezo con esto en un proyecto existente?
+
+Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+
+### ¿Qué herramientas necesito?
+
+Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+
+### ¿Cómo mido el éxito después de implementar esto?
+
+Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.

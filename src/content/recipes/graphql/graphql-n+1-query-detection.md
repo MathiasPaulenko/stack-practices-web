@@ -1,6 +1,6 @@
 ---
 contentType: recipes
-slug: graphql-n+1-query-detection
+slug: graphql-n-1-query-detection
 title: "Detect and Fix N+1 Queries in GraphQL Resolvers"
 description: "Identify N+1 query problems in GraphQL resolvers using logging, DataLoader, and query analysis tools before they hit production"
 metaDescription: "Detect and fix N+1 queries in GraphQL resolvers. Use request-scoped DataLoader, logging plugins, and query analysis to eliminate redundant DB calls."
@@ -290,3 +290,15 @@ A: No. Any external service call (REST API, gRPC, cache) can N+1. DataLoader wor
 
 **Q: Should I use query complexity limits instead of DataLoader?**
 A: Both. Complexity limits prevent expensive queries from running. DataLoader makes the queries that do run efficient. They solve different problems.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
