@@ -44,7 +44,7 @@ HTTP security headers tell the browser how to behave when handling your site's c
 
 ## Content-Security-Policy (CSP)
 
-CSP is the most powerful security header. It restricts which resources the browser is allowed to load — scripts, styles, images, fonts, frames, and connections.
+CSP is the most capable security header. It restricts which resources the browser is allowed to load — scripts, styles, images, fonts, frames, and connections.
 
 ### Basic CSP
 

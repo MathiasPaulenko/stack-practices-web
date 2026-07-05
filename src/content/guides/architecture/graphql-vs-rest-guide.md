@@ -168,7 +168,7 @@ const server = new ApolloServer({
 
 ## Explanation
 
-The core difference is **who controls the data shape**. In REST, the server defines the response shape; clients get what the server sends. In GraphQL, the client defines the query shape; the server resolves only the requested fields. This flexibility is powerful but dangerous: a malicious or poorly written client can request deeply nested data that causes database overload.
+The core difference is **who controls the data shape**. In REST, the server defines the response shape; clients get what the server sends. In GraphQL, the client defines the query shape; the server resolves only the requested fields. This flexibility is capable but dangerous: a malicious or poorly written client can request deeply nested data that causes database overload.
 
 **Caching** is REST's biggest advantage. HTTP caching (ETags, Cache-Control, CDNs) works because URLs are cache keys. GraphQL has a single URL and cache keys must be derived from the query body — which is harder for CDNs to handle. Persisted queries (where the client sends a query hash instead of the full query) restore some caching but add operational complexity.
 

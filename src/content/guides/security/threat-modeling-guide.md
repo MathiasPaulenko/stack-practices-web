@@ -171,7 +171,7 @@ Revisit the threat model when:
 **How long does threat modeling take?**
 A focused session for a single service takes 2-4 hours. Complex systems may need multiple sessions.
 
-**Do I need a security expert to facilitate?**
+**Do I need a security expert to enable?**
 Helpful but not required. A developer trained in STRIDE can lead the session. External consultants can validate findings.
 
 **How do I prioritize threats?**

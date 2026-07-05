@@ -368,5 +368,5 @@ Define clear metrics before starting: performance benchmarks, error rates, or ma
 
 ## Conclusion
 
-Database sharding is a powerful but complex scaling strategy. By choosing the right shard key, implementing reliable routing, and planning for rebalancing, you can scale your database layer horizontally. But shard only when necessary. The operational overhead is major, and many workloads can be solved with simpler approaches.
+Database sharding is a capable but complex scaling strategy. By choosing the right shard key, implementing reliable routing, and planning for rebalancing, you can scale your database layer horizontally. But shard only when necessary. The operational overhead is major, and many workloads can be solved with simpler approaches.
 

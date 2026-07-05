@@ -2,7 +2,7 @@
 contentType: guides
 slug: progressive-web-apps-guide
 title: "Progressive Web Apps (PWA) — Complete Guide"
-description: "A comprehensive guide to building Progressive Web Apps: service workers, offline support, Web App Manifest, push notifications, and installability."
+description: "A thorough guide to building Progressive Web Apps: service workers, offline support, Web App Manifest, push notifications, and installability."
 metaDescription: "Build Progressive Web Apps with service workers, offline support, Web App Manifest, push notifications, and installability. Complete PWA guide."
 difficulty: intermediate
 topics:

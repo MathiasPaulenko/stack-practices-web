@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Window functions in SQL compute a value across a set of rows related to the current row — without collapsing the result set into groups like `GROUP BY`. They unlock powerful analytical queries: running totals, rankings, moving averages, and row-to-row comparisons. Available in PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.25+, they are essential for anyone writing analytical SQL.
+Window functions in SQL compute a value across a set of rows related to the current row — without collapsing the result set into groups like `GROUP BY`. They unlock capable analytical queries: running totals, rankings, moving averages, and row-to-row comparisons. Available in PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.25+, they are essential for anyone writing analytical SQL.
 
 ## When to Use
 

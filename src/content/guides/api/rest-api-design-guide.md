@@ -2,7 +2,7 @@
 contentType: guides
 slug: rest-api-design-guide
 title: "REST API Design Guide"
-description: "A comprehensive guide to designing clean, scalable, and maintainable REST APIs."
+description: "A thorough guide to designing clean, scalable, and maintainable REST APIs."
 metaDescription: "Learn REST API design best practices: URL structure, HTTP methods, status codes, versioning, pagination, and error handling."
 difficulty: intermediate
 topics:

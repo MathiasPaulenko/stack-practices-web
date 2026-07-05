@@ -2,7 +2,7 @@
 contentType: guides
 slug: api-security-checklist-guide
 title: "API Security Checklist — Authentication to Encryption"
-description: "A comprehensive security checklist for APIs: authentication, authorization, input validation, rate limiting, encryption, logging, and deployment hardening."
+description: "A thorough security checklist for APIs: authentication, authorization, input validation, rate limiting, encryption, logging, and deployment hardening."
 metaDescription: "API security checklist: authentication, authorization, rate limiting, encryption, input validation, logging. Secure REST and GraphQL APIs step by step."
 difficulty: intermediate
 topics:

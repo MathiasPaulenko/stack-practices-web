@@ -220,7 +220,7 @@ performance regression in database queries to reach production.
 - Alert thresholds should be sensitive enough to catch issues early
 ```
 
-### 5. Facilitate the Review Meeting
+### 5. enable the Review Meeting
 
 Run a productive, blameless discussion:
 

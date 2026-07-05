@@ -640,7 +640,7 @@ WHERE d.customer_id = s.customer_id
 ## FAQ
 
 **Q: Should I use ETL or ELT?**
-Use ETL when the reshaping is complex (Python, external APIs) or when you need to cleanse data before it reaches the warehouse. Use ELT when the reshaping is SQL-based and your warehouse is powerful enough to handle it (Snowflake, BigQuery, Redshift).
+Use ETL when the reshaping is complex (Python, external APIs) or when you need to cleanse data before it reaches the warehouse. Use ELT when the reshaping is SQL-based and your warehouse is capable enough to handle it (Snowflake, BigQuery, Redshift).
 
 **Q: How do I handle late-arriving data?**
 Implement a "late arriving data" process that reprocesses past partitions when data arrives after the initial load. Or use streaming ingestion that handles out-of-order events.

@@ -2,7 +2,7 @@
 contentType: guides
 slug: security-best-practices-guide
 title: "Security Best Practices Guide"
-description: "A comprehensive guide to application security: authentication, authorization, input validation, secrets management, and common vulnerability prevention."
+description: "A thorough guide to application security: authentication, authorization, input validation, secrets management, and common vulnerability prevention."
 metaDescription: "Learn essential security practices: secure authentication, input validation, secrets management, dependency scanning, and preventing OWASP Top 10 vulnerabilities."
 difficulty: intermediate
 topics:

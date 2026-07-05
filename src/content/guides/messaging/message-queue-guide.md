@@ -2,7 +2,7 @@
 contentType: guides
 slug: message-queue-guide
 title: "Message Queues — RabbitMQ, Kafka, and SQS Deep Dive"
-description: "A comprehensive guide to message queues: when to use RabbitMQ, Kafka, or SQS. Covers patterns, throughput, ordering, and operational considerations."
+description: "A thorough guide to message queues: when to use RabbitMQ, Kafka, or SQS. Covers patterns, throughput, ordering, and operational considerations."
 metaDescription: "Complete message queue guide comparing RabbitMQ, Kafka, and AWS SQS. Learn patterns, throughput, ordering guarantees, and operational what works."
 difficulty: intermediate
 topics:
