@@ -3,7 +3,7 @@ contentType: docs
 templateType: onboarding
 slug: onboarding-guide-template
 title: "Onboarding Guide Template"
-description: "A comprehensive onboarding guide template to help new team members get productive quickly."
+description: "A thorough onboarding guide template to help new team members get productive quickly."
 metaDescription: "New developer onboarding guide template covering environment setup, required tools, codebase overview, team conventions, and first-week tasks."
 difficulty: beginner
 topics:

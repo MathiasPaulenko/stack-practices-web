@@ -31,6 +31,18 @@ seo:
     - errores amigables desarrolladores
 ---
 
+## Resumen
+
+Las respuestas de error de API son la parte más importante de la experiencia del desarrollador. Cuando una llamada a una API falla, la respuesta de error es lo que el desarrollador lee para arreglar su código. Las buenas respuestas de error reducen tickets de soporte, aceleran la integración y generan confianza. Las malas respuestas obligan a los desarrolladores a adivinar, abrir tickets o rendirse.
+
+Esta plantilla cubre:
+
+1. **RFC 7807 Problem Details** — el formato estándar para errores de API HTTP
+2. **Formato simple legacy** — para APIs internas o compatibilidad hacia atrás
+3. **Catálogo de códigos de error** — mapeo de códigos HTTP a tipos de error específicos
+4. **Validación a nivel de campo** — errores estructurados para respuestas `400 Bad Request`
+5. **Mejores prácticas** — qué incluir, qué ocultar y cómo enlazar a docs
+
 ## Estructura de la Plantilla
 
 Usa esta plantilla para construir respuestas de error consistentes y util para cualquier API REST o HTTP. Consulta también la [Plantilla de Documentación API](/docs/templates/api-documentation) para documentación de endpoints.
@@ -62,7 +74,7 @@ Usa esta plantilla para construir respuestas de error consistentes y util para c
 |-------|-----------|-------------|
 | `type` | Sí | URI que identifica el tipo de error y documentación legible |
 | `title` | Sí | Resumen breve y legible del problema |
-| `status` | Sí | Código de estado HTTP (debe coincidir con la respuesta real) |
+| `status` | Sí | Código de estado HTTP (debe coincidir con la respuesta actual) |
 | `detail` | No | Explicación detallada específica para esta ocurrencia |
 | `instance` | No | Referencia URI que identifica la ocurrencia específica del problema |
 | `errors` | No | Arreglo de errores a nivel de campo para `400 Bad Request` |
@@ -81,6 +93,84 @@ Para APIs internas o compatibilidad hacia atrás, usa esta estructura ligera:
     "request_id": "req_abc123xyz"
   }
 }
+```
+
+---
+
+## Ejemplos Completos por Código de Estado
+
+### 400 Bad Request — Error de Validación
+
+```json
+{
+  "type": "https://api.example.com/errors/validation-failed",
+  "title": "Validación Fallida",
+  "status": 400,
+  "detail": "3 campos fallaron validación.",
+  "instance": "/users",
+  "errors": [
+    {
+      "field": "email",
+      "message": "debe ser una dirección de correo válida",
+      "code": "invalid_format"
+    },
+    {
+      "field": "password",
+      "message": "debe tener al menos 12 caracteres",
+      "code": "min_length"
+    },
+    {
+      "field": "role",
+      "message": "debe ser uno de: admin, editor, viewer",
+      "code": "invalid_enum"
+    }
+  ]
+}
+```
+
+### 401 Unauthorized
+
+```json
+{
+  "type": "https://api.example.com/errors/unauthorized",
+  "title": "No Autorizado",
+  "status": 401,
+  "detail": "Header Authorization faltante o inválido. Usa autenticación Bearer token.",
+  "instance": "/orders/123"
+}
+```
+
+### 404 Not Found
+
+```json
+{
+  "type": "https://api.example.com/errors/resource-not-found",
+  "title": "Recurso No Encontrado",
+  "status": 404,
+  "detail": "La orden con ID '123e4567-e89b-12d3-a456-426614174000' no existe.",
+  "instance": "/orders/123e4567-e89b-12d3-a456-426614174000"
+}
+```
+
+### 429 Rate Limit Exceeded
+
+```json
+{
+  "type": "https://api.example.com/errors/rate-limit-exceeded",
+  "title": "Límite de Rate Excedido",
+  "status": 429,
+  "detail": "Has excedido el límite de 200 requests por minuto. Reintenta en 30 segundos.",
+  "instance": "/reports"
+}
+```
+
+Headers de respuesta para 429 deberían incluir:
+
+```
+Retry-After: 30
+X-RateLimit-Limit: 200
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1721003460
 ```
 
 ---
@@ -111,6 +201,8 @@ Para APIs internas o compatibilidad hacia atrás, usa esta estructura ligera:
 - **Localiza `detail` si es necesario** — Usa `Accept-Language` para mensajes localizados, pero mantén `title` estable
 - **Enlaza a documentación** — El URI `type` debe llevar a una página de docs que explique el error y cómo corregirlo
 - **Sé específico en errores de validación** — Di `"el teléfono debe coincidir con formato E.164"` en vez de `"entrada inválida"`
+- **Incluye guía de reintento para 429** — el header `Retry-After` indica a los clientes cuándo reintentar
+- **Usa códigos de error consistentes** — los clientes construyen lógica de retry basada en códigos específicos, no en estados HTTP
 
 ## Errores Comunes
 
@@ -119,6 +211,35 @@ Para APIs internas o compatibilidad hacia atrás, usa esta estructura ligera:
 - Usar `"error": "algo salió mal"` genérico para cada fallo — imposible de depurar
 - Cambiar nombres de campos de error entre versiones — rompe la lógica de parsing del cliente
 - No loggear el contexto completo del error en el servidor — pierdes la capacidad de investigar
+- Retornar `200 OK` con un cuerpo de error — viola la semántica HTTP y rompe middleware
+- Diferentes formatos de error por endpoint — los clientes necesitan un formato consistente
+
+## Variantes
+
+### Errores GraphQL
+
+GraphQL usa un formato de error diferente. Los errores se retornan en el arreglo `errors` de la respuesta, no como códigos de estado HTTP de error. Cada error incluye `message`, `locations`, `path`, y opcionalmente `extensions`:
+
+```json
+{
+  "errors": [
+    {
+      "message": "El campo 'email' debe ser una dirección de correo válida.",
+      "locations": [{ "line": 3, "column": 10 }],
+      "path": ["createUser", "input", "email"],
+      "extensions": { "code": "INVALID_FORMAT" }
+    }
+  ]
+}
+```
+
+### Errores gRPC
+
+gRPC usa códigos de estado (0-16) en lugar de códigos de estado HTTP. Mapea los códigos de estado de gRPC a tu catálogo de errores. Incluye `details` con información de error estructurada usando mensajes protobuf.
+
+### Errores async/webhooks
+
+Para webhooks, retorna errores como payloads de eventos. Incluye el ID del evento original, código de error, y un timestamp. Provee un endpoint de webhook de retry para que los clientes puedan re-reprobar entregas fallidas.
 
 ## Preguntas Frecuentes
 
@@ -133,3 +254,15 @@ Usa el arreglo `errors` con un objeto por causa. Cada objeto debe incluir `field
 ### ¿Cómo manejo errores de servicios downstream?
 
 Envuelve los errores downstream en tu propio formato. Considera los patrones [Circuit Breaker](/patterns/design/circuit-breaker-pattern) y [Retry](/patterns/design/retry-pattern) para comunicación downstream resiliente. No proxies cuerpos de error de terceros directamente. Mapea el fallo downstream a uno de tus códigos de error documentados, loguea la respuesta upstream original y retorna un mensaje sanitizado al cliente.
+
+### ¿Debería incluir un correlation ID además del request ID?
+
+Sí. Un request ID identifica la solicitud del cliente. Un correlation ID traza la solicitud a través de servicios. Incluye ambos: `request_id` para el cliente y `correlation_id` para tracing interno. Esto ayuda a debuggear sistemas distribuidos donde una solicitud del cliente dispara múltiples llamadas a servicios.
+
+### ¿Cómo versiono los formatos de respuesta de error?
+
+Agrega campos nuevos, nunca elimines ni renombres existentes. Si necesitas breaking changes, crea un nuevo formato de error y usa content negotiation (`Accept: application/problem+json; version=2`) para que los clientes opten. Documenta la estrategia de versionado en tu [Documentación de API](/docs/templates/api-documentation).
+
+### ¿Debería retornar diferentes errores para el mismo problema según el contexto?
+
+No. La misma condición de error debería producir el mismo código y estado de error, independientemente del endpoint que lo disparó. La información específica del contexto va en `detail` e `instance`, no en el código de error.

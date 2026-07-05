@@ -32,7 +32,7 @@ seo:
 
 ## Resumen
 
-Un código de conducta establece expectativas sobre el comportamiento de los participantes dentro de una comunidad. Crea un ambiente acogedor y provee procedimientos para abordar violaciones.
+Un código de conducta establece expectativas sobre el comportamiento de los participantes dentro de una comunidad. Crea un ambiente acogedor y provee procedimientos para abordar violaciones. Sin uno, los mantenedores no tienen marco para manejar comportamiento disruptivo, y los colaboradores no saben qué esperar.
 
 ## Cuándo Usar
 
@@ -105,12 +105,121 @@ versión 2.1.
 | **Alcance** | Dónde aplica el código |
 | **Reporte** | Cómo reportar violaciones |
 
+## Niveles de Cumplimiento
+
+| Nivel | Comportamiento | Acción |
+|-------|----------------|--------|
+| **1. Advertencia** | Primera violación menor | Mensaje privado de los mantenedores |
+| **2. Ban temporal** | Violaciones repetidas o incidente serio | Remoción de espacios de comunidad por 1-30 días |
+| **3. Ban permanente** | Violación severa o bans temporales repetidos | Remoción permanente de todos los espacios de comunidad |
+| **4. Referencia legal** | Amenazas, doxxing o conducta ilegal | Reportar a autoridades, preservar evidencia |
+
+## Ejemplo Completo
+
+```markdown
+# Código de Conducta
+
+## Nuestro Compromiso
+
+Como miembros, colaboradores y líderes, nos comprometemos a hacer de la
+participación en nuestra comunidad una experiencia libre de acoso para todos,
+independientemente de la edad, tamaño corporal, discapacidad visible o invisible,
+etnicidad, características sexuales, identidad y expresión de género, nivel de
+experiencia, educación, situación socioeconómica, nacionalidad, apariencia
+personal, raza, religión, o identidad y orientación sexual.
+
+Nos comprometemos a actuar e interactuar de formas que contribuyan a una
+comunidad abierta, acogedora, diversa, inclusiva y saludable.
+
+## Nuestros Estándares
+
+### Comportamiento Positivo
+- Usar lenguaje acogedor e inclusivo
+- Respetar diferentes puntos de vista y experiencias
+- Aceptar críticas constructivas con gracia
+- Enfocarse en lo que es mejor para la comunidad
+- Mostrar empatía hacia otros miembros de la comunidad
+
+### Comportamiento Inaceptable
+- El uso de lenguaje o imágenes sexualizadas
+- Trolleo, comentarios insultantes/despectivos y ataques personales
+- Acoso público o privado
+- Publicar información privada de otros sin permiso
+- Otra conducta que razonablemente podría considerarse inapropiada
+
+## Responsabilidades de Cumplimiento
+
+Los líderes de la comunidad son responsables de clarificar y hacer cumplir los
+estándares de comportamiento aceptable y tomarán acciones correctivas apropiadas
+y justas en respuesta a cualquier comportamiento inapropiado, amenazante,
+ofensivo o dañino.
+
+Los líderes de la comunidad tienen el derecho y la responsabilidad de remover,
+editar o rechazar comentarios, commits, código, wiki edits, issues y otras
+contribuciones que no estén alineadas con este Código de Conducta.
+
+## Alcance
+
+Este Código de Conducta aplica dentro de todos los espacios de la comunidad,
+incluyendo repositorios de GitHub, servidor de Discord, mailing lists y stands
+de conferencias. También aplica cuando un individuo representa oficialmente a
+la comunidad en espacios públicos, como hablar en eventos o publicar en cuentas
+oficiales de redes sociales.
+
+## Cumplimiento
+
+Los casos de comportamiento abusivo, acosador o inaceptable pueden ser reportados
+a los líderes de la comunidad responsables del cumplimiento en
+conduct@example.com. Todas las quejas serán revisadas e investigadas de manera
+pronta y justa.
+
+Todos los líderes de la comunidad están obligados a respetar la privacidad y
+seguridad del reportero de cualquier incidente.
+
+## Guías de Cumplimiento
+
+1. **Corrección**: Advertencia escrita privada de los mantenedores clarificando la violación
+2. **Advertencia**: Advertencia con consecuencias por comportamiento continuado, sin interacción pública por 3 días
+3. **Ban Temporal**: Prohibido de interacción comunitaria por 1-30 días
+4. **Ban Permanente**: Ban permanente de todos los espacios de la comunidad
+
+## Atribución
+
+Este Código de Conducta está adaptado del [Contributor Covenant](https://www.contributor-covenant.org),
+versión 2.1, disponible en https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.
+```
+
 ## Lo que funciona
 
 - **Adapta, no copies**: Personaliza la plantilla a las necesidades de tu comunidad
 - **Hazlo visible**: Enlaza prominentemente en el [README](/docs/templates/readme-template) y repositorio
 - **Cumple consistentemente**: Un código sin cumplimiento no tiene sentido
 - **Revisa anualmente**: Actualiza a medida que tu comunidad evoluciona
+- **Provee un canal de reporte privado**: email o DM, no issues públicos
+- **Documenta acciones de cumplimiento**: mantén un log privado para consistencia
+- **Entrena moderadores**: asegúrate de que entiendan la escalada
+
+## Errores Comunes
+
+- Copiar el Contributor Covenant sin leerlo — entiende qué estás adoptando
+- Sin mecanismo de reporte — un código sin canal de reporte es incumplible
+- Cumplimiento inconsistente — aplicar reglas a algunos pero no a otros destruye confianza
+- Sin definición de alcance — los colaboradores no saben dónde aplica el código
+- Discusiones de cumplimiento públicas — las violaciones deben manejarse privadamente
+
+## Variantes
+
+### Código de conducta corporativo
+
+Para proyectos corporativos, agrega secciones para referencia de HR, compliance legal y consecuencias específicas para empleados. Referencia políticas internas y handbooks de empleados. Los códigos corporativos pueden incluir NDAs y asignación de IP además de estándares de comportamiento.
+
+### Código de conducta para eventos
+
+Para conferencias y meetups, agrega secciones para reglas específicas del evento: políticas de fotografía, guías de alcohol, adaptaciones de accesibilidad e información de contacto en sitio. Incluye un número de teléfono para reportes inmediatos durante eventos.
+
+### Código simplificado para proyectos pequeños
+
+Para proyectos pequeños con 1-2 mantenedores, usa una versión simplificada: compromiso, 5 comportamientos positivos, 5 inaceptables, y un email de reporte. Omite niveles de cumplimiento — el mantenedor maneja cada caso individualmente.
 
 ## Preguntas Frecuentes
 
@@ -125,3 +234,15 @@ Sí. Incluso los proyectos pequeños se benefician de expectativas claras. Comb�
 ### Qué sucede cuando alguien viola el código de conducta?
 
 El equipo de cumplimiento investiga los reportes rápidamente y justamente. Las consecuencias van desde una advertencia hasta la remoción temporal o permanente de la comunidad, dependiendo de la gravedad y recurrencia.
+
+### Quién debería estar en el equipo de cumplimiento?
+
+Personas confiables, imparciales y disponibles. Para proyectos pequeños, el mantenedor maneja el cumplimiento. Para proyectos más grandes, forma un comité de 3-5 personas de diferentes equipos o backgrounds. Evita que todos los miembros del equipo sean de la misma empresa o grupo social.
+
+### Cómo manejo un reporte contra un mantenedor?
+
+Recusa al mantenedor acusado de la investigación. Si todo el equipo de moderación está implicado, trae un mediador externo. Documenta el proceso y el resultado. La transparencia sobre el proceso (no los detalles) genera confianza.
+
+### Los reportes deberían ser públicos o privados?
+
+Privados. Los reportes deben manejarse confidencialmente para proteger tanto al reportero como al acusado. Los reportes públicos desincentivan el reporte y pueden llevar a comportamiento de turba. Publica estadísticas agregadas (número de reportes, acciones tomadas) periódicamente para transparencia.
