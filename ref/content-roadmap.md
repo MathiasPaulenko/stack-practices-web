@@ -368,48 +368,48 @@ Create Batch 2 content in this order for maximum traffic impact:
 ### New Recipes (50)
 
 **Testing (10) — boost testing to 15+ recipes**
-198. `python-pytest-fixtures-parametrize` — Parametrize tests with fixtures and markers
-199. `java-junit5-assertions-soft` — Soft assertions with AssertJ for multi-field checks
-200. `javascript-vitest-snapshot-testing` — Snapshot testing for React components with Vitest
-201. `python-mock-external-apis-responses` — Mock HTTP APIs with `responses` library
-202. `java-testcontainers-integration` — Spin up Postgres/Redis in JUnit integration tests
-203. `nodejs-supertest-express-api` — Test Express routes end-to-end with supertest
-204. `python-coverage-pytest-cov` — Measure and enforce coverage thresholds with pytest-cov
-205. `java-wiremock-stub-external` — Stub external HTTP services with WireMock
-206. `javascript-msw-mock-service-worker` — Intercept network requests in tests with MSW
-207. `python-hypothesis-property-testing` — Property-based testing with Hypothesis
+198. `python-pytest-fixtures-parametrize` — Parametrize tests with fixtures and markers ✅
+199. `java-junit5-assertions-soft` — Soft assertions with AssertJ for multi-field checks ✅
+200. `javascript-vitest-snapshot-testing` — Snapshot testing for React components with Vitest ✅
+201. `python-mock-external-apis-responses` — Mock HTTP APIs with `responses` library ✅
+202. `java-testcontainers-integration` — Spin up Postgres/Redis in JUnit integration tests ✅
+203. `nodejs-supertest-express-api` — Test Express routes end-to-end with supertest ✅
+204. `python-coverage-pytest-cov` — Measure and enforce coverage thresholds with pytest-cov ✅
+205. `java-wiremock-stub-external` — Stub external HTTP services with WireMock ✅
+206. `javascript-msw-mock-service-worker` — Intercept network requests in tests with MSW ✅
+207. `python-hypothesis-property-testing` — Property-based testing with Hypothesis ✅
 
 **Observability (8) — boost observability recipes**
-208. `python-structured-logging-json` — Emit structured JSON logs with structlog
-209. `nodejs-pino-fast-logging` — High-performance logging with pino in Node.js
-210. `java-micrometer-prometheus` — Expose custom metrics with Micrometer and Prometheus
-211. `python-opentelemetry-tracing` — Distributed tracing with OpenTelemetry SDK
-212. `nodejs-sentry-error-tracking` — Capture and triage errors with Sentry in Express
-213. `java-actuator-health-checks` — Custom health indicators with Spring Boot Actuator
-214. `python-prometheus-custom-metrics` — Expose business metrics in Prometheus format
-215. `nodejs-winston-daily-rotate` — Rotate logs daily with Winston transports
+208. `python-structured-logging-json` — Emit structured JSON logs with structlog ✅
+209. `nodejs-pino-fast-logging` — High-performance logging with pino in Node.js ✅
+210. `java-micrometer-prometheus` — Expose custom metrics with Micrometer and Prometheus ✅
+211. `python-opentelemetry-tracing` — Distributed tracing with OpenTelemetry SDK ✅
+212. `nodejs-sentry-error-tracking` — Capture and triage errors with Sentry in Express ✅
+213. `java-actuator-health-checks` — Custom health indicators with Spring Boot Actuator ✅
+214. `python-prometheus-custom-metrics` — Expose business metrics in Prometheus format ✅
+215. `nodejs-winston-daily-rotate` — Rotate logs daily with Winston transports ✅
 
 **Frontend (10) — boost frontend recipes**
-216. `react-usememo-usecallback-performance` — When and when not to use useMemo/useCallback
-217. `css-container-queries-responsive` — Container queries for component-level responsiveness
-218. `typescript-discriminated-unions-exhaustive` — Exhaustive type checking with discriminated unions
-219. `react-form-react-hook-form-validation` — Form validation with react-hook-form and Zod
-220. `css-custom-properties-design-tokens` — Design tokens with CSS custom properties
-221. `vue-composition-api-fetch` — Data fetching with Vue 3 Composition API
-222. `typescript-utility-types-generics` — Build reusable utility types with conditional types
-223. `react-virtual-list-react-window` — Virtualize long lists with react-window
-224. `css-dark-mode-prefers-color-scheme` — Dark mode with prefers-color-scheme and CSS variables
-225. `svelte-store-reactive-state` — Reactive state management with Svelte stores
+216. `react-usememo-usecallback-performance` — When and when not to use useMemo/useCallback ✅
+217. `css-container-queries-responsive` — Container queries for component-level responsiveness ✅
+218. `typescript-discriminated-unions-exhaustive` — Exhaustive type checking with discriminated unions ✅
+219. `react-form-react-hook-form-validation` — Form validation with react-hook-form and Zod ✅
+220. `css-custom-properties-design-tokens` — Design tokens with CSS custom properties ✅
+221. `vue-composition-api-fetch` — Data fetching with Vue 3 Composition API ✅
+222. `typescript-utility-types-generics` — Build reusable utility types with conditional types ✅
+223. `react-virtual-list-react-window` — Virtualize long lists with react-window ✅
+224. `css-dark-mode-prefers-color-scheme` — Dark mode with prefers-color-scheme and CSS variables ✅
+225. `svelte-store-reactive-state` — Reactive state management with Svelte stores ✅
 
 **Data Engineering (8) — new data engineering recipes**
-226. `python-pandas-etl-pipeline` — Build an ETL pipeline with pandas and parquet
-227. `python-airflow-dag-scheduling` — Schedule and monitor DAGs with Apache Airflow
-228. `python-polars-fast-dataframe` — High-performance DataFrame operations with Polars
-229. `python-dbt-model-transformations` — Transform data in the warehouse with dbt
-230. `python-spark-groupby-aggregation` — Large-scale aggregation with PySpark
-231. `sql-cte-recursive-hierarchy` — Recursive CTEs for hierarchical data queries
-232. `python-dask-parallel-dataframe` — Parallel DataFrame operations with Dask
-233. `python-data-validation-pandera` — Validate DataFrame schemas with Pandera
+226. `python-pandas-etl-pipeline` — Build an ETL pipeline with pandas and parquet ✅
+227. `python-airflow-dag-scheduling` — Schedule and monitor DAGs with Apache Airflow ✅
+228. `python-polars-fast-dataframe` — High-performance DataFrame operations with Polars ✅
+229. `python-dbt-model-transformations` — Transform data in the warehouse with dbt ✅
+230. `python-spark-groupby-aggregation` — Large-scale aggregation with PySpark ✅
+231. `sql-cte-recursive-hierarchy` — Recursive CTEs for hierarchical data queries ✅
+232. `python-dask-parallel-dataframe` — Parallel DataFrame operations with Dask ✅
+233. `python-data-validation-pandera` — Validate DataFrame schemas with Pandera ✅
 
 **DevOps & CI/CD (8) — boost devops recipes**
 234. `github-actions-reusable-workflows` — Share workflow logic with reusable workflows
