@@ -19,15 +19,15 @@
 
 ## Completed Content Inventory
 
-> Updated 2026-07-03. Counts reflect actual files in `src/content/`.
+> Updated 2026-07-04. Counts reflect actual files in `src/content/`.
 
 | Type | Unique Count | Total Files (EN+ES) | Categories |
 |------|-------------|---------------------|------------|
 | Recipes | 349 | 698 | AI, API, Architecture, Auth, Concurrency, Data, Databases, Design, DevOps, File Handling, Frontend, Infrastructure, Messaging, Observability, Performance, Security, Serverless, Testing, Bash |
-| Patterns | 128 | 256 | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration, Architecture, Authentication |
-| Guides | 129 | 258 | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage, API, AI, Concurrency, Infrastructure |
+| Patterns | 140 | 280 | Creational, Structural, Behavioral, Resilience, Infrastructure & Integration, Architecture, Authentication, Messaging, Serverless, Concurrency |
+| Guides | 147 | 294 | Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing, Planning, Deployment, Observability, Data & Storage, API, AI, Concurrency, Infrastructure, GraphQL, Caching, Serverless, Messaging |
 | Docs | 112 | 224 | ADRs, Runbooks, Checklists, Templates, Policies |
-| **Total** | **718** | **1436** | |
+| **Total** | **748** | **1496** | |
 
 ---
 
@@ -141,48 +141,48 @@ All roadmap docs have been completed.
 ### New Patterns (50)
 
 **GraphQL Patterns (8) — boost graphql patterns**
-61. `graphql-schema-stitching-pattern` — Merge multiple schemas into one
-62. `graphql-batched-resolver-pattern` — Resolve nested queries in a single batch
-63. `graphql-error-extension-pattern` — Attach structured metadata to errors
-64. `graphql-dataloader-pattern` — Coalesce individual loads into batched calls
-65. `graphql-interface-polymorphism-pattern` — Model polymorphic types with interfaces
-66. `graphql-connection-pagination-pattern` — Relay-style cursor pagination
-67. `graphql-federated-entity-pattern` — Share entities across federated services
-68. `graphql-mutation-validation-pattern` — Centralized input validation for mutations
+61. ✅ `graphql-schema-stitching-pattern` — Merge multiple schemas into one
+62. ✅ `graphql-batched-resolver-pattern` — Resolve nested queries in a single batch
+63. ✅ `graphql-error-extension-pattern` — Attach structured metadata to errors
+64. ✅ `graphql-dataloader-pattern` — Coalesce individual loads into batched calls
+65. ✅ `graphql-interface-polymorphism-pattern` — Model polymorphic types with interfaces
+66. ✅ `graphql-connection-pagination-pattern` — Relay-style cursor pagination
+67. ✅ `graphql-federated-entity-pattern` — Share entities across federated services
+68. ✅ `graphql-mutation-validation-pattern` — Centralized input validation for mutations
 
 **Caching Patterns (8) — boost caching patterns**
-69. `cache-aside-pattern` — Load-on-demand cache with manual population
-70. `read-through-cache-pattern` — Transparent cache that loads on miss
-71. `write-through-cache-pattern` — Synchronous write to cache and store
-72. `write-behind-cache-pattern` — Async write-back for high throughput
-73. `cache-invalidation-pattern` — Strategies for keeping cache fresh
-74. `two-level-cache-pattern` — L1 in-memory + L2 distributed cache
-75. `cache-stampede-prevention-pattern` — Prevent thundering herd with locks
-76. `refresh-ahead-cache-pattern` — Proactively refresh soon-to-expire entries
+69. ✅ `cache-aside-pattern` — Load-on-demand cache with manual population
+70. ✅ `read-through-cache-pattern` — Transparent cache that loads on miss
+71. ✅ `write-through-cache-pattern` — Synchronous write to cache and store
+72. ✅ `write-behind-cache-pattern` — Async write-back for high throughput
+73. ✅ `cache-invalidation-pattern` — Strategies for keeping cache fresh
+74. ✅ `two-level-cache-pattern` — L1 in-memory + L2 distributed cache
+75. ✅ `cache-stampede-prevention-pattern` — Prevent thundering herd with locks
+76. ✅ `refresh-ahead-cache-pattern` — Proactively refresh soon-to-expire entries
 
 **Serverless Patterns (6) — new serverless patterns**
-77. `serverless-function-composition-pattern` — Chain Lambda via Step Functions
-78. `serverless-event-sourcing-pattern` — Store function state as events
-79. `serverless-fanout-pattern` — Broadcast events to multiple consumers
-80. `serverless-throttling-pattern` — Handle backpressure in serverless
-81. `serverless-warm-pool-pattern` — Keep functions warm to reduce cold starts
-82. `serverless-db-connection-pooling-pattern` — Manage DB connections across invocations
+77. ✅ `serverless-function-composition-pattern` — Chain Lambda via Step Functions
+78. ✅ `serverless-event-sourcing-pattern` — Store function state as events
+79. ✅ `serverless-fanout-pattern` — Broadcast events to multiple consumers
+80. ✅ `serverless-throttling-pattern` — Handle backpressure in serverless
+81. ✅ `serverless-warm-pool-pattern` — Keep functions warm to reduce cold starts
+82. ✅ `serverless-db-connection-pooling-pattern` — Manage DB connections across invocations
 
 **Messaging Patterns (6) — boost messaging patterns**
-83. `message-queue-load-leveling-pattern` — Smooth traffic spikes with queues
-84. `priority-queue-pattern` — Process high-priority messages first
-85. `message-deduplication-pattern` — Prevent duplicates with idempotency keys
-86. `message-deferral-pattern` — Delay message processing to a scheduled time
-87. `dead-letter-channel-pattern` — Route unprocessable messages to DLQ
-88. `publish-subscribe-pattern` — Broadcast events to multiple subscribers
+83. ✅ `message-queue-load-leveling-pattern` — Smooth traffic spikes with queues
+84. ✅ `priority-queue-pattern` — Process high-priority messages first
+85. ✅ `message-deduplication-pattern` — Prevent duplicates with idempotency keys
+86. ✅ `message-deferral-pattern` — Delay message processing to a scheduled time
+87. ✅ `dead-letter-channel-pattern` — Route unprocessable messages to DLQ
+88. ✅ `publish-subscribe-pattern` — Broadcast events to multiple subscribers
 
 **Concurrency Patterns (6) — boost concurrency patterns**
-89. `thread-pool-pattern` — Reuse threads for short-lived tasks
-90. `async-generator-pattern` — Stream data with async generators in Python
-91. `actor-model-pattern` — Isolate state with message-passing actors
-92. `producer-consumer-pattern` — Decouple production and consumption with queues
-93. `reactive-streams-pattern` — Backpressure-aware stream processing
-94. `lock-free-queue-pattern` — High-throughput queues without locks
+89. ✅ `thread-pool-pattern` — Reuse threads for short-lived tasks
+90. ✅ `async-generator-pattern` — Stream data with async generators in Python
+91. ✅ `actor-model-pattern` — Isolate state with message-passing actors
+92. ✅ `producer-consumer-pattern` — Decouple production and consumption with queues
+93. ✅ `reactive-streams-pattern` — Backpressure-aware stream processing
+94. ✅ `lock-free-queue-pattern` — High-throughput queues without locks
 
 **AI Patterns (8) — new AI patterns**
 95. ✅ `rag-hybrid-search-pattern` — Combine keyword and semantic search in RAG
@@ -209,133 +209,133 @@ All roadmap docs have been completed.
 ### New Guides (50)
 
 **GraphQL Guides (5) — boost graphql guides**
-111. `complete-guide-graphql-schema-design` — Design schemas for evolution and performance
-112. `complete-guide-graphql-federation-production` — Run federated GraphQL in production
-113. `complete-guide-graphql-security` — Introspection, depth limiting, cost analysis
-114. `complete-guide-graphql-caching` — CDN, DataLoader, and persisted queries
-115. `complete-guide-graphql-testing` — Test resolvers, schema, and operations
+111. ✅ `complete-guide-graphql-schema-design` — Design schemas for evolution and performance
+112. ✅ `complete-guide-graphql-federation-production` — Run federated GraphQL in production
+113. ✅ `complete-guide-graphql-security` — Introspection, depth limiting, cost analysis
+114. ✅ `complete-guide-graphql-caching` — CDN, DataLoader, and persisted queries
+115. ✅ `complete-guide-graphql-testing` — Test resolvers, schema, and operations
 
 **Caching Guides (4) — boost caching guides**
-116. `complete-guide-redis-caching-strategies` — Cache-aside, write-through, eviction
-117. `complete-guide-cdn-caching-strategy` — Edge caching, cache keys, invalidation
-118. `complete-guide-application-level-caching` — In-memory, distributed, hybrid caches
-119. `complete-guide-cache-invalidation` — TTL, event-driven, versioned invalidation
+116. ✅ `complete-guide-redis-caching-strategies` — Cache-aside, write-through, eviction
+117. ✅ `complete-guide-cdn-caching-strategy` — Edge caching, cache keys, invalidation
+118. ✅ `complete-guide-application-level-caching` — In-memory, distributed, hybrid caches
+119. ✅ `complete-guide-cache-invalidation` — TTL, event-driven, versioned invalidation
 
 **Serverless Guides (3) — boost serverless guides**
-120. `complete-guide-serverless-architecture` — When to go serverless and when not to
-121. `complete-guide-aws-lambda-production` — Cold starts, layers, observability, security
-122. `complete-guide-serverless-databases` — DynamoDB, Aurora Serverless, FaunaDB
+120. ✅ `complete-guide-serverless-architecture` — When to go serverless and when not to
+121. ✅ `complete-guide-aws-lambda-production` — Cold starts, layers, observability, security
+122. ✅ `complete-guide-serverless-databases` — DynamoDB, Aurora Serverless, FaunaDB
 
 **Messaging Guides (3) — boost messaging guides**
-123. `complete-guide-kafka-production` — Partitions, replication, consumer groups, monitoring
-124. `complete-guide-rabbitmq-architecture` — Exchanges, queues, bindings, and patterns
-125. `complete-guide-event-driven-systems` — Design and operate event-driven backends
+123. ✅ `complete-guide-kafka-production` — Partitions, replication, consumer groups, monitoring
+124. ✅ `complete-guide-rabbitmq-architecture` — Exchanges, queues, bindings, and patterns
+125. ✅ `complete-guide-event-driven-systems` — Design and operate event-driven backends
 
 **Concurrency Guides (3) — boost concurrency guides**
-126. `complete-guide-python-asyncio-production` — Event loops, task management, debugging
-127. `complete-guide-java-concurrency` — Threads, locks, CompletableFuture, virtual threads
-128. `complete-guide-go-concurrency` — Goroutines, channels, context, select
+126. ✅ `complete-guide-python-asyncio-production` — Event loops, task management, debugging
+127. ✅ `complete-guide-java-concurrency` — Threads, locks, CompletableFuture, virtual threads
+128. ✅ `complete-guide-go-concurrency` — Goroutines, channels, context, select
 
 **AI Guides (10) — expand AI coverage**
-129. `complete-guide-llm-application-architecture` — Build production LLM apps end-to-end
-130. `complete-guide-rag-production` — Chunking, embedding, retrieval, reranking, eval
-131. `complete-guide-langchain-production` — Chains, agents, memory, and deployment
-132. `complete-guide-vector-databases` — Pinecone, Weaviate, Chroma, pgvector compared
-133. `complete-guide-llm-evaluation` — RAGAS, human eval, A/B testing for LLM apps
-134. `complete-guide-openai-api-mastery` — Chat, function calling, assistants, fine-tuning
-135. `complete-guide-ai-agents-production` — LangGraph, CrewAI, AutoGen multi-agent
-136. `complete-guide-llm-cost-optimization` — Model routing, caching, prompt compression
-137. `complete-guide-local-llm-deployment` — Ollama, vLLM, llama.cpp self-hosted inference
-138. `complete-guide-llm-security` — Prompt injection, data leakage, guardrails, red teaming
+129. ✅ `complete-guide-llm-application-architecture` — Build production LLM apps end-to-end
+130. ✅ `complete-guide-rag-production` — Chunking, embedding, retrieval, reranking, eval
+131. ✅ `complete-guide-langchain-production` — Chains, agents, memory, and deployment
+132. ✅ `complete-guide-vector-databases` — Pinecone, Weaviate, Chroma, pgvector compared
+133. ✅ `complete-guide-llm-evaluation` — RAGAS, human eval, A/B testing for LLM apps
+134. ✅ `complete-guide-openai-api-mastery` — Chat, function calling, assistants, fine-tuning
+135. ✅ `complete-guide-ai-agents-production` — LangGraph, CrewAI, AutoGen multi-agent
+136. ✅ `complete-guide-llm-cost-optimization` — Model routing, caching, prompt compression
+137. ✅ `complete-guide-local-llm-deployment` — Ollama, vLLM, llama.cpp self-hosted inference
+138. ✅ `complete-guide-llm-security` — Prompt injection, data leakage, guardrails, red teaming
 
 **Security Guides (5) — high-traffic security queries**
-139. `complete-guide-owasp-top-10-2025` — Mitigate each OWASP risk with code examples
-140. `complete-guide-secrets-management` — Vault, AWS Secrets Manager, Doppler, rotation
-141. `complete-guide-supply-chain-security` — SBOM, dependency scanning, Sigstore, SLSA
-142. `complete-guide-authentication-patterns` — JWT, OAuth2, session-based, passkeys
-143. `complete-guide-api-security` — Rate limiting, auth, input validation, CORS
+139. ✅ `complete-guide-owasp-top-10-2025` — Mitigate each OWASP risk with code examples
+140. ✅ `complete-guide-secrets-management` — Vault, AWS Secrets Manager, Doppler, rotation
+141. ✅ `complete-guide-supply-chain-security` — SBOM, dependency scanning, Sigstore, SLSA
+142. ✅ `complete-guide-authentication-patterns` — JWT, OAuth2, session-based, passkeys
+143. ✅ `complete-guide-api-security` — Rate limiting, auth, input validation, CORS
 
 **DevOps & Infrastructure Guides (5)**
-144. `complete-guide-docker-production` — Multi-stage, distroless, health checks, scanning
-145. `complete-guide-kubernetes-networking` — Services, ingress, network policies, CNI
-146. `complete-guide-terraform-production` — Modules, state, workspaces, drift detection
-147. `complete-guide-gitops-production` — ArgoCD, Flux, drift reconciliation, rollback
-148. `complete-guide-monitoring-and-alerting` — Prometheus, Grafana, AlertManager, runbooks
+144. ✅ `complete-guide-docker-production` — Multi-stage, distroless, health checks, scanning
+145. ✅ `complete-guide-kubernetes-networking` — Services, ingress, network policies, CNI
+146. ✅ `complete-guide-terraform-production` — Modules, state, workspaces, drift detection
+147. ✅ `complete-guide-gitops-production` — ArgoCD, Flux, drift reconciliation, rollback
+148. ✅ `complete-guide-monitoring-and-alerting` — Prometheus, Grafana, AlertManager, runbooks
 
 **Frontend & Performance Guides (4)**
-149. `complete-guide-react-19-features` — Server components, suspense, actions, use()
-150. `complete-guide-css-grid-and-flexbox` — Modern layout techniques with examples
-151. `complete-guide-web-performance-core-web-vitals` — LCP, INP, CLS optimization
-152. `complete-guide-bundle-size-optimization` — Tree shaking, code splitting, dynamic import
+149. ✅ `complete-guide-react-19-features` — Server components, suspense, actions, use()
+150. ✅ `complete-guide-css-grid-and-flexbox` — Modern layout techniques with examples
+151. ✅ `complete-guide-web-performance-core-web-vitals` — LCP, INP, CLS optimization
+152. ✅ `complete-guide-bundle-size-optimization` — Tree shaking, code splitting, dynamic import
 
 **Database Guides (5)**
-153. `complete-guide-postgresql-replication` — Streaming, logical, cascading replication
-154. `complete-guide-mongodb-indexing` — Single, compound, text, geospatial indexes
-155. `complete-guide-redis-production` — Persistence, clustering, sentinel, failover
-156. `complete-guide-database-sharding` — Horizontal partitioning strategies and tradeoffs
-157. `complete-guide-sql-query-optimization` — EXPLAIN, indexes, joins, N+1 detection
+153. ✅ `complete-guide-postgresql-replication` — Streaming, logical, cascading replication
+154. ✅ `complete-guide-mongodb-indexing` — Single, compound, text, geospatial indexes
+155. ✅ `complete-guide-redis-production` — Persistence, clustering, sentinel, failover
+156. ✅ `complete-guide-database-sharding` — Horizontal partitioning strategies and tradeoffs
+157. ✅ `complete-guide-sql-query-optimization` — EXPLAIN, indexes, joins, N+1 detection
 
 ---
 
 ### New Docs (40)
 
 **AI Docs (8) — new AI docs**
-158. `ai-llm-prompt-template-library` — Reusable prompt templates for common tasks
-159. `ai-rag-evaluation-checklist` — Checklist for RAG system quality assurance
-160. `ai-llm-cost-tracking-template` — Track token usage and costs per feature
-161. `ai-agent-design-document-template` — Document agent architecture and tools
-162. `ai-model-selection-matrix` — Compare models by cost, latency, context size
-163. `ai-prompt-version-control-template` — Version prompts with eval scores
-164. `ai-llm-incident-response-runbook` — Handle LLM outages and degraded output
-165. `ai-data-preparation-checklist` — Prepare data for fine-tuning and RAG
+158. ✅ `ai-llm-prompt-template-library` — Reusable prompt templates for common tasks
+159. ✅ `ai-rag-evaluation-checklist` — Checklist for RAG system quality assurance
+160. ✅ `ai-llm-cost-tracking-template` — Track token usage and costs per feature
+161. ✅ `ai-agent-design-document-template` — Document agent architecture and tools
+162. ✅ `ai-model-selection-matrix` — Compare models by cost, latency, context size
+163. ✅ `ai-prompt-version-control-template` — Version prompts with eval scores
+164. ✅ `ai-llm-incident-response-runbook` — Handle LLM outages and degraded output
+165. ✅ `ai-data-preparation-checklist` — Prepare data for fine-tuning and RAG
 
 **GraphQL Docs (4) — boost graphql docs**
-166. `graphql-schema-review-checklist` — Review schema for performance and security
-167. `graphql-api-design-guideline` — Internal guidelines for GraphQL API design
-168. `graphql-deprecation-policy-template` — Deprecate fields and types safely
-169. `graphql-federation-onboarding-template` — Onboard a service to the federated graph
+166. ✅ `graphql-schema-review-checklist` — Review schema for performance and security
+167. ✅ `graphql-api-design-guideline` — Internal guidelines for GraphQL API design
+168. ✅ `graphql-deprecation-policy-template` — Deprecate fields and types safely
+169. ✅ `graphql-federation-onboarding-template` — Onboard a service to the federated graph
 
 **Caching Docs (4) — boost caching docs**
-170. `cache-strategy-decision-template` — Choose cache strategy per use case
-171. `cache-warmup-runbook` — Warm caches after deployment or incident
-172. `cache-eviction-policy-template` — Document eviction rules per cache layer
-173. `cdn-cache-rules-template` — Define CDN caching rules and edge behavior
+170. ✅ `cache-strategy-decision-template` — Choose cache strategy per use case
+171. ✅ `cache-warmup-runbook` — Warm caches after deployment or incident
+172. ✅ `cache-eviction-policy-template` — Document eviction rules per cache layer
+173. ✅ `cdn-cache-rules-template` — Define CDN caching rules and edge behavior
 
 **Serverless Docs (4) — boost serverless docs**
-174. `serverless-function-deployment-checklist` — Pre-deploy checklist for Lambda
-175. `serverless-cost-estimation-template` — Estimate serverless costs per workload
-176. `serverless-cold-start-runbook` — Diagnose and mitigate cold starts
-177. `serverless-security-checklist` — Security hardening for serverless functions
+174. ✅ `serverless-function-deployment-checklist` — Pre-deploy checklist for Lambda
+175. ✅ `serverless-cost-estimation-template` — Estimate serverless costs per workload
+176. ✅ `serverless-cold-start-runbook` — Diagnose and mitigate cold starts
+177. ✅ `serverless-security-checklist` — Security hardening for serverless functions
 
 **Messaging Docs (4) — boost messaging docs**
-178. `kafka-topic-naming-convention-template` — Standardize topic naming
-179. `rabbitmq-queue-design-template` — Document queue, exchange, binding design
-180. `message-schema-evolution-policy` — Evolve message schemas safely
-181. `dead-letter-queue-runbook` — Handle and replay DLQ messages
+178. ✅ `kafka-topic-naming-convention-template` — Standardize topic naming
+179. ✅ `rabbitmq-queue-design-template` — Document queue, exchange, binding design
+180. ✅ `message-schema-evolution-policy` — Evolve message schemas safely
+181. ✅ `dead-letter-queue-runbook` — Handle and replay DLQ messages
 
 **Concurrency Docs (3) — boost concurrency docs**
-182. `async-task-cancellation-runbook` — Safely cancel long-running async tasks
-183. `thread-pool-sizing-template` — Document thread pool config per service
-184. `race-condition-debugging-checklist` — Identify and fix race conditions
+182. ✅ `async-task-cancellation-runbook` — Safely cancel long-running async tasks
+183. ✅ `thread-pool-sizing-template` — Document thread pool config per service
+184. ✅ `race-condition-debugging-checklist` — Identify and fix race conditions
 
 **Security Docs (5) — high-traffic security queries**
-185. `owasp-top-10-remediation-checklist` — Track remediation per OWASP risk
-186. `secrets-rotation-runbook` — Rotate secrets without downtime
-187. `dependency-vulnerability-triage-template` — Triage CVEs by severity and impact
-188. `api-authentication-design-template` — Document auth flow and token lifecycle
-189. `security-review-checklist-for-prs` — Security checks for pull request review
+185. ✅ `owasp-top-10-remediation-checklist` — Track remediation per OWASP risk
+186. ✅ `secrets-rotation-runbook` — Rotate secrets without downtime
+187. ✅ `dependency-vulnerability-triage-template` — Triage CVEs by severity and impact
+188. ✅ `api-authentication-design-template` — Document auth flow and token lifecycle
+189. ✅ `security-review-checklist-for-prs` — Security checks for pull request review
 
 **DevOps Docs (4)**
-190. `docker-image-hardening-checklist` — Harden container images for production
-191. `kubernetes-resource-quotas-template` — Define resource limits per namespace
-192. `terraform-module-versioning-policy` — Version and publish Terraform modules
-193. `deployment-rollback-runbook` — Roll back failed deployments safely
+190. ✅ `docker-image-hardening-checklist` — Harden container images for production
+191. ✅ `kubernetes-resource-quotas-template` — Define resource limits per namespace
+192. ✅ `terraform-module-versioning-policy` — Version and publish Terraform modules
+193. ✅ `deployment-rollback-runbook` — Roll back failed deployments safely
 
 **Performance Docs (4)**
-194. `performance-budget-template` — Define and enforce performance budgets
-195. `core-web-vitals-audit-checklist` — Audit LCP, INP, CLS per page
-196. `database-query-tuning-checklist` — Systematic SQL query optimization
-197. `load-test-plan-template` — Plan and document load tests
+194. ✅ `performance-budget-template` — Define and enforce performance budgets
+195. ✅ `core-web-vitals-audit-checklist` — Audit LCP, INP, CLS per page
+196. ✅ `database-query-tuning-checklist` — Systematic SQL query optimization
+197. ✅ `load-test-plan-template` — Plan and document load tests
 
 ---
 
