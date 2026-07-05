@@ -462,12 +462,12 @@ Create Batch 2 content in this order for maximum traffic impact:
 269. ✅ `state-machine-ui-pattern` — Model UI state transitions with finite state machines
 
 **Data Engineering Patterns (6) — new data engineering patterns**
-270. `etl-extract-transform-load-pattern` — Batch data pipeline with staging and load steps
-271. `cdc-change-data-capture-pattern` — Stream database changes to downstream consumers
-272. `schema-registry-evolution-pattern` — Manage schema versions for streaming pipelines
-273. `idempotent-load-pattern` — Re-run data loads safely without duplicates
-274. `data-lineage-tracking-pattern` — Track data origin and transformations end-to-end
-275. `batch-to-streaming-bridge-pattern` — Bridge batch and streaming pipelines with a lake
+270. ✅ `etl-extract-transform-load-pattern` — Batch data pipeline with staging and load steps
+271. ✅ `cdc-change-data-capture-pattern` — Stream database changes to downstream consumers
+272. ✅ `schema-registry-evolution-pattern` — Manage schema versions for streaming pipelines
+273. ✅ `idempotent-load-pattern` — Re-run data loads safely without duplicates
+274. ✅ `data-lineage-tracking-pattern` — Track data origin and transformations end-to-end
+275. ✅ `batch-to-streaming-bridge-pattern` — Bridge batch and streaming pipelines with a lake
 
 **Architecture Patterns (6)**
 276. `modular-monolith-pattern` — Single deployable unit with internal module boundaries
