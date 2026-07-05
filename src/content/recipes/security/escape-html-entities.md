@@ -130,7 +130,7 @@ public class SafeHtml {
 
 HTML escaping is a context-specific encoding. In the body of an HTML element, `<` must become `&lt;` so browsers treat it as literal text, not the start of a tag. Inside an HTML attribute delimited by double quotes, `"` must become `&quot;` to prevent the attribute from closing early. Inside a `<script>` block, additional JavaScript encoding is needed because `</script>` can terminate the script context even if HTML-escaped.
 
-Python's `html.escape` covers the five critical characters. `MarkupSafe` is the engine behind Jinja2's auto-escaping and is battle-tested. In JavaScript, manual replacement with a regex is sufficient for most cases; the DOM API approach is safer but only works in browsers. Java's `StringEscapeUtils` handles HTML4 entities comprehensively, while OWASP Encoder provides fine-grained context control.
+Python's `html.escape` covers the five critical characters. `MarkupSafe` is the engine behind Jinja2's auto-escaping and is battle-tested. In JavaScript, manual replacement with a regex is sufficient for most cases; the DOM API approach is safer but only works in browsers. Java's `StringEscapeUtils` handles HTML4 entities thoroughly, while OWASP Encoder provides fine-grained context control.
 
 ## Variants
 

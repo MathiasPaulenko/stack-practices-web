@@ -352,7 +352,7 @@ function ItemList() {
 
 Key concepts:
 
-- **`rootMargin`**: Expands the observer's bounding box so it triggers before the sentinel is actually visible. Setting `rootMargin: "300px"` triggers loading when the user is 300px from the bottom, creating a seamless experience.
+- **`rootMargin`**: Expands the observer's bounding box so it triggers before the sentinel is actually visible. Setting `rootMargin: "300px"` triggers loading when the user is 300px from the bottom, creating a smooth experience.
 - **Loading guard**: The `loading` flag prevents duplicate fetches when multiple intersection events fire rapidly.
 - **`hasMore` flag**: The API response should include a `hasMore` boolean. When false, disconnect the observer to stop further attempts.
 - **Error recovery**: On fetch failure, decrement the page counter and allow retry. Show an error message with a delay before resetting the loading flag.

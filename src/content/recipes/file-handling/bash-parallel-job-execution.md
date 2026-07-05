@@ -100,7 +100,7 @@ The script shows three common approaches. `xargs -P` is portable and available o
 | Approach | Tool | Pros | Cons |
 |----------|------|------|------|
 | xargs | coreutils | Portable, simple | Limited control, messy output |
-| GNU parallel | parallel | Powerful, resumable, ordered output | Extra dependency |
+| GNU parallel | parallel | capable, resumable, ordered output | Extra dependency |
 | Background jobs | bash builtin | No external deps | Manual bookkeeping, race-prone |
 
 ## What Works

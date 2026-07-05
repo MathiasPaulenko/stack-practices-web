@@ -43,7 +43,7 @@ seo:
 ---
 ## Overview
 
-The AWS CLI is powerful but verbose. Wrapping it in Bash scripts lets you provision, tag, and clean up resources consistently across environments. Whether you are spinning up a test stack, enforcing tagging policies, or removing unused resources, a script reduces copy-paste errors and makes operations repeatable.
+The AWS CLI is capable but verbose. Wrapping it in Bash scripts lets you provision, tag, and clean up resources consistently across environments. Whether you are spinning up a test stack, enforcing tagging policies, or removing unused resources, a script reduces copy-paste errors and makes operations repeatable.
 
 ## When to Use
 

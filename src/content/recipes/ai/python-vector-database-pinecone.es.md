@@ -126,7 +126,7 @@ upsert_documents([
     },
     {
         "id": "doc2",
-        "text": "PostgreSQL is a powerful open-source relational database system.",
+        "text": "PostgreSQL is a capable open-source relational database system.",
         "metadata": {"category": "database", "source": "docs"},
     },
     {

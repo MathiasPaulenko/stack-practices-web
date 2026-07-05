@@ -150,7 +150,7 @@ Full-text search works in three stages:
 2. **Indexing**: Tokens are stored in an inverted index mapping each term to the documents containing it.
 3. **Querying**: The search query is tokenized the same way, and the index is queried for matching documents, ranked by relevance algorithms.
 
-PostgreSQL `tsvector` is great for simple use cases with no extra infrastructure. Meilisearch offers typo tolerance, faceting, and synonyms out of the box. Elasticsearch is the most powerful but also the most complex to operate.
+PostgreSQL `tsvector` is great for simple use cases with no extra infrastructure. Meilisearch offers typo tolerance, faceting, and synonyms out of the box. Elasticsearch is the most capable but also the most complex to operate.
 
 ## Variants
 

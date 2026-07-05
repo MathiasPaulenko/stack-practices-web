@@ -248,7 +248,7 @@ async function createPost(input: CreatePostInput) {
 1. **`GraphQLErrorExtension`** wraps `GraphQLError` with a required `code` in extensions, ensuring every error has a machine-readable category
 2. **Specialized error classes** (`ValidationError`, `NotFoundError`, etc.) carry domain-specific context in extensions while sharing a consistent structure
 3. **`formatError`** in Apollo Server acts as a safety net — it ensures internal errors don't leak stack traces and all errors have a code
-4. **Clients switch on `extensions.code`** instead of parsing message strings, making error handling robust against message changes
+4. **Clients switch on `extensions.code`** instead of parsing message strings, making error handling reliable against message changes
 
 ## Variants
 

@@ -31,7 +31,7 @@ seo:
 ---
 ## Overview
 
-Structured logging replaces free-text log messages with machine-readable JSON objects. This enables powerful filtering, aggregation, and correlation across distributed services. Instead of parsing regex from strings like "User 123 logged in at 10:00", structured logs emit { "event": "login", "user_id": 123, "timestamp": "..." } — making log analysis trivial in ELK, Loki, or cloud platforms.
+Structured logging replaces free-text log messages with machine-readable JSON objects. This enables capable filtering, aggregation, and correlation across distributed services. Instead of parsing regex from strings like "User 123 logged in at 10:00", structured logs emit { "event": "login", "user_id": 123, "timestamp": "..." } — making log analysis trivial in ELK, Loki, or cloud platforms.
 
 ## When to Use
 

@@ -2,7 +2,7 @@
 contentType: recipes
 slug: api-logging-audit
 title: "Implement API Logging and Audit Trails"
-description: "Set up comprehensive request/response logging and audit trails for APIs with structured output, correlation IDs, and compliance considerations."
+description: "Set up thorough request/response logging and audit trails for APIs with structured output, correlation IDs, and compliance considerations."
 metaDescription: "Implement API logging and audit trails with structured output, correlation IDs, and compliance. Examples in Python, JavaScript, and Java."
 difficulty: intermediate
 topics:

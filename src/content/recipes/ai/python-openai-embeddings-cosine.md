@@ -196,7 +196,7 @@ class SimilaritySearchIndex:
 index = SimilaritySearchIndex()
 index.add_batch([
     ("doc1", "Redis is an in-memory data structure store for caching."),
-    ("doc2", "PostgreSQL is a powerful open-source relational database."),
+    ("doc2", "PostgreSQL is a capable open-source relational database."),
     ("doc3", "Docker containers package applications with dependencies."),
     ("doc4", "Memcached is a distributed memory caching system."),
     ("doc5", "Kubernetes orchestrates containerized applications."),
@@ -320,7 +320,7 @@ class LocalSimilarityIndex:
 ## Common Mistakes
 
 - **Comparing embeddings from different models** — each model has a different vector space; never mix embeddings from different models
-- **Using Euclidean distance without normalization** — cosine similarity is more robust for text because it is magnitude-invariant
+- **Using Euclidean distance without normalization** — cosine similarity is more reliable for text because it is magnitude-invariant
 - **Not batching API calls** — one-by-one embedding calls are slow and expensive
 - **Ignoring token limits** — `text-embedding-3-small` has an 8191 token limit; truncate long texts
 

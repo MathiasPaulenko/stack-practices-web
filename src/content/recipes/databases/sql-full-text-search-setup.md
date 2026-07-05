@@ -56,7 +56,7 @@ seo:
 
 ## Overview
 
-Pattern matching with `LIKE '%word%'` is slow and cannot rank results by relevance. Full-text search transforms text into searchable tokens, indexes them, and lets you query by meaning rather than exact substring. PostgreSQL has a mature full-text search engine built in, so you can add powerful search without external services like Elasticsearch for many use cases.
+Pattern matching with `LIKE '%word%'` is slow and cannot rank results by relevance. Full-text search transforms text into searchable tokens, indexes them, and lets you query by meaning rather than exact substring. PostgreSQL has a mature full-text search engine built in, so you can add capable search without external services like Elasticsearch for many use cases.
 
 ## When to Use
 

@@ -2,7 +2,7 @@
 contentType: recipes
 slug: bash-text-processing
 title: "Bash Text Processing"
-description: "How to build powerful text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis and data transformation."
+description: "How to build capable text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis and data transformation."
 metaDescription: "Build text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis, data transformation, and one-liners."
 difficulty: intermediate
 topics:

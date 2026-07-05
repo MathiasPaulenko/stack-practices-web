@@ -3,7 +3,7 @@ contentType: recipes
 slug: parse-command-line-arguments
 title: "Parse Command Line Arguments"
 description: "How to parse command line arguments in Python, Java, and Node.js CLI applications."
-metaDescription: "Learn CLI argument parsing in Python, Java, and Node.js. Build robust command-line tools with flags, options, and subcommands."
+metaDescription: "Learn CLI argument parsing in Python, Java, and Node.js. Build reliable command-line tools with flags, options, and subcommands."
 difficulty: beginner
 topics:
   - data
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
-  metaDescription: "Learn CLI argument parsing in Python, Java, and Node.js. Build robust command-line tools with flags, options, and subcommands."
+  metaDescription: "Learn CLI argument parsing in Python, Java, and Node.js. Build reliable command-line tools with flags, options, and subcommands."
   keywords:
     - cli
     - arguments

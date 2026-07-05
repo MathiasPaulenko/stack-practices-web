@@ -2,8 +2,8 @@
 contentType: recipes
 slug: grafana-dashboards-observability
 title: "Observability Dashboards with Grafana and Prometheus"
-description: "Build interactive Grafana dashboards that visualize Prometheus metrics with panels, variables, and alerts for comprehensive service observability"
-metaDescription: "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for comprehensive service observability."
+description: "Build interactive Grafana dashboards that visualize Prometheus metrics with panels, variables, and alerts for thorough service observability"
+metaDescription: "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for thorough service observability."
 difficulty: beginner
 topics:
   - devops
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for comprehensive service observability."
+  metaDescription: "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for thorough service observability."
   keywords:
     - grafana
     - dashboards

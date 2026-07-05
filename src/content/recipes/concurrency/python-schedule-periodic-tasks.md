@@ -328,7 +328,7 @@ Key concepts:
 
 ### Can APScheduler replace Celery?
 
-For simple periodic tasks, yes. APScheduler is simpler and does not require a broker. For heavy distributed task processing, Celery is more robust with retries, task routing, and worker scaling.
+For simple periodic tasks, yes. APScheduler is simpler and does not require a broker. For heavy distributed task processing, Celery is more reliable with retries, task routing, and worker scaling.
 
 ### How do I prevent overlapping job executions?
 

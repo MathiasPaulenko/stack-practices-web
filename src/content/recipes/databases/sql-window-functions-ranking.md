@@ -56,7 +56,7 @@ seo:
 
 ## Overview
 
-Window functions are one of the most powerful capabilities in SQL. They let you compute values across a set of rows related to the current row without collapsing the result set like `GROUP BY`. Ranking, running totals, and moving averages become straightforward, and they often replace slow self-joins or application-layer loops.
+Window functions are one of the most capable capabilities in SQL. They let you compute values across a set of rows related to the current row without collapsing the result set like `GROUP BY`. Ranking, running totals, and moving averages become straightforward, and they often replace slow self-joins or application-layer loops.
 
 ## When to Use
 

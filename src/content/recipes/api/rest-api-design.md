@@ -2,7 +2,7 @@
 contentType: recipes
 slug: rest-api-design
 title: "REST API Design: What Works"
-description: "Design robust, scalable REST APIs with proper HTTP methods, status codes, versioning, and pagination strategies."
+description: "Design reliable, scalable REST APIs with proper HTTP methods, status codes, versioning, and pagination strategies."
 metaDescription: "REST API design what works: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for growth-ready backends."
 difficulty: intermediate
 topics:
@@ -92,7 +92,7 @@ GET    /users/:id/orders     # Nested resource
 
 ## Explanation
 
-REST leverages HTTP as an application protocol, not just a transport:
+REST uses HTTP as an application protocol, not just a transport:
 
 - **Idempotency**: GET, PUT, DELETE should be safe to retry. See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for patterns. POST is not idempotent.
 - **Statelessness**: Each request contains all information needed; no server-side session.

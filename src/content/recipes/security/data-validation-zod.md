@@ -2,8 +2,8 @@
 contentType: recipes
 slug: data-validation-zod
 title: "Schema-Based Data Validation with Zod in TypeScript"
-description: "Validate and sanitize incoming data using Zod schemas with TypeScript inference, custom refinements, and error formatting for robust API and form validation"
-metaDescription: "Validate data with Zod schemas in TypeScript. Use type inference, custom refinements, and error formatting for robust API and form validation."
+description: "Validate and sanitize incoming data using Zod schemas with TypeScript inference, custom refinements, and error formatting for reliable API and form validation"
+metaDescription: "Validate data with Zod schemas in TypeScript. Use type inference, custom refinements, and error formatting for reliable API and form validation."
 difficulty: beginner
 topics:
   - security
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Validate data with Zod schemas in TypeScript. Use type inference, custom refinements, and error formatting for robust API and form validation."
+  metaDescription: "Validate data with Zod schemas in TypeScript. Use type inference, custom refinements, and error formatting for reliable API and form validation."
   keywords:
     - zod validation
     - schema validation

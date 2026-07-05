@@ -140,7 +140,7 @@ spec:
 ## Common Mistakes
 
 - **Storing secrets in environment variables on shared hosts**: environment variables are visible to all processes on the same machine. Use file-based injection or dedicated secret sidecars instead.
-- **Forgetting to rotate after breaches**: changing the application password is not enough. Rotate API keys, certificates, and session secrets comprehensively.
+- **Forgetting to rotate after breaches**: changing the application password is not enough. Rotate API keys, certificates, and session secrets thoroughly.
 - **Logging secrets**: never log the full value of a secret. If you must log access, log the secret name and timestamp, never the password itself.
 - **Using Kubernetes Secrets without etcd encryption**: by default, Kubernetes Secrets are base64-encoded, not encrypted. Enable etcd encryption at rest.
 

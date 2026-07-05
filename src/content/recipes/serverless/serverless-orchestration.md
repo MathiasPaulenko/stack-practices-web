@@ -250,7 +250,7 @@ def order_orchestrator(context: df.DurableOrchestrationContext):
 ## FAQ
 
 **Q: Should I use Step Functions or Temporal?**
-A: Step Functions is simpler for AWS-centric workflows with visual monitoring. Temporal is more powerful for complex logic, cross-cloud portability, and long-running workflows with arbitrary code. If you need to run workflows on-premise or across clouds, Temporal is the better choice.
+A: Step Functions is simpler for AWS-centric workflows with visual monitoring. Temporal is more capable for complex logic, cross-cloud portability, and long-running workflows with arbitrary code. If you need to run workflows on-premise or across clouds, Temporal is the better choice.
 
 **Q: How do I handle long waits (hours or days) in a workflow?**
 A: Use wait states with callbacks. Step Functions supports `Wait` states with timestamps. Temporal workflows can sleep for days — the worker is not actively running during the sleep; the orchestrator schedules a wake-up event. Durable Functions supports durable timers.

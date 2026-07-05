@@ -2,8 +2,8 @@
 contentType: recipes
 slug: batch-processing-patterns
 title: "Batch Processing Patterns"
-description: "Design robust batch processing pipelines for large datasets with retry logic, idempotency, and observability."
-metaDescription: "Batch processing patterns for large datasets: robust pipeline design, retry logic, idempotency, and observability what works for ETL and reporting workflows."
+description: "Design reliable batch processing pipelines for large datasets with retry logic, idempotency, and observability."
+metaDescription: "Batch processing patterns for large datasets: reliable pipeline design, retry logic, idempotency, and observability what works for ETL and reporting workflows."
 difficulty: intermediate
 topics:
   - data
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Batch processing patterns for large datasets: robust pipeline design, retry logic, idempotency, and observability what works for ETL and reporting workflows."
+  metaDescription: "Batch processing patterns for large datasets: reliable pipeline design, retry logic, idempotency, and observability what works for ETL and reporting workflows."
   keywords:
     - batch-processing
     - data

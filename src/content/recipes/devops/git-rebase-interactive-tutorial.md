@@ -292,7 +292,7 @@ Key concepts:
 - Rebase feature branches before merging to keep history clean.
 - Use `squash` for related commits where the individual messages add value. Use `fixup` for WIP commits where the message is noise.
 - Use `--force-with-lease` instead of `--force` to avoid overwriting others' work.
-- Use `--autosquash` with `git commit --fixup` for a streamlined workflow.
+- Use `--autosquash` with `git commit --fixup` for a simplified workflow.
 - Keep commits small and focused. Smaller commits are easier to reorder and split.
 - Write clear commit messages. The squashed message should describe the full change.
 - Test after rebase. Replaying commits can introduce subtle issues.

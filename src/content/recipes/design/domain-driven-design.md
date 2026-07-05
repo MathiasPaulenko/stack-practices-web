@@ -213,7 +213,7 @@ public class OrderToShipmentAdapter {
 
 - **One giant bounded context**: modeling an entire enterprise as a single context creates a tangled mess. If two teams frequently conflict over the definition of a term, they need separate contexts. Merge contexts only when the cost of translation exceeds the cost of coordination.
 - **Leaking persistence into the domain**: aggregates should not know about ORM annotations, SQL queries, or document schemas. The domain layer defines repositories as interfaces; infrastructure implements them. This allows testing business logic without a database.
-- **Over-engineering simple domains**: DDD is powerful but expensive. A CRUD admin panel for a 10-entity catalog does not need aggregates, domain events, and context maps. Use DDD when business complexity justifies the abstraction cost.
+- **Over-engineering simple domains**: DDD is capable but expensive. A CRUD admin panel for a 10-entity catalog does not need aggregates, domain events, and context maps. Use DDD when business complexity justifies the abstraction cost.
 - **Missing anti-corruption layers**: when integrating with external systems, directly using their data models pollutes your domain. Create an anti-corruption layer that translates external concepts into your ubiquitous language, protecting your model from external changes.
 
 ## FAQ
@@ -228,7 +228,7 @@ A: Yes. Aggregates map to tables, entities map to rows, value objects can be emb
 A: A domain service contains business logic that does not belong to any entity (e.g., calculating shipping cost across multiple carriers). An application service orchestrates use cases, calling repositories and domain services, without containing business rules itself.
 
 **Q: Should every project use event sourcing with DDD?**
-A: No. Event sourcing stores state as a sequence of events. It is powerful for audit-heavy domains but adds major complexity. Start with standard persistence and domain events. Only adopt event sourcing if you genuinely need complete audit trails, temporal queries, or event replay capabilities.
+A: No. Event sourcing stores state as a sequence of events. It is capable for audit-heavy domains but adds major complexity. Start with standard persistence and domain events. Only adopt event sourcing if you genuinely need complete audit trails, temporal queries, or event replay capabilities.
 
 
 ### Is this solution production-ready?

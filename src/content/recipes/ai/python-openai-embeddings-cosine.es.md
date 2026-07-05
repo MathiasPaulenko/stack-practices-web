@@ -196,7 +196,7 @@ class SimilaritySearchIndex:
 index = SimilaritySearchIndex()
 index.add_batch([
     ("doc1", "Redis is an in-memory data structure store for caching."),
-    ("doc2", "PostgreSQL is a powerful open-source relational database."),
+    ("doc2", "PostgreSQL is a capable open-source relational database."),
     ("doc3", "Docker containers package applications with dependencies."),
     ("doc4", "Memcached is a distributed memory caching system."),
     ("doc5", "Kubernetes orchestrates containerized applications."),

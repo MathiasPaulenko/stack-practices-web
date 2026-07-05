@@ -136,7 +136,7 @@ The core challenge in JSON-to-CSV conversion is flattening hierarchical data int
 | Technology | Library | Approach | Notes |
 |------------|---------|----------|-------|
 | Python | `csv` (stdlib) | `DictWriter` | Zero deps, requires flat JSON |
-| Python | `pandas` | `json_normalize()` | Handles nesting, powerful but heavy dependency |
+| Python | `pandas` | `json_normalize()` | Handles nesting, capable but heavy dependency |
 | JavaScript | `@json2csv` | `Parser` | Custom fields, transforms, async streams |
 | JavaScript | Manual | `Object.keys()` + `join()` | Zero deps, brittle for complex data |
 | Java | `Jackson` + `commons-csv` | Manual iteration | Enterprise-grade, verbose boilerplate |

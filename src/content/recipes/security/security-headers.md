@@ -2,7 +2,7 @@
 contentType: recipes
 slug: security-headers
 title: "Security Headers"
-description: "Harden web applications with HTTP security headers: CSP, HSTS, X-Frame-Options, and a comprehensive security header checklist."
+description: "Harden web applications with HTTP security headers: CSP, HSTS, X-Frame-Options, and a thorough security header checklist."
 metaDescription: "HTTP security headers for web applications: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and security header implementation guide."
 difficulty: beginner
 topics:

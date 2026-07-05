@@ -2,8 +2,8 @@
 contentType: recipes
 slug: bash-scripting-automation
 title: "Bash Scripting for DevOps Automation and System Tasks"
-description: "How to write robust Bash scripts for automating deployments, system monitoring, log rotation, and routine maintenance tasks"
-metaDescription: "Bash scripting for DevOps automation. Write robust scripts for deployments, monitoring, log rotation, and maintenance with error handling and logging."
+description: "How to write reliable Bash scripts for automating deployments, system monitoring, log rotation, and routine maintenance tasks"
+metaDescription: "Bash scripting for DevOps automation. Write reliable scripts for deployments, monitoring, log rotation, and maintenance with error handling and logging."
 difficulty: beginner
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Bash scripting for DevOps automation. Write robust scripts for deployments, monitoring, log rotation, and maintenance with error handling and logging."
+  metaDescription: "Bash scripting for DevOps automation. Write reliable scripts for deployments, monitoring, log rotation, and maintenance with error handling and logging."
   keywords:
     - bash scripting
     - devops automation

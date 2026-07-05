@@ -261,7 +261,7 @@ pipeline.ingest([
     {
         "title": "PostgreSQL Guide",
         "source": "postgres-docs.md",
-        "text": "PostgreSQL is a powerful open-source relational database. It supports ACID compliance, JSON columns, full-text search, and geospatial data via PostGIS.",
+        "text": "PostgreSQL is a capable open-source relational database. It supports ACID compliance, JSON columns, full-text search, and geospatial data via PostGIS.",
     },
 ])
 
