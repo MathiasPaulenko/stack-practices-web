@@ -33,24 +33,21 @@
 
 ## Pending Content
 
-### Pending Recipes (0)
+### Pending Recipes (50)
 
-All Batch 2 recipes (1-60) have been completed. Recipes 58-60 were adapted from the original plan:
-- 58: `python-rate-limiting-fastapi-redis` (was `python-image-optimization-pillow`)
-- 59: `python-secrets-management-vault` (was `nodejs-cluster-mode-scaling`)
-- 60: `python-async-gather-concurrent-requests` (was `python-gunicorn-workers-configuration`)
+Batch 3 recipes (198-247) are pending creation. See Batch 3 section below.
 
-### Pending Patterns (0)
+### Pending Patterns (40)
 
-All roadmap patterns have been completed.
+Batch 3 patterns (248-287) are pending creation. See Batch 3 section below.
 
-### Pending Guides (0)
+### Pending Guides (35)
 
-All roadmap guides have been completed (19/20 new guides created; `complete-guide-cypress-e2e-testing` removed — QA-focused, not developer-focused).
+Batch 3 guides (288-322) are pending creation. See Batch 3 section below.
 
-### Pending Docs (0)
+### Pending Docs (25)
 
-All roadmap docs have been completed.
+Batch 3 docs (323-347) are pending creation. See Batch 3 section below.
 
 
 ---
@@ -360,3 +357,226 @@ Create Batch 2 content in this order for maximum traffic impact:
 15. **Remaining patterns** (77-110) — Resilience and architecture
 16. **Remaining guides** (144-157) — DevOps, frontend, database
 17. **Docs** (158-197) — Templates and checklists, conversion-oriented
+
+---
+
+## Batch 3 — 150 New Content Items
+
+> Generated 2026-07-05. Priorities: testing, observability, frontend, data engineering, code quality, and developer productivity.
+> Distribution: 50 recipes, 40 patterns, 35 guides, 25 docs.
+
+### New Recipes (50)
+
+**Testing (10) — boost testing to 15+ recipes**
+198. `python-pytest-fixtures-parametrize` — Parametrize tests with fixtures and markers
+199. `java-junit5-assertions-soft` — Soft assertions with AssertJ for multi-field checks
+200. `javascript-vitest-snapshot-testing` — Snapshot testing for React components with Vitest
+201. `python-mock-external-apis-responses` — Mock HTTP APIs with `responses` library
+202. `java-testcontainers-integration` — Spin up Postgres/Redis in JUnit integration tests
+203. `nodejs-supertest-express-api` — Test Express routes end-to-end with supertest
+204. `python-coverage-pytest-cov` — Measure and enforce coverage thresholds with pytest-cov
+205. `java-wiremock-stub-external` — Stub external HTTP services with WireMock
+206. `javascript-msw-mock-service-worker` — Intercept network requests in tests with MSW
+207. `python-hypothesis-property-testing` — Property-based testing with Hypothesis
+
+**Observability (8) — boost observability recipes**
+208. `python-structured-logging-json` — Emit structured JSON logs with structlog
+209. `nodejs-pino-fast-logging` — High-performance logging with pino in Node.js
+210. `java-micrometer-prometheus` — Expose custom metrics with Micrometer and Prometheus
+211. `python-opentelemetry-tracing` — Distributed tracing with OpenTelemetry SDK
+212. `nodejs-sentry-error-tracking` — Capture and triage errors with Sentry in Express
+213. `java-actuator-health-checks` — Custom health indicators with Spring Boot Actuator
+214. `python-prometheus-custom-metrics` — Expose business metrics in Prometheus format
+215. `nodejs-winston-daily-rotate` — Rotate logs daily with Winston transports
+
+**Frontend (10) — boost frontend recipes**
+216. `react-usememo-usecallback-performance` — When and when not to use useMemo/useCallback
+217. `css-container-queries-responsive` — Container queries for component-level responsiveness
+218. `typescript-discriminated-unions-exhaustive` — Exhaustive type checking with discriminated unions
+219. `react-form-react-hook-form-validation` — Form validation with react-hook-form and Zod
+220. `css-custom-properties-design-tokens` — Design tokens with CSS custom properties
+221. `vue-composition-api-fetch` — Data fetching with Vue 3 Composition API
+222. `typescript-utility-types-generics` — Build reusable utility types with conditional types
+223. `react-virtual-list-react-window` — Virtualize long lists with react-window
+224. `css-dark-mode-prefers-color-scheme` — Dark mode with prefers-color-scheme and CSS variables
+225. `svelte-store-reactive-state` — Reactive state management with Svelte stores
+
+**Data Engineering (8) — new data engineering recipes**
+226. `python-pandas-etl-pipeline` — Build an ETL pipeline with pandas and parquet
+227. `python-airflow-dag-scheduling` — Schedule and monitor DAGs with Apache Airflow
+228. `python-polars-fast-dataframe` — High-performance DataFrame operations with Polars
+229. `python-dbt-model-transformations` — Transform data in the warehouse with dbt
+230. `python-spark-groupby-aggregation` — Large-scale aggregation with PySpark
+231. `sql-cte-recursive-hierarchy` — Recursive CTEs for hierarchical data queries
+232. `python-dask-parallel-dataframe` — Parallel DataFrame operations with Dask
+233. `python-data-validation-pandera` — Validate DataFrame schemas with Pandera
+
+**DevOps & CI/CD (8) — boost devops recipes**
+234. `github-actions-reusable-workflows` — Share workflow logic with reusable workflows
+235. `docker-multi-stage-build-distroless` — Slim production images with multi-stage builds
+236. `kubernetes-helm-chart-templating` — Package K8s manifests with Helm charts
+237. `terraform-remote-state-s3-backend` — Store Terraform state in S3 with locking
+238. `docker-compose-override-environments` — Override configs per environment with compose
+239. `github-actions-matrix-strategy` — Test across multiple OS/language versions with matrix
+240. `kubernetes-configmap-secret-mounting` — Mount configs and secrets into pods
+241. `terraform-workspace-environment-isolation` — Isolate environments with Terraform workspaces
+
+**Security & Code Quality (6)**
+242. `python-bandit-static-analysis` — Find security issues in Python with Bandit
+243. `nodejs-eslint-security-plugin` — Enforce security rules with eslint-plugin-security
+244. `python-mypy-strict-type-checking` — Strict mode type checking with mypy
+245. `java-spotbugs-static-analysis` — Detect bugs with SpotBugs in Maven/Gradle
+246. `typescript-eslint-strict-config` — Strict TypeScript ESLint configuration for production
+247. `python-pip-audit-vulnerability-scan` — Scan installed packages for known CVEs
+
+---
+
+### New Patterns (40)
+
+**Testing Patterns (8) — boost testing patterns**
+248. `test-double-pattern` — Replace dependencies with stubs, spies, and fakes
+249. `fixture-setup-teardown-pattern` — Reusable test context with setup/teardown lifecycle
+250. `parameterized-test-pattern` — Run the same test logic across multiple inputs
+251. `snapshot-testing-pattern` — Capture and compare serialized output for regressions
+252. `contract-testing-pattern` — Verify consumer-producer API contracts with Pact
+253. `test-pyramid-pattern` — Balance unit, integration, and E2E test proportions
+254. `mock-server-pattern` — Stand up a mock server for integration test isolation
+255. `golden-master-testing-pattern` — Characterization tests for legacy code
+
+**Observability Patterns (6) — boost observability patterns**
+256. `correlation-id-pattern` — Trace requests across services with correlation IDs
+257. `health-check-pattern` — Expose liveness and readiness probes for orchestration
+258. `structured-logging-pattern` — Emit JSON logs with consistent fields for searchability
+259. `metrics-aggregation-pattern` — Collect, tag, and aggregate business metrics
+260. `distributed-tracing-pattern` — Propagate trace context across service boundaries
+261. `circuit-breaker-with-monitoring-pattern` — Expose circuit breaker state as metrics
+
+**Frontend Patterns (8) — boost frontend patterns**
+262. `container-presenter-pattern` — Separate data logic from rendering in React
+263. `custom-hook-composition-pattern` — Compose reusable logic with custom hooks
+264. `optimistic-update-pattern` — Update UI immediately, reconcile on server response
+265. `suspense-boundary-pattern` — Declarative loading states with React Suspense
+266. `css-architecture-pattern` — Organize CSS with utility-first + component-scoped layers
+267. `islands-architecture-pattern` — Ship interactivity only where needed in SSR apps
+268. `progressive-enhancement-pattern` — Build functional baseline, enhance with JS
+269. `state-machine-ui-pattern` — Model UI state transitions with finite state machines
+
+**Data Engineering Patterns (6) — new data engineering patterns**
+270. `etl-extract-transform-load-pattern` — Batch data pipeline with staging and load steps
+271. `cdc-change-data-capture-pattern` — Stream database changes to downstream consumers
+272. `schema-registry-evolution-pattern` — Manage schema versions for streaming pipelines
+273. `idempotent-load-pattern` — Re-run data loads safely without duplicates
+274. `data-lineage-tracking-pattern` — Track data origin and transformations end-to-end
+275. `batch-to-streaming-bridge-pattern` — Bridge batch and streaming pipelines with a lake
+
+**Architecture Patterns (6)**
+276. `modular-monolith-pattern` — Single deployable unit with internal module boundaries
+277. `strangler-fig-pattern` — Gradually replace legacy by intercepting routes
+278. `sidecar-pattern` — Extend services with companion containers
+279. `ambassador-pattern` — Offload cross-cutting concerns to a proxy
+280. `anti-corruption-layer-pattern` — Isolate legacy systems with translation adapters
+281. `backends-for-frontends-pattern` — Dedicated backend per client type
+
+**Resilience Patterns (6)**
+282. `bulkhead-pattern` — Isolate resources per service to limit blast radius
+283. `retry-with-jitter-pattern` — Retry with exponential backoff and random jitter
+284. `rate-limiter-token-bucket-pattern` — Token bucket rate limiting for API protection
+285. `circuit-breaker-half-open-pattern` — Test recovery with half-open state transitions
+286. `graceful-shutdown-pattern` — Drain in-flight requests before process exit
+287. `fallover-pattern` — Switch to standby system on primary failure detection
+
+---
+
+### New Guides (35)
+
+**Testing Guides (5) — boost testing guides**
+288. `complete-guide-pytest-production` — Fixtures, plugins, markers, parallel execution
+289. `complete-guide-junit5-modern-testing` — Extensions, parameterized tests, dynamic tests
+290. `complete-guide-vitest-react-testing` — Component, hook, and integration testing with Vitest
+291. `complete-guide-testcontainers-integration` — Real dependencies in integration tests
+292. `complete-guide-property-based-testing` — Hypothesis, fast-check, QuickCheck principles
+
+**Observability Guides (4) — boost observability guides**
+293. `complete-guide-distributed-tracing` — OpenTelemetry, Jaeger, Zipkin, trace propagation
+294. `complete-guide-structured-logging` — JSON logs, correlation IDs, log aggregation
+295. `complete-guide-prometheus-grafana` — Metrics collection, dashboards, alerting rules
+296. `complete-guide-sentry-error-tracking` — Capture, triage, and resolve production errors
+
+**Frontend Guides (5) — boost frontend guides**
+297. `complete-guide-react-server-components` — RSC architecture, data loading, streaming
+298. `complete-guide-typescript-advanced-types` — Conditional, mapped, template literal types
+299. `complete-guide-css-modern-layout` — Grid, flexbox, container queries, subgrid
+300. `complete-guide-accessibility-wcag` — ARIA, keyboard nav, screen readers, color contrast
+301. `complete-guide-react-state-management` — Context, Zustand, Jotai, server state with TanStack Query
+
+**Data Engineering Guides (4) — new data engineering guides**
+302. `complete-guide-data-pipeline-architecture` — Batch, streaming, lambda, kappa patterns
+303. `complete-guide-apache-airflow` — DAGs, operators, sensors, scheduling, monitoring
+304. `complete-guide-dbt-data-transformations` — Models, tests, macros, materializations
+305. `complete-guide-data-quality` — Validation, profiling, Great Expectations, Pandera
+
+**DevOps Guides (5) — boost devops guides**
+306. `complete-guide-github-actions-ci-cd` — Workflows, reusable workflows, secrets, runners
+307. `complete-guide-helm-charts-production` — Chart structure, templating, dependencies, registry
+308. `complete-guide-docker-compose-local-dev` — Multi-service local development environments
+309. `complete-guide-terraform-modules` — Module structure, versioning, testing with Terratest
+310. `complete-guide-kubernetes-config-management` — ConfigMaps, Secrets, External Secrets Operator
+
+**Architecture Guides (4)**
+311. `complete-guide-modular-monolith` — Module boundaries, shared kernel, migration to microservices
+312. `complete-guide-strangler-fig-migration` — Incremental legacy replacement with routing
+313. `complete-guide-api-gateway-pattern` — Routing, auth, rate limiting, request shaping
+314. `complete-guide-event-sourcing-cqrs` — Event store, projections, read models, snapshots
+
+**Security Guides (4) — boost security guides**
+315. `complete-guide-oauth2-oidc-production` — Authorization code flow, PKCE, token validation
+316. `complete-guide-cors-security` — Origins, headers, preflight, credential handling
+317. `complete-guide-content-security-policy` — CSP headers, nonces, hashes, reporting
+318. `complete-guide-encryption-at-rest` — AES-256, KMS, envelope encryption, key rotation
+
+**Code Quality Guides (4) — boost code quality guides**
+319. `complete-guide-clean-code-principles` — Naming, functions, classes, comments, formatting
+320. `complete-guide-refactoring-techniques` — Extract method, replace conditional, move function
+321. `complete-guide-technical-debt-management` — Track, prioritize, and pay down debt
+322. `complete-guide-code-review-best-practices` — Reviewer mindset, feedback, automation
+
+---
+
+### New Docs (25)
+
+**Testing Docs (5)**
+323. `test-strategy-document-template` — Document test approach per project and feature
+324. `test-case-template` — Standardized test case format with steps and expected results
+325. `test-coverage-report-template` — Report coverage by module, feature, and critical path
+326. `bug-reproduction-steps-template` — Minimal repro steps for reliable bug reports
+327. `regression-test-checklist` — Verify existing functionality after changes
+
+**Observability Docs (4)**
+328. `observability-maturity-assessment-template` — Assess logging, metrics, tracing maturity
+329. `alert-runbook-template` — Standardized runbook for responding to alerts
+330. `dashboard-design-template` — Design dashboards with SLOs, error budget, and context
+331. `incident-postmortem-template` — Blameless postmortem with timeline, root cause, actions
+
+**Frontend Docs (4)**
+332. `frontend-performance-budget-template` — Define JS/CSS/image budgets per route
+333. `accessibility-audit-checklist` — WCAG 2.2 audit checklist for web applications
+334. `component-api-documentation-template` — Document component props, events, and slots
+335. `browser-support-matrix-template` — Track browser support targets and polyfills
+
+**Data Engineering Docs (4)**
+336. `data-pipeline-design-document-template` — Document pipeline sources, transforms, sinks
+337. `data-quality-rules-template` — Define validation rules per dataset and column
+338. `etl-job-runbook-template` — Operate, monitor, and troubleshoot ETL jobs
+339. `data-governance-policy-template` — Data classification, retention, and access policy
+
+**DevOps Docs (4)**
+340. `ci-cd-pipeline-design-template` — Document pipeline stages, gates, and environments
+341. `helm-chart-review-checklist` — Review Helm charts for security and best practices
+342. `kubernetes-pod-disruption-budget-template` — Define PDBs for availability during disruptions
+343. `terraform-state-management-policy` — State backend, locking, and migration procedures
+
+**Security Docs (4)**
+344. `penetration-test-report-template` — Document pentest findings, severity, and remediation
+345. `security-incident-response-template` — Incident response playbook for security events
+346. `access-control-policy-template` — RBAC roles, permissions, and access review procedures
+347. `encryption-key-rotation-runbook` — Rotate encryption keys without downtime
