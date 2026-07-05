@@ -179,7 +179,7 @@ By encapsulating requests as objects, you gain the ability to queue, log, and re
 |---------|----------|-----------|
 | **Simple Command** | Direct action with no undo | Easy to implement, limited flexibility |
 | **Undoable Command** | Operations that can be reversed | Requires maintaining state for reversal |
-| **Macro Command** | Composite of multiple commands | Powerful, but harder to undo atomically |
+| **Macro Command** | Composite of multiple commands | capable, but harder to undo atomically |
 
 ## What Works
 

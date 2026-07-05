@@ -38,7 +38,7 @@ seo:
 
 The Specification Pattern encapsulates business rules for selecting objects as reusable, composable predicate objects. Instead of hard-coding query conditions in repositories or services, each rule is encapsulated in a Specification class that can be combined with others using logical operators (AND, OR, NOT).
 
-This pattern is particularly powerful for validation and querying. A `OverdueInvoiceSpecification` can be reused both to find overdue invoices and to validate whether a single invoice is overdue. Specifications can be chained: `isOverdue AND isHighValue AND isFromVIPCustomer`.
+This pattern is particularly capable for validation and querying. A `OverdueInvoiceSpecification` can be reused both to find overdue invoices and to validate whether a single invoice is overdue. Specifications can be chained: `isOverdue AND isHighValue AND isFromVIPCustomer`.
 
 ## When to Use
 

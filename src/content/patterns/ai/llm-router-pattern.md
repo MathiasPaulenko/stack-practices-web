@@ -99,7 +99,7 @@ def classify_complexity(query: Query) -> str:
     complex_patterns = [
         r"analyze|design|architect|compare|evaluate",
         r"debug|refactor|optimize|review",
-        r"step.by.step|detailed|comprehensive",
+        r"step.by.step|detailed|thorough",
         r"legal|medical|financial|security",
     ]
 
@@ -187,7 +187,7 @@ function classifyComplexity(text) {
   const complexPatterns = [
     /analyze|design|architect|compare|evaluate/,
     /debug|refactor|optimize|review/,
-    /step.by.step|detailed|comprehensive/,
+    /step.by.step|detailed|thorough/,
     /legal|medical|financial|security/,
   ];
 
@@ -277,7 +277,7 @@ public class LLMRouter {
     static final List<Pattern> COMPLEX_PATTERNS = List.of(
         Pattern.compile("analyze|design|architect|compare|evaluate", Pattern.CASE_INSENSITIVE),
         Pattern.compile("debug|refactor|optimize|review", Pattern.CASE_INSENSITIVE),
-        Pattern.compile("step.by.step|detailed|comprehensive", Pattern.CASE_INSENSITIVE),
+        Pattern.compile("step.by.step|detailed|thorough", Pattern.CASE_INSENSITIVE),
         Pattern.compile("legal|medical|financial|security", Pattern.CASE_INSENSITIVE)
     );
 
@@ -356,7 +356,7 @@ public class LLMRouter {
 The router operates in three steps:
 
 1. **Classification**: Inspect the query text using heuristics (regex patterns, word count), an embedding-based classifier, or a small language model. Assign a complexity level: low, medium, or high.
-2. **Routing**: Map the complexity level to a model from the configured pool. Low complexity goes to a cheap, fast model. High complexity goes to a powerful, slower model.
+2. **Routing**: Map the complexity level to a model from the configured pool. Low complexity goes to a cheap, fast model. High complexity goes to a capable, slower model.
 3. **Generation**: Forward the query to the selected model and return the response.
 
 The classification step is the critical component. Rules-based classification is fast and free but limited. A small classifier model (like a fine-tuned BERT or even a small LLM with structured output) provides better accuracy at a fraction of the cost of always using the large model.

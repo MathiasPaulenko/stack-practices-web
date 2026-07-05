@@ -32,7 +32,7 @@ seo:
 
 # Proxy Pattern for API Response Caching
 
-The [Proxy](/patterns/design/proxy-pattern) pattern intercepts access to an object to add behavior without changing the original implementation. When applied to API clients, it becomes a powerful caching layer that stores responses, reduces latency, and shields downstream services from redundant requests.
+The [Proxy](/patterns/design/proxy-pattern) pattern intercepts access to an object to add behavior without changing the original implementation. When applied to API clients, it becomes a capable caching layer that stores responses, reduces latency, and shields downstream services from redundant requests.
 
 ## When to Use This
 

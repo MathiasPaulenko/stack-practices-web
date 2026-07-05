@@ -234,7 +234,7 @@ try {
 
 ## Explanation
 
-The Marker Interface Pattern is deceptively simple but powerful:
+The Marker Interface Pattern is deceptively simple but capable:
 
 1. **Define an empty interface** with no methods
 2. **Classes opt-in** by implementing the interface
