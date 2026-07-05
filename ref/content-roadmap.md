@@ -478,12 +478,12 @@ Create Batch 2 content in this order for maximum traffic impact:
 281. `backends-for-frontends-pattern` — Dedicated backend per client type
 
 **Resilience Patterns (6)**
-282. `bulkhead-pattern` — Isolate resources per service to limit blast radius
-283. `retry-with-jitter-pattern` — Retry with exponential backoff and random jitter
-284. `rate-limiter-token-bucket-pattern` — Token bucket rate limiting for API protection
-285. `circuit-breaker-half-open-pattern` — Test recovery with half-open state transitions
-286. `graceful-shutdown-pattern` — Drain in-flight requests before process exit
-287. `fallover-pattern` — Switch to standby system on primary failure detection
+282. ✅ `bulkhead-pattern` — Isolate resources per service to limit blast radius
+283. ✅ `retry-with-jitter-pattern` — Retry with exponential backoff and random jitter
+284. ✅ `rate-limiter-token-bucket-pattern` — Token bucket rate limiting for API protection
+285. ✅ `circuit-breaker-half-open-pattern` — Test recovery with half-open state transitions
+286. ✅ `graceful-shutdown-pattern` — Drain in-flight requests before process exit
+287. ✅ `fallover-pattern` — Switch to standby system on primary failure detection
 
 ---
 
