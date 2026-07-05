@@ -2,7 +2,7 @@
 contentType: docs
 slug: onboarding-checklist-backend-engineer
 title: "Backend Engineer Onboarding Checklist"
-description: "A comprehensive checklist for onboarding new backend engineers covering environment setup, codebase orientation, security training, and first-week goals."
+description: "A thorough checklist for onboarding new backend engineers covering environment setup, codebase orientation, security training, and first-week goals."
 metaDescription: "Onboard backend engineers with this checklist. Covers environment, codebase, security, deployment, and first-week deliverables."
 difficulty: beginner
 topics:

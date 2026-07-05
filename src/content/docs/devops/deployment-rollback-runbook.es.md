@@ -1,257 +1,487 @@
 ---
 contentType: docs
 slug: deployment-rollback-runbook
-title: "Runbook de Rollback de Despliegue"
-description: "Un runbook para revertir despliegues fallidos de forma segura en Kubernetes, Docker e infraestructura basada en VMs con tiempo de inactividad minimo."
-metaDescription: "Revierte despliegues fallidos de forma segura con este runbook. Cubre rollbacks de Kubernetes, cambios blue-green, migraciones de base de datos y verificaciones."
+templateType: runbook
+title: "Runbook de Rollback de Despliegues"
+description: "Runbook para revertir despliegues fallidos de forma segura: rollback triggers, Kubernetes rollback, blue-green deployment rollback, canary rollback, database migration rollback, verification steps y post-rollback procedures con ejemplos de codigo para kubectl, Helm y ArgoCD."
+metaDescription: "Deployment rollback runbook: triggers, Kubernetes rollback, blue-green, canary, database migration rollback, verification, kubectl, Helm, ArgoCD."
 difficulty: intermediate
 topics:
   - devops
-  - infrastructure
 tags:
-  - runbook
+  - deployment
   - rollback
   - kubernetes
-  - deployment
-  - docker
-  - ci-cd
+  - devops
+  - helm
+  - argocd
+  - incident-response
 relatedResources:
-  - /docs/devops/zero-downtime-deployment-checklist
-  - /docs/devops/runbook-database-failover
-  - /docs/devops/incident-communication-template
-  - /docs/devops/downtime-communication-template
-lastUpdated: "2026-06-26"
-author: "StackPractices"
+  - /docs/devops/docker-image-hardening-checklist
+  - /docs/devops/kubernetes-resource-quotas-template
+  - /docs/devops/terraform-module-versioning-policy
+lastUpdated: "2026-07-04"
+author: "Mathias Paulenko"
 seo:
-  metaDescription: "Revierte despliegues fallidos de forma segura con este runbook. Cubre rollbacks de Kubernetes, cambios blue-green, migraciones de base de datos y verificaciones."
+  metaDescription: "Deployment rollback runbook: triggers, Kubernetes rollback, blue-green, canary, database migration rollback, verification, kubectl, Helm, ArgoCD."
   keywords:
-    - rollback despliegue
-    - rollback kubernetes
-    - despliegue blue green
-    - falla de despliegue
-    - revertir despliegue
+    - deployment rollback
+    - kubernetes rollback
+    - helm rollback
+    - blue-green rollback
+    - canary rollback
+    - database rollback
+    - deployment recovery
 ---
 
 ## Overview
 
-Los despliegues fallidos son la fuente mas comun de incidentes en produccion. Un despliegue que funciono en staging falla en produccion debido a diferencias de entorno, secretos faltantes o estados de base de datos incompatibles. Este runbook proporciona procedimientos de rollback para Kubernetes, Docker e infraestructura basada en VMs, incluyendo como manejar rollbacks de esquema de base de datos de forma segura.
+Este runbook cubre procedimientos para revertir despliegues fallidos. Cubre rollback triggers, Kubernetes deployment rollback, Helm rollback, blue-green deployment rollback, canary rollback, database migration rollback, verification y post-rollback procedures. Usa este runbook cuando un despliegue causa errors, performance degradation o service disruption.
 
-## When to Use
+---
 
-Usa este runbook cuando:
-- Las tasas de error aumentan inmediatamente despues de un despliegue
-- Las nuevas capacidades no operan como se espera en produccion
-- El rendimiento se degrada despues de un cambio de codigo
-- Se descubre un error critico despues del despliegue
+## 1. Rollback Triggers
 
-## Prerequisites
+### 1.1 Trigger Criteria
 
-Antes de comenzar:
-- [ ] Identificar la ultima version de despliegue conocida como buena (tag de imagen, commit SHA)
-- [ ] Confirmar que la falla esta relacionada con el despliegue, no con la infraestructura
-- [ ] Notificar al equipo en el canal de incidente
-- [ ] Verificar si migraciones de base de datos fueron parte del despliegue
-
-## Solution
-
-```markdown
-# Runbook de Rollback de Despliegue: `<Nombre del Servicio>`
-
-## 1. Evaluar la Falla (2 minutos)
-
-### Verificar Tasa de Error
-```bash
-# Tasa de error de la aplicacion
-curl -s http://app.internal/metrics | grep error_rate
-
-# Estado de pods de Kubernetes
-kubectl get pods -l app=myapp
-kubectl logs -l app=myapp --tail=100 | grep ERROR
+```text
+Trigger                    | Severity | Action              | Timeline
+───────────────────────────┼──────────┼─────────────────────┼──────────
+Error rate > 5%            | Critical | Rollback immediately | < 5 min
+Error rate > 1%            | High     | Investigate, prepare | < 15 min
+P99 latency > 2x baseline  | High     | Rollback if trending | < 15 min
+P99 latency > 5x baseline  | Critical | Rollback immediately | < 5 min
+Health check failures      | Critical | Rollback immediately | < 5 min
+OOM kills increasing       | High     | Rollback if trending | < 10 min
+Customer complaints > 10   | High     | Investigate, prepare | < 15 min
+Deployment job timeout     | Medium   | Investigate          | < 30 min
+Database connection errors | Critical | Rollback immediately | < 5 min
 ```
 
-| Verificacion | Umbral | Accion si se Excede |
-|--------------|--------|---------------------|
-| Tasa de error | > 1% | Proceder al rollback |
-| Latencia p95 | > 2x baseline | Proceder al rollback |
-| Reinicios de pods | > 3 en 5 min | Proceder al rollback |
-| Readiness fallido | > 50% de pods | Proceder al rollback |
+### 1.2 Rollback Decision Tree
 
-### Identificar la Version Mala
-```bash
-# Kubernetes
-git log --oneline -n 5
-kubectl get deployment myapp -o jsonpath='{.spec.template.spec.containers[0].image}'
+```text
+1. Es error rate > 5% o health checks failing?
+   ├── YES → Rollback immediately (skip investigation)
+   └── NO → Continue a step 2
 
-# Docker Swarm
-docker service inspect myapp --format='{{.Spec.TaskTemplate.ContainerSpec.Image}}'
+2. Es P99 latency > 2x baseline?
+   ├── YES → Esta trending up?
+   │   ├── YES → Rollback
+   │   └── NO → Monitora por 10 min, luego decide
+   └── NO → Continue a step 3
+
+3. Hay OOM kills o resource issues?
+   ├── YES → Puedes scalear up resources?
+   │   ├── YES → Scalea up, monitora
+   │   └── NO → Rollback
+   └── NO → Continue a step 4
+
+4. Hay customer complaints?
+   ├── YES → > 10 complaints en 15 min?
+   │   ├── YES → Rollback
+   │   └── NO → Investiga, prepara rollback
+   └── NO → Monitora, no rollback needed
 ```
 
-### Verificar Migraciones de Base de Datos
+---
+
+## 2. Kubernetes Deployment Rollback
+
+### 2.1 kubectl Rollback
+
 ```bash
-# Si se uso flyway o liquibase
-# Verificar tabla de migraciones para la ultima migracion aplicada
-kubectl logs deployment/myapp --container=init-migrate | tail -20
+# Checkea rollout history
+kubectl rollout history deployment/my-app -n production
+
+# Checkea details de specific revision
+kubectl rollout history deployment/my-app -n production --revision=3
+
+# Rollback a previous revision
+kubectl rollout undo deployment/my-app -n production
+
+# Rollback a specific revision
+kubectl rollout undo deployment/my-app -n production --to-revision=3
+
+# Checkea rollout status
+kubectl rollout status deployment/my-app -n production
+
+# Pausa rollout (si canary y necesitas parar)
+kubectl rollout pause deployment/my-app -n production
+
+# Resume rollout
+kubectl rollout resume deployment/my-app -n production
 ```
 
-**Puerta de Decision:** Si se ejecutaron migraciones de base de datos, proceder a la seccion de rollback de base de datos antes del rollback de aplicacion.
-
-## 2. Detener el Despliegue (30 segundos)
+### 2.2 Verifica Rollback
 
 ```bash
-# Kubernetes: pausar rollout
-kubectl rollout pause deployment/myapp
+# Checkea current image version
+kubectl get deployment my-app -n production -o jsonpath='{.spec.template.spec.containers[*].image}'
 
-# Docker Swarm: escalar a cero temporalmente
-docker service update --replicas=0 myapp
+# Checkea pod status
+kubectl get pods -n production -l app=my-app -o wide
 
-# VM: detener servicio systemd
-sudo systemctl stop myapp
+# Checkea pod logs para errors
+kubectl logs deployment/my-app -n production --tail=50
+
+# Checkea events para deployment issues
+kubectl get events -n production --field-selector involvedObject.name=my-app --sort-by='.lastTimestamp'
+
+# Corre health check
+kubectl exec -it deployment/my-app -n production -- curl -s http://localhost:8080/health
 ```
 
-## 3. Revertir Aplicacion (1-3 minutos)
+---
 
-### Kubernetes
+## 3. Helm Rollback
+
+### 3.1 Helm Rollback Commands
+
 ```bash
-# Revertir a revision anterior
-kubectl rollout undo deployment/myapp
+# Lista Helm releases
+helm list -n production
 
-# O revertir a revision especifica
-kubectl rollout undo deployment/myapp --to-revision=3
+# Checkea release history
+helm history my-app -n production
 
-# Verificar
-kubectl rollout status deployment/myapp
-kubectl get pods -l app=myapp
+# Rollback a previous revision
+helm rollback my-app -n production
+
+# Rollback a specific revision
+helm rollback my-app 5 -n production
+
+# Rollback con timeout
+helm rollback my-app 5 -n production --timeout 5m
+
+# Verifica rollback
+helm status my-app -n production
+kubectl get pods -n production -l app.kubernetes.io/instance=my-app
 ```
 
-### Docker / Docker Swarm
-```bash
-# Actualizar servicio a tag de imagen anterior
-docker service update \
-  --image myapp:v1.2.3 \
-  --update-delay 10s \
-  myapp
+### 3.2 Helm Rollback con Cleanup
 
-# O manualmente con docker-compose
-docker-compose pull && docker-compose up -d
+```bash
+# Si rollback failea, checkea stuck resources
+kubectl get all -n production -l app.kubernetes.io/instance=my-app
+
+# Force delete stuck pods
+kubectl delete pod <pod-name> -n production --force --grace-period=0
+
+# Checkea pending PVCs
+kubectl get pvc -n production -l app.kubernetes.io/instance=my-app
+
+# Clean up failed Helm secrets
+kubectl get secrets -n production -l owner=helm,name=my-app
+kubectl delete secret sh.helm.release.v1.my-app.v6 -n production
 ```
 
-### VM / Systemd
+---
+
+## 4. ArgoCD Rollback
+
+### 4.1 ArgoCD CLI Rollback
+
 ```bash
-# Restaurar binario/paquete anterior
-sudo dpkg -i myapp_1.2.3_amd64.deb
-# o
-cp /opt/myapp/backup/v1.2.3/myapp /usr/local/bin/myapp
-sudo systemctl restart myapp
+# Get application status
+argocd app get production/my-app
+
+# Checkea sync history
+argocd app history production/my-app
+
+# Rollback a previous sync
+argocd app rollback production/my-app
+
+# Rollback a specific revision
+argocd app rollback production/my-app 5
+
+# Disablea auto-sync antes de rollback (si enabled)
+argocd app set production/my-app --sync-policy none
+
+# Performa rollback
+argocd app rollback production/my-app 5
+
+# Re-enablea auto-sync despues de rollback
+argocd app set production/my-app --sync-policy automated --auto-heal
 ```
 
-### Cambio Blue-Green (si se usa blue-green)
+### 4.2 ArgoCD Git-based Rollback
+
 ```bash
-# Cambiar balanceador de carga a entorno green
-# No se necesita reinicio de aplicacion
-aws elbv2 modify-target-group-attributes \
-  --target-group-arn arn:aws:elasticloadbalancing:...:green-tg
+# Git-based rollback — revertea el commit y pushea
+git revert <bad-commit-sha>
+git push origin main
+
+# ArgoCD detecta el change y syncea automaticamente (si auto-sync enabled)
+# Si auto-sync disabled, manualmente sync:
+argocd app sync production/my-app
+
+# Force sync si needed
+argocd app sync production/my-app --force
 ```
 
-## 4. Revertir Base de Datos (si es necesario, 5-15 minutos)
+---
 
-### Si la Migracion fue Reversible
+## 5. Blue-Green Deployment Rollback
+
+### 5.1 Blue-Green Switch
+
 ```bash
-# Flyway
-flyway undo
+# Current state: blue esta active, green es el new deployment
+# Para rollback: switchea traffic back a blue
 
-# Django
-python manage.py migrate app 0003_previous_migration
+# Kubernetes service selector switch
+kubectl patch service my-app -n production -p \
+  '{"spec":{"selector":{"version":"blue"}}}'
 
-# Rails
-rails db:rollback STEP=1
+# Verifica traffic switched
+kubectl get svc my-app -n production -o yaml | grep selector -A 3
+
+# Checkea que pods estan receiving traffic
+kubectl get pods -n production -l version=blue -o wide
+
+# Scalea down green deployment (despues de confirmar blue healthy)
+kubectl scale deployment my-app-green -n production --replicas=0
 ```
 
-### Si la Migracion fue Destructiva
+### 5.2 Istio VirtualService Rollback
+
+```yaml
+# Rollback: routea 100% traffic back a blue
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: my-app
+  namespace: production
+spec:
+  http:
+    - route:
+        - destination:
+            host: my-app-blue
+            port:
+              number: 8080
+          weight: 100
+```
+
 ```bash
-# Restaurar desde snapshot pre-despliegue
+# Applyea el rollback VirtualService
+kubectl apply -f virtualservice-rollback.yaml -n production
+
+# Verifica traffic routing
+istioctl experimental descriptor virtualservice my-app -n production
+```
+
+---
+
+## 6. Canary Rollback
+
+### 6.1 Argo Rollouts Canary Rollback
+
+```bash
+# Checkea rollout status
+kubectl argo rollouts get rollout my-app -n production --watch
+
+# Aborta canary y rollback a stable
+kubectl argo rollouts abort my-app -n production
+
+# Promotea canary a stable (si canary es good)
+kubectl argo rollouts promote my-app -n production
+
+# Retry rollout despues de abort
+kubectl argo rollouts retry my-app -n production
+```
+
+### 6.2 Manual Canary Rollback
+
+```bash
+# Current state: 20% traffic en new version, 80% en stable
+# Para rollback: scalea new version a 0, restorea stable a 100%
+
+# Scalea down canary deployment
+kubectl scale deployment my-app-canary -n production --replicas=0
+
+# Scalea up stable deployment
+kubectl scale deployment my-app-stable -n production --replicas=10
+
+# Updatea service para point solo a stable
+kubectl patch service my-app -n production -p \
+  '{"spec":{"selector":{"track":"stable"}}}'
+
+# Verifica
+kubectl get endpoints my-app -n production
+kubectl get pods -n production -l track=stable
+```
+
+---
+
+## 7. Database Migration Rollback
+
+### 7.1 Migration Rollback Strategy
+
+```text
+Migration type        | Rollback strategy
+──────────────────────┼──────────────────────────────────────────
+Forward-only          | No rollback — escribe fix-forward migration
+Reversible            | Corre down migration (reverse de up)
+Expand-contract       | Reverte contract phase, keep expand changes
+Snapshot restore      | Restorea desde backup (last resort, data loss)
+```
+
+### 7.2 Flyway Rollback
+
+```bash
+# Checkea migration status
+flyway -url=jdbc:postgresql://db:5432/mydb info
+
+# Undo last migration (Flyway Teams only)
+flyway -url=jdbc:postgresql://db:5432/mydb undo
+
+# Para community edition — escribe fix-forward migration
+# Crea V20260704_2__rollback_add_column.sql
+```
+
+```sql
+-- Fix-forward migration para undo un bad change
+-- V20260704_1__add_status_column.sql addeo un column que breakeo el app
+-- V20260704_2__remove_status_column.sql lo revertea
+
+ALTER TABLE orders DROP COLUMN IF EXISTS status;
+```
+
+### 7.3 Liquibase Rollback
+
+```bash
+# Checkea migration status
+liquibase --url=jdbc:postgresql://db:5432/mydb status
+
+# Rollback by count (last N changesets)
+liquibase --url=jdbc:postgresql://db:5432/mydb rollbackCount 1
+
+# Rollback by tag
+liquibase --url=jdbc:postgresql://db:5432/mydb rollback v2.3.0
+
+# Rollback by date
+liquibase --url=jdbc:postgresql://db:5432/mydb rollbackToDate 2026-07-04
+```
+
+### 7.4 Expand-Contract Pattern
+
+```text
+Phase 1 — Expand (add new column, keep old)
+  ALTER TABLE orders ADD COLUMN status_new VARCHAR(20);
+
+Phase 2 — Migrate (dual-write a both columns)
+  -- Application escribe a both status y status_new
+  -- Backfill: UPDATE orders SET status_new = status WHERE status_new IS NULL;
+
+Phase 3 — Contract (switch reads a new column, remove old)
+  -- Application lee desde status_new
+  ALTER TABLE orders DROP COLUMN status;
+  ALTER TABLE orders RENAME COLUMN status_new TO status;
+
+Rollback:
+  - Despues de Phase 1: DROP COLUMN status_new (no data loss)
+  - Despues de Phase 2: DROP COLUMN status_new (old column still intact)
+  - Despues de Phase 3: No se puede rollback — must re-add column y backfill
+```
+
+### 7.5 Snapshot Restore (Last Resort)
+
+```bash
+# Restorea desde pre-deployment snapshot
 aws rds restore-db-instance-from-db-snapshot \
   --db-instance-identifier myapp-db-rolled-back \
-  --db-snapshot-identifier pre-deploy-snapshot-2026-06-26
+  --db-snapshot-identifier pre-deploy-snapshot-2026-07-04
 
-# O usar point-in-time recovery
+# O usa point-in-time recovery
 aws rds restore-db-instance-to-point-in-time \
   --source-db-instance-identifier myapp-db \
   --target-db-instance-identifier myapp-db-rolled-back \
-  --restore-time 2026-06-26T09:00:00Z
+  --restore-time 2026-07-04T09:00:00Z
 ```
 
-**ADVERTENCIA:** Los rollbacks de base de datos causan tiempo de inactividad. Coordinar con stakeholders antes de proceder.
+---
 
-## 5. Verificar Exito del Rollback (3 minutos)
+## 8. Post-Rollback Procedures
 
-```bash
-# Health checks
-curl -f http://app.internal/health
+### 8.1 Verification Checklist
 
-# Smoke tests
-./scripts/smoke-test.sh
-
-# Tasa de error de vuelta al baseline
-curl -s http://app.internal/metrics | grep error_rate
+```text
+- [ ] Application health check pasa
+- [ ] Error rate vuelve a baseline (< 0.1%)
+- [ ] P99 latency vuelve a baseline
+- [ ] All pods running y ready
+- [ ] Database connections healthy
+- [ ] No new OOM kills
+- [ ] Monitoring dashboards muestran normal patterns
+- [ ] Customer complaints paran o decrease
+- [ ] Logs muestran no new errors
+- [ ] Alerting vuelve a normal state
 ```
 
-| Verificacion | Estado | Tiempo |
-|--------------|--------|--------|
-| Todos los pods saludables | [ ] | ___ |
-| Health checks pasando | [ ] | ___ |
-| Tasa de error < baseline | [ ] | ___ |
-| Latencia p95 normal | [ ] | ___ |
-| Flujos criticos de usuario funcionando | [ ] | ___ |
+### 8.2 Post-Rollback Actions
 
-## 6. Acciones Post-Rollback
-
-- [ ] Etiquetar el despliegue malo en CI/CD como `DO_NOT_DEPLOY`
-- [ ] Crear linea de tiempo de incidente con tiempos de despliegue y rollback
-- [ ] Documentar causa raiz en canal de incidente
-- [ ] Programar postmortem dentro de 24 horas
-- [ ] Actualizar checklist de despliegue para prevenir recurrencia
-- [ ] Eliminar imagen mala del registry o marcar como obsoleta
+```text
+1. Verifica rollback usando el checklist above
+2. Notifica stakeholders (Slack, email, status page)
+3. Crea incident ticket si no ya creado
+4. Captura timeline de events (deploy time, detection, rollback)
+5. Preservea logs y metrics para post-mortem
+6. NO re-deployees el same version sin un fix
+7. Identifica root cause del failure
+8. Escribe fix y testea en staging
+9. Schedulea post-mortem meeting dentro de 48 hours
+10. Updatea deployment runbook con lessons learned
 ```
 
-## Explanation
+### 8.3 Communication Template
 
-El runbook ordena las operaciones por **riesgo**: evaluar primero (no revertir un problema no relacionado con el despliegue), detener la hemorragia (pausar despliegue), restaurar el servicio (rollback), luego limpiar (base de datos, verificacion). La idea critica es que los rollbacks de base de datos son mas peligrosos que los de aplicacion — pueden causar perdida de datos y requerir restauraciones desde snapshot. Siempre verificar si se ejecutaron migraciones antes de revertir solo la aplicacion.
+```text
+[RESOLVED] Production deployment rollback — my-app
 
-## Variants
+Timeline:
+  - 14:00 UTC: Deployment v2.3.1 starteo
+  - 14:05 UTC: Error rate increased a 8%
+  - 14:07 UTC: Rollback initiated
+  - 14:10 UTC: Rollback complete, error rate back a 0.1%
 
-| Contexto | Enfoque | Notas |
-|----------|---------|-------|
-| Kubernetes | `kubectl rollout undo` | Mas rapido, historial de revisiones integrado |
-| Docker Swarm | `docker service update --image` | Requiere imagen anterior disponible |
-| Blue-Green | Cambio de balanceador de carga | Instante, pero requiere entorno green pre-construido |
-| VMs con systemd | Reemplazo de binario + reinicio | Mas lento, requiere gestion de paquetes/binarios |
+Impact:
+  - Users experimentaron 500 errors por approximately 10 minutes
+  - ~5% de requests failearon durante el incident
+  - No data loss o corruption
 
-## Lo que funciona
+Root cause (preliminary):
+  - Database connection pool misconfiguration en v2.3.1
 
-1. **Mantener siempre la version N-1** en tu registry de contenedores para rollback instantaneo
-2. **Tomar snapshots de base de datos antes de migraciones** — la restauracion es tu unica opcion para cambios destructivos
-3. **Automatizar health checks** en CI/CD para detectar fallas antes del despliegue completo
-4. **Usar feature flags** para cambios riesgosos — desactivar sin redeployar
-5. **Practicar rollbacks mensualmente** en staging con los mismos procedimientos
+Action items:
+  - Fix connection pool configuration
+  - Add pre-deployment database connection test
+  - Update CI pipeline para catchear este configuration error
 
-## Common Mistakes
+Current status:
+  - Production esta running v2.3.0 (previous stable version)
+  - All services estan healthy
+  - Next deployment scheduled despues de fix verified en staging
+```
 
-1. **Revertir la aplicacion sin revertir migraciones de base de datos** — mismatch de esquema causa crashes
-2. **No pausar el rollout primero** — rollback lucha contra un despliegue en curso
-3. **Olvidar verificar despues del rollback** — asume que el rollback funciono sin revisar metricas
-4. **Eliminar el despliegue fallido demasiado rapido** — pierde logs necesarios para analisis de causa raiz
-5. **Revertir sin entender la falla** — puede re-introducir el problema en el proximo despliegue
+## Preguntas Frecuentes
 
-## Frequently Asked Questions
+### ¿Qué tan rapido deberia hacer rollback?
 
-### Como se a que revision revertir?
+Haz rollback immediately cuando error rate excede 5% o health checks estan failing. No esperes para investigar — rollback first, investiga despues. El goal es minimizar customer impact. Un rollback toma 2-5 minutes en most Kubernetes environments. Investigation puede tomar hours. Haz rollback, verifica que el service esta healthy, luego investiga el root cause con el failed version en staging. Si esperas para investigar mientras customers estan experimentando errors, estas extendiendo el incident unnecessarily.
 
-Verifica `kubectl rollout history deployment/myapp` para numeros de revision. La ultima revision conocida como buena suele ser N-1. Cruza referencia con timestamps de despliegue en tu pipeline de CI/CD.
+### ¿Qué pasa si el rollback tambien failea?
 
-### Puedo revertir una migracion de base de datos que borro datos?
+Si `kubectl rollout undo` failea, checkea stuck pods y force-deletealos: `kubectl delete pod <name> --force --grace-period=0`. Si el previous revision tambien esta broken, identifica el last known-good revision desde el rollout history y rollback a ese specific revision. Si no previous revision funciona, deployea el last known-good image directamente: `kubectl set image deployment/my-app container=myorg/my-app:v2.3.0`. Si el issue es infrastructure (node failure, network), addressa eso first. Si el database es el problem, rollback el database migration antes de rollbackear el application.
 
-No. Si una migracion elimino columnas, borro filas o altero datos, `flyway undo` o `rails db:rollback` no pueden recuperarlos. Debes restaurar desde un snapshot o backup pre-despliegue.
+### ¿Puedo hacer rollback de un database migration?
 
-### Que pasa si el rollback tambien falla?
+Depende del migration type. Reversible migrations (con down/undo scripts) pueden ser rolled back — corre el reverse migration. Forward-only migrations no pueden ser rolled back — escribe un fix-forward migration que corrija el issue. Expand-contract migrations pueden ser rolled back durante el expand y migrate phases, pero no despues del contract phase (old column se gone). Para data-loss migrations (DROP TABLE, DELETE), el unico rollback es restorear desde un backup — esto deberia ser last resort. Siempre testea migration rollbacks en staging antes de correrlos en production. Usa el expand-contract pattern para high-risk schema changes.
 
-Si `kubectl rollout undo` falla (por ejemplo, imagen faltante), configura manualmente el despliegue al tag anterior: `kubectl set image deployment/myapp myapp=registry/app:v1.2.3`. Si eso tambien falla, escala el despliegue a cero e investiga — puede ser necesario reconstruir la version anterior desde el codigo fuente.
+### ¿Deberia usar blue-green o canary deployments?
+
+Blue-green es simpler — two full environments, instant switch, instant rollback. Usalo para services que pueden correr two full copies sin resource concerns. Canary es mas complex pero safer — gradual traffic shifting, automatic rollback on error metrics, smaller blast radius. Usa canary para high-traffic services donde quieres automated rollback y gradual exposure. Blue-green requiree double de resources durante deployment. Canary requiree traffic splitting (Istio, Argo Rollouts). Para most production services, canary con automated rollback es el best choice. Para small services o internal tools, blue-green es sufficient.
+
+### ¿Cómo prevengo bad deployments de llegar a production?
+
+Implementa multiple gates: automated tests (unit, integration, E2E) en CI, security scanning (SAST, dependency check), canary deployment con automated rollback (Argo Rollouts con error rate y latency analysis), pre-deployment health checks y manual approval para production deployments. Usa feature flags para decouple deployment de release — deployea el new version pero keep features disabled hasta ready. Corre chaos engineering tests en staging para verificar resilience. Implementa deployment freezes durante high-traffic periods. Requiree code review por al menos two engineers para production changes. Monitora deployment metrics y setea up alerts para deployment failures.

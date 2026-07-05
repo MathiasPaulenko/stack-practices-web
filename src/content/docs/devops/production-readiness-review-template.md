@@ -2,7 +2,7 @@
 contentType: docs
 slug: production-readiness-review-template
 title: "Production Readiness Review Template"
-description: "A comprehensive checklist for verifying that a service, feature, or system is ready for production deployment and ongoing operation."
+description: "A thorough checklist for verifying that a service, feature, or system is ready for production deployment and ongoing operation."
 metaDescription: "Ensure production readiness with this review checklist. Covers monitoring, SLOs, rollback, security, docs, and operational procedures."
 difficulty: intermediate
 topics:
