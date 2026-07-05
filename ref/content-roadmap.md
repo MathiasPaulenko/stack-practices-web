@@ -412,14 +412,14 @@ Create Batch 2 content in this order for maximum traffic impact:
 233. `python-data-validation-pandera` — Validate DataFrame schemas with Pandera ✅
 
 **DevOps & CI/CD (8) — boost devops recipes**
-234. `github-actions-reusable-workflows` — Share workflow logic with reusable workflows
-235. `docker-multi-stage-build-distroless` — Slim production images with multi-stage builds
-236. `kubernetes-helm-chart-templating` — Package K8s manifests with Helm charts
-237. `terraform-remote-state-s3-backend` — Store Terraform state in S3 with locking
-238. `docker-compose-override-environments` — Override configs per environment with compose
-239. `github-actions-matrix-strategy` — Test across multiple OS/language versions with matrix
-240. `kubernetes-configmap-secret-mounting` — Mount configs and secrets into pods
-241. `terraform-workspace-environment-isolation` — Isolate environments with Terraform workspaces
+234. ✅ `github-actions-reusable-workflows` — Share workflow logic with reusable workflows
+235. ✅ `docker-multi-stage-build-distroless` — Slim production images with multi-stage builds
+236. ✅ `kubernetes-helm-chart-templating` — Package K8s manifests with Helm charts
+237. ✅ `terraform-remote-state-s3-backend` — Store Terraform state in S3 with locking
+238. ✅ `docker-compose-override-environments` — Override configs per environment with compose
+239. ✅ `github-actions-matrix-strategy` — Test across multiple OS/language versions with matrix
+240. ✅ `kubernetes-configmap-secret-mounting` — Mount configs and secrets into pods
+241. ✅ `terraform-workspace-environment-isolation` — Isolate environments with Terraform workspaces
 
 **Security & Code Quality (6)**
 242. `python-bandit-static-analysis` — Find security issues in Python with Bandit
