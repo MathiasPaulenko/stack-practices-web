@@ -18,7 +18,6 @@ relatedResources:
   - /docs/testing/test-strategy-document-template
   - /docs/testing/test-case-template
   - /docs/testing/regression-test-checklist
-  - /guides/testing/complete-guide-test-pyramid
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

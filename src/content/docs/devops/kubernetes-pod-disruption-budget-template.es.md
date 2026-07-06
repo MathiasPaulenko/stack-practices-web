@@ -19,7 +19,6 @@ relatedResources:
   - /docs/devops/ci-cd-pipeline-design-template
   - /docs/devops/helm-chart-review-checklist
   - /docs/devops/terraform-state-management-policy
-  - /guides/devops/complete-guide-kubernetes-deployment
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

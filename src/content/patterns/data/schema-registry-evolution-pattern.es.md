@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: schema-registry-evolution-pattern
-title: "Patrón Schema Registry Evolution: Manage Schema Versions para Streaming Pipelines"
+title: "Patrón Schema Registry Evolution: Manage Schema Versions para Streaming"
 description: "Cómo manejar schema versions para streaming pipelines con un schema registry. Cubre Avro, backward compatibility, forward compatibility, y consumer migration."
 metaDescription: "Maneja schema versions para streaming pipelines con un schema registry. Aprende Avro, backward y forward compatibility, evolution rules, y consumer migration."
 difficulty: advanced

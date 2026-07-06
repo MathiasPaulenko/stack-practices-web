@@ -19,7 +19,6 @@ relatedResources:
   - /docs/data-engineering/data-pipeline-design-document-template
   - /docs/data-engineering/etl-job-runbook-template
   - /docs/data-engineering/data-governance-policy-template
-  - /guides/databases/complete-guide-database-indexing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

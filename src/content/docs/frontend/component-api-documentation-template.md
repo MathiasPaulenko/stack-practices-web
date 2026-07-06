@@ -19,7 +19,6 @@ relatedResources:
   - /docs/frontend/frontend-performance-budget-template
   - /docs/frontend/accessibility-audit-checklist
   - /docs/frontend/browser-support-matrix-template
-  - /guides/frontend/complete-guide-core-web-vitals
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

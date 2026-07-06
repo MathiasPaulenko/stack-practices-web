@@ -18,7 +18,6 @@ relatedResources:
   - /docs/testing/test-strategy-document-template
   - /docs/testing/test-coverage-report-template
   - /docs/testing/bug-reproduction-steps-template
-  - /guides/testing/complete-guide-test-pyramid
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

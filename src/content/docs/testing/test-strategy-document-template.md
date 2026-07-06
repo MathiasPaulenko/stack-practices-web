@@ -18,8 +18,6 @@ relatedResources:
   - /docs/testing/api-testing-strategy-template
   - /docs/testing/test-case-template
   - /docs/testing/test-coverage-report-template
-  - /guides/testing/complete-guide-test-pyramid
-  - /guides/testing/complete-guide-testing-microservices
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

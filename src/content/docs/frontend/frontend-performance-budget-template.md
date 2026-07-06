@@ -19,7 +19,6 @@ relatedResources:
   - /docs/frontend/accessibility-audit-checklist
   - /docs/frontend/component-api-documentation-template
   - /docs/frontend/browser-support-matrix-template
-  - /guides/frontend/complete-guide-core-web-vitals
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
