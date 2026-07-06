@@ -30,16 +30,6 @@ seo:
     - cli
     - automation
     - cloud
-    - /recipes/bash-scripting-automation
-    - /recipes/bash-backup-rotation-script
-    - /recipes/bash-ssh-key-management
-    - /recipes/bash-iptables-firewall-rules
-    - /recipes/bash-log-rotation-compression
-    - bash
-    - aws
-    - cli
-    - automation
-    - cloud
 ---
 ## Overview
 

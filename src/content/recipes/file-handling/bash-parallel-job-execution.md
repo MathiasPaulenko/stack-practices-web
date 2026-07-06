@@ -30,16 +30,6 @@ seo:
     - concurrency
     - xargs
     - gnu-parallel
-    - /recipes/bash-parallel-execution
-    - /recipes/bash-scripting-automation
-    - /recipes/bash-backup-rotation-script
-    - /recipes/bash-loop-over-files
-    - /recipes/bash-text-processing
-    - bash
-    - parallel
-    - concurrency
-    - xargs
-    - gnu-parallel
 ---
 ## Overview
 

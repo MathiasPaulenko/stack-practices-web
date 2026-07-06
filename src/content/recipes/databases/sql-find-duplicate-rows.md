@@ -30,27 +30,6 @@ seo:
     - mysql
     - deduplication
     - cte
-    - /guides/read-replica-guide
-    - /guides/sql-cte-guide
-    - /docs/runbook-database-failover
-    - /docs/database-schema-documentation-template
-    - /guides/full-text-search-guide
-    - databases
-    - sql
-    - postgresql
-    - mysql
-    - deduplication
-    - cte
-    - /guides/read-replica-guide
-    - /guides/sql-cte-guide
-    - /docs/runbook-database-failover
-    - /docs/database-schema-documentation-template
-    - /guides/full-text-search-guide
-    - sql
-    - postgresql
-    - mysql
-    - deduplication
-    - cte
 ---
 
 

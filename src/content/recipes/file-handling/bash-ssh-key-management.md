@@ -30,16 +30,6 @@ seo:
     - security
     - keys
     - automation
-    - /recipes/bash-scripting-automation
-    - /recipes/bash-backup-rotation-script
-    - /recipes/bash-log-rotation-compression
-    - /recipes/bash-loop-over-files
-    - /recipes/bash-parallel-execution
-    - bash
-    - ssh
-    - security
-    - keys
-    - automation
 ---
 ## Overview
 

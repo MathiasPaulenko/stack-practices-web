@@ -30,27 +30,6 @@ seo:
     - partitioning
     - performance
     - maintenance
-    - /recipes/sql-index-optimization-analysis
-    - /guides/read-replica-guide
-    - /guides/sql-performance-tuning-guide
-    - /recipes/postgres-query-optimization
-    - /recipes/sql-find-duplicate-rows
-    - databases
-    - sql
-    - postgresql
-    - partitioning
-    - performance
-    - maintenance
-    - /recipes/sql-index-optimization-analysis
-    - /guides/read-replica-guide
-    - /guides/sql-performance-tuning-guide
-    - /recipes/postgres-query-optimization
-    - /recipes/sql-find-duplicate-rows
-    - sql
-    - postgresql
-    - partitioning
-    - performance
-    - maintenance
 ---
 
 

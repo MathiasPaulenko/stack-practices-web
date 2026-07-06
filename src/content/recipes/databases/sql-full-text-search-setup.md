@@ -30,27 +30,6 @@ seo:
     - full-text-search
     - gin
     - tsvector
-    - /guides/full-text-search-guide
-    - /recipes/sql-find-duplicate-rows
-    - /recipes/sql-index-optimization-analysis
-    - /recipes/sql-migration-zero-downtime
-    - /recipes/sql-partitioning-strategies
-    - databases
-    - sql
-    - postgresql
-    - full-text-search
-    - gin
-    - tsvector
-    - /guides/full-text-search-guide
-    - /recipes/sql-find-duplicate-rows
-    - /recipes/sql-index-optimization-analysis
-    - /recipes/sql-migration-zero-downtime
-    - /recipes/sql-partitioning-strategies
-    - sql
-    - postgresql
-    - full-text-search
-    - gin
-    - tsvector
 ---
 
 

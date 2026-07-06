@@ -30,16 +30,6 @@ seo:
     - disk
     - alerts
     - linux
-    - /recipes/bash-backup-rotation-script
-    - /recipes/bash-scripting-automation
-    - /recipes/bash-log-rotation-compression
-    - /recipes/bash-loop-over-files
-    - /recipes/bash-parallel-execution
-    - bash
-    - monitoring
-    - disk
-    - alerts
-    - linux
 ---
 ## Overview
 

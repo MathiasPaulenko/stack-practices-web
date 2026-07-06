@@ -30,16 +30,6 @@ seo:
     - rotation
     - compression
     - gzip
-    - /recipes/compress-decompress-files
-    - /recipes/bash-scripting-automation
-    - /recipes/bash-backup-rotation-script
-    - /recipes/bash-loop-over-files
-    - /recipes/bash-parallel-execution
-    - bash
-    - logs
-    - rotation
-    - compression
-    - gzip
 ---
 ## Overview
 

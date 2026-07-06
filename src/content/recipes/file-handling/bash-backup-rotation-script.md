@@ -30,16 +30,6 @@ seo:
     - retention
     - automation
     - linux
-    - /recipes/bash-scripting-automation
-    - /recipes/bash-loop-over-files
-    - /recipes/bash-parallel-execution
-    - /recipes/bash-text-processing
-    - /recipes/generate-temporary-files
-    - bash
-    - backup
-    - retention
-    - automation
-    - linux
 ---
 ## Overview
 

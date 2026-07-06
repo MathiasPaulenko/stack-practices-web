@@ -30,27 +30,6 @@ seo:
     - migration
     - schema
     - zero-downtime
-    - /docs/database-schema-documentation-template
-    - /recipes/sql-find-duplicate-rows
-    - /recipes/sql-index-optimization-analysis
-    - /recipes/sql-partitioning-strategies
-    - /recipes/sql-recursive-cte-query
-    - databases
-    - sql
-    - postgresql
-    - migration
-    - schema
-    - zero-downtime
-    - /docs/database-schema-documentation-template
-    - /recipes/sql-find-duplicate-rows
-    - /recipes/sql-index-optimization-analysis
-    - /recipes/sql-partitioning-strategies
-    - /recipes/sql-recursive-cte-query
-    - sql
-    - postgresql
-    - migration
-    - schema
-    - zero-downtime
 ---
 
 

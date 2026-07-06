@@ -30,27 +30,6 @@ seo:
     - postgresql
     - hierarchy
     - trees
-    - /guides/sql-cte-guide
-    - /recipes/sql-find-duplicate-rows
-    - /docs/database-schema-documentation-template
-    - /guides/full-text-search-guide
-    - /guides/read-replica-guide
-    - databases
-    - sql
-    - recursive-cte
-    - postgresql
-    - hierarchy
-    - trees
-    - /guides/sql-cte-guide
-    - /recipes/sql-find-duplicate-rows
-    - /docs/database-schema-documentation-template
-    - /guides/full-text-search-guide
-    - /guides/read-replica-guide
-    - sql
-    - recursive-cte
-    - postgresql
-    - hierarchy
-    - trees
 ---
 
 

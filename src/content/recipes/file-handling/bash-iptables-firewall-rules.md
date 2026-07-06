@@ -30,16 +30,6 @@ seo:
     - firewall
     - security
     - linux
-    - /recipes/bash-backup-rotation-script
-    - /recipes/bash-monitoring-disk-usage
-    - /recipes/bash-ssh-key-management
-    - /recipes/bash-scripting-automation
-    - /recipes/bash-log-rotation-compression
-    - bash
-    - iptables
-    - firewall
-    - security
-    - linux
 ---
 ## Overview
 
