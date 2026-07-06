@@ -34,7 +34,7 @@ seo:
 
 Crear objetos directamente con `new` es el enfoque más simple: `new DatabaseConnection("postgres://...")`. También es el más rígido. El llamador conoce la clase exacta, la firma del constructor y las dependencias requeridas. Si el driver de base de datos cambia, cada sitio de llamada debe actualizarse. Si la conexión necesita un pool en lugar de una conexión directa, cada declaración `new` se rompe. Si quieres testear el llamador con una base de datos mock, no puedes — la palabra `new` hardcodea la clase concreta.
 
-El factory pattern mueve la creación de objetos a un método o clase dedicado. El llamador solicita un objeto de la factory, no de un constructor. La factory decide qué clase concreta instanciar, cómo conectar dependencias y qué configuraciones por defecto aplicar. El llamador depende de una abstracción (interfaz o clase abstracta), no de una implementación concreta. Esta receta cubre factory methods, abstract factories y ejemplos prácticos en TypeScript, Java y Python.
+El factory pattern mueve la creación de objetos a un método o clase dedicado. El llamador solicita un objeto de la factory, no de un constructor. La factory decide qué clase concreta instanciar, cómo conectar dependencias y qué configuraciones por defecto aplicar. El llamador depende de una abstracción (interfaz o clase abstracta), no de una implementación concreta. Lo siguiente cubre factory methods, abstract factories y ejemplos prácticos en TypeScript, Java y Python.
 
 ## Cuándo usarlo
 

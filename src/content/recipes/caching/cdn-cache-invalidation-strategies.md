@@ -32,7 +32,7 @@ seo:
 
 # CDN Cache Invalidation Strategies and Patterns
 
-CDN caching reduces latency and origin load, but cached content can become stale. Invalidation tells the CDN to fetch a fresh copy from the origin. This recipe covers four invalidation strategies — URL purge, surrogate key (tag-based) invalidation, versioned URLs, and soft purge — with code examples for Cloudflare and Fastly.
+CDN caching reduces latency and origin load, but cached content can become stale. Invalidation tells the CDN to fetch a fresh copy from the origin. This approach handles four invalidation strategies — URL purge, surrogate key (tag-based) invalidation, versioned URLs, and soft purge — with code examples for Cloudflare and Fastly.
 
 ## When to Use This
 

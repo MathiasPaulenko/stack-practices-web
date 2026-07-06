@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-Content Security Policy (CSP) is a browser security mechanism that restricts what resources a page can load and execute. It is the primary defense against XSS (Cross-Site Scripting) and data injection attacks. CSP tells the browser which sources are trusted for scripts, styles, images, fonts, connections, and frames. This guide covers CSP directives, nonces, hashes, reporting, strict-dynamic, and production deployment patterns.
+Content Security Policy (CSP) is a browser security mechanism that restricts what resources a page can load and execute. It is the primary defense against XSS (Cross-Site Scripting) and data injection attacks. CSP tells the browser which sources are trusted for scripts, styles, images, fonts, connections, and frames. Below is a practical guide to CSP directives, nonces, hashes, reporting, strict-dynamic, and production deployment patterns.
 
 ## How CSP Works
 

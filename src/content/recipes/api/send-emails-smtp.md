@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Email remains the backbone of user communication: password resets, order confirmations, newsletters, and alerts. Sending email via SMTP gives you full control over deliverability, templating, and tracking. This recipe covers sending plain text, HTML, and templated emails with attachments using Python, JavaScript, and Java.
+Email remains the backbone of user communication: password resets, order confirmations, newsletters, and alerts. Sending email via SMTP gives you full control over deliverability, templating, and tracking. The solution below covers sending plain text, HTML, and templated emails with attachments using Python, JavaScript, and Java.
 
 ## When to Use
 

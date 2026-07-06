@@ -40,7 +40,7 @@ seo:
 
 ## Introduction
 
-API versioning lets you evolve an API without breaking existing clients. The right strategy depends on your API type (REST vs GraphQL), client base (internal vs public), and release cadence. This guide covers the four main REST versioning approaches, GraphQL schema evolution, deprecation workflows, and migration patterns.
+API versioning lets you evolve an API without breaking existing clients. The right strategy depends on your API type (REST vs GraphQL), client base (internal vs public), and release cadence. Below is a practical guide to the four main REST versioning approaches, GraphQL schema evolution, deprecation workflows, and migration patterns.
 
 ## Why Version APIs?
 

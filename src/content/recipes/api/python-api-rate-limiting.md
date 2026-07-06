@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Rate limiting protects APIs from abuse, prevents DoS attacks, and ensures fair resource allocation. The token bucket algorithm is one of the most common approaches: it allows bursts of traffic while maintaining a steady average rate. This recipe covers implementing token bucket rate limiting in Flask and FastAPI, with both in-memory and Redis-backed distributed variants.
+Rate limiting protects APIs from abuse, prevents DoS attacks, and ensures fair resource allocation. The token bucket algorithm is one of the most common approaches: it allows bursts of traffic while maintaining a steady average rate. This approach handles implementing token bucket rate limiting in Flask and FastAPI, with both in-memory and Redis-backed distributed variants.
 
 ## When to Use
 

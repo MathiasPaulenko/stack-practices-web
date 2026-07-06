@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-File uploads are a common attack vector in web applications. Without proper validation, attackers can upload malicious files, overwrite system files, or execute arbitrary code. This recipe covers validating file type, size, extension, and content using multer in Node.js Express applications.
+File uploads are a common attack vector in web applications. Without proper validation, attackers can upload malicious files, overwrite system files, or execute arbitrary code. This approach handles validating file type, size, extension, and content using multer in Node.js Express applications.
 
 ## When to Use
 

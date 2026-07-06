@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-Caching is the single most useful way to speed up read-heavy applications. Redis is an in-memory data structure store that works as a high-performance cache, reducing database load and cutting response times from hundreds of milliseconds to microseconds. This recipe covers the cache-aside pattern, TTL management, serialization, and invalidation strategies in Python, JavaScript, and Java.
+Caching is the single most useful way to speed up read-heavy applications. Redis is an in-memory data structure store that works as a high-performance cache, reducing database load and cutting response times from hundreds of milliseconds to microseconds. Here is how to the cache-aside pattern, TTL management, serialization, and invalidation strategies in Python, JavaScript, and Java.
 
 ## When to Use
 

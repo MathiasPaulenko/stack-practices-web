@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-RabbitMQ is a widely used message broker that implements AMQP (Advanced Message Queuing Protocol). It excels at routing messages between producers and consumers with flexible exchange types, reliable delivery guarantees, and rich queue features. This guide covers RabbitMQ architecture, exchange types, routing patterns, and production best practices.
+RabbitMQ is a widely used message broker that implements AMQP (Advanced Message Queuing Protocol). It excels at routing messages between producers and consumers with flexible exchange types, reliable delivery guarantees, and rich queue features. The following guide covers RabbitMQ architecture, exchange types, routing patterns, and production best practices.
 
 ## RabbitMQ Architecture
 

@@ -31,7 +31,7 @@ seo:
 
 # Configure HTTP Cache-Control Headers for APIs and Static Assets
 
-HTTP caching headers tell browsers and CDNs how long to cache a response, when to revalidate, and whether the response can be served from a shared cache. Properly configured headers reduce latency, lower origin load, and improve Core Web Vitals. This recipe covers `Cache-Control`, `ETag`, `Last-Modified`, and `stale-while-revalidate` for both API responses and static assets.
+HTTP caching headers tell browsers and CDNs how long to cache a response, when to revalidate, and whether the response can be served from a shared cache. Properly configured headers reduce latency, lower origin load, and improve Core Web Vitals. The solution below covers `Cache-Control`, `ETag`, `Last-Modified`, and `stale-while-revalidate` for both API responses and static assets.
 
 ## When to Use This
 

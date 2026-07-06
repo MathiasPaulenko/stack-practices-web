@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Code coverage measures which lines, branches, and conditions were executed during tests. It is a useful proxy for untested code, but not a measure of test quality — 100% coverage with no assertions is meaningless. This recipe shows how to collect, report, and set meaningful coverage thresholds without creating perverse incentives.
+Code coverage measures which lines, branches, and conditions were executed during tests. It is a useful proxy for untested code, but not a measure of test quality — 100% coverage with no assertions is meaningless. Below is the idiomatic way to how to collect, report, and set meaningful coverage thresholds without creating perverse incentives.
 
 ## When to Use
 

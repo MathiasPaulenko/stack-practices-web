@@ -33,7 +33,7 @@ seo:
 
 Rate limiting is a defensive technique that controls how many requests a client can make to an API or web endpoint within a given time window. Without rate limiting, a single misbehaving client — whether malicious or accidentally buggy — can exhaust backend resources, starve legitimate users, and trigger [cascading failures](/patterns/design/circuit-breaker-pattern) across distributed systems.
 
-Useful rate limiting is implemented at multiple layers: [API gateway](/recipes/api/nginx-reverse-proxy) (edge), application middleware (service), and database (query throttling). Each layer uses different algorithms suited to different trade-offs. Token bucket allows bursts, sliding window provides precision, and fixed window is simple but vulnerable to stampede at window boundaries. This recipe covers implementations from in-memory single-node to distributed Redis-backed limiting.
+Useful rate limiting is implemented at multiple layers: [API gateway](/recipes/api/nginx-reverse-proxy) (edge), application middleware (service), and database (query throttling). Each layer uses different algorithms suited to different trade-offs. Token bucket allows bursts, sliding window provides precision, and fixed window is simple but vulnerable to stampede at window boundaries. The following demonstrates how to implementations from in-memory single-node to distributed Redis-backed limiting.
 
 ## When to use it
 

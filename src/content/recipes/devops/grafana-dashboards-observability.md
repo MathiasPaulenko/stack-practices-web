@@ -31,7 +31,7 @@ seo:
 
 # Observability Dashboards with Grafana and Prometheus
 
-Create rich, interactive dashboards in Grafana to visualize Prometheus metrics and understand service behavior at a glance. This recipe covers panel types, template variables, row organization, and dashboard-as-code practices for consistent observability across teams.
+Create rich, interactive dashboards in Grafana to visualize Prometheus metrics and understand service behavior at a glance. Below is a practical approach to panel types, template variables, row organization, and dashboard-as-code practices for consistent observability across teams.
 
 ## When to Use This
 

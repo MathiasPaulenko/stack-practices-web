@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-GraphQL APIs are capable for clients and dangerous for attackers. A single endpoint accepts arbitrary queries, which means the server must defend against queries that are deeply nested, excessively complex, or designed to extract sensitive data. REST APIs limit exposure through fixed endpoints; GraphQL exposes the full schema and lets clients construct any query. This guide covers the attack surface and the defenses you need in production.
+GraphQL APIs are capable for clients and dangerous for attackers. A single endpoint accepts arbitrary queries, which means the server must defend against queries that are deeply nested, excessively complex, or designed to extract sensitive data. REST APIs limit exposure through fixed endpoints; GraphQL exposes the full schema and lets clients construct any query. The following walks through the attack surface and the defenses you need in production.
 
 ## Attack Surface
 

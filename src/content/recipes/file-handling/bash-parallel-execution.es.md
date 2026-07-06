@@ -34,7 +34,7 @@ seo:
 
 ## Descripción General
 
-Las máquinas modernas tienen múltiples núcleos de CPU, pero muchos scripts de shell corren secuencialmente, dejando la mayoría de los núcleos inactivos. La ejecución paralela puede reducir el tiempo de procesamiento por batch en un 4-10x, pero el paralelismo sin control agota memoria, sobrecarga APIs o activa límites de tasa. Esta receta muestra patrones seguros para ejecución paralela en Bash.
+Las máquinas modernas tienen múltiples núcleos de CPU, pero muchos scripts de shell corren secuencialmente, dejando la mayoría de los núcleos inactivos. La ejecución paralela puede reducir el tiempo de procesamiento por batch en un 4-10x, pero el paralelismo sin control agota memoria, sobrecarga APIs o activa límites de tasa. El patron a continuacion demuestra patrones seguros para ejecución paralela en Bash.
 
 ## Cuándo Usar
 

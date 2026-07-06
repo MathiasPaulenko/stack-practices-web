@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Terraform es el standard para infrastructure as code. Pero manejar Terraform en production requiere mas que escribir HCL files. Esta guia cubre modules, state management, workspaces, drift detection, remote backends, variable validation, policy as code, y CI/CD integration.
+Terraform es el standard para infrastructure as code. Pero manejar Terraform en production requiere mas que escribir HCL files. Lo siguiente recorre modules, state management, workspaces, drift detection, remote backends, variable validation, policy as code, y CI/CD integration.
 
 ## Project Structure
 

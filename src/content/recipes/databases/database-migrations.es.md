@@ -35,7 +35,7 @@ seo:
 
 Las migraciones de base de datos rastrean, versionan y aplican cambios de schema a lo largo del tiempo. Sin un sistema de migración, los cambios de schema se aplican manualmente a través de scripts SQL ad-hoc, sesiones SSH y oración. Esto lleva a entornos que divergen, fallas de deployment y outages en producción causados por índices olvidados o columnas faltantes.
 
-Una herramienta de migración convierte los cambios de schema en scripts versionados, repetibles y reversibles. Cada migración está numerada o timestamped, trackeada en una tabla de historial dedicada, y aplicada automáticamente durante el deployment. Los rollbacks están scripteados y testeados, no improvisados. Esta receta cubre las tres herramientas más ampliamente adoptadas: Flyway (JVM), Alembic (Python) y Liquibase (multi-lenguaje).
+Una herramienta de migración convierte los cambios de schema en scripts versionados, repetibles y reversibles. Cada migración está numerada o timestamped, trackeada en una tabla de historial dedicada, y aplicada automáticamente durante el deployment. Los rollbacks están scripteados y testeados, no improvisados. La solucion a continuacion cubre las tres herramientas más ampliamente adoptadas: Flyway (JVM), Alembic (Python) y Liquibase (multi-lenguaje).
 
 ## Cuándo usarlo
 

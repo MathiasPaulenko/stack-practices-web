@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Apache Kafka es una plataforma de event streaming distribuida usada por miles de empresas para pipelines de datos en tiempo real, arquitecturas event-driven, y streaming analytics. Ejecutar Kafka en produccion requiere entender particiones, replicacion, consumer groups, y concerns operativos. Esta guia cubre todo lo que necesitas para operar Kafka de forma confiable a escala.
+Apache Kafka es una plataforma de event streaming distribuida usada por miles de empresas para pipelines de datos en tiempo real, arquitecturas event-driven, y streaming analytics. Ejecutar Kafka en produccion requiere entender particiones, replicacion, consumer groups, y concerns operativos. A continuacion se cubre todo lo que necesitas para operar Kafka de forma confiable a escala.
 
 ## Fundamentos de Arquitectura Kafka
 

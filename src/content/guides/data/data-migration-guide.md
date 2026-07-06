@@ -39,7 +39,7 @@ seo:
 
 Data migration is the process of moving data from one system, schema, or format to another. Unlike code deployments, data migrations are irreversible: once data is transformed or moved, rolling back requires another migration. Poorly executed migrations cause data loss, corruption, or extended downtime.
 
-This guide covers proven patterns for migrating data safely, including dual writes, backfills, schema evolution, and validation strategies.
+The following guide covers proven patterns for migrating data safely, including dual writes, backfills, schema evolution, and validation strategies.
 
 ## When to Use
 

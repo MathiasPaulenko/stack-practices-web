@@ -37,7 +37,7 @@ seo:
 
 ## Introduction
 
-Clean code is code that is easy to read, understand, and modify. It is written for humans, not compilers. The principles come from Robert C. Martin's "Clean Code" and decades of software engineering practice. This guide covers naming, functions, classes, comments, formatting, error handling, and production patterns.
+Clean code is code that is easy to read, understand, and modify. It is written for humans, not compilers. The principles come from Robert C. Martin's "Clean Code" and decades of software engineering practice. The following guide covers naming, functions, classes, comments, formatting, error handling, and production patterns.
 
 ## Meaningful Names
 

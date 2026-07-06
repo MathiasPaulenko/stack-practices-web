@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Authentication is the front door of every application. Getting it wrong means data breaches, account takeovers, and compliance violations. This guide covers JWT, OAuth2, session-based auth, passkeys (WebAuthn), MFA, refresh token rotation, RBAC/ABAC, and SSO patterns with production-ready code.
+Authentication is the front door of every application. Getting it wrong means data breaches, account takeovers, and compliance violations. The following walks through JWT, OAuth2, session-based auth, passkeys (WebAuthn), MFA, refresh token rotation, RBAC/ABAC, and SSO patterns with production-ready code.
 
 ## JWT Authentication
 

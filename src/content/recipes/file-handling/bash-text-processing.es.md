@@ -35,7 +35,7 @@ seo:
 
 ## Descripción General
 
-Las herramientas de procesamiento de texto Unix están diseñadas para componerse en pipelines: cada herramienta hace una cosa bien, y el shell las conecta con pipes. Una sola línea de Bash puede reemplazar cientos de líneas de Python o JavaScript para análisis de logs, extracción de datos y generación de reportes. Esta receta cubre las herramientas esenciales y cómo combinarlas de forma segura.
+Las herramientas de procesamiento de texto Unix están diseñadas para componerse en pipelines: cada herramienta hace una cosa bien, y el shell las conecta con pipes. Una sola línea de Bash puede reemplazar cientos de líneas de Python o JavaScript para análisis de logs, extracción de datos y generación de reportes. El siguiente enfoque cubre las herramientas esenciales y cómo combinarlas de forma segura.
 
 ## Cuándo Usar
 

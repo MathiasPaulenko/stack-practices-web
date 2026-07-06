@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-Los fallos transitorios —timeouts de red, rate limits, cortes temporales de servicio— son inevitables en sistemas distribuidos. Reintentar inmediatamente puede sobrecargar servicios que ya están luchando. El backoff exponencial espacia los reintentos de forma exponencial (1s, 2s, 4s, 8s...) mientras que el jitter aleatoriza los tiempos de espera para prevenir manadas de reintentos sincronizados (thundering herd). Esta receta cubre la construcción de un decorador de retry confiable con estrategias de backoff configurables, integración con circuit breaker y conciencia de idempotencia en Python, JavaScript y Java.
+Los fallos transitorios —timeouts de red, rate limits, cortes temporales de servicio— son inevitables en sistemas distribuidos. Reintentar inmediatamente puede sobrecargar servicios que ya están luchando. El backoff exponencial espacia los reintentos de forma exponencial (1s, 2s, 4s, 8s...) mientras que el jitter aleatoriza los tiempos de espera para prevenir manadas de reintentos sincronizados (thundering herd). Lo siguiente cubre la construcción de un decorador de retry confiable con estrategias de backoff configurables, integración con circuit breaker y conciencia de idempotencia en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

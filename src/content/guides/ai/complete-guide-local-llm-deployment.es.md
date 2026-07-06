@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Correr LLMs localmente te da privacy, control, zero per-token costs, y no rate limits. Con tools como Ollama, vLLM, y llama.cpp, desplegar open-source models (Llama, Mistral, Qwen) es straightforward. Esta guia cubre el espectro completo de despliegue local de LLM: elegir tools, model quantization, GPU requirements, API servers, performance tuning, y decidir cuando ir local vs cloud.
+Correr LLMs localmente te da privacy, control, zero per-token costs, y no rate limits. Con tools como Ollama, vLLM, y llama.cpp, desplegar open-source models (Llama, Mistral, Qwen) es straightforward. Lo siguiente es una guia practica para el espectro completo de despliegue local de LLM: elegir tools, model quantization, GPU requirements, API servers, performance tuning, y decidir cuando ir local vs cloud.
 
 ## Comparacion de Tools
 

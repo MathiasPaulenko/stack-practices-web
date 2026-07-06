@@ -39,7 +39,7 @@ seo:
 
 HMAC (Hash-based Message Authentication Code) provides message integrity and authentication. By signing API requests with a shared secret, the server can verify the request was not tampered with in transit and originated from a trusted client.
 
-This recipe implements HMAC-SHA256 request signing and AWS Signature v4 authentication patterns across Python, JavaScript, and Java.
+Below is an implementation of HMAC-SHA256 request signing and AWS Signature v4 authentication patterns across Python, JavaScript, and Java.
 
 ## When to Use
 

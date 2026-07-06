@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Debouncing and throttling are [rate-limiting](/recipes/security/rate-limiting) techniques that control how often a function executes in response to rapid, repeated triggers. Debounce waits for a burst of events to settle before firing once. Throttle guarantees execution at most once per time window. Use debounce for search inputs (fire after user stops typing); use throttle for scroll or resize handlers (fire every N milliseconds). This recipe covers implementations with configurable leading/trailing edges, cancellation, and both synchronous and async variants in Python, JavaScript, and Java.
+Debouncing and throttling are [rate-limiting](/recipes/security/rate-limiting) techniques that control how often a function executes in response to rapid, repeated triggers. Debounce waits for a burst of events to settle before firing once. Throttle guarantees execution at most once per time window. Use debounce for search inputs (fire after user stops typing); use throttle for scroll or resize handlers (fire every N milliseconds). Here is how to implementations with configurable leading/trailing edges, cancellation, and both synchronous and async variants in Python, JavaScript, and Java.
 
 ## When to Use
 

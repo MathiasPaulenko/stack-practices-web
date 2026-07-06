@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-WebSockets provide full-duplex, bidirectional communication channels over a single TCP connection, enabling real-time interaction between browsers and servers. Unlike HTTP request/response cycles, a WebSocket connection stays open, allowing both parties to push messages at any time with minimal overhead. This recipe covers building WebSocket servers in Python, JavaScript (Node.js), and Java (Spring Boot), including connection management, heartbeat keepalive, message broadcasting, and room/channel-based messaging.
+WebSockets provide full-duplex, bidirectional communication channels over a single TCP connection, enabling real-time interaction between browsers and servers. Unlike HTTP request/response cycles, a WebSocket connection stays open, allowing both parties to push messages at any time with minimal overhead. This approach handles building WebSocket servers in Python, JavaScript (Node.js), and Java (Spring Boot), including connection management, heartbeat keepalive, message broadcasting, and room/channel-based messaging.
 
 ## When to Use
 

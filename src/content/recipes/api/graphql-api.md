@@ -38,7 +38,7 @@ seo:
 
 GraphQL is a query language and runtime for APIs that allows clients to request exactly the data they need. Unlike REST, where the server defines the response structure, GraphQL puts the client in control — reducing over-fetching and under-fetching while providing strong typing through schemas.
 
-This recipe covers building a production-ready GraphQL API with type-safe schemas, resolvers, mutations, and subscriptions across Python, JavaScript, and Java.
+Here is how to building a production-ready GraphQL API with type-safe schemas, resolvers, mutations, and subscriptions across Python, JavaScript, and Java.
 
 ## When to Use
 

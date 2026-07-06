@@ -33,7 +33,7 @@ seo:
 
 Unit tests validate the smallest testable pieces of your code — usually a single function or method — in isolation from external dependencies. A good unit test is fast, deterministic, and readable enough to serve as living documentation.
 
-This recipe shows how to write idiomatic unit tests in Python (pytest), JavaScript (Jest), and Java (JUnit 5).
+The following demonstrates how to write idiomatic unit tests in Python (pytest), JavaScript (Jest), and Java (JUnit 5).
 
 ## When to Use
 

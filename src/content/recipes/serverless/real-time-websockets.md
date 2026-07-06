@@ -33,7 +33,7 @@ seo:
 
 Traditional HTTP request-response cycles are insufficient for applications that require live updates — chat rooms, live dashboards, multiplayer games, stock tickers, and collaborative editing. WebSockets provide a persistent, bidirectional TCP connection between client and server, enabling messages to flow in both directions without the overhead of repeated handshakes.
 
-On serverless architectures, WebSockets require connection state management because Lambda functions are ephemeral. AWS API Gateway WebSocket API handles the WebSocket protocol layer, while a DynamoDB table tracks active connections. Lambda functions process `$connect`, `$disconnect`, and custom routes, broadcasting messages to targeted connection IDs. This recipe covers the full implementation from infrastructure to client code.
+On serverless architectures, WebSockets require connection state management because Lambda functions are ephemeral. AWS API Gateway WebSocket API handles the WebSocket protocol layer, while a DynamoDB table tracks active connections. Lambda functions process `$connect`, `$disconnect`, and custom routes, broadcasting messages to targeted connection IDs. Here is how to the full implementation from infrastructure to client code.
 
 ## When to use it
 

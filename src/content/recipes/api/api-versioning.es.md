@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-Las APIs evolucionan: se añaden campos, cambian las formas de respuesta y se [deprecan](/docs/api/api-deprecation-notice-template) endpoints. Sin una estrategia de versionado, estos cambios rompen clientes existentes. Esta receta cubre los tres enfoques dominantes de versionado — ruta URL, header personalizado y negociación de contenido (media type) — con implementación de middleware en Python, JavaScript y Java. También cubre políticas de deprecación y patrones de cambio compatible hacia atrás.
+Las APIs evolucionan: se añaden campos, cambian las formas de respuesta y se [deprecan](/docs/api/api-deprecation-notice-template) endpoints. Sin una estrategia de versionado, estos cambios rompen clientes existentes. Lo siguiente cubre los tres enfoques dominantes de versionado — ruta URL, header personalizado y negociación de contenido (media type) — con implementación de middleware en Python, JavaScript y Java. También cubre políticas de deprecación y patrones de cambio compatible hacia atrás.
 
 ## Cuándo Usar
 

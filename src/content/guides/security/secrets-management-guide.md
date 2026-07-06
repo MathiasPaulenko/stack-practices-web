@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Secrets — passwords, API keys, tokens, certificates — are the keys to your kingdom. Storing them in source code, configuration files, or environment variables is a common source of breaches. Proper secrets management ensures credentials are encrypted, rotated, audited, and accessible only to authorized services and users. This guide covers the leading secret management solutions and the practices that make them useful.
+Secrets — passwords, API keys, tokens, certificates — are the keys to your kingdom. Storing them in source code, configuration files, or environment variables is a common source of breaches. Proper secrets management ensures credentials are encrypted, rotated, audited, and accessible only to authorized services and users. The following walks through the leading secret management solutions and the practices that make them useful.
 
 ## When to Use
 

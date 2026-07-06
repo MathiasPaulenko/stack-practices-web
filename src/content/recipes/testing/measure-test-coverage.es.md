@@ -35,7 +35,7 @@ seo:
 
 ## Descripción General
 
-La cobertura de código mide qué líneas, branches y condiciones fueron ejecutadas durante los tests. Es un proxy útil para código no testeado, pero no una medida de calidad de test — 100% de cobertura sin assertions es meaningless. Esta receta muestra cómo recolectar, reportar y configurar thresholds de cobertura significativos sin crear incentivos perversos.
+La cobertura de código mide qué líneas, branches y condiciones fueron ejecutadas durante los tests. Es un proxy útil para código no testeado, pero no una medida de calidad de test — 100% de cobertura sin assertions es meaningless. El patron a continuacion demuestra cómo recolectar, reportar y configurar thresholds de cobertura significativos sin crear incentivos perversos.
 
 ## Cuándo Usar
 

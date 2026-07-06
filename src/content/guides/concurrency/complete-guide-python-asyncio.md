@@ -40,7 +40,7 @@ seo:
 
 ## Introduction
 
-Asyncio is Python's framework for writing concurrent code using async/await syntax. It uses a single-threaded event loop to manage multiple coroutines, making it ideal for I/O-bound workloads like HTTP requests, database queries, and websocket connections. This guide covers coroutines, tasks, the event loop, concurrency primitives, async HTTP clients, websockets, and debugging.
+Asyncio is Python's framework for writing concurrent code using async/await syntax. It uses a single-threaded event loop to manage multiple coroutines, making it ideal for I/O-bound workloads like HTTP requests, database queries, and websocket connections. This guide walks through coroutines, tasks, the event loop, concurrency primitives, async HTTP clients, websockets, and debugging.
 
 ## Coroutines and async/await
 

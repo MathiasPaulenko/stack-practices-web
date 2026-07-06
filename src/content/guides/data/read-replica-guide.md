@@ -40,7 +40,7 @@ seo:
 
 Read replicas are copies of your primary database that handle read-only queries. They are the simplest and most cost-effective way to scale read-heavy database workloads. By offloading SELECT queries to replicas, you reduce load on the primary, improve response times, and increase availability.
 
-This guide covers replication setup, query routing, replication lag management, and what works operationally.
+Below is a practical guide to replication setup, query routing, replication lag management, and what works operationally.
 
 ## When to Use
 

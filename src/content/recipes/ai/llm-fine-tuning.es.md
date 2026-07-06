@@ -36,7 +36,7 @@ seo:
 
 El fine-tuning adapta un modelo de lenguaje pre-entrenado a una tarea o dominio específico continuando el entrenamiento con un dataset más pequeño y curado. Para generación de código, esto significa enseñarle al modelo los patrones de API de tu empresa, bibliotecas internas o estándares de codificación. Métodos eficientes en parámetros como LoRA y QLoRA permiten hacer fine-tuning de modelos de miles de millones de parámetros en una sola GPU actualizando solo una fracción mínima de pesos.
 
-Esta receta cubre la preparación de un dataset de código, fine-tuning con LoRA/QLoRA usando Hugging Face y la evaluación del modelo resultante.
+El siguiente enfoque cubre la preparación de un dataset de código, fine-tuning con LoRA/QLoRA usando Hugging Face y la evaluación del modelo resultante.
 
 ## Cuándo Usar
 

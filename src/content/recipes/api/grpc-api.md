@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-gRPC is a high-performance RPC framework that uses Protocol Buffers for serialization and HTTP/2 for transport. It is much faster than REST for service-to-service communication, supports bidirectional streaming, and generates client/server stubs from a single schema definition. This recipe covers defining a `.proto` file, implementing unary and streaming services, and adding interceptors for cross-cutting concerns.
+gRPC is a high-performance RPC framework that uses Protocol Buffers for serialization and HTTP/2 for transport. It is much faster than REST for service-to-service communication, supports bidirectional streaming, and generates client/server stubs from a single schema definition. Below is a practical approach to defining a `.proto` file, implementing unary and streaming services, and adding interceptors for cross-cutting concerns.
 
 ## When to Use
 

@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-gRPC es un framework RPC de alto rendimiento que usa Protocol Buffers para serialización y HTTP/2 para transporte. Es mucho más rápido que REST para comunicación entre servicios, soporta streaming bidireccional y genera stubs de cliente/servidor desde una sola definición de esquema. Esta receta cubre definir un archivo `.proto`, implementar servicios unarios y de streaming, y agregar interceptores para preocupaciones transversales.
+gRPC es un framework RPC de alto rendimiento que usa Protocol Buffers para serialización y HTTP/2 para transporte. Es mucho más rápido que REST para comunicación entre servicios, soporta streaming bidireccional y genera stubs de cliente/servidor desde una sola definición de esquema. El siguiente enfoque cubre definir un archivo `.proto`, implementar servicios unarios y de streaming, y agregar interceptores para preocupaciones transversales.
 
 ## Cuándo Usar
 

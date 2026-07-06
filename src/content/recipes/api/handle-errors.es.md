@@ -33,7 +33,7 @@ seo:
 
 El manejo de errores es lo que separa a las APIs fiableas de las frágiles. Una respuesta de error bien diseñada le dice al cliente exactamente qué salió mal, qué hacer al respecto y cómo evitarlo en el futuro, sin filtrar detalles internos de implementación.
 
-Esta receta cubre el formato estándar de respuesta de error (RFC 7807 Problem Details), la selección correcta de códigos de estado HTTP y patrones de implementación idiomáticos en Python, JavaScript y Java.
+A continuacion se cubre el formato estándar de respuesta de error (RFC 7807 Problem Details), la selección correcta de códigos de estado HTTP y patrones de implementación idiomáticos en Python, JavaScript y Java.
 
 ## When to Use
 

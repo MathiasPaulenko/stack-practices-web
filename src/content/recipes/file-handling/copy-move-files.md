@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Copying and moving files is a staple operation in automation, deployment, and data pipelines. Doing it safely across platforms requires attention to path separators, permissions, and atomicity. This recipe shows reliable patterns in Python, JavaScript, and Java.
+Copying and moving files is a staple operation in automation, deployment, and data pipelines. Doing it safely across platforms requires attention to path separators, permissions, and atomicity. Below is the idiomatic way to reliable patterns in Python, JavaScript, and Java.
 
 ## When to Use
 

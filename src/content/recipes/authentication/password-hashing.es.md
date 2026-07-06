@@ -41,7 +41,7 @@ Algoritmos modernos como bcrypt, Argon2 y PBKDF2 son intencionalmente lentos par
 
 Las consecuencias de hacer esto mal son severas. Las filtraciones de datos que involucran contraseñas en texto plano o hashes débiles exponen millones de cuentas de usuario a ataques de credential stuffing, donde los atacantes prueban contraseñas filtradas en otros servicios. Filtraciones de alto perfil han demostrado que incluso organizaciones grandes son víctimas de almacenamiento incorrecto de contraseñas. El hashing no es una decoración opcional — es un control de seguridad fundamental que protege a tus usuarios incluso cuando tu base de datos es comprometida.
 
-Esta receta cubre los tres ecosistemas de lenguaje más comunes y explica cómo elegir el algoritmo correcto para tu modelo de amenazas.
+A continuacion se cubre los tres ecosistemas de lenguaje más comunes y explica cómo elegir el algoritmo correcto para tu modelo de amenazas.
 
 ## Cuándo usarlo
 

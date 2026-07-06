@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-Log files grow without limit. Without rotation, a single log file can fill the disk and crash the application. This recipe covers two approaches: using `logrotate` (the Linux standard) and writing a custom bash script for environments where `logrotate` is not available.
+Log files grow without limit. Without rotation, a single log file can fill the disk and crash the application. Below is a practical approach to two approaches: using `logrotate` (the Linux standard) and writing a custom bash script for environments where `logrotate` is not available.
 
 ## When to Use
 

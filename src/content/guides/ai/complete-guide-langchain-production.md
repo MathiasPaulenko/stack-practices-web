@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-LangChain is the most popular framework for building LLM applications. It provides abstractions for chains, agents, memory, tools, and retrieval. Running LangChain in production requires understanding LCEL (LangChain Expression Language), streaming, callbacks, error handling, and evaluation. This guide covers the full spectrum of LangChain in production with practical patterns.
+LangChain is the most popular framework for building LLM applications. It provides abstractions for chains, agents, memory, tools, and retrieval. Running LangChain in production requires understanding LCEL (LangChain Expression Language), streaming, callbacks, error handling, and evaluation. The following guide covers the full spectrum of LangChain in production with practical patterns.
 
 ## LangChain Expression Language (LCEL)
 

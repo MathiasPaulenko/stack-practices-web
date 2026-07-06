@@ -31,7 +31,7 @@ seo:
 
 # Build a Slack Bot with OpenAI GPT-4
 
-A Slack bot powered by a large language model can answer questions, summarize threads, and execute commands through natural language. For a general chatbot implementation, see [Chatbot with OpenAI](/recipes/ai/chatbot-openai). This recipe shows how to build one using the Slack Bolt framework and OpenAI's GPT-4 API.
+A Slack bot powered by a large language model can answer questions, summarize threads, and execute commands through natural language. For a general chatbot implementation, see [Chatbot with OpenAI](/recipes/ai/chatbot-openai). Below is the idiomatic way to how to build one using the Slack Bolt framework and OpenAI's GPT-4 API.
 
 ## When to Use This
 

@@ -37,7 +37,7 @@ seo:
 
 REST (Representational State Transfer) is the dominant architectural style for designing networked applications. A well-designed REST API is predictable, self-descriptive, and easy to consume across multiple clients.
 
-This guide covers the foundational principles and practical decisions that separate amateur APIs from production-grade ones.
+The following guide covers the foundational principles and practical decisions that separate amateur APIs from production-grade ones.
 
 ## When to Use
 

@@ -36,7 +36,7 @@ seo:
 
 La búsqueda semántica encuentra documentos basándose en significado en lugar de coincidencias exactas de palabras clave. Una consulta como "mejor laptop para programación" devuelve documentos sobre estaciones de trabajo de desarrollador incluso si nunca usan la palabra "laptop". Esto se logra convirtiendo texto en vectores densos (embeddings) y realizando búsqueda de similitud en ese espacio vectorial.
 
-Esta receta implementa búsqueda semántica con embeddings de OpenAI, sentence-transformers y FAISS para recuperación rápida en memoria, más pgvector para despliegues productivos en PostgreSQL.
+A continuacion se implementa búsqueda semántica con embeddings de OpenAI, sentence-transformers y FAISS para recuperación rápida en memoria, más pgvector para despliegues productivos en PostgreSQL.
 
 ## Cuándo Usar
 

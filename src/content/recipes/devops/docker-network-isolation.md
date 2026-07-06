@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-By default, Docker containers on the default bridge network can communicate with each other. This is a security risk: a compromised container can probe or attack other containers on the same host. This recipe shows how to isolate containers using custom networks, internal networks, and access control to limit which containers can talk to each other.
+By default, Docker containers on the default bridge network can communicate with each other. This is a security risk: a compromised container can probe or attack other containers on the same host. The pattern below demonstrates how to isolate containers using custom networks, internal networks, and access control to limit which containers can talk to each other.
 
 ## When to Use
 

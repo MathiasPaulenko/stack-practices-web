@@ -36,7 +36,7 @@ seo:
 ---
 ## Visión General
 
-La idempotencia garantiza que hacer el mismo request a una API múltiples veces produce el mismo resultado que hacerlo una vez, sin crear efectos secundarios duplicados. Esto es esencial en sistemas distribuidos donde fallas de red, timeouts y retries son inevitables. Esta receta cubre el diseño de endpoints idempotentes usando idempotency keys, restricciones de clave natural y verificaciones de máquina de estados en Python, JavaScript y Java.
+La idempotencia garantiza que hacer el mismo request a una API múltiples veces produce el mismo resultado que hacerlo una vez, sin crear efectos secundarios duplicados. Esto es esencial en sistemas distribuidos donde fallas de red, timeouts y retries son inevitables. Lo siguiente cubre el diseño de endpoints idempotentes usando idempotency keys, restricciones de clave natural y verificaciones de máquina de estados en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

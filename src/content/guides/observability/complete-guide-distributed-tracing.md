@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-Distributed tracing tracks a single request as it flows through multiple services, databases, and message queues. In a microservices architecture, a single user request might hit 10+ services before returning a response. When latency spikes or errors occur, logs alone can't tell you which service caused the problem. Distributed tracing gives you a visual timeline of the entire request path, with timing breakdowns for each hop. This guide covers OpenTelemetry instrumentation, Jaeger and Zipkin backends, trace propagation, sampling strategies, and production debugging patterns.
+Distributed tracing tracks a single request as it flows through multiple services, databases, and message queues. In a microservices architecture, a single user request might hit 10+ services before returning a response. When latency spikes or errors occur, logs alone can't tell you which service caused the problem. Distributed tracing gives you a visual timeline of the entire request path, with timing breakdowns for each hop. This guide walks through OpenTelemetry instrumentation, Jaeger and Zipkin backends, trace propagation, sampling strategies, and production debugging patterns.
 
 ## Core Concepts
 

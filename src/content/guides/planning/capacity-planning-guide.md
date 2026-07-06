@@ -41,7 +41,7 @@ seo:
 
 Capacity planning ensures your infrastructure can handle current and future demand without wasting resources. It bridges the gap between reactive firefighting and proactive scaling, helping teams deliver reliable services while controlling costs.
 
-This guide covers demand forecasting, load testing, scaling strategies, and cost-aware capacity decisions for cloud and on-premise systems.
+Below is a practical guide to demand forecasting, load testing, scaling strategies, and cost-aware capacity decisions for cloud and on-premise systems.
 
 ## When to Use
 

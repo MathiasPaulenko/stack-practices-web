@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Autenticacion es la front door de every application. Hacerlo wrong significa data breaches, account takeovers, y compliance violations. Esta guia cubre JWT, OAuth2, session-based auth, passkeys (WebAuthn), MFA, refresh token rotation, RBAC/ABAC, y SSO patterns con production-ready code.
+Autenticacion es la front door de every application. Hacerlo wrong significa data breaches, account takeovers, y compliance violations. Esta guia recorre JWT, OAuth2, session-based auth, passkeys (WebAuthn), MFA, refresh token rotation, RBAC/ABAC, y SSO patterns con production-ready code.
 
 ## JWT Authentication
 

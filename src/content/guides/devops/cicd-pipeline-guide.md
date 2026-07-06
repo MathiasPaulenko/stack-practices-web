@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-CI/CD (Continuous Integration / Continuous Deployment) is the backbone of modern software delivery. This guide covers building pipelines that test, build, and deploy code reliably.
+CI/CD (Continuous Integration / Continuous Deployment) is the backbone of modern software delivery. The following guide covers building pipelines that test, build, and deploy code reliably.
 
 ## When to Use
 

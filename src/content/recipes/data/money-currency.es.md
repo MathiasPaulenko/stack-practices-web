@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-Los cálculos financieros exigen precisión. Los números de punto flotante (`float`, `double`) no pueden representar con exactitud la mayoría de las fracciones decimales, provocando errores de redondeo que se acumulan en sistemas de facturación, cobro y trading. Esta receta cubre la representación de dinero como valores decimales exactos, formateo con símbolos de moneda según locale, aritmética sin pérdida de precisión y conversiones de tipo de cambio en Python, JavaScript y Java.
+Los cálculos financieros exigen precisión. Los números de punto flotante (`float`, `double`) no pueden representar con exactitud la mayoría de las fracciones decimales, provocando errores de redondeo que se acumulan en sistemas de facturación, cobro y trading. A continuacion se cubre la representación de dinero como valores decimales exactos, formateo con símbolos de moneda según locale, aritmética sin pérdida de precisión y conversiones de tipo de cambio en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

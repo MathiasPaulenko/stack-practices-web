@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-La búsqueda de texto completo permite que los usuarios encuentren documentos por relevancia en lugar de coincidencia exacta de subcadenas. A diferencia de `LIKE '%query%'`, que escanea tablas completas, los índices de texto completo tokenizan el contenido y clasifican resultados. Esta receta cubre las implementaciones de PostgreSQL `tsvector`, Elasticsearch y Meilisearch en Python, JavaScript y Java.
+La búsqueda de texto completo permite que los usuarios encuentren documentos por relevancia en lugar de coincidencia exacta de subcadenas. A diferencia de `LIKE '%query%'`, que escanea tablas completas, los índices de texto completo tokenizan el contenido y clasifican resultados. Aqui se explica como las implementaciones de PostgreSQL `tsvector`, Elasticsearch y Meilisearch en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

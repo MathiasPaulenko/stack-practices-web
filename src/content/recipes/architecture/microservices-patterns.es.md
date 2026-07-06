@@ -34,7 +34,7 @@ seo:
 
 Las arquitecturas de microservicios descomponen aplicaciones en servicios independientemente desplegables, cada uno poseyendo un contexto delimitado y comunicándose vía llamadas de red. Esta descomposición habilita autonomía de equipo, diversidad tecnológica y escalado independiente. Pero introduce un problema fundamental: la red es poco confiable. Cada llamada inter-servicio es un punto potencial de fallo — picos de latencia, fallos en cascada, fallas parciales e inconsistencia durante transacciones distribuidas.
 
-Los patrones de resiliencia protegen el sistema de estos modos de fallo. Un circuit breaker deja de enviar requests a un servicio fallido, dándole tiempo para recuperarse. Un bulkhead aísla fallos para que no consuman todos los recursos. Los retries con backoff exponencial manejan fallos transitorios sin sobrecargar servicios en dificultades. El patrón saga reemplaza transacciones distribuidas con secuencias de transacciones locales coordinadas vía eventos. Esta receta cubre la implementación de estos patrones core en múltiples lenguajes y frameworks.
+Los patrones de resiliencia protegen el sistema de estos modos de fallo. Un circuit breaker deja de enviar requests a un servicio fallido, dándole tiempo para recuperarse. Un bulkhead aísla fallos para que no consuman todos los recursos. Los retries con backoff exponencial manejan fallos transitorios sin sobrecargar servicios en dificultades. El patrón saga reemplaza transacciones distribuidas con secuencias de transacciones locales coordinadas vía eventos. A continuacion se cubre la implementación de estos patrones core en múltiples lenguajes y frameworks.
 
 ## Cuándo usarlo
 

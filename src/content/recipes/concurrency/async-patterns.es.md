@@ -34,7 +34,7 @@ seo:
 
 El código síncrono bloquea el thread de ejecución hasta que una operación completa. Cuando esa operación es I/O — consultar una base de datos, obtener datos de una API, leer un archivo — el thread permanece inactivo, desperdiciando ciclos de CPU que podrían procesar otros requests. La programación async resuelve esto suspendiendo la tarea actual cuando encuentra I/O, permitiendo que el runtime ejecute otras tareas, y reanudando la tarea original cuando el I/O completa. Esto habilita a un solo thread para manejar miles de conexiones concurrentes.
 
-El desafío no es escribir las keywords `async` y `await` — es entender el event loop subyacente, evitar el callback hell, manejar errores a través de puntos de suspensión, y prevenir contención de recursos cuando múltiples tareas acceden a estado compartido. Diferentes runtimes implementan async de forma distinta: JavaScript usa un event loop con promises, Python usa `asyncio` con coroutines, y Java usa `CompletableFuture` con pools de threads. Esta receta cubre patrones, anti-patrones e implementaciones prácticas en los tres.
+El desafío no es escribir las keywords `async` y `await` — es entender el event loop subyacente, evitar el callback hell, manejar errores a través de puntos de suspensión, y prevenir contención de recursos cuando múltiples tareas acceden a estado compartido. Diferentes runtimes implementan async de forma distinta: JavaScript usa un event loop con promises, Python usa `asyncio` con coroutines, y Java usa `CompletableFuture` con pools de threads. A continuacion se cubre patrones, anti-patrones e implementaciones prácticas en los tres.
 
 ## Cuándo usarlo
 

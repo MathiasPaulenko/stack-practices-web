@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Python asyncio es un framework de concurrencia para escribir codigo concurrente single-threaded usando coroutines, event loops, e I/O multiplexing. Maneja miles de operaciones I/O concurrentes sin overhead de threads. Ejecutar asyncio en produccion requiere entender event loop internals, task lifecycle, cancellation semantics, debugging tools, y pitfalls comunes. Esta guia cubre todo lo que necesitas para construir aplicaciones async de alta concurrencia confiables.
+Python asyncio es un framework de concurrencia para escribir codigo concurrente single-threaded usando coroutines, event loops, e I/O multiplexing. Maneja miles de operaciones I/O concurrentes sin overhead de threads. Ejecutar asyncio en produccion requiere entender event loop internals, task lifecycle, cancellation semantics, debugging tools, y pitfalls comunes. Lo siguiente recorre todo lo que necesitas para construir aplicaciones async de alta concurrencia confiables.
 
 ## Fundamentos del Event Loop
 

@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Hardcoding secrets (passwords, API keys, tokens) in Docker images or Compose files is a critical security risk. Images are shared, cached, and inspected — anyone with access to the image can extract secrets. This recipe shows secure patterns for injecting secrets into containers at runtime.
+Hardcoding secrets (passwords, API keys, tokens) in Docker images or Compose files is a critical security risk. Images are shared, cached, and inspected — anyone with access to the image can extract secrets. Below is the idiomatic way to secure patterns for injecting secrets into containers at runtime.
 
 ## When to Use
 

@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-LLM costs scale with usage — every token costs money. In production, unoptimized LLM applications can rack up thousands of dollars per day. Cost optimization is not optional; it is a production requirement. This guide covers model routing, prompt compression, caching strategies, batch API usage, token management, and budget control patterns that reduce LLM costs by 50-90% without sacrificing quality.
+LLM costs scale with usage — every token costs money. In production, unoptimized LLM applications can rack up thousands of dollars per day. Cost optimization is not optional; it is a production requirement. This guide walks through model routing, prompt compression, caching strategies, batch API usage, token management, and budget control patterns that reduce LLM costs by 50-90% without sacrificing quality.
 
 ## Cost Breakdown
 

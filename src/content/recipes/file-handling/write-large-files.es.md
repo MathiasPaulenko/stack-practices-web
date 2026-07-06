@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Escribir datasets o logs masivos en disco requiere técnicas bufferizadas y de streaming para evitar picos de memoria y cuellos de botella de I/O. Esta receta cubre patrones eficientes de escritura de archivos en Python, JavaScript y Java.
+Escribir datasets o logs masivos en disco requiere técnicas bufferizadas y de streaming para evitar picos de memoria y cuellos de botella de I/O. A continuacion se cubre patrones eficientes de escritura de archivos en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

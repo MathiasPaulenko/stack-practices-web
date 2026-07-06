@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Prometheus is a pull-based monitoring system. Your application exposes a `/metrics` endpoint, and Prometheus scrapes it at regular intervals. The `prometheus_client` Python library provides built-in metric types (counter, gauge, histogram, summary) and an HTTP server to expose them. This recipe shows how to instrument a Python app with custom metrics.
+Prometheus is a pull-based monitoring system. Your application exposes a `/metrics` endpoint, and Prometheus scrapes it at regular intervals. The `prometheus_client` Python library provides built-in metric types (counter, gauge, histogram, summary) and an HTTP server to expose them. Here is how to how to instrument a Python app with custom metrics.
 
 ## When to Use
 

@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-Los soft deletes marcan registros como eliminados sin removerlos realmente de la base de datos. Esto preserva datos para auditoría, recuperación e integridad referencial mientras mantiene los registros eliminados invisibles para consultas normales de la aplicación. Esta receta implementa soft deletes con columnas de timestamp y consultas filtradas en Python, JavaScript y Java.
+Los soft deletes marcan registros como eliminados sin removerlos realmente de la base de datos. Esto preserva datos para auditoría, recuperación e integridad referencial mientras mantiene los registros eliminados invisibles para consultas normales de la aplicación. El codigo a continuacion implementa soft deletes con columnas de timestamp y consultas filtradas en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

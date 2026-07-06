@@ -40,7 +40,7 @@ seo:
 
 ETL (Extract, Transform, Load) pipelines move data from operational systems into analytical systems where it can be queried, reported on, and used for decision-making. Unlike stream processing, which handles events as they arrive, ETL processes data in scheduled batches, making it simpler to implement and easier to reason about for many business analytics use cases.
 
-This guide covers pipeline architecture, data extraction strategies, data shaping patterns, loading techniques, and production operational considerations.
+This guide walks through pipeline architecture, data extraction strategies, data shaping patterns, loading techniques, and production operational considerations.
 
 ## When to Use
 

@@ -34,7 +34,7 @@ seo:
 
 Crear un nuevo thread para cada tarea concurrente es costoso. Cada thread consume memoria para su stack (típicamente 1MB), requiere scheduling del SO, y agrega overhead de context-switching. En alta concurrencia, la creación de threads se convierte en cuello de botella — el sistema pasa más tiempo gestionando threads que haciendo trabajo útil. Los thread pools resuelven esto manteniendo un conjunto fijo de worker threads reutilizables. Las tareas se envían a una cola; workers inactivos las toman. Cuando todos los workers están ocupados, las tareas esperan en la cola en lugar de spawnear nuevos threads.
 
-El desafío es dimensionar el pool correctamente y manejar sobrecarga. Una tarea CPU-bound en una máquina de 8 cores se beneficia de 8 threads — más threads solo compiten por cores. Una tarea I/O-bound se beneficia de más threads que cores porque los threads pasan la mayor parte del tiempo esperando disco o red. Cuando la cola se llena, el pool debe decidir si rechazar tareas, bloquear al submitter, o ejecutarlas en el thread del llamador. Esta receta cubre dimensionamiento de pools, patrones de executors y estrategias de rechazo en Java, Python y C#.
+El desafío es dimensionar el pool correctamente y manejar sobrecarga. Una tarea CPU-bound en una máquina de 8 cores se beneficia de 8 threads — más threads solo compiten por cores. Una tarea I/O-bound se beneficia de más threads que cores porque los threads pasan la mayor parte del tiempo esperando disco o red. Cuando la cola se llena, el pool debe decidir si rechazar tareas, bloquear al submitter, o ejecutarlas en el thread del llamador. Aqui se explica como dimensionamiento de pools, patrones de executors y estrategias de rechazo en Java, Python y C#.
 
 ## Cuándo usarlo
 

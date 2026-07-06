@@ -38,7 +38,7 @@ seo:
 
 ## Introducción
 
-Un esquema GraphQL es el contrato entre tu API y sus clientes. Un esquema bien disenado es facil de entender, dificil de usar mal, y evoluciona sin romper clientes existentes. Un esquema mal disenado lleva a queries confusas, problemas de rendimiento N+1, y migraciones dolorosas. Esta guia cubre los principios y patrones para disenar esquemas GraphQL que se mantienen en el tiempo.
+Un esquema GraphQL es el contrato entre tu API y sus clientes. Un esquema bien disenado es facil de entender, dificil de usar mal, y evoluciona sin romper clientes existentes. Un esquema mal disenado lleva a queries confusas, problemas de rendimiento N+1, y migraciones dolorosas. A continuacion se cubre los principios y patrones para disenar esquemas GraphQL que se mantienen en el tiempo.
 
 ## Schema-First vs Code-First
 

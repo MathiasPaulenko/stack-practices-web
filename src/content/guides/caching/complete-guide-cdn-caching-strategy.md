@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-A Content Delivery Network (CDN) caches your content at edge locations close to users. When a user in Tokyo requests a page served from a data center in Virginia, the CDN serves it from a Tokyo edge node instead. This reduces latency from 200ms to 20ms. But CDN caching only works if you configure it correctly. Poor cache key design, missing cache headers, or aggressive invalidation can make the CDN useless. This guide covers everything you need to design a CDN caching strategy that works.
+A Content Delivery Network (CDN) caches your content at edge locations close to users. When a user in Tokyo requests a page served from a data center in Virginia, the CDN serves it from a Tokyo edge node instead. This reduces latency from 200ms to 20ms. But CDN caching only works if you configure it correctly. Poor cache key design, missing cache headers, or aggressive invalidation can make the CDN useless. The following walks through everything you need to design a CDN caching strategy that works.
 
 ## How CDN Caching Works
 

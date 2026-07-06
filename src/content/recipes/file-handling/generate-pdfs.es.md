@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-La generación de PDFs es un requisito común para facturas, reportes, certificados y documentos legales. Las librerías modernas permiten crear PDFs desde plantillas HTML, lo que significa que tu equipo de diseño puede estilizar documentos con CSS mientras tu backend llena datos en vivo. Esta receta cubre los enfoques más confiables en Python, JavaScript y Java.
+La generación de PDFs es un requisito común para facturas, reportes, certificados y documentos legales. Las librerías modernas permiten crear PDFs desde plantillas HTML, lo que significa que tu equipo de diseño puede estilizar documentos con CSS mientras tu backend llena datos en vivo. Aqui se explica como los enfoques más confiables en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

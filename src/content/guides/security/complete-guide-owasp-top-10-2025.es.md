@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-El OWASP Top 10 es el documento de awareness estandar para seguridad de aplicaciones web. La edicion 2025 refleja el evolving threat landscape, con shifts en como las aplicaciones son construidas y desplegadas. Esta guia cubre cada risk con practical mitigation code examples en Python, JavaScript, y Java.
+El OWASP Top 10 es el documento de awareness estandar para seguridad de aplicaciones web. La edicion 2025 refleja el evolving threat landscape, con shifts en como las aplicaciones son construidas y desplegadas. Lo siguiente recorre cada risk con practical mitigation code examples en Python, JavaScript, y Java.
 
 ## A01: Broken Access Control
 

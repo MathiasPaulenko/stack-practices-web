@@ -36,7 +36,7 @@ seo:
 
 ## Descripción General
 
-La rotación de logs previene que un solo archivo de log crezca sin límite y agote el espacio en disco. Una estrategia adecuada de rotación comprime logs antiguos, mantiene un número configurable de backups y opcionalmente elimina archivos que exceden una edad de retención. Esta receta muestra rotación basada en tamaño y tiempo en Python, Node.js, Java y Linux.
+La rotación de logs previene que un solo archivo de log crezca sin límite y agote el espacio en disco. Una estrategia adecuada de rotación comprime logs antiguos, mantiene un número configurable de backups y opcionalmente elimina archivos que exceden una edad de retención. El patron a continuacion demuestra rotación basada en tamaño y tiempo en Python, Node.js, Java y Linux.
 
 ## Cuándo Usar
 

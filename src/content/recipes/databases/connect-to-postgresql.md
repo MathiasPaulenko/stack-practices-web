@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-PostgreSQL is the most popular open-source relational database. Connecting to it reliably requires handling connection strings, SSL, and connection pooling. This recipe shows how to connect and query PostgreSQL in Python, JavaScript, and Java.
+PostgreSQL is the most popular open-source relational database. Connecting to it reliably requires handling connection strings, SSL, and connection pooling. Below is the idiomatic way to how to connect and query PostgreSQL in Python, JavaScript, and Java.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Financial calculations demand precision. Floating-point numbers (`float`, `double`) cannot accurately represent most decimal fractions, leading to rounding errors that compound in billing, invoicing, and trading systems. This recipe covers representing money as exact decimal values, formatting with locale-aware currency symbols, performing arithmetic without precision loss, and handling exchange rate conversions in Python, JavaScript, and Java.
+Financial calculations demand precision. Floating-point numbers (`float`, `double`) cannot accurately represent most decimal fractions, leading to rounding errors that compound in billing, invoicing, and trading systems. This approach handles representing money as exact decimal values, formatting with locale-aware currency symbols, performing arithmetic without precision loss, and handling exchange rate conversions in Python, JavaScript, and Java.
 
 ## When to Use
 

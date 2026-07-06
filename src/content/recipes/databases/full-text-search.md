@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Full-text search lets users find documents by relevance rather than exact substring matching. Unlike `LIKE '%query%'`, which scans entire tables, full-text indexes tokenize content and rank results. This recipe covers PostgreSQL `tsvector`, Elasticsearch, and Meilisearch implementations in Python, JavaScript, and Java.
+Full-text search lets users find documents by relevance rather than exact substring matching. Unlike `LIKE '%query%'`, which scans entire tables, full-text indexes tokenize content and rank results. The solution below covers PostgreSQL `tsvector`, Elasticsearch, and Meilisearch implementations in Python, JavaScript, and Java.
 
 ## When to Use
 

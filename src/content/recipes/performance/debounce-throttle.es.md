@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-El debounce y throttle son técnicas de [rate-limiting](/recipes/security/rate-limiting) que controlan con qué frecuencia se ejecuta una función en respuesta a disparos rápidos y repetidos. El debounce espera a que una ráfaga de eventos se calme antes de disparar una vez. El throttle garantiza ejecución como máximo una vez por ventana de tiempo. Usa debounce para búsquedas (disparar tras el usuario deja de escribir); usa throttle para scroll o resize (disparar cada N milisegundos). Esta receta cubre implementaciones con bordes leading/trailing configurables, cancelación, y variantes síncronas y asíncronas en Python, JavaScript y Java.
+El debounce y throttle son técnicas de [rate-limiting](/recipes/security/rate-limiting) que controlan con qué frecuencia se ejecuta una función en respuesta a disparos rápidos y repetidos. El debounce espera a que una ráfaga de eventos se calme antes de disparar una vez. El throttle garantiza ejecución como máximo una vez por ventana de tiempo. Usa debounce para búsquedas (disparar tras el usuario deja de escribir); usa throttle para scroll o resize (disparar cada N milisegundos). La solucion a continuacion cubre implementaciones con bordes leading/trailing configurables, cancelación, y variantes síncronas y asíncronas en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

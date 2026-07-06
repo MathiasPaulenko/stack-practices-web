@@ -34,7 +34,7 @@ La mayoría de las aplicaciones se comunican con el exterior mediante APIs REST 
 
 REST (Representational State Transfer) ha sido el estilo arquitectónico dominante para servicios web desde principios de los 2000s. Usa métodos HTTP estándar — GET para recuperación, POST para creación, PUT para actualizaciones, DELETE para eliminación — y devuelve formatos de datos estructurados como JSON o XML. Entender cómo construir peticiones apropiadamente, manejar errores y parsear respuestas es una habilidad fundamental para cualquier desarrollador que construya aplicaciones conectadas.
 
-Esta receta muestra la forma idiomática y moderna de hacer una petición HTTP y leer la respuesta JSON en Python, JavaScript y Java, incluyendo manejo básico de errores y configuración de timeouts.
+Lo siguiente demuestra la forma idiomática y moderna de hacer una petición HTTP y leer la respuesta JSON en Python, JavaScript y Java, incluyendo manejo básico de errores y configuración de timeouts.
 
 ## Cuándo Usar
 

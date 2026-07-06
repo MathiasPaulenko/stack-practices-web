@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Hardcoded secrets en source code son la causa numero uno de data breaches. API keys, database passwords, encryption keys, y OAuth tokens nunca deben vivir en code. Esta guia cubre tools y patterns para managear secrets across environments, rotarlos sin downtime, e integrarlos en CI/CD pipelines.
+Hardcoded secrets en source code son la causa numero uno de data breaches. API keys, database passwords, encryption keys, y OAuth tokens nunca deben vivir en code. A continuacion se cubre tools y patterns para managear secrets across environments, rotarlos sin downtime, e integrarlos en CI/CD pipelines.
 
 ## Por Qué No Environment Variables?
 

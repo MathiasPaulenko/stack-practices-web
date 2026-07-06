@@ -30,7 +30,7 @@ seo:
 
 ## Overview
 
-El ordenamiento es una de las tareas de manipulación de datos más comunes. Cada lenguaje provee utilidades de ordenamiento optimizadas y built-in. Esta receta muestra cómo ordenar arrays y listas en orden ascendente, descendente y por criterios personalizados (ej. por una propiedad o con un comparador custom).
+El ordenamiento es una de las tareas de manipulación de datos más comunes. Cada lenguaje provee utilidades de ordenamiento optimizadas y built-in. La solucion abajo muestra cómo ordenar arrays y listas en orden ascendente, descendente y por criterios personalizados (ej. por una propiedad o con un comparador custom).
 
 ## When to Use
 

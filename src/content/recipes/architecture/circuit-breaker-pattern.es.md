@@ -34,7 +34,7 @@ seo:
 
 Un microservicio llama a un servicio de pagos downstream. El servicio de pagos se ralentiza debido a un problema de base de datos. El servicio llamador lanza más threads, cada uno esperando que el servicio de pagos responda. Los pools de threads se saturan. El servicio deja de aceptar nuevas peticiones. Los servicios que dependen de él también fallan. En minutos, una ralentización localizada de base de datos ha derribado toda la cadena de peticiones. Esto es una falla en cascada.
 
-El circuit breaker pattern previene esto monitoreando las llamadas a un servicio downstream. Si la tasa de fallas excede un umbral, el circuito se "abre" y las llamadas posteriores fallan rápido sin alcanzar el servicio en problemas. Después de un timeout, el circuito entra en estado "half-open" y permite una petición de prueba. Si tiene éxito, el circuito se cierra de nuevo. Esto da tiempo al servicio fallido para recuperarse y previene que el llamador desperdicie recursos en peticiones condenadas. Esta receta cubre diseño de máquina de estados, implementación e integración con retry y fallbacks.
+El circuit breaker pattern previene esto monitoreando las llamadas a un servicio downstream. Si la tasa de fallas excede un umbral, el circuito se "abre" y las llamadas posteriores fallan rápido sin alcanzar el servicio en problemas. Después de un timeout, el circuito entra en estado "half-open" y permite una petición de prueba. Si tiene éxito, el circuito se cierra de nuevo. Esto da tiempo al servicio fallido para recuperarse y previene que el llamador desperdicie recursos en peticiones condenadas. Aqui se explica como diseño de máquina de estados, implementación e integración con retry y fallbacks.
 
 ## Cuándo usarlo
 

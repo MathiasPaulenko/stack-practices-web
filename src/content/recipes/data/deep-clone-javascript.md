@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Deep cloning creates a fully independent copy of an object where nested objects, arrays, and special types are duplicated rather than shared by reference. In JavaScript, `=` only copies the reference, so mutations to a "copy" affect the original. This recipe covers `structuredClone`, `JSON.parse/stringify`, `lodash.cloneDeep`, and a manual recursive implementation, with handling for circular references, Dates, Maps, Sets, typed arrays, and custom classes.
+Deep cloning creates a fully independent copy of an object where nested objects, arrays, and special types are duplicated rather than shared by reference. In JavaScript, `=` only copies the reference, so mutations to a "copy" affect the original. Below is a practical approach to `structuredClone`, `JSON.parse/stringify`, `lodash.cloneDeep`, and a manual recursive implementation, with handling for circular references, Dates, Maps, Sets, typed arrays, and custom classes.
 
 ## When to Use
 

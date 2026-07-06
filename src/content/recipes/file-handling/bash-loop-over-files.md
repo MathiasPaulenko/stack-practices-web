@@ -33,7 +33,7 @@ seo:
 
 ## Overview
 
-Looping over files is one of the most common Bash operations, yet it is frequently done incorrectly. Filenames with spaces, newlines, or glob characters (`*`, `?`) break naive loops. This recipe shows safe, portable patterns for iterating files, filtering by extension, recursing into subdirectories, and processing results.
+Looping over files is one of the most common Bash operations, yet it is frequently done incorrectly. Filenames with spaces, newlines, or glob characters (`*`, `?`) break naive loops. This approach shows how to safe, portable patterns for iterating files, filtering by extension, recursing into subdirectories, and processing results.
 
 ## When to Use
 

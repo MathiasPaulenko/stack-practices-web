@@ -37,7 +37,7 @@ seo:
 
 Event sourcing almacena cambios de estado como una secuencia de eventos inmutables en lugar de sobrescribir el estado actual. En lugar de guardar `balance = 100`, registras `Deposited $50` y `Deposited $50`. El estado actual se deriva reproduciendo todos los eventos. Esto provee un audit trail completo, consultas temporales y la capacidad de reconstruir el estado en cualquier punto del tiempo.
 
-Esta receta implementa un event store, proyecciones (read models) y snapshotting usando PostgreSQL, MySQL y SQL Server.
+Aqui hay una implementacion de un event store, proyecciones (read models) y snapshotting usando PostgreSQL, MySQL y SQL Server.
 
 ## Cuándo Usar
 

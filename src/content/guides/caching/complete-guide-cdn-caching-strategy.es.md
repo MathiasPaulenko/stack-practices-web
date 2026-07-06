@@ -38,7 +38,7 @@ seo:
 
 ## Introducción
 
-Un Content Delivery Network (CDN) cachea tu contenido en edge locations cercanas a los usuarios. Cuando un usuario en Tokyo solicita una pagina servida desde un data center en Virginia, el CDN la sirve desde un edge node en Tokyo. Esto reduce la latencia de 200ms a 20ms. Pero el caching CDN solo funciona si lo configuras correctamente. Un mal diseno de cache keys, headers faltantes, o invalidacion agresiva pueden hacer el CDN inutil. Esta guia cubre todo lo que necesitas para disenar una estrategia de caching CDN que funcione.
+Un Content Delivery Network (CDN) cachea tu contenido en edge locations cercanas a los usuarios. Cuando un usuario en Tokyo solicita una pagina servida desde un data center en Virginia, el CDN la sirve desde un edge node en Tokyo. Esto reduce la latencia de 200ms a 20ms. Pero el caching CDN solo funciona si lo configuras correctamente. Un mal diseno de cache keys, headers faltantes, o invalidacion agresiva pueden hacer el CDN inutil. A continuacion se cubre todo lo que necesitas para disenar una estrategia de caching CDN que funcione.
 
 ## Cómo Funciona el Caching CDN
 

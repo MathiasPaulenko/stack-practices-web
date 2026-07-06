@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Apache Airflow orchestrates data pipelines as Directed Acyclic Graphs (DAGs). Each task in a DAG is an operator that performs a unit of work — running a Python function, executing SQL, triggering a Spark job, or sensing for a file. Airflow schedules DAGs on a cron or interval basis, retries failed tasks, and provides a UI for monitoring pipeline state. This recipe covers DAG definition, scheduling, task dependencies, sensors, XCom for inter-task communication, and production patterns.
+Apache Airflow orchestrates data pipelines as Directed Acyclic Graphs (DAGs). Each task in a DAG is an operator that performs a unit of work — running a Python function, executing SQL, triggering a Spark job, or sensing for a file. Airflow schedules DAGs on a cron or interval basis, retries failed tasks, and provides a UI for monitoring pipeline state. The solution below covers DAG definition, scheduling, task dependencies, sensors, XCom for inter-task communication, and production patterns.
 
 ## When to Use
 

@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Las aplicaciones serverless necesitan bases de datos serverless. Las bases de datos tradicionales requieren provisioning, gestion de conexiones, y capacity planning — todas cosas que las funciones serverless no manejan bien. Las bases de datos serverless resuelven esto con auto-escalado, gestion de conexiones, y facturacion por request. Esta guia cubre las principales opciones de bases de datos serverless, sus tradeoffs, y como usarlas efectivamente con funciones serverless.
+Las aplicaciones serverless necesitan bases de datos serverless. Las bases de datos tradicionales requieren provisioning, gestion de conexiones, y capacity planning — todas cosas que las funciones serverless no manejan bien. Las bases de datos serverless resuelven esto con auto-escalado, gestion de conexiones, y facturacion por request. Esta guia recorre las principales opciones de bases de datos serverless, sus tradeoffs, y como usarlas efectivamente con funciones serverless.
 
 ## Panorama de Bases de Datos Serverless
 

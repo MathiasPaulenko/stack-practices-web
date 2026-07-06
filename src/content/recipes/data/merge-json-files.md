@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-Modern applications often split configuration, localization, and dataset files into multiple JSON files for modularity. Merging them into a single JSON object or array is a common build step, cache warmup, and API aggregation task. This recipe covers deep merging of objects, concatenation of arrays, and handling key conflicts across Python, JavaScript, and Java.
+Modern applications often split configuration, localization, and dataset files into multiple JSON files for modularity. Merging them into a single JSON object or array is a common build step, cache warmup, and API aggregation task. The following demonstrates how to deep merging of objects, concatenation of arrays, and handling key conflicts across Python, JavaScript, and Java.
 
 ## When to Use
 

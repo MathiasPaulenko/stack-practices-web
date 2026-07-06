@@ -34,7 +34,7 @@ seo:
 
 In a microservices architecture, clients must interact with dozens of individual services — each with its own endpoint, protocol, and authentication requirements. Exposing these directly creates a fragile coupling: a mobile app must know the location of every service, handle retries across multiple connections, and manage distinct auth tokens. When services are added, removed, or relocated, every client must update.
 
-An API gateway solves this by acting as a single entry point. Clients talk to one URL. The gateway routes requests to the appropriate backend service, handles cross-cutting concerns like authentication, rate limiting, SSL termination, and request/response transformation. It shields clients from the complexity of the internal topology. This recipe covers gateway patterns, routing strategies, and implementation examples using Kong, AWS API Gateway, and a custom Node.js gateway.
+An API gateway solves this by acting as a single entry point. Clients talk to one URL. The gateway routes requests to the appropriate backend service, handles cross-cutting concerns like authentication, rate limiting, SSL termination, and request/response transformation. It shields clients from the complexity of the internal topology. The solution below covers gateway patterns, routing strategies, and implementation examples using Kong, AWS API Gateway, and a custom Node.js gateway.
 
 ## When to use it
 

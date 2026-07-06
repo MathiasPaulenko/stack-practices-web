@@ -31,7 +31,7 @@ seo:
 
 # UUID Generation: v4, v7, and ULID Comparison
 
-Choose the right unique identifier strategy for your application by comparing UUID v4 (random), v7 (time-sortable), ULID (lexicographically sortable), and nanoid (compact URL-safe). This recipe covers generation, database index implications, collision probability, and migration considerations.
+Choose the right unique identifier strategy for your application by comparing UUID v4 (random), v7 (time-sortable), ULID (lexicographically sortable), and nanoid (compact URL-safe). The solution below covers generation, database index implications, collision probability, and migration considerations.
 
 ## When to Use This
 

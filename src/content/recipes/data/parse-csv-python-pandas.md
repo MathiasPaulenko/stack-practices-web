@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-CSV is the most common format for tabular data exchange. Python has two main approaches for parsing CSV: the built-in `csv` module for simple tasks and pandas for anything involving filtering, aggregation, or large datasets. This recipe covers both, with guidance on when to use each.
+CSV is the most common format for tabular data exchange. Python has two main approaches for parsing CSV: the built-in `csv` module for simple tasks and pandas for anything involving filtering, aggregation, or large datasets. Here is how to both, with guidance on when to use each.
 
 ## When to Use
 

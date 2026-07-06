@@ -37,7 +37,7 @@ seo:
 
 Las read replicas son copias de tu base de datos principal que manejan tráfico solo de lectura, aliviando la instancia principal. Son la estrategia de escalado más común para workloads intensivos en lectura — dashboards analíticos, búsquedas y lecturas de API pueden dirigirse a réplicas mientras las escrituras van a la primaria.
 
-Esta receta cubre la configuración de read replicas, implementación de split de lectura/escritura, monitoreo de replication lag y manejo de lecturas stale en PostgreSQL, MySQL y bases de datos administradas en la nube.
+A continuacion se cubre la configuración de read replicas, implementación de split de lectura/escritura, monitoreo de replication lag y manejo de lecturas stale en PostgreSQL, MySQL y bases de datos administradas en la nube.
 
 ## Cuándo Usar
 

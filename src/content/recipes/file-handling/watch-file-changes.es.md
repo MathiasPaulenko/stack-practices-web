@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Los watchers del sistema de archivos reaccionan a eventos de creación, modificación, eliminación y renombrado en tiempo real. Alimentan servidores de hot-reload, tailers de logs y herramientas de sincronización. Esta receta muestra implementaciones multiplataforma en Python, JavaScript y Java.
+Los watchers del sistema de archivos reaccionan a eventos de creación, modificación, eliminación y renombrado en tiempo real. Alimentan servidores de hot-reload, tailers de logs y herramientas de sincronización. La solucion abajo muestra implementaciones multiplataforma en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

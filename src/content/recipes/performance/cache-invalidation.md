@@ -34,7 +34,7 @@ seo:
 
 Caching improves read performance by storing frequently accessed data in fast, in-memory storage. However, caches introduce a classic [distributed systems](/guides/architecture/microservices-architecture-guide) problem: when the underlying data changes, the cache becomes stale. Serving stale data can lead to incorrect business decisions, security issues, and poor user experiences.
 
-Cache invalidation is the mechanism that ensures cached data remains consistent with its source. There is no universal solution — the right strategy depends on your consistency requirements, write volume, and tolerance for stale reads. This recipe covers the four primary patterns: TTL expiration, write-through, write-behind, and event-driven invalidation.
+Cache invalidation is the mechanism that ensures cached data remains consistent with its source. There is no universal solution — the right strategy depends on your consistency requirements, write volume, and tolerance for stale reads. The following demonstrates how to the four primary patterns: TTL expiration, write-through, write-behind, and event-driven invalidation.
 
 ## When to Use
 

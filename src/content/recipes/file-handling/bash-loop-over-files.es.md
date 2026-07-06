@@ -33,7 +33,7 @@ seo:
 
 ## Descripción General
 
-Iterar sobre archivos es una de las operaciones más comunes en Bash, pero frecuentemente se hace incorrectamente. Los nombres de archivo con espacios, saltos de línea o caracteres glob (`*`, `?`) rompen los loops ingenuos. Esta receta muestra patrones seguros y portables para iterar archivos, filtrar por extensión, recursar subdirectorios y procesar resultados.
+Iterar sobre archivos es una de las operaciones más comunes en Bash, pero frecuentemente se hace incorrectamente. Los nombres de archivo con espacios, saltos de línea o caracteres glob (`*`, `?`) rompen los loops ingenuos. Aqui se muestra la forma de patrones seguros y portables para iterar archivos, filtrar por extensión, recursar subdirectorios y procesar resultados.
 
 ## Cuándo Usar
 

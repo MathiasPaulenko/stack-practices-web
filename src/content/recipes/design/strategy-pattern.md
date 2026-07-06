@@ -34,7 +34,7 @@ seo:
 
 An e-commerce checkout system calculates shipping costs. For domestic orders, it uses flat-rate pricing. For international orders, it uses weight-based pricing. For express delivery, it uses distance plus urgency multipliers. A naive implementation puts all three calculations in a single `calculateShipping()` method with a giant `switch` statement. Adding a new shipping method means editing that method, violating the open-closed principle. Testing shipping logic requires setting up the entire checkout object.
 
-The strategy pattern separates the algorithms from the context that uses them. Each shipping algorithm becomes its own class implementing a shared `ShippingStrategy` interface. The checkout system holds a reference to a strategy and delegates the calculation to it. At runtime, you swap strategies — flat rate for domestic, weight-based for international — without changing the checkout code. New strategies are added by writing new classes, not by editing existing ones. This recipe covers class-based strategies, function-based strategies, and dependency-injected strategy selection.
+The strategy pattern separates the algorithms from the context that uses them. Each shipping algorithm becomes its own class implementing a shared `ShippingStrategy` interface. The checkout system holds a reference to a strategy and delegates the calculation to it. At runtime, you swap strategies — flat rate for domestic, weight-based for international — without changing the checkout code. New strategies are added by writing new classes, not by editing existing ones. This approach handles class-based strategies, function-based strategies, and dependency-injected strategy selection.
 
 ## When to use it
 

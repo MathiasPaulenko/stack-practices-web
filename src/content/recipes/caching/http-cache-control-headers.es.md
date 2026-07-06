@@ -31,7 +31,7 @@ seo:
 
 # Configurar headers HTTP Cache-Control para APIs y assets estaticos
 
-Los headers de caching HTTP le dicen a navegadores y CDN cuanto tiempo cachear una respuesta, cuando revalidar y si la respuesta puede servirse desde una cache compartida. Headers configurados correctamente reducen latencia, bajan la carga del origen y mejoran Core Web Vitals. Esta receta cubre `Cache-Control`, `ETag`, `Last-Modified` y `stale-while-revalidate` tanto para respuestas API como para assets estaticos.
+Los headers de caching HTTP le dicen a navegadores y CDN cuanto tiempo cachear una respuesta, cuando revalidar y si la respuesta puede servirse desde una cache compartida. Headers configurados correctamente reducen latencia, bajan la carga del origen y mejoran Core Web Vitals. La solucion a continuacion cubre `Cache-Control`, `ETag`, `Last-Modified` y `stale-while-revalidate` tanto para respuestas API como para assets estaticos.
 
 ## Cuando Usar Esto
 

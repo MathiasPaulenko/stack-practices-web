@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Excel files (.xlsx) are everywhere in business. Python can read, write, and format them programmatically using openpyxl (cell-level control) and pandas (data-frame operations). This recipe covers both approaches for common tasks like reading sheets, writing data, applying formatting, and handling multi-sheet workbooks.
+Excel files (.xlsx) are everywhere in business. Python can read, write, and format them programmatically using openpyxl (cell-level control) and pandas (data-frame operations). Here is how to both approaches for common tasks like reading sheets, writing data, applying formatting, and handling multi-sheet workbooks.
 
 ## When to Use
 

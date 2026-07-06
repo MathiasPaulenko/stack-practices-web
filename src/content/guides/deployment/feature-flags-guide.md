@@ -40,7 +40,7 @@ seo:
 
 Feature flags (also called feature toggles) decouple deployment from release. You can deploy code to production while keeping new behavior hidden, then turn it on for specific users, regions, or percentages. They also act as kill switches, letting you disable a problematic change instantly without redeploying.
 
-This guide explains flag types, implementation patterns, rollout strategies, and proven operational methods.
+The following explains flag types, implementation patterns, rollout strategies, and proven operational methods.
 
 ## When to Use
 

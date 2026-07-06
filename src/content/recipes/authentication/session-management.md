@@ -34,7 +34,7 @@ seo:
 
 Sessions maintain user state between HTTP requests in stateless web applications. After a user logs in, the server creates a session identifier — typically a random token stored in an HTTP-only cookie — that associates subsequent requests with that authenticated user. Proper session management is critical: a leaked session ID is equivalent to a stolen password.
 
-Secure session management requires generating unpredictable IDs, transmitting them over HTTPS, storing them server-side with expiration, and invalidating them on logout or suspicious activity. This recipe covers server-side sessions, cookie security attributes, and CSRF protection.
+Secure session management requires generating unpredictable IDs, transmitting them over HTTPS, storing them server-side with expiration, and invalidating them on logout or suspicious activity. Below is a practical approach to server-side sessions, cookie security attributes, and CSRF protection.
 
 ## When to Use
 

@@ -32,7 +32,7 @@ seo:
 
 # Locking distribuido con Redis y Redlock
 
-Los locks distribuidos aseguran que solo un proceso pueda acceder a un recurso a la vez entre multiples instancias de servidor. Redis hace esto posible con `SET key value NX PX ttl` — una operacion atomica que establece una clave solo si no existe, con una expiracion. Esta receta implementa un lock distribuido seguro con release automatico, renovacion de lock y el algoritmo Redlock para confiabilidad multi-nodo.
+Los locks distribuidos aseguran que solo un proceso pueda acceder a un recurso a la vez entre multiples instancias de servidor. Redis hace esto posible con `SET key value NX PX ttl` — una operacion atomica que establece una clave solo si no existe, con una expiracion. Lo siguiente implementa un lock distribuido seguro con release automatico, renovacion de lock y el algoritmo Redlock para confiabilidad multi-nodo.
 
 ## Cuando Usar Esto
 

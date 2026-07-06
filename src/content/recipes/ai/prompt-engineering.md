@@ -34,7 +34,7 @@ seo:
 
 Large Language Models (LLMs) are general-purpose reasoning engines, but their output quality depends heavily on how you ask the question. Prompt engineering is the practice of structuring inputs to guide the model toward accurate, relevant, and well-formatted responses. Small changes in phrasing can mean the difference between a vague paragraph and a precise JSON object.
 
-This recipe covers the most reliable techniques: assigning a role, providing few-shot examples, requesting chain-of-thought reasoning, and constraining output format. These techniques work across GPT-4, Claude, Gemini, and open-source models like Llama.
+The solution below covers the most reliable techniques: assigning a role, providing few-shot examples, requesting chain-of-thought reasoning, and constraining output format. These techniques work across GPT-4, Claude, Gemini, and open-source models like Llama.
 
 ## When to Use
 

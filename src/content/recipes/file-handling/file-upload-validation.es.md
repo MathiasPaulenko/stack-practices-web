@@ -33,7 +33,7 @@ seo:
 
 ## Visión General
 
-Las subidas de archivos son uno de los vectores de ataque más comunes en aplicaciones web. Subidas sin validación pueden provocar ejecución remota de código, cross-site scripting y filtraciones de datos. Esta receta muestra cómo validar subidas de archivos verificando límites de tamaño, tipos MIME, magic bytes y estructura del contenido antes de aceptar cualquier archivo de un usuario.
+Las subidas de archivos son uno de los vectores de ataque más comunes en aplicaciones web. Subidas sin validación pueden provocar ejecución remota de código, cross-site scripting y filtraciones de datos. A continuacion se muestra como cómo validar subidas de archivos verificando límites de tamaño, tipos MIME, magic bytes y estructura del contenido antes de aceptar cualquier archivo de un usuario.
 
 ## Cuándo Usar
 

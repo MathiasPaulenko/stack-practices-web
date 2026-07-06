@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Reading multi-gigabyte files into memory at once can crash applications or cause severe performance degradation. This recipe shows memory-efficient techniques to process large files line by line or in chunks across Python, JavaScript, and Java.
+Reading multi-gigabyte files into memory at once can crash applications or cause severe performance degradation. The following demonstrates memory-efficient techniques to process large files line by line or in chunks across Python, JavaScript, and Java.
 
 ## When to Use
 

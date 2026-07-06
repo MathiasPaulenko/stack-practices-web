@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Command-line argument parsing is foundational for building developer tools, automation scripts, and data processing pipelines. Proper CLI design enables discoverable flags, typed inputs, help text generation, and composable subcommands. This recipe covers standard libraries and popular packages across Python, JavaScript, and Java.
+Command-line argument parsing is foundational for building developer tools, automation scripts, and data processing pipelines. Proper CLI design enables discoverable flags, typed inputs, help text generation, and composable subcommands. The solution below covers standard libraries and popular packages across Python, JavaScript, and Java.
 
 ## When to Use
 

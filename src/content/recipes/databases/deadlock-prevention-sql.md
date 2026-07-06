@@ -31,7 +31,7 @@ seo:
 
 # Prevent and Resolve Deadlocks in SQL Transactions
 
-Deadlocks occur when two transactions hold locks that the other needs, creating a circular wait. This recipe covers detecting deadlock patterns, applying consistent lock ordering, choosing isolation levels wisely, and implementing client-side retry logic for production database resilience.
+Deadlocks occur when two transactions hold locks that the other needs, creating a circular wait. This approach handles detecting deadlock patterns, applying consistent lock ordering, choosing isolation levels wisely, and implementing client-side retry logic for production database resilience.
 
 ## When to Use This
 

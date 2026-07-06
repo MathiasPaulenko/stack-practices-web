@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-APIs evolve: fields are added, response shapes change, and endpoints are [deprecated](/docs/api/api-deprecation-notice-template). Without a versioning strategy, these changes break existing clients. This recipe covers the three dominant versioning approaches — URL path, custom header, and content negotiation (media type) — with middleware implementation in Python, JavaScript, and Java. It also covers deprecation policies and backward-compatible change patterns.
+APIs evolve: fields are added, response shapes change, and endpoints are [deprecated](/docs/api/api-deprecation-notice-template). Without a versioning strategy, these changes break existing clients. The following demonstrates how to the three dominant versioning approaches — URL path, custom header, and content negotiation (media type) — with middleware implementation in Python, JavaScript, and Java. It also covers deprecation policies and backward-compatible change patterns.
 
 ## When to Use
 

@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Caching API responses with Redis reduces database load, improves response times, and scales applications efficiently. This recipe covers cache-aside, TTL-based expiration, tag-based batch invalidation, and middleware patterns using ioredis in Node.js Express applications.
+Caching API responses with Redis reduces database load, improves response times, and scales applications efficiently. Here is how to cache-aside, TTL-based expiration, tag-based batch invalidation, and middleware patterns using ioredis in Node.js Express applications.
 
 ## When to Use
 

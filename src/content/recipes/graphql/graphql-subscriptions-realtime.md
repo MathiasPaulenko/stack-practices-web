@@ -32,7 +32,7 @@ seo:
 
 # Real-Time Data with GraphQL WebSocket Subscriptions
 
-GraphQL subscriptions deliver data to clients in real time using a persistent WebSocket connection. Unlike queries and mutations, which follow a request-response cycle, subscriptions keep the connection open and push updates when server-side events occur. This recipe implements subscriptions with Apollo Server's `PubSub` engine and a WebSocket gateway.
+GraphQL subscriptions deliver data to clients in real time using a persistent WebSocket connection. Unlike queries and mutations, which follow a request-response cycle, subscriptions keep the connection open and push updates when server-side events occur. The code below implements subscriptions with Apollo Server's `PubSub` engine and a WebSocket gateway.
 
 ## When to Use This
 

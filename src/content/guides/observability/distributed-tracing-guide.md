@@ -41,7 +41,7 @@ seo:
 
 Distributed tracing captures the full journey of a request as it travels through multiple services. Unlike logs and metrics, traces show causality and timing across service boundaries, making them essential for debugging latency, understanding dependencies, and optimizing request paths in distributed systems.
 
-This guide covers instrumentation, trace context propagation, sampling, and operational practices.
+This guide walks through instrumentation, trace context propagation, sampling, and operational practices.
 
 ## When to Use
 

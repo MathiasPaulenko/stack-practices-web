@@ -38,7 +38,7 @@ seo:
 ---
 ## Overview
 
-Phone numbers are deceptively complex: country codes, area codes, extensions, mobile vs landline prefixes, and regional formatting rules vary across 200+ territories. Storing raw strings leads to duplicates, failed SMS deliveries, and broken click-to-call links. This recipe covers parsing, validation, formatting, and extraction with Google's libphonenumber across Python, JavaScript, and Java.
+Phone numbers are deceptively complex: country codes, area codes, extensions, mobile vs landline prefixes, and regional formatting rules vary across 200+ territories. Storing raw strings leads to duplicates, failed SMS deliveries, and broken click-to-call links. The solution below covers parsing, validation, formatting, and extraction with Google's libphonenumber across Python, JavaScript, and Java.
 
 ## When to Use
 

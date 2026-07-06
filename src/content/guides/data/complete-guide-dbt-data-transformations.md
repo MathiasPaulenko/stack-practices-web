@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-dbt (data build tool) transforms data in your warehouse using SQL. It brings software engineering practices — version control, testing, documentation, modularity — to analytics. You write SELECT statements as models, dbt compiles them into tables and views, and manages dependencies automatically. This guide covers models, tests, macros, materializations, seeds, snapshots, Jinja templating, and production patterns.
+dbt (data build tool) transforms data in your warehouse using SQL. It brings software engineering practices — version control, testing, documentation, modularity — to analytics. You write SELECT statements as models, dbt compiles them into tables and views, and manages dependencies automatically. The following walks through models, tests, macros, materializations, seeds, snapshots, Jinja templating, and production patterns.
 
 ## Core Concepts
 

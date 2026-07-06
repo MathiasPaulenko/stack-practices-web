@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-SSH keys are the standard way to authenticate to remote servers. Managing them manually across multiple machines is error-prone. This recipe covers generating ed25519 keys, distributing them to servers, rotating compromised keys, and disabling password authentication.
+SSH keys are the standard way to authenticate to remote servers. Managing them manually across multiple machines is error-prone. This approach handles generating ed25519 keys, distributing them to servers, rotating compromised keys, and disabling password authentication.
 
 ## When to Use
 

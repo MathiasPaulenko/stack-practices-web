@@ -30,7 +30,7 @@ seo:
 
 ## Overview
 
-Sorting is one of the most common data manipulation tasks. Every language provides built-in, optimized sorting utilities. This recipe shows how to sort arrays and lists in ascending order, descending order, and by custom criteria (e.g., by a property or with a custom comparator).
+Sorting is one of the most common data manipulation tasks. Every language provides built-in, optimized sorting utilities. The pattern below demonstrates how to sort arrays and lists in ascending order, descending order, and by custom criteria (e.g., by a property or with a custom comparator).
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-JWT (JSON Web Tokens) provide stateless authentication for APIs. A signed token contains user claims and is verified without server-side session storage. This recipe covers generating access tokens, refresh tokens, token rotation, and protecting Express routes with JWT verification.
+JWT (JSON Web Tokens) provide stateless authentication for APIs. A signed token contains user claims and is verified without server-side session storage. This approach handles generating access tokens, refresh tokens, token rotation, and protecting Express routes with JWT verification.
 
 ## When to Use
 

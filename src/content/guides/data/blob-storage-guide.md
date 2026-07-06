@@ -38,7 +38,7 @@ seo:
 
 Blob (object) storage is the dominant way to store unstructured data in the cloud: images, videos, documents, backups, and logs. Unlike filesystems or block storage, object storage treats each file as an independent object with metadata, accessed via HTTP APIs. It is infinitely growth-ready, durable, and cost-effective. But it requires different design patterns than traditional storage.
 
-This guide covers bucket design, access patterns, security, lifecycle management, and multi-cloud considerations.
+The following walks through bucket design, access patterns, security, lifecycle management, and multi-cloud considerations.
 
 ## When to Use
 

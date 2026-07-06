@@ -35,7 +35,7 @@ seo:
 
 ## Visión General
 
-Las vistas de base de datos son tablas virtuales definidas por una consulta. Simplifican joins complejos, implementan control de acceso exponiendo solo columnas seleccionadas y centralizan lógica de negocio en el esquema. Las vistas materializadas van más allá almacenando físicamente el resultado de la consulta, intercambiando espacio en disco y eventual desfase por lecturas dramáticamente más rápidas. Esta receta cubre crear, refrescar e indexar ambos tipos en PostgreSQL, MySQL y SQL Server.
+Las vistas de base de datos son tablas virtuales definidas por una consulta. Simplifican joins complejos, implementan control de acceso exponiendo solo columnas seleccionadas y centralizan lógica de negocio en el esquema. Las vistas materializadas van más allá almacenando físicamente el resultado de la consulta, intercambiando espacio en disco y eventual desfase por lecturas dramáticamente más rápidas. Lo siguiente cubre crear, refrescar e indexar ambos tipos en PostgreSQL, MySQL y SQL Server.
 
 ## Cuándo Usar
 

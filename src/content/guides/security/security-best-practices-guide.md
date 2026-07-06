@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Security is not a feature you add later—it is a foundation you build into every layer of your application. This guide covers the essential practices for building secure software.
+Security is not a feature you add later—it is a foundation you build into every layer of your application. The following guide covers the essential practices for building secure software.
 
 ## When to Apply
 

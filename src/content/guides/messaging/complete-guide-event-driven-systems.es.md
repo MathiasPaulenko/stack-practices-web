@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-La arquitectura event-driven (EDA) desacopla servicios comunicandose a traves de eventos en lugar de llamadas directas. Los producers emiten eventos cuando el estado cambia. Los consumers reaccionan a eventos asincronicamente. Esto habilita loose coupling, escalado independiente, y extensibilidad. Tambien introduce desafios: eventual consistency, complejidad de debugging, garantias de orden, e idempotency. Esta guia cubre los patrones y practicas para construir sistemas event-driven confiables en produccion.
+La arquitectura event-driven (EDA) desacopla servicios comunicandose a traves de eventos en lugar de llamadas directas. Los producers emiten eventos cuando el estado cambia. Los consumers reaccionan a eventos asincronicamente. Esto habilita loose coupling, escalado independiente, y extensibilidad. Tambien introduce desafios: eventual consistency, complejidad de debugging, garantias de orden, e idempotency. Lo siguiente recorre los patrones y practicas para construir sistemas event-driven confiables en produccion.
 
 ## Conceptos Clave
 

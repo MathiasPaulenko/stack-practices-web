@@ -34,7 +34,7 @@ seo:
 
 ## Visión General
 
-Los pre-commit hooks ejecutan verificaciones automáticamente sobre tu código antes de cada commit. Detectan errores de linting, problemas de formato, tests fallidos y vulnerabilidades de seguridad en el momento más temprano posible—antes de que lleguen a CI o producción. Esta receta cubre configurar hooks con el framework `pre-commit` (Python), `husky` + `lint-staged` (JavaScript) y hooks Git nativos para proyectos Java.
+Los pre-commit hooks ejecutan verificaciones automáticamente sobre tu código antes de cada commit. Detectan errores de linting, problemas de formato, tests fallidos y vulnerabilidades de seguridad en el momento más temprano posible—antes de que lleguen a CI o producción. A continuacion se cubre configurar hooks con el framework `pre-commit` (Python), `husky` + `lint-staged` (JavaScript) y hooks Git nativos para proyectos Java.
 
 ## Cuándo Usar
 

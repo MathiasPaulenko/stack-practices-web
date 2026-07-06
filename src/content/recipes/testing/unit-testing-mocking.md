@@ -35,7 +35,7 @@ seo:
 
 Unit tests verify that a single function or class behaves correctly in isolation. But most code depends on external systems — databases, HTTP APIs, file systems, clocks — that are slow, unreliable, or unavailable during tests. Mocking replaces these dependencies with controlled stand-ins that return predetermined responses, throw exceptions on demand, or record how they were called.
 
-A well-isolated unit test runs in milliseconds, produces the same result every time, and fails only when the code under test — not its dependencies — is broken. This recipe covers the three essential test doubles: stubs (fake data), mocks (behavior verification), and spies (call recording).
+A well-isolated unit test runs in milliseconds, produces the same result every time, and fails only when the code under test — not its dependencies — is broken. Here is how to the three essential test doubles: stubs (fake data), mocks (behavior verification), and spies (call recording).
 
 ## When to Use
 

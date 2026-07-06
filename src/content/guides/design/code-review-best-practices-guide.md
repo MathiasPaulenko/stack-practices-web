@@ -34,7 +34,7 @@ seo:
 
 ## Introduction
 
-Code review is one of the highest-return activities in software development. It catches bugs early, shares knowledge across the team, and maintains consistent code quality. This guide covers practices for both authors (who submit code) and reviewers (who evaluate it).
+Code review is one of the highest-return activities in software development. It catches bugs early, shares knowledge across the team, and maintains consistent code quality. The following walks through practices for both authors (who submit code) and reviewers (who evaluate it).
 
 ## For Authors: Making Your Code Reviewable
 

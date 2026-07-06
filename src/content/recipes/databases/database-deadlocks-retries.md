@@ -37,7 +37,7 @@ seo:
 
 Deadlocks occur when two or more transactions hold locks on resources that the other needs, creating a circular dependency. The database detects this and aborts one transaction as the "victim." While deadlocks are inevitable in concurrent systems, you can minimize them and recover gracefully with proper retry logic.
 
-This recipe covers detecting, preventing, and automatically retrying transactions after deadlocks in PostgreSQL, MySQL, and SQL Server.
+This approach handles detecting, preventing, and automatically retrying transactions after deadlocks in PostgreSQL, MySQL, and SQL Server.
 
 ## When to Use
 

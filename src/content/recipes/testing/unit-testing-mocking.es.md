@@ -35,7 +35,7 @@ seo:
 
 Los unit tests verifican que una sola función o clase se comporta correctamente en aislamiento. Pero la mayoría del código depende de sistemas externos — bases de datos, APIs HTTP, sistemas de archivos — que son lentos, poco confiables o no disponibles durante los tests. El mocking reemplaza estas dependencias con sustitutos controlados que devuelven respuestas predeterminadas, lanzan excepciones bajo demanda, o registran cómo fueron llamados.
 
-Un test bien aislado corre en milisegundos, produce el mismo resultado cada vez, y falla solo cuando el código bajo test — no sus dependencias — está roto. Esta receta cubre los tres test doubles esenciales: stubs (datos falsos), mocks (verificación de comportamiento), y spies (registro de llamadas).
+Un test bien aislado corre en milisegundos, produce el mismo resultado cada vez, y falla solo cuando el código bajo test — no sus dependencias — está roto. A continuacion se cubre los tres test doubles esenciales: stubs (datos falsos), mocks (verificación de comportamiento), y spies (registro de llamadas).
 
 ## Cuándo usarlo
 

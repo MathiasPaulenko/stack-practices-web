@@ -33,7 +33,7 @@ seo:
 
 ## Descripcion general
 
-Los virtual threads, introducidos como preview en Java 19 y finalizados en Java 21, son threads ligeros gestionados por la JVM en lugar del OS. Permiten escribir codigo bloqueante sencillo que escala a millones de operaciones concurrentes. Esta receta cubre creacion de virtual threads, executors de virtual threads, concurrencia estructurada con `StructuredTaskScope` y scoped values como alternativa a ThreadLocal.
+Los virtual threads, introducidos como preview en Java 19 y finalizados en Java 21, son threads ligeros gestionados por la JVM en lugar del OS. Permiten escribir codigo bloqueante sencillo que escala a millones de operaciones concurrentes. La solucion a continuacion cubre creacion de virtual threads, executors de virtual threads, concurrencia estructurada con `StructuredTaskScope` y scoped values como alternativa a ThreadLocal.
 
 ## Cuando Usar Esto
 

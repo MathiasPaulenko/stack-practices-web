@@ -45,7 +45,7 @@ seo:
 
 Disaster recovery (DR) is the set of policies, tools, and procedures that enable the recovery or continuation of vital technology infrastructure and systems following a natural or human-induced disaster. It protects against data loss and minimizes downtime when the unexpected happens.
 
-This guide covers defining recovery objectives, backup strategies, multi-region architectures, and useful runbooks.
+Here is a hands-on guide to defining recovery objectives, backup strategies, multi-region architectures, and useful runbooks.
 
 ## When to Use
 

@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Docker es el standard para packaging y deploying applications. Pero run containers en production requiere mas que `docker build` y `docker run`. Esta guia cubre multi-stage builds, distroless images, health checks, image scanning, resource limits, logging, secrets management, multi-arch builds, y runtime security.
+Docker es el standard para packaging y deploying applications. Pero run containers en production requiere mas que `docker build` y `docker run`. A continuacion se cubre multi-stage builds, distroless images, health checks, image scanning, resource limits, logging, secrets management, multi-arch builds, y runtime security.
 
 ## Multi-Stage Builds
 

@@ -41,7 +41,7 @@ Modern algorithms like bcrypt, Argon2, and PBKDF2 are intentionally slow to resi
 
 The consequences of getting this wrong are severe. Data breaches involving plaintext or weakly hashed passwords expose millions of user accounts to credential stuffing attacks, where attackers try leaked passwords across other services. High-profile breaches have demonstrated that even large organizations fall victim to improper password storage. Hashing is not optional decoration — it is a fundamental security control that protects your users even when your database is compromised.
 
-This recipe covers the three most common language ecosystems and explains how to choose the right algorithm for your threat model.
+Here is how to the three most common language ecosystems and explains how to choose the right algorithm for your threat model.
 
 ## When to Use
 

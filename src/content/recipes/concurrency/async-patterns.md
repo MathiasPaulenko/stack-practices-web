@@ -34,7 +34,7 @@ seo:
 
 Synchronous code blocks the execution thread until an operation completes. When that operation is I/O — querying a database, fetching from an API, reading a file — the thread sits idle, wasting CPU cycles that could process other requests. Async programming solves this by suspending the current task when it encounters I/O, allowing the runtime to execute other tasks, and resuming the original task when the I/O completes. This enables a single thread to handle thousands of concurrent connections.
 
-The challenge is not writing `async` and `await` keywords — it is understanding the underlying event loop, avoiding callback hell, handling errors across suspension points, and preventing resource contention when multiple tasks access shared state. Different runtimes implement async differently: JavaScript uses an event loop with promises, Python uses `asyncio` with coroutines, and Java uses `CompletableFuture` with thread pools. This recipe covers patterns, anti-patterns, and practical implementations across all three.
+The challenge is not writing `async` and `await` keywords — it is understanding the underlying event loop, avoiding callback hell, handling errors across suspension points, and preventing resource contention when multiple tasks access shared state. Different runtimes implement async differently: JavaScript uses an event loop with promises, Python uses `asyncio` with coroutines, and Java uses `CompletableFuture` with thread pools. Here is how to patterns, anti-patterns, and practical implementations across all three.
 
 ## When to use it
 

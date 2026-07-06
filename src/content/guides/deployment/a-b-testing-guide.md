@@ -40,7 +40,7 @@ seo:
 
 A/B testing (also called split testing) is a controlled experiment methodology that compares two versions of a product capability to determine which performs better. It removes guesswork from product decisions by letting user behavior data determine winners.
 
-This guide covers experiment design, statistical rigor, implementation patterns, and organizational adoption.
+The following walks through experiment design, statistical rigor, implementation patterns, and organizational adoption.
 
 ## When to Use
 

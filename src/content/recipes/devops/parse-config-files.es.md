@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-La mayoría de las aplicaciones necesitan configuración externa para adaptar su comportamiento entre entornos (desarrollo, staging, producción) sin modificar el código. YAML y JSON son los formatos dominantes, pero analizarlos no es suficiente: configuraciones inválidas causan fallos en tiempo de ejecución. Esta receta cubre el análisis confiable, la validación de esquemas y los overrides por entorno en Python, JavaScript y Java.
+La mayoría de las aplicaciones necesitan configuración externa para adaptar su comportamiento entre entornos (desarrollo, staging, producción) sin modificar el código. YAML y JSON son los formatos dominantes, pero analizarlos no es suficiente: configuraciones inválidas causan fallos en tiempo de ejecución. La solucion a continuacion cubre el análisis confiable, la validación de esquemas y los overrides por entorno en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

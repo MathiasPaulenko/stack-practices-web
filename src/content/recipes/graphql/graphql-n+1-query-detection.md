@@ -33,7 +33,7 @@ seo:
 
 # Detect and Fix N+1 Queries in GraphQL Resolvers
 
-The N+1 problem is the most common performance issue in GraphQL APIs. When a list query returns N items and each item triggers a separate database call for a related field, you get 1 + N queries instead of 1. This recipe shows how to detect N+1 patterns during development and fix them with DataLoader batching.
+The N+1 problem is the most common performance issue in GraphQL APIs. When a list query returns N items and each item triggers a separate database call for a related field, you get 1 + N queries instead of 1. The following demonstrates how to detect N+1 patterns during development and fix them with DataLoader batching.
 
 ## When to Use This
 

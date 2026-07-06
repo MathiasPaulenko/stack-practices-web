@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-GitHub Actions automates CI/CD pipelines directly in GitHub repositories. You define workflows in YAML that trigger on events (push, pull request, schedule), run jobs on runners, and chain steps together. This guide covers workflow syntax, reusable workflows, composite actions, secrets management, self-hosted runners, matrix builds, caching, and deployment patterns.
+GitHub Actions automates CI/CD pipelines directly in GitHub repositories. You define workflows in YAML that trigger on events (push, pull request, schedule), run jobs on runners, and chain steps together. Below is a practical guide to workflow syntax, reusable workflows, composite actions, secrets management, self-hosted runners, matrix builds, caching, and deployment patterns.
 
 ## Workflow Basics
 

@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Leer archivos de varios gigabytes en memoria de una sola vez puede bloquear aplicaciones o degradar severamente el rendimiento. Esta receta muestra técnicas eficientes en memoria para procesar archivos grandes línea por línea o en chunks en Python, JavaScript y Java.
+Leer archivos de varios gigabytes en memoria de una sola vez puede bloquear aplicaciones o degradar severamente el rendimiento. Lo siguiente demuestra técnicas eficientes en memoria para procesar archivos grandes línea por línea o en chunks en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

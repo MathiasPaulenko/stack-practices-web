@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-A seeded database is the fastest way to onboard new developers, reproduce bugs, and run integration tests that depend on realistic data distributions. Without seeding, every environment starts empty, forcing developers to manually create accounts, orders, and relationships before they can test any capability. This recipe shows safe, repeatable seeding strategies that do not pollute production.
+A seeded database is the fastest way to onboard new developers, reproduce bugs, and run integration tests that depend on realistic data distributions. Without seeding, every environment starts empty, forcing developers to manually create accounts, orders, and relationships before they can test any capability. Here is how to safe, repeatable seeding strategies that do not pollute production.
 
 ## When to Use
 

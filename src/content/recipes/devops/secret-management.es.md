@@ -34,7 +34,7 @@ seo:
 
 Los secretos — API keys, contraseñas de base de datos, certificados TLS, claves de encriptación — son las joyas de la corona de cualquier aplicación. Hardcodearlos en código fuente los commitea a control de versiones para siempre, expuestos a cualquiera con acceso al repositorio. Almacenarlos en archivos `.env` de texto plano en servidores los deja legibles por cualquier proceso corriendo como el mismo usuario.
 
-La gestión segura de secretos significa almacenarlos en vaults dedicados con encriptación at rest, control de acceso, audit logging y rotación automática. Las aplicaciones obtienen secretos en runtime a través de llamadas API autenticadas, nunca persistiéndolos a disco. Esta receta cubre secret managers nativos de cloud (AWS, GCP, Azure), HashiCorp Vault y Kubernetes Secrets.
+La gestión segura de secretos significa almacenarlos en vaults dedicados con encriptación at rest, control de acceso, audit logging y rotación automática. Las aplicaciones obtienen secretos en runtime a través de llamadas API autenticadas, nunca persistiéndolos a disco. Aqui se explica como secret managers nativos de cloud (AWS, GCP, Azure), HashiCorp Vault y Kubernetes Secrets.
 
 ## Cuándo usarlo
 

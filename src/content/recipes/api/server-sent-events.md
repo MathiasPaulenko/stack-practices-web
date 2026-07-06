@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Server-Sent Events (SSE) is a browser API and HTTP-based protocol that enables servers to push real-time updates to clients over a single long-lived connection. Unlike [WebSockets](/recipes/api/websocket-server) (full-duplex), SSE is uni-directional: server → client only. It runs over standard HTTP, works through most firewalls and proxies, has built-in auto-reconnection with `Last-Event-ID`, and requires no special protocol upgrades. This recipe covers implementing SSE endpoints in Python, JavaScript (Node.js), and Java (Spring Boot), with event types, heartbeat keepalives, and broadcasting to multiple clients.
+Server-Sent Events (SSE) is a browser API and HTTP-based protocol that enables servers to push real-time updates to clients over a single long-lived connection. Unlike [WebSockets](/recipes/api/websocket-server) (full-duplex), SSE is uni-directional: server → client only. It runs over standard HTTP, works through most firewalls and proxies, has built-in auto-reconnection with `Last-Event-ID`, and requires no special protocol upgrades. Below is a practical approach to implementing SSE endpoints in Python, JavaScript (Node.js), and Java (Spring Boot), with event types, heartbeat keepalives, and broadcasting to multiple clients.
 
 ## When to Use
 

@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Terraform is the most widely used infrastructure-as-code tool, enabling teams to define, provision, and manage cloud resources through declarative configuration files. While getting started with Terraform is straightforward, building production-grade infrastructure requires discipline around module design, state management, security, and collaboration workflows. This guide covers the practices that separate prototype Terraform code from enterprise-ready infrastructure.
+Terraform is the most widely used infrastructure-as-code tool, enabling teams to define, provision, and manage cloud resources through declarative configuration files. While getting started with Terraform is straightforward, building production-grade infrastructure requires discipline around module design, state management, security, and collaboration workflows. This guide walks through the practices that separate prototype Terraform code from enterprise-ready infrastructure.
 
 ## When to Use
 

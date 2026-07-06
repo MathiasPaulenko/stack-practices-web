@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-Importar datos desde CSV o Excel es una funcionalidad estándar de paneles de administración, herramientas de migración de datos y capacidades de actualización masiva. El desafío no es solo parsear el archivo, sino validar cada fila, manejar datos malformados elegantemente e importar archivos grandes sin bloquear el servidor. Esta receta cubre importación confiable de CSV/Excel en Python, JavaScript y Java.
+Importar datos desde CSV o Excel es una funcionalidad estándar de paneles de administración, herramientas de migración de datos y capacidades de actualización masiva. El desafío no es solo parsear el archivo, sino validar cada fila, manejar datos malformados elegantemente e importar archivos grandes sin bloquear el servidor. La solucion a continuacion cubre importación confiable de CSV/Excel en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

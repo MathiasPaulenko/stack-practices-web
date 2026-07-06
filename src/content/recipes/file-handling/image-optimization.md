@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Images are the single largest contributor to page weight. Unoptimized images slow down your site, hurt SEO rankings, and increase bandwidth costs. This recipe covers resizing, compressing, and converting images to modern formats (WebP, AVIF) in Python, JavaScript, and Java, plus responsive image strategies for the web.
+Images are the single largest contributor to page weight. Unoptimized images slow down your site, hurt SEO rankings, and increase bandwidth costs. Here is how to resizing, compressing, and converting images to modern formats (WebP, AVIF) in Python, JavaScript, and Java, plus responsive image strategies for the web.
 
 ## When to Use
 

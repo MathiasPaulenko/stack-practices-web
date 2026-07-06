@@ -34,7 +34,7 @@ seo:
 
 Synchronous service-to-service calls create tight coupling. The caller must know the callee's location, wait for a response, and handle failures directly. When the callee is slow or down, the caller suffers. As systems grow, this web of direct dependencies becomes a tangled mess where any change ripples across multiple services.
 
-Event-driven architecture inverts this relationship. Services communicate by publishing events to a message broker rather than calling each other directly. An "OrderPlaced" event is published once. The inventory service subscribes and decrements stock. The billing service subscribes and creates an invoice. The shipping service subscribes and prepares a label. Each service operates independently — if billing is slow, orders and shipping continue unaffected. This recipe covers event patterns, broker selection, and implementation with Kafka, RabbitMQ, and AWS EventBridge.
+Event-driven architecture inverts this relationship. Services communicate by publishing events to a message broker rather than calling each other directly. An "OrderPlaced" event is published once. The inventory service subscribes and decrements stock. The billing service subscribes and creates an invoice. The shipping service subscribes and prepares a label. Each service operates independently — if billing is slow, orders and shipping continue unaffected. Below is a practical approach to event patterns, broker selection, and implementation with Kafka, RabbitMQ, and AWS EventBridge.
 
 ## When to use it
 

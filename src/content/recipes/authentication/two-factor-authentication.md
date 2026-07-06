@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Passwords alone are no longer sufficient to protect user accounts. Two-factor authentication (2FA) adds a second layer by requiring something the user knows (password) and something they have (a time-based one-time password generator). TOTP (RFC 6238) is the industry-standard algorithm supported by Google Authenticator, Authy, and hardware keys. This recipe covers generating secrets, creating QR codes for setup, verifying tokens, and handling backup codes in Python, JavaScript, and Java.
+Passwords alone are no longer sufficient to protect user accounts. Two-factor authentication (2FA) adds a second layer by requiring something the user knows (password) and something they have (a time-based one-time password generator). TOTP (RFC 6238) is the industry-standard algorithm supported by Google Authenticator, Authy, and hardware keys. The following demonstrates how to generating secrets, creating QR codes for setup, verifying tokens, and handling backup codes in Python, JavaScript, and Java.
 
 ## When to Use
 

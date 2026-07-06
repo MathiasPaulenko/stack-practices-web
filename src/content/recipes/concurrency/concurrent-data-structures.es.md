@@ -34,7 +34,7 @@ seo:
 
 Compartir un `ArrayList` estándar entre threads es peligroso. El thread A lee el índice 0 mientras el thread B elimina el índice 0 — `ConcurrentModificationException`. El thread A y B llaman `map.put("key", value)` simultáneamente en un `HashMap` — la lista enlazada interna puede volverse circular, causando un loop infinito durante la iteración. Estas fallas son no deterministas: pueden pasar miles de tests y fallar solo bajo carga de producción.
 
-Las colecciones estándar (`ArrayList`, `HashMap`, `LinkedList`) no son thread-safe. Envolver cada acceso en `synchronized` funciona pero serializa todas las operaciones, derrotando el paralelismo. Las estructuras de datos concurrentes son colecciones diseñadas para acceso multi-thread: usan locks de grano fino, algoritmos lock-free o inmutabilidad para permitir lecturas y escrituras concurrentes seguras con mínima contención. Esta receta cubre blocking queues, concurrent maps, copy-on-write collections y atomic counters con ejemplos prácticos.
+Las colecciones estándar (`ArrayList`, `HashMap`, `LinkedList`) no son thread-safe. Envolver cada acceso en `synchronized` funciona pero serializa todas las operaciones, derrotando el paralelismo. Las estructuras de datos concurrentes son colecciones diseñadas para acceso multi-thread: usan locks de grano fino, algoritmos lock-free o inmutabilidad para permitir lecturas y escrituras concurrentes seguras con mínima contención. Lo siguiente cubre blocking queues, concurrent maps, copy-on-write collections y atomic counters con ejemplos prácticos.
 
 ## Cuándo usarlo
 

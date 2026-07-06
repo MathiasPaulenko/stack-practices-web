@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Los costos LLM scalean con usage — cada token cuesta dinero. En produccion, aplicaciones LLM no optimizadas pueden acumular miles de dolares por dia. La optimizacion de costos no es opcional; es un requirement de produccion. Esta guia cubre model routing, prompt compression, estrategias de caching, batch API usage, token management, y patrones de budget control que reducen costos LLM en 50-90% sin sacrificar calidad.
+Los costos LLM scalean con usage — cada token cuesta dinero. En produccion, aplicaciones LLM no optimizadas pueden acumular miles de dolares por dia. La optimizacion de costos no es opcional; es un requirement de produccion. Esta guia recorre model routing, prompt compression, estrategias de caching, batch API usage, token management, y patrones de budget control que reducen costos LLM en 50-90% sin sacrificar calidad.
 
 ## Desglose de Costos
 

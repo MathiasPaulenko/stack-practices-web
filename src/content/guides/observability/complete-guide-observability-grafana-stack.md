@@ -42,7 +42,7 @@ seo:
 
 ## Introduction
 
-Observability means understanding your system's internal state from its external outputs — metrics, logs, and traces. The Grafana stack (Prometheus for metrics, Loki for logs, Tempo for traces, Grafana for visualization) provides a complete open-source observability platform. This guide covers instrumentation, configuration, dashboards, alerting, and distributed tracing.
+Observability means understanding your system's internal state from its external outputs — metrics, logs, and traces. The Grafana stack (Prometheus for metrics, Loki for logs, Tempo for traces, Grafana for visualization) provides a complete open-source observability platform. The following walks through instrumentation, configuration, dashboards, alerting, and distributed tracing.
 
 ## The Three Pillars
 

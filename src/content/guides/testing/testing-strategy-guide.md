@@ -41,7 +41,7 @@ seo:
 
 Testing is not just about finding bugs. A well-designed testing strategy provides confidence for refactoring, documents expected behavior, catches regressions before they reach production, and works as executable specifications for your system.
 
-This guide covers the test pyramid, test types, when to use each, and how to integrate testing into your CI/CD pipeline.
+Below is a practical guide to the test pyramid, test types, when to use each, and how to integrate testing into your CI/CD pipeline.
 
 ## The Testing Pyramid
 

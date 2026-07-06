@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-Las migraciones de base de datos evolucionan el esquema a medida que tu aplicación cambia. Migraciones inseguras — como agregar una columna no-nula a una tabla grande o eliminar una columna aún referenciada por código viejo — pueden causar downtime, pérdida de datos o fallos de despliegue. Esta receta cubre patrones de migración segura usando Alembic (Python), Knex.js (JavaScript) y Flyway (Java), más estrategias de despliegue sin downtime.
+Las migraciones de base de datos evolucionan el esquema a medida que tu aplicación cambia. Migraciones inseguras — como agregar una columna no-nula a una tabla grande o eliminar una columna aún referenciada por código viejo — pueden causar downtime, pérdida de datos o fallos de despliegue. El siguiente enfoque cubre patrones de migración segura usando Alembic (Python), Knex.js (JavaScript) y Flyway (Java), más estrategias de despliegue sin downtime.
 
 ## Cuándo Usar
 

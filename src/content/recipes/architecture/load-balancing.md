@@ -34,7 +34,7 @@ seo:
 
 A single server handling all traffic has a maximum capacity defined by its CPU, memory, network, and disk I/O. When demand exceeds that capacity, response times degrade and requests start failing. Load balancing solves this by distributing incoming traffic across multiple backend servers — a pool that scales horizontally. But distribution is not as simple as sending each request to the next server in a list. Different algorithms optimize for different goals: fairness, latency minimization, session stickiness, or cache locality.
 
-The load balancer sits between clients and servers, acting as a reverse proxy. It monitors backend health, removes failed instances from rotation, and reintroduces them when recovered. It can operate at multiple layers: DNS (geographic), transport (TCP/UDP), or application (HTTP with cookie-based persistence). This recipe covers the most common algorithms, their trade-offs, and implementation using Nginx and HAProxy.
+The load balancer sits between clients and servers, acting as a reverse proxy. It monitors backend health, removes failed instances from rotation, and reintroduces them when recovered. It can operate at multiple layers: DNS (geographic), transport (TCP/UDP), or application (HTTP with cookie-based persistence). The following demonstrates how to the most common algorithms, their trade-offs, and implementation using Nginx and HAProxy.
 
 ## When to use it
 

@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-OAuth 2.0 es el estándar de la industria para autorización delegada. Permite que los usuarios inicien sesión con cuentas existentes (Google, GitHub, Microsoft) sin exponer sus contraseñas a tu aplicación. Esta receta implementa el flujo de Código de Autorización con PKCE en Python, JavaScript y Java, incluyendo validación de state y refresh de tokens.
+OAuth 2.0 es el estándar de la industria para autorización delegada. Permite que los usuarios inicien sesión con cuentas existentes (Google, GitHub, Microsoft) sin exponer sus contraseñas a tu aplicación. Esta implementacion proporciona el flujo de Código de Autorización con PKCE en Python, JavaScript y Java, incluyendo validación de state y refresh de tokens.
 
 ## Cuándo Usar
 

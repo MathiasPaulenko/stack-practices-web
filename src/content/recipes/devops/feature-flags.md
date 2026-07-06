@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Feature flags (or feature toggles) decouple deployment from release. They let you merge incomplete features to `main`, enable them for a subset of users, measure impact, and instantly roll back without a new deployment. This recipe covers building a lightweight flag service, rollout strategies (boolean, percentage, user targeting), and safe cleanup patterns in Python, JavaScript, and Java.
+Feature flags (or feature toggles) decouple deployment from release. They let you merge incomplete features to `main`, enable them for a subset of users, measure impact, and instantly roll back without a new deployment. This approach handles building a lightweight flag service, rollout strategies (boolean, percentage, user targeting), and safe cleanup patterns in Python, JavaScript, and Java.
 
 ## When to Use
 

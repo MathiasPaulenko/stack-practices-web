@@ -34,7 +34,7 @@ seo:
 
 Secrets — API keys, database passwords, TLS certificates, encryption keys — are the crown jewels of any application. Hardcoding them in source code commits them to version control forever, exposed to anyone with repository access. Storing them in plaintext `.env` files on servers leaves them readable by any process running as the same user.
 
-Secure secret management means storing secrets in dedicated vaults with encryption at rest, access control, audit logging, and automatic rotation. Applications fetch secrets at runtime through authenticated API calls, never persisting them to disk. This recipe covers cloud-native secret managers (AWS, GCP, Azure), HashiCorp Vault, and Kubernetes Secrets.
+Secure secret management means storing secrets in dedicated vaults with encryption at rest, access control, audit logging, and automatic rotation. Applications fetch secrets at runtime through authenticated API calls, never persisting them to disk. The solution below covers cloud-native secret managers (AWS, GCP, Azure), HashiCorp Vault, and Kubernetes Secrets.
 
 ## When to Use
 

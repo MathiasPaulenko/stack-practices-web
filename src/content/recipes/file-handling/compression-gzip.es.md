@@ -34,7 +34,7 @@ seo:
 
 El ancho de banda de red frecuentemente es el componente más lento en la entrega de aplicaciones web. Un bundle JavaScript de 500KB puede tardar 2 segundos en descargarse en una conexión 3G, pero solo 50 milisegundos en generarse en el servidor. La compresión cierra esta brecha reduciendo tamaños de payload antes de la transmisión. Algoritmos modernos como Gzip y Brotli pueden reducir assets basados en texto — HTML, CSS, JavaScript, JSON y SVG — entre un 60-85% sin pérdida de datos.
 
-La clave es que la compresión ocurra transparentemente en la capa correcta. Los servidores web (Nginx, Apache) pueden comprimir responses sobre la marcha. Los pipelines de build (Webpack, Vite) pueden pre-comprimir assets estáticos durante el deployment. Las APIs pueden streamer JSON comprimido directamente a clientes que anuncian soporte vía el header `Accept-Encoding`. Esta receta cubre Gzip, Brotli y compresión streaming en Python, Node.js y configuraciones de servidor web.
+La clave es que la compresión ocurra transparentemente en la capa correcta. Los servidores web (Nginx, Apache) pueden comprimir responses sobre la marcha. Los pipelines de build (Webpack, Vite) pueden pre-comprimir assets estáticos durante el deployment. Las APIs pueden streamer JSON comprimido directamente a clientes que anuncian soporte vía el header `Accept-Encoding`. A continuacion se cubre Gzip, Brotli y compresión streaming en Python, Node.js y configuraciones de servidor web.
 
 ## Cuándo usarlo
 

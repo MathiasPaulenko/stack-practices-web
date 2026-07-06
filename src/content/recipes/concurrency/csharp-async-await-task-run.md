@@ -33,7 +33,7 @@ seo:
 
 ## Overview
 
-C#'s `async`/`await` model provides a compiler-based state machine that transforms async methods into callbacks. `Task` and `Task<T>` represent async operations. This recipe covers `async`/`await` basics, `Task.WhenAll` for parallel execution, `Task.WhenAny` for first-to-complete, `CancellationTokenSource` for cancellation, `System.Threading.Channels` for producer-consumer, and `Parallel.ForEachAsync` for bounded parallel I/O.
+C#'s `async`/`await` model provides a compiler-based state machine that transforms async methods into callbacks. `Task` and `Task<T>` represent async operations. The following demonstrates how to `async`/`await` basics, `Task.WhenAll` for parallel execution, `Task.WhenAny` for first-to-complete, `CancellationTokenSource` for cancellation, `System.Threading.Channels` for producer-consumer, and `Parallel.ForEachAsync` for bounded parallel I/O.
 
 ## When to Use This
 

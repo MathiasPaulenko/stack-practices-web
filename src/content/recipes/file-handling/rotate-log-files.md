@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Log rotation prevents a single log file from growing unbounded and exhausting disk space. A proper rotation strategy compresses old logs, keeps a configurable number of backups, and optionally deletes archives beyond a retention age. This recipe shows size-based and time-based rotation across Python, Node.js, Java, and Linux.
+Log rotation prevents a single log file from growing unbounded and exhausting disk space. A proper rotation strategy compresses old logs, keeps a configurable number of backups, and optionally deletes archives beyond a retention age. The pattern below demonstrates size-based and time-based rotation across Python, Node.js, Java, and Linux.
 
 ## When to Use
 

@@ -41,7 +41,7 @@ seo:
 
 Log aggregation collects logs from all services, systems, and infrastructure into a centralized, searchable platform. It transforms scattered text files into a queryable observability signal, enabling fast debugging, security auditing, and operational visibility across distributed systems.
 
-This guide covers structured logging, shipping strategies, storage optimization, and platform selection.
+Below is a practical guide to structured logging, shipping strategies, storage optimization, and platform selection.
 
 ## When to Use
 

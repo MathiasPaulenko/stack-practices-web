@@ -39,7 +39,7 @@ seo:
 
 Caching is one of the most useful ways to improve application performance and reduce infrastructure costs. By storing copies of frequently accessed data closer to where it is needed, you reduce latency, decrease database load, and improve user experience. But caching introduces complexity: stale data, invalidation logic, and consistency challenges.
 
-This guide covers caching at every layer of the stack, from browser to database.
+Below is a practical guide to caching at every layer of the stack, from browser to database.
 
 ## When to Use
 

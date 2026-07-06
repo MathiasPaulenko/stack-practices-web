@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Database replication is the process of copying and maintaining data across multiple database nodes. It provides high availability, read scaling, and disaster recovery. But replication introduces complexity: lag, conflicts, split-brain scenarios, and consistency trade-offs. This guide covers the replication strategies used in production, from simple master-slave setups to multi-master clusters.
+Database replication is the process of copying and maintaining data across multiple database nodes. It provides high availability, read scaling, and disaster recovery. But replication introduces complexity: lag, conflicts, split-brain scenarios, and consistency trade-offs. The following guide covers the replication strategies used in production, from simple master-slave setups to multi-master clusters.
 
 ## When to Use
 

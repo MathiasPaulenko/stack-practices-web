@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-XML sitemaps tell search engines which pages exist on your site, how often they change, and their relative priority. While static sitemaps work for small sites, live sitemaps are essential for large or frequently changing content (blogs, e-commerce, user-generated content). This recipe covers generating sitemap XML from database queries or content APIs, handling pagination when URLs exceed the 50,000 limit per file, and adding multi-language `hreflang` annotations for international SEO.
+XML sitemaps tell search engines which pages exist on your site, how often they change, and their relative priority. While static sitemaps work for small sites, live sitemaps are essential for large or frequently changing content (blogs, e-commerce, user-generated content). The solution below covers generating sitemap XML from database queries or content APIs, handling pagination when URLs exceed the 50,000 limit per file, and adding multi-language `hreflang` annotations for international SEO.
 
 ## When to Use
 

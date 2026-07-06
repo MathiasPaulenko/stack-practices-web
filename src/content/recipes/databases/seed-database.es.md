@@ -37,7 +37,7 @@ seo:
 
 ## Descripción General
 
-Una base de datos sembrada es la forma más rápida de incorporar nuevos desarrolladores, reproducir bugs y ejecutar tests de integración que dependen de distribuciones de datos realistas. Sin seeding, cada entorno comienza vacío, obligando a los desarrolladores a crear manualmente cuentas, órdenes y relaciones antes de poder testear cualquier capacidad. Esta receta muestra estrategias de seeding seguras y repetibles que no polucionan producción.
+Una base de datos sembrada es la forma más rápida de incorporar nuevos desarrolladores, reproducir bugs y ejecutar tests de integración que dependen de distribuciones de datos realistas. Sin seeding, cada entorno comienza vacío, obligando a los desarrolladores a crear manualmente cuentas, órdenes y relaciones antes de poder testear cualquier capacidad. Lo siguiente demuestra estrategias de seeding seguras y repetibles que no polucionan producción.
 
 ## Cuándo Usar
 

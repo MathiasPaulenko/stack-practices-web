@@ -34,7 +34,7 @@ seo:
 
 Shared memory concurrency is error-prone. Two threads read and write the same variable, and you need locks, atomic operations, and careful reasoning about memory visibility to prevent race conditions. The core problem is not concurrency itself — it is sharing mutable state between concurrent actors.
 
-Communicating Sequential Processes (CSP), popularized by Go, inverts this model. Instead of sharing memory, goroutines (lightweight threads) communicate by sending messages through channels. A channel is a typed queue that one goroutine writes to and another reads from. The sender blocks until the receiver is ready (for unbuffered channels), or until the buffer has space (for buffered channels). By design, goroutines do not share mutable state — they pass ownership of data through channels. This recipe covers Go channels, Rust async channels, and JavaScript-like CSP patterns with practical examples.
+Communicating Sequential Processes (CSP), popularized by Go, inverts this model. Instead of sharing memory, goroutines (lightweight threads) communicate by sending messages through channels. A channel is a typed queue that one goroutine writes to and another reads from. The sender blocks until the receiver is ready (for unbuffered channels), or until the buffer has space (for buffered channels). By design, goroutines do not share mutable state — they pass ownership of data through channels. This approach handles Go channels, Rust async channels, and JavaScript-like CSP patterns with practical examples.
 
 ## When to use it
 

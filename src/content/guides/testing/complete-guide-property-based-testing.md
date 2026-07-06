@@ -36,7 +36,7 @@ seo:
 
 ## Introduction
 
-Property-based testing flips the traditional testing model on its head. Instead of writing individual test cases with specific inputs and expected outputs, you define properties — invariants that should hold for all valid inputs — and the framework generates hundreds or thousands of test cases automatically. When a test fails, the framework shrinks the failing input to the smallest possible case that reproduces the bug. This guide covers Hypothesis for Python, fast-check for TypeScript/JavaScript, and the underlying QuickCheck principles that power all property-based testing frameworks.
+Property-based testing flips the traditional testing model on its head. Instead of writing individual test cases with specific inputs and expected outputs, you define properties — invariants that should hold for all valid inputs — and the framework generates hundreds or thousands of test cases automatically. When a test fails, the framework shrinks the failing input to the smallest possible case that reproduces the bug. The following guide covers Hypothesis for Python, fast-check for TypeScript/JavaScript, and the underlying QuickCheck principles that power all property-based testing frameworks.
 
 ## Core Concepts
 

@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-QR codes bridge physical and digital. Python's `qrcode` library generates them from any string: URLs, contact info, WiFi credentials, payment links. This recipe covers basic generation, styling, error correction levels, and batch creation.
+QR codes bridge physical and digital. Python's `qrcode` library generates them from any string: URLs, contact info, WiFi credentials, payment links. Below is a practical approach to basic generation, styling, error correction levels, and batch creation.
 
 ## When to Use
 

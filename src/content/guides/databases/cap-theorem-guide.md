@@ -34,7 +34,7 @@ seo:
 
 ## Introduction
 
-The CAP theorem states that a distributed data store can guarantee at most two of these three properties: Consistency, Availability, and Partition Tolerance. Since network partitions are inevitable, you are really choosing between CP (Consistency + Partition Tolerance) and AP (Availability + Partition Tolerance) systems. This guide explains what each property means and how to choose the right trade-off.
+The CAP theorem states that a distributed data store can guarantee at most two of these three properties: Consistency, Availability, and Partition Tolerance. Since network partitions are inevitable, you are really choosing between CP (Consistency + Partition Tolerance) and AP (Availability + Partition Tolerance) systems. Below is a detailed explanation of what each property means and how to choose the right trade-off.
 
 ## The Three Properties
 

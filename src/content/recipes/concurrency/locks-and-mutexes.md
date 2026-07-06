@@ -34,7 +34,7 @@ seo:
 
 When multiple threads access shared data simultaneously, the result depends on the exact timing of their execution — a race condition. Thread A reads a bank balance of $100, Thread B reads the same $100, both add $50, and both write back $150. The correct result is $200, but the actual result is $150. The lost $50 is a data race caused by uncoordinated access.
 
-Locks solve this by ensuring that only one thread accesses critical data at a time. A mutex (mutual exclusion lock) allows one thread to enter a critical section. A read-write lock allows many readers simultaneously but only one writer. A semaphore controls access to a finite pool of resources (e.g., 10 database connections). Atomic operations provide lock-free updates for simple counters. This recipe covers when and how to use each mechanism.
+Locks solve this by ensuring that only one thread accesses critical data at a time. A mutex (mutual exclusion lock) allows one thread to enter a critical section. A read-write lock allows many readers simultaneously but only one writer. A semaphore controls access to a finite pool of resources (e.g., 10 database connections). Atomic operations provide lock-free updates for simple counters. Here is how to when and how to use each mechanism.
 
 ## When to use it
 

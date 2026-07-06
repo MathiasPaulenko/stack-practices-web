@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Reading a large file with `fs.readFile()` loads the entire file into memory. For multi-GB files, this causes out-of-memory crashes. Streams process data in chunks, keeping memory usage constant regardless of file size. This recipe covers reading, transforming, and writing large files using Node.js streams.
+Reading a large file with `fs.readFile()` loads the entire file into memory. For multi-GB files, this causes out-of-memory crashes. Streams process data in chunks, keeping memory usage constant regardless of file size. The solution below covers reading, transforming, and writing large files using Node.js streams.
 
 ## When to Use
 

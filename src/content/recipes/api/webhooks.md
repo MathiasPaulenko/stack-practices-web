@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Webhooks are HTTP callbacks that enable real-time, event-driven communication between systems. Instead of polling an API every few minutes, a webhook pushes data to your endpoint the moment an event occurs. This recipe covers implementing secure webhook endpoints with signature verification, retry logic, and idempotency in Python, JavaScript, and Java.
+Webhooks are HTTP callbacks that enable real-time, event-driven communication between systems. Instead of polling an API every few minutes, a webhook pushes data to your endpoint the moment an event occurs. The following demonstrates how to implementing secure webhook endpoints with signature verification, retry logic, and idempotency in Python, JavaScript, and Java.
 
 ## When to Use
 

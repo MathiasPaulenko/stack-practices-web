@@ -34,7 +34,7 @@ seo:
 
 Los microservicios se comunican a través de la red, y la red no es confiable. Cada llamada inter-servicio cruza límites de pod, límites de nodo y potencialmente límites de cluster. Sin encriptación, atacantes con acceso a la red pueden leer o modificar tráfico. Sin identidad, cualquier servicio comprometido puede impersonar a otro. Sin observabilidad, debuggear un request que atraviesa 10 servicios es casi imposible.
 
-Un service mesh resuelve estos problemas insertando un proxy — un sidecar container — al lado de cada pod de aplicación. Todo el tráfico entrante o saliente del pod fluye a través del sidecar. El sidecar maneja mTLS mutuo, enrutamiento de tráfico, retries, timeouts, métricas y políticas de acceso. El código de aplicación permanece completamente inconsciente. Esta receta cubre conceptos de service mesh, despliegue de Istio, políticas de tráfico y observabilidad.
+Un service mesh resuelve estos problemas insertando un proxy — un sidecar container — al lado de cada pod de aplicación. Todo el tráfico entrante o saliente del pod fluye a través del sidecar. El sidecar maneja mTLS mutuo, enrutamiento de tráfico, retries, timeouts, métricas y políticas de acceso. El código de aplicación permanece completamente inconsciente. Aqui se explica como conceptos de service mesh, despliegue de Istio, políticas de tráfico y observabilidad.
 
 ## Cuándo usarlo
 

@@ -33,7 +33,7 @@ seo:
 
 Los agentes de IA son sistemas autónomos potenciados por large language models (LLMs) que pueden percibir su entorno, razonar sobre objetivos y tomar acciones invocando herramientas externas. A diferencia de [chatbots simples](/recipes/ai/chatbot-openai) que solo generan texto, los agentes mantienen estado a través de múltiples turnos, eligen qué herramientas llamar basándose en contexto e iteran hasta que una tarea se completa. Representan la siguiente evolución desde [prompts estáticos](/recipes/ai/prompt-engineering) hasta sistemas orientados a objetivos dinámicos.
 
-El ciclo fundamental de agente es: **observar → razonar → actuar → observar de nuevo**. El agente recibe un input o estado de entorno, razona sobre qué hacer, llama una herramienta (como búsqueda web, query de base de datos o ejecución de código), observa el resultado y repite hasta que el objetivo se satisface. Esta receta cubre el patrón ReAct, APIs de function calling, definiciones de herramientas y gestión de memoria para sistemas de agentes multi-turno.
+El ciclo fundamental de agente es: **observar → razonar → actuar → observar de nuevo**. El agente recibe un input o estado de entorno, razona sobre qué hacer, llama una herramienta (como búsqueda web, query de base de datos o ejecución de código), observa el resultado y repite hasta que el objetivo se satisface. A continuacion se cubre el patrón ReAct, APIs de function calling, definiciones de herramientas y gestión de memoria para sistemas de agentes multi-turno.
 
 ## Cuándo usarlo
 

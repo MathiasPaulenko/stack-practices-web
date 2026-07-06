@@ -34,7 +34,7 @@ seo:
 
 In a monolithic application, a single database transaction wraps multiple operations: debit one account, credit another, update an order status. If any step fails, the database rolls back everything. Atomicity is guaranteed by the database engine. In a microservices architecture, each service owns its own database. There is no shared transaction manager. You cannot wrap a debit in the payment service, a reservation in the inventory service, and a shipment in the logistics service in a single `BEGIN...COMMIT` block.
 
-The saga pattern solves this by breaking a long-lived transaction into a sequence of local transactions. Each step updates data in one service and publishes an event or command to trigger the next step. If a step fails, the saga executes compensating transactions — undoing the changes made by previous steps. There are two styles: choreography (services react to each other's events) and orchestration (a central saga manager directs each step). This recipe covers both approaches, compensation design, and failure handling.
+The saga pattern solves this by breaking a long-lived transaction into a sequence of local transactions. Each step updates data in one service and publishes an event or command to trigger the next step. If a step fails, the saga executes compensating transactions — undoing the changes made by previous steps. There are two styles: choreography (services react to each other's events) and orchestration (a central saga manager directs each step). The solution below covers both approaches, compensation design, and failure handling.
 
 ## When to use it
 

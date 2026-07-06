@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Interactive rebase lets you rewrite commit history before merging. You can squash related commits, reorder them, edit commit messages, split commits, and drop unwanted ones. This keeps your branch history clean and readable. This recipe covers all interactive rebase actions with practical examples.
+Interactive rebase lets you rewrite commit history before merging. You can squash related commits, reorder them, edit commit messages, split commits, and drop unwanted ones. This keeps your branch history clean and readable. Here is how to all interactive rebase actions with practical examples.
 
 ## When to Use
 

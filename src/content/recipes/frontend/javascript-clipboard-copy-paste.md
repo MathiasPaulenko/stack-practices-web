@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-The Clipboard API lets you copy and paste text programmatically in the browser. `navigator.clipboard.writeText()` is the modern approach, with `document.execCommand("copy")` as a fallback for older browsers. This recipe covers copying text, reading from clipboard, handling permissions, and paste event interception.
+The Clipboard API lets you copy and paste text programmatically in the browser. `navigator.clipboard.writeText()` is the modern approach, with `document.execCommand("copy")` as a fallback for older browsers. This approach handles copying text, reading from clipboard, handling permissions, and paste event interception.
 
 ## When to Use
 

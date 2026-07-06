@@ -39,7 +39,7 @@ seo:
 
 Real-time notifications keep users informed without polling. WebSockets provide full-duplex communication between client and server, while Redis pub/sub acts as a message broker to broadcast events across multiple server instances.
 
-This recipe implements a notification system with WebSocket connections, room-based broadcasting, and Redis-backed horizontal scaling.
+The code below implements a notification system with WebSocket connections, room-based broadcasting, and Redis-backed horizontal scaling.
 
 ## When to Use
 

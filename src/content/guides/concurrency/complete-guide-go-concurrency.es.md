@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Go fue construido para concurrencia. Las goroutines son lightweight (2KB stack inicial), los channels proporcionan comunicacion tipada, y el runtime scheduler multiplexa goroutines sobre OS threads. El approach de Go es diferente de threads-and-locks: favorece comunicacion sobre sharing. Esta guia cubre goroutines, channels, context cancellation, sync primitives, worker pools, pipelines, y patrones de produccion para construir servicios Go concurrentes de alto throughput.
+Go fue construido para concurrencia. Las goroutines son lightweight (2KB stack inicial), los channels proporcionan comunicacion tipada, y el runtime scheduler multiplexa goroutines sobre OS threads. El approach de Go es diferente de threads-and-locks: favorece comunicacion sobre sharing. Aqui se presenta una guia sobre goroutines, channels, context cancellation, sync primitives, worker pools, pipelines, y patrones de produccion para construir servicios Go concurrentes de alto throughput.
 
 ## Goroutines
 

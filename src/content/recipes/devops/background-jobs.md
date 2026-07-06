@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-Background jobs offload slow or non-critical work from the request/response cycle. Sending emails, generating reports, processing images, or syncing with third-party APIs should never block a user's HTTP request. This recipe implements task queues, cron scheduling, and worker patterns in Python, JavaScript, and Java.
+Background jobs offload slow or non-critical work from the request/response cycle. Sending emails, generating reports, processing images, or syncing with third-party APIs should never block a user's HTTP request. Here is a working implementation of task queues, cron scheduling, and worker patterns in Python, JavaScript, and Java.
 
 ## When to Use
 

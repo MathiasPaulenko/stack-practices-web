@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Application-level caching sits between your business logic and your database. It stores frequently accessed data in memory or in a fast distributed store, reducing database load and response times. Unlike CDN caching (which caches HTTP responses) or database caching (which caches query results), application-level caching gives you fine-grained control over what gets cached, for how long, and how it is invalidated. This guide covers in-memory caches, distributed caches, hybrid multi-tier strategies, and production patterns.
+Application-level caching sits between your business logic and your database. It stores frequently accessed data in memory or in a fast distributed store, reducing database load and response times. Unlike CDN caching (which caches HTTP responses) or database caching (which caches query results), application-level caching gives you fine-grained control over what gets cached, for how long, and how it is invalidated. Here is a hands-on guide to in-memory caches, distributed caches, hybrid multi-tier strategies, and production patterns.
 
 ## Cache Types at the Application Layer
 

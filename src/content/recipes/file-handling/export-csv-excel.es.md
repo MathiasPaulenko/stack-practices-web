@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-Exportar datos a CSV o Excel es un requerimiento común para dashboards de administración, herramientas de reporting y flujos de migración de datos. El desafío es manejar datasets grandes (millones de filas) sin quedarse sin memoria. Esta receta cubre la generación eficiente de CSV/Excel en Python, JavaScript y Java.
+Exportar datos a CSV o Excel es un requerimiento común para dashboards de administración, herramientas de reporting y flujos de migración de datos. El desafío es manejar datasets grandes (millones de filas) sin quedarse sin memoria. Lo siguiente cubre la generación eficiente de CSV/Excel en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

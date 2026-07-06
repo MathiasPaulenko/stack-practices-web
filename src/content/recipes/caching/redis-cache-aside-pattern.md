@@ -32,7 +32,7 @@ seo:
 
 # Implement the Cache-Aside Pattern with Redis
 
-Cache-aside (also called lazy loading) is the most common caching pattern. The application checks the cache first; on a miss, it loads from the database, writes the result to the cache, and returns it. On writes, the application updates the database and invalidates the cache entry. This recipe implements cache-aside in Python with Redis, including thundering herd protection and write-through invalidation.
+Cache-aside (also called lazy loading) is the most common caching pattern. The application checks the cache first; on a miss, it loads from the database, writes the result to the cache, and returns it. On writes, the application updates the database and invalidates the cache entry. Here is a working implementation of cache-aside in Python with Redis, including thundering herd protection and write-through invalidation.
 
 ## When to Use This
 

@@ -37,7 +37,7 @@ seo:
 ---
 ## Overview
 
-Database migrations evolve your schema as your application changes. Unsafe migrations — like adding a non-nullable column to a large table or dropping a column still referenced by old code — can cause downtime, data loss, or deployment failures. This recipe covers safe migration patterns using Alembic (Python), Knex.js (JavaScript), and Flyway (Java), plus zero-downtime deployment strategies.
+Database migrations evolve your schema as your application changes. Unsafe migrations — like adding a non-nullable column to a large table or dropping a column still referenced by old code — can cause downtime, data loss, or deployment failures. The solution below covers safe migration patterns using Alembic (Python), Knex.js (JavaScript), and Flyway (Java), plus zero-downtime deployment strategies.
 
 ## When to Use
 

@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Responsive design means building layouts that adapt to any screen size — from 320px phones to 4K monitors. Modern CSS gives us Grid, Flexbox, container queries, and fluid typography to build responsive interfaces without JavaScript. This guide covers mobile-first strategy, CSS Grid layouts, Flexbox patterns, container queries, fluid typography, responsive images, and testing strategies.
+Responsive design means building layouts that adapt to any screen size — from 320px phones to 4K monitors. Modern CSS gives us Grid, Flexbox, container queries, and fluid typography to build responsive interfaces without JavaScript. The following walks through mobile-first strategy, CSS Grid layouts, Flexbox patterns, container queries, fluid typography, responsive images, and testing strategies.
 
 ## Mobile-First Strategy
 

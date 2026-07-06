@@ -32,7 +32,7 @@ seo:
 
 JSON es el formato de intercambio de datos de facto para las APIs modernas, los archivos de configuración y la comunicación entre servicios. Parsear JSON consiste en convertir una cadena con formato JSON en una estructura de datos nativa con la que tu lenguaje pueda trabajar (objetos, diccionarios, arrays).
 
-Todos los lenguajes principales ofrecen soporte de JSON de primera clase, ya sea incorporado o mediante una librería consolidada. Esta receta muestra la forma idiomática de parsear JSON en Python, JavaScript y Java.
+Todos los lenguajes principales ofrecen soporte de JSON de primera clase, ya sea incorporado o mediante una librería consolidada. El patron a continuacion demuestra la forma idiomática de parsear JSON en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

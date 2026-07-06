@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-PySpark es la API de Python para Apache Spark, un engine de procesamiento de datos distribuido. Las agregaciones group-by son una de las operaciones más comunes en pipelines de datos — sumar revenue por customer, contar eventos por día, promediar métricas por región. En datasets grandes (100GB+), la forma en que escribes las operaciones group-by afecta la performance dramáticamente. Esta receta cubre agregaciones básicas, window functions, UDAFs, broadcast joins y tuning de particiones.
+PySpark es la API de Python para Apache Spark, un engine de procesamiento de datos distribuido. Las agregaciones group-by son una de las operaciones más comunes en pipelines de datos — sumar revenue por customer, contar eventos por día, promediar métricas por región. En datasets grandes (100GB+), la forma en que escribes las operaciones group-by afecta la performance dramáticamente. El siguiente enfoque cubre agregaciones básicas, window functions, UDAFs, broadcast joins y tuning de particiones.
 
 ## When to Use
 

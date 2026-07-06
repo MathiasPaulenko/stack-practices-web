@@ -33,7 +33,7 @@ seo:
 
 Lazy loading is a performance optimization strategy that defers the loading of non-critical resources until they are actually needed. Instead of downloading every image, component, and data chunk on initial page load, the application only fetches what the user can immediately see or interact with. Resources below the fold, hidden tabs, or off-screen carousels load on demand — typically when the user scrolls, clicks, or hovers.
 
-This technique directly improves three key metrics: **Largest Contentful Paint (LCP)** by prioritizing above-the-fold content, **Time to Interactive (TTI)** by reducing JavaScript parsing on startup, and **cumulative bandwidth usage** by avoiding unnecessary downloads. See [performance optimization](/guides/performance/performance-optimization-guide) for more on Core Web Vitals. Modern browsers provide native lazy loading for images via the `loading="lazy"` attribute, while frameworks like React and Vue offer component-level code splitting. This recipe covers images, UI components, and API data.
+This technique directly improves three key metrics: **Largest Contentful Paint (LCP)** by prioritizing above-the-fold content, **Time to Interactive (TTI)** by reducing JavaScript parsing on startup, and **cumulative bandwidth usage** by avoiding unnecessary downloads. See [performance optimization](/guides/performance/performance-optimization-guide) for more on Core Web Vitals. Modern browsers provide native lazy loading for images via the `loading="lazy"` attribute, while frameworks like React and Vue offer component-level code splitting. Below is a practical approach to images, UI components, and API data.
 
 ## When to use it
 

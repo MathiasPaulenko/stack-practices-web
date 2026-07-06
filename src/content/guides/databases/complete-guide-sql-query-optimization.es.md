@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Slow queries son el most common database performance problem. Esta guia cubre EXPLAIN plan analysis, index strategies, join optimization, N+1 query detection, query rewriting, materialized views, partitioning, y query caching con practical examples para PostgreSQL y MySQL.
+Slow queries son el most common database performance problem. Lo siguiente recorre EXPLAIN plan analysis, index strategies, join optimization, N+1 query detection, query rewriting, materialized views, partitioning, y query caching con practical examples para PostgreSQL y MySQL.
 
 ## EXPLAIN Plan Analysis
 

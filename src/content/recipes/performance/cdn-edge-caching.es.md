@@ -37,7 +37,7 @@ seo:
 
 Una Red de Entrega de Contenido (CDN) distribuye tu contenido a través de servidores edge geográficamente dispersos, reduciendo la latencia al servir a los usuarios desde la ubicación más cercana, mejorando [rendimiento](/guides/performance/performance-optimization-guide). Un edge caching correctamente configurado puede reducir los tiempos de carga de página en un 50–80% y disminuir considerablemente la carga del servidor de origen.
 
-Esta receta cubre la configuración de reglas de edge caching de CDN, estrategias de invalidación de caché y optimización geográfica para contenido estático y en vivo.
+Aqui se explica como la configuración de reglas de edge caching de CDN, estrategias de invalidación de caché y optimización geográfica para contenido estático y en vivo.
 
 ## Cuándo Usar
 

@@ -31,7 +31,7 @@ seo:
 
 # Implement API Rate Limiting with Redis
 
-Prevent API abuse and ensure fair resource distribution using Redis-backed rate limiters. See [Security Guide](/guides/security/security-best-practices-guide) for broader API protection strategies. This recipe implements token bucket and sliding window algorithms with distributed coordination, custom rate limit headers, and per-endpoint configuration for production APIs.
+Prevent API abuse and ensure fair resource distribution using Redis-backed rate limiters. See [Security Guide](/guides/security/security-best-practices-guide) for broader API protection strategies. Here is a working implementation of token bucket and sliding window algorithms with distributed coordination, custom rate limit headers, and per-endpoint configuration for production APIs.
 
 ## When to Use This
 

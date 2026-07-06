@@ -34,7 +34,7 @@ seo:
 
 ## Introduction
 
-Docker Compose defines and runs multi-container applications locally. You describe services, networks, and volumes in a YAML file, then start everything with one command. This guide covers service definitions, networking, volumes, profiles, override files, hot reload setups, debugging, and production-like local environments.
+Docker Compose defines and runs multi-container applications locally. You describe services, networks, and volumes in a YAML file, then start everything with one command. This guide walks through service definitions, networking, volumes, profiles, override files, hot reload setups, debugging, and production-like local environments.
 
 ## Basic docker-compose.yml
 

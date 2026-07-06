@@ -39,7 +39,7 @@ seo:
 
 Real-time analytics processes data as it arrives, delivering insights within seconds rather than hours or days. Unlike batch analytics that runs overnight, real-time systems ingest events, compute aggregations on the fly, and update dashboards continuously. This enables immediate operational decisions: fraud detection, live user behavior analysis, IoT monitoring, and real-time personalization.
 
-This guide covers event collection, stream processing, OLAP databases, and dashboard design for sub-second analytics.
+The following guide covers event collection, stream processing, OLAP databases, and dashboard design for sub-second analytics.
 
 ## When to Use
 

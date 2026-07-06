@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Large JavaScript bundles slow down page load, increase TTI, and hurt Core Web Vitals. This guide covers tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression, and bundle monitoring with practical examples for webpack, Vite, and Rollup.
+Large JavaScript bundles slow down page load, increase TTI, and hurt Core Web Vitals. The following guide covers tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression, and bundle monitoring with practical examples for webpack, Vite, and Rollup.
 
 ## Analyzing Bundle Size
 

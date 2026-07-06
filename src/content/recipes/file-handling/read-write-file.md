@@ -34,7 +34,7 @@ Reading and writing files is one of the most common I/O tasks: loading configura
 
 Files are the universal interface between programs and persistent storage. Whether you are saving user preferences, reading server logs, or generating a CSV export, the same principles apply: open the file, perform the operation, and ensure the resource is released even when errors occur. Modern runtimes provide high-level abstractions that handle buffering, encoding, and cleanup automatically, but understanding the underlying mechanics helps you debug performance issues and avoid data corruption.
 
-This recipe shows the idiomatic way to read and write text files in Python, JavaScript (Node.js), and Bash, plus how to stream large files without exhausting memory.
+This approach shows how to the idiomatic way to read and write text files in Python, JavaScript (Node.js), and Bash, plus how to stream large files without exhausting memory.
 
 ## When to Use
 

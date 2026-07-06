@@ -34,7 +34,7 @@ seo:
 
 Las llamadas síncronas servicio-a-servicio crean acoplamiento fuerte. El llamador debe conocer la ubicación del callee, esperar una respuesta, y manejar fallos directamente. Cuando el callee es lento o caído, el llamador sufre. A medida que los sistemas crecen, esta red de dependencias directas se convierte en un enredo donde cualquier cambio se propaga a través de múltiples servicios.
 
-La arquitectura event-driven invierte esta relación. Los servicios se comunican publicando eventos a un message broker en lugar de llamarse directamente. Un evento "OrderPlaced" se publica una vez. El servicio de inventario se suscribe y decrementa stock. El servicio de billing se suscribe y crea una factura. El servicio de shipping se suscribe y prepara una etiqueta. Cada servicio opera independientemente — si billing es lento, las órdenes y el shipping continúan sin afectarse. Esta receta cubre patrones de eventos, selección de brokers e implementación con Kafka, RabbitMQ y AWS EventBridge.
+La arquitectura event-driven invierte esta relación. Los servicios se comunican publicando eventos a un message broker en lugar de llamarse directamente. Un evento "OrderPlaced" se publica una vez. El servicio de inventario se suscribe y decrementa stock. El servicio de billing se suscribe y crea una factura. El servicio de shipping se suscribe y prepara una etiqueta. Cada servicio opera independientemente — si billing es lento, las órdenes y el shipping continúan sin afectarse. El siguiente enfoque cubre patrones de eventos, selección de brokers e implementación con Kafka, RabbitMQ y AWS EventBridge.
 
 ## Cuándo usarlo
 

@@ -33,7 +33,7 @@ seo:
 
 Docker empaqueta tu aplicación y sus dependencias en un contenedor ligero y portable que se ejecuta consistentemente en desarrollo, staging y producción. Un Dockerfile es una receta para construir esa imagen de contenedor, y Docker Compose te permite ejecutar configuraciones multi-contenedor con un solo comando.
 
-Esta receta cubre las instrucciones esenciales del Dockerfile, el layering de imágenes y un ejemplo práctico de Docker Compose para una aplicación web con base de datos.
+Lo siguiente cubre las instrucciones esenciales del Dockerfile, el layering de imágenes y un ejemplo práctico de Docker Compose para una aplicación web con base de datos.
 
 ## When to Use
 

@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Resizing images in bulk is a common task for web optimization, thumbnail generation, and content pipelines. Python with Pillow (PIL fork) makes this straightforward. This recipe covers batch resizing, format conversion, quality optimization, and thumbnail generation.
+Resizing images in bulk is a common task for web optimization, thumbnail generation, and content pipelines. Python with Pillow (PIL fork) makes this straightforward. Here is how to batch resizing, format conversion, quality optimization, and thumbnail generation.
 
 ## When to Use
 

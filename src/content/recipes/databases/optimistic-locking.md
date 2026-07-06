@@ -36,7 +36,7 @@ seo:
 
 Optimistic locking prevents lost updates in concurrent environments by checking whether a record has been modified since it was last read. Each row carries a version number or timestamp. When updating, the application includes the original version in the `WHERE` clause; if the version has changed, the update fails and the application retries or reports a conflict. This avoids the performance cost of holding database locks during user think-time.
 
-This recipe implements optimistic locking with integer versioning in PostgreSQL, MySQL, and JPA/Hibernate.
+Below is an implementation of optimistic locking with integer versioning in PostgreSQL, MySQL, and JPA/Hibernate.
 
 ## When to Use
 

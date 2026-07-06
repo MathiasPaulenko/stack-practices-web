@@ -33,7 +33,7 @@ seo:
 
 # Detectar y corregir consultas N+1 en resolvers GraphQL
 
-El problema N+1 es el problema de rendimiento mas comun en APIs GraphQL. Cuando una consulta de lista retorna N items y cada item dispara una llamada separada a la base de datos para un campo relacionado, obtienes 1 + N consultas en lugar de 1. Esta receta muestra como detectar patrones N+1 durante el desarrollo y corregirlos con batching de DataLoader.
+El problema N+1 es el problema de rendimiento mas comun en APIs GraphQL. Cuando una consulta de lista retorna N items y cada item dispara una llamada separada a la base de datos para un campo relacionado, obtienes 1 + N consultas en lugar de 1. Lo siguiente demuestra como detectar patrones N+1 durante el desarrollo y corregirlos con batching de DataLoader.
 
 ## Cuando Usar Esto
 

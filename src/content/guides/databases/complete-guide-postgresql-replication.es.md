@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-PostgreSQL replication copia data de un primary server a uno o mas replica servers. Streaming replication manda WAL records en real time. Logical replication decodes WAL en logical changes y los publica a subscribers. Esta guia cubre ambos modos, cascading replicas, failover, monitoring, y disaster recovery.
+PostgreSQL replication copia data de un primary server a uno o mas replica servers. Streaming replication manda WAL records en real time. Logical replication decodes WAL en logical changes y los publica a subscribers. Aqui se presenta una guia sobre ambos modos, cascading replicas, failover, monitoring, y disaster recovery.
 
 ## Streaming Replication
 

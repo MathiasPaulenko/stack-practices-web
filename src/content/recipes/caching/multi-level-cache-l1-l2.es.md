@@ -32,7 +32,7 @@ seo:
 
 # Cache multi-nivel con L1 en memoria y L2 en Redis
 
-Una sola capa de cache raramente es optima. Las caches en memoria ofrecen lecturas sub-milisegundo pero son por instancia. Redis ofrece consistencia entre instancias pero anade latencia de red. Una cache de dos niveles combina ambas: L1 (en memoria) para datos calientes con cero overhead de red, y L2 (Redis) para estado compartido entre instancias. Esta receta implementa una cache L1+L2 con invalidacion basada en pub/sub.
+Una sola capa de cache raramente es optima. Las caches en memoria ofrecen lecturas sub-milisegundo pero son por instancia. Redis ofrece consistencia entre instancias pero anade latencia de red. Una cache de dos niveles combina ambas: L1 (en memoria) para datos calientes con cero overhead de red, y L2 (Redis) para estado compartido entre instancias. El codigo a continuacion implementa una cache L1+L2 con invalidacion basada en pub/sub.
 
 ## Cuando Usar Esto
 

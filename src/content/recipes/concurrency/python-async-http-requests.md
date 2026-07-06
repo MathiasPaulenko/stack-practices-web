@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Making HTTP requests one at a time is slow when you need to fetch from multiple APIs or endpoints. `asyncio` with `aiohttp` lets you run many requests concurrently, reducing total time from the sum of all request times to the longest single request. This recipe covers concurrent fetching, connection pooling, rate limiting, retries, and batch processing.
+Making HTTP requests one at a time is slow when you need to fetch from multiple APIs or endpoints. `asyncio` with `aiohttp` lets you run many requests concurrently, reducing total time from the sum of all request times to the longest single request. Below is a practical approach to concurrent fetching, connection pooling, rate limiting, retries, and batch processing.
 
 ## When to Use
 

@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Generating PDF reports from data is a common requirement for invoices, analytics dashboards, and automated reporting. Python has two main libraries for this: ReportLab (full-featured, low-level control) and fpdf2 (lightweight, simpler API). This recipe covers both approaches with practical examples.
+Generating PDF reports from data is a common requirement for invoices, analytics dashboards, and automated reporting. Python has two main libraries for this: ReportLab (full-featured, low-level control) and fpdf2 (lightweight, simpler API). Here is how to both approaches with practical examples.
 
 ## When to Use
 

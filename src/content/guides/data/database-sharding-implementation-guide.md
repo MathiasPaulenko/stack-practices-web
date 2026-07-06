@@ -39,7 +39,7 @@ seo:
 
 Database sharding splits a single database into multiple smaller databases (shards) to distribute load and storage. When vertical scaling (bigger machines) becomes too expensive or hits physical limits, horizontal partitioning allows your database layer to grow by adding nodes rather than upgrading existing ones.
 
-This guide covers when to shard, how to choose shard keys, query routing, rebalancing, and operational considerations.
+Here is a hands-on guide to when to shard, how to choose shard keys, query routing, rebalancing, and operational considerations.
 
 ## When to Use
 

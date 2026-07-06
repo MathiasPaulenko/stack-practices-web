@@ -34,7 +34,7 @@ seo:
 
 En una aplicación monolítica, una única transacción de base de datos envuelve múltiples operaciones: debitar una cuenta, acreditar otra, actualizar el estado de una orden. Si algún paso falla, la base de datos hace rollback de todo. La atomicidad está garantizada por el motor de base de datos. En una arquitectura de microservicios, cada servicio posee su propia base de datos. No hay un gestor de transacciones compartido. No puedes envolver un débito en el servicio de pagos, una reserva en el servicio de inventario y un envío en el servicio de logística en un solo bloque `BEGIN...COMMIT`.
 
-El saga pattern resuelve esto dividiendo una transacción de larga duración en una secuencia de transacciones locales. Cada paso actualiza datos en un servicio y publica un evento o comando para activar el siguiente paso. Si un paso falla, la saga ejecuta transacciones compensatorias — deshaciendo los cambios realizados por los pasos anteriores. Hay dos estilos: coreografía (los servicios reaccionan a los eventos de los demás) y orquestación (un gestor de saga central dirige cada paso). Esta receta cubre ambos enfoques, diseño de compensaciones y manejo de fallas.
+El saga pattern resuelve esto dividiendo una transacción de larga duración en una secuencia de transacciones locales. Cada paso actualiza datos en un servicio y publica un evento o comando para activar el siguiente paso. Si un paso falla, la saga ejecuta transacciones compensatorias — deshaciendo los cambios realizados por los pasos anteriores. Hay dos estilos: coreografía (los servicios reaccionan a los eventos de los demás) y orquestación (un gestor de saga central dirige cada paso). Lo siguiente cubre ambos enfoques, diseño de compensaciones y manejo de fallas.
 
 ## Cuándo usarlo
 

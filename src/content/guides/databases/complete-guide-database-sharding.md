@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Sharding splits a database into smaller pieces (shards) distributed across multiple servers. Each shard holds a subset of the data. This guide covers partitioning strategies, shard key selection, consistent hashing, cross-shard queries, resharding, and tools like Vitess and Citus.
+Sharding splits a database into smaller pieces (shards) distributed across multiple servers. Each shard holds a subset of the data. This guide walks through partitioning strategies, shard key selection, consistent hashing, cross-shard queries, resharding, and tools like Vitess and Citus.
 
 ## When to Shard
 

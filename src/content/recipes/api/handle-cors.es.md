@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-Cross-Origin Resource Sharing (CORS) es un mecanismo de seguridad del navegador que controla qué orígenes pueden acceder a los recursos de tu API. Un CORS mal configurado es una de las fuentes más comunes de fricción en la integración frontend-backend y de vulnerabilidades de seguridad. Esta receta cubre la implementación de middleware CORS apropiado con validación de allowlist, manejo de preflight, soporte de credenciales y declaraciones explícitas de headers/métodos en Python, JavaScript y Java.
+Cross-Origin Resource Sharing (CORS) es un mecanismo de seguridad del navegador que controla qué orígenes pueden acceder a los recursos de tu API. Un CORS mal configurado es una de las fuentes más comunes de fricción en la integración frontend-backend y de vulnerabilidades de seguridad. La solucion a continuacion cubre la implementación de middleware CORS apropiado con validación de allowlist, manejo de preflight, soporte de credenciales y declaraciones explícitas de headers/métodos en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

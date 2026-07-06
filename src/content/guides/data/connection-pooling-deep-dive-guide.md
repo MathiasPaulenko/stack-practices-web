@@ -37,7 +37,7 @@ seo:
 
 Database connections are expensive to create. Each connection requires TCP handshake, authentication, memory allocation, and process forking on the database server. Opening a new connection for every query destroys performance under load. Connection pooling reuses established connections, dramatically reducing latency and server load while preventing connection exhaustion.
 
-This guide covers pool sizing, configuration, monitoring, and troubleshooting for application-level and middleware pools.
+Below is a practical guide to pool sizing, configuration, monitoring, and troubleshooting for application-level and middleware pools.
 
 ## When to Use
 

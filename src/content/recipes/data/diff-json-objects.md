@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-Comparing JSON objects is essential for testing, configuration drift detection, API response validation, and database migration audits. A proper diff reveals added keys, removed keys, type changes, and value mutations at arbitrary nesting levels. This recipe covers deep JSON diffing with structured output across Python, JavaScript, and Java.
+Comparing JSON objects is essential for testing, configuration drift detection, API response validation, and database migration audits. A proper diff reveals added keys, removed keys, type changes, and value mutations at arbitrary nesting levels. The following demonstrates how to deep JSON diffing with structured output across Python, JavaScript, and Java.
 
 ## When to Use
 

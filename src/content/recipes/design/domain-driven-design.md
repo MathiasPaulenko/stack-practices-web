@@ -34,7 +34,7 @@ seo:
 
 Domain-Driven Design (DDD) is an approach to software development where the primary focus is on the core business domain and its logic. Rather than organizing code around technical layers (controllers, services, repositories) or data structures (tables, documents), DDD structures code around business concepts: orders, payments, inventory, shipments. The goal is to make the code an accurate model of how the business actually works, so that business rules are explicit, testable, and resistant to the drift that occurs when technical implementation diverges from business reality.
 
-The central insight of DDD is that large domains are too complex to model as a single unified system. Instead, the domain is divided into bounded contexts — autonomous areas with their own ubiquitous language, models, and rules. Within each context, aggregates group related entities and value objects into consistency boundaries. Domain events communicate changes across contexts without tight coupling. This recipe covers the tactical patterns of DDD with implementation examples in Python, TypeScript, and Java.
+The central insight of DDD is that large domains are too complex to model as a single unified system. Instead, the domain is divided into bounded contexts — autonomous areas with their own ubiquitous language, models, and rules. Within each context, aggregates group related entities and value objects into consistency boundaries. Domain events communicate changes across contexts without tight coupling. The solution below covers the tactical patterns of DDD with implementation examples in Python, TypeScript, and Java.
 
 ## When to use it
 

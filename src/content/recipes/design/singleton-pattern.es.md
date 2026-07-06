@@ -34,7 +34,7 @@ seo:
 
 Algunos recursos son inherentemente singulares dentro del alcance de una aplicación: un pool de conexiones a base de datos, un gestor de configuración, un framework de logging o un cache en memoria. Crear múltiples instancias de estos recursos desperdicia memoria, causa inconsistencia de estado y puede agotar límites del sistema (ej. demasiadas conexiones a base de datos). El singleton pattern asegura que una clase tenga exactamente una instancia y provee un punto de acceso global a ella.
 
-La implementación ingenua — un campo estático inicializado al cargar la clase — funciona para casos simples pero falla bajo concurrencia y hace el testing difícil. Un test que muta el estado del singleton filtra esa mutación a tests posteriores. Las implementaciones modernas usan inicialización perezosa, inyección de dependencias o registros para balancear rendimiento, thread safety y testeabilidad. Esta receta cubre la evolución desde singletons básicos hasta producción.
+La implementación ingenua — un campo estático inicializado al cargar la clase — funciona para casos simples pero falla bajo concurrencia y hace el testing difícil. Un test que muta el estado del singleton filtra esa mutación a tests posteriores. Las implementaciones modernas usan inicialización perezosa, inyección de dependencias o registros para balancear rendimiento, thread safety y testeabilidad. El siguiente enfoque cubre la evolución desde singletons básicos hasta producción.
 
 ## Cuándo usarlo
 

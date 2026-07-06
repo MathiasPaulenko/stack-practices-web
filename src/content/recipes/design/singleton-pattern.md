@@ -34,7 +34,7 @@ seo:
 
 Some resources are inherently singular within an application scope: a database connection pool, a configuration manager, a logging framework, or an in-memory cache. Creating multiple instances of these resources wastes memory, causes state inconsistency, and can exhaust system limits (e.g., too many database connections). The singleton pattern ensures that a class has exactly one instance and provides a global point of access to it.
 
-The naive implementation — a static field initialized at class load — works for simple cases but breaks under concurrency and makes testing difficult. A test that mutates the singleton's state leaks that mutation to subsequent tests. Modern implementations use lazy initialization, dependency injection, or registries to balance performance, thread safety, and testability. This recipe covers the evolution from basic to production-ready singletons.
+The naive implementation — a static field initialized at class load — works for simple cases but breaks under concurrency and makes testing difficult. A test that mutates the singleton's state leaks that mutation to subsequent tests. Modern implementations use lazy initialization, dependency injection, or registries to balance performance, thread safety, and testability. The following demonstrates how to the evolution from basic to production-ready singletons.
 
 ## When to use it
 

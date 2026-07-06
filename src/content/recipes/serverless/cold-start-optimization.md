@@ -34,7 +34,7 @@ seo:
 
 Serverless functions execute in ephemeral containers created on demand. When a request arrives and no warm container exists, the cloud provider initializes a new runtime, loads your code, imports dependencies, and executes the handler. This initialization phase — the cold start — adds latency ranging from 100ms to several seconds depending on runtime, memory allocation, and dependency size. For user-facing APIs, cold starts translate directly into poor user experience.
 
-Cold starts are not a bug; they are a trade-off. Serverless pricing is per-request with no idle cost. If you want zero idle cost, you must accept occasional initialization overhead. The goal is not to eliminate cold starts entirely — that requires always-on instances — but to minimize their frequency and duration. This recipe covers provisioned concurrency, runtime selection, dependency trimming, lazy initialization, and initialization-time caching across AWS Lambda, Azure Functions, and Google Cloud Run.
+Cold starts are not a bug; they are a trade-off. Serverless pricing is per-request with no idle cost. If you want zero idle cost, you must accept occasional initialization overhead. The goal is not to eliminate cold starts entirely — that requires always-on instances — but to minimize their frequency and duration. This approach handles provisioned concurrency, runtime selection, dependency trimming, lazy initialization, and initialization-time caching across AWS Lambda, Azure Functions, and Google Cloud Run.
 
 ## When to use it
 

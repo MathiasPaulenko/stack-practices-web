@@ -38,7 +38,7 @@ seo:
 
 ## Introducción
 
-La invalidation de cache es el problema mas dificil en caching. Phil Karlton dijo famosamente: "There are only two hard things in Computer Science: cache invalidation and naming things." Hacer invalidation mal significa servir datos stale a los usuarios, perder updates, o causar thundering herds. Esta guia cubre cada estrategia mayor de invalidation, desde simple TTL expiration hasta complejo event-driven tag-based purging, con ejemplos de codigo y tradeoffs para cada una.
+La invalidation de cache es el problema mas dificil en caching. Phil Karlton dijo famosamente: "There are only two hard things in Computer Science: cache invalidation and naming things." Hacer invalidation mal significa servir datos stale a los usuarios, perder updates, o causar thundering herds. Lo siguiente recorre cada estrategia mayor de invalidation, desde simple TTL expiration hasta complejo event-driven tag-based purging, con ejemplos de codigo y tradeoffs para cada una.
 
 ## Por Qué la Invalidation de Cache Es Difícil
 

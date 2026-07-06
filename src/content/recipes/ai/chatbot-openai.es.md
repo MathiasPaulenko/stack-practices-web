@@ -36,7 +36,7 @@ seo:
 
 La OpenAI Assistants API simplifica la construcción de chatbots inteligentes manejando el estado de la conversación, la recuperación de archivos y el function calling automáticamente. En lugar de gestionar memoria de contexto, embeber documentos y formatear herramientas manualmente, defines un asistente con instrucciones y capacidades, y la API se encarga del resto.
 
-Esta receta cubre la creación de un asistente, gestión de threads, invocación de funciones personalizadas e integración con archivos de conocimiento.
+Lo siguiente cubre la creación de un asistente, gestión de threads, invocación de funciones personalizadas e integración con archivos de conocimiento.
 
 ## Cuándo Usar
 

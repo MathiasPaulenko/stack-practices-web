@@ -38,7 +38,7 @@ seo:
 
 ## Introducción
 
-Testear APIs GraphQL requiere un enfoque diferente a testear APIs REST. GraphQL tiene un solo endpoint, queries arbitrarias, y funciones resolver que pueden testearse en aislamiento. Esta guia cubre la piramide de testing para GraphQL: unit tests para resolvers, integration tests para el esquema, y end-to-end tests para operaciones. Cada capa captura diferentes bugs a diferentes costos.
+Testear APIs GraphQL requiere un enfoque diferente a testear APIs REST. GraphQL tiene un solo endpoint, queries arbitrarias, y funciones resolver que pueden testearse en aislamiento. Aqui se presenta una guia sobre la piramide de testing para GraphQL: unit tests para resolvers, integration tests para el esquema, y end-to-end tests para operaciones. Cada capa captura diferentes bugs a diferentes costos.
 
 ## Pirámide de Testing para GraphQL
 

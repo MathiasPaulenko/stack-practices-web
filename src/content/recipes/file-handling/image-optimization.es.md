@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-Las imágenes son el mayor contribuyente al peso de página. Las imágenes sin optimizar ralentizan tu sitio, dañan rankings SEO e incrementan costos de ancho de banda. Esta receta cubre redimensionamiento, compresión y conversión a formatos modernos (WebP, AVIF) en Python, JavaScript y Java, más estrategias de imágenes responsivas para la web.
+Las imágenes son el mayor contribuyente al peso de página. Las imágenes sin optimizar ralentizan tu sitio, dañan rankings SEO e incrementan costos de ancho de banda. El siguiente enfoque cubre redimensionamiento, compresión y conversión a formatos modernos (WebP, AVIF) en Python, JavaScript y Java, más estrategias de imágenes responsivas para la web.
 
 ## Cuándo Usar
 

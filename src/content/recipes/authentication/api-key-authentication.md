@@ -34,7 +34,7 @@ seo:
 
 API keys are the simplest and most widely deployed form of machine-to-machine authentication. Unlike OAuth2 flows designed for user delegation, or JWT tokens that encode claims, API keys are opaque strings exchanged between trusted services. When implemented correctly, they provide fast authentication, simple revocation, and fine-grained access control through scoped permissions.
 
-The challenge with API keys is not generation — any random string will do — but lifecycle management. Keys must be generated with sufficient entropy, transmitted over TLS, validated efficiently, rotated periodically, and revoked immediately upon compromise. A leaked API key embedded in a mobile app or committed to a public repository grants attackers the same privileges as the legitimate service. This recipe covers key generation with HMAC signatures, request validation, scope enforcement, and rotation strategies.
+The challenge with API keys is not generation — any random string will do — but lifecycle management. Keys must be generated with sufficient entropy, transmitted over TLS, validated efficiently, rotated periodically, and revoked immediately upon compromise. A leaked API key embedded in a mobile app or committed to a public repository grants attackers the same privileges as the legitimate service. Below is a practical approach to key generation with HMAC signatures, request validation, scope enforcement, and rotation strategies.
 
 ## When to use it
 

@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Cryptography is the foundation of digital security. Whether you are storing passwords, transmitting data over TLS, or signing API requests, you are using cryptography. Understanding the primitives — encryption, hashing, and signing — and when to use each prevents a class of vulnerabilities that no framework can protect against. This guide covers the essential concepts every developer needs without requiring a mathematics degree.
+Cryptography is the foundation of digital security. Whether you are storing passwords, transmitting data over TLS, or signing API requests, you are using cryptography. Understanding the primitives — encryption, hashing, and signing — and when to use each prevents a class of vulnerabilities that no framework can protect against. This guide walks through the essential concepts every developer needs without requiring a mathematics degree.
 
 ## When to Use
 

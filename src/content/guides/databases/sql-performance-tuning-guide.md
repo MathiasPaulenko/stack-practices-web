@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-Slow queries are one of the most common causes of application performance problems. This guide covers practical techniques to identify, diagnose, and fix SQL performance issues across PostgreSQL, MySQL, and SQL Server.
+Slow queries are one of the most common causes of application performance problems. This guide walks through practical techniques to identify, diagnose, and fix SQL performance issues across PostgreSQL, MySQL, and SQL Server.
 
 ## Finding Slow Queries
 

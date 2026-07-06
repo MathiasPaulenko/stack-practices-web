@@ -32,7 +32,7 @@ seo:
 
 # Implementar el patron Cache-Aside con Redis
 
-Cache-aside (tambien llamado lazy loading) es el patron de caching mas comun. La aplicacion verifica la cache primero; en un miss, carga desde la base de datos, escribe el resultado en la cache y lo retorna. En escrituras, la aplicacion actualiza la base de datos e invalida la entrada de cache. Esta receta implementa cache-aside en Python con Redis, incluyendo proteccion contra thundering herd e invalidacion write-through.
+Cache-aside (tambien llamado lazy loading) es el patron de caching mas comun. La aplicacion verifica la cache primero; en un miss, carga desde la base de datos, escribe el resultado en la cache y lo retorna. En escrituras, la aplicacion actualiza la base de datos e invalida la entrada de cache. A continuacion se implementa cache-aside en Python con Redis, incluyendo proteccion contra thundering herd e invalidacion write-through.
 
 ## Cuando Usar Esto
 

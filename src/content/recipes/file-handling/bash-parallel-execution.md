@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Modern machines have multiple CPU cores, yet many shell scripts run sequentially, leaving most cores idle. Parallel execution can reduce batch processing time by 4-10x, but uncontrolled parallelism exhausts memory, overwhelms APIs, or triggers rate limits. This recipe shows safe patterns for parallel execution in Bash.
+Modern machines have multiple CPU cores, yet many shell scripts run sequentially, leaving most cores idle. Parallel execution can reduce batch processing time by 4-10x, but uncontrolled parallelism exhausts memory, overwhelms APIs, or triggers rate limits. The pattern below demonstrates safe patterns for parallel execution in Bash.
 
 ## When to Use
 

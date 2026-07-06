@@ -34,7 +34,7 @@ seo:
 
 Las sesiones mantienen el estado del usuario entre requests HTTP en aplicaciones web stateless. Después de que un usuario inicia sesión, el servidor crea un identificador de sesión — típicamente un token aleatorio almacenado en una cookie HTTP-only — que asocia requests subsecuentes con ese usuario autenticado. La gestión de sesiones segura es crítica: un ID de sesión filtrado es equivalente a una contraseña robada.
 
-La gestión de sesiones segura requiere generar IDs impredecibles, transmitirlos sobre HTTPS, almacenarlos server-side con expiración, e invalidarlos en logout o actividad sospechosa. Esta receta cubre sesiones server-side, atributos de seguridad de cookies y protección CSRF.
+La gestión de sesiones segura requiere generar IDs impredecibles, transmitirlos sobre HTTPS, almacenarlos server-side con expiración, e invalidarlos en logout o actividad sospechosa. Lo siguiente cubre sesiones server-side, atributos de seguridad de cookies y protección CSRF.
 
 ## Cuándo usarlo
 

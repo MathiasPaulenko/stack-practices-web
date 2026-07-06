@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-HTML entity escaping converts characters with special meaning in HTML (`<`, `>`, `&`, `"`, `'`) into their corresponding entity references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, `&#x27;`). Without escaping, untrusted data can inject markup or scripts, leading to cross-site scripting (XSS). This recipe covers HTML escaping in Python, JavaScript, and Java.
+HTML entity escaping converts characters with special meaning in HTML (`<`, `>`, `&`, `"`, `'`) into their corresponding entity references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, `&#x27;`). Without escaping, untrusted data can inject markup or scripts, leading to cross-site scripting (XSS). Below is a practical approach to HTML escaping in Python, JavaScript, and Java.
 
 ## When to Use
 

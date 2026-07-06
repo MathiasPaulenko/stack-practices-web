@@ -33,7 +33,7 @@ seo:
 
 ## Overview
 
-Virtual threads, introduced as a preview in Java 19 and finalized in Java 21, are lightweight threads managed by the JVM rather than the OS. They enable writing straightforward blocking code that scales to millions of concurrent operations. This recipe covers creating virtual threads, virtual thread executors, structured concurrency with `StructuredTaskScope`, and scoped values for thread-local alternatives.
+Virtual threads, introduced as a preview in Java 19 and finalized in Java 21, are lightweight threads managed by the JVM rather than the OS. They enable writing straightforward blocking code that scales to millions of concurrent operations. The solution below covers creating virtual threads, virtual thread executors, structured concurrency with `StructuredTaskScope`, and scoped values for thread-local alternatives.
 
 ## When to Use This
 

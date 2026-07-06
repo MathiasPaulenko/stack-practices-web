@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Running LLMs locally gives you privacy, control, zero per-token costs, and no rate limits. With tools like Ollama, vLLM, and llama.cpp, deploying open-source models (Llama, Mistral, Qwen) is straightforward. This guide covers the full spectrum of local LLM deployment: choosing tools, model quantization, GPU requirements, API servers, performance tuning, and deciding when to go local vs cloud.
+Running LLMs locally gives you privacy, control, zero per-token costs, and no rate limits. With tools like Ollama, vLLM, and llama.cpp, deploying open-source models (Llama, Mistral, Qwen) is straightforward. Here is a hands-on guide to the full spectrum of local LLM deployment: choosing tools, model quantization, GPU requirements, API servers, performance tuning, and deciding when to go local vs cloud.
 
 ## Tool Comparison
 

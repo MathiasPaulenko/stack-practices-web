@@ -37,7 +37,7 @@ seo:
 
 ## Introduction
 
-Performance is a key factor. Slow sites lose users, revenue, and search rankings. This guide covers practical techniques to improve Core Web Vitals and deliver fast experiences.
+Performance is a key factor. Slow sites lose users, revenue, and search rankings. This guide walks through practical techniques to improve Core Web Vitals and deliver fast experiences.
 
 ## Core Web Vitals
 

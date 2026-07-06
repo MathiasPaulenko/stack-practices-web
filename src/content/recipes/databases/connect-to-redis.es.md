@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Redis es un almacén de estructuras de datos en memoria usado para caching, gestión de sesiones, análisis en tiempo real y brokers de mensajes. Conectarse a Redis y usar sus tipos de datos principales de forma eficiente es una habilidad backend fundamental. Esta receta cubre operaciones básicas en Python, JavaScript y Java.
+Redis es un almacén de estructuras de datos en memoria usado para caching, gestión de sesiones, análisis en tiempo real y brokers de mensajes. Conectarse a Redis y usar sus tipos de datos principales de forma eficiente es una habilidad backend fundamental. Lo siguiente cubre operaciones básicas en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

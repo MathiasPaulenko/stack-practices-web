@@ -34,7 +34,7 @@ seo:
 
 Sharing a standard `ArrayList` between threads is dangerous. Thread A reads index 0 while thread B removes index 0 — `ConcurrentModificationException`. Thread A and B both call `map.put("key", value)` simultaneously on a `HashMap` — the internal linked list can become circular, causing an infinite loop during iteration. These failures are non-deterministic: they may pass thousands of tests and fail only under production load.
 
-Standard collections (`ArrayList`, `HashMap`, `LinkedList`) are not thread-safe. Wrapping every access in `synchronized` works but serializes all operations, defeating parallelism. Concurrent data structures are collections designed for multi-threaded access: they use fine-grained locks, lock-free algorithms, or immutability to allow safe concurrent reads and writes with minimal contention. This recipe covers blocking queues, concurrent maps, copy-on-write collections, and atomic counters with practical examples.
+Standard collections (`ArrayList`, `HashMap`, `LinkedList`) are not thread-safe. Wrapping every access in `synchronized` works but serializes all operations, defeating parallelism. Concurrent data structures are collections designed for multi-threaded access: they use fine-grained locks, lock-free algorithms, or immutability to allow safe concurrent reads and writes with minimal contention. Below is a practical approach to blocking queues, concurrent maps, copy-on-write collections, and atomic counters with practical examples.
 
 ## When to use it
 

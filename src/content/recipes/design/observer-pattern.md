@@ -34,7 +34,7 @@ seo:
 
 In a traditional system, component A calls component B directly when something happens. A must know B exists, how to reach it, and what method to invoke. If you later add component C that also needs to react, you must modify A's code to call C as well. This creates tight coupling and makes the system brittle to change.
 
-The observer pattern inverts this relationship. Component A (the subject) maintains a list of interested observers. When an event occurs, A notifies all observers without knowing who they are or what they do. Component B and C subscribe to A's events independently. Adding a new observer requires zero changes to the subject. This recipe covers the observer pattern, pub/sub systems, event emitters, and reactive programming with practical examples.
+The observer pattern inverts this relationship. Component A (the subject) maintains a list of interested observers. When an event occurs, A notifies all observers without knowing who they are or what they do. Component B and C subscribe to A's events independently. Adding a new observer requires zero changes to the subject. Below is a practical approach to the observer pattern, pub/sub systems, event emitters, and reactive programming with practical examples.
 
 ## When to use it
 

@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Flattening transforms a deeply nested object into a single-level dictionary using dot-notation keys (e.g., `user.address.city` → `"London"`). Unflattening reverses this, reconstructing the original nested structure. These operations are essential for form libraries, database document updates, query string serialization, and converting between NoSQL documents and flat table columns. This recipe covers recursive implementations with custom separators, array index preservation, and round-trip fidelity in Python, JavaScript, and Java.
+Flattening transforms a deeply nested object into a single-level dictionary using dot-notation keys (e.g., `user.address.city` → `"London"`). Unflattening reverses this, reconstructing the original nested structure. These operations are essential for form libraries, database document updates, query string serialization, and converting between NoSQL documents and flat table columns. This approach handles recursive implementations with custom separators, array index preservation, and round-trip fidelity in Python, JavaScript, and Java.
 
 ## When to Use
 

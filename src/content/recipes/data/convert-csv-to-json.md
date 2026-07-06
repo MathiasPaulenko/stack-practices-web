@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-CSV is the universal export format for spreadsheets and databases but lacks nested structure and explicit types. Converting CSV to JSON enables REST API ingestion, NoSQL document storage, and client-side data binding. This recipe covers reliable CSV-to-JSON conversion with type inference, nested object mapping, and streaming for large files across Python, JavaScript, and Java.
+CSV is the universal export format for spreadsheets and databases but lacks nested structure and explicit types. Converting CSV to JSON enables REST API ingestion, NoSQL document storage, and client-side data binding. Here is how to reliable CSV-to-JSON conversion with type inference, nested object mapping, and streaming for large files across Python, JavaScript, and Java.
 
 ## When to Use
 

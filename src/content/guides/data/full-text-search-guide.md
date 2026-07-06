@@ -39,7 +39,7 @@ seo:
 
 Full-text search transforms raw text into queryable, ranked results. Unlike simple `LIKE '%term%'` queries that scan entire tables, full-text search uses inverted indexes, stemming, ranking algorithms, and relevance scoring to return meaningful results in milliseconds.
 
-This guide covers PostgreSQL built-in search, Elasticsearch for advanced use cases, query design, and production tuning.
+The following walks through PostgreSQL built-in search, Elasticsearch for advanced use cases, query design, and production tuning.
 
 ## When to Use
 

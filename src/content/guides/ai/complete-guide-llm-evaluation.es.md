@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Evaluar aplicaciones LLM es mas dificil que evaluar software tradicional. Los outputs son non-deterministic, la calidad es subjetiva, y los failures son sutiles. Los sistemas LLM en produccion necesitan pipelines de evaluacion automatizados que catchen regressions, midan calidad, y detecten hallucinations antes de que lleguen a users. Esta guia cubre el espectro completo de evaluacion LLM: RAGAS para sistemas RAG, LLM-as-judge para calidad subjetiva, evaluacion humana, A/B testing, y construir pipelines de evaluacion CI/CD.
+Evaluar aplicaciones LLM es mas dificil que evaluar software tradicional. Los outputs son non-deterministic, la calidad es subjetiva, y los failures son sutiles. Los sistemas LLM en produccion necesitan pipelines de evaluacion automatizados que catchen regressions, midan calidad, y detecten hallucinations antes de que lleguen a users. Lo siguiente recorre el espectro completo de evaluacion LLM: RAGAS para sistemas RAG, LLM-as-judge para calidad subjetiva, evaluacion humana, A/B testing, y construir pipelines de evaluacion CI/CD.
 
 ## Dimensiones de Evaluacion
 

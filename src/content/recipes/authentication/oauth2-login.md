@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-OAuth 2.0 is the industry standard for delegated authorization. It lets users log in with existing accounts (Google, GitHub, Microsoft) without exposing their passwords to your application. This recipe implements the Authorization Code flow with PKCE in Python, JavaScript, and Java, including state validation and token refresh.
+OAuth 2.0 is the industry standard for delegated authorization. It lets users log in with existing accounts (Google, GitHub, Microsoft) without exposing their passwords to your application. Below is an implementation of the Authorization Code flow with PKCE in Python, JavaScript, and Java, including state validation and token refresh.
 
 ## When to Use
 

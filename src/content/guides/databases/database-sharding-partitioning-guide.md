@@ -33,7 +33,7 @@ seo:
 
 ## Introduction
 
-When a single database server cannot handle the load, you have three options: buy a bigger machine (vertical scaling), add read replicas (horizontal read scaling), or split the data across multiple servers (sharding). See [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) before scaling horizontally. Sharding is the hardest but the only option for unlimited horizontal scaling. This guide covers strategies, trade-offs, and operational considerations.
+When a single database server cannot handle the load, you have three options: buy a bigger machine (vertical scaling), add read replicas (horizontal read scaling), or split the data across multiple servers (sharding). See [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) before scaling horizontally. Sharding is the hardest but the only option for unlimited horizontal scaling. Here is a hands-on guide to strategies, trade-offs, and operational considerations.
 
 ## Partitioning vs Sharding
 

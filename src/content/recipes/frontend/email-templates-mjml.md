@@ -32,7 +32,7 @@ seo:
 
 # Build Responsive Email Templates with MJML
 
-Email HTML is notoriously difficult due to inconsistent client rendering engines. MJML abstracts these complexity into a declarative markup language that compiles to battle-tested, responsive HTML with inline styles. This recipe covers MJML structure, live templating with Handlebars, and sending via SMTP/API.
+Email HTML is notoriously difficult due to inconsistent client rendering engines. MJML abstracts these complexity into a declarative markup language that compiles to battle-tested, responsive HTML with inline styles. The following demonstrates how to MJML structure, live templating with Handlebars, and sending via SMTP/API.
 
 ## When to Use This
 

@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-AWS Lambda is the most widely used serverless platform. Getting a Lambda function to work is easy. Running it reliably in production is hard. Cold starts, connection pooling, deployment strategies, observability, and security all require careful attention. This guide covers everything you need to run Lambda functions in production with confidence.
+AWS Lambda is the most widely used serverless platform. Getting a Lambda function to work is easy. Running it reliably in production is hard. Cold starts, connection pooling, deployment strategies, observability, and security all require careful attention. This guide walks through everything you need to run Lambda functions in production with confidence.
 
 ## Cold Start Optimization
 

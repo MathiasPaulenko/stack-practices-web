@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-Merging JSON files is a common task when combining configuration, aggregating API responses, or building data pipelines. JavaScript offers several approaches, from a simple spread operator to recursive deep merge libraries. This recipe covers the main strategies and when to use each.
+Merging JSON files is a common task when combining configuration, aggregating API responses, or building data pipelines. JavaScript offers several approaches, from a simple spread operator to recursive deep merge libraries. Below is a practical approach to the main strategies and when to use each.
 
 ## When to Use
 

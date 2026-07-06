@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Terraform providers manage resources for external APIs. When no existing provider covers your service, you can build a custom one. The `terraform-plugin-framework` is the modern SDK for writing providers in Go, but `terraform-plugin-python` (based on `terraform-plugin-go`) brings provider development to Python. This recipe shows how to build a provider that manages a custom API resource.
+Terraform providers manage resources for external APIs. When no existing provider covers your service, you can build a custom one. The `terraform-plugin-framework` is the modern SDK for writing providers in Go, but `terraform-plugin-python` (based on `terraform-plugin-go`) brings provider development to Python. The following demonstrates how to build a provider that manages a custom API resource.
 
 ## When to Use
 

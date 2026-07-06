@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-MySQL sigue siendo una de las bases de datos relacionales más desplegadas. Ya sea ejecutándose localmente, en AWS RDS o en un clúster gestionado, conectarse de forma segura y eficiente es crítico. Esta receta cubre conexiones a MySQL con pools, SSL y consultas preparadas en Python, JavaScript y Java.
+MySQL sigue siendo una de las bases de datos relacionales más desplegadas. Ya sea ejecutándose localmente, en AWS RDS o en un clúster gestionado, conectarse de forma segura y eficiente es crítico. A continuacion se cubre conexiones a MySQL con pools, SSL y consultas preparadas en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

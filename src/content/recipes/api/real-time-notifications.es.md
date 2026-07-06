@@ -37,7 +37,7 @@ seo:
 
 Las notificaciones en tiempo real mantienen a los usuarios informados sin necesidad de polling. Los WebSockets proporcionan comunicación full-duplex entre cliente y servidor, mientras que Redis pub/sub actúa como broker de mensajes para difundir eventos entre múltiples instancias de servidor.
 
-Esta receta implementa un sistema de notificaciones con conexiones WebSocket, broadcasting basado en rooms y escalado horizontal respaldado por Redis.
+Aqui hay una implementacion de un sistema de notificaciones con conexiones WebSocket, broadcasting basado en rooms y escalado horizontal respaldado por Redis.
 
 ## Cuándo Usar
 

@@ -39,7 +39,7 @@ seo:
 
 A postmortem is a structured review of an incident that focuses on what happened, why it happened, and how to prevent it from happening again. The "blameless" aspect is critical: people do not cause incidents; systems and processes do. By removing blame, you create psychological safety that leads to honest, thorough analysis and real improvement.
 
-This guide covers the postmortem process, template structure, facilitation techniques, and follow-up accountability.
+Here is a hands-on guide to the postmortem process, template structure, facilitation techniques, and follow-up accountability.
 
 ## When to Use
 

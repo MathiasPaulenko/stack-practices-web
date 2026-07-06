@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-Sentry is an error tracking and performance monitoring platform that captures exceptions, crashes, and performance issues in real-time. When an error occurs in production, Sentry captures the stack trace, request context, user information, and breadcrumbs leading up to the error. This guide covers Sentry SDK integration in Python, Node.js, and Java, release tracking with source maps, performance monitoring, alerting rules, and production workflows for triaging and resolving errors.
+Sentry is an error tracking and performance monitoring platform that captures exceptions, crashes, and performance issues in real-time. When an error occurs in production, Sentry captures the stack trace, request context, user information, and breadcrumbs leading up to the error. The following guide covers Sentry SDK integration in Python, Node.js, and Java, release tracking with source maps, performance monitoring, alerting rules, and production workflows for triaging and resolving errors.
 
 ## How Sentry Works
 

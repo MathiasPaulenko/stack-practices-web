@@ -33,7 +33,7 @@ seo:
 
 Error handling is what separates reliable APIs from fragile ones. A well-designed error response tells the client exactly what went wrong, what to do about it, and how to avoid it in the future — without leaking internal implementation details.
 
-This recipe covers the industry-standard error response format (RFC 7807 Problem Details), proper HTTP status code selection, and idiomatic implementation patterns in Python, JavaScript, and Java.
+The solution below covers the industry-standard error response format (RFC 7807 Problem Details), proper HTTP status code selection, and idiomatic implementation patterns in Python, JavaScript, and Java.
 
 ## When to Use
 

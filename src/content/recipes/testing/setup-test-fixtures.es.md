@@ -35,7 +35,7 @@ seo:
 
 ## Descripción General
 
-Los fixtures de test son los datasets y estados de entorno conocidos y controlados que hacen los tests deterministas. Sin fixtures, los tests dependen de bases de datos externas, sistemas de archivos o estado aleatorio, produciendo fallos flaky que desperdician tiempo de debugging. Esta receta muestra cómo crear, aislar y limpiar fixtures usando patrones factory y hooks nativos del framework.
+Los fixtures de test son los datasets y estados de entorno conocidos y controlados que hacen los tests deterministas. Sin fixtures, los tests dependen de bases de datos externas, sistemas de archivos o estado aleatorio, produciendo fallos flaky que desperdician tiempo de debugging. La solucion abajo muestra cómo crear, aislar y limpiar fixtures usando patrones factory y hooks nativos del framework.
 
 ## Cuándo Usar
 

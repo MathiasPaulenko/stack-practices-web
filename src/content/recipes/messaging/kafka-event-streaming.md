@@ -32,7 +32,7 @@ seo:
 
 # Event Streaming with Apache Kafka and Node.js
 
-Build resilient, growth-ready event-driven systems using Apache Kafka. This recipe covers producer configuration, consumer groups with auto-rebalancing, offset management, and exactly-once processing semantics for reliable asynchronous communication between microservices.
+Build resilient, growth-ready event-driven systems using Apache Kafka. Here is how to producer configuration, consumer groups with auto-rebalancing, offset management, and exactly-once processing semantics for reliable asynchronous communication between microservices.
 
 ## When to Use This
 

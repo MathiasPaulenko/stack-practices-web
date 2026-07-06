@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Secure coding is the practice of writing software that is resistant to vulnerabilities and attacks. It is not a single technique but a mindset: validate every assumption, distrust all input, and design for failure. This guide covers language-specific patterns and universal defensive techniques that apply regardless of your stack.
+Secure coding is the practice of writing software that is resistant to vulnerabilities and attacks. It is not a single technique but a mindset: validate every assumption, distrust all input, and design for failure. Below is a practical guide to language-specific patterns and universal defensive techniques that apply regardless of your stack.
 
 ## When to Use
 

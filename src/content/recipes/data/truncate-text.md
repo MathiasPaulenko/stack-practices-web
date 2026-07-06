@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-Truncating text is a common UI and data-processing task: previews, notification snippets, search result summaries, and CSV exports all need to cut long strings down to a maximum length without breaking words or HTML. This recipe covers character-based, word-boundary, and HTML-aware truncation in Python, JavaScript, and Java.
+Truncating text is a common UI and data-processing task: previews, notification snippets, search result summaries, and CSV exports all need to cut long strings down to a maximum length without breaking words or HTML. The following demonstrates how to character-based, word-boundary, and HTML-aware truncation in Python, JavaScript, and Java.
 
 ## When to Use
 

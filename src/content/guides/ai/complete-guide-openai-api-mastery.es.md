@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-El OpenAI API es el LLM API mas ampliamente usado. Dominarlo significa conocer chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, el batch API, el assistants API, rate limits, y error handling. Esta guia cubre cada feature con patrones de produccion y best practices.
+El OpenAI API es el LLM API mas ampliamente usado. Dominarlo significa conocer chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, el batch API, el assistants API, rate limits, y error handling. Aqui se presenta una guia sobre cada feature con patrones de produccion y best practices.
 
 ## Chat Completions
 

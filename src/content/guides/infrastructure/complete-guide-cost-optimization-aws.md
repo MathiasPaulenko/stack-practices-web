@@ -41,7 +41,7 @@ seo:
 
 ## Introduction
 
-AWS bills grow silently — unused resources, over-provisioned instances, and lack of monitoring can inflate costs by 40% or more. This guide covers EC2 right-sizing, Spot and Reserved Instances, Savings Plans, S3 lifecycle policies, RDS optimization, networking costs, and automated cost monitoring.
+AWS bills grow silently — unused resources, over-provisioned instances, and lack of monitoring can inflate costs by 40% or more. This guide walks through EC2 right-sizing, Spot and Reserved Instances, Savings Plans, S3 lifecycle policies, RDS optimization, networking costs, and automated cost monitoring.
 
 ## Cost Explorer and Budgets
 

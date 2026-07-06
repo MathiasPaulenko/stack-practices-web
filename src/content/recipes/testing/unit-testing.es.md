@@ -33,7 +33,7 @@ seo:
 
 Las pruebas unitarias validan las piezas más pequeñas y testeables de tu código — usualmente una sola función o método — aisladas de dependencias externas. Una buena prueba unitaria es rápida, determinista y lo suficientemente legible como para servir como documentación viva.
 
-Esta receta muestra cómo escribir pruebas unitarias idiomáticas en Python (pytest), JavaScript (Jest) y Java (JUnit 5).
+A continuacion se muestra como cómo escribir pruebas unitarias idiomáticas en Python (pytest), JavaScript (Jest) y Java (JUnit 5).
 
 ## When to Use
 

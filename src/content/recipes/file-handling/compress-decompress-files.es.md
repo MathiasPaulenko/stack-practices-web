@@ -36,7 +36,7 @@ seo:
 ---
 ## Visión General
 
-Archivar y comprimir archivos reduce costos de almacenamiento y transferencia. Manejar ZIP, GZIP y TAR programáticamente es esencial para scripts de backup, exportaciones de datos y empaquetado de artefactos. Esta receta cubre los tres formatos en Python, JavaScript y Java.
+Archivar y comprimir archivos reduce costos de almacenamiento y transferencia. Manejar ZIP, GZIP y TAR programáticamente es esencial para scripts de backup, exportaciones de datos y empaquetado de artefactos. La solucion a continuacion cubre los tres formatos en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

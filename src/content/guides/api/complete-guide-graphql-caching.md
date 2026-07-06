@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-GraphQL caching is harder than REST caching because every request goes to the same URL (`/graphql`) with a different POST body. REST can cache at the URL level; GraphQL needs cache keys based on the query content. Despite this, there are multiple layers where you can cache GraphQL data effectively. This guide covers each layer from CDN to client, with code examples and tradeoffs.
+GraphQL caching is harder than REST caching because every request goes to the same URL (`/graphql`) with a different POST body. REST can cache at the URL level; GraphQL needs cache keys based on the query content. Despite this, there are multiple layers where you can cache GraphQL data effectively. The following guide covers each layer from CDN to client, with code examples and tradeoffs.
 
 ## Caching Layers
 

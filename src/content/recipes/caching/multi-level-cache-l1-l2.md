@@ -32,7 +32,7 @@ seo:
 
 # Multi-Level Cache with In-Memory L1 and Redis L2
 
-A single cache layer is rarely optimal. In-memory caches offer sub-millisecond reads but are per-instance. Redis offers cross-instance consistency but adds network latency. A two-level cache combines both: L1 (in-memory) for hot data with zero network overhead, and L2 (Redis) for shared state across instances. This recipe implements an L1+L2 cache with pub/sub-based invalidation.
+A single cache layer is rarely optimal. In-memory caches offer sub-millisecond reads but are per-instance. Redis offers cross-instance consistency but adds network latency. A two-level cache combines both: L1 (in-memory) for hot data with zero network overhead, and L2 (Redis) for shared state across instances. The following implements an L1+L2 cache with pub/sub-based invalidation.
 
 ## When to Use This
 

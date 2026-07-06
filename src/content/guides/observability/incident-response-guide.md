@@ -39,7 +39,7 @@ seo:
 
 Incident response is the structured process of reacting to unplanned service disruptions. Without structure, incidents devolve into chaos: too many people talking, no clear decision-maker, and unclear communication to stakeholders. A defined response process reduces mean time to resolution (MTTR), minimizes customer impact, and reduces stress on responders.
 
-This guide covers incident declaration, roles, communication, and resolution workflows.
+The following walks through incident declaration, roles, communication, and resolution workflows.
 
 ## When to Use
 

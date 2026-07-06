@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Terraform modules encapsulate infrastructure resources into reusable, composable units. A well-structured module lets you provision the same infrastructure across environments (dev, staging, prod) with different configurations. This guide covers module structure, inputs/outputs, composition, versioning, testing, and publishing to the Terraform Registry.
+Terraform modules encapsulate infrastructure resources into reusable, composable units. A well-structured module lets you provision the same infrastructure across environments (dev, staging, prod) with different configurations. This guide walks through module structure, inputs/outputs, composition, versioning, testing, and publishing to the Terraform Registry.
 
 ## Module Structure
 

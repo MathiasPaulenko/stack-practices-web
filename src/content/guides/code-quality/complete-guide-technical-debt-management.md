@@ -37,7 +37,7 @@ seo:
 
 ## Introduction
 
-Technical debt is the cost of shortcuts taken during development. Like financial debt, it accrues interest: the longer you wait to pay it down, the more expensive it becomes. This guide covers identifying debt types, tracking with a debt register, prioritizing using impact vs effort, scheduling paydown sprints, and measuring debt reduction over time.
+Technical debt is the cost of shortcuts taken during development. Like financial debt, it accrues interest: the longer you wait to pay it down, the more expensive it becomes. The following walks through identifying debt types, tracking with a debt register, prioritizing using impact vs effort, scheduling paydown sprints, and measuring debt reduction over time.
 
 ## Types of Technical Debt
 

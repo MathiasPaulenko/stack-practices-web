@@ -33,7 +33,7 @@ seo:
 
 ## Descripcion general
 
-El modelo `async`/`await` de C# proporciona una maquina de estados basada en el compilador que transforma metodos async en callbacks. `Task` y `Task<T>` representan operaciones async. Esta receta cubre basics de `async`/`await`, `Task.WhenAll` para ejecucion paralela, `Task.WhenAny` para primero-en-completar, `CancellationTokenSource` para cancellation, `System.Threading.Channels` para producer-consumer y `Parallel.ForEachAsync` para I/O paralelo limitado.
+El modelo `async`/`await` de C# proporciona una maquina de estados basada en el compilador que transforma metodos async en callbacks. `Task` y `Task<T>` representan operaciones async. Aqui se explica como basics de `async`/`await`, `Task.WhenAll` para ejecucion paralela, `Task.WhenAny` para primero-en-completar, `CancellationTokenSource` para cancellation, `System.Threading.Channels` para producer-consumer y `Parallel.ForEachAsync` para I/O paralelo limitado.
 
 ## Cuando Usar Esto
 

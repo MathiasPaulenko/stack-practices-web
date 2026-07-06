@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-Docker Compose supports multiple files and override patterns to separate development and production configurations. This recipe shows how to use a base file, a dev override, and a prod override so you can run the same app with different settings (hot reload, debug ports, TLS, resource limits) without duplicating service definitions.
+Docker Compose supports multiple files and override patterns to separate development and production configurations. The following demonstrates how to use a base file, a dev override, and a prod override so you can run the same app with different settings (hot reload, debug ports, TLS, resource limits) without duplicating service definitions.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-Structured logging replaces free-text log messages with machine-parseable JSON documents. Instead of grepping for strings in log files, you query structured fields: `level=error AND service=order-service AND user_id=12345`. This enables log aggregation systems like ELK (Elasticsearch, Logstash, Kibana) and Grafana Loki to index, filter, and alert on log data. This guide covers structured logging in Python, Node.js, and Java, correlation IDs for request tracing, log levels, and aggregation stack setup.
+Structured logging replaces free-text log messages with machine-parseable JSON documents. Instead of grepping for strings in log files, you query structured fields: `level=error AND service=order-service AND user_id=12345`. This enables log aggregation systems like ELK (Elasticsearch, Logstash, Kibana) and Grafana Loki to index, filter, and alert on log data. Here is a hands-on guide to structured logging in Python, Node.js, and Java, correlation IDs for request tracing, log levels, and aggregation stack setup.
 
 ## Why Structured Logging?
 

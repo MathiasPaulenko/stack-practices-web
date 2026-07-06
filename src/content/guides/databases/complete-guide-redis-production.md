@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Redis is an in-memory data store used for caching, sessions, queues, and real-time analytics. Running Redis in production requires persistence, high availability, memory management, monitoring, and security. This guide covers RDB and AOF persistence, clustering, sentinel, failover, eviction policies, pipelining, Lua scripting, and backup strategies.
+Redis is an in-memory data store used for caching, sessions, queues, and real-time analytics. Running Redis in production requires persistence, high availability, memory management, monitoring, and security. This guide walks through RDB and AOF persistence, clustering, sentinel, failover, eviction policies, pipelining, Lua scripting, and backup strategies.
 
 ## Persistence
 

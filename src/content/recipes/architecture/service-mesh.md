@@ -34,7 +34,7 @@ seo:
 
 Microservices communicate over the network, and the network is untrusted. Every inter-service call crosses pod boundaries, node boundaries, and potentially cluster boundaries. Without encryption, attackers with network access can read or modify traffic. Without identity, any compromised service can impersonate another. Without observability, debugging a request that traverses 10 services is nearly impossible.
 
-A service mesh solves these problems by inserting a proxy — a sidecar container — next to every application pod. All traffic entering or leaving the pod flows through the sidecar. The sidecar handles mutual TLS, traffic routing, retries, timeouts, metrics, and access policies. The application code remains completely unaware. This recipe covers service mesh concepts, Istio deployment, traffic policies, and observability.
+A service mesh solves these problems by inserting a proxy — a sidecar container — next to every application pod. All traffic entering or leaving the pod flows through the sidecar. The sidecar handles mutual TLS, traffic routing, retries, timeouts, metrics, and access policies. The application code remains completely unaware. Here is how to service mesh concepts, Istio deployment, traffic policies, and observability.
 
 ## When to use it
 

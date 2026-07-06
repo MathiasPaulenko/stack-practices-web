@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Service Workers enable offline support by intercepting network requests and serving cached responses. This recipe covers registering a service worker, caching strategies (cache-first, network-first, stale-while-revalidate), cache cleanup, and background sync for progressive web apps.
+Service Workers enable offline support by intercepting network requests and serving cached responses. The solution below covers registering a service worker, caching strategies (cache-first, network-first, stale-while-revalidate), cache cleanup, and background sync for progressive web apps.
 
 ## When to Use
 

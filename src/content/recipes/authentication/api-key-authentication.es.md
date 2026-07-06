@@ -34,7 +34,7 @@ seo:
 
 Las API keys son la forma más simple y ampliamente desplegada de autenticación machine-to-machine. A diferencia de los flujos OAuth2 diseñados para delegación de usuarios, o los tokens JWT que codifican claims, las API keys son strings opacos intercambiados entre servicios confiables. Cuando se implementan correctamente, proporcionan autenticación rápida, revocación simple y control de acceso granular a través de permisos scoped.
 
-El desafío con las API keys no es la generación — cualquier string aleatorio sirve — sino la gestión del ciclo de vida. Las keys deben generarse con suficiente entropía, transmitirse sobre TLS, validarse eficientemente, rotarse periódicamente y revocarse inmediatamente ante compromiso. Una API key filtrada embebida en una app móvil o commiteada a un repositorio público otorga a atacantes los mismos privilegios que el servicio legítimo. Esta receta cubre generación de keys con firmas HMAC, validación de requests, enforce de scopes y estrategias de rotación.
+El desafío con las API keys no es la generación — cualquier string aleatorio sirve — sino la gestión del ciclo de vida. Las keys deben generarse con suficiente entropía, transmitirse sobre TLS, validarse eficientemente, rotarse periódicamente y revocarse inmediatamente ante compromiso. Una API key filtrada embebida en una app móvil o commiteada a un repositorio público otorga a atacantes los mismos privilegios que el servicio legítimo. El siguiente enfoque cubre generación de keys con firmas HMAC, validación de requests, enforce de scopes y estrategias de rotación.
 
 ## Cuándo usarlo
 

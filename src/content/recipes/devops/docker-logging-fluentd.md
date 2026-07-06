@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-Docker containers generate logs on stdout and stderr. By default, these go to JSON files on the host. Fluentd is an open-source log collector that can intercept container logs, enrich them with metadata, filter them, and forward to destinations like Elasticsearch, S3, Kafka, or stdout. This recipe shows both the Docker Fluentd logging driver and the sidecar pattern.
+Docker containers generate logs on stdout and stderr. By default, these go to JSON files on the host. Fluentd is an open-source log collector that can intercept container logs, enrich them with metadata, filter them, and forward to destinations like Elasticsearch, S3, Kafka, or stdout. This approach shows how to both the Docker Fluentd logging driver and the sidecar pattern.
 
 ## When to Use
 

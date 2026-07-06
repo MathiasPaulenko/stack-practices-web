@@ -32,7 +32,7 @@ seo:
 
 # Structured GraphQL Errors with Extension Codes
 
-GraphQL errors are just objects with a `message` field. Without structure, clients resort to string matching to determine what went wrong. Adding `extensions.code` gives clients a machine-readable error category, while additional extension fields carry context like validation details, retry hints, or affected fields. This recipe shows how to build a consistent error system across your GraphQL API.
+GraphQL errors are just objects with a `message` field. Without structure, clients resort to string matching to determine what went wrong. Adding `extensions.code` gives clients a machine-readable error category, while additional extension fields carry context like validation details, retry hints, or affected fields. Here is how to how to build a consistent error system across your GraphQL API.
 
 ## When to Use This
 

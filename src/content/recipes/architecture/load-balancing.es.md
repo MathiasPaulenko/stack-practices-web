@@ -34,7 +34,7 @@ seo:
 
 Un servidor único manejando todo el tráfico tiene una capacidad máxima definida por su CPU, memoria, red e I/O de disco. Cuando la demanda excede esa capacidad, los tiempos de respuesta se degradan y los requests empiezan a fallar. El load balancing resuelve esto distribuyendo tráfico entrante entre múltiples servidores backend — un pool que escala horizontalmente. Pero la distribución no es tan simple como enviar cada request al siguiente servidor en una lista. Diferentes algoritmos optimizan para diferentes objetivos: equidad, minimización de latencia, persistencia de sesión, o localidad de cache.
 
-El load balancer se sienta entre clientes y servidores, actuando como reverse proxy. Monitorea la salud de backends, remueve instancias fallidas de rotación, y las reintroduce cuando se recuperan. Puede operar en múltiples capas: DNS (geográfico), transporte (TCP/UDP), o aplicación (HTTP con persistencia basada en cookies). Esta receta cubre los algoritmos más comunes, sus trade-offs, e implementación usando Nginx y HAProxy.
+El load balancer se sienta entre clientes y servidores, actuando como reverse proxy. Monitorea la salud de backends, remueve instancias fallidas de rotación, y las reintroduce cuando se recuperan. Puede operar en múltiples capas: DNS (geográfico), transporte (TCP/UDP), o aplicación (HTTP con persistencia basada en cookies). La solucion a continuacion cubre los algoritmos más comunes, sus trade-offs, e implementación usando Nginx y HAProxy.
 
 ## Cuándo usarlo
 

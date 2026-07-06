@@ -35,7 +35,7 @@ seo:
 
 Database migrations track, version, and apply schema changes over time. Without a migration system, schema changes are applied manually through ad-hoc SQL scripts, SSH sessions, and prayer. This leads to environments that diverge, deployment failures, and production outages caused by forgotten indexes or missing columns.
 
-A migration tool turns schema changes into versioned, repeatable, and reversible scripts. Each migration is numbered or timestamped, tracked in a dedicated history table, and applied automatically during deployment. Rollbacks are scripted and tested, not improvised. This recipe covers the three most widely adopted tools: Flyway (JVM), Alembic (Python), and Liquibase (multi-language).
+A migration tool turns schema changes into versioned, repeatable, and reversible scripts. Each migration is numbered or timestamped, tracked in a dedicated history table, and applied automatically during deployment. Rollbacks are scripted and tested, not improvised. Here is how to the three most widely adopted tools: Flyway (JVM), Alembic (Python), and Liquibase (multi-language).
 
 ## When to Use
 

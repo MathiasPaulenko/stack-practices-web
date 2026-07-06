@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Soft deletes mark records as deleted without actually removing them from the database. This preserves data for auditing, recovery, and referential integrity while keeping deleted records invisible to normal application queries. This recipe implements soft deletes with timestamp flags and filtered queries in Python, JavaScript, and Java.
+Soft deletes mark records as deleted without actually removing them from the database. This preserves data for auditing, recovery, and referential integrity while keeping deleted records invisible to normal application queries. The following implements soft deletes with timestamp flags and filtered queries in Python, JavaScript, and Java.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Transient failures — network timeouts, rate limits, temporary service outages — are inevitable in distributed systems. Naively retrying immediately can overload struggling services. Exponential backoff spaces out retries exponentially (1s, 2s, 4s, 8s...) while jitter randomizes wait times to prevent thundering herds. This recipe covers building a reliable retry decorator with configurable backoff strategies, circuit breaker integration, and idempotency awareness in Python, JavaScript, and Java.
+Transient failures — network timeouts, rate limits, temporary service outages — are inevitable in distributed systems. Naively retrying immediately can overload struggling services. Exponential backoff spaces out retries exponentially (1s, 2s, 4s, 8s...) while jitter randomizes wait times to prevent thundering herds. This approach handles building a reliable retry decorator with configurable backoff strategies, circuit breaker integration, and idempotency awareness in Python, JavaScript, and Java.
 
 ## When to Use
 

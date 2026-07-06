@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-GitOps uses Git as the single source of truth for infrastructure and application deployment. Every change goes through a pull request, gets reviewed, and is automatically applied to the cluster. This guide covers ArgoCD and Flux setup, drift reconciliation, automated rollbacks, progressive delivery, multi-cluster management, and secret management with SOPS.
+GitOps uses Git as the single source of truth for infrastructure and application deployment. Every change goes through a pull request, gets reviewed, and is automatically applied to the cluster. Here is a hands-on guide to ArgoCD and Flux setup, drift reconciliation, automated rollbacks, progressive delivery, multi-cluster management, and secret management with SOPS.
 
 ## GitOps Principles
 

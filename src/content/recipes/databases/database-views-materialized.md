@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Database views are virtual tables defined by a query. They simplify complex joins, enforce access control by exposing only selected columns, and centralize business logic in the schema. Materialized views go further by physically storing the query result, trading disk space and eventual staleness for dramatically faster reads. This recipe covers creating, refreshing, and indexing both types across PostgreSQL, MySQL, and SQL Server.
+Database views are virtual tables defined by a query. They simplify complex joins, enforce access control by exposing only selected columns, and centralize business logic in the schema. Materialized views go further by physically storing the query result, trading disk space and eventual staleness for dramatically faster reads. The following demonstrates how to creating, refreshing, and indexing both types across PostgreSQL, MySQL, and SQL Server.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 
 The OpenAI Assistants API lets you build conversational AI agents with persistent threads, built-in retrieval, code interpreter, and function calling. Unlike the Chat Completions API, Assistants manages conversation state, file handling, and tool execution automatically, so you do not need to maintain message history in your own database. For autonomous agents with tool use, see [AI Agents with Tool Use](/recipes/ai/ai-agents-tool-use).
 
-This recipe covers creating an assistant, managing conversation threads, handling function calls, and retrieving files.
+Below is a practical approach to creating an assistant, managing conversation threads, handling function calls, and retrieving files.
 
 ## When to Use
 

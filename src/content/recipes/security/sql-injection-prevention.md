@@ -36,7 +36,7 @@ seo:
 
 SQL injection is one of the most common and dangerous web application vulnerabilities. It occurs when an attacker injects malicious SQL code into application queries through user input, potentially exposing, modifying, or deleting entire databases. Injection attacks consistently rank in the [OWASP Top 10](/guides/security/security-best-practices-guide) because they are easy to exploit and devastating in impact.
 
-The root cause is almost always the same: concatenating untrusted user [input](/recipes/api/input-validation) directly into SQL strings. The fix is equally straightforward: use parameterized queries or an ORM that handles escaping automatically. This recipe shows the secure way to access databases in Python, JavaScript, and Java.
+The root cause is almost always the same: concatenating untrusted user [input](/recipes/api/input-validation) directly into SQL strings. The fix is equally straightforward: use parameterized queries or an ORM that handles escaping automatically. The pattern below demonstrates the secure way to access databases in Python, JavaScript, and Java.
 
 ## When to Use
 

@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Writing massive datasets or logs to disk requires buffered and streaming techniques to avoid memory spikes and I/O bottlenecks. This recipe covers efficient file writing patterns across Python, JavaScript, and Java.
+Writing massive datasets or logs to disk requires buffered and streaming techniques to avoid memory spikes and I/O bottlenecks. Below is a practical approach to efficient file writing patterns across Python, JavaScript, and Java.
 
 ## When to Use
 

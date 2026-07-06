@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Real-time WebSocket communication enables instant data exchange between server and clients. Socket.io provides a reliable layer over WebSockets with auto-reconnection, rooms, namespaces, and broadcasting. This recipe covers setting up Socket.io with Express, rooms for group messaging, namespaces for separation, authentication middleware, and scaling with the Redis adapter.
+Real-time WebSocket communication enables instant data exchange between server and clients. Socket.io provides a reliable layer over WebSockets with auto-reconnection, rooms, namespaces, and broadcasting. The following demonstrates how to setting up Socket.io with Express, rooms for group messaging, namespaces for separation, authentication middleware, and scaling with the Redis adapter.
 
 ## When to Use
 

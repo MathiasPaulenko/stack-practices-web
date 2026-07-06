@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Kubernetes ConfigMaps store non-sensitive configuration data. Secrets store sensitive data like passwords, tokens, and certificates. Both can be mounted into pods as environment variables or files. This recipe covers the patterns for injecting configuration and secrets into your applications running in Kubernetes — from basic env vars to projected volumes and external secret operators.
+Kubernetes ConfigMaps store non-sensitive configuration data. Secrets store sensitive data like passwords, tokens, and certificates. Both can be mounted into pods as environment variables or files. This approach handles the patterns for injecting configuration and secrets into your applications running in Kubernetes — from basic env vars to projected volumes and external secret operators.
 
 ## When to Use
 

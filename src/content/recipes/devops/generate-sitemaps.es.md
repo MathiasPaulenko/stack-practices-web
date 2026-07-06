@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-Los sitemaps XML informan a los motores de búsqueda qué páginas existen en tu sitio, cuán a menudo cambian, y su prioridad relativa. Mientras que los sitemaps estáticos funcionan para sitios pequeños, los sitemaps en vivo son esenciales para contenido grande o que cambia frecuentemente (blogs, e-commerce, contenido generado por usuarios). Esta receta cubre la generación de sitemap XML desde consultas de base de datos o APIs de contenido, el manejo de paginación cuando las URLs exceden el límite de 50.000 por archivo, y la adición de anotaciones multi-idioma `hreflang` para SEO internacional.
+Los sitemaps XML informan a los motores de búsqueda qué páginas existen en tu sitio, cuán a menudo cambian, y su prioridad relativa. Mientras que los sitemaps estáticos funcionan para sitios pequeños, los sitemaps en vivo son esenciales para contenido grande o que cambia frecuentemente (blogs, e-commerce, contenido generado por usuarios). El siguiente enfoque cubre la generación de sitemap XML desde consultas de base de datos o APIs de contenido, el manejo de paginación cuando las URLs exceden el límite de 50.000 por archivo, y la adición de anotaciones multi-idioma `hreflang` para SEO internacional.
 
 ## Cuándo Usar
 

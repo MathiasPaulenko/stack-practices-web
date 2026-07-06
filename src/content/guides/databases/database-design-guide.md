@@ -33,7 +33,7 @@ seo:
 
 ## Introduction
 
-A well-designed database is the foundation of reliable applications. Poor design leads to data inconsistencies, slow queries, and costly migrations. This guide covers the essential principles for designing relational databases that scale.
+A well-designed database is the foundation of reliable applications. Poor design leads to data inconsistencies, slow queries, and costly migrations. Below is a practical guide to the essential principles for designing relational databases that scale.
 
 ## Entity-Relationship Modeling
 

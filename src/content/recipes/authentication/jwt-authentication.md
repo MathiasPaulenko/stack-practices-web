@@ -33,7 +33,7 @@ seo:
 
 JSON Web Tokens (JWT) are the most common way to implement stateless authentication in modern APIs. A JWT is a compact, URL-safe string that carries signed claims — such as user identity and expiration time — between a client and a server.
 
-This recipe shows how to generate (sign), validate (verify), and refresh JWTs safely in Python, JavaScript, and Java.
+The following demonstrates how to generate (sign), validate (verify), and refresh JWTs safely in Python, JavaScript, and Java.
 
 ## When to Use
 

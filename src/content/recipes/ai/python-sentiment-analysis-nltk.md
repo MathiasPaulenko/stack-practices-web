@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Sentiment analysis scores text as positive, negative, or neutral. NLTK's VADER (Valence Aware Dictionary and sEntiment Reasoner) is a rule-based model built for social media text. It handles negation, intensifiers, and emoticons without training data. This recipe covers scoring individual texts, batch processing, and customizing the lexicon.
+Sentiment analysis scores text as positive, negative, or neutral. NLTK's VADER (Valence Aware Dictionary and sEntiment Reasoner) is a rule-based model built for social media text. It handles negation, intensifiers, and emoticons without training data. Here is how to scoring individual texts, batch processing, and customizing the lexicon.
 
 ## When to Use
 

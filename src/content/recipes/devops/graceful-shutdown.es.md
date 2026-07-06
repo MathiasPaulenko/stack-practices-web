@@ -34,7 +34,7 @@ seo:
 
 ## Visión General
 
-Un graceful shutdown asegura que tu aplicación termine peticiones en vuelo, vacíe buffers, cierre conexiones de base de datos y libere bloqueos antes de salir. Sin él, los despliegues y eventos de escalado causan peticiones caídas, corrupción de datos y fallos en cascada. Esta receta implementa manejo de SIGTERM, drenado de conexiones y patrones de despliegue sin downtime para servidores web, workers y contenedores.
+Un graceful shutdown asegura que tu aplicación termine peticiones en vuelo, vacíe buffers, cierre conexiones de base de datos y libere bloqueos antes de salir. Sin él, los despliegues y eventos de escalado causan peticiones caídas, corrupción de datos y fallos en cascada. Lo siguiente implementa manejo de SIGTERM, drenado de conexiones y patrones de despliegue sin downtime para servidores web, workers y contenedores.
 
 ## Cuándo Usar
 

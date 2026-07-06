@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Test fixtures are the known, controlled datasets and environment state that make tests deterministic. Without fixtures, tests depend on external databases, filesystems, or random state, producing flaky failures that waste debugging time. This recipe shows how to create, isolate, and clean up fixtures using factory patterns and framework-native hooks.
+Test fixtures are the known, controlled datasets and environment state that make tests deterministic. Without fixtures, tests depend on external databases, filesystems, or random state, producing flaky failures that waste debugging time. Here is how to how to create, isolate, and clean up fixtures using factory patterns and framework-native hooks.
 
 ## When to Use
 

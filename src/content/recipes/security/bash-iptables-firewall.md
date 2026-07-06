@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-iptables is the default firewall framework on Linux. It filters network traffic at the kernel level using chains of rules. This recipe covers setting up a basic firewall: allowing SSH and HTTP, blocking everything else, setting up NAT, and persisting rules across reboots.
+iptables is the default firewall framework on Linux. It filters network traffic at the kernel level using chains of rules. The following demonstrates how to setting up a basic firewall: allowing SSH and HTTP, blocking everything else, setting up NAT, and persisting rules across reboots.
 
 ## When to Use
 

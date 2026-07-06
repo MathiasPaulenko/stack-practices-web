@@ -35,7 +35,7 @@ seo:
 
 El load testing mide cómo se comporta un sistema bajo un volumen específico de usuarios o requests concurrentes. A diferencia de los tests funcionales que verifican correctitud, los load tests revelan límites de rendimiento: ¿en qué punto el tiempo de respuesta degrada de 50ms a 2 segundos? ¿En qué carga los errores saltan de 0.1% a 10%? ¿Cuándo se agota el pool de conexiones a la base de datos?
 
-Herramientas modernas como k6 y JMeter permiten definir escenarios en código o configuración, ejecutarlos desde la línea de comandos o pipelines de CI, y exportar métricas detalladas. Esta receta cubre cómo diseñar load tests realistas, interpretar los resultados e iterar sobre mejoras de rendimiento.
+Herramientas modernas como k6 y JMeter permiten definir escenarios en código o configuración, ejecutarlos desde la línea de comandos o pipelines de CI, y exportar métricas detalladas. La solucion a continuacion cubre cómo diseñar load tests realistas, interpretar los resultados e iterar sobre mejoras de rendimiento.
 
 ## Cuándo usarlo
 

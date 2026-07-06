@@ -34,7 +34,7 @@ seo:
 
 Generative image models have transformed how developers create visual content. Instead of commissioning designers, purchasing stock photos, or building complex rendering pipelines, applications can now generate custom images from text descriptions in seconds. DALL-E 3, Stable Diffusion XL, and Midjourney produce photorealistic portraits, illustrations, icons, and product mockups that are increasingly indistinguishable from human-created art.
 
-The challenge in production is not calling the API — it is crafting prompts that produce consistent, usable results at scale. A prompt like "a cat" yields unpredictable outcomes. A structured prompt with style references, aspect ratios, negative constraints, and seed values produces reproducible assets. For prompt engineering fundamentals, see [Prompt Engineering](/recipes/ai/prompt-engineering). This recipe covers API integration, prompt templates, batch generation, content moderation, and image optimization for web delivery.
+The challenge in production is not calling the API — it is crafting prompts that produce consistent, usable results at scale. A prompt like "a cat" yields unpredictable outcomes. A structured prompt with style references, aspect ratios, negative constraints, and seed values produces reproducible assets. For prompt engineering fundamentals, see [Prompt Engineering](/recipes/ai/prompt-engineering). The following demonstrates how to API integration, prompt templates, batch generation, content moderation, and image optimization for web delivery.
 
 ## When to use it
 

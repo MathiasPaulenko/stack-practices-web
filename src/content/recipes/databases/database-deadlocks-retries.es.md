@@ -37,7 +37,7 @@ seo:
 
 Los deadlocks ocurren cuando dos o más transacciones mantienen locks sobre recursos que la otra necesita, creando una dependencia circular. La base de datos detecta esto y aborta una transacción como "víctima." Aunque los deadlocks son inevitables en sistemas concurrentes, puedes minimizarlos y recuperarte con gracia usando lógica de reintento apropiada.
 
-Esta receta cubre la detección, prevención y reintento automático de transacciones después de deadlocks en PostgreSQL, MySQL y SQL Server.
+Aqui se explica como la detección, prevención y reintento automático de transacciones después de deadlocks en PostgreSQL, MySQL y SQL Server.
 
 ## Cuándo Usar
 

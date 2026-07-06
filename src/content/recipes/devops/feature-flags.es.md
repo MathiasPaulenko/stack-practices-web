@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-Los feature flags (o feature toggles) desacoplan el despliegue del lanzamiento. Permiten mergear funciones incompletas a `main`, habilitarlas para un subconjunto de usuarios, medir impacto y revertir instantáneamente sin un nuevo despliegue. Esta receta cubre la construcción de un servicio ligero de flags, estrategias de rollout (booleano, porcentaje, targeting de usuarios) y patrones de limpieza segura en Python, JavaScript y Java.
+Los feature flags (o feature toggles) desacoplan el despliegue del lanzamiento. Permiten mergear funciones incompletas a `main`, habilitarlas para un subconjunto de usuarios, medir impacto y revertir instantáneamente sin un nuevo despliegue. Aqui se explica como la construcción de un servicio ligero de flags, estrategias de rollout (booleano, porcentaje, targeting de usuarios) y patrones de limpieza segura en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

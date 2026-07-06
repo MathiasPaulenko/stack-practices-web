@@ -34,7 +34,7 @@ seo:
 
 El caching mejora el rendimiento de lectura almacenando datos frecuentemente accedidos en almacenamiento rápido en memoria. Sin embargo, las cachés introducen un problema clásico de [sistemas distribuidos](/guides/architecture/microservices-architecture-guide): cuando los datos subyacentes cambian, la caché se vuelve obsoleta. Servir datos obsoletos puede llevar a decisiones de negocio incorrectas, problemas de seguridad y malas experiencias de usuario.
 
-La invalidación de caché es el mecanismo que garantiza que los datos cacheados permanezcan consistentes con su fuente. No hay una solución universal — la estrategia correcta depende de tus requerimientos de consistencia, volumen de escrituras, y tolerancia a lecturas obsoletas. Esta receta cubre los cuatro patrones principales: expiración TTL, write-through, write-behind e invalidación event-driven.
+La invalidación de caché es el mecanismo que garantiza que los datos cacheados permanezcan consistentes con su fuente. No hay una solución universal — la estrategia correcta depende de tus requerimientos de consistencia, volumen de escrituras, y tolerancia a lecturas obsoletas. Lo siguiente cubre los cuatro patrones principales: expiración TTL, write-through, write-behind e invalidación event-driven.
 
 ## Cuándo usarlo
 

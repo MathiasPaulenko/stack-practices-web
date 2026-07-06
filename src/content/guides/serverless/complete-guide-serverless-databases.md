@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Serverless applications need serverless databases. Traditional databases require provisioning, connection management, and capacity planning — all things serverless functions are not good at. Serverless databases solve this by auto-scaling, handling connection management, and charging per request. This guide covers the major serverless database options, their tradeoffs, and how to use them effectively with serverless functions.
+Serverless applications need serverless databases. Traditional databases require provisioning, connection management, and capacity planning — all things serverless functions are not good at. Serverless databases solve this by auto-scaling, handling connection management, and charging per request. The following walks through the major serverless database options, their tradeoffs, and how to use them effectively with serverless functions.
 
 ## Serverless Database Landscape
 

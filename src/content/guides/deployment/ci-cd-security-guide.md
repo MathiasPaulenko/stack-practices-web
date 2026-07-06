@@ -43,7 +43,7 @@ seo:
 
 CI/CD pipelines are high-value attack targets. They have access to source code, secrets, production environments, and deployment credentials. A compromised pipeline can lead to code injection, data breaches, and supply chain attacks that affect every downstream consumer.
 
-This guide covers practical techniques to harden your CI/CD infrastructure from source to deployment.
+Here is a hands-on guide to practical techniques to harden your CI/CD infrastructure from source to deployment.
 
 ## When to Use
 

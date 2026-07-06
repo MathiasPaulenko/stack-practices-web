@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-React 19 introdujo server components, el `use()` hook, actions, `useActionState`, `useOptimistic`, `useFormStatus`, ref as a prop, document metadata, y el React Compiler. Esta guia cubre cada feature con practical code examples y migration tips.
+React 19 introdujo server components, el `use()` hook, actions, `useActionState`, `useOptimistic`, `useFormStatus`, ref as a prop, document metadata, y el React Compiler. Aqui se presenta una guia sobre cada feature con practical code examples y migration tips.
 
 ## Server Components
 

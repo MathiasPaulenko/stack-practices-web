@@ -33,7 +33,7 @@ seo:
 
 ## Overview
 
-pandas is the standard tool for tabular data processing in Python. Parquet is a columnar storage format that compresses better than CSV and preserves data types (integers, floats, datetimes, categoricals). Combining them in an ETL pipeline gives you type-safe data processing with compact storage. This recipe covers extracting from multiple sources, transforming with type coercion and validation, and loading to partitioned Parquet files.
+pandas is the standard tool for tabular data processing in Python. Parquet is a columnar storage format that compresses better than CSV and preserves data types (integers, floats, datetimes, categoricals). Combining them in an ETL pipeline gives you type-safe data processing with compact storage. The following demonstrates how to extracting from multiple sources, transforming with type coercion and validation, and loading to partitioned Parquet files.
 
 ## When to Use
 

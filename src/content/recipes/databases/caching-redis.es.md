@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-El caching es la forma más útil de acelerar aplicaciones con muchas lecturas. Redis es un almacén de estructuras de datos en memoria que funciona como caché de alto rendimiento, reduciendo la carga en la base de datos y cortando tiempos de respuesta de cientos de milisegundos a microsegundos. Esta receta cubre el patrón cache-aside, gestión de TTL, serialización y estrategias de invalidación en Python, JavaScript y Java.
+El caching es la forma más útil de acelerar aplicaciones con muchas lecturas. Redis es un almacén de estructuras de datos en memoria que funciona como caché de alto rendimiento, reduciendo la carga en la base de datos y cortando tiempos de respuesta de cientos de milisegundos a microsegundos. La solucion a continuacion cubre el patrón cache-aside, gestión de TTL, serialización y estrategias de invalidación en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

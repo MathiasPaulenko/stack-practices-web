@@ -32,7 +32,7 @@ seo:
 
 # Datos en tiempo real con suscripciones GraphQL sobre WebSockets
 
-Las suscripciones GraphQL entregan datos a clientes en tiempo real usando una conexion WebSocket persistente. A diferencia de queries y mutaciones, que siguen un ciclo request-response, las suscripciones mantienen la conexion abierta y envian actualizaciones cuando ocurren eventos en el servidor. Esta receta implementa suscripciones con el motor `PubSub` de Apollo Server y un gateway WebSocket.
+Las suscripciones GraphQL entregan datos a clientes en tiempo real usando una conexion WebSocket persistente. A diferencia de queries y mutaciones, que siguen un ciclo request-response, las suscripciones mantienen la conexion abierta y envian actualizaciones cuando ocurren eventos en el servidor. Aqui hay una implementacion de suscripciones con el motor `PubSub` de Apollo Server y un gateway WebSocket.
 
 ## Cuando Usar Esto
 

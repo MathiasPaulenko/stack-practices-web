@@ -41,7 +41,7 @@ seo:
 
 ## Introduction
 
-GitOps uses Git as the single source of truth for infrastructure and application deployment. ArgoCD is a Kubernetes-native continuous delivery tool that implements GitOps — it watches a Git repository and syncs the desired state to Kubernetes clusters. This guide covers installation, application configuration, sync strategies, Helm/Kustomize integration, RBAC, and multi-cluster management.
+GitOps uses Git as the single source of truth for infrastructure and application deployment. ArgoCD is a Kubernetes-native continuous delivery tool that implements GitOps — it watches a Git repository and syncs the desired state to Kubernetes clusters. The following guide covers installation, application configuration, sync strategies, Helm/Kustomize integration, RBAC, and multi-cluster management.
 
 ## GitOps Principles
 

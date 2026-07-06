@@ -34,7 +34,7 @@ seo:
 
 Creating a new thread for every concurrent task is expensive. Each thread consumes memory for its stack (typically 1MB), requires OS scheduling, and adds context-switching overhead. At high concurrency, thread creation becomes a bottleneck — the system spends more time managing threads than doing useful work. Thread pools solve this by maintaining a fixed set of reusable worker threads. Tasks are submitted to a queue; idle workers pick them up. When all workers are busy, tasks wait in the queue instead of spawning new threads.
 
-The challenge is sizing the pool correctly and handling overload. A CPU-bound task on an 8-core machine benefits from 8 threads — more threads just compete for cores. An I/O-bound task benefits from more threads than cores because threads spend most of their time waiting for disk or network. When the queue fills, the pool must decide whether to reject tasks, block the submitter, or run them in the calling thread. This recipe covers pool sizing, executor patterns, and rejection strategies across Java, Python, and C#.
+The challenge is sizing the pool correctly and handling overload. A CPU-bound task on an 8-core machine benefits from 8 threads — more threads just compete for cores. An I/O-bound task benefits from more threads than cores because threads spend most of their time waiting for disk or network. When the queue fills, the pool must decide whether to reject tasks, block the submitter, or run them in the calling thread. The solution below covers pool sizing, executor patterns, and rejection strategies across Java, Python, and C#.
 
 ## When to use it
 

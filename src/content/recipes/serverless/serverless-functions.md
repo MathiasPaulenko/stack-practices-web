@@ -35,7 +35,7 @@ seo:
 
 Serverless computing lets you run code without provisioning or managing servers. You write functions, upload them to a cloud provider, and the platform handles scaling, patching, and availability automatically. You pay only for execution time — making it ideal for sporadic workloads and event-driven architectures.
 
-This recipe covers creating and deploying serverless functions with AWS Lambda, Google Cloud Functions, and Azure Functions.
+Below is a practical approach to creating and deploying serverless functions with AWS Lambda, Google Cloud Functions, and Azure Functions.
 
 ## When to Use
 

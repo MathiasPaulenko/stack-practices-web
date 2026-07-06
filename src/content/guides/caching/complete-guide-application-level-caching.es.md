@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-El caching a nivel aplicacion se ubica entre tu logica de negocio y tu base de datos. Almacena datos frecuentemente accedidos en memoria o en un store distribuido rapido, reduciendo la carga de base de datos y los tiempos de respuesta. A diferencia del caching CDN (que cachea respuestas HTTP) o el caching de base de datos (que cachea resultados de queries), el caching a nivel aplicacion te da control granular sobre que se cachea, por cuanto tiempo, y como se invalida. Esta guia cubre caches en memoria, caches distribuidos, estrategias hibridas multi-tier, y patrones de produccion.
+El caching a nivel aplicacion se ubica entre tu logica de negocio y tu base de datos. Almacena datos frecuentemente accedidos en memoria o en un store distribuido rapido, reduciendo la carga de base de datos y los tiempos de respuesta. A diferencia del caching CDN (que cachea respuestas HTTP) o el caching de base de datos (que cachea resultados de queries), el caching a nivel aplicacion te da control granular sobre que se cachea, por cuanto tiempo, y como se invalida. Esta guia recorre caches en memoria, caches distribuidos, estrategias hibridas multi-tier, y patrones de produccion.
 
 ## Tipos de Cache en la Capa Aplicación
 

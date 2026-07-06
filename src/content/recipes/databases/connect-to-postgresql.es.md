@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-PostgreSQL es la base de datos relacional open-source más popular. Conectarse de forma fiable requiere manejar connection strings, SSL y pools de conexiones. Esta receta muestra cómo conectar y consultar PostgreSQL en Python, JavaScript y Java.
+PostgreSQL es la base de datos relacional open-source más popular. Conectarse de forma fiable requiere manejar connection strings, SSL y pools de conexiones. A continuacion se muestra como cómo conectar y consultar PostgreSQL en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

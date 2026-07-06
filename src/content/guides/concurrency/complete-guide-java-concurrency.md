@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Java has the most mature concurrency toolkit of any mainstream language. From basic threads to virtual threads (JEP 444), from `synchronized` to `StampedLock`, from `ExecutorService` to `CompletableFuture`, the options are vast. Choosing the right tool for each scenario is what separates working code from production-grade code. This guide covers the full spectrum of Java concurrency with practical patterns for building high-throughput parallel applications.
+Java has the most mature concurrency toolkit of any mainstream language. From basic threads to virtual threads (JEP 444), from `synchronized` to `StampedLock`, from `ExecutorService` to `CompletableFuture`, the options are vast. Choosing the right tool for each scenario is what separates working code from production-grade code. The following guide covers the full spectrum of Java concurrency with practical patterns for building high-throughput parallel applications.
 
 ## Thread Fundamentals
 

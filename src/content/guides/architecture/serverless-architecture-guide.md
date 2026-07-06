@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-Serverless architecture lets you run code without provisioning or managing servers. The cloud provider handles infrastructure, scaling, and patching; you provide functions that execute in response to events. While serverless eliminates server management, it introduces new constraints: execution time limits, cold starts, statelessness, and distributed debugging. This guide covers patterns that work and anti-patterns that cause pain.
+Serverless architecture lets you run code without provisioning or managing servers. The cloud provider handles infrastructure, scaling, and patching; you provide functions that execute in response to events. While serverless eliminates server management, it introduces new constraints: execution time limits, cold starts, statelessness, and distributed debugging. The following guide covers patterns that work and anti-patterns that cause pain.
 
 ## When to Use
 

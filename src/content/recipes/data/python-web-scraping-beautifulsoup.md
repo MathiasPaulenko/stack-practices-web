@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-BeautifulSoup is a Python library for parsing HTML and XML documents. It creates a parse tree from page source that you can navigate, search, and modify. Combined with `requests` for fetching pages, it is the standard tool for web scraping in Python. This recipe covers CSS selectors, DOM navigation, table extraction, pagination crawling, and respectful scraping practices.
+BeautifulSoup is a Python library for parsing HTML and XML documents. It creates a parse tree from page source that you can navigate, search, and modify. Combined with `requests` for fetching pages, it is the standard tool for web scraping in Python. The solution below covers CSS selectors, DOM navigation, table extraction, pagination crawling, and respectful scraping practices.
 
 ## When to Use
 

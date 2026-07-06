@@ -34,7 +34,7 @@ seo:
 
 Traditional CRUD applications use a single data model for both reading and writing. A relational table serves `SELECT` queries for dashboards and `INSERT/UPDATE` operations for form submissions. This simplicity works for small domains but breaks down at scale. Write-optimized schemas (normalized, transactional) are slow for complex reads. Read-optimized schemas (denormalized, indexed) are expensive to update. As traffic grows, both workloads compete for the same database resources.
 
-Command Query Responsibility Segregation (CQRS) splits the data model into two: a write model optimized for commands (create, update, delete) and a read model optimized for queries. Commands mutate state in the write model and publish events. Event handlers update read models — denormalized projections tailored for specific query patterns. The two models can use different databases, different schemas, and scale independently. This recipe covers CQRS implementation with event sourcing and projection patterns.
+Command Query Responsibility Segregation (CQRS) splits the data model into two: a write model optimized for commands (create, update, delete) and a read model optimized for queries. Commands mutate state in the write model and publish events. Event handlers update read models — denormalized projections tailored for specific query patterns. The two models can use different databases, different schemas, and scale independently. This approach handles CQRS implementation with event sourcing and projection patterns.
 
 ## When to use it
 

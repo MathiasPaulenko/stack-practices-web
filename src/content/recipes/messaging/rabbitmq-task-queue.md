@@ -32,7 +32,7 @@ seo:
 
 # Task Queues and RPC with RabbitMQ and AMQP
 
-Distribute background tasks reliably and implement request-reply patterns using RabbitMQ. This recipe covers durable queues, dead-letter exchanges for failed messages, prefetch limits for controlled concurrency, and RPC over AMQP for synchronous calls across services.
+Distribute background tasks reliably and implement request-reply patterns using RabbitMQ. Below is a practical approach to durable queues, dead-letter exchanges for failed messages, prefetch limits for controlled concurrency, and RPC over AMQP for synchronous calls across services.
 
 ## When to Use This
 

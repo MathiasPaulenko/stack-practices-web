@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Unix text processing tools are designed to be composed into pipelines: each tool does one thing well, and the shell connects them with pipes. A single line of Bash can replace hundreds of lines of Python or JavaScript for log analysis, data extraction, and report generation. This recipe covers the essential tools and how to combine them safely.
+Unix text processing tools are designed to be composed into pipelines: each tool does one thing well, and the shell connects them with pipes. A single line of Bash can replace hundreds of lines of Python or JavaScript for log analysis, data extraction, and report generation. Here is how to the essential tools and how to combine them safely.
 
 ## When to Use
 

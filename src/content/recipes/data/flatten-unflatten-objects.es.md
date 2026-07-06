@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-El flattening transforma un objeto profundamente anidado en un diccionario de un solo nivel usando claves con notación por puntos (ej. `user.address.city` → `"London"`). El unflattening invierte esto, reconstruyendo la estructura anidada original. Estas operaciones son esenciales para librerías de formularios, actualizaciones de documentos en bases de datos, serialización de query strings, y conversión entre documentos NoSQL y columnas planas de tablas. Esta receta cubre implementaciones recursivas con separadores custom, preservación de índices de arrays, y fidelidad de round-trip en Python, JavaScript y Java.
+El flattening transforma un objeto profundamente anidado en un diccionario de un solo nivel usando claves con notación por puntos (ej. `user.address.city` → `"London"`). El unflattening invierte esto, reconstruyendo la estructura anidada original. Estas operaciones son esenciales para librerías de formularios, actualizaciones de documentos en bases de datos, serialización de query strings, y conversión entre documentos NoSQL y columnas planas de tablas. La solucion a continuacion cubre implementaciones recursivas con separadores custom, preservación de índices de arrays, y fidelidad de round-trip en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

@@ -34,7 +34,7 @@ seo:
 
 Cuando múltiples threads acceden a datos compartidos simultáneamente, el resultado depende del timing exacto de su ejecución — una condición de carrera. El thread A lee un balance bancario de $100, el thread B lee el mismo $100, ambos agregan $50, y ambos escriben $150. El resultado correcto es $200, pero el resultado actual es $150. Los $50 perdidos son una data race causada por acceso no coordinado.
 
-Los locks resuelven esto asegurando que solo un thread acceda a datos críticos a la vez. Un mutex (mutual exclusion lock) permite que un solo thread entre a una sección crítica. Un read-write lock permite muchos lectores simultáneamente pero solo un escritor. Un semaphore controla acceso a un pool finito de recursos (ej. 10 conexiones a base de datos). Las operaciones atómicas proveen updates libres de locks para contadores simples. Esta receta cubre cuándo y cómo usar cada mecanismo.
+Los locks resuelven esto asegurando que solo un thread acceda a datos críticos a la vez. Un mutex (mutual exclusion lock) permite que un solo thread entre a una sección crítica. Un read-write lock permite muchos lectores simultáneamente pero solo un escritor. Un semaphore controla acceso a un pool finito de recursos (ej. 10 conexiones a base de datos). Las operaciones atómicas proveen updates libres de locks para contadores simples. A continuacion se cubre cuándo y cómo usar cada mecanismo.
 
 ## Cuándo usarlo
 

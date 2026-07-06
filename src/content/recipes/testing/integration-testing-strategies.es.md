@@ -34,7 +34,7 @@ seo:
 
 Los unit tests verifican que `calculateTotal()` retorna la suma correcta. Mockean la base de datos, el gateway de pagos y el servicio de inventario. Todo pasa. Luego deployas a staging y la aplicación falla al arrancar porque la migración de base de datos nunca se ejecutó. El gateway de pagos rechaza peticiones porque cambió la versión de API. El servicio de inventario retorna 503 porque el ambiente de test está caído.
 
-Los tests de integración verifican que tu código funciona con dependencias reales (o realistas). Capturan los desajustes que los unit tests no pueden: cambios de schema, drift de versión de API, errores de configuración y comportamiento de red. Un test de integración bien diseñado levanta una base de datos real en un container, arranca tu servicio y ejercita los endpoints HTTP reales. Esta receta cubre test containers, contract testing, consumer-driven contracts y estrategias para testear al nivel correcto de abstracción.
+Los tests de integración verifican que tu código funciona con dependencias reales (o realistas). Capturan los desajustes que los unit tests no pueden: cambios de schema, drift de versión de API, errores de configuración y comportamiento de red. Un test de integración bien diseñado levanta una base de datos real en un container, arranca tu servicio y ejercita los endpoints HTTP reales. El siguiente enfoque cubre test containers, contract testing, consumer-driven contracts y estrategias para testear al nivel correcto de abstracción.
 
 ## Cuándo usarlo
 

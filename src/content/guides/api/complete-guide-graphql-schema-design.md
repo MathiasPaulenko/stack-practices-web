@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-A GraphQL schema is the contract between your API and its clients. A well-designed schema is easy to understand, hard to misuse, and evolves without breaking existing clients. A poorly designed schema leads to confusing queries, N+1 performance problems, and painful migrations. This guide covers the principles and patterns for designing GraphQL schemas that hold up over time.
+A GraphQL schema is the contract between your API and its clients. A well-designed schema is easy to understand, hard to misuse, and evolves without breaking existing clients. A poorly designed schema leads to confusing queries, N+1 performance problems, and painful migrations. This guide walks through the principles and patterns for designing GraphQL schemas that hold up over time.
 
 ## Schema-First vs Code-First
 

@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-APIs are the primary attack surface for modern applications. Every endpoint is a potential entry point for attackers. This guide covers rate limiting, authentication, input validation, CORS, injection prevention, API gateway patterns, mass assignment protection, audit logging, and security testing with production-ready code examples.
+APIs are the primary attack surface for modern applications. Every endpoint is a potential entry point for attackers. This guide walks through rate limiting, authentication, input validation, CORS, injection prevention, API gateway patterns, mass assignment protection, audit logging, and security testing with production-ready code examples.
 
 ## Rate Limiting
 

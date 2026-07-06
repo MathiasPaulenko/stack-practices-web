@@ -34,7 +34,7 @@ seo:
 
 Un sistema de checkout de e-commerce calcula costos de envío. Para órdenes domésticas, usa precio flat-rate. Para órdenes internacionales, usa precio basado en peso. Para entrega express, usa distancia más multiplicadores de urgencia. Una implementación ingenua pone los tres cálculos en un solo método `calculateShipping()` con un enorme `switch`. Agregar un nuevo método de envío significa editar ese método, violando el principio open-closed. Testear la lógica de envío requiere configurar todo el objeto checkout.
 
-El strategy pattern separa los algoritmos del contexto que los usa. Cada algoritmo de envío se convierte en su propia clase implementando una interfaz `ShippingStrategy` compartida. El checkout mantiene una referencia a una estrategia y delega el cálculo a ella. En runtime, intercambias estrategias — flat rate para doméstico, weight-based para internacional — sin cambiar el código del checkout. Nuevas estrategias se agregan escribiendo nuevas clases, no editando existentes. Esta receta cubre estrategias basadas en clases, en funciones y selección por inyección de dependencias.
+El strategy pattern separa los algoritmos del contexto que los usa. Cada algoritmo de envío se convierte en su propia clase implementando una interfaz `ShippingStrategy` compartida. El checkout mantiene una referencia a una estrategia y delega el cálculo a ella. En runtime, intercambias estrategias — flat rate para doméstico, weight-based para internacional — sin cambiar el código del checkout. Nuevas estrategias se agregan escribiendo nuevas clases, no editando existentes. La solucion a continuacion cubre estrategias basadas en clases, en funciones y selección por inyección de dependencias.
 
 ## Cuándo usarlo
 

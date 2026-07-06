@@ -35,7 +35,7 @@ seo:
 
 Abrir una nueva conexión de base de datos o HTTP para cada petición es costoso. El connection pooling mantiene un conjunto reutilizable de conexiones ya establecidas, reduciendo drásticamente la latencia y previniendo el agotamiento de recursos bajo carga. La mayoría de los incidentes en producción relacionados con "demasiadas conexiones" se resuelven con una configuración adecuada del pool.
 
-Esta receta cubre connection pooling de base de datos con PostgreSQL, MySQL y Redis, más pooling de clientes HTTP para llamadas a APIs externas.
+El siguiente enfoque cubre connection pooling de base de datos con PostgreSQL, MySQL y Redis, más pooling de clientes HTTP para llamadas a APIs externas.
 
 ## Cuándo Usar
 

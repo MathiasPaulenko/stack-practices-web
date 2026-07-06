@@ -42,7 +42,7 @@ seo:
 
 ## Introduction
 
-Microservices must communicate to deliver business functionality. The choice of communication pattern directly affects latency, reliability, scalability, and coupling. This guide covers synchronous patterns (REST, gRPC), asynchronous patterns (message queues, event-driven), and infrastructure patterns (service mesh, API gateway), with practical code examples and decision criteria.
+Microservices must communicate to deliver business functionality. The choice of communication pattern directly affects latency, reliability, scalability, and coupling. The following guide covers synchronous patterns (REST, gRPC), asynchronous patterns (message queues, event-driven), and infrastructure patterns (service mesh, API gateway), with practical code examples and decision criteria.
 
 ## Synchronous vs Asynchronous
 

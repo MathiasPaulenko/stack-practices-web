@@ -37,7 +37,7 @@ seo:
 
 ## Introduction
 
-Code review is the practice of having another developer examine your code before it merges. It catches bugs, improves quality, shares knowledge, and builds shared code ownership. This guide covers reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing, and building a strong review culture.
+Code review is the practice of having another developer examine your code before it merges. It catches bugs, improves quality, shares knowledge, and builds shared code ownership. Here is a hands-on guide to reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing, and building a strong review culture.
 
 ## Reviewer Mindset
 

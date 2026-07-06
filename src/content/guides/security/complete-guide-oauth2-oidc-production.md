@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-OAuth2 is an authorization framework that lets users grant third-party applications access to their resources without sharing credentials. OpenID Connect (OIDC) adds an identity layer on top, providing authentication and user info. This guide covers the authorization code flow with PKCE, token validation, refresh tokens, scopes, JWT verification, and production security patterns.
+OAuth2 is an authorization framework that lets users grant third-party applications access to their resources without sharing credentials. OpenID Connect (OIDC) adds an identity layer on top, providing authentication and user info. This guide walks through the authorization code flow with PKCE, token validation, refresh tokens, scopes, JWT verification, and production security patterns.
 
 ## OAuth2 Roles
 

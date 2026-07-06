@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-LLM applications introduce unique security risks that traditional web applications do not face. Prompt injection, jailbreaks, data leakage, and model manipulation are new attack vectors. The OWASP Top 10 for LLMs defines the most critical risks. This guide covers each risk, practical attack examples, and defense strategies including input validation, output filtering, guardrails, and red teaming.
+LLM applications introduce unique security risks that traditional web applications do not face. Prompt injection, jailbreaks, data leakage, and model manipulation are new attack vectors. The OWASP Top 10 for LLMs defines the most critical risks. The following guide covers each risk, practical attack examples, and defense strategies including input validation, output filtering, guardrails, and red teaming.
 
 ## OWASP Top 10 for LLMs
 

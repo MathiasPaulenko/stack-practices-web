@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-File uploads are one of the most common attack vectors in web applications. Unvalidated uploads can lead to remote code execution, cross-site scripting, and data breaches. This recipe shows how to validate file uploads by checking size limits, MIME types, magic bytes, and content structure before accepting any file from a user.
+File uploads are one of the most common attack vectors in web applications. Unvalidated uploads can lead to remote code execution, cross-site scripting, and data breaches. Here is how to how to validate file uploads by checking size limits, MIME types, magic bytes, and content structure before accepting any file from a user.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-Las contraseñas solas ya no son suficientes para proteger cuentas de usuario. La autenticación de dos factores (2FA) añade una segunda capa requiriendo algo que el usuario sabe (contraseña) y algo que tiene (un generador de contraseñas de un solo uso basado en tiempo). TOTP (RFC 6238) es el algoritmo estándar de la industria soportado por Google Authenticator, Authy y llaves físicas. Esta receta cubre la generación de secretos, creación de códigos QR para configuración, verificación de tokens y manejo de códigos de respaldo en Python, JavaScript y Java.
+Las contraseñas solas ya no son suficientes para proteger cuentas de usuario. La autenticación de dos factores (2FA) añade una segunda capa requiriendo algo que el usuario sabe (contraseña) y algo que tiene (un generador de contraseñas de un solo uso basado en tiempo). TOTP (RFC 6238) es el algoritmo estándar de la industria soportado por Google Authenticator, Authy y llaves físicas. Aqui se explica como la generación de secretos, creación de códigos QR para configuración, verificación de tokens y manejo de códigos de respaldo en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

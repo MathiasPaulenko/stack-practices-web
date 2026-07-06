@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Redis is an in-memory data structure store used for caching, session management, real-time analytics, and message brokering. Connecting to Redis and using its core data types efficiently is a foundational backend skill. This recipe covers basic operations in Python, JavaScript, and Java.
+Redis is an in-memory data structure store used for caching, session management, real-time analytics, and message brokering. Connecting to Redis and using its core data types efficiently is a foundational backend skill. The following demonstrates how to basic operations in Python, JavaScript, and Java.
 
 ## When to Use
 

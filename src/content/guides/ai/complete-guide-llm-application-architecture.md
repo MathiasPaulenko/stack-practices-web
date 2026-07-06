@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Building an LLM application is more than calling an API. Production LLM systems need prompt management, streaming responses, caching, guardrails, observability, evaluation pipelines, and deployment strategies. This guide covers the full architecture of a production LLM application, from API design to monitoring and cost control.
+Building an LLM application is more than calling an API. Production LLM systems need prompt management, streaming responses, caching, guardrails, observability, evaluation pipelines, and deployment strategies. Here is a hands-on guide to the full architecture of a production LLM application, from API design to monitoring and cost control.
 
 ## Architecture Overview
 

@@ -35,7 +35,7 @@ seo:
 
 Semantic search finds documents based on meaning rather than exact keyword matches. A query like "best laptop for programming" returns documents about developer workstations even if they never use the word "laptop." This is achieved by converting text into dense vector embeddings and performing similarity search in that vector space.
 
-This recipe implements semantic search with OpenAI embeddings, sentence-transformers, and FAISS for fast in-memory retrieval, plus pgvector for production PostgreSQL deployments.
+Below is an implementation of semantic search with OpenAI embeddings, sentence-transformers, and FAISS for fast in-memory retrieval, plus pgvector for production PostgreSQL deployments.
 
 ## When to Use
 

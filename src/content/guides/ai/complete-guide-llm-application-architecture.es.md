@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Construir una aplicacion LLM es mas que llamar una API. Los sistemas LLM en produccion necesitan gestion de prompts, streaming de respuestas, caching, guardrails, observabilidad, pipelines de evaluacion, y estrategias de deployment. Esta guia cubre la arquitectura completa de una aplicacion LLM en produccion, desde diseno de API hasta monitoreo y control de costos.
+Construir una aplicacion LLM es mas que llamar una API. Los sistemas LLM en produccion necesitan gestion de prompts, streaming de respuestas, caching, guardrails, observabilidad, pipelines de evaluacion, y estrategias de deployment. Aqui se presenta una guia sobre la arquitectura completa de una aplicacion LLM en produccion, desde diseno de API hasta monitoreo y control de costos.
 
 ## Resumen de Arquitectura
 

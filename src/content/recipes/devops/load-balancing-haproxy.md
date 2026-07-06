@@ -32,7 +32,7 @@ seo:
 
 # Load Balancing with HAProxy and Health Checks
 
-Distribute incoming traffic across multiple backend servers using HAProxy, a high-performance TCP/HTTP load balancer. This recipe covers round-robin distribution, active health checks, sticky sessions, and SSL termination for production-grade resilience.
+Distribute incoming traffic across multiple backend servers using HAProxy, a high-performance TCP/HTTP load balancer. The solution below covers round-robin distribution, active health checks, sticky sessions, and SSL termination for production-grade resilience.
 
 ## When to Use This
 

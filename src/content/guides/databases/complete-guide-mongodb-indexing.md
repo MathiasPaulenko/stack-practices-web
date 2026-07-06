@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-Indexes are the single most important performance optimization in MongoDB. Without indexes, MongoDB performs collection scans — reading every document to find matches. This guide covers single field, compound, text, geospatial, TTL, wildcard, and hashed indexes, the ESR rule, covered queries, explain plan analysis, and index maintenance.
+Indexes are the single most important performance optimization in MongoDB. Without indexes, MongoDB performs collection scans — reading every document to find matches. Below is a practical guide to single field, compound, text, geospatial, TTL, wildcard, and hashed indexes, the ESR rule, covered queries, explain plan analysis, and index maintenance.
 
 ## Single Field Indexes
 

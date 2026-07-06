@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Los AI agents son sistemas que usan LLMs para reason, plan, y tomar acciones a traves de tools. A diferencia de chatbots simples, los agents deciden que hacer, llaman external APIs, procesan results, e iteran hasta completar un task. Construir agents en produccion requiere diseno cuidadoso de arquitectura, tools, memory, planning, safety, y observabilidad. Esta guia cubre el espectro completo de production AI agents.
+Los AI agents son sistemas que usan LLMs para reason, plan, y tomar acciones a traves de tools. A diferencia de chatbots simples, los agents deciden que hacer, llaman external APIs, procesan results, e iteran hasta completar un task. Construir agents en produccion requiere diseno cuidadoso de arquitectura, tools, memory, planning, safety, y observabilidad. A continuacion se cubre el espectro completo de production AI agents.
 
 ## Arquitecturas de Agent
 

@@ -41,7 +41,7 @@ seo:
 
 Metrics are numerical measurements collected over time that tell you how your systems behave. Dashboards visualize those metrics to make patterns visible. Together, they form the foundation of operational awareness, enabling teams to spot trends, detect anomalies, and make data-driven decisions.
 
-This guide covers metric types, instrumentation patterns, dashboard design, and alert creation.
+The following guide covers metric types, instrumentation patterns, dashboard design, and alert creation.
 
 ## When to Use
 

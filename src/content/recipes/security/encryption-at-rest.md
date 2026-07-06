@@ -34,7 +34,7 @@ seo:
 
 Encryption at rest protects data when it is stored on disk, in backups, or in object storage. Even if an attacker gains physical access to a hard drive, steals a database backup, or compromises a cloud storage bucket, encrypted data remains unreadable without the corresponding decryption key. This is a fundamental requirement for compliance frameworks like GDPR, HIPAA, PCI-DSS, and SOC 2.
 
-The naive approach — encrypting entire database columns with a single application key — creates operational fragility. Key rotation becomes painful, performance degradates on large tables, and a leaked key exposes all data. Modern encryption at rest uses envelope encryption: a data encryption key (DEK) encrypts the payload, while a key encryption key (KEK) stored in a hardware security module or cloud KMS encrypts the DEK. This enables per-record key rotation, granular access control, and high-performance bulk operations. This recipe covers AES-256-GCM encryption, envelope encryption patterns, and integration with AWS KMS, Azure Key Vault, and HashiCorp Vault.
+The naive approach — encrypting entire database columns with a single application key — creates operational fragility. Key rotation becomes painful, performance degradates on large tables, and a leaked key exposes all data. Modern encryption at rest uses envelope encryption: a data encryption key (DEK) encrypts the payload, while a key encryption key (KEK) stored in a hardware security module or cloud KMS encrypts the DEK. This enables per-record key rotation, granular access control, and high-performance bulk operations. Here is how to AES-256-GCM encryption, envelope encryption patterns, and integration with AWS KMS, Azure Key Vault, and HashiCorp Vault.
 
 ## When to use it
 

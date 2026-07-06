@@ -33,7 +33,7 @@ seo:
 ---
 ## Overview
 
-Pre-commit hooks automatically run checks on your code before every commit. They catch linting errors, formatting issues, failing tests, and security vulnerabilities at the earliest possible moment—before they reach CI or production. This recipe covers setting up hooks with the `pre-commit` framework (Python), `husky` + `lint-staged` (JavaScript), and native Git hooks for Java projects.
+Pre-commit hooks automatically run checks on your code before every commit. They catch linting errors, formatting issues, failing tests, and security vulnerabilities at the earliest possible moment—before they reach CI or production. Below is a practical approach to setting up hooks with the `pre-commit` framework (Python), `husky` + `lint-staged` (JavaScript), and native Git hooks for Java projects.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Most applications need external configuration to adapt behavior across environments (dev, staging, production) without code changes. YAML and JSON are the dominant formats, but parsing alone is not enough — invalid configs cause runtime failures. This recipe covers reliable parsing, schema validation, and environment-specific overrides in Python, JavaScript, and Java.
+Most applications need external configuration to adapt behavior across environments (dev, staging, production) without code changes. YAML and JSON are the dominant formats, but parsing alone is not enough — invalid configs cause runtime failures. Here is how to reliable parsing, schema validation, and environment-specific overrides in Python, JavaScript, and Java.
 
 ## When to Use
 

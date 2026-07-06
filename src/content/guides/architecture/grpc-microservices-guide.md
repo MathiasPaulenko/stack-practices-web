@@ -39,7 +39,7 @@ seo:
 ---
 ## Overview
 
-REST APIs are the lingua franca of the web, but they are not designed for high-throughput, low-latency service-to-service communication. JSON is verbose, HTTP/1.1 is head-of-line blocked, and REST's uniform interface is a poor fit for RPC-style operations. gRPC addresses all three problems: Protocol Buffers for compact serialization, HTTP/2 for multiplexed streams, and a strict contract-first approach via `.proto` files. This guide covers gRPC for microservices: when to adopt it, how to implement it, and how to migrate from REST without breaking existing clients.
+REST APIs are the lingua franca of the web, but they are not designed for high-throughput, low-latency service-to-service communication. JSON is verbose, HTTP/1.1 is head-of-line blocked, and REST's uniform interface is a poor fit for RPC-style operations. gRPC addresses all three problems: Protocol Buffers for compact serialization, HTTP/2 for multiplexed streams, and a strict contract-first approach via `.proto` files. The following walks through gRPC for microservices: when to adopt it, how to implement it, and how to migrate from REST without breaking existing clients.
 
 ## When to Use
 

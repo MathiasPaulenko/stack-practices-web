@@ -41,7 +41,7 @@ seo:
 
 Alerting is how your systems tell you something needs attention. Done poorly, it creates noise, burnout, and slower incident response. Done well, it gives the right person the right information at the right time so they can act decisively.
 
-This guide covers alert design, severity classification, on-call structures, escalation policies, and sustainable operational practices.
+Here is a hands-on guide to alert design, severity classification, on-call structures, escalation policies, and sustainable operational practices.
 
 ## When to Use
 

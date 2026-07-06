@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Software supply chain attacks target the tools, processes, and dependencies that build your software. Attackers compromise build systems, inject malicious code into dependencies, or create typosquatted packages. This guide covers SBOMs, dependency scanning, code signing with Sigstore, the SLSA framework, provenance attestation, and CI/CD hardening.
+Software supply chain attacks target the tools, processes, and dependencies that build your software. Attackers compromise build systems, inject malicious code into dependencies, or create typosquatted packages. The following guide covers SBOMs, dependency scanning, code signing with Sigstore, the SLSA framework, provenance attestation, and CI/CD hardening.
 
 ## Software Bill of Materials (SBOM)
 

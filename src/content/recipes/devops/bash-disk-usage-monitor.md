@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-Disk space issues cause application crashes, failed writes, and corrupted databases. A monitoring script that checks disk usage and alerts before the disk fills up prevents these problems. This recipe covers threshold-based alerts, email notifications, and automatic cleanup of common space hogs.
+Disk space issues cause application crashes, failed writes, and corrupted databases. A monitoring script that checks disk usage and alerts before the disk fills up prevents these problems. Here is how to threshold-based alerts, email notifications, and automatic cleanup of common space hogs.
 
 ## When to Use
 

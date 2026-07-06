@@ -34,7 +34,7 @@ seo:
 
 Microservices architectures decompose applications into independently deployable services, each owning a bounded context and communicating via network calls. This decomposition enables team autonomy, technology diversity, and independent scaling. But it introduces a fundamental problem: the network is unreliable. Every inter-service call is a potential point of failure — latency spikes, cascading outages, partial failures, and inconsistency during distributed transactions.
 
-Resilience patterns protect the system from these failure modes. A circuit breaker stops sending requests to a failing service, giving it time to recover. A bulkhead isolates failures so they do not consume all resources. Retries with exponential backoff handle transient failures without overwhelming struggling services. The saga pattern replaces distributed transactions with sequences of local transactions coordinated via events. This recipe covers implementation of these core patterns across multiple languages and frameworks.
+Resilience patterns protect the system from these failure modes. A circuit breaker stops sending requests to a failing service, giving it time to recover. A bulkhead isolates failures so they do not consume all resources. Retries with exponential backoff handle transient failures without overwhelming struggling services. The saga pattern replaces distributed transactions with sequences of local transactions coordinated via events. This approach handles implementation of these core patterns across multiple languages and frameworks.
 
 ## When to use it
 

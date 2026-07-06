@@ -34,7 +34,7 @@ seo:
 
 Your application expects a `PaymentProcessor` interface with methods `charge(amount)` and `refund(transactionId)`. The Stripe SDK uses `charges.create({ amount })` and `refunds.create({ charge })`. The PayPal SDK uses `orders.capture({ amount })` and `payments.refund({ captureId })`. Neither matches your interface. You could sprinkle Stripe-specific and PayPal-specific code throughout your codebase, but switching providers would require touching every file that processes payments.
 
-The adapter pattern solves this by introducing a wrapper class that implements your application's interface and translates calls to the third-party SDK. Your business code depends only on the adapter interface. Swapping Stripe for PayPal means writing a new adapter — no changes to business logic. This recipe covers object adapters, class adapters, two-way adapters, and adapter registries with practical examples.
+The adapter pattern solves this by introducing a wrapper class that implements your application's interface and translates calls to the third-party SDK. Your business code depends only on the adapter interface. Swapping Stripe for PayPal means writing a new adapter — no changes to business logic. The following demonstrates how to object adapters, class adapters, two-way adapters, and adapter registries with practical examples.
 
 ## When to use it
 

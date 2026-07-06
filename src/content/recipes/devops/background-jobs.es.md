@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-Las tareas en segundo plano descargan trabajo lento o no crítico del ciclo de petición/respuesta. Enviar emails, generar reportes, procesar imágenes o sincronizar con APIs de terceros nunca deberían bloquear una petición HTTP del usuario. Esta receta implementa colas de tareas, programación con cron y patrones de workers en Python, JavaScript y Java.
+Las tareas en segundo plano descargan trabajo lento o no crítico del ciclo de petición/respuesta. Enviar emails, generar reportes, procesar imágenes o sincronizar con APIs de terceros nunca deberían bloquear una petición HTTP del usuario. A continuacion se implementa colas de tareas, programación con cron y patrones de workers en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

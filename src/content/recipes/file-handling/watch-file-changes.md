@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-File system watchers react to create, modify, delete, and rename events in real time. They power hot-reload dev servers, log tailers, and sync tools. This recipe shows cross-platform implementations in Python, JavaScript, and Java.
+File system watchers react to create, modify, delete, and rename events in real time. They power hot-reload dev servers, log tailers, and sync tools. Below is the idiomatic way to cross-platform implementations in Python, JavaScript, and Java.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ Most applications talk to the outside world through REST APIs over HTTP. Calling
 
 REST (Representational State Transfer) has been the dominant architectural style for web services since the early 2000s. It uses standard HTTP methods — GET for retrieval, POST for creation, PUT for updates, DELETE for removal — and returns structured data formats like JSON or XML. Understanding how to properly construct requests, handle errors, and parse responses is a foundational skill for any developer building connected applications.
 
-This recipe shows the idiomatic, modern way to make an HTTP request and read the JSON response in Python, JavaScript, and Java, including basic error handling and timeout configuration.
+Here is how to the idiomatic, modern way to make an HTTP request and read the JSON response in Python, JavaScript, and Java, including basic error handling and timeout configuration.
 
 ## When to Use
 

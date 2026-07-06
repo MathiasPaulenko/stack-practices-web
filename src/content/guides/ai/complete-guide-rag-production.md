@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Retrieval-Augmented Generation (RAG) combines an LLM with external knowledge. Instead of relying on the model's training data, you retrieve relevant documents from a knowledge base and inject them into the prompt. This reduces hallucinations, enables citing sources, and allows updating knowledge without retraining. Building RAG in production requires careful attention to chunking, embeddings, retrieval quality, reranking, and evaluation. This guide covers the full RAG pipeline with production patterns.
+Retrieval-Augmented Generation (RAG) combines an LLM with external knowledge. Instead of relying on the model's training data, you retrieve relevant documents from a knowledge base and inject them into the prompt. This reduces hallucinations, enables citing sources, and allows updating knowledge without retraining. Building RAG in production requires careful attention to chunking, embeddings, retrieval quality, reranking, and evaluation. The following walks through the full RAG pipeline with production patterns.
 
 ## RAG Pipeline Overview
 

@@ -33,7 +33,7 @@ seo:
 
 ## Visión General
 
-El email sigue siendo la columna vertebral de la comunicación con usuarios: resets de contraseña, confirmaciones de orden, newsletters y alertas. Enviar email vía SMTP te da control total sobre entregabilidad, plantillas y tracking. Esta receta cubre el envío de emails de texto plano, HTML y con plantillas usando Python, JavaScript y Java.
+El email sigue siendo la columna vertebral de la comunicación con usuarios: resets de contraseña, confirmaciones de orden, newsletters y alertas. Enviar email vía SMTP te da control total sobre entregabilidad, plantillas y tracking. Aqui se explica como el envío de emails de texto plano, HTML y con plantillas usando Python, JavaScript y Java.
 
 ## Cuándo Usar
 

@@ -37,7 +37,7 @@ seo:
 
 Read replicas are copies of your primary database that handle read-only traffic, offloading the primary instance. They are the most common scaling strategy for read-heavy workloads — analytics dashboards, search queries, and API reads can all be directed to replicas while writes go to the primary.
 
-This recipe covers setting up read replicas, implementing read/write splitting, monitoring replication lag, and handling stale reads in PostgreSQL, MySQL, and cloud-managed databases.
+Below is a practical approach to setting up read replicas, implementing read/write splitting, monitoring replication lag, and handling stale reads in PostgreSQL, MySQL, and cloud-managed databases.
 
 ## When to Use
 

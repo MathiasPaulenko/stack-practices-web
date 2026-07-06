@@ -38,7 +38,7 @@ seo:
 
 ## Introducción
 
-Redis es el data store en memoria mas popular para caching. Es rapido, versatil, y soporta multiples estructuras de datos. Pero usar Redis efectivamente requiere elegir la estrategia de caching correcta para cada caso de uso. La estrategia equivocada lleva a datos stale, cache stampedes, o memoria desperdiciada. Esta guia cubre los cinco patrones principales de caching con Redis, politicas de eviction, tuning de TTL, elecciones de serializacion, y operaciones de produccion.
+Redis es el data store en memoria mas popular para caching. Es rapido, versatil, y soporta multiples estructuras de datos. Pero usar Redis efectivamente requiere elegir la estrategia de caching correcta para cada caso de uso. La estrategia equivocada lleva a datos stale, cache stampedes, o memoria desperdiciada. Lo siguiente es una guia practica para los cinco patrones principales de caching con Redis, politicas de eviction, tuning de TTL, elecciones de serializacion, y operaciones de produccion.
 
 ## Resumen de Patrones de Caching
 

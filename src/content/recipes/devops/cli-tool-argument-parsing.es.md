@@ -32,7 +32,7 @@ seo:
 ---
 ## Visión General
 
-Las herramientas de línea de comandos son la columna vertebral de flujos de trabajo de desarrolladores, automatización DevOps y pipelines de procesamiento de datos. Un CLI bien diseñado tiene subcomandos claros, defaults sensatos, mensajes de error útiles y ayuda auto-generada. Esta receta cubre la construcción de herramientas CLI profesionales con parseo de argumentos, validación y subcomandos en Python, JavaScript y Java.
+Las herramientas de línea de comandos son la columna vertebral de flujos de trabajo de desarrolladores, automatización DevOps y pipelines de procesamiento de datos. Un CLI bien diseñado tiene subcomandos claros, defaults sensatos, mensajes de error útiles y ayuda auto-generada. A continuacion se cubre la construcción de herramientas CLI profesionales con parseo de argumentos, validación y subcomandos en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

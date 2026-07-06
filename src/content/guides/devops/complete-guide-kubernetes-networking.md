@@ -40,7 +40,7 @@ seo:
 
 ## Introduction
 
-Kubernetes networking is the backbone of every cluster. Every pod needs to communicate with other pods, services need to be exposed, and traffic needs to be controlled. This guide covers Services (ClusterIP, NodePort, LoadBalancer), Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, and troubleshooting.
+Kubernetes networking is the backbone of every cluster. Every pod needs to communicate with other pods, services need to be exposed, and traffic needs to be controlled. The following guide covers Services (ClusterIP, NodePort, LoadBalancer), Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, and troubleshooting.
 
 ## Service Types
 

@@ -34,7 +34,7 @@ seo:
 
 Los Large Language Models (LLMs) son motores de razonamiento de propósito general, pero la calidad de sus outputs depende fuertemente de cómo formules la pregunta. El prompt engineering es la práctica de estructurar inputs para guiar el modelo hacia respuestas precisas, relevantes y bien formateadas. Cambios pequeños en la redacción pueden significar la diferencia entre un párrafo vago y un objeto JSON preciso.
 
-Esta receta cubre las técnicas más confiables: asignación de rol, few-shot examples, razonamiento chain-of-thought, y restricción de formato de salida. Estas técnicas funcionan en GPT-4, Claude, Gemini y modelos open-source como Llama.
+La solucion a continuacion cubre las técnicas más confiables: asignación de rol, few-shot examples, razonamiento chain-of-thought, y restricción de formato de salida. Estas técnicas funcionan en GPT-4, Claude, Gemini y modelos open-source como Llama.
 
 ## Cuándo usarlo
 

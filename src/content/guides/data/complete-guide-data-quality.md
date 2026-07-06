@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-Data quality issues silently corrupt analytics, ML models, and business decisions. Bad data costs organizations through incorrect reports, broken pipelines, and eroded trust. Data quality frameworks validate schemas, check statistical properties, detect anomalies, and monitor drift. This guide covers data quality dimensions, profiling, validation with Great Expectations and Pandera, anomaly detection, and integrating quality checks into pipelines.
+Data quality issues silently corrupt analytics, ML models, and business decisions. Bad data costs organizations through incorrect reports, broken pipelines, and eroded trust. Data quality frameworks validate schemas, check statistical properties, detect anomalies, and monitor drift. This guide walks through data quality dimensions, profiling, validation with Great Expectations and Pandera, anomaly detection, and integrating quality checks into pipelines.
 
 ## Data Quality Dimensions
 

@@ -34,7 +34,7 @@ seo:
 
 Password fatigue is real. Users forget passwords, reuse them across sites, fall for phishing attacks, or abandon registration flows when asked to create yet another complex credential. Magic link authentication eliminates passwords entirely by sending a time-limited, single-use URL to the user's email address. Clicking the link authenticates the user instantly, creating a smooth login experience without ever requiring a password.
 
-The security model of magic links relies on the assumption that the user's email account is secure. If an attacker gains access to the user's inbox, they can intercept magic links just as they could intercept password reset emails. The defense is to keep tokens short-lived (5-15 minutes), single-use, cryptographically random, and transmitted exclusively over HTTPS. This recipe covers token generation, email delivery, validation logic, and hardening against replay attacks.
+The security model of magic links relies on the assumption that the user's email account is secure. If an attacker gains access to the user's inbox, they can intercept magic links just as they could intercept password reset emails. The defense is to keep tokens short-lived (5-15 minutes), single-use, cryptographically random, and transmitted exclusively over HTTPS. The following demonstrates how to token generation, email delivery, validation logic, and hardening against replay attacks.
 
 ## When to use it
 

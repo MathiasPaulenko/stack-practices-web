@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-Kubernetes has become the standard platform for container orchestration, but mastering its advanced capabilities requires understanding its extensibility model, security model, and operational patterns. This guide covers operators, custom resources, admission controllers, multi-cluster management, and hardening practices for production environments.
+Kubernetes has become the standard platform for container orchestration, but mastering its advanced capabilities requires understanding its extensibility model, security model, and operational patterns. The following guide covers operators, custom resources, admission controllers, multi-cluster management, and hardening practices for production environments.
 
 ## When to Use
 

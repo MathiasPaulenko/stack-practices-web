@@ -34,7 +34,7 @@ seo:
 
 Creating objects directly with `new` is the simplest approach: `new DatabaseConnection("postgres://...")`. It is also the most rigid. The caller knows the exact class, the constructor signature, and the dependencies required. If the database driver changes, every call site must be updated. If the connection needs a connection pool instead of a direct connection, every `new` statement breaks. If you want to test the caller with a mock database, you cannot — the `new` keyword hardcodes the concrete class.
 
-The factory pattern moves object creation into a dedicated method or class. The caller requests an object from the factory, not from a constructor. The factory decides which concrete class to instantiate, how to wire dependencies, and what default configurations to apply. The caller depends on an abstraction (interface or abstract class), not a concrete implementation. This recipe covers factory methods, abstract factories, and practical examples in TypeScript, Java, and Python.
+The factory pattern moves object creation into a dedicated method or class. The caller requests an object from the factory, not from a constructor. The factory decides which concrete class to instantiate, how to wire dependencies, and what default configurations to apply. The caller depends on an abstraction (interface or abstract class), not a concrete implementation. Here is how to factory methods, abstract factories, and practical examples in TypeScript, Java, and Python.
 
 ## When to use it
 

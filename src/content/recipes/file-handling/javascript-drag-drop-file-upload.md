@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-HTML5 Drag and Drop API enables native file uploads without third-party libraries. This recipe covers setting up a drop zone, validating files by type and size, uploading with FormData and progress tracking, and providing visual feedback during drag operations.
+HTML5 Drag and Drop API enables native file uploads without third-party libraries. The following demonstrates how to setting up a drop zone, validating files by type and size, uploading with FormData and progress tracking, and providing visual feedback during drag operations.
 
 ## When to Use
 

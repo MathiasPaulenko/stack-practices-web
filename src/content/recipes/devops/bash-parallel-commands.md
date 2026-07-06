@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Running commands sequentially is slow when tasks are independent. Bash has three built-in approaches for parallelism: background jobs with `&`, `xargs -P`, and `GNU parallel`. This recipe covers all three with practical examples for batch file processing, image conversion, and API calls.
+Running commands sequentially is slow when tasks are independent. Bash has three built-in approaches for parallelism: background jobs with `&`, `xargs -P`, and `GNU parallel`. The following demonstrates how to all three with practical examples for batch file processing, image conversion, and API calls.
 
 ## When to Use
 

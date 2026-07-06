@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Web accessibility (a11y) ensures that people with disabilities can perceive, understand, navigate, and interact with web content. WCAG 2.2 (Web Content Accessibility Guidelines) is the current standard, organized around four principles: Perceivable, Operable, Understandable, and Reliable (POUR). This guide covers the most important success criteria with practical code examples.
+Web accessibility (a11y) ensures that people with disabilities can perceive, understand, navigate, and interact with web content. WCAG 2.2 (Web Content Accessibility Guidelines) is the current standard, organized around four principles: Perceivable, Operable, Understandable, and Reliable (POUR). The following walks through the most important success criteria with practical code examples.
 
 ## When to Use
 

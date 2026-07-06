@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-AWS Lambda es la plataforma serverless mas usada. Hacer que una funcion Lambda funcione es facil. Ejecutarla de forma confiable en produccion es dificil. Cold starts, connection pooling, estrategias de deployment, observabilidad, y seguridad todos requieren atencion cuidadosa. Esta guia cubre todo lo que necesitas para ejecutar funciones Lambda en produccion con confianza.
+AWS Lambda es la plataforma serverless mas usada. Hacer que una funcion Lambda funcione es facil. Ejecutarla de forma confiable en produccion es dificil. Cold starts, connection pooling, estrategias de deployment, observabilidad, y seguridad todos requieren atencion cuidadosa. Aqui se presenta una guia sobre todo lo que necesitas para ejecutar funciones Lambda en produccion con confianza.
 
 ## Optimización de Cold Start
 

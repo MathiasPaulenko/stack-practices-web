@@ -37,7 +37,7 @@ seo:
 
 ## Introduction
 
-CORS (Cross-Origin Resource Sharing) is a browser mechanism that controls when JavaScript on one origin can make requests to a different origin. Without CORS, the same-origin policy blocks all cross-origin requests. CORS headers tell the browser which origins, methods, and headers are permitted. This guide covers same-origin policy, CORS headers, preflight requests, credential handling, common misconfigurations, and production patterns.
+CORS (Cross-Origin Resource Sharing) is a browser mechanism that controls when JavaScript on one origin can make requests to a different origin. Without CORS, the same-origin policy blocks all cross-origin requests. CORS headers tell the browser which origins, methods, and headers are permitted. The following guide covers same-origin policy, CORS headers, preflight requests, credential handling, common misconfigurations, and production patterns.
 
 ## Same-Origin Policy
 

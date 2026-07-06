@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-OAuth2 GitHub login lets users authenticate with their GitHub account instead of creating a new password. This recipe covers the authorization code flow with Passport.js, manual implementation without Passport, state parameter for CSRF protection, and session management in Express.
+OAuth2 GitHub login lets users authenticate with their GitHub account instead of creating a new password. The solution below covers the authorization code flow with Passport.js, manual implementation without Passport, state parameter for CSRF protection, and session management in Express.
 
 ## When to Use
 

@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Copiar y mover archivos es una operación esencial en automatización, despliegue y pipelines de datos. Hacerlo de forma segura entre plataformas requiere atención a separadores de ruta, permisos y atomicidad. Esta receta muestra patrones confiables en Python, JavaScript y Java.
+Copiar y mover archivos es una operación esencial en automatización, despliegue y pipelines de datos. Hacerlo de forma segura entre plataformas requiere atención a separadores de ruta, permisos y atomicidad. La solucion abajo muestra patrones confiables en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

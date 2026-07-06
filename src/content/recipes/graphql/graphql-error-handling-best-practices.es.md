@@ -32,7 +32,7 @@ seo:
 
 # Errores GraphQL estructurados con codigos de extension
 
-Los errores de GraphQL son solo objetos con un campo `message`. Sin estructura, los clientes recurren a comparar strings para determinar que fallo. Agregar `extensions.code` da a los clientes una categoria de error legible por maquina, mientras que campos adicionales de extension transportan contexto como detalles de validacion, hints de reintento o campos afectados. Esta receta muestra como construir un sistema de errores consistente en tu API GraphQL.
+Los errores de GraphQL son solo objetos con un campo `message`. Sin estructura, los clientes recurren a comparar strings para determinar que fallo. Agregar `extensions.code` da a los clientes una categoria de error legible por maquina, mientras que campos adicionales de extension transportan contexto como detalles de validacion, hints de reintento o campos afectados. A continuacion se muestra como como construir un sistema de errores consistente en tu API GraphQL.
 
 ## Cuando Usar Esto
 

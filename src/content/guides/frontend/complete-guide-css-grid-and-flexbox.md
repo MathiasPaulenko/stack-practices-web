@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-CSS Grid and Flexbox are the two layout systems that replaced floats, tables, and positioning hacks. Grid handles two-dimensional layouts (rows and columns). Flexbox handles one-dimensional layouts (either rows or columns). This guide covers both with practical patterns.
+CSS Grid and Flexbox are the two layout systems that replaced floats, tables, and positioning hacks. Grid handles two-dimensional layouts (rows and columns). Flexbox handles one-dimensional layouts (either rows or columns). Here is a hands-on guide to both with practical patterns.
 
 ## When to Use Grid vs Flexbox
 

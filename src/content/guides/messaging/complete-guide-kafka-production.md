@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-Apache Kafka is a distributed event streaming platform used by thousands of companies for real-time data pipelines, event-driven architectures, and streaming analytics. Running Kafka in production requires understanding partitions, replication, consumer groups, and operational concerns. This guide covers everything you need to operate Kafka reliably at scale.
+Apache Kafka is a distributed event streaming platform used by thousands of companies for real-time data pipelines, event-driven architectures, and streaming analytics. Running Kafka in production requires understanding partitions, replication, consumer groups, and operational concerns. Below is a practical guide to everything you need to operate Kafka reliably at scale.
 
 ## Kafka Architecture Fundamentals
 

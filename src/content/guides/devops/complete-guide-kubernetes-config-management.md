@@ -35,7 +35,7 @@ seo:
 
 ## Introduction
 
-Kubernetes separates configuration from container images using ConfigMaps and Secrets. ConfigMaps store non-sensitive configuration as key-value pairs. Secrets store sensitive data like passwords and tokens. External Secrets Operator and Sealed Secrets extend these for GitOps workflows. This guide covers ConfigMaps, Secrets, environment injection, volume mounts, External Secrets Operator, Sealed Secrets, and config rotation patterns.
+Kubernetes separates configuration from container images using ConfigMaps and Secrets. ConfigMaps store non-sensitive configuration as key-value pairs. Secrets store sensitive data like passwords and tokens. External Secrets Operator and Sealed Secrets extend these for GitOps workflows. The following walks through ConfigMaps, Secrets, environment injection, volume mounts, External Secrets Operator, Sealed Secrets, and config rotation patterns.
 
 ## ConfigMaps
 

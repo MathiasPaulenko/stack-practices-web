@@ -36,7 +36,7 @@ seo:
 
 La inyección SQL es una de las vulnerabilidades más comunes y peligrosas en aplicaciones web. Ocurre cuando un atacante inyecta código SQL malicioso en queries de la aplicación a través de input del usuario, potencialmente exponiendo, modificando o eliminando bases de datos enteras. Los ataques de inyección consistentemente aparecen en el [OWASP Top 10](/guides/security/security-best-practices-guide) porque son fáciles de explotar y devastadores en impacto.
 
-La causa raíz es casi siempre la misma: concatenar [input](/recipes/api/input-validation) de usuario no confiable directamente en strings de SQL. La solución es igualmente directa: usar queries parametrizadas o un ORM que maneje el escaping automáticamente. Esta receta muestra la forma segura de acceder a bases de datos en Python, JavaScript y Java.
+La causa raíz es casi siempre la misma: concatenar [input](/recipes/api/input-validation) de usuario no confiable directamente en strings de SQL. La solución es igualmente directa: usar queries parametrizadas o un ORM que maneje el escaping automáticamente. Aqui se muestra la forma de la forma segura de acceder a bases de datos en Python, JavaScript y Java.
 
 ## Cuándo usarlo
 

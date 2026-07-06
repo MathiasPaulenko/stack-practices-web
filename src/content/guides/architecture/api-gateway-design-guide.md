@@ -41,7 +41,7 @@ seo:
 ---
 ## Overview
 
-Every microservices architecture eventually needs a front door. The API gateway is that door — and if you design it poorly, it becomes a single point of failure, a performance bottleneck, or a security gap. A well-designed gateway handles routing, rate limiting, authentication, circuit breaking, and observability so that individual services can focus on business logic. This guide covers the core patterns, trade-offs, and implementation strategies for building resilient API gateways.
+Every microservices architecture eventually needs a front door. The API gateway is that door — and if you design it poorly, it becomes a single point of failure, a performance bottleneck, or a security gap. A well-designed gateway handles routing, rate limiting, authentication, circuit breaking, and observability so that individual services can focus on business logic. Here is a hands-on guide to the core patterns, trade-offs, and implementation strategies for building resilient API gateways.
 
 ## When to Use
 

@@ -33,7 +33,7 @@ seo:
 ---
 ## Overview
 
-A graceful shutdown ensures your application finishes in-flight requests, flushes buffers, closes database connections, and releases locks before exiting. Without it, deployments and scaling events cause dropped requests, data corruption, and cascading failures. This recipe implements SIGTERM handling, connection draining, and zero-downtime deployment patterns for web servers, workers, and containers.
+A graceful shutdown ensures your application finishes in-flight requests, flushes buffers, closes database connections, and releases locks before exiting. Without it, deployments and scaling events cause dropped requests, data corruption, and cascading failures. This implementation provides SIGTERM handling, connection draining, and zero-downtime deployment patterns for web servers, workers, and containers.
 
 ## When to Use
 

@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Untrusted user input is the root cause of most web application vulnerabilities: XSS, SQL injection, command injection, path traversal, and header injection. Sanitization transforms raw input into safe, normalized data. Validation checks that the sanitized data meets structural and semantic constraints. This recipe shows how to sanitize and validate input across Python, JavaScript, and Java.
+Untrusted user input is the root cause of most web application vulnerabilities: XSS, SQL injection, command injection, path traversal, and header injection. Sanitization transforms raw input into safe, normalized data. Validation checks that the sanitized data meets structural and semantic constraints. This approach shows how to how to sanitize and validate input across Python, JavaScript, and Java.
 
 ## When to Use
 

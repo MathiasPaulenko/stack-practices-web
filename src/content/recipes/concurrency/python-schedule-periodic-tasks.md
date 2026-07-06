@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-APScheduler (Advanced Python Scheduler) is a library for scheduling Python jobs to run at specific times or intervals. It supports cron-like scheduling, interval-based execution, and one-off date triggers. Unlike Celery, APScheduler runs in-process and does not require a message broker. This recipe covers the three trigger types, persistent job stores, and background execution.
+APScheduler (Advanced Python Scheduler) is a library for scheduling Python jobs to run at specific times or intervals. It supports cron-like scheduling, interval-based execution, and one-off date triggers. Unlike Celery, APScheduler runs in-process and does not require a message broker. The following demonstrates how to the three trigger types, persistent job stores, and background execution.
 
 ## When to Use
 

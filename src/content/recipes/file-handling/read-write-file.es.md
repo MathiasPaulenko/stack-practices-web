@@ -34,7 +34,7 @@ Leer y escribir archivos es una de las tareas de E/S más habituales: cargar con
 
 Los archivos son la interfaz universal entre programas y almacenamiento persistente. Ya sea que estés guardando preferencias de usuario, leyendo logs del servidor o generando una exportación CSV, los mismos principios aplican: abrir el archivo, realizar la operación y asegurar que el recurso se libere incluso cuando ocurren errores. Los runtimes modernos proporcionan abstracciones de alto nivel que manejan buffering, codificación y limpieza automáticamente, pero entender la mecánica subyacente te ayuda a depurar problemas de rendimiento y evitar corrupción de datos.
 
-Esta receta muestra la forma idiomática de leer y escribir archivos de texto en Python, JavaScript (Node.js) y Bash, además de cómo hacer streaming de archivos grandes sin agotar la memoria.
+Aqui se muestra la forma de la forma idiomática de leer y escribir archivos de texto en Python, JavaScript (Node.js) y Bash, además de cómo hacer streaming de archivos grandes sin agotar la memoria.
 
 ## Cuándo Usar
 

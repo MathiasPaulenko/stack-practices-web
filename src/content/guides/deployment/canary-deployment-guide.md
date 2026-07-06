@@ -41,7 +41,7 @@ seo:
 
 Canary deployment releases a new version to a small subset of users first, then gradually increases traffic while monitoring for issues. It combines the safety of controlled exposure with the speed of continuous deployment, catching problems before they impact all users.
 
-This guide covers traffic splitting, health metrics, automated promotion, and rollback strategies.
+The following guide covers traffic splitting, health metrics, automated promotion, and rollback strategies.
 
 ## When to Use
 

@@ -33,7 +33,7 @@ seo:
 
 ## Descripcion general
 
-Tokio es el runtime async mas utilizado en Rust. Proporciona un scheduler multi-threaded, I/O driver, timer y primitivas de sincronizacion. Esta receta cubre spawn de tasks, comunicacion via channels, uso de `select!` para multiplexing, estado compartido con `Arc<Mutex<T>>`, graceful shutdown con `CancellationToken` y concurrencia estructurada con `tokio::task::JoinSet`.
+Tokio es el runtime async mas utilizado en Rust. Proporciona un scheduler multi-threaded, I/O driver, timer y primitivas de sincronizacion. Lo siguiente cubre spawn de tasks, comunicacion via channels, uso de `select!` para multiplexing, estado compartido con `Arc<Mutex<T>>`, graceful shutdown con `CancellationToken` y concurrencia estructurada con `tokio::task::JoinSet`.
 
 ## Cuando Usar Esto
 

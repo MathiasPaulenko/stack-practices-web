@@ -34,7 +34,7 @@ seo:
 
 A microservice calls a downstream payment service. The payment service slows down due to a database issue. The calling service spawns more threads, each waiting for the payment service to respond. Thread pools saturate. The service stops accepting new requests. The services that depend on it also fail. Within minutes, a localized database slowdown has brought down the entire request chain. This is a cascading failure.
 
-The circuit breaker pattern prevents this by monitoring calls to a downstream service. If the failure rate exceeds a threshold, the circuit "opens" and further calls fail fast without reaching the struggling service. After a timeout, the circuit enters a "half-open" state and allows a test request through. If it succeeds, the circuit closes again. This gives the failing service time to recover and prevents the caller from wasting resources on doomed requests. This recipe covers state machine design, implementation, and integration with retry and fallback strategies.
+The circuit breaker pattern prevents this by monitoring calls to a downstream service. If the failure rate exceeds a threshold, the circuit "opens" and further calls fail fast without reaching the struggling service. After a timeout, the circuit enters a "half-open" state and allows a test request through. If it succeeds, the circuit closes again. This gives the failing service time to recover and prevents the caller from wasting resources on doomed requests. Here is how to state machine design, implementation, and integration with retry and fallback strategies.
 
 ## When to use it
 

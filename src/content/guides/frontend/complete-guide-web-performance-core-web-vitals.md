@@ -38,7 +38,7 @@ seo:
 
 ## Introduction
 
-Core Web Vitals are Google's metrics for measuring real user experience. LCP measures loading speed, INP measures interactivity, and CLS measures visual stability. This guide covers how to measure, diagnose, and optimize each metric with practical code examples.
+Core Web Vitals are Google's metrics for measuring real user experience. LCP measures loading speed, INP measures interactivity, and CLS measures visual stability. Below is a practical guide to how to measure, diagnose, and optimize each metric with practical code examples.
 
 ## Core Web Vitals Overview
 

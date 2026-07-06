@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-PDFs are the de facto standard for document exchange but are notoriously difficult to parse programmatically. Extracting text, tables, and metadata from PDFs enables automated document processing, invoice parsing, resume screening, and compliance auditing. This recipe covers text extraction and metadata retrieval across Python, JavaScript, and Java.
+PDFs are the de facto standard for document exchange but are notoriously difficult to parse programmatically. Extracting text, tables, and metadata from PDFs enables automated document processing, invoice parsing, resume screening, and compliance auditing. This approach handles text extraction and metadata retrieval across Python, JavaScript, and Java.
 
 ## When to Use
 

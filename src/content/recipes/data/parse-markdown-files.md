@@ -36,7 +36,7 @@ seo:
 ---
 ## Overview
 
-Markdown is the lingua franca of developer documentation, READMEs, and static site generators. Parsing Markdown programmatically enables automated documentation pipelines, content migration, static site builds, and linting. This recipe covers converting Markdown to HTML, extracting frontmatter metadata, and traversing the document AST across Python, JavaScript, and Java.
+Markdown is the lingua franca of developer documentation, READMEs, and static site generators. Parsing Markdown programmatically enables automated documentation pipelines, content migration, static site builds, and linting. The following demonstrates how to converting Markdown to HTML, extracting frontmatter metadata, and traversing the document AST across Python, JavaScript, and Java.
 
 ## When to Use
 

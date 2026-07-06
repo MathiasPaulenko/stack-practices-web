@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-The AWS CLI wraps AWS API calls in a command-line tool. Combined with bash, you can automate infrastructure provisioning, S3 operations, IAM management, and cost monitoring. This recipe covers common AWS automation patterns using bash scripts.
+The AWS CLI wraps AWS API calls in a command-line tool. Combined with bash, you can automate infrastructure provisioning, S3 operations, IAM management, and cost monitoring. The solution below covers common AWS automation patterns using bash scripts.
 
 ## When to Use
 

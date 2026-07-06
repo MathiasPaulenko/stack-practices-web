@@ -34,7 +34,7 @@ seo:
 
 Unit tests verify that `calculateTotal()` returns the correct sum. They mock the database, the payment gateway, and the inventory service. Everything passes. Then you deploy to staging and the application fails to start because the database migration was never run. The payment gateway rejects requests because the API version changed. The inventory service returns 503 because the test environment is down.
 
-Integration tests verify that your code works with real (or realistic) dependencies. They catch the mismatches that unit tests cannot: schema changes, API version drift, configuration errors, and network behavior. A well-designed integration test spins up a real database in a container, starts your service, and exercises the actual HTTP endpoints. This recipe covers test containers, contract testing, consumer-driven contracts, and strategies for testing at the right level of abstraction.
+Integration tests verify that your code works with real (or realistic) dependencies. They catch the mismatches that unit tests cannot: schema changes, API version drift, configuration errors, and network behavior. A well-designed integration test spins up a real database in a container, starts your service, and exercises the actual HTTP endpoints. This approach handles test containers, contract testing, consumer-driven contracts, and strategies for testing at the right level of abstraction.
 
 ## When to use it
 

@@ -35,7 +35,7 @@ seo:
 
 ## Overview
 
-Network requests fail for many reasons: timeouts, server errors, rate limiting, or temporary connectivity loss. Retrying with exponential backoff gives transient failures time to resolve without overwhelming the server. This recipe covers a fetch retry wrapper, jitter to avoid thundering herd, timeout with AbortController, and a simple circuit breaker.
+Network requests fail for many reasons: timeouts, server errors, rate limiting, or temporary connectivity loss. Retrying with exponential backoff gives transient failures time to resolve without overwhelming the server. Below is a practical approach to a fetch retry wrapper, jitter to avoid thundering herd, timeout with AbortController, and a simple circuit breaker.
 
 ## When to Use
 

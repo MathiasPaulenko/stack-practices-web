@@ -33,7 +33,7 @@ seo:
 
 AI agents are autonomous systems powered by large language models (LLMs) that can perceive their environment, reason about goals, and take actions by invoking external tools. Unlike simple [chatbots](/recipes/ai/chatbot-openai) that only generate text, agents maintain state across multiple turns, choose which tools to call based on context, and iterate until a task is complete. They represent the next evolution from [static prompts](/recipes/ai/prompt-engineering) to dynamic, goal-oriented systems.
 
-The fundamental agent loop is: **observe → reason → act → observe again**. The agent receives an input or environment state, reasons about what to do, calls a tool (such as a web search, database query, or code execution), observes the result, and repeats until the goal is satisfied. This recipe covers the ReAct pattern, function calling APIs, tool definitions, and memory management for multi-turn agent systems.
+The fundamental agent loop is: **observe → reason → act → observe again**. The agent receives an input or environment state, reasons about what to do, calls a tool (such as a web search, database query, or code execution), observes the result, and repeats until the goal is satisfied. Here is how to the ReAct pattern, function calling APIs, tool definitions, and memory management for multi-turn agent systems.
 
 ## When to use it
 

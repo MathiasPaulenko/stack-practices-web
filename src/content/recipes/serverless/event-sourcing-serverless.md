@@ -34,7 +34,7 @@ seo:
 
 Traditional systems store the current state. An order is "shipped," and the database row says `status = shipped`. If a user asks "when did the status change to shipped?" the database has no answer — the previous value was overwritten. If an analyst asks "how many orders were cancelled and re-shipped last month?" the system cannot answer without adding explicit audit columns that track every change manually.
 
-Event sourcing stores every state change as an immutable event in an append-only log. The current state is computed by replaying events. An order's state is not a row — it is the sequence `[OrderCreated, ItemAdded, PaymentProcessed, Shipped]`. This provides a complete audit trail, supports temporal queries ("what was the state at 3pm yesterday?"), and enables rebuilding projections from scratch. In serverless architectures, events are captured via DynamoDB streams, SQS, or EventBridge, and Lambda functions project the read model. This recipe covers event sourcing implementation, event stores, projections, and serverless-specific considerations.
+Event sourcing stores every state change as an immutable event in an append-only log. The current state is computed by replaying events. An order's state is not a row — it is the sequence `[OrderCreated, ItemAdded, PaymentProcessed, Shipped]`. This provides a complete audit trail, supports temporal queries ("what was the state at 3pm yesterday?"), and enables rebuilding projections from scratch. In serverless architectures, events are captured via DynamoDB streams, SQS, or EventBridge, and Lambda functions project the read model. The solution below covers event sourcing implementation, event stores, projections, and serverless-specific considerations.
 
 ## When to use it
 

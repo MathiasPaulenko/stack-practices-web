@@ -39,7 +39,7 @@ seo:
 
 ## Introduction
 
-AI agents are systems that use LLMs to reason, plan, and take actions through tools. Unlike simple chatbots, agents decide what to do, call external APIs, process results, and iterate until they complete a task. Building agents in production requires careful design of architecture, tools, memory, planning, safety, and observability. This guide covers the full spectrum of production AI agents.
+AI agents are systems that use LLMs to reason, plan, and take actions through tools. Unlike simple chatbots, agents decide what to do, call external APIs, process results, and iterate until they complete a task. Building agents in production requires careful design of architecture, tools, memory, planning, safety, and observability. Below is a practical guide to the full spectrum of production AI agents.
 
 ## Agent Architectures
 

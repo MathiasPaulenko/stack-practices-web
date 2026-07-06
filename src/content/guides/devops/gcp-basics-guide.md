@@ -42,7 +42,7 @@ seo:
 
 ## Overview
 
-Google Cloud Platform (GCP) is known for its leadership in data analytics, AI/ML, and Kubernetes. Built on the same infrastructure that powers Google Search and YouTube, GCP offers developers capable tools for compute, storage, databases, and big data. This guide covers the core services you need to build and deploy applications on GCP.
+Google Cloud Platform (GCP) is known for its leadership in data analytics, AI/ML, and Kubernetes. Built on the same infrastructure that powers Google Search and YouTube, GCP offers developers capable tools for compute, storage, databases, and big data. Below is a practical guide to the core services you need to build and deploy applications on GCP.
 
 ## When to Use
 

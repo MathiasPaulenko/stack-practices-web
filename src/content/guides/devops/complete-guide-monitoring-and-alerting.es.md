@@ -40,7 +40,7 @@ seo:
 
 ## Introducción
 
-Monitoring te dice que esta happening en tu system. Alerting te dice cuando algo necesita attention. Juntos son el foundation de observability. Esta guia cubre Prometheus, Grafana, AlertManager, metrics instrumentation, alert rules, runbooks, SLI/SLO/SLA, distributed tracing, log aggregation, y on-call practices.
+Monitoring te dice que esta happening en tu system. Alerting te dice cuando algo necesita attention. Juntos son el foundation de observability. Esta guia recorre Prometheus, Grafana, AlertManager, metrics instrumentation, alert rules, runbooks, SLI/SLO/SLA, distributed tracing, log aggregation, y on-call practices.
 
 ## Prometheus Setup
 
