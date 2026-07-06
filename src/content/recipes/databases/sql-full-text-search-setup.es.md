@@ -65,9 +65,129 @@ WHERE search_vector @@ query
 ORDER BY rank DESC;
 ```
 
+### Búsqueda con resaltado y snippets
+
+```sql
+-- Devolver snippets resaltados del texto coincidente
+SELECT
+  id,
+  title,
+  ts_headline('english', body, query, 'MaxWords=35, MinWords=15') AS snippet,
+  ts_rank_cd(search_vector, query) AS rank
+FROM articles, plainto_tsquery('english', 'database indexing') query
+WHERE search_vector @@ query
+ORDER BY rank DESC
+LIMIT 20;
+```
+
+### Búsqueda ponderada en múltiples columnas
+
+```sql
+-- Ponderar coincidencias de título más que de cuerpo
+ALTER TABLE articles
+ADD COLUMN search_vector_weighted tsvector
+GENERATED ALWAYS AS (
+  setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
+  setweight(to_tsvector('english', coalesce(body, '')), 'B')
+) STORED;
+
+CREATE INDEX idx_articles_search_weighted
+ON articles USING GIN (search_vector_weighted);
+
+-- Coincidencias de título clasifican más alto que las de cuerpo
+SELECT id, title,
+  ts_rank_cd(search_vector_weighted, query) AS rank
+FROM articles, plainto_tsquery('english', 'database indexing') query
+WHERE search_vector_weighted @@ query
+ORDER BY rank DESC;
+```
+
+### Búsqueda de frases y proximidad
+
+```sql
+-- Coincidencia exacta de frase
+SELECT id, title
+FROM articles, phraseto_tsquery('english', 'database indexing') query
+WHERE search_vector @@ query;
+
+-- Proximidad: palabras dentro de 3 posiciones entre sí
+SELECT id, title
+FROM articles, to_tsquery('english', 'database <-> indexing') query
+WHERE search_vector @@ query;
+
+-- Palabras dentro de N posiciones: operador <N>
+SELECT id, title
+FROM articles, to_tsquery('english', 'database <3> indexing') query
+WHERE search_vector @@ query;
+```
+
+### Búsqueda difusa con trigramas
+
+```sql
+-- Habilitar extensión pg_trgm
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+-- Crear índice trigram para coincidencia difusa
+CREATE INDEX idx_articles_title_trgm
+ON articles USING GIN (title gin_trgm_ops);
+
+-- Búsqueda difusa: encuentra títulos similares a 'databse indexing'
+SELECT id, title, similarity(title, 'databse indexing') AS sim
+FROM articles
+WHERE title % 'databse indexing'
+ORDER BY sim DESC
+LIMIT 10;
+```
+
+### Búsqueda combinada de texto completo y trigramas
+
+```sql
+-- Texto completo para significado + trigramas para typos
+SELECT a.id, a.title,
+  ts_rank_cd(a.search_vector, ftq) AS text_rank,
+  similarity(a.title, 'databse indexing') AS trigram_rank
+FROM articles a,
+  plainto_tsquery('english', 'database indexing') ftq
+WHERE a.search_vector @@ ftq
+   OR a.title % 'databse indexing'
+ORDER BY (text_rank + trigram_rank) DESC
+LIMIT 20;
+```
+
+### Búsqueda multi-idioma
+
+```sql
+-- Crear tsvector con idioma desde una columna
+ALTER TABLE articles
+ADD COLUMN search_vector_multi tsvector
+GENERATED ALWAYS AS (
+  to_tsvector(coalesce(language, 'english'), title || ' ' || body)
+) STORED;
+
+CREATE INDEX idx_articles_search_multi
+ON articles USING GIN (search_vector_multi);
+
+-- Buscar en el idioma apropiado
+SELECT id, title
+FROM articles, plainto_tsquery('spanish', 'base de datos') query
+WHERE search_vector_multi @@ query
+ORDER BY ts_rank_cd(search_vector_multi, query) DESC;
+```
+
 ## Explicación
 
 La función `to_tsvector` analiza el texto en una lista de tokens normalizados llamados lexemas, eliminando stop words y aplicando stemming. El operador `@@` verifica si la consulta coincide con el documento. Un índice GIN en la columna `tsvector` hace la búsqueda rápida incluso en millones de filas. `ts_rank_cd` devuelve un score de relevancia para ordenar. La columna generada se actualiza automáticamente cuando el texto subyacente cambia, así que el índice se mantiene sincronizado sin lógica de aplicación.
+
+### Cómo funciona el ranking
+
+`ts_rank_cd` calcula la densidad de cobertura: qué tan cerca están los lexemas coincidentes entre sí en el documento. Mayor densidad significa una coincidencia más relevante. La función `setweight` asigna etiquetas de prioridad (A, B, C, D) a diferentes partes del documento, para que las coincidencias de título superen a las del cuerpo.
+
+### Índices GIN vs GiST
+
+| Tipo de índice | Velocidad de build | Velocidad de búsqueda | Velocidad de update | Caso de uso |
+|----------------|-------------------|----------------------|---------------------|-------------|
+| GIN | Lento | Rápido | Lento | Datos estáticos o de lectura intensa |
+| GiST | Rápido | Moderado | Rápido | Datos actualizados frecuentemente |
 
 ## Variantes
 
@@ -76,6 +196,7 @@ La función `to_tsvector` analiza el texto en una lista de tokens normalizados l
 | Columna generada + GIN | GIN | Propósito general, auto-actualizado |
 | Índice de expresión en to_tsvector | GIN | Sin columna extra, pero índice más grande |
 | Índice trigram | GIN | Búsqueda difusa, patrones `LIKE` |
+| Columnas ponderadas | GIN | Relevancia título vs cuerpo |
 | Externo | Elasticsearch | Facetado complejo, búsqueda distribuida |
 
 ## Lo que funciona
@@ -85,6 +206,8 @@ La función `to_tsvector` analiza el texto en una lista de tokens normalizados l
 3. **Combina búsqueda de texto con filtros.** Agrega `WHERE status = 'published'` para reducir el alcance del escaneo de índice.
 4. **Limita el ranking a top-N resultados.** Calcular el rank para cada coincidencia es costoso; usa paginación.
 5. **Monitorea el tamaño del índice.** Los índices GIN pueden crecer mucho; considera índices parciales solo para datos activos.
+6. **Usa columnas ponderadas para relevancia.** Las coincidencias de título deben clasificar más alto que las del cuerpo.
+7. **Agrega índices trigram para tolerancia a typos.** La búsqueda de texto completo no maneja errores ortográficos; los trigramas sí.
 
 ## Errores Comunes
 
@@ -93,6 +216,8 @@ La función `to_tsvector` analiza el texto en una lista de tokens normalizados l
 3. **Configuración de idioma incorrecta.** El stemming en inglés no funcionará bien para texto en español y viceversa.
 4. **No manejar typos o prefijos.** La búsqueda de texto completo estándar no coincide con palabras parciales; usa trigramas para eso.
 5. **Sobrecargar la base de datos.** Para búsquedas muy grandes o altamente concurrentes, considera un motor de búsqueda dedicado.
+6. **Usar `plainto_tsquery` para consultas complejas.** Usa `to_tsquery` para operadores booleanos (`&`, `|`, `!`) y `phraseto_tsquery` para frases.
+7. **Ignorar el rendimiento de `ts_headline`.** Generar snippets es costoso; úsalo solo para los resultados paginados finales, no para todo el conjunto de resultados.
 
 ## Preguntas Frecuentes
 
@@ -100,19 +225,77 @@ La función `to_tsvector` analiza el texto en una lista de tokens normalizados l
 R: Sí. Combina columnas en un solo `tsvector` con `to_tsvector('english', coalesce(title, '') || ' ' || coalesce(body, ''))`.
 
 **P: ¿Cómo resalto términos coincidentes en los resultados?**
-R: Usa `ts_headline` para devolver snippets con los términos coincidentes resaltados.
+R: Usa `ts_headline` para devolver snippets con los términos coincidentes resaltados. Usa los parámetros `MaxWords` y `MinWords` para controlar la longitud del snippet.
 
 **P: ¿La búsqueda de texto completo soporta coincidencia de frases?**
-R: Sí. Usa `phraseto_tsquery` o el operador `<->` en `to_tsquery` para búsqueda exacta de frases.
+R: Sí. Usa `phraseto_tsquery` o el operador `<->` en `to_tsquery` para búsqueda exacta de frases. Usa `<N>` para proximidad dentro de N posiciones.
 
-### ¿Esta solución está lista para producción?
+**P: ¿En qué se diferencia la búsqueda de texto completo de LIKE?**
+R: `LIKE '%word%'` escanea cada fila y coincide subcadenas exactas. La búsqueda de texto completo tokeniza el texto, aplica stemming, elimina stop words y usa un índice para búsqueda rápida. También clasifica resultados por relevancia.
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+**P: ¿Puedo usar búsqueda de texto completo con columnas JSONB?**
+R: Sí. Extrae texto del JSONB y conviértelo a tsvector: `to_tsvector('english', jsonb_path_query_first(data, '$.description')::text)`.
 
-### ¿Cuáles son las características de rendimiento?
+**P: ¿Cómo manejo búsqueda en múltiples idiomas?**
+R: Almacena el idioma por fila y úsalo en `to_tsvector`: `to_tsvector(coalesce(language, 'english'), text)`. Cada fila se procesa con el diccionario apropiado.
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+**P: ¿Cuál es la diferencia entre ts_rank y ts_rank_cd?**
+R: `ts_rank` usa conteo de coincidencias y posición. `ts_rank_cd` usa densidad de cobertura, que mide qué tan cerca están los términos coincidentes entre sí. La densidad de cobertura generalmente produce mejor ordenamiento por relevancia.
 
-### ¿Cómo depuro problemas con este enfoque?
+**P: ¿Cómo depuro por qué una búsqueda no devuelve resultados?**
+R: Compara el tsvector y tsquery para ver si los lexemas coinciden: `SELECT to_tsvector('english', 'tu texto'), plainto_tsquery('english', 'tu consulta')`. Si los lexemas no se superponen, no habrá coincidencia.
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+## Consejos de Rendimiento
+
+1. **Usa `LIMIT` con ranking.** Calcular `ts_rank_cd` para cada coincidencia es costoso. Siempre pagina:
+
+```sql
+SELECT id, title, ts_rank_cd(search_vector, query) AS rank
+FROM articles, plainto_tsquery('english', 'database indexing') query
+WHERE search_vector @@ query
+ORDER BY rank DESC
+LIMIT 20 OFFSET 0;
+```
+
+2. **Habilita `fastupdate` en GIN.** Para tablas actualizadas frecuentemente:
+
+```sql
+CREATE INDEX idx_articles_search
+ON articles USING GIN (search_vector) WITH (fastupdate = true);
+```
+
+3. **Usa índices parciales solo para contenido publicado:**
+
+```sql
+CREATE INDEX idx_articles_published_search
+ON articles USING GIN (search_vector)
+WHERE status = 'published';
+```
+
+4. **Monitorea el bloat del índice.** Los índices GIN pueden acumular entradas muertas:
+
+```sql
+SELECT schemaname, tablename, indexname, pg_size_pretty(pg_relation_size(indexname::regclass))
+FROM pg_indexes
+WHERE indexname LIKE '%search%';
+```
+
+5. **Considera el índice `rum` para ranking más rápido.** La extensión RUM almacena información de ranking en el índice mismo:
+
+```sql
+CREATE EXTENSION rum;
+CREATE INDEX idx_articles_rum
+ON articles USING rum (search_vector);
+```
+
+6. **Benchmark con datos realistas.** El rendimiento de la búsqueda de texto completo depende del tamaño del documento, complejidad de la consulta y tamaño del conjunto de resultados.
+
+7. **Usa connection pooling.** Las consultas de búsqueda de texto completo pueden ser intensivas en CPU. Usa PgBouncer o un pooler similar para gestionar conexiones.
+
+8. **Monitorea consultas lentas.** Registra consultas que tomen más de 100ms y analiza sus planes de ejecución. Causas comunes incluyen índices faltantes, consultas demasiado amplias o `ts_headline` en conjuntos de resultados grandes.
+
+9. **Usa `pg_trgm` junto con búsqueda de texto completo.** Los índices trigram complementan la búsqueda de texto completo manejando typos y coincidencias parciales que `to_tsvector` no puede encontrar. Combina ambos para máxima cobertura de búsqueda.
+
+10. **Ejecuta `ANALYZE` regularmente en la tabla de búsqueda.** El planificador de consultas necesita estadísticas precisas para elegir entre escaneos de índice GIN y escaneos secuenciales. Ejecuta `ANALYZE articles;` después de cargas masivas o cambios significativos de datos.
+
+11. **Considera `pg_bigm` para bigram matching.** Para aplicaciones que necesitan coincidencias difusles más agresivas, la extensión `pg_bigm` ofrece índices de bigramas con mejor cobertura de typos que `pg_trgm`.

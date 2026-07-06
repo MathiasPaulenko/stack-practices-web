@@ -168,3 +168,409 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### Archivo .dockerignore
+
+Evita que archivos innecesarios entren al contexto de build:
+
+```text
+# .dockerignore
+node_modules
+dist
+.git
+.gitignore
+.env
+.env.local
+*.log
+coverage
+.vscode
+.idea
+Dockerfile
+docker-compose*.yml
+README.md
+```
+
+### Dockerfile para una App Java Spring Boot
+
+```dockerfile
+# syntax=docker/dockerfile:1
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /app
+COPY gradle/ gradle/
+COPY gradlew build.gradle settings.gradle ./
+RUN ./gradlew dependencies --no-daemon
+COPY src/ src/
+RUN ./gradlew bootJar --no-daemon
+
+FROM eclipse-temurin:21-jre-alpine AS runner
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar app.jar
+EXPOSE 8080
+USER 1000:1000
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+```
+
+### Dockerfile con Health Check
+
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+CMD ["node", "server.js"]
+```
+
+### Comandos Esenciales de Docker
+
+```bash
+# Construir una imagen
+$ docker build -t myapp:latest .
+
+# Construir con una plataforma específica
+$ docker build --platform linux/amd64 -t myapp:latest .
+
+# Ejecutar un contenedor
+$ docker run -d --name web -p 3000:3000 myapp:latest
+
+# Ejecutar con variables de entorno
+$ docker run -d --name web -p 3000:3000 \
+  -e DATABASE_URL=postgres://user:pass@db:5432/mydb \
+  -e NODE_ENV=production \
+  myapp:latest
+
+# Ejecutar con un volume mount
+$ docker run -d --name web -p 3000:3000 \
+  -v $(pwd)/data:/app/data \
+  myapp:latest
+
+# Listar contenedores en ejecución
+$ docker ps
+
+# Listar todos los contenedores (incluyendo detenidos)
+$ docker ps -a
+
+# Ver logs de un contenedor
+$ docker logs -f web
+
+# Ejecutar un comando dentro de un contenedor en ejecución
+$ docker exec -it web sh
+
+# Detener y remover un contenedor
+$ docker stop web
+$ docker rm web
+
+# Remover una imagen
+$ docker rmi myapp:latest
+
+# Limpiar imágenes, contenedores y networks no usados
+$ docker system prune -a
+
+# Mostrar uso de disco
+$ docker system df
+```
+
+### Networking de Docker
+
+```bash
+# Crear una red personalizada
+$ docker network create mynet
+
+# Ejecutar contenedores en la misma red
+$ docker run -d --name db --network mynet postgres:16-alpine
+$ docker run -d --name app --network mynet -p 3000:3000 myapp:latest
+
+# Los contenedores pueden alcanzarse por nombre
+# app puede conectar a db via: postgres://user:pass@db:5432/mydb
+```
+
+```yaml
+# docker-compose.yml con red personalizada
+version: "3.9"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - frontend
+      - backend
+
+  db:
+    image: postgres:16-alpine
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true  # Sin acceso externo
+```
+
+### Volúmenes de Docker para Datos Persistentes
+
+```bash
+# Crear un volumen nombrado
+$ docker volume create pgdata
+
+# Inspeccionar un volumen
+$ docker volume inspect pgdata
+
+# Remover volúmenes no usados
+$ docker volume prune
+```
+
+```yaml
+# docker-compose.yml con volúmenes
+version: "3.9"
+services:
+  app:
+    build: .
+    volumes:
+      - ./src:/app/src          # Bind mount para dev
+      - app-data:/app/data      # Volumen nombrado para datos persistentes
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+  app-data:
+```
+
+### Debugging de Contenedores
+
+```bash
+# Inspeccionar la configuración de un contenedor
+$ docker inspect web
+
+# Ver uso de recursos
+$ docker stats web
+
+# Ver procesos dentro de un contenedor
+$ docker top web
+
+# Copiar archivos de un contenedor al host
+$ docker cp web:/app/logs ./logs
+
+# Exportar el filesystem de un contenedor
+$ docker export web | gzip > web.tar.gz
+
+# Ver cambios del filesystem del contenedor
+$ docker diff web
+
+# Commitear cambios de un contenedor a una nueva imagen
+$ docker commit web myapp:debugged
+```
+
+### Build Multi-Etapa con Distroless
+
+```dockerfile
+# syntax=docker/dockerfile:1
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM gcr.io/distroless/nodejs20-debian12 AS runner
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+EXPOSE 3000
+CMD ["dist/main.js"]
+```
+
+Las imágenes distroless no tienen shell, package manager ni herramientas innecesarias — reduciendo superficie de ataque y tamaño de imagen.
+
+### Secretos de Docker BuildKit
+
+```dockerfile
+# syntax=docker/dockerfile:1
+FROM node:20-alpine
+WORKDIR /app
+
+# Montar npm token como secreto, no persistido en la imagen
+RUN --mount=type=secret,id=npm_token \
+  NPM_TOKEN=$(cat /run/secrets/npm_token) \
+  npm ci
+```
+
+```bash
+# Construir con secretos
+$ docker build --secret id=npm_token,src=$HOME/.npmrc -t myapp:latest .
+```
+
+## Mejores Prácticas Adicionales
+
+6. **Etiqueta tus imágenes.** Añade metadata para trazabilidad:
+
+```dockerfile
+LABEL org.opencontainers.image.source="https://github.com/org/repo"
+LABEL org.opencontainers.image.version="1.2.0"
+LABEL org.opencontainers.image.revision="${GIT_SHA}"
+```
+
+7. **Usa `dumb-init` o `tini` para signal handling.** PID 1 en contenedores no maneja señales correctamente por defecto:
+
+```dockerfile
+FROM node:20-alpine
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["node", "server.js"]
+```
+
+8. **Fija versiones de dependencias.** En `requirements.txt` o `package.json`, fija versiones exactas para builds reproducibles:
+
+```text
+# requirements.txt
+fastapi==0.111.0
+uvicorn==0.30.1
+pydantic==2.7.4
+```
+
+9. **Usa `docker compose profiles`.** Ejecuta diferentes sets de servicios para dev vs test:
+
+```yaml
+version: "3.9"
+services:
+  app:
+    build: .
+    profiles: ["dev", "test"]
+
+  db:
+    image: postgres:16-alpine
+    profiles: ["dev", "prod"]
+
+  test-runner:
+    build: ./test
+    profiles: ["test"]
+```
+
+```bash
+$ docker compose --profile dev up
+$ docker compose --profile test up
+```
+
+## Errores Comunes Adicionales
+
+6. **Almacenar datos en la capa escribible del contenedor.** La capa escribible se pierde cuando el contenedor se remueve. Usa volúmenes para cualquier cosa que necesite persistir.
+
+7. **No establecer políticas de `restart`.** Los contenedores crashean y se quedan down sin política de restart:
+
+```yaml
+services:
+  app:
+    build: .
+    restart: unless-stopped  # o: always, on-failure:3
+```
+
+8. **Construir imágenes como root sin instrucción `USER`.** Muchas imágenes base son root por defecto. Siempre cambia:
+
+```dockerfile
+RUN addgroup -S app && adduser -S app -G app
+USER app
+```
+
+9. **Usar tag `latest` en producción.** `latest` es mutable — la imagen que descargas hoy puede diferir de la de ayer. Fija versiones específicas: `myapp:1.2.0`.
+
+10. **No limpiar recursos de Docker.** Imágenes y volúmenes viejos se acumulan:
+
+```bash
+# Limpiar todo lo que no está en uso
+$ docker system prune -a --volumes
+```
+
+## FAQ Adicional
+
+### ¿Cómo paso argumentos de build a un Dockerfile?
+
+Usa `ARG` y `--build-arg`:
+
+```dockerfile
+FROM node:20-alpine
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+```
+
+```bash
+$ docker build --build-arg NODE_ENV=staging -t myapp:staging .
+```
+
+### ¿Cómo uso Docker en CI/CD?
+
+Usa Docker layer caching para acelerar builds. En GitHub Actions:
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: myorg/myapp:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+### ¿Cuál es la diferencia entre `CMD` y `ENTRYPOINT`?
+
+`CMD` establece el comando default, que puede ser overrideado por `docker run`. `ENTRYPOINT` establece el ejecutable que siempre corre; `CMD` se vuelve argumentos. Usa ambos para contenedores flexibles:
+
+```dockerfile
+ENTRYPOINT ["node"]
+CMD ["server.js"]
+# docker run myapp → node server.js
+# docker run myapp worker.js → node worker.js
+```
+
+## Tips de Rendimiento
+
+1. **Usa BuildKit para builds más rápidos.** Habilítalo con `DOCKER_BUILDKIT=1` o `docker buildx`:
+
+```bash
+$ DOCKER_BUILDKIT=1 docker build -t myapp:latest .
+```
+
+2. **Ordena las capas del Dockerfile de menos a más cambiante.** Las dependencias cambian raramente; el código fuente cambia seguido:
+
+```dockerfile
+# Bien: deps primero, código al final
+COPY package*.json ./
+RUN npm ci
+COPY . .
+```
+
+3. **Usa `--target` para builds parciales.** Construye solo la etapa que necesitas:
+
+```bash
+$ docker build --target builder -t myapp:builder .
+```
+
+4. **Usa `docker compose up --build` en dev.** Reconstruye solo las capas cambiadas:
+
+```bash
+$ docker compose up --build --watch  # Rebuild on file changes (Compose v2.22+)
+```
+
+5. **Usa `docker save` y `docker load` para transferencia offline.** Mueve imágenes entre máquinas sin registry:
+
+```bash
+$ docker save myapp:latest | gzip > myapp.tar.gz
+$ docker load < myapp.tar.gz
+```

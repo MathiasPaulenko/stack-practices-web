@@ -163,3 +163,188 @@ Solo para migraciones no-breaking y rápidas (agregar columna nullable, crear í
 - **Agrega índices concurrentemente** para evitar locking
 - **Ejecuta durante ventanas de bajo tráfico** incluso con herramientas online
 - **Monitorea lag de replicación** si corres contra un primary con réplicas. Consulta [Read Replicas](/recipes/databases/database-read-replicas) para gestión de replicación.
+
+### Backfill por lotes con Alembic
+
+```python
+from alembic import op
+import sqlalchemy as sa
+from sqlalchemy.sql import table, column
+
+def upgrade():
+    op.add_column("orders", sa.Column("status", sa.String(20), nullable=True))
+
+    # Backfill por lotes de 5000
+    conn = op.get_bind()
+    while True:
+        result = conn.execute(sa.text("""
+            UPDATE orders
+            SET status = 'completed'
+            WHERE id IN (
+                SELECT id FROM orders
+                WHERE status IS NULL
+                LIMIT 5000
+            )
+            RETURNING id
+        """))
+        if result.rowcount == 0:
+            break
+        print(f"Backfill de {result.rowcount} filas")
+
+    # Agregar check constraint
+    op.create_check_constraint(
+        "chk_order_status",
+        "orders",
+        "status IN ('pending', 'processing', 'completed', 'cancelled')"
+    )
+
+def downgrade():
+    op.drop_constraint("chk_order_status", "orders")
+    op.drop_column("orders", "status")
+```
+
+### Estrategia de rollback con Knex.js
+
+```javascript
+exports.up = async function(knex) {
+    await knex.schema.createTable('feature_flags', (table) => {
+        table.increments('id');
+        table.string('name', 100).notNullable().unique();
+        table.boolean('enabled').defaultTo(false);
+        table.timestamp('created_at').defaultTo(knex.fn.now());
+    });
+
+    // Seed flags iniciales
+    await knex('feature_flags').insert([
+        { name: 'new_checkout', enabled: false },
+        { name: 'dark_mode', enabled: true }
+    ]);
+};
+
+exports.down = async function(knex) {
+    // Rollback seguro: dropear tabla solo si existe
+    await knex.schema.dropTableIfExists('feature_flags');
+};
+```
+
+### Testing de migraciones con Flyway
+
+```java
+// V4__add_indexes.sql
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_users_email
+ON users (email);
+
+// V5__add_foreign_key.sql
+-- Agregar FK como NOT VALID primero (rápido, sin table scan)
+ALTER TABLE orders
+  ADD CONSTRAINT fk_orders_user_id
+  FOREIGN KEY (user_id) REFERENCES users(id)
+  NOT VALID;
+
+-- Validar en paso separado (escanea pero no bloquea writes)
+ALTER TABLE orders VALIDATE CONSTRAINT fk_orders_user_id;
+```
+
+```bash
+# Probar migraciones en una copia de datos productivos
+flyway -url=jdbc:postgresql://staging:5432/mydb \
+  -user=migration_user \
+  -password=$STAGING_DB_PASS \
+  -locations=filesystem:db/migrations \
+  -cleanDisabled=false \
+  migrate
+
+# Verificar con dry run
+flyway -url=jdbc:postgresql://staging:5432/mydb \
+  -user=migration_user \
+  -password=$STAGING_DB_PASS \
+  -locations=filesystem:db/migrations \
+  info
+```
+
+## Buenas prácticas adicionales
+
+6. **Configura `lock_timeout` antes de DDL.** Previene que las migraciones esperen indefinidamente por locks:
+
+```sql
+SET lock_timeout = '10s';
+ALTER TABLE users ADD COLUMN phone VARCHAR(20);
+```
+
+7. **Usa `statement_timeout` para operaciones batch.** Aborta backfills que tardan demasiado:
+
+```sql
+SET statement_timeout = '60s';
+```
+
+8. **Ejecuta `ANALYZE` después de backfills grandes.** Actualiza estadísticas del planner para que las consultas elijan planes óptimos:
+
+```sql
+ANALYZE users;
+```
+
+9. **Crea índices concurrentemente.** `CREATE INDEX CONCURRENTLY` en PostgreSQL evita bloquear writes pero no puede ejecutarse dentro de una transacción.
+
+10. **Usa feature flags para código dependiente de esquema.** Desacopla deploys de código de cambios de esquema:
+
+```python
+if feature_flags.is_enabled("use_full_name"):
+    display = user.full_name
+else:
+    display = user.name
+```
+
+## Errores comunes adicionales
+
+6. **Agregar una columna con default volátil.** `ADD COLUMN ... DEFAULT random()` reescribe toda la tabla en PostgreSQL < 11. Usa nullable + backfill.
+7. **No probar scripts de rollback.** Un rollback que falla es peor que no tener rollback. Prueba `downgrade()` en una copia de staging.
+8. **Ejecutar migraciones dentro del startup de la app para cambios grandes.** Usa un paso de migración separado en CI/CD con gates de aprobación.
+9. **Olvidar actualizar estadísticas.** Después de cambios grandes de datos, `ANALYZE` es necesario para que el query planner elija planes correctos.
+10. **Dropear una columna antes de que todo el código deje de leerla.** Durante deploys rolling, instancias viejas pueden aún referenciar la columna eliminada.
+
+## Preguntas frecuentes adicionales
+
+### ¿Cómo agrego una foreign key sin bloquear?
+
+En PostgreSQL, agrega el constraint como `NOT VALID` primero, luego valida por separado:
+
+```sql
+ALTER TABLE orders
+  ADD CONSTRAINT fk_orders_user_id
+  FOREIGN KEY (user_id) REFERENCES users(id)
+  NOT VALID;
+
+ALTER TABLE orders VALIDATE CONSTRAINT fk_orders_user_id;
+```
+
+### ¿Cuál es la diferencia entre `gh-ost` y `pt-online-schema-change`?
+
+Ambos realizan cambios de esquema online para MySQL. `gh-ost` (GitHub) usa binlog para sync y evita triggers. `pt-online-schema-change` usa triggers. `gh-ost` es preferido para entornos de alta escritura.
+
+### ¿Cómo manejo migraciones en un despliegue blue-green?
+
+Despliega cambios de esquema al entorno verde primero. Tanto azul como verde deben funcionar con el nuevo esquema. Usa expand-contract: expande esquema, despliega código nuevo, cambia tráfico, luego contrae esquema viejo.
+
+## Tips de Rendimiento
+
+1. **Backfill por lotes con `LIMIT` y `sleep`.** Procesa 1,000-10,000 filas por lote con pausas cortas para minimizar lag de replicación y contención de locks.
+
+2. **Usa `CREATE INDEX CONCURRENTLY` para todos los índices productivos.** Toma más tiempo pero no bloquea writes. Monitorea progreso vía `pg_stat_progress_create_index`.
+
+3. **Configura `work_mem` para sesiones de migración.** Auméntalo para operaciones batch grandes:
+
+```sql
+SET work_mem = '256MB';
+```
+
+4. **Monitorea `pg_stat_activity` durante migraciones.** Observa queries de larga duración y esperas de lock:
+
+```sql
+SELECT pid, state, wait_event_type, wait_event,
+       now() - query_start AS duration, query
+FROM pg_stat_activity
+WHERE state != 'idle'
+ORDER BY duration DESC;
+```
+
+5. **Usa `pg_repack` para bloat de tablas.** Después de backfills grandes, tablas e índices pueden quedar fragmentados. `pg_repack` reconstruye tablas sin locks exclusivos.

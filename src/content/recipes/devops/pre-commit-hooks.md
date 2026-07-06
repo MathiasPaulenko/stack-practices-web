@@ -210,3 +210,314 @@ Unit tests: sometimes, if they complete in under 10 seconds. Integration or E2E 
 ### How do I share hooks across my team?
 
 Use `pre-commit` (cross-language) or `husky` (Node.js). Both store hook configuration in the repo. For Java, use a Maven/Gradle plugin that installs hooks from a tracked `git-hooks/` directory during build. Never commit files directly to `.git/hooks/`—that directory is not tracked.
+
+### Go with golangci-lint
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v1.55.2
+    hooks:
+      - id: golangci-lint
+        args: [--config, .golangci.yml]
+```
+
+```yaml
+# .golangci.yml
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - gofmt
+    - goimports
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+```
+
+### Secrets Scanning with gitleaks
+
+```yaml
+# .pre-commit-config.yaml — add gitleaks
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.1
+    hooks:
+      - id: gitleaks
+```
+
+```bash
+# Run gitleaks manually
+$ gitleaks detect --source . --verbose
+
+# Scan a specific commit range
+$ gitleaks detect --source . --log-opts="HEAD~1..HEAD"
+
+# Custom rules in .gitleaks.toml
+[[rules]]
+id = "custom-api-key"
+description = "Custom API key pattern"
+regex = '''sk-live-[a-zA-Z0-9]{20,}'''
+tags = ["api-key", "custom"]
+```
+
+### Commit Message Linting with commitlint
+
+```javascript
+// Install: npm install --save-dev @commitlint/cli @commitlint/config-conventional
+// commitlint.config.js
+module.exports = {
+  extends: ["@commitlint/config-conventional"],
+  rules: {
+    "type-enum": [
+      2,
+      "always",
+      ["feat", "fix", "docs", "style", "refactor", "test", "chore", "ci", "perf"],
+    ],
+    "subject-max-length": [2, "always", 72],
+    "body-max-line-length": [2, "always", 100],
+  },
+};
+```
+
+```bash
+# .husky/commit-msg
+#!/bin/sh
+npx --no-install commitlint --edit "$1"
+```
+
+```
+# Valid commit messages:
+feat: add user registration endpoint
+fix: handle null pointer in auth middleware
+docs: update API documentation for v2
+chore: upgrade dependencies to latest patch
+```
+
+### CI Integration (GitHub Actions)
+
+```yaml
+# .github/workflows/lint.yml
+name: Lint and Format
+on: [push, pull_request]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: pre-commit/action@v3.0.0
+        with:
+          extra_args: --all-files
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for scanning
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### Pre-commit Hook for Type Checking
+
+```json
+// package.json — add type-check to lint-staged
+{
+  "lint-staged": {
+    "*.{ts,tsx}": ["tsc --noEmit", "eslint --fix", "prettier --write"],
+    "*.{js,jsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,yml}": ["prettier --write"]
+  }
+}
+```
+
+```yaml
+# .pre-commit-config.yaml — Python type checking
+repos:
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy type check
+        entry: mypy
+        language: system
+        types: [python]
+        pass_filenames: false
+        args: [--strict, src/]
+```
+
+## Additional Best Practices
+
+6. **Use `--no-verify` sparingly.** Track bypass usage in commit messages:
+
+```bash
+# Document why hooks were bypassed
+$ git commit --no-verify -m "fix: hotfix for prod outage (bypass: time-critical)"
+```
+
+7. **Cache pre-commit environments.** Speed up hook execution by caching:
+
+```yaml
+# .github/workflows/lint.yml
+- uses: actions/cache@v4
+  with:
+    path: ~/.cache/pre-commit
+    key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+```
+
+8. **Run hooks in Docker for consistency.** Ensure all team members use the same tool versions:
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: local
+    hooks:
+      - id: docker-lint
+        name: ESLint in Docker
+        entry: docker run --rm -v $(pwd):/app node:20-slim sh -c "cd /app && npx eslint --fix"
+        language: system
+        types: [javascript]
+```
+
+## Additional Common Mistakes
+
+6. **Not pinning hook versions.** Floating `rev: main` causes breakage when upstream changes:
+
+```yaml
+# Bad: floating revision
+repos:
+  - repo: https://github.com/psf/black
+    rev: main  # Will break without warning
+
+# Good: pinned version
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+```
+
+7. **Hooks that require network access.** Hooks should work offline. If a hook needs network (e.g., downloading rules), cache them:
+
+```bash
+# Pre-download rules during setup
+$ pre-commit run --all-files  # Downloads and caches on first run
+```
+
+## Additional FAQ
+
+### How do I skip specific hooks temporarily?
+
+With `pre-commit`, skip individual hooks using `SKIP`:
+
+```bash
+$ SKIP=flake8,mypy git commit -m "wip"
+```
+
+With `husky`, modify the hook script to check for an env var:
+
+```bash
+# .husky/pre-commit
+if [ "$SKIP_HOOKS" = "1" ]; then
+  exit 0
+fi
+npx lint-staged
+```
+
+### Can I run hooks only on specific branches?
+
+Yes. Add a branch check at the top of your hook script:
+
+```bash
+#!/bin/sh
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$branch" = "main" ] || [ "$branch" = "release/"* ]; then
+  npx lint-staged
+fi
+```
+
+### How do I debug a failing pre-commit hook?
+
+Run hooks manually with verbose output:
+
+```bash
+# Run specific hook with verbose
+$ pre-commit run black --verbose --all-files
+
+# Run with trace output
+$ pre-commit run --all-files --verbose 2>&1 | tee pre-commit.log
+
+# Check hook environment
+$ pre-commit clean
+$ pre-commit install
+```
+
+## Performance Tips
+
+1. **Only check staged files.** Use `lint-staged` or `pre-commit`'s `files` filter:
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        files: ^src/.*\.py$  # Only check src/ directory
+```
+
+2. **Parallelize hooks.** `pre-commit` runs hooks in parallel by default. Keep them independent:
+
+```yaml
+# Each repo runs in its own environment — parallel by default
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+```
+
+3. **Use local hooks for speed.** Avoid downloading remote repos for simple checks:
+
+```yaml
+repos:
+  - repo: local
+    hooks:
+      - id: local-format
+        name: format check
+        entry: ./scripts/format.sh
+        language: system
+        files: \.(js|ts)$
+```
+
+4. **Cache tool installations.** Use `language_version` to pin and cache:
+
+```yaml
+hooks:
+  - id: black
+    language_version: python3.11  # Cached after first run
+```
+
+5. **Skip hooks for generated files.** Exclude auto-generated code from checks:
+
+```yaml
+hooks:
+  - id: flake8
+    exclude: |
+      (?x)^(
+          src/generated/.*|
+          migrations/.*
+      )$
+```

@@ -169,3 +169,234 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### Multi-table JOIN with aggregation
+
+```sql
+SELECT
+    u.name,
+    COUNT(o.order_id) AS total_orders,
+    COALESCE(SUM(o.amount), 0) AS total_spent,
+    MAX(o.order_date) AS last_order
+FROM users u
+LEFT JOIN orders o ON u.user_id = o.user_id
+GROUP BY u.user_id, u.name
+ORDER BY total_spent DESC;
+```
+
+### Self JOIN for hierarchical data
+
+```sql
+-- Find employees and their managers
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    manager_id INT REFERENCES employees(emp_id)
+);
+
+INSERT INTO employees VALUES
+    (1, 'CEO', NULL),
+    (2, 'VP Engineering', 1),
+    (3, 'VP Sales', 1),
+    (4, 'Senior Dev', 2),
+    (5, 'Junior Dev', 2);
+
+SELECT
+    e.name AS employee,
+    m.name AS manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.emp_id;
+```
+
+| employee | manager |
+|----------|---------|
+| CEO | NULL |
+| VP Engineering | CEO |
+| VP Sales | CEO |
+| Senior Dev | VP Engineering |
+| Junior Dev | VP Engineering |
+
+### CROSS JOIN for combinations
+
+```sql
+-- Generate all size/color combinations for a product
+SELECT s.size, c.color
+FROM sizes s
+CROSS JOIN colors c;
+```
+
+### JOIN with GROUP BY and HAVING
+
+```sql
+-- Find users with more than 3 orders
+SELECT u.name, COUNT(o.order_id) AS order_count
+FROM users u
+INNER JOIN orders o ON u.user_id = o.user_id
+GROUP BY u.user_id, u.name
+HAVING COUNT(o.order_id) > 3
+ORDER BY order_count DESC;
+```
+
+### LEFT JOIN to find orphaned records
+
+```sql
+-- Find orders with no matching user (data integrity check)
+SELECT o.order_id, o.user_id, o.amount
+FROM orders o
+LEFT JOIN users u ON o.user_id = u.user_id
+WHERE u.user_id IS NULL;
+```
+
+### MySQL FULL OUTER JOIN workaround
+
+```sql
+-- MySQL does not support FULL OUTER JOIN; use UNION
+SELECT u.name, o.order_id, o.amount
+FROM users u
+LEFT JOIN orders o ON u.user_id = o.user_id
+UNION
+SELECT u.name, o.order_id, o.amount
+FROM users u
+RIGHT JOIN orders o ON u.user_id = o.user_id
+WHERE u.user_id IS NULL;
+```
+
+## Additional Best Practices
+
+6. **Use `COALESCE` for NULL handling.** Replace NULLs with defaults in results to avoid downstream errors:
+
+```sql
+SELECT u.name, COALESCE(SUM(o.amount), 0) AS total
+FROM users u
+LEFT JOIN orders o ON u.user_id = o.user_id
+GROUP BY u.user_id, u.name;
+```
+
+7. **Qualify column names in multi-table queries.** Avoid ambiguity by prefixing with table aliases:
+
+```sql
+SELECT u.name, o.amount
+FROM users u
+JOIN orders o ON u.user_id = o.user_id
+WHERE u.active = true;
+```
+
+8. **Use `EXISTS` instead of `INNER JOIN` for existence checks.** `EXISTS` stops scanning as soon as a match is found:
+
+```sql
+-- Faster than INNER JOIN when you only need to know if a match exists
+SELECT name FROM users u
+WHERE EXISTS (
+    SELECT 1 FROM orders o WHERE o.user_id = u.user_id
+);
+```
+
+9. **Limit result sets with pagination.** Large JOIN results can consume memory. Use `LIMIT` and `OFFSET` or keyset pagination:
+
+```sql
+SELECT u.name, o.order_id, o.amount
+FROM users u
+LEFT JOIN orders o ON u.user_id = o.user_id
+ORDER BY u.user_id
+LIMIT 50 OFFSET 0;
+```
+
+10. **Use `EXPLAIN ANALYZE` to verify join strategy.** Check whether the planner uses nested loops, hash joins, or merge joins:
+
+```sql
+EXPLAIN ANALYZE
+SELECT u.name, o.amount
+FROM users u
+JOIN orders o ON u.user_id = o.user_id;
+```
+
+## Additional Common Mistakes
+
+6. **Forgetting to alias tables in complex queries.** Without aliases, column names become ambiguous and queries are harder to read.
+
+7. **Using `SELECT *` in JOINs.** This returns duplicate columns (e.g., `user_id` from both tables). List only the columns you need.
+
+8. **Not handling NULLs in aggregations.** `COUNT(o.order_id)` counts non-NULL values. Use `COUNT(*)` to count all rows including NULLs.
+
+9. **Joining on non-indexed columns.** The join column on the larger table should have an index. Without it, the database performs a full table scan.
+
+10. **Using string columns for joins.** Integer joins are faster than string joins. Use surrogate keys (INT/BIGINT) for join columns.
+
+## Additional FAQ
+
+### What is the difference between a hash join and a nested loop join?
+
+A **hash join** builds a hash table from the smaller input and probes it with the larger input. Efficient for large datasets. A **nested loop join** iterates over each row of the outer table and searches the inner table. Efficient when one table is small or an index can be used.
+
+### How do I optimize a 3-table JOIN?
+
+1. Ensure join columns are indexed on all tables
+2. Let the optimizer choose the join order (or use `SET join_collapse_limit` in PostgreSQL)
+3. Filter early with `WHERE` clauses to reduce intermediate result sets
+4. Use `EXPLAIN ANALYZE` to verify the plan uses hash joins, not nested loops on large tables
+
+### Can I JOIN on multiple columns?
+
+Yes. Use `AND` in the `ON` clause:
+
+```sql
+SELECT *
+FROM orders o
+JOIN order_items oi
+  ON o.order_id = oi.order_id
+  AND o.store_id = oi.store_id;
+```
+
+### What is a LATERAL JOIN?
+
+A `LATERAL` join (PostgreSQL) allows the right side to reference columns from the left side. Useful for correlated subqueries:
+
+```sql
+SELECT u.name, recent_orders.*
+FROM users u
+LEFT JOIN LATERAL (
+    SELECT order_id, amount
+    FROM orders
+    WHERE user_id = u.user_id
+    ORDER BY order_date DESC
+    LIMIT 3
+) AS recent_orders ON true;
+```
+
+## Performance Tips
+
+1. **Index all join columns.** The most impactful optimization. Foreign keys should have indexes on the child table.
+
+2. **Use `ANALYZE` after large data changes.** The query planner needs accurate statistics to choose optimal join strategies:
+
+```sql
+ANALYZE users;
+ANALYZE orders;
+```
+
+3. **Reduce intermediate result sets.** Filter with `WHERE` before joining to reduce the number of rows processed:
+
+```sql
+-- Better: filter first
+SELECT u.name, o.amount
+FROM users u
+JOIN orders o ON u.user_id = o.user_id
+WHERE u.active = true AND o.amount > 100;
+
+-- Worse: join everything then filter
+```
+
+4. **Use covering indexes.** If the index includes all columns needed by the query, the database avoids accessing the table:
+
+```sql
+CREATE INDEX idx_orders_user_amount ON orders(user_id, amount);
+```
+
+5. **Avoid `OR` conditions across tables.** The optimizer often cannot use indexes efficiently with `OR` across joined tables. Split into `UNION` queries instead:
+
+```sql
+-- Often faster than a single query with OR across tables
+SELECT u.name FROM users u JOIN orders o ON u.user_id = o.user_id WHERE o.amount > 500
+UNION
+SELECT u.name FROM users u JOIN returns r ON u.user_id = r.user_id WHERE r.amount > 500;
+```

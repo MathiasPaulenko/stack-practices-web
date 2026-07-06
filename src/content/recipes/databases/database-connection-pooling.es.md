@@ -178,3 +178,188 @@ Usa ambos. PgBouncer multiplexa conexiones de aplicación a un conjunto menor de
 ### ¿Cómo detecto leaks de conexiones?
 
 Monitorea el contador de conexiones activas del pool. Si aumenta constantemente y nunca baja, las conexiones no se están devolviendo. En Java, HikariCP loguea leaks después de `leakDetectionThreshold` (default 0, configurar a 60000ms). En Node.js, rastrea `pool.totalCount` vs `pool.idleCount`.
+
+### Pool de conexiones SQLAlchemy (Python)
+
+```python
+from sqlalchemy import create_engine
+
+engine = create_engine(
+    "postgresql://user:pass@localhost/mydb",
+    pool_size=10,
+    max_overflow=20,
+    pool_timeout=30,
+    pool_recycle=1800,
+    pool_pre_ping=True
+)
+
+with engine.connect() as conn:
+    result = conn.execute("SELECT 1")
+    print(result.scalar())
+```
+
+- `pool_size`: número base de conexiones
+- `max_overflow`: conexiones adicionales permitidas más allá de `pool_size`
+- `pool_timeout`: segundos de espera por una conexión antes de lanzar error
+- `pool_recycle`: segundos antes de que una conexión se recicle (previene conexiones stale)
+- `pool_pre_ping`: valida la conexión antes de usarla (añade ligero overhead)
+
+### PgBouncer pooling del lado servidor
+
+```ini
+; pgbouncer.ini
+[databases]
+myapp = host=127.0.0.1 port=5432 dbname=myapp
+
+[pgbouncer]
+listen_addr = 0.0.0.0
+listen_port = 6432
+pool_mode = transaction
+max_client_conn = 1000
+default_pool_size = 25
+reserve_pool_size = 5
+reserve_pool_timeout = 3
+server_idle_timeout = 600
+server_lifetime = 3600
+```
+
+```bash
+# Iniciar PgBouncer
+pgbouncer -d /etc/pgbouncer/pgbouncer.ini
+
+# Conectar a través de PgBouncer (puerto 6432 en lugar de 5432)
+psql -h localhost -p 6432 -U postgres myapp
+```
+
+**Modos de pool:**
+- `session`: una conexión de servidor por sesión de cliente (default)
+- `transaction`: conexión de servidor asignada por transacción (recomendado para la mayoría de apps)
+- `statement`: conexión de servidor asignada por sentencia (sin transacciones multi-sentencia)
+
+### Monitoreo de salud del pool
+
+```python
+# Python: monitorear pool psycopg2
+print(f"Conexiones actuales: {pg_pool._used}")
+print(f"Disponibles: {pg_pool._pool}")
+```
+
+```javascript
+// Node.js: monitorear pg Pool
+console.log({
+  total: pool.totalCount,
+  idle: pool.idleCount,
+  waiting: pool.waitingCount
+});
+```
+
+```java
+// Java: monitorear HikariCP
+HikariPoolMXBean poolProxy = ds.getHikariPoolMXBean();
+System.out.println("Activas: " + poolProxy.getActiveConnections());
+System.out.println("Idle: " + poolProxy.getIdleConnections());
+System.out.println("En espera: " + poolProxy.getThreadsAwaitingConnection());
+```
+
+### Fórmula de tamaño de pool
+
+```
+pool_size = (core_count * 2) + effective_spindle_count
+```
+
+Para setups solo SSD sin discos mecánicos:
+```
+pool_size = core_count * 2
+```
+
+Para PostgreSQL con `max_connections = 100` y 4 servicios:
+```
+pool_por_servicio = 100 / 4 = 25 conexiones
+```
+
+## Buenas prácticas adicionales
+
+6. **Usa `pool_pre_ping` para conexiones long-lived.** Los reinicios de base de datos o problemas de red dejan conexiones stale. Pre-ping valida la conexión antes de usarla, añadiendo ~1ms de overhead pero previniendo errores.
+
+7. **Configura `max_lifetime` menor que el timeout del lado base de datos.** Si la base de datos o firewall mata conexiones idle a los 30 minutos, configura `max_lifetime` a 25 minutos:
+
+```python
+engine = create_engine(
+    "...",
+    pool_recycle=1500  # 25 minutos
+)
+```
+
+8. **Usa pools separados para lecturas y escrituras.** Ruta queries de solo lectura a pools de réplicas y escrituras al pool del primary. Esto previene que queries de lectura bloqueen transacciones de escritura.
+
+9. **Configura `statement_timeout` por conexión.** Previene que queries lentos retengan conexiones del pool indefinidamente:
+
+```sql
+SET statement_timeout = '30s';
+```
+
+10. **Usa queries de validación de conexión.** Algunos pools soportan queries de validación. Usa una query ligera como `SELECT 1` para verificar la salud de la conexión:
+
+```java
+config.setConnectionTestQuery("SELECT 1");
+```
+
+## Errores comunes adicionales
+
+6. **No configurar `connectionTimeout`.** Sin un timeout, las peticiones se bloquean indefinidamente cuando el pool se agota. Configura 2-5 segundos.
+
+7. **Compartir un solo pool entre código async y sync.** Mezclar frameworks async (asyncio, Node.js) con librerías de pool sync causa deadlocks. Usa pools compatibles con async.
+
+8. **Crear múltiples instancias de pool.** Cada pool abre sus propias conexiones. Múltiples pools en un proceso multiplican el conteo de conexiones y pueden exceder `max_connections`.
+
+9. **No drenar pools al apagar.** No cerrar pools al salir de la aplicación deja conexiones huérfanas en el servidor de base de datos.
+
+10. **Usar `pool_mode = session` en PgBouncer para serverless.** Las funciones serverless abren y cierran conexiones rápidamente. Usa modo `transaction` para multiplexar.
+
+## Preguntas frecuentes adicionales
+
+### ¿Cómo afecta el transaction pooling de PgBouncer a las prepared statements?
+
+PgBouncer en modo transacción no soporta prepared statements a nivel sesión. Usa `prepared_statement_cache_size = 0` en tu driver o cambia a modo `session`. PostgreSQL 16+ soporta prepared statements a nivel protocol que funcionan con transaction pooling.
+
+### ¿Cuál es la diferencia entre `pool_size` y `max_overflow` en SQLAlchemy?
+
+`pool_size` es el número de conexiones persistentes. `max_overflow` permite conexiones temporales más allá de `pool_size` bajo carga. Cuando el tráfico baja, las conexiones de overflow se cierran primero.
+
+### ¿Cómo manejo connection pooling en entornos serverless?
+
+Usa PgBouncer o un proxy gestionado (AWS RDS Proxy, PlanetScale Proxy). Las funciones serverless escalan a cientos de instancias concurrentes, cada una necesitando una conexión. Un pooler del lado servidor multiplexa estas en un pool fijo pequeño.
+
+### ¿Debo configurar conexiones `min_idle`?
+
+Sí, para aplicaciones sensibles a latencia. Mantener 2-5 conexiones idle calientes elimina el coste de 20-100ms de setup de conexión para las primeras peticiones después de periodos idle.
+
+## Tips de Rendimiento
+
+1. **Monitorea `pg_stat_activity` para conteos de conexión.** Rastrea cuántas conexiones usa cada aplicación:
+
+```sql
+SELECT application_name, state, COUNT(*)
+FROM pg_stat_activity
+GROUP BY application_name, state
+ORDER BY count DESC;
+```
+
+2. **Usa `pg_stat_statements` para encontrar queries que retienen conexiones.** Queries de larga ejecución ocupan conexiones del pool. Identifícalos:
+
+```sql
+SELECT query, mean_exec_time, calls
+FROM pg_stat_statements
+ORDER BY mean_exec_time DESC
+LIMIT 10;
+```
+
+3. **Benchmark tamaños de pool con load testing.** Usa `pgbench` o `wrk` para encontrar el tamaño óptimo de pool para tu workload:
+
+```bash
+pgbench -c 20 -j 4 -T 60 -h localhost -p 5432 mydb
+```
+
+4. **Usa `LISTEN/NOTIFY` con una conexión dedicada.** PostgreSQL `LISTEN` retiene una conexión. Usa un pool separado o una conexión dedicada para event listeners.
+
+5. **Ajusta `work_mem` por conexión.** Cada conexión asigna `work_mem` para sorts y hashes. Con 20 conexiones y `work_mem = 64MB`, eso es 1.28GB solo para memoria de sort.

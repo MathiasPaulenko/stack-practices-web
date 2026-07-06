@@ -214,3 +214,425 @@ Optimistic for most read-heavy workloads with infrequent writes. Pessimistic whe
 ### How do I handle optimistic locking in a microservices architecture?
 
 Use event sourcing or sagas where each service owns its aggregate. If cross-service consistency is needed, prefer idempotent operations with conditional updates rather than distributed locking. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for resilience patterns.
+
+### Retry Logic with Exponential Backoff
+
+```python
+import random
+import time
+from functools import wraps
+
+def retry_on_conflict(max_retries=3, base_delay=0.05):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_retries):
+                try:
+                    return func(*args, **kwargs)
+                except ValueError as e:
+                    if "Conflict" not in str(e):
+                        raise
+                    if attempt == max_retries - 1:
+                        raise
+                    delay = base_delay * (2 ** attempt) + random.uniform(0, 0.05)
+                    time.sleep(delay)
+            return None
+        return wrapper
+    return decorator
+
+@retry_on_conflict(max_retries=3)
+def update_user_with_retry(conn, user_id, new_email, expected_version):
+    return update_user_email(conn, user_id, new_email, expected_version)
+```
+
+```javascript
+async function withRetry(fn, maxRetries = 3, baseDelay = 50) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (!err.message.includes('Version conflict') || attempt === maxRetries - 1) {
+        throw err;
+      }
+      const delay = baseDelay * (2 ** attempt) + Math.random() * 50;
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+}
+
+// Usage with automatic version refresh
+async function updateProductWithRetry(productId, updateFn) {
+  let product = await getProduct(productId);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const updated = updateFn(product);
+    try {
+      return await pool.query(
+        'UPDATE products SET price = $1, version = version + 1 WHERE id = $2 AND version = $3 RETURNING *',
+        [updated.price, productId, product.version]
+      );
+    } catch (err) {
+      if (attempt === 2) throw err;
+      product = await getProduct(productId); // Refresh and retry
+    }
+  }
+}
+```
+
+### MongoDB Optimistic Locking with `findAndModify`
+
+```javascript
+const { MongoClient } = require('mongodb');
+const client = new MongoClient(process.env.MONGO_URI);
+
+async function updateProductOptimistic(db, productId, newPrice, expectedVersion) {
+  const result = await db.collection('products').findOneAndUpdate(
+    { _id: productId, version: expectedVersion },
+    {
+      $set: { price: newPrice },
+      $inc: { version: 1 },
+    },
+    { returnDocument: 'after' }
+  );
+
+  if (!result) {
+    const current = await db.collection('products').findOne({ _id: productId });
+    throw new Error(
+      `Version conflict: expected ${expectedVersion}, found ${current?.version}. Please retry.`
+    );
+  }
+
+  return result;
+}
+
+// Mongoose plugin for automatic versioning
+const optimisticLockPlugin = (schema) => {
+  schema.add({ version: { type: Number, default: 0 } });
+
+  schema.pre('findOneAndUpdate', function () {
+    const filter = this.getFilter();
+    const update = this.getUpdate();
+
+    if (filter.version !== undefined && update.$inc) {
+      update.$inc.version = (update.$inc.version || 0) + 1;
+    } else if (filter.version !== undefined) {
+      this.setUpdate({ ...update, $inc: { version: 1 } });
+    }
+  });
+};
+
+productSchema.plugin(optimisticLockPlugin);
+```
+
+### DynamoDB Conditional Writes
+
+```python
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('products')
+
+def update_price_optimistic(product_id, new_price, expected_version):
+    response = table.put_item(
+        Item={
+            'product_id': product_id,
+            'price': new_price,
+            'version': expected_version + 1,
+        },
+        ConditionExpression='product_id = :pid AND version = :expected',
+        ExpressionAttributeValues={
+            ':pid': product_id,
+            ':expected': expected_version,
+        }
+    )
+    return response
+
+# Handle conditional check failure
+from botocore.exceptions import ClientError
+
+try:
+    update_price_optimistic('prod-42', 99.99, 3)
+except ClientError as e:
+    if e.response['Error']['Code'] == 'ConditionalCheckFailedException':
+        print("Version conflict: another process modified this item")
+```
+
+### ETag and If-Match for HTTP APIs
+
+```javascript
+// Express middleware for ETag-based optimistic locking
+const crypto = require('crypto');
+
+function generateETag(resource) {
+  const hash = crypto.createHash('md5');
+  hash.update(JSON.stringify(resource));
+  return `"${hash.digest('hex')}"`;
+}
+
+app.put('/products/:id', async (req, res) => {
+  const ifMatch = req.headers['if-match'];
+  if (!ifMatch) {
+    return res.status(428).json({ error: 'If-Match header required' });
+  }
+
+  const product = await getProduct(req.params.id);
+  const currentETag = generateETag(product);
+
+  if (ifMatch !== currentETag) {
+    return res.status(412).json({
+      error: 'Precondition failed: resource has been modified',
+      currentETag,
+    });
+  }
+
+  const updated = await updateProduct(req.params.id, req.body);
+  res.set('ETag', generateETag(updated));
+  res.json(updated);
+});
+```
+
+### Batch Optimistic Locking
+
+```python
+def batch_update_with_versions(conn, updates):
+    """Update multiple rows with optimistic locking in a single transaction."""
+    results = []
+    with conn.cursor() as cur:
+        for item in updates:
+            cur.execute("""
+                UPDATE products
+                SET price = %s, version = version + 1
+                WHERE id = %s AND version = %s
+                RETURNING id, version;
+            """, (item['new_price'], item['id'], item['expected_version']))
+
+            updated = cur.fetchone()
+            if not updated:
+                conn.rollback()
+                raise ValueError(
+                    f"Conflict on product {item['id']}: "
+                    f"expected version {item['expected_version']}"
+                )
+            results.append(updated)
+    conn.commit()
+    return results
+
+# Usage
+try:
+    results = batch_update_with_versions(conn, [
+        {'id': 1, 'new_price': 19.99, 'expected_version': 5},
+        {'id': 2, 'new_price': 29.99, 'expected_version': 3},
+        {'id': 3, 'new_price': 39.99, 'expected_version': 7},
+    ])
+except ValueError as e:
+    print(f"Batch failed: {e}")
+    # All updates rolled back, client must refresh and retry
+```
+
+### Conflict Resolution Strategies
+
+```python
+def merge_update(conn, user_id, client_changes, expected_version):
+    """Three-way merge: base version, current version, client changes."""
+    with conn.cursor() as cur:
+        # Get current version
+        cur.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+        current = cur.fetchone()
+        if not current:
+            raise ValueError("User not found")
+
+        if current['version'] == expected_version:
+            # No conflict: apply directly
+            cur.execute("""
+                UPDATE users SET email = %s, name = %s, version = version + 1
+                WHERE id = %s AND version = %s
+            """, (client_changes['email'], client_changes['name'], user_id, expected_version))
+            conn.commit()
+            return cur.fetchone()
+
+        # Conflict: merge non-overlapping fields
+        # If client changed email but not name, and server changed name but not email,
+        # apply both changes
+        merged = {}
+        for field in ['email', 'name']:
+            if field in client_changes:
+                merged[field] = client_changes[field]
+            else:
+                merged[field] = current[field]
+
+        cur.execute("""
+            UPDATE users SET email = %s, name = %s, version = version + 1
+            WHERE id = %s
+        """, (merged['email'], merged['name'], user_id))
+        conn.commit()
+        return cur.fetchone()
+```
+
+## Additional Best Practices
+
+6. **Return the new version in every API response.** Clients need the current version to send on the next update:
+
+```javascript
+// API response includes version
+res.json({
+  id: product.id,
+  name: product.name,
+  price: product.price,
+  version: product.version,  // Client sends this back on next update
+});
+```
+
+7. **Use `SELECT ... FOR UPDATE` as a fallback.** If optimistic conflicts exceed 5% of attempts, switch to pessimistic locking for that specific operation:
+
+```python
+# Detect high conflict rate and switch strategy
+conflict_count = 0
+attempt_count = 0
+
+def update_with_adaptive_locking(conn, user_id, new_email):
+    global conflict_count, attempt_count
+    attempt_count += 1
+
+    if conflict_count / max(attempt_count, 1) > 0.05:
+        # Switch to pessimistic locking
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM users WHERE id = %s FOR UPDATE", (user_id,))
+            user = cur.fetchone()
+            cur.execute("UPDATE users SET email = %s WHERE id = %s", (new_email, user_id))
+            conn.commit()
+            return user
+    else:
+        # Use optimistic locking
+        try:
+            return update_user_email(conn, user_id, new_email, get_current_version(user_id))
+        except ValueError:
+            conflict_count += 1
+            raise
+```
+
+8. **Log conflict details for monitoring.** Track which entities have high conflict rates:
+
+```python
+import logging
+logger = logging.getLogger('optimistic_locking')
+
+def log_conflict(entity_type, entity_id, expected_version, actual_version):
+    logger.info(
+        "Optimistic lock conflict",
+        extra={
+            'entity_type': entity_type,
+            'entity_id': entity_id,
+            'expected_version': expected_version,
+            'actual_version': actual_version,
+        }
+    )
+```
+
+9. **Use `updated_at` timestamp as a secondary check.** Combine version integer with timestamp for extra safety:
+
+```sql
+UPDATE products
+SET price = $1, version = version + 1, updated_at = NOW()
+WHERE id = $2 AND version = $3 AND updated_at = $4
+RETURNING id, version, updated_at;
+```
+
+10. **Consider using `xmin` system column in PostgreSQL.** PostgreSQL tracks row versions internally. You can use `xmin` as an implicit version:
+
+```sql
+-- Read with xmin
+SELECT id, email, xmin FROM users WHERE id = 42;
+
+-- Update with xmin check
+UPDATE users SET email = 'new@example.com'
+WHERE id = 42 AND xmin = 1234567;
+```
+
+## Additional Common Mistakes
+
+6. **Not refreshing data after a conflict.** After catching a conflict, you must re-read the current state before retrying. Retrying with the same stale version will always fail.
+
+7. **Using application-level timestamps instead of database timestamps.** Application clocks drift across servers. Use `NOW()` in SQL or database-generated timestamps.
+
+8. **Mixing optimistic and pessimistic locking on the same row.** This causes unpredictable behavior. Pick one strategy per entity or operation.
+
+9. **Not handling the case where the row was deleted.** A version check returns 0 rows both when the version changed and when the row was deleted. Distinguish these cases:
+
+```python
+if not updated:
+    cur.execute("SELECT 1 FROM users WHERE id = %s", (user_id,))
+    if not cur.fetchone():
+        raise NotFoundError("User was deleted")
+    else:
+        raise ConflictError("Version mismatch: please refresh and retry")
+```
+
+10. **Using `SELECT FOR UPDATE NOWAIT` and treating lock errors as conflicts.** `NOWAIT` throws a lock error, not a version conflict. These are different conditions requiring different handling.
+
+## Additional FAQ
+
+### How do I test optimistic locking?
+
+Write tests that simulate concurrent updates:
+
+```python
+import threading
+
+def test_concurrent_update():
+    # Two threads read the same version
+    results = []
+    errors = []
+
+    def update_thread():
+        try:
+            conn = get_connection()
+            result = update_user_email(conn, 42, "new@example.com", expected_version=3)
+            results.append(result)
+        except ValueError as e:
+            errors.append(str(e))
+
+    t1 = threading.Thread(target=update_thread)
+    t2 = threading.Thread(target=update_thread)
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+
+    assert len(results) == 1  # One succeeds
+    assert len(errors) == 1  # One gets conflict
+```
+
+### What is the difference between optimistic locking and CAS (Compare-And-Swap)?
+
+They are the same concept. CAS is the term used in low-level concurrency (CPU instructions, Memcached). Optimistic locking is the database/ORM term. Both check a expected value before applying an update atomically.
+
+### Can I use optimistic locking with batch operations?
+
+Yes, but all updates in the batch must succeed or the entire transaction rolls back. If one row has a version conflict, none of the updates apply. This is usually the desired behavior for atomic batch updates.
+
+## Performance Tips
+
+1. **Index the version column.** The `WHERE id = ? AND version = ?` clause needs an index on both columns:
+
+```sql
+CREATE INDEX idx_products_id_version ON products (id, version);
+```
+
+2. **Keep the read-modify-write gap short.** The longer the gap, the more likely conflicts occur. Avoid calling external APIs or doing heavy computation between read and write.
+
+3. **Use `RETURNING` to avoid a second query.** Get the updated version in the same statement:
+
+```sql
+UPDATE products SET price = $1, version = version + 1
+WHERE id = $2 AND version = $3
+RETURNING id, version;
+```
+
+4. **Monitor conflict rates with `pg_stat_database`.** Track deadlocks and conflicts at the database level:
+
+```sql
+SELECT datname, deadlocks, conflicts, temp_files
+FROM pg_stat_database
+WHERE datname = current_database();
+```
+
+5. **Consider `SERIALIZABLE` isolation instead of manual versioning.** PostgreSQL's `SERIALIZABLE` handles conflicts automatically using SSI (Serializable Snapshot Isolation). It may be simpler than manual version management for complex transactions.

@@ -168,3 +168,376 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### GCP Secret Manager (Node.js)
+
+```javascript
+const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
+
+const client = new SecretManagerServiceClient();
+
+async function getSecret(name) {
+  const [version] = await client.accessSecretVersion({
+    name: `projects/my-project/secrets/${name}/versions/latest`,
+  });
+  return version.payload.data.toString('utf8');
+}
+
+// Uso
+const apiKey = await getSecret('stripe-api-key');
+```
+
+### Doppler para Sincronización de Secretos
+
+Doppler sincroniza secretos desde un dashboard central a tu entorno de runtime:
+
+```bash
+# Instalar Doppler CLI
+$ brew install dopplerhq/doppler/doppler
+
+# Login y seleccionar proyecto
+$ doppler login
+$ doppler setup
+
+# Ejecutar app con secretos inyectados
+$ doppler run -- npm start
+
+# Exportar secretos a .env para CI
+$ doppler secrets download --no-file --format=env > .env
+```
+
+### Vault Agent Sidecar Injector (Kubernetes)
+
+```yaml
+# helm values para Vault Agent Injector
+injector:
+  enabled: true
+  replicas: 1
+
+# Anotación de Pod para inyectar secretos como archivos
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-server
+  annotations:
+    vault.hashicorp.com/agent-inject: "true"
+    vault.hashicorp.com/role: "api-server"
+    vault.hashicorp.com/agent-inject-secret-db-creds: "database/creds/api"
+    vault.hashicorp.com/agent-inject-template-db-creds: |
+      {{- with secret "database/creds/api" -}}
+      DB_USER={{ .Data.username }}
+      DB_PASS={{ .Data.password }}
+      {{- end }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: api
+        env:
+        - name: DB_USER_FILE
+          value: /vault/secrets/db-creds
+```
+
+### Rotación de Secretos con AWS Lambda
+
+```python
+import boto3
+import json
+import psycopg2
+
+def rotate_secret(event, context):
+    client = boto3.client('secretsmanager')
+    secret_arn = event['SecretId']
+    token = event['ClientRequestToken']
+
+    # Obtener secreto actual
+    current = client.get_secret_value(SecretId=secret_arn, VersionStage='AWSCURRENT')
+    creds = json.loads(current['SecretString'])
+
+    # Generar nueva contraseña
+    new_password = generate_secure_password()
+
+    # Actualizar contraseña de base de datos
+    conn = psycopg2.connect(
+        host=creds['host'],
+        user=creds['username'],
+        password=creds['password'],
+        dbname='postgres'
+    )
+    conn.autocommit = True
+    cursor = conn.cursor()
+    cursor.execute(f"ALTER USER {creds['username']} WITH PASSWORD '{new_password}'")
+    cursor.close()
+    conn.close()
+
+    # Actualizar secreto en AWS
+    new_secret = json.dumps({
+        **creds,
+        'password': new_password
+    })
+    client.put_secret_value(
+        SecretId=secret_arn,
+        SecretString=new_secret,
+        VersionStage='AWSPENDING'
+    )
+    client.update_secret_version_stage(
+        SecretId=secret_arn,
+        VersionStage='AWSCURRENT',
+        MoveToVersion=token,
+        RemoveFromVersion=current['VersionId']
+    )
+
+def generate_secure_password(length=32):
+    import secrets
+    import string
+    alphabet = string.ascii_letters + string.digits + '!@#$%^&*'
+    return ''.join(secrets.choice(alphabet) for _ in range(length))
+```
+
+### Patrón de Inyección de Variables de Entorno
+
+```python
+import os
+from functools import lru_cache
+
+@lru_cache(maxsize=1)
+def get_secrets():
+    """Carga secretos una vez al inicio, cachea por el lifetime del proceso."""
+    if os.environ.get('ENVIRONMENT') == 'production':
+        # Obtener de AWS Secrets Manager
+        import boto3, json
+        client = boto3.client('secretsmanager')
+        response = client.get_secret_value(SecretId='prod/app/secrets')
+        return json.loads(response['SecretString'])
+    else:
+        # Dev: cargar de archivo .env
+        from dotenv import load_dotenv
+        load_dotenv()
+        return dict(os.environ)
+
+# Uso en la aplicación
+secrets = get_secrets()
+db_url = secrets.get('DATABASE_URL')
+api_key = secrets.get('STRIPE_API_KEY')
+```
+
+### Escaneo de Secretos en CI/CD
+
+```yaml
+# .github/workflows/secret-scan.yml
+name: Secret Scan
+on: [push, pull_request]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Historial completo para escaneo
+
+      - name: TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: .
+          extra_args: --only-verified
+
+      - name: GitLeaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### Credenciales Dinámicas de Base de Datos con Vault
+
+```bash
+# Configurar database secrets engine de Vault
+$ vault secrets enable database
+
+# Configurar conexión PostgreSQL
+$ vault write database/config/my-postgresql \
+    plugin_name=postgresql-database-plugin \
+    connection_url="postgresql://{{username}}:{{password}}@db:5432/mydb?sslmode=disable" \
+    allowed_roles="readonly"
+
+# Crear un rol que genera credenciales válidas por 1 hora
+$ vault write database/roles/readonly \
+    db_name=my-postgresql \
+    creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
+        GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+    default_ttl="1h" \
+    max_ttl="24h"
+
+# Generar credenciales bajo demanda
+$ vault read database/creds/readonly
+# Key        Value
+# lease_id   database/creds/readonly/abc123
+# password   A1b2C3d4E5f6G7h8
+# username   v-token-readonly-xyz123
+```
+
+## Mejores Prácticas Adicionales
+
+6. **Usa referencias de secretos, no valores.** En archivos de config, referencia secretos por nombre o path, no por valor:
+
+```yaml
+# config.yaml
+database:
+  host: db.internal
+  credentials_secret: prod/db/postgres  # Referencia al path de vault
+```
+
+7. **Implementa fallback de secretos para dev local.** Permite a developers overridear secretos con archivos `.env` locales:
+
+```python
+def get_secret(name):
+    # Verificar entorno primero (override de dev local)
+    if os.environ.get(name):
+        return os.environ[name]
+    # Fallback a secret manager
+    return fetch_from_vault(name)
+```
+
+8. **Etiqueta y categoriza secretos.** Usa convenciones de naming que codifiquen entorno, servicio y tipo:
+
+```text
+prod/db/postgres-primary
+prod/db/postgres-replica
+prod/api/stripe-key
+prod/api/sendgrid-key
+staging/db/postgres
+dev/db/postgres
+```
+
+9. **Configura alertas de acceso a secretos.** Alerta sobre patrones de acceso anómalos (fuera de horario, IPs inusuales, lecturas en bulk):
+
+```yaml
+# Alarma de CloudWatch para acceso inusual a secretos
+AlarmDescription: "Alerta cuando el conteo de acceso a secretos excede el threshold"
+MetricName: "GetSecretValue"
+Threshold: 100
+Period: 300
+EvaluationPeriods: 1
+```
+
+## Errores Comunes Adicionales
+
+5. **Compartir secretos via chat o email.** Incluso shares "temporales" se loguean en el historial de chat. Usa un secret manager con links de acceso expirables en su lugar.
+
+6. **No revocar secretos cuando miembros del equipo se van.** Crea un checklist de offboarding que incluya rotar todos los secretos que el miembro saliente pudo acceder.
+
+7. **Usar el mismo secreto entre entornos.** Producción y staging nunca deberían compartir una contraseña de base de datos. Un breach de staging se convierte en un breach de producción.
+
+8. **Almacenar secretos en variables de CI/CD sin masking.** La mayoría de herramientas de CI soportan variables enmascaradas. Asegúrate de que los valores de secretos estén enmascarados en logs:
+
+```yaml
+# GitHub Actions - los secretos se enmascaran automáticamente
+env:
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+```
+
+## FAQ Adicional
+
+### ¿Cómo manejo secretos en una arquitectura de microservicios?
+
+Cada servicio debería tener su propio set de secretos con políticas de acceso independientes. Usa una identidad de servicio (IAM role, service account, o token de Vault) para autenticarse al secret manager. Nunca compartas un único token de vault entre servicios.
+
+### ¿Cuál es el overhead de obtener secretos en runtime?
+
+Las respuestas de AWS Secrets Manager típicamente toman 50-200ms. Cachea secretos en memoria por 5-15 minutos para minimizar latencia. Las respuestas de Vault son más rápidas (10-50ms) pero también merecen caching.
+
+### ¿Cómo pruebo código que depende de secret managers?
+
+Usa inyección de dependencias e interfaces:
+
+```python
+from abc import ABC, abstractmethod
+
+class SecretProvider(ABC):
+    @abstractmethod
+    def get_secret(self, name: str) -> str: ...
+
+class AWSSecretProvider(SecretProvider):
+    def get_secret(self, name: str) -> str:
+        # Llamada real a AWS
+        ...
+
+class MockSecretProvider(SecretProvider):
+    def get_secret(self, name: str) -> str:
+        return "test-value"
+
+# En tests
+provider = MockSecretProvider()
+service = MyService(provider)
+```
+
+### ¿Debería encriptar secretos a nivel de aplicación también?
+
+Para datos altamente sensibles (PII, registros financieros), sí. Usa envelope encryption: encripta los datos con una data key, encripta la data key con una master key de KMS/Vault. Esto añade defense in depth más allá de la encriptación de transporte y at-rest del vault.
+
+## Tips de Rendimiento
+
+1. **Cachea secretos en memoria.** Obtén una vez al inicio, refresca periódicamente:
+
+```python
+import time
+
+class SecretCache:
+    def __init__(self, ttl=300):
+        self._cache = {}
+        self._ttl = ttl
+        self._timestamps = {}
+
+    def get(self, name, fetch_func):
+        if name not in self._cache or time.time() - self._timestamps[name] > self._ttl:
+            self._cache[name] = fetch_func(name)
+            self._timestamps[name] = time.time()
+        return self._cache[name]
+```
+
+2. **Usa lecturas bulk de secretos.** Obtén todos los secretos de un servicio en una sola llamada API:
+
+```python
+# AWS: almacenar todos los secretos del servicio como un único secreto JSON
+response = client.get_secret_value(SecretId='prod/api/all-secrets')
+all_secrets = json.loads(response['SecretString'])
+# all_secrets = {'db_url': '...', 'stripe_key': '...', 'sendgrid_key': '...'}
+```
+
+3. **Usa connection pooling para Vault.** Reutiliza conexiones HTTP a Vault:
+
+```go
+client, _ := api.NewClient(api.DefaultConfig())
+// Client reutiliza conexiones internamente
+// Ajusta settings de transport para alto throughput:
+transport := &http.Transport{
+    MaxIdleConns:        10,
+    IdleConnTimeout:     30 * time.Second,
+}
+```
+
+4. **Pre-carga secretos en init del contenedor.** Obtén secretos durante el startup del contenedor, no en el primer request:
+
+```yaml
+# Init container de Kubernetes
+initContainers:
+- name: secret-loader
+  image: secret-loader:latest
+  command: ["/bin/sh", "-c"]
+  args:
+    - |
+      vault kv get -field=password secret/db > /secrets/db_password
+      vault kv get -field=apikey secret/api > /secrets/api_key
+  volumeMounts:
+  - name: secrets
+    mountPath: /secrets
+```
+
+5. **Usa sidecar para rotación de secretos.** Un sidecar puede observar cambios de secretos y enviar señales al contenedor principal:
+
+```yaml
+# Vault Agent sidecar envía SIGHUP cuando los secretos cambian
+annotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/agent-inject-command-db-creds: "kill -HUP 1"
+```

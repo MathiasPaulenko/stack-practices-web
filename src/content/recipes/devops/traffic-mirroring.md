@@ -190,3 +190,338 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### Envoy Traffic Mirroring (Sidecar)
+
+```yaml
+# envoy.yaml
+static_resources:
+  listeners:
+  - name: listener_0
+    address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 8080
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: backend
+              domains: ["*"]
+              routes:
+              - match:
+                  prefix: "/api"
+                route:
+                  cluster: production_backend
+                # Mirror to staging
+                request_headers_to_add:
+                - header:
+                    key: x-mirrored
+                    value: "true"
+                # Shadow policy: mirror without waiting
+                shadow_policy:
+                  shadow_cluster: staging_backend
+                  shadow_sample_rate: 100  # 100% of requests
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
+  clusters:
+  - name: production_backend
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: production_backend
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: api-production.default.svc.cluster.local
+                port_value: 8080
+
+  - name: staging_backend
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: staging_backend
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: api-staging.staging.svc.cluster.local
+                port_value: 8080
+```
+
+### GoReplay for TCP-Level Traffic Replay
+
+```bash
+# Install GoReplay
+$ wget https://github.com/buger/goreplay/releases/download/1.3.3/gor_1.3.3_x64.tar.gz
+$ tar xzf gor_1.3.3_x64.tar.gz
+
+# Capture production traffic and replay to staging
+$ sudo gor --input-raw :8080 --output-http http://staging-api:8080
+
+# Mirror with rate limiting (10% of traffic)
+$ sudo gor --input-raw :8080 --output-http "http://staging-api:8080|10%"
+
+# Save traffic to file for later replay
+$ sudo gor --input-raw :8080 --output-file requests.gor
+
+# Replay from file at 2x speed
+$ gor --input-file "requests.gor|200%" --output-http http://staging-api:8080
+
+# Filter only POST requests to /api
+$ sudo gor --input-raw :8080 --http-allow-method POST --http-allow-url ^/api --output-http http://staging-api:8080
+```
+
+### Request Sanitization Middleware
+
+```python
+import re
+from starlette.middleware.base import BaseHTTPMiddleware
+
+SANITIZE_PATTERNS = [
+    (re.compile(r'"password"\s*:\s*"[^"]*"'), '"password": "***"'),
+    (re.compile(r'"token"\s*:\s*"[^"]*"'), '"token": "***"'),
+    (re.compile(r'"credit_card"\s*:\s*"[^"]*"'), '"credit_card": "***"'),
+    (re.compile(r'Bearer\s+[\w\-\.]+'), 'Bearer ***'),
+    (re.compile(r'\b\d{4}[\s\-]?\d{4}[\s\-]?\d{4}[\s\-]?\d{4}\b'), '****-****-****-****'),
+]
+
+class SanitizeMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        # Only sanitize mirrored requests
+        if request.headers.get("x-mirrored-from"):
+            body = await request.body()
+            sanitized = body.decode()
+            for pattern, replacement in SANITIZE_PATTERNS:
+                sanitized = pattern.sub(replacement, sanitized)
+            # Replace request body
+            request._body = sanitized.encode()
+        return await call_next(request)
+```
+
+### Response Comparison for Regression Detection
+
+```javascript
+const express = require("express");
+const app = express();
+
+// Compare production and staging responses
+app.use(async (req, res, next) => {
+  const prodResponse = await fetch(`http://production${req.url}`, {
+    method: req.method,
+    headers: req.headers,
+    body: JSON.stringify(req.body),
+  });
+
+  const stagingResponse = await fetch(`http://staging${req.url}`, {
+    method: req.method,
+    headers: req.headers,
+    body: JSON.stringify(req.body),
+  }).catch(() => null);
+
+  if (stagingResponse) {
+    const prodJson = await prodResponse.json();
+    const stagingJson = await stagingResponse.json();
+
+    // Log differences for analysis
+    const diff = deepDiff(prodJson, stagingJson);
+    if (diff) {
+      console.log(JSON.stringify({
+        url: req.url,
+        method: req.method,
+        diff: diff,
+        timestamp: new Date().toISOString(),
+      }));
+    }
+  }
+
+  // Always return production response to user
+  res.status(prodResponse.status).json(prodJson);
+});
+
+function deepDiff(obj1, obj2) {
+  const diff = {};
+  for (const key of Object.keys(obj1)) {
+    if (JSON.stringify(obj1[key]) !== JSON.stringify(obj2[key])) {
+      diff[key] = { prod: obj1[key], staging: obj2[key] };
+    }
+  }
+  return Object.keys(diff).length > 0 ? diff : null;
+}
+```
+
+### Istio Mirroring with Header-Based Filtering
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: api-mirror-filtered
+spec:
+  hosts:
+    - api.example.com
+  http:
+    - match:
+        - uri:
+            prefix: /api
+          headers:
+            x-mirror-enabled:
+              exact: "true"
+      route:
+        - destination:
+            host: api-production
+            port:
+              number: 8080
+          weight: 100
+      mirror:
+        host: api-staging
+        port:
+          number: 8080
+      mirrorPercentage:
+        value: 50.0
+
+    # Non-mirrored route
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: api-production
+            port:
+              number: 8080
+          weight: 100
+```
+
+## Additional Best Practices
+
+6. **Use a separate namespace for mirror targets.** Keep staging mirror infrastructure isolated:
+
+```bash
+$ kubectl create namespace mirror-target
+$ kubectl deploy -n mirror-target -f staging-deployment.yaml
+```
+
+7. **Set resource limits on mirror targets.** Mirrored traffic can overwhelm staging:
+
+```yaml
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+```
+
+8. **Monitor mirror queue depth.** If the mirror target can't keep up, requests pile up:
+
+```yaml
+# Alert if mirror response time > 500ms
+- alert: MirrorTargetSlow
+  expr: histogram_quantile(0.95, rate(mirror_request_duration_seconds_bucket[5m])) > 0.5
+  for: 5m
+  labels:
+    severity: warning
+```
+
+## Additional Common Mistakes
+
+6. **Mirroring to a lower-capacity environment.** Production handles 1000 RPS but staging crashes at 100 RPS. Always mirror a percentage that staging can handle.
+
+7. **Not stripping authentication headers.** Mirrored requests carry production auth tokens to staging. Strip or replace them:
+
+```nginx
+location /staging_mirror {
+    internal;
+    proxy_pass http://staging_backend$request_uri;
+    proxy_set_header Authorization "Bearer staging-token";
+    proxy_set_header X-Mirrored-From $host;
+}
+```
+
+8. **Mirroring during peak load.** Mirroring adds load to production (the mirror source). Disable mirroring during traffic spikes.
+
+## Additional FAQ
+
+### How much overhead does traffic mirroring add to production?
+
+Network-level mirroring (AWS VPC, Envoy) adds <1ms latency. Application-level mirroring (Nginx, GoReplay) adds 1-5ms per request. The production response is never delayed — mirrors are fire-and-forget.
+
+### Can I mirror WebSocket traffic?
+
+Yes, but it requires special handling. Use Envoy or Istio, which support WebSocket mirroring at the L4 level. GoReplay also supports WebSocket replay.
+
+### How do I compare production vs. mirror responses?
+
+Use a service like Diffy or implement a custom comparison layer. Log differences to a datastore (Elasticsearch, BigQuery) for analysis:
+
+```python
+import json
+from datetime import datetime
+
+def log_comparison(url, prod_response, mirror_response):
+    comparison = {
+        "url": url,
+        "timestamp": datetime.utcnow().isoformat(),
+        "prod_status": prod_response.status_code,
+        "mirror_status": mirror_response.status_code if mirror_response else None,
+        "prod_body_hash": hash(json.dumps(prod_response.json(), sort_keys=True)),
+        "mirror_body_hash": hash(json.dumps(mirror_response.json(), sort_keys=True)) if mirror_response else None,
+        "match": prod_response.status_code == (mirror_response.status_code if mirror_response else None),
+    }
+    # Send to Elasticsearch or BigQuery
+    send_to_elasticsearch(comparison)
+```
+
+## Performance Tips
+
+1. **Start with 1% mirroring.** Gradually increase to 10%, 50%, then 100%:
+
+```yaml
+mirrorPercentage:
+  value: 1.0  # Start here
+```
+
+2. **Use async fire-and-forget for application-level mirrors.** Never block the production response waiting for the mirror:
+
+```javascript
+// Fire and forget — don't await
+fetch("http://staging/api" + req.url, {
+  method: req.method,
+  body: JSON.stringify(req.body),
+}).catch(() => {});  // Ignore errors
+```
+
+3. **Filter out static asset requests.** Mirroring CSS, JS, and image requests wastes resources:
+
+```nginx
+location ~* \.(css|js|png|jpg|gif|svg|woff)$ {
+    proxy_pass http://production_backend;
+    # No mirror directive
+}
+```
+
+4. **Use GoReplay's file-based replay for offline analysis.** Capture once, replay many times:
+
+```bash
+# Capture for 1 hour
+$ timeout 3600 sudo gor --input-raw :8080 --output-file traffic.gor
+
+# Replay at 5x speed against staging
+$ gor --input-file "traffic.gor|500%" --output-http http://staging:8080
+```
+
+5. **Monitor mirror target resource usage.** Set up dashboards to track CPU, memory, and response times of the mirror target separately from production.

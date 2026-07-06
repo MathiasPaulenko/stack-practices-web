@@ -177,7 +177,7 @@ TypeError: Cannot read properties of undefined (reading 'message')
 
 ### Screenshot
 
-![Bug screenshot](link-to-screenshot.png)
+<!-- Screenshot: adjuntar imagen aquí -->
 
 ## Impact Assessment
 

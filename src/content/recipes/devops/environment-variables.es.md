@@ -183,3 +183,325 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### Go
+
+Go's `os.Getenv` retorna un string y un string vacío si la clave no está presente. Usa `os.LookupEnv` para distinguir entre unset y vacío:
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+    "strconv"
+)
+
+func getEnv(key, fallback string) string {
+    if val, ok := os.LookupEnv(key); ok {
+        return val
+    }
+    return fallback
+}
+
+func main() {
+    apiKey := os.Getenv("API_KEY")
+    dbURL := getEnv("DATABASE_URL", "postgres://localhost:5432/default")
+    port, _ := strconv.Atoi(getEnv("PORT", "8080"))
+    debug := getEnv("DEBUG", "false") == "true"
+
+    fmt.Printf("API_KEY=%s, DB=%s, PORT=%d, DEBUG=%v\n", apiKey, dbURL, port, debug)
+}
+```
+
+### Bash
+
+```bash
+#!/bin/bash
+# Source .env file si existe
+if [ -f .env ]; then
+  set -a
+  source .env
+  set +a
+fi
+
+# Leer variables con defaults
+API_KEY="${API_KEY:-default-key}"
+DB_URL="${DATABASE_URL:-postgres://localhost:5432/default}"
+PORT="${PORT:-8080}"
+DEBUG="${DEBUG:-false}"
+
+echo "API_KEY=$API_KEY, PORT=$PORT, DEBUG=$DEBUG"
+
+# Validar variables requeridas
+if [ -z "$API_KEY" ]; then
+  echo "ERROR: API_KEY es requerida" >&2
+  exit 1
+fi
+```
+
+### Variables de Entorno en Docker
+
+```dockerfile
+# Dockerfile — setear defaults en build time
+ENV NODE_ENV=production
+ENV PORT=3000
+# Override en runtime: docker run -e PORT=8080 myapp
+
+# Usar ARG para variables solo de build time
+ARG BUILD_VERSION=latest
+ENV APP_VERSION=$BUILD_VERSION
+```
+
+```bash
+# Pasar env vars en runtime
+$ docker run -e DATABASE_URL=postgres://prod-db:5432/myapp -e API_KEY=sk-live-xxx myapp:v1
+
+# Cargar desde archivo
+$ docker run --env-file .env.production myapp:v1
+
+# Docker Compose
+$ docker compose --env-file .env.production up
+```
+
+```yaml
+# docker-compose.yml
+services:
+  app:
+    image: myapp:v1
+    environment:
+      - DATABASE_URL=postgres://db:5432/myapp
+      - API_KEY=${API_KEY}
+      - PORT=3000
+    env_file:
+      - .env.production
+```
+
+### Kubernetes ConfigMap y Secrets
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  DATABASE_URL: postgres://db-svc:5432/myapp
+  PORT: "8080"
+  DEBUG: "false"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+type: Opaque
+stringData:
+  API_KEY: sk-live-xxxxxxxxxxxx
+  DB_PASSWORD: super-secret-password
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-server
+spec:
+  template:
+    spec:
+      containers:
+      - name: api
+        image: myapp:v1
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: app-secrets
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+```
+
+### Validación con Schema usando pydantic-settings (Python)
+
+```python
+from pydantic_settings import BaseSettings
+from pydantic import Field, ValidationError
+
+class Settings(BaseSettings):
+    api_key: str = Field(..., min_length=10)
+    database_url: str = Field(..., min_length=1)
+    port: int = Field(default=8080, ge=1, le=65535)
+    debug: bool = False
+    allowed_origins: list[str] = ["localhost"]
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+try:
+    settings = Settings()
+    print(f"Loaded: port={settings.port}, debug={settings.debug}")
+except ValidationError as e:
+    print(f"Configuration error: {e}")
+    raise SystemExit(1)
+```
+
+### Validación con Schema usando envalid (Node.js)
+
+```javascript
+const { cleanEnv, str, port, bool, email } = require("envalid");
+
+const env = cleanEnv(process.env, {
+  API_KEY: str({ minLength: 10 }),
+  DATABASE_URL: str({ default: "postgres://localhost:5432/default" }),
+  PORT: port({ default: 8080 }),
+  DEBUG: bool({ default: false }),
+  ADMIN_EMAIL: email({ default: "admin@example.com" }),
+});
+
+// env ahora está tipado y validado
+console.log(`API_KEY set: ${env.API_KEY.length > 0}`);
+console.log(`PORT: ${env.PORT}`);
+```
+
+### Archivos .env Específicos por Entorno
+
+```bash
+# .env.development
+DATABASE_URL=postgres://localhost:5432/dev_db
+DEBUG=true
+LOG_LEVEL=debug
+
+# .env.staging
+DATABASE_URL=postgres://staging-db:5432/staging_db
+DEBUG=false
+LOG_LEVEL=info
+
+# .env.production
+DATABASE_URL=postgres://prod-db:5432/prod_db
+DEBUG=false
+LOG_LEVEL=warning
+```
+
+```python
+# Python: cargar .env específico por entorno
+import os
+from dotenv import load_dotenv
+
+env = os.getenv("APP_ENV", "development")
+load_dotenv(f".env.{env}")
+load_dotenv(".env", override=False)  # Fallback, no override env-specific
+```
+
+```javascript
+// Node.js: dotenv-flow para carga jerárquica de .env
+require("dotenv-flow").config();
+
+// Carga en orden: .env.{NODE_ENV}.local > .env.{NODE_ENV} > .env.local > .env
+```
+
+## Mejores Prácticas Adicionales
+
+7. **Usa objetos de config tipados.** Envuelve variables de entorno en una clase o schema tipado. Esto previene bugs de string-typed y centraliza defaults:
+
+```python
+class Config:
+    PORT: int = int(os.getenv("PORT", "8080"))
+    DEBUG: bool = os.getenv("DEBUG", "false").lower() == "true"
+
+config = Config()
+```
+
+8. **Nunca loguees secretos completos.** Redacta valores sensibles en la salida de logs:
+
+```python
+import re
+
+def redact(value, visible_chars=4):
+    if not value:
+        return "***"
+    return value[:visible_chars] + "***"
+
+def log_config(config):
+    safe = {
+        "DATABASE_URL": redact(config.database_url),
+        "API_KEY": redact(config.api_key),
+        "PORT": config.port,
+    }
+    print(f"Config: {safe}")
+```
+
+## Errores Comunes Adicionales
+
+8. **Almacenar JSON o datos complejos en env vars.** Las variables de entorno son strings planos. Para config estructurada, usa un file path en una env var y carga el archivo:
+
+```python
+# Mal: JSON complejo en env var
+config = json.loads(os.getenv("APP_CONFIG"))  # Frágil, difícil de debuggear
+
+# Bien: file path en env var
+config_path = os.getenv("CONFIG_PATH", "config.json")
+config = json.load(open(config_path))
+```
+
+9. **No manejar variables unset en Docker.** Si una env var requerida falta, el contenedor arranca con un string vacío. Valida al inicio:
+
+```javascript
+const required = ["API_KEY", "DATABASE_URL"];
+for (const key of required) {
+  if (!process.env[key]) {
+    console.error(`Missing required env var: ${key}`);
+    process.exit(1);
+  }
+}
+```
+
+## FAQ Adicional
+
+### ¿Cómo roto secretos sin downtime?
+
+Usa un gestor de secretos que soporte rotación automática (AWS Secrets Manager, HashiCorp Vault). Tu app debería re-fetchear secretos periódicamente o escuchar eventos de rotación. Para rotación sin downtime, usa un connection pool que pueda reconectar gracefulmente con nuevas credenciales.
+
+### ¿Cuál es el tamaño máximo de una variable de entorno?
+
+La mayoría de los SO limitan el bloque total de entorno a 32KB-128KB. Variables individuales pueden ser de hasta 8KB en Linux. Nunca almacenes payloads grandes en env vars — usa archivos o un servicio de config.
+
+### ¿Cómo comparto variables de entorno entre contenedores Docker?
+
+Usa `env_file` de Docker Compose o ConfigMaps/Secrets de Kubernetes. Para compartir secretos cross-service, usa un gestor de secretos como Vault o AWS Secrets Manager con control de acceso basado en IAM.
+
+## Tips de Rendimiento
+
+1. **Lee env vars una vez al inicio.** Llamadas repetidas a `os.getenv()` tienen overhead mínimo, pero cachear en un objeto de config es más limpio:
+
+```python
+# Leer una vez
+_config = Settings()
+
+# Usar en todas partes
+def get_db_url():
+    return _config.database_url
+```
+
+2. **Evita parsear valores complejos desde env vars.** Parsea una vez, cachea el resultado:
+
+```python
+# Parsear una vez
+_allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+
+# Usar lista cacheada
+def is_origin_allowed(origin):
+    return origin in _allowed_origins
+```
+
+3. **Usa lazy loading para secretos.** Fetch secretos desde AWS Secrets Manager en el primer uso, luego cachea:
+
+```python
+import boto3
+from functools import lru_cache
+
+@lru_cache(maxsize=1)
+def get_db_password():
+    client = boto3.client("secretsmanager")
+    response = client.get_secret_value(SecretId="prod/db/password")
+    return response["SecretString"]
+```

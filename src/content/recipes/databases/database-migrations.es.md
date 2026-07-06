@@ -177,3 +177,272 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### Patrón Expand-Contract para Migraciones Sin Downtime
+
+El patrón expand-contract divide los cambios de schema en múltiples despliegues, evitando downtime en tablas grandes:
+
+```sql
+-- Fase 1: Expand (compatible hacia atrás)
+-- Añadir columna nullable, crear nueva tabla, añadir índice
+ALTER TABLE users ADD COLUMN email_verified BOOLEAN DEFAULT NULL;
+CREATE INDEX CONCURRENTLY idx_users_email_verified ON users(email_verified);
+
+-- Fase 2: Migrar datos (backfill en lotes)
+UPDATE users SET email_verified = false WHERE email_verified IS NULL AND id <= 10000;
+UPDATE users SET email_verified = false WHERE email_verified IS NULL AND id <= 20000;
+-- Continuar en lotes hasta que todas las filas estén listas
+
+-- Fase 3: Contract (después de que todas las instancias usen el nuevo schema)
+ALTER TABLE users ALTER COLUMN email_verified SET DEFAULT false;
+ALTER TABLE users ALTER COLUMN email_verified SET NOT NULL;
+DROP INDEX IF EXISTS idx_users_old_email;
+```
+
+### Cambios de Schema Online con `pg_repack`
+
+```bash
+# Reconstruir una tabla sin mantener un lock exclusivo
+pg_repack -d mydb -t users -j 2
+
+# Reconstruir índices concurrentemente
+pg_repack -d mydb -t users --index idx_users_email
+```
+
+`pg_repack` crea una tabla sombra, copia los datos, intercambia tablas usando un lock breve y sincroniza cambios via triggers. Úsalo como alternativa a `VACUUM FULL` en tablas de producción.
+
+### Alembic Autogenerate y Revisión Manual
+
+```python
+# Detectar automáticamente cambios de schema entre modelos y base de datos
+alembic revision --autogenerate -m "add_user_preferences"
+
+# La migración generada puede necesitar revisión manual:
+# - El orden de columnas puede diferir
+# - Los defaults del servidor pueden faltar
+# - Las restricciones pueden necesitar ajuste manual
+
+# Revisión manual para cambios complejos
+alembic revision -m "add_user_preferences"
+
+# En el archivo generado:
+def upgrade():
+    # Añadir columna como nullable primero
+    op.add_column('users', sa.Column('preferences', sa.JSON(), nullable=True))
+
+    # Backfill de valores por defecto en lotes
+    connection = op.get_bind()
+    batch_size = 1000
+    offset = 0
+    while True:
+        result = connection.execute(text(
+            "UPDATE users SET preferences = '{}' "
+            "WHERE preferences IS NULL AND id > :offset AND id <= :limit"
+        ), {"offset": offset, "limit": offset + batch_size})
+        if result.rowcount == 0:
+            break
+        offset += batch_size
+
+    # Establecer NOT NULL después del backfill
+    op.alter_column('users', 'preferences', nullable=False)
+
+def downgrade():
+    op.drop_column('users', 'preferences')
+```
+
+### Flyway Baseline para Bases de Datos Existentes
+
+```bash
+# Hacer baseline de una base de datos existente en versión 5
+flyway -url=jdbc:postgresql://db:5432/app -baselineVersion=5 -baselineDescription="Existing schema" baseline
+
+# Ahora solo las migraciones V6+ se ejecutarán
+flyway -url=jdbc:postgresql://db:5432/app migrate
+```
+
+### Liquibase Labels y Contexts
+
+```xml
+<changeSet id="3" author="developer" labels="v2.0,production" context="production">
+    <addColumn tableName="orders">
+        <column name="shipping_address" type="varchar(500)"/>
+    </addColumn>
+</changeSet>
+```
+
+```bash
+# Ejecutar solo changesets con label de producción
+liquibase --changeLogFile=db.changelog.xml --labels=production update
+
+# Rollback por tag
+liquibase --changeLogFile=db.changelog.xml rollback v2.0
+```
+
+### Migraciones con Sequelize CLI (Node.js)
+
+```javascript
+// migrations/20250613-add-user-status.js
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.addColumn('users', 'status', {
+      type: Sequelize.STRING(20),
+      defaultValue: 'active',
+      allowNull: true,
+    });
+
+    // Backfill en lotes
+    const [results] = await queryInterface.sequelize.query(
+      "SELECT id FROM users WHERE status IS NULL"
+    );
+
+    for (const row of results) {
+      await queryInterface.sequelize.query(
+        "UPDATE users SET status = 'active' WHERE id = :id",
+        { replacements: { id: row.id } }
+      );
+    }
+
+    await queryInterface.changeColumn('users', 'status', {
+      type: Sequelize.STRING(20),
+      allowNull: false,
+    });
+  },
+
+  async down(queryInterface) {
+    await queryInterface.removeColumn('users', 'status');
+  },
+};
+```
+
+```bash
+npx sequelize-cli migration:generate --name add-user-status
+npx sequelize-cli db:migrate
+npx sequelize-cli db:migrate:undo
+```
+
+## Mejores Prácticas Adicionales
+
+6. **Usa `CREATE INDEX CONCURRENTLY` en PostgreSQL.** Esto evita bloquear escrituras durante la creación de índices:
+
+```sql
+CREATE INDEX CONCURRENTLY idx_users_email_lower ON users (lower(email));
+```
+
+7. **Divide migraciones grandes en pasos pequeños.** Una migración que añade una columna, hace backfill de 10M de filas y añade una restricción en una transacción mantendrá locks demasiado tiempo. Divídela en 3 migraciones separadas.
+
+8. **Usa restricciones `CHECK` con `NOT VALID` primero.** Añade la restricción sin validar filas existentes, luego valida por separado:
+
+```sql
+ALTER TABLE users ADD CONSTRAINT chk_email_format CHECK (email ~ '@' ) NOT VALID;
+ALTER TABLE users VALIDATE CONSTRAINT chk_email_format;
+```
+
+9. **Prueba migraciones con una copia de datos de producción.** Usa `pg_dump` para crear una copia de staging y ejecuta las migraciones contra ella:
+
+```bash
+pg_dump --format=custom --file=prod_dump.pgdump mydb
+pg_restore --dbname=staging_db --jobs=4 prod_dump.pgdump
+alembic upgrade head
+```
+
+10. **Fija la versión de la herramienta de migración en CI.** Diferentes versiones de Flyway o Alembic pueden comportarse distinto. Bloquea la versión en tu pipeline de CI:
+
+```yaml
+# .github/workflows/migrate.yml
+- name: Run Flyway
+  run: |
+    docker run --rm \
+      -v $(pwd)/db/migration:/flyway/sql \
+      flyway/flyway:10.12.0 \
+      -url=jdbc:postgresql://$DB_HOST:5432/$DB_NAME \
+      -user=$DB_USER -password=$DB_PASS \
+      migrate
+```
+
+## Errores Comunes Adicionales
+
+5. **Ejecutar migraciones durante el despliegue sin un lock.** Dos pods iniciando simultáneamente pueden intentar ejecutar migraciones al mismo tiempo. Usa un advisory lock o un job de migración dedicado:
+
+```sql
+SELECT pg_advisory_lock(99999);
+-- Ejecutar migraciones
+SELECT pg_advisory_unlock(99999);
+```
+
+6. **No probar rollbacks en CI.** Aplica migraciones, luego haz rollback, luego aplica de nuevo. Si cualquier paso falla, CI debería detectarlo antes de producción.
+
+7. **Usar `DROP TABLE` en una migración que puede tener vistas dependientes.** PostgreSQL lo previene, pero MySQL con `RESTRICT` puede fallar silenciosamente. Verifica dependencias primero:
+
+```sql
+SELECT dependee.relname AS dependent_object
+FROM pg_depend JOIN pg_rewrite ON pg_depend.objid = pg_rewrite.oid
+JOIN pg_class AS dependee ON pg_depend.refobjid = dependee.oid
+JOIN pg_class AS dependency ON pg_depend.classid = dependency.oid
+WHERE dependency.relname = 'users';
+```
+
+8. **Ignorar el tiempo de ejecución de migraciones en CI.** Una migración que tarda 30 segundos localmente puede tardar 10 minutos en una tabla de tamaño de producción. Configura timeouts y monitorea el tiempo de ejecución.
+
+## FAQ Adicional
+
+**P: ¿Cómo manejo migraciones en una arquitectura de microservicios?**
+
+Cada servicio debe ser dueño de su base de datos y migraciones. Nunca compartas una migración entre servicios. Usa un servicio runner de migraciones compartido o incluye migraciones en el pipeline de despliegue de cada servicio. Coordina cambios de schema entre servicios mediante contratos de API, no tablas compartidas.
+
+**P: ¿Qué pasa si una migración falla a mitad de camino en producción?**
+
+La mayoría de herramientas lo manejan: Flyway marca la migración como fallida en `flyway_schema_history`, Alembic deja la base de datos en el estado en que la transacción fallida la dejó. Corrige el script de migración, repara la tabla de historial (`flyway repair`) y vuelve a ejecutar. Siempre ten un runbook para migraciones fallidas.
+
+**P: ¿Debo usar migraciones SQL o migraciones basadas en código?**
+
+Las migraciones SQL son transparentes y nativas de base de datos. Las migraciones basadas en código (Alembic, Sequelize) ofrecen control programático para backfills de datos y lógica condicional. Usa SQL para DDL simple, código para migraciones de datos complejas. Ambas pueden coexistir en el mismo proyecto.
+
+**P: ¿Cómo versiono archivos de migración entre equipos?**
+
+Usa versionado basado en timestamps (`20250613_120000_add_user_status`) en lugar de números secuenciales. Esto previene conflictos de merge cuando múltiples desarrolladores crean migraciones simultáneamente. Flyway, Alembic y Sequelize soportan ordenamiento por timestamp.
+
+## Tips de Rendimiento
+
+1. **Usa `SET statement_timeout` para migraciones.** Evita que una migración se ejecute indefinidamente:
+
+```sql
+SET statement_timeout = '300s';
+-- Ejecutar migración
+SET statement_timeout = '0'; -- Reset al default
+```
+
+2. **Haz backfill de datos grandes en lotes.** Actualiza 1.000-10.000 filas por lote para evitar transacciones largas:
+
+```sql
+DO $$
+DECLARE
+    batch_size INT := 5000;
+    offset_val INT := 0;
+    rows_affected INT;
+BEGIN
+    LOOP
+        UPDATE users SET status = 'active'
+        WHERE id > offset_val AND id <= offset_val + batch_size AND status IS NULL;
+        GET DIAGNOSTICS rows_affected = ROW_COUNT;
+        EXIT WHEN rows_affected = 0;
+        offset_val := offset_val + batch_size;
+        PERFORM pg_sleep(0.1); -- Pausa breve para reducir carga
+    END LOOP;
+END $$;
+```
+
+3. **Usa `ALTER TABLE ... SET TABLESPACE` para tablas grandes.** Mueve tablas a almacenamiento más rápido durante ventanas de mantenimiento:
+
+```sql
+ALTER TABLE large_table SET TABLESPACE fast_ssd;
+```
+
+4. **Monitorea el progreso de migraciones con `pg_stat_progress_create_index`.** Rastrea el progreso de creación de índices en PostgreSQL 12+:
+
+```sql
+SELECT phase, blocks_done, blocks_total,
+       ROUND(blocks_done::numeric / NULLIF(blocks_total, 0) * 100, 2) AS pct
+FROM pg_stat_progress_create_index;
+```
+
+5. **Usa `CONCURRENTLY` para todas las operaciones de índice en producción.** `CREATE INDEX CONCURRENTLY`, `DROP INDEX CONCURRENTLY` y `REINDEX CONCURRENTLY` evitan bloquear escrituras.

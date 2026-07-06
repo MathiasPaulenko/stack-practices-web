@@ -168,3 +168,233 @@ Use cluster-aware clients: `redis-py-cluster` (Python), `ioredis` with `new Redi
 ### What is the difference between `EX` and `PX` in Redis?
 
 `EX` sets expiration in seconds. `PX` sets expiration in milliseconds. Both achieve the same goal; use whichever fits your precision requirements.
+
+### Python with pipelines and transactions
+
+```python
+import redis
+
+r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+
+# Pipeline: batch multiple commands to reduce RTT
+pipe = r.pipeline()
+pipe.set('user:1:name', 'Alice', ex=3600)
+pipe.set('user:1:email', 'alice@example.com', ex=3600)
+pipe.hset('user:1', mapping={'name': 'Alice', 'email': 'alice@example.com'})
+results = pipe.execute()
+print(results)  # [True, True, 1]
+
+# Transaction with MULTI/EXEC
+pipe = r.pipeline(transaction=True)
+pipe.multi()
+pipe.set('counter', 0)
+pipe.incr('counter')
+pipe.incr('counter')
+results = pipe.execute()
+print(results)  # [True, 1, 2]
+```
+
+### JavaScript with sorted sets and pub/sub
+
+```javascript
+const Redis = require('ioredis');
+const redis = new Redis({ host: 'localhost', port: 6379 });
+
+// Sorted sets: leaderboards
+await redis.zadd('leaderboard', 100, 'alice', 85, 'bob', 120, 'charlie');
+const topPlayers = await redis.zrevrange('leaderboard', 0, 9, 'WITHSCORES');
+// ['charlie', '120', 'alice', '100', 'bob', '85']
+
+// Pub/Sub
+const subscriber = new Redis({ host: 'localhost', port: 6379 });
+const publisher = new Redis({ host: 'localhost', port: 6379 });
+
+await subscriber.subscribe('notifications');
+subscriber.on('message', (channel, message) => {
+    console.log(`Received on ${channel}: ${message}`);
+});
+
+await publisher.publish('notifications', JSON.stringify({ event: 'user_joined', userId: 42 }));
+```
+
+### Java with JedisPool and Lua scripting
+
+```java
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import java.util.List;
+
+public class RedisAdvanced {
+    private final JedisPool pool;
+
+    public RedisAdvanced(String host, int port) {
+        this.pool = new JedisPool(host, port);
+    }
+
+    public void rateLimit(String userId, int maxRequests, int windowSeconds) {
+        try (Jedis jedis = pool.getResource()) {
+            String key = "rate:" + userId;
+            String luaScript =
+                "local current = redis.call('INCR', KEYS[1]) " +
+                "if current == 1 then " +
+                "  redis.call('EXPIRE', KEYS[1], ARGV[2]) " +
+                "end " +
+                "return tonumber(current) <= tonumber(ARGV[1])";
+
+            Object allowed = jedis.eval(
+                luaScript, 1, key,
+                String.valueOf(maxRequests), String.valueOf(windowSeconds)
+            );
+            System.out.println("Request allowed: " + allowed);
+        }
+    }
+
+    public void pipelineExample() {
+        try (Jedis jedis = pool.getResource()) {
+            var pipe = jedis.pipelined();
+            pipe.set("key1", "value1");
+            pipe.set("key2", "value2");
+            pipe.sync();
+        }
+    }
+}
+```
+
+### Python async with redis-py
+
+```python
+import asyncio
+import redis.asyncio as aioredis
+
+async def main():
+    r = aioredis.Redis(host='localhost', port=6379, decode_responses=True)
+
+    # Async string operations
+    await r.set('async:key', 'value', ex=60)
+    value = await r.get('async:key')
+
+    # Async pipeline
+    pipe = r.pipeline()
+    pipe.set('a', 1)
+    pipe.set('b', 2)
+    pipe.get('a')
+    results = await pipe.execute()
+    print(results)  # [True, True, b'1']
+
+    await r.close()
+
+asyncio.run(main())
+```
+
+## Additional Best Practices
+
+6. **Use `SCAN` instead of `KEYS` in production.** `KEYS` blocks the entire Redis instance. `SCAN` iterates in small batches:
+
+```python
+for key in r.scan_iter(match="user:*", count=100):
+    print(key)
+```
+
+7. **Set `maxmemory` and `maxmemory-policy`.** Configure Redis to evict keys when memory is full:
+
+```bash
+# redis.conf
+maxmemory 2gb
+maxmemory-policy allkeys-lru
+```
+
+8. **Use `EXPIRE` for session keys.** Always set a TTL on session data to prevent unbounded growth:
+
+```python
+r.setex('session:abc123', 3600, json.dumps(session_data))
+```
+
+9. **Monitor `INFO` stats.** Track memory usage, connected clients, and command stats:
+
+```python
+info = r.info()
+print(f"Used memory: {info['used_memory_human']}")
+print(f"Connected clients: {info['connected_clients']}")
+print(f"Keyspace hits: {info['keyspace_hits']}")
+print(f"Keyspace misses: {info['keyspace_misses']}")
+```
+
+10. **Use `SENTINEL` for high availability.** Redis Sentinel provides automatic failover when a master goes down. Use sentinel-aware clients in all languages.
+
+## Additional Common Mistakes
+
+6. **Storing serialized blobs > 1MB.** Large values cause latency spikes. Break large objects into smaller keys or use a separate store.
+
+7. **Not handling Redis failover.** When Redis restarts, all in-memory data is lost (without persistence). Applications should gracefully degrade to the database.
+
+8. **Using `FLUSHALL` or `FLUSHDB` in production.** These commands delete all keys instantly. Use `DEL` with specific keys or `UNLINK` for async deletion.
+
+9. **Not using `PIPELINE` for bulk operations.** Sending 100 individual commands has 100x the RTT of a single pipeline.
+
+10. **Ignoring `maxmemory-policy`.** Without a policy, Redis will OOM kill when memory is exhausted, taking down all services that depend on it.
+
+## Additional FAQ
+
+### How do I implement a rate limiter with Redis?
+
+Use a sliding window counter with `INCR` and `EXPIRE`:
+
+```python
+def rate_limit(r, user_id, max_requests=100, window=60):
+    key = f"rate:{user_id}"
+    current = r.incr(key)
+    if current == 1:
+        r.expire(key, window)
+    return current <= max_requests
+```
+
+### What is the difference between `MULTI/EXEC` and `PIPELINE`?
+
+`MULTI/EXEC` is a transaction: commands are atomic, no other client can interleave. `PIPELINE` batches commands to reduce RTT but they are not atomic. Use `MULTI/EXEC` when you need atomicity, `PIPELINE` when you need throughput.
+
+### How do I use Redis Streams for message queuing?
+
+```python
+# Producer
+r.xadd('events', {'type': 'order_created', 'order_id': 123})
+
+# Consumer
+response = r.xread({'events': '0'}, block=5000, count=10)
+for stream, messages in response:
+    for msg_id, fields in messages:
+        print(f"Event {msg_id}: {fields}")
+```
+
+## Performance Tips
+
+1. **Use `PIPELINE` for bulk operations.** Reduces network round-trips by sending multiple commands in one batch.
+
+2. **Use `MGET` / `MSET` for multiple key operations.** Faster than individual `GET`/`SET` calls:
+
+```python
+values = r.mget('key1', 'key2', 'key3')
+r.mset({'key1': 'val1', 'key2': 'val2'})
+```
+
+3. **Use `HGETALL` sparingly on large hashes.** If a hash has many fields, use `HSCAN` to iterate:
+
+```python
+for field, value in r.hscan_iter('large_hash', count=100):
+    print(field, value)
+```
+
+4. **Enable `lazyfree-lazy-eviction` in Redis 4.0+.** Async deletion prevents latency spikes during key eviction:
+
+```bash
+# redis.conf
+lazyfree-lazy-eviction yes
+lazyfree-lazy-expire yes
+lazyfree-lazy-server-del yes
+```
+
+5. **Use `OBJECT ENCODING` to inspect storage.** Redis uses compact encodings for small data structures. Check if your keys are using efficient encodings:
+
+```python
+encoding = r.object('encoding', 'mykey')
+print(f"Encoding: {encoding}")  # e.g., ziplist, hashtable, int
+```

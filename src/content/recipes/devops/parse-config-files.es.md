@@ -214,3 +214,268 @@ Nunca almacenes secretos en archivos de config planos. Usa variables de entorno 
 ### ¿Puedo recargar configuración sin reiniciar la aplicación?
 
 Sí, pero con cuidado. Observa el archivo por cambios y re-analiza en un objeto de config inmutable. Asegúrate de que el reemplazo sea thread-safe y valida al recargar para evitar actualizaciones parciales.
+
+### Go
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "os"
+    "gopkg.in/yaml.v3"
+)
+
+type DatabaseConfig struct {
+    Host     string `json:"host" yaml:"host"`
+    Port     int    `json:"port" yaml:"port"`
+    Username string `json:"username" yaml:"username"`
+    Password string `json:"password" yaml:"password"`
+}
+
+type AppConfig struct {
+    AppName  string         `json:"appName" yaml:"appName"`
+    Debug    bool           `json:"debug" yaml:"debug"`
+    Database DatabaseConfig `json:"database" yaml:"database"`
+}
+
+func loadConfig(path string) (*AppConfig, error) {
+    data, err := os.ReadFile(path)
+    if err != nil {
+        return nil, fmt.Errorf("read file: %w", err)
+    }
+
+    var config AppConfig
+    if path[len(path)-5:] == ".json" {
+        err = json.Unmarshal(data, &config)
+    } else {
+        err = yaml.Unmarshal(data, &config)
+    }
+    if err != nil {
+        return nil, fmt.Errorf("parse: %w", err)
+    }
+
+    if config.Database.Host == "" {
+        return nil, fmt.Errorf("database.host is required")
+    }
+    return &config, nil
+}
+
+func main() {
+    config, err := loadConfig("config.yaml")
+    if err != nil {
+        fmt.Printf("Config error: %v\n", err)
+        os.Exit(1)
+    }
+    fmt.Printf("App: %s, DB: %s:%d\n", config.AppName, config.Database.Host, config.Database.Port)
+}
+```
+
+### Sustitución de Variables de Entorno en Archivos de Config
+
+```yaml
+# config.yaml — usar placeholders de env vars
+app_name: "my-service"
+debug: ${DEBUG:false}
+database:
+  host: ${DB_HOST:localhost}
+  port: ${DB_PORT:5432}
+  username: ${DB_USER:postgres}
+  password: ${DB_PASSWORD}
+```
+
+```python
+import os
+import re
+import yaml
+
+def substitute_env_vars(content: str) -> str:
+    pattern = re.compile(r'\$\{(\w+)(?::([^}]*))?\}')
+    def replacer(match):
+        var_name = match.group(1)
+        default = match.group(2)
+        return os.getenv(var_name, default if default is not None else "")
+    return pattern.sub(replacer, content)
+
+def load_config_with_env(path: str) -> dict:
+    with open(path) as f:
+        content = f.read()
+    return yaml.safe_load(substitute_env_vars(content))
+```
+
+### Hot Reload de Configuración
+
+```python
+import os
+import time
+import threading
+from pathlib import Path
+
+class HotReloader:
+    def __init__(self, config_path: str, loader_func):
+        self.path = Path(config_path)
+        self.loader = loader_func
+        self._config = None
+        self._mtime = 0
+        self._lock = threading.Lock()
+        self._load()
+
+    def _load(self):
+        with self._lock:
+            self._config = self.loader(str(self.path))
+            self._mtime = self.path.stat().st_mtime
+
+    def get(self):
+        current_mtime = self.path.stat().st_mtime
+        if current_mtime != self._mtime:
+            self._load()
+        return self._config
+
+    def watch(self, interval: float = 5.0):
+        def _watch():
+            while True:
+                time.sleep(interval)
+                try:
+                    self.get()
+                except Exception as e:
+                    print(f"Config reload error: {e}")
+        t = threading.Thread(target=_watch, daemon=True)
+        t.start()
+```
+
+### Merge de Config con Overrides Jerárquicos
+
+```javascript
+const { readFileSync } = require("fs");
+const { parse } = require("yaml");
+
+function loadLayeredConfig(basePath, envOverridePath) {
+  const base = parse(readFileSync(basePath, "utf-8"));
+  try {
+    const override = parse(readFileSync(envOverridePath, "utf-8"));
+    return deepMerge(base, override);
+  } catch {
+    return base;
+  }
+}
+
+function deepMerge(target, source) {
+  const result = { ...target };
+  for (const key of Object.keys(source)) {
+    if (typeof source[key] === "object" && !Array.isArray(source[key])) {
+      result[key] = deepMerge(result[key] || {}, source[key]);
+    } else {
+      result[key] = source[key];
+    }
+  }
+  return result;
+}
+
+// Uso: config base + override por entorno
+const config = loadLayeredConfig("config.base.yaml", "config.production.yaml");
+```
+
+## Mejores Prácticas Adicionales
+
+6. **Usa configs jerárquicos.** Empieza con una config base y override por entorno:
+
+```
+config.base.yaml      # Defaults compartidos
+config.staging.yaml   # Overrides de staging
+config.production.yaml # Overrides de producción
+```
+
+7. **Encripta secretos en reposo.** Si los secretos deben estar en archivos de config, encriptarlos:
+
+```bash
+# SOPS (Secrets OPerationS) para archivos de config encriptados
+$ sops --encrypt --pgp FINGERPRINT config.secrets.yaml > config.secrets.enc.yaml
+$ sops --decrypt config.secrets.enc.yaml | kubectl apply -f -
+```
+
+8. **Valida config en CI.** Añade un step de validación de config a tu pipeline de CI:
+
+```yaml
+# .github/workflows/validate-config.yml
+- name: Validate config files
+  run: |
+    python -c "
+    from config_loader import load_config
+    import glob
+    for f in glob.glob('config/*.yaml'):
+        load_config(f)
+        print(f'Validated: {f}')
+    "
+```
+
+## Errores Comunes Adicionales
+
+6. **No manejar el encoding del archivo de config.** Siempre especifica UTF-8 al leer:
+
+```python
+# Mal: encoding dependiente de la plataforma
+content = open("config.yaml").read()
+
+# Bien: encoding explícito
+content = Path("config.yaml").read_text(encoding="utf-8")
+```
+
+7. **Permitir ejecución de código arbitrario en config.** Nunca uses `yaml.load()` (inseguro). Siempre usa `yaml.safe_load()`:
+
+```python
+# Peligroso: permite construcción de objetos Python arbitrarios
+data = yaml.load(content, Loader=yaml.Loader)
+
+# Seguro: solo tipos estándar de YAML
+data = yaml.safe_load(content)
+```
+
+## FAQ Adicional
+
+### ¿Cómo manejo secretos en archivos de config?
+
+Nunca almacenes secretos en archivos de config planos. Usa sustitución de variables de entorno (`${DB_PASSWORD}`), gestores de secretos (AWS Secrets Manager, Vault) o archivos encriptados descifrados en runtime con herramientas como SOPS o sealed-secrets.
+
+### ¿Cuál es la diferencia entre YAML y TOML?
+
+YAML soporta nesting complejo, anchors y strings multi-línea. TOML es más simple, más estricto y evita los problemas de seguridad de YAML. Usa TOML para configs simples (Rust, Python `pyproject.toml`) y YAML para configs complejos (Kubernetes, CI/CD).
+
+## Tips de Rendimiento
+
+1. **Cachea la config parseada.** Parsear YAML/JSON en cada request es desperdicio. Parsea una vez, comparte la instancia:
+
+```python
+_config = None
+
+def get_config():
+    global _config
+    if _config is None:
+        _config = load_config("config.yaml")
+    return _config
+```
+
+2. **Usa JSON para configs generados por máquinas.** El parsing de JSON es 2-5x más rápido que YAML:
+
+```python
+# Benchmark: json.loads vs yaml.safe_load en archivo de 10KB
+# json.loads: 0.1ms
+# yaml.safe_load: 0.5ms
+```
+
+3. **Lazy-load secciones de config.** Para configs grandes, carga secciones on demand:
+
+```python
+class LazyConfig:
+    def __init__(self, path):
+        self._path = path
+        self._data = None
+
+    def _ensure_loaded(self):
+        if self._data is None:
+            self._data = yaml.safe_load(open(self._path))
+
+    def get(self, key, default=None):
+        self._ensure_loaded()
+        return self._data.get(key, default)
+```

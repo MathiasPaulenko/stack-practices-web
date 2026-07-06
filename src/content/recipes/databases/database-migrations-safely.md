@@ -168,3 +168,188 @@ Only for non-breaking, fast migrations (adding a nullable column, creating an in
 - **Add indexes concurrently** to avoid locking
 - **Run during low-traffic windows** even with online tools
 - **Monitor replication lag** if you're running against a primary with replicas. See [Read Replicas](/recipes/databases/database-read-replicas) for replication management.
+
+### Batch backfill with Alembic
+
+```python
+from alembic import op
+import sqlalchemy as sa
+from sqlalchemy.sql import table, column
+
+def upgrade():
+    op.add_column("orders", sa.Column("status", sa.String(20), nullable=True))
+
+    # Batch backfill in chunks of 5000
+    conn = op.get_bind()
+    while True:
+        result = conn.execute(sa.text("""
+            UPDATE orders
+            SET status = 'completed'
+            WHERE id IN (
+                SELECT id FROM orders
+                WHERE status IS NULL
+                LIMIT 5000
+            )
+            RETURNING id
+        """))
+        if result.rowcount == 0:
+            break
+        print(f"Backfilled {result.rowcount} rows")
+
+    # Add check constraint
+    op.create_check_constraint(
+        "chk_order_status",
+        "orders",
+        "status IN ('pending', 'processing', 'completed', 'cancelled')"
+    )
+
+def downgrade():
+    op.drop_constraint("chk_order_status", "orders")
+    op.drop_column("orders", "status")
+```
+
+### Rollback strategy with Knex.js
+
+```javascript
+exports.up = async function(knex) {
+    await knex.schema.createTable('feature_flags', (table) => {
+        table.increments('id');
+        table.string('name', 100).notNullable().unique();
+        table.boolean('enabled').defaultTo(false);
+        table.timestamp('created_at').defaultTo(knex.fn.now());
+    });
+
+    // Seed initial flags
+    await knex('feature_flags').insert([
+        { name: 'new_checkout', enabled: false },
+        { name: 'dark_mode', enabled: true }
+    ]);
+};
+
+exports.down = async function(knex) {
+    // Safe rollback: drop table only if it exists
+    await knex.schema.dropTableIfExists('feature_flags');
+};
+```
+
+### Testing migrations with Flyway
+
+```java
+// V4__add_indexes.sql
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_users_email
+ON users (email);
+
+// V5__add_foreign_key.sql
+-- Add FK as NOT VALID first (fast, no table scan)
+ALTER TABLE orders
+  ADD CONSTRAINT fk_orders_user_id
+  FOREIGN KEY (user_id) REFERENCES users(id)
+  NOT VALID;
+
+-- Validate in a separate step (scans but doesn't block writes)
+ALTER TABLE orders VALIDATE CONSTRAINT fk_orders_user_id;
+```
+
+```bash
+# Test migrations on a copy of production data
+flyway -url=jdbc:postgresql://staging:5432/mydb \
+  -user=migration_user \
+  -password=$STAGING_DB_PASS \
+  -locations=filesystem:db/migrations \
+  -cleanDisabled=false \
+  migrate
+
+# Verify with dry run
+flyway -url=jdbc:postgresql://staging:5432/mydb \
+  -user=migration_user \
+  -password=$STAGING_DB_PASS \
+  -locations=filesystem:db/migrations \
+  info
+```
+
+## Additional Best Practices
+
+6. **Set `lock_timeout` before DDL.** Prevents migrations from waiting indefinitely for locks:
+
+```sql
+SET lock_timeout = '10s';
+ALTER TABLE users ADD COLUMN phone VARCHAR(20);
+```
+
+7. **Use `statement_timeout` for batch operations.** Aborts backfills that run too long:
+
+```sql
+SET statement_timeout = '60s';
+```
+
+8. **Run `ANALYZE` after large backfills.** Updates planner statistics so queries choose optimal plans:
+
+```sql
+ANALYZE users;
+```
+
+9. **Create indexes concurrently.** `CREATE INDEX CONCURRENTLY` in PostgreSQL avoids blocking writes but cannot run inside a transaction.
+
+10. **Use feature flags for schema-dependent code.** Decouple code deploys from schema changes:
+
+```python
+if feature_flags.is_enabled("use_full_name"):
+    display = user.full_name
+else:
+    display = user.name
+```
+
+## Additional Common Mistakes
+
+6. **Adding a column with a volatile default.** `ADD COLUMN ... DEFAULT random()` rewrites the entire table in PostgreSQL < 11. Use nullable + backfill instead.
+7. **Not testing rollback scripts.** A rollback that fails is worse than no rollback. Test `downgrade()` on a staging copy.
+8. **Running migrations inside application startup for large changes.** Use a separate migration step in CI/CD with approval gates.
+9. **Forgetting to update statistics.** After large data changes, `ANALYZE` is needed for the query planner to pick correct plans.
+10. **Dropping a column before all code stops reading it.** During rolling deploys, old instances may still reference the dropped column.
+
+## Additional FAQ
+
+### How do I add a foreign key without locking?
+
+In PostgreSQL, add the constraint as `NOT VALID` first, then validate separately:
+
+```sql
+ALTER TABLE orders
+  ADD CONSTRAINT fk_orders_user_id
+  FOREIGN KEY (user_id) REFERENCES users(id)
+  NOT VALID;
+
+ALTER TABLE orders VALIDATE CONSTRAINT fk_orders_user_id;
+```
+
+### What is the difference between `gh-ost` and `pt-online-schema-change`?
+
+Both perform online schema changes for MySQL. `gh-ost` (GitHub) uses binlog for sync and avoids triggers. `pt-online-schema-change` uses triggers. `gh-ost` is preferred for high-write environments.
+
+### How do I handle migrations in a blue-green deployment?
+
+Deploy schema changes to the green environment first. Both blue and green must work with the new schema. Use expand-contract: expand schema, deploy new code, switch traffic, then contract old schema.
+
+## Performance Tips
+
+1. **Batch backfills with `LIMIT` and `sleep`.** Process 1,000-10,000 rows per batch with short pauses to minimize replication lag and lock contention.
+
+2. **Use `CREATE INDEX CONCURRENTLY` for all production indexes.** Takes longer but doesn't block writes. Monitor progress via `pg_stat_progress_create_index`.
+
+3. **Configure `work_mem` for migration sessions.** Increase it for large batch operations:
+
+```sql
+SET work_mem = '256MB';
+```
+
+4. **Monitor `pg_stat_activity` during migrations.** Watch for long-running queries and lock waits:
+
+```sql
+SELECT pid, state, wait_event_type, wait_event,
+       now() - query_start AS duration, query
+FROM pg_stat_activity
+WHERE state != 'idle'
+ORDER BY duration DESC;
+```
+
+5. **Use `pg_repack` for table bloat.** After large backfills, tables and indexes can become bloated. `pg_repack` rebuilds tables without exclusive locks.

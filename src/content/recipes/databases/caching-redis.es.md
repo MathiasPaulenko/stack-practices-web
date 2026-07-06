@@ -209,3 +209,415 @@ Este patrón es simple, funciona con cualquier base de datos y maneja fallos de 
 ### Cómo invalido cachés entre múltiples instancias de app?
 
 Usa **Redis Pub/Sub** o un **prefijo de versión en cache keys**. Cuando los datos cambian, publica un mensaje de invalidación a un canal Redis. Todas las instancias de la app se suscriben al canal y limpian sus cachés locales o remotos. Alternativamente, cambia un prefijo de versión (`v1` → `v2`) en tus cache keys para invalidar silenciosamente entradas antiguas sin mensajería explícita.
+
+### Patrón Write-Through Cache
+
+```python
+import json
+import redis
+
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+
+def write_through_user(user_id: int, data: dict, db_update_fn):
+    """Escribir a caché y base de datos atómicamente."""
+    cache_key = f"user:{user_id}"
+
+    # Actualizar base de datos primero
+    db_update_fn(user_id, data)
+
+    # Luego actualizar caché
+    r.setex(cache_key, 600, json.dumps(data))
+
+# Uso
+def db_update_user(user_id, data):
+    # Ejecutar SQL UPDATE
+    pass
+
+write_through_user(42, {"id": 42, "name": "Alice", "email": "alice@new.com"}, db_update_user)
+```
+
+```javascript
+async function writeThroughProduct(productId, data, dbUpdateFn) {
+  const cacheKey = `product:${productId}`;
+
+  // Actualizar base de datos
+  await dbUpdateFn(productId, data);
+
+  // Actualizar caché
+  await redis.setex(cacheKey, 300, JSON.stringify(data));
+}
+```
+
+### Patrón Write-Behind (Write-Back)
+
+```python
+import json
+import redis
+import threading
+
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+
+def write_behind_update(entity_type: str, entity_id: int, data: dict):
+    """Escribir a caché inmediatamente, encolar para escritura async a DB."""
+    cache_key = f"{entity_type}:{entity_id}"
+
+    # Escribir a caché
+    r.setex(cache_key, 300, json.dumps(data))
+
+    # Encolar para persistencia async
+    r.lpush("pending_writes", json.dumps({
+        "type": entity_type,
+        "id": entity_id,
+        "data": data,
+        "timestamp": int(time.time())
+    }))
+
+# Worker en background que procesa writes pendientes
+def flush_pending_writes(db_write_fn, batch_size=100):
+    while True:
+        items = r.rpop("pending_writes", batch_size)
+        if not items:
+            threading.Event().wait(1)
+            continue
+
+        for item in items:
+            entry = json.loads(item)
+            try:
+                db_write_fn(entry["type"], entry["id"], entry["data"])
+            except Exception as e:
+                # Re-encolar writes fallidos
+                r.lpush("pending_writes", json.dumps(entry))
+                print(f"Write failed: {e}")
+```
+
+### Prevención de Cache Stampede con Locks
+
+```python
+import json
+import redis
+import time
+
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+
+def get_with_stampede_protection(cache_key: str, fetcher, ttl: int = 300):
+    """Prevenir cache stampede usando un lock Redis."""
+    cached = r.get(cache_key)
+    if cached:
+        return json.loads(cached)
+
+    lock_key = f"lock:{cache_key}"
+    acquired = r.set(lock_key, "1", ex=10, nx=True)
+
+    if acquired:
+        try:
+            result = fetcher()
+            r.setex(cache_key, ttl, json.dumps(result))
+            return result
+        finally:
+            r.delete(lock_key)
+    else:
+        time.sleep(0.1)
+        return get_with_stampede_protection(cache_key, fetcher, ttl)
+
+# Expiración temprana probabilística (reduce stampede sin locks)
+def get_with_early_refresh(cache_key: str, fetcher, ttl: int = 300, early_refresh_pct: float = 0.1):
+    cached = r.get(cache_key)
+    if cached:
+        ttl_remaining = r.ttl(cache_key)
+        if ttl_remaining < ttl * early_refresh_pct and random.random() < 0.1:
+            try:
+                result = fetcher()
+                r.setex(cache_key, ttl, json.dumps(result))
+                return result
+            except Exception:
+                pass  # Servir stale si falla el refresh
+        return json.loads(cached)
+
+    result = fetcher()
+    r.setex(cache_key, ttl, json.dumps(result))
+    return result
+```
+
+### Redis Pub/Sub para Invalidation Cross-Instance
+
+```javascript
+const Redis = require("ioredis");
+const pub = new Redis();
+const sub = new Redis();
+
+// Suscribirse al canal de invalidación
+sub.subscribe("cache:invalidate");
+sub.on("message", (channel, message) => {
+  const { key } = JSON.parse(message);
+  redis.del(key);
+  console.log(`Invalidated: ${key}`);
+});
+
+// Publicar invalidación al actualizar datos
+async function updateUser(userId, data) {
+  await db.query("UPDATE users SET ... WHERE id = ?", [userId]);
+  const cacheKey = `user:${userId}`;
+  await redis.del(cacheKey);
+  await pub.publish("cache:invalidate", JSON.stringify({ key: cacheKey }));
+}
+```
+
+```python
+import redis
+import json
+
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+pubsub = r.pubsub()
+
+# Suscriptor
+pubsub.subscribe("cache:invalidate")
+for message in pubsub.listen():
+    if message["type"] == "message":
+        data = json.loads(message["data"])
+        r.delete(data["key"])
+
+# Publicador
+def invalidate_cache(key: str):
+    r.delete(key)
+    r.publish("cache:invalidate", json.dumps({"key": key}))
+```
+
+### Scripts Lua para Operaciones Atómicas
+
+```python
+import redis
+
+r = redis.Redis(host="localhost", port=6379)
+
+# Rate limiter atómico usando Lua
+RATE_LIMIT_SCRIPT = """
+local current = redis.call('INCR', KEYS[1])
+if current == 1 then
+    redis.call('EXPIRE', KEYS[1], ARGV[1])
+end
+return current
+"""
+
+rate_limiter = r.register_script(RATE_LIMIT_SCRIPT)
+
+def is_rate_limited(key: str, max_requests: int, window: int) -> bool:
+    current = rate_limiter(keys=[key], args=[window])
+    return current > max_requests
+
+# Compare-and-swap atómico para caché
+CAS_SCRIPT = """
+local cached = redis.call('GET', KEYS[1])
+if cached == ARGV[1] then
+    redis.call('SET', KEYS[1], ARGV[2], 'EX', ARGV[3])
+    return 1
+end
+return 0
+"""
+
+cas = r.register_script(CAS_SCRIPT)
+```
+
+### Redis Sentinel para Alta Disponibilidad
+
+```python
+from redis.sentinel import Sentinel
+
+sentinel = Sentinel([
+    ("sentinel1", 26379),
+    ("sentinel2", 26379),
+    ("sentinel3", 26379),
+])
+
+# Conexión al master
+master = sentinel.master_for("mymaster", socket_timeout=0.5)
+
+# Conexión a réplica para lecturas
+replica = sentinel.slave_for("mymaster", socket_timeout=0.5)
+
+# Escrituras van al master
+master.set("key", "value")
+
+# Lecturas pueden ir a la réplica
+value = replica.get("key")
+```
+
+```javascript
+const Redis = require("ioredis");
+
+// Cliente aware de Sentinel
+const redis = new Redis({
+  sentinels: [
+    { host: "sentinel1", port: 26379 },
+    { host: "sentinel2", port: 26379 },
+  ],
+  name: "mymaster",
+  role: "master",
+});
+```
+
+## Mejores Prácticas Adicionales
+
+6. **Usa `SCAN` en lugar de `KEYS` en producción.** `KEYS *` bloquea Redis mientras escanea todas las keys. `SCAN` es cursor-based y non-blocking:
+
+```python
+# Mal: bloquea Redis
+keys = r.keys("user:*")
+
+# Bien: scan cursor-based non-blocking
+cursor = 0
+while True:
+    cursor, keys = r.scan(cursor, match="user:*", count=100)
+    for key in keys:
+        r.delete(key)
+    if cursor == 0:
+        break
+```
+
+7. **Configura `maxmemory` y política de evicción.** Configura Redis para usar una cantidad limitada de memoria:
+
+```bash
+# redis.conf
+maxmemory 2gb
+maxmemory-policy allkeys-lru
+```
+
+8. **Usa pipelining de Redis para operaciones batch.** Pipelining envía múltiples comandos en un solo round-trip de red:
+
+```python
+# Sin pipeline: 100 round-trips
+for i in range(100):
+    r.set(f"key:{i}", f"value:{i}")
+
+# Con pipeline: 1 round-trip
+pipe = r.pipeline()
+for i in range(100):
+    pipe.set(f"key:{i}", f"value:{i}")
+pipe.execute()
+```
+
+9. **Usa `MGET` para lecturas batch.** Obtener múltiples keys en un comando es mucho más rápido que llamadas `GET` individuales:
+
+```python
+# Mal: 100 round-trips
+values = [r.get(f"key:{i}") for i in range(100)]
+
+# Bien: 1 round-trip
+values = r.mget([f"key:{i}" for i in range(100)])
+```
+
+10. **Habilita persistencia de Redis para cachés críticos.** Si los rebuilds de caché son costosos, habilita persistencia AOF (Append-Only File):
+
+```bash
+# redis.conf
+appendonly yes
+appendfsync everysec
+```
+
+## Errores Comunes Adicionales
+
+6. **Usar `KEYS *` en producción.** Este comando bloquea todo el servidor Redis. Usa `SCAN` en su lugar.
+
+7. **No configurar `maxmemory`.** Sin un límite de memoria, Redis consumirá toda la RAM disponible y el OS lo matará con OOM.
+
+8. **Guardar sesiones sin TTL.** Las keys de sesión sin TTL se acumulan indefinidamente. Siempre configura un TTL en datos de sesión:
+
+```python
+r.setex(f"session:{session_id}", 3600, json.dumps(session_data))
+```
+
+9. **No manejar fallos de conexión a Redis.** Los fallos de caché should degradar a la base de datos, no crashear la aplicación:
+
+```python
+try:
+    cached = r.get(cache_key)
+    if cached:
+        return json.loads(cached)
+except redis.ConnectionError:
+    pass  # Caer a la base de datos
+
+result = db_query()
+try:
+    r.setex(cache_key, 300, json.dumps(result))
+except redis.ConnectionError:
+    pass  # Caché caído, servir desde DB
+```
+
+10. **Usar `FLUSHALL` en scripts o CI.** Esto borra todas las keys en todas las bases de datos. Usa `FLUSHDB` para una sola base de datos, o mejor, usa prefijos de keys y borra por patrón con `SCAN`.
+
+## FAQ Adicional
+
+### ¿Cómo monitoreo el rendimiento del caché Redis?
+
+Usa `INFO stats` para verificar hit rates, uso de memoria y clientes conectados:
+
+```bash
+redis-cli INFO stats | grep -E "keyspace_hits|keyspace_misses|used_memory"
+```
+
+Para monitoreo continuo, usa RedisInsight, Grafana con redis_exporter, o la integración Redis de Datadog. Rastrea estas métricas:
+- **Hit rate**: `keyspace_hits / (keyspace_hits + keyspace_misses)`
+- **Uso de memoria**: `used_memory / maxmemory`
+- **Keys evicted**: `evicted_keys` (valores altos indican TTL muy corto o memoria insuficiente)
+- **Clientes conectados**: `connected_clients` (spikes pueden indicar connection leaks)
+
+### ¿Cuál es la diferencia entre Redis Cluster y Sentinel?
+
+**Redis Sentinel** proporciona alta disponibilidad para una sola instancia de Redis. Monitorea un master y promueve una réplica si el master falla. Buen para despliegues pequeños.
+
+**Redis Cluster** shardea datos across múltiples nodos Redis usando hash slots. Proporciona tanto escalado horizontal como alta disponibilidad. Úsalo cuando una sola instancia de Redis no puede manejar tu throughput o requisitos de memoria.
+
+### ¿Debo usar Redis JSON o serialización con strings?
+
+Redis 7+ soporta el módulo RedisJSON para operaciones JSON nativas. Permite actualizaciones parciales sin re-serializar todo el objeto:
+
+```bash
+# Guardar como JSON
+JSON.SET user:42 $ '{"name":"Alice","orders":42}'
+
+# Actualizar un solo campo
+JSON.SET user:42 $.name '"Bob"'
+
+# Leer un solo campo
+JSON.GET user:42 $.name
+```
+
+Para setups más simples, serialización JSON string con `GET`/`SET` es suficiente. Usa RedisJSON cuando necesitas actualizaciones parciales o consultas JSON path.
+
+## Tips de Rendimiento
+
+1. **Usa `PIPELINE` para writes batch.** Reduce round-trips de red por 10-100x:
+
+```python
+pipe = r.pipeline(transaction=False)
+for i in range(1000):
+    pipe.setex(f"cache:{i}", 300, f"value:{i}")
+pipe.execute()
+```
+
+2. **Usa `HSET`/`HGETALL` para datos estructurados.** Los hashes son más eficientes en memoria que keys string separadas para campos relacionados:
+
+```python
+r.hset("user:42", mapping={"name": "Alice", "email": "alice@example.com", "role": "admin"})
+user = r.hgetall("user:42")
+```
+
+3. **Usa `ZSET` para datos ordenados.** Los sorted sets permiten consultas eficientes de leaderboards y rankings:
+
+```python
+r.zadd("leaderboard", {"alice": 1500, "bob": 1200, "carol": 2000})
+top_10 = r.zrevrange("leaderboard", 0, 9, withscores=True)
+```
+
+4. **Habilita `lazyfree-lazy-eviction` para keys grandes.** Borrar keys grandes sincrónicamente bloquea Redis. Habilita lazy freeing:
+
+```bash
+# redis.conf
+lazyfree-lazy-eviction yes
+lazyfree-lazy-expire yes
+lazyfree-lazy-server-del yes
+```
+
+5. **Usa `EXPIRE` con flag `NX` (Redis 7+).** Establece expiración solo si la key no tiene TTL:
+
+```python
+r.expire("user:42", 3600, nx=True)  # Solo establece TTL si no existe

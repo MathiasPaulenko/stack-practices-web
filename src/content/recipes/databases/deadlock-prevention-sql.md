@@ -205,3 +205,267 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### Python Retry Logic with psycopg2
+
+```python
+import time
+import psycopg2
+from psycopg2 import errors
+
+def execute_with_retry(conn, operation, max_retries=3, base_delay=0.1):
+    for attempt in range(max_retries):
+        try:
+            return operation(conn)
+        except errors.DeadlockDetected:
+            conn.rollback()
+            if attempt == max_retries - 1:
+                raise
+            delay = base_delay * (2 ** attempt) + (random.random() * 0.05)
+            time.sleep(delay)
+        except errors.SerializationFailure:
+            conn.rollback()
+            if attempt == max_retries - 1:
+                raise
+            delay = base_delay * (2 ** attempt)
+            time.sleep(delay)
+
+def transfer(conn, from_id, to_id, amount):
+    def _transfer(c):
+        with c.cursor() as cur:
+            ids = sorted([from_id, to_id])
+            cur.execute("BEGIN")
+            cur.execute("SELECT balance FROM accounts WHERE id = %s FOR UPDATE", (ids[0],))
+            cur.execute("SELECT balance FROM accounts WHERE id = %s FOR UPDATE", (ids[1],))
+            cur.execute("UPDATE accounts SET balance = balance - %s WHERE id = %s", (amount, from_id))
+            cur.execute("UPDATE accounts SET balance = balance + %s WHERE id = %s", (amount, to_id))
+            c.commit()
+    return execute_with_retry(conn, _transfer)
+```
+
+### `SELECT FOR UPDATE SKIP LOCKED` for Queue Processing
+
+```sql
+-- Process jobs from a queue without blocking on locked rows
+BEGIN;
+
+SELECT id, payload FROM job_queue
+WHERE status = 'pending'
+ORDER BY created_at
+FOR UPDATE SKIP LOCKED
+LIMIT 10;
+
+-- Update claimed jobs
+UPDATE job_queue SET status = 'processing', started_at = NOW()
+WHERE id IN (1, 2, 3);
+
+COMMIT;
+```
+
+`SKIP LOCKED` skips rows that are already locked by another transaction. This is ideal for job queues where you want workers to grab different jobs without waiting.
+
+### Advisory Locks for Coordinating Application Logic
+
+```sql
+-- Transaction-level advisory lock (released on COMMIT/ROLLBACK)
+BEGIN;
+SELECT pg_advisory_xact_lock(12345);
+-- Only one transaction can hold this lock at a time
+-- ... critical section ...
+COMMIT;
+
+-- Session-level advisory lock (must be explicitly released)
+SELECT pg_advisory_lock(67890);
+-- ... long-running coordination ...
+SELECT pg_advisory_unlock(67890);
+
+-- Try-lock (non-blocking, returns true/false)
+SELECT pg_try_advisory_lock(67890);
+-- Returns true if acquired, false if already locked
+```
+
+### Deadlock Logging in PostgreSQL
+
+```sql
+-- Enable lock wait logging
+ALTER SYSTEM SET log_lock_waits = on;
+ALTER SYSTEM SET deadlock_timeout = '200ms';
+
+-- View deadlock statistics per database
+SELECT
+    datname,
+    deadlocks,
+    conflicts,
+    temp_files,
+    blk_read_time,
+    blk_write_time
+FROM pg_stat_database
+WHERE deadlocks > 0
+ORDER BY deadlocks DESC;
+
+-- View current blocked transactions
+SELECT
+    activity.pid,
+    activity.usename,
+    activity.query,
+    now() - activity.query_start AS duration,
+    waiting.locktype AS waiting_locktype
+FROM pg_stat_activity activity
+JOIN pg_locks waiting ON activity.pid = waiting.pid
+WHERE NOT waiting.granted
+ORDER BY duration DESC;
+```
+
+### Java Retry with Spring `@Retryable`
+
+```java
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.dao.DeadlockLoserDataAccessException;
+
+@Service
+public class InventoryService {
+
+    @Retryable(
+        value = { DeadlockLoserDataAccessException.class, CannotSerializeTransactionException.class },
+        maxAttempts = 3,
+        backoff = @Backoff(delay = 100, multiplier = 2, maxDelay = 1000)
+    )
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void updateStock(Long productId, int delta) {
+        Product product = productRepository.findById(productId)
+            .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        product.setStock(product.getStock() + delta);
+        productRepository.save(product);
+    }
+}
+```
+
+### Detecting Deadlock Patterns with `pg_stat_activity`
+
+```sql
+-- Find transactions waiting for locks with their blocking queries
+SELECT
+    blocked.pid AS blocked_pid,
+    blocked.query AS blocked_query,
+    blocking.pid AS blocking_pid,
+    blocking.query AS blocking_query,
+    blocked.state AS blocked_state,
+    now() - blocked.query_start AS blocked_duration
+FROM pg_stat_activity blocked
+JOIN pg_locks bl ON blocked.pid = bl.pid AND NOT bl.granted
+JOIN pg_locks ul ON ul.locktype = bl.locktype
+    AND ul.database IS NOT DISTINCT FROM bl.database
+    AND ul.relation IS NOT DISTINCT FROM bl.relation
+    AND ul.granted
+JOIN pg_stat_activity blocking ON ul.pid = blocking.pid
+WHERE blocked.pid != blocking.pid;
+```
+
+## Additional Best Practices
+
+6. **Use `SKIP LOCKED` for concurrent job processing.** Multiple workers can pull from the same queue table without deadlocking:
+
+```sql
+SELECT * FROM jobs WHERE status = 'pending' FOR UPDATE SKIP LOCKED LIMIT 5;
+```
+
+7. **Set `lock_timeout` for write transactions.** Prevent transactions from waiting indefinitely:
+
+```sql
+SET lock_timeout = '5s';
+```
+
+8. **Use `NOWAIT` for fail-fast locking.** Instead of waiting, immediately error if the row is locked:
+
+```sql
+SELECT balance FROM accounts WHERE id = 1 FOR UPDATE NOWAIT;
+-- Raises error 55P03 if row is locked
+```
+
+9. **Keep transactions under 50ms when possible.** Shorter transactions hold locks for less time, reducing deadlock probability.
+
+10. **Use advisory locks for application-level mutual exclusion.** Avoid row-level locks when you need cross-table coordination:
+
+```sql
+SELECT pg_advisory_xact_lock(hashtext('user:' || user_id::text));
+```
+
+## Additional Common Mistakes
+
+6. **Using `SERIALIZABLE` without retry logic.** Serialization failures (SQLSTATE 40001) are expected under `SERIALIZABLE`. Always implement retry.
+
+7. **Locking parent rows before child rows unnecessarily.** If you only update child rows, don't lock the parent. Lock the minimum set of rows needed.
+
+8. **Not handling `40P01` vs `40001` differently.** `40P01` is a deadlock (circular wait), `40001` is a serialization failure. Both require retry, but deadlocks indicate a lock ordering problem while serialization failures are expected under `SERIALIZABLE`.
+
+9. **Using application-level mutexes instead of database locks.** Application mutexes don't protect against concurrent database access from other services or direct SQL connections.
+
+10. **Not testing under concurrent load.** Deadlocks often only appear under production traffic. Use `pgbench` or load testing tools to simulate concurrency.
+
+## Additional FAQ
+
+### How do I monitor deadlock frequency over time?
+
+Query `pg_stat_database.deadlocks` periodically and store the values. A sudden increase indicates a new deadlock pattern:
+
+```sql
+SELECT datname, deadlocks FROM pg_stat_database WHERE datname = 'mydb';
+```
+
+Reset statistics after investigating:
+
+```sql
+SELECT pg_stat_reset();
+```
+
+### What is the difference between `FOR UPDATE` and `FOR NO KEY UPDATE`?
+
+`FOR UPDATE` locks the row and prevents other transactions from modifying or locking it. `FOR NO KEY UPDATE` is weaker: it allows other transactions to lock the row with `FOR KEY SHARE`, which is useful when you only update non-key columns.
+
+### Should I use `SKIP LOCKED` or `NOWAIT`?
+
+Use `SKIP LOCKED` when you want to process available rows and skip busy ones (job queues). Use `NOWAIT` when you need the specific row and prefer to fail immediately rather than wait.
+
+### How do deadlocks differ between PostgreSQL and MySQL?
+
+PostgreSQL detects deadlocks via a dedicated deadlock detection process that runs every `deadlock_timeout` (default 1s). MySQL uses an internal deadlock detector in InnoDB that detects deadlocks immediately. The error codes differ: PostgreSQL uses `40P01`, MySQL uses `1213` (ER_LOCK_DEADLOCK).
+
+## Performance Tips
+
+1. **Use `pgbench` for deadlock reproduction.** Simulate concurrent access patterns:
+
+```bash
+pgbench -i -s 10 mydb
+pgbench -c 20 -j 4 -T 60 -f deadlock_test.sql mydb
+```
+
+2. **Monitor `pg_locks` count.** A high number of locks indicates contention:
+
+```sql
+SELECT count(*) AS total_locks, count(*) FILTER (WHERE NOT granted) AS waiting_locks
+FROM pg_locks;
+```
+
+3. **Use `idle_in_transaction_session_timeout` to prevent stuck transactions.** Transactions that are idle but not committed hold locks indefinitely:
+
+```sql
+ALTER SYSTEM SET idle_in_transaction_session_timeout = '300s';
+```
+
+4. **Batch `FOR UPDATE` with `SKIP LOCKED` for queue throughput.** Process multiple jobs per transaction to reduce round trips:
+
+```sql
+BEGIN;
+SELECT id FROM jobs WHERE status = 'pending' FOR UPDATE SKIP LOCKED LIMIT 50;
+UPDATE jobs SET status = 'processing' WHERE id IN (...);
+COMMIT;
+```
+
+5. **Use `lock_timeout` combined with retry for graceful degradation.** Set a short lock timeout and retry with backoff:
+
+```sql
+SET lock_timeout = '2s';
+-- If lock acquisition fails (55P03), retry with backoff
+```

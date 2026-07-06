@@ -220,3 +220,438 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### PgBouncer para Connection Pooling con Réplicas
+
+```ini
+# pgbouncer.ini
+[databases]
+master = host=master.db.internal port=5432 dbname=app
+replica1 = host=replica1.db.internal port=5432 dbname=app
+replica2 = host=replica2.db.internal port=5432 dbname=app
+
+[pgbouncer]
+listen_addr = 0.0.0.0
+listen_port = 6432
+pool_mode = transaction
+max_client_conn = 1000
+default_pool_size = 25
+```
+
+```python
+import psycopg2
+
+# Escribir al master vía PgBouncer
+write_conn = psycopg2.connect("postgresql://user:pass@pgbouncer:6432/master")
+
+# Leer de réplica vía PgBouncer
+read_conn = psycopg2.connect("postgresql://user:pass@pgbouncer:6432/replica1")
+
+# Enrutado a nivel aplicación
+def get_connection(is_write=False):
+    if is_write:
+        return psycopg2.connect("postgresql://user:pass@pgbouncer:6432/master")
+    # Round-robin entre réplicas
+    import random
+    replica = random.choice(['replica1', 'replica2'])
+    return psycopg2.connect(f"postgresql://user:pass@pgbouncer:6432/{replica}")
+```
+
+### ProxySQL para Split Read/Write en MySQL
+
+```sql
+-- Configurar ProxySQL con servidores backend
+INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES
+  (0, 'master.db.internal', 3306),   -- hostgroup 0: escrituras
+  (1, 'replica1.db.internal', 3306),  -- hostgroup 1: lecturas
+  (1, 'replica2.db.internal', 3306);  -- hostgroup 1: lecturas
+
+-- Reglas de enrutado: SELECT va a réplicas, todo lo demás al master
+INSERT INTO mysql_query_rules(rule_id, active, match_digest, destination_hostgroup, apply)
+VALUES
+  (1, 1, '^SELECT.*FOR UPDATE', 0, 1),  -- Locking reads al master
+  (2, 1, '^SELECT', 1, 1);               -- Reads normales a réplicas
+
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+LOAD MYSQL QUERY RULES TO RUNTIME;
+SAVE MYSQL QUERY RULES TO DISK;
+```
+
+### Configuración de AWS RDS Proxy
+
+```yaml
+# AWS CloudFormation snippet para RDS Proxy con split read/write
+Resources:
+  ReadWriteProxy:
+    Type: AWS::RDS::DBProxy
+    Properties:
+      DBProxyName: app-proxy
+      EngineFamily: POSTGRESQL
+      RoleArn: !GetAtt ProxyRole.Arn
+      Auth:
+        - AuthScheme: SECRETS
+          SecretArn: !Ref DBSecretArn
+      TargetGroupName: default
+      Targets:
+        - RdsInstanceId: !Ref MasterInstance
+        - RdsInstanceId: !Ref ReplicaInstance1
+      ConnectionPoolConfiguration:
+        MaxConnectionsPercent: 80
+        IdleClientTimeout: 1800
+```
+
+### Driver SQL de Go con Split Read/Write
+
+```go
+package db
+
+import (
+    "database/sql"
+    "math/rand"
+    "time"
+    _ "github.com/lib/pq"
+)
+
+type DBRouter struct {
+    master   *sql.DB
+    replicas []*sql.DB
+    rng      *rand.Rand
+}
+
+func NewDBRouter(masterURL string, replicaURLs []string) (*DBRouter, error) {
+    master, err := sql.Open("postgres", masterURL)
+    if err != nil {
+        return nil, err
+    }
+    master.SetMaxOpenConns(20)
+
+    replicas := make([]*sql.DB, len(replicaURLs))
+    for i, url := range replicaURLs {
+        replica, err := sql.Open("postgres", url)
+        if err != nil {
+            return nil, err
+        }
+        replica.SetMaxOpenConns(10)
+        replicas[i] = replica
+    }
+
+    return &DBRouter{
+        master:   master,
+        replicas: replicas,
+        rng:      rand.New(rand.NewSource(time.Now().UnixNano())),
+    }, nil
+}
+
+func (r *DBRouter) Read() *sql.DB {
+    if len(r.replicas) == 0 {
+        return r.master
+    }
+    return r.replicas[r.rng.Intn(len(r.replicas))]
+}
+
+func (r *DBRouter) Write() *sql.DB {
+    return r.master
+}
+
+// Uso
+func (r *DBRouter) GetUser(id int) (*User, error) {
+    var user User
+    err := r.Read().QueryRow(
+        "SELECT id, email FROM users WHERE id = $1", id,
+    ).Scan(&user.ID, &user.Email)
+    return &user, err
+}
+
+func (r *DBRouter) CreateUser(email string) error {
+    _, err := r.Write().Exec(
+        "INSERT INTO users (email) VALUES ($1)", email,
+    )
+    return err
+}
+```
+
+### Django Database Routers
+
+```python
+# settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'app',
+        'HOST': 'master.db.internal',
+        'PORT': '5432',
+    },
+    'replica': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'app',
+        'HOST': 'replica1.db.internal',
+        'PORT': '5432',
+    },
+}
+
+# routers.py
+class ReadReplicaRouter:
+    def db_for_read(self, model, **hints):
+        return 'replica'
+
+    def db_for_write(self, model, **hints):
+        return 'default'
+
+    def allow_relation(self, obj1, obj2, **hints):
+        return True
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        return db == 'default'
+
+DATABASE_ROUTERS = ['myapp.routers.ReadReplicaRouter']
+
+# Uso: reads van automáticamente a réplica, writes al master
+users = User.objects.filter(role='admin')  # Va a réplica
+user = User.objects.create(email='alice@example.com')  # Va al master
+```
+
+### Consultas de Monitoreo de Replication Lag
+
+```sql
+-- PostgreSQL: verificar replication lag
+SELECT
+    client_addr,
+    state,
+    sent_lsn,
+    replay_lsn,
+    EXTRACT(EPOCH FROM (now() - replay_lag)) AS lag_seconds
+FROM pg_stat_replication;
+
+-- Verificar estado de WAL receiver en réplica
+SELECT status, receive_start_lsn, written_lsn, flushed_lsn
+FROM pg_stat_wal_receiver;
+
+-- Monitorear lag de slot (si usas replication slots)
+SELECT slot_name, restart_lsn,
+       pg_wal_lsn_diff(pg_current_wal_lsn(), restart_lsn) AS lag_bytes
+FROM pg_replication_slots;
+```
+
+```sql
+-- MySQL: verificar lag de réplica
+SHOW REPLICA STATUS\G
+
+-- Campos clave a monitorear:
+-- Seconds_Behind_Master: debería ser < 5
+-- Replica_IO_Running: Yes
+-- Replica_SQL_Running: Yes
+
+-- Monitorear via performance schema
+SELECT
+    channel_name,
+    service_state,
+    last_error_number,
+    last_error_message
+FROM performance_schema.replication_connection_status;
+```
+
+### Manejo de Replication Lag en Código de Aplicación
+
+```python
+import time
+import psycopg2
+
+def read_after_write(conn_master, conn_replica, query, params, max_wait=2.0):
+    """Leer de réplica con fallback al master si el lag es demasiado alto."""
+    # Verificar replication lag
+    with conn_master.cursor() as cur:
+        cur.execute("""
+            SELECT EXTRACT(EPOCH FROM (now() - replay_lag))::float
+            FROM pg_stat_replication LIMIT 1
+        """)
+        lag = cur.fetchone()[0] or 0
+
+    if lag > max_wait:
+        # La réplica está muy atrás: leer del master
+        with conn_master.cursor() as cur:
+            cur.execute(query, params)
+            return cur.fetchall()
+
+    # Leer de réplica
+    try:
+        with conn_replica.cursor() as cur:
+            cur.execute(query, params)
+            return cur.fetchall()
+    except Exception:
+        # Fallback al master si hay error en réplica
+        with conn_master.cursor() as cur:
+            cur.execute(query, params)
+            return cur.fetchall()
+```
+
+## Mejores Prácticas Adicionales
+
+6. **Usa connection pooling con réplicas.** Cada conexión de réplica consume memoria. Usa PgBouncer o un pooler para multiplexar conexiones:
+
+```python
+from sqlalchemy import create_engine
+master = create_engine("postgresql://user:pass@master:5432/app", pool_size=10)
+replica = create_engine("postgresql://user:pass@replica:5432/app", pool_size=20)
+```
+
+7. **Enruta `SELECT ... FOR UPDATE` al master.** Los reads con lock deben ir al master, no a réplicas:
+
+```python
+def get_connection(query_type='read', is_locking=False):
+    if query_type == 'write' or is_locking:
+        return master_conn
+    return replica_conn
+```
+
+8. **Monitorea la salud de réplicas y elimina réplicas no saludables.** Una réplica muerta causa fallos de lectura. Implementa health checks:
+
+```python
+def get_healthy_replica(replicas):
+    for replica in replicas:
+        try:
+            with replica.cursor() as cur:
+                cur.execute("SELECT 1")
+                return replica
+        except Exception:
+            continue
+    return master  # Fallback al master si todas las réplicas están caídas
+```
+
+9. **Usa consistencia causal para read-after-write.** Después de un write, lee del master por un breve período para asegurar que la réplica se haya actualizado:
+
+```python
+import time
+
+class CausalConsistencyManager:
+    def __init__(self, master, replica):
+        self.master = master
+        self.replica = replica
+        self.last_write_time = 0
+
+    def write(self, query, params):
+        with self.master.cursor() as cur:
+            cur.execute(query, params)
+            self.master.commit()
+        self.last_write_time = time.time()
+
+    def read(self, query, params):
+        # Leer del master si está dentro de 2 segundos del último write
+        if time.time() - self.last_write_time < 2.0:
+            with self.master.cursor() as cur:
+                cur.execute(query, params)
+                return cur.fetchall()
+        with self.replica.cursor() as cur:
+            cur.execute(query, params)
+            return cur.fetchall()
+```
+
+10. **Etiqueta conexiones de réplica en monitoreo.** Distingue el tráfico de réplica del tráfico de master en logs y métricas:
+
+```python
+import logging
+logger = logging.getLogger('db_router')
+
+def read_from_replica(query, params):
+    logger.debug("REPLICA_READ", extra={"query": query[:100]})
+    # ...
+```
+
+## Errores Comunes Adicionales
+
+6. **Leer de una réplica inmediatamente después de escribir al master.** La réplica puede no haber recibido el write todavía. Usa consistencia causal o read-from-master-after-write por una ventana breve.
+
+7. **No manejar fallos de réplica gracefulmente.** Si una réplica cae, los reads deberían caer al master, no fallar:
+
+```python
+try:
+    result = replica_conn.execute(query)
+except ConnectionError:
+    result = master_conn.execute(query)  # Fallback
+```
+
+8. **Ejecutar queries analíticos largos en réplicas sin límites de recursos.** Un query analítico pesado puede consumir todos los recursos de la réplica y causar lag. Usa `statement_timeout` en conexiones de réplica:
+
+```sql
+SET statement_timeout = '30s';
+```
+
+9. **No crear los mismos índices en réplicas.** La replicación lógica puede no sincronizar índices. Asegúrate de que las réplicas tengan los mismos índices que el master para rendimiento de lectura.
+
+10. **Usar replicación síncrona para escalado de lectura.** La replicación síncrona espera confirmación de la réplica, añadiendo latencia a cada write. Usa replicación asíncrona para escalado de lectura; usa síncrona solo para HA failover.
+
+## FAQ Adicional
+
+### ¿Cuántas réplicas debería tener?
+
+Empieza con una réplica. Añade más cuando:
+- El QPS de lectura excede lo que una réplica puede manejar
+- Necesitas distribución geográfica (réplicas más cerca de los usuarios)
+- Quieres ejecutar queries analíticos sin afectar la primaria
+
+La mayoría de aplicaciones necesitan 1-3 réplicas. Más de 5 usualmente indica que necesitas una estrategia de escalado diferente (sharding, caching, o una base de datos analítica dedicada).
+
+### ¿Puedo escribir a una réplica?
+
+No. Las réplicas en replicación streaming estándar de PostgreSQL/MySQL son de solo lectura. Escribir a una réplica causa que la replicación se rompa. Usa replicación multi-master (Bucardo, replicación lógica de PostgreSQL con resolución de conflictos) si necesitas writes en múltiples nodos.
+
+### ¿Cuál es la diferencia entre replicación física y lógica?
+
+**Replicación física** copia cambios a nivel de bloque. La réplica es una copia byte por byte exacta de la primaria. Es rápida y simple pero requiere la misma versión de PostgreSQL y arquitectura.
+
+**Replicación lógica** copia cambios lógicos (INSERT, UPDATE, DELETE) vía publicación/suscripción. Soporta diferentes versiones de PostgreSQL, replicación selectiva de tablas y upgrades cross-version. Es más lenta que la replicación física y no replica cambios de schema.
+
+## Tips de Rendimiento
+
+1. **Usa `pg_stat_replication` para ajustar el número de réplicas.** Si el replication lag excede consistentemente 5 segundos, puedes tener demasiadas réplicas o hardware insuficiente:
+
+```sql
+SELECT application_name, client_addr,
+       pg_wal_lsn_diff(pg_current_wal_lsn(), replay_lsn) AS lag_bytes,
+       EXTRACT(EPOCH FROM replay_lag) AS lag_seconds
+FROM pg_stat_replication;
+```
+
+2. **Coloca réplicas en diferentes zonas de disponibilidad.** Esto proporciona tanto escalado de lectura como recuperación ante desastres:
+
+```yaml
+# AWS RDS: crear read replicas en diferentes AZs
+ReadReplica1:
+  Type: AWS::RDS::DBInstance
+  Properties:
+    SourceDBInstanceIdentifier: !Ref MasterInstance
+    AvailabilityZone: us-east-1b
+    DBInstanceClass: db.r6g.large
+
+ReadReplica2:
+  Type: AWS::RDS::DBInstance
+  Properties:
+    SourceDBInstanceIdentifier: !Ref MasterInstance
+    AvailabilityZone: us-east-1c
+    DBInstanceClass: db.r6g.large
+```
+
+3. **Usa `hot_standby_feedback = on` en réplicas.** Esto previene que el master vacuume filas que las réplicas aún están leyendo:
+
+```sql
+-- En replica postgresql.conf
+hot_standby_feedback = on
+```
+
+4. **Ajusta `max_wal_senders` y `wal_keep_size` en el master.** Asegura suficiente WAL retenido para las réplicas:
+
+```sql
+-- postgresql.conf
+max_wal_senders = 10
+wal_keep_size = 1024  -- MB
+```
+
+5. **Usa `pg_stat_statements` para identificar queries read-heavy.** Enruta los queries de lectura más frecuentes a réplicas:
+
+```sql
+SELECT query, calls, mean_exec_time, total_exec_time
+FROM pg_stat_statements
+WHERE query LIKE 'SELECT%'
+ORDER BY calls DESC
+LIMIT 20;
+```
