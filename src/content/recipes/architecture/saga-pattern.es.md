@@ -242,14 +242,329 @@ R: Sí — mantén una tabla de estado de saga en la base de datos del orquestad
 R: No. Las sagas agregan complejidad. Úsalas para procesos de negocio de múltiples pasos que deben ser todo-o-nada. Para llamadas simples uno-a-uno que pueden fallar independientemente, usa llamadas API directas con [retries](/recipes/architecture/retry-backoff) y [circuit breakers](/recipes/circuit-breaker-pattern-recipe).
 
 
+### Orquestador Java Spring Boot con Event Sourcing
+
+```java
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class OrderSagaManager {
+
+    private final OrderRepository orderRepo;
+    private final SagaStateRepository sagaStateRepo;
+    private final InventoryClient inventoryClient;
+    private final PaymentClient paymentClient;
+    private final ShippingClient shippingClient;
+
+    public OrderSagaManager(OrderRepository orderRepo,
+                            SagaStateRepository sagaStateRepo,
+                            InventoryClient inventoryClient,
+                            PaymentClient paymentClient,
+                            ShippingClient shippingClient) {
+        this.orderRepo = orderRepo;
+        this.sagaStateRepo = sagaStateRepo;
+        this.inventoryClient = inventoryClient;
+        this.paymentClient = paymentClient;
+        this.shippingClient = shippingClient;
+    }
+
+    @Transactional
+    public SagaResult execute(OrderData orderData) {
+        String sagaId = UUID.randomUUID().toString();
+        SagaState state = new SagaState(sagaId, orderData.getOrderId());
+        sagaStateRepo.save(state);
+
+        try {
+            // Paso 1: Crear orden
+            orderRepo.save(new Order(orderData));
+            state.setCurrentStep("ORDER_CREATED");
+            sagaStateRepo.save(state);
+
+            // Paso 2: Reservar inventario
+            inventoryClient.reserve(orderData.getOrderId(), orderData.getItems());
+            state.setCurrentStep("INVENTORY_RESERVED");
+            sagaStateRepo.save(state);
+
+            // Paso 3: Procesar pago
+            paymentClient.charge(orderData.getOrderId(), orderData.getTotal());
+            state.setCurrentStep("PAYMENT_PROCESSED");
+            sagaStateRepo.save(state);
+
+            // Paso 4: Programar envío
+            shippingClient.schedule(orderData.getOrderId(), orderData.getAddress());
+            state.setCurrentStep("SHIPPING_SCHEDULED");
+            state.setStatus("COMPLETED");
+            sagaStateRepo.save(state);
+
+            return SagaResult.success(sagaId);
+
+        } catch (Exception e) {
+            state.setStatus("COMPENSATING");
+            state.setError(e.getMessage());
+            sagaStateRepo.save(state);
+            compensate(state);
+            state.setStatus("COMPENSATED");
+            sagaStateRepo.save(state);
+            return SagaResult.failure(sagaId, e.getMessage());
+        }
+    }
+
+    private void compensate(SagaState state) {
+        // Compensar en orden inverso
+        if ("SHIPPING_SCHEDULED".equals(state.getCurrentStep())) {
+            shippingClient.cancel(state.getOrderId());
+        }
+        if ("PAYMENT_PROCESSED".equals(state.getCurrentStep()) ||
+            "SHIPPING_SCHEDULED".equals(state.getCurrentStep())) {
+            paymentClient.refund(state.getOrderId());
+        }
+        if ("INVENTORY_RESERVED".equals(state.getCurrentStep()) ||
+            "PAYMENT_PROCESSED".equals(state.getCurrentStep()) ||
+            "SHIPPING_SCHEDULED".equals(state.getCurrentStep())) {
+            inventoryClient.release(state.getOrderId());
+        }
+        orderRepo.updateStatus(state.getOrderId(), "CANCELLED");
+    }
+
+    public void resume(String sagaId) {
+        SagaState state = sagaStateRepo.findById(sagaId)
+            .orElseThrow(() -> new SagaNotFoundException(sagaId));
+
+        if ("COMPENSATING".equals(state.getStatus())) {
+            compensate(state);
+        }
+    }
+}
+```
+
+### Persistencia de Estado de Saga con PostgreSQL
+
+```sql
+CREATE TABLE saga_state (
+    saga_id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    order_id         UUID NOT NULL,
+    saga_type        VARCHAR(100) NOT NULL,
+    current_step     VARCHAR(50),
+    status           VARCHAR(20) NOT NULL DEFAULT 'STARTED',
+    error            TEXT,
+    created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    completed_at     TIMESTAMPTZ
+);
+
+CREATE INDEX idx_saga_status ON saga_state(status);
+CREATE INDEX idx_saga_order ON saga_state(order_id);
+
+CREATE TABLE saga_steps (
+    id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    saga_id      UUID NOT NULL REFERENCES saga_state(saga_id),
+    step_name    VARCHAR(50) NOT NULL,
+    step_status  VARCHAR(20) NOT NULL,
+    started_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    completed_at TIMESTAMPTZ,
+    error        TEXT
+);
+
+CREATE INDEX idx_steps_saga ON saga_steps(saga_id);
+```
+
+```python
+import asyncpg
+from dataclasses import dataclass
+from enum import Enum
+from datetime import datetime
+
+class SagaStatus(Enum):
+    STARTED = "STARTED"
+    RUNNING = "RUNNING"
+    COMPLETED = "COMPLETED"
+    COMPENSATING = "COMPENSATING"
+    COMPENSATED = "COMPENSATED"
+    FAILED = "FAILED"
+
+@dataclass
+class SagaState:
+    saga_id: str
+    order_id: str
+    saga_type: str
+    current_step: str
+    status: SagaStatus
+    error: str | None
+
+class SagaStateRepository:
+    def __init__(self, pool: asyncpg.Pool):
+        self.pool = pool
+
+    async def create(self, order_id: str, saga_type: str) -> SagaState:
+        row = await self.pool.fetchrow(
+            """INSERT INTO saga_state (order_id, saga_type, status)
+               VALUES ($1, $2, 'STARTED')
+               RETURNING saga_id, order_id, saga_type, current_step, status, error""",
+            order_id, saga_type
+        )
+        return SagaState(
+            saga_id=str(row['saga_id']),
+            order_id=str(row['order_id']),
+            saga_type=row['saga_type'],
+            current_step=row['current_step'],
+            status=SagaStatus(row['status']),
+            error=row['error']
+        )
+
+    async def update_step(self, saga_id: str, step: str, status: SagaStatus, error: str = None):
+        await self.pool.execute(
+            """UPDATE saga_state
+               SET current_step = $2, status = $3, error = $4, updated_at = NOW()
+               WHERE saga_id = $1""",
+            saga_id, step, status.value, error
+        )
+
+    async def record_step(self, saga_id: str, step_name: str, status: str, error: str = None):
+        await self.pool.execute(
+            """INSERT INTO saga_steps (saga_id, step_name, step_status, error)
+               VALUES ($1, $2, $3, $4)""",
+            saga_id, step_name, status, error
+        )
+
+    async def get_stuck_sagas(self, older_than_minutes: int = 5) -> list[SagaState]:
+        rows = await self.pool.fetch(
+            """SELECT * FROM saga_state
+               WHERE status IN ('COMPENSATING', 'RUNNING')
+               AND updated_at < NOW() - INTERVAL '%s minutes'
+               ORDER BY updated_at ASC""",
+            older_than_minutes
+        )
+        return [SagaState(
+            saga_id=str(r['saga_id']),
+            order_id=str(r['order_id']),
+            saga_type=r['saga_type'],
+            current_step=r['current_step'],
+            status=SagaStatus(r['status']),
+            error=r['error']
+        ) for r in rows]
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa semantic lock para prevenir sagas concurrentes.** Si dos sagas intentan reservar el mismo inventario simultáneamente, ambas pueden tener éxito y sobrevender. Usa un semantic lock — un flag en la base de datos que marca la entidad como siendo procesada por una saga:
+
+```sql
+-- Añadir columna pending_state a la tabla de órdenes
+ALTER TABLE orders ADD COLUMN pending_state VARCHAR(50) DEFAULT NULL;
+
+-- Antes de iniciar la saga, establecer el estado pendiente
+UPDATE orders SET pending_state = 'PAYMENT_PENDING' WHERE id = $1 AND pending_state IS NULL;
+-- Si 0 filas afectadas, otra saga ya está procesando esta orden
+```
+
+2. **Implementa replay de saga para recuperación de crashes.** Cuando el orquestador se reinicia después de un crash, debe identificar sagas incompletas y reanudarlas. Usa un worker en background para escanear sagas atascadas:
+
+```typescript
+class SagaRecoveryWorker {
+  constructor(private sagaRepo: SagaStateRepository) {}
+
+  async run(): Promise<void> {
+    const stuckSagas = await this.sagaRepo.findStuckSagas(5); // más antiguas que 5 min
+
+    for (const saga of stuckSagas) {
+      if (saga.status === 'COMPENSATING') {
+        await this.orchestrator.compensate(saga);
+      } else if (saga.status === 'RUNNING') {
+        await this.orchestrator.resume(saga);
+      }
+    }
+  }
+
+  start(): void {
+    setInterval(() => this.run(), 60000); // cada minuto
+  }
+}
+```
+
+3. **Versiona las definiciones de saga para compatibilidad backward.** Cuando añades un nuevo paso a una saga, las sagas en curso deberían completarse con la definición anterior. Almacena la versión de saga en el estado:
+
+```java
+public class SagaDefinition {
+    private final String version;
+    private final List<SagaStep> steps;
+
+    public SagaDefinition(String version, List<SagaStep> steps) {
+        this.version = version;
+        this.steps = steps;
+    }
+
+    public List<SagaStep> getStepsForVersion(String stateVersion) {
+        if (stateVersion.equals(this.version)) {
+            return this.steps;
+        }
+        // Retornar pasos compatibles para versiones anteriores
+        return getCompatibleSteps(stateVersion);
+    }
+}
+```
+
+## Errores Comunes Adicionales
+
+1. **No manejar fallos no-retriables.** Algunos fallos no pueden repararse reintentando — una tarjeta de crédito inválida, un item agotado, un permiso denegado. La saga debería distinguir fallos retriables de no-retriables y saltar los reintentos para los no-retriables:
+
+```typescript
+class SagaStep {
+  async execute(state: SagaState): Promise<void> {
+    try {
+      await this.action(state);
+    } catch (error) {
+      if (this.isNonRetriable(error)) {
+        // Saltar reintento, ir directo a compensación
+        state.nonRetriable = true;
+        throw error;
+      }
+      throw error; // será reintentado por el orquestador
+    }
+  }
+
+  private isNonRetriable(error: Error): boolean {
+    return error instanceof ValidationError ||
+           error instanceof PermissionError ||
+           error instanceof NotFoundError;
+  }
+}
+```
+
+2. **Mezclar orquestación y coreografía en la misma saga.** Si algunos pasos son orquestados y otros event-driven, el flujo se vuelve difícil de trazar y debuggear. Elige un estilo por saga. Si necesitas ambos, divide en dos sagas — una orquestada, una coreografiada — con un boundary claro entre ellas.
+
+3. **No testear los paths de compensación.** Los equipos testean el happy path pero raramente testean la compensación. Inyecta fallos en cada paso y verifica que las compensaciones se ejecutan en el orden correcto. Testea que las compensaciones son idempotentes ejecutándolas dos veces. Testea que las compensaciones parciales (la compensación misma falla a mitad de camino) dejan el sistema en un estado recuperable:
+
+```java
+@Test
+void testCompensationWhenPaymentFails() {
+    // Setup: orden creada, inventario reservado
+    when(paymentClient.charge(any(), any()))
+        .thenThrow(new PaymentException("card declined"));
+
+    SagaResult result = sagaManager.execute(orderData);
+
+    assertFalse(result.isSuccess());
+    verify(inventoryClient).release(orderData.getOrderId());
+    verify(orderRepo).updateStatus(orderData.getOrderId(), "CANCELLED");
+    verify(shippingClient, never()).schedule(any(), any());
+}
+```
+
+## FAQ Adicional
+
+### ¿Cómo testeo la configuración de saga?
+
+Escribe tests de integración que inyecten fallos en cada paso. Usa un mock o stub para cada servicio downstream y configúralo para lanzar en conteos de llamada específicos. Verifica que las compensaciones se ejecutan en orden inverso. Testea la recuperación de crash matando el orquestador a mitad de saga y verificando que el worker de recuperación reanuda correctamente. Testea idempotencia llamando cada paso dos veces y verificando que no hay efectos secundarios duplicados. Para load testing, ejecuta 1000 sagas concurrentes y verifica que no hay sobreventa de inventario ni doble cobro. Para chaos testing, inyecta particiones de red entre el orquestador y un servicio — la saga debería hacer timeout, compensar, y dejar el sistema consistente.
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Temporal se usa en producción por Uber, Snap y Coinbase para orquestación de workflows. AWS Step Functions es usado por miles de clientes AWS para coordinación de sagas. EventStoreDB es usado por compañías como Red Bull y HSBC para sagas event-sourced. El saga pattern está documentado en el libro Microservices Patterns de Chris Richardson y el Microsoft Azure Architecture Center. Las implementaciones de saga con Spring Boot se usan en aplicaciones Java empresariales a escala.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Una saga por coreografía añade 2-10ms por paso por publicación y consumo de eventos. Una saga por orquestación añade 1-5ms por paso por llamadas directas a servicios más 1-2ms por persistencia de estado. Temporal añade 10-50ms por paso por scheduling de workflow y dispatch de activities. La persistencia de estado en PostgreSQL añade 1-2ms por paso por INSERT/UPDATE. La compensación añade la misma latencia que el paso hacia adelante. Una saga de orden de 4 pasos típicamente completa en 50-200ms con orquestación, 100-400ms con coreografía. La tabla de estado de saga crece a 1 fila por saga — 1M órdenes producen 1M filas, que PostgreSQL maneja sin degradación de rendimiento con indexación apropiada.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Consulta la tabla `saga_state` por sagas en estado `COMPENSATING` — estas son sagas atascadas que necesitan atención. Revisa la tabla `saga_steps` para el último paso completado y el error que activó la compensación. Usa distributed tracing (Jaeger, Zipkin) con el saga ID como trace tag para ver todas las llamadas a servicios en la saga. Para sagas por coreografía, busca en el event bus por eventos con el correlation ID de la saga — eventos faltantes indican un consumer que crashó. Para sagas por orquestación, revisa los logs del orquestador por el saga ID. Para fallos de compensación, verifica si el servicio downstream está disponible y la compensación es idempotente. Construye un dashboard de sagas mostrando sagas activas, tasa de completitud, duración promedio y tasa de compensación.

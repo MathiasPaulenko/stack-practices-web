@@ -299,3 +299,123 @@ SELECT datname, temp_files, temp_bytes
 FROM pg_stat_database
 WHERE datname = 'mydb';
 ```
+
+## Advanced Techniques
+
+### Migration with application-level dual-write
+
+Handle migrations entirely in the application layer without database triggers:
+
+```sql
+-- Step 1: add new column (nullable)
+ALTER TABLE customers ADD COLUMN email_address VARCHAR(255);
+
+-- Step 2: application code writes to both columns
+-- (No trigger needed; application handles sync)
+
+-- Step 3: backfill via application in batches
+-- Application runs: UPDATE customers SET email_address = email WHERE id BETWEEN ? AND ?
+
+-- Step 4: verify parity
+SELECT COUNT(*) FROM customers WHERE email_address IS DISTINCT FROM email;
+
+-- Step 5: switch application to read from new column
+
+-- Step 6: drop old column
+ALTER TABLE customers DROP COLUMN email;
+```
+
+### Safe column rename using view migration
+
+Rename a column without breaking existing queries:
+
+```sql
+-- Step 1: add new column
+ALTER TABLE customers ADD COLUMN email_new VARCHAR(255);
+
+-- Step 2: backfill data
+UPDATE customers SET email_new = email WHERE email_new IS NULL;
+
+-- Step 3: create view with renamed column
+CREATE OR REPLACE VIEW customers_v1 AS
+SELECT id, name, email_new AS email, created_at
+FROM customers;
+
+-- Step 4: migrate application to use view
+
+-- Step 5: drop old column and rename new
+ALTER TABLE customers DROP COLUMN email;
+ALTER TABLE customers RENAME COLUMN email_new TO email;
+
+-- Step 6: drop view and use table directly
+DROP VIEW customers_v1;
+```
+
+### Migration with check constraints for validation
+
+Add constraints incrementally to validate data during migration:
+
+```sql
+-- Step 1: add new column
+ALTER TABLE orders ADD COLUMN total_cents INTEGER;
+
+-- Step 2: backfill with validation
+UPDATE orders SET total_cents = (total * 100)::INTEGER
+WHERE total_cents IS NULL;
+
+-- Step 3: add constraint as NOT VALID (no lock)
+ALTER TABLE orders ADD CONSTRAINT chk_total_cents_positive
+CHECK (total_cents >= 0) NOT VALID;
+
+-- Step 4: validate constraint later (brief lock)
+ALTER TABLE orders VALIDATE CONSTRAINT chk_total_cents_positive;
+
+-- Step 5: if validation passes, proceed with cutover
+```
+
+### Handling foreign key migrations
+
+Migrate foreign key columns without breaking referential integrity:
+
+```sql
+-- Step 1: add new FK column (nullable)
+ALTER TABLE orders ADD COLUMN customer_id_new INTEGER;
+
+-- Step 2: backfill from old FK
+UPDATE orders SET customer_id_new = customer_id WHERE customer_id_new IS NULL;
+
+-- Step 3: add FK constraint to new column
+ALTER TABLE orders ADD CONSTRAINT fk_orders_customer_new
+FOREIGN KEY (customer_id_new) REFERENCES customers(id);
+
+-- Step 4: switch application to use new FK
+
+-- Step 5: drop old FK and column
+ALTER TABLE orders DROP CONSTRAINT fk_orders_customer;
+ALTER TABLE orders DROP COLUMN customer_id;
+
+-- Step 6: rename new column
+ALTER TABLE orders RENAME COLUMN customer_id_new TO customer_id;
+```
+
+### Rollback strategy with shadow column
+
+Keep a shadow column for quick rollback capability:
+
+```sql
+-- Step 1: add shadow column (not used by app)
+ALTER TABLE customers ADD COLUMN email_shadow VARCHAR(255);
+
+-- Step 2: backfill shadow column
+UPDATE customers SET email_shadow = email WHERE email_shadow IS NULL;
+
+-- Step 3: proceed with main migration
+ALTER TABLE customers ADD COLUMN email_address VARCHAR(255);
+-- ... backfill email_address ...
+
+-- Step 4: if issues arise, rollback using shadow
+UPDATE customers SET email = email_shadow WHERE email IS NULL;
+
+-- Step 5: after successful cutover, drop shadow
+ALTER TABLE customers DROP COLUMN email_shadow;
+```

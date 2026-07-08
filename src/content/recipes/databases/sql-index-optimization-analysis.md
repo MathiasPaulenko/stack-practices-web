@@ -298,3 +298,134 @@ ORDER BY seq_tup_read DESC;
 ```
 
 Schedule these checks as a weekly cron job and log results to track index health trends over time.
+
+## Advanced Techniques
+
+### Index-only scan optimization
+
+Maximize index-only scans by including frequently accessed columns:
+
+```sql
+-- Create a covering index for common query patterns
+CREATE INDEX idx_orders_customer_covering
+ON orders (customer_id, created_at DESC)
+INCLUDE (total_amount, status, shipping_address);
+
+-- Verify index-only scan in execution plan
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT customer_id, created_at, total_amount, status
+FROM orders
+WHERE customer_id = 1234
+ORDER BY created_at DESC
+LIMIT 50;
+```
+
+### Hypothetical indexes for testing
+
+Test index impact before creating them:
+
+```sql
+-- Enable hypopg extension for hypothetical indexes
+CREATE EXTENSION IF NOT EXISTS hypopg;
+
+-- Test a hypothetical index without creating it
+SELECT * FROM hypopg_create_index('orders', 'customer_id, created_at');
+
+-- Explain with the hypothetical index
+EXPLAIN SELECT * FROM orders WHERE customer_id = 1234 AND created_at > '2024-01-01';
+
+-- Clean up hypothetical indexes
+SELECT hypopg_reset();
+```
+
+### Index usage statistics by query pattern
+
+Track which queries use which indexes:
+
+```sql
+-- Enable pg_stat_statements extension
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+-- Find queries that would benefit from specific indexes
+SELECT query, calls, total_time, mean_time
+FROM pg_stat_statements
+WHERE query LIKE '%orders%'
+ORDER BY total_time DESC
+LIMIT 20;
+```
+
+### Parallel query execution with indexes
+
+Use parallel workers for large scans:
+
+```sql
+-- Set parallel workers for large table scans
+SET max_parallel_workers_per_gather = 4;
+SET parallel_setup_cost = 100;
+SET parallel_tuple_cost = 0.01;
+
+-- Verify parallel execution in plan
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT COUNT(*) FROM orders WHERE status = 'completed';
+```
+
+### Index partitioning for large tables
+
+Partition indexes alongside table partitioning:
+
+```sql
+-- Create partitioned table with local indexes
+CREATE TABLE orders_partitioned (
+  id BIGSERIAL,
+  customer_id INTEGER,
+  created_at TIMESTAMP DEFAULT NOW(),
+  status TEXT
+) PARTITION BY RANGE (created_at);
+
+-- Create partitions with local indexes
+CREATE TABLE orders_2024_q1 PARTITION OF orders_partitioned
+  FOR VALUES FROM ('2024-01-01') TO ('2024-04-01');
+
+CREATE INDEX idx_orders_2024_q1_customer
+  ON orders_2024_q1 (customer_id);
+
+-- Query uses partition pruning + local index
+EXPLAIN ANALYZE
+SELECT * FROM orders_partitioned
+WHERE customer_id = 1234
+  AND created_at >= '2024-01-01';
+```
+
+### Hash indexes for equality comparisons
+
+Use hash indexes for equality-only queries on large columns:
+
+```sql
+-- Hash index for exact equality on large text columns
+CREATE INDEX idx_users_email_hash
+ON users USING HASH (email);
+
+-- Only works for equality, not range or pattern matching
+EXPLAIN ANALYZE
+SELECT * FROM users WHERE email = 'alice@example.com';
+```
+
+### Bloom filters for multi-column filtering
+
+Use bloom indexes for efficient multi-column filtering:
+
+```sql
+-- Enable bloom extension
+CREATE EXTENSION IF NOT EXISTS bloom;
+
+-- Create bloom index for multiple columns
+CREATE INDEX idx_orders_bloom
+ON orders USING bloom (customer_id, status, created_at);
+
+-- Efficient multi-column lookup
+EXPLAIN ANALYZE
+SELECT * FROM orders
+WHERE customer_id = 1234
+  AND status = 'pending'
+  AND created_at > '2024-01-01';
+```

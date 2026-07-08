@@ -172,14 +172,271 @@ R: Las sagas son más naturales con eventos o mensajes asíncronos porque cada p
 **P: ¿Cómo manejo la duplicación de mensajes desde un broker?**
 R: Diseña consumidores idempotentes. Almacena los IDs de mensajes procesados en una tabla de deduplicación o usa las configuraciones de productor idempotente del broker cuando estén disponibles.
 
+### gRPC Servicio-a-Servicio (TypeScript)
+
+```typescript
+import { credentials, makeClientConstructor } from '@grpc/grpc-js';
+import { loadPackageDefinition } from '@grpc/grpc-js';
+import { loadSync } from '@grpc/proto-loader';
+
+const packageDefinition = loadSync('proto/orders.proto', {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true,
+});
+
+const protoDescriptor = loadPackageDefinition(packageDefinition);
+const OrderServiceClient = makeClientConstructor(
+  (protoDescriptor as any).orders.OrderService.service,
+  'OrderService'
+);
+
+class OrderGrpcClient {
+  private client: any;
+
+  constructor(address: string = 'orders-service:50051') {
+    this.client = new OrderServiceClient(address, credentials.createInsecure());
+  }
+
+  getOrder(orderId: string): Promise<Order> {
+    return new Promise((resolve, reject) => {
+      this.client.getOrder({ id: orderId }, (err: Error | null, response: Order) => {
+        if (err) reject(err);
+        else resolve(response);
+      });
+    });
+  }
+
+  createOrder(items: OrderItem[]): Promise<Order> {
+    return new Promise((resolve, reject) => {
+      this.client.createOrder({ items }, (err: Error | null, response: Order) => {
+        if (err) reject(err);
+        else resolve(response);
+      });
+    });
+  }
+}
+```
+
+### Consumidor de Mensajes Asíncronos con Dead-Letter Queue (Python)
+
+```python
+import pika
+import json
+import logging
+
+logger = logging.getLogger(__name__)
+
+class OrderConsumer:
+    def __init__(self, rabbitmq_url: str = 'amqp://rabbitmq:5672'):
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(rabbitmq_url)
+        )
+        self.channel = self.connection.channel()
+
+        # Cola principal
+        self.channel.queue_declare(queue='orders.created', durable=True)
+        # Dead-letter queue para mensajes fallidos
+        self.channel.queue_declare(queue='orders.created.dlq', durable=True)
+
+    def process_message(self, ch, method, properties, body):
+        try:
+            order = json.loads(body)
+            self._handle_order(order)
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+        except Exception as e:
+            logger.error(f'Failed to process order: {e}')
+            # Rechazar y re-encolar hasta 3 veces, luego enviar a DLQ
+            headers = properties.headers or {}
+            retry_count = headers.get('x-retry-count', 0)
+            if retry_count < 3:
+                ch.basic_publish(
+                    exchange='',
+                    routing_key='orders.created',
+                    body=body,
+                    properties=pika.BasicProperties(
+                        headers={'x-retry-count': retry_count + 1}
+                    )
+                )
+            else:
+                ch.basic_publish(
+                    exchange='',
+                    routing_key='orders.created.dlq',
+                    body=body,
+                    properties=pika.BasicProperties(
+                        headers={'x-retry-count': retry_count + 1}
+                    )
+                )
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+
+    def _handle_order(self, order: dict):
+        logger.info(f'Processing order {order["id"]}')
+        # Lógica de negocio aquí
+
+    def start(self):
+        self.channel.basic_consume(
+            queue='orders.created',
+            on_message_callback=self.process_message
+        )
+        logger.info('Waiting for orders...')
+        self.channel.start_consuming()
+```
+
+### Circuit Breaker con Resilience4j (Java)
+
+```java
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.retry.Retry;
+import io.vavr.control.Try;
+
+import java.time.Duration;
+
+public class ResilientPaymentClient {
+    private final CircuitBreaker circuitBreaker;
+    private final Retry retry;
+    private final PaymentGateway gateway;
+
+    public ResilientPaymentClient(PaymentGateway gateway) {
+        this.gateway = gateway;
+        this.circuitBreaker = CircuitBreaker.of("payment",
+            CircuitBreakerConfig.custom()
+                .failureRateThreshold(50)
+                .waitDurationInOpenState(Duration.ofSeconds(30))
+                .slidingWindowSize(10)
+                .minimumNumberOfCalls(5)
+                .build()
+        );
+        this.retry = Retry.of("payment",
+            RetryConfig.custom()
+                .maxAttempts(3)
+                .waitDuration(Duration.ofMillis(500))
+                .build()
+        );
+    }
+
+    public PaymentResult charge(PaymentRequest request) {
+        return Try.of(() ->
+            Retry.decorateSupplier(retry,
+                CircuitBreaker.decorateSupplier(circuitBreaker,
+                    () -> gateway.charge(request)
+                )
+            ).get()
+        ).getOrElseThrow(throwable ->
+            new PaymentFailedException("Payment service unavailable", throwable)
+        );
+    }
+}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa correlation IDs para distributed tracing.** Pasa un correlation ID a través de todas las llamadas de servicio y mensajes para trazar una request a través del sistema completo:
+
+```typescript
+import { v4 as uuidv4 } from 'uuid';
+
+function withCorrelationId(headers: Record<string, string> = {}) {
+  return { ...headers, 'X-Correlation-ID': headers['X-Correlation-ID'] || uuidv4() };
+}
+
+// Pasar a través de cada llamada downstream
+async function processOrder(order: Order) {
+  const correlationId = uuidv4();
+  await paymentService.charge(order, { 'X-Correlation-ID': correlationId });
+  await inventoryService.reserve(order.items, { 'X-Correlation-ID': correlationId });
+  await notificationService.send(order.userId, { 'X-Correlation-ID': correlationId });
+}
+```
+
+2. **Implementa aislamiento bulkhead.** Limita llamadas concurrentes a cada servicio downstream para que una dependencia lenta no agote todos los threads:
+
+```typescript
+class Bulkhead {
+  private active: number = 0;
+  constructor(private maxConcurrent: number) {}
+
+  async execute<T>(fn: () => Promise<T>): Promise<T> {
+    if (this.active >= this.maxConcurrent) {
+      throw new Error('Bulkhead full — too many concurrent calls');
+    }
+    this.active++;
+    try {
+      return await fn();
+    } finally {
+      this.active--;
+    }
+  }
+}
+
+const paymentBulkhead = new Bulkhead(10);
+const result = await paymentBulkhead.execute(() => paymentService.charge(order));
+```
+
+3. **Versiona tus APIs y esquemas de eventos.** Usa versionado por URL para REST y schema registry para eventos para evolucionar contratos sin romper consumidores:
+
+```typescript
+// REST: versionado por URL
+app.get('/v1/orders/:id', getOrderV1);
+app.get('/v2/orders/:id', getOrderV2);
+
+// Eventos: schema registry con evolución backward-compatible
+const orderCreatedV2 = {
+  ...orderCreatedV1,
+  shippingAddress: { type: 'string', default: null }, // cambio aditivo
+};
+```
+
+## Errores Comunes Adicionales
+
+1. **Sin timeout en consumidores asíncronos.** Un consumidor que bloquea indefinidamente en una llamada lenta a la base de datos retiene el mensaje y evita que el broker lo entregue a otra instancia. Establece timeouts de procesamiento:
+
+```python
+import signal
+
+class TimeoutError(Exception):
+    pass
+
+def with_timeout(seconds: int):
+    def handler(signum, frame):
+        raise TimeoutError(f'Processing exceeded {seconds}s')
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(seconds)
+```
+
+2. **Ignorar back-pressure.** Cuando un productor supera a un consumidor, los mensajes se acumulan. Monitorea la profundidad de la cola e implementa back-pressure pausando el productor o escalando consumidores:
+
+```typescript
+class ConsumerMonitor {
+  async checkQueueDepth(queueName: string, threshold: number = 1000): Promise<boolean> {
+    const depth = await this.getQueueDepth(queueName);
+    if (depth > threshold) {
+      logger.warn(`Queue ${queueName} depth ${depth} exceeds threshold ${threshold}`);
+      return false; // señalar al productor para reducir velocidad
+    }
+    return true;
+  }
+}
+```
+
+3. **Mezclar sync y async sin límites claros.** Un servicio que acepta una request REST síncrona y luego hace llamadas asíncronas sin retornar una respuesta al cliente crea ambigüedad. O completa la cadena síncrona antes de responder o retorna un 202 Accepted con un correlation ID para tracking asíncrono.
+
+## FAQ Adicional
+
+### ¿Cómo testeo comunicación entre microservicios?
+
+Usa contract testing (Pact) para verificar que productores y consumidores acuerdan en los formatos de mensaje. Para tests de integración, usa Testcontainers para levantar brokers reales (RabbitMQ, Kafka) en Docker. Para tests end-to-end, usa correlation IDs para verificar la cadena completa. Mockea servicios externos con WireMock o MockServer para simular fallos y timeouts.
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Los ejemplos REST con httpx y fetch son patrones estándar de producción. El ejemplo gRPC usa la librería oficial grpc-js. El consumidor RabbitMQ con dead-letter queues refleja lo que los sistemas productivos hacen para manejo de errores. El circuit breaker con Resilience4j se usa en aplicaciones Spring Boot productivas. Los correlation IDs y el aislamiento bulkhead son prácticas estándar en sistemas distribuidos.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Las llamadas REST añaden 1-10ms por hop dependiendo del tamaño del payload y latencia de red. gRPC es 2-5x más rápido que REST para payloads pequeños debido a multiplexing HTTP/2 y encoding binario. Los productores Kafka añaden 1-5ms para acknowledgment; RabbitMQ añade 0.5-2ms. Los circuit breakers añaden overhead despreciable (un check de contador). El bulkhead añade un check de semáforo por llamada. La propagación de correlation ID es un string copy por llamada — despreciable.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Usa distributed tracing (Jaeger, Zipkin) con correlation IDs para visualizar la cadena completa de llamadas. Para mensajería asíncrona, loggea el message ID, correlation ID y tiempo de procesamiento tanto en productor como en consumidor. Para circuit breakers, loggea las transiciones de estado (closed → open → half-open). Para gRPC, habilita logging a nivel channel. Para Kafka, usa kafka-consumer-groups.sh para monitorear lag. Configura alertas en queue depth, consumer lag y eventos de circuit breaker open.

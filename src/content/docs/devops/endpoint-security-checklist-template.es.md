@@ -147,3 +147,222 @@ Si, si almacenan o acceden a datos corporativos. Utiliza soluciones de mobile ap
 ### Como hacemos cumplir el checklist sin ralentizar a los usuarios?
 
 Utiliza perfiles de MDM, group policy o gestion de configuracion para automatizar tantos controles como sea posible. Proporciona instrucciones claras y opciones de autoservicio para reducir la friccion.
+
+## Soluciones Avanzadas
+
+### Endurecimiento de macOS con Jamf Pro
+
+Automatiza el endurecimiento de endpoints para flotas macOS usando perfiles de configuracion de Jamf Pro:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Jamf Pro API authentication
+JAMF_URL="https://yourorg.jamfcloud.com"
+API_TOKEN=$(curl -s -X POST "$JAMF_URL/api/v1/auth/token" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"api-user","password":"api-pass"}' | jq -r '.token')
+
+# Apply FileVault encryption policy to all managed Macs
+curl -s -X POST "$JAMF_URL/api/v1/mobile-device-command-files" \
+  -H "Authorization: Bearer $API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "commandName": "EnableFileVault",
+    "mobileDeviceIds": [1, 2, 3, 4, 5]
+  }'
+
+# Verify FileVault status across fleet
+curl -s -X GET "$JAMF_URL/api/v1/computers-inventory" \
+  -H "Authorization: Bearer $API_TOKEN" | \
+  jq -r '.results[] | {
+    name: .name,
+    filevault: .diskEncryptionFileVaultEnabled,
+    os_version: .osVersion
+  }'
+
+# Enforce Gatekeeper and SIP via configuration profile
+cat > gatekeeper-profile.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <dict>
+    <key>spare-config-data</key>
+    <dict>
+      <key>Gatekeeper</key>
+      <dict>
+        <key>DeveloperIdentified</key>
+        <true/>
+      </dict>
+    </dict>
+  </dict>
+  <key>PayloadDisplayName</key>
+  <string>Gatekeeper Enforcement</string>
+  <key>PayloadIdentifier</key>
+  <string>com.company.gatekeeper</string>
+  <key>PayloadType</key>
+  <string>com.apple.ManagedClient.preferences</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>
+EOF
+```
+
+### Endurecimiento de endpoints Windows con Intune
+
+Despliega baselines de seguridad a endpoints Windows 11 via Microsoft Intune:
+
+```powershell
+# Connect to Microsoft Graph
+Connect-MgGraph -Scopes "DeviceManagementConfiguration.ReadWrite.All"
+
+# Apply Windows 11 Security Baseline
+$baseline = Get-MgDeviceManagementConfigurationPolicy |
+  Where-Object { $_.Name -like "*Windows 11 Security*" }
+
+# Verify compliance status across enrolled devices
+$devices = Get-MgDeviceManagementManagedDevice
+foreach ($device in $devices) {
+    $compliance = Get-MgDeviceManagementManagedDeviceCompliancePolicyState `
+      -ManagedDeviceId $device.Id
+
+    Write-Output "$($device.DeviceName): $($compliance.State)"
+}
+
+# Check BitLocker encryption status
+$bitlockerReport = Get-MgDeviceManagementManagedDevice |
+  Select-Object DeviceName, @{
+    Name="BitLockerStatus";
+    Expression={ $_.EncryptionState -eq 1 ? "Encrypted" : "Not Encrypted" }
+  }
+$bitlockerReport | Format-Table
+```
+
+### Escaneo automatizado de cumplimiento de endpoints con osquery
+
+Ejecuta osquery para auditar la postura de seguridad de endpoints en tu flota:
+
+```sql
+-- Check disk encryption status
+SELECT
+  de.encrypted,
+  de.encrypted,
+  hos.hostname,
+  hos.os_version
+FROM disk_encryption de
+JOIN os_version hos
+WHERE de.encrypted = 0;
+
+-- Find devices with disabled firewall
+SELECT
+  pf.global_state,
+  hos.hostname
+FROM process_firewall pf
+JOIN os_version hos
+WHERE pf.global_state = 0;
+
+-- Detect missing EDR agent
+SELECT
+  hos.hostname,
+  p.name AS process_name
+FROM processes p
+JOIN os_version hos
+WHERE p.name LIKE "%CrowdStrike%"
+  OR p.name LIKE "%SentinelOne%"
+  OR p.name LIKE "%Defender%"
+GROUP BY hos.hostname
+HAVING COUNT(*) = 0;
+
+-- Find devices with USB storage enabled
+SELECT
+  hos.hostname,
+  de.device,
+  de.media_name
+FROM disk_events de
+JOIN os_version hos
+WHERE de.action = "added"
+  AND de.device LIKE "/dev/sd%";
+```
+
+## Mejores Practicas Adicionales
+
+1. **Implementa acceso de red zero-trust (ZTNA) para endpoints.** Reemplaza la VPN tradicional con ZTNA para verificar la postura del dispositivo antes de otorgar acceso. Los dispositivos que no pasan las verificaciones de cumplimiento se bloquean automaticamente:
+
+```yaml
+# ZTNA policy: Block non-compliant devices
+access_policy:
+  name: "Endpoint compliance gate"
+  conditions:
+    - device.compliance_status == "compliant"
+    - device.encryption_enabled == true
+    - device.edr_reporting == true
+  action: "allow"
+  fallback_action: "block"
+  fallback_message: "Device not compliant. Contact IT."
+```
+
+2. **Usa llaves de seguridad hardware para usuarios privilegiados.** Las llaves de seguridad FIDO2 (YubiKey, Titan) proporcionan MFA resistente a phishing. Exigelas para administradores y desarrolladores con acceso a produccion:
+
+```bash
+# Enforce security key requirement via Okta API
+curl -X POST "https://yourorg.okta.com/api/v1/policies" \
+  -H "Authorization: SSWS $OKTA_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "MFA_ENROLL",
+    "name": "Security Key Required for Admins",
+    "status": "ACTIVE",
+    "priority": 1,
+    "conditions": {
+      "people": {
+        "groups": {"include": ["admin-group-id"]}
+      }
+    },
+    "settings": {
+      "factors": [{"factorType": "security_key"}]
+    }
+  }'
+```
+
+## Errores Comunes Adicionales
+
+1. **No asegurar las estaciones de trabajo de desarrolladores con el mismo rigor que las laptops de oficina.** Las maquinas de desarrolladores suelen tener llaves SSH, credenciales cloud y acceso a produccion. Aplica los mismos requisitos de EDR, cifrado y MFA:
+
+```bash
+# Scan developer machines for exposed credentials
+# Check for SSH keys without passphrase
+find ~/.ssh -name "id_*" -not -name "*.pub" -exec ssh-keygen -y -f {} \; 2>&1 | \
+  grep -q "Enter passphrase" || echo "WARNING: Key without passphrase: {}"
+
+# Check for AWS credentials in plaintext
+find ~/.aws -name "credentials" -exec chmod 600 {} \;
+```
+
+2. **Ignorar dispositivos IoT y smart devices en la red corporativa.** Smart TVs, dispositivos de salas de conferencias e impresoras de red suelen ejecutar firmware sin parchear. Segmentalos en una VLAN dedicada con acceso restringido:
+
+```bash
+# Example: VLAN segmentation for IoT devices
+# Switch configuration snippet
+interface vlan 50
+  description "IoT Devices - Restricted"
+  ip access-group IoT_RESTRICTED in
+!
+ip access-list extended IoT_RESTRICTED
+  permit tcp any any eq 443
+  permit tcp any any eq 80
+  deny ip any 10.0.0.0 0.255.255.255
+  permit ip any any
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Con que frecuencia debo auditar el cumplimiento de endpoints?
+
+Ejecuta verificaciones automatizadas de cumplimiento semanalmente via MDM o EDR. Realiza una auditoria manual completa trimestralmente. Despues de cualquier incidente de seguridad, re-audita todos los dispositivos que puedan haber estado expuestos.
+
+### Cual es la diferencia entre MDM y EDR?
+
+MDM (Mobile Device Management) gestiona la configuracion del dispositivo, politicas y ciclo de vida (alta, actualizaciones, borrado remoto). EDR (Endpoint Detection and Response) monitorea amenazas, recolecta telemetria y permite investigacion de incidentes. Necesitas ambos: MDM para prevencion, EDR para deteccion y respuesta.

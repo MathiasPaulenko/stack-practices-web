@@ -236,3 +236,295 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### Helm Subcharts y Dependencias
+
+```yaml
+# Chart.yaml
+apiVersion: v2
+name: my-app
+version: 1.2.0
+dependencies:
+  - name: postgresql
+    version: 12.12.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+  - name: redis
+    version: 17.11.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled
+```
+
+```yaml
+# values.yaml
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "secretpass"
+  primary:
+    persistence:
+      size: 20Gi
+
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    password: "redispass"
+```
+
+```bash
+# Actualizar dependencias
+helm dependency update
+
+# Buildar dependencias en el chart
+helm dependency build
+
+# Desplegar con subcharts
+helm upgrade --install my-app ./my-app -f values.yaml
+```
+
+### Pipeline CI/CD con Helm
+
+```yaml
+# .github/workflows/helm-deploy.yml
+name: Helm Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Configure Helm
+        uses: azure/setup-helm@v3
+
+      - name: Login to cluster
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Lint chart
+        run: helm lint ./charts/my-app
+
+      - name: Template y diff
+        run: |
+          helm template my-app ./charts/my-app -f values-prod.yaml > new.yaml
+          helm get manifest my-app > current.yaml
+          diff current.yaml new.yaml || true
+
+      - name: Deploy
+        run: |
+          helm upgrade --install my-app ./charts/my-app \
+            -f values-prod.yaml \
+            --atomic \
+            --timeout 5m \
+            --wait
+
+      - name: Verify
+        run: helm test my-app
+```
+
+### Helm Secrets con SOPS
+
+```bash
+# Instalar plugin helm-secrets
+helm plugin install https://github.com/jkroepke/helm-secrets
+
+# Encriptar archivo de values
+sops --encrypt --in-place secrets.yaml
+
+# Desplegar con secrets encriptados
+helm secrets upgrade my-app ./my-app -f secrets.yaml
+
+# El plugin desencripta on-the-fly y nunca escribe plaintext a disk
+```
+
+```yaml
+# secrets.yaml (encriptado con SOPS)
+database:
+  password: ENC[AES256_GCM,data:abc123==,iv:...]
+adminToken: ENC[AES256_GCM,data:def456==,iv:...]
+```
+
+### Helm Hooks
+
+```yaml
+# templates/hooks/pre-install-hook.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-db-migrate
+  annotations:
+    "helm.sh/hook": pre-upgrade,pre-install
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          command: ["./migrate", "up"]
+```
+
+```yaml
+# templates/hooks/post-install-test.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Release.Name }}-test
+  annotations:
+    "helm.sh/hook": test
+spec:
+  restartPolicy: Never
+  containers:
+    - name: test
+      image: curlimages/curl
+      command: ["curl", "-f", "http://{{ .Release.Name }}-service/health"]
+```
+
+### Estrategia de Rollback
+
+```bash
+# Ver historial de releases
+helm history my-app
+
+# Rollback a revisión anterior
+helm rollback my-app 3
+
+# Rollback con cleanup
+helm rollback my-app 3 --cleanup-on-fail
+
+# Ver values de una revisión específica
+helm get values my-app --revision 3
+
+# Comparar actual vs anterior
+diff <(helm get values my-app --revision 2 -o yaml) \
+     <(helm get values my-app --revision 3 -o yaml)
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `--atomic` en producción.** Rollback automático en fallo:
+
+```bash
+helm upgrade --install my-app ./my-app \
+  --atomic \
+  --timeout 5m \
+  --wait
+```
+
+1. **Templatea antes de desplegar.** Atrapa errores de YAML temprano:
+
+```bash
+helm template my-app ./my-app -f values.yaml | kubectl apply --dry-run=client -f -
+```
+
+1. **Usa `helm diff` para previsualizar cambios.** Ve exactamente qué cambia antes de aplicar:
+
+```bash
+helm plugin install https://github.com/databus23/helm-diff
+helm diff upgrade my-app ./my-app -f values.yaml
+```
+
+## Errores Comunes Adicionales
+
+1. **No usar flag `--wait`.** Helm reporta éxito antes de que los pods estén listos:
+
+```bash
+# Sin --wait: Helm retorna inmediatamente
+helm upgrade my-app ./my-app
+
+# Con --wait: Helm espera que todos los recursos estén listos
+helm upgrade my-app ./my-app --wait --timeout 5m
+```
+
+1. **Sobreescribir valores de subchart incorrectamente.** Usa el nombre del subchart como prefijo:
+
+```yaml
+# Mal
+password: "secretpass"
+
+# Bien
+postgresql:
+  auth:
+    postgresPassword: "secretpass"
+```
+
+1. **No limpiar releases fallidos.** Releases fallidos consumen recursos:
+
+```bash
+# Listar todos los releases incluyendo fallidos
+helm list --all
+
+# Desinstalar release fallido
+helm uninstall my-app --keep-history  # Mantener historial para auditoría
+```
+
+## FAQ Adicional
+
+### ¿Cómo empaqueto y distribuyo un Helm chart?
+
+```bash
+# Empaquetar chart
+helm package ./my-app --version 1.2.0
+
+# Push a OCI registry
+helm push my-app-1.2.0.tgz oci://registry.example.com/charts
+
+# Pull desde OCI registry
+helm pull oci://registry.example.com/charts/my-app --version 1.2.0
+```
+
+### ¿Cómo gestiono múltiples entornos?
+
+Usa archivos de values separados por entorno:
+
+```bash
+helm upgrade --install my-app ./my-app -f values.yaml -f values-dev.yaml
+helm upgrade --install my-app ./my-app -f values.yaml -f values-staging.yaml
+helm upgrade --install my-app ./my-app -f values.yaml -f values-prod.yaml
+```
+
+### ¿Debo usar Helm o Kustomize?
+
+Usa Helm cuando necesites: templating, packaging, gestión de dependencias y distribución. Usa Kustomize cuando necesites: overlays simples sin templating, y tu equipo prefiere YAML plano.
+
+## Tips de Rendimiento
+
+1. **Usa `helm template` para validación.** Más rápido que un deploy completo:
+
+```bash
+helm template my-app ./my-app -f values.yaml > manifest.yaml
+kubectl apply --dry-run=client -f manifest.yaml
+```
+
+1. **Cachéa dependencias de charts.** Evita re-descargar subcharts:
+
+```bash
+# Las dependencias se cachéan en el directorio charts/
+helm dependency build  # Descarga una vez
+helm dependency update  # Solo actualiza deps cambiadas
+```
+
+1. **Usa `--reuse-values` para updates menores.** Evita re-especificar todos los values:
+
+```bash
+# Solo sobreescribir values específicos, mantener el resto
+helm upgrade my-app ./my-app --reuse-values --set image.tag=v2.0.1
+```
+
+1. **Paraleliza tests con `helm test`.** Corre múltiples pods de test:
+
+```yaml
+# templates/tests/
+# test-1.yaml, test-2.yaml, test-3.yaml
+# Todos corren en paralelo al ejecutar: helm test my-app
+```

@@ -269,10 +269,215 @@ A: Yes. Istio supports routing by headers, cookies, or JWT claims for targeted c
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
 
-### What are the performance characteristics?
+### Header-Based Canary Routing
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+```yaml
+# Route internal testers to v2 regardless of weight
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: api-header-routing
+spec:
+  hosts:
+  - api
+  http:
+  - match:
+    - headers:
+        x-canary-test:
+          exact: "true"
+    route:
+    - destination:
+        host: api
+        subset: v2
+  - route:
+    - destination:
+        host: api
+        subset: v1
+      weight: 100
+```
 
-### How do I debug issues with this approach?
+### Traffic Mirroring (Shadow Traffic)
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+```yaml
+# Mirror 100% of traffic to v2 without affecting responses
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: api-mirror
+spec:
+  hosts:
+  - api
+  http:
+  - route:
+    - destination:
+        host: api
+        subset: v1
+      weight: 100
+    mirror:
+      host: api
+      subset: v2
+    mirrorPercentage:
+      value: 100.0
+```
+
+### Circuit Breaking with DestinationRule
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: api-circuit-breaker
+spec:
+  host: api
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 50
+      http:
+        http1MaxPendingRequests: 20
+        maxRequestsPerConnection: 10
+    outlierDetection:
+      consecutive5xxErrors: 3
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+    loadBalancer:
+      simple: LEAST_REQUEST
+```
+
+### Post-Promotion Cleanup
+
+```bash
+#!/bin/bash
+# cleanup-old-version.sh
+
+# After full canary promotion to v2:
+# 1. Remove old VirtualService weights
+kubectl apply -f virtual-service-v2-only.yaml
+
+# 2. Scale down v1 deployment
+kubectl scale deployment api-v1 --replicas=0
+
+# 3. Wait for pods to terminate
+kubectl wait --for=delete pod -l app=api,version=v1 --timeout=60s
+
+# 4. Remove v1 deployment
+kubectl delete deployment api-v1
+
+# 5. Remove v1 subset from DestinationRule
+kubectl apply -f destination-rule-v2-only.yaml
+
+echo "Cleanup complete. Only v2 is running."
+```
+
+## Additional Best Practices
+
+1. **Use Flagger for fully automated canary analysis.** It handles traffic shifting, metric evaluation, and rollback without manual intervention:
+
+```yaml
+# Flagger with custom Prometheus query
+analysis:
+  metrics:
+  - name: error-rate
+    threshold: 1
+    query: |
+      sum(rate(istio_requests_total{
+        destination_service="api.default.svc.cluster.local",
+        response_code=~"5.*"
+      }[1m])) /
+      sum(rate(istio_requests_total{
+        destination_service="api.default.svc.cluster.local"
+      }[1m])) * 100
+```
+
+2. **Tag images with semantic versions, not `latest`.** This ensures you can roll back to a specific version:
+
+```bash
+# Good: versioned tags
+image: myapp:1.1.0
+image: myapp:1.1.1
+
+# Bad: mutable tags
+image: myapp:latest
+```
+
+3. **Run canary during low-traffic hours.** Reduce blast radius by starting rollouts during off-peak periods:
+
+```bash
+# Schedule canary for 2 AM
+0 2 * * * /opt/scripts/canary-rollout.sh >> /var/log/canary.log 2>&1
+```
+
+## Additional Common Mistakes
+
+1. **Not defining SLOs before canary.** Without thresholds, you cannot automate rollback decisions:
+
+```yaml
+# Define SLOs explicitly
+slos:
+  - name: availability
+    target: 99.9
+  - name: latency_p99
+    target: 200ms
+```
+
+2. **Using same database for v1 and v2 with schema changes.** Backward-incompatible migrations break v1:
+
+```bash
+# Use expand-contract pattern
+# 1. Expand: add new columns (both versions work)
+# 2. Migrate: v2 writes to new columns
+# 3. Contract: remove old columns after v1 is gone
+```
+
+3. **Ignoring canary pod resource limits.** A single canary pod can consume cluster resources:
+
+```yaml
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+```
+
+## Additional FAQ
+
+### How do I canary a database migration?
+
+Use the expand-contract pattern. First, add new columns/tables (expand) so both versions work. Then deploy v2 which uses the new schema. Finally, remove old columns (contract) after v1 is decommissioned.
+
+### What is traffic mirroring vs canary?
+
+Traffic mirroring sends a copy of requests to the canary without affecting the user response. This lets you test v2 with real traffic patterns before shifting any actual traffic. Canary sends real traffic to v2, affecting user responses.
+
+### How long should each canary phase last?
+
+At least 5-10 minutes per phase for short-lived services. For high-traffic services, 30-60 minutes per phase gives enough data for statistical significance. Monitor error rate, latency p99, and business metrics.
+
+## Performance Tips
+
+1. **Use LEAST_REQUEST load balancing.** Prevents the canary pod from being overwhelmed:
+
+```yaml
+loadBalancer:
+  simple: LEAST_REQUEST
+```
+
+2. **Enable Istio telemetry selectively.** Full telemetry adds overhead. Disable access logs during high-traffic canaries:
+
+```yaml
+telemetry:
+  accessLogLogging:
+    disabled: true
+```
+
+3. **Pre-warm canary pods.** Send a small amount of traffic before starting the rollout to JIT-compile code and warm caches:
+
+```bash
+# Pre-warm with 1% traffic for 2 minutes
+set_weight 99
+sleep 120
+# Then start the real rollout
+```

@@ -210,3 +210,319 @@ Carga un archivo de configuración (JSON, YAML, TOML) como defaults, luego deja 
 ### Cómo pruebo una herramienta CLI?
 
 En Python, usa `subprocess.run(["python", "cli.py", "--help"])` o testea las funciones puras detrás del CLI directamente. En JavaScript, importa el handler del comando y llámalo con un objeto argv parseado. En Java, testea el método `call()` de tu clase picocli independientemente del punto de entrada `main()`. Mantén la lógica de negocio separada del cableado CLI.
+
+### Go (cobra)
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+    "github.com/spf13/cobra"
+)
+
+var (
+    version  string
+    dryRun   bool
+    verbose  bool
+)
+
+func main() {
+    rootCmd := &cobra.Command{
+        Use:   "deploy-cli",
+        Short: "CLI for app deployments",
+        Version: "1.0.0",
+    }
+
+    deployCmd := &cobra.Command{
+        Use:   "deploy [environment]",
+        Short: "Deploy to an environment",
+        Args:  cobra.MatchAll(cobra.ExactArgs(1), cobra.OnlyValidArgs),
+        ValidArgs: []string{"dev", "staging", "prod"},
+        Run: func(cmd *cobra.Command, args []string) {
+            env := args[0]
+            fmt.Printf("Deploying %s to %s\n", version, env)
+            if dryRun {
+                fmt.Println("(dry run mode)")
+            }
+        },
+    }
+
+    deployCmd.Flags().StringVarP(&version, "version", "v", "latest", "App version")
+    deployCmd.Flags().BoolVar(&dryRun, "dry-run", false, "Simulate without changes")
+    deployCmd.Flags().BoolVarP(&verbose, "verbose", "V", false, "Verbose output")
+
+    rootCmd.AddCommand(deployCmd)
+    rootCmd.Execute()
+}
+```
+
+### Rust (clap)
+
+```rust
+use clap::{Parser, Subcommand};
+
+#[derive(Parser)]
+#[command(name = "deploy-cli", version = "1.0.0", about = "CLI for app deployments")]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Deploy to an environment
+    Deploy {
+        /// Target environment
+        #[arg(value_enum)]
+        environment: Environment,
+
+        /// App version
+        #[arg(short, long, default_value = "latest")]
+        version: String,
+
+        /// Simulate without changes
+        #[arg(long)]
+        dry_run: bool,
+    },
+}
+
+#[derive(clap::ValueEnum, Clone)]
+enum Environment {
+    Dev,
+    Staging,
+    Prod,
+}
+
+fn main() {
+    let cli = Cli::parse();
+    match cli.command {
+        Commands::Deploy { environment, version, dry_run } => {
+            println!("Deploying {} to {:?}", version, environment);
+            if dry_run {
+                println!("(dry run mode)");
+            }
+        }
+    }
+}
+```
+
+### Layering de Archivos de Configuración
+
+```python
+import argparse
+import json
+import os
+from pathlib import Path
+
+def load_config():
+    """Carga config con precedencia: args CLI > env vars > archivo config > defaults."""
+    defaults = {"version": "latest", "dry_run": False, "verbose": False}
+
+    # Cargar archivo de config
+    config_path = Path(os.environ.get("DEPLOY_CLI_CONFIG", ".deploy-cli.json"))
+    if config_path.exists():
+        with open(config_path) as f:
+            defaults.update(json.load(f))
+
+    # Env vars sobreescriben archivo de config
+    if os.environ.get("DEPLOY_CLI_VERSION"):
+        defaults["version"] = os.environ["DEPLOY_CLI_VERSION"]
+
+    # Args CLI sobreescriben todo
+    parser = argparse.ArgumentParser()
+    parser.add_argument("environment", choices=["dev", "staging", "prod"])
+    parser.add_argument("--version", default=defaults["version"])
+    parser.add_argument("--dry-run", action="store_true", default=defaults["dry_run"])
+    return parser.parse_args()
+```
+
+### Shell Completion
+
+```bash
+# Python (Typer) - genera scripts de completion
+$ deploy-cli --install-completion bash
+# Añadir a ~/.bashrc: eval "$(_DEPLOY_CLI_COMPLETE=bash_source deploy-cli)"
+
+# Go (Cobra) - completion integrado
+$ deploy-cli completion bash > /etc/bash_completion.d/deploy-cli
+
+# JavaScript (Commander) - vía oclif o custom
+$ deploy-cli completion > ~/.zsh/completions/_deploy-cli
+```
+
+### Barras de Progreso y Output Interactivo
+
+```python
+# Python: rich para barras de progreso
+from rich.progress import Progress
+from rich.console import Console
+
+console = Console()
+
+with Progress() as progress:
+    task = progress.add_task("[cyan]Deploying...", total=100)
+    for step in range(100):
+        # Simular trabajo
+        progress.update(task, advance=1)
+    console.print("[green]Deployment complete![/green]")
+```
+
+```javascript
+// JavaScript: ora para spinners
+const ora = require("ora");
+
+const spinner = ora("Deploying...").start();
+try {
+    await deploy(environment, version);
+    spinner.succeed("Deployment complete!");
+} catch (err) {
+    spinner.fail(`Deployment failed: ${err.message}`);
+    process.exit(1);
+}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Soporta flags `--quiet` y `--json`.** Los pipelines de CI/CD necesitan output machine-readable:
+
+```python
+parser.add_argument("--json", action="store_true", help="Output JSON for CI/CD")
+parser.add_argument("--quiet", action="store_true", help="Suppress non-error output")
+```
+
+1. **Usa color con moderación.** Detecta si stdout es un TTY antes de usar colores:
+
+```python
+import sys
+import shutil
+
+def color(text, color_code):
+    if shutil.isatty(sys.stdout):
+        return f"\033[{color_code}m{text}\033[0m"
+    return text
+
+print(color("Success", "32"))  # Verde solo en TTY
+```
+
+1. **Proporciona `--dry-run` para comandos destructivos.** Muestra qué pasaría sin ejecutar:
+
+```bash
+$ deploy-cli deploy prod --dry-run
+Would deploy version 2.1.0 to prod
+Would run 3 migrations
+Would restart 5 pods
+(dry run mode - no changes made)
+```
+
+## Errores Comunes Adicionales
+
+1. **No manejar SIGINT gracefulmente.** Ctrl+C debe limpiar, no dejar trabajo a medias:
+
+```python
+import signal
+import sys
+
+def handle_sigint(sig, frame):
+    print("\nAborting...")
+    cleanup()
+    sys.exit(130)  # 128 + SIGINT(2)
+
+signal.signal(signal.SIGINT, handle_sigint)
+```
+
+1. **Usar `print()` para errores.** Los mensajes de error van a `stderr`, no `stdout`:
+
+```python
+import sys
+
+# Mal
+print(f"Error: {e}")
+
+# Bien
+print(f"Error: {e}", file=sys.stderr)
+sys.exit(1)
+```
+
+## FAQ
+
+### ¿Cómo distribuyo mi herramienta CLI?
+
+- **Python**: `pip install` vía PyPI, o `pipx` para herramientas standalone
+- **JavaScript**: `npm install -g` vía npm, o `npx` para ejecuciones one-off
+- **Go**: Binario único vía `go install`, Homebrew, o GitHub Releases
+- **Rust**: `cargo install` vía crates.io
+- **Java**: GraalVM native-image para startup rápido, o JAR vía SDKMAN
+
+### ¿Cómo añado shell completion?
+
+La mayoría de frameworks generan scripts de completion automáticamente:
+
+```bash
+# Cobra (Go)
+mytool completion bash > /etc/bash_completion.d/mytool
+
+# Typer (Python)
+mytool --install-completion zsh
+
+# Commander (JS) - vía oclif
+mytool completion --shell zsh
+```
+
+### ¿Debo usar flags largos o cortos?
+
+Ambos. Flags cortos (`-v`) para uso común, flags largos (`--version`) para scripts y documentación. Siempre proporciona `--help` que liste ambos. Nunca uses flags cortos que conflictúen con convenciones estándar (`-h` para help, `-V` para version).
+
+## Tips de Rendimiento
+
+1. **Minimiza el tiempo de startup.** Las herramientas CLI deben iniciar en menos de 100ms:
+
+```python
+# Lento: importa todo al startup
+import pandas  # 500ms+ de import
+
+# Rápido: lazy import
+def process_data():
+    import pandas  # Solo cuando se necesita
+    ...
+```
+
+1. **Usa lenguajes compilados para hot paths.** Go y Rust producen binarios únicos con startup de milisegundos:
+
+```bash
+# Go: binario único, sin runtime
+go build -o deploy-cli main.go
+
+# Rust: binario optimizado
+cargo build --release
+```
+
+1. **Cachéa operaciones costosas.** Scans de archivos, llamadas a API, y queries a base de datos deben ser cacheadas:
+
+```python
+import hashlib
+import json
+from pathlib import Path
+
+def cached_api_call(endpoint, cache_dir=".cache"):
+    cache_key = hashlib.md5(endpoint.encode()).hexdigest()
+    cache_file = Path(cache_dir) / f"{cache_key}.json"
+    if cache_file.exists():
+        return json.loads(cache_file.read_text())
+    result = api_call(endpoint)
+    cache_file.parent.mkdir(exist_ok=True)
+    cache_file.write_text(json.dumps(result))
+    return result
+```
+
+1. **Paraleliza operaciones independientes.** Usa threads o async para llamadas a API concurrentes:
+
+```python
+import concurrent.futures
+
+def deploy_multiple(services):
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        results = list(executor.map(deploy_service, services))
+    return results
+```

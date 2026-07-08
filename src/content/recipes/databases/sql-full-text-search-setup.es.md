@@ -34,7 +34,7 @@ seo:
 
 ## Visión General
 
-La búsqueda por patrones con `LIKE '%word%'` es lenta y no puede clasificar resultados por relevancia. La búsqueda de texto completo transforma el texto en tokens buscables, los indexa y permite consultar por significado en lugar de subcadena exacta. PostgreSQL tiene un motor de búsqueda de texto completo maduro integrado, así que puedes agregar búsqueda potente sin servicios externos como Elasticsearch para muchos casos de uso.
+La búsqueda por patrones con `LIKE '%word%'` es lenta y no puede clasificar resultados por relevancia. La búsqueda de texto completo transforma el texto en tokens buscables, los indexa y permite consultar por significado en lugar de subcadena exacta. PostgreSQL tiene un motor de búsqueda de texto completo maduro integrado, así que puedes agregar búsqueda funcional sin servicios externos como Elasticsearch para muchos casos de uso.
 
 ## Cuándo Usar
 
@@ -298,4 +298,117 @@ ON articles USING rum (search_vector);
 
 10. **Ejecuta `ANALYZE` regularmente en la tabla de búsqueda.** El planificador de consultas necesita estadísticas precisas para elegir entre escaneos de índice GIN y escaneos secuenciales. Ejecuta `ANALYZE articles;` después de cargas masivas o cambios significativos de datos.
 
-11. **Considera `pg_bigm` para bigram matching.** Para aplicaciones que necesitan coincidencias difusles más agresivas, la extensión `pg_bigm` ofrece índices de bigramas con mejor cobertura de typos que `pg_trgm`.
+11. **Considera `pg_bigm` para bigram matching.** Para aplicaciones que necesitan coincidencias difusas más agresivas, la extensión `pg_bigm` ofrece índices de bigramas con mejor cobertura de typos que `pg_trgm`.
+
+## Técnicas Avanzadas
+
+### Configuraciones de búsqueda de texto personalizadas
+
+Crea una configuración personalizada para terminología específica del dominio:
+
+```sql
+-- Crear una configuración personalizada basada en inglés
+CREATE TEXT SEARCH CONFIGURATION my_config (COPY = english);
+
+-- Agregar un diccionario personalizado para términos técnicos
+CREATE TEXT SEARCH DICTIONARY my_dict (
+  TEMPLATE = simple,
+  STOPWORDS = english
+);
+
+-- Agregar sinónimos para términos técnicos
+ALTER TEXT SEARCH CONFIGURATION my_config
+  ALTER MAPPING FOR asciiword, asciihword
+  WITH my_dict, english_stem;
+```
+
+### Búsqueda con faceting y filtros
+
+Combina búsqueda de texto completo con filtrado por categoría:
+
+```sql
+-- Buscar dentro de categorías específicas
+SELECT a.id, a.title, a.category,
+  ts_rank_cd(a.search_vector, query) AS rank
+FROM articles a,
+  plainto_tsquery('english', 'database indexing') query
+WHERE a.search_vector @@ query
+  AND a.category IN ('engineering', 'data-science')
+  AND a.status = 'published'
+ORDER BY rank DESC
+LIMIT 20;
+```
+
+### Actualizaciones incrementales de búsqueda con triggers
+
+Para tablas que requieren actualizaciones inmediatas del índice de búsqueda:
+
+```sql
+-- Crear una función para actualizar search_vector
+CREATE OR REPLACE FUNCTION update_search_vector()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.search_vector := to_tsvector('english', NEW.title || ' ' || NEW.body);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Crear trigger para actualizaciones automáticas
+CREATE TRIGGER trigger_update_search_vector
+BEFORE INSERT OR UPDATE ON articles
+FOR EACH ROW
+EXECUTE FUNCTION update_search_vector();
+```
+
+### Búsqueda con agregación de resultados
+
+Agrupa resultados de búsqueda por categoría u otros atributos:
+
+```sql
+-- Contar coincidencias por categoría
+SELECT a.category, COUNT(*) AS match_count
+FROM articles a,
+  plainto_tsquery('english', 'database') query
+WHERE a.search_vector @@ query
+GROUP BY a.category
+ORDER BY match_count DESC;
+```
+
+### Autocomplete y búsqueda de prefijos
+
+Usa índices trigram para funcionalidad de autocomplete:
+
+```sql
+-- Habilitar extensión pg_trgm
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+-- Crear índice trigram en título
+CREATE INDEX idx_articles_title_autocomplete
+ON articles USING GIN (title gin_trgm_ops);
+
+-- Consulta de autocomplete
+SELECT title
+FROM articles
+WHERE title LIKE 'data%'
+ORDER BY similarity(title, 'data') DESC
+LIMIT 10;
+```
+
+### Caching de resultados de búsqueda
+
+Cachea consultas de búsqueda frecuentes para reducir carga:
+
+```sql
+-- Crear una vista materializada para búsquedas populares
+CREATE MATERIALIZED VIEW popular_search_results AS
+SELECT a.id, a.title,
+  ts_rank_cd(a.search_vector, query) AS rank
+FROM articles a,
+  plainto_tsquery('english', 'database') query
+WHERE a.search_vector @@ query
+ORDER BY rank DESC
+LIMIT 100;
+
+-- Refrescar periódicamente
+REFRESH MATERIALIZED VIEW CONCURRENTLY popular_search_results;
+```

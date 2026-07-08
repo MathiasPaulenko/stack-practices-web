@@ -125,3 +125,178 @@ Usa `npm audit fix`, `pip-audit`, o campos de override/resolution para forzar un
 ### ¿Debo commitear los archivos de bloqueo?
 
 Sí. Los archivos de bloqueo aseguran builds reproducibles entre entornos y hacen los diffs revisables durante las actualizaciones.
+
+## Soluciones Avanzadas
+
+### Pipeline automatizado de actualización con Renovate
+
+Configura Renovate para automatizar actualizaciones de parches y menores con reglas de auto-merge:
+
+```json
+{
+  "extends": ["config:base"],
+  "schedule": ["before 6am on Monday"],
+  "automerge": true,
+  "automergeType": "pr",
+  "packageRules": [
+    {
+      "updateTypes": ["patch", "minor"],
+      "automerge": true,
+      "groupName": "patch and minor updates"
+    },
+    {
+      "updateTypes": ["major"],
+      "automerge": false,
+      "labels": ["major-upgrade", "needs-review"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "automerge": true,
+      "schedule": ["at any time"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "schedule": ["at any time"]
+  }
+}
+```
+
+### Script de reversión para actualizaciones npm
+
+Un script bash para revertir rápidamente una actualización de dependencia fallida:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+TAG="pre-upgrade-$(date +%Y%m%d-%H%M%S)"
+
+# Crear un tag de seguridad antes de proceder
+git tag "$TAG"
+echo "Created safety tag: $TAG"
+
+# Si la actualización falla, revertir:
+# git checkout "$TAG" -- package.json package-lock.json
+# npm ci
+# git checkout main
+# git branch -D "$BRANCH"
+# git tag -d "$TAG"
+
+echo "To rollback: git checkout $TAG -- package.json package-lock.json && npm ci"
+```
+
+### Actualización de dependencias Python con pip-tools
+
+Usa `pip-tools` para gestionar requirements con archivos separados de origen y bloqueo:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# requirements.in contiene deps sin pinear o loosely pinedas
+# requirements.txt es el output bloqueado y fully resuelto
+
+# Actualizar un solo paquete a una versión específica
+echo "package-name==2.0.0" >> requirements.in
+
+# Recompilar requirements bloqueados
+pip-compile --upgrade-package package-name --output-file requirements.txt requirements.in
+
+# Verificar que no haya deps transitivas en conflicto
+pip install -r requirements.txt --dry-run
+
+# Ejecutar tests
+pytest tests/ -x
+
+# Si todo pasa, commitear ambos archivos
+git add requirements.in requirements.txt
+git commit -m "deps: upgrade package-name to 2.0.0"
+```
+
+### Dashboard de auditoría con npm audit + cyclonedx
+
+Genera un SBOM (Software Bill of Materials) y reporte de auditoría para compliance:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Generar SBOM CycloneDX
+npx @cyclonedx/cyclonedx-npm --output-file sbom.json
+
+# Ejecutar audit y exportar JSON
+npm audit --json > audit-report.json
+
+# Extraer vulnerabilidades high y critical
+node -e "
+const audit = require('./audit-report.json');
+const vulns = audit.vulnerabilities || {};
+const high = Object.entries(vulns).filter(([k,v]) => v.severity === 'high' || v.severity === 'critical');
+if (high.length > 0) {
+  console.log('HIGH/CRITICAL vulnerabilities:');
+  high.forEach(([name, info]) => console.log('  ' + name + ': ' + info.severity));
+  process.exit(1);
+} else {
+  console.log('No high or critical vulnerabilities found.');
+}
+"
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `npm ci` en vez de `npm install` en CI.** El comando `ci` borra `node_modules` e instala exactamente desde el lock file. Falla si el lock file está desincronizado con `package.json`, detectando actualizaciones incompletas:
+
+```yaml
+# Ejemplo en GitHub Actions
+- name: Install dependencies
+  run: npm ci
+```
+
+2. **Configura alertas de seguridad de Dependabot como checks obligatorios.** Configura reglas de branch protection para que los PRs de seguridad de Dependabot bypassen revisión pero sigan necesitando CI verde:
+
+```yaml
+# .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      patch-and-minor:
+        update-types: ["patch", "minor"]
+```
+
+## Errores Comunes Adicionales
+
+1. **Actualizar devDependencies sin testear el pipeline de build.** Dev dependencies como webpack, babel o eslint pueden romper el output del build incluso si los tests pasan. Siempre ejecuta un build de producción completo después de actualizar devDependencies:
+
+```bash
+npm run build && npm run test
+```
+
+2. **Ignorar advertencias de deprecación durante las actualizaciones.** Las advertencias de deprecación en una versión menor suelen convertirse en errores en la siguiente versión mayor. Trackéalas en tu issue tracker:
+
+```bash
+# Capturar advertencias de deprecación durante los tests
+npm test 2>&1 | grep -i "deprecat" > deprecation-warnings.txt
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo manejo una dependencia que ya no tiene mantenimiento?
+
+Si la dependencia no tiene mantenimiento, evalúa alternativas, haz un fork si la licencia lo permite, o véndela dentro de tu codebase. Agrégala a tu calendario de deprecación con fecha objetivo de reemplazo. Ejecuta un escaneo de seguridad en la última versión publicada para identificar vulnerabilidades conocidas.
+
+### ¿Cuál es la diferencia entre tilde (`~`) y caret (`^`) en semver?
+
+Caret (`^`) permite actualizaciones a cualquier versión que no modifique el dígito no-cero más a la izquierda. Tilde (`~`) permite solo cambios a nivel de parche. Por ejemplo, `^1.2.3` permite `1.x.x` mientras que `~1.2.3` permite `1.2.x`. Usa caret para la mayoría de dependencias y tilde para paquetes críticos donde quieres control más estricto.
+
+### ¿Debo usar una herramienta de monorepo para gestion de dependencias?
+
+Herramientas de monorepo como Nx, Turborepo o Lerna proporcionan hoisting de dependencias a nivel workspace, caching y comandos de actualizacion batch. Ayudan cuando multiples paquetes comparten dependencias y necesitas coordinar upgrades entre ellos. Para proyectos pequenos, un solo `package.json` con tooling estandar es suficiente.

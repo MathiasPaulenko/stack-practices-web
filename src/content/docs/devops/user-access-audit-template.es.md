@@ -154,3 +154,297 @@ Una cuenta huerfana es una cuenta activa que ya no esta asociada a un usuario o 
 ### Como hacemos las revisiones de acceso menos tediosas?
 
 Utiliza herramientas de gobernanza de identidades que extraigan datos de acceso automaticamente, proporcionen dashboards amigables para revisores y revoquen automaticamente cuentas inactivas de bajo riesgo tras aprobacion.
+
+## Soluciones Avanzadas
+
+### Revision automatizada de acceso con Okta API
+
+Extrae datos de acceso de usuarios desde Okta y genera un reporte de revision automaticamente:
+
+```python
+import requests
+import csv
+from datetime import datetime, timedelta
+from dataclasses import dataclass
+from typing import List
+
+@dataclass
+class UserAccessRecord:
+    user_id: str
+    user_name: str
+    status: str
+    last_login: str
+    assigned_apps: List[str]
+    admin_roles: List[str]
+
+class OktaAccessReviewer:
+    def __init__(self, api_token: str, domain: str):
+        self.headers = {
+            "Authorization": f"SSWS {api_token}",
+            "Accept": "application/json",
+        }
+        self.base_url = f"https://{domain}/api/v1"
+
+    def get_inactive_users(self, days: int = 90) -> List[dict]:
+        """Find users who haven't logged in within the specified period."""
+        cutoff = (datetime.utcnow() - timedelta(days=days)).isoformat() + "Z"
+        users = []
+        params = {"filter": f'status eq "ACTIVE"'}
+        resp = requests.get(
+            f"{self.base_url}/users",
+            headers=self.headers,
+            params=params,
+        )
+        for user in resp.json():
+            last_login = user.get("lastLogin")
+            if last_login and last_login < cutoff:
+                users.append({
+                    "id": user["id"],
+                    "email": user["profile"]["email"],
+                    "last_login": last_login,
+                    "status": user["status"],
+                })
+        return users
+
+    def get_user_apps(self, user_id: str) -> List[str]:
+        """Get applications assigned to a user."""
+        resp = requests.get(
+            f"{self.base_url}/users/{user_id}/appLinks",
+            headers=self.headers,
+        )
+        return [app["label"] for app in resp.json()]
+
+    def get_admin_roles(self, user_id: str) -> List[str]:
+        """Get admin roles assigned to a user."""
+        resp = requests.get(
+            f"{self.base_url}/users/{user_id}/roles",
+            headers=self.headers,
+        )
+        return [role["type"] for role in resp.json()]
+
+    def generate_review_report(self, output_file: str) -> None:
+        """Generate a CSV report of all active users and their access."""
+        resp = requests.get(
+            f"{self.base_url}/users",
+            headers=self.headers,
+            params={"filter": 'status eq "ACTIVE"'},
+        )
+        with open(output_file, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                "User ID", "Email", "Status", "Last Login",
+                "Assigned Apps", "Admin Roles"
+            ])
+            for user in resp.json():
+                apps = self.get_user_apps(user["id"])
+                roles = self.get_admin_roles(user["id"])
+                writer.writerow([
+                    user["id"],
+                    user["profile"]["email"],
+                    user["status"],
+                    user.get("lastLogin", "Never"),
+                    "; ".join(apps),
+                    "; ".join(roles),
+                ])
+
+# Example usage
+reviewer = OktaAccessReviewer(api_token="YOUR_TOKEN", domain="yourorg.okta.com")
+inactive = reviewer.get_inactive_users(days=90)
+for u in inactive:
+    print(f"INACTIVE: {u['email']} - last login: {u['last_login']}")
+reviewer.generate_review_report("access_review_q2.csv")
+```
+
+### AWS IAM Access Analyzer para deteccion automatizada de hallazgos
+
+Usa AWS IAM Access Analyzer para detectar permisos no utilizados y acceso entre cuentas:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Create an analyzer if it doesn't exist
+ANALYZER_NAME="org-access-analyzer"
+aws accessanalyzer create-analyzer \
+  --analyzer-name "$ANALYZER_NAME" \
+  --type ORGANIZATION \
+  --region us-east-1
+
+# List all findings
+echo "=== Active Findings ==="
+aws accessanalyzer list-findings \
+  --analyzer-arn "$(aws accessanalyzer list-analyzers --query 'analyzers[0].arn' --output text)" \
+  --filter '{"status":{"eq":["ACTIVE"]}}' \
+  --query 'findings[*].{id:id,resource:resource.resourceArn,type:findingType,createdAt:createdAt}' \
+  --output table
+
+# Export findings to CSV for audit trail
+aws accessanalyzer list-findings \
+  --analyzer-arn "$(aws accessanalyzer list-analyzers --query 'analyzers[0].arn' --output text)" \
+  --query 'findings[*].{id:id,resource:resource.resourceArn,type:findingType,createdAt:createdAt}' \
+  --output json > iam-findings-$(date +%Y%m%d).json
+```
+
+### Script de auditoria de organizacion de GitHub
+
+Audita miembros de la organizacion de GitHub y sus roles programaticamente:
+
+```javascript
+const { Octokit } = require("@octokit/rest");
+
+async function auditGitHubOrg(orgName, token) {
+  const octokit = new Octokit({ auth: token });
+  const findings = [];
+
+  // Get all organization members
+  const members = await octokit.paginate(
+    octokit.rest.orgs.listMembers,
+    { org: orgName, per_page: 100 }
+  );
+
+  for (const member of members) {
+    // Check if 2FA is enabled
+    const { data: mfaStatus } = await octokit.rest.orgs.getMembershipForUser({
+      org: orgName,
+      username: member.login,
+    });
+
+    // Get user's public keys to verify SSH key rotation
+    let keyCount = 0;
+    try {
+      const { data: keys } = await octokit.rest.users.listPublicKeysForUser({
+        username: member.login,
+      });
+      keyCount = keys.length;
+    } catch (e) {
+      // API may rate limit
+    }
+
+    findings.push({
+      login: member.login,
+      role: mfaStatus.role,
+      two_factor: member.two_factor_authentication ? "enabled" : "disabled",
+      public_keys: keyCount,
+    });
+  }
+
+  // Flag users without 2FA
+  const noMfa = findings.filter(f => f.two_factor === "disabled");
+  if (noMfa.length > 0) {
+    console.log(`\nUSERS WITHOUT 2FA (${noMfa.length}):`);
+    noMfa.forEach(u => console.log(`  - ${u.login} (role: ${u.role})`));
+  }
+
+  // Flag admins
+  const admins = findings.filter(f => f.role === "admin");
+  console.log(`\nORGANIZATION ADMINS (${admins.length}):`);
+  admins.forEach(u => console.log(`  - ${u.login} (2FA: ${u.two_factor})`));
+
+  return findings;
+}
+
+auditGitHubOrg("your-org", process.env.GITHUB_TOKEN)
+  .then(() => console.log("\nAudit complete."))
+  .catch(err => console.error("Audit failed:", err.message));
+```
+
+## Mejores Practicas Adicionales
+
+1. **Implementa acceso just-in-time (JIT) para roles privilegiados.** En lugar de acceso admin permanente, concede elevacion con tiempo limitado y expiracion automatica:
+
+```python
+# Example: Request time-bound AWS IAM role assumption
+import boto3
+from datetime import datetime, timedelta
+
+sts = boto3.client("sts")
+
+# Assume a role with 1-hour session duration
+response = sts.assume_role(
+    RoleArn="arn:aws:iam::123456789012:role/PrivilegedAdmin",
+    RoleSessionName="jit-access-alice",
+    DurationSeconds=3600,  # 1 hour maximum
+)
+
+print(f"Temporary credentials expire at: {response['Credentials']['Expiration']}")
+print(f"Access valid for 1 hour only. No standing privilege.")
+```
+
+2. **Usa SCIM para desprovisionamiento automatizado.** Cuando un usuario se deshabilita en el proveedor de identidades, SCIM elimina automaticamente su acceso de las aplicaciones conectadas:
+
+```yaml
+# Okta SCIM configuration example
+scim:
+  enabled: true
+  app_assignments:
+    - app: "github"
+      scim_url: "https://api.github.com/scim/v2/organizations/{org}/Users"
+      auth_method: "bearer_token"
+    - app: "aws-iam-identity-center"
+      scim_url: "https://scim.example.com/v2/Users"
+      auth_method: "oauth2"
+  deprovisioning:
+    on_disable: "remove_all_access"
+    on_suspend: "disable_signin_keep_membership"
+```
+
+## Errores Comunes Adicionales
+
+1. **No auditar la rotacion de tokens de cuentas de servicio.** Las cuentas de servicio suelen tener tokens de larga duracion que nunca expiran. Audita y rota estos tokens:
+
+```bash
+#!/bin/bash
+# Find GitHub PATs older than 90 days
+set -euo pipefail
+
+# List all fine-grained tokens via GitHub API
+curl -s -H "Authorization: token $GITHUB_ADMIN_TOKEN" \
+  "https://api.github.com/orgs/$ORG/personal-access-tokens" | \
+  jq -r '.[] | select(.expiring_at != null) | "TOKEN: \(.id) - expires: \(.expiring_at)"'
+```
+
+2. **Ignorar credenciales de cuentas compartidas.** Las cuentas compartidas hacen imposible la responsabilidad individual. Reemplazalas con cuentas individuales o procedimientos de break-glass:
+
+```markdown
+## Shared Account Remediation Checklist
+- [ ] Inventory all shared accounts (root, admin, service)
+- [ ] Identify which individuals use each shared account
+- [ ] Create individual accounts for each user
+- [ ] Disable shared account after migration
+- [ ] Implement break-glass procedure for emergency access
+- [ ] Log all break-glass usage with automatic alerts
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Como manejamos el acceso para contratistas con compromisos de corto plazo?
+
+Usa aprovisionamiento de acceso con tiempo limitado. Establece una fecha de expiracion cuando el contratista se incorpora, y configura el desprovisionamiento automatico en esa fecha. Requiere que un gerente reapruebe el acceso si el compromiso se extiende:
+
+```python
+# Example: Set expiration on Okta group membership
+import requests
+
+def set_temporary_access(okta_token, user_id, group_id, expires_at):
+    """Assign user to a group with expiration date."""
+    headers = {
+        "Authorization": f"SSWS {okta_token}",
+        "Content-Type": "application/json",
+    }
+    # Okta lifecycle expiration via custom attribute
+    payload = {
+        "profile": {
+            "contractorAccessExpiresAt": expires_at,
+        }
+    }
+    resp = requests.put(
+        f"https://yourorg.okta.com/api/v1/users/{user_id}",
+        headers=headers,
+        json=payload,
+    )
+    return resp.status_code == 200
+```
+
+### Cual es la diferencia entre revision de acceso y certificacion de acceso?
+
+La revision de acceso es el proceso de examinar los permisos de los usuarios. La certificacion de acceso es la aprobacion formal y documentada de esos permisos por un dueno del sistema o gerente. La certificacion crea un registro auditable de que una persona responsable reviso y aprobo el acceso.

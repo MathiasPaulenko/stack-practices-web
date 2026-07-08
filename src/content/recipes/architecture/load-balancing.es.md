@@ -201,14 +201,308 @@ R: Un reverse proxy enruta requests a backends y puede modificarlos. Un load bal
 R: Sí — usa load balancing basado en DNS (Route 53, Cloudflare) con enrutamiento geolocalizado o basado en latencia. El resolver DNS retorna la IP de la región saludable más cercana. Esto opera en Capa 3, por encima de balancers a nivel de aplicación.
 
 
+### Weighted Random con Smooth Weighted Round-Robin (Go)
+
+```go
+package main
+
+import (
+    "math/rand"
+    "sync"
+    "sync/atomic"
+)
+
+type SmoothWeightedRR struct {
+    mu      sync.Mutex
+    servers []*WeightedServer
+}
+
+type WeightedServer struct {
+    Name          string
+    Weight        int64
+    CurrentWeight int64
+}
+
+func NewSmoothWeightedRR(servers map[string]int) *SmoothWeightedRR {
+    var ws []*WeightedServer
+    for name, weight := range servers {
+        ws = append(ws, &WeightedServer{
+            Name:          name,
+            Weight:        int64(weight),
+            CurrentWeight: 0,
+        })
+    }
+    return &SmoothWeightedRR{servers: ws}
+}
+
+// Next selecciona un servidor usando smooth weighted round-robin (algoritmo de Nginx)
+func (s *SmoothWeightedRR) Next() string {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+
+    var total int64
+    var best *WeightedServer
+
+    for _, server := range s.servers {
+        atomic.AddInt64(&server.CurrentWeight, server.Weight)
+        total += server.Weight
+        if best == nil || server.CurrentWeight > best.CurrentWeight {
+            best = server
+        }
+    }
+
+    if best != nil {
+        atomic.AddInt64(&best.CurrentWeight, -total)
+        return best.Name
+    }
+    return ""
+}
+
+// Weighted random para comparación
+func WeightedRandom(servers map[string]int) string {
+    total := 0
+    for _, w := range servers {
+        total += w
+    }
+    r := rand.Intn(total)
+    for name, w := range servers {
+        r -= w
+        if r < 0 {
+            return name
+        }
+    }
+    return ""
+}
+```
+
+### Least Response Time (TypeScript)
+
+```typescript
+interface BackendServer {
+  url: string;
+  activeConnections: number;
+  avgResponseTime: number;
+  lastResponseAt: number;
+  healthy: boolean;
+}
+
+class LeastResponseTimeBalancer {
+  private servers: BackendServer[] = [];
+  private responseTimes: Map<string, number[]> = new Map();
+
+  addServer(url: string): void {
+    this.servers.push({
+      url,
+      activeConnections: 0,
+      avgResponseTime: 0,
+      lastResponseAt: Date.now(),
+      healthy: true,
+    });
+    this.responseTimes.set(url, []);
+  }
+
+  selectServer(): BackendServer | null {
+    const healthy = this.servers.filter(s => s.healthy);
+    if (healthy.length === 0) return null;
+
+    // Elegir servidor con menor avg response time + penalización por conexiones activas
+    let best = healthy[0];
+    let bestScore = this.calculateScore(best);
+
+    for (const server of healthy) {
+      const score = this.calculateScore(server);
+      if (score < bestScore) {
+        bestScore = score;
+        best = server;
+      }
+    }
+    best.activeConnections++;
+    return best;
+  }
+
+  private calculateScore(server: BackendServer): number {
+    // Score = avg response time * (1 + conexiones activas / 10)
+    return server.avgResponseTime * (1 + server.activeConnections / 10);
+  }
+
+  recordResponse(url: string, responseTimeMs: number): void {
+    const times = this.responseTimes.get(url) || [];
+    times.push(responseTimeMs);
+    if (times.length > 100) times.shift();
+
+    const server = this.servers.find(s => s.url === url);
+    if (server) {
+      server.avgResponseTime = times.reduce((a, b) => a + b, 0) / times.length;
+      server.activeConnections = Math.max(0, server.activeConnections - 1);
+      server.lastResponseAt = Date.now();
+    }
+    this.responseTimes.set(url, times);
+  }
+
+  markUnhealthy(url: string): void {
+    const server = this.servers.find(s => s.url === url);
+    if (server) server.healthy = false;
+  }
+}
+```
+
+### Global DNS Load Balancing con Route 53 (Terraform)
+
+```hcl
+resource "aws_route53_record" "api_global" {
+  zone_id = aws_route53_zone.main.zone_id
+  name    = "api.stackpractices.com"
+  type    = "A"
+
+  latency_routing_policy {
+    set_id = "us-east"
+    records = [aws_eip.us_east.public_ip]
+  }
+
+  health_check_id = aws_route53_health_check.us_east.id
+}
+
+resource "aws_route53_record" "api_eu" {
+  zone_id = aws_route53_zone.main.zone_id
+  name    = "api.stackpractices.com"
+  type    = "A"
+
+  latency_routing_policy {
+    set_id = "eu-west"
+    records = [aws_eip.eu_west.public_ip]
+  }
+
+  health_check_id = aws_route53_health_check.eu_west.id
+}
+
+resource "aws_route53_health_check" "us_east" {
+  fqdn              = "api-us.stackpractices.com"
+  port              = 443
+  type              = "HTTPS"
+  resource_path     = "/health"
+  failure_threshold = 3
+  request_interval  = 10
+}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa slow-start para servidores recuperados.** Cuando un servidor vuelve después de estar caído, enviarle tráfico completo inmediatamente puede abrumarlo. Nginx y HAProxy soportan slow-start para rampar tráfico gradualmente:
+
+```haproxy
+backend api_servers
+    balance roundrobin
+    server api1 10.0.0.1:8080 check slowstart 30s
+    server api2 10.0.0.2:8080 check slowstart 30s
+    server api3 10.0.0.3:8080 check slowstart 30s
+```
+
+2. **Configura límites de conexiones por backend.** Protege backends de ser abrumados limitando conexiones concurrentes que el balancer enviará a cada uno:
+
+```nginx
+upstream backend {
+    least_conn;
+    server 10.0.0.1:8080 max_conns=200;
+    server 10.0.0.2:8080 max_conns=200;
+    server 10.0.0.3:8080 max_conns=200;
+    queue 50 timeout=5s;
+}
+```
+
+3. **Habilita HTTP/2 y keep-alive hacia backends.** La multiplexación de HTTP/2 reduce overhead de conexiones. Keep-alive reutiliza conexiones TCP entre requests:
+
+```nginx
+upstream backend {
+    server 10.0.0.1:8080;
+    keepalive 64;
+    keepalive_requests 1000;
+    keepalive_timeout 60s;
+}
+
+server {
+    listen 443 ssl http2;
+    location / {
+        proxy_pass http://backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+    }
+}
+```
+
+## Errores Comunes Adicionales
+
+1. **No manejar graceful shutdown.** Al desplegar, las instancias antiguas no reciben nuevas conexiones pero las existentes se cortan. Usa graceful shutdown para que el balancer drene conexiones antes de remover la instancia:
+
+```typescript
+import { createServer } from 'http';
+
+const server = createServer(app);
+
+process.on('SIGTERM', () => {
+  console.log('Received SIGTERM, draining connections');
+  server.close(() => {
+    console.log('All connections closed, exiting');
+    process.exit(0);
+  });
+
+  // Forzar exit después de 30s si las conexiones no drenan
+  setTimeout(() => {
+    console.error('Forcing exit after timeout');
+    process.exit(1);
+  }, 30000);
+});
+```
+
+2. **Endpoint de health check demasiado costoso.** Un health check que consulta la base de datos o hace llamadas externas ralentizará el balancer y creará falsos negativos. Mantén los health checks ligeros:
+
+```python
+# Mal: health check consulta la base de datos
+@app.get("/health")
+def health():
+    db.execute("SELECT 1")  # añade latencia, falla si DB es lento
+    return {"status": "ok"}
+
+# Bien: health check solo verifica que el proceso está vivo
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+# Check de readiness separado para dependencias
+@app.get("/ready")
+def ready():
+    try:
+        db.execute("SELECT 1")
+        return {"status": "ready"}
+    except Exception:
+        return {"status": "not ready"}, 503
+```
+
+3. **Sin retry en backend diferente.** Retray el mismo request en el mismo backend fallido no tiene sentido. Configura el balancer para retray en un backend diferente:
+
+```haproxy
+backend api_servers
+    balance roundrobin
+    option retry-on
+    retries 3
+    retry-on 503 504
+    server api1 10.0.0.1:8080 check
+    server api2 10.0.0.2:8080 check
+```
+
+## FAQ Adicional
+
+### ¿Cómo testeo la configuración de load balancer?
+
+Usa `nginx -t` para validar la sintaxis de config de Nginx. Usa `haproxy -c -f /etc/haproxy/haproxy.cfg` para validar la config de HAProxy. Para testing de tráfico, usa `wrk` o `hey` para generar carga y verificar la distribución entre backends. Para testing de failover, detén un backend y verifica que el balancer lo remueve de rotación dentro del intervalo de health check. Para sesiones sticky, haz múltiples requests con la misma cookie y verifica que golpean el mismo backend. Para distribución weighted, envía 1000 requests y cuenta hits por backend — el ratio debería coincidir con los pesos configurados.
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Nginx se usa en producción por Netflix, Dropbox y Airbnb para load balancing. HAProxy se usa en producción por Reddit, Stack Overflow y GitHub. AWS Route 53 latency-based routing se usa en miles de workloads productivos de AWS. El algoritmo smooth weighted round-robin es el mismo que usa Nginx internamente. Consistent hashing es usado por Memcached, Redis Cluster y Amazon DynamoDB para distribución de datos.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Nginx maneja 50K-100K requests por segundo en hardware commodity con HTTP load balancing. HAProxy maneja 100K-200K conexiones por segundo con Layer 4 load balancing. Layer 7 añade 0.5-2ms de overhead por request para inspección de headers y enrutamiento. Consistent hashing con 150 nodos virtuales por servidor tiene O(log n) tiempo de lookup — menos de 1 microsegundo para 100 servidores. Health checks añaden 1 request por backend por intervalo — intervalos de 5 segundos con 3 backends son 0.6 checks por segundo. Slow-start no añade overhead — solo ajusta el ramp de peso. Conexiones keep-alive reducen latencia por request en 1-5ms al evitar el TCP handshake.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Para Nginx, usa `nginx -T` para imprimir la config resuelta completa. Revisa `error_log` para timeouts de upstream y errores de connection refused. Para HAProxy, usa la stats UI (`stats enable`) para ver estado de servidores, conteo de conexiones y tiempos de respuesta. Para distribución desigual, verifica si los pesos están configurados correctamente y si los health checks están marcando servidores como down. Para issues de sesiones sticky, verifica que el nombre y path de la cookie coincidan entre requests. Para errores 502/504, verifica si los backends están aceptando conexiones y si los timeouts son muy agresivos. Usa `tcpdump` o `wireshark` para inspeccionar tráfico entre balancer y backends.

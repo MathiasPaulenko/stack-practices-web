@@ -159,3 +159,189 @@ Planifica reinicios durante ventanas de mantenimiento aprobadas. Para sistemas c
 ### ¿Qué hago si un parche rompe mi aplicación?
 
 Ejecuta el rollback documentado (snapshot, reverir versión, restaurar configuración). Luego reproduce el fallo en staging para entender la interacción. A veces la causa es una dependencia no documentada o un breaking change no reportado. Documenta la incompatibilidad y programa un parche alternativo o un workaround. Nunca dejes un sistema sin parchear indefinidamente; acepta el riesgo documentado o encuentra una solución alternativa.
+
+## Soluciones Avanzadas
+
+### Parcheo automatizado de SO con Ansible
+
+Automatiza parches de seguridad en servidores Linux usando Ansible con actualizaciones rolling:
+
+```yaml
+---
+- name: Apply security patches to Linux servers
+  hosts: production_servers
+  become: yes
+  serial: 1    # Rolling: un servidor a la vez
+  max_fail_percentage: 0
+
+  pre_tasks:
+    - name: Create rollback snapshot
+      community.general.snap:
+        name: "pre-patch-{{ ansible_date_time.iso8601 }}"
+        state: present
+
+  tasks:
+    - name: Update apt cache and install security updates (Debian/Ubuntu)
+      apt:
+        update_cache: yes
+        upgrade: dist
+        only_upgrade: yes
+      when: ansible_os_family == "Debian"
+      register: apt_result
+
+    - name: Install security updates (RHEL/CentOS)
+      yum:
+        name: "*"
+        state: latest
+        security: yes
+      when: ansible_os_family == "RedHat"
+      register: yum_result
+
+    - name: Check if reboot is required (Debian/Ubuntu)
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+      when: ansible_os_family == "Debian"
+
+    - name: Reboot server if required
+      reboot:
+        reboot_timeout: 300
+      when: reboot_required.stat.exists | default(false)
+
+    - name: Wait for server to recover
+      wait_for_connection:
+        delay: 10
+        timeout: 300
+
+  post_tasks:
+    - name: Verify critical services are running
+      service:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - nginx
+        - postgresql
+        - redis
+
+    - name: Run health check endpoint
+      uri:
+        url: "http://{{ inventory_hostname }}:8080/health"
+        status_code: 200
+        timeout: 10
+      retries: 3
+      delay: 5
+```
+
+### Pipeline de parcheo de imagenes de contenedor
+
+Automatiza el parcheo de imagenes base Docker con un pipeline CI/CD:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+IMAGE_NAME="myapp"
+REGISTRY="registry.example.com"
+NEW_BASE="node:20-slim"
+
+# Pull latest base image
+docker pull "$NEW_BASE"
+
+# Build patched image
+docker build \
+  --build-arg BASE_IMAGE="$NEW_BASE" \
+  -t "$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)" \
+  -t "$REGISTRY/$IMAGE_NAME:latest" \
+  .
+
+# Scan the new image for vulnerabilities
+trivy image --exit-code 1 --severity HIGH,CRITICAL \
+  "$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)"
+
+# Push patched image
+docker push "$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)"
+docker push "$REGISTRY/$IMAGE_NAME:latest"
+
+# Trigger rolling deployment in Kubernetes
+kubectl set image deployment/myapp \
+  "app=$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)" \
+  -n production
+
+kubectl rollout status deployment/myapp -n production
+```
+
+### Live patching de kernel con kpatch
+
+Aplica parches criticos de kernel sin reiniciar usando kpatch en RHEL/CentOS:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Install kpatch utilities
+yum install -y kpatch
+
+# Check available live patches
+kpatch list
+
+# Load a specific kernel patch module
+kpatch load "kpatch-$(uname -r)-CVE-2024-12345.ko"
+
+# Verify patch is active
+kpatch info "kpatch-$(uname -r)-CVE-2024-12345.ko"
+
+# Enable patch to persist across reboots
+systemctl enable kpatch.service
+
+echo "Kernel patch applied without reboot. Verify with: kpatch list"
+```
+
+## Mejores Practicas Adicionales
+
+1. **Usa despliegues canary para parches de SO.** En vez de parchear todos los servidores a la vez, parchea primero el 5% de tu flota. Monitorea tasas de error, latencia y uso de recursos por 24 horas antes de continuar:
+
+```bash
+# Patch canary instances only
+ansible-playbook patch-security-updates.yml \
+  --limit "production_canary_group" \
+  --extra-vars "canary_mode=true"
+```
+
+2. **Rastrea la proveniencia de parches para auditorias.** Registra que parches se aplicaron, cuando, por quien y con que aprobacion. Esto crea evidencia para auditorias SOC 2 e ISO 27001:
+
+```bash
+# Generate patch audit report
+ansible-playbook patch-security-updates.yml \
+  --extra-vars "audit_log=/var/log/patch-audit/$(date +%Y%m%d).json"
+```
+
+## Errores Comunes Adicionales
+
+1. **No testear parches de kernel en staging con hardware identico.** Los parches de kernel pueden causar fallos de drivers en hardware especifico. Testea en un servidor de staging con el mismo perfil de hardware antes de produccion:
+
+```bash
+# Verify kernel module compatibility after patch
+lsmod | grep -E "(driver_name|module_name)"
+dmesg | grep -i "error\|fail\|warning" | tail -20
+```
+
+2. **Olvidar parchear componentes de orquestacion de contenedores.** Los componentes de Kubernetes (kubelet, etcd, kube-proxy) tambien necesitan parcheo. Usa kubeadm para actualizar el cluster:
+
+```bash
+# Upgrade Kubernetes cluster components
+kubeadm upgrade plan
+kubeadm upgrade apply v1.30.0
+kubectl drain node-1 --ignore-daemonsets
+kubeadm upgrade node
+kubectl uncordon node-1
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Como parcheo sistemas air-gapped?
+
+Transfiere archivos de parche via medios removibles o un bastion host dedicado. Verifica la integridad de archivos con checksums SHA-256 antes de aplicar. Documenta cada parche en un inventario offline. Programa escaneos periodicos de vulnerabilidades usando un escaner offline como Nessus u OpenSCAP.
+
+### Que es live patching y cuando debo usarlo?
+
+Live patching aplica correcciones de seguridad del kernel sin reiniciar. Usalo para CVEs Criticos en sistemas de produccion donde los reinicios no son posibles inmediatamente (bases de datos single-instance, aplicaciones legacy). Live patching no es sustituto de mantenimiento programado: planifica un reinicio durante la proxima ventana para asegurar consistencia completa del kernel.

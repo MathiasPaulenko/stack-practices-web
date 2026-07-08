@@ -255,3 +255,214 @@ Uno por servicio es más claro, pero consolida si tienes > 10 microservicios. En
 ### ¿Qué pasa si la alerta no está en el runbook?
 
 Sigue un procedimiento genérico de "alerta desconocida": clasifica severidad, recopila métricas básicas (CPU, memoria, tasa de error, latencia), verifica el último despliegue, y escala si no emerge una hipótesis en 15 minutos. Después del incidente, agrega la nueva alerta al runbook. La primera vez que una alerta se dispara es una oportunidad para documentarla.
+
+## Soluciones Avanzadas
+
+### Ejecución automatizada de runbook con scripts de diagnóstico
+
+Pre-cablea pasos comunes de diagnóstico en scripts ejecutables que el ingeniero de guardia puede ejecutar con un solo comando:
+
+```bash
+#!/bin/bash
+# diagnose.sh - Recopilador automatizado de diagnóstico para ingenieros de guardia
+# Usage: ./diagnose.sh <service-name>
+
+set -euo pipefail
+
+SERVICE="${1:?Usage: $0 <service-name>}"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+REPORT_DIR="/tmp/diagnostics-${SERVICE}-${TIMESTAMP}"
+
+mkdir -p "$REPORT_DIR"
+
+echo "=== Collecting diagnostics for $SERVICE at $TIMESTAMP ==="
+
+# 1. Service status
+echo "Checking service status..."
+systemctl status "$SERVICE" 2>&1 | tee "$REPORT_DIR/service-status.txt" || true
+
+# 2. Recent logs (last 100 lines)
+echo "Collecting recent logs..."
+journalctl -u "$SERVICE" --since "1 hour ago" --no-pager 2>&1 \
+  | tail -100 > "$REPORT_DIR/recent-logs.txt" || true
+
+# 3. Resource utilization
+echo "Checking resource utilization..."
+{
+  echo "=== CPU ==="
+  top -bn1 | head -20
+  echo ""
+  echo "=== Memory ==="
+  free -h
+  echo ""
+  echo "=== Disk ==="
+  df -h
+  echo ""
+  echo "=== Top processes by CPU ==="
+  ps aux --sort=-%cpu | head -10
+  echo ""
+  echo "=== Top processes by Memory ==="
+  ps aux --sort=-%mem | head -10
+} > "$REPORT_DIR/resources.txt"
+
+# 4. Network connectivity
+echo "Checking network..."
+{
+  echo "=== Listening ports ==="
+  ss -tlnp 2>/dev/null || netstat -tlnp 2>/dev/null
+  echo ""
+  echo "=== Active connections ==="
+  ss -tn state established 2>/dev/null | head -20
+} > "$REPORT_DIR/network.txt"
+
+# 5. Recent deployments
+echo "Checking recent deployments..."
+{
+  echo "=== Docker containers ==="
+  docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "Docker not available"
+  echo ""
+  echo "=== Kubernetes pods ==="
+  kubectl get pods -l app="$SERVICE" 2>/dev/null || echo "kubectl not available or no pods found"
+} > "$REPORT_DIR/deployments.txt"
+
+# 6. Health check
+echo "Running health check..."
+curl -sS -o "$REPORT_DIR/health-response.txt" -w "%{http_code}" \
+  "http://localhost:8080/health" 2>&1 | tee "$REPORT_DIR/health-status.txt" || true
+
+echo ""
+echo "=== Diagnostics complete ==="
+echo "Report saved to: $REPORT_DIR"
+echo "Review files and attach to incident ticket."
+```
+
+### Comandos de diagnóstico específicos para Kubernetes
+
+Para entornos containerizados, incluye one-liners de kubectl que los ingenieros de guardia pueden copiar y pegar:
+
+```bash
+# Quick pod status check
+kubectl get pods -n production -o wide | grep -v Running
+
+# Get logs from a crashing pod
+kubectl logs -n production <pod-name> --previous --tail=50
+
+# Describe a pod for events and conditions
+kubectl describe pod -n production <pod-name>
+
+# Check resource usage across nodes
+kubectl top nodes
+kubectl top pods -n production --sort-by=memory
+
+# Execute into a pod for network debugging
+kubectl exec -it -n production <pod-name> -- /bin/sh -c "nslookup <dependency>"
+
+# Check recent events in namespace
+kubectl get events -n production --sort-by='.lastTimestamp' | tail -20
+
+# Port-forward for local debugging
+kubectl port-forward -n production svc/<service-name> 8080:80
+```
+
+### Vinculación alerta-a-runbook con anotaciones de Prometheus
+
+Vincula alertas directamente a secciones del runbook usando etiquetas de alerta de Prometheus para que los ingenieros nunca busquen el procedimiento correcto:
+
+```yaml
+# prometheus/alerts.yml
+groups:
+  - name: service-alerts
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          rate(http_requests_total{status=~"5.."}[5m])
+          / rate(http_requests_total[5m]) > 0.01
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High error rate on {{ $labels.service }}"
+          description: "Error rate is {{ $value | humanizePercentage }} for {{ $labels.service }}"
+          runbook: "https://wiki.internal/runbooks/on-call#21-high-error-rate"
+          dashboard: "https://grafana.internal/d/service-overview?var-service={{ $labels.service }}"
+
+      - alert: DiskUsageHigh
+        expr: |
+          (1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 > 85
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Disk usage > 85% on {{ $labels.instance }}"
+          description: "Disk usage is {{ $value }}% on {{ $labels.instance }}"
+          runbook: "https://wiki.internal/runbooks/on-call#23-disk-usage--85"
+          dashboard: "https://grafana.internal/d/node-overview?var-node={{ $labels.instance }}"
+```
+
+### Checklist de actualización de runbook post-incidente
+
+Después de cada incidente, verifica que el runbook se actualice con las lecciones aprendidas:
+
+```markdown
+## Post-Incident Runbook Update
+
+- [ ] Was the alert in the runbook? If no, add it now
+- [ ] Were the diagnostic steps accurate? Update if they missed the root cause
+- [ ] Were the resolution steps correct? Update if they did not work
+- [ ] Was the escalation threshold appropriate? Adjust if too high or too low
+- [ ] Did the runbook link from the alert work? Fix if broken
+- [ ] Are there new commands that would have helped? Add them
+- [ ] Was the "last verified" date updated? Set to today
+- [ ] Did the on-call engineer find the runbook useful? Note feedback
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Incluye el output esperado para cada comando de diagnóstico.** Los ingenieros de guardia bajo estrés pueden no reconocer output anormal. Muestra cómo se ve "normal":
+
+```markdown
+**Expected output:**
+```
+$ kubectl get pods -l app=api
+NAME                   READY   STATUS    RESTARTS   AGE
+api-7d9f6c8b5-x2k4m   1/1     Running   0          12h
+api-7d9f6c8b5-p8n3q   1/1     Running   0          12h
+```
+If STATUS is not `Running` or RESTARTS > 0, proceed to diagnostic step 2.
+```
+
+2. **Agrega una sección "No Hacer" a cada procedimiento de alerta.** Los errores comunes durante incidentes valen la pena documentar:
+
+```markdown
+## 2.1 High Error Rate — Do NOT:
+- Do NOT restart all pods simultaneously (causes cascading failures)
+- Do NOT scale up without checking if the issue is downstream
+- Do NOT deploy a fix without testing in staging first
+- Do NOT close the alert until error rate is below threshold for 15 minutes
+```
+
+## Errores Comunes Adicionales
+
+1. **No incluir estimaciones de tiempo para cada paso.** Cuando un ingeniero ve "verificar latencia de consultas a base de datos," no sabe si eso toma 30 segundos o 10 minutos. Agrega estimaciones de tiempo aproximadas para que puedan medir progreso y saber cuándo escalar:
+
+```markdown
+**Diagnostic Steps (estimated: 10 minutes):**
+1. Check error dashboard (2 min)
+2. Correlate with deployments (3 min)
+3. Check dependency health (2 min)
+4. Review logs for stack traces (3 min)
+```
+
+2. **Escribir runbooks en aislamiento.** Los runbooks escritos por un solo ingeniero senior a menudo omiten pasos que les parecen obvios pero no lo son para un ingeniero junior de guardia a las 3 a.m. Haz que un ingeniero junior recorra cada procedimiento durante un periodo de calma y anote dónde se atasca. Esos son los pasos que necesitan más detalle.
+
+## FAQs Adicionales
+
+### Cómo mantenemos los comandos del runbook sin que se vuelvan obsoletos?
+
+Ejecuta los comandos del runbook como parte de tu pipeline de CI. Crea un job de prueba que ejecute comandos de diagnóstico contra un entorno de staging semanalmente. Si un comando falla porque la API cambió o la herramienta fue actualizada, el job de CI alerta al equipo para actualizar el runbook. Esto detecta comandos obsoletos antes de que lo haga un incidente.
+
+### Los runbooks deberían estar en el mismo repo que el código del servicio?
+
+Sí, cuando sea posible. Mantener los runbooks en el repo del servicio significa que se actualizan junto con los cambios de código. Un PR que cambia el manejo de errores debería también actualizar el runbook para la alerta de tasa de error. Si los runbooks viven en un wiki separado, se olvidan durante los cambios de código. Usa un directorio `docs/runbooks/` en el repo del servicio y enlázalos desde tu sistema de alertas.

@@ -204,14 +204,188 @@ R: El patrón clásico lo prohíbe, pero los registros y containers DI soportan 
 R: Un singleton es un objeto — puede implementar interfaces, pasarse como parámetro y mockearse. Una clase estática es solo un namespace para funciones — no puede ser polimórfica, instanciada o inyectada. Prefiere objetos singleton sobre clases estáticas.
 
 
+### Bill Pugh Holder Idiom (Java)
+
+```java
+public class ConfigManager {
+    private ConfigManager() {
+        // Cargar config desde entorno o archivo
+    }
+
+    // Clase interna estática — cargada solo cuando getInstance() se llama
+    private static class Holder {
+        static final ConfigManager INSTANCE = new ConfigManager();
+    }
+
+    public static ConfigManager getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    public String get(String key) {
+        // ...
+        return "";
+    }
+}
+```
+
+La JVM garantiza que una clase se inicializa exactamente una vez, y la clase holder no se carga hasta que `getInstance()` se llama por primera vez. Esto da inicialización perezosa sin overhead de sincronización — la JVM maneja la thread safety.
+
+### Enum Singleton (Java)
+
+```java
+public enum DatabaseType {
+    INSTANCE;
+
+    private final Map<String, String> properties;
+
+    DatabaseType() {
+        this.properties = loadProperties();
+    }
+
+    public String getProperty(String key) {
+        return properties.get(key);
+    }
+
+    private Map<String, String> loadProperties() {
+        // Cargar desde archivo o env
+        return Map.of("driver", "postgresql");
+    }
+}
+
+// Uso
+String driver = DatabaseType.INSTANCE.getProperty("driver");
+```
+
+Los enum singletons están garantizados por la JVM como instancias únicas, incluso a través de serialización y reflection. Esta es la forma más robusta de singleton en Java.
+
+### Testing de Código Singleton
+
+```typescript
+// Singleton testeable vía registro — reset entre tests
+describe('OrderService con singleton pool', () => {
+  afterEach(() => {
+    SingletonRegistry.clear();
+  });
+
+  it('usa pool de conexiones compartido', () => {
+    const pool = SingletonRegistry.get('pool', () => new InMemoryConnectionPool());
+    const service = new OrderService(pool);
+
+    service.process({ id: '1', items: [] });
+
+    expect(pool.getConnectionsUsed()).toBe(1);
+  });
+
+  it('aísla estado entre tests', () => {
+    // Registro fue limpiado — nueva instancia de pool
+    const pool = SingletonRegistry.get('pool', () => new InMemoryConnectionPool());
+    expect(pool.getConnectionsUsed()).toBe(0);
+  });
+});
+```
+
+```java
+// Java — test con DI container
+@Test
+void testOrderServiceWithMockPool() {
+    var container = new DIContainer();
+    container.bind(IDatabaseConnectionPool.class, MockConnectionPool.class, Scope.SINGLETON);
+
+    var service = container.resolve(OrderService.class);
+    service.process(new Order("1", List.of()));
+
+    var mockPool = container.resolve(IDatabaseConnectionPool.class);
+    verify(mockPool, times(1)).getConnection();
+}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa singletons con scope en frameworks web.** Los singletons request-scoped en ASP.NET o Spring no son singletons reales — existen uno por request:
+
+```csharp
+// Una instancia por HTTP request, no por app
+builder.Services.AddScoped<IRequestContext, RequestContext>();
+```
+
+2. **Evita ruptura de singleton por reflection.** En Java, reflection puede acceder constructores privados. Los enum singletons lo previenen. Para singletons basados en clases, añade un guard en el constructor:
+
+```java
+private DatabaseConnectionPool() {
+    if (instance != null) {
+        throw new IllegalStateException("Use getInstance()");
+    }
+    // ...
+}
+```
+
+3. **Prefiere monostate sobre singleton para configuración.** Todas las instancias comparten estado pero la clase se puede instanciar libremente:
+
+```typescript
+class AppConfig {
+  private static _values: Record<string, string> = {};
+
+  constructor() {}
+
+  get(key: string): string {
+    return AppConfig._values[key];
+  }
+
+  set(key: string, value: string): void {
+    AppConfig._values[key] = value;
+  }
+}
+```
+
+## Errores Comunes Adicionales
+
+1. **Usar singleton para compartir estado entre microservicios.** Cada microservicio tiene su propia JVM/proceso — un singleton en uno no es visible para otro. Usa un cache distribuido (Redis) o base de datos compartida.
+
+2. **Singleton con colecciones mutables sin sincronización.** Un singleton con un `HashMap` que múltiples threads leen y escriben se corromperá. Usa `ConcurrentHashMap` o sincroniza el acceso:
+
+```java
+// Mal: race condition en HashMap
+private Map<String, User> cache = new HashMap<>();
+
+// Bien: thread-safe
+private Map<String, User> cache = new ConcurrentHashMap<>();
+```
+
+3. **Olvidar cerrar recursos singleton en shutdown.** Los pools de conexiones y thread executors filtran si no se cierran:
+
+```java
+// Hook de shutdown
+Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+    DatabaseConnectionPool.getInstance().close();
+}));
+```
+
+## FAQ Adicional
+
+### ¿Cómo manejo la serialización con singletons?
+
+En Java, implementa `readResolve()` para retornar la instancia existente en lugar de crear una nueva durante la deserialización:
+
+```java
+protected Object readResolve() {
+    return getInstance();
+}
+```
+
+Los enum singletons manejan esto automáticamente — la JVM asegura que solo existe una constante enum.
+
+### ¿Cuál es la diferencia entre monostate y singleton?
+
+Un singleton enforcea una instancia. Un monostate permite múltiples instancias pero todas comparten el mismo estado estático. Monostate es más flexible — puedes crear instancias libremente, pasarlas como parámetros y mockearlas en tests. Usa monostate cuando quieras estado compartido sin restringir la instanciación.
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Los patrones de double-checked locking, Bill Pugh holder y enum singleton en Java son todos probados en producción. El patrón de registro en TypeScript se usa en codebases de producción. El enfoque de DI container en C# es el estándar en aplicaciones ASP.NET.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+La inicialización estática eager tiene costo cero en runtime después de la carga de clase. Double-checked locking tiene un volatile read en la ruta rápida. Bill Pugh holder tiene cero overhead — la JVM lo maneja. Las búsquedas en registro son operaciones O(1) en Map. La resolución de DI container involucra una búsqueda en diccionario, típicamente nanosegundos.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Si un singleton parece tener múltiples instancias, verifica: (1) jerarquía de classloaders en Java EE/application servers, (2) serialización creando nuevas instancias, (3) reflection saltándose el constructor privado. Añade logging en el constructor para rastrear la creación. Usa `System.identityHashCode(instance)` para verificar la identidad del objeto.

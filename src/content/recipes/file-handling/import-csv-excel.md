@@ -227,3 +227,535 @@ Never load it entirely into memory. Use **streaming parsers** (`csv.reader` in P
 ### How do I handle duplicate rows?
 
 Define a business-key (e.g., email or SKU) and use `INSERT ... ON CONFLICT` (PostgreSQL), `INSERT IGNORE` (MySQL), or `MERGE` (SQL Server, Oracle). Alternatively, deduplicate in-memory using a `Set` of hashes before inserting. Always tell the user how many duplicates were found and skipped.
+
+## Advanced Solutions
+
+### Streaming CSV import with chunked batch insert
+
+```python
+import csv
+import sqlite3
+from typing import Iterator, Any
+
+
+def stream_csv_to_db(
+    file_path: str,
+    db_path: str,
+    table: str,
+    batch_size: int = 1000,
+    encoding: str = "utf-8",
+) -> dict:
+    """Stream a CSV file into a database in batches with validation."""
+    stats = {"inserted": 0, "errors": 0, "batches": 0}
+
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    with open(file_path, newline="", encoding=encoding) as f:
+        reader = csv.DictReader(f)
+        headers = reader.fieldnames
+
+        if not headers:
+            raise ValueError("CSV file has no header row")
+
+        # Create table if not exists
+        cols = ", ".join(f'"{h}" TEXT' for h in headers)
+        cursor.execute(f'CREATE TABLE IF NOT EXISTS {table} ({cols})')
+
+        batch: list[tuple] = []
+        placeholders = ", ".join("?" * len(headers))
+        insert_sql = f'INSERT INTO {table} VALUES ({placeholders})'
+
+        for row_num, row in enumerate(reader, start=2):
+            try:
+                values = tuple(row.get(h, "") for h in headers)
+                batch.append(values)
+            except Exception as e:
+                stats["errors"] += 1
+                print(f"Row {row_num} error: {e}")
+                continue
+
+            if len(batch) >= batch_size:
+                cursor.executemany(insert_sql, batch)
+                conn.commit()
+                stats["inserted"] += len(batch)
+                stats["batches"] += 1
+                batch.clear()
+
+        # Insert remaining rows
+        if batch:
+            cursor.executemany(insert_sql, batch)
+            conn.commit()
+            stats["inserted"] += len(batch)
+            stats["batches"] += 1
+
+    conn.close()
+    return stats
+
+
+# Usage
+result = stream_csv_to_db("large_data.csv", "app.db", "users", batch_size=5000)
+print(f"Inserted {result['inserted']} rows in {result['batches']} batches")
+```
+
+### Excel streaming with Apache POI event model
+
+For very large Excel files (.xlsx), use POI's event-based SAX parser to avoid loading the entire workbook into memory:
+
+```java
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xssf.eventusermodel.XSSFReader;
+import org.apache.poi.xssf.eventusermodel.XSSFReader.SheetIterator;
+import org.apache.poi.xssf.model.SharedStringsTable;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.xml.sax.*;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.XMLReaderFactory;
+
+import java.io.InputStream;
+import java.util.*;
+
+public class StreamingExcelImporter {
+
+    public List<Map<String, String>> importLargeExcel(String filePath) throws Exception {
+        List<Map<String, String>> rows = new ArrayList<>();
+        OPCPackage pkg = OPCPackage.open(filePath);
+        XSSFReader reader = new XSSFReader(pkg);
+        SharedStringsTable sst = new SharedStringsTable();
+
+        SheetIterator sheetIterator = (SheetIterator) reader.getSheetsData();
+        while (sheetIterator.hasNext()) {
+            try (InputStream sheetStream = sheetIterator.next()) {
+                XMLReader parser = XMLReaderFactory.createXMLReader();
+                SheetHandler handler = new SheetHandler(sst, rows);
+                parser.setContentHandler(handler);
+                parser.parse(new InputSource(sheetStream));
+            }
+        }
+        pkg.close();
+        return rows;
+    }
+
+    static class SheetHandler extends DefaultHandler {
+        private final SharedStringsTable sst;
+        private final List<Map<String, String>> rows;
+        private List<String> headers;
+        private Map<String, String> currentRow;
+        private String lastCellValue;
+        private int currentCol;
+        private boolean isHeaderRow;
+
+        SheetHandler(SharedStringsTable sst, List<Map<String, String>> rows) {
+            this.sst = sst;
+            this.rows = rows;
+            this.headers = new ArrayList<>();
+            this.currentRow = new LinkedHashMap<>();
+            this.currentCol = 0;
+            this.isHeaderRow = true;
+        }
+
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes attrs) {
+            if (qName.equals("c")) {
+                String ref = attrs.getValue("r");
+                currentCol = 0;
+                lastCellValue = "";
+            }
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) {
+            if (qName.equals("v")) {
+                if (isHeaderRow) {
+                    headers.add(lastCellValue);
+                } else {
+                    currentRow.put(
+                        headers.size() > currentCol ? headers.get(currentCol) : "col" + currentCol,
+                        lastCellValue
+                    );
+                }
+                currentCol++;
+            } else if (qName.equals("row")) {
+                if (!isHeaderRow && !currentRow.isEmpty()) {
+                    rows.add(new LinkedHashMap<>(currentRow));
+                }
+                currentRow.clear();
+                isHeaderRow = false;
+            }
+        }
+
+        @Override
+        public void characters(char[] ch, int start, int length) {
+            lastCellValue = new String(ch, start, length);
+        }
+    }
+}
+```
+
+### Encoding detection and fallback
+
+```python
+import csv
+from pathlib import Path
+
+
+def read_csv_with_encoding_detection(file_path: str) -> list[dict]:
+    """Try multiple encodings and return parsed rows."""
+    encodings = ["utf-8", "utf-8-sig", "latin-1", "cp1252", "iso-8859-1"]
+    path = Path(file_path)
+
+    for enc in encodings:
+        try:
+            with open(path, newline="", encoding=enc) as f:
+                reader = csv.DictReader(f)
+                rows = list(reader)
+                print(f"Successfully read with encoding: {enc}")
+                return rows
+        except UnicodeDecodeError:
+            continue
+
+    raise ValueError(f"Could not decode {file_path} with any known encoding")
+
+
+# Usage: handles files from Windows, macOS, and Linux
+rows = read_csv_with_encoding_detection("data_from_windows.csv")
+```
+
+### Column mapping and data transformation
+
+```python
+import csv
+from datetime import datetime
+from typing import Any, Callable
+
+
+class ColumnMapper:
+    """Map source CSV columns to target schema with transformations."""
+
+    def __init__(self):
+        self.mappings: dict[str, tuple[str, Callable]] = {}
+
+    def add_mapping(self, source_col: str, target_col: str, transform: Callable = None):
+        self.mappings[source_col] = (target_col, transform or (lambda x: x))
+
+    def transform_row(self, row: dict) -> dict:
+        result = {}
+        for source_col, (target_col, transform) in self.mappings.items():
+            value = row.get(source_col, "")
+            try:
+                result[target_col] = transform(value)
+            except (ValueError, TypeError) as e:
+                result[target_col] = None
+                result[f"_error_{target_col}"] = str(e)
+        return result
+
+
+# Usage: map and transform columns from a vendor CSV
+mapper = ColumnMapper()
+mapper.add_mapping("First Name", "first_name", str.strip)
+mapper.add_mapping("Last Name", "last_name", str.strip)
+mapper.add_mapping("Email Address", "email", str.lower)
+mapper.add_mapping("Phone", "phone", lambda x: x.replace("-", "").replace(" ", ""))
+mapper.add_mapping("Birth Date", "birth_date", lambda x: datetime.strptime(x, "%m/%d/%Y").date())
+mapper.add_mapping("Salary", "salary", lambda x: float(x.replace("$", "").replace(",", "")))
+
+with open("vendor_export.csv", newline="", encoding="utf-8") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        transformed = mapper.transform_row(row)
+        print(transformed)
+```
+
+### Node.js: Streaming CSV with batch database insert
+
+```javascript
+import csv from 'csv-parser';
+import fs from 'fs';
+import { Database } from 'better-sqlite3';
+
+
+async function streamCsvToDb(filePath, dbPath, tableName, batchSize = 1000) {
+    const db = new Database(dbPath);
+    const stats = { inserted: 0, errors: 0, batches: 0 };
+    let batch = [];
+    let headers = null;
+    let insertStmt = null;
+
+    return new Promise((resolve, reject) => {
+        fs.createReadStream(filePath)
+            .pipe(csv())
+            .on('headers', (hdrs) => {
+                headers = hdrs;
+                const cols = hdrs.map(h => `"${h}" TEXT`).join(', ');
+                db.exec(`CREATE TABLE IF NOT EXISTS ${tableName} (${cols})`);
+                const placeholders = hdrs.map(() => '?').join(', ');
+                insertStmt = db.prepare(
+                    `INSERT INTO ${tableName} VALUES (${placeholders})`
+                );
+            })
+            .on('data', (row) => {
+                try {
+                    const values = headers.map(h => row[h] || '');
+                    batch.push(values);
+
+                    if (batch.length >= batchSize) {
+                        const tx = db.transaction((rows) => {
+                            for (const r of rows) insertStmt.run(...r);
+                        });
+                        tx(batch);
+                        stats.inserted += batch.length;
+                        stats.batches++;
+                        batch = [];
+                    }
+                } catch (err) {
+                    stats.errors++;
+                    console.error(`Row error: ${err.message}`);
+                }
+            })
+            .on('end', () => {
+                if (batch.length > 0 && insertStmt) {
+                    const tx = db.transaction((rows) => {
+                        for (const r of rows) insertStmt.run(...r);
+                    });
+                    tx(batch);
+                    stats.inserted += batch.length;
+                    stats.batches++;
+                }
+                db.close();
+                resolve(stats);
+            })
+            .on('error', reject);
+    });
+}
+
+// Usage
+const result = await streamCsvToDb('large.csv', 'app.db', 'users', 5000);
+console.log(`Inserted ${result.inserted} rows in ${result.batches} batches`);
+```
+
+## Additional Best Practices
+
+1. **Use a staging table for validation before production insert.** Import into a temporary table, validate all rows, then move clean data in a single transaction:
+
+```sql
+-- Step 1: Import to staging
+CREATE TABLE staging_users (LIKE users);
+
+-- Step 2: Validate and report
+SELECT * FROM staging_users WHERE email NOT LIKE '%@%.%';
+SELECT COUNT(*) FROM staging_users WHERE name IS NULL OR name = '';
+
+-- Step 3: Move clean data
+INSERT INTO users (name, email, age)
+SELECT name, email, age FROM staging_users
+WHERE email LIKE '%@%.%' AND name IS NOT NULL AND name != '';
+
+-- Step 4: Report and cleanup
+SELECT COUNT(*) AS imported FROM users;
+DROP TABLE staging_users;
+```
+
+2. **Provide downloadable templates.** Give users a template with exact headers, sample rows, and data validation rules:
+
+```python
+import csv
+from io import StringIO
+
+
+def generate_csv_template() -> str:
+    """Generate a CSV template with headers and example rows."""
+    output = StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["name", "email", "age", "department"])
+    writer.writerow(["Jane Doe", "jane@example.com", "30", "Engineering"])
+    writer.writerow(["John Smith", "john@example.com", "25", "Marketing"])
+    return output.getvalue()
+
+
+# Serve as a download in a web framework
+# return Response(generate_csv_template(), mimetype="text/csv",
+#                 headers={"Content-Disposition": "attachment; filename=template.csv"})
+```
+
+## Additional Common Mistakes
+
+1. **Not validating header names.** Users often rename columns or change capitalization. Normalize headers before processing:
+
+```python
+import csv
+
+
+def normalize_headers(headers: list[str]) -> dict[str, str]:
+    """Map user headers to expected headers, case-insensitive."""
+    expected = {"name", "email", "age", "department"}
+    mapping = {}
+    for h in headers:
+        normalized = h.strip().lower().replace(" ", "_")
+        if normalized in expected:
+            mapping[h] = normalized
+    return mapping
+
+
+with open("user_upload.csv", newline="", encoding="utf-8") as f:
+    reader = csv.DictReader(f)
+    header_map = normalize_headers(reader.fieldnames)
+
+    if len(header_map) < len(expected):
+        missing = expected - set(header_map.values())
+        raise ValueError(f"Missing required columns: {missing}")
+
+    for row in reader:
+        normalized_row = {header_map[k]: v for k, v in row.items() if k in header_map}
+        # Process normalized_row...
+```
+
+2. **Truncating data without warning.** When inserting into a `VARCHAR(255)` column, strings longer than 255 chars are silently truncated by some databases. Validate length before inserting:
+
+```python
+MAX_LENGTHS = {
+    "name": 100,
+    "email": 255,
+    "department": 50,
+}
+
+def validate_lengths(row: dict) -> list[str]:
+    """Check for fields that exceed max length."""
+    warnings = []
+    for field, max_len in MAX_LENGTHS.items():
+        value = row.get(field, "")
+        if len(value) > max_len:
+            warnings.append(f"{field} exceeds {max_len} chars (got {len(value)})")
+    return warnings
+```
+
+## Additional FAQ
+
+### How do I handle CSV files with different delimiters?
+
+Detect the delimiter automatically or let the user specify it:
+
+```python
+import csv
+
+
+def detect_delimiter(file_path: str) -> str:
+    """Detect the most likely delimiter in a CSV file."""
+    with open(file_path, "r", newline="", encoding="utf-8") as f:
+        sample = f.read(1024)
+        sniffer = csv.Sniffer()
+        dialect = sniffer.sniff(sample, delimiters=",;\t|")
+        return dialect.delimiter
+
+
+# Usage
+delim = detect_delimiter("data.csv")
+print(f"Detected delimiter: '{delim}'")
+
+with open("data.csv", newline="", encoding="utf-8") as f:
+    reader = csv.DictReader(f, delimiter=delim)
+    for row in reader:
+        print(row)
+```
+
+### How do I import Excel files with multiple sheets?
+
+```python
+import pandas as pd
+
+
+def import_multi_sheet_excel(file_path: str) -> dict[str, list[dict]]:
+    """Import all sheets from an Excel file."""
+    xl = pd.ExcelFile(file_path)
+    result = {}
+    for sheet_name in xl.sheet_names:
+        df = pd.read_excel(file_path, sheet_name=sheet_name)
+        df = df.dropna(how="all")  # Remove fully empty rows
+        result[sheet_name] = df.to_dict("records")
+    return result
+
+
+# Usage
+sheets = import_multi_sheet_excel("workbook.xlsx")
+for sheet_name, rows in sheets.items():
+    print(f"Sheet '{sheet_name}': {len(rows)} rows")
+```
+
+### How do I handle date parsing from Excel?
+
+Excel stores dates as serial numbers. Use `pandas` with explicit date parsing:
+
+```python
+import pandas as pd
+
+
+def import_excel_with_dates(file_path: str) -> list[dict]:
+    """Import Excel with proper date parsing."""
+    df = pd.read_excel(
+        file_path,
+        parse_dates=["birth_date", "hire_date", "last_login"],
+        date_format="%Y-%m-%d",
+    )
+
+    # Handle mixed date formats
+    for col in ["birth_date", "hire_date"]:
+        df[col] = pd.to_datetime(df[col], errors="coerce", format="mixed")
+
+    # Filter out rows with invalid dates
+    df = df.dropna(subset=["birth_date", "hire_date"])
+
+    return df.to_dict("records")
+```
+
+### How do I resume an interrupted import?
+
+Track progress with a checkpoint file so you can resume from the last successful batch:
+
+```python
+import csv
+import json
+from pathlib import Path
+
+
+def resumable_import(file_path: str, checkpoint_path: str, batch_size: int = 1000):
+    """Import CSV with checkpointing for resume capability."""
+    checkpoint = {"last_row": 0, "inserted": 0}
+
+    if Path(checkpoint_path).exists():
+        with open(checkpoint_path) as f:
+            checkpoint = json.load(f)
+        print(f"Resuming from row {checkpoint['last_row']}")
+
+    with open(file_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        batch = []
+
+        for row_num, row in enumerate(reader, start=2):
+            if row_num <= checkpoint["last_row"]:
+                continue  # Skip already processed rows
+
+            batch.append(row)
+
+            if len(batch) >= batch_size:
+                # Insert batch to database...
+                checkpoint["last_row"] = row_num
+                checkpoint["inserted"] += len(batch)
+
+                with open(checkpoint_path, "w") as f:
+                    json.dump(checkpoint, f)
+
+                batch.clear()
+
+        # Process remaining rows
+        if batch:
+            checkpoint["last_row"] = row_num
+            checkpoint["inserted"] += len(batch)
+            with open(checkpoint_path, "w") as f:
+                json.dump(checkpoint, f)
+
+    return checkpoint
+
+
+# Usage
+result = resumable_import("large.csv", ".import_checkpoint.json")
+print(f"Imported {result['inserted']} rows, last row: {result['last_row']}")
+```

@@ -269,3 +269,179 @@ ssh -o PasswordAuthentication=no user@server
 ### ¿Cuál es la diferencia entre authorized_keys y known_hosts?
 
 `authorized_keys` lista llaves públicas que pueden loguearse a esta máquina. `known_hosts` lista servidores a los que esta máquina se ha conectado. Sirven propósitos opuestos: uno controla acceso inbound, el otro valida conexiones outbound.
+
+## Soluciones Avanzadas
+
+### Configuración SSH con jump host (bastion)
+
+Conéctate a servidores internos a través de un bastion host sin exponerlos a internet. La directiva `ProxyJump` encadena conexiones SSH:
+
+```ssh-config
+# Bastion host (alcanzable desde internet)
+Host bastion
+    HostName bastion.example.com
+    User deploy
+    IdentityFile ~/.ssh/id_ed25519_bastion
+    Port 2222
+
+# Servidores internos (solo alcanzables vía bastion)
+Host *.internal.example.com
+    User deploy
+    IdentityFile ~/.ssh/id_ed25519_internal
+    ProxyJump bastion
+    # Deshabilitar agent forwarding al bastion por seguridad
+    ForwardAgent no
+
+# Servidor de base de datos (dos saltos: bastion -> jump -> db)
+Host db-prod.internal.example.com
+    User dbadmin
+    IdentityFile ~/.ssh/id_ed25519_db
+    ProxyJump jump-vm.internal.example.com
+```
+
+### Llaves SSH respaldadas por hardware FIDO2 (YubiKey)
+
+Genera llaves SSH que requieren presencia física de hardware. La llave privada nunca sale del YubiKey:
+
+```bash
+#!/bin/bash
+
+# Generar una llave ed25519 respaldada por FIDO2
+# Requiere OpenSSH 8.2+ y un dispositivo compatible con FIDO2 (YubiKey 5 Series)
+ssh-keygen -t ed25519-sk -C "$(whoami)@$(hostname)-fido2" -f "$HOME/.ssh/id_ed25519_sk"
+
+# Con passphrase y requiriendo touch en cada uso
+ssh-keygen -t ed25519-sk -O resident -O verify-required \
+    -C "$(whoami)@$(hostname)-fido2-strict" \
+    -f "$HOME/.ssh/id_ed25519_sk_strict"
+
+echo "FIDO2 key generated. Touch YubiKey when prompted during use."
+
+# Resident key puede recuperarse en una máquina nueva
+# ssh-keygen -K  # descarga resident keys del dispositivo FIDO2
+```
+
+### Autoridad Certificadora SSH (CA) para firma de llaves
+
+En lugar de distribuir llaves públicas a cada servidor, configura una CA SSH. Los servidores confían en la CA, y los usuarios obtienen certificados firmados con expiración:
+
+```bash
+#!/bin/bash
+
+# === En el host CA ===
+# Generar par de llaves CA (hacer esto una vez, mantener la llave privada segura)
+ssh-keygen -t ed25519 -f /etc/ssh/ca_key -N "" -C "SSH CA"
+
+# === En cada servidor (confiar en la CA) ===
+# Agregar llave pública de la CA como trusted user CA
+echo "TrustedUserCAKeys /etc/ssh/ca_key.pub" >> /etc/ssh/sshd_config
+systemctl restart sshd
+
+# === Firmar la llave pública de un usuario (en host CA) ===
+# Firmar con período de validez y restricciones de principal
+ssh-keygen -s /etc/ssh/ca_key \
+    -I "user-$(date +%Y%m%d)" \
+    -n deploy,admin \
+    -V +1d \
+    ~/.ssh/id_ed25519.pub
+
+# Esto genera ~/.ssh/id_ed25519-cert.pub
+# El usuario se conecta con su llave + certificado:
+# ssh -i ~/.ssh/id_ed25519 user@server
+
+# El certificado es válido por 1 día y solo para principals 'deploy' y 'admin'
+```
+
+### Rotación masiva de llaves en un fleet de servidores
+
+Rota llaves en cientos de servidores usando una herramienta SSH paralela y un manifiesto de rotación:
+
+```bash
+#!/bin/bash
+
+# rotation-manifest.txt format: server old_key_fingerprint new_key_path
+MANIFEST="rotation-manifest.txt"
+KEYS_DIR="$HOME/.ssh"
+
+while IFS=$'\t' read -r server old_fp new_key; do
+    [ -z "$server" ] && continue
+    echo "Rotating key on $server..."
+
+    # Remover llave vieja por fingerprint
+    ssh "$server" "ssh-keygen -R -f ~/.ssh/authorized_keys -F '$old_fp'" 2>/dev/null
+
+    # Agregar llave nueva
+    NEW_PUB=$(cat "${KEYS_DIR}/${new_key}.pub")
+    ssh "$server" "echo '$NEW_PUB' >> ~/.ssh/authorized_keys"
+
+    echo "  Done: $server"
+done < "$MANIFEST"
+
+echo "Rotation complete for $(wc -l < "$MANIFEST") servers"
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `IdentitiesOnly yes` en la config SSH.** Sin esto, SSH prueba todas las llaves en `~/.ssh/` para cada conexión. Esto puede disparar el máximo de intentos de auth en servidores con muchas llaves:
+
+```ssh-config
+Host *
+    IdentitiesOnly yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+```
+
+2. **Setea `MaxAuthTries` en servidores.** Limita el número de intentos fallidos de autenticación para reducir la exposición a brute-force:
+
+```bash
+# En /etc/ssh/sshd_config
+MaxAuthTries 3
+LoginGraceTime 30
+PermitRootLogin no
+AllowUsers deploy admin
+```
+
+## Errores Comunes Adicionales
+
+1. **Usar `ForwardAgent yes` globalmente.** Agent forwarding permite que un servidor comprometido use tu SSH agent. Solo habilítalo por-host para servidores confiables:
+
+```ssh-config
+# Mal: agent forwarding global
+Host *
+    ForwardAgent yes
+
+# Bien: por-host solo para bastion confiable
+Host bastion.example.com
+    ForwardAgent yes
+```
+
+2. **No setear permisos de archivo en llaves SSH.** SSH se rehúsa a usar llaves con permisos demasiado abiertos, pero los fallos silenciosos pueden confundir. Siempre verifica:
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+chmod 600 ~/.ssh/config
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo uso llaves SSH con GitHub/GitLab?
+
+Agrega tu llave pública a los settings de SSH keys de la plataforma. Usa `~/.ssh/config` para especificar qué llave usar:
+
+```ssh-config
+Host github.com
+    IdentityFile ~/.ssh/id_ed25519_github
+    User git
+```
+
+Testea con `ssh -T git@github.com`.
+
+### ¿Qué es la rotación de llaves SSH y con qué frecuencia debería hacerla?
+
+La rotación de llaves significa reemplazar las llaves SSH existentes por nuevas y remover las llaves viejas de todos los servidores. Rota llaves cuando:
+- Un miembro del equipo se va
+- Una llave puede haber sido expuesta (robo de laptop, compromiso de backup)
+- Anualmente como medida de seguridad rutinaria
+- Después de cualquier incidente de seguridad que involucre acceso a servidores

@@ -150,3 +150,317 @@ No. La segmentacion define la arquitectura; los firewalls, ACLs y politicas de r
 ### Como probamos la segmentacion ante un auditor?
 
 Provee diagramas de red, inventarios de reglas de firewall, matrices de trafico, logs de excepciones y evidencia de revisiones periodicas. Las pruebas automaticas de alcance agregan evidencia tecnica solida.
+
+## Soluciones Avanzadas
+
+### Pruebas automatizadas de alcance de red con AWS
+
+Verifica que las reglas de segmentacion se cumplan realmente probando el alcance entre zonas:
+
+```python
+import boto3
+from dataclasses import dataclass
+from typing import List, Tuple
+
+@dataclass
+class ReachabilityTest:
+    source_instance: str
+    destination_ip: str
+    destination_port: int
+    expected_result: str  # "allow" or "deny"
+    zone_pair: str  # e.g., "DMZ -> Application"
+
+class NetworkReachabilityValidator:
+    def __init__(self, region: str = "us-east-1"):
+        self.ssm = boto3.client("ssm", region_name=region)
+        self.ec2 = boto3.client("ec2", region_name=region)
+
+    def run_test(self, test: ReachabilityTest) -> Tuple[bool, str]:
+        """Run a single reachability test via SSM."""
+        try:
+            response = self.ssm.send_command(
+                InstanceIds=[test.source_instance],
+                DocumentName="AWS-RunShellScript",
+                Parameters={
+                    "commands": [
+                        f"timeout 5 bash -c 'echo > /dev/tcp/{test.destination_ip}/{test.destination_port}' "
+                        f"2>/dev/null && echo 'REACHABLE' || echo 'UNREACHABLE'"
+                    ]
+                },
+            )
+            command_id = response["Command"]["CommandId"]
+
+            import time
+            time.sleep(5)
+
+            output = self.ssm.get_command_invocation(
+                CommandId=command_id,
+                InstanceId=test.source_instance,
+            )
+
+            actual = "allow" if "REACHABLE" in output.get("StandardOutputContent", "") else "deny"
+            passed = actual == test.expected_result
+            status = "PASS" if passed else "FAIL"
+            message = f"{status}: {test.zone_pair} - Expected {test.expected_result}, got {actual}"
+            return passed, message
+        except Exception as e:
+            return False, f"ERROR: {test.zone_pair} - {str(e)}"
+
+    def validate_segmentation(self, tests: List[ReachabilityTest]) -> None:
+        """Run all reachability tests and report results."""
+        passed = 0
+        failed = 0
+        for test in tests:
+            ok, msg = self.run_test(test)
+            print(msg)
+            if ok:
+                passed += 1
+            else:
+                failed += 1
+        print(f"\nResults: {passed} passed, {failed} failed out of {len(tests)} tests")
+
+# Example usage
+tests = [
+    ReachabilityTest("i-dmz001", "10.0.2.10", 443, "allow", "DMZ -> Application"),
+    ReachabilityTest("i-dmz001", "10.0.3.10", 5432, "deny", "DMZ -> Data"),
+    ReachabilityTest("i-app001", "10.0.3.10", 5432, "allow", "Application -> Data"),
+    ReachabilityTest("i-dev001", "10.0.3.10", 5432, "deny", "Development -> Data"),
+]
+
+validator = NetworkReachabilityValidator(region="us-east-1")
+validator.validate_segmentation(tests)
+```
+
+### Microsegmentacion de Kubernetes con politicas de red Calico
+
+Define controles detallados de trafico este-oeste entre workloads de Kubernetes:
+
+```yaml
+# calico-default-deny.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all-namespaces
+  namespace: kube-system
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+# calico-allow-payment-flow.yaml
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-to-database
+  namespace: payment
+spec:
+  selector: app == "payment-service"
+  types:
+    - Egress
+  egress:
+    - action: Allow
+      destination:
+        selector: app == "postgres"
+        namespaceSelector: name == "database"
+      protocol: TCP
+      destinationPorts:
+        - 5432
+    - action: Deny
+      destination:
+        selector: all()
+```
+
+### Terraform para hacer cumplir la segmentacion como codigo
+
+Define y aplica la segmentacion de red usando infraestructura como codigo:
+
+```hcl
+# modules/segmentation/main.tf
+
+variable "environment" {
+  type        = string
+  description = "Environment name (prod, staging, dev)"
+}
+
+variable "allowed_ingress" {
+  type = list(object({
+    source_cidr = string
+    port        = number
+    description = string
+  }))
+  default = []
+}
+
+resource "aws_security_group" "segment" {
+  name        = "${var.environment}-segment-sg"
+  description = "Security group for ${var.environment} network segment"
+  vpc_id      = var.vpc_id
+
+  # Default deny all ingress
+  ingress {
+    description = "Default deny"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = []
+  }
+
+  # Explicit allow rules from variable
+  dynamic "ingress" {
+    for_each = var.allowed_ingress
+    content {
+      description = ingress.value.description
+      from_port   = ingress.value.port
+      to_port     = ingress.value.port
+      protocol    = "tcp"
+      cidr_blocks = [ingress.value.source_cidr]
+    }
+  }
+
+  # Default deny all egress (override with specific rules)
+  egress {
+    description = "Default deny"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = []
+  }
+
+  tags = {
+    Environment = var.environment
+    ManagedBy   = "terraform"
+    Policy      = "segmentation"
+  }
+}
+
+# Example usage for production segment
+module "prod_segment" {
+  source = "./modules/segmentation"
+
+  environment = "prod"
+  vpc_id      = aws_vpc.main.id
+
+  allowed_ingress = [
+    { source_cidr = "10.0.1.0/24", port = 443, description = "DMZ to Application" },
+    { source_cidr = "10.0.4.0/24", port = 22, description = "Management SSH" },
+  ]
+}
+```
+
+## Mejores Practicas Adicionales
+
+1. **Implementa un service mesh para segmentacion a nivel de aplicacion.** Usa Istio o Linkerd para hacer cumplir politicas de trafico en la capa de aplicacion, complementando los controles a nivel de red:
+
+```yaml
+# Istio AuthorizationPolicy - restrict which services can call payment-service
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: payment-service-access
+  namespace: payment
+spec:
+  selector:
+    matchLabels:
+      app: payment-service
+  rules:
+    - from:
+        - source:
+            principals: ["cluster.local/ns/checkout/sa/checkout-sa"]
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/api/v1/charge"]
+```
+
+2. **Usa analisis de flujo de red para validar la segmentacion.** Recopila y analiza patrones de trafico reales para identificar flujos no documentados que violen la politica:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Export VPC flow logs and analyze cross-zone traffic
+aws logs start-query \
+  --log-group-name "/aws/vpc/flow-logs" \
+  --start-time $(date -d '7 days ago' +%s) \
+  --end-time $(date +%s) \
+  --query-string '
+    fields srcAddr, dstAddr, dstPort, action
+    | filter action = "ACCEPT"
+    | stats count() as connections by srcAddr, dstAddr, dstPort
+    | sort connections desc
+    | limit 100
+  ' \
+  --output text
+```
+
+## Errores Comunes Adicionales
+
+1. **Olvidar segmentar el trafico de gestion y plano de control.** El trafico administrativo (SSH, RDP, API de Kubernetes) debe usar un segmento de gestion dedicado, no compartir rutas de red de aplicacion:
+
+```hcl
+# Terraform - separate management subnet
+resource "aws_subnet" "management" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.4.0/24"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "management-subnet"
+    Zone = "management"
+  }
+}
+
+# Management security group - no internet access
+resource "aws_security_group" "management" {
+  name        = "management-sg"
+  vpc_id      = aws_vpc.main.id
+  description = "Management segment - VPN access only"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+}
+```
+
+2. **No probar la segmentacion despues de cambios de infraestructura.** Un solo security group mal configurado puede abrir una ruta entre zonas. Ejecuta pruebas automatizadas de alcance como parte de tu pipeline CI/CD:
+
+```yaml
+# .github/workflows/segmentation-test.yml
+name: Network Segmentation Validation
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+jobs:
+  test-segmentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run reachability tests
+        run: |
+          python scripts/validate_segmentation.py \
+            --config network-segmentation-tests.yaml \
+            --fail-on-violation
+```
+
+## FAQs Adicionales
+
+### Como manejamos la segmentacion para funciones serverless?
+
+Usa la configuracion de VPC para funciones Lambda para colocarlas en subnets privadas. Restringe el egress a traves de NAT gateways con filtros de tablas de ruteo. Para API Gateway, usa politicas de recursos para restringir IPs de origen. Para Step Functions, usa endpoints privados para comunicacion servicio a servicio. Aplica el mismo principio de negacion por defecto a nivel de funcion.
+
+### Que herramientas pueden automatizar la validacion de politicas de segmentacion?
+
+Usa herramientas cloud-native como AWS Network Manager, Azure Network Watcher o GCP Network Intelligence Center. Para Kubernetes, usa el probador de politicas de Calico o las pruebas de conectividad de Cilium. Para multi-cloud, herramientas como Alcide, Tufin o GuardiCore proveen visibilidad y validacion de segmentacion multiplataforma.

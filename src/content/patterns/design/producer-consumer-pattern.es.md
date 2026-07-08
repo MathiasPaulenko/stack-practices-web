@@ -286,4 +286,167 @@ Un valor sentinel (como `None`, `null`, o un objeto especial) colocado en la col
 
 ### ¿Los productores y consumidores pueden estar en diferentes máquinas?
 
-No con el patron basico. La cola compartida es memoria in-process. Para producer-consumer entre maquinas, usa un message broker (RabbitMQ, Kafka, SQS) que proporciona la cola como un servicio accesible por red.
+No con el patrón básico. La cola compartida es memoria in-process. Para producer-consumer entre máquinas, usa un message broker (RabbitMQ, Kafka, SQS) que proporciona la cola como un servicio accesible por red.
+
+## Soluciones Avanzadas
+
+### Cola work-stealing para balanceo de carga
+
+Cada consumidor tiene su propia cola local. Cuando la cola de un consumidor está vacía, roba items de las colas de otros consumidores:
+
+```python
+import threading
+import random
+
+class WorkStealingQueue:
+    def __init__(self, num_workers):
+        self.queues = [threading.Queue() for _ in range(num_workers)]
+        self.num_workers = num_workers
+        self.lock = threading.Lock()
+        self.random = random.Random()
+
+    def push(self, item):
+        """Push a una cola random para distribución de carga."""
+        with self.lock:
+            idx = self.random.randint(0, self.num_workers - 1)
+            self.queues[idx].put(item)
+
+    def pop(self, worker_id):
+        """Pop de cola local primero, luego robar de otros."""
+        # Intentar cola local
+        try:
+            return self.queues[worker_id].get_nowait()
+        except:
+            pass
+
+        # Robar de otras colas
+        for i in range(self.num_workers):
+            if i == worker_id:
+                continue
+            try:
+                return self.queues[i].get_nowait()
+            except:
+                continue
+
+        return None  # Todas las colas vacías
+```
+
+### Producer-consumer con acknowledgment y retry
+
+Asegura que los items no se pierdan si un consumidor falla:
+
+```python
+import threading
+import queue
+
+class ReliableQueue:
+    def __init__(self, maxsize=10):
+        self.pending = queue.Queue(maxsize)
+        self.ack = queue.Queue()
+        self.lock = threading.Lock()
+
+    def put(self, item):
+        """Put item en cola pending."""
+        self.pending.put(item)
+
+    def get(self):
+        """Get item de cola pending."""
+        return self.pending.get()
+
+    def ack(self, item):
+        """Acknowledge procesamiento exitoso."""
+        self.ack.put(item)
+
+    def get_unacked(self):
+        """Retorna items que no fueron acknowledged."""
+        with self.lock:
+            unacked = []
+            while not self.pending.empty():
+                item = self.pending.get()
+                unacked.append(item)
+            return unacked
+
+def consumer(queue, name):
+    while True:
+        item = queue.get()
+        if item is None:
+            break
+        try:
+            process(item)
+            queue.ack(item)
+        except Exception as e:
+            print(f"Consumer {name} falló en {item}: {e}")
+            # Item permanece en cola pending para retry
+```
+
+### Cola de prioridad para items urgentes
+
+Procesa items urgentes antes que items regulares:
+
+```python
+import heapq
+import threading
+
+class PriorityQueue:
+    def __init__(self):
+        self.heap = []
+        self.lock = threading.Lock()
+        self.not_empty = threading.Condition(self.lock)
+
+    def put(self, item, priority):
+        with self.lock:
+            heapq.heappush(self.heap, (priority, item))
+            self.not_empty.notify()
+
+    def get(self):
+        with self.lock:
+            while not self.heap:
+                self.not_empty.wait()
+            return heapq.heappop(self.heap)[1]
+
+# Uso: put items urgentes con valor de prioridad más bajo
+queue.put("urgent_task", 0)  # Alta prioridad
+queue.put("regular_task", 10)  # Baja prioridad
+```
+
+## Mejores Practicas Adicionales
+
+1. **Monitorea métricas de cola.** Rastrea profundidad de cola, throughput de productores, throughput de consumidores y latencia. Configura alertas para profundidad de cola que exceda umbrales. Una cola creciente indica que los consumidores son muy lentos o los productores son muy rápidos.
+
+2. **Maneja shutdown gracefully.** Usa un flag de shutdown o poison pill para señalar a productores y consumidores que se detengan. Flush la cola antes de shutdown o guarda items pending en almacenamiento persistente para recuperación.
+
+```python
+class GracefulQueue:
+    def __init__(self):
+        self.queue = queue.Queue()
+        self.shutdown_flag = False
+
+    def shutdown(self):
+        self.shutdown_flag = True
+        # Despertar consumidores esperando
+        for _ in range(10):
+            self.queue.put(None)
+
+    def is_shutdown(self):
+        return self.shutdown_flag
+```
+
+## Errores Comunes Adicionales
+
+1. **Ignorar overflow de cola.** Cuando una cola limitada está llena, los productores se bloquean o los items se dropean. Monitorea profundidad de cola e implementa manejo de overflow: drop items más antiguos, reject nuevos items, o escala consumidores.
+
+2. **No manejar poison pill para múltiples consumidores.** Un solo poison pill detiene solo un consumidor. Para múltiples consumidores, envía un poison pill por consumidor o usa un flag de shutdown que todos los consumidores checkean.
+
+## FAQs Adicionales
+
+### ¿Cómo manejo backpressure en una cola sin límite?
+
+Las colas sin límite no tienen backpressure natural. Implementa backpressure manualmente monitoreando profundidad de cola y throttling productores cuando la profundidad excede un umbral. Alternativamente, cambia a una cola limitada.
+
+### ¿Cuál es la diferencia entre work stealing y work distribution?
+
+Work distribution asigna items a consumidores upfront (ej. round-robin). Work stealing permite que los consumidores tomen items de su cola local primero y roben de otros cuando están idle. Work stealing reduce contención y mejora balance de carga para workloads variables.
+
+### ¿Cómo aseguro procesamiento exactly-once?
+
+Exactly-once requiere consumidores idempotentes y acknowledgments. Asigna un ID único a cada item. El consumidor checkea si el ID ya fue procesado antes de procesar. Después de procesamiento exitoso, acknowledge el item. Si el consumidor falla, el item se reintentara pero será skipeado debido al check de ID.

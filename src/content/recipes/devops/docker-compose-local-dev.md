@@ -242,3 +242,293 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### Multi-Environment Override Files
+
+```yaml
+# docker-compose.test.yml
+services:
+  api:
+    build:
+      dockerfile: Dockerfile.test
+    environment:
+      - NODE_ENV=test
+      - DATABASE_URL=postgres://postgres:secret@db:5432/app_test
+    command: ["npm", "run", "test:integration"]
+
+  db:
+    environment:
+      POSTGRES_DB: app_test
+
+  # Remove nginx and worker for tests
+  nginx:
+    profiles:
+      - never
+  worker:
+    profiles:
+      - never
+```
+
+```bash
+# Run integration tests
+docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from api
+```
+
+### Resource Limits and Quotas
+
+```yaml
+# docker-compose.yml (add to each service)
+services:
+  api:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  db:
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+
+  worker:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+```
+
+### Seed Data Script
+
+```bash
+#!/bin/bash
+# seed-dev.sh
+
+set -e
+
+echo "Resetting database..."
+docker-compose exec -T db psql -U postgres -d app -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+
+echo "Running migrations..."
+docker-compose exec -T api npx prisma migrate dev --reset --force
+
+echo "Seeding users..."
+docker-compose exec -T db psql -U postgres -d app <<'SQL'
+INSERT INTO users (email, name, created_at) VALUES
+  ('alice@example.com', 'Alice', NOW()),
+  ('bob@example.com', 'Bob', NOW()),
+  ('admin@example.com', 'Admin', NOW());
+SQL
+
+echo "Seeding products..."
+docker-compose exec -T db psql -U postgres -d app <<'SQL'
+INSERT INTO products (name, price, stock) VALUES
+  ('Widget', 9.99, 100),
+  ('Gadget', 19.99, 50),
+  ('Doohickey', 4.99, 200);
+SQL
+
+echo "Seed complete!"
+```
+
+### Makefile for Common Commands
+
+```makefile
+# Makefile
+.PHONY: up down restart logs ps clean rebuild seed test
+
+up:
+	docker-compose up -d
+
+down:
+	docker-compose down
+
+restart:
+	docker-compose restart
+
+logs:
+	docker-compose logs -f --tail=100
+
+ps:
+	docker-compose ps
+
+clean:
+	docker-compose down -v --remove-orphans
+
+rebuild:
+	docker-compose up -d --build --force-recreate
+
+seed:
+	./seed-dev.sh
+
+test:
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from api
+
+shell:
+	docker-compose exec api /bin/sh
+
+db-shell:
+	docker-compose exec db psql -U postgres -d app
+```
+
+### Debugging with Docker Compose
+
+```bash
+# View logs for a single service
+docker-compose logs -f api
+
+# Execute command in running container
+docker-compose exec api npm install express
+
+# Inspect container resource usage
+docker stats $(docker-compose ps -q)
+
+# Check service health
+docker-compose ps
+# NAME                COMMAND             SERVICE    STATUS           PORTS
+# docker-compose-1   "npm run dev"       api        Up (healthy)     0.0.0.0:3000->3000/tcp
+
+# Rebuild single service after dependency change
+docker-compose up -d --build api
+
+# View network details
+docker network inspect docker-compose_backend
+```
+
+## Additional Best Practices
+
+1. **Use named volumes for persistent data.** Anonymous volumes are hard to manage:
+
+```yaml
+# Good: named volume
+volumes:
+  postgres_data:
+    name: myapp_postgres_data
+  redis_data:
+    name: myapp_redis_data
+```
+
+2. **Pin image versions for reproducibility.** Avoid `latest`:
+
+```yaml
+# Bad
+image: postgres:latest
+
+# Good
+image: postgres:16.4-alpine
+```
+
+3. **Use `.dockerignore` to reduce build context:**
+
+```text
+# .dockerignore
+node_modules
+.git
+.env
+coverage
+*.log
+```
+
+## Additional Common Mistakes
+
+1. **Exposing database ports in production.** Only expose during local dev:
+
+```yaml
+# Local dev: OK
+ports:
+  - "5432:5432"
+
+# Production: remove ports, use internal network only
+# ports: []  # No external access
+```
+
+2. **Not using `--remove-orphans` when switching configs.** Orphaned containers linger:
+
+```bash
+# Clean up orphans
+docker-compose down --remove-orphans
+```
+
+3. **Forgetting to set restart policies.** Services crash and stay down:
+
+```yaml
+services:
+  api:
+    restart: unless-stopped
+  db:
+    restart: unless-stopped
+  worker:
+    restart: unless-stopped
+```
+
+## Additional FAQ
+
+### How do I share a Compose setup with my team?
+
+Commit `docker-compose.yml` and `docker-compose.override.yml.example` to git. Each developer copies the example to `docker-compose.override.yml` and customizes locally. The override file is gitignored.
+
+### How do I run multiple projects on the same machine?
+
+Use project names to isolate:
+
+```bash
+docker-compose -p project-a up -d
+docker-compose -p project-b up -d
+```
+
+Or set `COMPOSE_PROJECT_NAME` in `.env`:
+
+```env
+COMPOSE_PROJECT_NAME=myapp
+```
+
+### How do I profile a service running in Compose?
+
+Use Docker's built-in stats or attach a profiler:
+
+```bash
+# Real-time resource usage
+docker stats $(docker-compose ps -q api)
+
+# Attach Node.js inspector
+docker-compose exec api node --inspect=0.0.0.0:9229
+# Then connect chrome://inspect
+```
+
+## Performance Tips
+
+1. **Use `BuildKit` for faster builds.** Enable it in `.env`:
+
+```env
+DOCKER_BUILDKIT=1
+COMPOSE_DOCKER_CLI_BUILD=1
+```
+
+2. **Cache node_modules in a named volume.** Avoid reinstalling on every rebuild:
+
+```yaml
+services:
+  api:
+    volumes:
+      - ./api:/app
+      - api_node_modules:/app/node_modules
+
+volumes:
+  api_node_modules:
+```
+
+3. **Use `tmpfs` for temp files.** Faster than disk-bound volumes:
+
+```yaml
+services:
+  api:
+    tmpfs:
+      - /tmp
+      - /app/cache
+```

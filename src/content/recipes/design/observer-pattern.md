@@ -229,14 +229,305 @@ A: Emit events in your test and assert that observers reacted correctly. For asy
 A: In-memory observers do not scale well beyond hundreds due to linear iteration cost. For thousands of subscribers, use a pub/sub broker (Redis, Kafka, NATS) that handles fan-out efficiently.
 
 
+### Typed Event Emitter with Error Isolation
+
+```typescript
+interface EventMap {
+  orderCreated: { orderId: string; items: string[] };
+  orderShipped: { orderId: string; trackingNumber: string };
+  orderCancelled: { orderId: string; reason: string };
+}
+
+class TypedEventEmitter<T extends Record<string, Record<string, unknown>>> {
+  private listeners: Map<keyof T, Array<(payload: T[keyof T]) => void>> = new Map();
+
+  on<K extends keyof T>(event: K, listener: (payload: T[K]) => void): () => void {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
+    }
+    this.listeners.get(event)!.push(listener as (payload: T[keyof T]) => void);
+    return () => this.off(event, listener);
+  }
+
+  off<K extends keyof T>(event: K, listener: (payload: T[K]) => void): void {
+    const list = this.listeners.get(event);
+    if (list) {
+      const index = list.indexOf(listener as (payload: T[keyof T]) => void);
+      if (index > -1) list.splice(index, 1);
+    }
+  }
+
+  emit<K extends keyof T>(event: K, payload: T[K]): void {
+    const list = [...(this.listeners.get(event) || [])];
+    for (const listener of list) {
+      try {
+        listener(payload);
+      } catch (err) {
+        console.error(`Observer error for event "${String(event)}":`, err);
+      }
+    }
+  }
+}
+
+// Usage — compile-time type safety on event names and payloads
+const emitter = new TypedEventEmitter<EventMap>();
+
+emitter.on('orderCreated', (payload) => {
+  // payload is typed as { orderId: string; items: string[] }
+  console.log(`Order ${payload.orderId} with ${payload.items.length} items`);
+});
+
+emitter.on('orderShipped', (payload) => {
+  console.log(`Shipped ${payload.orderId}: ${payload.trackingNumber}`);
+});
+
+// Type error: wrong event name
+// emitter.on('orderRefunded', ...); // Error: not in EventMap
+
+emitter.emit('orderCreated', { orderId: '123', items: ['sku-1'] });
+```
+
+### Debounced Event Emitter
+
+```typescript
+class DebouncedEventEmitter {
+  private listeners: Map<string, Array<(payload: unknown) => void>> = new Map();
+  private timers: Map<string, ReturnType<typeof setTimeout>> = new Map();
+  private pendingPayloads: Map<string, unknown> = new Map();
+
+  on(event: string, listener: (payload: unknown) => void): () => void {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
+    }
+    this.listeners.get(event)!.push(listener);
+    return () => this.off(event, listener);
+  }
+
+  off(event: string, listener: (payload: unknown) => void): void {
+    const list = this.listeners.get(event);
+    if (list) {
+      const index = list.indexOf(listener);
+      if (index > -1) list.splice(index, 1);
+    }
+  }
+
+  emitDebounced(event: string, payload: unknown, delayMs: number = 100): void {
+    this.pendingPayloads.set(event, payload);
+    const existing = this.timers.get(event);
+    if (existing) clearTimeout(existing);
+    this.timers.set(event, setTimeout(() => {
+      const finalPayload = this.pendingPayloads.get(event);
+      this.timers.delete(event);
+      this.pendingPayloads.delete(event);
+      const list = [...(this.listeners.get(event) || [])];
+      for (const listener of list) {
+        try {
+          listener(finalPayload);
+        } catch (err) {
+          console.error(`Observer error:`, err);
+        }
+      }
+    }, delayMs));
+  }
+}
+
+// Usage — batch rapid updates into a single notification
+const searchEmitter = new DebouncedEventEmitter();
+searchEmitter.on('search', (payload) => {
+  console.log('Searching for:', payload);
+});
+
+// Rapid keystrokes — only the last one triggers the handler
+for (let i = 0; i < 10; i++) {
+  searchEmitter.emitDebounced('search', `query-${i}`, 200);
+}
+```
+
+### WeakRef Observer for Automatic Cleanup (TypeScript)
+
+```typescript
+class WeakObserver<T> {
+  private listeners: Map<string, WeakRef<{ notify: (payload: T) => void }[]>> = new Map();
+
+  subscribe(event: string, target: { notify: (payload: T) => void }): () => void {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
+    }
+    const list = this.listeners.get(event)!;
+    const ref = new WeakRef(target);
+    list.push(ref);
+
+    return () => {
+      const refs = this.listeners.get(event);
+      if (refs) {
+        const index = refs.indexOf(ref);
+        if (index > -1) refs.splice(index, 1);
+      }
+    };
+  }
+
+  emit(event: string, payload: T): void {
+    const refs = this.listeners.get(event) || [];
+    for (const ref of [...refs]) {
+      const target = ref.deref();
+      if (target) {
+        try {
+          target.notify(payload);
+        } catch (err) {
+          console.error('Weak observer error:', err);
+        }
+      } else {
+        // Target was garbage collected — remove the dead ref
+        refs.splice(refs.indexOf(ref), 1);
+      }
+    }
+  }
+}
+```
+
+## Additional Best Practices
+
+1. **Use a single event bus for application-wide events.** Centralize event routing instead of passing emitters through every layer:
+
+```typescript
+class EventBus {
+  private emitter = new TypedEventEmitter<EventMap>();
+
+  on<K extends keyof EventMap>(event: K, listener: (payload: EventMap[K]) => void) {
+    return this.emitter.on(event, listener);
+  }
+
+  emit<K extends keyof EventMap>(event: K, payload: EventMap[K]) {
+    this.emitter.emit(event, payload);
+  }
+}
+
+// Singleton instance — inject via DI for testability
+const eventBus = new EventBus();
+export { eventBus };
+```
+
+2. **Log all events in development.** Wrap the emit method to trace event flow:
+
+```typescript
+class TracingEventEmitter extends TypedEventEmitter<EventMap> {
+  emit<K extends keyof EventMap>(event: K, payload: EventMap[K]): void {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[Event] ${String(event)}:`, payload);
+    }
+    super.emit(event, payload);
+  }
+}
+```
+
+3. **Use once() for one-time subscriptions.** Prevent memory leaks from listeners that should only fire once:
+
+```typescript
+once<K extends keyof EventMap>(event: K, listener: (payload: EventMap[K]) => void): () => void {
+  const unsubscribe = this.on(event, (payload) => {
+    unsubscribe();
+    listener(payload);
+  });
+  return unsubscribe;
+}
+```
+
+## Additional Common Mistakes
+
+1. **Not copying the listener list before iterating.** If a listener unsubscribes during notification, the array shrinks mid-iteration, skipping subsequent listeners:
+
+```typescript
+// Bad: iterates over the live array
+emit(event: string, payload: unknown): void {
+  const list = this.listeners.get(event) || [];
+  for (const listener of list) {
+    listener(payload); // if listener calls off(), list shrinks
+  }
+}
+
+// Good: iterate over a copy
+emit(event: string, payload: unknown): void {
+  const list = [...(this.listeners.get(event) || [])];
+  for (const listener of list) {
+    listener(payload);
+  }
+}
+```
+
+2. **Mixing event names and command names.** Events describe what happened; commands describe what to do:
+
+```typescript
+// Bad: command disguised as event
+emitter.emit('saveOrder', { orderId: '123' });
+
+// Good: event describes a fact that already happened
+emitter.emit('orderCreated', { orderId: '123', items: [...] });
+```
+
+3. **Ignoring backpressure.** If an observer processes events slowly, it can accumulate a backlog. Use buffering or drop strategies:
+
+```typescript
+class BufferedObserver {
+  private buffer: OrderEvent[] = [];
+  private processing = false;
+
+  async handle(event: OrderEvent): Promise<void> {
+    this.buffer.push(event);
+    if (!this.processing) {
+      this.processing = true;
+      while (this.buffer.length > 0) {
+        const next = this.buffer.shift()!;
+        await this.processEvent(next);
+      }
+      this.processing = false;
+    }
+  }
+
+  private async processEvent(event: OrderEvent): Promise<void> {
+    // Process one event at a time
+  }
+}
+```
+
+## Additional FAQ
+
+### How do I order observers by priority?
+
+Use a priority field in the subscription. Sort the listener list by priority before emitting:
+
+```typescript
+interface Subscription {
+  listener: (payload: unknown) => void;
+  priority: number;
+}
+
+class PriorityEmitter {
+  private listeners: Map<string, Subscription[]> = new Map();
+
+  on(event: string, listener: (payload: unknown) => void, priority: number = 0): () => void {
+    const subs = this.listeners.get(event) || [];
+    subs.push({ listener, priority });
+    subs.sort((a, b) => b.priority - a.priority);
+    this.listeners.set(event, subs);
+    return () => {
+      const list = this.listeners.get(event);
+      if (list) {
+        const index = list.findIndex(s => s.listener === listener);
+        if (index > -1) list.splice(index, 1);
+      }
+    };
+  }
+}
+```
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. The event emitter, typed event emitter, and debounced emitter patterns are used in production Node.js and browser applications. The Java `PropertyChangeSupport` example is standard for JavaBeans. The RxPY example mirrors production reactive pipelines. The `WeakRef` observer pattern is useful in browser environments where DOM elements are short-lived.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+In-memory event emitters have O(n) emit cost where n is the number of listeners. For most applications with fewer than 100 listeners, this is negligible. Debounced emitters add timer overhead (one `setTimeout` per event type). The `WeakRef` pattern adds a small deref cost per listener per emit. For thousands of listeners, switch to a pub/sub broker.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Enable event tracing in development to see the event flow. Use the typed event emitter to catch event name typos at compile time. For circular update bugs, add a depth counter to the emit method and log when depth exceeds a threshold. For memory leak diagnosis, log the listener count per event on an interval and watch for unbounded growth.

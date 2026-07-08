@@ -269,10 +269,215 @@ R: Si. Istio soporta routing por headers, cookies o claims JWT para releases can
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
 
-### ¿Cuáles son las características de rendimiento?
+### Routing Canary Basado en Headers
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+```yaml
+# Rutear testers internos a v2 independientemente del peso
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: api-header-routing
+spec:
+  hosts:
+  - api
+  http:
+  - match:
+    - headers:
+        x-canary-test:
+          exact: "true"
+    route:
+    - destination:
+        host: api
+        subset: v2
+  - route:
+    - destination:
+        host: api
+        subset: v1
+      weight: 100
+```
 
-### ¿Cómo depuro problemas con este enfoque?
+### Mirroring de Trafico (Shadow Traffic)
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+```yaml
+# Espejar 100% del trafico a v2 sin afectar respuestas
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: api-mirror
+spec:
+  hosts:
+  - api
+  http:
+  - route:
+    - destination:
+        host: api
+        subset: v1
+      weight: 100
+    mirror:
+      host: api
+      subset: v2
+    mirrorPercentage:
+      value: 100.0
+```
+
+### Circuit Breaking con DestinationRule
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: api-circuit-breaker
+spec:
+  host: api
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 50
+      http:
+        http1MaxPendingRequests: 20
+        maxRequestsPerConnection: 10
+    outlierDetection:
+      consecutive5xxErrors: 3
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+    loadBalancer:
+      simple: LEAST_REQUEST
+```
+
+### Limpieza Post-Promoción
+
+```bash
+#!/bin/bash
+# cleanup-old-version.sh
+
+# Después de la promoción completa del canary a v2:
+# 1. Remover pesos viejos del VirtualService
+kubectl apply -f virtual-service-v2-only.yaml
+
+# 2. Escalar hacia abajo el deployment v1
+kubectl scale deployment api-v1 --replicas=0
+
+# 3. Esperar a que los pods terminen
+kubectl wait --for=delete pod -l app=api,version=v1 --timeout=60s
+
+# 4. Remover deployment v1
+kubectl delete deployment api-v1
+
+# 5. Remover subset v1 del DestinationRule
+kubectl apply -f destination-rule-v2-only.yaml
+
+echo "Limpieza completa. Solo v2 está corriendo."
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa Flagger para análisis automatizado de canary.** Maneja shifting de tráfico, evaluación de métricas y rollback sin intervención manual:
+
+```yaml
+# Flagger con query personalizada de Prometheus
+analysis:
+  metrics:
+  - name: error-rate
+    threshold: 1
+    query: |
+      sum(rate(istio_requests_total{
+        destination_service="api.default.svc.cluster.local",
+        response_code=~"5.*"
+      }[1m])) /
+      sum(rate(istio_requests_total{
+        destination_service="api.default.svc.cluster.local"
+      }[1m])) * 100
+```
+
+2. **Taguea imágenes con versiones semánticas, no `latest`.** Esto asegura que puedas hacer rollback a una versión específica:
+
+```bash
+# Bien: tags versionados
+image: myapp:1.1.0
+image: myapp:1.1.1
+
+# Mal: tags mutables
+image: myapp:latest
+```
+
+3. **Ejecuta canary durante horas de bajo tráfico.** Reduce el radio de impacto iniciando rollouts en períodos off-peak:
+
+```bash
+# Agendar canary a las 2 AM
+0 2 * * * /opt/scripts/canary-rollout.sh >> /var/log/canary.log 2>&1
+```
+
+## Errores Comunes Adicionales
+
+1. **No definir SLOs antes del canary.** Sin umbrales, no puedes automatizar decisiones de rollback:
+
+```yaml
+# Definir SLOs explícitamente
+slos:
+  - name: availability
+    target: 99.9
+  - name: latency_p99
+    target: 200ms
+```
+
+2. **Usar la misma base de datos para v1 y v2 con cambios de schema.** Migraciones backward-incompatible rompen v1:
+
+```bash
+# Usar patrón expand-contract
+# 1. Expand: agregar nuevas columnas (ambas versiones funcionan)
+# 2. Migrate: v2 escribe a nuevas columnas
+# 3. Contract: remover columnas viejas después de que v1 se elimine
+```
+
+3. **Ignorar resource limits del pod canary.** Un solo pod canary puede consumir recursos del cluster:
+
+```yaml
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+```
+
+## FAQ Adicional
+
+### Como hago canary de una migración de base de datos?
+
+Usa el patrón expand-contract. Primero, agrega nuevas columnas/tablas (expand) para que ambas versiones funcionen. Luego despliega v2 que usa el nuevo schema. Finalmente, remueve columnas viejas (contract) después de que v1 esté decomisionada.
+
+### Qué es traffic mirroring vs canary?
+
+Traffic mirroring envía una copia de requests al canary sin afectar la respuesta del usuario. Esto te permite testear v2 con patrones de tráfico real antes de shifting cualquier tráfico actual. Canary envía tráfico real a v2, afectando respuestas de usuarios.
+
+### Cuánto debería durar cada fase canary?
+
+Al menos 5-10 minutos por fase para servicios de corta duración. Para servicios de alto tráfico, 30-60 minutos por fase da suficiente data para significancia estadística. Monitorea error rate, latency p99 y métricas de negocio.
+
+## Tips de Rendimiento
+
+1. **Usa LEAST_REQUEST load balancing.** Previene que el pod canary sea abrumado:
+
+```yaml
+loadBalancer:
+  simple: LEAST_REQUEST
+```
+
+2. **Habilita telemetría de Istio selectivamente.** Telemetría completa agrega overhead. Deshabilita access logs durante canaries de alto tráfico:
+
+```yaml
+telemetry:
+  accessLogLogging:
+    disabled: true
+```
+
+3. **Pre-calienta pods canary.** Envía una pequeña cantidad de tráfico antes de iniciar el rollout para JIT-compilar código y calentar cachés:
+
+```bash
+# Pre-calentar con 1% de tráfico por 2 minutos
+set_weight 99
+sleep 120
+# Luego iniciar el rollout real
+```

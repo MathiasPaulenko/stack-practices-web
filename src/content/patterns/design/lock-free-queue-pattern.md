@@ -290,3 +290,181 @@ Yes. It uses the Michael & Scott algorithm with CAS operations on node pointers.
 ### What is the Disruptor pattern?
 
 The Disruptor is a high-performance inter-thread messaging pattern using a pre-allocated ring buffer with sequence numbers. Producers claim sequence numbers, write data, and publish. Consumers wait for sequence numbers and read data. It achieves sub-microsecond latency by avoiding locks, false sharing, and memory allocation. Used in financial trading systems.
+
+## Advanced Solutions
+
+### MPMC lock-free ring buffer with Rust atomic types
+
+A multi-producer, multi-consumer ring buffer using Rust's atomic operations:
+
+```rust
+use std::sync::atomic::{AtomicUsize, Ordering};
+
+struct LockFreeRingBuffer<T> {
+    buffer: Vec<Option<T>>,
+    capacity: usize,
+    head: AtomicUsize,  // Write index
+    tail: AtomicUsize,  // Read index
+}
+
+impl<T: Clone> LockFreeRingBuffer<T> {
+    fn new(capacity: usize) -> Self {
+        Self {
+            buffer: vec![None; capacity],
+            capacity,
+            head: AtomicUsize::new(0),
+            tail: AtomicUsize::new(0),
+        }
+    }
+
+    fn enqueue(&self, item: T) -> bool {
+        let mut head = self.head.load(Ordering::Acquire);
+        loop {
+            let tail = self.tail.load(Ordering::Acquire);
+            if head - tail >= self.capacity {
+                return false;  // Buffer full
+            }
+            // CAS to claim slot
+            match self.head.compare_exchange_weak(
+                head, head + 1, Ordering::AcqRel, Ordering::Acquire
+            ) {
+                Ok(_) => {
+                    self.buffer[head % self.capacity] = Some(item);
+                    return true;
+                }
+                Err(new_head) => head = new_head,
+            }
+        }
+    }
+
+    fn dequeue(&self) -> Option<T> {
+        let mut tail = self.tail.load(Ordering::Acquire);
+        loop {
+            let head = self.head.load(Ordering::Acquire);
+            if tail >= head {
+                return None;  // Buffer empty
+            }
+            // CAS to claim slot
+            match self.tail.compare_exchange_weak(
+                tail, tail + 1, Ordering::AcqRel, Ordering::Acquire
+            ) {
+                Ok(_) => {
+                    let item = self.buffer[tail % self.capacity].take();
+                    return item;
+                }
+                Err(new_tail) => tail = new_tail,
+            }
+        }
+    }
+}
+```
+
+### Lock-free queue with backoff to reduce CPU spinning
+
+Add exponential backoff when CAS fails to reduce CPU waste under high contention:
+
+```python
+import time
+import random
+
+class LockFreeQueueWithBackoff:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.buffer = [None] * capacity
+        self.head = 0
+        self.tail = 0
+        self.count = 0
+
+    def enqueue_with_backoff(self, item):
+        backoff = 1
+        while self.count >= self.capacity:
+            time.sleep(backoff / 1000.0)  # Exponential backoff
+            backoff = min(backoff * 2, 100)  # Cap at 100ms
+        self.buffer[self.head] = item
+        self.head = (self.head + 1) % self.capacity
+        self.count += 1
+
+    def dequeue_with_backoff(self):
+        backoff = 1
+        while self.count == 0:
+            time.sleep(backoff / 1000.0)
+            backoff = min(backoff * 2, 100)
+        item = self.buffer[self.tail]
+        self.tail = (self.tail + 1) % self.capacity
+        self.count -= 1
+        return item
+```
+
+### Lock-free queue with batching for throughput
+
+Batch multiple items into a single CAS operation to reduce contention:
+
+```python
+class BatchLockFreeQueue:
+    def __init__(self, capacity, batch_size=8):
+        self.capacity = capacity
+        self.batch_size = batch_size
+        self.buffer = [None] * capacity
+        self.head = 0
+        self.tail = 0
+        self.pending_batch = []
+        self.lock = threading.Lock()  # Only for pending batch
+
+    def enqueue(self, item):
+        with self.lock:
+            self.pending_batch.append(item)
+            if len(self.pending_batch) >= self.batch_size:
+                self._flush_batch()
+
+    def _flush_batch(self):
+        if not self.pending_batch:
+            return
+        # Claim slots for entire batch with single CAS
+        start_idx = self.head
+        end_idx = (start_idx + len(self.pending_batch)) % self.capacity
+        for i, item in enumerate(self.pending_batch):
+            self.buffer[(start_idx + i) % self.capacity] = item
+        self.head = end_idx
+        self.pending_batch.clear()
+```
+
+## Additional Best Practices
+
+1. **Pad data structures to avoid false sharing.** Cache line alignment prevents different threads from contending for the same cache line. Add padding between frequently accessed atomic variables:
+
+```cpp
+struct alignas(64) PaddedAtomic {
+    std::atomic<size_t> value;
+    char padding[64 - sizeof(std::atomic<size_t>)];
+};
+```
+
+2. **Use memory barriers correctly.** On weak memory models (ARM, POWER), simple loads and stores may not be visible across threads. Use acquire/release semantics for producer-consumer patterns:
+
+```c
+// Producer: release store
+std::atomic_store_explicit(&buffer[idx], value, std::memory_order_release);
+
+// Consumer: acquire load
+std::atomic_load_explicit(&buffer[idx], std::memory_order_acquire);
+```
+
+## Additional Common Mistakes
+
+1. **Ignoring cache line effects.** False sharing occurs when two threads write to different variables that share a cache line. This causes cache invalidation and thrashing. Pad your data structures to align with cache lines (typically 64 bytes) to prevent this.
+
+2. **Not handling queue overflow gracefully.** Lock-free ring buffers are bounded. When full, the enqueue operation must either block, drop the item, or return failure. Spinning forever wastes CPU. Implement backoff or provide a fallback overflow queue.
+
+## Additional Frequently Asked Questions
+
+### How do I measure if lock-free is worth it?
+
+Benchmark both lock-based and lock-free implementations under realistic contention levels. Measure throughput (operations per second), latency (p50, p99, p999), and CPU utilization. Lock-free typically wins at high contention but may be slower at low contention due to CAS overhead.
+
+### Can lock-free queues cause starvation?
+
+Yes. Lock-free guarantees system-wide progress (some thread always advances), but individual threads may starve if they consistently lose CAS races. Wait-free algorithms guarantee per-thread bounded steps but are more complex and often slower. For most applications, lock-free is sufficient.
+
+### How do I handle priority inversion with lock-free queues?
+
+Lock-free queues avoid priority inversion by eliminating locks entirely. Since no thread holds a lock, a low-priority thread cannot block a high-priority thread. This is a key advantage of lock-free over lock-based queues in real-time systems.

@@ -259,3 +259,312 @@ Distroless images have no shell. Use `docker cp` to copy a debugger in, or use a
 ### Should I use Alpine or slim?
 
 Alpine uses musl libc instead of glibc, which can cause issues with native modules (Python C extensions, Node.js native addons). If you hit compatibility problems, switch to slim (Debian-based).
+
+### Rust Multi-Stage Build
+
+```dockerfile
+# Stage 1: Build
+FROM rust:1.78 AS builder
+
+WORKDIR /build
+
+COPY Cargo.toml Cargo.lock ./
+COPY src ./src
+
+RUN cargo build --release
+
+# Stage 2: Runtime
+FROM debian:bookworm-slim AS runtime
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates libssl3 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /build/target/release/myapp /usr/local/bin/myapp
+
+USER nobody
+
+EXPOSE 8080
+
+CMD ["myapp"]
+```
+
+### BuildKit Cache Mounts
+
+```dockerfile
+# syntax=docker/dockerfile:1.7
+
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+# Mount npm cache as a volume (persists across builds)
+RUN --mount=type=cache,target=/root/.npm npm ci
+
+COPY . .
+RUN --mount=type=cache,target=/root/.npm npm run build
+```
+
+```dockerfile
+# Python pip cache mount
+FROM python:3.12-slim AS builder
+
+WORKDIR /app
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+```
+
+```dockerfile
+# Go module cache mount
+FROM golang:1.22-alpine AS builder
+
+WORKDIR /build
+
+COPY go.mod go.sum ./
+RUN --mount=type=cache,target=/go/pkg/mod go mod download
+
+COPY . .
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 go build -ldflags="-s -w" -o server .
+```
+
+### Test Stage for CI
+
+```dockerfile
+# Stage 1: Dependencies
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+# Stage 2: Test
+FROM deps AS test
+COPY . .
+RUN npm run lint
+RUN npm run test:unit
+
+# Stage 3: Build
+FROM deps AS builder
+COPY . .
+RUN npm run build
+
+# Stage 4: Production
+FROM node:20-alpine AS production
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+COPY --from=builder /app/dist ./dist
+
+USER node
+EXPOSE 3000
+CMD ["node", "dist/index.js"]
+```
+
+```bash
+# Run tests only
+docker build --target test .
+
+# Build production image (skips test stage if already cached)
+docker build --target production -t myapp:latest .
+```
+
+### Image Size Analysis
+
+```bash
+# Check image size
+docker images myapp:latest
+# REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+# myapp        latest    abc123         2 minutes ago   148MB
+
+# Analyze layer sizes
+docker history myapp:latest --no-trunc --format "{{.Size}}\t{{.CreatedBy}}"
+
+# Compare before/after
+docker images --format "{{.Repository}}:{{.Tag}}\t{{.Size}}" | grep myapp
+```
+
+```bash
+# Use dive for detailed layer analysis
+dive myapp:latest
+# Shows each layer, what was added/removed, and potential waste
+```
+
+### Multi-Architecture Builds
+
+```dockerfile
+# Dockerfile (same for all platforms)
+FROM --platform=$BUILDPLATFORM node:20-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+FROM --platform=$TARGETPLATFORM node:20-alpine AS production
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+COPY --from=builder /app/dist ./dist
+
+USER node
+EXPOSE 3000
+CMD ["node", "dist/index.js"]
+```
+
+```bash
+# Build for multiple architectures
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t myapp:latest \
+  --push .
+```
+
+## Additional Best Practices
+
+1. **Use `COPY --link` for faster builds.** Copies files as a separate layer without invalidating cache:
+
+```dockerfile
+COPY --link package*.json ./
+```
+
+2. **Use `HEALTHCHECK` in production images.** Helps orchestrators detect unhealthy containers:
+
+```dockerfile
+FROM node:20-alpine AS production
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+  CMD wget --spider http://localhost:3000/health || exit 1
+```
+
+3. **Pin base image digests for reproducibility.** Tags can be updated, digests are immutable:
+
+```dockerfile
+# Pin by digest (most reproducible)
+FROM node:20-alpine@sha256:abc123... AS builder
+```
+
+## Additional Common Mistakes
+
+1. **Not cleaning apt-get cache in Debian-based images.** Lists files bloat the image:
+
+```dockerfile
+# Bad
+RUN apt-get update && apt-get install -y curl
+
+# Good
+RUN apt-get update && apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+```
+
+2. **Using `ADD` instead of `COPY` for local files.** `ADD` has extra features (URL fetch, tar extraction) that can cause unexpected behavior:
+
+```dockerfile
+# Bad (unpredictable with tar files)
+ADD ./app.tar.gz /app/
+
+# Good (explicit)
+COPY ./app/ /app/
+```
+
+3. **Not using `--no-install-recommends` with apt-get.** Installs unnecessary packages:
+
+```dockerfile
+# Installs 200+ extra packages
+RUN apt-get install -y curl
+
+# Installs only required packages
+RUN apt-get install -y --no-install-recommends curl
+```
+
+## Additional FAQ
+
+### How do I use BuildKit for faster builds?
+
+Enable BuildKit via environment variable or Docker Desktop settings:
+
+```bash
+# Per-build
+DOCKER_BUILDKIT=1 docker build -t myapp .
+
+# Or set globally in daemon.json
+{
+  "features": { "buildkit": true }
+}
+```
+
+BuildKit parallelizes independent stages and supports cache mounts.
+
+### How do I reduce image pull time in CI?
+
+Use a local registry or cache-from/cache-to:
+
+```bash
+# Cache from registry
+docker build \
+  --cache-from type=registry,ref=myapp:cache \
+  --cache-to type=registry,ref=myapp:cache,mode=max \
+  -t myapp:latest .
+```
+
+### Can I use multi-stage builds with Docker Compose?
+
+Yes. Reference the Dockerfile and use build args:
+
+```yaml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: test
+```
+
+## Performance Tips
+
+1. **Use `--mount=type=cache` for package managers.** Persists cache across builds without bloating the image:
+
+```dockerfile
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt \
+    apt-get update && apt-get install -y curl
+```
+
+2. **Combine RUN commands to reduce layers.** Each RUN creates a layer:
+
+```dockerfile
+# Bad: 3 layers
+RUN apt-get update
+RUN apt-get install -y curl
+RUN rm -rf /var/lib/apt/lists/*
+
+# Good: 1 layer
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+```
+
+3. **Use `.dockerignore` aggressively.** Smaller context means faster builds:
+
+```text
+# .dockerignore
+# Exclude everything by default
+*
+# Include only what's needed
+!package.json
+!package-lock.json
+!src/
+!public/
+!tsconfig.json
+```

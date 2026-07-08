@@ -210,14 +210,302 @@ R: El adapter aísla el impacto del upgrade. Cuando el SDK cambia, actualiza sol
 R: Sí. Escribe un `InMemoryPaymentAdapter` que implemente `PaymentProcessor` usando un `Map`. Los tests inyectan este adapter en lugar del adapter real de Stripe, permitiendo tests rápidos y deterministas sin llamadas de red.
 
 
+### PayPal Adapter y Soporte Multi-Provider
+
+```typescript
+class PayPalSDK {
+  async captureOrder(params: { amount: number; currency: string }) {
+    return { id: 'PAYID-' + Math.random().toString(36) };
+  }
+  async refundPayment(params: { captureId: string }) {}
+}
+
+class PayPalAdapter implements PaymentProcessor {
+  constructor(private paypal: PayPalSDK) {}
+
+  async charge(amount: number, currency: string): Promise<string> {
+    const result = await this.paypal.captureOrder({ amount, currency });
+    return result.id;
+  }
+
+  async refund(transactionId: string): Promise<void> {
+    await this.paypal.refundPayment({ captureId: transactionId });
+  }
+}
+
+// Selección de proveedor vía factory
+class PaymentProcessorFactory {
+  private static providers: Map<string, () => PaymentProcessor> = new Map();
+
+  static register(name: string, factory: () => PaymentProcessor) {
+    this.providers.set(name, factory);
+  }
+
+  static create(name: string): PaymentProcessor {
+    const factory = this.providers.get(name);
+    if (!factory) throw new Error(`Unknown provider: ${name}`);
+    return factory();
+  }
+}
+
+PaymentProcessorFactory.register('stripe', () =>
+  new StripeAdapter(new StripeSDK()));
+PaymentProcessorFactory.register('paypal', () =>
+  new PayPalAdapter(new PayPalSDK()));
+
+// Uso — cambia proveedores vía config
+const processor = PaymentProcessorFactory.create(process.env.PAYMENT_PROVIDER);
+```
+
+### Two-Way Adapter para Migración Incremental
+
+```typescript
+// Interfaz vieja — siendo reemplazada
+interface LegacyPaymentApi {
+  processPayment(amount: number): Promise<{ txId: string }>;
+}
+
+// Interfaz nueva — arquitectura objetivo
+interface ModernPaymentApi {
+  charge(amount: number, currency: string): Promise<string>;
+  refund(transactionId: string): Promise<void>;
+}
+
+// Two-way adapter — implementa ambas interfaces
+class PaymentBridge implements LegacyPaymentApi, ModernPaymentApi {
+  constructor(private processor: PaymentProcessor) {}
+
+  // Interfaz legacy — delega a la nueva
+  async processPayment(amount: number): Promise<{ txId: string }> {
+    const txId = await this.processor.charge(amount, 'USD');
+    return { txId };
+  }
+
+  // Interfaz moderna
+  async charge(amount: number, currency: string): Promise<string> {
+    return this.processor.charge(amount, currency);
+  }
+
+  async refund(transactionId: string): Promise<void> {
+    return this.processor.refund(transactionId);
+  }
+}
+
+// Código viejo puede usar processPayment(), código nuevo usa charge()
+// Ambos coexisten durante la migración
+```
+
+### In-Memory Adapter para Testing
+
+```typescript
+class InMemoryPaymentAdapter implements PaymentProcessor {
+  private transactions: Map<string, { amount: number; currency: string }> = new Map();
+  private refunded: Set<string> = new Set();
+
+  async charge(amount: number, currency: string): Promise<string> {
+    const txId = 'test_' + Math.random().toString(36);
+    this.transactions.set(txId, { amount, currency });
+    return txId;
+  }
+
+  async refund(transactionId: string): Promise<void> {
+    if (!this.transactions.has(transactionId)) {
+      throw new Error('Transaction not found');
+    }
+    this.refunded.add(transactionId);
+  }
+
+  // Helpers de test
+  getChargedAmount(txId: string): number | undefined {
+    return this.transactions.get(txId)?.amount;
+  }
+
+  wasRefunded(txId: string): boolean {
+    return this.refunded.has(txId);
+  }
+}
+
+// Uso en tests
+describe('CheckoutService', () => {
+  it('carga el monto correcto', async () => {
+    const processor = new InMemoryPaymentAdapter();
+    const service = new CheckoutService(processor);
+
+    const txId = await service.process({
+      total: 99.99,
+      currency: 'USD',
+    });
+
+    expect(processor.getChargedAmount(txId)).toBe(99.99);
+  });
+});
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa decorators para concerns transversales.** Mantén el adapter enfocado en traducción. Añade retry, caching y métricas vía decorators:
+
+```typescript
+class RetryPaymentAdapter implements PaymentProcessor {
+  constructor(
+    private inner: PaymentProcessor,
+    private maxRetries: number = 3
+  ) {}
+
+  async charge(amount: number, currency: string): Promise<string> {
+    for (let attempt = 0; attempt < this.maxRetries; attempt++) {
+      try {
+        return await this.inner.charge(amount, currency);
+      } catch (err) {
+        if (attempt === this.maxRetries - 1) throw err;
+        await new Promise(r => setTimeout(r, 100 * Math.pow(2, attempt)));
+      }
+    }
+    throw new Error('Unreachable');
+  }
+
+  async refund(transactionId: string): Promise<void> {
+    return this.inner.refund(transactionId);
+  }
+}
+
+// Componer: retry + logging + adapter real
+const processor = new RetryPaymentAdapter(
+  new LoggingPaymentAdapter(
+    new StripeAdapter(new StripeSDK())
+  )
+);
+```
+
+2. **Mapea errores de vendor a errores de dominio.** Crea una tabla de mapeo de errores:
+
+```typescript
+class StripeErrorMapper {
+  map(error: StripeError): PaymentError {
+    switch (error.code) {
+      case 'card_declined': return new PaymentDeclinedError(error.message);
+      case 'expired_card': return new CardExpiredError(error.message);
+      case 'processing_error': return new PaymentProcessingError(error.message);
+      default: return new PaymentError(error.message);
+    }
+  }
+}
+
+class StripeAdapter implements PaymentProcessor {
+  constructor(
+    private stripe: StripeSDK,
+    private errorMapper: StripeErrorMapper = new StripeErrorMapper()
+  ) {}
+
+  async charge(amount: number, currency: string): Promise<string> {
+    try {
+      const result = await this.stripe.createCharge({ amount: amount * 100, currency });
+      return result.id;
+    } catch (err) {
+      throw this.errorMapper.map(err as StripeError);
+    }
+  }
+}
+```
+
+3. **Versiona adapters junto con versiones de SDK.** Pinea implementaciones de adapter a versiones de SDK:
+
+```typescript
+// Stripe SDK v2024-03-20
+class StripeAdapterV2024 implements PaymentProcessor { ... }
+
+// Stripe SDK v2025-01-27
+class StripeAdapterV2025 implements PaymentProcessor { ... }
+```
+
+## Errores Comunes Adicionales
+
+1. **Adaptar en la capa equivocada.** Adaptar dentro de servicios de dominio en lugar de en los límites del sistema causa que la lógica del adapter se propague:
+
+```typescript
+// Mal: lógica de adapter dentro del servicio de dominio
+class OrderService {
+  async process(order: Order) {
+    const stripeResult = await stripe.charges.create({
+      amount: order.total * 100,
+      currency: order.currency,
+    });
+    // lógica de negocio mezclada con llamadas SDK
+  }
+}
+
+// Bien: adapter en el límite, servicio de dominio usa interfaz
+class OrderService {
+  constructor(private processor: PaymentProcessor) {}
+  async process(order: Order) {
+    const txId = await this.processor.charge(order.total, order.currency);
+    // lógica de negocio pura
+  }
+}
+```
+
+2. **No testear el mapeo de errores.** Los adapters que capturan excepciones de vendor pero las mapean incorrectamente causan bugs confusos:
+
+```typescript
+describe('StripeAdapter error mapping', () => {
+  it('mapea card_declined a PaymentDeclinedError', async () => {
+    const stripe = new MockStripeSDK({ throwError: { code: 'card_declined' } });
+    const adapter = new StripeAdapter(stripe);
+
+    await expect(adapter.charge(100, 'USD'))
+      .rejects.toThrow(PaymentDeclinedError);
+  });
+});
+```
+
+3. **Retornar tipos raw del SDK.** Filtrar objetos `StripeCharge` fuerza a los consumidores a importar tipos del SDK:
+
+```typescript
+// Mal: retorna tipo del SDK de Stripe
+async charge(amount: number): Promise<StripeCharge> {
+  return this.stripe.createCharge({ amount });
+}
+
+// Bien: retorna tipo de dominio
+async charge(amount: number): Promise<PaymentResult> {
+  const result = await this.stripe.createCharge({ amount });
+  return { transactionId: result.id, status: 'charged' };
+}
+```
+
+## FAQ Adicional
+
+### ¿Cómo manejo inicialización async en adapters?
+
+Algunos SDKs requieren setup async (cargar credenciales, establecer conexiones). Usa una factory function o inicialización perezosa:
+
+```typescript
+class LazyStripeAdapter implements PaymentProcessor {
+  private stripe?: StripeSDK;
+
+  private async getClient(): Promise<StripeSDK> {
+    if (!this.stripe) {
+      this.stripe = await StripeSDK.create(process.env.STRIPE_KEY);
+    }
+    return this.stripe;
+  }
+
+  async charge(amount: number, currency: string): Promise<string> {
+    const client = await this.getClient();
+    const result = await client.createCharge({ amount, currency });
+    return result.id;
+  }
+}
+```
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Los patrones de object adapter, class adapter y registry son todos probados en producción. Los adapters de PayPal y Stripe reflejan patrones reales de integración de SDKs. El two-way adapter se usa en proyectos de migración incremental. El patrón de in-memory test adapter es estándar en codebases test-driven.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Los object adapters añaden una llamada a método de overhead por operación — despreciable comparado con I/O de red. Los class adapters evitan la llamada de delegación pero son marginales en la práctica. Las búsquedas en registry son operaciones O(1) en Map. El principal concern de rendimiento es la inicialización del SDK, que debería ocurrir una vez al arranque, no por request.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Habilita logging en el adapter que registre la entrada, la llamada traducida, y la respuesta del SDK. Si el adapter mapea errores, loggea el error original antes de mapearlo. Usa contract tests para aislar si un bug está en el adapter o en el SDK. Testea el adapter con un mock SDK que lance errores específicos para verificar el mapeo de errores.

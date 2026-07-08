@@ -262,12 +262,363 @@ A: Yes. Check state before acting (`if ! systemctl is-active nginx; then ...`) a
 
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes, with caveats. The deployment script includes rollback logic, but you should add a proper health check loop instead of `sleep 5`. Test in staging first and ensure your Docker registry is accessible from the target host.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Bash itself adds negligible overhead. Performance bottlenecks come from external commands (`docker`, `curl`, `systemctl`). For high-frequency checks, batch operations and avoid spawning subshells in loops.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+```bash
+# Enable trace mode to see each command before execution
+bash -x deploy.sh
+
+# Or add set -x at specific points
+set -x
+docker pull "myapp:$version"
+set +x
+
+# Use shellcheck for static analysis
+shellcheck deploy.sh
+```
+
+### 5. Parallel Task Execution
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Run health checks on multiple hosts in parallel
+readonly HOSTS=("web1.prod" "web2.prod" "web3.prod" "api1.prod")
+readonly MAX_PARALLEL=4
+readonly RESULTS_DIR="/tmp/health-results"
+mkdir -p "$RESULTS_DIR"
+
+check_host() {
+  local host="$1"
+  local result_file="${RESULTS_DIR}/${host}.txt"
+  if ssh -o ConnectTimeout=5 "$host" "systemctl is-active nginx" > /dev/null 2>&1; then
+    echo "OK: $host" > "$result_file"
+  else
+    echo "FAIL: $host" > "$result_file"
+  fi
+}
+
+# Launch background jobs with parallelism limit
+running=0
+for host in "${HOSTS[@]}"; do
+  check_host "$host" &
+  ((running++))
+  if [ "$running" -ge "$MAX_PARALLEL" ]; then
+    wait -n  # Wait for any one job to finish
+    ((running--))
+  fi
+done
+wait  # Wait for all remaining jobs
+
+# Collect results
+cat "$RESULTS_DIR"/*.txt
+rm -rf "$RESULTS_DIR"
+```
+
+### 6. Trap-Based Cleanup
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+TMP_DIR=""
+LOCK_FILE=""
+
+cleanup() {
+  echo "Cleaning up..."
+  [ -n "$TMP_DIR" ] && [ -d "$TMP_DIR" ] && rm -rf "$TMP_DIR"
+  [ -n "$LOCK_FILE" ] && [ -f "$LOCK_FILE" ] && rm -f "$LOCK_FILE"
+}
+
+trap cleanup EXIT INT TERM
+
+# Create temp resources
+TMP_DIR=$(mktemp -d)
+LOCK_FILE="/tmp/myapp.lock"
+
+# Acquire lock
+if [ -f "$LOCK_FILE" ]; then
+  echo "Another instance is already running"
+  exit 1
+fi
+echo $$ > "$LOCK_FILE"
+
+# Main work
+echo "Working in $TMP_DIR..."
+# Cleanup happens automatically on exit
+```
+
+### 7. Argument Parsing with getopts
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Usage: ./deploy.sh -v 1.2.3 -e staging -d
+VERSION="latest"
+ENVIRONMENT="staging"
+DRY_RUN=false
+
+usage() {
+  echo "Usage: $0 [-v version] [-e environment] [-d]"
+  echo "  -v  Version to deploy (default: latest)"
+  echo "  -e  Environment (default: staging)"
+  echo "  -d  Dry run (show commands without executing)"
+  exit 1
+}
+
+while getopts ":v:e:dh" opt; do
+  case $opt in
+    v) VERSION="$OPTARG" ;;
+    e) ENVIRONMENT="$OPTARG" ;;
+    d) DRY_RUN=true ;;
+    h) usage ;;
+    \?) echo "Invalid option: -$OPTARG" >&2; usage ;;
+    :) echo "Option -$OPTARG requires an argument" >&2; usage ;;
+  esac
+done
+
+if [ "$DRY_RUN" = true ]; then
+  echo "[DRY RUN] Would deploy version $VERSION to $ENVIRONMENT"
+  echo "[DRY RUN] docker pull myapp:$VERSION"
+  echo "[DRY RUN] docker run -d --name myapp -e NODE_ENV=$ENVIRONMENT myapp:$VERSION"
+  exit 0
+fi
+
+echo "Deploying version $VERSION to $ENVIRONMENT"
+docker pull "myapp:$VERSION"
+docker run -d --name myapp -e NODE_ENV="$ENVIRONMENT" "myapp:$VERSION"
+```
+
+### 8. Config File Sourcing
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Load configuration from external file
+CONFIG_FILE="${1:-/etc/myapp/deploy.conf}"
+
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "Config file not found: $CONFIG_FILE" >&2
+  exit 1
+fi
+
+# Source config (defines variables like APP_NAME, REGISTRY, PORTS)
+source "$CONFIG_FILE"
+
+# Validate required config
+for var in APP_NAME REGISTRY PORTS; do
+  if [ -z "${!var:-}" ]; then
+    echo "Missing required config: $var" >&2
+    exit 1
+  fi
+done
+
+echo "Deploying $APP_NAME from $REGISTRY"
+```
+
+```bash
+# /etc/myapp/deploy.conf
+APP_NAME="myapp"
+REGISTRY="registry.example.com"
+PORTS="8080:8080"
+ENVIRONMENT="production"
+HEALTH_CHECK_URL="http://localhost:8080/health"
+```
+
+## Additional Best Practices
+
+1. **Use `set -o pipefail` with `set -e`.** Without `pipefail`, a failed command in a pipeline doesn't trigger `set -e`:
+
+```bash
+# Bad: grep failure is silently ignored
+set -e
+docker logs myapp | grep "ERROR"
+
+# Good: pipefail catches the grep failure
+set -eo pipefail
+docker logs myapp | grep "ERROR"
+```
+
+2. **Use `local` in functions.** Variables leak to global scope without it:
+
+```bash
+# Bad: i leaks to global scope
+count_items() {
+  i=0
+  for item in "$@"; do ((i++)); done
+}
+
+# Good: i is scoped to the function
+count_items() {
+  local i=0
+  for item in "$@"; do ((i++)); done
+  echo "$i"
+}
+```
+
+3. **Use `[[ ]]` instead of `[ ]`.** More robust, supports pattern matching:
+
+```bash
+# Good: pattern matching
+if [[ "$file" == *.log ]]; then
+  echo "Log file"
+fi
+
+# Good: regex matching
+if [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "Valid semver"
+fi
+```
+
+## Additional Common Mistakes
+
+1. **Not using `wait` with background jobs.** Script exits before jobs finish:
+
+```bash
+# Bad: script exits immediately
+ssh host1 "deploy.sh" &
+ssh host2 "deploy.sh" &
+# Script ends, jobs may be killed
+
+# Good: wait for all jobs
+ssh host1 "deploy.sh" &
+ssh host2 "deploy.sh" &
+wait
+```
+
+2. **Using `eval` with untrusted input.** Leads to command injection:
+
+```bash
+# Bad: command injection if USER_INPUT is "; rm -rf /"
+eval "echo $USER_INPUT"
+
+# Good: use printf or direct variable expansion
+echo "$USER_INPUT"
+```
+
+3. **Not handling `set -e` in subshells.** `set -e` doesn't propagate to subshells:
+
+```bash
+# Bad: failure in subshell is silently ignored
+set -e
+result=$(failing_command | grep something)
+echo "Continuing despite failure"
+
+# Good: check exit status explicitly
+set -eo pipefail
+if ! result=$(failing_command 2>&1); then
+  echo "Command failed: $result"
+  exit 1
+fi
+```
+
+## Additional FAQ
+
+### How do I send Slack alerts from a Bash script?
+
+```bash
+send_slack() {
+  local message="$1"
+  local webhook_url="${SLACK_WEBHOOK:-}"
+  [ -z "$webhook_url" ] && return 0
+
+  curl -s -X POST "$webhook_url" \
+    -H 'Content-Type: application/json' \
+    -d "{\"text\":\"$(hostname): $message\"}" \
+    > /dev/null 2>&1 || true
+}
+
+# Usage
+send_slack "Deployment completed for version $VERSION"
+send_slack "ALERT: Service $service is down"
+```
+
+### How do I implement a retry loop in Bash?
+
+```bash
+retry() {
+  local max_attempts=$1
+  local delay=$2
+  shift 2
+  local attempt=1
+
+  while [ "$attempt" -le "$max_attempts" ]; do
+    if "$@"; then
+      return 0
+    fi
+    echo "Attempt $attempt failed. Retrying in ${delay}s..."
+    sleep "$delay"
+    ((attempt++))
+  done
+
+  echo "All $max_attempts attempts failed"
+  return 1
+}
+
+# Retry docker pull 3 times with 5s delay
+retry 3 5 docker pull "myapp:$VERSION"
+```
+
+### How do I lock a script to prevent concurrent execution?
+
+```bash
+# Use flock for advisory file locking
+exec 200>/tmp/myapp.lock
+if ! flock -n 200; then
+  echo "Another instance is already running" >&2
+  exit 1
+fi
+# Script runs with exclusive lock on fd 200
+```
+
+## Performance Tips
+
+1. **Avoid subshells in loops.** Each `$(...)` spawns a new process:
+
+```bash
+# Slow: spawns a subshell for each iteration
+for file in *.log; do
+  size=$(stat -c%s "$file")
+  echo "$file: $size"
+done
+
+# Faster: use bash builtins where possible
+for file in *.log; do
+  echo "$file: $(wc -c < "$file")"
+done
+```
+
+2. **Batch SSH commands instead of looping.** One SSH connection is faster than many:
+
+```bash
+# Slow: 10 SSH connections
+for host in "${HOSTS[@]}"; do
+  ssh "$host" "uptime"
+  ssh "$host" "df -h"
+  ssh "$host" "free -m"
+done
+
+# Fast: 1 SSH connection per host
+for host in "${HOSTS[@]}"; do
+  ssh "$host" "uptime; df -h; free -m"
+done
+```
+
+3. **Use `xargs -P` for parallel batch processing.** Faster than manual background jobs:
+
+```bash
+# Process files in parallel (4 at a time)
+find /var/log -name "*.gz" -mtime +30 | xargs -P4 -I{} rm {}
+
+# Parallel SSH checks
+printf '%s\n' "${HOSTS[@]}" | xargs -P4 -I{} ssh {} "uptime"
+```

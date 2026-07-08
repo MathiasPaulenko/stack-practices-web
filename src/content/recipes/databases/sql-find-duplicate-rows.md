@@ -298,3 +298,112 @@ REINDEX INDEX idx_users_email;
 10. **Document the deduplication strategy.** Record which columns define uniqueness, which row is kept, and when the cleanup was last run. This helps future maintenance and onboarding.
 
 11. **Set up monitoring for duplicate recurrence.** Create a scheduled job that checks for duplicates weekly and alerts if counts increase, so you catch data quality issues early.
+
+## Advanced Techniques
+
+### Deduplicate with partial column matching
+
+When you need to deduplicate based on a subset of columns but keep all columns:
+
+```sql
+-- Find duplicates by email but keep the row with most recent activity
+WITH ranked AS (
+  SELECT *,
+         ROW_NUMBER() OVER (PARTITION BY email ORDER BY last_activity DESC) AS rn
+  FROM users
+)
+DELETE FROM users
+WHERE id IN (SELECT id FROM ranked WHERE rn > 1);
+```
+
+### Merge data from duplicates before deletion
+
+When duplicates contain different valuable data, merge them first:
+
+```sql
+-- Merge data from duplicates into the canonical row
+WITH duplicates AS (
+  SELECT id,
+         ROW_NUMBER() OVER (PARTITION BY email ORDER BY created_at) AS rn
+  FROM users
+),
+canonical AS (
+  SELECT id FROM duplicates WHERE rn = 1
+),
+to_delete AS (
+  SELECT id FROM duplicates WHERE rn > 1
+)
+UPDATE users u
+SET last_name = COALESCE(
+  (SELECT MAX(last_name) FROM users WHERE id IN (SELECT id FROM to_delete) AND email = u.email),
+  u.last_name
+)
+WHERE id IN (SELECT id FROM canonical);
+
+-- Then delete the duplicates
+DELETE FROM users
+WHERE id IN (SELECT id FROM to_delete);
+```
+
+### Handle case-insensitive duplicates
+
+Email addresses should be treated case-insensitively:
+
+```sql
+-- Find case-insensitive duplicate emails
+SELECT LOWER(email) as email_lower, COUNT(*)
+FROM users
+GROUP BY LOWER(email)
+HAVING COUNT(*) > 1;
+
+-- Deduplicate keeping the first occurrence
+WITH duplicates AS (
+  SELECT id,
+         ROW_NUMBER() OVER (PARTITION BY LOWER(email) ORDER BY created_at) AS rn
+  FROM users
+)
+DELETE FROM users
+WHERE id IN (SELECT id FROM duplicates WHERE rn > 1);
+```
+
+### Deduplicate across multiple tables
+
+When duplicates exist across related tables:
+
+```sql
+-- Find duplicates across users and archived_users
+SELECT email, COUNT(*)
+FROM (
+  SELECT email FROM users
+  UNION ALL
+  SELECT email FROM archived_users
+) all_emails
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+-- Remove from archived if exists in active
+DELETE FROM archived_users
+WHERE email IN (SELECT email FROM users);
+```
+
+### Use temporary tables for safe large-scale deduplication
+
+For very large tables, use a temporary table approach:
+
+```sql
+-- Create a clean copy
+CREATE TABLE users_clean AS
+SELECT DISTINCT ON (email) *
+FROM users
+ORDER BY email, created_at;
+
+-- Verify row counts match expectations
+SELECT COUNT(*) FROM users;
+SELECT COUNT(*) FROM users_clean;
+
+-- Swap tables in a transaction
+BEGIN;
+DROP TABLE users;
+ALTER TABLE users_clean RENAME TO users;
+COMMIT;
+```

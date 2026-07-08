@@ -287,3 +287,166 @@ A sentinel value (like `None`, `null`, or a special object) placed in the queue 
 ### Can producers and consumers be on different machines?
 
 Not with the basic pattern. The shared queue is in-process memory. For cross-machine producer-consumer, use a message broker (RabbitMQ, Kafka, SQS) which provides the queue as a network-accessible service.
+
+## Advanced Solutions
+
+### Work-stealing queue for load balancing
+
+Each consumer has its own local queue. When a consumer's queue is empty, it steals items from other consumers' queues:
+
+```python
+import threading
+import random
+
+class WorkStealingQueue:
+    def __init__(self, num_workers):
+        self.queues = [threading.Queue() for _ in range(num_workers)]
+        self.num_workers = num_workers
+        self.lock = threading.Lock()
+        self.random = random.Random()
+
+    def push(self, item):
+        """Push to a random queue for load distribution."""
+        with self.lock:
+            idx = self.random.randint(0, self.num_workers - 1)
+            self.queues[idx].put(item)
+
+    def pop(self, worker_id):
+        """Pop from local queue first, then steal from others."""
+        # Try local queue
+        try:
+            return self.queues[worker_id].get_nowait()
+        except:
+            pass
+
+        # Steal from other queues
+        for i in range(self.num_workers):
+            if i == worker_id:
+                continue
+            try:
+                return self.queues[i].get_nowait()
+            except:
+                continue
+
+        return None  # All queues empty
+```
+
+### Producer-consumer with acknowledgment and retry
+
+Ensure items are not lost if a consumer fails:
+
+```python
+import threading
+import queue
+
+class ReliableQueue:
+    def __init__(self, maxsize=10):
+        self.pending = queue.Queue(maxsize)
+        self.ack = queue.Queue()
+        self.lock = threading.Lock()
+
+    def put(self, item):
+        """Put item into pending queue."""
+        self.pending.put(item)
+
+    def get(self):
+        """Get item from pending queue."""
+        return self.pending.get()
+
+    def ack(self, item):
+        """Acknowledge successful processing."""
+        self.ack.put(item)
+
+    def get_unacked(self):
+        """Return items that were not acknowledged."""
+        with self.lock:
+            unacked = []
+            while not self.pending.empty():
+                item = self.pending.get()
+                unacked.append(item)
+            return unacked
+
+def consumer(queue, name):
+    while True:
+        item = queue.get()
+        if item is None:
+            break
+        try:
+            process(item)
+            queue.ack(item)
+        except Exception as e:
+            print(f"Consumer {name} failed on {item}: {e}")
+            # Item remains in pending queue for retry
+```
+
+### Priority queue for urgent items
+
+Process urgent items before regular items:
+
+```python
+import heapq
+import threading
+
+class PriorityQueue:
+    def __init__(self):
+        self.heap = []
+        self.lock = threading.Lock()
+        self.not_empty = threading.Condition(self.lock)
+
+    def put(self, item, priority):
+        with self.lock:
+            heapq.heappush(self.heap, (priority, item))
+            self.not_empty.notify()
+
+    def get(self):
+        with self.lock:
+        while not self.heap:
+            self.not_empty.wait()
+        return heapq.heappop(self.heap)[1]
+
+# Usage: put urgent items with lower priority value
+queue.put("urgent_task", 0)  # High priority
+queue.put("regular_task", 10)  # Lower priority
+```
+
+## Additional Best Practices
+
+1. **Monitor queue metrics.** Track queue depth, producer throughput, consumer throughput, and latency. Set alerts for queue depth exceeding thresholds. A growing queue indicates consumers are too slow or producers are too fast.
+
+2. **Handle shutdown gracefully.** Use a shutdown flag or poison pill to signal producers and consumers to stop. Flush the queue before shutdown or save pending items to persistent storage for recovery.
+
+```python
+class GracefulQueue:
+    def __init__(self):
+        self.queue = queue.Queue()
+        self.shutdown_flag = False
+
+    def shutdown(self):
+        self.shutdown_flag = True
+        # Wake up waiting consumers
+        for _ in range(10):
+            self.queue.put(None)
+
+    def is_shutdown(self):
+        return self.shutdown_flag
+```
+
+## Additional Common Mistakes
+
+1. **Ignoring queue overflow.** When a bounded queue is full, producers block or items are dropped. Monitor queue depth and implement overflow handling: drop oldest items, reject new items, or scale consumers.
+
+2. **Not handling poison pill for multiple consumers.** A single poison pill stops only one consumer. For multiple consumers, either send one poison pill per consumer or use a shutdown flag that all consumers check.
+
+## Additional Frequently Asked Questions
+
+### How do I handle backpressure in an unbounded queue?
+
+Unbounded queues have no natural backpressure. Implement backpressure manually by monitoring queue depth and throttling producers when depth exceeds a threshold. Alternatively, switch to a bounded queue.
+
+### What is the difference between work stealing and work distribution?
+
+Work distribution assigns items to consumers upfront (e.g., round-robin). Work stealing lets consumers take items from their local queue first and steal from others when idle. Work stealing reduces contention and improves load balance for variable workloads.
+
+### How do I ensure exactly-once processing?
+
+Exactly-once requires idempotent consumers and acknowledgments. Assign a unique ID to each item. The consumer checks if the ID was already processed before processing. After successful processing, acknowledge the item. If the consumer fails, the item is retried but will be skipped due to the ID check.

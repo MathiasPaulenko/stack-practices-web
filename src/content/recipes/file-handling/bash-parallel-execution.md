@@ -203,3 +203,347 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Advanced Solutions
+
+### Job queue with FIFO-based concurrency control
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# FIFO-based job queue for precise concurrency control
+# Works without GNU parallel, using only POSIX tools
+
+MAX_JOBS=4
+FIFO="/tmp/job_queue_$$"
+mkfifo "$FIFO"
+exec 3<>"$FIFO"
+rm "$FIFO"
+
+# Pre-fill the queue with tokens
+for ((i = 0; i < MAX_JOBS; i++)); do
+    echo >&3
+done
+
+process_file() {
+    local file="$1"
+    local base="${file%.log}"
+    gzip "$file"
+    echo "Compressed: $file"
+}
+
+# Process files, acquiring a token before each job
+for file in *.log; do
+    [ -e "$file" ] || continue
+    # Read a token (blocks if all slots are busy)
+    read -u 3
+    process_file "$file" &
+done
+
+# Wait for all background jobs
+wait
+exec 3>&-
+```
+
+### Timeout handling per job
+
+```bash
+#!/bin/bash
+set -uo pipefail
+
+# Run jobs with per-job timeout, collecting results
+TIMEOUT=30
+RESULTS_DIR="./results"
+mkdir -p "$RESULTS_DIR"
+
+run_with_timeout() {
+    local file="$1"
+    local name=$(basename "$file")
+    local output="$RESULTS_DIR/${name}.out"
+    local errors="$RESULTS_DIR/${name}.err"
+
+    timeout "$TIMEOUT" python3 "$file" >"$output" 2>"$errors"
+    local exit_code=$?
+
+    case $exit_code in
+        0)   echo "[OK]   $name" ;;
+        124) echo "[TIMEOUT] $name exceeded ${TIMEOUT}s" ;;
+        *)   echo "[FAIL] $name exited with $exit_code" ;;
+    esac
+    return $exit_code
+}
+
+# Run in parallel with xargs, each job has its own timeout
+export -f run_with_timeout
+export TIMEOUT RESULTS_DIR
+
+find scripts/ -name '*.py' -print0 | \
+    xargs -0 -P 4 -I {} bash -c 'run_with_timeout "{}"'
+```
+
+### Result aggregation with temporary files
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Parallel processing with aggregated results
+TMPDIR=$(mktemp -d)
+trap "rm -rf $TMPDIR" EXIT
+
+MAX_JOBS=4
+TOTAL=0
+SUCCESS=0
+FAIL=0
+
+# Each worker writes its result to a temp file
+worker() {
+    local file="$1"
+    local result_file="$TMPDIR/result_$$"
+    if python3 -c "import json; json.load(open('$file'))" 2>/dev/null; then
+        echo "OK $file" >> "$result_file"
+    else
+        echo "FAIL $file" >> "$result_file"
+    fi
+}
+
+export -f worker
+export TMPDIR
+
+# Count total
+shopt -s nullglob
+files=(*.json)
+TOTAL=${#files[@]}
+shopt -u nullglob
+
+if [ "$TOTAL" -eq 0 ]; then
+    echo "No JSON files found"
+    exit 0
+fi
+
+# Run in parallel
+for file in "${files[@]}"; do
+    worker "$file" &
+    while [ "$(jobs -rp | wc -l)" -ge "$MAX_JOBS" ]; do
+        wait -n 2>/dev/null || sleep 0.1
+    done
+done
+wait
+
+# Aggregate results
+if [ -f "$TMPDIR/result_$$" ]; then
+    SUCCESS=$(grep -c "^OK" "$TMPDIR/result_$$" || true)
+    FAIL=$(grep -c "^FAIL" "$TMPDIR/result_$$" || true)
+fi
+
+echo "=== Summary ==="
+echo "Total:  $TOTAL"
+echo "OK:     $SUCCESS"
+echo "FAIL:   $FAIL"
+```
+
+### Dynamic concurrency based on system load
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Adjust concurrency based on current system load average
+get_dynamic_jobs() {
+    local load_avg=$(awk '{print int($1)}' /proc/loadavg 2>/dev/null || echo 1)
+    local cpu_count=$(nproc 2>/dev/null || echo 4)
+    local available=$((cpu_count - load_avg))
+    if [ "$available" -lt 1 ]; then
+        available=1
+    fi
+    echo "$available"
+}
+
+MAX_CPU=$(nproc)
+echo "CPU cores: $MAX_CPU"
+
+for file in *.mp4; do
+    [ -e "$file" ] || continue
+
+    # Dynamically check how many jobs we can start
+    current_jobs=$(jobs -rp | wc -l)
+    dynamic_limit=$(get_dynamic_jobs)
+
+    while [ "$current_jobs" -ge "$dynamic_limit" ]; do
+        wait -n 2>/dev/null || sleep 0.5
+        current_jobs=$(jobs -rp | wc -l)
+        dynamic_limit=$(get_dynamic_jobs)
+    done
+
+    ffmpeg -i "$file" -c:v libx264 -preset fast "${file%.mp4}.mkv" 2>/dev/null &
+    echo "Started: $file (jobs: $(jobs -rp | wc -l))"
+done
+
+wait
+echo "All conversions complete"
+```
+
+## Additional Best Practices
+
+1. **Use `wait -n` for efficient job slot management.** Bash 4.3+ supports `wait -n`, which waits for the next job to finish. It is more efficient than polling with `sleep`:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+MAX_JOBS=4
+
+for file in *.png; do
+    [ -e "$file" ] || continue
+    # Wait for any job to finish if at capacity
+    while [ "$(jobs -rp | wc -l)" -ge "$MAX_JOBS" ]; do
+        wait -n 2>/dev/null || sleep 0.1
+    done
+    convert "$file" "${file%.png}.webp" &
+done
+wait
+```
+
+2. **Log per-job output to separate files.** This prevents interleaved output and provides per-job debugging:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+LOG_DIR="./logs"
+mkdir -p "$LOG_DIR"
+
+find data/ -name '*.csv' -print0 | while IFS= read -r -d '' file; do
+    name=$(basename "$file" .csv)
+    parallel -j 4 --results "$LOG_DIR/{1}" \
+        process_csv {} ::: "$file"
+done
+```
+
+3. **Use `--halt` for fail-fast behavior with GNU parallel.** Stop all jobs at the first failure to avoid wasting resources:
+
+```bash
+#!/bin/bash
+# Stop on first failure, kill running jobs
+find tests/ -name '*.sh' | parallel -j 8 --halt soon,fail=1 bash {}
+
+# Stop on first failure, wait for running jobs to finish
+find tests/ -name '*.sh' | parallel -j 8 --halt now,fail=1 bash {}
+```
+
+## Additional Common Mistakes
+
+1. **Using `wait` without checking individual exit codes.** `wait` without arguments returns 0 if all jobs succeed, but with `set -e`, a failing background job may not trigger an exit unless you explicitly wait for it:
+
+```bash
+#!/bin/bash
+set -uo pipefail
+
+# Bad: set -e won't catch background job failures
+# command_that_fails &
+# wait  # May not exit with error
+
+# Good: check each job's exit code
+pids=()
+for file in *.txt; do
+    [ -e "$file" ] || continue
+    process "$file" &
+    pids+=($!)
+done
+
+failed=0
+for pid in "${pids[@]}"; do
+    if ! wait "$pid"; then
+        echo "Job $pid failed" >&2
+        ((failed++))
+    fi
+done
+[ "$failed" -eq 0 ] || exit 1
+```
+
+2. **Not handling `SIGINT` (Ctrl+C) in parallel scripts.** Background jobs continue running after the parent is killed. Trap signals and clean up:
+
+```bash
+#!/bin/bash
+set -uo pipefail
+
+# Kill all background jobs on exit
+cleanup() {
+    echo "Cleaning up background jobs..."
+    jobs -p | xargs -r kill 2>/dev/null
+    exit 1
+}
+trap cleanup SIGINT SIGTERM
+
+for file in *.mp4; do
+    [ -e "$file" ] || continue
+    ffmpeg -i "$file" "${file%.mp4}.webm" &
+done
+
+wait
+```
+
+3. **Forgetting that subshells don't share variable state.** Background jobs run in subshells, so variable changes inside them are not visible in the parent:
+
+```bash
+#!/bin/bash
+# Bad: counter won't be updated by background jobs
+# counter=0
+# for file in *.txt; do
+#     ((counter++)) &
+# done
+# wait
+# echo "$counter"  # Still 0
+
+# Good: use temp files or files for shared state
+counter_file=$(mktemp)
+echo 0 > "$counter_file"
+
+for file in *.txt; do
+    [ -e "$file" ] || continue
+    {
+        flock "$counter_file" -c "echo \$((\$(cat $counter_file) + 1)) > $counter_file"
+    } &
+done
+wait
+echo "Processed: $(cat $counter_file)"
+rm "$counter_file"
+```
+
+## Additional FAQ
+
+### How do I choose between xargs and GNU parallel?
+
+Use `xargs` when you need POSIX compatibility, no extra dependencies, and simple one-command-per-input patterns. Use GNU parallel when you need resume capability (`--joblog --resume-failed`), progress bars (`--bar`), output grouping (`--group`), remote execution (`--sshlogin`), or complex input manipulation (`--colsep`, `{1}`, `{2}`). GNU parallel is more powerful but may not be installed by default on all systems.
+
+### How do I benchmark the optimal concurrency level?
+
+Start with `nproc` (CPU count) for CPU-bound tasks. For I/O-bound tasks (network, disk), start with 2-4x `nproc`. Measure throughput at each level and find the plateau. Use `time` to measure total execution:
+
+```bash
+#!/bin/bash
+# Benchmark different concurrency levels
+for jobs in 1 2 4 8 16; do
+    echo -n "Jobs=$jobs: "
+    time (find images/ -name '*.png' -print0 | \
+        xargs -0 -n 1 -P "$jobs" -I{} convert '{}' '{.}.jpg' 2>/dev/null)
+done
+```
+
+### How do I run parallel jobs across remote hosts?
+
+Use GNU parallel with `--sshlogin` or plain SSH with background jobs:
+
+```bash
+#!/bin/bash
+# GNU parallel across remote hosts
+parallel -S server1,server2,server3 -j 4 \
+    'cd /var/app && git pull && npm install && npm run build' ::: {}
+
+# Plain SSH with background jobs
+hosts=("server1" "server2" "server3")
+for host in "${hosts[@]}"; do
+    ssh "$host" 'cd /var/app && git pull && npm install' &
+done
+wait
+echo "All hosts updated"
+```

@@ -255,3 +255,343 @@ Las redes internas (flag `--internal`) bloquean todo el acceso a internet. Los c
 ### ¿Cómo depuro problemas de conectividad de red?
 
 Usa `docker exec -it <container> sh` y prueba con `ping`, `curl`, o `nc`. Verifica `docker network inspect <network>` para ver qué contenedores están conectados. Confirma que los contenedores estén en la misma red si necesitan comunicarse.
+
+### Network Aliases para Service Discovery
+
+```yaml
+# docker-compose.yml
+services:
+  api:
+    build: .
+    networks:
+      frontend:
+        aliases:
+          - api-service
+          - api.internal
+      backend:
+        aliases:
+          - backend-api
+
+  db:
+    image: postgres:16-alpine
+    networks:
+      backend:
+        aliases:
+          - database
+          - postgres
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true
+```
+
+```bash
+# Otros contenedores pueden alcanzar api por cualquier alias
+docker exec web curl http://api-service:3000
+docker exec web curl http://api.internal:3000
+docker exec api curl http://database:5432
+```
+
+### Configuración de Red IPv6
+
+```bash
+# Crear red con soporte IPv6
+docker network create \
+    --driver bridge \
+    --ipv6 \
+    --subnet 2001:db8:1::/64 \
+    --gateway 2001:db8:1::1 \
+    ipv6-net
+
+# Ejecutar contenedor con IPv6
+docker run -d --network ipv6-net --name api my-api
+```
+
+```yaml
+# docker-compose.yml con IPv6
+networks:
+  frontend:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 2001:db8:2::/64
+          gateway: 2001:db8:2::1
+```
+
+### Red Macvlan para Acceso Directo a la Red del Host
+
+```bash
+# Crear red macvlan (el contenedor obtiene su propio IP en la red física)
+docker network create \
+    --driver macvlan \
+    --subnet 192.168.1.0/24 \
+    --gateway 192.168.1.1 \
+    -o parent=eth0 \
+    macvlan-net
+
+# Ejecutar contenedor con su propia MAC address e IP
+docker run -d --network macvlan-net --name api my-api
+```
+
+### Integración de Firewall con iptables
+
+```bash
+# Bloquear contenedor de acceder a IPs externas específicas
+iptables -I DOCKER-USER -d 10.0.0.0/8 -j DROP
+
+# Permitir solo contenedores específicos a la base de datos
+iptables -I DOCKER-USER -s 172.20.0.2 -d 172.20.0.3 -p tcp --dport 5432 -j ACCEPT
+iptables -I DOCKER-USER -d 172.20.0.3 -p tcp --dport 5432 -j DROP
+
+# Loggear tráfico dropeado para debugging
+iptables -I DOCKER-USER -j LOG --log-prefix "DOCKER-DROP: " --log-level 4
+```
+
+### Toolkit de Troubleshooting de Red
+
+```bash
+#!/bin/bash
+# net-debug.sh — Debug connectivity de red Docker
+
+CONTAINER=${1:-api}
+TARGET=${2:-db}
+PORT=${3:-5432}
+
+echo "=== Network check: $CONTAINER -> $TARGET:$PORT ==="
+
+# Verificar si los contenedores existen
+docker inspect "$CONTAINER" > /dev/null 2>&1 || { echo "Container $CONTAINER not found"; exit 1; }
+docker inspect "$TARGET" > /dev/null 2>&1 || { echo "Container $TARGET not found"; exit 1; }
+
+# Verificar redes compartidas
+CONTAINER_NETS=$(docker inspect "$CONTAINER" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}')
+TARGET_NETS=$(docker inspect "$TARGET" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}')
+
+echo "Container networks: $CONTAINER_NETS"
+echo "Target networks: $TARGET_NETS"
+
+SHARED=""
+for net in $CONTAINER_NETS; do
+  if echo "$TARGET_NETS" | grep -qw "$net"; then
+    SHARED="$SHARED $net"
+  fi
+done
+
+if [ -z "$SHARED" ]; then
+  echo "FAIL: Sin redes compartidas. Los contenedores no pueden comunicarse."
+  exit 1
+fi
+
+echo "Redes compartidas:$SHARED"
+
+# Testear resolución DNS
+echo "=== Resolución DNS ==="
+docker exec "$CONTAINER" getent hosts "$TARGET" 2>/dev/null || \
+  echo "Resolución DNS falló para $TARGET"
+
+# Testear conectividad TCP
+echo "=== Conectividad TCP ==="
+docker exec "$CONTAINER" timeout 3 bash -c "echo > /dev/tcp/$TARGET/$PORT" 2>/dev/null && \
+  echo "OK: Puerto $PORT alcanzable" || \
+  echo "FAIL: Puerto $PORT no alcanzable"
+
+# Mostrar detalles de red
+echo "=== Detalles de red ==="
+for net in $SHARED; do
+  echo "--- $net ---"
+  docker network inspect "$net" --format '{{range .Containers}}{{.Name}}: {{.IPv4Address}}{{"\n"}}{{end}}'
+done
+```
+
+### Segmentación de Red Three-Tier con Compose
+
+```yaml
+# docker-compose.yml — Arquitectura three-tier
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    networks:
+      - frontend
+    depends_on:
+      - api
+
+  api:
+    build: .
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_started
+
+  worker:
+    build: ./worker
+    networks:
+      - backend
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    networks:
+      - backend
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cache:
+    image: redis:7-alpine
+    networks:
+      - backend
+    volumes:
+      - redis_data:/data
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true
+
+volumes:
+  postgres_data:
+  redis_data:
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa network aliases en lugar de nombres de contenedor.** Los aliases están desacoplados de la identidad del contenedor:
+
+```yaml
+services:
+  api:
+    networks:
+      backend:
+        aliases:
+          - api-v1
+```
+
+2. **Setea `com.docker.network.bridge.enable_icc` para control fino.** Deshabilita comunicación inter-container en un bridge específico:
+
+```bash
+docker network create \
+    --driver bridge \
+    -o com.docker.network.bridge.enable_icc=false \
+    isolated-net
+```
+
+3. **Usa `--link-local-ip` para contenedores que necesitan IPs específicos.** Útil para aplicaciones legacy que tienen IPs hardcodeados:
+
+```bash
+docker run -d --network backend-net --link-local-ip 172.20.0.10 my-app
+```
+
+## Errores Comunes Adicionales
+
+1. **No limpiar redes no usadas.** Las redes huérfanas consumen espacio de IP y causan confusión:
+
+```bash
+# Limpiar redes no usadas
+docker network prune
+
+# Remover red específica
+docker network rm backend-net
+```
+
+2. **Exponer puertos de debug externamente.** Herramientas de debug como pgAdmin o Redis Commander deben bind solo a localhost:
+
+```bash
+# Mal: accesible desde la red
+docker run -p 5050:80 pgadmin
+
+# Bien: solo localhost
+docker run -p 127.0.0.1:5050:80 pgadmin
+```
+
+3. **No setear prioridades de red en Compose.** Cuando un contenedor se une a múltiples redes, el orden de resolución DNS importa:
+
+```yaml
+services:
+  api:
+    networks:
+      backend: {}    # Red primaria
+      frontend: {}   # Secundaria
+    # DNS resuelve nombres en backend primero
+```
+
+## FAQ Adicional
+
+### Como limito el ancho de banda de red para un contenedor?
+
+Usa `--network-alias` con traffic shaping via `tc` o rate limiting integrado de Docker:
+
+```bash
+# Limitar ancho de banda a 1mbps usando tc
+docker exec api tc qdisc add dev eth0 root tbf rate 1mbit burst 32kbit latency 400ms
+```
+
+### Como conecto una red Docker a una red del host?
+
+Usa el driver `macvlan` o `--network host`:
+
+```bash
+# Macvlan: el contenedor aparece como dispositivo separado en la red física
+docker network create -d macvlan --subnet 192.168.1.0/24 -o parent=eth0 pub-net
+
+# Host network: el contenedor comparte el stack de red del host (sin aislamiento)
+docker run -d --network host my-app
+```
+
+### Como encripto el tráfico de red overlay?
+
+Las redes overlay de Docker Swarm soportan encriptación:
+
+```bash
+# Crear red overlay encriptada
+docker network create --driver overlay --opt encrypted my-secure-net
+```
+
+La encriptación añade overhead de CPU pero protege el tráfico entre nodos Swarm.
+
+## Tips de Rendimiento
+
+1. **Usa red `host` para máximo throughput.** Evita el bridge de Docker por completo:
+
+```bash
+# Sin overhead de NAT, pero sin aislamiento
+docker run -d --network host my-app
+```
+
+Solo usar para workloads críticos de rendimiento donde el aislamiento se maneja en otra capa.
+
+2. **Reduce el overhead de DNS lookup.** El DNS embebido de Docker añade latencia por cada lookup:
+
+```bash
+# Añadir cache DNS en el contenedor
+docker run -d --dns 127.0.0.11 --dns-opt "timeout:1" --dns-opt "attempts:1" my-app
+```
+
+3. **Usa `--network-alias` para service discovery más rápido.** Evita lookups por nombre de contenedor:
+
+```yaml
+services:
+  db:
+    networks:
+      backend:
+        aliases:
+          - db.internal
+```

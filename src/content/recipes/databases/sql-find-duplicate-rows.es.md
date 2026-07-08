@@ -299,3 +299,112 @@ REINDEX INDEX idx_users_email;
 11. **Configura monitoreo para recurrencia de duplicados.** Crea un job programado que verifique duplicados semanalmente y alerte si los conteos aumentan, para detectar problemas de calidad de datos temprano.
 
 12. **Establece un proceso de revisión periódica.** Programa auditorías trimestrales de calidad de datos para verificar que las restricciones únicas siguen vigentes y que no hay duplicados nuevos.
+
+## Técnicas Avanzadas
+
+### Deduplicación con coincidencia parcial de columnas
+
+Cuando necesitas deduplicar basado en un subconjunto de columnas pero conservar todas las columnas:
+
+```sql
+-- Encontrar duplicados por email pero conservar la fila con actividad más reciente
+WITH ranked AS (
+  SELECT *,
+         ROW_NUMBER() OVER (PARTITION BY email ORDER BY last_activity DESC) AS rn
+  FROM users
+)
+DELETE FROM users
+WHERE id IN (SELECT id FROM ranked WHERE rn > 1);
+```
+
+### Fusionar datos de duplicados antes del borrado
+
+Cuando los duplicados contienen datos valiosos diferentes, fusiónalos primero:
+
+```sql
+-- Fusionar datos de duplicados en la fila canónica
+WITH duplicates AS (
+  SELECT id,
+         ROW_NUMBER() OVER (PARTITION BY email ORDER BY created_at) AS rn
+  FROM users
+),
+canonical AS (
+  SELECT id FROM duplicates WHERE rn = 1
+),
+to_delete AS (
+  SELECT id FROM duplicates WHERE rn > 1
+)
+UPDATE users u
+SET last_name = COALESCE(
+  (SELECT MAX(last_name) FROM users WHERE id IN (SELECT id FROM to_delete) AND email = u.email),
+  u.last_name
+)
+WHERE id IN (SELECT id FROM canonical);
+
+-- Luego borrar los duplicados
+DELETE FROM users
+WHERE id IN (SELECT id FROM to_delete);
+```
+
+### Manejar duplicados insensibles a mayúsculas
+
+Las direcciones de email deben tratarse de forma insensible a mayúsculas:
+
+```sql
+-- Encontrar emails duplicados insensibles a mayúsculas
+SELECT LOWER(email) as email_lower, COUNT(*)
+FROM users
+GROUP BY LOWER(email)
+HAVING COUNT(*) > 1;
+
+-- Deduplicar conservando la primera ocurrencia
+WITH duplicates AS (
+  SELECT id,
+         ROW_NUMBER() OVER (PARTITION BY LOWER(email) ORDER BY created_at) AS rn
+  FROM users
+)
+DELETE FROM users
+WHERE id IN (SELECT id FROM duplicates WHERE rn > 1);
+```
+
+### Deduplicación a través de múltiples tablas
+
+Cuando los duplicados existen en tablas relacionadas:
+
+```sql
+-- Encontrar duplicados a través de users y archived_users
+SELECT email, COUNT(*)
+FROM (
+  SELECT email FROM users
+  UNION ALL
+  SELECT email FROM archived_users
+) all_emails
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+-- Remover de archived si existe en active
+DELETE FROM archived_users
+WHERE email IN (SELECT email FROM users);
+```
+
+### Usar tablas temporales para deduplicación masiva segura
+
+Para tablas muy grandes, usa un enfoque de tabla temporal:
+
+```sql
+-- Crear una copia limpia
+CREATE TABLE users_clean AS
+SELECT DISTINCT ON (email) *
+FROM users
+ORDER BY email, created_at;
+
+-- Verificar que los conteos de filas coincidan con expectativas
+SELECT COUNT(*) FROM users;
+SELECT COUNT(*) FROM users_clean;
+
+-- Intercambiar tablas en una transacción
+BEGIN;
+DROP TABLE users;
+ALTER TABLE users_clean RENAME TO users;
+COMMIT;
+```

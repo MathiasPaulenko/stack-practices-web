@@ -298,3 +298,123 @@ SELECT datname, temp_files, temp_bytes
 FROM pg_stat_database
 WHERE datname = 'mydb';
 ```
+
+## Técnicas Avanzadas
+
+### Migración con dual-write a nivel aplicación
+
+Maneja migraciones completamente en la capa de aplicación sin triggers de base de datos:
+
+```sql
+-- Paso 1: agregar nueva columna (nullable)
+ALTER TABLE customers ADD COLUMN email_address VARCHAR(255);
+
+-- Paso 2: código de aplicación escribe a ambas columnas
+-- (No se necesita trigger; la aplicación maneja la sincronización)
+
+-- Paso 3: rellenar vía aplicación en lotes
+-- La aplicación ejecuta: UPDATE customers SET email_address = email WHERE id BETWEEN ? AND ?
+
+-- Paso 4: verificar paridad
+SELECT COUNT(*) FROM customers WHERE email_address IS DISTINCT FROM email;
+
+-- Paso 5: cambiar aplicación para leer de la nueva columna
+
+-- Paso 6: eliminar columna vieja
+ALTER TABLE customers DROP COLUMN email;
+```
+
+### Renombramiento seguro de columna usando migración de vista
+
+Renombra una columna sin romper consultas existentes:
+
+```sql
+-- Paso 1: agregar nueva columna
+ALTER TABLE customers ADD COLUMN email_new VARCHAR(255);
+
+-- Paso 2: rellenar datos
+UPDATE customers SET email_new = email WHERE email_new IS NULL;
+
+-- Paso 3: crear vista con columna renombrada
+CREATE OR REPLACE VIEW customers_v1 AS
+SELECT id, name, email_new AS email, created_at
+FROM customers;
+
+-- Paso 4: migrar aplicación para usar la vista
+
+-- Paso 5: eliminar columna vieja y renombrar la nueva
+ALTER TABLE customers DROP COLUMN email;
+ALTER TABLE customers RENAME COLUMN email_new TO email;
+
+-- Paso 6: eliminar vista y usar tabla directamente
+DROP VIEW customers_v1;
+```
+
+### Migración con check constraints para validación
+
+Agrega constraints incrementalmente para validar datos durante la migración:
+
+```sql
+-- Paso 1: agregar nueva columna
+ALTER TABLE orders ADD COLUMN total_cents INTEGER;
+
+-- Paso 2: rellenar con validación
+UPDATE orders SET total_cents = (total * 100)::INTEGER
+WHERE total_cents IS NULL;
+
+-- Paso 3: agregar constraint como NOT VALID (sin lock)
+ALTER TABLE orders ADD CONSTRAINT chk_total_cents_positive
+CHECK (total_cents >= 0) NOT VALID;
+
+-- Paso 4: validar constraint después (lock breve)
+ALTER TABLE orders VALIDATE CONSTRAINT chk_total_cents_positive;
+
+-- Paso 5: si la validación pasa, proceder con cutover
+```
+
+### Manejo de migraciones de claves foráneas
+
+Migra columnas de clave foránea sin romper integridad referencial:
+
+```sql
+-- Paso 1: agregar nueva columna FK (nullable)
+ALTER TABLE orders ADD COLUMN customer_id_new INTEGER;
+
+-- Paso 2: rellenar desde la FK vieja
+UPDATE orders SET customer_id_new = customer_id WHERE customer_id_new IS NULL;
+
+-- Paso 3: agregar constraint FK a la nueva columna
+ALTER TABLE orders ADD CONSTRAINT fk_orders_customer_new
+FOREIGN KEY (customer_id_new) REFERENCES customers(id);
+
+-- Paso 4: cambiar aplicación para usar la nueva FK
+
+-- Paso 5: eliminar FK vieja y columna
+ALTER TABLE orders DROP CONSTRAINT fk_orders_customer;
+ALTER TABLE orders DROP COLUMN customer_id;
+
+-- Paso 6: renombrar nueva columna
+ALTER TABLE orders RENAME COLUMN customer_id_new TO customer_id;
+```
+
+### Estrategia de rollback con columna shadow
+
+Mantén una columna shadow para capacidad de rollback rápido:
+
+```sql
+-- Paso 1: agregar columna shadow (no usada por la app)
+ALTER TABLE customers ADD COLUMN email_shadow VARCHAR(255);
+
+-- Paso 2: rellenar columna shadow
+UPDATE customers SET email_shadow = email WHERE email_shadow IS NULL;
+
+-- Paso 3: proceder con migración principal
+ALTER TABLE customers ADD COLUMN email_address VARCHAR(255);
+-- ... rellenar email_address ...
+
+-- Paso 4: si surgen problemas, rollback usando shadow
+UPDATE customers SET email = email_shadow WHERE email IS NULL;
+
+-- Paso 5: después de cutover exitoso, eliminar shadow
+ALTER TABLE customers DROP COLUMN email_shadow;
+```

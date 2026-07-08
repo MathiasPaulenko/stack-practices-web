@@ -166,3 +166,223 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Advanced Solutions
+
+### Spring Boot security headers configuration
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityHeadersConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .headers(headers -> headers
+                .contentSecurityPolicy(csp -> csp.policyDirectives(
+                    "default-src 'self'; " +
+                    "script-src 'self' https://cdn.example.com; " +
+                    "style-src 'self' https://fonts.googleapis.com; " +
+                    "img-src 'self' data: https:; " +
+                    "connect-src 'self' https://api.example.com; " +
+                    "frame-ancestors 'none'; " +
+                    "base-uri 'self'; " +
+                    "object-src 'none'"
+                ))
+                .httpStrictTransportSecurity(hsts -> hsts
+                    .maxAgeInSeconds(31536000)
+                    .includeSubDomains(true)
+                    .preload(true)
+                )
+                .contentTypeOptions(opts -> {})
+                .frameOptions(frame -> frame.deny())
+                .referrerPolicy(referrer -> referrer.policy(
+                    org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
+                ))
+                .permissionsPolicy(permissions -> permissions.policy(
+                    "geolocation=(), microphone=(), camera=(), payment=()"
+                ))
+            );
+
+        return http.build();
+    }
+}
+```
+
+### Cloudflare Workers header injection
+
+Inject security headers at the edge without touching origin infrastructure:
+
+```javascript
+export default {
+  async fetch(request, env) {
+    const response = await fetch(request);
+
+    // Clone the response so we can modify headers
+    const newResponse = new Response(response.body, response);
+
+    // Security headers
+    newResponse.headers.set('Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains; preload');
+    newResponse.headers.set('X-Content-Type-Options', 'nosniff');
+    newResponse.headers.set('X-Frame-Options', 'DENY');
+    newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    newResponse.headers.set('Permissions-Policy',
+      'geolocation=(), microphone=(), camera=()');
+
+    // Only set CSP for HTML responses
+    const contentType = response.headers.get('Content-Type') || '';
+    if (contentType.includes('text/html')) {
+      newResponse.headers.set('Content-Security-Policy',
+        "default-src 'self'; script-src 'self' https://cdn.example.com; " +
+        "style-src 'self' https://fonts.googleapis.com; " +
+        "img-src 'self' data: https:; connect-src 'self' https://api.example.com");
+    }
+
+    return newResponse;
+  },
+};
+```
+
+### CORS preflight with security headers
+
+Combine CORS and security headers for cross-origin APIs:
+
+```javascript
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+
+const app = express();
+
+// Security headers first
+app.use(helmet());
+
+// CORS with specific origin allowlist
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'https://app.example.com',
+      'https://admin.example.com',
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-ID'],
+  exposedHeaders: ['X-Request-ID', 'X-RateLimit-Remaining'],
+  credentials: true,
+  maxAge: 86400, // Cache preflight for 24 hours
+};
+
+app.use(cors(corsOptions));
+
+// Explicit preflight handler
+app.options('*', cors(corsOptions));
+
+// API routes
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+```
+
+### Automated header testing with curl
+
+```bash
+#!/bin/bash
+# audit-headers.sh — Check security headers on a URL
+
+URL="${1:-https://example.com}"
+REQUIRED_HEADERS=(
+  "strict-transport-security"
+  "content-security-policy"
+  "x-content-type-options"
+  "x-frame-options"
+  "referrer-policy"
+)
+
+echo "Auditing: $URL"
+echo "-----------------------------------"
+
+HEADERS=$(curl -sI "$URL")
+
+for header in "${REQUIRED_HEADERS[@]}"; do
+  VALUE=$(echo "$HEADERS" | grep -i "^$header:" | sed 's/^[^:]*: *//')
+  if [ -z "$VALUE" ]; then
+    echo "MISSING: $header"
+  else
+    echo "OK: $header = $VALUE"
+  fi
+done
+
+# Check for weak CSP
+CSP=$(echo "$HEADERS" | grep -i "^content-security-policy:" | sed 's/^[^:]*: *//')
+if echo "$CSP" | grep -q "unsafe-inline"; then
+  echo "WARNING: CSP contains 'unsafe-inline'"
+fi
+if echo "$CSP" | grep -q "unsafe-eval"; then
+  echo "WARNING: CSP contains 'unsafe-eval'"
+fi
+
+# Check HSTS max-age
+HSTS=$(echo "$HEADERS" | grep -i "^strict-transport-security:" | sed 's/^[^:]*: *//')
+if echo "$HSTS" | grep -q "max-age=0"; then
+  echo "WARNING: HSTS max-age is 0 (disabled)"
+fi
+```
+
+## Additional Best Practices
+
+1. **Use `Cross-Origin-Opener-Policy` for SPA isolation.** Prevents other origins from getting a reference to your window object:
+
+```http
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+2. **Set `Cache-Control` on API responses with sensitive data.** Prevent caching of authenticated responses:
+
+```http
+Cache-Control: no-store, no-cache, must-revalidate, private
+Pragma: no-cache
+Expires: 0
+```
+
+## Additional Common Mistakes
+
+1. **Setting CSP on API responses but not HTML pages.** CSP is most important on HTML pages where scripts execute. API responses returning JSON should still have headers like `X-Content-Type-Options`, but CSP is less critical for them.
+
+2. **Using wildcard `*` in CORS with credentials.** When `credentials: true` is set in CORS, the `Access-Control-Allow-Origin` header cannot be `*`. You must specify exact origins:
+
+```javascript
+// WRONG: wildcard with credentials
+app.use(cors({ origin: '*', credentials: true }));
+
+// CORRECT: explicit origins
+app.use(cors({
+  origin: ['https://app.example.com', 'https://admin.example.com'],
+  credentials: true,
+}));
+```
+
+## Additional FAQ
+
+### How do I verify my security headers are working?
+
+Use `curl -I https://your-domain.com` to inspect response headers. For a more thorough audit, use online tools like securityheaders.com, Mozilla Observatory, or the `audit-headers.sh` script above. These tools grade your configuration and provide specific remediation steps.
+
+### Should I set security headers on static assets?
+
+Yes. Static assets served from your domain should have at minimum `X-Content-Type-Options: nosniff` and `Cache-Control` headers. CSP is less relevant for static assets but doesn't hurt. If using a CDN, configure headers at the CDN level.
+
+### What headers does OWASP recommend for APIs?
+
+OWASP recommends: `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` (for HTML responses), `Cache-Control: no-store` (for sensitive data), `Access-Control-Allow-Origin` (with explicit origins, not wildcards), and `Content-Security-Policy` (for HTML responses).

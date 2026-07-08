@@ -185,3 +185,226 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### CI/CD Pipeline with GitHub Actions
+
+```yaml
+# .github/workflows/blue-green.yml
+name: Blue-Green Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to green
+        run: |
+          kubectl apply -f k8s/green-deployment.yaml
+          kubectl rollout status deployment/app-green --timeout=120s
+
+      - name: Smoke test green
+        run: |
+          GREEN_IP=$(kubectl get svc app-green -o jsonpath='{.spec.clusterIP}')
+          for i in $(seq 1 10); do
+            if curl -sf "http://$GREEN_IP:8080/health"; then
+              echo "Green healthy"
+              break
+            fi
+            sleep 5
+          done
+
+      - name: Switch traffic to green
+        run: |
+          kubectl patch svc app-active -p '{"spec":{"selector":{"version":"green"}}}'
+
+      - name: Verify production
+        run: |
+          sleep 30
+          if ! curl -sf https://api.example.com/health; then
+            kubectl patch svc app-active -p '{"spec":{"selector":{"version":"blue"}}}'
+            echo "Rollback triggered"
+            exit 1
+          fi
+
+      - name: Scale down blue
+        run: kubectl scale deployment app-blue --replicas=0
+```
+
+### Database Migration Strategy
+
+```python
+import psycopg2
+
+def expand_migrate(conn):
+    """Phase 1: Expand — add new columns, keep old ones."""
+    with conn.cursor() as cur:
+        cur.execute("""
+            ALTER TABLE users
+            ADD COLUMN IF NOT EXISTS email_v2 VARCHAR(255);
+        """)
+        cur.execute("""
+            UPDATE users SET email_v2 = email;
+        """)
+        conn.commit()
+
+def contract_migrate(conn):
+    """Phase 2: Contract — remove old columns after blue is decommissioned."""
+    with conn.cursor() as cur:
+        cur.execute("""
+            ALTER TABLE users DROP COLUMN IF EXISTS email;
+        """)
+        conn.commit()
+
+# Deploy sequence:
+# 1. Run expand_migrate (both blue and green work)
+# 2. Switch traffic to green
+# 3. After validation, run contract_migrate (only green uses new schema)
+```
+
+### Monitoring Script Post-Switch
+
+```bash
+#!/bin/bash
+# monitor-post-switch.sh
+
+DURATION=300  # 5 minutes
+INTERVAL=10
+END=$((SECONDS + DURATION))
+
+while [ $SECONDS -lt $END ]; do
+  STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.example.com/health)
+  LATENCY=$(curl -s -o /dev/null -w "%{time_total}" https://api.example.com/health)
+  ERROR_RATE=$(curl -s https://api.example.com/metrics | grep error_rate | awk '{print $2}')
+
+  echo "$(date -Iseconds) status=$STATUS latency=${LATENCY}s error_rate=$ERROR_RATE"
+
+  if [ "$STATUS" != "200" ] || (( $(echo "$ERROR_RATE > 0.01" | bc -l) )); then
+    echo "ALERT: Rolling back"
+    kubectl patch svc app-active -p '{"spec":{"selector":{"version":"blue"}}}'
+    exit 1
+  fi
+
+  sleep $INTERVAL
+done
+
+echo "Monitoring complete. Green is stable."
+```
+
+## Additional Best Practices
+
+1. **Pre-warm the green environment.** Send shadow traffic before the switch to JIT-compile code and warm caches:
+
+```bash
+# Mirror 10% of traffic to green for 2 minutes before full switch
+istioctl experimental envoy-config 2>&1 | grep mirror
+```
+
+2. **Tag Docker images with Git SHA, not just semver.** This makes rollback deterministic:
+
+```bash
+# Build and tag
+docker build -t myapp:$(git rev-parse --short HEAD) .
+# Deploy green with specific SHA
+kubectl set image deployment/app-green app=myapp:abc1234
+```
+
+3. **Use DNS TTL wisely.** Set TTL to 60 seconds or lower during deploy windows to ensure fast propagation:
+
+```bash
+# Route53 with low TTL for deploy window
+aws route53 change-resource-record-sets \
+  --hosted-zone-id Z123 \
+  --change-batch '{"Changes":[{"Action":"UPSERT","ResourceRecordSet":{"Name":"api.example.com","Type":"A","TTL":60,"ResourceRecords":[{"Value":"1.2.3.4"}]}}]}'
+```
+
+## Additional Common Mistakes
+
+1. **Not testing the rollback path.** A rollback that hasn't been tested will fail when you need it most:
+
+```bash
+# Include rollback test in staging
+./scripts/switch-traffic.sh green
+sleep 10
+./scripts/switch-traffic.sh blue  # verify rollback works
+```
+
+2. **Different instance sizes for blue and green.** Green must handle the same load as blue:
+
+```yaml
+# Both deployments must have identical resources
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: app
+        resources:
+          requests: { cpu: 500m, memory: 512Mi }
+          limits: { cpu: 1000m, memory: 1Gi }
+```
+
+3. **Switching without health checks.** Always verify green is healthy before switching:
+
+```bash
+# Check all green pods are ready
+READY=$(kubectl get deployment app-green -o jsonpath='{.status.readyReplicas}')
+DESIRED=$(kubectl get deployment app-green -o jsonpath='{.spec.replicas}')
+if [ "$READY" != "$DESIRED" ]; then
+  echo "Green not fully ready: $READY/$DESIRED"
+  exit 1
+fi
+```
+
+## Additional FAQ
+
+### How do I handle long-running WebSocket connections during a switch?
+
+Use a drain period. Stop accepting new connections on blue, wait for existing ones to close (with a timeout), then switch. For connections that exceed the timeout, send a reconnect signal so clients reconnect to green.
+
+### Should I use blue-green for microservices?
+
+Blue-green works well for individual services but gets expensive at the cluster level. For microservices, use canary deployments or feature flags instead. Blue-green is best for monolithic apps or critical services that need instant rollback.
+
+### How do I manage secrets across blue and green?
+
+Both environments should reference the same secret store (Vault, AWS Secrets Manager). Never duplicate secrets in environment-specific configs. The secret values are identical; only the code version differs.
+
+## Performance Tips
+
+1. **Scale blue down between deploys.** Keep blue at 1 replica to save costs while maintaining rollback capability:
+
+```bash
+kubectl scale deployment app-blue --replicas=1
+```
+
+2. **Use spot instances for the idle environment.** Green runs briefly during deploy; run it on cheaper spot instances:
+
+```yaml
+nodeSelector:
+  node-role.kubernetes.io/spot: "true"
+```
+
+3. **Cache the Docker image on all nodes.** Pre-pull the new image to avoid slow startup during switch:
+
+```yaml
+# Use a DaemonSet to pre-pull
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: image-pre-puller
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: pull
+        image: myapp:v2.0.0
+        command: ["true"]
+      containers:
+      - name: pause
+        image: gcr.io/google_containers/pause
+```

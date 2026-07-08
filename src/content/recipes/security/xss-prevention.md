@@ -157,3 +157,347 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Advanced Solutions
+
+### Context-aware escaping (Python)
+
+Different output contexts require different escaping rules. HTML body, attributes, JavaScript, and URLs each need specific handling:
+
+```python
+import html
+import urllib.parse
+import json
+
+
+def escape_for_html(text: str) -> str:
+    """Escape for HTML body context."""
+    return html.escape(text, quote=True)
+
+
+def escape_for_attribute(text: str) -> str:
+    """Escape for HTML attribute context."""
+    return html.escape(text, quote=True)
+
+
+def escape_for_javascript(text: str) -> str:
+    """Escape for JavaScript string context."""
+    # Use JSON encoding for safe JS string output
+    return json.dumps(text)
+
+
+def escape_for_url(text: str) -> str:
+    """Escape for URL parameter context."""
+    return urllib.parse.quote(text, safe='')
+
+
+def safe_output(value: str, context: str = "html") -> str:
+    """Apply context-appropriate escaping."""
+    escapers = {
+        "html": escape_for_html,
+        "attribute": escape_for_attribute,
+        "javascript": escape_for_javascript,
+        "url": escape_for_url,
+    }
+    escaper = escapers.get(context, escape_for_html)
+    return escaper(value)
+
+
+# Usage in a template
+user_name = '<script>alert("xss")</script>'
+user_url = 'javascript:alert(1)'
+user_data = '{"key":"value</script><script>alert(1)</script>"}'
+
+# HTML body
+print(f'<span>{safe_output(user_name, "html")}</span>')
+# <span>&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;</span>
+
+# Attribute
+print(f'<a title="{safe_output(user_name, "attribute")}">link</a>')
+# <a title="&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;">link</a>
+
+# JavaScript
+print(f'<script>var data = {safe_output(user_data, "javascript")};</script>')
+# <script>var data = "{\"key\":\"value</script><script>alert(1)</script>\"}";</script>
+
+# URL (also validate protocol)
+def safe_url(url: str) -> str:
+    """Validate URL protocol and escape."""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme not in ('http', 'https', 'mailto', ''):
+        return ''  # Block javascript:, data:, etc.
+    return escape_for_attribute(url)
+
+print(f'<a href="{safe_url(user_url)}">click</a>')
+# <a href="">click</a>  (javascript: blocked)
+```
+
+### DOMPurify with custom configuration
+
+For rich text editors, configure DOMPurify to allow specific tags while blocking dangerous ones:
+
+```javascript
+import DOMPurify from 'dompurify';
+
+// Custom config: allow links and formatting, block iframes and scripts
+const config = {
+  ALLOWED_TAGS: [
+    'p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li',
+    'blockquote', 'code', 'pre', 'h1', 'h2', 'h3',
+  ],
+  ALLOWED_ATTR: ['href', 'title', 'target', 'rel'],
+  ALLOW_DATA_ATTR: false,
+};
+
+// Add a hook to enforce rel="noopener noreferrer" on all links
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'A' && node.getAttribute('href')) {
+    node.setAttribute('rel', 'noopener noreferrer');
+    node.setAttribute('target', '_blank');
+  }
+});
+
+const dirty = `
+  <p>Hello <a href="javascript:alert(1)">click</a></p>
+  <iframe src="evil.com"></iframe>
+  <script>alert("xss")</script>
+  <img src=x onerror="alert(1)">
+`;
+
+const clean = DOMPurify.sanitize(dirty, config);
+// clean: <p>Hello <a target="_blank" rel="noopener noreferrer">click</a></p>
+// (iframe, script, img all removed; javascript: href stripped)
+```
+
+### Trusted Types API (Chrome/Edge)
+
+Trusted Types enforce that only sanitized values can be assigned to dangerous sinks like `innerHTML`:
+
+```javascript
+// Define a policy that sanitizes before insertion
+const sanitizerPolicy = trustedTypes.createPolicy('sanitizer', {
+  createHTML: (input) => DOMPurify.sanitize(input),
+});
+
+// Now innerHTML only accepts TrustedHTML, not raw strings
+// document.body.innerHTML = userInput; // TypeError in browsers with TT
+document.body.innerHTML = sanitizerPolicy.createHTML(userInput); // OK
+
+// Content-Security-Policy header to enforce:
+// Content-Security-Policy: require-trusted-types-for 'script';
+```
+
+### CSP with nonces for inline scripts
+
+When you need inline scripts, use per-request nonces instead of `unsafe-inline`:
+
+```python
+import secrets
+from flask import Flask, render_template_string
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    # Generate a unique nonce per request
+    nonce = secrets.token_urlsafe(16)
+    csp = (
+        f"default-src 'self'; "
+        f"script-src 'self' 'nonce-{nonce}'; "
+        f"style-src 'self' 'nonce-{nonce}'; "
+        f"img-src 'self' data: https:; "
+        f"connect-src 'self' https://api.example.com; "
+        f"object-src 'none'; "
+        f"base-uri 'self'"
+    )
+    response = app.make_response(render_template_string(
+        '''<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <style nonce="{{ nonce }}">
+                body { font-family: sans-serif; }
+            </style>
+        </head>
+        <body>
+            <h1>Hello</h1>
+            <script nonce="{{ nonce }}">
+                console.log("Safe inline script");
+            </script>
+        </body>
+        </html>''',
+        nonce=nonce
+    ))
+    response.headers['Content-Security-Policy'] = csp
+    return response
+```
+
+### Markdown rendering with sanitization
+
+When rendering user-submitted markdown, sanitize the HTML output:
+
+```javascript
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+
+// Configure marked to disable raw HTML
+marked.setOptions({
+  // Do not allow raw HTML pass-through
+  sanitize: false, // marked deprecated sanitize; use DOMPurify instead
+});
+
+function renderMarkdown(markdownText) {
+  // Step 1: Convert markdown to HTML
+  const rawHtml = marked.parse(markdownText);
+
+  // Step 2: Sanitize the HTML output
+  const cleanHtml = DOMPurify.sanitize(rawHtml, {
+    ALLOWED_TAGS: [
+      'p', 'br', 'strong', 'em', 'code', 'pre', 'a',
+      'ul', 'ol', 'li', 'blockquote', 'h1', 'h2', 'h3',
+      'table', 'thead', 'tbody', 'tr', 'th', 'td',
+    ],
+    ALLOWED_ATTR: ['href', 'title', 'rel', 'target'],
+  });
+
+  return cleanHtml;
+}
+
+// Usage
+const userInput = `
+## Hello <script>alert("xss")</script>
+
+[Click here](javascript:alert(1))
+
+\`\`\`javascript
+console.log("safe code block");
+\`\`\`
+`;
+
+const safe = renderMarkdown(userInput);
+// <h2>Hello </h2>
+// <p><a>Click here</a></p>
+// <pre><code class="language-javascript">console.log("safe code block");</code></pre>
+```
+
+## Additional Best Practices
+
+1. **Use `textContent` instead of `innerHTML` for plain text.** This is the simplest XSS prevention in vanilla JavaScript:
+
+```javascript
+// WRONG: vulnerable to XSS
+element.innerHTML = userInput;
+
+// CORRECT: treats input as plain text
+element.textContent = userInput;
+```
+
+2. **Set `X-Content-Type-Options: nosniff` on all responses.** This prevents browsers from MIME-sniffing responses as executable:
+
+```javascript
+// Express middleware
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  next();
+});
+```
+
+## Additional Common Mistakes
+
+1. **Trusting `data:` URLs in image src.** `data:` URLs can contain HTML or SVG with embedded scripts. Validate image URLs against an allowlist of protocols:
+
+```javascript
+function safeImageSrc(url) {
+  const allowed = /^https?:\/\/|^\/[^/]/;
+  if (!allowed.test(url)) {
+    return '/images/placeholder.png';
+  }
+  return url;
+}
+
+// Block: data:text/html,<script>alert(1)</script>
+// Block: javascript:alert(1)
+// Allow: https://cdn.example.com/image.png
+// Allow: /images/avatar.png
+```
+
+2. **Sanitizing on the client only.** If you sanitize HTML in the browser but store the raw input server-side, an attacker can bypass the client sanitizer and submit raw HTML directly to the API. Always sanitize server-side before storage:
+
+```python
+import bleach
+
+def sanitize_html(content: str) -> str:
+    """Server-side HTML sanitization using bleach."""
+    return bleach.clean(
+        content,
+        tags={'p', 'br', 'strong', 'em', 'a', 'ul', 'ol', 'li', 'code', 'pre'},
+        attributes={'a': ['href', 'title', 'rel', 'target']},
+        protocols=['https', 'http', 'mailto'],
+        strip=True,
+    )
+
+# Flask route
+@app.route('/api/comment', methods=['POST'])
+def post_comment():
+    raw_content = request.json.get('content', '')
+    safe_content = sanitize_html(raw_content)
+    # Store safe_content in database
+    db.save_comment(safe_content)
+    return jsonify({'success': True})
+```
+
+## Additional FAQ
+
+### How do I test for XSS vulnerabilities?
+
+Use automated scanners and manual testing. Inject common payloads and verify they are escaped:
+
+```javascript
+// Test payloads to try in input fields
+const xssPayloads = [
+  '<script>alert(1)</script>',
+  '"><script>alert(1)</script>',
+  "';alert(1);//",
+  '<img src=x onerror=alert(1)>',
+  '<svg onload=alert(1)>',
+  'javascript:alert(1)',
+  '<iframe src=javascript:alert(1)>',
+  '"><img src=x onerror=alert(1)>',
+];
+
+// Automated test with Playwright
+import { test, expect } from '@playwright/test';
+
+test('comment field escapes XSS', async ({ page }) => {
+  await page.goto('/posts/1');
+  for (const payload of xssPayloads) {
+    await page.fill('[name=comment]', payload);
+    await page.click('button[type=submit]');
+    // Verify the payload is displayed as text, not executed
+    const bodyText = await page.textContent('body');
+    expect(bodyText).toContain(payload);
+    // Verify no alert dialog was triggered
+    page.on('dialog', dialog => {
+      throw new Error(`XSS triggered with payload: ${payload}`);
+    });
+  }
+});
+```
+
+### What is mutation XSS and how do I prevent it?
+
+Mutation XSS occurs when the browser's HTML parser reinterprets sanitized HTML differently than the sanitizer expected. This can happen with mXSS vectors in `innerHTML` assignments. To prevent it:
+
+- Use DOMPurify, which handles mXSS vectors
+- Avoid `innerHTML` for user content — use `textContent` or framework auto-escaping
+- Set a strict CSP that blocks inline scripts even if mXSS bypasses sanitization
+
+### Should I use `Subresource Integrity (SRI)` for third-party scripts?
+
+Yes. SRI ensures that a third-party script has not been tampered with. If the hash doesn't match, the browser refuses to execute it:
+
+```html
+<script src="https://cdn.example.com/library.js"
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+        crossorigin="anonymous"></script>
+```

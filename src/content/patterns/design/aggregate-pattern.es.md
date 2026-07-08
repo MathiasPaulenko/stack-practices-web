@@ -286,3 +286,209 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+## Soluciones Avanzadas
+
+### Aggregate event-sourced con eventos de dominio
+
+Reconstruye el estado del aggregate desde un stream de eventos en lugar de almacenar el estado actual:
+
+```python
+from dataclasses import dataclass
+from typing import List
+from datetime import datetime
+import uuid
+
+@dataclass(frozen=True)
+class DomainEvent:
+    event_id: str
+    aggregate_id: str
+    event_type: str
+    occurred_at: datetime
+    data: dict
+
+@dataclass(frozen=True)
+class OrderCreated(DomainEvent):
+    pass
+
+@dataclass(frozen=True)
+class OrderLineAdded(DomainEvent):
+    pass
+
+class OrderAggregate:
+    def __init__(self, customer_id: str):
+        self.id = str(uuid.uuid4())
+        self.customer_id = customer_id
+        self.lines = []
+        self.status = "pending"
+        self.version = 0
+        self._uncommitted_events: List[DomainEvent] = []
+
+    def add_line(self, product_id: str, quantity: int, unit_price: float):
+        if self.status != "pending":
+            raise ValueError("No se puede modificar pedido enviado")
+        
+        event = OrderLineAdded(
+            event_id=str(uuid.uuid4()),
+            aggregate_id=self.id,
+            event_type="OrderLineAdded",
+            occurred_at=datetime.now(),
+            data={"product_id": product_id, "quantity": quantity, "unit_price": unit_price}
+        )
+        self._apply_event(event)
+        self._uncommitted_events.append(event)
+        self.version += 1
+
+    def _apply_event(self, event: DomainEvent):
+        """Reconstruye estado desde evento."""
+        if event.event_type == "OrderLineAdded":
+            self.lines.append((event.data["product_id"], event.data["quantity"], event.data["unit_price"]))
+
+    def get_uncommitted_events(self) -> List[DomainEvent]:
+        """Retorna eventos no persistidos aún."""
+        return self._uncommitted_events.copy()
+
+    def mark_events_as_committed(self):
+        """Limpia eventos no comprometidos después de persistencia."""
+        self._uncommitted_events.clear()
+
+    @classmethod
+    def rebuild_from_events(cls, events: List[DomainEvent]) -> "OrderAggregate":
+        """Rehidrata aggregate desde stream de eventos."""
+        # Encontrar evento OrderCreated para inicializar
+        created = next(e for e in events if e.event_type == "OrderCreated")
+        aggregate = cls(created.data["customer_id"])
+        aggregate.id = created.aggregate_id
+        
+        # Aplicar todos los eventos en orden
+        for event in events:
+            if event.event_type != "OrderCreated":
+                aggregate._apply_event(event)
+                aggregate.version += 1
+        
+        return aggregate
+```
+
+### Aggregate con optimización de snapshot para event sourcing
+
+Almacena snapshots periódicos para evitar reprocesar todos los eventos:
+
+```python
+from dataclasses import dataclass
+import json
+
+@dataclass
+class AggregateSnapshot:
+    aggregate_id: str
+    version: int
+    state: dict
+
+class OrderAggregate:
+    # ... (código anterior)
+    
+    def to_snapshot(self) -> AggregateSnapshot:
+        """Crea snapshot del estado actual."""
+        return AggregateSnapshot(
+            aggregate_id=self.id,
+            version=self.version,
+            state={
+                "customer_id": self.customer_id,
+                "lines": self.lines,
+                "status": self.status
+            }
+        )
+
+    @classmethod
+    def from_snapshot(cls, snapshot: AggregateSnapshot, events: List[DomainEvent]) -> "OrderAggregate":
+        """Reconstruye desde snapshot y eventos después del snapshot."""
+        aggregate = cls(snapshot.state["customer_id"])
+        aggregate.id = snapshot.aggregate_id
+        aggregate.lines = snapshot.state["lines"]
+        aggregate.status = snapshot.state["status"]
+        aggregate.version = snapshot.version
+        
+        # Aplicar solo eventos después de versión del snapshot
+        for event in events:
+            if event.event_type != "OrderCreated":
+                aggregate._apply_event(event)
+                aggregate.version += 1
+        
+        return aggregate
+```
+
+### Aggregate con control de concurrencia optimista
+
+Detecta y maneja modificaciones concurrentes usando números de versión:
+
+```python
+class ConcurrencyError(Exception):
+    pass
+
+class OrderAggregate:
+    # ... (código anterior con campo versión)
+    
+    def add_line(self, product_id: str, quantity: int, unit_price: float, expected_version: int):
+        if self.version != expected_version:
+            raise ConcurrencyError(f"Se esperaba versión {expected_version}, pero actual es {self.version}")
+        
+        if self.status != "pending":
+            raise ValueError("No se puede modificar pedido enviado")
+        
+        self.lines.append((product_id, quantity, unit_price))
+        self.version += 1
+
+# Uso en servicio de aplicación
+try:
+    order.add_line("prod-1", 2, 9.99, expected_version=order.version)
+    repository.save(order)
+except ConcurrencyError:
+    # Manejar conflicto: recargar aggregate, reintentar, o notificar usuario
+    pass
+```
+
+## Mejores Practicas Adicionales
+
+1. **Diseña aggregates alrededor de invariantes de negocio.** El límite del aggregate debe alinearse con requisitos de consistencia transaccional. Si una regla de negocio requiere que múltiples objetos cambien atómicamente, pertenecen al mismo aggregate.
+
+2. **Usa eventos de dominio para comunicar cambios de estado.** Cuando un aggregate cambia, emite un evento de dominio para notificar a otros aggregates o bounded contexts. Esto desacopla aggregates mientras mantiene consistencia eventual.
+
+```python
+class OrderAggregate:
+    # ... (código anterior)
+    
+    def submit(self):
+        if not self.lines:
+            raise ValueError("No se puede enviar pedido vacío")
+        self.status = "submitted"
+        self.version += 1
+        
+        # Emitir evento de dominio
+        event = OrderSubmitted(
+            event_id=str(uuid.uuid4()),
+            aggregate_id=self.id,
+            event_type="OrderSubmitted",
+            occurred_at=datetime.now(),
+            data={"customer_id": self.customer_id, "total": self.total()}
+        )
+        self._uncommitted_events.append(event)
+```
+
+## Errores Comunes Adicionales
+
+1. **Mezclar concerns en aggregates.** Los aggregates deben contener solo lógica de dominio. Concerns de infraestructura como persistencia, validación para sistemas externos, o lógica de notificación pertenecen a servicios de aplicación, no al aggregate.
+
+2. **Mantener referencias a otros aggregates.** Referencias directas de objetos entre aggregates rompen el límite y causan cascadas de carga. Siempre referencia otros aggregates solo por ID. Cárgalos lazy cuando se necesiten.
+
+## FAQs Adicionales
+
+### ¿Cómo manejo validación entre aggregates?
+
+La validación cross-aggregate se maneja vía eventos de dominio y consistencia eventual. Por ejemplo, para asegurar que un cliente tenga crédito suficiente antes de enviar un pedido, el aggregate de pedido emite un evento `OrderSubmitted`. Un bounded context de verificación de crédito escucha este evento y aprueba o rechaza el pedido asíncronamente. El estado del pedido se actualiza vía otro evento.
+
+### ¿Deben ser los aggregates inmutables?
+
+No. Los aggregates son mutables dentro de su límite. Los métodos de la aggregate root modifican estado interno. Sin embargo, los value objects dentro del aggregate deben ser inmutables. Esto previene que referencias compartidas causen efectos secundarios inesperados.
+
+### ¿Cómo pruebo aggregates?
+
+Prueba aggregates verificando que los invariantes se cumplan y que las reglas de negocio produzcan los cambios de estado esperados. Usa tests unitarios que llaman métodos del aggregate y asercionan el estado resultante o eventos emitidos. Evita probar lógica de persistencia en tests de aggregates; eso pertenece a tests de repositorio.

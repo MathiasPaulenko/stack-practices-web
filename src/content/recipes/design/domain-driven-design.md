@@ -231,14 +231,316 @@ A: A domain service contains business logic that does not belong to any entity (
 A: No. Event sourcing stores state as a sequence of events. It is capable for audit-heavy domains but adds major complexity. Start with standard persistence and domain events. Only adopt event sourcing if you genuinely need complete audit trails, temporal queries, or event replay capabilities.
 
 
+### Repository Pattern with Unit of Work (Python)
+
+```python
+from abc import ABC, abstractmethod
+from typing import Optional
+
+class OrderRepository(ABC):
+    @abstractmethod
+    async def get_by_id(self, order_id: UUID) -> Optional[Order]: ...
+    @abstractmethod
+    async def save(self, order: Order) -> None: ...
+    @abstractmethod
+    async def delete(self, order: Order) -> None: ...
+
+class SqlOrderRepository(OrderRepository):
+    def __init__(self, session: AsyncSession):
+        self._session = session
+
+    async def get_by_id(self, order_id: UUID) -> Optional[Order]:
+        row = await self._session.get(OrderModel, str(order_id))
+        if row is None:
+            return None
+        return self._to_domain(row)
+
+    async def save(self, order: Order) -> None:
+        model = self._to_orm(order)
+        await self._session.merge(model)
+
+    async def delete(self, order: Order) -> None:
+        await self._session.delete(
+            await self._session.get(OrderModel, str(order.id))
+        )
+
+class UnitOfWork(ABC):
+    order_repository: OrderRepository
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is None:
+            await self.commit()
+        else:
+            await self.rollback()
+
+    @abstractmethod
+    async def commit(self): ...
+    @abstractmethod
+    async def rollback(self): ...
+
+# Application service — orchestrates use case
+class OrderApplicationService:
+    def __init__(self, uow_factory: Callable[[], UnitOfWork]):
+        self._uow_factory = uow_factory
+
+    async def submit_order(self, order_id: UUID) -> None:
+        async with self._uow_factory() as uow:
+            order = await uow.order_repository.get_by_id(order_id)
+            if order is None:
+                raise ValueError(f"Order {order_id} not found")
+            order.submit()
+            await uow.order_repository.save(order)
+            # Events are dispatched after commit
+```
+
+### Domain Service for Cross-Aggregate Logic (TypeScript)
+
+```typescript
+class PricingService {
+  constructor(
+    private productRepo: ProductRepository,
+    private discountRepo: DiscountRepository
+  ) {}
+
+  calculateTotal(
+    items: OrderItem[],
+    customerId: CustomerId
+  ): Money {
+    let total = Money.zero('USD');
+
+    for (const item of items) {
+      const product = this.productRepo.findById(item.productId);
+      if (!product) throw new Error(`Product ${item.productId} not found`);
+
+      const basePrice = product.price.multiply(item.quantity);
+      const discount = this.discountRepo.findActiveDiscount(
+        customerId,
+        product.category
+      );
+
+      const finalPrice = discount
+        ? basePrice.subtract(basePrice.multiply(discount.percentage))
+        : basePrice;
+
+      total = total.add(finalPrice);
+    }
+
+    return total;
+  }
+}
+
+// Usage — domain service handles logic spanning multiple aggregates
+const pricingService = new PricingService(productRepo, discountRepo);
+const total = pricingService.calculateTotal(order.items, order.customerId);
+```
+
+### Specification Pattern for Domain Rules (TypeScript)
+
+```typescript
+interface Specification<T> {
+  isSatisfiedBy(candidate: T): boolean;
+  and(other: Specification<T>): Specification<T>;
+  or(other: Specification<T>): Specification<T>;
+  not(): Specification<T>;
+}
+
+class AndSpecification<T> implements Specification<T> {
+  constructor(private left: Specification<T>, private right: Specification<T>) {}
+
+  isSatisfiedBy(candidate: T): boolean {
+    return this.left.isSatisfiedBy(candidate) && this.right.isSatisfiedBy(candidate);
+  }
+
+  and(other: Specification<T>): Specification<T> {
+    return new AndSpecification(this, other);
+  }
+
+  or(other: Specification<T>): Specification<T> {
+    return new OrSpecification(this, other);
+  }
+
+  not(): Specification<T> {
+    return new NotSpecification(this);
+  }
+}
+
+class OrderCanBeCancelledSpec implements Specification<Order> {
+  isSatisfiedBy(order: Order): boolean {
+    return order.status === 'submitted' && !order.hasShipped();
+  }
+
+  and(other: Specification<Order>): Specification<Order> {
+    return new AndSpecification(this, other);
+  }
+
+  or(other: Specification<Order>): Specification<Order> {
+    return new OrSpecification(this, other);
+  }
+
+  not(): Specification<Order> {
+    return new NotSpecification(this);
+  }
+}
+
+// Usage — compose business rules declaratively
+const canCancel = new OrderCanBeCancelledSpec()
+  .and(new OrderNotPaidSpec());
+
+if (canCancel.isSatisfiedBy(order)) {
+  order.cancel();
+}
+```
+
+## Additional Best Practices
+
+1. **Use factory methods on aggregates for creation.** Instead of calling `new Order()` directly, use a static factory that enforces invariants at construction:
+
+```typescript
+class Order {
+  private constructor(
+    public readonly id: OrderId,
+    public readonly customerId: CustomerId
+  ) {}
+
+  static create(customerId: CustomerId): Order {
+    return new Order(OrderId.generate(), customerId);
+  }
+
+  static reconstitute(id: OrderId, customerId: CustomerId, items: OrderLine[]): Order {
+    const order = new Order(id, customerId);
+    order._items = items;
+    return order;
+  }
+}
+```
+
+2. **Map between domain and persistence models.** Keep ORM models separate from domain entities to avoid leaking persistence concerns:
+
+```typescript
+class OrderMapper {
+  toDomain(orm: OrderModel): Order {
+    return Order.reconstitute(
+      new OrderId(orm.id),
+      new CustomerId(orm.customerId),
+      orm.lines.map(l => new OrderLine(l.productId, l.quantity, new Money(l.price, l.currency)))
+    );
+  }
+
+  toOrm(domain: Order): OrderModel {
+    return {
+      id: domain.id.value,
+      customerId: domain.customerId.value,
+      status: domain.status,
+      lines: domain.items.map(item => ({
+        productId: item.productId.value,
+        quantity: item.quantity,
+        price: item.unitPrice.amount,
+        currency: item.unitPrice.currency,
+      })),
+    };
+  }
+}
+```
+
+3. **Use domain events for cross-context communication.** Keep contexts decoupled by publishing events rather than calling other contexts directly:
+
+```typescript
+class OrderSubmittedHandler {
+  constructor(private inventoryRepo: InventoryRepository) {}
+
+  async handle(event: OrderSubmittedEvent): Promise<void> {
+    for (const item of event.items) {
+      const stock = await this.inventoryRepo.findByProductId(item.productId);
+      stock.reserve(item.quantity);
+      await this.inventoryRepo.save(stock);
+    }
+  }
+}
+```
+
+## Additional Common Mistakes
+
+1. **Aggregate references between aggregates.** One aggregate should not hold a direct reference to another aggregate. Use IDs instead:
+
+```typescript
+// Bad: Order holds reference to Customer aggregate
+class Order {
+  customer: Customer; // loading Order loads Customer too
+}
+
+// Good: Order holds CustomerId
+class Order {
+  customerId: CustomerId; // resolve Customer separately if needed
+}
+```
+
+2. **Putting business logic in application services.** Application services should orchestrate, not contain rules:
+
+```typescript
+// Bad: business rule in application service
+class OrderService {
+  async submit(orderId: UUID) {
+    const order = await this.repo.get(orderId);
+    if (order.items.length === 0) throw new Error("Empty order"); // rule in wrong place
+    order.status = 'submitted'; // direct state mutation
+    await this.repo.save(order);
+  }
+}
+
+// Good: rule lives in aggregate
+class OrderService {
+  async submit(orderId: UUID) {
+    const order = await this.repo.get(orderId);
+    order.submit(); // aggregate enforces its own rules
+    await this.repo.save(order);
+  }
+}
+```
+
+3. **Ignoring bounded context boundaries in code.** If the order context and shipping context share a single codebase, enforce boundaries with module structure:
+
+```
+src/
+  ordering/
+    domain/
+    application/
+    infrastructure/
+  shipping/
+    domain/
+    application/
+    infrastructure/
+  shared/          # shared kernel only
+```
+
+## Additional FAQ
+
+### How do I handle eventual consistency between aggregates?
+
+Use domain events with an outbox pattern. Store events in the same transaction as the aggregate, then publish them asynchronously:
+
+```python
+async def submit_order(order_id: UUID, uow: UnitOfWork):
+    async with uow as uow:
+        order = await uow.orders.get_by_id(order_id)
+        order.submit()
+        await uow.orders.save(order)
+        # Save events in outbox table (same transaction)
+        for event in order.domain_events:
+            await uow.outbox.save(event)
+        order.clear_events()
+```
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. The value object, aggregate, repository, and domain service patterns are all production-proven in enterprise applications. The Python examples mirror patterns used in production codebases with SQLAlchemy and asyncpg. The TypeScript examples reflect patterns used with TypeORM and Prisma. The Java example follows standard DDD implementation patterns used in Spring applications.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Aggregate loading is O(1) for single-table aggregates, O(n) for aggregates with n child entities. Repository queries are as fast as the underlying database. The specification pattern adds one method call per rule check — negligible. Domain event publishing adds overhead proportional to the number of subscribers. The outbox pattern adds one extra table write per transaction. For high-throughput systems, consider read models and CQRS to separate read and write paths.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Log every aggregate state transition with the aggregate ID, previous state, and new state. For domain events, log the event type, aggregate ID, and timestamp. Use the specification pattern to make rule evaluation traceable — log which specs passed and failed. For cross-context issues, trace events from publication to handling. Test aggregates in isolation with in-memory repositories to isolate domain logic bugs from persistence issues.

@@ -193,8 +193,8 @@ Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 El graceful shutdown es un proceso de tres fases:
 
 1. **Recepción de señal**: El SO o runtime de contenedor envía `SIGTERM` (o `SIGINT` localmente). Tu aplicación debe interceptarla en lugar de salir inmediatamente.
-2. **Drenado**: Establece una bandera de health-check a `shutting-down` (devolviendo HTTP 503) para que el balanceador deje de enviar nuevo tráfico. Termina peticiones en vuelo dentro de una ventana de timeout.
-3. **Limpieza**: Cierra pools de base de datos, vacía logs/métricas, libera bloqueos y sale.
+1. **Drenado**: Establece una bandera de health-check a `shutting-down` (devolviendo HTTP 503) para que el balanceador deje de enviar nuevo tráfico. Termina peticiones en vuelo dentro de una ventana de timeout.
+1. **Limpieza**: Cierra pools de base de datos, vacía logs/métricas, libera bloqueos y sale.
 
 **Despliegues sin downtime** dependen del orquestador (Kubernetes, AWS ECS) ejecutando los pods viejo y nuevo concurrentemente. El pod viejo recibe `SIGTERM`, drena y sale solo después de que el nuevo pase readiness checks.
 
@@ -220,10 +220,10 @@ El graceful shutdown es un proceso de tres fases:
 ## Errores Comunes
 
 1. **Salir inmediatamente al recibir SIGTERM** — mata peticiones en vuelo; siempre drena primero
-2. **No cambiar readiness del health-check** — el balanceador sigue enrutando a un pod moribundo
-3. **Bloquear el shutdown hook** — los hooks de shutdown corren en paralelo; usa un latch o executor single-threaded para secuenciar limpieza
-4. **No cerrar el pool de conexiones de base de datos** — conexiones fugadas causan que el siguiente inicio falle con "demasiadas conexiones"
-5. **Ignorar el preStop hook** — Kubernetes puede enviar SIGTERM antes de que el pod sea removido de los endpoints del servicio; un `sleep 5` en preStop previene esta carrera
+1. **No cambiar readiness del health-check** — el balanceador sigue enrutando a un pod moribundo
+1. **Bloquear el shutdown hook** — los hooks de shutdown corren en paralelo; usa un latch o executor single-threaded para secuenciar limpieza
+1. **No cerrar el pool de conexiones de base de datos** — conexiones fugadas causan que el siguiente inicio falle con "demasiadas conexiones"
+1. **Ignorar el preStop hook** — Kubernetes puede enviar SIGTERM antes de que el pod sea removido de los endpoints del servicio; un `sleep 5` en preStop previene esta carrera
 
 ## Preguntas Frecuentes
 
@@ -238,3 +238,290 @@ Al menos tan largo como tu endpoint o timeout de job más lento. Para APIs HTTP,
 ### ¿Puedo lograr zero-downtime sin Kubernetes?
 
 Sí. Usa un reverse proxy (Nginx, HAProxy) o service mesh (Envoy) con health checks. Despliega nuevas instancias, caliéntalas, luego drena y remueve instancias viejas. Los despliegues blue/green y rolling son posibles con cualquier balanceador de carga.
+
+### Go HTTP Server con Context Cancellation
+
+```go
+package main
+
+import (
+    "context"
+    "log"
+    "net/http"
+    "os"
+    "os/signal"
+    "syscall"
+    "time"
+)
+
+func main() {
+    srv := &http.Server{
+        Addr:         ":8080",
+        Handler:      http.HandlerFunc(handler),
+        ReadTimeout:  10 * time.Second,
+        WriteTimeout: 30 * time.Second,
+    }
+
+    go func() {
+        log.Println("Server starting on :8080")
+        if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+            log.Fatalf("Server failed: %v", err)
+        }
+    }()
+
+    // Esperar señal de interrupción
+    quit := make(chan os.Signal, 1)
+    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+    <-quit
+    log.Println("Shutdown signal received, draining...")
+
+    // Dar 30 segundos a requests pendientes
+    ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+    defer cancel()
+
+    if err := srv.Shutdown(ctx); err != nil {
+        log.Printf("Server forced to shutdown: %v", err)
+    }
+
+    // Cerrar conexiones de base de datos, flush buffers
+    cleanupResources()
+
+    log.Println("Server exited gracefully")
+}
+
+func cleanupResources() {
+    log.Println("Cleaning up resources...")
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    time.Sleep(100 * time.Millisecond)
+    w.WriteHeader(http.StatusOK)
+    w.Write([]byte("OK"))
+}
+```
+
+### Detalle de Kubernetes PreStop Hook
+
+```yaml
+# deployment.yaml
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - |
+                    # Marcar como not ready
+                    curl -X POST http://localhost:8080/admin/shutdown
+                    # Esperar a que el endpoint controller remueva el pod del Service
+                    sleep 10
+      terminationGracePeriodSeconds: 45  # Debe ser > preStop + drain time
+```
+
+### Configuración de Nginx Upstream Drain
+
+```nginx
+# nginx.conf
+upstream backend {
+    server 10.0.1.10:8080 max_fails=3 fail_timeout=10s;
+    server 10.0.1.11:8080 max_fails=3 fail_timeout=10s;
+
+    # Slow start para nuevas instancias
+    server 10.0.1.12:8080 slow_start=30s;
+}
+
+# Health check para detectar instancias drenando
+location /health {
+    proxy_pass http://backend;
+    proxy_next_upstream error timeout http_502 http_503;
+    proxy_connect_timeout 2s;
+    proxy_read_timeout 5s;
+}
+```
+
+### Python (uvicorn) Graceful Shutdown
+
+```python
+import signal
+import asyncio
+from contextlib import asynccontextmanager
+
+shutdown_event = asyncio.Event()
+
+@asynccontextmanager
+async def lifespan(app):
+    # Startup
+    print("Starting up...")
+    yield
+    # Shutdown
+    print("Draining connections...")
+    await asyncio.sleep(5)  # Dejar que requests en vuelo terminen
+    print("Closing resources...")
+    await close_db_pool()
+    print("Shutdown complete")
+
+def handle_sigterm(signum, frame):
+    print(f"Received signal {signum}, initiating shutdown...")
+    shutdown_event.set()
+
+signal.signal(signal.SIGTERM, handle_sigterm)
+signal.signal(signal.SIGINT, handle_sigterm)
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Loguea eventos de shutdown con timestamps.** Ayuda a diagnosticar shutdowns lentos:
+
+```python
+import logging
+import time
+
+logger = logging.getLogger(__name__)
+
+def on_shutdown():
+    logger.info("shutdown_initiated", extra={
+        "timestamp": time.time(),
+        "in_flight_requests": get_active_request_count(),
+    })
+```
+
+1. **Usa una readiness probe separada de liveness.** Durante shutdown, falla readiness pero mantiene liveness:
+
+```yaml
+# readiness falla primero, removiendo pod del Service
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+  failureThreshold: 1
+  periodSeconds: 2
+
+# liveness se mantiene para que kubelet no reinicie durante drain
+livenessProbe:
+  httpGet:
+    path: /alive
+    port: 8080
+  periodSeconds: 10
+```
+
+## Errores Comunes Adicionales
+
+1. **No setear `terminationGracePeriodSeconds` lo suficientemente alto.** Si tu drain toma 20s y el default es 30s, solo tienes 10s de buffer:
+
+```yaml
+# Calcular: drain_time + preStop_sleep + buffer
+terminationGracePeriodSeconds: 45  # 20s drain + 10s preStop + 15s buffer
+```
+
+1. **Olvidar cerrar consumers de message queue.** Los consumers siguen pullando mensajes durante shutdown:
+
+```python
+def graceful_shutdown(consumer):
+    # Dejar de aceptar mensajes nuevos
+    consumer.stop_consuming()
+    # Procesar mensajes en vuelo restantes
+    consumer.wait_for_messages(timeout=10)
+    # Cerrar conexión
+    consumer.close()
+```
+
+## FAQ
+
+### ¿Cómo pruebo graceful shutdown en CI?
+
+Usa una prueba de carga con inyección de SIGTERM:
+
+```bash
+#!/bin/bash
+# ci/test-graceful-shutdown.sh
+start_server &
+SERVER_PID=$!
+sleep 2  # Esperar startup
+
+# Iniciar prueba de carga en background
+vegeta attack -duration=30s -rate=100 | vegeta report &
+LOAD_PID=$!
+
+# Enviar SIGTERM después de 10s
+sleep 10
+kill -TERM $SERVER_PID
+
+# Esperar a que termine la prueba de carga
+wait $LOAD_PID
+
+# Verificar resultados: success rate debe ser 100%
+vegeta attack -duration=30s -rate=100 | vegeta report | grep -q "100.00%"
+```
+
+### ¿Debo drenar conexiones o solo dejar de aceptar nuevas?
+
+Ambos. Primero dejar de aceptar conexiones nuevas (cerrar listener), luego esperar que requests en vuelo terminen. Setear un timeout hard para forzar-kill de requests largos:
+
+```javascript
+server.close(() => {
+    console.log("All connections closed");
+});
+
+// Forzar cierre después de 30s
+setTimeout(() => {
+    console.error("Force closing remaining connections");
+    process.exit(1);
+}, 30000);
+```
+
+## Tips de Rendimiento
+
+1. **Usa connection draining, no cierre abrupto.** Cierre abrupto causa errores y retries en el cliente:
+
+```nginx
+# Nginx: drenar por 30s antes de cerrar
+worker_shutdown_timeout 30s;
+```
+
+1. **Paraleliza tareas de cleanup.** Cierra DB, cache y MQ simultáneamente:
+
+```python
+import concurrent.futures
+
+def cleanup_all():
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        futures = [
+            executor.submit(close_db_pool),
+            executor.submit(close_redis),
+            executor.submit(close_mq),
+        ]
+        concurrent.futures.wait(futures, timeout=10)
+```
+
+1. **Trackea requests en vuelo.** Usa un contador para saber cuándo el drain está completo:
+
+```go
+var inFlight int32
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    atomic.AddInt32(&inFlight, 1)
+    defer atomic.AddInt32(&inFlight, -1)
+    // ... handle request
+}
+
+func shutdown() {
+    for atomic.LoadInt32(&inFlight) > 0 {
+        time.Sleep(100 * time.Millisecond)
+    }
+}
+```
+
+1. **Usa `SO_REUSEPORT` para restarts zero-downtime.** Procesos nuevos y viejos comparten el puerto durante el handoff:
+
+```python
+# Python con SO_REUSEPORT
+import socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+sock.bind(("0.0.0.0", 8080))
+```

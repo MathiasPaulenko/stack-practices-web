@@ -290,3 +290,216 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+## Soluciones Avanzadas
+
+### Carga dinámica de plugins con Python entry points
+
+El mecanismo de `entry_points` de Python permite que los plugins se descubran automáticamente desde paquetes instalados:
+
+```python
+# plugin_interface.py
+from abc import ABC, abstractmethod
+
+class FormatterPlugin(ABC):
+    @abstractmethod
+    def name(self) -> str:
+        pass
+
+    @abstractmethod
+    def format(self, data: dict) -> str:
+        pass
+
+# plugin_loader.py
+import importlib.metadata
+
+class PluginLoader:
+    def __init__(self, entry_point_group: str):
+        self.entry_point_group = entry_point_group
+
+    def load_plugins(self) -> dict[str, FormatterPlugin]:
+        """Carga todos los plugins registrados bajo el grupo de entry point."""
+        plugins = {}
+        for entry_point in importlib.metadata.entry_points():
+            if entry_point.group == self.entry_point_group:
+                plugin_class = entry_point.load()
+                plugin_instance = plugin_class()
+                plugins[plugin_instance.name()] = plugin_instance
+        return plugins
+
+# Uso
+loader = PluginLoader("myapp.formatters")
+plugins = loader.load_plugins()
+for name, plugin in plugins.items():
+    print(f"Cargado: {name}")
+```
+
+Los paquetes de plugins definen sus entry points en `setup.py` o `pyproject.toml`:
+
+```toml
+[project.entry-points."myapp.formatters"]
+json_formatter = "myplugin.formatters:JsonFormatter"
+xml_formatter = "myplugin.formatters:XmlFormatter"
+```
+
+### Plugins hot-reloadable con JavaScript ES modules
+
+Carga y recarga plugins dinámicamente en runtime sin reiniciar el host:
+
+```javascript
+class HotReloadablePluginRegistry {
+  constructor(pluginDir) {
+    this.pluginDir = pluginDir;
+    this.plugins = new Map();
+    this.watchers = new Map();
+  }
+
+  async loadPlugin(pluginName) {
+    const pluginPath = `${this.pluginDir}/${pluginName}.js`;
+    const moduleUrl = new URL(pluginPath, import.meta.url);
+    
+    // Limpia el cache de módulos para hot reload
+    const cacheKey = moduleUrl.href;
+    if (import.meta.resolve) {
+      try {
+        const resolved = await import.meta.resolve(pluginPath);
+        delete require.cache[resolved];
+      } catch (e) {
+        // Ignora si no está en Node.js
+      }
+    }
+
+    const module = await import(moduleUrl);
+    const plugin = new module.default();
+    this.plugins.set(pluginName, plugin);
+    return plugin;
+  }
+
+  async reloadPlugin(pluginName) {
+    const plugin = await this.loadPlugin(pluginName);
+    console.log(`Recargado plugin: ${pluginName}`);
+    return plugin;
+  }
+
+  async loadAll() {
+    const pluginFiles = await Deno.readDir(this.pluginDir);
+    for await (const entry of pluginFiles) {
+      if (entry.name.endsWith('.js')) {
+        const name = entry.name.replace('.js', '');
+        await this.loadPlugin(name);
+      }
+    }
+  }
+}
+
+// Uso
+const registry = new HotReloadablePluginRegistry('./plugins');
+await registry.loadAll();
+await registry.reloadPlugin('json_formatter');
+```
+
+### Sandbox de plugins con Web Workers
+
+Aísla plugins en Web Workers separados para prevenir crashes y enforce boundaries de seguridad:
+
+```javascript
+// host.js
+class SandboxPluginRegistry {
+  constructor() {
+    this.workers = new Map();
+  }
+
+  async registerPlugin(pluginPath) {
+    const worker = new Worker(pluginPath, { type: 'module' });
+    this.workers.set(pluginPath, worker);
+    
+    worker.onmessage = (event) => {
+      const { id, result, error } = event.data;
+      this.pendingCalls.get(id)?.resolve(result || error);
+    };
+    
+    return worker;
+  }
+
+  async callPlugin(pluginPath, method, ...args) {
+    const worker = this.workers.get(pluginPath);
+    const id = crypto.randomUUID();
+    
+    return new Promise((resolve) => {
+      this.pendingCalls.set(id, { resolve });
+      worker.postMessage({ id, method, args });
+    });
+  }
+}
+
+// plugin.worker.js
+self.onmessage = async (event) => {
+  const { id, method, args } = event.data;
+  try {
+    const result = await plugin[method](...args);
+    self.postMessage({ id, result });
+  } catch (error) {
+    self.postMessage({ id, error: error.message });
+  }
+};
+```
+
+## Mejores Practicas Adicionales
+
+1. **Implementa resolución de dependencias de plugins.** Los plugins pueden depender unos de otros o de versiones específicas del host. Declara dependencias en metadata del plugin y valida antes de cargar:
+
+```python
+@dataclass
+class PluginMetadata:
+    name: str
+    version: str
+    host_version_min: str
+    dependencies: List[str]
+
+def validate_plugin(metadata: PluginMetadata, host_version: str):
+    if parse_version(host_version) < parse_version(metadata.host_version_min):
+        raise PluginIncompatibleError(
+            f"Plugin requiere host >= {metadata.host_version_min}, got {host_version}"
+        )
+```
+
+2. **Provee hooks de ciclo de vida de plugins.** Da a los plugins control sobre inicialización, activación, desactivación y cleanup:
+
+```python
+class PluginLifecycle:
+    def on_load(self):
+        """Llamado cuando el plugin se carga por primera vez."""
+        pass
+
+    def on_activate(self):
+        """Llamado cuando el plugin se vuelve activo."""
+        pass
+
+    def on_deactivate(self):
+        """Llamado cuando el plugin se desactiva."""
+        pass
+
+    def on_unload(self):
+        """Llamado antes de que el plugin se descargue. Limpia recursos."""
+        pass
+```
+
+## Errores Comunes Adicionales
+
+1. **Cargar plugins desde fuentes no confiables sin validación.** Plugins maliciosos pueden robar datos, ejecutar código arbitrario o interrumpir operaciones. Siempre valida firmas de plugins, escanea vulnerabilidades y ejecuta en entornos sandbox antes de permitir uso en producción.
+
+2. **No manejar conflictos de versión de plugins.** Dos plugins pueden depender de versiones incompatibles de una librería compartida. Implementa resolución de dependencias y detección de conflictos antes de cargar. Falla rápido con mensajes de error claros en lugar de crashear en runtime.
+
+## FAQs Adicionales
+
+### Cómo manejo configuración de plugins?
+
+Provee un schema de configuración que los plugins deben declarar. El host valida configuración al cargar y la pasa al plugin durante inicialización. Usa JSON Schema o similar para definir el contrato. Almacena configuración en un archivo separado del código del plugin para edición más fácil.
+
+### ¿Los plugins pueden definir su propia UI?
+
+Sí, pero mantenlo opcional. El host debería proveer UI default para funcionalidad básica de plugins. Los plugins pueden override o extender esta UI implementando una interface UI. Para aplicaciones web, permite que los plugins registren rutas, componentes o templates. Para apps de escritorio, provee hooks para items de menú, toolbars y paneles.
+
+### Cómo debuggeo plugins en producción?
+
+Añade logging al host de plugins que captura inicialización de plugins, llamadas de métodos y errores. Incluye stack traces y metadata de plugins en logs. Provee una forma de habilitar modo debug por plugin sin afectar otros. Considera exponer un endpoint de debug que retorna estado de plugins y errores recientes.

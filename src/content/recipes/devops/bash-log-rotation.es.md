@@ -262,3 +262,312 @@ Crea configs separadas de logrotate en `/etc/logrotate.d/`:
 ### ¿Qué hace copytruncate?
 
 `copytruncate` copia el log actual a un archivo rotado, luego trunca el original a cero. Es útil para procesos que no soportan señales para reabrir logs. La contrapartida es una ventana breve donde se pueden perder entradas de log durante la copia.
+
+### Rotación por Tamaño con logrotate
+
+```bash
+# /etc/logrotate.d/myapp-size
+/var/log/myapp/*.log {
+    size 50M
+    rotate 10
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0644 myapp myapp
+    postrotate
+        systemctl reload myapp
+    endscript
+}
+```
+
+### copytruncate para Procesos Sin Soporte de Señales
+
+```bash
+# /etc/logrotate.d/myapp-truncate
+/var/log/myapp/*.log {
+    daily
+    rotate 14
+    compress
+    copytruncate
+    missingok
+    notifempty
+}
+```
+
+### Compresión Paralela para Logs Grandes
+
+```bash
+#!/bin/bash
+# rotate-parallel.sh
+
+LOG_DIR="/var/log/myapp"
+LOG_FILE="${LOG_DIR}/app.log"
+KEEP=14
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+if [ ! -f "$LOG_FILE" ]; then
+    exit 0
+fi
+
+CURRENT_SIZE=$(stat -c%s "$LOG_FILE" 2>/dev/null || echo 0)
+MAX_SIZE=$((50 * 1024 * 1024))  # 50 MB
+
+if [ "$CURRENT_SIZE" -lt "$MAX_SIZE" ]; then
+    exit 0
+fi
+
+ROTATED="${LOG_DIR}/app_${TIMESTAMP}.log"
+mv "$LOG_FILE" "$ROTATED"
+
+# Usar pigz para compresión paralela (2x más rápido en multi-core)
+if command -v pigz &> /dev/null; then
+    pigz "$ROTATED"
+else
+    gzip "$ROTATED"
+fi
+
+find "$LOG_DIR" -name "app_*.log.gz" -type f -mtime +${KEEP} -delete
+
+echo "Rotado y comprimido: ${ROTATED}.gz"
+```
+
+### Rotación de Logs con Monitoreo de Espacio en Disco
+
+```bash
+#!/bin/bash
+# rotate-with-check.sh
+
+set -euo pipefail
+
+LOG_DIR="/var/log/myapp"
+LOG_FILE="${LOG_DIR}/app.log"
+KEEP=14
+MIN_DISK_PERCENT=10  # Porcentaje mínimo de espacio libre en disco
+
+# Verificar espacio en disco antes de rotar
+FREE_PERCENT=$(df "$LOG_DIR" | awk 'NR==2 {print int($5)}')
+USED_PERCENT=100 - $FREE_PERCENT
+
+if [ "$USED_PERCENT" -gt 90 ]; then
+    echo "CRITICAL: Uso de disco al ${USED_PERCENT}%. Rotando agresivamente."
+    KEEP=3  # Reducir retención con poco disco
+fi
+
+if [ ! -f "$LOG_FILE" ]; then
+    exit 0
+fi
+
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+ROTATED="${LOG_DIR}/app_${TIMESTAMP}.log"
+
+mv "$LOG_FILE" "$ROTATED" || { echo "Failed to move log"; exit 1; }
+gzip "$ROTATED" || { echo "Failed to compress log"; exit 1; }
+
+find "$LOG_DIR" -name "app_*.log.gz" -type f -mtime +${KEEP} -delete
+
+# Alertar si el disco sigue crítico
+FREE_PERCENT=$(df "$LOG_DIR" | awk 'NR==2 {print int($5)}')
+if [ "$FREE_PERCENT" -gt 90 ]; then
+    echo "WARNING: Disco todavía al ${FREE_PERCENT}% después de rotar"
+fi
+
+echo "Rotación completa: ${ROTATED}.gz"
+```
+
+### Logrotate con Notificaciones por Email
+
+```bash
+# /etc/logrotate.d/myapp-notify
+/var/log/myapp/*.log {
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0644 myapp myapp
+    postrotate
+        systemctl reload myapp
+        echo "Log rotado en $(hostname) el $(date)" | \
+            mail -s "Rotación de log: myapp" ops@example.com
+    endscript
+}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `dateext` para nombres de archivo legibles.** Por defecto usa sufijos `.1`, `.2`:
+
+```bash
+# /etc/logrotate.d/myapp
+/var/log/myapp/*.log {
+    daily
+    rotate 14
+    compress
+    dateext
+    dateformat -%Y%m%d
+    missingok
+    notifempty
+}
+```
+
+Esto produce `app.log-20260701.gz` en lugar de `app.log.1.gz`.
+
+2. **Setea la directiva `su` para problemas de permisos.** Cuando los logs son owned por otro usuario:
+
+```bash
+/var/log/myapp/*.log {
+    su myapp myapp
+    daily
+    rotate 14
+    compress
+    create 0644 myapp myapp
+}
+```
+
+3. **Usa `olddir` para separar logs rotados.** Mantén logs activos y rotados en directorios diferentes:
+
+```bash
+/var/log/myapp/*.log {
+    daily
+    rotate 30
+    compress
+    olddir /var/log/myapp/archive
+    create 0644 myapp myapp
+}
+```
+
+## Errores Comunes Adicionales
+
+1. **No testear la config de logrotate antes de desplegar.** Errores de sintaxis rompen la rotación silenciosamente:
+
+```bash
+# Siempre testear primero
+logrotate -d /etc/logrotate.d/myapp
+# -d = debug/dry run, no hace cambios
+```
+
+2. **Usar `size` sin `rotate`.** Los logs rotan pero los viejos nunca se borran:
+
+```bash
+# Mal: sin directiva rotate
+/var/log/myapp/*.log {
+    size 50M
+    compress
+}
+
+# Bien: especificar retención
+/var/log/myapp/*.log {
+    size 50M
+    rotate 10
+    compress
+}
+```
+
+3. **No manejar el state file de logrotate.** Si el state file se corrompe, la rotación se detiene:
+
+```bash
+# Verificar estado
+cat /var/lib/logrotate/status
+
+# Resetear estado si está corrupto
+rm /var/lib/logrotate/status
+logrotate -f /etc/logrotate.d/myapp
+```
+
+## FAQ Adicional
+
+### Como roto logs por hora en lugar de diario?
+
+Usa `hourly` con un cron job corriendo cada hora:
+
+```bash
+# /etc/logrotate.d/myapp-hourly
+/var/log/myapp/*.log {
+    hourly
+    rotate 24
+    compress
+    missingok
+    notifempty
+}
+```
+
+```bash
+# /etc/cron.d/logrotate-hourly
+0 * * * * root /usr/sbin/logrotate /etc/logrotate.d/myapp-hourly
+```
+
+### Como comprimo logs rotados con zstd en lugar de gzip?
+
+```bash
+# /etc/logrotate.d/myapp-zstd
+/var/log/myapp/*.log {
+    daily
+    rotate 14
+    compress
+    compresscmd /usr/bin/zstd
+    compressoptions -19
+    compressext .zst
+    missingok
+    notifempty
+}
+```
+
+zstd ofrece descompresión 2-3x más rápida que gzip con ratios de compresión similares.
+
+### Como monitoreo que la rotación de logs esté funcionando?
+
+Añade un check a tu script de monitoreo:
+
+```bash
+#!/bin/bash
+# check-rotation.sh
+LOG_DIR="/var/log/myapp"
+LATEST_ROTATED=$(find "$LOG_DIR" -name "app_*.log.gz" -type f -printf '%T@ %p\n' | sort -rn | head -1)
+
+if [ -z "$LATEST_ROTATED" ]; then
+    echo "WARNING: No se encontraron logs rotados. La rotación puede no estar corriendo."
+    exit 1
+fi
+
+ROTATION_DATE=$(echo "$LATEST_ROTATED" | awk '{print $2}' | xargs stat -c%y)
+DAYS_SINCE=$(( ($(date +%s) - $(date -d "$ROTATION_DATE" +%s)) / 86400 ))
+
+if [ "$DAYS_SINCE" -gt 2 ]; then
+    echo "WARNING: Última rotación fue hace $DAYS_SINCE días"
+    exit 1
+fi
+
+echo "OK: Última rotación hace $DAYS_SINCE día(s)"
+```
+
+## Tips de Rendimiento
+
+1. **Usa `pigz` en lugar de `gzip` para logs grandes.** Compresión paralela en sistemas multi-core:
+
+```bash
+# Instalar pigz
+apt install pigz  # Debian/Ubuntu
+yum install pigz  # RHEL/CentOS
+
+# Usar en scripts custom
+pigz -4 "$ROTATED"  # Nivel 4, buen balance velocidad/ratio
+```
+
+2. **Usa niveles de compresión más bajos para velocidad.** Nivel 1 es 5x más rápido que nivel 9:
+
+```bash
+# Rotación rápida con compresión mínima
+gzip -1 "$ROTATED"
+
+# O con logrotate
+compressoptions -1
+```
+
+3. **Corre la rotación durante períodos de bajo tráfico.** Agenda cron para horas valle:
+
+```bash
+# Rotar a las 4 AM en lugar de medianoche
+0 4 * * * /usr/sbin/logrotate /etc/logrotate.d/myapp
+```

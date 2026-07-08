@@ -293,3 +293,307 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+## Soluciones Avanzadas
+
+### DAO genérico con TypeScript para reducir boilerplate
+
+Un DAO base genérico elimina código CRUD repetitivo a través de múltiples entidades:
+
+```typescript
+import { Pool } from 'pg';
+
+export interface Entity {
+  id: number;
+}
+
+export abstract class BaseDao<T extends Entity> {
+  constructor(
+    protected pool: Pool,
+    protected tableName: string,
+    protected columns: string[]
+  ) {}
+
+  async findById(id: number): Promise<T | null> {
+    const result = await this.pool.query(
+      `SELECT ${this.columns.join(', ')} FROM ${this.tableName} WHERE id = $1`,
+      [id]
+    );
+    return result.rows[0] || null;
+  }
+
+  async findAll(): Promise<T[]> {
+    const result = await this.pool.query(
+      `SELECT ${this.columns.join(', ')} FROM ${this.tableName}`
+    );
+    return result.rows;
+  }
+
+  async save(entity: Omit<T, 'id'>): Promise<T> {
+    const columns = Object.keys(entity);
+    const values = Object.values(entity);
+    const placeholders = values.map((_, i) => `$${i + 1}`).join(', ');
+
+    const result = await this.pool.query(
+      `INSERT INTO ${this.tableName} (${columns.join(', ')}) VALUES (${placeholders}) RETURNING *`,
+      values
+    );
+    return result.rows[0];
+  }
+
+  async update(id: number, updates: Partial<T>): Promise<T> {
+    const setClause = Object.keys(updates)
+      .map((key, i) => `${key} = $${i + 2}`)
+      .join(', ');
+    const values = [...Object.values(updates), id];
+
+    const result = await this.pool.query(
+      `UPDATE ${this.tableName} SET ${setClause} WHERE id = $1 RETURNING *`,
+      values
+    );
+    return result.rows[0];
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.pool.query(`DELETE FROM ${this.tableName} WHERE id = $1`, [id]);
+  }
+}
+
+// DAO concreto para entidad User
+interface User extends Entity {
+  name: string;
+  email: string;
+  created_at: Date;
+}
+
+class UserDao extends BaseDao<User> {
+  constructor(pool: Pool) {
+    super(pool, 'users', ['id', 'name', 'email', 'created_at']);
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const result = await this.pool.query(
+      'SELECT id, name, email, created_at FROM users WHERE email = $1',
+      [email]
+    );
+    return result.rows[0] || null;
+  }
+}
+
+// Uso
+const pool = new Pool({ connectionString: 'postgres://localhost/app' });
+const userDao = new UserDao(pool);
+const user = await userDao.save({ name: 'Alice', email: 'alice@example.com', created_at: new Date() });
+```
+
+### DAO con connection pooling y soporte de transacciones
+
+Los DAOs de producción necesitan connection pooling y manejo de transacciones para performance y consistencia de datos:
+
+```python
+import psycopg2
+from psycopg2 import pool
+from contextlib import contextmanager
+from typing import Optional, List, Callable, Any
+from dataclasses import dataclass
+
+@dataclass
+class User:
+    id: int
+    name: str
+    email: str
+
+class UserDao:
+    def __init__(self, min_conn: int = 1, max_conn: int = 10):
+        self.connection_pool = psycopg2.pool.ThreadedConnectionPool(
+            minconn=min_conn,
+            maxconn=max_conn,
+            dsn="postgresql://user:pass@localhost/app"
+        )
+
+    @contextmanager
+    def _get_connection(self):
+        """Context manager para el ciclo de vida de conexión."""
+        conn = self.connection_pool.getconn()
+        try:
+            yield conn
+        finally:
+            self.connection_pool.putconn(conn)
+
+    def find_by_id(self, user_id: int) -> Optional[User]:
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT id, name, email FROM users WHERE id = %s",
+                    (user_id,)
+                )
+                row = cur.fetchone()
+                return User(*row) if row else None
+
+    def find_all(self) -> List[User]:
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT id, name, email FROM users")
+                return [User(*row) for row in cur.fetchall()]
+
+    def save(self, user: User) -> User:
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO users (name, email) VALUES (%s, %s) RETURNING id",
+                    (user.name, user.email)
+                )
+                user.id = cur.fetchone()[0]
+                conn.commit()
+                return user
+
+    def transaction(self, operations: Callable[[Any], Any]):
+        """Ejecuta múltiples operaciones en una sola transacción."""
+        with self._get_connection() as conn:
+            try:
+                with conn.cursor() as cur:
+                    operations(cur)
+                conn.commit()
+            except Exception:
+                conn.rollback()
+                raise
+
+# Uso con transacción
+dao = UserDao()
+
+def transfer_user_data(cur):
+    """Transfiere datos de usuario entre tablas en una transacción."""
+    cur.execute("INSERT INTO users_archive SELECT * FROM users WHERE id = %s", (42,))
+    cur.execute("DELETE FROM users WHERE id = %s", (42,))
+
+dao.transaction(transfer_user_data)
+```
+
+### DAO con capa de caching para workloads intensivos en lectura
+
+Añade una capa de cache al DAO para reducir la carga de base de datos para datos frecuentemente accedidos:
+
+```python
+from functools import lru_cache
+from typing import Optional
+import hashlib
+import json
+
+class CachedUserDao(UserDao):
+    def __init__(self, db_path: str, cache_ttl: int = 300):
+        super().__init__(db_path)
+        self.cache_ttl = cache_ttl
+        self._cache = {}
+
+    def _cache_key(self, method: str, *args) -> str:
+        """Genera una clave de cache desde nombre de método y argumentos."""
+        key_data = f"{method}:{args}"
+        return hashlib.md5(key_data.encode()).hexdigest()
+
+    def _get_from_cache(self, key: str) -> Optional[User]:
+        """Recupera del cache si no ha expirado."""
+        if key in self._cache:
+            data, timestamp = self._cache[key]
+            if time.time() - timestamp < self.cache_ttl:
+                return data
+            del self._cache[key]
+        return None
+
+    def _set_cache(self, key: str, user: User):
+        """Almacena en cache con timestamp actual."""
+        self._cache[key] = (user, time.time())
+
+    def find_by_id(self, user_id: int) -> Optional[User]:
+        key = self._cache_key("find_by_id", user_id)
+        cached = self._get_from_cache(key)
+        if cached:
+            return cached
+
+        user = super().find_by_id(user_id)
+        if user:
+            self._set_cache(key, user)
+        return user
+
+    def save(self, user: User) -> User:
+        """Invalida cache en save."""
+        saved = super().save(user)
+        # Invalida todas las entradas de cache relacionadas con usuario
+        self._cache.clear()
+        return saved
+
+    def delete(self, user_id: int):
+        """Invalida cache en delete."""
+        super().delete(user_id)
+        self._cache.clear()
+```
+
+## Mejores Practicas Adicionales
+
+1. **Usa query builders para queries complejas.** Los strings SQL raw se vuelven inmanejables para joins, subqueries y condiciones dinámicas. Librerías como SQLAlchemy (Python), jOOQ (Java) o Knex.js (JavaScript) construyen queries programáticamente:
+
+```python
+# Usando SQLAlchemy query builder
+from sqlalchemy import select, and_
+
+def find_active_users_since(self, since: datetime) -> List[User]:
+    stmt = select(User).where(
+        and_(
+            User.created_at >= since,
+            User.is_active == True
+        )
+    )
+    with self._connect() as conn:
+        return conn.execute(stmt).scalars().all()
+```
+
+2. **Implementa paginación para result sets grandes.** Obtener todas las filas a la vez causa problemas de memoria y respuestas lentas:
+
+```python
+def find_paginated(self, page: int, page_size: int = 50) -> List[User]:
+    offset = (page - 1) * page_size
+    with self._connect() as conn:
+        rows = conn.execute(
+            "SELECT id, name, email FROM users LIMIT ? OFFSET ?",
+            (page_size, offset)
+        ).fetchall()
+        return [User(*row) for row in rows]
+```
+
+## Errores Comunes Adicionales
+
+1. **No manejar el agotamiento de conexiones.** Abrir una nueva conexión para cada query agota el connection pool bajo carga. Siempre usa connection pooling y reutiliza conexiones. Monitorea métricas de pool (conexiones activas, tiempo de espera) para identificar agotamiento antes de que cause interrupciones.
+
+2. **Problema N+1 query en métodos DAO.** Un método DAO que obtiene una lista de entidades y luego llama otro método DAO para cada entidad causa N+1 queries. Usa eager loading con joins o batch fetching para hacer un solo round-trip:
+
+```python
+# Mal: N+1 queries
+def find_users_with_orders(self):
+    users = self.find_all()
+    for user in users:
+        user.orders = self.order_dao.find_by_user_id(user.id)  # N queries
+    return users
+
+# Bien: Query único con join
+def find_users_with_orders(self):
+    with self._connect() as conn:
+        rows = conn.execute("""
+            SELECT u.id, u.name, u.email, o.id as order_id, o.total
+            FROM users u
+            LEFT JOIN orders o ON u.id = o.user_id
+        """).fetchall()
+        # Mapea a usuarios con orders
+```
+
+## FAQs Adicionales
+
+### Cómo manejo migraciones de schema con DAOs?
+
+Los DAOs dependen del schema de base de datos. Cuando el schema cambia, los DAOs deben actualizarse en sincronía. Usa herramientas de migración (Flyway para Java, Alembic para Python, Knex migrations para Node.js) para versionar cambios de schema. Ejecuta migraciones como parte del deployment. Mantén los DAOs en sincronía probando contra el schema migrado.
+
+### Los DAOs deberían manejar validación?
+
+No. La validación pertenece a la capa de dominio o clases de entidad. Los DAOs deberían confiar que los datos que reciben son válidos. Esto mantiene el DAO enfocado solo en persistencia. Valida antes de llamar métodos DAO, no dentro de ellos.
+
+### Cómo pruebo DAOs sin una base de datos real?
+
+Usa una base de datos en memoria (H2 para Java, SQLite para Python, better-sqlite3 para Node.js) en tests. Configura el DAO para usar la base de datos en memoria durante test runs. Esto provee tests rápidos y aislados sin requerir una instancia de base de datos real. Para tests de integración, usa Docker para levantar una base de datos real.

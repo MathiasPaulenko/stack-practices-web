@@ -291,3 +291,375 @@ AES-256 proporciona un espacio de clave más grande pero es ligeramente más len
 ### ¿Puedo usar la misma clave para múltiples encriptaciones?
 
 Sí, siempre y cuando cada encriptación use un nonce único. Generar un nonce aleatorio de 12 bytes para cada operación. Nunca reusar un nonce con la misma clave.
+
+## Soluciones Avanzadas
+
+### ChaCha20-Poly1305 como alternativa a AES-GCM
+
+ChaCha20-Poly1305 es un cifrador AEAD que es más rápido que AES-GCM en sistemas sin aceleración AES por hardware (dispositivos móviles, servidores ARM). La librería `cryptography` lo soporta nativamente:
+
+```python
+import os
+from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
+
+def generate_chacha_key() -> bytes:
+    """Generar una clave ChaCha20 aleatoria de 256 bits."""
+    return ChaCha20Poly1305.generate_key()
+
+def encrypt_chacha(
+    key: bytes, plaintext: bytes, aad: bytes = b""
+) -> tuple[bytes, bytes]:
+    """Encriptar con ChaCha20-Poly1305. Retorna (nonce, ciphertext)."""
+    nonce = os.urandom(12)  # Nonce de 96 bits
+    chacha = ChaCha20Poly1305(key)
+    ciphertext = chacha.encrypt(nonce, plaintext, aad)
+    return nonce, ciphertext
+
+def decrypt_chacha(
+    key: bytes, nonce: bytes, ciphertext: bytes, aad: bytes = b""
+) -> bytes:
+    """Desencriptar con ChaCha20-Poly1305."""
+    chacha = ChaCha20Poly1305(key)
+    return chacha.decrypt(nonce, ciphertext, aad)
+
+# Uso
+key = generate_chacha_key()
+nonce, ciphertext = encrypt_chacha(key, b"Sensitive data", b"user-12345")
+decrypted = decrypt_chacha(key, nonce, ciphertext, b"user-12345")
+print(decrypted.decode())
+```
+
+### Encriptación de envelope con AWS KMS
+
+Encripta datos con una clave de encriptación de datos (DEK), luego encripta la DEK con una clave maestra de KMS. La DEK nunca se almacena en texto plano:
+
+```python
+import boto3
+import os
+import base64
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+class KmsEnvelopeEncryption:
+    """Encriptación de envelope usando AWS KMS para gestión de claves."""
+
+    def __init__(self, kms_key_id: str, region: str = "us-east-1"):
+        self.kms = boto3.client("kms", region_name=region)
+        self.kms_key_id = kms_key_id
+
+    def encrypt(self, plaintext: bytes, context: dict = None) -> dict:
+        """Encriptar datos usando encriptación de envelope."""
+        # Generar DEK localmente
+        dek = AESGCM.generate_key(bit_length=256)
+        nonce = os.urandom(12)
+        aesgcm = AESGCM(dek)
+
+        aad = str(context).encode() if context else b""
+        ciphertext = aesgcm.encrypt(nonce, plaintext, aad)
+
+        # Encriptar DEK con clave maestra KMS
+        response = self.kms.encrypt(
+            KeyId=self.kms_key_id,
+            Plaintext=dek,
+            EncryptionContext=context or {},
+        )
+
+        return {
+            "ciphertext": base64.b64encode(ciphertext).decode(),
+            "nonce": base64.b64encode(nonce).decode(),
+            "encrypted_dek": base64.b64encode(response["CiphertextBlob"]).decode(),
+            "context": context,
+        }
+
+    def decrypt(self, encrypted_package: dict) -> bytes:
+        """Desencriptar datos usando encriptación de envelope."""
+        encrypted_dek = base64.b64decode(encrypted_package["encrypted_dek"])
+        context = encrypted_package.get("context", {})
+
+        # Desencriptar DEK vía KMS
+        response = self.kms.decrypt(
+            CiphertextBlob=encrypted_dek,
+            EncryptionContext=context,
+        )
+        dek = response["Plaintext"]
+
+        # Desencriptar datos con DEK
+        aesgcm = AESGCM(dek)
+        nonce = base64.b64decode(encrypted_package["nonce"])
+        ciphertext = base64.b64decode(encrypted_package["ciphertext"])
+        aad = str(context).encode() if context else b""
+
+        return aesgcm.decrypt(nonce, ciphertext, aad)
+
+# Uso
+enc = KmsEnvelopeEncryption("arn:aws:kms:us-east-1:123:key/abc-123")
+encrypted = enc.encrypt(b"Top secret data", context={"app": "billing", "env": "prod"})
+decrypted = enc.decrypt(encrypted)
+```
+
+### Rotación de claves con encriptación versionada
+
+Rota claves de encriptación sin re-encriptar todos los datos a la vez. Cada registro encriptado almacena un identificador de versión de clave:
+
+```python
+import os
+import json
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+class KeyRotationManager:
+    """Gestionar múltiples versiones de claves de encriptación con rotación."""
+
+    def __init__(self):
+        self._keys: dict[int, bytes] = {}
+        self._current_version = 0
+
+    def add_key(self, key: bytes = None) -> int:
+        """Agregar una nueva versión de clave. Retorna el número de versión."""
+        self._current_version += 1
+        self._keys[self._current_version] = key or AESGCM.generate_key(bit_length=256)
+        return self._current_version
+
+    def encrypt(self, plaintext: bytes, aad: bytes = b"") -> str:
+        """Encriptar con la versión de clave actual."""
+        version = self._current_version
+        key = self._keys[version]
+        nonce = os.urandom(12)
+        aesgcm = AESGCM(key)
+        ciphertext = aesgcm.encrypt(nonce, plaintext, aad)
+
+        return json.dumps({
+            "v": version,
+            "n": nonce.hex(),
+            "c": ciphertext.hex(),
+        })
+
+    def decrypt(self, encrypted_str: str, aad: bytes = b"") -> bytes:
+        """Desencriptar usando la versión de clave del payload."""
+        data = json.loads(encrypted_str)
+        version = data["v"]
+        key = self._keys[version]
+        nonce = bytes.fromhex(data["n"])
+        ciphertext = bytes.fromhex(data["c"])
+        aesgcm = AESGCM(key)
+        return aesgcm.decrypt(nonce, ciphertext, aad)
+
+    def rotate(self, old_records: list[str]) -> list[str]:
+        """Re-encriptar registros con la última versión de clave."""
+        new_records = []
+        for record in old_records:
+            plaintext = self.decrypt(record)
+            new_record = self.encrypt(plaintext)
+            new_records.append(new_record)
+        return new_records
+
+# Uso
+mgr = KeyRotationManager()
+v1 = mgr.add_key()  # Versión 1
+encrypted_v1 = mgr.encrypt(b"Sensitive data")
+
+v2 = mgr.add_key()  # Versión 2 (rotación)
+# Los datos nuevos usan v2 automáticamente
+encrypted_v2 = mgr.encrypt(b"New sensitive data")
+
+# Los datos viejos siguen desencriptando con v1
+assert mgr.decrypt(encrypted_v1) == b"Sensitive data"
+
+# Re-encriptar datos viejos con v2
+re_encrypted = mgr.rotate([encrypted_v1])
+assert mgr.decrypt(re_encrypted[0]) == b"Sensitive data"
+```
+
+### Herramienta CLI de encriptación de archivos con password
+
+Una herramienta de línea de comandos completa para encriptar/desencriptar archivos con un password:
+
+```python
+#!/usr/bin/env python3
+"""Herramienta de encriptación de archivos AES-256-GCM con derivación de clave por password."""
+import argparse
+import base64
+import json
+import os
+import sys
+from getpass import getpass
+
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+
+
+def derive_key(password: str, salt: bytes) -> bytes:
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=600_000,
+    )
+    return kdf.derive(password.encode())
+
+
+def encrypt_file(password: str, input_path: str, output_path: str) -> None:
+    salt = os.urandom(16)
+    key = derive_key(password, salt)
+    nonce = os.urandom(12)
+    aesgcm = AESGCM(key)
+
+    with open(input_path, "rb") as f:
+        plaintext = f.read()
+
+    ciphertext = aesgcm.encrypt(nonce, plaintext, None)
+
+    payload = {
+        "version": 1,
+        "algorithm": "AES-256-GCM",
+        "kdf": "PBKDF2-SHA256",
+        "iterations": 600_000,
+        "salt": base64.b64encode(salt).decode(),
+        "nonce": base64.b64encode(nonce).decode(),
+        "ciphertext": base64.b64encode(ciphertext).decode(),
+    }
+
+    with open(output_path, "w") as f:
+        json.dump(payload, f, indent=2)
+
+    print(f"Encrypted: {output_path}")
+
+
+def decrypt_file(password: str, input_path: str, output_path: str) -> None:
+    with open(input_path, "r") as f:
+        payload = json.load(f)
+
+    salt = base64.b64decode(payload["salt"])
+    nonce = base64.b64decode(payload["nonce"])
+    ciphertext = base64.b64decode(payload["ciphertext"])
+
+    key = derive_key(password, salt)
+    aesgcm = AESGCM(key)
+
+    try:
+        plaintext = aesgcm.decrypt(nonce, ciphertext, None)
+    except Exception:
+        print("Error: wrong password or corrupted file", file=sys.stderr)
+        sys.exit(1)
+
+    with open(output_path, "wb") as f:
+        f.write(plaintext)
+
+    print(f"Decrypted: {output_path}")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="AES-256-GCM file encryption")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    enc = subparsers.add_parser("encrypt", help="Encrypt a file")
+    enc.add_argument("input")
+    enc.add_argument("output")
+
+    dec = subparsers.add_parser("decrypt", help="Decrypt a file")
+    dec.add_argument("input")
+    dec.add_argument("output")
+
+    args = parser.parse_args()
+    password = getpass("Password: ")
+
+    if args.command == "encrypt":
+        encrypt_file(password, args.input, args.output)
+    else:
+        decrypt_file(password, args.input, args.output)
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa Argon2id en vez de PBKDF2 cuando esté disponible.** Argon2id es el ganador del Password Hashing Competition y provee mejor resistencia contra ataques basados en GPU:
+
+```python
+# pip install argon2-cffi
+from argon2.low_level import hash_secret_raw, Type
+
+def derive_key_argon2(password: str, salt: bytes) -> bytes:
+    return hash_secret_raw(
+        secret=password.encode(),
+        salt=salt,
+        time_cost=3,       # iteraciones
+        memory_cost=65536,  # 64 MB
+        parallelism=4,
+        hash_len=32,
+        type=Type.ID,
+    )
+```
+
+2. **Separa claves de encriptación por propósito.** Nunca uses la misma clave para encriptación y firma. Deriva claves separadas usando HKDF con diferentes strings de info:
+
+```python
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+from cryptography.hazmat.primitives import hashes
+
+def derive_purpose_keys(master_key: bytes) -> tuple[bytes, bytes]:
+    """Derivar claves separadas de encriptación y firma desde una clave maestra."""
+    enc_key = HKDF(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=None,
+        info=b"encryption-key-v1",
+    ).derive(master_key)
+
+    sig_key = HKDF(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=None,
+        info=b"signing-key-v1",
+    ).derive(master_key)
+
+    return enc_key, sig_key
+```
+
+## Errores Comunes Adicionales
+
+1. **Usar un nonce determinista.** Algunas implementaciones derivan el nonce del plaintext o de un contador sin asegurar unicidad entre procesos. Siempre usa `os.urandom(12)` para nonces aleatorios:
+
+```python
+# Mal: nonce determinista
+nonce = hashlib.sha256(plaintext).digest()[:12]
+
+# Bien: nonce aleatorio
+nonce = os.urandom(12)
+```
+
+2. **Ignorar excepciones `InvalidTag`.** Una desencriptación fallida indica manipulación o clave incorrecta. Manéjala explícitamente en vez de dejar que crashee:
+
+```python
+from cryptography.exceptions import InvalidTag
+
+try:
+    plaintext = aesgcm.decrypt(nonce, ciphertext, aad)
+except InvalidTag:
+    # Loguear el incidente, retornar error, NO retornar datos parciales
+    logger.warning("Decryption failed: possible tampering detected")
+    raise ValueError("Data integrity check failed")
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo comparto datos encriptados con un tercero?
+
+Usa encriptación híbrida: genera una clave AES aleatoria, encripta los datos con ella, luego encripta la clave AES con la llave pública RSA del destinatario:
+
+```python
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives import hashes
+
+# Encriptar clave AES con llave pública RSA del destinatario
+encrypted_key = recipient_public_key.encrypt(
+    aes_key,
+    padding.OAEP(
+        mgf=padding.MGF1(algorithm=hashes.SHA256()),
+        algorithm=hashes.SHA256(),
+        label=None,
+    ),
+)
+# Enviar (encrypted_key, nonce, ciphertext) al destinatario
+```
+
+### ¿Debería comprimir datos antes o después de encriptar?
+
+Comprime antes de encriptar. Los datos encriptados son indistinguibles de bytes aleatorios, por lo que la compresión después de encriptar es inefectiva. La compresión antes de encriptar reduce el tamaño del ciphertext pero puede filtrar información sobre la longitud del plaintext en algunos escenarios (ataques CRIME/BREACH). Para datos sensibles donde la longitud importa, usa padding de longitud fija antes de encriptar.

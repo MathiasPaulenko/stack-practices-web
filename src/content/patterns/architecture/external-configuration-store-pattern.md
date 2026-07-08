@@ -143,3 +143,190 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+## Advanced Solutions
+
+### Configuration hot-reloading with watch mechanism
+
+Implement real-time configuration updates using a watch pattern:
+
+```javascript
+class ConfigWatcher {
+  constructor(storeUrl, appId, env) {
+    this.storeUrl = storeUrl;
+    this.appId = appId;
+    this.env = env;
+    this.config = {};
+    this.listeners = [];
+    this.watchInterval = null;
+  }
+
+  async load() {
+    const response = await fetch(`${this.storeUrl}/config/${this.appId}/${this.env}`);
+    this.config = await response.json();
+    this.notifyListeners();
+    return this.config;
+  }
+
+  watch(intervalMs = 30000) {
+    this.load();
+    this.watchInterval = setInterval(async () => {
+      try {
+        const newConfig = await this.load();
+        if (JSON.stringify(newConfig) !== JSON.stringify(this.config)) {
+          console.log('Configuration changed, reloading');
+        }
+      } catch (error) {
+        console.error('Failed to reload config:', error);
+      }
+    }, intervalMs);
+  }
+
+  onChange(callback) {
+    this.listeners.push(callback);
+  }
+
+  notifyListeners() {
+    this.listeners.forEach(cb => cb(this.config));
+  }
+
+  stop() {
+    if (this.watchInterval) {
+      clearInterval(this.watchInterval);
+    }
+  }
+}
+
+// Usage
+const watcher = new ConfigWatcher('https://config.example.com', 'orders-service', 'production');
+watcher.watch(60000); // Check every minute
+watcher.onChange(config => {
+  // Apply new configuration without restart
+  if (config['feature.checkout.v2'] === 'true') {
+    enableNewCheckout();
+  }
+});
+```
+
+### Configuration validation with schema
+
+Ensure configuration integrity before applying changes:
+
+```python
+from pydantic import BaseModel, ValidationError
+from typing import Optional
+
+class DatabaseConfig(BaseModel):
+    url: str
+    pool_size: int = 10
+    timeout: int = 30
+    ssl: bool = True
+
+class FeatureFlags(BaseModel):
+    checkout_v2: bool = False
+    new_ui: bool = False
+    beta_search: bool = False
+
+class AppConfig(BaseModel):
+    database: DatabaseConfig
+    features: FeatureFlags
+    log_level: str = "info"
+    cache_ttl: int = 300
+
+def validate_and_load(raw_config):
+    try:
+        config = AppConfig(**raw_config)
+        print("Configuration validated successfully")
+        return config
+    except ValidationError as e:
+        print(f"Configuration validation failed: {e}")
+        raise ValueError("Invalid configuration") from e
+
+# Usage with external store
+raw = fetch_config_from_store()
+config = validate_and_load(raw)
+```
+
+### Configuration encryption at rest
+
+Encrypt sensitive values before storing in the configuration store:
+
+```python
+from cryptography.fernet import Fernet
+import os
+
+class ConfigEncryptor:
+    def __init__(self, key=None):
+        self.key = key or os.environ.get('CONFIG_ENCRYPTION_KEY')
+        if not self.key:
+            raise ValueError("Encryption key required")
+        self.cipher = Fernet(self.key.encode())
+
+    def encrypt_value(self, value):
+        if not value:
+            return value
+        encrypted = self.cipher.encrypt(value.encode())
+        return encrypted.decode()
+
+    def decrypt_value(self, encrypted_value):
+        if not encrypted_value:
+            return encrypted_value
+        decrypted = self.cipher.decrypt(encrypted_value.encode())
+        return decrypted.decode()
+
+# Usage when storing configuration
+encryptor = ConfigEncryptor()
+encrypted_db_password = encryptor.encrypt_value('supersecret123')
+
+# Store encrypted value in config store
+config['database.password'] = encrypted_db_password
+
+# Usage when loading configuration
+loaded_password = config['database.password']
+actual_password = encryptor.decrypt_value(loaded_password)
+```
+
+## Additional Best Practices
+
+1. **Implement configuration rollback.** Keep previous versions of configuration available for quick rollback if a change causes issues. Use version numbers or timestamps to track history.
+
+2. **Use configuration inheritance.** Define base configuration shared across environments with environment-specific overrides. This reduces duplication and ensures consistent defaults.
+
+```yaml
+# Base configuration
+base:
+  log_level: info
+  cache_ttl: 300
+  database:
+    pool_size: 10
+
+# Production overrides
+production:
+  inherits: base
+  log_level: warn
+  cache_ttl: 600
+  database:
+    pool_size: 20
+```
+
+3. **Separate feature flags from configuration.** Store feature toggles in a dedicated feature flag service rather than the general configuration store. This provides better UI, rollout controls, and experimentation features.
+
+## Additional Common Mistakes
+
+1. **Storing large binary data in configuration stores.** Configuration stores are optimized for small key-value pairs, not large blobs. Store large data in object storage and reference the path in configuration.
+
+2. **Ignoring configuration drift between environments.** Over time, configuration values may diverge unexpectedly between dev, staging, and production. Implement drift detection and reconciliation tools.
+
+## Additional Frequently Asked Questions
+
+### How do I handle configuration during blue-green deployments?
+
+Deploy the same artifact to both environments. Each environment reads its configuration from the external store using its environment-specific namespace. Switch traffic by updating load balancer configuration, not application configuration.
+
+### Should I use the same configuration store for all services?
+
+Yes, a shared configuration store provides centralization and consistency. Use application-specific namespaces or prefixes to avoid conflicts. This enables cross-service configuration management and auditing.
+
+### How do I migrate from environment variables to an external store?
+
+Migrate incrementally. Start by reading from both sources with the external store taking precedence. Update applications to fetch from the store, then remove environment variables gradually. Maintain a fallback to environment variables during the transition period.

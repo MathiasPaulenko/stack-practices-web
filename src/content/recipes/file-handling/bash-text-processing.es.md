@@ -223,3 +223,412 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### Máquina de estados en awk para registros multi-línea
+
+awk puede rastrear estado entre líneas para extraer entradas de log multi-línea (e.g., stack traces):
+
+```bash
+#!/bin/bash
+
+# Extraer stack traces de Java con sus mensajes de error
+awk '
+    /ERROR/ {
+        in_error = 1
+        print "---"
+        print
+        next
+    }
+    in_error && /^\s+at / {
+        print
+        next
+    }
+    in_error && /^Caused by:/ {
+        print
+        next
+    }
+    in_error {
+        in_error = 0
+        print "---"
+    }
+' app.log
+
+# Extraer bloques de funciones de código fuente
+awk '
+    /^[a-zA-Z_].*\(/ { in_func = 1; brace_count = 0 }
+    in_func { print }
+    in_func && /{/ { brace_count++ }
+    in_func && /}/ { brace_count--; if (brace_count == 0) { in_func = 0; print "---" } }
+' source.c
+```
+
+### Patrones multi-línea con sed usando N y D
+
+```bash
+# Unir líneas que terminan con backslash (líneas de continuación)
+sed ':a; /\\$/N; s/\\\n//; ta' file.txt
+
+# Reemplazar texto que abarca múltiples líneas
+sed 'N;s/match\nacross/matched\nlines/' file.txt
+
+# Eliminar líneas vacías entre bloques de contenido
+sed '/^$/{N;/^\n$/D}' file.txt
+
+# Insertar un encabezado antes de la primera línea de un archivo
+sed '1i\\## Encabezado de Reporte\n## Generado: $(date)' report.txt
+
+# Capitalizar primera letra de cada palabra
+sed 's/\b\(.\)/\u\1/g' file.txt
+```
+
+### Pipeline de análisis de logs con agrupación por ventana de tiempo
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Log Apache/Nginx: agrupar requests por ventanas de 5 minutos y código de estado
+# Formato log: [10/Oct/2024:13:55:36 +0000] "GET /path" 200 1234
+
+awk '
+{
+    # Extraer hora:minuto y redondear a ventana de 5 min
+    match($0, /\[([0-9]+)\/([A-Za-z]+)\/([0-9]+):([0-9]+):([0-9]+)/, t)
+    if (t[4] != "" && t[5] != "") {
+        min = int(t[5] / 5) * 5
+        window = sprintf("%s:%02d", t[4], min)
+        status = $9  # Código HTTP
+        count[window][status]++
+    }
+}
+END {
+    for (w in count) {
+        for (s in count[w]) {
+            printf "%s,%s,%d\n", w, s, count[w][s]
+        }
+    }
+}
+' access.log | sort -t',' -k1,1 -k2,2n > status_by_window.csv
+
+echo "Ventana de tiempo,Código de estado,Conteo de requests"
+cat status_by_window.csv
+```
+
+### Procesamiento de CSV con awk (manejando campos entre comillas)
+
+```bash
+#!/bin/bash
+
+# Script awk que maneja campos CSV entre comillas con comas embebidas
+awk -F'"' '
+    function parse_csv(line,    fields, i, in_quote, field, char) {
+        in_quote = 0
+        field = ""
+        field_idx = 1
+        for (i = 1; i <= length(line); i++) {
+            char = substr(line, i, 1)
+            if (char == "\"") {
+                in_quote = !in_quote
+            } else if (char == "," && !in_quote) {
+                fields[field_idx] = field
+                field = ""
+                field_idx++
+            } else {
+                field = field char
+            }
+        }
+        fields[field_idx] = field
+        return field_idx
+    }
+    {
+        n = parse_csv($0)
+        # Imprimir columnas 2 y 4 (nombre y email)
+        if (n >= 4) print fields[2], fields[4]
+    }
+' contacts.csv
+
+# Alternativa: usar csvkit para manejo robusto de CSV
+# csvcut -c 2,4 contacts.csv
+# csvgrep -c 3 -r "^Active$" contacts.csv | csvcut -c 1,2
+```
+
+### Patrones de extracción y transformación de texto
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Extraer todas las URLs de un archivo de texto
+grep -oP 'https?://[^\s<>"'"'"']+' input.txt | sort -u
+
+# Extraer direcciones de email y contar por dominio
+grep -oP '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' emails.txt | \
+    awk -F'@' '{print $2}' | sort | uniq -c | sort -rn
+
+# Extraer y normalizar números de teléfono
+sed -E 's/([0-9]{3})[-. ]?([0-9]{3})[-. ]?([0-9]{4})/\1-\2-\3/g' contacts.txt
+
+# Extraer pares clave-valor de archivos de configuración
+awk -F'=' '/^[^#]/ && NF==2 {gsub(/^[ \t]+|[ \t]+$/, "", $1); gsub(/^[ \t]+|[ \t]+$/, "", $2); print $1"="$2}' config.ini
+
+# Convertir tab-separated a comma-separated (manejando tabs embebidos)
+tr '\t' ',' < data.tsv > data.csv
+
+# Remover códigos de color ANSI de la salida
+sed 's/\x1b\[[0-9;]*m//g' colored_output.txt
+
+# Extraer valores JSON con grep y sed (fallback cuando jq no está disponible)
+grep -oP '"user_id"\s*:\s*\K[0-9]+' response.json | head -1
+grep -oP '"name"\s*:\s*"\K[^"]+' response.json
+```
+
+### Procesamiento de texto en paralelo con split y merge
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+INPUT_FILE="large_log.txt"
+CHUNK_SIZE=100000
+OUTPUT_DIR=$(mktemp -d)
+trap 'rm -rf "$OUTPUT_DIR"' EXIT
+
+# Dividir archivo en chunks
+split -l "$CHUNK_SIZE" "$INPUT_FILE" "$OUTPUT_DIR/chunk_"
+
+# Procesar chunks en paralelo
+for chunk in "$OUTPUT_DIR"/chunk_*; do
+    (
+        # Contar errores por chunk
+        grep -c "ERROR" "$chunk" > "${chunk}.result"
+    ) &
+done
+wait
+
+# Fusionar resultados
+total=0
+for result in "$OUTPUT_DIR"/chunk_*.result; do
+    count=$(cat "$result")
+    total=$((total + count))
+done
+
+echo "Total de líneas ERROR: $total"
+```
+
+### Colección de one-liners de awk para tareas comunes
+
+```bash
+# Filtrar líneas por rango de número de línea
+awk 'NR>=10 && NR<=20' file.txt
+
+# Imprimir cada N-ésima línea
+awk 'NR%3==0' file.txt          # Cada 3ra línea
+
+# Eliminar líneas duplicadas preservando orden
+awk '!seen[$0]++' file.txt
+
+# Unir líneas con un separador
+awk '{printf "%s%s", $0, (NR==1?"":", ")} END {print ""}' file.txt
+
+# Calcular total acumulado
+awk '{sum += $1; print NR, $1, sum}' numbers.txt
+
+# Encontrar la línea más larga
+awk '{if (length > max) {max = length; line = $0}} END {print line}' file.txt
+
+# Imprimir líneas más largas que N caracteres
+awk 'length > 80' file.txt
+
+# Recortar whitespace inicial y final
+awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print}' file.txt
+
+# Invertir orden de columnas
+awk '{for (i=NF; i>=1; i--) printf "%s%s", $i, (i>1?OFS:ORS)}' file.txt
+
+# Contar palabras por línea
+awk '{print NR, NF, $0}' file.txt
+
+# Imprimir pares de número de campo y nombre
+awk '{for (i=1; i<=NF; i++) print i, $i}' file.txt
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `LC_ALL=C` para 2-5x de speedup en archivos grandes.** El ordenamiento y comparación byte-wise omite el procesamiento Unicode dependiente de locale:
+
+```bash
+# Lento: ordenamiento locale-aware
+sort large_file.txt > sorted.txt
+
+# Rápido: ordenamiento byte-wise (2-5x más rápido en datos ASCII)
+LC_ALL=C sort large_file.txt > sorted.txt
+
+# grep rápido en archivos grandes
+LC_ALL=C grep -n "pattern" huge_file.log
+```
+
+2. **Usa `grep -F` para strings fijos.** Cuando no necesitas regex, el modo de string fijo es significativamente más rápido:
+
+```bash
+# Lento: el motor de regex procesa un string literal
+grep "192.168.1.1" access.log
+
+# Rápido: búsqueda de string fijo (sin overhead de regex)
+grep -F "192.168.1.1" access.log
+
+# Rápido: múltiples strings fijos desde un archivo
+grep -Ff patterns.txt access.log
+```
+
+3. **Usa `mawk` o `gawk` para rendimiento.** `mawk` es más rápido que `gawk` para tareas simples, mientras que `gawk` tiene más features:
+
+```bash
+# Verificar qué awk está instalado
+awk --version 2>/dev/null || awk -W version 2>&1 | head -1
+
+# Instalar mawk para velocidad (Debian/Ubuntu)
+# apt-get install mawk
+
+# Usar mawk explícitamente para pipelines críticos de rendimiento
+mawk '{print $1, $9}' access.log | sort | uniq -c | sort -rn
+```
+
+## Errores Comunes Adicionales
+
+1. **Usar `sed -i` sin backup en archivos de producción.** Un regex incorrecto puede destruir el contenido del archivo irreversiblemente:
+
+```bash
+# Arriesgado: sin backup
+sed -i 's/pattern/replacement/g' important.conf
+
+# Seguro: crear backup con extensión .bak
+sed -i.bak 's/pattern/replacement/g' important.conf
+
+# Seguro: escribir a archivo temporal primero, verificar, luego reemplazar
+sed 's/pattern/replacement/g' important.conf > important.conf.tmp
+diff important.conf important.conf.tmp  # Verificar cambios
+mv important.conf.tmp important.conf
+```
+
+2. **No anclar patrones de regex.** `grep "error"` coincide con "errors", "errorlog", "noerror" — usa límites de palabra:
+
+```bash
+# No intencionado: coincide con subcadenas
+grep "error" log.txt  # También coincide con "errorlog", "noerror"
+
+# Preciso: límite de palabra
+grep -w "error" log.txt  # Solo coincide con la palabra "error"
+
+# Preciso: anclado
+grep -E "^error | error$" log.txt  # Inicio o fin de línea
+```
+
+3. **Asumir que el separador de campos de `awk` maneja todos los delimitadores.** `-F','` no maneja campos CSV entre comillas con comas embebidas. Usa un parser CSV apropiado:
+
+```bash
+# Roto: divide en cada coma, incluyendo las dentro de comillas
+awk -F',' '{print $2}' "John, Doe",35,"123 Main St, Apt 4"
+
+# Correcto: usar csvkit
+csvcut -c 2 contacts.csv
+
+# Correcto: usar Python
+python3 -c "
+import csv, sys
+for row in csv.reader(sys.stdin):
+    print(row[1])
+" < contacts.csv
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo proceso archivos muy grandes sin quedarme sin memoria?
+
+Todas las herramientas clásicas de Unix (grep, sed, awk, sort, cut) son orientadas a streams y procesan datos línea por línea. Usan memoria constante sin importar el tamaño del archivo. La excepción es `sort`, que usa archivos temporales para entradas grandes:
+
+```bash
+# Procesar un archivo de 50GB con memoria constante
+LC_ALL=C grep "ERROR" huge_log.txt | awk '{print $5}' | sort | uniq -c | sort -rn
+
+# sort usa archivos temporales automáticamente cuando la entrada excede la memoria
+# Controla el directorio temporal con TMPDIR
+TMPDIR=/fast_ssd sort huge_file.txt > sorted.txt
+```
+
+### ¿Cómo extraigo datos entre dos patrones?
+
+Usa `sed` con rangos de dirección o `awk` con variables de flag:
+
+```bash
+# sed: imprimir líneas entre START y END (inclusivo)
+sed -n '/START/,/END/p' file.txt
+
+# sed: imprimir líneas entre START y END (exclusivo)
+sed -n '/START/,/END/p' file.txt | sed '1d;$d'
+
+# awk: más control sobre inclusión/exclusión
+awk '/START/ {found=1; next} /END/ {found=0} found' file.txt
+
+# awk: incluir marcadores de inicio y fin
+awk '/START/ {found=1} found {print} /END/ {found=0}' file.txt
+```
+
+### ¿Cómo reemplazo texto a través de múltiples archivos de forma segura?
+
+Usa `find` con `sed -i` y siempre crea backups:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Buscar y reemplazar en todos los archivos .conf, con backup
+find /etc/app -name "*.conf" -type f -exec sed -i.bak 's/old_host/new_host/g' {} +
+
+# Verificar cambios antes de eliminar backups
+find /etc/app -name "*.conf.bak" | while read bak; do
+    orig="${bak%.bak}"
+    if diff -q "$orig" "$bak" > /dev/null; then
+        echo "Sin cambios: $orig"
+        rm "$bak"
+    else
+        echo "Cambiado: $orig"
+        # Revisar cambios, luego eliminar backup si estás satisfecho
+        # rm "$bak"
+    fi
+done
+```
+
+### ¿Cómo fusiono dos archivos ordenados y elimino duplicados?
+
+Usa `sort -m` para fusionar archivos pre-ordenados, luego `uniq`:
+
+```bash
+# Fusionar dos archivos ordenados, eliminar duplicados
+sort -m file1_sorted.txt file2_sorted.txt | uniq > merged_unique.txt
+
+# Fusionar y mantener solo líneas presentes en ambos archivos (intersección)
+sort file1.txt file2.txt | uniq -d > intersection.txt
+
+# Fusionar y mantener solo líneas únicas de file1 (diferencia)
+sort file1.txt file2.txt file2.txt | uniq -u > only_file1.txt
+```
+
+### ¿Cómo coloco color en la salida de grep en scripts?
+
+```bash
+# Habilitar salida con color en grep
+grep --color=auto "pattern" file.txt
+
+# Forzar color incluso al hacer pipe (útil para logging)
+grep --color=always "ERROR" app.log | less -R
+
+# Color personalizado con awk
+awk '
+    /ERROR/ {print "\033[31m" $0 "\033[0m"; next}
+    /WARN/  {print "\033[33m" $0 "\033[0m"; next}
+    /INFO/  {print "\033[32m" $0 "\033[0m"; next}
+    {print}
+' app.log
+```

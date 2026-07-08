@@ -191,3 +191,339 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Advanced Solutions
+
+### AWS Signature v4 implementation (Python)
+
+```python
+import hashlib
+import hmac
+import datetime
+import urllib.parse
+
+def get_aws_signature_v4(
+    access_key: str,
+    secret_key: str,
+    region: str,
+    service: str,
+    method: str,
+    url: str,
+    headers: dict,
+    body: str = '',
+) -> dict:
+    """Generate AWS Signature v4 headers for an API request."""
+    parsed = urllib.parse.urlparse(url)
+    host = parsed.netloc
+    path = parsed.path or '/'
+    query = parsed.query
+
+    # Step 1: Create canonical request
+    amz_date = datetime.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+    date_stamp = amz_date[:8]
+
+    # Normalize and sort headers
+    signed_headers = sorted(headers.keys())
+    canonical_headers = ''.join(
+        f'{h.lower()}:{headers[h].strip()}\n' for h in signed_headers
+    )
+    signed_header_str = ';'.join(h.lower() for h in signed_headers)
+
+    payload_hash = hashlib.sha256(body.encode()).hexdigest()
+
+    canonical_request = '\n'.join([
+        method.upper(),
+        path,
+        query,
+        canonical_headers,
+        signed_header_str,
+        payload_hash,
+    ])
+
+    # Step 2: Create string to sign
+    credential_scope = f'{date_stamp}/{region}/{service}/aws4_request'
+    string_to_sign = '\n'.join([
+        'AWS4-HMAC-SHA256',
+        amz_date,
+        credential_scope,
+        hashlib.sha256(canonical_request.encode()).hexdigest(),
+    ])
+
+    # Step 3: Calculate signature
+    def sign(key: bytes, msg: str) -> bytes:
+        return hmac.new(key, msg.encode(), hashlib.sha256).digest()
+
+    signing_key = sign(
+        sign(sign(sign(
+            ('AWS4' + secret_key).encode(), date_stamp),
+            region),
+            service),
+        'aws4_request'
+    )
+
+    signature = hmac.new(
+        signing_key, string_to_sign.encode(), hashlib.sha256
+    ).hexdigest()
+
+    # Step 4: Build authorization header
+    auth_header = (
+        f'AWS4-HMAC-SHA256 '
+        f'Credential={access_key}/{credential_scope}, '
+        f'SignedHeaders={signed_header_str}, '
+        f'Signature={signature}'
+    )
+
+    result = dict(headers)
+    result['Authorization'] = auth_header
+    result['X-Amz-Date'] = amz_date
+    result['X-Amz-Content-Sha256'] = payload_hash
+    return result
+
+# Usage
+headers = get_aws_signature_v4(
+    access_key='AKIAIOSFODNN7EXAMPLE',
+    secret_key='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    region='us-east-1',
+    service='s3',
+    method='GET',
+    url='https://s3.amazonaws.com/my-bucket/object.txt',
+    headers={'Host': 's3.amazonaws.com'},
+)
+```
+
+### Webhook signature verification with nonce (Node.js)
+
+```javascript
+const crypto = require('crypto');
+const redis = require('redis');
+
+const redisClient = redis.createClient({ url: process.env.REDIS_URL });
+const REPLAY_WINDOW = 5 * 60; // 5 minutes
+
+async function verifyWebhook(secret, req) {
+  const signature = req.headers['x-webhook-signature'];
+  const timestamp = req.headers['x-webhook-timestamp'];
+  const nonce = req.headers['x-webhook-nonce'];
+  const body = req.rawBody; // Must be raw bytes, not parsed JSON
+
+  // 1. Check timestamp freshness
+  const now = Math.floor(Date.now() / 1000);
+  if (Math.abs(now - parseInt(timestamp)) > REPLAY_WINDOW) {
+    throw new Error('Timestamp outside replay window');
+  }
+
+  // 2. Check nonce uniqueness (prevent replay)
+  const nonceKey = `webhook:nonce:${nonce}`;
+  const exists = await redisClient.set(nonceKey, '1', {
+    NX: true,
+    EX: REPLAY_WINDOW,
+  });
+  if (!exists) {
+    throw new Error('Nonce already used — possible replay attack');
+  }
+
+  // 3. Verify signature
+  const message = `${timestamp}.${nonce}.${body.toString('utf-8')}`;
+  const expected = crypto
+    .createHmac('sha256', secret)
+    .update(message)
+    .digest('base64');
+
+  if (!crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expected)
+  )) {
+    throw new Error('Invalid signature');
+  }
+
+  return true;
+}
+
+// Express middleware
+async function webhookMiddleware(req, res, next) {
+  try {
+    req.rawBody = await getRawBody(req);
+    await verifyWebhook(process.env.WEBHOOK_SECRET, req);
+    next();
+  } catch (err) {
+    res.status(401).json({ error: err.message });
+  }
+}
+```
+
+### Go HMAC request signing
+
+```go
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+	"net/http"
+	"time"
+)
+
+func SignRequest(secret, method, path, body string) http.Header {
+	timestamp := time.Now().UTC().Format(time.RFC3339)
+	message := fmt.Sprintf("%s\n%s\n%s\n%s", method, path, timestamp, body)
+
+	mac := hmac.New(sha256.New, []byte(secret))
+	mac.Write([]byte(message))
+	signature := hex.EncodeToString(mac.Sum(nil))
+
+	header := http.Header{}
+	header.Set("X-Request-Timestamp", timestamp)
+	header.Set("X-Request-Signature", signature)
+	return header
+}
+
+func VerifyRequest(secret string, r *http.Request, body []byte) bool {
+	timestamp := r.Header.Get("X-Request-Timestamp")
+	signature := r.Header.Get("X-Request-Signature")
+
+	// Check timestamp freshness
+	ts, err := time.Parse(time.RFC3339, timestamp)
+	if err != nil {
+		return false
+	}
+	if time.Since(ts) > 5*time.Minute {
+		return false
+	}
+
+	message := fmt.Sprintf("%s\n%s\n%s\n%s",
+		r.Method, r.URL.Path, timestamp, string(body))
+
+	mac := hmac.New(sha256.New, []byte(secret))
+	mac.Write([]byte(message))
+	expected := hex.EncodeToString(mac.Sum(nil))
+
+	// Constant-time comparison
+	return hmac.Equal([]byte(signature), []byte(expected))
+}
+```
+
+### Key rotation strategy (Python)
+
+```python
+import time
+from dataclasses import dataclass
+
+@dataclass
+class KeyRotation:
+    """Manage HMAC key rotation with overlap period."""
+    current_key: str
+    previous_key: str | None = None
+    rotation_time: float = 0
+    overlap_seconds: int = 3600  # 1 hour overlap
+
+    def rotate(self, new_key: str):
+        """Rotate to a new key, keeping old key valid during overlap."""
+        self.previous_key = self.current_key
+        self.current_key = new_key
+        self.rotation_time = time.time()
+
+    def get_valid_keys(self) -> list[str]:
+        """Return all currently valid keys."""
+        keys = [self.current_key]
+        if self.previous_key and self.previous_key != self.current_key:
+            if time.time() - self.rotation_time < self.overlap_seconds:
+                keys.append(self.previous_key)
+        return keys
+
+    def verify(self, signature: str, method: str, path: str,
+               timestamp: str, body: str) -> bool:
+        """Verify against any valid key (supports rotation overlap)."""
+        import hmac
+        import hashlib
+        message = f"{method}\n{path}\n{timestamp}\n{body}"
+
+        for key in self.get_valid_keys():
+            expected = hmac.new(
+                key.encode(), message.encode(), hashlib.sha256
+            ).hexdigest()
+            if hmac.compare_digest(signature, expected):
+                return True
+        return False
+
+# Usage
+rotation = KeyRotation(current_key='secret-v1')
+# After rotation: both v1 and v2 are valid for 1 hour
+rotation.rotate('secret-v2')
+# After 1 hour: only v2 is valid
+```
+
+## Additional Best Practices
+
+1. **Use a canonical request format.** Normalize the request before signing to avoid signature mismatches caused by encoding differences, header ordering, or trailing slashes:
+
+```python
+def canonicalize_request(method: str, path: str, query: dict,
+                         headers: dict, body: str) -> str:
+    """Build a deterministic canonical request string."""
+    # Normalize path: remove trailing slash, encode
+    norm_path = path.rstrip('/') or '/'
+
+    # Sort query parameters alphabetically
+    sorted_query = '&'.join(
+        f'{k}={v}' for k, v in sorted(query.items())
+    )
+
+    # Sort and lowercase headers
+    sorted_headers = ''.join(
+        f'{k.lower()}:{v.strip()}\n'
+        for k in sorted(headers.keys())
+    )
+
+    return f'{method.upper()}\n{norm_path}\n{sorted_query}\n{sorted_headers}\n{body}'
+```
+
+2. **Include a request ID in the signature.** This ties the signature to a specific request instance, making replay attacks harder even within the timestamp window:
+
+```javascript
+const requestId = crypto.randomUUID();
+const message = `${method}\n${path}\n${timestamp}\n${requestId}\n${body}`;
+// Include X-Request-Id header alongside signature
+```
+
+## Additional Common Mistakes
+
+1. **Signing parsed JSON instead of raw bytes.** If the server parses JSON and re-serializes it, the body string may differ from what the client signed (key ordering, whitespace). Always sign the raw request body:
+
+```javascript
+// WRONG: signing after JSON.parse + JSON.stringify
+const body = JSON.stringify(JSON.parse(rawBody));
+
+// CORRECT: signing raw body bytes
+const body = req.rawBody; // Buffer of original request body
+```
+
+2. **Not handling clock skew between client and server.** If the client clock is 6 minutes ahead, the server rejects all requests. Allow a tolerance of 60-90 seconds and log clock skew for monitoring:
+
+```python
+def check_timestamp(timestamp: str, tolerance_seconds: int = 90) -> bool:
+    from datetime import datetime, timezone
+    ts = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+    now = datetime.now(timezone.utc)
+    skew = abs((now - ts).total_seconds())
+    if skew > 300:  # 5 minute window
+        return False
+    if skew > tolerance_seconds:
+        logging.warning(f'Clock skew detected: {skew}s')
+    return True
+```
+
+## Additional FAQ
+
+### What is the difference between HMAC and digital signatures?
+
+HMAC uses a shared secret key — both sender and receiver know the same key. Digital signatures (like RSA or Ed25519) use asymmetric keys: the sender signs with a private key, and the receiver verifies with a public key. Digital signatures provide non-repudiation (the sender cannot deny signing), while HMAC does not.
+
+### How do I handle key distribution securely?
+
+Distribute HMAC keys out-of-band — never send the key over the same channel as the signed requests. Use a key management service (AWS KMS, HashiCorp Vault) to deliver keys to authenticated clients. For webhook receivers, the sender provides the secret through a dashboard or API call over TLS.
+
+### Should I use HMAC or OAuth 2.0 for API authentication?
+
+Use HMAC for server-to-server communication where both parties can securely share a secret. Use OAuth 2.0 for user-facing APIs where users authorize third-party applications. HMAC is simpler and faster; OAuth 2.0 provides delegation and scoped access. Some APIs use both: OAuth 2.0 for user authorization and HMAC for request signing.

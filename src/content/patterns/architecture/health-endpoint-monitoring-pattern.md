@@ -154,3 +154,271 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+## Advanced Solutions
+
+### Deep health endpoint with dependency checks
+
+Implement a comprehensive health endpoint that checks all dependencies:
+
+```javascript
+const express = require('express');
+const app = express();
+
+const healthChecks = {
+  database: async () => {
+    try {
+      await pool.query('SELECT 1');
+      return { status: 'healthy', latency: Date.now() - start };
+    } catch (error) {
+      return { status: 'unhealthy', error: error.message };
+    }
+  },
+  cache: async () => {
+    try {
+      await cache.ping();
+      return { status: 'healthy' };
+    } catch (error) {
+      return { status: 'unhealthy', error: error.message };
+    }
+  },
+  messageQueue: async () => {
+    try {
+      await channel.checkQueue();
+      return { status: 'healthy' };
+    } catch (error) {
+      return { status: 'unhealthy', error: error.message };
+    }
+  }
+};
+
+app.get('/health/deep', async (req, res) => {
+  const results = {};
+  let overallHealthy = true;
+
+  for (const [name, check] of Object.entries(healthChecks)) {
+    try {
+      const start = Date.now();
+      const result = await check();
+      results[name] = { ...result, checkTime: Date.now() - start };
+      if (result.status !== 'healthy') {
+        overallHealthy = false;
+      }
+    } catch (error) {
+      results[name] = { status: 'error', error: error.message };
+      overallHealthy = false;
+    }
+  }
+
+  res.status(overallHealthy ? 200 : 503).json({
+    status: overallHealthy ? 'healthy' : 'unhealthy',
+    checks: results,
+    timestamp: new Date().toISOString()
+  });
+});
+```
+
+### Startup probe for slow-initializing services
+
+Use a startup probe for services that take time to initialize:
+
+```yaml
+# Kubernetes deployment with startup probe
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slow-startup-service
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        image: app:latest
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: 3000
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30  # Allow up to 5 minutes to start
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+```
+
+```javascript
+// Startup endpoint that returns success only after initialization
+let isInitialized = false;
+
+async function initialize() {
+  // Perform slow initialization tasks
+  await loadConfiguration();
+  await warmUpCache();
+  await connectToExternalServices();
+  isInitialized = true;
+}
+
+app.get('/health/startup', (req, res) => {
+  if (isInitialized) {
+    res.status(200).json({ status: 'initialized' });
+  } else {
+    res.status(503).json({ status: 'initializing' });
+  }
+});
+
+// Start initialization in background
+initialize();
+```
+
+### Health endpoint with circuit breaker
+
+Add circuit breaker pattern to prevent health check storms:
+
+```javascript
+class HealthCheckCircuitBreaker {
+  constructor(threshold = 5, timeout = 60000) {
+    this.failureCount = 0;
+    this.lastFailureTime = null;
+    this.threshold = threshold;
+    this.timeout = timeout;
+    this.state = 'closed'; // closed, open, half-open
+  }
+
+  recordSuccess() {
+    this.failureCount = 0;
+    this.state = 'closed';
+  }
+
+  recordFailure() {
+    this.failureCount++;
+    this.lastFailureTime = Date.now();
+    
+    if (this.failureCount >= this.threshold) {
+      this.state = 'open';
+    }
+  }
+
+  shouldAllowCheck() {
+    if (this.state === 'closed') return true;
+    
+    if (this.state === 'open') {
+      const timeSinceLastFailure = Date.now() - this.lastFailureTime;
+      if (timeSinceLastFailure > this.timeout) {
+        this.state = 'half-open';
+        return true;
+      }
+      return false;
+    }
+    
+    return true;
+  }
+}
+
+const circuitBreaker = new HealthCheckCircuitBreaker();
+
+app.get('/health/ready', async (req, res) => {
+  if (!circuitBreaker.shouldAllowCheck()) {
+    return res.status(503).json({ status: 'circuit open' });
+  }
+
+  try {
+    const dbHealthy = await checkDatabaseConnection();
+    const cacheHealthy = await checkCacheConnection();
+    
+    if (dbHealthy && cacheHealthy) {
+      circuitBreaker.recordSuccess();
+      res.status(200).json({ status: 'ready' });
+    } else {
+      circuitBreaker.recordFailure();
+      res.status(503).json({ status: 'not ready' });
+    }
+  } catch (error) {
+    circuitBreaker.recordFailure();
+    res.status(503).json({ status: 'error', message: error.message });
+  }
+});
+```
+
+## Additional Best Practices
+
+1. **Add version information to health endpoints.** Include the service version, build timestamp, and git commit hash in health responses. This helps identify which version is deployed and track deployments.
+
+```javascript
+app.get('/health/live', (req, res) => {
+  res.status(200).json({
+    status: 'alive',
+    version: process.env.APP_VERSION || 'unknown',
+    buildTime: process.env.BUILD_TIME || 'unknown',
+    commitHash: process.env.COMMIT_HASH || 'unknown'
+  });
+});
+```
+
+2. **Implement health endpoint authentication.** Protect deep health endpoints with authentication tokens or IP allowlists. This prevents unauthorized access to sensitive system information.
+
+```javascript
+const authMiddleware = (req, res, next) => {
+  const token = req.headers['x-health-token'];
+  if (token !== process.env.HEALTH_TOKEN) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  next();
+};
+
+app.get('/health/deep', authMiddleware, async (req, res) => {
+  // Deep health check implementation
+});
+```
+
+3. **Use health checks for graceful shutdown.** Implement a shutdown endpoint that marks the service as unhealthy, allowing the load balancer to drain traffic before the process exits.
+
+```javascript
+let isShuttingDown = false;
+
+app.post('/health/shutdown', (req, res) => {
+  isShuttingDown = true;
+  res.status(200).json({ status: 'shutting down' });
+  
+  // Give load balancer time to stop sending traffic
+  setTimeout(() => {
+    process.exit(0);
+  }, 10000);
+});
+
+app.get('/health/ready', (req, res) => {
+  if (isShuttingDown) {
+    return res.status(503).json({ status: 'shutting down' });
+  }
+  // Normal readiness check
+});
+```
+
+## Additional Common Mistakes
+
+1. **Making health checks too expensive.** Health checks that query large databases or perform complex operations can cause performance degradation. Keep health checks fast (under 100ms) and lightweight.
+
+2. **Forgetting to handle concurrent health check requests.** Multiple health check requests from load balancers can overwhelm the service. Implement rate limiting or caching for health check responses.
+
+## Additional Frequently Asked Questions
+
+### How often should health checks be called?
+
+Configure health check intervals based on your requirements. Typical intervals are 5-10 seconds for readiness probes and 15-30 seconds for liveness probes. More frequent checks provide faster detection but increase load.
+
+### Should health checks return detailed error messages?
+
+For public health endpoints, return generic status only. For internal deep health endpoints, include detailed error messages to help debugging. Never expose sensitive information in public health responses.
+
+### How do I handle health checks during database migrations?
+
+Implement a migration status endpoint that returns the migration state. During migrations, the readiness probe can check this endpoint and return not ready if migrations are in progress. This prevents routing traffic to a service with incompatible schema changes.

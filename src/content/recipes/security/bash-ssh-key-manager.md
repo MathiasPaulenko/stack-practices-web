@@ -270,3 +270,179 @@ ssh -o PasswordAuthentication=no user@server
 ### What is the difference between authorized_keys and known_hosts?
 
 `authorized_keys` lists public keys that can log into this machine. `known_hosts` lists servers this machine has connected to. They serve opposite purposes: one controls inbound access, the other validates outbound connections.
+
+## Advanced Solutions
+
+### SSH config with jump host (bastion)
+
+Connect to internal servers through a bastion host without exposing them to the internet. The `ProxyJump` directive chains SSH connections:
+
+```ssh-config
+# Bastion host (reachable from internet)
+Host bastion
+    HostName bastion.example.com
+    User deploy
+    IdentityFile ~/.ssh/id_ed25519_bastion
+    Port 2222
+
+# Internal servers (only reachable via bastion)
+Host *.internal.example.com
+    User deploy
+    IdentityFile ~/.ssh/id_ed25519_internal
+    ProxyJump bastion
+    # Disable agent forwarding to bastion for security
+    ForwardAgent no
+
+# Database server (two-hop: bastion -> jump -> db)
+Host db-prod.internal.example.com
+    User dbadmin
+    IdentityFile ~/.ssh/id_ed25519_db
+    ProxyJump jump-vm.internal.example.com
+```
+
+### FIDO2 hardware-backed SSH keys (YubiKey)
+
+Generate SSH keys that require physical hardware presence. The private key never leaves the YubiKey:
+
+```bash
+#!/bin/bash
+
+# Generate a FIDO2-backed ed25519 key
+# Requires OpenSSH 8.2+ and a FIDO2-compatible device (YubiKey 5 Series)
+ssh-keygen -t ed25519-sk -C "$(whoami)@$(hostname)-fido2" -f "$HOME/.ssh/id_ed25519_sk"
+
+# With a passphrase and requiring touch for every use
+ssh-keygen -t ed25519-sk -O resident -O verify-required \
+    -C "$(whoami)@$(hostname)-fido2-strict" \
+    -f "$HOME/.ssh/id_ed25519_sk_strict"
+
+echo "FIDO2 key generated. Touch YubiKey when prompted during use."
+
+# Resident key can be recovered on a new machine
+# ssh-keygen -K  # downloads resident keys from FIDO2 device
+```
+
+### SSH Certificate Authority (CA) for key signing
+
+Instead of distributing public keys to every server, set up an SSH CA. Servers trust the CA, and users get signed certificates with expiration:
+
+```bash
+#!/bin/bash
+
+# === On the CA host ===
+# Generate CA key pair (do this once, keep the private key secure)
+ssh-keygen -t ed25519 -f /etc/ssh/ca_key -N "" -C "SSH CA"
+
+# === On each server (trust the CA) ===
+# Add CA public key to trusted user CA
+echo "TrustedUserCAKeys /etc/ssh/ca_key.pub" >> /etc/ssh/sshd_config
+systemctl restart sshd
+
+# === Sign a user's public key (on CA host) ===
+# Sign with validity period and principal restrictions
+ssh-keygen -s /etc/ssh/ca_key \
+    -I "user-$(date +%Y%m%d)" \
+    -n deploy,admin \
+    -V +1d \
+    ~/.ssh/id_ed25519.pub
+
+# This generates ~/.ssh/id_ed25519-cert.pub
+# The user connects with their key + certificate:
+# ssh -i ~/.ssh/id_ed25519 user@server
+
+# The certificate is valid for 1 day and only for principals 'deploy' and 'admin'
+```
+
+### Bulk key rotation across server fleet
+
+Rotate keys across hundreds of servers using a parallel SSH tool and a rotation manifest:
+
+```bash
+#!/bin/bash
+
+# rotation-manifest.txt format: server old_key_fingerprint new_key_path
+MANIFEST="rotation-manifest.txt"
+KEYS_DIR="$HOME/.ssh"
+
+while IFS=$'\t' read -r server old_fp new_key; do
+    [ -z "$server" ] && continue
+    echo "Rotating key on $server..."
+
+    # Remove old key by fingerprint
+    ssh "$server" "ssh-keygen -R -f ~/.ssh/authorized_keys -F '$old_fp'" 2>/dev/null
+
+    # Add new key
+    NEW_PUB=$(cat "${KEYS_DIR}/${new_key}.pub")
+    ssh "$server" "echo '$NEW_PUB' >> ~/.ssh/authorized_keys"
+
+    echo "  Done: $server"
+done < "$MANIFEST"
+
+echo "Rotation complete for $(wc -l < "$MANIFEST") servers"
+```
+
+## Additional Best Practices
+
+1. **Use `IdentitiesOnly yes` in SSH config.** Without this, SSH tries all keys in `~/.ssh/` for every connection. This can trigger max auth attempts on servers with many keys:
+
+```ssh-config
+Host *
+    IdentitiesOnly yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+```
+
+2. **Set `MaxAuthTries` on servers.** Limit the number of failed authentication attempts to reduce brute-force exposure:
+
+```bash
+# In /etc/ssh/sshd_config
+MaxAuthTries 3
+LoginGraceTime 30
+PermitRootLogin no
+AllowUsers deploy admin
+```
+
+## Additional Common Mistakes
+
+1. **Using `ForwardAgent yes` globally.** Agent forwarding allows a compromised server to use your SSH agent. Only enable it per-host for trusted servers:
+
+```ssh-config
+# Bad: global agent forwarding
+Host *
+    ForwardAgent yes
+
+# Good: per-host for trusted bastion only
+Host bastion.example.com
+    ForwardAgent yes
+```
+
+2. **Not setting file permissions on SSH keys.** SSH refuses to use keys with overly permissive permissions, but silent failures can confuse. Always verify:
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+chmod 600 ~/.ssh/config
+```
+
+## Additional Frequently Asked Questions
+
+### How do I use SSH keys with GitHub/GitLab?
+
+Add your public key to the platform's SSH keys settings. Use `~/.ssh/config` to specify which key to use:
+
+```ssh-config
+Host github.com
+    IdentityFile ~/.ssh/id_ed25519_github
+    User git
+```
+
+Test with `ssh -T git@github.com`.
+
+### What is SSH key rotation and how often should I do it?
+
+Key rotation means replacing existing SSH keys with new ones and removing the old keys from all servers. Rotate keys when:
+- A team member leaves
+- A key may have been exposed (laptop theft, backup compromise)
+- Annually as a routine security measure
+- After any security incident involving server access

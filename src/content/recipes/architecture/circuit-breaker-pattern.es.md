@@ -226,14 +226,320 @@ R: Sí, si el fallback no está cuidadosamente diseñado. Si el circuito se abre
 R: La mayoría de las librerías modernas (Resilience4j, Opossum para JS) soportan ejecución async nativamente. La máquina de estados corre en el thread llamador (o event loop), y la función envuelta se espera. Los timeouts deben ser compatibles con el runtime async (Promise timeout en JS, CompletableFuture timeout en Java). Consulta [Async Patterns](/recipes/api/call-rest-api) para estrategias de ejecución async.
 
 
+### Go con gobreaker
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "time"
+
+    "github.com/sony/gobreaker"
+)
+
+type PaymentClient struct {
+    cb *gobreaker.CircuitBreaker
+}
+
+func NewPaymentClient() *PaymentClient {
+    settings := gobreaker.Settings{
+        Name:        "payment-service",
+        MaxRequests: 3,                              // llamadas half-open máx
+        Interval:    60 * time.Second,               // intervalo de ventana deslizante
+        Timeout:     30 * time.Second,               // duración estado open
+        ReadyToTrip: func(counts gobreaker.Counts) bool {
+            // Abrir cuando ratio de falla > 60%
+            failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
+            return counts.Requests > 5 && failureRatio > 0.6
+        },
+        OnStateChange: func(name string, from, to gobreaker.State) {
+            log.Printf("Circuit %s: %s -> %s", name, from, to)
+        },
+    }
+
+    return &PaymentClient{
+        cb: gobreaker.NewCircuitBreaker(settings),
+    }
+}
+
+func (c *PaymentClient) Charge(ctx context.Context, amount float64) (string, error) {
+    result, err := c.cb.Execute(func() (interface{}, error) {
+        return c.callPaymentService(ctx, amount)
+    })
+    if err != nil {
+        return "", err
+    }
+    return result.(string), nil
+}
+
+func (c *PaymentClient) callPaymentService(ctx context.Context, amount float64) (string, error) {
+    // llamada HTTP al servicio de pagos
+    return fmt.Sprintf("charged %.2f", amount), nil
+}
+```
+
+### C# con Polly
+
+```csharp
+using Polly;
+using Polly.CircuitBreaker;
+using System.Net.Http;
+
+public class PaymentService
+{
+    private readonly AsyncCircuitBreakerPolicy<HttpResponseMessage> _circuitBreaker;
+    private readonly HttpClient _httpClient;
+
+    public PaymentService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+
+        _circuitBreaker = Policy<HttpResponseMessage>
+            .Handle<HttpRequestException>()
+            .OrResult(r => r.IsSuccessStatusCode == false)
+            .CircuitBreakerAsync(
+                handledEventsAllowedBeforeBreaking: 5,
+                durationOfBreak: TimeSpan.FromSeconds(30),
+                onBreak: (exception, duration) =>
+                {
+                    Console.WriteLine($"Circuit opened for {duration.TotalSeconds}s");
+                },
+                onReset: () => Console.WriteLine("Circuit closed"),
+                onHalfOpen: () => Console.WriteLine("Circuit half-open")
+            );
+    }
+
+    public async Task<string> ChargeAsync(decimal amount)
+    {
+        return await _circuitBreaker.ExecuteAsync(async () =>
+        {
+            var response = await _httpClient.PostAsJsonAsync(
+                "https://payment-api.example.com/charge",
+                new { Amount = amount }
+            );
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        });
+    }
+}
+```
+
+### Métricas Prometheus para Circuit Breaker
+
+```typescript
+import { Counter, Gauge, Histogram } from 'prom-client';
+
+const circuitState = new Gauge({
+  name: 'circuit_breaker_state',
+  help: 'Circuit breaker state: 0=closed, 1=open, 2=half-open',
+  labelNames: ['circuit_name'],
+});
+
+const circuitFailures = new Counter({
+  name: 'circuit_breaker_failures_total',
+  help: 'Total failures counted by circuit breaker',
+  labelNames: ['circuit_name'],
+});
+
+const circuitDuration = new Histogram({
+  name: 'circuit_breaker_call_duration_seconds',
+  help: 'Call duration through circuit breaker',
+  labelNames: ['circuit_name', 'outcome'],
+  buckets: [0.01, 0.05, 0.1, 0.5, 1, 5],
+});
+
+class InstrumentedCircuitBreaker<T extends (...args: any[]) => Promise<any>> {
+  private state: CircuitState = 'CLOSED';
+  private failures = 0;
+  private successes = 0;
+  private nextAttempt = Date.now();
+
+  constructor(
+    private fn: T,
+    private config: CircuitBreakerConfig,
+    private name: string
+  ) {
+    circuitState.set({ circuit_name: this.name }, 0);
+  }
+
+  async execute(...args: Parameters<T>): Promise<ReturnType<T>> {
+    if (this.state === 'OPEN') {
+      if (Date.now() < this.nextAttempt) {
+        circuitState.set({ circuit_name: this.name }, 1);
+        throw new Error('Circuit breaker is OPEN');
+      }
+      this.state = 'HALF_OPEN';
+      circuitState.set({ circuit_name: this.name }, 2);
+      this.successes = 0;
+    }
+
+    const start = Date.now();
+    try {
+      const result = await this.fn(...args);
+      const duration = (Date.now() - start) / 1000;
+      circuitDuration.observe(
+        { circuit_name: this.name, outcome: 'success' },
+        duration
+      );
+      this.onSuccess();
+      return result;
+    } catch (error) {
+      const duration = (Date.now() - start) / 1000;
+      circuitDuration.observe(
+        { circuit_name: this.name, outcome: 'failure' },
+        duration
+      );
+      circuitFailures.inc({ circuit_name: this.name });
+      this.onFailure();
+      throw error;
+    }
+  }
+
+  private onSuccess(): void {
+    if (this.state === 'HALF_OPEN') {
+      this.successes++;
+      if (this.successes >= this.config.halfOpenMaxCalls) {
+        this.state = 'CLOSED';
+        circuitState.set({ circuit_name: this.name }, 0);
+        this.failures = 0;
+      }
+    } else {
+      this.failures = 0;
+    }
+  }
+
+  private onFailure(): void {
+    this.failures++;
+    if (this.state === 'HALF_OPEN' || this.failures >= this.config.failureThreshold) {
+      this.state = 'OPEN';
+      circuitState.set({ circuit_name: this.name }, 1);
+      this.nextAttempt = Date.now() + this.config.recoveryTimeout;
+    }
+  }
+}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Combina circuit breakers con bulkheads.** Un circuit breaker previene llamar a un servicio fallido, pero un bulkhead limita cuántas llamadas concurrentes haces. Juntos previenen agotamiento de recursos:
+
+```java
+import io.github.resilience4j.bulkhead.Bulkhead;
+import io.github.resilience4j.bulkhead.BulkheadConfig;
+
+BulkheadConfig bulkheadConfig = BulkheadConfig.custom()
+    .maxConcurrentCalls(20)
+    .maxWaitDuration(Duration.ofMillis(500))
+    .build();
+
+Bulkhead bulkhead = Bulkhead.of("payment", bulkheadConfig);
+
+// Combinar: circuit breaker + bulkhead + retry
+Supplier<String> supplier = Supplier.of(() -> gateway.charge(amount));
+Supplier<String> protected = Decorators.ofSupplier(supplier)
+    .withCircuitBreaker(circuitBreaker)
+    .withBulkhead(bulkhead)
+    .withRetry(retry)
+    .decorate();
+```
+
+2. **Usa circuit breakers separados por servicio downstream.** Un solo circuit breaker para todas las llamadas downstream significa que un servicio fallido abre el circuito para todos. Usa un circuit breaker por dependencia downstream:
+
+```typescript
+const breakers = new Map<string, CircuitBreaker>();
+
+function getBreaker(serviceName: string): CircuitBreaker {
+  if (!breakers.has(serviceName)) {
+    breakers.set(serviceName, new CircuitBreaker(
+      (args: any[]) => callService(serviceName, args),
+      { failureThreshold: 5, recoveryTimeout: 30000, halfOpenMaxCalls: 3 }
+    ));
+  }
+  return breakers.get(serviceName)!;
+}
+```
+
+3. **Implementa degradación graceful en fallbacks.** El fallback debería proporcionar una respuesta significativa, no solo re-lanzar. Para operaciones de lectura, sirve datos cacheados. Para operaciones de escritura, encola para después:
+
+```python
+from datetime import datetime, timedelta
+import redis
+
+cache = redis.Redis(host='localhost', port=6379)
+
+def get_product_with_fallback(product_id):
+    try:
+        return product_breaker.call(get_product_from_api, product_id)
+    except CircuitBreakerError:
+        cached = cache.get(f"product:{product_id}")
+        if cached:
+            data = json.loads(cached)
+            data["_stale"] = True
+            data["_cached_at"] = datetime.utcnow().isoformat()
+            return data
+        return {"error": "product temporarily unavailable", "retry_after": 30}
+```
+
+## Errores Comunes Adicionales
+
+1. **Compartir estado de circuit breaker entre servicios.** Si múltiples servicios comparten una instancia de circuit breaker, las fallas de un servicio abren el circuito para todos. Cada dependencia downstream necesita su propio circuit breaker con su propio tracking de fallas:
+
+```typescript
+// Mal: breaker compartido para todas las llamadas downstream
+const sharedBreaker = new CircuitBreaker(callAnyService, config);
+
+// Bien: breaker separado por servicio
+const paymentBreaker = new CircuitBreaker(callPayment, paymentConfig);
+const inventoryBreaker = new CircuitBreaker(callInventory, inventoryConfig);
+const shippingBreaker = new CircuitBreaker(callShipping, shippingConfig);
+```
+
+2. **No testear el path de fallback.** Si el fallback también falla, obtienes un error no manejado. Testea fallbacks en aislamiento — verifica que retornan datos válidos, manejan casos null y no lanzan excepciones. Incluye testing de fallback en tu pipeline de CI:
+
+```java
+@Test
+void testFallbackWhenCircuitIsOpen() {
+    // Forzar circuito abierto
+    when(paymentGateway.charge(anyDouble()))
+        .thenThrow(new RuntimeException("connection refused"));
+
+    // Llamar suficientes veces para abrir circuito
+    for (int i = 0; i < 5; i++) {
+        assertThrows(RuntimeException.class, () -> service.charge(100));
+    }
+
+    // Circuito debería estar abierto, fallback debería funcionar
+    String result = service.chargeWithFallback(100);
+    assertEquals("payment queued", result);
+}
+```
+
+3. **Abrir en errores de lógica de negocio.** Un 404 (not found) o 400 (bad request) no es un problema de salud downstream. Abre solo en fallas de infraestructura: 5xx, timeouts, connection refused, errores DNS. Configura `recordExceptions` cuidadosamente:
+
+```java
+CircuitBreakerConfig config = CircuitBreakerConfig.custom()
+    .recordExceptions(IOException.class, TimeoutException.class)
+    .ignoreExceptions(BusinessException.class, NotFoundException.class)
+    .recordResult(result -> result.getStatusCode() >= 500)
+    .build();
+```
+
+## FAQ Adicional
+
+### ¿Cómo testeo la configuración de circuit breaker?
+
+Usa chaos engineering para inyectar fallas. En tests de integración, usa un mock server que retorne 503s después de N requests. Verifica que el circuito se abre en el umbral configurado. En producción, usa fault injection (ej. delay o abort en Istio) para simular fallas downstream. Monitorea transiciones de estado del circuito vía métricas. Para testing de half-open, espera el recovery timeout y verifica que el circuito permite llamadas de prueba. Para testing de fallback, fuerza el circuito abierto y verifica que el fallback retorna datos válidos. Testea escenarios de flapping alternando éxito y falla para verificar que el circuito no oscila.
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Resilience4j se usa en producción por aplicaciones Spring Boot a escala. Netflix Hystrix (patrón predecesor) fue usado en toda la arquitectura de microservicios de Netflix. gobreaker se usa en microservicios Go en Uber y Twitch. Polly se usa en aplicaciones .NET en Microsoft y Stack Overflow. El patrón circuit breaker es un patrón de resiliencia estándar documentado en el Microsoft Azure Architecture Center y el libro Google SRE.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Un circuit breaker añade 0.01-0.1ms de overhead por llamada para tracking de estado. En estado open, las llamadas fallan en menos de 0.01ms (sin llamada de red). La ventana deslizante usa O(1) memoria para ventanas basadas en conteo y O(n) para ventanas basadas en tiempo. Las métricas de Prometheus añaden 0.01ms por llamada para grabación de métricas. El bulkhead añade 0.01ms para acquire/release de semáforo. El tiempo de ejecución del fallback depende de la estrategia — lookups de cache añaden 0.1-1ms, escrituras a cola añaden 1-5ms. El overhead total de circuit breaker + bulkhead + retry + métricas es típicamente menos de 0.5ms por llamada.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Loguea cada transición de estado con el nombre del circuito, estado previo, nuevo estado, conteo de fallas y último error. Exporta `circuit_breaker_state` como un gauge de Prometheus y alerta cuando permanece abierto por más de 5 minutos. Para circuitos que flapping, verifica si el recovery timeout es muy corto o si el servicio downstream está oscilando. Para circuitos que nunca se abren, verifica que el umbral de falla y tamaño de ventana deslizante coincidan con tu volumen de tráfico. Para circuitos que se abren muy frecuentemente, verifica si estás registrando errores de negocio (4xx) como fallas. Usa distributed tracing (Jaeger, Zipkin) para ver qué llamadas están siendo bloqueadas por el circuit breaker.

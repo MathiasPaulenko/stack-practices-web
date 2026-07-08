@@ -298,3 +298,116 @@ ON articles USING rum (search_vector);
 9. **Use `pg_trgm` alongside full-text search.** Trigram indexes complement full-text search by handling typos and partial matches that `to_tsvector` cannot find. Combine both for maximum search coverage.
 
 10. **Regularly `ANALYZE` the search table.** The query planner needs accurate statistics to choose between GIN index scans and sequential scans. Run `ANALYZE articles;` after bulk data loads or significant data changes.
+
+## Advanced Techniques
+
+### Custom text search configurations
+
+Create a custom configuration for domain-specific terminology:
+
+```sql
+-- Create a custom configuration based on English
+CREATE TEXT SEARCH CONFIGURATION my_config (COPY = english);
+
+-- Add a custom dictionary for technical terms
+CREATE TEXT SEARCH DICTIONARY my_dict (
+  TEMPLATE = simple,
+  STOPWORDS = english
+);
+
+-- Add synonyms for technical terms
+ALTER TEXT SEARCH CONFIGURATION my_config
+  ALTER MAPPING FOR asciiword, asciihword
+  WITH my_dict, english_stem;
+```
+
+### Search with faceting and filters
+
+Combine full-text search with category filtering:
+
+```sql
+-- Search within specific categories
+SELECT a.id, a.title, a.category,
+  ts_rank_cd(a.search_vector, query) AS rank
+FROM articles a,
+  plainto_tsquery('english', 'database indexing') query
+WHERE a.search_vector @@ query
+  AND a.category IN ('engineering', 'data-science')
+  AND a.status = 'published'
+ORDER BY rank DESC
+LIMIT 20;
+```
+
+### Incremental search updates with triggers
+
+For tables that require immediate search index updates:
+
+```sql
+-- Create a function to update search_vector
+CREATE OR REPLACE FUNCTION update_search_vector()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.search_vector := to_tsvector('english', NEW.title || ' ' || NEW.body);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger for automatic updates
+CREATE TRIGGER trigger_update_search_vector
+BEFORE INSERT OR UPDATE ON articles
+FOR EACH ROW
+EXECUTE FUNCTION update_search_vector();
+```
+
+### Search with result aggregation
+
+Group search results by category or other attributes:
+
+```sql
+-- Count matches per category
+SELECT a.category, COUNT(*) AS match_count
+FROM articles a,
+  plainto_tsquery('english', 'database') query
+WHERE a.search_vector @@ query
+GROUP BY a.category
+ORDER BY match_count DESC;
+```
+
+### Autocomplete and prefix search
+
+Use trigram indexes for autocomplete functionality:
+
+```sql
+-- Enable pg_trgm extension
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+-- Create trigram index on title
+CREATE INDEX idx_articles_title_autocomplete
+ON articles USING GIN (title gin_trgm_ops);
+
+-- Autocomplete query
+SELECT title
+FROM articles
+WHERE title LIKE 'data%'
+ORDER BY similarity(title, 'data') DESC
+LIMIT 10;
+```
+
+### Search result caching
+
+Cache frequent search queries to reduce load:
+
+```sql
+-- Create a materialized view for popular searches
+CREATE MATERIALIZED VIEW popular_search_results AS
+SELECT a.id, a.title,
+  ts_rank_cd(a.search_vector, query) AS rank
+FROM articles a,
+  plainto_tsquery('english', 'database') query
+WHERE a.search_vector @@ query
+ORDER BY rank DESC
+LIMIT 100;
+
+-- Refresh periodically
+REFRESH MATERIALIZED VIEW CONCURRENTLY popular_search_results;
+```

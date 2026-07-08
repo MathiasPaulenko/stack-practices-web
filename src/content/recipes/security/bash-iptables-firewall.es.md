@@ -289,3 +289,163 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 ```
 
 Revisa `/var/log/syslog` o `/var/log/messages` para las entradas de log. Remueve la regla `LOG` después de debuggear.
+
+## Soluciones Avanzadas
+
+### Aislamiento de zona DMZ con cadenas personalizadas
+
+Aísla un subnet DMZ de la red interna usando cadenas personalizadas. El tráfico entre zonas se permite o deniega explícitamente:
+
+```bash
+#!/bin/bash
+
+# Definir zonas
+INTERNAL="10.0.1.0/24"
+DMZ="10.0.2.0/24"
+
+# Crear cadenas personalizadas para tráfico entre zonas
+iptables -N INTERNAL_TO_DMZ 2>/dev/null || iptables -F INTERNAL_TO_DMZ
+iptables -N DMZ_TO_INTERNAL 2>/dev/null || iptables -F DMZ_TO_INTERNAL
+
+# Internal -> DMZ: permitir solo HTTP/HTTPS
+iptables -A INTERNAL_TO_DMZ -p tcp --dport 80 -j ACCEPT
+iptables -A INTERNAL_TO_DMZ -p tcp --dport 443 -j ACCEPT
+iptables -A INTERNAL_TO_DMZ -j LOG --log-prefix "INT-DMZ-DROP: " -m limit --limit 5/min
+iptables -A INTERNAL_TO_DMZ -j DROP
+
+# DMZ -> Internal: denegar todo por defecto, permitir solo respuestas DNS
+iptables -A DMZ_TO_INTERNAL -p udp --sport 53 -j ACCEPT
+iptables -A DMZ_TO_INTERNAL -j LOG --log-prefix "DMZ-INT-DROP: " -m limit --limit 5/min
+iptables -A DMZ_TO_INTERNAL -j DROP
+
+# Saltar a cadenas personalizadas según origen/destino
+iptables -A FORWARD -s "$INTERNAL" -d "$DMZ" -j INTERNAL_TO_DMZ
+iptables -A FORWARD -s "$DMZ" -d "$INTERNAL" -j DMZ_TO_INTERNAL
+
+echo "DMZ isolation configured: Internal=$INTERNAL DMZ=$DMZ"
+```
+
+### Protección contra SYN flood con SYNPROXY
+
+SYNPROXY es un módulo de netfilter que intercepta paquetes TCP SYN y valida el handshake completo antes de forwardear. Previene ataques SYN flood sin dropear conexiones legítimas:
+
+```bash
+#!/bin/bash
+
+# Habilitar SYNPROXY para tráfico HTTP entrante
+iptables -t raw -A PREROUTING -p tcp -m tcp --dport 80 --syn -j SYNPROXY \
+  --sack-perm --timestamp --wscale 7 --mss 1460
+
+iptables -t raw -A PREROUTING -p tcp -m tcp --dport 443 --syn -j SYNPROXY \
+  --sack-perm --timestamp --wscale 7 --mss 1460
+
+# Dropear paquetes inválidos
+iptables -A INPUT -m state --state INVALID -j DROP
+iptables -A FORWARD -m state --state INVALID -j DROP
+
+echo "SYNPROXY configured for HTTP/HTTPS"
+```
+
+### Firewall IPv6 con ip6tables
+
+El tráfico IPv6 bypassa iptables completamente. Debes configurar ip6tables separadamente con reglas equivalentes:
+
+```bash
+#!/bin/bash
+
+# Flush reglas IPv6
+ip6tables -F
+ip6tables -X
+
+# Políticas por defecto
+ip6tables -P INPUT DROP
+ip6tables -P FORWARD DROP
+ip6tables -P OUTPUT ACCEPT
+
+# Permitir loopback
+ip6tables -A INPUT -i lo -j ACCEPT
+ip6tables -A OUTPUT -o lo -j ACCEPT
+
+# Permitir established
+ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Permitir ICMPv6 (esencial para funcionamiento IPv6)
+ip6tables -A INPUT -p icmpv6 -j ACCEPT
+
+# Permitir SSH, HTTP, HTTPS
+ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT
+ip6tables -A INPUT -p tcp --dport 80 -j ACCEPT
+ip6tables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Persistir
+ip6tables-save > /etc/iptables/rules.v6
+
+echo "IPv6 firewall configured"
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `conntrack` en vez de `state` para setups nuevos.** El módulo `state` está deprecado en favor de `conntrack` que provee la misma funcionalidad con mejor performance:
+
+```bash
+# Viejo (deprecado)
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Nuevo (recomendado)
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+```
+
+2. **Setea parámetros del kernel para hardening.** Combina iptables con settings de sysctl para defensa en profundidad:
+
+```bash
+# Habilitar SYN cookies
+echo 1 > /proc/sys/net/ipv4/tcp_syncookies
+# Deshabilitar IP forwarding (a menos que sea un router)
+echo 0 > /proc/sys/net/ipv4/ip_forward
+# Ignorar broadcasts ICMP (ataques smurf)
+echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+# Reverse path filtering
+echo 1 > /proc/sys/net/ipv4/conf/all/rp_filter
+```
+
+## Errores Comunes Adicionales
+
+1. **Olvidar flushear cadenas personalizadas antes de reconstruir.** Si ejecutas tu script de firewall múltiples veces sin flushear, las reglas se acumulan y las entradas duplicadas ralentizan el procesamiento de paquetes:
+
+```bash
+# Siempre flushear cadenas personalizadas al inicio del script
+iptables -F MY_CHAIN 2>/dev/null || iptables -N MY_CHAIN
+```
+
+2. **No testear reglas con `iptables -C`.** Antes de aplicar un set de reglas en producción, verifica que cada regla existe con `-C` (check) que retorna 0 si la regla coincide y 1 si no:
+
+```bash
+if iptables -C INPUT -p tcp --dport 22 -j ACCEPT 2>/dev/null; then
+    echo "SSH rule already exists"
+else
+    iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+fi
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo migro de iptables a nftables?
+
+Usa `iptables-translate` para convertir reglas existentes. La herramienta genera la sintaxis equivalente de nftables:
+
+```bash
+iptables-translate -A INPUT -p tcp --dport 22 -j ACCEPT
+# Output: add rule inet filter input tcp dport 22 accept
+```
+
+Para sets completos de reglas, traduce el archivo guardado:
+
+```bash
+iptables-save > rules.v4
+iptables-restore-translate -f rules.v4 > rules.nft
+nft -f rules.nft
+```
+
+### ¿Debería usar DROP o REJECT para tráfico externo?
+
+Usa `DROP` para tráfico externo que viene de internet. `DROP` no envía respuesta, haciendo el port scanning más lento y dando menos información. Usa `REJECT` para redes internas donde quieres que los clientes reciban feedback inmediato de que un puerto está cerrado.

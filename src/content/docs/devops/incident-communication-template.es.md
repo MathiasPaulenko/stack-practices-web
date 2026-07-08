@@ -273,3 +273,301 @@ Si, pero proporcionalmente. Un breve "pedimos disculpas por el inconveniente" es
 ### Que pasa si un incidente abarca multiples zonas horarias?
 
 Usa siempre UTC para todas las marcas de tiempo. Incluye la hora local de la region principal afectada si es relevante. Asegurate de que el relevo entre turnos incluya el estado de comunicacion para que las actualizaciones no se detengan cuando los equipos se desconectan.
+
+## Soluciones Avanzadas
+
+### Actualizaciones automatizadas de pagina de estado con integracion API
+
+Envia actualizaciones a tu pagina de estado automaticamente desde tu herramienta de gestion de incidentes:
+
+```python
+import requests
+from dataclasses import dataclass
+from typing import Optional
+from enum import Enum
+
+class IncidentStatus(Enum):
+    INVESTIGATING = "investigating"
+    IDENTIFIED = "identified"
+    MONITORING = "monitoring"
+    RESOLVED = "resolved"
+
+class IncidentSeverity(Enum):
+    CRITICAL = "critical"
+    MAJOR = "major"
+    MINOR = "minor"
+    MAINTENANCE = "maintenance"
+
+@dataclass
+class StatusPageUpdate:
+    incident_id: str
+    status: IncidentStatus
+    message: str
+    affected_components: list
+    severity: IncidentSeverity
+
+class StatusPageClient:
+    def __init__(self, page_id: str, api_key: str):
+        self.page_id = page_id
+        self.api_key = api_key
+        self.base_url = "https://api.statuspage.io/v1"
+        self.headers = {"Authorization": f"OAuth {api_key}"}
+
+    def create_incident(self, update: StatusPageUpdate) -> dict:
+        """Create a new incident on the status page."""
+        payload = {
+            "incident": {
+                "name": update.message[:100],
+                "status": update.status.value,
+                "impact_override": update.severity.value,
+                "body": update.message,
+                "components": {
+                    comp: update.status.value for comp in update.affected_components
+                },
+            }
+        }
+        resp = requests.post(
+            f"{self.base_url}/pages/{self.page_id}/incidents",
+            json=payload,
+            headers=self.headers,
+        )
+        resp.raise_for_status()
+        return resp.json()
+
+    def update_incident(self, incident_id: str, update: StatusPageUpdate) -> dict:
+        """Post an update to an existing incident."""
+        payload = {
+            "incident": {
+                "status": update.status.value,
+                "body": update.message,
+            }
+        }
+        resp = requests.patch(
+            f"{self.base_url}/pages/{self.page_id}/incidents/{incident_id}",
+            json=payload,
+            headers=self.headers,
+        )
+        resp.raise_for_status()
+        return resp.json()
+
+# Example usage
+client = StatusPageClient("page-id", "api-key")
+initial = StatusPageUpdate(
+    incident_id="INC-001",
+    status=IncidentStatus.INVESTIGATING,
+    message="We are investigating reports of API latency affecting checkout.",
+    affected_components=["api-gateway", "checkout-service"],
+    severity=IncidentSeverity.MAJOR,
+)
+client.create_incident(initial)
+```
+
+### Automatizacion de canal de incidentes en Slack con bot
+
+Crea automaticamente canales de incidentes, invita a stakeholders y publica actualizaciones estructuradas:
+
+```python
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
+from datetime import datetime, timezone
+
+class IncidentSlackBot:
+    def __init__(self, token: str):
+        self.client = WebClient(token=token)
+
+    def create_incident_channel(self, incident_id: str, severity: str) -> str:
+        """Create a dedicated Slack channel for incident coordination."""
+        channel_name = f"inc-{incident_id}-{severity}".lower()
+        try:
+            resp = self.client.conversations_create(name=channel_name)
+            channel_id = resp["channel"]["id"]
+            self.client.conversations_setTopic(
+                channel=channel_id,
+                topic=f"Incident {incident_id} - Severity: {severity}"
+            )
+            return channel_id
+        except SlackApiError as e:
+            print(f"Error creating channel: {e.response['error']}")
+            return ""
+
+    def invite_stakeholders(self, channel_id: str, user_ids: list) -> None:
+        """Invite stakeholders to the incident channel."""
+        try:
+            self.client.conversations_invite(
+                channel=channel_id,
+                users=",".join(user_ids)
+            )
+        except SlackApiError as e:
+            print(f"Error inviting users: {e.response['error']}")
+
+    def post_update(self, channel_id: str, status: str, summary: str,
+                    next_update: str) -> None:
+        """Post a structured incident update to the channel."""
+        timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+        blocks = [
+            {
+                "type": "header",
+                "text": {"type": "plain_text", f"text": "Incident Update - {timestamp}"}
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {"type": "mrkdwn", "text": f"*Status:*\n{status}"},
+                    {"type": "mrkdwn", "text": f"*Next Update:*\n{next_update}"},
+                ]
+            },
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": f"*Summary:*\n{summary}"}
+            }
+        ]
+        self.client.chat_postMessage(
+            channel=channel_id,
+            text=f"Incident update: {status} - {timestamp}",
+            blocks=blocks
+        )
+
+# Example usage
+bot = IncidentSlackBot("xoxb-bot-token")
+channel_id = bot.create_incident_channel("INC-001", "P1")
+bot.invite_stakeholders(channel_id, ["U12345", "U67890"])
+bot.post_update(
+    channel_id,
+    status="Investigating",
+    summary="Checkout API returning 500s. Database connections exhausted.",
+    next_update="15 minutes"
+)
+```
+
+### Script de auditoria de comunicacion
+
+Revisa las comunicaciones del incidente despues de la resolucion para identificar mejoras de proceso:
+
+```python
+from dataclasses import dataclass
+from typing import List
+from datetime import datetime, timedelta
+
+@dataclass
+class CommunicationEvent:
+    timestamp: datetime
+    audience: str  # customer, internal, executive
+    message_type: str  # initial, update, resolution
+    delay_from_sla: timedelta  # how late vs promised
+
+def audit_incident_communications(
+    events: List[CommunicationEvent],
+    incident_start: datetime,
+) -> dict:
+    """Audit communication timing and completeness."""
+    report = {
+        "total_messages": len(events),
+        "by_audience": {},
+        "by_type": {},
+        "late_messages": 0,
+        "time_to_first_message": None,
+        "gaps": [],
+    }
+
+    if not events:
+        return report
+
+    first = min(events, key=lambda e: e.timestamp)
+    report["time_to_first_message"] = first.timestamp - incident_start
+
+    for event in events:
+        audience = event.audience
+        msg_type = event.message_type
+        report["by_audience"][audience] = report["by_audience"].get(audience, 0) + 1
+        report["by_type"][msg_type] = report["by_type"].get(msg_type, 0) + 1
+
+        if event.delay_from_sla.total_seconds() > 0:
+            report["late_messages"] += 1
+
+    # Check for gaps > 30 min during P1/P2
+    sorted_events = sorted(events, key=lambda e: e.timestamp)
+    for i in range(1, len(sorted_events)):
+        gap = sorted_events[i].timestamp - sorted_events[i-1].timestamp
+        if gap > timedelta(minutes=30):
+            report["gaps"].append({
+                "from": sorted_events[i-1].timestamp.isoformat(),
+                "to": sorted_events[i].timestamp.isoformat(),
+                "duration_min": gap.total_seconds() / 60,
+            })
+
+    return report
+
+# Example usage
+start = datetime(2026, 7, 1, 10, 0, 0)
+events = [
+    CommunicationEvent(datetime(2026, 7, 1, 10, 5, 0), "customer", "initial", timedelta(minutes=5)),
+    CommunicationEvent(datetime(2026, 7, 1, 10, 15, 0), "internal", "initial", timedelta(minutes=0)),
+    CommunicationEvent(datetime(2026, 7, 1, 10, 35, 0), "customer", "update", timedelta(minutes=5)),
+    CommunicationEvent(datetime(2026, 7, 1, 11, 20, 0), "customer", "resolution", timedelta(minutes=5)),
+]
+audit = audit_incident_communications(events, start)
+print(f"Time to first message: {audit['time_to_first_message']}")
+print(f"Late messages: {audit['late_messages']}")
+print(f"Gaps > 30min: {len(audit['gaps'])}")
+```
+
+## Mejores Practicas Adicionales
+
+1. **Mantén una matriz de mapeo severidad-audiencia.** No todos los niveles de severidad requieren notificar a cada audiencia. Documenta quien es notificado y cuando:
+
+```markdown
+## Notification Matrix
+
+| Severity | Customers | Internal Teams | Executives | Legal/PR |
+|----------|-----------|----------------|------------|----------|
+| P1 | Immediate | Immediate | Within 15 min | If data involved |
+| P2 | Within 15 min | Immediate | Within 30 min | If data involved |
+| P3 | Within 30 min | Within 15 min | No | No |
+| P4 | Status page only | Within 1 hour | No | No |
+```
+
+2. **Pre-construye plantillas de mensaje para tus top 5 servicios.** Las plantillas genericas requieren llenar demasiados espacios en blanco durante un incidente. Pre-llena nombres de servicios, componentes afectados y descripciones de impacto comun:
+
+```yaml
+# templates/checkout-service-p1.yaml
+service: checkout-service
+severity: P1
+affected_components:
+  - api-gateway
+  - checkout-api
+  - payment-processor
+default_impact: "Customers unable to complete checkout. Payment processing affected."
+status_page_components:
+  - "chk8wxy1"  # Statuspage component ID
+stakeholders:
+  - "#payments-oncall"
+  - "#engineering-leads"
+  - "exec-team@company.com"
+```
+
+## Errores Comunes Adicionales
+
+1. **Enviar detalles tecnicos a los clientes.** Los clientes necesitan saber impacto y ETA, no que "el pool de conexiones se agoto debido a una configuracion incorrecta de HikariCP maxPoolSize." Traduce los hallazgos tecnicos a lenguaje orientado al usuario:
+
+```markdown
+# Technical (internal only)
+Root cause: HikariCP maxPoolSize set to 10 instead of 50 after config migration.
+Database connections exhausted under load, causing 500s on checkout endpoint.
+
+# Customer-facing
+Some customers were unable to complete checkout due to a configuration issue
+in our payment processing system. The issue has been resolved and all systems
+are operating normally.
+```
+
+2. **No asignar un responsable de comunicacion dedicado para incidentes P1.** Cuando el comandante del incidente tambien maneja la comunicacion, ambos sufren. El comandante pierde foco en la mitigacion, y la comunicacion se retrasa. Para incidentes P1, siempre asigna un responsable de comunicacion separado cuyo unico trabajo sea redactar y enviar actualizaciones.
+
+## FAQs Adicionales
+
+### Como manejamos la comunicacion cuando el incidente es causado por un proveedor externo?
+
+Se transparente pero no culpes a los socios. Indica que estas experimentando problemas relacionados con una dependencia, que estas haciendo para mitigar, y que estas trabajando con el proveedor. Ejemplo: "Estamos experimentando rendimiento degradado debido a un problema con nuestro proveedor cloud. Estamos implementando rutas alternativas y trabajando con el proveedor para resolver el problema subyacente." Haz seguimiento con un postmortem que incluya si necesitas agregar redundancia para ese proveedor.
+
+### Que comunicacion se necesita despues de que el incidente se resuelve?
+
+Envia un mensaje de resolucion a todas las audiencias dentro del plazo del SLA. Programa un postmortem dentro de 48 horas. Publica un postmortem publico para incidentes P1/P2 dentro de 5 dias habiles. Envia un seguimiento a los clientes que abrieron tickets de soporte durante el incidente con un resumen y cualquier accion de remediacion. Actualiza la pagina de estado a operacional y remueve los banners de incidente.

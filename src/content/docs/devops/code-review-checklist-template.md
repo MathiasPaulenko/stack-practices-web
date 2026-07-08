@@ -161,3 +161,291 @@ Yes. Code review is a learning opportunity as much as a quality gate. Junior rev
 ### What if the author disagrees with a review comment?
 
 Discuss it. If the conversation stalls, escalate to a tech lead or the team's documented tiebreaker. The checklist exists to reduce subjective debates by making expectations explicit, but it cannot eliminate all disagreement.
+
+## Advanced Solutions
+
+### Automated code review with GitHub Actions and CodeQL
+
+Combine the manual checklist with automated analysis to catch issues humans miss:
+
+```yaml
+# .github/workflows/code-review-automation.yml
+name: Automated Code Review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  codeql-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: python, javascript
+      - uses: github/codeql-action/autobuild@v3
+      - uses: github/codeql-action/analyze@v3
+
+  lint-and-type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - name: Comment PR with lint results
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: "Linting or type checking failed. Please fix before requesting review."
+            })
+
+  pr-size-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check PR size
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const diff = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            const totalChanges = diff.data.reduce(
+              (sum, file) => sum + file.changes, 0
+            );
+            if (totalChanges > 500) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: `This PR has ${totalChanges} changes. Consider splitting into smaller PRs for easier review.`
+              });
+            }
+```
+
+### Review bot for checklist enforcement
+
+Automatically verify that PRs meet checklist requirements before review:
+
+```python
+import subprocess
+import json
+import re
+from typing import List, Dict
+
+class PRChecklistValidator:
+    def __init__(self, pr_diff: str, pr_description: str):
+        self.diff = pr_diff
+        self.description = pr_description
+
+    def check_tests_added(self) -> bool:
+        """Verify that new code includes tests."""
+        has_source = bool(re.search(r'\+\+\+ b/src/.*\.py', self.diff))
+        has_tests = bool(re.search(r'\+\+\+ b/tests/.*\.py', self.diff))
+        if has_source and not has_tests:
+            return False
+        return True
+
+    def check_no_secrets(self) -> bool:
+        """Check for common secret patterns in the diff."""
+        secret_patterns = [
+            r'(?i)api[_-]?key\s*=\s*["\'][^"\']+["\']',
+            r'(?i)password\s*=\s*["\'][^"\']+["\']',
+            r'(?i)secret\s*=\s*["\'][^"\']+["\']',
+            r'-----BEGIN (RSA |EC )?PRIVATE KEY-----',
+            r'(?i)aws_secret_access_key\s*=\s*["\'][^"\']+["\']',
+        ]
+        added_lines = [line for line in self.diff.split('\n') if line.startswith('+')]
+        for line in added_lines:
+            for pattern in secret_patterns:
+                if re.search(pattern, line):
+                    return False
+        return True
+
+    def check_pr_description(self) -> bool:
+        """Verify PR description has required sections."""
+        required_sections = ["## Summary", "## Testing", "## Breaking Changes"]
+        return all(section in self.description for section in required_sections)
+
+    def run_all_checks(self) -> List[Dict]:
+        """Run all checklist validations and return results."""
+        checks = [
+            ("Tests added for new code", self.check_tests_added),
+            ("No secrets in diff", self.check_no_secrets),
+            ("PR description complete", self.check_pr_description),
+        ]
+        results = []
+        for name, check_fn in checks:
+            passed = check_fn()
+            results.append({
+                "check": name,
+                "passed": passed,
+                "status": "PASS" if passed else "FAIL",
+            })
+        return results
+
+# Example usage
+diff = subprocess.run(
+    ["git", "diff", "main...HEAD"],
+    capture_output=True, text=True
+).stdout
+
+validator = PRChecklistValidator(diff, pr_description)
+results = validator.run_all_checks()
+for r in results:
+    print(f"{r['status']}: {r['check']}")
+```
+
+### Review metrics dashboard
+
+Track review cycle time, comment quality, and defect escape rate:
+
+```python
+from datetime import datetime, timedelta
+from dataclasses import dataclass
+from typing import List
+from collections import defaultdict
+
+@dataclass
+class ReviewMetric:
+    pr_number: int
+    author: str
+    reviewer: str
+    created_at: datetime
+    merged_at: datetime
+    comments_count: int
+    blockers_count: int
+    post_merge_defects: int
+
+def calculate_review_metrics(metrics: List[ReviewMetric]) -> Dict:
+    """Calculate aggregate review metrics for the team."""
+    if not metrics:
+        return {}
+
+    cycle_times = [(m.merged_at - m.created_at).total_seconds() / 3600 for m in metrics]
+    comment_counts = [m.comments_count for m in metrics]
+    defect_rate = sum(1 for m in metrics if m.post_merge_defects > 0) / len(metrics)
+
+    by_reviewer = defaultdict(list)
+    for m in metrics:
+        by_reviewer[m.reviewer].append(m)
+
+    reviewer_stats = {}
+    for reviewer, reviews in by_reviewer.items():
+        reviewer_stats[reviewer] = {
+            "total_reviews": len(reviews),
+            "avg_comments": sum(r.comments_count for r in reviews) / len(reviews),
+            "avg_blockers": sum(r.blockers_count for r in reviews) / len(reviews),
+            "defects_missed": sum(r.post_merge_defects for r in reviews),
+        }
+
+    return {
+        "avg_cycle_time_hours": sum(cycle_times) / len(cycle_times),
+        "avg_comments_per_pr": sum(comment_counts) / len(comment_counts),
+        "defect_escape_rate": defect_rate,
+        "by_reviewer": reviewer_stats,
+    }
+
+# Example usage
+metrics = [
+    ReviewMetric(101, "alice", "bob", datetime.now() - timedelta(hours=5), datetime.now(), 3, 1, 0),
+    ReviewMetric(102, "charlie", "bob", datetime.now() - timedelta(hours=2), datetime.now(), 5, 2, 1),
+    ReviewMetric(103, "alice", "dave", datetime.now() - timedelta(hours=8), datetime.now(), 1, 0, 0),
+]
+
+results = calculate_review_metrics(metrics)
+print(f"Average cycle time: {results['avg_cycle_time_hours']:.1f}h")
+print(f"Defect escape rate: {results['defect_escape_rate']:.0%}")
+```
+
+## Additional Best Practices
+
+1. **Use review slots to prevent review fatigue.** Assign a maximum of 2-3 reviews per engineer per day. Beyond that, review quality drops significantly:
+
+```yaml
+# GitHub Actions - check reviewer load before assignment
+- name: Check reviewer load
+  uses: actions/github-script@v7
+  with:
+    script: |
+      const reviewer = "bob";
+      const prs = await github.rest.pulls.list({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        state: "open",
+      });
+      const assigned = prs.data.filter(pr =>
+        pr.requested_reviewers.some(r => r.login === reviewer)
+      );
+      if (assigned.length >= 3) {
+        core.warning(`${reviewer} already has ${assigned.length} open reviews. Consider assigning someone else.`);
+      }
+```
+
+2. **Label reviews by type to track patterns.** Use labels like `review:security`, `review:performance`, `review:refactor` to categorize what kinds of issues are most common:
+
+```bash
+#!/bin/bash
+# Aggregate review labels from last 30 days
+gh pr list \
+  --state all \
+  --search "is:pr closed:>=2026-06-01 label:review:" \
+  --json labels,number \
+  --jq '[.[] | .labels[] | select(.name | startswith("review:")) | .name] | group_by(.) | map({type: .[0], count: length}) | sort_by(.count) | reverse'
+```
+
+## Additional Common Mistakes
+
+1. **Approving with "looks good to me" without reading the code.** This defeats the purpose of review. Require at least one substantive comment or explicit confirmation that each checklist section was reviewed:
+
+```markdown
+## Reviewer Confirmation
+
+- [ ] I read every changed line
+- [ ] I ran the tests locally
+- [ ] I verified the PR description matches the changes
+- [ ] I checked for breaking changes beyond the author's claims
+```
+
+2. **Not reviewing tests with the same rigor as production code.** Test code that is fragile, non-deterministic, or doesn't actually assert the right things gives false confidence. Apply the same checklist to test files:
+
+```python
+# Anti-pattern: test that always passes
+def test_user_creation():
+    user = create_user(email="test@example.com")
+    assert user is not None  # Does not verify email, id, or status
+
+# Better: test that verifies behavior
+def test_user_creation_sets_correct_fields():
+    user = create_user(email="test@example.com")
+    assert user.email == "test@example.com"
+    assert user.id is not None
+    assert user.status == "active"
+    assert user.created_at is not None
+```
+
+## Additional Frequently Asked Questions
+
+### How do we handle reviews for urgent hotfixes?
+
+Create a shortened checklist that covers only the three critical areas: security, correctness, and rollback plan. Document what was skipped and schedule a follow-up review within 48 hours to cover the remaining items. Never skip the security and correctness checks, even under time pressure. The follow-up review catches issues while context is still fresh.
+
+### Should we use AI-powered code review tools alongside the checklist?
+
+AI tools (CodeQL, Semgrep, Codacy) are useful for catching known patterns like security vulnerabilities and code smells. They handle the automated portion of the checklist, freeing human reviewers to focus on design, business logic, and edge cases. However, AI tools cannot replace human judgment on architecture decisions, API design, or whether the code actually solves the user's problem. Use them as a first pass, not a final approval.

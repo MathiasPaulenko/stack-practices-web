@@ -366,7 +366,7 @@ ENTRYPOINT ["/server"]
 - Use `.dockerignore` — prevents copying node_modules, .git, etc. into the build context
 - Pin base image versions — use `:1.22-alpine` not `:latest`
 - Use BuildKit cache mounts — speeds up builds by caching dependencies
-- Copy dependencies before source code — leverages Docker layer caching
+- Copy dependencies before source code — takes advantage of Docker layer caching
 - Use `--platform` for multi-arch builds — `docker buildx build --platform linux/amd64,linux/arm64`
 
 ## Common Mistakes

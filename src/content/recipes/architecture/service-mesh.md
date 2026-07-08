@@ -196,14 +196,286 @@ A: Istio and Linkerd are Kubernetes-native. Consul Connect supports VMs. For non
 A: Check three things: (1) is the destination pod healthy? (2) is the sidecar proxy healthy? (`istio-proxy` container logs). (3) is there an authorization policy or destination rule blocking traffic? Use `istioctl proxy-config` to inspect Envoy configuration.
 
 
+### Linkerd Installation (CLI)
+
+```bash
+# Install Linkerd control plane
+linkerd install --crd-only | kubectl apply -f -
+linkerd install | kubectl apply -f -
+
+# Verify installation
+linkerd check
+
+# Add mesh to a namespace
+kubectl annotate namespace default linkerd.io/inject=enabled
+
+# Restart deployments
+kubectl rollout restart deployment -n default
+```
+
+### Traffic Mirroring for Shadow Testing
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: payment-mirror
+spec:
+  hosts:
+    - payment-service
+  http:
+    - route:
+        - destination:
+            host: payment-service
+            subset: v1
+          weight: 100
+      mirror:
+        host: payment-service
+        subset: v2
+      mirrorPercentage:
+        value: 100.0
+```
+
+### Fault Injection for Resilience Testing
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: order-fault-injection
+spec:
+  hosts:
+    - order-service
+  http:
+    - match:
+        - headers:
+            x-test-fault:
+              exact: "true"
+      fault:
+        delay:
+          percentage:
+            value: 50
+          fixedDelay: 5s
+        abort:
+          percentage:
+            value: 10
+          httpStatus: 503
+      route:
+        - destination:
+            host: order-service
+            subset: v1
+```
+
+### Observability with Kiali and Prometheus
+
+```yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: istio-metrics
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: mesh
+  endpoints:
+    - port: http-monitoring
+      interval: 15s
+      path: /stats/prometheus
+---
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: mesh-observability
+  namespace: istio-system
+spec:
+  accessLogging:
+    - providers:
+        - name: envoy
+  tracing:
+    - providers:
+        - name: jaeger
+      randomSamplingPercentage: 10.0
+  metrics:
+    - providers:
+        - name: prometheus
+```
+
+### Egress Gateway for External API Control
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: external-api
+spec:
+  hosts:
+    - api.stripe.com
+  ports:
+    - number: 443
+      name: https
+      protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: egress-stripe
+spec:
+  hosts:
+    - api.stripe.com
+  http:
+    - route:
+        - destination:
+            host: api.stripe.com
+            port:
+              number: 443
+      timeout: 10s
+      retries:
+        attempts: 3
+        perTryTimeout: 3s
+        retryOn: 5xx,reset,connect-failure
+```
+
+## Additional Best Practices
+
+1. **Use canary deployments with weighted routing.** Gradually shift traffic to the new version based on error rates and latency metrics:
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: canary-deployment
+spec:
+  hosts:
+    - user-service
+  http:
+    - route:
+        - destination:
+            host: user-service
+            subset: stable
+          weight: 95
+        - destination:
+            host: user-service
+            subset: canary
+          weight: 5
+      retries:
+        attempts: 2
+        retryOn: 5xx
+        perTryTimeout: 2s
+```
+
+2. **Set resource limits on sidecars.** Envoy proxies consume CPU and memory. Without limits, they can starve the application container:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: api-server
+  annotations:
+    sidecar.istio.io/proxyCPU: "500m"
+    sidecar.istio.io/proxyMemory: "256Mi"
+    sidecar.istio.io/proxyCPULimit: "1000m"
+    sidecar.istio.io/proxyMemoryLimit: "512Mi"
+spec:
+  containers:
+    - name: api-server
+      image: myapp:latest
+      resources:
+        requests:
+          cpu: 250m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 256Mi
+```
+
+3. **Use locality-aware load balancing.** Route traffic to the closest available instance to reduce latency:
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: locality-lb
+spec:
+  host: user-service
+  trafficPolicy:
+    loadBalancer:
+      localityLbSetting:
+        enabled: true
+        distribute:
+          - from: us-east-1a/*
+            to:
+              us-east-1a/*: 80
+              us-east-1b/*: 20
+    outlierDetection:
+      consecutiveErrors: 3
+      interval: 10s
+      baseEjectionTime: 30s
+```
+
+## Additional Common Mistakes
+
+1. **Sidecar resource starvation.** The Envoy proxy competes with the application container for CPU and memory. In high-throughput scenarios, the sidecar can consume 50%+ of pod resources. Always set explicit resource requests and limits on the sidecar:
+
+```yaml
+# Without limits, Envoy can OOM-kill the application
+annotations:
+  sidecar.istio.io/proxyCPU: "1000m"
+  sidecar.istio.io/proxyMemory: "512Mi"
+```
+
+2. **Breaking mTLS during migrations.** When upgrading from permissive to strict mTLS, services without sidecars get rejected. Use a migration window with permissive mode, verify all pods have sidecars, then enforce strict:
+
+```bash
+# Check which pods lack sidecars
+kubectl get pods -A -o jsonpath='{range .items[*]}{.metadata.namespace}/{.metadata.name}{" "}{.spec.containers[*].name}{"\n"}{end}' | grep -v istio-proxy
+
+# Only switch to strict when no pods are missing sidecars
+kubectl apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+spec:
+  mtls:
+    mode: STRICT
+EOF
+```
+
+3. **No egress traffic monitoring.** By default, services can call any external endpoint. Without egress control, a compromised service can exfiltrate data. Use ServiceEntry and egress gateways to restrict and monitor outbound traffic:
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: allow-database
+spec:
+  hosts:
+    - db.internal.stackpractices.com
+  ports:
+    - number: 5432
+      name: tcp
+      protocol: TCP
+  resolution: DNS
+  location: MESH_EXTERNAL
+```
+
+## Additional FAQ
+
+### How do I test service mesh configuration?
+
+Use `istioctl analyze` to validate configuration before applying. It catches common errors like missing DestinationRules, conflicting VirtualServices, and invalid references. For traffic testing, use fault injection to simulate failures and verify retry/timeout behavior. For mTLS, use `istioctl authn tls-check` to verify encryption status between services. For authorization policies, test with `istioctl authz check` to see which policies apply to a pod.
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. Istio is used in production by Google Cloud, IBM, and Airbnb. Linkerd is used in production by Buoyant, Nordstrom, and Hepsiburada. Consul Connect is used by HashiCorp customers in hybrid K8s/VM environments. Cilium Service Mesh is used by Google GKE and AWS EKS customers with eBPF. The traffic mirroring pattern is used by Netflix for shadow traffic testing. Fault injection is standard practice in chaos engineering with service meshes.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Istio adds 1-5ms latency per hop and 10-20% CPU overhead for the Envoy sidecar. Linkerd adds 0.5-2ms latency and 5-10% CPU overhead due to its Rust-based proxy. Cilium Service Mesh with eBPF adds near-zero latency for L3/L4 traffic. Memory overhead is 50-100MB per sidecar. Control plane overhead is 500MB-1GB for Istio, 200-400MB for Linkerd. Locality-aware load balancing adds no overhead — it uses Kubernetes topology labels. Traffic mirroring doubles the load on the mirrored service. Fault injection adds configurable delay with no baseline overhead.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Use `istioctl proxy-config <pod>` to inspect the Envoy configuration applied to a pod. Use `istioctl proxy-status` to see if all proxies are in sync with the control plane. For 503 errors, check `istioctl proxy-config cluster <pod>` to verify upstream clusters. For mTLS issues, use `istioctl authn tls-check <source-pod> <destination-service>`. For authorization denials, check `istioctl authz check <pod>`. Use Kiali for a visual topology view of the mesh. Use Jaeger to trace requests through the mesh and identify which hop failed.

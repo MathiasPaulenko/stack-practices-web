@@ -182,14 +182,297 @@ A: They persist state after each activity. On restart, they resume from the last
 **Q: Can business analysts modify workflows without developers?**
 A: BPMN-based engines (Camunda) allow this. Code-based engines (Temporal) require developers but offer more flexibility.
 
+### AWS Step Functions State Machine (TypeScript)
+
+```typescript
+import { SFNClient, StartExecutionCommand } from '@aws-sdk/client-sfn';
+
+const sfnClient = new SFNClient({ region: 'us-east-1' });
+
+const orderWorkflowDefinition = {
+  StartAt: 'ValidateOrder',
+  States: {
+    ValidateOrder: {
+      Type: 'Task',
+      Resource: 'arn:aws:lambda:us-east-1:123:function:validate-order',
+      Next: 'CheckInventory',
+      Retry: [
+        {
+          ErrorEquals: ['States.TaskFailed'],
+          IntervalSeconds: 2,
+          MaxAttempts: 3,
+          BackoffRate: 2.0,
+        },
+      ],
+    },
+    CheckInventory: {
+      Type: 'Task',
+      Resource: 'arn:aws:lambda:us-east-1:123:function:check-inventory',
+      Next: 'InventoryChoice',
+    },
+    InventoryChoice: {
+      Type: 'Choice',
+      Choices: [
+        {
+          Variable: '$.inventoryAvailable',
+          BooleanEquals: true,
+          Next: 'ProcessPayment',
+        },
+      ],
+      Default: 'NotifyOutOfStock',
+    },
+    ProcessPayment: {
+      Type: 'Task',
+      Resource: 'arn:aws:lambda:us-east-1:123:function:process-payment',
+      Next: 'ShipOrder',
+      Catch: [
+        {
+          ErrorEquals: ['States.ALL'],
+          Next: 'RefundAndNotify',
+        },
+      ],
+    },
+    ShipOrder: {
+      Type: 'Task',
+      Resource: 'arn:aws:lambda:us-east-1:123:function:ship-order',
+      End: true,
+    },
+    NotifyOutOfStock: {
+      Type: 'Task',
+      Resource: 'arn:aws:lambda:us-east-1:123:function:notify-oos',
+      End: true,
+    },
+    RefundAndNotify: {
+      Type: 'Task',
+      Resource: 'arn:aws:lambda:us-east-1:123:function:refund-notify',
+      End: true,
+    },
+  },
+};
+
+async function startOrderWorkflow(order: Order): Promise<string> {
+  const command = new StartExecutionCommand({
+    stateMachineArn: 'arn:aws:states:us-east-1:123:stateMachine:OrderWorkflow',
+    input: JSON.stringify(order),
+    name: `order-${order.id}-${Date.now()}`,
+  });
+  const response = await sfnClient.send(command);
+  return response.executionArn!;
+}
+```
+
+### Human Task with Approval Timeout (Python + Camunda)
+
+```python
+from datetime import datetime, timedelta
+from typing import Optional
+
+class HumanTaskManager:
+    def __init__(self, camunda_client):
+        self.client = camunda_client
+
+    def create_approval_task(
+        self,
+        process_id: str,
+        assignee: str,
+        approval_type: str,
+        timeout_hours: int = 48
+    ) -> str:
+        task = self.client.task.create(
+            process_instance_id=process_id,
+            name=f'Approval: {approval_type}',
+            assignee=assignee,
+            due_date=(datetime.now() + timedelta(hours=timeout_hours)).isoformat(),
+            follow_up_date=(datetime.now() + timedelta(hours=24)).isoformat(),
+        )
+        return task.id
+
+    def complete_task(self, task_id: str, approved: bool, comment: str = '') -> None:
+        variables = {'approved': approved, 'comment': comment}
+        self.client.task.complete(task_id, variables=variables)
+
+    def check_overdue_tasks(self) -> list:
+        tasks = self.client.task.list(due_before=datetime.now().isoformat())
+        return [t for t in tasks if t.due_date and t.due_date < datetime.now()]
+
+    def auto_escalate_overdue(self) -> int:
+        overdue = self.check_overdue_tasks()
+        for task in overdue:
+            manager = self._get_manager(task.assignee)
+            self.client.task.update(
+                task.id,
+                assignee=manager,
+                due_date=(datetime.now() + timedelta(hours=24)).isoformat(),
+            )
+        return len(overdue)
+```
+
+### Workflow Versioning and Migration (TypeScript)
+
+```typescript
+interface WorkflowVersion {
+  version: string;
+  definition: any;
+  migrationFn?: (oldState: any) => any;
+}
+
+class WorkflowRegistry {
+  private versions: Map<string, WorkflowVersion> = new Map();
+
+  register(version: WorkflowVersion): void {
+    this.versions.set(version.version, version);
+  }
+
+  getLatest(): WorkflowVersion {
+    const sorted = Array.from(this.versions.values())
+      .sort((a, b) => b.version.localeCompare(a.version));
+    return sorted[0];
+  }
+
+  getVersion(version: string): WorkflowVersion | undefined {
+    return this.versions.get(version);
+  }
+
+  migrate(state: any, fromVersion: string, toVersion: string): any {
+    let currentState = state;
+    const versions = Array.from(this.versions.keys()).sort();
+    const fromIdx = versions.indexOf(fromVersion);
+    const toIdx = versions.indexOf(toVersion);
+
+    for (let i = fromIdx; i < toIdx; i++) {
+      const v = this.versions.get(versions[i + 1]);
+      if (v?.migrationFn) {
+        currentState = v.migrationFn(currentState);
+      }
+    }
+    return currentState;
+  }
+}
+
+// Register versions
+const registry = new WorkflowRegistry();
+registry.register({
+  version: '1.0.0',
+  definition: orderWorkflowV1,
+});
+registry.register({
+  version: '1.1.0',
+  definition: orderWorkflowV1_1,
+  migrationFn: (oldState) => ({
+    ...oldState,
+    shippingAddress: oldState.address || null,
+  }),
+});
+```
+
+## Additional Best Practices
+
+1. **Use child workflows for complex sub-processes.** Break large workflows into smaller, reusable child workflows that can be tested independently:
+
+```typescript
+export async function orderWorkflow(order: Order): Promise<void> {
+  await validateOrder(order);
+  await executeChildWorkflow('paymentWorkflow', { orderId: order.id, amount: order.total });
+  await executeChildWorkflow('shippingWorkflow', { orderId: order.id, items: order.items });
+}
+```
+
+2. **Implement workflow signals for external communication.** Signals allow external systems to communicate with running workflows without blocking:
+
+```typescript
+import { defineSignal, setHandler } from '@temporalio/workflow';
+
+const cancelSignal = defineSignal('cancel');
+
+export async function orderWorkflow(order: Order): Promise<void> {
+  let cancelled = false;
+  setHandler(cancelSignal, () => { cancelled = true; });
+
+  for (const item of order.items) {
+    if (cancelled) {
+      await compensate(order);
+      return;
+    }
+    await processItem(item);
+  }
+}
+```
+
+3. **Monitor workflow metrics.** Track execution time, failure rates, and stuck workflows:
+
+```typescript
+class WorkflowMetrics {
+  recordExecution(workflowType: string, durationMs: number, success: boolean): void {
+    metrics.histogram(`workflow.${workflowType}.duration`, durationMs);
+    metrics.counter(`workflow.${workflowType}.${success ? 'success' : 'failure'}`).inc();
+  }
+
+  recordStuckWorkflows(count: number): void {
+    metrics.gauge('workflow.stuck.count').set(count);
+  }
+
+  recordCompensation(workflowType: string): void {
+    metrics.counter(`workflow.${workflowType}.compensation`).inc();
+  }
+}
+```
+
+## Additional Common Mistakes
+
+1. **Non-deterministic workflow code.** Workflow engines like Temporal replay history. Using `Date.now()`, `Math.random()`, or making API calls directly in the workflow body breaks replay. Use the engine's provided utilities:
+
+```typescript
+// Bad: non-deterministic
+export async function orderWorkflow(order: Order): Promise<void> {
+  const now = Date.now(); // different on replay!
+  if (now > order.deadline) throw new Error('Expired');
+}
+
+// Good: use workflow-provided time
+import { workflowInfo } from '@temporalio/workflow';
+export async function orderWorkflow(order: Order): Promise<void> {
+  const now = workflowInfo().currentTime; // deterministic on replay
+  if (now > order.deadline) throw new Error('Expired');
+}
+```
+
+2. **Storing large payloads in workflow state.** Workflow engines persist state between steps. Storing large objects (images, documents) bloats storage and slows replay. Store references instead:
+
+```typescript
+// Bad: storing full document
+await workflow.setState({ document: largePdfBuffer });
+
+// Good: storing reference
+await workflow.setState({ documentUrl: 's3://bucket/order-123.pdf' });
+```
+
+3. **No dead letter queue for failed workflows.** Workflows that exhaust retries disappear silently. Route them to a dead letter queue for manual inspection:
+
+```typescript
+export async function orderWorkflow(order: Order): Promise<void> {
+  try {
+    await processOrder(order);
+  } catch (err) {
+    await sendToDLQ('order-failed', { order, error: err.message });
+    throw err;
+  }
+}
+```
+
+## Additional FAQ
+
+### How do I test workflow engines?
+
+For Temporal, use the TestWorkflowEnvironment which provides an in-memory test server. Mock activities and assert workflow outcomes. For Camunda, use the in-memory H2 database with process engine tests. For Step Functions, use LocalStack to emulate AWS services locally. Test replay by running the workflow, recording the history, then replaying it against the same workflow code — the outcome should be identical.
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. Temporal is used in production by Uber, Stripe, and Snap. Camunda is used by Allianz and Lufthansa. AWS Step Functions are used across thousands of AWS production workloads. The state machine pattern with the Python transitions library is used in smaller services that need state tracking without a full engine. The versioning and migration pattern mirrors what Temporal's versioning API does internally. Human task management with escalation is standard in BPMN-based systems.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Temporal adds 5-15ms per activity invocation for state persistence. Camunda adds 10-30ms per service task due to database persistence. Step Functions add 50-200ms per state transition due to AWS API overhead. Workflow replay is O(n) in the number of events — keep histories under 10,000 events for fast replays. Child workflows reduce history size per workflow. State persistence cost scales with payload size — keep payloads under 50KB. Timer-based delays have no CPU cost while waiting.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+For Temporal, use `tctl workflow show --id <workflowId>` to see the full event history. For Camunda, use Cockpit (the web dashboard) to inspect process instances and variables. For Step Functions, use the AWS Console execution visualizer. Log the workflow ID, activity name, and attempt number at each step. Set up alerts on workflow failure rate, average duration, and stuck workflow count. For non-deterministic errors in Temporal, compare the replay history with the current workflow code to find the divergence point.

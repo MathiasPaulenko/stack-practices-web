@@ -184,3 +184,290 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### Token bucket atómico con Redis Lua
+
+El ejemplo de token bucket en Python de arriba tiene una race condition: entre la lectura y escritura de tokens, otra petición puede modificar la misma clave. Usa un script Lua para atomicidad:
+
+```lua
+-- token_bucket.lua
+-- KEYS[1] = rate limit key
+-- ARGV[1] = capacity
+-- ARGV[2] = refill_rate (tokens per second)
+-- ARGV[3] = current timestamp (unix)
+-- ARGV[4] = TTL in seconds
+
+local key = KEYS[1]
+local capacity = tonumber(ARGV[1])
+local refill_rate = tonumber(ARGV[2])
+local now = tonumber(ARGV[3])
+local ttl = tonumber(ARGV[4])
+
+local bucket = redis.call('HMGET', key, 'tokens', 'last_refill')
+local tokens = tonumber(bucket[1]) or capacity
+local last_refill = tonumber(bucket[2]) or now
+
+local elapsed = now - last_refill
+tokens = math.min(capacity, tokens + elapsed * refill_rate)
+
+local allowed = 0
+if tokens >= 1 then
+  tokens = tokens - 1
+  allowed = 1
+end
+
+redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
+redis.call('EXPIRE', key, ttl)
+
+return allowed
+```
+
+```python
+import time
+import redis
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+
+# Cargar el script Lua una vez al inicio
+TOKEN_BUCKET_SCRIPT = r.register_script(open('token_bucket.lua').read())
+
+def is_allowed_atomic(key: str, capacity: int, refill_rate: float) -> bool:
+    now = time.time()
+    result = TOKEN_BUCKET_SCRIPT(
+        keys=[key],
+        args=[capacity, refill_rate, now, 60]
+    )
+    return bool(result)
+
+# Uso — thread-safe a través de múltiples workers
+if not is_allowed_atomic('user:123', capacity=100, refill_rate=10):
+    return Response(status=429, headers={'Retry-After': '1'},
+                    body=b"Rate limit exceeded")
+```
+
+### Express con rate-limiter-flexible (Node.js)
+
+El paquete `rate-limiter-flexible` soporta limitación distribuida respaldada por Redis con manejo de bursts integrado:
+
+```javascript
+const { RateLimiterRedis } = require('rate-limiter-flexible');
+const redis = require('redis');
+
+const redisClient = redis.createClient({
+  url: process.env.REDIS_URL,
+});
+
+// API general: 100 peticiones por 10 segundos
+const apiLimiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'api',
+  points: 100,
+  duration: 10,
+  blockDuration: 60, // Bloquear por 60s después de exceder
+});
+
+// Endpoints de auth: más estricto, 5 intentos por 60 segundos
+const authLimiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'auth',
+  points: 5,
+  duration: 60,
+  blockDuration: 300, // Bloquear por 5 minutos después de exceder
+});
+
+// Factory de middleware
+function createLimiter(limiter, keyFn = (req) => req.ip) {
+  return async (req, res, next) => {
+    try {
+      await limiter.consume(keyFn(req), 1);
+      next();
+    } catch (rejRes) {
+      const retryAfter = Math.ceil(rejRes.msBeforeNext / 1000);
+      res.set('Retry-After', String(retryAfter));
+      res.set('X-RateLimit-Limit', String(limiter.points));
+      res.set('X-RateLimit-Remaining', String(rejRes.remainingPoints || 0));
+      res.set('X-RateLimit-Reset', new Date(Date.now() + rejRes.msBeforeNext).toISOString());
+      res.status(429).json({
+        error: 'Too many requests',
+        retryAfter,
+      });
+    }
+  };
+}
+
+// Aplicar diferentes limiters a diferentes rutas
+app.use('/api/', createLimiter(apiLimiter));
+app.use('/api/auth/', createLimiter(authLimiter, (req) => req.ip + ':' + (req.body?.email || '')));
+```
+
+### Rate limiting en Spring Boot (Java)
+
+```java
+import io.github.bucket4j.*;
+import io.github.bucket4j.redis.*;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+import jakarta.servlet.http.*;
+
+import java.time.Duration;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Component
+public class RateLimitInterceptor implements HandlerInterceptor {
+
+    private final ConcurrentHashMap<String, Bucket> buckets = new ConcurrentHashMap<>();
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+                              Object handler) throws Exception {
+        String clientId = request.getHeader("X-User-ID");
+        if (clientId == null) {
+            clientId = request.getRemoteAddr();
+        }
+
+        Bucket bucket = buckets.computeIfAbsent(clientId, this::createBucket);
+
+        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+
+        if (probe.isConsumed()) {
+            response.setHeader("X-RateLimit-Remaining",
+                String.valueOf(probe.getRemainingTokens()));
+            return true;
+        }
+
+        long retryAfter = probe.getNanosToWaitForRefill() / 1_000_000_000;
+        response.setHeader("Retry-After", String.valueOf(retryAfter));
+        response.setStatus(429);
+        response.getWriter().write("Rate limit exceeded");
+        return false;
+    }
+
+    private Bucket createBucket(String key) {
+        // 100 peticiones por minuto con burst de 20
+        Bandwidth limit = Bandwidth.builder()
+            .capacity(100)
+            .refillIntervally(100, Duration.ofMinutes(1))
+            .build();
+
+        return Bucket.builder()
+            .addLimit(limit)
+            .build();
+    }
+}
+```
+
+### Rate limiting por tiers en Nginx
+
+```nginx
+# Definir zones para diferentes tiers
+limit_req_zone $binary_remote_addr zone=free:10m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=paid:10m rate=100r/s;
+limit_req_zone $binary_remote_addr zone=auth:10m rate=1r/s;
+
+server {
+  # Endpoints de auth — más estricto
+  location /api/auth/ {
+    limit_req zone=auth burst=3 nodelay;
+    limit_req_status 429;
+    limit_req_log_level warn;
+    proxy_pass http://backend;
+  }
+
+  # Tier gratuito — identificado por API key header
+  location /api/free/ {
+    limit_req zone=free burst=20 nodelay;
+    limit_req_status 429;
+    add_header X-RateLimit-Tier "free" always;
+    proxy_pass http://backend;
+  }
+
+  # Tier pagado — límites más altos
+  location /api/paid/ {
+    limit_req zone=paid burst=50 nodelay;
+    limit_req_status 429;
+    add_header X-RateLimit-Tier "paid" always;
+    proxy_pass http://backend;
+  }
+
+  # Retornar Retry-After en 429
+  error_page 429 = @ratelimited;
+  location @ratelimited {
+    add_header Retry-After "60" always;
+    return 429 '{"error": "Too many requests", "retryAfter": 60}';
+  }
+}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Retorna headers de rate limit en cada respuesta.** Incluye `X-RateLimit-Limit`, `X-RateLimit-Remaining` y `X-RateLimit-Reset` para que los clientes puedan auto-regularse:
+
+```javascript
+function setRateLimitHeaders(res, limiter, remaining) {
+  res.set('X-RateLimit-Limit', String(limiter.points));
+  res.set('X-RateLimit-Remaining', String(remaining));
+  res.set('X-RateLimit-Reset',
+    new Date(Date.now() + limiter.duration * 1000).toISOString());
+}
+```
+
+2. **Usa exponential backoff para clientes bloqueados.** En lugar de una duración de bloqueo fija, incrementa el tiempo de bloqueo para infractores reincidentes:
+
+```python
+def get_block_duration(key: str, base_block: int = 60) -> int:
+    """Incrementar exponencialmente el tiempo de bloqueo para infractores reincidentes."""
+    violations = r.incr(f'violations:{key}')
+    r.expire(f'violations:{key}', 3600)  # Resetear después de 1 hora
+    return min(base_block * (2 ** (violations - 1)), 3600)  # Cap a 1 hora
+```
+
+## Errores Comunes Adicionales
+
+1. **Usar `Date.now()` en sistemas distribuidos sin NTP sync.** El skew de reloj entre servidores causa cálculos incorrectos de ventanas. Asegúrate de que todos los servidores usen NTP, y pasa timestamps desde una autoridad central cuando sea posible:
+
+```javascript
+// Usar Redis TIME para timestamps consistentes entre nodos
+const redisTime = await redisClient.time();
+const now = Number(redisTime[0]) + Number(redisTime[1]) / 1e6;
+```
+
+2. **Rate limiting en webhooks y callbacks.** Los webhooks entrantes de servicios confiables (Stripe, GitHub) deberían estar exentos de rate limiting o tener límites mucho más altos. De lo contrario, puedes perder eventos críticos:
+
+```javascript
+// Exentar fuentes de webhooks confiables
+const TRUSTED_WEBHOOK_IPS = new Set([
+  '3.18.12.63',  // Stripe
+  '192.30.252.0/22',  // GitHub
+]);
+
+function shouldRateLimit(req) {
+  const ip = req.ip;
+  if (TRUSTED_WEBHOOK_IPS.has(ip)) return false;
+  if (req.path.startsWith('/webhooks/')) return false;
+  return true;
+}
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Qué es el algoritmo leaky bucket?
+
+Leaky bucket es similar a token bucket pero procesa peticiones a una tasa fija independientemente de la tasa de llegada. Las peticiones entran en una cola (el bucket) y salen a una tasa constante. Si la cola se desborda, las nuevas peticiones se rechazan. Es ideal para traffic shaping donde quieres suavizar ráfagas en lugar de permitirles.
+
+### ¿Cómo pruebo el rate limiting localmente?
+
+Usa un loop simple o una herramienta como `hey` o `wrk` para enviar muchas peticiones rápidamente:
+
+```bash
+# Enviar 1000 peticiones con 50 concurrencia
+hey -n 1000 -c 50 https://example.com/api/health
+
+# Verificar que algunas obtienen 429
+hey -n 1000 -c 50 https://example.com/api/health 2>&1 | grep "429"
+```
+
+### ¿Debería usar rate limiting para endpoints de login?
+
+Sí, y con los límites más estrictos. Los endpoints de login son objetivos principales para credential stuffing. Limita por IP (5-10 intentos por minuto) y por username (3-5 intentos por minuto). Después de fallos repetidos, implementa CAPTCHA o bloqueo temporal de cuenta.

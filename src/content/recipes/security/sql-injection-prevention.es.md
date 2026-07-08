@@ -179,3 +179,271 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### ORDER BY con allowlist (Python)
+
+Los nombres de tablas y columnas no pueden ser parametrizados. Usa una allowlist para manejar sorting dinámico de forma segura:
+
+```python
+ALLOWED_SORT_COLUMNS = {
+    'name': 'users.name',
+    'email': 'users.email',
+    'created_at': 'users.created_at',
+    'updated_at': 'users.updated_at',
+}
+
+def get_users(sort_by: str = 'created_at', sort_dir: str = 'desc',
+              limit: int = 20, offset: int = 0):
+    """Obtener usuarios con sorting dinámico seguro."""
+    # Validar columna de sort contra allowlist
+    column = ALLOWED_SORT_COLUMNS.get(sort_by)
+    if column is None:
+        raise ValueError(f'Columna de sort inválida: {sort_by}')
+
+    # Validar dirección de sort
+    direction = 'ASC' if sort_dir.upper() == 'ASC' else 'DESC'
+
+    # Limit y offset son parametrizados
+    query = f"""
+        SELECT id, name, email, created_at
+        FROM users
+        WHERE active = TRUE
+        ORDER BY {column} {direction}
+        LIMIT %s OFFSET %s
+    """
+
+    with db.cursor() as cursor:
+        cursor.execute(query, (limit, offset))
+        return cursor.fetchall()
+
+# Uso
+users = get_users(sort_by='name', sort_dir='asc', limit=10, offset=0)
+# Un atacante pasando sort_by="name; DROP TABLE users--" obtiene ValueError
+```
+
+### Escaping de wildcards en LIKE (JavaScript)
+
+Incluso con queries parametrizadas, `%` y `_` en input de usuario pueden causar comportamiento inesperado en LIKE:
+
+```javascript
+const { Pool } = require('pg');
+const pool = new Pool();
+
+async function searchUsers(searchTerm) {
+  // Escapar wildcards de LIKE en input de usuario
+  const escapedTerm = searchTerm
+    .replace(/\\/g, '\\\\')  // Escapar backslashes primero
+    .replace(/%/g, '\\%')    // Escapar percent
+    .replace(/_/g, '\\_');   // Escapar underscore
+
+  const result = await pool.query(
+    `SELECT id, name, email FROM users
+     WHERE name LIKE $1 ESCAPE '\\'
+     ORDER BY name
+     LIMIT 20`,
+    [`%${escapedTerm}%`]
+  );
+
+  return result.rows;
+}
+
+// Uso: searchTerm = "50%_off" becomes "50\%\_off" en el patrón LIKE
+// Esto matchea el string literal "50%_off" en lugar de "50<anything><any char>off"
+```
+
+### Seguridad en raw queries de Sequelize (Node.js)
+
+El método `query()` de Sequelize soporta SQL raw parametrizado:
+
+```javascript
+const { Sequelize } = require('sequelize');
+const sequelize = new Sequelize(process.env.DATABASE_URL);
+
+// SEGURO: Replacements
+const users = await sequelize.query(
+  'SELECT * FROM users WHERE email = :email AND active = :active',
+  {
+    replacements: { email: userEmail, active: true },
+    type: Sequelize.QueryTypes.SELECT,
+  }
+);
+
+// SEGURO: Parámetros posicionales
+const orders = await sequelize.query(
+  'SELECT * FROM orders WHERE user_id = $1 AND status = $2',
+  {
+    bind: [userId, 'completed'],
+    type: Sequelize.QueryTypes.SELECT,
+  }
+);
+
+// PELIGROSO: Nunca hagas esto
+// const result = await sequelize.query(
+//   `SELECT * FROM users WHERE email = '${userEmail}'`
+// );
+```
+
+### Queries type-safe con jOOQ (Java)
+
+jOOQ genera SQL type-safe desde tu schema, eliminando inyección por construcción:
+
+```java
+import static org.jooq.impl.DSL.*;
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+
+// jOOQ genera clases desde tu schema de base de datos
+import static com.example.generated.tables.Users.USERS;
+import static com.example.generated.tables.Orders.ORDERS;
+
+public class UserRepository {
+
+    private final DSLContext ctx;
+
+    public UserRepository(DSLContext ctx) {
+        this.ctx = ctx;
+    }
+
+    public Result<Record> findActiveUsersByEmail(String email) {
+        return ctx.select()
+            .from(USERS)
+            .where(USERS.EMAIL.eq(email))
+            .and(USERS.ACTIVE.eq(true))
+            .fetch();
+    }
+
+    public Result<Record> searchUsersByName(String namePattern) {
+        // LIKE type-safe con patrón escapado
+        return ctx.select()
+            .from(USERS)
+            .where(USERS.NAME.like("%" + namePattern + "%"))
+            .orderBy(USERS.CREATED_AT.desc())
+            .limit(20)
+            .fetch();
+    }
+}
+```
+
+### Detección de inyección con SQLMap
+
+Prueba tu aplicación en busca de vulnerabilidades de inyección SQL:
+
+```bash
+#!/bin/bash
+# Probar un solo endpoint
+sqlmap -u "https://example.com/api/users?id=1" \
+  --batch --level=3 --risk=2 \
+  --random-agent \
+  --output-dir=/tmp/sqlmap-results
+
+# Probar con cookie de autenticación
+sqlmap -u "https://example.com/api/users?id=1" \
+  --cookie="session=abc123" \
+  --batch --level=5
+
+# Probar parámetros POST
+sqlmap -u "https://example.com/api/login" \
+  --data="email=test@example.com&password=test" \
+  --batch --level=3
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa roles de base de datos con permisos a nivel de columna.** Restringe qué columnas puede leer el usuario de la aplicación, para que incluso si ocurre inyección, las columnas sensibles estén protegidas:
+
+```sql
+-- Crear un rol restringido
+CREATE ROLE app_readonly;
+
+-- Otorgar acceso solo a columnas no sensibles
+GRANT SELECT (id, name, email, created_at) ON users TO app_readonly;
+-- Denegar acceso a password_hash, ssn, payment_info
+REVOKE SELECT ON users FROM app_readonly;
+GRANT SELECT (id, name, email, created_at) ON users TO app_readonly;
+
+-- La aplicación se conecta como app_readonly
+-- Operaciones admin usan un rol privilegiado separado
+```
+
+2. **Habilita logging de queries con detección de patrones.** Loggea queries que contengan patrones sospechosos para análisis forense:
+
+```python
+import re
+import logging
+
+SUSPICIOUS_PATTERNS = [
+    re.compile(r'UNION\s+SELECT', re.IGNORECASE),
+    re.compile(r'OR\s+1\s*=\s*1', re.IGNORECASE),
+    re.compile(r';\s*DROP\s+TABLE', re.IGNORECASE),
+    re.compile(r'--\s*$'),
+    re.compile(r'/\*.*\*/'),
+]
+
+def check_query_safety(query: str, params: tuple = None):
+    """Loggear warning si la query contiene patrones sospechosos."""
+    for pattern in SUSPICIOUS_PATTERNS:
+        if pattern.search(query):
+            logging.warning(
+                f'Patrón SQL sospechoso detectado: {pattern.pattern} '
+                f'en query: {query[:200]}'
+            )
+            break
+```
+
+## Errores Comunes Adicionales
+
+1. **Usar `query.toString()` o loggear SQL raw con parámetros.** Loggear el string SQL completo con parámetros interpolados puede exponer datos sensibles en archivos de log. Loggea el template de la query y el conteo de parámetros por separado:
+
+```javascript
+// INCORRECTO: loggea SQL completo con datos de usuario
+console.log(`Query: SELECT * FROM users WHERE email = '${email}'`);
+
+// CORRECTO: loggea template y conteo de parámetros
+logger.debug('Query: SELECT * FROM users WHERE email = $1', {
+  paramCount: 1,
+  queryType: 'SELECT',
+});
+```
+
+2. **Confiar ciegamente en métodos `raw()` de ORMs.** Algunos ORMs ofrecen métodos `raw()` o `literal()` que bypassan la parametrización. Siempre pasa los parámetros por separado:
+
+```python
+# INCORRECTO: interpolación raw
+from sqlalchemy import text
+session.execute(text(f"SELECT * FROM users WHERE name = '{name}'"))
+
+# CORRECTO: parámetros bound
+from sqlalchemy import text
+session.execute(
+    text("SELECT * FROM users WHERE name = :name"),
+    {"name": name}
+)
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo manejo cláusulas IN dinámicas de forma segura?
+
+Construye los placeholders parametrizados dinámicamente basado en la longitud de la lista:
+
+```python
+def get_users_by_ids(user_ids: list[str]) -> list:
+    if not user_ids:
+        return []
+    # Crear N placeholders: (?, ?, ?, ...)
+    placeholders = ', '.join(['?'] * len(user_ids))
+    query = f"SELECT * FROM users WHERE id IN ({placeholders})"
+    cursor.execute(query, user_ids)
+    return cursor.fetchall()
+```
+
+### ¿Qué es la inyección SQL de segundo orden?
+
+La inyección de segundo orden ocurre cuando input malicioso se almacena en la base de datos (mediante una query parametrizada segura) y luego se usa en una query diferente vía concatenación de strings. Por ejemplo, un username como `admin'--` se almacena de forma segura, pero si otra query concatena ese username en SQL, se ejecuta. Siempre parametriza cada query, incluso cuando los datos provienen de tu propia base de datos.
+
+### ¿Debería usar reglas WAF para inyección SQL?
+
+Un Web Application Firewall (WAF) como ModSecurity o AWS WAF agrega una capa de protección bloqueando requests que contienen keywords SQL. Sin embargo, los WAFs son defensa en profundidad, no una defensa primaria. Pueden ser bypassados con trucos de encoding y deben complementar, no reemplazar, las queries parametrizadas.

@@ -137,3 +137,170 @@ Automate whenever possible. Manual rotation should be limited to legacy systems 
 ### What happens if a service cannot rotate without downtime?
 
 Use a rolling rotation strategy: create a new credential, update half of the instances, validate, then update the rest. For databases, support dual credentials temporarily.
+
+## Advanced Solutions
+
+### Automated secret rotation with HashiCorp Vault
+
+Configure Vault dynamic secrets for databases so credentials are generated on-demand with short TTLs instead of manual rotation:
+
+```hcl
+# Enable database secrets engine
+vault secrets enable database
+
+# Configure PostgreSQL connection
+vault write database/config/payments-postgresql \
+    plugin_name=postgresql-database-plugin \
+    connection_url="postgresql://{{username}}:{{password}}@db.internal:5432/payments?sslmode=disable" \
+    allowed_roles="readonly,readwrite" \
+    username="vault-admin" \
+    password="$(vault kv get -field=password secret/db/vault-admin)"
+
+# Create a role with 1-hour TTL
+vault write database/roles/readonly \
+    db_name=payments-postgresql \
+    creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+    default_ttl="1h" \
+    max_ttl="24h"
+
+# Applications request credentials on startup
+vault read database/creds/readonly
+# Returns: username=v-token-readonly-abc123  password=s3cr3t  lease_duration=3600
+```
+
+### AWS IAM key rotation script
+
+Automate AWS access key rotation for service accounts with a Python script:
+
+```python
+#!/usr/bin/env python3
+"""Rotate AWS IAM access keys with zero downtime."""
+import boto3
+import time
+import sys
+
+def rotate_iam_key(username: str) -> None:
+    iam = boto3.client("iam")
+
+    # List current keys
+    keys = iam.list_access_keys(UserName=username)["AccessKeyMetadata"]
+    if len(keys) >= 2:
+        print(f"User {username} already has 2 keys. Delete one before rotating.")
+        sys.exit(1)
+
+    # Create new key
+    new_key = iam.create_access_key(UserName=username)["AccessKey"]
+    print(f"New key created: {new_key['AccessKeyId']}")
+
+    # Update application config with new key
+    # (deploy config update here, restart services, etc.)
+    print("Update application config and restart services.")
+    input("Press Enter once services are using the new key...")
+
+    # Verify new key works
+    sts = boto3.client(
+        "sts",
+        aws_access_key_id=new_key["AccessKeyId"],
+        aws_secret_access_key=new_key["SecretAccessKey"],
+    )
+    sts.get_caller_identity()
+    print("New key verified.")
+
+    # Deactivate and delete old key
+    for old_key in keys:
+        iam.update_access_key(
+            UserName=username,
+            AccessKeyId=old_key["AccessKeyId"],
+            Status="Inactive",
+        )
+        iam.delete_access_key(
+            UserName=username,
+            AccessKeyId=old_key["AccessKeyId"],
+        )
+        print(f"Old key deleted: {old_key['AccessKeyId']}")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: rotate-iam-key.py <username>")
+        sys.exit(1)
+    rotate_iam_key(sys.argv[1])
+```
+
+### Kubernetes secret rotation with rolling restart
+
+Rotate Kubernetes secrets and trigger a rolling update without downtime:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+SECRET_NAME="db-credentials"
+NAMESPACE="production"
+
+# Create new secret version
+kubectl create secret generic "${SECRET_NAME}-v2" \
+    --from-literal=username=app_user \
+    --from-literal=password="$(openssl rand -base64 32)" \
+    --namespace "$NAMESPACE" -o yaml --dry-run=client | kubectl apply -f -
+
+# Update deployment to use new secret
+kubectl set env deployment/app-deployment \
+    --namespace "$NAMESPACE" \
+    DB_SECRET_NAME="${SECRET_NAME}-v2"
+
+# Trigger rolling restart to pick up new secret
+kubectl rollout restart deployment/app-deployment --namespace "$NAMESPACE"
+
+# Wait for rollout to complete
+kubectl rollout status deployment/app-deployment --namespace "$NAMESPACE"
+
+# Clean up old secret after successful rollout
+kubectl delete secret "$SECRET_NAME" --namespace "$NAMESPACE" 2>/dev/null || true
+kubectl label secret "${SECRET_NAME}-v2" --namespace "$NAMESPACE" version=current
+
+echo "Secret rotated and deployment updated successfully."
+```
+
+## Additional Best Practices
+
+1. **Use dual-key rotation for zero-downtime.** Maintain two active keys during rotation. Deploy the new key, verify, then revoke the old one. This prevents service disruption if the new key has issues:
+
+```yaml
+# Application config supporting dual keys
+database:
+  primary:
+    host: db.internal
+    password: ${DB_PASSWORD_V2}
+  fallback:
+    host: db.internal
+    password: ${DB_PASSWORD_V1}
+```
+
+2. **Monitor secret access patterns after rotation.** Unexpected access with old credentials indicates a service that was not updated. Set up alerts for failed authentication attempts using revoked secrets:
+
+```python
+# Alert on failed auth with old key
+if auth_failed and key_version == "old":
+    alert_team(f"Service still using revoked key: {service_name}")
+```
+
+## Additional Common Mistakes
+
+1. **Storing rotation schedules in spreadsheets without access control.** The schedule itself reveals which secrets exist and when they are vulnerable. Store the schedule in a secured wiki or governance tool with role-based access:
+
+```
+# Bad: shared Google Sheet with secret names and rotation dates
+# Good: internal wiki page with RBAC, or governance tool like Vanta/Drata
+```
+
+2. **Not testing the rotation procedure before a real incident.** Run rotation drills quarterly to verify the procedure works and the team knows the steps. Document the drill results and update the procedure if needed.
+
+## Additional Frequently Asked Questions
+
+### What is the difference between static and dynamic secrets?
+
+Static secrets are long-lived credentials stored in a vault and retrieved by applications. They require manual or scheduled rotation. Dynamic secrets are generated on-demand by the vault with a short TTL and automatically revoked when the lease expires. Dynamic secrets eliminate rotation because they expire automatically.
+
+### How do I rotate secrets in a distributed system with no downtime?
+
+Use a three-phase approach: (1) Create the new secret and make it available alongside the old one. (2) Deploy services incrementally to use the new secret, verifying each instance. (3) Once all services use the new secret, revoke the old one. For databases, use connection pooling with graceful reconnection to handle the credential switch.

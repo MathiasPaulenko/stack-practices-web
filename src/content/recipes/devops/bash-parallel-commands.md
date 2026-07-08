@@ -229,3 +229,216 @@ parallel --sshlogin server1,server2 -j 2 --transfer --return {}.out --cleanup "p
 ```bash
 cat urls.txt | pv -l | xargs -P4 -I{} wget -q {}
 ```
+
+### Semaphore Pattern for Controlled Concurrency
+
+```bash
+#!/bin/bash
+# semaphore.sh — limit background jobs with a semaphore
+
+MAX_JOBS=4
+open_semaphores() {
+    for i in $(seq 1 $MAX_JOBS); do
+        echo
+    done
+}
+
+run_with_semaphore() {
+    read -r line <&3
+    (
+        "$@"
+    ) 3>&1
+}
+
+# Open semaphore
+exec 3< <(open_semaphores)
+
+for file in *.log; do
+    run_with_semaphore process_file "$file" &
+done
+
+wait
+echo "All done with max $MAX_JOBS concurrent jobs"
+```
+
+### Error Handling in Parallel Jobs
+
+```bash
+#!/bin/bash
+# parallel-with-errors.sh
+
+process_with_error() {
+    local file="$1"
+    if gzip "$file" 2>/dev/null; then
+        echo "OK: $file"
+    else
+        echo "FAIL: $file" >&2
+        return 1
+    fi
+}
+
+export -f process_with_error
+
+# Capture exit codes
+find . -name "*.log" | parallel -j 4 process_with_error {}
+EXIT_CODES=$?
+
+if [ $EXIT_CODES -ne 0 ]; then
+    echo "Some jobs failed. Exit code: $EXIT_CODES"
+    exit 1
+fi
+```
+
+### Timeout per Job
+
+```bash
+#!/bin/bash
+# timeout-parallel.sh
+
+# Each job has a 30-second timeout
+cat urls.txt | parallel -j 8 --timeout 30 wget -q {}
+
+# With GNU timeout command for custom functions
+process_with_timeout() {
+    local url="$1"
+    timeout 30 curl -s -o /dev/null -w "%{http_code}" "$url" || echo "TIMEOUT: $url"
+}
+
+export -f process_with_timeout
+cat urls.txt | parallel -j 8 process_with_timeout {}
+```
+
+### Parallel with Logging
+
+```bash
+#!/bin/bash
+# parallel-logging.sh
+
+LOGDIR="./logs"
+mkdir -p "$LOGDIR"
+
+process_and_log() {
+    local file="$1"
+    local logfile="$LOGDIR/$(basename "$file").log"
+    {
+        echo "Start: $(date -Iseconds)"
+        gzip "$file"
+        echo "End: $(date -Iseconds) exit=$?"
+    } > "$logfile" 2>&1
+}
+
+export -f process_and_log
+
+find . -name "*.log" -not -path "./logs/*" | parallel -j 4 process_and_log {}
+```
+
+## Additional Best Practices
+
+1. **Use `--joblog` to track results.** GNU parallel can write a structured log of all jobs:
+
+```bash
+parallel --joblog results.txt -j 4 process.sh ::: file1 file2 file3
+
+# results.txt format:
+# Seq Host Starttime JobRuntime Send Receive Exitval Signal Command
+```
+
+2. **Dry-run before executing.** Always preview what parallel will run:
+
+```bash
+# Show commands without executing
+parallel --dry-run -j 4 gzip {} ::: *.log
+```
+
+3. **Use `--bar` for simple progress.** Cleaner than `--progress` for terminals:
+
+```bash
+ls *.jpg | parallel --bar -j 8 convert {} -resize 50% small_{}
+```
+
+## Additional Common Mistakes
+
+1. **Not handling filenames with newlines.** Use `-0` with xargs and `-print0` with find:
+
+```bash
+# Bad: breaks on filenames with spaces or newlines
+find . -name "*.txt" | xargs -P4 grep "error"
+
+# Good: null-delimited
+find . -name "*.txt" -print0 | xargs -0 -P4 grep "error"
+```
+
+2. **Forgetting to export variables.** Subshells don't inherit non-exported variables:
+
+```bash
+# Bad: CONFIG_FILE is empty in subshell
+CONFIG_FILE="/etc/app.conf"
+parallel -j 4 process.sh {} ::: *.txt
+
+# Good: export it
+export CONFIG_FILE="/etc/app.conf"
+parallel -j 4 process.sh {} ::: *.txt
+```
+
+3. **Not setting `ulimit` for large batches.** Too many file handles can crash:
+
+```bash
+# Increase file descriptor limit before running large batches
+ulimit -n 4096
+find . -name "*.log" | parallel -j 32 gzip {}
+```
+
+## Additional FAQ
+
+### How do I run parallel jobs across multiple servers?
+
+Use `--sshlogin` with a server list file:
+
+```bash
+# servers.txt:
+# server1
+# server2
+# server3
+parallel --sshloginfile servers.txt -j 2 "uptime" ::: 1 2 3
+```
+
+### What is the difference between `xargs -P` and `parallel -j`?
+
+`xargs -P` is simpler and available on all Unix systems. `parallel -j` offers more features: ordered output (`-k`), progress bars, retries, job logging, SSH distribution, and structured argument replacement. Use `xargs` for quick one-liners, `parallel` for complex workflows.
+
+### How do I kill all parallel jobs if one fails?
+
+Use `--halt` to stop all jobs on first failure:
+
+```bash
+# Stop all jobs immediately on first error
+parallel --halt now,fail=1 -j 4 process.sh {} ::: *.txt
+
+# Stop after 3 failures
+parallel --halt soon,fail=3 -j 4 process.sh {} ::: *.txt
+```
+
+## Performance Tips
+
+1. **Benchmark different concurrency levels.** The optimal `-j` value depends on your workload:
+
+```bash
+# Test with different concurrency
+for j in 1 2 4 8 16; do
+    time find . -name "*.log" | parallel -j $j gzip {}
+done
+```
+
+2. **Use `--round-robin` for uneven workloads.** Distributes work more evenly when jobs vary in size:
+
+```bash
+# Group files by size, then distribute
+find . -name "*.log" -exec du -b {} + | sort -n | parallel --round-robin -j 4 gzip {2}
+```
+
+3. **Pin jobs to CPU cores with `taskset`.** For CPU-bound work, avoid context switching:
+
+```bash
+# Assign each parallel job to a specific core
+parallel -j $(nproc) 'taskset -c %{} gzip {}' ::: *.log
+```

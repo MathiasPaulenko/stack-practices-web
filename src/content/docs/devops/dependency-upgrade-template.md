@@ -124,3 +124,178 @@ Use `npm audit fix`, `pip-audit`, or override/resolution fields to force a patch
 ### Should I commit lock files?
 
 Yes. Lock files ensure reproducible builds across environments and make diffs reviewable during upgrades.
+
+## Advanced Solutions
+
+### Automated dependency upgrade pipeline with Renovate
+
+Configure Renovate to automate patch and minor upgrades with auto-merge rules:
+
+```json
+{
+  "extends": ["config:base"],
+  "schedule": ["before 6am on Monday"],
+  "automerge": true,
+  "automergeType": "pr",
+  "packageRules": [
+    {
+      "updateTypes": ["patch", "minor"],
+      "automerge": true,
+      "groupName": "patch and minor updates"
+    },
+    {
+      "updateTypes": ["major"],
+      "automerge": false,
+      "labels": ["major-upgrade", "needs-review"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "automerge": true,
+      "schedule": ["at any time"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "schedule": ["at any time"]
+  }
+}
+```
+
+### Rollback script for npm upgrades
+
+A bash script to quickly revert a failed dependency upgrade:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+TAG="pre-upgrade-$(date +%Y%m%d-%H%M%S)"
+
+# Create a safety tag before proceeding
+git tag "$TAG"
+echo "Created safety tag: $TAG"
+
+# If upgrade fails, rollback:
+# git checkout "$TAG" -- package.json package-lock.json
+# npm ci
+# git checkout main
+# git branch -D "$BRANCH"
+# git tag -d "$TAG"
+
+echo "To rollback: git checkout $TAG -- package.json package-lock.json && npm ci"
+```
+
+### Python dependency upgrade with pip-tools
+
+Use `pip-tools` to manage pinned requirements with separate source and locked files:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# requirements.in contains unpinned or loosely pinned deps
+# requirements.txt is the locked, fully resolved output
+
+# Upgrade a single package to a specific version
+echo "package-name==2.0.0" >> requirements.in
+
+# Recompile locked requirements
+pip-compile --upgrade-package package-name --output-file requirements.txt requirements.in
+
+# Verify no conflicting transitive deps
+pip install -r requirements.txt --dry-run
+
+# Run tests
+pytest tests/ -x
+
+# If all passes, commit both files
+git add requirements.in requirements.txt
+git commit -m "deps: upgrade package-name to 2.0.0"
+```
+
+### Dependency audit dashboard with npm audit + cyclonedx
+
+Generate an SBOM (Software Bill of Materials) and audit report for compliance:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Generate CycloneDX SBOM
+npx @cyclonedx/cyclonedx-npm --output-file sbom.json
+
+# Run audit and export JSON
+npm audit --json > audit-report.json
+
+# Extract high and critical vulnerabilities
+node -e "
+const audit = require('./audit-report.json');
+const vulns = audit.vulnerabilities || {};
+const high = Object.entries(vulns).filter(([k,v]) => v.severity === 'high' || v.severity === 'critical');
+if (high.length > 0) {
+  console.log('HIGH/CRITICAL vulnerabilities:');
+  high.forEach(([name, info]) => console.log('  ' + name + ': ' + info.severity));
+  process.exit(1);
+} else {
+  console.log('No high or critical vulnerabilities found.');
+}
+"
+```
+
+## Additional Best Practices
+
+1. **Use `npm ci` instead of `npm install` in CI.** The `ci` command deletes `node_modules` and installs exactly from the lock file. It fails if lock file is out of sync with `package.json`, catching incomplete upgrades:
+
+```yaml
+# GitHub Actions example
+- name: Install dependencies
+  run: npm ci
+```
+
+2. **Set up Dependabot security alerts as required checks.** Configure branch protection rules so that security PRs from Dependabot bypass review requirements but still need CI to pass:
+
+```yaml
+# .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      patch-and-minor:
+        update-types: ["patch", "minor"]
+```
+
+## Additional Common Mistakes
+
+1. **Upgrading devDependencies without testing the build pipeline.** Dev dependencies like webpack, babel, or eslint can break the build output even if tests pass. Always run a full production build after upgrading devDependencies:
+
+```bash
+npm run build && npm run test
+```
+
+2. **Ignoring deprecation warnings during upgrades.** Deprecation warnings in one minor version often become errors in the next major version. Track them in your issue tracker:
+
+```bash
+# Capture deprecation warnings during test runs
+npm test 2>&1 | grep -i "deprecat" > deprecation-warnings.txt
+```
+
+## Additional Frequently Asked Questions
+
+### How do I handle a dependency that is no longer maintained?
+
+If the dependency is unmaintained, evaluate alternatives, fork it if the license allows, or vendor it into your codebase. Add it to your deprecation calendar with a target replacement date. Run a security scan on the last published version to identify known vulnerabilities.
+
+### What is the difference between tilde (`~`) and caret (`^`) in semver?
+
+Caret (`^`) allows updates to any version that does not modify the left-most non-zero digit. Tilde (`~`) allows patch-level changes only. For example, `^1.2.3` allows `1.x.x` while `~1.2.3` allows `1.2.x`. Use caret for most dependencies and tilde for critical packages where you want tighter control.
+
+### Should I use a monorepo tool for dependency management?
+
+Monorepo tools like Nx, Turborepo, or Lerna provide workspace-level dependency hoisting, caching, and batch upgrade commands. They help when multiple packages share dependencies and you need to coordinate upgrades across them. For smaller projects, a single `package.json` with standard tooling is sufficient.

@@ -235,14 +235,245 @@ R: Usa `aws_vpc_peering_connection` y agrega rutas en ambas VPCs apuntando al bl
 **P: Puedo importar una VPC existente a Terraform?**
 R: Si. Usa `terraform import aws_vpc.main <vpc-id>` y luego escribe la configuracion correspondiente.
 
-### ¿Esta solución está lista para producción?
+### 5. VPC Flow Logs
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+```hcl
+# flow_logs.tf
+resource "aws_cloudwatch_log_group" "vpc_flow" {
+  name              = "/aws/vpc/flow-logs"
+  retention_in_days = 30
+}
 
-### ¿Cuáles son las características de rendimiento?
+resource "aws_iam_role" "vpc_flow" {
+  name = "vpc-flow-logs-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = { Service = "vpc-flow-logs.amazonaws.com" }
+    }]
+  })
+}
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+resource "aws_iam_role_policy" "vpc_flow" {
+  name = "vpc-flow-logs-policy"
+  role = aws_iam_role.vpc_flow.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogGroups"
+      ]
+      Resource = "*"
+    }]
+  })
+}
 
-### ¿Cómo depuro problemas con este enfoque?
+resource "aws_flow_log" "main" {
+  vpc_id              = aws_vpc.main.id
+  iam_role_arn        = aws_iam_role.vpc_flow.arn
+  log_destination     = aws_cloudwatch_log_group.vpc_flow.arn
+  log_destination_type = "cloud-watch-logs"
+  traffic_type        = "ALL"
+}
+```
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+### 6. VPC Endpoints para Servicios AWS
+
+```hcl
+# endpoints.tf
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id            = aws_vpc.main.id
+  service_name      = "com.amazonaws.us-east-1.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids   = [for rt in aws_route_table.private : rt.id]
+}
+
+resource "aws_vpc_endpoint" "secrets_manager" {
+  vpc_id            = aws_vpc.main.id
+  service_name      = "com.amazonaws.us-east-1.secretsmanager"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = [for s in aws_subnet.private : s.id]
+  security_group_ids = [aws_security_group.database.id]
+  private_dns_enabled = true
+}
+```
+
+### 7. Network ACLs para Defensa en Profundidad
+
+```hcl
+# nacls.tf
+resource "aws_network_acl" "public" {
+  vpc_id     = aws_vpc.main.id
+  subnet_ids = [for s in aws_subnet.public : s.id]
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 443
+    to_port    = 443
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 110
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 1024
+    to_port    = 65535
+  }
+
+  egress {
+    protocol   = "-1"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+}
+```
+
+### 8. Variables para Reusabilidad
+
+```hcl
+# variables.tf
+variable "environment" {
+  type    = string
+  default = "production"
+}
+
+variable "cidr_block" {
+  type    = string
+  default = "10.0.0.0/16"
+}
+
+variable "availability_zones" {
+  type    = list(string)
+  default = ["us-east-1a", "us-east-1b", "us-east-1c"]
+}
+
+variable "single_nat_gateway" {
+  type    = bool
+  default = false
+}
+
+# NAT condicional: uno por AZ para prod, uno solo para dev
+resource "aws_nat_gateway" "main" {
+  count = var.single_nat_gateway ? 1 : length(var.availability_zones)
+  allocation_id = var.single_nat_gateway ? aws_eip.nat[0].id : aws_eip.nat[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+}
+```
+
+## Mejores Practicas Adicionales
+
+1. **Taggea todo consistentemente.** Usa un bloque `locals` para tags comunes:
+
+```hcl
+locals {
+  common_tags = {
+    Environment = var.environment
+    ManagedBy   = "terraform"
+    Project     = "platform"
+  }
+}
+```
+
+2. **Usa `cidrsubnet` para allocation de CIDR predecible.** Evita harcodear CIDRs de subredes:
+
+```hcl
+# Publicas: 10.0.0.0/24, 10.0.1.0/24, 10.0.2.0/24
+# Privadas: 10.0.100.0/24, 10.0.101.0/24, 10.0.102.0/24
+cidr_block = cidrsubnet(var.cidr_block, 8, count.index)
+```
+
+3. **Habilita VPC Flow Logs desde el dia uno.** Habilitar retroactivamente significa perder datos de auditoria:
+
+```bash
+# Query flow logs para trafico rechazado
+aws logs filter-log-events \
+  --log-group-name /aws/vpc/flow-logs \
+  --filter-pattern "REJECT"
+```
+
+## Errores Comunes Adicionales
+
+1. **Olvidar `depends_on` para VPC endpoints.** Los Gateway endpoints necesitan que las route tables existan primero:
+
+```hcl
+resource "aws_vpc_endpoint" "s3" {
+  # ...
+  depends_on = [aws_route_table.private]
+}
+```
+
+2. **No usar `private_dns_enabled` para interface endpoints.** Sin esto, los servicios resuelven a IPs publicas en lugar de privadas:
+
+```hcl
+private_dns_enabled = true  # Critico para Secrets Manager, SSM, etc.
+```
+
+3. **CIDR blocks superpuestos al hacer peering.** Planifica rangos CIDR upfront para evitar conflictos:
+
+```hcl
+# VPC A: 10.0.0.0/16
+# VPC B: 10.1.0.0/16  (no 10.0.0.0/16)
+# VPC C: 10.2.0.0/16
+```
+
+## FAQ Adicional
+
+### Como estimo los costos de la VPC?
+
+Los NAT Gateways son el principal driver de costo: ~$32/mes por gateway mas $0.045/GB procesado. Usa `single_nat_gateway = true` para ambientes dev. Los VPC endpoints cuestan ~$7/mes por interface endpoint pero ahorran en fees de procesamiento de NAT.
+
+### Que bloque CIDR debo usar?
+
+Usa rangos RFC 1918: `10.0.0.0/16` (65k IPs), `172.16.0.0/16`, o `192.168.0.0/16`. Evita superposicion con redes on-premises o otras VPCs que planeas conectar via peering.
+
+### Como migro una VPC creada desde consola a Terraform?
+
+```bash
+# Importar recursos existentes
+terraform import aws_vpc.main vpc-abc123
+terraform import aws_subnet.public[0] subnet-abc123
+terraform import aws_internet_gateway.main igw-abc123
+
+# Luego corre terraform plan para reconciliar drift
+terraform plan
+```
+
+## Tips de Rendimiento
+
+1. **Usa Gateway endpoints para S3 y DynamoDB.** Sin charge por GB, a diferencia de Interface endpoints:
+
+```hcl
+# Gateway endpoint: gratis, sin costo por GB
+vpc_endpoint_type = "Gateway"
+
+# Interface endpoint: $7/mes + por GB
+vpc_endpoint_type = "Interface"
+```
+
+2. **Coloca NAT Gateways en cada AZ.** Trafico NAT cross-AZ incursa costos dobles de transferencia:
+
+```hcl
+# Un NAT por AZ evita cargos cross-AZ
+count = length(var.availability_zones)
+```
+
+3. **Usa `aws_ec2_transit_gateway` para multi-VPC.** Peering escala como O(n²) conexiones; Transit Gateway es O(n):
+
+```hcl
+resource "aws_ec2_transit_gateway" "main" {
+  description = "Platform transit gateway"
+  tags        = local.common_tags
+}
+```

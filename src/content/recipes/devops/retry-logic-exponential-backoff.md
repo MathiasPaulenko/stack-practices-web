@@ -269,3 +269,260 @@ Retry attempts the same operation again after a transient failure, hoping it suc
 ### How do I make a non-idempotent operation safe to retry?
 
 Generate a unique idempotency key (UUID) before the first attempt and send it with every retry. The server stores processed keys and ignores duplicates. For database operations, use transactions with optimistic locking or UPSERT patterns that are naturally idempotent.
+
+### Circuit Breaker Integration
+
+```python
+import time
+from enum import Enum
+from functools import wraps
+
+class CircuitState(Enum):
+    CLOSED = "closed"
+    OPEN = "open"
+    HALF_OPEN = "half_open"
+
+class CircuitBreaker:
+    def __init__(self, failure_threshold=5, recovery_timeout=30):
+        self.failure_threshold = failure_threshold
+        self.recovery_timeout = recovery_timeout
+        self.failure_count = 0
+        self.state = CircuitState.CLOSED
+        self.last_failure_time = None
+
+    def __call__(self, fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            if self.state == CircuitState.OPEN:
+                if time.time() - self.last_failure_time > self.recovery_timeout:
+                    self.state = CircuitState.HALF_OPEN
+                else:
+                    raise Exception("Circuit breaker is OPEN")
+
+            try:
+                result = fn(*args, **kwargs)
+                if self.state == CircuitState.HALF_OPEN:
+                    self.state = CircuitState.CLOSED
+                    self.failure_count = 0
+                return result
+            except Exception as e:
+                self.failure_count += 1
+                self.last_failure_time = time.time()
+                if self.failure_count >= self.failure_threshold:
+                    self.state = CircuitState.OPEN
+                raise
+        return wrapper
+
+# Usage: retry + circuit breaker
+cb = CircuitBreaker(failure_threshold=5, recovery_timeout=30)
+
+@retry(max_retries=3, base_delay=1.0)
+@cb
+def call_external_api():
+    import requests
+    return requests.get("https://api.example.com/data").json()
+```
+
+### Go with Standard Library
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "math"
+    "math/rand"
+    "time"
+)
+
+func withRetry(ctx context.Context, fn func() error, maxRetries int, baseDelay time.Duration) error {
+    for attempt := 0; attempt <= maxRetries; attempt++ {
+        err := fn()
+        if err == nil {
+            return nil
+        }
+        if attempt == maxRetries {
+            return fmt.Errorf("after %d retries: %w", maxRetries, err)
+        }
+
+        delay := float64(baseDelay) * math.Pow(2, float64(attempt))
+        jitter := rand.Float64() * delay * 0.5
+        select {
+        case <-time.After(time.Duration(delay + jitter)):
+        case <-ctx.Done():
+            return ctx.Err()
+        }
+    }
+    return nil
+}
+
+// Usage
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+    defer cancel()
+
+    err := withRetry(ctx, func() error {
+        // simulated flaky call
+        return nil
+    }, 5, time.Second)
+    fmt.Println("Result:", err)
+}
+```
+
+### Python with Tenacity Library
+
+```python
+from tenacity import (
+    retry, stop_after_attempt, wait_exponential_jitter,
+    retry_if_exception_type, before_sleep_log
+)
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@retry(
+    stop=stop_after_attempt(5),
+    wait=wait_exponential_jitter(initial=1, max=60),
+    retry=retry_if_exception_type((ConnectionError, TimeoutError)),
+    before_sleep=before_sleep_log(logger, logging.WARNING),
+    reraise=True,
+)
+def fetch_with_tenacity(url: str) -> dict:
+    import requests
+    response = requests.get(url, timeout=5)
+    response.raise_for_status()
+    return response.json()
+```
+
+## Additional Best Practices
+
+1. **Use retry budgets.** Limit total retry attempts per time window to prevent retry storms:
+
+```python
+from collections import deque
+import time
+
+class RetryBudget:
+    def __init__(self, max_retries=10, window_seconds=60):
+        self.max_retries = max_retries
+        self.window = window_seconds
+        self.attempts = deque()
+
+    def can_retry(self) -> bool:
+        now = time.time()
+        while self.attempts and self.attempts[0] < now - self.window:
+            self.attempts.popleft()
+        if len(self.attempts) < self.max_retries:
+            self.attempts.append(now)
+            return True
+        return False
+```
+
+2. **Use context-aware timeouts.** Cancel retries if the parent context is cancelled:
+
+```go
+select {
+case <-time.After(delay):
+    // proceed with retry
+case <-ctx.Done():
+    return ctx.Err()  // respect parent timeout
+}
+```
+
+3. **Distinguish retryable vs non-retryable errors.** 429 (rate limit) and 5xx are retryable; 4xx are not:
+
+```python
+def is_retryable(status_code: int) -> bool:
+    return status_code == 429 or status_code >= 500
+```
+
+## Additional Common Mistakes
+
+1. **Retrying 429 without reading Retry-After.** The server tells you exactly how long to wait:
+
+```python
+if response.status_code == 429:
+    retry_after = int(response.headers.get("Retry-After", 60))
+    time.sleep(retry_after)
+```
+
+2. **Not propagating context deadlines.** Each retry should respect the overall timeout, not just its own delay:
+
+```python
+import time
+deadline = time.time() + 30  # 30s total budget
+for attempt in range(max_retries):
+    if time.time() >= deadline:
+        raise TimeoutError("Overall deadline exceeded")
+    # ... retry logic
+```
+
+3. **Using full jitter when decorrelated jitter is better.** Full jitter can produce near-zero delays. Decorrelated jitter is safer:
+
+```python
+# Decorrelated jitter (AWS recommended)
+delay = min(max_delay, random.uniform(base_delay, delay * 3))
+```
+
+## Additional FAQ
+
+### What is the AWS-recommended retry pattern?
+
+AWS recommends decorrelated jitter: `sleep = min(cap, random_between(base, last_sleep * 3))`. This avoids both the thundering herd and the near-zero delay problem of full jitter.
+
+### Should I retry at the HTTP client or application level?
+
+Both, but at different levels. HTTP client retries handle transient network errors (timeouts, connection refused). Application-level retries handle business logic (database deadlocks, queue conflicts). Don't double-wrap — pick one layer per concern.
+
+### How do I test retry logic?
+
+Inject failures using a mock that fails N times before succeeding. Verify retry count, delays, and that the final result is correct:
+
+```python
+from unittest.mock import MagicMock
+
+mock_fn = MagicMock(side_effect=[TimeoutError, TimeoutError, "success"])
+result = retry(lambda: mock_fn(), max_retries=3, base_delay=0.01)
+assert result == "success"
+assert mock_fn.call_count == 3
+```
+
+## Performance Tips
+
+1. **Use async retries for I/O-bound operations.** Don't block a thread while waiting:
+
+```python
+import asyncio
+
+async def async_retry(fn, max_retries=3, base_delay=1.0):
+    for attempt in range(max_retries + 1):
+        try:
+            return await fn()
+        except Exception:
+            if attempt == max_retries:
+                raise
+            await asyncio.sleep(base_delay * (2 ** attempt))
+```
+
+2. **Cache successful results.** If a retried call succeeds, cache the result to avoid future retries:
+
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+@retry(max_retries=3)
+def fetch_config(key: str) -> str:
+    return requests.get(f"https://config.example.com/{key}").text
+```
+
+3. **Use connection pooling with retries.** Reusing connections avoids the TCP handshake overhead on each retry:
+
+```python
+import requests
+from requests.adapters import HTTPAdapter
+
+session = requests.Session()
+session.mount("https://", HTTPAdapter(pool_connections=10, pool_maxsize=100))
+```

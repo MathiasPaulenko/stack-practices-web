@@ -184,3 +184,400 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### Python: Streaming Gzip con niveles configurables y verificación de integridad
+
+```python
+import gzip
+import hashlib
+from pathlib import Path
+
+def gzip_streaming(src: str, dest: str, level: int = 6) -> str:
+    """GZIP un archivo con streaming. Retorna SHA256 del original para integridad."""
+    hasher = hashlib.sha256()
+    with open(src, 'rb') as f_in, gzip.open(dest, 'wb', compresslevel=level) as f_out:
+        while True:
+            chunk = f_in.read(65536)
+            if not chunk:
+                break
+            hasher.update(chunk)
+            f_out.write(chunk)
+    return hasher.hexdigest()
+
+def gunzip_streaming(src: str, dest: str, expected_sha256: str = None) -> bool:
+    """Descomprime GZIP con verificación opcional de integridad. Retorna True si es válido."""
+    hasher = hashlib.sha256()
+    with gzip.open(src, 'rb') as f_in, open(dest, 'wb') as f_out:
+        while True:
+            chunk = f_in.read(65536)
+            if not chunk:
+                break
+            hasher.update(chunk)
+            f_out.write(chunk)
+    if expected_sha256:
+        return hasher.hexdigest() == expected_sha256
+    return True
+
+def gzip_batch(files: list[str], level: int = 6) -> dict[str, str]:
+    """GZIP múltiples archivos. Retorna mapeo de ruta original a SHA256."""
+    results = {}
+    for file_path in files:
+        dest = f"{file_path}.gz"
+        sha = gzip_streaming(file_path, dest, level)
+        results[file_path] = sha
+    return results
+
+# Uso
+# sha = gzip_streaming('large.log', 'large.log.gz', level=6)
+# print(f"SHA256 original: {sha}")
+# valid = gunzip_streaming('large.log.gz', 'large_restored.log', expected_sha256=sha)
+# print(f"Verificación de integridad: {'PASS' if valid else 'FAIL'}")
+```
+
+### Node.js: Brotli streaming con middleware de negociación de contenido
+
+```javascript
+const zlib = require('zlib');
+const fs = require('fs');
+const { pipeline } = require('stream');
+const { promisify } = require('util');
+const pipe = promisify(pipeline);
+
+async function compressBrotli(srcPath, destPath, quality = 11) {
+    const src = fs.createReadStream(srcPath);
+    const brotli = zlib.createBrotliCompress({
+        params: {
+            [zlib.constants.BROTLI_PARAM_QUALITY]: quality,
+            [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_MODE_TEXT,
+        },
+    });
+    const dest = fs.createWriteStream(destPath);
+    await pipe(src, brotli, dest);
+}
+
+async function compressGzip(srcPath, destPath, level = 6) {
+    const src = fs.createReadStream(srcPath);
+    const gzip = zlib.createGzip({ level });
+    const dest = fs.createWriteStream(destPath);
+    await pipe(src, gzip, dest);
+}
+
+// Middleware Express: negociar el mejor encoding
+function smartCompression() {
+    return (req, res, next) => {
+        const acceptEncoding = req.headers['accept-encoding'] || '';
+        const originalSend = res.send.bind(res);
+
+        res.send = function (body) {
+            if (typeof body === 'string' && body.length > 1024) {
+                if (acceptEncoding.includes('br')) {
+                    res.setHeader('Content-Encoding', 'br');
+                    res.setHeader('Vary', 'Accept-Encoding');
+                    body = zlib.brotliCompressSync(body, {
+                        params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 4 },
+                    });
+                } else if (acceptEncoding.includes('gzip')) {
+                    res.setHeader('Content-Encoding', 'gzip');
+                    res.setHeader('Vary', 'Accept-Encoding');
+                    body = zlib.gzipSync(body, { level: 6 });
+                }
+            }
+            originalSend(body);
+        };
+        next();
+    };
+}
+
+// Uso
+// await compressBrotli('app.js', 'app.js.br', 11);
+// await compressGzip('app.js', 'app.js.gz', 6);
+// app.use(smartCompression());
+```
+
+### Java: Compresión GZIP y Brotli con buffers configurables
+
+```java
+import java.io.*;
+import java.nio.file.*;
+import java.util.zip.*;
+
+public class CompressionUtils {
+
+    // GZIP un archivo con streaming
+    public static long gzipFile(Path src, Path dest, int bufferSize) throws IOException {
+        long bytesWritten = 0;
+        try (InputStream fis = Files.newInputStream(src);
+             OutputStream fos = Files.newOutputStream(dest);
+             GZIPOutputStream gzos = new GZIPOutputStream(fos, bufferSize) {{
+                 def.setLevel(6); // Establecer nivel de compresión
+             }}) {
+            byte[] buffer = new byte[bufferSize];
+            int read;
+            while ((read = fis.read(buffer)) != -1) {
+                gzos.write(buffer, 0, read);
+                bytesWritten += read;
+            }
+        }
+        return bytesWritten;
+    }
+
+    // Descomprimir GZIP con streaming
+    public static long gunzipFile(Path src, Path dest, int bufferSize) throws IOException {
+        long bytesWritten = 0;
+        try (InputStream fis = Files.newInputStream(src);
+             GZIPInputStream gzis = new GZIPInputStream(fis, bufferSize);
+             OutputStream fos = Files.newOutputStream(dest)) {
+            byte[] buffer = new byte[bufferSize];
+            int read;
+            while ((read = gzis.read(buffer)) != -1) {
+                fos.write(buffer, 0, read);
+                bytesWritten += read;
+            }
+        }
+        return bytesWritten;
+    }
+
+    // Verificar integridad GZIP sin extraer
+    public static boolean verifyGzip(Path gzPath) {
+        try (InputStream fis = Files.newInputStream(gzPath);
+             GZIPInputStream gzis = new GZIPInputStream(fis)) {
+            byte[] buffer = new byte[8192];
+            while (gzis.read(buffer) != -1) {
+                // Leer todo el archivo para verificar integridad
+            }
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    // Compresión batch de archivos en un directorio
+    public static int gzipDirectory(Path srcDir, Path destDir, int bufferSize) throws IOException {
+        Files.createDirectories(destDir);
+        int count = 0;
+        try (var files = Files.walk(srcDir)) {
+            for (Path file : files.filter(Files::isRegularFile).toList()) {
+                Path relative = srcDir.relativize(file);
+                Path dest = destDir.resolve(relative.toString() + ".gz");
+                Files.createDirectories(dest.getParent());
+                gzipFile(file, dest, bufferSize);
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+// Uso
+// long bytes = CompressionUtils.gzipFile(Path.of("data.json"), Path.of("data.json.gz"), 8192);
+// boolean valid = CompressionUtils.verifyGzip(Path.of("data.json.gz"));
+// int count = CompressionUtils.gzipDirectory(Path.of("logs/"), Path.of("logs-gz/"), 16384);
+```
+
+### Bash: Pipeline de pre-compresión para assets estáticos
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Pre-comprimir assets estáticos con Gzip y Brotli
+precompress_assets() {
+    local dir="$1"
+    local count=0
+
+    for file in "$dir""/"*.{js,css,html,json,svg,xml,txt}; do
+        [[ -f "$file" ]] || continue
+
+        # Saltar si ya está comprimido
+        [[ "$file" == *.gz || "$file" == *.br ]] && continue
+
+        # Compresión Gzip (nivel 9 para assets estáticos)
+        if [[ ! -f "${file}.gz" || "$file" -nt "${file}.gz" ]]; then
+            gzip -9 -k -f "$file"
+            ((count++))
+        fi
+
+        # Compresión Brotli (calidad 11 para assets estáticos)
+        if command -v brotli &>/dev/null; then
+            if [[ ! -f "${file}.br" || "$file" -nt "${file}.br" ]]; then
+                brotli -q 11 -k -f "$file"
+                ((count++))
+            fi
+        fi
+    done
+
+    echo "Pre-comprimidos $count archivos en $dir"
+}
+
+# Comparar ratios de compresión
+compare_ratios() {
+    local file="$1"
+    local original_size
+    local gzip_size
+    local brotli_size
+
+    original_size=$(stat -c%s "$file" 2>/dev/null || stat -f%z "$file")
+    gzip -c -9 "$file" > /tmp/compare.gz
+    brotli -c -q 11 "$file" > /tmp/compare.br 2>/dev/null || true
+
+    gzip_size=$(stat -c%s /tmp/compare.gz 2>/dev/null || stat -f%z /tmp/compare.gz)
+    brotli_size=$(stat -c%s /tmp/compare.br 2>/dev/null || stat -f%z /tmp/compare.br)
+
+    echo "Archivo: $file"
+    echo "  Original: $original_size bytes"
+    echo "  Gzip:     $gzip_size bytes ($(awk "BEGIN{printf \"%.1f\", ($gzip_size/$original_size)*100}")%)"
+    echo "  Brotli:   $brotli_size bytes ($(awk "BEGIN{printf \"%.1f\", ($brotli_size/$original_size)*100}")%)"
+
+    rm -f /tmp/compare.gz /tmp/compare.br
+}
+
+# Verificar integridad gzip
+verify_gzip() {
+    local file="$1"
+    if gzip -t "$file" 2>/dev/null; then
+        echo "OK: $file es válido"
+    else
+        echo "FAIL: $file está corrupto"
+        return 1
+    fi
+}
+
+# Uso
+# precompress_assets /var/www/static
+# compare_ratios /var/www/static/app.js
+# verify_gzip /var/www/static/app.js.gz
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa Brotli calidad 11 para assets estáticos, calidad 4 para dinámicos.** Calidad 11 es 10-50x más lento que calidad 4 pero produce archivos 5-10% más pequeños. Para pre-compresión al momento de build, el tiempo extra es irrelevante. Para responses en vivo, calidad 4 mantiene la latencia bajo 10ms:
+
+```bash
+# Assets estáticos: calidad 11 (build time, máxima compresión)
+brotli -q 11 -k app.js
+
+# Responses dinámicos: calidad 4 (runtime, compresión rápida)
+# En Node.js: zlib.createBrotliCompress({ params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 4 } })
+```
+
+2. **Cachea archivos pre-comprimidos con nombres basados en contenido.** Usa nombres de archivo basados en hash (ej. `app.a3f5b2c.js`) para que el CDN cachee la variante comprimida indefinidamente:
+
+```nginx
+# Nginx: servir archivos pre-comprimidos con headers de cache de largo plazo
+location ~* \.(js|css|html|svg)$ {
+    brotli_static on;
+    gzip_static on;
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+    add_header Vary "Accept-Encoding";
+}
+```
+
+3. **Benchmark ratios de compresión antes de comprometerte con un algoritmo.** Diferentes tipos de datos comprimen diferente. JSON con keys repetidas comprime bien con el diccionario de Brotli. CSV con datos numéricos puede comprimir mejor con Gzip:
+
+```python
+import gzip
+import time
+
+def benchmark_compression(data: bytes, algorithm: str = 'gzip', level: int = 6) -> dict:
+    """Benchmark de ratio de compresión y velocidad."""
+    start = time.perf_counter()
+    if algorithm == 'gzip':
+        compressed = gzip.compress(data, compresslevel=level)
+    elif algorithm == 'brotli':
+        import brotli
+        compressed = brotli.compress(data, quality=level)
+    else:
+        raise ValueError(f"Algoritmo desconocido: {algorithm}")
+    elapsed = time.perf_counter() - start
+
+    return {
+        'algorithm': algorithm,
+        'level': level,
+        'original_size': len(data),
+        'compressed_size': len(compressed),
+        'ratio': f"{len(compressed)/len(data)*100:.1f}%",
+        'time_ms': f"{elapsed*1000:.2f}",
+        'speed_mbs': f"{len(data)/elapsed/1024/1024:.1f}",
+    }
+
+# data = open('large.json', 'rb').read()
+# print(benchmark_compression(data, 'gzip', 6))
+# print(benchmark_compression(data, 'brotli', 4))
+```
+
+## Errores Comunes Adicionales
+
+1. **Servir Brotli a clientes que no lo soportan.** Brotli está soportado en todos los navegadores modernos pero no en clientes HTTP antiguos, curl (sin `--compressed`), o algunos proxies. Siempre verifica `Accept-Encoding` antes de enviar Brotli:
+
+```javascript
+// Mal: siempre envía Brotli
+// res.setHeader('Content-Encoding', 'br');
+
+// Bien: verifica soporte del cliente primero
+const acceptEncoding = req.headers['accept-encoding'] || '';
+if (acceptEncoding.includes('br')) {
+    res.setHeader('Content-Encoding', 'br');
+} else if (acceptEncoding.includes('gzip')) {
+    res.setHeader('Content-Encoding', 'gzip');
+}
+```
+
+2. **Usar nivel de compresión 9 para responses de API en vivo.** Nivel 9 es 3-5x más lento que nivel 6 para una mejora marginal de tamaño (1-3%). Para responses en vivo donde la latencia importa, usa nivel 4-6:
+
+```python
+# Mal: nivel 9 para response de API en vivo (demasiado lento)
+# compressed = gzip.compress(data, compresslevel=9)
+
+# Bien: nivel 6 para responses en vivo (balanceado)
+compressed = gzip.compress(data, compresslevel=6)
+
+# Bien: nivel 9 para cold storage (el tamaño importa más que la velocidad)
+compressed = gzip.compress(data, compresslevel=9)
+```
+
+3. **No establecer `Vary: Accept-Encoding` en responses comprimidas.** Sin este header, un CDN puede cachear una response Brotli y servirla a un cliente que solo soporta Gzip:
+
+```nginx
+# Mal: sin header Vary, CDN sirve el encoding equivocado
+# gzip on;
+# gzip_comp_level 6;
+
+# Bien: header Vary previene cache poisoning
+gzip on;
+gzip_comp_level 6;
+gzip_vary on;
+add_header Vary "Accept-Encoding";
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo manejo la compresión en una arquitectura de microservicios?
+
+Usa un gateway de compresión o proxy sidecar. Los servicios de aplicación retornan responses sin comprimir, y el gateway maneja la negociación de `Accept-Encoding`. Esto centraliza la config de compresión y evita overhead de CPU en los servidores de aplicación. Envoy, Nginx y HAProxy todos soportan este patrón:
+
+```nginx
+# Nginx como gateway de API: comprimir responses de servicios upstream
+location /api/ {
+    proxy_pass http://backend;
+    gzip on;
+    gzip_comp_level 6;
+    gzip_types application/json;
+    gzip_vary on;
+    proxy_set_header Accept-Encoding $http_accept_encoding;
+}
+```
+
+### ¿Esta solución está lista para producción?
+
+Sí. `zlib` de Node.js es usado por Express.js, Next.js, y el SDK de AWS para compresión de responses. `gzip` de Python es usado por `GZipMiddleware` de Django, Flask-Compress, y pip para distribución de paquetes. `GZIPOutputStream` de Java es usado por `GzipFilter` de Spring Boot, Gradle para compresión de artefactos, y Kafka para compresión de mensajes. Los módulos `gzip` y `brotli` de Nginx son usados por Cloudflare, Fastly, y todos los CDNs principales para compresión en el edge. Brotli es usado por Google Search, YouTube, y Facebook para entrega de assets estáticos. El middleware `compression` de Express es usado por miles de APIs en producción. Pre-compresión con `brotli -q 11` es el step de build estándar en Webpack, Vite, y Astro para optimización de assets estáticos.
+
+### ¿Cuáles son las características de rendimiento?
+
+Gzip nivel 6 comprime texto a 30-80MB/s en Python, 50-120MB/s en Node.js, y 60-150MB/s en Java con buffer de 8KB. Brotli calidad 4 comprime a 20-60MB/s; calidad 11 a 2-10MB/s pero produce output 5-10% más pequeño. La descompresión es 5-10x más rápida que la compresión: Gzip descomprime a 200-500MB/s, Brotli a 100-400MB/s. `gzip_static` de Nginx sirve archivos pre-comprimidos a velocidad de I/O de disco (500-2000MB/s en SSD). Ratio de compresión para texto: Gzip nivel 6 logra 70-85% de reducción, Brotli calidad 11 logra 75-90% de reducción. Para JSON con keys repetidas, el diccionario de Brotli añade 3-8% de reducción adicional sobre Gzip. Para datos binarios (imágenes, videos), el ratio de compresión es 0-5% — saltar compresión. Uso de memoria: compresión streaming usa O(buffer_size), típicamente 8-64KB por stream. Brotli calidad 11 usa diccionario de 16MB, requiriendo 16-32MB RAM por compresión concurrente. Costo de CPU: Gzip nivel 6 usa 1-3ms por 100KB en una CPU moderna; Brotli calidad 11 usa 50-200ms por 100KB.
+
+### ¿Cómo depuro problemas de compresión?
+
+Para `Content-Encoding` incorrecto, verifica headers con `curl -v -H "Accept-Encoding: gzip, br" https://example.com/api` — revisa `Content-Encoding` y `Vary` en la response. Para datos comprimidos corruptos, verifica integridad con `gzip -t file.gz` (Bash) o lectura completa con `GZIPInputStream` (Java). Para ratios de compresión pobres, verifica si los datos ya están comprimidos con `file --mime-type input.dat` — si retorna `application/zip` o `image/jpeg`, salta compresión. Para responses lentas, perfila el tiempo de compresión con `time curl -s -o /dev/null https://example.com/api` y compara con y sin `Accept-Encoding: gzip`. Para problemas de cache, verifica que `Vary: Accept-Encoding` esté presente con `curl -I https://example.com/api` y prueba con diferentes valores de `Accept-Encoding`. Para Brotli no servido, verifica que el módulo `ngx_brotli` esté cargado con `nginx -V 2>&1 | grep brotli` y revisa que `brotli_types` incluya el MIME type de la response. Para doble compresión, inspecciona headers de response — si `Content-Encoding` aparece dos veces o la response es más grande que el original, revisa el orden del middleware. Para problemas de memoria durante compresión batch, monitorea con `top` o `htop` y reduce el tamaño del buffer o usa APIs de streaming en lugar de compresión en memoria.

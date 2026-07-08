@@ -239,3 +239,295 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### Dashboard Provisioning (GitOps)
+
+```yaml
+# provisioning/dashboards/dashboards.yml
+apiVersion: 1
+providers:
+  - name: 'Default'
+    orgId: 1
+    folder: 'Services'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards
+```
+
+```json
+// provisioning/dashboards/api-overview.json
+{
+  "dashboard": {
+    "title": "API Overview",
+    "tags": ["api", "production"],
+    "timezone": "browser",
+    "schemaVersion": 39,
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "stat",
+        "datasource": "Prometheus",
+        "targets": [
+          { "expr": "sum(rate(http_requests_total[5m]))", "refId": "A" }
+        ],
+        "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 }
+      },
+      {
+        "title": "Error Rate",
+        "type": "gauge",
+        "datasource": "Prometheus",
+        "targets": [
+          { "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])) * 100", "refId": "A" }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "yellow", "value": 1 },
+                { "color": "red", "value": 5 }
+              ]
+            }
+          }
+        },
+        "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 }
+      }
+    ],
+    "templating": {
+      "list": [
+        {
+          "name": "service",
+          "type": "query",
+          "datasource": "Prometheus",
+          "query": "label_values(http_requests_total, job)",
+          "refresh": 1
+        }
+      ]
+    }
+  }
+}
+```
+
+### Grafana Alerting
+
+```yaml
+# provisioning/alerting/alerts.yml
+apiVersion: 1
+groups:
+  - orgId: 1
+    name: API Health
+    interval: 30s
+    rules:
+      - uid: api-error-rate
+        title: API Error Rate > 5%
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+            datasourceUid: prometheus
+            model:
+              expr: sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) > 0.05
+              instant: true
+        noDataState: NoData
+        execErrState: Error
+        for: 5m
+        annotations:
+          summary: "Error rate above 5%"
+        labels:
+          severity: critical
+        notification_settings:
+          group_by: ['alertname']
+          group_wait: 10s
+```
+
+### Loki Log Integration
+
+```yaml
+# provisioning/datasources/loki.yml
+apiVersion: 1
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+    isDefault: false
+    jsonData:
+      maxLines: 1000
+```
+
+```logql
+# Log queries for dashboard panels
+# Error logs for specific service
+{service="api"} |= "error" | json | line_format "{{.msg}}"
+
+# Slow requests (>1s)
+{service="api"} |= "duration" | json | duration > 1000
+
+# Count errors by service over time
+sum by (service) (count_over_time({service="api"} |= "error" [5m]))
+```
+
+### Dashboard Variables for Dynamic Filtering
+
+```json
+{
+  "templating": {
+    "list": [
+      {
+        "name": "environment",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(kube_pod_info, namespace)",
+        "refresh": 1
+      },
+      {
+        "name": "service",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(http_requests_total{namespace=\"$environment\"}, job)",
+        "refresh": 1
+      },
+      {
+        "name": "interval",
+        "type": "interval",
+        "options": [
+          { "text": "1m", "value": "1m" },
+          { "text": "5m", "value": "5m" },
+          { "text": "1h", "value": "1h" }
+        ],
+        "current": { "text": "5m", "value": "5m" }
+      }
+    ]
+  }
+}
+```
+
+## Additional Best Practices
+
+1. **Use dashboard folders.** Organize by team or service:
+
+```yaml
+# provisioning/dashboards/dashboards.yml
+providers:
+  - name: 'Platform Team'
+    folder: 'Platform'
+    options:
+      path: /var/lib/grafana/dashboards/platform
+  - name: 'Data Team'
+    folder: 'Data'
+    options:
+      path: /var/lib/grafana/dashboards/data
+```
+
+1. **Set dashboard refresh based on urgency.** Real-time dashboards refresh fast, overview dashboards slow:
+
+```json
+{
+  "refresh": "10s",  // Real-time ops dashboard
+  "time": { "from": "now-1h", "to": "now" }
+}
+```
+
+1. **Use annotations for deployments.** Mark deploy times on graphs:
+
+```yaml
+# provisioning/annotations/deployments.yml
+apiVersion: 1
+annotations:
+  - name: Deployments
+    datasource: Loki
+    query: '{service="deploy"} |= "deployed"'
+    iconColor: blue
+```
+
+## Additional Common Mistakes
+
+1. **Using `rate()` in Grafana without time range.** Always use `$__rate_interval`:
+
+```promql
+# Bad: hardcoded interval
+rate(http_requests_total[5m])
+
+# Good: adapts to dashboard time range
+rate(http_requests_total[$__rate_interval])
+```
+
+1. **Too many panels on one dashboard.** Keep under 15 panels per dashboard for performance:
+
+```json
+// Split into multiple dashboards
+// 1. Overview (5 panels)
+// 2. Latency detail (10 panels)
+// 3. Error analysis (10 panels)
+```
+
+## Additional FAQ
+
+### How do I export a dashboard from Grafana UI?
+
+1. Open the dashboard
+2. Click the gear icon > Share > Export
+3. Save as JSON
+4. Commit to `provisioning/dashboards/` for GitOps
+
+### How do I create a multi-panel dashboard programmatically?
+
+Use the Grafana Terraform provider:
+
+```hcl
+resource "grafana_dashboard" "api_overview" {
+  config_json = jsonencode({
+    title = "API Overview"
+    panels = [
+      # Panel definitions
+    ]
+  })
+  folder = grafana_folder.services.id
+}
+```
+
+### Can I use Grafana for log aggregation?
+
+Yes. With Loki as a data source, Grafana can search, filter, and visualize logs alongside metrics. Use LogQL queries in log panels:
+
+```logql
+{app="myapp"} |= "ERROR" | json | line_format "{{.timestamp}} {{.level}} {{.message}}"
+```
+
+## Performance Tips
+
+1. **Use recording rules for dashboard queries.** Precompute expensive PromQL:
+
+```yaml
+# Instead of computing in Grafana, precompute in Prometheus
+- record: job:http_p99:5m
+  expr: histogram_quantile(0.99, sum by(job, le)(rate(http_request_duration_seconds_bucket[5m])))
+```
+
+1. **Set dashboard time ranges.** Don't query 30 days of data for a quick check:
+
+```json
+{
+  "time": { "from": "now-6h", "to": "now" }
+}
+```
+
+1. **Use `$__rate_interval` instead of hardcoded windows.** Adapts to dashboard zoom:
+
+```promql
+# Adapts to time range
+rate(http_requests_total[$__rate_interval])
+```
+
+1. **Limit Loki queries.** Use `max_lines` to prevent huge log fetches:
+
+```yaml
+datasources:
+  - name: Loki
+    jsonData:
+      maxLines: 500  # Default 1000
+```

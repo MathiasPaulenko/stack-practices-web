@@ -166,3 +166,223 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### Configuración de security headers en Spring Boot
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityHeadersConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .headers(headers -> headers
+                .contentSecurityPolicy(csp -> csp.policyDirectives(
+                    "default-src 'self'; " +
+                    "script-src 'self' https://cdn.example.com; " +
+                    "style-src 'self' https://fonts.googleapis.com; " +
+                    "img-src 'self' data: https:; " +
+                    "connect-src 'self' https://api.example.com; " +
+                    "frame-ancestors 'none'; " +
+                    "base-uri 'self'; " +
+                    "object-src 'none'"
+                ))
+                .httpStrictTransportSecurity(hsts -> hsts
+                    .maxAgeInSeconds(31536000)
+                    .includeSubDomains(true)
+                    .preload(true)
+                )
+                .contentTypeOptions(opts -> {})
+                .frameOptions(frame -> frame.deny())
+                .referrerPolicy(referrer -> referrer.policy(
+                    org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
+                ))
+                .permissionsPolicy(permissions -> permissions.policy(
+                    "geolocation=(), microphone=(), camera=(), payment=()"
+                ))
+            );
+
+        return http.build();
+    }
+}
+```
+
+### Inyección de headers con Cloudflare Workers
+
+Inyecta security headers en el edge sin tocar la infraestructura de origen:
+
+```javascript
+export default {
+  async fetch(request, env) {
+    const response = await fetch(request);
+
+    // Clonar la respuesta para poder modificar headers
+    const newResponse = new Response(response.body, response);
+
+    // Security headers
+    newResponse.headers.set('Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains; preload');
+    newResponse.headers.set('X-Content-Type-Options', 'nosniff');
+    newResponse.headers.set('X-Frame-Options', 'DENY');
+    newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    newResponse.headers.set('Permissions-Policy',
+      'geolocation=(), microphone=(), camera=()');
+
+    // Setear CSP solo para respuestas HTML
+    const contentType = response.headers.get('Content-Type') || '';
+    if (contentType.includes('text/html')) {
+      newResponse.headers.set('Content-Security-Policy',
+        "default-src 'self'; script-src 'self' https://cdn.example.com; " +
+        "style-src 'self' https://fonts.googleapis.com; " +
+        "img-src 'self' data: https:; connect-src 'self' https://api.example.com");
+    }
+
+    return newResponse;
+  },
+};
+```
+
+### CORS preflight con security headers
+
+Combina CORS y security headers para APIs cross-origin:
+
+```javascript
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+
+const app = express();
+
+// Security headers primero
+app.use(helmet());
+
+// CORS con allowlist de orígenes específicos
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'https://app.example.com',
+      'https://admin.example.com',
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-ID'],
+  exposedHeaders: ['X-Request-ID', 'X-RateLimit-Remaining'],
+  credentials: true,
+  maxAge: 86400, // Cachear preflight por 24 horas
+};
+
+app.use(cors(corsOptions));
+
+// Handler explícito de preflight
+app.options('*', cors(corsOptions));
+
+// Rutas de API
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+```
+
+### Testing automatizado de headers con curl
+
+```bash
+#!/bin/bash
+# audit-headers.sh — Verificar security headers en una URL
+
+URL="${1:-https://example.com}"
+REQUIRED_HEADERS=(
+  "strict-transport-security"
+  "content-security-policy"
+  "x-content-type-options"
+  "x-frame-options"
+  "referrer-policy"
+)
+
+echo "Auditando: $URL"
+echo "-----------------------------------"
+
+HEADERS=$(curl -sI "$URL")
+
+for header in "${REQUIRED_HEADERS[@]}"; do
+  VALUE=$(echo "$HEADERS" | grep -i "^$header:" | sed 's/^[^:]*: *//')
+  if [ -z "$VALUE" ]; then
+    echo "FALTA: $header"
+  else
+    echo "OK: $header = $VALUE"
+  fi
+done
+
+# Verificar CSP débil
+CSP=$(echo "$HEADERS" | grep -i "^content-security-policy:" | sed 's/^[^:]*: *//')
+if echo "$CSP" | grep -q "unsafe-inline"; then
+  echo "ADVERTENCIA: CSP contiene 'unsafe-inline'"
+fi
+if echo "$CSP" | grep -q "unsafe-eval"; then
+  echo "ADVERTENCIA: CSP contiene 'unsafe-eval'"
+fi
+
+# Verificar HSTS max-age
+HSTS=$(echo "$HEADERS" | grep -i "^strict-transport-security:" | sed 's/^[^:]*: *//')
+if echo "$HSTS" | grep -q "max-age=0"; then
+  echo "ADVERTENCIA: HSTS max-age es 0 (deshabilitado)"
+fi
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `Cross-Origin-Opener-Policy` para aislamiento de SPAs.** Previene que otros orígenes obtengan una referencia a tu window object:
+
+```http
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+2. **Setea `Cache-Control` en respuestas de API con datos sensibles.** Previene el caching de respuestas autenticadas:
+
+```http
+Cache-Control: no-store, no-cache, must-revalidate, private
+Pragma: no-cache
+Expires: 0
+```
+
+## Errores Comunes Adicionales
+
+1. **Setear CSP en respuestas de API pero no en páginas HTML.** CSP es más importante en páginas HTML donde los scripts se ejecutan. Las respuestas de API que retornan JSON deben tener headers como `X-Content-Type-Options`, pero CSP es menos crítico para ellas.
+
+2. **Usar wildcard `*` en CORS con credentials.** Cuando `credentials: true` está configurado en CORS, el header `Access-Control-Allow-Origin` no puede ser `*`. Debes especificar orígenes exactos:
+
+```javascript
+// INCORRECTO: wildcard con credentials
+app.use(cors({ origin: '*', credentials: true }));
+
+// CORRECTO: orígenes explícitos
+app.use(cors({
+  origin: ['https://app.example.com', 'https://admin.example.com'],
+  credentials: true,
+}));
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo verifico que mis security headers están funcionando?
+
+Usa `curl -I https://tu-dominio.com` para inspeccionar los headers de respuesta. Para una auditoría más exhaustiva, usa herramientas online como securityheaders.com, Mozilla Observatory, o el script `audit-headers.sh` de arriba. Estas herramientas califican tu configuración y proveen pasos específicos de remediación.
+
+### ¿Debo setear security headers en assets estáticos?
+
+Sí. Los assets estáticos servidos desde tu dominio deben tener como mínimo `X-Content-Type-Options: nosniff` y headers de `Cache-Control`. CSP es menos relevante para assets estáticos pero no duele. Si usas un CDN, configura los headers a nivel del CDN.
+
+### ¿Qué headers recomienda OWASP para APIs?
+
+OWASP recomienda: `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` (para respuestas HTML), `Cache-Control: no-store` (para datos sensibles), `Access-Control-Allow-Origin` (con orígenes explícitos, no wildcards), y `Content-Security-Policy` (para respuestas HTML).

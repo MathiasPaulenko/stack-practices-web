@@ -295,3 +295,236 @@ En Swarm, actualiza el secret y luego actualiza el servicio: `docker service upd
 ### ¿Por qué debo evitar variables de entorno para secretos?
 
 Las variables de entorno son visibles en `docker inspect`, `docker exec env`, y `/proc/<pid>/environ` en el host. Pueden filtrarse a logs y crash dumps. Los secretos basados en archivos son más seguros porque solo son legibles por el proceso del contenedor.
+
+### Integración con AWS Secrets Manager
+
+```python
+import boto3
+import json
+
+def get_aws_secret(secret_name: str, region: str = "us-east-1") -> dict:
+    """Obtener un secret desde AWS Secrets Manager."""
+    client = boto3.client("secretsmanager", region_name=region)
+    response = client.get_secret_value(SecretId=secret_name)
+    return json.loads(response["SecretString"])
+
+# Uso
+db_creds = get_aws_secret("prod/db/credentials")
+db_password = db_creds["password"]
+```
+
+```yaml
+# docker-compose.yml con AWS Secrets Manager
+services:
+  api:
+    build: .
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_SECRET_NAME=prod/db/credentials
+    # Credenciales AWS vía IAM role, no env vars
+```
+
+### Kubernetes Secrets (alternativa a Docker Swarm)
+
+```yaml
+# k8s-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-credentials
+type: Opaque
+stringData:
+  password: my-super-secret-password
+  username: dbadmin
+```
+
+```yaml
+# k8s-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  template:
+    spec:
+      containers:
+      - name: api
+        image: my-api:latest
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
+        # O montar como archivo
+        volumeMounts:
+        - name: secrets
+          mountPath: /run/secrets
+          readOnly: true
+      volumes:
+      - name: secrets
+        secret:
+          secretName: db-credentials
+```
+
+### Script de Rotación Automatizada de Secretos
+
+```bash
+#!/bin/bash
+# rotate-secrets.sh
+
+set -e
+
+SECRET_NAME="db_password"
+NEW_VALUE=$(openssl rand -base64 32)
+
+# Actualizar en Docker Swarm
+echo "$NEW_VALUE" | docker secret create "${SECRET_NAME}_v2" -
+
+# Actualizar servicio para usar el nuevo secret
+docker service update \
+    --secret-rm "$SECRET_NAME" \
+    --secret-add "${SECRET_NAME}_v2" \
+    api
+
+# Esperar el rollout
+sleep 30
+
+# Remover secret viejo
+docker secret rm "$SECRET_NAME"
+
+echo "Rotación completa para $SECRET_NAME"
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa IAM roles en lugar de access keys.** En AWS, asigna IAM roles a tareas ECS o pods EKS. Esto elimina la necesidad de gestionar credenciales AWS como secretos:
+
+```yaml
+# ECS task definition
+{
+  "taskRoleArn": "arn:aws:iam::123456789012:role/api-task-role",
+  "executionRoleArn": "arn:aws:iam::123456789012:role/api-execution-role"
+}
+```
+
+2. **Escanea imágenes en busca de secretos filtrados.** Usa herramientas como Trivy o Gitleaks para detectar secretos en capas de imagen:
+
+```bash
+# Escanear imagen en busca de secretos
+trivy image --scanners secret my-api:latest
+
+# Escanear repo antes de construir
+gitleaks detect --source . --report-path leaks.json
+```
+
+3. **Usa labels de secretos para organización.** Taguea secretos con entorno y servicio:
+
+```bash
+docker secret create db_password_prod --label env=prod --label service=api
+docker secret create db_password_staging --label env=staging --label service=api
+```
+
+## Errores Comunes Adicionales
+
+1. **Loguear secretos accidentalmente.** Apps que loguean todas las variables de entorno al arrancar filtran secretos:
+
+```python
+# Mal: loguea todo incluyendo secretos
+import os
+print(f"Environment: {os.environ}")
+
+# Bien: redactar claves de secretos conocidas
+SAFE_KEYS = {"PATH", "NODE_ENV", "PORT"}
+redacted = {k: ("***" if k not in SAFE_KEYS else v) for k, v in os.environ.items()}
+print(f"Environment: {redacted}")
+```
+
+2. **Compartir secretos entre equipos.** Cada equipo debería tener su propio namespace de secretos:
+
+```bash
+# Mal: secret compartido
+docker secret create shared_api_key
+
+# Bien: scoped por equipo
+docker secret create payments_team_api_key
+docker secret create auth_team_api_key
+```
+
+3. **No limpiar secretos viejos.** Secretos stale se acumulan y aumentan la superficie de ataque:
+
+```bash
+# Listar y remover secretos no usados
+docker secret ls
+docker secret rm old_secret_v1
+docker secret rm old_secret_v2
+```
+
+## FAQ Adicional
+
+### Como comparto secretos entre contenedores en Docker Compose?
+
+Define el secret a nivel top-level y referéncialo en múltiples servicios:
+
+```yaml
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+
+services:
+  api:
+    secrets: [db_password]
+  worker:
+    secrets: [db_password]
+```
+
+### Puedo usar Docker secrets con Kubernetes?
+
+Los Docker secrets son específicos de Docker Swarm. Kubernetes tiene su propio recurso Secret. Si migras de Swarm a K8s, convierte Docker secrets a Kubernetes secrets usando `kubectl create secret`.
+
+### Cuál es el tamaño máximo de un Docker secret?
+
+Los Docker Swarm secrets tienen un tamaño máximo de 500KB. Para secretos más grandes (certificados TLS con cadenas, CA bundles), almacénalos en un gestor externo como Vault.
+
+## Tips de Rendimiento
+
+1. **Cachéa lookups de secretos en memoria.** Evita fetchear el mismo secret en cada request:
+
+```python
+_secret_cache = {}
+
+def get_cached_secret(name: str, ttl: int = 300) -> str:
+    if name in _secret_cache:
+        cached_time, value = _secret_cache[name]
+        if time.time() - cached_time < ttl:
+            return value
+    value = get_secret(name)
+    _secret_cache[name] = (time.time(), value)
+    return value
+```
+
+2. **Usa patrón sidecar para fetch de secretos.** Un contenedor sidecar fetchea secretos y los escribe a un volumen compartido:
+
+```yaml
+services:
+  secret-fetcher:
+    image: vault-sidecar:latest
+    volumes:
+      - secrets:/run/secrets
+  api:
+    image: my-api:latest
+    volumes:
+      - secrets:/run/secrets:ro
+volumes:
+  secrets:
+```
+
+3. **Batchea fetches de secretos desde Vault.** Reduce llamadas API fetcheando múltiples secretos en una sola request:
+
+```python
+def get_multiple_secrets(paths: list[str]) -> dict:
+    results = {}
+    for path in paths:
+        results[path] = get_vault_secret(path)
+    return results
+```

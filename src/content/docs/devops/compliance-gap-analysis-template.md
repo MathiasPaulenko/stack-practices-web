@@ -146,3 +146,225 @@ A compliance or risk manager usually owns the document, but each requirement mus
 ### What counts as evidence?
 
 Policies, configuration screenshots, audit logs, ticket records, signed attestations, training completion records, test results, and third-party reports. Evidence must be dated and attributable.
+
+## Advanced Solutions
+
+### Automated evidence collection with AWS Config
+
+Automate evidence gathering for SOC 2 and ISO 27001 using AWS Config rules:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Export AWS Config compliance data for audit evidence
+aws configservice select-aggregate-resource-config \
+  --configuration-aggregator-name "OrganizationConfigAggregator" \
+  --expression '
+    SELECT
+      resourceId,
+      resourceType,
+      configurationItemStatus,
+      configuration,
+      tags
+    WHERE
+      resourceType = "AWS::Config::ConfigRule"
+      AND configurationItemStatus = "OK"
+  ' \
+  --limit 100 > config-compliance-evidence.json
+
+# Generate MFA enforcement evidence for CC6.1
+aws iam get-account-summary > iam-account-summary.json
+aws iam list-virtual-mfa-devices > mfa-devices.json
+
+# Check root account MFA status
+ROOT_MFA=$(aws iam get-account-summary --query 'SummaryMap.AccountMFAEnabled' --output text)
+echo "Root MFA enabled: $ROOT_MFA" >> mfa-evidence.txt
+
+# Generate S3 bucket encryption evidence for CC6.7
+aws s3api list-buckets --query 'Buckets[].Name' --output text | \
+  tr '\t' '\n' | \
+  while read bucket; do
+    ENC=$(aws s3api get-bucket-encryption --bucket "$bucket" --query 'ServerSideEncryptionConfiguration.Rules[0].ApplyServerSideEncryptionByDefault.SSEAlgorithm' --output text 2>/dev/null || echo "None")
+    echo "$bucket: $ENC" >> s3-encryption-evidence.txt
+  done
+
+# Generate CloudTrail logging evidence for CC7.2
+aws cloudtrail describe-trails --query 'trailList[].{Name:Name,IsLogging:IsLogging,S3Bucket:S3BucketName}' --output table > cloudtrail-evidence.txt
+```
+
+### Multi-framework control mapping matrix
+
+Create a unified mapping across SOC 2, ISO 27001, and PCI-DSS to avoid duplicate work:
+
+```python
+import json
+from pathlib import Path
+
+FRAMEWORK_MAPPING = {
+    "MFA enforcement": {
+        "soc2": "CC6.1",
+        "iso27001": "A.9.4.2",
+        "pci": "8.3.1",
+        "control": "Multi-factor authentication for all privileged accounts",
+        "evidence": ["IAM MFA config", "Enrollment report", "Root MFA status"],
+    },
+    "Encryption at rest": {
+        "soc2": "CC6.7",
+        "iso27001": "A.10.1.1",
+        "pci": "3.4",
+        "control": "AES-256 encryption for all data stores",
+        "evidence": ["KMS key policy", "S3 encryption config", "RDS encryption status"],
+    },
+    "Centralized logging": {
+        "soc2": "CC7.2",
+        "iso27001": "A.12.4.1",
+        "pci": "10.1",
+        "control": "All systems forward logs to centralized SIEM",
+        "evidence": ["SIEM ingestion config", "Log source inventory", "Retention policy"],
+    },
+    "Vulnerability scanning": {
+        "soc2": "CC7.1",
+        "iso27001": "A.12.6.1",
+        "pci": "11.2",
+        "control": "Quarterly vulnerability scans with remediation SLA",
+        "evidence": ["Scanner reports", "Remediation tickets", "SLA document"],
+    },
+    "Access reviews": {
+        "soc2": "CC6.3",
+        "iso27001": "A.9.2.5",
+        "pci": "8.2.4",
+        "control": "Quarterly access reviews with documented attestation",
+        "evidence": ["Review records", "Manager sign-off", "Removal tickets"],
+    },
+}
+
+def generate_mapping_report(mapping: dict) -> str:
+    lines = []
+    lines.append("| Control | SOC 2 | ISO 27001 | PCI-DSS | Evidence |")
+    lines.append("|---------|-------|-----------|---------|----------|")
+    for name, data in mapping.items():
+        evidence = ", ".join(data["evidence"])
+        lines.append(
+            f"| {name} | {data['soc2']} | {data['iso27001']} | "
+            f"{data['pci']} | {evidence} |"
+        )
+    return "\n".join(lines)
+
+report = generate_mapping_report(FRAMEWORK_MAPPING)
+Path("multi-framework-mapping.md").write_text(report)
+print(report)
+```
+
+### Continuous compliance monitoring with OPA
+
+Use Open Policy Agent (OPA) to continuously verify compliance controls in Kubernetes:
+
+```yaml
+# OPA Gatekeeper policy: Enforce MFA-required labels on all deployments
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequiredlabels
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredLabels
+      validation:
+        openAPIV3Schema:
+          type: object
+          properties:
+            labels:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequiredlabels
+
+        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+          provided := {label | input.review.object.metadata.labels[label]}
+          required := {label | label := input.parameters.labels[_]}
+          missing := required - provided
+          count(missing) > 0
+          msg := sprintf("Missing required labels: %v", [missing])
+        }
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredLabels
+metadata:
+  name: require-compliance-labels
+spec:
+  match:
+    kinds:
+      - apiGroups: ["apps"]
+        kinds: ["Deployment"]
+  parameters:
+    labels: ["compliance-scan", "data-classification", "owner-team"]
+```
+
+## Additional Best Practices
+
+1. **Use a compliance-as-code approach.** Define controls as code (OPA policies, AWS Config rules, Terraform Sentinel policies) so compliance is continuously verified, not just assessed annually:
+
+```hcl
+# Sentinel policy for Terraform: Enforce encryption on all S3 buckets
+import "tfplan"
+
+main = rule when tfplan.resource_changes is not empty {
+  all tfplan.resource_changes as _, rc {
+    rc.type is "aws_s3_bucket" implies
+    rc.change.after.server_side_encryption_configuration is not null
+  }
+}
+```
+
+2. **Maintain a living evidence repository.** Store all evidence in a versioned repository with automated updates. This eliminates the last-minute evidence scramble before audits:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+EVIDENCE_DIR="compliance-evidence/$(date +%Y-%m)"
+mkdir -p "$EVIDENCE_DIR"
+
+# Auto-collect monthly evidence snapshots
+aws configservice get-discovery-summary > "$EVIDENCE_DIR/config-summary.json"
+kubectl get compliance-scores -A -o json > "$EVIDENCE_DIR/k8s-compliance.json"
+npm audit --json > "$EVIDENCE_DIR/npm-audit.json"
+trivy image --format json myapp:latest > "$EVIDENCE_DIR/trivy-scan.json"
+
+git add "$EVIDENCE_DIR"
+git commit -m "compliance: monthly evidence snapshot $(date +%Y-%m)"
+```
+
+## Additional Common Mistakes
+
+1. **Not mapping controls across multiple frameworks.** If you pursue SOC 2 and ISO 27001 separately, you duplicate work. Map controls once and reuse evidence:
+
+```bash
+# Generate cross-framework coverage report
+node -e "
+const mapping = require('./control-mapping.json');
+let covered = 0, total = 0;
+for (const [control, frameworks] of Object.entries(mapping)) {
+  total++;
+  if (frameworks.soc2 && frameworks.iso27001) covered++;
+}
+console.log('Cross-framework coverage: ' + covered + '/' + total);
+"
+```
+
+2. **Relying on screenshots as primary evidence.** Screenshots are point-in-time and can be staged. Use automated exports, API outputs, and configuration dumps as primary evidence. Screenshots are supplementary only.
+
+## Additional Frequently Asked Questions
+
+### How do I prioritize which gaps to fix first?
+
+Prioritize by risk score (impact x likelihood), audit deadline, and dependency chain. Gaps that block multiple requirements should be fixed first. For example, implementing centralized logging satisfies CC7.2 (SOC 2), A.12.4.1 (ISO 27001), and 10.1 (PCI-DSS) simultaneously.
+
+### Can I use one gap analysis for multiple frameworks?
+
+Yes. Create a unified control mapping where each control maps to multiple framework requirements. This reduces audit prep time by 40-60% because you collect evidence once and reference it across frameworks.

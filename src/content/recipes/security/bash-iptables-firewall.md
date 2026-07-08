@@ -290,3 +290,163 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 ```
 
 Check `/var/log/syslog` or `/var/log/messages` for the log entries. Remove the `LOG` rule after debugging.
+
+## Advanced Solutions
+
+### DMZ zone isolation with custom chains
+
+Isolate a DMZ subnet from the internal network using custom chains. Traffic between zones is explicitly allowed or denied:
+
+```bash
+#!/bin/bash
+
+# Define zones
+INTERNAL="10.0.1.0/24"
+DMZ="10.0.2.0/24"
+
+# Create custom chains for zone traffic
+iptables -N INTERNAL_TO_DMZ 2>/dev/null || iptables -F INTERNAL_TO_DMZ
+iptables -N DMZ_TO_INTERNAL 2>/dev/null || iptables -F DMZ_TO_INTERNAL
+
+# Internal -> DMZ: allow HTTP/HTTPS only
+iptables -A INTERNAL_TO_DMZ -p tcp --dport 80 -j ACCEPT
+iptables -A INTERNAL_TO_DMZ -p tcp --dport 443 -j ACCEPT
+iptables -A INTERNAL_TO_DMZ -j LOG --log-prefix "INT-DMZ-DROP: " -m limit --limit 5/min
+iptables -A INTERNAL_TO_DMZ -j DROP
+
+# DMZ -> Internal: deny all by default, allow DNS responses only
+iptables -A DMZ_TO_INTERNAL -p udp --sport 53 -j ACCEPT
+iptables -A DMZ_TO_INTERNAL -j LOG --log-prefix "DMZ-INT-DROP: " -m limit --limit 5/min
+iptables -A DMZ_TO_INTERNAL -j DROP
+
+# Jump to custom chains based on source/destination
+iptables -A FORWARD -s "$INTERNAL" -d "$DMZ" -j INTERNAL_TO_DMZ
+iptables -A FORWARD -s "$DMZ" -d "$INTERNAL" -j DMZ_TO_INTERNAL
+
+echo "DMZ isolation configured: Internal=$INTERNAL DMZ=$DMZ"
+```
+
+### SYN flood protection with SYNPROXY
+
+SYNPROXY is a netfilter module that intercepts TCP SYN packets and validates the full handshake before forwarding. It prevents SYN flood attacks without dropping legitimate connections:
+
+```bash
+#!/bin/bash
+
+# Enable SYNPROXY for incoming HTTP traffic
+iptables -t raw -A PREROUTING -p tcp -m tcp --dport 80 --syn -j SYNPROXY \
+  --sack-perm --timestamp --wscale 7 --mss 1460
+
+iptables -t raw -A PREROUTING -p tcp -m tcp --dport 443 --syn -j SYNPROXY \
+  --sack-perm --timestamp --wscale 7 --mss 1460
+
+# Drop invalid packets
+iptables -A INPUT -m state --state INVALID -j DROP
+iptables -A FORWARD -m state --state INVALID -j DROP
+
+echo "SYNPROXY configured for HTTP/HTTPS"
+```
+
+### IPv6 firewall with ip6tables
+
+IPv6 traffic bypasses iptables entirely. You must configure ip6tables separately with equivalent rules:
+
+```bash
+#!/bin/bash
+
+# Flush IPv6 rules
+ip6tables -F
+ip6tables -X
+
+# Default policies
+ip6tables -P INPUT DROP
+ip6tables -P FORWARD DROP
+ip6tables -P OUTPUT ACCEPT
+
+# Allow loopback
+ip6tables -A INPUT -i lo -j ACCEPT
+ip6tables -A OUTPUT -o lo -j ACCEPT
+
+# Allow established
+ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Allow ICMPv6 (essential for IPv6 functionality)
+ip6tables -A INPUT -p icmpv6 -j ACCEPT
+
+# Allow SSH, HTTP, HTTPS
+ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT
+ip6tables -A INPUT -p tcp --dport 80 -j ACCEPT
+ip6tables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Persist
+ip6tables-save > /etc/iptables/rules.v6
+
+echo "IPv6 firewall configured"
+```
+
+## Additional Best Practices
+
+1. **Use `conntrack` instead of `state` for new setups.** The `state` module is deprecated in favor of `conntrack` which provides the same functionality with better performance:
+
+```bash
+# Old (deprecated)
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# New (recommended)
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+```
+
+2. **Set kernel parameters for hardening.** Combine iptables with sysctl settings for defense in depth:
+
+```bash
+# Enable SYN cookies
+echo 1 > /proc/sys/net/ipv4/tcp_syncookies
+# Disable IP forwarding (unless this is a router)
+echo 0 > /proc/sys/net/ipv4/ip_forward
+# Ignore ICMP broadcasts (smurf attacks)
+echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+# Reverse path filtering
+echo 1 > /proc/sys/net/ipv4/conf/all/rp_filter
+```
+
+## Additional Common Mistakes
+
+1. **Forgetting to flush custom chains before rebuilding.** If you run your firewall script multiple times without flushing, rules accumulate and duplicate entries slow down packet processing:
+
+```bash
+# Always flush custom chains at the start of the script
+iptables -F MY_CHAIN 2>/dev/null || iptables -N MY_CHAIN
+```
+
+2. **Not testing rules with `iptables -C`.** Before applying a rule set in production, verify each rule exists with `-C` (check) which returns 0 if the rule matches and 1 if not:
+
+```bash
+if iptables -C INPUT -p tcp --dport 22 -j ACCEPT 2>/dev/null; then
+    echo "SSH rule already exists"
+else
+    iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+fi
+```
+
+## Additional Frequently Asked Questions
+
+### How do I migrate from iptables to nftables?
+
+Use `iptables-translate` to convert existing rules. The tool outputs the equivalent nftables syntax:
+
+```bash
+iptables-translate -A INPUT -p tcp --dport 22 -j ACCEPT
+# Output: add rule inet filter input tcp dport 22 accept
+```
+
+For full rule sets, translate the saved file:
+
+```bash
+iptables-save > rules.v4
+iptables-restore-translate -f rules.v4 > rules.nft
+nft -f rules.nft
+```
+
+### Should I use DROP or REJECT for external traffic?
+
+Use `DROP` for external traffic coming from the internet. `DROP` gives no response, making port scanning slower and giving away less information. Use `REJECT` for internal networks where you want clients to receive immediate feedback that a port is closed.

@@ -239,3 +239,336 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### Inventario Dinámico para Proveedores Cloud
+
+```yaml
+# ansible.cfg
+[defaults]
+inventory = aws_ec2.yml
+host_key_checking = False
+retry_files_enabled = False
+```
+
+```yaml
+# aws_ec2.yml
+plugin: aws_ec2
+regions:
+  - us-east-1
+  - us-west-2
+keyed_groups:
+  - prefix: tag
+    key: tags
+host_filters:
+  - tag:Name=production-*
+compose:
+  ansible_host: public_ip_address
+  ansible_user: "'ubuntu'"
+```
+
+```bash
+# Listar inventario dinámico
+ansible-inventory --list
+# Vista de grafo
+ansible-inventory --graph
+```
+
+### Despliegue Multi-Entorno
+
+```yaml
+# environments/staging/inventory.ini
+[webservers]
+staging-web1.example.com
+
+[all:vars]
+env=staging
+nginx_worker_processes: 2
+```
+
+```yaml
+# environments/production/inventory.ini
+[webservers]
+prod-web1.example.com
+prod-web2.example.com
+prod-web3.example.com
+
+[all:vars]
+env=production
+nginx_worker_processes: 8
+```
+
+```bash
+# Desplegar a staging primero
+ansible-playbook site.yml -i environments/staging/inventory.ini
+
+# Luego producción
+ansible-playbook site.yml -i environments/production/inventory.ini
+```
+
+### Condicionales y Loops
+
+```yaml
+---
+- name: Configurar servidores de base de datos
+  hosts: dbservers
+  become: yes
+  tasks:
+    - name: Instalar PostgreSQL en Debian
+      ansible.builtin.apt:
+        name: postgresql
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Instalar PostgreSQL en RHEL
+      ansible.builtin.yum:
+        name: postgresql-server
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Crear bases de datos
+      ansible.builtin.postgresql_db:
+        name: "{{ item.name }}"
+        encoding: "{{ item.encoding | default('UTF8') }}"
+        owner: "{{ item.owner }}"
+      loop:
+        - { name: app_db, owner: appuser }
+        - { name: log_db, owner: loguser }
+        - { name: test_db, owner: testuser }
+```
+
+### Tags para Ejecución Selectiva
+
+```yaml
+---
+- name: Setup completo de servidor
+  hosts: all
+  become: yes
+  tasks:
+    - name: Instalar paquetes base
+      ansible.builtin.apt:
+        name: ['htop', 'vim', 'curl']
+        state: present
+      tags: [packages, base]
+
+    - name: Configurar Nginx
+      ansible.builtin.template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      tags: [nginx, config]
+      notify: Restart Nginx
+
+    - name: Desplegar aplicación
+      ansible.builtin.git:
+        repo: https://github.com/myorg/myapp.git
+        dest: /var/www/myapp
+      tags: [deploy, app]
+```
+
+```bash
+# Ejecutar solo instalación de paquetes
+ansible-playbook site.yml --tags packages
+
+# Saltar despliegue
+ansible-playbook site.yml --skip-tags deploy
+
+# Listar todos los tags
+ansible-playbook site.yml --list-tags
+```
+
+### Integración con Ansible Lint
+
+```bash
+# Instalar ansible-lint
+pip install ansible-lint
+
+# Ejecutar lint
+ansible-lint site.yml
+
+# Integración CI/CD (GitHub Actions)
+# .github/workflows/ansible-lint.yml
+name: Ansible Lint
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install ansible-lint
+      - run: ansible-lint site.yml
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `ansible.cfg` para defaults del proyecto.** Evita repetir flags CLI:
+
+```ini
+# ansible.cfg
+[defaults]
+inventory = inventory.ini
+remote_user = ubuntu
+private_key_file = ~/.ssh/id_rsa
+host_key_checking = False
+roles_path = ./roles
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = ./.facts
+```
+
+2. **Fija versiones de Ansible.** Diferentes versiones pueden producir comportamiento diferente:
+
+```txt
+# requirements.txt
+ansible==8.7.0
+ansible-lint==6.22.0
+```
+
+3. **Usa `block` para manejo de errores.** Agrupa tareas relacionadas con rescue y always:
+
+```yaml
+- name: Manejar despliegue con rollback
+  block:
+    - name: Desplegar código nuevo
+      ansible.builtin.git:
+        repo: https://github.com/myorg/myapp.git
+        dest: /var/www/myapp
+        version: "{{ deploy_branch }}"
+      notify: Restart App
+
+  rescue:
+    - name: Rollback a versión anterior
+      ansible.builtin.git:
+        repo: https://github.com/myorg/myapp.git
+        dest: /var/www/myapp
+        version: "{{ previous_branch }}"
+      notify: Restart App
+
+  always:
+    - name: Notificar resultado de despliegue
+      ansible.builtin.debug:
+        msg: "Despliegue intentado, revisar status"
+```
+
+## Errores Comunes Adicionales
+
+1. **No cachear facts.** La recolección de facts es lenta en muchos hosts:
+
+```ini
+# ansible.cfg
+[defaults]
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = ./.facts
+fact_caching_timeout = 86400
+```
+
+2. **Ejecutar todo como root.** Usa `become` selectivamente por tarea:
+
+```yaml
+# Mal: todo corre como root
+- hosts: all
+  become: yes
+  tasks:
+    - name: Clonar repo como root
+      ansible.builtin.git:
+        repo: https://github.com/myorg/myapp.git
+        dest: /home/deployer/myapp
+
+# Bien: become solo donde es necesario
+- hosts: all
+  tasks:
+    - name: Instalar paquetes
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      become: yes
+
+    - name: Clonar repo como deployer
+      ansible.builtin.git:
+        repo: https://github.com/myorg/myapp.git
+        dest: /home/deployer/myapp
+      become: yes
+      become_user: deployer
+```
+
+3. **No usar `--diff` para auditoría.** Ve exactamente qué cambia en cada ejecución:
+
+```bash
+ansible-playbook site.yml --diff
+```
+
+## FAQ Adicional
+
+### Como acelero Ansible en inventarios grandes?
+
+Usa multiplexing SSH y pipelining:
+
+```ini
+# ansible.cfg
+[ssh_connection]
+ssh_args = -o ControlMaster=auto -o ControlPersist=60s
+pipelining = true
+```
+
+También aumenta `forks` (default es 5):
+
+```ini
+[defaults]
+forks = 20
+```
+
+### Como testeo playbooks de Ansible localmente?
+
+Usa `ansible-playbook` con `--connection=local`:
+
+```bash
+ansible-playbook playbook.yml --connection=local --inventory localhost,
+```
+
+O usa Molecule para testing de integración:
+
+```bash
+pip install molecule
+molecule init role my-role
+molecule test
+```
+
+### Cuál es la diferencia entre `copy` y `template`?
+
+`copy` transfiere un archivo tal cual. `template` renderiza un template Jinja2 con variables antes de transferirlo. Usa `template` cuando el archivo necesita contenido dinámico (archivos de config con variables), y `copy` para archivos estáticos.
+
+## Tips de Rendimiento
+
+1. **Usa `strategy: free` para ejecución más rápida.** Cada host corre independientemente:
+
+```yaml
+- name: Despliegue paralelo rápido
+  hosts: webservers
+  strategy: free
+  tasks:
+    - name: Desplegar app
+      ansible.builtin.git:
+        repo: https://github.com/myorg/myapp.git
+        dest: /var/www/myapp
+```
+
+2. **Deshabilita la recolección de facts cuando no se usa.** Ahorra 2-5 segundos por host:
+
+```yaml
+- name: Tarea simple sin facts
+  hosts: webservers
+  gather_facts: no
+  tasks:
+    - name: Reiniciar servicio
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+```
+
+3. **Usa `async` para tareas long-running.** No bloquees el playbook:
+
+```yaml
+- name: Ejecutar backup lento
+  ansible.builtin.shell: pg_dump mydb > /tmp/backup.sql
+  async: 300
+  poll: 5
+```

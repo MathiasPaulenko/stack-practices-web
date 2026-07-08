@@ -147,3 +147,222 @@ Yes, if they store or access corporate data. Use mobile application management (
 ### How do we enforce the checklist without slowing down users?
 
 Use MDM profiles, group policy, or configuration management to automate as many controls as possible. Provide clear instructions and self-service recovery options to reduce friction.
+
+## Advanced Solutions
+
+### macOS hardening with Jamf Pro
+
+Automate endpoint hardening for macOS fleets using Jamf Pro configuration profiles:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Jamf Pro API authentication
+JAMF_URL="https://yourorg.jamfcloud.com"
+API_TOKEN=$(curl -s -X POST "$JAMF_URL/api/v1/auth/token" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"api-user","password":"api-pass"}' | jq -r '.token')
+
+# Apply FileVault encryption policy to all managed Macs
+curl -s -X POST "$JAMF_URL/api/v1/mobile-device-command-files" \
+  -H "Authorization: Bearer $API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "commandName": "EnableFileVault",
+    "mobileDeviceIds": [1, 2, 3, 4, 5]
+  }'
+
+# Verify FileVault status across fleet
+curl -s -X GET "$JAMF_URL/api/v1/computers-inventory" \
+  -H "Authorization: Bearer $API_TOKEN" | \
+  jq -r '.results[] | {
+    name: .name,
+    filevault: .diskEncryptionFileVaultEnabled,
+    os_version: .osVersion
+  }'
+
+# Enforce Gatekeeper and SIP via configuration profile
+cat > gatekeeper-profile.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <dict>
+    <key>spare-config-data</key>
+    <dict>
+      <key>Gatekeeper</key>
+      <dict>
+        <key>DeveloperIdentified</key>
+        <true/>
+      </dict>
+    </dict>
+  </dict>
+  <key>PayloadDisplayName</key>
+  <string>Gatekeeper Enforcement</string>
+  <key>PayloadIdentifier</key>
+  <string>com.company.gatekeeper</string>
+  <key>PayloadType</key>
+  <string>com.apple.ManagedClient.preferences</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>
+EOF
+```
+
+### Windows endpoint hardening with Intune
+
+Deploy security baselines to Windows 11 endpoints via Microsoft Intune:
+
+```powershell
+# Connect to Microsoft Graph
+Connect-MgGraph -Scopes "DeviceManagementConfiguration.ReadWrite.All"
+
+# Apply Windows 11 Security Baseline
+$baseline = Get-MgDeviceManagementConfigurationPolicy |
+  Where-Object { $_.Name -like "*Windows 11 Security*" }
+
+# Verify compliance status across enrolled devices
+$devices = Get-MgDeviceManagementManagedDevice
+foreach ($device in $devices) {
+    $compliance = Get-MgDeviceManagementManagedDeviceCompliancePolicyState `
+      -ManagedDeviceId $device.Id
+
+    Write-Output "$($device.DeviceName): $($compliance.State)"
+}
+
+# Check BitLocker encryption status
+$bitlockerReport = Get-MgDeviceManagementManagedDevice |
+  Select-Object DeviceName, @{
+    Name="BitLockerStatus";
+    Expression={ $_.EncryptionState -eq 1 ? "Encrypted" : "Not Encrypted" }
+  }
+$bitlockerReport | Format-Table
+```
+
+### Automated endpoint compliance scan with osquery
+
+Run osquery to audit endpoint security posture across your fleet:
+
+```sql
+-- Check disk encryption status
+SELECT
+  de.encrypted,
+  de.encrypted,
+  hos.hostname,
+  hos.os_version
+FROM disk_encryption de
+JOIN os_version hos
+WHERE de.encrypted = 0;
+
+-- Find devices with disabled firewall
+SELECT
+  pf.global_state,
+  hos.hostname
+FROM process_firewall pf
+JOIN os_version hos
+WHERE pf.global_state = 0;
+
+-- Detect missing EDR agent
+SELECT
+  hos.hostname,
+  p.name AS process_name
+FROM processes p
+JOIN os_version hos
+WHERE p.name LIKE "%CrowdStrike%"
+  OR p.name LIKE "%SentinelOne%"
+  OR p.name LIKE "%Defender%"
+GROUP BY hos.hostname
+HAVING COUNT(*) = 0;
+
+-- Find devices with USB storage enabled
+SELECT
+  hos.hostname,
+  de.device,
+  de.media_name
+FROM disk_events de
+JOIN os_version hos
+WHERE de.action = "added"
+  AND de.device LIKE "/dev/sd%";
+```
+
+## Additional Best Practices
+
+1. **Implement zero-trust network access (ZTNA) for endpoints.** Replace traditional VPN with ZTNA to verify device posture before granting access. Devices that fail compliance checks are blocked automatically:
+
+```yaml
+# ZTNA policy: Block non-compliant devices
+access_policy:
+  name: "Endpoint compliance gate"
+  conditions:
+    - device.compliance_status == "compliant"
+    - device.encryption_enabled == true
+    - device.edr_reporting == true
+  action: "allow"
+  fallback_action: "block"
+  fallback_message: "Device not compliant. Contact IT."
+```
+
+2. **Use hardware security keys for privileged users.** FIDO2 security keys (YubiKey, Titan) provide phishing-resistant MFA. Enforce them for admins and developers with production access:
+
+```bash
+# Enforce security key requirement via Okta API
+curl -X POST "https://yourorg.okta.com/api/v1/policies" \
+  -H "Authorization: SSWS $OKTA_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "MFA_ENROLL",
+    "name": "Security Key Required for Admins",
+    "status": "ACTIVE",
+    "priority": 1,
+    "conditions": {
+      "people": {
+        "groups": {"include": ["admin-group-id"]}
+      }
+    },
+    "settings": {
+      "factors": [{"factorType": "security_key"}]
+    }
+  }'
+```
+
+## Additional Common Mistakes
+
+1. **Not securing developer workstations with the same rigor as office laptops.** Developer machines often have SSH keys, cloud credentials, and production access. Apply the same EDR, encryption, and MFA requirements:
+
+```bash
+# Scan developer machines for exposed credentials
+# Check for SSH keys without passphrase
+find ~/.ssh -name "id_*" -not -name "*.pub" -exec ssh-keygen -y -f {} \; 2>&1 | \
+  grep -q "Enter passphrase" || echo "WARNING: Key without passphrase: {}"
+
+# Check for AWS credentials in plaintext
+find ~/.aws -name "credentials" -exec chmod 600 {} \;
+```
+
+2. **Ignoring IoT and smart devices on the corporate network.** Smart TVs, conference room devices, and network printers often run unpatched firmware. Segment them into a dedicated VLAN with restricted access:
+
+```bash
+# Example: VLAN segmentation for IoT devices
+# Switch configuration snippet
+interface vlan 50
+  description "IoT Devices - Restricted"
+  ip access-group IoT_RESTRICTED in
+!
+ip access-list extended IoT_RESTRICTED
+  permit tcp any any eq 443
+  permit tcp any any eq 80
+  deny ip any 10.0.0.0 0.255.255.255
+  permit ip any any
+```
+
+## Additional Frequently Asked Questions
+
+### How often should I audit endpoint compliance?
+
+Run automated compliance checks weekly via MDM or EDR. Perform a full manual audit quarterly. After any security incident, re-audit all devices that may have been exposed.
+
+### What is the difference between MDM and EDR?
+
+MDM (Mobile Device Management) manages device configuration, policies, and lifecycle (enrollment, updates, remote wipe). EDR (Endpoint Detection and Response) monitors for threats, collects telemetry, and enables incident investigation. You need both: MDM for prevention, EDR for detection and response.

@@ -248,3 +248,297 @@ Esa es informacion valiosa. La prueba ha revelado que tu plan de DR no funciona 
 ### Necesitamos notificar a clientes sobre pruebas de DR?
 
 Solo si la prueba impacta servicios orientados al cliente. Las pruebas internas no necesitan notificacion externa. Las pruebas que impactan clientes deben programarse durante ventanas de mantenimiento con aviso previo.
+
+## Soluciones Avanzadas
+
+### Ejecucion automatizada de prueba de DR con Terraform y AWS
+
+Aprovisiona el entorno de DR, restaura desde backup y ejecuta pruebas de validacion automaticamente:
+
+```python
+import boto3
+import subprocess
+import time
+from dataclasses import dataclass, field
+from typing import List, Optional
+from datetime import datetime, timedelta
+
+@dataclass
+class DRTestResult:
+    test_name: str
+    start_time: datetime
+    end_time: Optional[datetime] = None
+    rto_seconds: Optional[int] = None
+    rpo_seconds: Optional[int] = None
+    steps_completed: List[str] = field(default_factory=list)
+    steps_failed: List[str] = field(default_factory=list)
+    data_integrity_ok: bool = False
+
+class DRTestRunner:
+    def __init__(self, region: str, dr_region: str):
+        self.region = region
+        self.dr_region = dr_region
+        self.rds = boto3.client("rds", region_name=dr_region)
+        self.ec2 = boto3.client("ec2", region_name=dr_region)
+        self.s3 = boto3.client("s3", region_name=region)
+
+    def restore_database_from_snapshot(
+        self, snapshot_id: str, db_instance_id: str
+    ) -> str:
+        """Restore RDS instance from snapshot in DR region."""
+        print(f"Restoring {db_instance_id} from snapshot {snapshot_id}...")
+        response = self.rds.restore_db_instance_from_db_snapshot(
+            DBInstanceIdentifier=db_instance_id,
+            DBSnapshotIdentifier=snapshot_id,
+            AvailabilityZone=f"{self.dr_region}a",
+        )
+        # Wait for instance to be available
+        waiter = self.rds.get_waiter("db_instance_available")
+        waiter.wait(DBInstanceIdentifier=db_instance_id)
+        endpoint = response["DBInstance"]["Endpoint"]["Address"]
+        print(f"Database available at: {endpoint}")
+        return endpoint
+
+    def run_smoke_tests(self, endpoint: str) -> bool:
+        """Run smoke tests against the restored environment."""
+        tests = [
+            ("health_check", f"curl -sf http://{endpoint}/health"),
+            ("write_test", f"curl -sf -X POST http://{endpoint}/api/test -d '{{\"test\":\"dr\"}}'"),
+            ("read_test", f"curl -sf http://{endpoint}/api/test/dr"),
+        ]
+        all_passed = True
+        for name, cmd in tests:
+            result = subprocess.run(cmd, shell=True, capture_output=True, timeout=30)
+            if result.returncode == 0:
+                print(f"  PASS: {name}")
+            else:
+                print(f"  FAIL: {name}: {result.stderr.decode()}")
+                all_passed = False
+        return all_passed
+
+    def verify_data_integrity(
+        self, primary_conn: str, dr_conn: str
+    ) -> bool:
+        """Compare transaction counts between primary and DR."""
+        primary_count = self._query_count(primary_conn)
+        dr_count = self._query_count(dr_conn)
+        match = primary_count == dr_count
+        print(f"Primary: {primary_count} rows, DR: {dr_count} rows, Match: {match}")
+        return match
+
+    def _query_count(self, conn_str: str) -> int:
+        """Execute a count query and return the result."""
+        cmd = f'psql "{conn_str}" -t -c "SELECT COUNT(*) FROM orders;"'
+        result = subprocess.run(cmd, shell=True, capture_output=True, timeout=60)
+        return int(result.stdout.decode().strip()) if result.returncode == 0 else -1
+
+    def execute_full_test(self, snapshot_id: str) -> DRTestResult:
+        """Execute a full DR test and return results."""
+        result = DRTestResult(
+            test_name="full_region_failure",
+            start_time=datetime.now(),
+        )
+
+        try:
+            # Step 1: Restore database
+            endpoint = self.restore_database_from_snapshot(
+                snapshot_id, "dr-test-instance"
+            )
+            result.steps_completed.append("database_restore")
+
+            # Step 2: Run smoke tests
+            if self.run_smoke_tests(endpoint):
+                result.steps_completed.append("smoke_tests")
+            else:
+                result.steps_failed.append("smoke_tests")
+
+            # Step 3: Verify data integrity
+            if self.verify_data_integrity(
+                "postgresql://primary.db.internal/appdb",
+                f"postgresql://{endpoint}/appdb",
+            ):
+                result.data_integrity_ok = True
+                result.steps_completed.append("data_integrity")
+            else:
+                result.steps_failed.append("data_integrity")
+
+        except Exception as e:
+            print(f"Test failed: {e}")
+            result.steps_failed.append(f"exception: {str(e)}")
+
+        result.end_time = datetime.now()
+        result.rto_seconds = int((result.end_time - result.start_time).total_seconds())
+        return result
+
+# Example usage
+runner = DRTestRunner("us-east-1", "us-west-2")
+result = runner.execute_full_test("rds-snapshot-2026-07-01")
+print(f"\nRTO: {result.rto_seconds}s")
+print(f"Steps completed: {result.steps_completed}")
+print(f"Steps failed: {result.steps_failed}")
+print(f"Data integrity: {result.data_integrity_ok}")
+```
+
+### Script de game day de chaos engineering
+
+Inyecta fallas controladas para probar la preparacion de DR sin aviso previo:
+
+```bash
+#!/bin/bash
+# game-day.sh - Chaos engineering DR test
+# Usage: ./game-day.sh --scenario <network|disk|cpu|full>
+
+set -euo pipefail
+
+SCENARIO="${1:---scenario}"
+shift || true
+
+case "$SCENARIO" in
+  --scenario) SCENARIO="$1" ;;
+esac
+
+NAMESPACE="production"
+SERVICE="api"
+LOG_FILE="/tmp/game-day-$(date +%s).log"
+
+log() { echo "[$(date -u +%H:%M:%S)] $1" | tee -a "$LOG_FILE"; }
+
+case "$SCENARIO" in
+  network)
+    log "Injecting network latency to ${SERVICE} pods..."
+    kubectl exec -n "$NAMESPACE" deployment/"$SERVICE" -- \
+      tc qdisc add dev eth0 root netem delay 500ms 2>/dev/null || true
+    log "Monitoring for 5 minutes..."
+    sleep 300
+    kubectl exec -n "$NAMESPACE" deployment/"$SERVICE" -- \
+      tc qdisc del dev eth0 root 2>/dev/null || true
+    log "Network latency removed."
+    ;;
+
+  disk)
+    log "Filling disk on ${SERVICE} pods to 90%..."
+    kubectl exec -n "$NAMESPACE" deployment/"$SERVICE" -- \
+      fallocate -l $(df --output=avail -BG / | tail -1 | tr -d 'G ')M /tmp/fill 2>/dev/null || true
+    sleep 120
+    kubectl exec -n "$NAMESPACE" deployment/"$SERVICE" -- rm -f /tmp/fill 2>/dev/null || true
+    log "Disk space restored."
+    ;;
+
+  cpu)
+    log "Spiking CPU on ${SERVICE} pods..."
+    kubectl exec -n "$NAMESPACE" deployment/"$SERVICE" -- \
+      sh -c 'yes > /dev/null & yes > /dev/null & yes > /dev/null &' 2>/dev/null || true
+    sleep 120
+    kubectl delete pod -n "$NAMESPACE" -l app="$SERVICE" --grace-period=0 --force 2>/dev/null || true
+    log "CPU spike ended (pods restarted)."
+    ;;
+
+  full)
+    log "Starting full region failure simulation..."
+    log "1. Cordoning all nodes in primary region..."
+    kubectl cordon --selector=topology.kubernetes.io/region=us-east-1
+    log "2. Draining workloads..."
+    kubectl drain --selector=topology.kubernetes.io/region=us-east-1 \
+      --ignore-daemonsets --delete-emptydir-data --timeout=300s || true
+    log "3. Waiting 5 minutes for failover..."
+    sleep 300
+    log "4. Checking DR region health..."
+    kubectl get pods -n production --context=dr-cluster
+    log "5. Uncordoning primary region..."
+    kubectl uncordon --selector=topology.kubernetes.io/region=us-east-1
+    log "Full region simulation complete."
+    ;;
+
+  *)
+    echo "Usage: $0 --scenario <network|disk|cpu|full>"
+    exit 1
+    ;;
+esac
+
+log "Game day results saved to $LOG_FILE"
+```
+
+### Query de dashboard de monitoreo RTO/RPO
+
+Rastrea metricas de RTO y RPO a lo largo del tiempo para identificar tendencias y degradacion:
+
+```sql
+-- Prometheus query for RPO tracking (replication lag over time)
+-- Use in Grafana dashboard
+SELECT
+  date_trunc('day', timestamp) as day,
+  avg(value) as avg_lag_seconds,
+  max(value) as max_lag_seconds,
+  percentile_cont(0.99) WITHIN GROUP (ORDER BY value) as p99_lag_seconds
+FROM prometheus_metrics
+WHERE metric_name = 'pg_replication_lag_seconds'
+  AND timestamp > now() - interval '90 days'
+GROUP BY 1
+ORDER BY 1;
+
+-- DR test results over time
+SELECT
+  test_date,
+  rto_target_seconds,
+  rto_actual_seconds,
+  rpo_target_seconds,
+  rpo_actual_seconds,
+  CASE
+    WHEN rto_actual_seconds <= rto_target_seconds THEN 'PASS'
+    ELSE 'FAIL'
+  END as rto_status,
+  CASE
+    WHEN rpo_actual_seconds <= rpo_target_seconds THEN 'PASS'
+    ELSE 'FAIL'
+  END as rpo_status
+FROM dr_test_results
+ORDER BY test_date DESC
+LIMIT 12;
+```
+
+## Mejores Practicas Adicionales
+
+1. **Mantén un calendario de pruebas de DR con escenarios rotativos.** No pruebes el mismo escenario cada vez. Rota a traves de diferentes modos de falla para cubrir todas las rutas de recuperacion:
+
+```markdown
+## DR Test Calendar
+
+| Quarter | Scenario | Owner | Target RTO | Last Tested |
+|---------|----------|-------|------------|-------------|
+| Q1 2026 | Primary region failure | Platform team | 4 hours | 2026-01-15 |
+| Q2 2026 | Database corruption | DBA team | 2 hours | 2026-04-20 |
+| Q3 2026 | Network partition | Network team | 1 hour | Pending |
+| Q4 2026 | Full region + backup restore | SRE team | 8 hours | Pending |
+```
+
+2. **Incluye pruebas de dependencias de terceros.** Tu plan de DR depende de proveedores de DNS, CDNs y APIs externas. Prueba el failover para estos tambien:
+
+```bash
+# Test DNS failover
+dig @8.8.8.8 app.example.com +short
+# Should return DR region IP after cutover
+
+# Test CDN failover
+curl -sI https://app.example.com | grep "x-served-by"
+# Should show DR cache node after cutover
+
+# Test external API dependency circuit breaker
+curl -X POST http://app.internal/admin/test-circuit-breaker \
+  -d '{"dependency":"payment-gateway","action":"open"}'
+```
+
+## Errores Comunes Adicionales
+
+1. **No probar el plan de comunicacion durante las pruebas de DR.** Los ingenieros se enfocan en la recuperacion tecnica y olvidan probar la notificacion a stakeholders. Durante un desastre real, las fallas de comunicacion causan tanto dano como las fallas tecnicas. Incluye pasos de comunicacion en la linea de tiempo de la prueba y mide cuanto toma notificar a todos los stakeholders.
+
+2. **Usar el mismo backup para cada prueba.** Si siempre restauras desde el mismo snapshot, estas probando ese snapshot, no tu sistema de backup. Usa el backup mas reciente para cada prueba. Esto valida que tu pipeline de backup esta produciendo snapshots recuperables consistentemente.
+
+## FAQs Adicionales
+
+### Cual es la diferencia entre una prueba de DR y un game day de chaos engineering?
+
+Una prueba de DR es un ejercicio planificado y anunciado que valida tus procedimientos de recuperacion contra escenarios especificos de falla. Sigue un runbook documentado y mide RTO/RPO. Un game day de chaos engineering es un ejercicio no anunciado o semi-anunciado que inyecta fallas aleatorias en produccion para probar la resiliencia del sistema y la respuesta de guardia. Las pruebas de DR validan tu plan; los game days validan tu preparacion. Ambos son necesarios.
+
+### Como probamos DR para arquitecturas multi-region active-active?
+
+En configuraciones active-active, una falla de region significa que la region superviviente absorbe todo el trafico. Prueba cordonando una region y verificando que el trafico se desplace, la capacidad escale y la consistencia de datos se mantenga. La metrica clave no es el RTO (el trafico deberia desplazarse automaticamente) sino si la region superviviente puede manejar la carga completa. Prueba el margen de capacidad simulando trafico de la region fallida contra la region superviviente.

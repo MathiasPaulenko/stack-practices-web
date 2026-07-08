@@ -294,3 +294,194 @@ Sí. Usa las extensiones de [Image Sitemap](https://developers.google.com/search
 ### ¿Necesito un sitemap separado para cada idioma?
 
 No necesariamente. Puedes incluir todas las variantes de idioma en un solo sitemap usando anotaciones `<xhtml:link rel="alternate" hreflang="...">`. Sin embargo, para sitios multi-idioma muy grandes, dividir por idioma puede hacer los sitemaps más manejables y permitir tracking de lastmod específico por idioma.
+
+### Compresión Gzip para Sitemaps
+
+```python
+import gzip
+from flask import Response
+
+@app.route("/sitemap.xml.gz")
+def sitemap_gzipped():
+    xml = generate_sitemap(urls)
+    compressed = gzip.compress(xml.encode("utf-8"))
+    return Response(compressed, mimetype="application/gzip")
+```
+
+### Integración con Robots.txt
+
+```
+# robots.txt
+User-agent: *
+Allow: /
+
+# Apuntar al índice de sitemap
+Sitemap: https://example.com/sitemap-index.xml
+```
+
+### Caché con Redis
+
+```python
+import redis
+from functools import wraps
+
+r = redis.Redis(host="localhost", port=6379, db=0)
+
+def cache_sitemap(ttl_seconds=3600):
+    def decorator(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            cache_key = f"sitemap:{request.path}"
+            cached = r.get(cache_key)
+            if cached:
+                return Response(cached, mimetype="application/xml")
+            xml = fn(*args, **kwargs)
+            r.setex(cache_key, ttl_seconds, xml)
+            return Response(xml, mimetype="application/xml")
+        return wrapper
+    return decorator
+
+@app.route("/sitemap.xml")
+@cache_sitemap(ttl_seconds=3600)
+def sitemap():
+    urls = query_urls_from_db()
+    return generate_sitemap(urls)
+```
+
+### Extensión News Sitemap
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc>https://example.com/news/article-1</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Example Times</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2024-06-15</news:publication_date>
+      <news:title>Breaking Story</news:title>
+    </news:news>
+  </url>
+</urlset>
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa un índice de sitemap para sitios grandes.** Mantén cada archivo de sitemap bajo 40.000 URLs para dejar margen:
+
+```python
+def split_sitemaps(urls, max_per_file=40000):
+    for i in range(0, len(urls), max_per_file):
+        yield urls[i:i + max_per_file]
+```
+
+2. **Establece headers Content-Type correctamente.** Sirve como `application/xml` para sin comprimir y `application/gzip` para comprimido:
+
+```python
+# Sin comprimir
+res.set("Content-Type", "application/xml")
+
+# Comprimido
+res.set("Content-Type", "application/gzip")
+res.set("Content-Disposition", 'attachment; filename="sitemap.xml.gz"')
+```
+
+3. **Excluye URLs no canónicas.** Filtra redirecciones, páginas noindex y variantes parametrizadas:
+
+```python
+def filter_canonical_urls(urls):
+    return [
+        url for url in urls
+        if url["status"] == 200
+        and not url["noindex"]
+        and not url["redirect"]
+        and "?" not in url["loc"]  # excluir URLs parametrizadas
+    ]
+```
+
+## Errores Comunes Adicionales
+
+1. **Incluir URLs que retornan 404 o 301.** Los sitemaps solo deben listar URLs canónicas con 200 OK:
+
+```python
+# Validar URLs antes de agregar al sitemap
+import requests
+
+def validate_url(url: str) -> bool:
+    try:
+        r = requests.head(url, allow_redirects=False, timeout=5)
+        return r.status_code == 200
+    except requests.RequestException:
+        return False
+```
+
+2. **No actualizar el sitemap después de eliminar contenido.** Las páginas removidas deben quitarse del sitemap:
+
+```python
+# Remover URLs eliminadas del caché de sitemap
+def invalidate_sitemap_cache(url_path: str):
+    r.delete(f"sitemap:{url_path}")
+    r.delete("sitemap:/sitemap.xml")  # invalidar sitemap completo
+```
+
+3. **Usar URLs relativas en el sitemap.** Todas las URLs deben ser absolutas con dominio y protocolo completo:
+
+```xml
+<!-- Mal -->
+<loc>/blog/post-1</loc>
+
+<!-- Bien -->
+<loc>https://example.com/blog/post-1</loc>
+```
+
+## FAQ Adicional
+
+### Debo usar changefreq y priority?
+
+Google ignora `changefreq` y `priority` en la práctica. `lastmod` es el único metadata que Google usa consistentemente. Inclúyelos por completitud pero enfócate en valores `lastmod` precisos.
+
+### Como envío un sitemap vía robots.txt?
+
+Agrega una directiva `Sitemap:` en tu archivo `robots.txt`. Es la forma más simple de anunciar tu sitemap sin envío manual a cada motor de búsqueda:
+
+```
+Sitemap: https://example.com/sitemap-index.xml
+```
+
+### Cuál es la diferencia entre índice de sitemap y sitemap?
+
+Un índice de sitemap es un archivo XML que lista múltiples archivos de sitemap. Cada archivo de sitemap lista URLs individuales. Usa un índice cuando excedes 50.000 URLs o 50MB por archivo de sitemap.
+
+## Tips de Rendimiento
+
+1. **Cachéa sitemaps con un TTL corto.** Regenera cada 1-6 horas en lugar de en cada request:
+
+```python
+# Cachear por 1 hora
+@cache_sitemap(ttl_seconds=3600)
+@app.route("/sitemap.xml")
+def sitemap():
+    ...
+```
+
+2. **Genera sitemaps en background jobs.** Para sitios grandes, genera sitemaps vía un cron job y sirve el archivo estático:
+
+```python
+# background task
+def generate_sitemap_files():
+    urls = query_all_urls()
+    for i, batch in enumerate(split_sitemaps(urls)):
+        xml = build_sitemap_xml(batch)
+        with open(f"/var/www/sitemap-{i+1}.xml", "w") as f:
+            f.write(xml)
+```
+
+3. **Comprime sitemaps con gzip.** Reduce el tamaño de transferencia en 70-90% para sitemaps grandes:
+
+```bash
+# Generar y comprimir
+gzip -c sitemap-1.xml > sitemap-1.xml.gz
+```

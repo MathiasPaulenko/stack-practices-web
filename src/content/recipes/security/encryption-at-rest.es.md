@@ -208,3 +208,399 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### Encripción de sobre multi-tenant (Python)
+
+Cada tenant obtiene su propia key de KMS, asegurando aislamiento criptográfico entre tenants:
+
+```python
+import boto3
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+import base64
+import os
+from typing import Optional
+
+class MultiTenantEncryption:
+    """Encripción de sobre por tenant con KEKs gestionadas por KMS."""
+
+    def __init__(self, region: str = 'us-east-1'):
+        self.kms = boto3.client('kms', region_name=region)
+        self._dek_cache: dict[str, tuple[bytes, bytes]] = {}
+
+    def _get_tenant_kek_id(self, tenant_id: str) -> str:
+        """Mapear tenant ID a su ARN de key KMS."""
+        return f'arn:aws:kms:us-east-1:123456789012:key/tenant-{tenant_id}'
+
+    def encrypt(
+        self,
+        tenant_id: str,
+        plaintext: str,
+        context: Optional[dict] = None,
+    ) -> dict:
+        """Encriptar datos para un tenant específico."""
+        kek_id = self._get_tenant_kek_id(tenant_id)
+
+        # Generar DEK localmente
+        dek = AESGCM.generate_key(bit_length=256)
+        aesgcm = AESGCM(dek)
+        nonce = os.urandom(12)
+
+        # Associated data opcional para binding de contexto adicional
+        aad = tenant_id.encode() if context is None else str(context).encode()
+
+        ciphertext = aesgcm.encrypt(nonce, plaintext.encode(), aad)
+
+        # Encriptar DEK con KEK específica del tenant
+        dek_response = self.kms.encrypt(
+            KeyId=kek_id,
+            Plaintext=dek,
+            EncryptionContext={'tenant': tenant_id},
+        )
+
+        return {
+            'ciphertext': base64.b64encode(ciphertext).decode(),
+            'nonce': base64.b64encode(nonce).decode(),
+            'encrypted_dek': base64.b64encode(dek_response['CiphertextBlob']).decode(),
+            'tenant_id': tenant_id,
+            'algorithm': 'AES256-GCM',
+        }
+
+    def decrypt(self, encrypted_package: dict) -> str:
+        """Desencriptar datos usando la key KMS del tenant."""
+        encrypted_dek = base64.b64decode(encrypted_package['encrypted_dek'])
+        tenant_id = encrypted_package['tenant_id']
+
+        # KMS selecciona automáticamente la key correcta basada en CiphertextBlob
+        dek_response = self.kms.decrypt(
+            CiphertextBlob=encrypted_dek,
+            EncryptionContext={'tenant': tenant_id},
+        )
+        dek = dek_response['Plaintext']
+
+        aesgcm = AESGCM(dek)
+        ciphertext = base64.b64decode(encrypted_package['ciphertext'])
+        nonce = base64.b64decode(encrypted_package['nonce'])
+        aad = tenant_id.encode()
+
+        plaintext = aesgcm.decrypt(nonce, ciphertext, aad)
+        return plaintext.decode()
+
+# Uso
+enc = MultiTenantEncryption()
+encrypted = enc.encrypt('tenant-001', 'sensitive-data')
+# Solo la key KMS de tenant-001 puede desencriptar este payload
+decrypted = enc.decrypt(encrypted)
+```
+
+### Go AES-256-GCM con binding de contexto
+
+```go
+package main
+
+import (
+	"crypto/aes"
+	"crypto/cipher"
+	"crypto/rand"
+	"encoding/base64"
+	"fmt"
+	"io"
+)
+
+type EncryptedData struct {
+	Ciphertext string `json:"ciphertext"`
+	Nonce      string `json:"nonce"`
+}
+
+func encryptAESGCM(key []byte, plaintext, aad []byte) (*EncryptedData, error) {
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, fmt.Errorf("create cipher: %w", err)
+	}
+
+	gcm, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, fmt.Errorf("create GCM: %w", err)
+	}
+
+	nonce := make([]byte, gcm.NonceSize())
+	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+		return nil, fmt.Errorf("generate nonce: %w", err)
+	}
+
+	ciphertext := gcm.Seal(nil, nonce, plaintext, aad)
+
+	return &EncryptedData{
+		Ciphertext: base64.StdEncoding.EncodeToString(ciphertext),
+		Nonce:      base64.StdEncoding.EncodeToString(nonce),
+	}, nil
+}
+
+func decryptAESGCM(key []byte, data *EncryptedData, aad []byte) ([]byte, error) {
+	ciphertext, err := base64.StdEncoding.DecodeString(data.Ciphertext)
+	if err != nil {
+		return nil, fmt.Errorf("decode ciphertext: %w", err)
+	}
+
+	nonce, err := base64.StdEncoding.DecodeString(data.Nonce)
+	if err != nil {
+		return nil, fmt.Errorf("decode nonce: %w", err)
+	}
+
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, fmt.Errorf("create cipher: %w", err)
+	}
+
+	gcm, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, fmt.Errorf("create GCM: %w", err)
+	}
+
+	plaintext, err := gcm.Open(nil, nonce, ciphertext, aad)
+	if err != nil {
+		return nil, fmt.Errorf("decrypt: %w (posible tampering detectado)", err)
+	}
+
+	return plaintext, nil
+}
+```
+
+### Encripción searchable con blind index
+
+Encripta el valor sensible pero almacena un blind index basado en HMAC separado para lookups:
+
+```python
+import hmac
+import hashlib
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+import os
+
+class SearchableEncryption:
+    """Encriptar datos permitiendo queries de exact match vía blind index."""
+
+    def __init__(self, encryption_key: bytes, index_key: bytes):
+        self.encryption_key = encryption_key
+        self.index_key = index_key
+
+    def _blind_index(self, value: str) -> str:
+        """Generar un blind index determinístico para búsqueda de exact match."""
+        return hmac.new(
+            self.index_key, value.encode(), hashlib.sha256
+        ).hexdigest()
+
+    def encrypt(self, plaintext: str) -> dict:
+        aesgcm = AESGCM(self.encryption_key)
+        nonce = os.urandom(12)
+        ciphertext = aesgcm.encrypt(nonce, plaintext.encode(), None)
+
+        return {
+            'ciphertext': ciphertext.hex(),
+            'nonce': nonce.hex(),
+            'blind_index': self._blind_index(plaintext),
+        }
+
+    def decrypt(self, encrypted: dict) -> str:
+        aesgcm = AESGCM(self.encryption_key)
+        nonce = bytes.fromhex(encrypted['nonce'])
+        ciphertext = bytes.fromhex(encrypted['ciphertext'])
+        return aesgcm.decrypt(nonce, ciphertext, None).decode()
+
+# Uso: almacenar blind_index en una columna indexada separada
+# Query: WHERE blind_index = generate_blind_index('user@example.com')
+# Esto habilita lookups sin desencriptar cada fila
+```
+
+```sql
+-- Schema para encripción searchable
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    email_encrypted TEXT NOT NULL,      -- ciphertext AES-256-GCM
+    email_nonce TEXT NOT NULL,          -- Nonce para desencripción
+    email_blind_index VARCHAR(64) NOT NULL  -- HMAC para queries de exact match
+);
+
+-- Crear índice en blind index para lookups rápidos
+CREATE INDEX idx_users_email_blind ON users(email_blind_index);
+
+-- Query por email sin desencriptar todas las filas
+SELECT * FROM users
+WHERE email_blind_index = 'a1b2c3d4e5f6...';
+```
+
+### Rotación de keys con re-encripción (Python)
+
+Rota la master key y re-encripta datos en batches sin downtime:
+
+```python
+import boto3
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+import base64
+import os
+from typing import Callable
+
+class KeyRotation:
+    """Rotar master keys de KMS con re-encripción sin downtime."""
+
+    def __init__(self, old_key_id: str, new_key_id: str):
+        self.kms = boto3.client('kms')
+        self.old_key_id = old_key_id
+        self.new_key_id = new_key_id
+
+    def re_encrypt_record(self, encrypted_package: dict) -> dict:
+        """Re-encriptar el DEK de un solo registro con la nueva KEK."""
+        encrypted_dek = base64.b64decode(encrypted_package['encrypted_dek'])
+
+        # Desencriptar DEK con key vieja, re-encriptar con key nueva
+        response = self.kms.re_encrypt(
+            CiphertextBlob=encrypted_dek,
+            DestinationKeyId=self.new_key_id,
+        )
+
+        encrypted_package['encrypted_dek'] = base64.b64encode(
+            response['CiphertextBlob']
+        ).decode()
+        return encrypted_package
+
+    def batch_re_encrypt(
+        self,
+        fetch_fn: Callable[[int], list[dict]],
+        save_fn: Callable[[dict], None],
+        batch_size: int = 100,
+    ):
+        """Re-encriptar todos los registros en batches."""
+        offset = 0
+        while True:
+            records = fetch_fn(batch_size)
+            if not records:
+                break
+
+            for record in records:
+                re_encrypted = self.re_encrypt_record(record)
+                save_fn(re_encrypted)
+
+            offset += len(records)
+            print(f'Re-encriptados {offset} registros')
+
+# Uso: ejecutar como background job
+rotation = KeyRotation(
+    old_key_id='arn:aws:kms:us-east-1:123:key/old-key',
+    new_key_id='arn:aws:kms:us-east-1:123:key/new-key',
+)
+# rotation.batch_re_encrypt(fetch_records, update_record, batch_size=500)
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Vincula el contexto de encripción al tenant y metadatos del registro.** El encryption context de AWS KMS provee additional authenticated data (AAD) que previene swapping de ciphertext entre tenants o registros:
+
+```python
+# Incluir tenant y tipo de registro en el encryption context
+context = {
+    'tenant': tenant_id,
+    'record_type': 'user_ssn',
+    'environment': 'production',
+}
+response = kms.encrypt(
+    KeyId=kek_id,
+    Plaintext=dek,
+    EncryptionContext=context,
+)
+# Si un atacante intercambia ciphertext entre tenants, la desencripción falla
+# porque el encryption context no coincidirá
+```
+
+2. **Usa keys separadas para encripción y signing.** Nunca uses la misma key para encripción y MAC/signing. Si necesitas ambas, deriva subkeys separadas de la master key usando HKDF con diferentes info strings:
+
+```python
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+from cryptography.hazmat.primitives import hashes
+
+def derive_subkeys(master_key: bytes) -> tuple[bytes, bytes]:
+    """Derivar subkeys separadas de encripción y signing."""
+    enc_key = HKDF(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=None,
+        info=b'encryption-subkey',
+    ).derive(master_key)
+
+    sig_key = HKDF(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=None,
+        info=b'signing-subkey',
+    ).derive(master_key)
+
+    return enc_key, sig_key
+```
+
+## Errores Comunes Adicionales
+
+1. **Reusar nonces con la misma key.** AES-GCM requiere un nonce único para cada encripción con la misma key. Reusar un nonce filtra la key de autenticación y permite ataques de forgery. Siempre genera nonces con `os.urandom(12)` o usa un generador de nonce basado en contador:
+
+```python
+# INCORRECTO: nonce estático
+nonce = b'fixed-nonce!!'  # 12 bytes pero reusado
+
+# CORRECTO: nonce aleatorio por encripción
+nonce = os.urandom(12)  # nonce de 96-bit, probabilidad de colisión despreciable
+```
+
+2. **Almacenar datos encriptados y keys juntos.** Si el DEK encriptado y el ciphertext están en la misma fila de base de datos y la base de datos se compromete, el atacante tiene todo. Almacena el DEK encriptado en un sistema separado o usa un KMS que lo gestione externamente:
+
+```python
+# Almacenar ciphertext en base de datos, DEK encriptado solo en KMS
+# La fila de base de datos NO debería contener el encrypted_dek
+# En su lugar, almacena una referencia a la key KMS y deja que KMS gestione el DEK
+{
+    'ciphertext': '...',  # almacenado en DB
+    'nonce': '...',       # almacenado en DB
+    'kms_key_id': '...',  # almacenado en DB, DEK está en KMS
+}
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cuál es la diferencia entre AES-GCM y ChaCha20-Poly1305?
+
+Ambos son cifradores AEAD que proveen confidencialidad e integridad. AES-GCM usa instrucciones AES aceleradas por hardware (AES-NI) y es más rápido en CPUs modernas. ChaCha20-Poly1305 es más rápido en dispositivos sin aceleración hardware de AES (móvil, IoT). Ambos son seguros cuando se usan correctamente con nonces únicos. Elige según tu plataforma objetivo.
+
+### ¿Cómo manejo la encripción en una arquitectura de microservicios?
+
+Cada servicio debería tener su propia key KMS o KEK. Cuando el servicio A envía datos encriptados al servicio B, either comparte el DEK a través de un canal seguro o re-encripta los datos con la key del servicio B. Evita compartir una sola master key entre servicios — esto crea un single point of failure y viola least-privilege. Usa un protocolo de key exchange o un KMS compartido con políticas IAM por servicio.
+
+### ¿Puedo usar encripción client-side con AWS S3?
+
+Sí. Usa el AWS Encryption SDK con KMS para encriptar datos antes de subir a S3. El servidor S3 nunca ve plaintext. Para descarga, el cliente recupera el objeto encriptado y desencripta localmente usando KMS. Esto protege contra misconfiguración de buckets S3 o acceso no autorizado:
+
+```python
+import aws_encryption_sdk
+from aws_encryption_sdk.identifiers import CommitmentPolicy
+
+client = aws_encryption_sdk.EncryptionSDKClient(
+    commitment_policy=CommitmentPolicy.REQUIRE_ENCRYPT_REQUIRE_DECRYPT
+)
+
+kms_key_provider = aws_encryption_sdk.StrictAwsKmsMasterKeyProvider(
+    key_ids=[kms_key_id]
+)
+
+# Encriptar antes de subir
+ciphertext, _ = client.encrypt(
+    source=plaintext_data,
+    key_provider=kms_key_provider,
+)
+
+# Subir ciphertext a S3
+s3.put_object(Bucket='my-bucket', Key='file.enc', Body=ciphertext)
+
+# Desencriptar después de descargar
+plaintext, _ = client.decrypt(
+    source=ciphertext,
+    key_provider=kms_key_provider,
+)
+```

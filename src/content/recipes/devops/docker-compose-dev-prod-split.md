@@ -290,3 +290,320 @@ This outputs the final merged configuration, useful for debugging overrides.
 ### What is the difference between profiles and overrides?
 
 Profiles control which services start. Overrides control how services are configured. Use profiles for optional services (Redis, MailHog) and overrides for environment-specific settings (resource limits, env vars).
+
+### Staging Override
+
+```yaml
+# docker-compose.staging.yml
+services:
+  api:
+    build:
+      target: production
+    environment:
+      - NODE_ENV=staging
+      - SENTRY_DSN=${SENTRY_DSN}
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    ports:
+      - "8080:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  db:
+    environment:
+      POSTGRES_PASSWORD: ${STAGING_DB_PASSWORD}
+    volumes:
+      - db-data-staging:/var/lib/postgresql/data
+
+volumes:
+  db-data-staging:
+```
+
+```bash
+# Run staging
+docker compose --env-file .env.staging \
+    -f docker-compose.yml -f docker-compose.staging.yml up -d
+```
+
+### CI/CD Integration with GitHub Actions
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy
+
+on:
+  push:
+    branches: [main, staging]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and deploy
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            ENV=prod
+          else
+            ENV=staging
+          fi
+
+          docker compose --env-file .env.${ENV} \
+            -f docker-compose.yml -f docker-compose.${ENV}.yml \
+            up -d --build
+
+      - name: Verify health
+        run: |
+          sleep 15
+          docker compose -f docker-compose.yml -f docker-compose.${ENV}.yml ps
+          curl -f http://localhost:3000/health
+```
+
+### Makefile for Environment Management
+
+```makefile
+# Makefile — Simplify docker compose commands
+.PHONY: dev prod staging down logs ps
+
+dev:
+	docker compose --env-file .env.dev \
+		-f docker-compose.yml -f docker-compose.dev.yml up
+
+prod:
+	docker compose --env-file .env.prod \
+		-f docker-compose.yml -f docker-compose.prod.yml up -d
+
+staging:
+	docker compose --env-file .env.staging \
+		-f docker-compose.yml -f docker-compose.staging.yml up -d
+
+down:
+	docker compose -f docker-compose.yml -f docker-compose.dev.yml down
+	docker compose -f docker-compose.yml -f docker-compose.prod.yml down
+
+logs:
+	docker compose -f docker-compose.yml -f docker-compose.dev.yml logs -f
+
+ps:
+	docker compose -f docker-compose.yml -f docker-compose.dev.yml ps
+```
+
+```bash
+# Usage
+make dev       # Start dev environment
+make prod      # Start prod environment
+make staging   # Start staging environment
+make down      # Stop all
+make logs      # Tail logs
+```
+
+### Logging Configuration per Environment
+
+```yaml
+# docker-compose.prod.yml — Production logging
+services:
+  api:
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service,environment"
+
+  db:
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://192.168.1.100:514"
+        tag: "db-prod"
+```
+
+```yaml
+# docker-compose.dev.yml — Dev logging (console)
+services:
+  api:
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+```
+
+### Secret Management with Docker Secrets
+
+```yaml
+# docker-compose.prod.yml — Using Docker secrets
+services:
+  db:
+    secrets:
+      - db-password
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+
+secrets:
+  db-password:
+    file: ./secrets/db_password.txt
+```
+
+```bash
+# Create secret file (never commit to git)
+echo "my_secure_password" > secrets/db_password.txt
+echo "secrets/" >> .gitignore
+```
+
+## Additional Best Practices
+
+1. **Use `docker compose config` to validate before deploying.** Catch merge issues early:
+
+```bash
+# Validate merged config
+docker compose -f docker-compose.yml -f docker-compose.prod.yml config > /dev/null
+
+# Show full merged config for review
+docker compose -f docker-compose.yml -f docker-compose.prod.yml config
+```
+
+2. **Pin image versions in prod.** Use exact tags, not `latest`:
+
+```yaml
+# Bad: unpredictable
+image: postgres:latest
+
+# Good: reproducible
+image: postgres:16.4-alpine
+```
+
+3. **Use `restart: unless-stopped` in prod.** Survives host reboots:
+
+```yaml
+services:
+  api:
+    restart: unless-stopped
+```
+
+## Additional Common Mistakes
+
+1. **Using `extends` instead of override files.** `extends` is deprecated in Compose v3:
+
+```yaml
+# Deprecated: extends
+services:
+  api:
+    extends:
+      file: docker-compose-base.yml
+      service: api
+
+# Preferred: multiple -f files
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up
+```
+
+2. **Not separating volumes per environment.** Dev and prod sharing the same volume causes data corruption:
+
+```yaml
+# Bad: same volume for dev and prod
+volumes:
+  - db-data:/var/lib/postgresql/data
+
+# Good: separate volumes
+# dev override
+volumes:
+  - db-data-dev:/var/lib/postgresql/data
+
+# prod override
+volumes:
+  - db-data-prod:/var/lib/postgresql/data
+```
+
+3. **Not cleaning up stale containers.** Old containers from previous deploys linger:
+
+```bash
+# Remove orphaned containers
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
+```
+
+## Additional FAQ
+
+### How do I share a compose config between multiple apps?
+
+Use `COMPOSE_PROJECT_NAME` to isolate apps, or use separate directories:
+
+```bash
+# Different projects in same directory
+COMPOSE_PROJECT_NAME=app1 docker compose -f docker-compose.app1.yml up -d
+COMPOSE_PROJECT_NAME=app2 docker compose -f docker-compose.app2.yml up -d
+```
+
+### How do I override a command per environment?
+
+```yaml
+# docker-compose.dev.yml
+services:
+  api:
+    command: npm run dev
+
+# docker-compose.prod.yml
+services:
+  api:
+    command: node server.js
+```
+
+The override file's `command` replaces the base file's `command` entirely.
+
+### How do I scale services differently per environment?
+
+```bash
+# Dev: single instance
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+# Prod: 3 instances (requires Docker Swarm)
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up --scale api=3
+```
+
+Note: `--scale` works without Swarm but doesn't provide load balancing.
+
+## Performance Tips
+
+1. **Use `--build` only when needed.** Rebuilding on every `up` is slow:
+
+```bash
+# Fast: use cached images
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+# Slower: force rebuild
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+2. **Use named volumes for better I/O.** Named volumes are faster than bind mounts in production:
+
+```yaml
+# Slow: bind mount
+volumes:
+  - ./data:/var/lib/postgresql/data
+
+# Fast: named volume
+volumes:
+  - db-data-prod:/var/lib/postgresql/data
+```
+
+3. **Limit container logging in prod.** Unbounded logs fill disk:
+
+```yaml
+services:
+  api:
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+```

@@ -190,3 +190,252 @@ No pases datos grandes en el trabajo mismo. Guarda los datos en una base de dato
 ### Qué pasa si un worker se cae mientras procesa un trabajo?
 
 Depende del sistema de cola. **Celery** usa acknowledgments: el trabajo se elimina de la cola solo después de completarse. **BullMQ** usa un visibility timeout: si el worker no completa el trabajo a tiempo, reaparece en la cola. **Spring @Scheduled** corre en-proceso, así que una caída de JVM pierde la tarea en vuelo. Diseña siempre para entrega al-menos-una-vez y trabajos idempotentes.
+
+### Docker Compose para Desarrollo Local
+
+```yaml
+# docker-compose.yml
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    command: celery -A tasks worker --loglevel=info --concurrency=4
+    depends_on: [redis]
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+
+  beat:
+    build: .
+    command: celery -A tasks beat --loglevel=info
+    depends_on: [redis, worker]
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+
+  api:
+    build: .
+    ports: ["8000:8000"]
+    depends_on: [redis]
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+```
+
+### Colas con Prioridades en Celery
+
+```python
+from celery import Celery
+
+app = Celery("tasks", broker="redis://localhost:6379/0")
+
+# Definir colas con prioridades
+app.conf.task_queues = {
+    "high": Queue("high", routing_key="high.#"),
+    "default": Queue("default", routing_key="default.#"),
+    "low": Queue("low", routing_key="low.#"),
+}
+
+app.conf.task_routes = {
+    "tasks.process_payment": {"queue": "high"},
+    "tasks.send_email": {"queue": "default"},
+    "tasks.cleanup_logs": {"queue": "low"},
+}
+
+# Encolar con prioridad
+process_payment.apply_async(args=[order_id], queue="high")
+```
+
+### Manejo de Dead Letter Queue en BullMQ
+
+```javascript
+const { Queue, Worker, QueueEvents } = require("bullmq");
+
+const emailQueue = new Queue("emails", { connection });
+
+// Worker con manejo de jobs fallidos
+const worker = new Worker("emails", async (job) => {
+  const { to, subject, body } = job.data;
+  if (to.includes("fail")) throw new Error("Simulated failure");
+  console.log(`Email sent to ${to}`);
+}, {
+  connection,
+  attempts: 3,
+  backoff: { type: "exponential", delay: 2000 },
+});
+
+// Escuchar jobs fallidos
+worker.on("failed", (job, err) => {
+  console.error(`Job ${job.id} failed: ${err.message}`);
+  // Mover a dead letter queue para inspección manual
+  dlqQueue.add("failed-email", job.data, { removeOnComplete: true });
+});
+
+// Alertar cuando la DLQ crece
+const dlqEvents = new QueueEvents("dlq", { connection });
+dlqEvents.on("completed", () => {
+  console.warn("DLQ tiene nuevas entradas — inspección manual necesaria");
+});
+```
+
+### Tracking de Progreso de Jobs
+
+```python
+from celery import Celery
+
+app = Celery("tasks", broker="redis://localhost:6379/0")
+
+@app.task(bind=True)
+def long_running_task(self, items):
+    total = len(items)
+    for i, item in enumerate(items):
+        process(item)
+        self.update_state(
+            state="PROGRESS",
+            meta={"current": i + 1, "total": total, "percent": (i + 1) / total * 100}
+        )
+    return {"status": "complete", "processed": total}
+
+# Verificar progreso desde la API
+from celery.result import AsyncResult
+result = AsyncResult(task_id)
+print(result.info)  # {'current': 50, 'total': 100, 'percent': 50.0}
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Setea timeouts en cada job.** Un job atascado bloquea un slot de worker indefinidamente:
+
+```python
+@app.task(bind=True, time_limit=300, soft_time_limit=240)
+def process_video(self, video_id):
+    # Soft limit: 240s — limpiar y guardar trabajo parcial
+    # Hard limit: 300s — SIGKILL
+    pass
+```
+
+2. **Usa procesos worker separados para diferentes tipos de tareas.** Tareas CPU-bound e I/O-bound necesitan concurrencia diferente:
+
+```bash
+# I/O-bound: alta concurrencia
+celery -A tasks worker -Q emails --concurrency=20
+
+# CPU-bound: baja concurrencia (matchear cores de CPU)
+celery -A tasks worker -Q video_processing --concurrency=4
+```
+
+3. **Shutdown graceful con warmup.** Deja que los workers terminen los jobs actuales antes de parar:
+
+```bash
+# Docker stop con grace period
+docker stop -t 30 worker
+
+# Celery: enviar señal TERM, esperar que los jobs se completen
+kill -SIGTERM $(cat /var/run/celery/worker.pid)
+```
+
+## Errores Comunes Adicionales
+
+1. **No setear límites de concurrencia.** Demasiados workers pueden agotar conexiones de base de datos:
+
+```python
+# Mal: concurrencia ilimitada
+celery -A tasks worker --concurrency=100
+
+# Bien: matchear al DB connection pool size
+celery -A tasks worker --concurrency=10  # DB pool es 20
+```
+
+2. **Usar cron para todo.** Algunas tareas son event-driven, no time-driven:
+
+```python
+# Mal: pollear cada minuto por nuevos uploads
+@shared_task
+def check_uploads():
+    new = Upload.objects.filter(processed=False)
+    for u in new:
+        process(u)
+
+# Bien: encolar en evento de upload
+def on_upload_complete(upload_id):
+    process_upload.delay(upload_id)
+```
+
+3. **No monitorear queue lag.** Jobs acumulándose significa que los workers no dan abasto:
+
+```bash
+# Monitorear longitud de cola Redis
+redis-cli llen celery
+
+# Alertar si la cola > 1000
+QUEUE_LEN=$(redis-cli llen celery)
+if [ "$QUEUE_LEN" -gt 1000 ]; then
+  echo "ALERT: Queue backlog: $QUEUE_LEN"
+fi
+```
+
+## FAQ Adicional
+
+### Como testeo background jobs localmente sin Redis?
+
+Usa el modo eager de Celery para desarrollo. Las tareas se ejecutan sincrónicamente en lugar de encolarse:
+
+```python
+# settings_dev.py
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
+```
+
+### Puedo usar background jobs con funciones serverless?
+
+Sí. AWS Lambda + EventBridge, Google Cloud Tasks y Azure Functions con Timer triggers soportan procesamiento en segundo plano. El tradeoff: serverless tiene latencia de cold start y límites de tiempo de ejecución (15 min para Lambda).
+
+### Como manejo dependencias entre jobs (tarea A debe completar antes que tarea B)?
+
+Usa chains o groups de tareas:
+
+```python
+from celery import chain, group
+
+# Chain: A -> B -> C (secuencial)
+workflow = chain(task_a.s(1), task_b.s(), task_c.s())
+workflow.apply_async()
+
+# Group: A, B, C en paralelo, luego D
+parallel = group([task_a.s(1), task_b.s(2), task_c.s(3)])
+workflow = chord(parallel)(task_d.s())
+```
+
+## Tips de Rendimiento
+
+1. **Batchea jobs pequeños.** Procesar 1000 items uno por uno es más lento que batchear:
+
+```python
+@app.task
+def process_batch(item_ids):
+    items = Item.objects.filter(id__in=item_ids)
+    for item in items.iterator():
+        process(item)
+
+# Encolar en lotes de 100
+for i in range(0, len(ids), 100):
+    process_batch.delay(ids[i:i+100])
+```
+
+2. **Usa prefetch limits.** Evita que un worker acapare todos los jobs:
+
+```bash
+# Cada worker fetchea solo 1 job a la vez
+celery -A tasks worker --prefetch-multiplier=1 --concurrency=4
+```
+
+3. **Separa colas por requisitos de latencia.** Jobs real-time necesitan workers dedicados:
+
+```bash
+# Worker dedicado para cola real-time (sin tareas long-running bloqueando)
+celery -A tasks worker -Q realtime --concurrency=8
+
+# Worker general para cola batch
+celery -A tasks worker -Q batch --concurrency=2
+```

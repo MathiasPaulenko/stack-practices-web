@@ -153,3 +153,276 @@ Anualmente para proveedores de alto riesgo, y en cada renovacion o cambio mayor 
 ### Quien debe ser dueno del proceso de evaluacion?
 
 Seguridad o riesgo usualmente son duenos, pero procurement, legal e ingenieria deben aportar. La aprobacion final debe involucrar al dueno de los datos.
+
+## Soluciones Avanzadas
+
+### Cuestionario automatizado de seguridad de proveedores con verificaciones API
+
+Automatiza el cribado inicial de proveedores verificando APIs publicas de seguridad y registros antes de enviar el cuestionario completo:
+
+```python
+import requests
+from dataclasses import dataclass, field
+from typing import Optional
+
+@dataclass
+class VendorSecurityCheck:
+    vendor_name: str
+    domain: str
+    results: dict = field(default_factory=dict)
+
+    def check_dnssec(self) -> None:
+        """Check if the vendor domain has DNSSEC enabled."""
+        try:
+            resp = requests.get(
+                f"https://dns.google/resolve?name={self.domain}&type=DNSKEY",
+                timeout=10
+            )
+            has_dnssec = len(resp.json().get("Answer", [])) > 0
+            self.results["dnssec"] = "enabled" if has_dnssec else "disabled"
+        except Exception:
+            self.results["dnssec"] = "error"
+
+    def check_tls(self) -> None:
+        """Check TLS configuration via SSL Labs API."""
+        try:
+            resp = requests.get(
+                f"https://api.ssllabs.com/api/v3/analyze?host={self.domain}",
+                timeout=15
+            )
+            data = resp.json()
+            self.results["tls_grade"] = data.get("grade", "pending")
+            self.results["tls_protocols"] = data.get("protocols", [])
+        except Exception:
+            self.results["tls_grade"] = "error"
+
+    def check_cps(self) -> None:
+        """Check for published Certificate Practice Statement."""
+        cps_urls = [
+            f"https://{self.domain}/cps",
+            f"https://{self.domain}/.well-known/security.txt",
+        ]
+        for url in cps_urls:
+            try:
+                resp = requests.head(url, timeout=10, allow_redirects=True)
+                if resp.status_code == 200:
+                    self.results["security_txt"] = url
+                    return
+            except Exception:
+                pass
+        self.results["security_txt"] = "not found"
+
+    def check_breach_history(self) -> None:
+        """Check Have I Been Pwned API for known breaches."""
+        try:
+            resp = requests.get(
+                f"https://haveibeenpwned.com/api/v3/breaches?domain={self.domain}",
+                headers={"User-Agent": "VendorAssessment/1.0"},
+                timeout=10
+            )
+            if resp.status_code == 200:
+                breaches = resp.json()
+                self.results["breach_count"] = len(breaches)
+                self.results["breaches"] = [b["Name"] for b in breaches[:5]]
+            else:
+                self.results["breach_count"] = 0
+        except Exception:
+            self.results["breach_count"] = "error"
+
+    def run_all(self) -> dict:
+        self.check_dnssec()
+        self.check_tls()
+        self.check_cps()
+        self.check_breach_history()
+        return self.results
+
+# Example usage
+vendor = VendorSecurityCheck(vendor_name="Acme Cloud", domain="acmecloud.com")
+report = vendor.run_all()
+for key, value in report.items():
+    print(f"  {key}: {value}")
+```
+
+### Automatizacion de puntuacion de riesgo de proveedores
+
+Automatiza la puntuacion de riesgo ponderada de la plantilla de evaluacion:
+
+```python
+from dataclasses import dataclass
+from typing import Dict
+
+@dataclass
+class VendorRiskScorer:
+    scores: Dict[str, float]  # category -> score (1-5)
+    weights: Dict[str, float] = field(default_factory=lambda: {
+        "security": 0.30,
+        "compliance": 0.25,
+        "operational": 0.25,
+        "financial": 0.10,
+        "reputational": 0.10,
+    })
+
+    @property
+    def total_score(self) -> float:
+        total = 0.0
+        for category, weight in self.weights.items():
+            score = self.scores.get(category, 0)
+            total += score * weight
+        return round(total, 2)
+
+    @property
+    def decision(self) -> str:
+        score = self.total_score
+        if score >= 4.0:
+            return "APPROVE"
+        elif score >= 3.0:
+            return "APPROVE_WITH_CONDITIONS"
+        else:
+            return "REJECT"
+
+    @property
+    def critical_gaps(self) -> list:
+        gaps = []
+        for category, score in self.scores.items():
+            if score <= 2:
+                gaps.append(f"{category}: score {score}/5 is critical")
+        return gaps
+
+    def report(self) -> str:
+        lines = ["Vendor Risk Assessment Report", "=" * 40]
+        for cat, score in self.scores.items():
+            weight = self.weights.get(cat, 0)
+            weighted = round(score * weight, 2)
+            lines.append(f"  {cat}: {score}/5 (weight: {weight:.0%}, weighted: {weighted})")
+        lines.append(f"\n  Total Score: {self.total_score}/5.0")
+        lines.append(f"  Decision: {self.decision}")
+        if self.critical_gaps:
+            lines.append(f"  Critical Gaps: {', '.join(self.critical_gaps)}")
+        return "\n".join(lines)
+
+from dataclasses import field
+
+# Example usage
+scorer = VendorRiskScorer(scores={
+    "security": 4,
+    "compliance": 5,
+    "operational": 3,
+    "financial": 4,
+    "reputational": 3,
+})
+print(scorer.report())
+```
+
+### Monitoreo continuo de proveedores con verificaciones programadas
+
+Configura una tarea programada de CI para monitorear cambios en la postura de seguridad de proveedores entre evaluaciones formales:
+
+```yaml
+# .github/workflows/vendor-monitoring.yml
+name: Vendor Security Monitoring
+on:
+  schedule:
+    - cron: "0 6 * * 1"  # Weekly Monday 6am
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests pyyaml
+      - name: Run vendor checks
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          python scripts/vendor_monitoring.py \
+            --config vendor-registry.yaml \
+            --notify slack
+```
+
+```yaml
+# vendor-registry.yaml
+vendors:
+  - name: "Acme Cloud Services"
+    domain: "acmecloud.com"
+    risk_level: high
+    renewal_date: "2027-12-31"
+  - name: "Analytics Pro"
+    domain: "analyticspro.com"
+    risk_level: low
+    renewal_date: "2026-09-15"
+```
+
+## Mejores Practicas Adicionales
+
+1. **Mapea el acceso del proveedor a tus niveles de clasificacion de datos.** No todos los proveedores necesitan acceso al mismo nivel de datos. Documenta que datos puede acceder cada proveedor y alinea los controles en consecuencia:
+
+```yaml
+# vendor-data-access-matrix.yaml
+data_classification:
+  public:
+    vendors: ["analytics-pro", "marketing-tools"]
+    required_controls: ["tls-12", "basic-auth"]
+  internal:
+    vendors: ["acme-cloud", "support-zendesk"]
+    required_controls: ["tls-12", "sso", "mfa", "dpa-signed"]
+  restricted:
+    vendors: ["payment-processor"]
+    required_controls: ["tls-13", "sso", "mfa", "pci-dss", "right-to-audit"]
+```
+
+2. **Rastrea los compromisos de remediacion con fechas de vencimiento.** Los proveedores suelen prometer correcciones durante la evaluacion pero nunca las entregan. Vincula los compromisos a las renovaciones de contrato:
+
+```bash
+#!/bin/bash
+# Check for overdue vendor remediation items
+set -euo pipefail
+
+REMEDICATION_FILE="vendor-remediation-log.csv"
+TODAY=$(date +%Y-%m-%d)
+
+awk -F',' -v today="$TODAY" '
+NR>1 && $5 < today && $6 != "completed" {
+    print "OVERDUE: " $1 " - " $2 " (due: " $5 ", status: " $6 ")"
+}' "$REMEDICATION_FILE"
+```
+
+## Errores Comunes Adicionales
+
+1. **No evaluar el riesgo de cuarto nivel (subcontratistas).** Tu proveedor puede usar subcontratistas que procesan tus datos. Exige la divulgacion de sub-procesadores y su postura de seguridad:
+
+```python
+# Check vendor sub-processor list against your approved list
+approved_subprocessors = {"aws", "gcp", "azure", "cloudflare"}
+vendor_subprocessors = {"aws", "digitalocean", "cloudflare"}
+
+unapproved = vendor_subprocessors - approved_subprocessors
+if unapproved:
+    print(f"Unapproved sub-processors found: {unapproved}")
+```
+
+2. **Aceptar un reporte SOC 2 sin verificar el alcance.** Un reporte SOC 2 puede cubrir solo un subconjunto de los servicios del proveedor. Verifica que el reporte cubra los sistemas y controles relevantes para tu engagement:
+
+```markdown
+## SOC 2 Scope Verification Checklist
+- [ ] Report covers the specific service you will use
+- [ ] Report period is current (within last 12 months)
+- [ ] Trust criteria match your requirements (Security, Availability, Confidentiality, Processing Integrity, Privacy)
+- [ ] No qualified opinion or material exceptions
+- [ ] Description of system matches actual architecture
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Que debemos hacer si un proveedor sufre una violacion durante nuestro contrato?
+
+Activa tu plan de respuesta a incidentes. Notifica a los usuarios afectados si el proveedor proceso sus datos. Exige un reporte post-incidente del proveedor, evalua si la violacion exploto una brecha en sus controles de seguridad, y decide si continuar, renegociar o terminar el contrato.
+
+### Como manejamos proveedores que no pueden cumplir con nuestros requisitos de seguridad?
+
+Si el proveedor proporciona funcionalidad critica que no se puede reemplazar, implementa controles compensatorios: restringe el acceso a datos, agrega monitoreo, requiere indemnizacion contractual, y documenta una aceptacion formal de riesgo con fecha de vencimiento y aprobacion ejecutiva.

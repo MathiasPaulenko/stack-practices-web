@@ -150,3 +150,317 @@ No. Segmentation defines the architecture; firewalls, ACLs, and network policies
 ### How do we prove segmentation to an auditor?
 
 Provide network diagrams, firewall rule inventories, traffic matrices, exception logs, and evidence of periodic reviews. Automated reachability tests add strong technical evidence.
+
+## Advanced Solutions
+
+### Automated network reachability testing with AWS
+
+Verify that segmentation rules are actually enforced by testing reachability between zones:
+
+```python
+import boto3
+from dataclasses import dataclass
+from typing import List, Tuple
+
+@dataclass
+class ReachabilityTest:
+    source_instance: str
+    destination_ip: str
+    destination_port: int
+    expected_result: str  # "allow" or "deny"
+    zone_pair: str  # e.g., "DMZ -> Application"
+
+class NetworkReachabilityValidator:
+    def __init__(self, region: str = "us-east-1"):
+        self.ssm = boto3.client("ssm", region_name=region)
+        self.ec2 = boto3.client("ec2", region_name=region)
+
+    def run_test(self, test: ReachabilityTest) -> Tuple[bool, str]:
+        """Run a single reachability test via SSM."""
+        try:
+            response = self.ssm.send_command(
+                InstanceIds=[test.source_instance],
+                DocumentName="AWS-RunShellScript",
+                Parameters={
+                    "commands": [
+                        f"timeout 5 bash -c 'echo > /dev/tcp/{test.destination_ip}/{test.destination_port}' "
+                        f"2>/dev/null && echo 'REACHABLE' || echo 'UNREACHABLE'"
+                    ]
+                },
+            )
+            command_id = response["Command"]["CommandId"]
+
+            import time
+            time.sleep(5)
+
+            output = self.ssm.get_command_invocation(
+                CommandId=command_id,
+                InstanceId=test.source_instance,
+            )
+
+            actual = "allow" if "REACHABLE" in output.get("StandardOutputContent", "") else "deny"
+            passed = actual == test.expected_result
+            status = "PASS" if passed else "FAIL"
+            message = f"{status}: {test.zone_pair} - Expected {test.expected_result}, got {actual}"
+            return passed, message
+        except Exception as e:
+            return False, f"ERROR: {test.zone_pair} - {str(e)}"
+
+    def validate_segmentation(self, tests: List[ReachabilityTest]) -> None:
+        """Run all reachability tests and report results."""
+        passed = 0
+        failed = 0
+        for test in tests:
+            ok, msg = self.run_test(test)
+            print(msg)
+            if ok:
+                passed += 1
+            else:
+                failed += 1
+        print(f"\nResults: {passed} passed, {failed} failed out of {len(tests)} tests")
+
+# Example usage
+tests = [
+    ReachabilityTest("i-dmz001", "10.0.2.10", 443, "allow", "DMZ -> Application"),
+    ReachabilityTest("i-dmz001", "10.0.3.10", 5432, "deny", "DMZ -> Data"),
+    ReachabilityTest("i-app001", "10.0.3.10", 5432, "allow", "Application -> Data"),
+    ReachabilityTest("i-dev001", "10.0.3.10", 5432, "deny", "Development -> Data"),
+]
+
+validator = NetworkReachabilityValidator(region="us-east-1")
+validator.validate_segmentation(tests)
+```
+
+### Kubernetes microsegmentation with Calico network policies
+
+Define fine-grained east-west traffic controls between Kubernetes workloads:
+
+```yaml
+# calico-default-deny.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all-namespaces
+  namespace: kube-system
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+# calico-allow-payment-flow.yaml
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-to-database
+  namespace: payment
+spec:
+  selector: app == "payment-service"
+  types:
+    - Egress
+  egress:
+    - action: Allow
+      destination:
+        selector: app == "postgres"
+        namespaceSelector: name == "database"
+      protocol: TCP
+      destinationPorts:
+        - 5432
+    - action: Deny
+      destination:
+        selector: all()
+```
+
+### Terraform for enforcing segmentation as code
+
+Define and enforce network segmentation using infrastructure-as-code:
+
+```hcl
+# modules/segmentation/main.tf
+
+variable "environment" {
+  type        = string
+  description = "Environment name (prod, staging, dev)"
+}
+
+variable "allowed_ingress" {
+  type = list(object({
+    source_cidr = string
+    port        = number
+    description = string
+  }))
+  default = []
+}
+
+resource "aws_security_group" "segment" {
+  name        = "${var.environment}-segment-sg"
+  description = "Security group for ${var.environment} network segment"
+  vpc_id      = var.vpc_id
+
+  # Default deny all ingress
+  ingress {
+    description = "Default deny"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = []
+  }
+
+  # Explicit allow rules from variable
+  dynamic "ingress" {
+    for_each = var.allowed_ingress
+    content {
+      description = ingress.value.description
+      from_port   = ingress.value.port
+      to_port     = ingress.value.port
+      protocol    = "tcp"
+      cidr_blocks = [ingress.value.source_cidr]
+    }
+  }
+
+  # Default deny all egress (override with specific rules)
+  egress {
+    description = "Default deny"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = []
+  }
+
+  tags = {
+    Environment = var.environment
+    ManagedBy   = "terraform"
+    Policy      = "segmentation"
+  }
+}
+
+# Example usage for production segment
+module "prod_segment" {
+  source = "./modules/segmentation"
+
+  environment = "prod"
+  vpc_id      = aws_vpc.main.id
+
+  allowed_ingress = [
+    { source_cidr = "10.0.1.0/24", port = 443, description = "DMZ to Application" },
+    { source_cidr = "10.0.4.0/24", port = 22, description = "Management SSH" },
+  ]
+}
+```
+
+## Additional Best Practices
+
+1. **Implement service mesh for application-layer segmentation.** Use Istio or Linkerd to enforce traffic policies at the application layer, complementing network-level controls:
+
+```yaml
+# Istio AuthorizationPolicy - restrict which services can call payment-service
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: payment-service-access
+  namespace: payment
+spec:
+  selector:
+    matchLabels:
+      app: payment-service
+  rules:
+    - from:
+        - source:
+            principals: ["cluster.local/ns/checkout/sa/checkout-sa"]
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/api/v1/charge"]
+```
+
+2. **Use network flow analysis to validate segmentation.** Collect and analyze actual traffic patterns to identify undocumented flows that violate the policy:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Export VPC flow logs and analyze cross-zone traffic
+aws logs start-query \
+  --log-group-name "/aws/vpc/flow-logs" \
+  --start-time $(date -d '7 days ago' +%s) \
+  --end-time $(date +%s) \
+  --query-string '
+    fields srcAddr, dstAddr, dstPort, action
+    | filter action = "ACCEPT"
+    | stats count() as connections by srcAddr, dstAddr, dstPort
+    | sort connections desc
+    | limit 100
+  ' \
+  --output text
+```
+
+## Additional Common Mistakes
+
+1. **Forgetting to segment management and control plane traffic.** Admin traffic (SSH, RDP, Kubernetes API) should use a dedicated management segment, not share application network paths:
+
+```hcl
+# Terraform - separate management subnet
+resource "aws_subnet" "management" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.4.0/24"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "management-subnet"
+    Zone = "management"
+  }
+}
+
+# Management security group - no internet access
+resource "aws_security_group" "management" {
+  name        = "management-sg"
+  vpc_id      = aws_vpc.main.id
+  description = "Management segment - VPN access only"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+}
+```
+
+2. **Not testing segmentation after infrastructure changes.** A single misconfigured security group can open a path between zones. Run automated reachability tests as part of your CI/CD pipeline:
+
+```yaml
+# .github/workflows/segmentation-test.yml
+name: Network Segmentation Validation
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+jobs:
+  test-segmentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run reachability tests
+        run: |
+          python scripts/validate_segmentation.py \
+            --config network-segmentation-tests.yaml \
+            --fail-on-violation
+```
+
+## Additional FAQs
+
+### How do we handle segmentation for serverless functions?
+
+Use VPC configuration for Lambda functions to place them in private subnets. Restrict egress through NAT gateways with route table filters. For API Gateway, use resource policies to restrict source IPs. For Step Functions, use private endpoints for service-to-service communication. Apply the same default-deny principle at the function level.
+
+### What tools can automate segmentation policy validation?
+
+Use cloud-native tools like AWS Network Manager, Azure Network Watcher, or GCP Network Intelligence Center. For Kubernetes, use Calico's policy tester or Cilium's connectivity tests. For multi-cloud, tools like Alcide, Tufin, or GuardiCore provide cross-platform segmentation visibility and validation.

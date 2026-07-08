@@ -155,3 +155,308 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### Double-submit cookie firmada (stateless, resistente a XSS)
+
+El double-submit cookie básico es vulnerable si un atacante puede setear una cookie en el navegador de la víctima (ej. vía un subdominio). Firmar la cookie con un secreto server-side previene esto:
+
+```javascript
+const crypto = require('crypto');
+
+const CSRF_SECRET = process.env.CSRF_SECRET || 'rotate-this-secret';
+
+function generateSignedCsrfToken(req, res) {
+  const token = crypto.randomBytes(32).toString('base64url');
+  const signature = crypto
+    .createHmac('sha256', CSRF_SECRET)
+    .update(token)
+    .digest('base64url');
+
+  const signedToken = `${token}.${signature}`;
+  res.cookie('csrfToken', signedToken, {
+    httpOnly: false,
+    sameSite: 'strict',
+    secure: true,
+    path: '/',
+  });
+  return signedToken;
+}
+
+function validateSignedCsrfToken(req, res, next) {
+  const headerToken = req.headers['x-csrf-token'];
+  const cookieToken = req.cookies.csrfToken;
+
+  if (!headerToken || !cookieToken) {
+    return res.status(403).json({ error: 'Falta token CSRF' });
+  }
+
+  if (headerToken !== cookieToken) {
+    return res.status(403).json({ error: 'Token CSRF no coincide' });
+  }
+
+  // Verificar firma
+  const [token, signature] = cookieToken.split('.');
+  if (!token || !signature) {
+    return res.status(403).json({ error: 'Formato de token CSRF inválido' });
+  }
+
+  const expectedSig = crypto
+    .createHmac('sha256', CSRF_SECRET)
+    .update(token)
+    .digest('base64url');
+
+  if (!crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expectedSig)
+  )) {
+    return res.status(403).json({ error: 'Firma de token CSRF inválida' });
+  }
+
+  next();
+}
+
+// Setup Express
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const app = express();
+
+app.use(cookieParser());
+
+// Generar token en GET (renderizar página de formulario)
+app.get('/form', (req, res) => {
+  const token = generateSignedCsrfToken(req, res);
+  res.json({ csrfToken: token });
+});
+
+// Validar token en POST (enviar formulario)
+app.post('/submit', validateSignedCsrfToken, (req, res) => {
+  res.json({ success: true });
+});
+```
+
+### Protección CSRF para SPAs (React + interceptor fetch)
+
+Las single-page applications necesitan tokens CSRF accesibles desde JavaScript. Usa una cookie non-HttpOnly y un meta tag o endpoint de API:
+
+```javascript
+// Utilidad CSRF en React — obtener token de API al iniciar la app
+let csrfToken = null;
+
+export async function initCsrf() {
+  const res = await fetch('/api/csrf-token', {
+    credentials: 'same-origin',
+  });
+  const data = await res.json();
+  csrfToken = data.token;
+  return csrfToken;
+}
+
+// Interceptor fetch: adjuntar token a todos los requests que cambian estado
+export function csrfFetch(url, options = {}) {
+  const method = (options.method || 'GET').toUpperCase();
+
+  // Solo adjuntar token CSRF a métodos que cambian estado
+  if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+    options.headers = {
+      ...options.headers,
+      'X-CSRF-Token': csrfToken,
+    };
+  }
+
+  return fetch(url, {
+    ...options,
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+  });
+}
+
+// Uso en un componente React
+import { useState, useEffect } from 'react';
+
+function SettingsForm() {
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    initCsrf();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await csrfFetch('/api/settings', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+
+    if (res.ok) {
+      alert('Configuración actualizada');
+    } else {
+      alert('Error al actualizar configuración');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button type="submit">Actualizar</button>
+    </form>
+  );
+}
+```
+
+### Validación de headers Origin y Referer
+
+Como capa adicional, valida que el header `Origin` o `Referer` coincida con tu sitio:
+
+```python
+from django.http import HttpResponseForbidden
+from urllib.parse import urlparse
+
+ALLOWED_ORIGINS = {'https://myapp.com', 'https://www.myapp.com'}
+
+def validate_origin(get_response):
+    """Middleware que valida Origin/Referer en requests que cambian estado."""
+
+    def middleware(request):
+        if request.method in ('POST', 'PUT', 'PATCH', 'DELETE'):
+            origin = request.headers.get('Origin')
+            referer = request.headers.get('Referer')
+
+            source = origin or referer
+            if not source:
+                return HttpResponseForbidden('Falta header Origin')
+
+            parsed = urlparse(source)
+            if f"{parsed.scheme}://{parsed.netloc}" not in ALLOWED_ORIGINS:
+                return HttpResponseForbidden('Origin inválido')
+
+        return get_response(request)
+
+    return middleware
+```
+
+### Rotación de token por request con almacenamiento en sesión
+
+Para aplicaciones de alta seguridad, rota tokens por request en lugar de por sesión:
+
+```python
+import secrets
+from flask import Flask, session, request, jsonify, abort
+
+app = Flask(__name__)
+app.secret_key = 'rotate-this-secret'
+
+@app.before_request
+def generate_csrf_token():
+    if request.method == 'GET':
+        session['csrf_token'] = secrets.token_urlsafe(32)
+
+@app.route('/form')
+def form_page():
+    token = session.get('csrf_token')
+    return jsonify({'csrf_token': token})
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    token = request.headers.get('X-CSRF-Token', '')
+    session_token = session.get('csrf_token', '')
+
+    if not token or not session_token:
+        abort(403, description='Falta token CSRF')
+
+    if not secrets.compare_digest(token, session_token):
+        abort(403, description='Token CSRF inválido')
+
+    # Rotar token para el próximo request
+    session['csrf_token'] = secrets.token_urlsafe(32)
+
+    return jsonify({'success': True, 'next_token': session['csrf_token']})
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa el prefijo `__Host-` en cookies.** El prefijo `__Host-` fuerza `Secure`, `Path=/` y sin atributo `Domain`, previniendo inyección de cookies desde subdominios:
+
+```javascript
+res.cookie('__Host-csrfToken', signedToken, {
+  httpOnly: false,
+  sameSite: 'strict',
+  secure: true,
+  path: '/',
+  // Sin atributo domain — el prefijo __Host- lo prohíbe
+});
+```
+
+2. **Audita la protección CSRF con tests automatizados.** Escribe tests que verifiquen que los tokens son requeridos y rechazados:
+
+```python
+import pytest
+from django.test import Client
+
+def test_csrf_token_required():
+    """POST sin token CSRF debería ser rechazado."""
+    client = Client(enforce_csrf_checks=True)
+    response = client.post('/api/settings', {'email': 'test@example.com'})
+    assert response.status_code == 403
+
+def test_csrf_token_accepted():
+    """POST con token CSRF válido debería exitosar."""
+    client = Client()
+    # El test client de Django maneja CSRF automáticamente con enforce_csrf_checks=False
+    response = client.post('/api/settings', {'email': 'test@example.com'})
+    assert response.status_code == 200
+```
+
+## Errores Comunes Adicionales
+
+1. **Excluir webhooks de la protección CSRF incorrectamente.** Los webhooks de terceros (Stripe, GitHub) deberían usar firmas HMAC, no tokens CSRF. Crea una exención separada:
+
+```javascript
+// INCORRECTO: deshabilitar CSRF globalmente para rutas API
+app.use('/api', csrf({ ignore: true }));
+
+// CORRECTO: eximir solo rutas de webhook con verificación HMAC
+app.post('/api/webhooks/stripe',
+  // Saltar CSRF, verificar firma HMAC en su lugar
+  skipCsrf,
+  verifyStripeSignature,
+  handleWebhook
+);
+
+function skipCsrf(req, res, next) {
+  req.csrfToken = () => ''; // Bypass token check
+  next();
+}
+```
+
+2. **No configurar `SameSite` en la cookie CSRF misma.** Si la cookie CSRF tiene `SameSite=None`, un sitio atacante puede disparar un request que la incluya, haciendo el patrón double-submit inefectivo:
+
+```javascript
+// INCORRECTO: SameSite=None permite envío cross-site de cookies
+res.cookie('csrfToken', token, { sameSite: 'none', secure: true });
+
+// CORRECTO: SameSite=Strict previene envío cross-site
+res.cookie('csrfToken', token, { sameSite: 'strict', secure: true });
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo manejo CSRF con CORS?
+
+CSRF y CORS son concerns separados. CORS controla qué orígenes pueden leer respuestas; la protección CSRF controla qué orígenes pueden enviar requests que cambian estado. Incluso con CORS estricto, CSRF es posible porque las submissions de formulario no están sujetas a CORS preflight. Siempre implementa tokens CSRF independientemente de la configuración CORS.
+
+### ¿Debo usar `SameSite=Strict` o `SameSite=Lax`?
+
+Usa `Strict` para cookies de sesión si los usuarios no necesitan navegar desde enlaces externos mientras están logueados. Usa `Lax` si necesitas que los enlaces externos funcionen (ej. clic en un enlace en un email hacia tu app). `Lax` aún bloquea POST cross-site, que cubre la mayoría de los vectores CSRF.
+
+### ¿Pueden cachearse los tokens CSRF?
+
+No. Los synchronizer tokens son específicos de sesión y no deben cachearse. Si usas un CDN, excluye las páginas con tokens CSRF del caching, o usa el patrón double-submit donde el token está en una cookie (no cacheada con la página).

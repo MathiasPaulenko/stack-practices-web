@@ -154,3 +154,271 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+## Soluciones Avanzadas
+
+### Endpoint de salud profundo con verificaciones de dependencias
+
+Implementa un endpoint de salud comprehensivo que verifica todas las dependencias:
+
+```javascript
+const express = require('express');
+const app = express();
+
+const healthChecks = {
+  database: async () => {
+    try {
+      await pool.query('SELECT 1');
+      return { status: 'healthy', latency: Date.now() - start };
+    } catch (error) {
+      return { status: 'unhealthy', error: error.message };
+    }
+  },
+  cache: async () => {
+    try {
+      await cache.ping();
+      return { status: 'healthy' };
+    } catch (error) {
+      return { status: 'unhealthy', error: error.message };
+    }
+  },
+  messageQueue: async () => {
+    try {
+      await channel.checkQueue();
+      return { status: 'healthy' };
+    } catch (error) {
+      return { status: 'unhealthy', error: error.message };
+    }
+  }
+};
+
+app.get('/health/deep', async (req, res) => {
+  const results = {};
+  let overallHealthy = true;
+
+  for (const [name, check] of Object.entries(healthChecks)) {
+    try {
+      const start = Date.now();
+      const result = await check();
+      results[name] = { ...result, checkTime: Date.now() - start };
+      if (result.status !== 'healthy') {
+        overallHealthy = false;
+      }
+    } catch (error) {
+      results[name] = { status: 'error', error: error.message };
+      overallHealthy = false;
+    }
+  }
+
+  res.status(overallHealthy ? 200 : 503).json({
+    status: overallHealthy ? 'healthy' : 'unhealthy',
+    checks: results,
+    timestamp: new Date().toISOString()
+  });
+});
+```
+
+### Probe de startup para servicios de inicializacion lenta
+
+Usa un probe de startup para servicios que toman tiempo en inicializar:
+
+```yaml
+# Deployment de Kubernetes con probe de startup
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slow-startup-service
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        image: app:latest
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: 3000
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30  # Permitir hasta 5 minutos para iniciar
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+```
+
+```javascript
+// Endpoint de startup que devuelve exito solo despues de inicializacion
+let isInitialized = false;
+
+async function initialize() {
+  // Realizar tareas de inicializacion lentas
+  await loadConfiguration();
+  await warmUpCache();
+  await connectToExternalServices();
+  isInitialized = true;
+}
+
+app.get('/health/startup', (req, res) => {
+  if (isInitialized) {
+    res.status(200).json({ status: 'initialized' });
+  } else {
+    res.status(503).json({ status: 'initializing' });
+  }
+});
+
+// Iniciar inicializacion en background
+initialize();
+```
+
+### Endpoint de salud con circuit breaker
+
+Agrega el patron de circuit breaker para prevenir tormentas de health checks:
+
+```javascript
+class HealthCheckCircuitBreaker {
+  constructor(threshold = 5, timeout = 60000) {
+    this.failureCount = 0;
+    this.lastFailureTime = null;
+    this.threshold = threshold;
+    this.timeout = timeout;
+    this.state = 'closed'; // closed, open, half-open
+  }
+
+  recordSuccess() {
+    this.failureCount = 0;
+    this.state = 'closed';
+  }
+
+  recordFailure() {
+    this.failureCount++;
+    this.lastFailureTime = Date.now();
+    
+    if (this.failureCount >= this.threshold) {
+      this.state = 'open';
+    }
+  }
+
+  shouldAllowCheck() {
+    if (this.state === 'closed') return true;
+    
+    if (this.state === 'open') {
+      const timeSinceLastFailure = Date.now() - this.lastFailureTime;
+      if (timeSinceLastFailure > this.timeout) {
+        this.state = 'half-open';
+        return true;
+      }
+      return false;
+    }
+    
+    return true;
+  }
+}
+
+const circuitBreaker = new HealthCheckCircuitBreaker();
+
+app.get('/health/ready', async (req, res) => {
+  if (!circuitBreaker.shouldAllowCheck()) {
+    return res.status(503).json({ status: 'circuit open' });
+  }
+
+  try {
+    const dbHealthy = await checkDatabaseConnection();
+    const cacheHealthy = await checkCacheConnection();
+    
+    if (dbHealthy && cacheHealthy) {
+      circuitBreaker.recordSuccess();
+      res.status(200).json({ status: 'ready' });
+    } else {
+      circuitBreaker.recordFailure();
+      res.status(503).json({ status: 'not ready' });
+    }
+  } catch (error) {
+    circuitBreaker.recordFailure();
+    res.status(503).json({ status: 'error', message: error.message });
+  }
+});
+```
+
+## Mejores Practicas Adicionales
+
+1. **Agrega informacion de version a los endpoints de salud.** Incluye la version del servicio, timestamp de build y hash de commit en las respuestas de salud. Esto ayuda a identificar cual version esta desplegada y rastrear despliegues.
+
+```javascript
+app.get('/health/live', (req, res) => {
+  res.status(200).json({
+    status: 'alive',
+    version: process.env.APP_VERSION || 'unknown',
+    buildTime: process.env.BUILD_TIME || 'unknown',
+    commitHash: process.env.COMMIT_HASH || 'unknown'
+  });
+});
+```
+
+2. **Implementa autenticacion de endpoints de salud.** Protege los endpoints de deep health con tokens de autenticacion o allowlists de IP. Esto previene acceso no autorizado a informacion sensible del sistema.
+
+```javascript
+const authMiddleware = (req, res, next) => {
+  const token = req.headers['x-health-token'];
+  if (token !== process.env.HEALTH_TOKEN) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  next();
+};
+
+app.get('/health/deep', authMiddleware, async (req, res) => {
+  // Implementacion de health check profundo
+});
+```
+
+3. **Usa health checks para shutdown graceful.** Implementa un endpoint de shutdown que marca el servicio como no saludable, permitiendo que el balanceador de carga drene el trafico antes de que el proceso salga.
+
+```javascript
+let isShuttingDown = false;
+
+app.post('/health/shutdown', (req, res) => {
+  isShuttingDown = true;
+  res.status(200).json({ status: 'shutting down' });
+  
+  // Dar tiempo al balanceador de carga para dejar de enviar trafico
+  setTimeout(() => {
+    process.exit(0);
+  }, 10000);
+});
+
+app.get('/health/ready', (req, res) => {
+  if (isShuttingDown) {
+    return res.status(503).json({ status: 'shutting down' });
+  }
+  // Verificacion de readiness normal
+});
+```
+
+## Errores Comunes Adicionales
+
+1. **Hacer health checks muy costosos.** Los health checks que consultan bases de datos grandes o realizan operaciones complejas pueden causar degradacion de rendimiento. Manten los health checks rapidos (menos de 100ms) y ligeros.
+
+2. **Olvidar manejar solicitudes concurrentes de health checks.** Multiples solicitudes de health check de balanceadores de carga pueden abrumar el servicio. Implementa rate limiting o cache para respuestas de health check.
+
+## FAQs Adicionales
+
+### ¿Con que frecuencia deben llamarse los health checks?
+
+Configura los intervalos de health check basado en tus requisitos. Los intervalos tipicos son 5-10 segundos para probes de readiness y 15-30 segundos para probes de liveness. Chequeos mas frecuentes proporcionan deteccion mas rapida pero aumentan la carga.
+
+### ¿Deberian los health checks devolver mensajes de error detallados?
+
+Para endpoints de salud publicos, devuelve solo estado generico. Para endpoints de deep health internos, incluye mensajes de error detallados para ayudar al debugging. Nunca expongas informacion sensible en respuestas de salud publicas.
+
+### ¿Cómo manejo health checks durante migraciones de base de datos?
+
+Implementa un endpoint de estado de migracion que devuelve el estado de la migracion. Durante migraciones, el readiness probe puede verificar este endpoint y devolver not ready si las migraciones estan en progreso. Esto previene enrutar trafico a un servicio con cambios de schema incompatibles.

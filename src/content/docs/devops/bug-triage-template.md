@@ -147,3 +147,246 @@ Rotate a "triage duty" engineer each week. This person reviews all incoming bugs
 ### Should feature requests be triaged alongside bugs?
 
 No. Keep bugs and feature requests in separate queues with separate SLA targets. Feature requests require product input; bugs require engineering input. Mixing them creates confusion about ownership and priority. If a user reports a bug that is actually a missing feature, re-label it and move it to the product backlog with a clear explanation.
+
+## Advanced Solutions
+
+### Automated bug triage with GitHub Issues and labels
+
+Use GitHub Actions to auto-label and route incoming bug reports based on content analysis:
+
+```yaml
+# .github/workflows/auto-triage.yml
+name: Auto-Triage Bug Reports
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for severity keywords
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+            const title = context.payload.issue.title || "";
+            const text = (title + " " + body).toLowerCase();
+
+            const severityRules = [
+              { label: "s1-critical", keywords: ["data loss", "payment", "login broken", "security", "production down"] },
+              { label: "s2-high", keywords: ["broken", "crash", "error 500", "not working", "failing"] },
+              { label: "s3-medium", keywords: ["slow", "incorrect", "wrong", "unexpected"] },
+              { label: "s4-low", keywords: ["typo", "cosmetic", "alignment", "color"] },
+            ];
+
+            for (const rule of severityRules) {
+              if (rule.keywords.some(kw => text.includes(kw))) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.payload.issue.number,
+                  labels: [rule.label, "needs-triage"],
+                });
+                break;
+              }
+            }
+```
+
+### Bug deduplication with stack trace fingerprinting
+
+Group similar crash reports by normalizing and hashing stack traces:
+
+```python
+import hashlib
+import re
+from collections import defaultdict
+from typing import List, Dict
+
+def normalize_stack_trace(trace: str) -> str:
+    """Normalize a stack trace by removing line numbers and memory addresses."""
+    # Remove file paths, keeping only filenames
+    trace = re.sub(r'/[\w/.-]+/', '', trace)
+    # Remove line numbers
+    trace = re.sub(r':\d+', '', trace)
+    # Remove memory addresses
+    trace = re.sub(r'0x[0-9a-fA-F]+', '0xADDR', trace)
+    # Remove thread IDs
+    trace = re.sub(r'Thread-\d+', 'Thread-N', trace)
+    return trace.strip()
+
+def fingerprint_stack_trace(trace: str) -> str:
+    """Generate a hash fingerprint from a normalized stack trace."""
+    normalized = normalize_stack_trace(trace)
+    return hashlib.sha256(normalized.encode()).hexdigest()[:16]
+
+def group_bug_reports(reports: List[Dict]) -> Dict[str, List[Dict]]:
+    """Group bug reports by stack trace fingerprint."""
+    groups = defaultdict(list)
+    for report in reports:
+        trace = report.get("stack_trace", "")
+        if trace:
+            fp = fingerprint_stack_trace(trace)
+            groups[fp].append(report)
+        else:
+            groups["no-trace"].append(report)
+    return groups
+
+# Example usage
+bug_reports = [
+    {"id": "BUG-001", "stack_trace": "TypeError at /app/src/handlers.py:42\n  File /app/src/utils.py:128"},
+    {"id": "BUG-002", "stack_trace": "TypeError at /app/src/handlers.py:45\n  File /app/src/utils.py:131"},
+    {"id": "BUG-003", "stack_trace": "ValueError at /app/src/models.py:67"},
+]
+
+groups = group_bug_reports(bug_reports)
+for fp, reports in groups.items():
+    print(f"Fingerprint {fp}: {len(reports)} reports - {[r['id'] for r in reports]}")
+```
+
+### Bug aging dashboard with Slack notification
+
+Track bugs that exceed their SLA resolution target and alert the team:
+
+```python
+import os
+from datetime import datetime, timedelta
+from dataclasses import dataclass
+from typing import List
+
+SLA_TARGETS = {
+    "S1": timedelta(hours=4),
+    "S2": timedelta(hours=24),
+    "S3": timedelta(days=7),
+    "S4": timedelta(days=14),
+}
+
+@dataclass
+class BugTicket:
+    id: str
+    severity: str
+    created_at: datetime
+    status: str
+    assignee: str
+
+def find_aged_bugs(tickets: List[BugTicket]) -> List[BugTicket]:
+    """Find bugs that have exceeded their SLA resolution target."""
+    now = datetime.now()
+    aged = []
+    for ticket in tickets:
+        if ticket.status in ("closed", "resolved"):
+            continue
+        sla = SLA_TARGETS.get(ticket.severity)
+        if not sla:
+            continue
+        age = now - ticket.created_at
+        if age > sla:
+            aged.append(ticket)
+    return aged
+
+def format_slack_alert(aged_bugs: List[BugTicket]) -> str:
+    """Format aged bugs for a Slack alert message."""
+    if not aged_bugs:
+        return "No bugs have exceeded their SLA target."
+
+    lines = [":warning: *SLA Violation Alert* — Bugs exceeding resolution target:\n"]
+    for bug in sorted(aged_bugs, key=lambda b: b.created_at):
+        age_hours = (datetime.now() - bug.created_at).total_seconds() / 3600
+        sla_hours = SLA_TARGETS[bug.severity].total_seconds() / 3600
+        lines.append(
+            f"• {bug.severity} {bug.id} — {age_hours:.0f}h old "
+            f"(SLA: {sla_hours:.0f}h) — Assigned: {bug.assignee}"
+        )
+    return "\n".join(lines)
+
+# Example usage
+tickets = [
+    BugTicket("BUG-100", "S1", datetime.now() - timedelta(hours=6), "open", "alice"),
+    BugTicket("BUG-101", "S2", datetime.now() - timedelta(hours=30), "open", "bob"),
+    BugTicket("BUG-102", "S3", datetime.now() - timedelta(days=2), "open", "charlie"),
+]
+
+aged = find_aged_bugs(tickets)
+print(format_slack_alert(aged))
+```
+
+## Additional Best Practices
+
+1. **Use a bug triage board with columns for each severity.** Visualizing bugs by severity makes it immediately clear where attention is needed. Configure automatic column transitions based on SLA timers:
+
+```yaml
+# Linear workflow configuration
+states:
+  - name: triage
+    transitions: [s1-critical, s2-high, s3-medium, s4-low]
+  - name: in_progress
+    sla_timer: true
+    overdue_alert: "#incidents"
+  - name: in_review
+    requires_pr: true
+  - name: done
+    auto_close_after_days: 30
+```
+
+2. **Track triage metrics over time.** Measure how quickly bugs move from "reported" to "triaged" to identify bottlenecks:
+
+```python
+from datetime import datetime, timedelta
+from collections import defaultdict
+
+def calculate_triage_metrics(tickets):
+    """Calculate average triage time by severity."""
+    triage_times = defaultdict(list)
+    for t in tickets:
+        if t.triaged_at and t.created_at:
+            delta = (t.triaged_at - t.created_at).total_seconds() / 3600
+            triage_times[t.severity].append(delta)
+
+    metrics = {}
+    for severity, times in triage_times.items():
+        metrics[severity] = {
+            "avg_triage_hours": sum(times) / len(times),
+            "max_triage_hours": max(times),
+            "count": len(times),
+        }
+    return metrics
+```
+
+## Additional Common Mistakes
+
+1. **Not closing invalid bug reports promptly.** Reports that are actually user errors, configuration mistakes, or duplicates clog the triage queue. Close them within 24 hours with a clear explanation:
+
+```markdown
+## Closing Template for Invalid Reports
+
+Thank you for reporting this issue. After investigation, this appears to be:
+- [ ] A configuration error on the user side
+- [ ] Expected behavior, not a bug
+- [ ] A duplicate of #{existing_issue}
+- [ ] A feature request, not a bug
+
+Closing as: {reason}. If you believe this is incorrect, please reopen with additional context.
+```
+
+2. **Letting S3 and S4 bugs accumulate without periodic review.** Low-severity bugs may become irrelevant over time. Schedule a monthly "bug bash" to review and close stale S3/S4 tickets:
+
+```bash
+#!/bin/bash
+# Find S3/S4 bugs older than 90 days with no activity
+gh issue list \
+  --label "s3-medium,s4-low" \
+  --state open \
+  --search "created:<$(date -d '90 days ago' +%Y-%m-%d) updated:<$(date -d '30 days ago' +%Y-%m-%d)" \
+  --json number,title,createdAt,updatedAt \
+  --jq '.[] | "#\(.number) \(.title) (created: \(.createdAt[:10]))"'
+```
+
+## Additional Frequently Asked Questions
+
+### How do we handle bugs found during automated testing vs. user-reported bugs?
+
+Bugs found by automated tests should bypass the standard triage queue. File them directly with the failing test name, stack trace, and environment details. Assign them to the team that owns the test suite. Use a "test-failure" label to distinguish them from user-reported issues. If the same test fails repeatedly, escalate to S2 as it may indicate a flaky environment or a real regression.
+
+### What metrics should we track for triage effectiveness?
+
+Track these key metrics: median time-to-triage (target: under 4 hours for S1/S2), percentage of bugs triaged within 24 hours (target: 95%), number of severity changes after initial triage (target: under 10%), and aged bug count (target: zero S1/S2 bugs past SLA). Review these metrics monthly to identify patterns and adjust the triage process.

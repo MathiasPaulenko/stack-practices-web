@@ -258,14 +258,299 @@ A: Mock the factory itself. If `OrderService` depends on `PaymentProcessorFactor
 A: Yes, and it is common. A factory decides which class to instantiate; a builder configures the instance after creation. `factory.create("email").withTimeout(30).withRetries(3)`.
 
 
+### DI Container with Factory Providers (TypeScript)
+
+```typescript
+interface Container {
+  bind<T>(token: string, factory: () => T): void;
+  resolve<T>(token: string): T;
+}
+
+class SimpleContainer implements Container {
+  private bindings: Map<string, () => unknown> = new Map();
+  private instances: Map<string, unknown> = new Map();
+
+  bind<T>(token: string, factory: () => T): void {
+    this.bindings.set(token, factory);
+  }
+
+  resolve<T>(token: string): T {
+    if (this.instances.has(token)) {
+      return this.instances.get(token) as T;
+    }
+    const factory = this.bindings.get(token);
+    if (!factory) throw new Error(`No binding for ${token}`);
+    const instance = factory() as T;
+    this.instances.set(token, instance);
+    return instance;
+  }
+}
+
+// Configuration
+const container = new SimpleContainer();
+
+container.bind('Logger', () => new ConsoleLogger());
+container.bind('Database', () => new PostgresConnection(process.env.DATABASE_URL));
+container.bind('UserRepository', () => {
+  const db = container.resolve<PostgresConnection>('Database');
+  const logger = container.resolve<ConsoleLogger>('Logger');
+  return new UserRepository(db, logger);
+});
+container.bind('UserService', () => {
+  const repo = container.resolve<UserRepository>('UserRepository');
+  return new UserService(repo);
+});
+
+// Usage — resolve dependencies anywhere
+const userService = container.resolve<UserService>('UserService');
+await userService.createUser({ email: 'user@example.com', name: 'Alice' });
+```
+
+### Factory with Builder Pattern (TypeScript)
+
+```typescript
+class NotificationBuilder {
+  private channel: 'email' | 'sms' | 'push' = 'email';
+  private timeout: number = 30;
+  private retries: number = 3;
+  private priority: 'low' | 'normal' | 'high' = 'normal';
+
+  withChannel(channel: 'email' | 'sms' | 'push'): this {
+    this.channel = channel;
+    return this;
+  }
+
+  withTimeout(seconds: number): this {
+    this.timeout = seconds;
+    return this;
+  }
+
+  withRetries(count: number): this {
+    this.retries = count;
+    return this;
+  }
+
+  withPriority(priority: 'low' | 'normal' | 'high'): this {
+    this.priority = priority;
+    return this;
+  }
+
+  build(): Notifier {
+    const base = this.channel === 'email'
+      ? new EmailNotifier(process.env.SMTP_HOST!, 'noreply@example.com')
+      : this.channel === 'sms'
+      ? new SmsNotifier(process.env.TWILIO_SID!)
+      : new PushNotifier(process.env.FCM_KEY!);
+
+    return new ResilientNotifier(base, this.timeout, this.retries, this.priority);
+  }
+}
+
+// Usage — factory decides which class, builder configures it
+const notifier = new NotificationBuilder()
+  .withChannel('sms')
+  .withTimeout(10)
+  .withRetries(5)
+  .withPriority('high')
+  .build();
+
+await notifier.send('Server down!', 'admin@example.com');
+```
+
+### Async Factory with Connection Pooling (Python)
+
+```python
+import asyncio
+from typing import Optional
+
+class DatabaseConnectionFactory:
+    _pool: Optional[asyncpg.Pool] = None
+    _lock = asyncio.Lock()
+
+    @classmethod
+    async def create(cls, config: dict) -> 'DatabaseConnection':
+        if cls._pool is None:
+            async with cls._lock:
+                if cls._pool is None:
+                    cls._pool = await asyncpg.create_pool(
+                        dsn=config['url'],
+                        min_size=config.get('min_pool', 5),
+                        max_size=config.get('max_pool', 20),
+                        command_timeout=config.get('timeout', 30),
+                    )
+        return DatabaseConnection(await cls._pool.acquire())
+
+    @classmethod
+    async def close(cls) -> None:
+        if cls._pool:
+            await cls._pool.close()
+            cls._pool = None
+
+class DatabaseConnection:
+    def __init__(self, conn):
+        self._conn = conn
+
+    async def query(self, sql: str, *args) -> list:
+        return await self._conn.fetch(sql, *args)
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self._conn.close()
+
+# Usage — async factory with connection pooling
+async def main():
+    config = {'url': 'postgresql://localhost/mydb', 'max_pool': 10}
+    async with await DatabaseConnectionFactory.create(config) as db:
+        users = await db.query('SELECT * FROM users WHERE active = $1', True)
+    await DatabaseConnectionFactory.close()
+```
+
+## Additional Best Practices
+
+1. **Use factory functions for simple cases.** Not every factory needs a class. A function is simpler and sufficient:
+
+```typescript
+function createNotifier(config: NotificationConfig): Notifier {
+  switch (config.channel) {
+    case 'email': return new EmailNotifier(config.smtpHost, config.from);
+    case 'sms': return new SmsNotifier(config.twilioSid);
+    case 'push': return new PushNotifier(config.fcmKey);
+    default: throw new Error(`Unknown channel: ${config.channel}`);
+  }
+}
+```
+
+2. **Register factories by token.** Use string tokens or symbols for DI bindings to avoid importing concrete classes:
+
+```typescript
+const TOKENS = {
+  Logger: Symbol('Logger'),
+  Database: Symbol('Database'),
+  UserRepository: Symbol('UserRepository'),
+} as const;
+
+container.bind(TOKENS.Logger, () => new ConsoleLogger());
+container.bind(TOKENS.Database, () => new PostgresConnection(process.env.DATABASE_URL));
+
+// Consumer resolves by token — no import of PostgresConnection
+const db = container.resolve<DatabaseConnection>(TOKENS.Database);
+```
+
+3. **Use factory pools for expensive objects.** If object creation is costly (database connections, HTTP clients), pool them:
+
+```typescript
+class HttpClientPool {
+  private pool: HttpClient[] = [];
+  private inUse: Set<HttpClient> = new Set();
+
+  acquire(): HttpClient {
+    const available = this.pool.find(c => !this.inUse.has(c));
+    if (available) {
+      this.inUse.add(available);
+      return available;
+    }
+    const client = new HttpClient({ timeout: 5000 });
+    this.pool.push(client);
+    this.inUse.add(client);
+    return client;
+  }
+
+  release(client: HttpClient): void {
+    this.inUse.delete(client);
+  }
+}
+```
+
+## Additional Common Mistakes
+
+1. **Factory returning the wrong interface.** If the factory returns a concrete class, callers are coupled to it:
+
+```typescript
+// Bad: returns concrete class
+class UserRepoFactory {
+  create(): PostgresUserRepository {
+    return new PostgresUserRepository(db);
+  }
+}
+
+// Good: returns interface
+class UserRepoFactory {
+  create(): UserRepository {
+    return new PostgresUserRepository(db);
+  }
+}
+```
+
+2. **Singleton factory holding mutable state.** A factory that caches instances and also stores per-request data is a race condition waiting to happen:
+
+```typescript
+// Bad: mutable state in factory
+class OrderFactory {
+  private currentOrder: Order | null = null;
+
+  create(orderId: string): Order {
+    this.currentOrder = new Order(orderId); // shared across requests!
+    return this.currentOrder;
+  }
+}
+
+// Good: no shared mutable state
+class OrderFactory {
+  create(orderId: string): Order {
+    return new Order(orderId);
+  }
+}
+```
+
+3. **Not disposing factory-created resources.** If the factory creates objects that hold resources (connections, file handles), the caller must dispose them:
+
+```typescript
+class ConnectionFactory {
+  create(): DatabaseConnection {
+    return new DatabaseConnection(process.env.DATABASE_URL);
+  }
+}
+
+// Caller must close
+const conn = factory.create();
+try {
+  await conn.query('SELECT 1');
+} finally {
+  await conn.close();
+}
+```
+
+## Additional FAQ
+
+### How do I handle circular dependencies with factories?
+
+Use lazy initialization or property injection instead of constructor injection. Resolve one dependency after construction:
+
+```typescript
+class OrderService {
+  private _paymentService?: PaymentService;
+
+  constructor(private container: Container) {}
+
+  get paymentService(): PaymentService {
+    if (!this._paymentService) {
+      this._paymentService = this.container.resolve<PaymentService>('PaymentService');
+    }
+    return this._paymentService;
+  }
+}
+```
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. The factory method, abstract factory, and DI container patterns are all production-proven. The DI container example mirrors InversifyJS and tsyringe patterns. The async factory with connection pooling is standard in Python async applications using asyncpg or aiomysql. The factory + builder combination is common in notification and messaging systems.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Factory method calls add one function call of overhead — negligible. DI container resolution is O(1) for cached singletons, O(n) for transitive dependencies on first resolution. The async factory with connection pooling amortizes connection cost across requests. Pool acquire/release is O(n) for small pools (typically 5-20 connections). For high-throughput systems, pre-warm the pool at startup.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Log every factory creation with the token and resolved type. For DI containers, log the dependency graph on startup to detect circular dependencies. For async factories, log pool stats (active, idle, waiting) on an interval. Use the container's `resolve` method in a REPL to inspect what bindings are configured.

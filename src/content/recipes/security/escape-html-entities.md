@@ -172,3 +172,261 @@ No. JSON responses are not HTML contexts. Escape JSON only when embedding it ins
 ### Should I escape single quotes (`'`) or just double quotes (`"`)?
 
 Escape both. In HTML attributes, single quotes can delimit attributes (`attr='value'`), so unescaped single quotes break out of the attribute. The OWASP Encoder escapes both by default. Python's `html.escape` escapes single quotes when `quote=True` (default since Python 3.8).
+
+## Advanced Solutions
+
+### Context-aware escaping for script context
+
+Embedding JSON data inside `<script>` tags requires more than HTML escaping. The sequence `</script>` terminates the script block regardless of HTML entity encoding:
+
+```javascript
+function safeJsonInScript(data) {
+  // 1. Stringify the JSON
+  let json = JSON.stringify(data);
+
+  // 2. Escape the forward slash in </script> sequences
+  json = json.replace(/</g, '\\u003c');
+
+  // 3. Also escape <!-- to prevent HTML comment injection
+  json = json.replace(/-->/g, '--\\u003e');
+
+  return json;
+}
+
+// Usage in a server-rendered template
+const userData = { name: 'John</script><script>alert(1)</script>', role: 'admin' };
+const safeJson = safeJsonInScript(userData);
+// Output: {"name":"John\\u003c/script>\\u003cscript>alert(1)\\u003c/script>","role":"admin"}
+```
+
+```python
+import json
+import re
+
+def safe_json_for_script(data):
+    """Serialize JSON safe for embedding in <script> tags."""
+    json_str = json.dumps(data)
+    # Escape <, >, and line separators to prevent script context breakout
+    json_str = json_str.replace('<', '\\u003c')
+    json_str = json_str.replace('>', '\\u003e')
+    json_str = json_str.replace('\u2028', '\\u2028')  # Line separator
+    json_str = json_str.replace('\u2029', '\\u2029')  # Paragraph separator
+    return json_str
+
+# Flask/Jinja2 usage
+@app.route('/dashboard')
+def dashboard():
+    user_data = {'name': 'Alice', 'permissions': ['read', 'write']}
+    return render_template('dashboard.html',
+                           safe_data=safe_json_for_script(user_data))
+```
+
+### URL context escaping
+
+URLs in `href` and `src` attributes need URL encoding, not just HTML escaping. Using `javascript:` URIs, attackers can execute scripts:
+
+```python
+from urllib.parse import quote, urlparse
+
+def safe_url(url):
+    """Validate and sanitize URLs for href attributes."""
+    # Reject javascript: and data: schemes
+    parsed = urlparse(url)
+    if parsed.scheme not in ('http', 'https', 'mailto', 'tel', ''):
+        return ''  # Reject dangerous schemes
+
+    # Re-encode the URL safely
+    return quote(url, safe=':/?&=%#')
+
+# Usage
+user_url = 'javascript:alert(1)'
+print(safe_url(user_url))  # Output: '' (rejected)
+
+user_url2 = 'https://example.com/path?q=test'
+print(safe_url(user_url2))  # Output: 'https://example.com/path?q=test'
+```
+
+```javascript
+function safeUrl(url) {
+  try {
+    const parsed = new URL(url, window.location.origin);
+    const allowedProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
+    if (!allowedProtocols.includes(parsed.protocol)) {
+      return '';
+    }
+    return parsed.href;
+  } catch {
+    return '';
+  }
+}
+
+// Usage in DOM
+const link = document.createElement('a');
+link.href = safeUrl(userInput);
+if (link.href) {
+  document.body.appendChild(link);
+}
+```
+
+### CSS context escaping
+
+Injecting user data into CSS requires its own encoding. Unescaped data can break out of the CSS context and inject markup:
+
+```java
+import org.owasp.encoder.Encode;
+
+public class SafeCss {
+    // For CSS string context
+    public static String forCssString(String input) {
+        return Encode.forCssString(input);
+    }
+
+    // For CSS URL context
+    public static String forCssUrl(String input) {
+        return Encode.forCssUrl(input);
+    }
+}
+
+// Usage: <div style="color: {{userColor}}">
+String safeColor = SafeCss.forCssString(userInput);
+// Escapes backslash, quotes, angle brackets, and newlines
+```
+
+### Go html escaping in templates
+
+```go
+package main
+
+import (
+    "html"
+    "html/template"
+    "net/http"
+)
+
+func renderTemplate(w http.ResponseWriter, r *http.Request) {
+    tmpl, err := template.New("page").Parse(`
+        <h1>{{.Title}}</h1>
+        <p>{{.Content}}</p>
+        <a href="{{.URL}}">Link</a>
+    `)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    data := struct {
+        Title   string
+        Content string
+        URL     string
+    }{
+        Title:   "<script>alert(1)</script>",
+        Content: "User <b>comment</b> & more",
+        URL:     "https://example.com",
+    }
+
+    // html/template auto-escapes by context
+    tmpl.Execute(w, data)
+}
+
+// Manual escaping with html.EscapeString
+func manualEscape(s string) string {
+    return html.EscapeString(s)
+}
+```
+
+### React dangerouslySetInnerHTML safe wrapper
+
+When you must render HTML in React, wrap it with sanitization:
+
+```jsx
+import DOMPurify from 'dompurify';
+
+function SafeHtml({ html, ...props }) {
+  const cleanHtml = DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li'],
+    ALLOWED_ATTR: ['href', 'target', 'rel'],
+    ALLOW_DATA_ATTR: false,
+  });
+
+  return <div dangerouslySetInnerHTML={{ __html: cleanHtml }} {...props} />;
+}
+
+// Usage
+function Comment({ text }) {
+  // If text is plain text, use children (auto-escaped)
+  // If text contains HTML from a trusted source, use SafeHtml
+  return <SafeHtml html={text} />;
+}
+```
+
+## Additional Best Practices
+
+1. **Use template engines with context-aware auto-escaping.** Modern template engines detect the context (HTML body, attribute, script, style) and apply the correct encoding automatically:
+
+```python
+# Jinja2 with autoescape
+from jinja2 import Environment, select_autoescape
+
+env = Environment(autoescape=select_autoescape(['html', 'xml']))
+template = env.from_string('<p>{{ user_input }}</p>')
+# Jinja2 escapes <, >, &, ", ' automatically
+
+# Django templates auto-escape by default
+# {{ user_input }} is escaped automatically
+# Use {% autoescape off %} only for trusted content
+```
+
+2. **Set `X-Content-Type-Options: nosniff` on responses.** Prevents browsers from MIME-sniffing escaped content as executable:
+
+```http
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+```
+
+## Additional Common Mistakes
+
+1. **Escaping for HTML body but placing data in a JavaScript context.** HTML escaping is not sufficient inside `<script>` blocks. The string `</script>` is not affected by HTML entity encoding and will terminate the script context:
+
+```html
+<!-- WRONG: HTML-escaped data in script context -->
+<script>
+  var userData = "{{ user_input | escapehtml }}";
+  // If user_input contains </script>, the script block terminates
+</script>
+
+<!-- CORRECT: Use JSON serialization with < and > escaped -->
+<script>
+  var userData = {{ user_input | tojson | replace('<', '\\u003c') }};
+</script>
+```
+
+2. **Trusting client-side escaping alone.** Client-side escaping can be bypassed if the server sends raw data. Always escape on the server when rendering HTML, and use client-side escaping as defense-in-depth:
+
+```javascript
+// Server must escape when SSR
+app.get('/profile', (req, res) => {
+  const user = getUser(req.params.id);
+  // Template engine escapes automatically
+  res.render('profile', { user });
+});
+
+// Client must also escape when dynamically updating
+function updateProfileName(name) {
+  document.getElementById('name').textContent = name; // Safe
+  // NOT: document.getElementById('name').innerHTML = name;
+}
+```
+
+## Additional FAQ
+
+### How do I escape HTML in a URL fragment?
+
+URL fragments (`#fragment`) follow URL encoding rules, not HTML encoding. Use `encodeURIComponent` in JavaScript or `urllib.parse.quote` in Python. HTML-encoding a URL fragment will not prevent injection of `javascript:` URIs.
+
+### What is the OWASP encoding order?
+
+OWASP recommends encoding in this order: 1) decode the input to its canonical form, 2) validate the input against allowlists, 3) encode for the specific output context (HTML, attribute, script, CSS, URL). Never encode before validating — encoding first can hide malicious patterns from validators.
+
+### Can I use `textContent` instead of escaping?
+
+Yes, `textContent` is inherently safe because the browser treats it as literal text, never as HTML. If you are building DOM elements programmatically, prefer `textContent` over `innerHTML` with manual escaping. However, for server-rendered HTML, you still need entity escaping since there is no DOM API available.

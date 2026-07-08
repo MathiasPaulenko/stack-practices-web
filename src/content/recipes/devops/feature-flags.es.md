@@ -273,3 +273,198 @@ Los settings de configuración son típicamente estáticos y aplican globalmente
 ### ¿Puedo usar feature flags para autorización?
 
 No. Los feature flags controlan visibilidad y rollout de funciones; la autorización controla derechos de acceso. No uses flags para reforzar límites de seguridad. Un usuario que evade un chequeo de flag no debería ganar acceso no autorizado a datos u operaciones sensibles.
+
+### Integración con Servicio Gestionado (LaunchDarkly)
+
+```python
+from ldclient import LDClient
+from ldclient.config import Config
+
+ldclient = LDClient(Config(sdk_key="sdk-xxx"))
+
+def is_enabled(flag: str, user: dict) -> bool:
+    return ldclient.variation(flag, user, default=False)
+
+# Uso
+user = {"key": "user_123", "email": "user@example.com", "country": "US"}
+if is_enabled("new_checkout", user):
+    render_new_checkout()
+```
+
+### Estrategia de Rollout Escalonado
+
+```python
+# Plan de rollout progresivo
+rollout_plan = [
+    {"percentage": 1,  "duration_hours": 24,  "monitor": True},
+    {"percentage": 5,  "duration_hours": 48,  "monitor": True},
+    {"percentage": 25, "duration_hours": 72,  "monitor": True},
+    {"percentage": 50, "duration_hours": 96,  "monitor": True},
+    {"percentage": 100,"duration_hours": 0,   "monitor": True},
+]
+
+def advance_rollout(flag: str, current_pct: int) -> int:
+    for stage in rollout_plan:
+        if stage["percentage"] > current_pct:
+            update_flag(flag, {"percentage": stage["percentage"]})
+            return stage["percentage"]
+    return 100
+```
+
+### A/B Testing con Feature Flags
+
+```javascript
+// Asignar usuarios a variante A o B deterministicamente
+function getVariant(flag, userId) {
+  const bucket = hashBucket(userId, flag);
+  if (bucket < 50) return "A";  // control
+  return "B";                    // tratamiento
+}
+
+// Trackear eventos de conversión por variante
+function trackExperiment(flag, userId, variant, event) {
+  analytics.track({
+    experiment: flag,
+    userId,
+    variant,
+    event,
+    timestamp: Date.now(),
+  });
+}
+
+// Uso
+const variant = getVariant("checkout_redesign", userId);
+if (variant === "B") {
+  renderNewCheckout();
+} else {
+  renderOldCheckout();
+}
+trackExperiment("checkout_redesign", userId, variant, "checkout_view");
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Nombra flags con una convención.** Usa formato `team_feature_state` para descubribilidad:
+
+```yaml
+# Bien: team, feature y estado claros
+checkout_new_payment_flow_beta
+auth_oauth_migration_canary
+analytics_v2_enabled
+
+# Mal: ambiguo, sin prefijo de team
+new_feature
+flag_1
+temp_toggle
+```
+
+2. **Agrega fechas de expiración a los flags.** Previene zombie flags con una fecha de limpieza:
+
+```python
+flag_config = {
+    "new_dashboard": {
+        "enabled": True,
+        "expires": "2026-09-01",  # eliminar después de esta fecha
+        "owner": "frontend-team",
+    }
+}
+```
+
+3. **Usa metadata de flags para observabilidad.** Taguea flags con team, ticket y nivel de riesgo:
+
+```yaml
+new_checkout:
+  enabled: true
+  percentage: 25
+  owner: payments-team
+  ticket: PROJ-1234
+  risk: high
+  rollback_plan: "Set percentage to 0"
+```
+
+## Errores Comunes Adicionales
+
+1. **Anidar flags dentro de flags.** Lógica condicional compleja se vuelve untestable:
+
+```python
+# Mal: spaghetti de flags
+if flags.is_enabled("feature_a"):
+    if flags.is_enabled("feature_b"):
+        if flags.is_enabled("feature_c"):
+            do_thing()
+
+# Bien: un flag por concern
+if flags.is_enabled("feature_abc"):
+    do_thing()
+```
+
+2. **No testear el estado off.** Siempre verifica que el path feature-off funcione:
+
+```python
+# Testear ambos estados en CI
+@pytest.mark.parametrize("flag_state", [True, False])
+def test_checkout(flag_state, monkeypatch):
+    monkeypatch.setattr(flags, "is_enabled", lambda f, u=None: flag_state)
+    response = client.get("/checkout")
+    assert response.status_code == 200
+```
+
+3. **Toggle flags durante requests activos.** Usa evaluación snapshot para evitar cambios mid-request:
+
+```python
+# Evaluar una vez por request, no por chequeo
+flag_snapshot = {
+    flag: flags.is_enabled(flag, user_id)
+    for flag in required_flags
+}
+# Usar flag_snapshot durante todo el ciclo de vida del request
+```
+
+## FAQ Adicional
+
+### Como gestiono flags entre entornos?
+
+Usa configs de flags separadas por entorno (dev, staging, prod). En dev, los flags pueden estar on por defecto para testing. En prod, default a off. Servicios gestionados como LaunchDarkly o Unleash manejan esto con proyectos scoped por entorno.
+
+### Qué es un dark launch?
+
+Un dark launch despliega código nuevo a producción pero lo mantiene invisible a usuarios vía un flag. Puedes testear infraestructura, rendimiento e integración con tráfico real enrutando una copia de requests al nuevo code path mientras sirves a los usuarios la respuesta vieja.
+
+### Cuántos flags debería tener?
+
+Mantén los flags activos bajo 20-30 por servicio. Más que eso indica limpieza insuficiente. Ejecuta una auditoría mensual de flags para identificar y eliminar flags stale.
+
+## Tips de Rendimiento
+
+1. **Cachéa evaluaciones de flags por request.** Evita lookups repetidos para el mismo flag:
+
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def cached_is_enabled(flag: str, user_id: str) -> bool:
+    return flags.is_enabled(flag, user_id)
+```
+
+2. **Usa evaluación local.** Evita llamadas de red por chequeo de flag descargando la config de flags:
+
+```python
+# Descargar config de flags una vez, evaluar localmente
+flag_config = fetch_flag_config()  # refresh periódico
+local_flags = FeatureFlags(flag_config)
+
+# Evaluar sin llamadas de red
+if local_flags.is_enabled("new_feature", user_id):
+    ...
+```
+
+3. **Batchea evaluaciones de flags.** Reduce llamadas al SDK evaluando múltiples flags a la vez:
+
+```python
+# LaunchDarkly: evaluar todos los flags en una llamada
+all_flags = ldclient.all_flags_state(user)
+if all_flags.get_flag_value("new_checkout"):
+    render_new_checkout()
+if all_flags.get_flag_value("new_search"):
+    render_new_search()
+```

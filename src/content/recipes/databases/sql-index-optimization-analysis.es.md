@@ -298,3 +298,134 @@ ORDER BY seq_tup_read DESC;
 ```
 
 Programa estos checks como un cron job semanal y registra los resultados para seguir las tendencias de salud de los índices a lo largo del tiempo.
+
+## Técnicas Avanzadas
+
+### Optimización de index-only scan
+
+Maximiza index-only scans incluyendo columnas frecuentemente accedidas:
+
+```sql
+-- Crear un índice de cobertura para patrones de consulta comunes
+CREATE INDEX idx_orders_customer_covering
+ON orders (customer_id, created_at DESC)
+INCLUDE (total_amount, status, shipping_address);
+
+-- Verificar index-only scan en el plan de ejecución
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT customer_id, created_at, total_amount, status
+FROM orders
+WHERE customer_id = 1234
+ORDER BY created_at DESC
+LIMIT 50;
+```
+
+### Índices hipotéticos para pruebas
+
+Prueba el impacto de índices antes de crearlos:
+
+```sql
+-- Habilitar extensión hypopg para índices hipotéticos
+CREATE EXTENSION IF NOT EXISTS hypopg;
+
+-- Probar un índice hipotético sin crearlo
+SELECT * FROM hypopg_create_index('orders', 'customer_id, created_at');
+
+-- Explicar con el índice hipotético
+EXPLAIN SELECT * FROM orders WHERE customer_id = 1234 AND created_at > '2024-01-01';
+
+-- Limpiar índices hipotéticos
+SELECT hypopg_reset();
+```
+
+### Estadísticas de uso de índices por patrón de consulta
+
+Rastrea qué consultas usan qué índices:
+
+```sql
+-- Habilitar extensión pg_stat_statements
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+-- Encontrar consultas que se beneficiarían de índices específicos
+SELECT query, calls, total_time, mean_time
+FROM pg_stat_statements
+WHERE query LIKE '%orders%'
+ORDER BY total_time DESC
+LIMIT 20;
+```
+
+### Ejecución paralela de consultas con índices
+
+Aprovecha workers paralelos para escaneos grandes:
+
+```sql
+-- Establecer workers paralelos para escaneos grandes de tabla
+SET max_parallel_workers_per_gather = 4;
+SET parallel_setup_cost = 100;
+SET parallel_tuple_cost = 0.01;
+
+-- Verificar ejecución paralela en el plan
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT COUNT(*) FROM orders WHERE status = 'completed';
+```
+
+### Particionamiento de índices para tablas grandes
+
+Particiona índices junto con particionamiento de tabla:
+
+```sql
+-- Crear tabla particionada con índices locales
+CREATE TABLE orders_partitioned (
+  id BIGSERIAL,
+  customer_id INTEGER,
+  created_at TIMESTAMP DEFAULT NOW(),
+  status TEXT
+) PARTITION BY RANGE (created_at);
+
+-- Crear particiones con índices locales
+CREATE TABLE orders_2024_q1 PARTITION OF orders_partitioned
+  FOR VALUES FROM ('2024-01-01') TO ('2024-04-01');
+
+CREATE INDEX idx_orders_2024_q1_customer
+  ON orders_2024_q1 (customer_id);
+
+-- La consulta usa pruning de partición + índice local
+EXPLAIN ANALYZE
+SELECT * FROM orders_partitioned
+WHERE customer_id = 1234
+  AND created_at >= '2024-01-01';
+```
+
+### Índices hash para comparaciones de igualdad
+
+Usa índices hash para consultas de solo igualdad en columnas grandes:
+
+```sql
+-- Índice hash para igualdad exacta en columnas de texto grandes
+CREATE INDEX idx_users_email_hash
+ON users USING HASH (email);
+
+-- Solo funciona para igualdad, no rango o pattern matching
+EXPLAIN ANALYZE
+SELECT * FROM users WHERE email = 'alice@example.com';
+```
+
+### Filtros Bloom para filtrado multi-columna
+
+Usa índices bloom para filtrado multi-columna eficiente:
+
+```sql
+-- Habilitar extensión bloom
+CREATE EXTENSION IF NOT EXISTS bloom;
+
+-- Crear índice bloom para múltiples columnas
+CREATE INDEX idx_orders_bloom
+ON orders USING bloom (customer_id, status, created_at);
+
+-- Lookup multi-columna eficiente
+EXPLAIN ANALYZE
+SELECT * FROM orders
+WHERE customer_id = 1234
+  AND status = 'pending'
+  AND created_at > '2024-01-01';
+```

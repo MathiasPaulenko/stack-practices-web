@@ -143,3 +143,189 @@ Automate only Low and Medium severity patches after they pass staging. Critical 
 ### What is the difference between patch management and vulnerability management?
 
 **Patch management** is the operational process of applying fixes. **Vulnerability management** is the broader program: discovery (scanning), risk assessment (CVSS + business context), prioritization, patching, and verification. This template covers the patching phase; you also need a scanning tool (Trivy, Nessus, Snyk) and a risk scoring process to feed the inventory.
+
+## Advanced Solutions
+
+### Automated OS patching with Ansible
+
+Automate security patches across Linux servers using Ansible with rolling updates:
+
+```yaml
+---
+- name: Apply security patches to Linux servers
+  hosts: production_servers
+  become: yes
+  serial: 1    # Rolling: one server at a time
+  max_fail_percentage: 0
+
+  pre_tasks:
+    - name: Create rollback snapshot
+      community.general.snap:
+        name: "pre-patch-{{ ansible_date_time.iso8601 }}"
+        state: present
+
+  tasks:
+    - name: Update apt cache and install security updates (Debian/Ubuntu)
+      apt:
+        update_cache: yes
+        upgrade: dist
+        only_upgrade: yes
+      when: ansible_os_family == "Debian"
+      register: apt_result
+
+    - name: Install security updates (RHEL/CentOS)
+      yum:
+        name: "*"
+        state: latest
+        security: yes
+      when: ansible_os_family == "RedHat"
+      register: yum_result
+
+    - name: Check if reboot is required (Debian/Ubuntu)
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+      when: ansible_os_family == "Debian"
+
+    - name: Reboot server if required
+      reboot:
+        reboot_timeout: 300
+      when: reboot_required.stat.exists | default(false)
+
+    - name: Wait for server to recover
+      wait_for_connection:
+        delay: 10
+        timeout: 300
+
+  post_tasks:
+    - name: Verify critical services are running
+      service:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - nginx
+        - postgresql
+        - redis
+
+    - name: Run health check endpoint
+      uri:
+        url: "http://{{ inventory_hostname }}:8080/health"
+        status_code: 200
+        timeout: 10
+      retries: 3
+      delay: 5
+```
+
+### Container image patching pipeline
+
+Automate base image patching for Docker containers with a CI/CD pipeline:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+IMAGE_NAME="myapp"
+REGISTRY="registry.example.com"
+NEW_BASE="node:20-slim"
+
+# Pull latest base image
+docker pull "$NEW_BASE"
+
+# Build patched image
+docker build \
+  --build-arg BASE_IMAGE="$NEW_BASE" \
+  -t "$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)" \
+  -t "$REGISTRY/$IMAGE_NAME:latest" \
+  .
+
+# Scan the new image for vulnerabilities
+trivy image --exit-code 1 --severity HIGH,CRITICAL \
+  "$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)"
+
+# Push patched image
+docker push "$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)"
+docker push "$REGISTRY/$IMAGE_NAME:latest"
+
+# Trigger rolling deployment in Kubernetes
+kubectl set image deployment/myapp \
+  "app=$REGISTRY/$IMAGE_NAME:patched-$(date +%Y%m%d)" \
+  -n production
+
+kubectl rollout status deployment/myapp -n production
+```
+
+### Kernel live patching with kpatch
+
+Apply critical kernel patches without rebooting using kpatch on RHEL/CentOS:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Install kpatch utilities
+yum install -y kpatch
+
+# Check available live patches
+kpatch list
+
+# Load a specific kernel patch module
+kpatch load "kpatch-$(uname -r)-CVE-2024-12345.ko"
+
+# Verify patch is active
+kpatch info "kpatch-$(uname -r)-CVE-2024-12345.ko"
+
+# Enable patch to persist across reboots
+systemctl enable kpatch.service
+
+echo "Kernel patch applied without reboot. Verify with: kpatch list"
+```
+
+## Additional Best Practices
+
+1. **Use canary deployments for OS patches.** Instead of patching all servers at once, patch 5% of your fleet first. Monitor error rates, latency, and resource usage for 24 hours before proceeding:
+
+```bash
+# Patch canary instances only
+ansible-playbook patch-security-updates.yml \
+  --limit "production_canary_group" \
+  --extra-vars "canary_mode=true"
+```
+
+2. **Track patch provenance for audit trails.** Record which patches were applied, when, by whom, and with what approval. This creates evidence for SOC 2 and ISO 27001 audits:
+
+```bash
+# Generate patch audit report
+ansible-playbook patch-security-updates.yml \
+  --extra-vars "audit_log=/var/log/patch-audit/$(date +%Y%m%d).json"
+```
+
+## Additional Common Mistakes
+
+1. **Not testing kernel patches on staging with identical hardware.** Kernel patches can cause driver failures on specific hardware. Test on a staging server with the same hardware profile before production:
+
+```bash
+# Verify kernel module compatibility after patch
+lsmod | grep -E "(driver_name|module_name)"
+dmesg | grep -i "error\|fail\|warning" | tail -20
+```
+
+2. **Forgetting to patch container orchestration components.** Kubernetes components (kubelet, etcd, kube-proxy) need patching too. Use kubeadm to upgrade the cluster:
+
+```bash
+# Upgrade Kubernetes cluster components
+kubeadm upgrade plan
+kubeadm upgrade apply v1.30.0
+kubectl drain node-1 --ignore-daemonsets
+kubeadm upgrade node
+kubectl uncordon node-1
+```
+
+## Additional Frequently Asked Questions
+
+### How do I patch air-gapped systems?
+
+Transfer patch files via removable media or a dedicated bastion host. Verify file integrity with SHA-256 checksums before applying. Document each patch in an offline inventory. Schedule periodic full vulnerability scans using an offline scanner like Nessus or OpenSCAP.
+
+### What is live patching and when should I use it?
+
+Live patching applies kernel security fixes without rebooting. Use it for Critical CVEs on production systems where reboots are not immediately possible (single-instance databases, legacy applications). Live patching is not a substitute for scheduled maintenance—plan a reboot during the next window to ensure full kernel consistency.

@@ -290,4 +290,182 @@ Si. Usa el algoritmo Michael & Scott con operaciones CAS en punteros de nodo. No
 
 ### ¿Qué es el patrón Disruptor?
 
-El Disruptor es un patron de mensajeria inter-thread de alto rendimiento que usa un ring buffer pre-asignado con numeros de secuencia. Los productores reclaman sequence numbers, escriben datos, y publican. Los consumidores esperan sequence numbers y leen datos. Logra latencia sub-microsegundo evitando locks, false sharing, y allocation de memoria. Usado en sistemas de trading financiero.
+El Disruptor es un patrón de mensajería inter-thread de alto rendimiento que usa un ring buffer pre-asignado con números de secuencia. Los productores reclaman sequence numbers, escriben datos, y publican. Los consumidores esperan sequence numbers y leen datos. Logra latencia sub-microsegundo evitando locks, false sharing, y allocation de memoria. Usado en sistemas de trading financiero.
+
+## Soluciones Avanzadas
+
+### Ring buffer MPMC lock-free con tipos atomicos de Rust
+
+Un buffer circular multi-productor, multi-consumidor usando operaciones atomicas de Rust:
+
+```rust
+use std::sync::atomic::{AtomicUsize, Ordering};
+
+struct LockFreeRingBuffer<T> {
+    buffer: Vec<Option<T>>,
+    capacity: usize,
+    head: AtomicUsize,  // Indice de escritura
+    tail: AtomicUsize,  // Indice de lectura
+}
+
+impl<T: Clone> LockFreeRingBuffer<T> {
+    fn new(capacity: usize) -> Self {
+        Self {
+            buffer: vec![None; capacity],
+            capacity,
+            head: AtomicUsize::new(0),
+            tail: AtomicUsize::new(0),
+        }
+    }
+
+    fn enqueue(&self, item: T) -> bool {
+        let mut head = self.head.load(Ordering::Acquire);
+        loop {
+            let tail = self.tail.load(Ordering::Acquire);
+            if head - tail >= self.capacity {
+                return false;  // Buffer lleno
+            }
+            // CAS para reclamar slot
+            match self.head.compare_exchange_weak(
+                head, head + 1, Ordering::AcqRel, Ordering::Acquire
+            ) {
+                Ok(_) => {
+                    self.buffer[head % self.capacity] = Some(item);
+                    return true;
+                }
+                Err(new_head) => head = new_head,
+            }
+        }
+    }
+
+    fn dequeue(&self) -> Option<T> {
+        let mut tail = self.tail.load(Ordering::Acquire);
+        loop {
+            let head = self.head.load(Ordering::Acquire);
+            if tail >= head {
+                return None;  // Buffer vacio
+            }
+            // CAS para reclamar slot
+            match self.tail.compare_exchange_weak(
+                tail, tail + 1, Ordering::AcqRel, Ordering::Acquire
+            ) {
+                Ok(_) => {
+                    let item = self.buffer[tail % self.capacity].take();
+                    return item;
+                }
+                Err(new_tail) => tail = new_tail,
+            }
+        }
+    }
+}
+```
+
+### Cola lock-free con backoff para reducir spinning de CPU
+
+Añade backoff exponencial cuando CAS falla para reducir desperdicio de CPU bajo alta contención:
+
+```python
+import time
+import random
+
+class LockFreeQueueWithBackoff:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.buffer = [None] * capacity
+        self.head = 0
+        self.tail = 0
+        self.count = 0
+
+    def enqueue_with_backoff(self, item):
+        backoff = 1
+        while self.count >= self.capacity:
+            time.sleep(backoff / 1000.0)  # Backoff exponencial
+            backoff = min(backoff * 2, 100)  # Cap a 100ms
+        self.buffer[self.head] = item
+        self.head = (self.head + 1) % self.capacity
+        self.count += 1
+
+    def dequeue_with_backoff(self):
+        backoff = 1
+        while self.count == 0:
+            time.sleep(backoff / 1000.0)
+            backoff = min(backoff * 2, 100)
+        item = self.buffer[self.tail]
+        self.tail = (self.tail + 1) % self.capacity
+        self.count -= 1
+        return item
+```
+
+### Cola lock-free con batching para throughput
+
+Agrupa múltiples items en una sola operación CAS para reducir contención:
+
+```python
+class BatchLockFreeQueue:
+    def __init__(self, capacity, batch_size=8):
+        self.capacity = capacity
+        self.batch_size = batch_size
+        self.buffer = [None] * capacity
+        self.head = 0
+        self.tail = 0
+        self.pending_batch = []
+        self.lock = threading.Lock()  # Solo para pending batch
+
+    def enqueue(self, item):
+        with self.lock:
+            self.pending_batch.append(item)
+            if len(self.pending_batch) >= self.batch_size:
+                self._flush_batch()
+
+    def _flush_batch(self):
+        if not self.pending_batch:
+            return
+        # Reclama slots para todo el batch con CAS unico
+        start_idx = self.head
+        end_idx = (start_idx + len(self.pending_batch)) % self.capacity
+        for i, item in enumerate(self.pending_batch):
+            self.buffer[(start_idx + i) % self.capacity] = item
+        self.head = end_idx
+        self.pending_batch.clear()
+```
+
+## Mejores Practicas Adicionales
+
+1. **Alinea estructuras de datos para evitar false sharing.** La alineación de cache line previene que diferentes threads compitan por la misma cache line. Añade padding entre variables atomicas frecuentemente accedidas:
+
+```cpp
+struct alignas(64) PaddedAtomic {
+    std::atomic<size_t> value;
+    char padding[64 - sizeof(std::atomic<size_t>)];
+};
+```
+
+2. **Usa barreras de memoria correctamente.** En modelos de memoria debiles (ARM, POWER), loads y stores simples pueden no ser visibles entre threads. Usa semántica acquire/release para patrones productor-consumidor:
+
+```c
+// Productor: release store
+std::atomic_store_explicit(&buffer[idx], value, std::memory_order_release);
+
+// Consumidor: acquire load
+std::atomic_load_explicit(&buffer[idx], std::memory_order_acquire);
+```
+
+## Errores Comunes Adicionales
+
+1. **Ignorar efectos de cache line.** False sharing ocurre cuando dos threads escriben a diferentes variables que comparten una cache line. Esto causa invalidación de cache y thrashing. Alinea tus estructuras de datos con cache lines (típicamente 64 bytes) para prevenir esto.
+
+2. **No manejar overflow de cola gracefulmente.** Los ring buffers lock-free son limitados. Cuando están llenos, la operación de enqueue debe bloquear, drop el item, o retornar failure. Spinning para siempre desperdicia CPU. Implementa backoff o provee una cola de overflow fallback.
+
+## FAQs Adicionales
+
+### ¿Cómo mido si lock-free vale la pena?
+
+Haz benchmark de implementaciones basadas en locks y lock-free bajo niveles de contención realistas. Mide throughput (operaciones por segundo), latencia (p50, p99, p999), y utilización de CPU. Lock-free típicamente gana a alta contención pero puede ser más lento a baja contención debido al overhead de CAS.
+
+### ¿Las colas lock-free pueden causar starvation?
+
+Sí. Lock-free garantiza progreso a nivel sistema (algun thread siempre avanza), pero threads individuales pueden starve si consistentemente pierden carreras CAS. Algoritmos wait-free garantizan pasos limitados por thread pero son más complejos y a menudo más lentos. Para la mayoría de aplicaciones, lock-free es suficiente.
+
+### ¿Cómo manejo inversión de prioridad con colas lock-free?
+
+Las colas lock-free evitan inversión de prioridad eliminando locks completamente. Como ningún thread mantiene un lock, un thread de baja prioridad no puede bloquear a uno de alta prioridad. Esta es una ventaja clave de lock-free sobre colas basadas en locks en sistemas de tiempo real.

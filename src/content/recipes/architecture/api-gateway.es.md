@@ -238,14 +238,381 @@ R: Sí, pero típicamente 1-5ms para gateways bien tuneados. Los beneficios — 
 R: El gateway valida tokens externos. Para llamadas internas, usa mTLS (service mesh) o tokens internos firmados. Nunca confíes en headers de auth orientados a usuarios para comunicación interna de servicios — un atacante que comprometa un servicio podría forjarlos.
 
 
+### GraphQL Gateway con Apollo Router
+
+```yaml
+# router.yaml
+supergraph:
+  listen: 0.0.0.0:4000
+  path: /
+  introspection: true
+
+sandbox:
+  enabled: true
+
+homepage:
+  enabled: false
+
+health_check:
+  listen: 0.0.0.0:8088
+
+telemetry:
+  instrumentation:
+    spans:
+      mode: spec_compliant
+  exporters:
+    tracing:
+      propagation: tracecontext
+      otlp:
+        endpoint: http://otel-collector:4317
+        protocol: grpc
+```
+
+```typescript
+// Subgraph: schema GraphQL del user-service
+const userTypeDefs = gql`
+  type User {
+    id: ID!
+    email: String!
+    name: String!
+    role: String!
+  }
+
+  type Query {
+    user(id: ID!): User
+    users(limit: Int = 20, offset: Int = 0): [User!]!
+  }
+
+  type Mutation {
+    createUser(email: String!, name: String!): User!
+  }
+`;
+```
+
+```typescript
+// Subgraph: schema GraphQL del order-service con referencia a User
+const orderTypeDefs = gql`
+  type Order {
+    id: ID!
+    userId: ID!
+    total: Float!
+    status: OrderStatus!
+    user: User @provides(fields: "name")
+  }
+
+  enum OrderStatus {
+    PENDING
+    PAID
+    SHIPPED
+    DELIVERED
+    CANCELLED
+  }
+
+  type Query {
+    orders(userId: ID!): [Order!]!
+    order(id: ID!): Order
+  }
+
+  extend type User @key(fields: "id") {
+    id: ID! @external
+    name: String @external
+    orders: [Order!]!
+  }
+`;
+```
+
+### Patrón de Agregación de Requests (Node.js)
+
+```typescript
+import express from 'express';
+import axios from 'axios';
+
+const app = express();
+
+interface ProductDetails {
+  product: any;
+  reviews: any[];
+  inventory: any;
+}
+
+// Agregar múltiples llamadas backend en una sola respuesta
+app.get('/api/v1/products/:id/details', async (req, res) => {
+  const productId = req.params.id;
+
+  try {
+    const [productRes, reviewsRes, inventoryRes] = await Promise.all([
+      axios.get(`http://products.internal:8080/products/${productId}`, {
+        timeout: 2000,
+        headers: { 'X-User-Id': req.user.sub },
+      }),
+      axios.get(`http://reviews.internal:8080/products/${productId}/reviews`, {
+        timeout: 2000,
+        headers: { 'X-User-Id': req.user.sub },
+      }),
+      axios.get(`http://inventory.internal:8080/products/${productId}/stock`, {
+        timeout: 2000,
+        headers: { 'X-User-Id': req.user.sub },
+      }),
+    ]);
+
+    const details: ProductDetails = {
+      product: productRes.data,
+      reviews: reviewsRes.data,
+      inventory: inventoryRes.data,
+    };
+
+    res.json(details);
+  } catch (error) {
+    // Degradación parcial: retornar lo que tengamos
+    if (error.response?.status === 404) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    // Si un servicio falla, retornar datos parciales
+    const partial: any = {};
+    try {
+      partial.product = (await axios.get(
+        `http://products.internal:8080/products/${productId}`,
+        { timeout: 2000 }
+      )).data;
+    } catch {}
+    try {
+      partial.reviews = (await axios.get(
+        `http://reviews.internal:8080/products/${productId}/reviews`,
+        { timeout: 2000 }
+      )).data;
+    } catch { partial.reviews = []; }
+    try {
+      partial.inventory = (await axios.get(
+        `http://inventory.internal:8080/products/${productId}/stock`,
+        { timeout: 2000 }
+      )).data;
+    } catch { partial.inventory = { inStock: false, quantity: 0 }; }
+
+    res.json({ ...partial, _degraded: true });
+  }
+});
+```
+
+### Configuración de Traefik Gateway
+
+```yaml
+# traefik.yml
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: letsencrypt
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: admin@stackpractices.com
+      storage: /acme.json
+      httpChallenge:
+        entryPoint: web
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: gateway
+
+api:
+  dashboard: true
+  insecure: false
+
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addServicesLabels: true
+    entryPoint: metrics
+```
+
+```yaml
+# labels de servicio docker-compose para enrutamiento Traefik
+services:
+  user-service:
+    image: myregistry/user-service:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user-service.rule=PathPrefix(`/api/v1/users`)"
+      - "traefik.http.routers.user-service.entrypoints=websecure"
+      - "traefik.http.routers.user-service.tls.certresolver=letsencrypt"
+      - "traefik.http.services.user-service.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.user-ratelimit.ratelimit.average=100"
+      - "traefik.http.middlewares.user-ratelimit.ratelimit.burst=50"
+      - "traefik.http.routers.user-service.middlewares=user-ratelimit"
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Implementa transformación de request/response.** Diferentes clientes pueden necesitar diferentes formatos de respuesta. Usa el gateway para transformar respuestas — stripear campos para mobile, añadir campos calculados, o convertir XML a JSON:
+
+```yaml
+# Plugin response-transformer de Kong
+plugins:
+  - name: response-transformer
+    config:
+      add:
+        json:
+          - _source: gateway
+          - _timestamp:$(time.utc())
+      remove:
+        json:
+          - internal_id
+          - debug_info
+```
+
+2. **Usa enrutamiento weighted para despliegues canary.** Enruta un porcentaje del tráfico a una nueva versión de un servicio para testing antes del rollout completo:
+
+```yaml
+# Enrutamiento weighted de Kong
+services:
+  - name: user-service-v1
+    url: http://users-v1.internal:8080
+    routes:
+      - name: user-canary
+        paths:
+          - /api/v1/users
+        hosts:
+          - api.stackpractices.com
+  - name: user-service-v2
+    url: http://users-v2.internal:8080
+    routes:
+      - name: user-canary-v2
+        paths:
+          - /api/v1/users
+        hosts:
+          - api.stackpractices.com
+        # 10% tráfico a v2 via upstream
+```
+
+3. **Añade headers de distributed tracing en el edge.** Genera un trace ID para cada request entrante y propágalo a todos los servicios downstream:
+
+```javascript
+const { trace, context } = require('@opentelemetry/api');
+const tracer = trace.getTracer('api-gateway');
+
+app.use('/api/', (req, res, next) => {
+  const traceId = req.headers['traceparent'] || generateTraceId();
+  const span = tracer.startSpan(`gateway:${req.path}`, {
+    attributes: {
+      'http.method': req.method,
+      'http.url': req.url,
+      'trace.id': traceId,
+    },
+  });
+
+  // Inyectar contexto de trace para downstream
+  req.traceId = traceId;
+  req.span = span;
+
+  // Propagar a proxy requests
+  app.use((req, res, next) => {
+    if (req.span) {
+      req.proxyHeaders = {
+        'traceparent': req.traceId,
+        'x-trace-id': req.traceId,
+      };
+    }
+    next();
+  });
+
+  res.on('finish', () => {
+    span.setAttribute('http.status_code', res.statusCode);
+    span.end();
+  });
+
+  next();
+});
+```
+
+## Errores Comunes Adicionales
+
+1. **No configurar budgets de timeout por-ruta.** Diferentes endpoints tienen diferentes perfiles de latencia. Una búsqueda de productos puede necesitar 5 segundos, mientras un health check necesita 100ms. Configura timeouts por-ruta:
+
+```javascript
+const routeTimeouts = {
+  '/api/v1/users/search': 5000,
+  '/api/v1/users/:id': 500,
+  '/api/v1/orders': 2000,
+  '/api/v1/inventory/stock': 1000,
+  '/health': 100,
+};
+
+app.use('/api/', (req, res, next) => {
+  const timeout = matchRoute(req.path, routeTimeouts) || 3000;
+  req.setTimeout(timeout, () => {
+    res.status(504).json({ error: 'Gateway timeout' });
+  });
+  next();
+});
+```
+
+2. **Exponer detalles de error internos.** Los servicios backend pueden retornar stack traces, IPs internas o errores de base de datos. El gateway debería sanitizar respuestas de error antes de retornar al cliente:
+
+```javascript
+app.use((err, req, res, next) => {
+  // Loguear error completo internamente
+  logger.error('Gateway error', { error: err, path: req.path });
+
+  // Retornar error sanitizado al cliente
+  if (err.code === 'ECONNREFUSED') {
+    return res.status(503).json({ error: 'Service unavailable' });
+  }
+  if (err.code === 'ETIMEDOUT') {
+    return res.status(504).json({ error: 'Gateway timeout' });
+  }
+
+  res.status(500).json({ error: 'Internal server error' });
+});
+```
+
+3. **No implementar estrategia de versionado de API.** Sin versionado, los breaking changes afectan a todos los clientes. Usa versionado por-path y soporta múltiples versiones simultáneamente:
+
+```javascript
+const versions = {
+  v1: {
+    '/users': 'http://users-v1.internal:8080',
+    '/orders': 'http://orders-v1.internal:8080',
+  },
+  v2: {
+    '/users': 'http://users-v2.internal:8080',
+    '/orders': 'http://orders-v2.internal:8080',
+  },
+};
+
+function resolveBackend(path) {
+  const match = path.match(/^\/api\/(v\d+)(\/.*)$/);
+  if (!match) return null;
+  const [, version, route] = match;
+  const backend = versions[version]?.[route.split('/')[1]];
+  return backend ? { backend, path: route } : null;
+}
+```
+
+## FAQ Adicional
+
+### ¿Cómo testeo la configuración de API gateway?
+
+Usa contract testing para verificar que el gateway enruta correctamente. Escribe tests de integración que envíen requests a través del gateway y verifiquen la respuesta. Para Kong, usa `kong config parse kong.yml` para validar la configuración. Para Traefik, usa `traefik check` para validar reglas. Para testing canary, usa feature flags o enrutamiento weighted para testear nuevas versiones con un pequeño porcentaje de tráfico. Para load testing, usa `wrk` o `k6` para generar tráfico a través del gateway y medir latencia, throughput y tasas de error. Para testing de failover, detén un servicio backend y verifica que el gateway retorna códigos de error apropiados o respuestas cacheadas.
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Kong se usa en producción por Yahoo, T-Mobile y SoulCycle para gestión de APIs. AWS API Gateway es usado por miles de clientes AWS incluyendo Airbnb y Samsung. Traefik se usa en producción por Docker, Containous y VMware. Apollo Router es usado por Netflix, Wayfair y Expedia para federación GraphQL. El patrón API gateway está documentado en el Microsoft Azure Architecture Center, la documentación de NGINX y el libro Building Microservices de Sam Newman.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Kong añade 1-3ms de latencia por request en hardware commodity. AWS API Gateway añade 5-20ms de latencia dependiendo de la región y tipo de integración. Traefik añade 0.5-2ms de latencia para enrutamiento Layer 7. Un gateway custom Node.js añade 2-5ms para auth, rate limiting y proxying. La agregación de requests con `Promise.all` añade la latencia de la llamada backend más lenta. El caching en el gateway reduce la latencia a menos de 1ms para cache hits. La terminación SSL añade 0.5-1ms para el TLS handshake (amortizado con session resumption). La federación GraphQL añade 5-15ms para query planning y subgraph fan-out. El gateway mismo debería manejar 10K-50K requests por segundo con tuning apropiado.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Para Kong, usa el admin API (`:8001`) para inspeccionar rutas, servicios y plugins. Revisa los logs de Kong para errores de plugins y timeouts de upstream. Para AWS API Gateway, usa CloudWatch Logs y X-Ray para tracing de requests. Para Traefik, usa el dashboard (`:8080`) para ver routers, servicios y middlewares. Para gateways custom, loguea cada request con trace ID, ruta, backend, latencia y código de estado. Usa distributed tracing (Jaeger, Zipkin, Honeycomb) para ver el path completo del request a través del gateway hacia los backends. Para issues de enrutamiento, verifica las reglas de path matching y condiciones de host. Para fallos de auth, verifica expiración de tokens y rotación de keys. Para errores 502/504, verifica salud del backend y configuración de timeout.

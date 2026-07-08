@@ -295,3 +295,11 @@ Engineering handbooks can be public and often serve as recruiting tools (GitLab,
 ### How detailed should coding standards be?
 
 Cover principles and non-negotiables (security, error handling, testing requirements). Leave formatting to automated tools (Prettier, Black, gofmt). Do not document every possible decision — focus on where the team has made intentional choices that differ from industry defaults.
+
+### Should we use a wiki or a Git repo for the handbook?
+
+A Git repo gives you version history, pull request reviews for changes, and diff notifications. Wikis are easier to edit but lack review workflows. If your team already uses PRs for code, a Git repo creates consistency: handbook changes go through the same review process as code changes. Use a wiki only if non-engineers need to edit the handbook frequently and a PR workflow would create friction.
+
+### How do we measure if the handbook is useful?
+
+Track how often new hires reference it during onboarding. Ask in 30-day check-ins: "Did the handbook answer your questions?" Monitor search queries if your docs site supports analytics. If the same questions keep coming up in Slack despite being documented, the handbook may be hard to find or the relevant section may be unclear.

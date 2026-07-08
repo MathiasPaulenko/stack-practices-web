@@ -184,3 +184,247 @@ La validación verifica que el input cumpla con reglas esperadas (ej: "¿es este
 ### ¿Cómo manejo uploads de archivos de forma segura?
 
 Valida el tipo de archivo inspeccionando magic bytes, no la extensión. Almacena uploads fuera del web root. Renombra archivos a IDs aleatorios. Sírvelos con `Content-Disposition: attachment` y `X-Content-Type-Options: nosniff`. Escanea con antivirus si es necesario.
+
+## Soluciones Avanzadas
+
+### Prevención de command injection (Python)
+
+Cuando pases input de usuario a comandos del OS, usa listas de argumentos en lugar de strings de shell:
+
+```python
+import subprocess
+import shlex
+
+# VULNERABLE: shell=True con input de usuario
+# subprocess.run(f"ls {user_dir}", shell=True)  # Nunca hagas esto
+
+# SEGURO: shell=False con lista de argumentos
+def list_directory(directory: str) -> str:
+    """Listar contenido de directorio de forma segura."""
+    # Validar que el directorio esté dentro de la base permitida
+    import os
+    allowed_base = '/var/uploads'
+    real_path = os.path.realpath(directory)
+    if not real_path.startswith(allowed_base):
+        raise ValueError('Directorio fuera de la base permitida')
+
+    result = subprocess.run(
+        ['ls', '-la', real_path],
+        capture_output=True,
+        text=True,
+        timeout=10,
+        shell=False,  # Crítico: nunca uses shell=True con input de usuario
+    )
+    return result.stdout
+
+# SEGURO: shlex.quote si shell=True es inevitable (casos raros)
+def grep_file(pattern: str, filename: str) -> str:
+    """Grep con argumentos escapados."""
+    safe_pattern = shlex.quote(pattern)
+    safe_filename = shlex.quote(filename)
+    result = subprocess.run(
+        f'grep {safe_pattern} {safe_filename}',
+        capture_output=True,
+        text=True,
+        shell=True,
+        timeout=10,
+    )
+    return result.stdout
+```
+
+### Prevención de path traversal (Node.js)
+
+```javascript
+const path = require('path');
+const fs = require('fs').promises;
+
+const ALLOWED_BASE = '/var/uploads';
+
+async function readUserFile(userPath) {
+  // Resolver a path absoluto y verificar que permanezca dentro de la base permitida
+  const resolved = path.resolve(ALLOWED_BASE, userPath);
+  const normalized = path.normalize(resolved);
+
+  // Prevenir directory traversal: ../etc/passwd
+  if (!normalized.startsWith(ALLOWED_BASE + path.sep)) {
+    throw new Error('Path traversal detectado');
+  }
+
+  // Check adicional: asegurar que no haya null bytes
+  if (userPath.includes('\0')) {
+    throw new Error('Null byte en path');
+  }
+
+  try {
+    return await fs.readFile(normalized, 'utf-8');
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      throw new Error('Archivo no encontrado');
+    }
+    throw err;
+  }
+}
+
+// Uso
+// readUserFile('../../etc/passwd') -> lanza "Path traversal detectado"
+// readUserFile('reports/2024/q1.pdf') -> lee /var/uploads/reports/2024/q1.pdf
+```
+
+### Prevención de NoSQL injection (JavaScript/MongoDB)
+
+```javascript
+const { MongoClient } = require('mongodb');
+
+// VULNERABLE: input de usuario pasado directamente a query
+// const user = await db.collection('users').findOne({
+//   $where: `this.username == '${req.body.username}'`
+// });
+
+// SEGURO: usar métodos de query del driver, nunca $where con input de usuario
+async function findUser(username) {
+  // Validar shape del input primero
+  if (typeof username !== 'string' || username.length > 100) {
+    throw new Error('Username inválido');
+  }
+
+  const client = new MongoClient(process.env.MONGO_URL);
+  await client.connect();
+  const db = client.db('app');
+
+  // Usar queries estructuradas, no $where basado en strings
+  return await db.collection('users').findOne({ username });
+}
+
+// SEGURO: sanitizar operadores de query del input de usuario
+function sanitizeQuery(obj) {
+  // Remover operadores $ de objetos de query suministrados por usuario
+  const cleaned = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (key.startsWith('$')) {
+      continue; // Strip $where, $gt, $ne, etc.
+    }
+    if (typeof value === 'object' && value !== null) {
+      cleaned[key] = sanitizeQuery(value);
+    } else {
+      cleaned[key] = value;
+    }
+  }
+  return cleaned;
+}
+
+// Uso: { username: { $ne: null } } se convierte en { username: {} } -> seguro
+```
+
+### Validación de file uploads (Python)
+
+```python
+import os
+import uuid
+import magic
+
+ALLOWED_MIME_TYPES = {
+    'image/jpeg': '.jpg',
+    'image/png': '.png',
+    'image/gif': '.gif',
+    'application/pdf': '.pdf',
+}
+
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
+
+def validate_and_save_upload(file_bytes: bytes, original_name: str) -> str:
+    """Validar y guardar de forma segura un archivo subido."""
+    # Verificar tamaño de archivo
+    if len(file_bytes) > MAX_FILE_SIZE:
+        raise ValueError(f'Archivo excede límite de {MAX_FILE_SIZE // 1024 // 1024}MB')
+
+    # Detectar MIME type real desde magic bytes, no extensión
+    mime = magic.from_buffer(file_bytes, mime=True)
+    if mime not in ALLOWED_MIME_TYPES:
+        raise ValueError(f'Tipo de archivo {mime} no permitido')
+
+    # Generar nombre aleatorio, preservar extensión segura
+    ext = ALLOWED_MIME_TYPES[mime]
+    safe_name = f'{uuid.uuid4().hex}{ext}'
+
+    # Almacenar fuera del web root
+    upload_dir = '/var/uploads'
+    safe_path = os.path.join(upload_dir, safe_name)
+
+    # Verificar que el path no escape del directorio de uploads
+    if not os.path.realpath(safe_path).startswith(upload_dir):
+        raise ValueError('Path de archivo inválido')
+
+    with open(safe_path, 'wb') as f:
+        f.write(file_bytes)
+
+    return safe_name
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa una librería de validación de schema para todos los inputs de API.** Define tipos, rangos y formatos esperados explícitamente:
+
+```python
+from pydantic import BaseModel, EmailStr, constr, validator
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    username: constr(min_length=3, max_length=20, pattern=r'^[a-zA-Z0-9_]+$')
+    bio: constr(max_length=500) = ''
+
+    @validator('bio')
+    def sanitize_bio(cls, v):
+        import bleach
+        return bleach.clean(v, tags=[], strip=True)
+```
+
+2. **Implementa headers de Content Security Policy (CSP).** CSP agrega una defensa del lado del browser que bloquea scripts inline incluso si la sanitización falla en algo:
+
+```nginx
+add_header Content-Security-Policy
+  "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'" always;
+```
+
+## Errores Comunes Adicionales
+
+1. **Aceptar content types JSON sin validación.** Los bodies JSON pueden contener objetos anidados, arrays y tipos inesperados. Siempre valida la estructura, no solo campos individuales:
+
+```javascript
+// INCORRECTO: confiar en estructuras anidadas
+const user = req.body; // podría contener { role: 'admin' }
+
+// CORRECTO: pick solo los campos esperados
+const { email, username } = req.body;
+if (typeof email !== 'string' || typeof username !== 'string') {
+  return res.status(400).json({ error: 'Input inválido' });
+}
+```
+
+2. **Usar `eval()` o `Function()` con input de usuario.** Estos ejecutan código arbitrario y no pueden hacerse seguros. Siempre usa alternativas seguras como `JSON.parse()` para parseo de datos.
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cuál es la diferencia entre encoding y sanitización?
+
+Encoding transforma caracteres especiales en representaciones seguras (ej: `<` se convierte en `&lt;`) para un contexto de output específico. Sanitización remueve o neutraliza constructos peligrosos del input mismo. Codifica al outputear datos; sanitiza al almacenar o procesar input de rich-text.
+
+### ¿Cómo manejo input internacionalizado de forma segura?
+
+Usa normalización Unicode (NFC) para prevenir ataques de homoglifos y problemas de canonicalización. Valida contra rangos de caracteres esperados después de la normalización:
+
+```python
+import unicodedata
+
+def normalize_input(text: str) -> str:
+    normalized = unicodedata.normalize('NFC', text)
+    # Rechazar caracteres de control excepto newline y tab
+    cleaned = ''.join(
+        c for c in normalized
+        if unicodedata.category(c)[0] != 'C' or c in '\n\t'
+    )
+    return cleaned.strip()
+```
+
+### ¿Debería sanitizar datos antes de almacenarlos en la base de datos?
+
+Depende. Almacena datos tal cual (validados pero no sanitizados) y codifica al outputear. Esto preserva la fidelidad de los datos y te permite aplicar encoding específico por contexto al renderizar. La excepción son campos de rich-text (comentarios, posts) donde debes sanitizar HTML antes de almacenar para asegurar que no persista markup malicioso.

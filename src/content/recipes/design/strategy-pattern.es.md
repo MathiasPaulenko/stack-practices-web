@@ -230,14 +230,307 @@ R: La interfaz de estrategia debería aceptar el tipo de input más amplio comú
 R: Sí — expón un setter en el contexto. Esto es útil para algoritmos adaptativos (ej. cambiar de A* a Dijkstra basado en tamaño del mapa). Asegura thread safety si el contexto es compartido entre threads.
 
 
+### Strategy Registry con Selección Dinámica (TypeScript)
+
+```typescript
+class StrategyRegistry<TContext, TResult> {
+  private strategies: Map<string, (ctx: TContext) => TResult> = new Map();
+
+  register(key: string, strategy: (ctx: TContext) => TResult): void {
+    this.strategies.set(key, strategy);
+  }
+
+  select(context: TContext & { strategyKey?: string }): (ctx: TContext) => TResult {
+    const key = context.strategyKey;
+    if (!key || !this.strategies.has(key)) {
+      throw new Error(`No strategy registered for key: ${key}`);
+    }
+    return this.strategies.get(key)!;
+  }
+}
+
+// Registro al arranque
+const shippingRegistry = new StrategyRegistry<Order, number>();
+
+shippingRegistry.register('flat-rate', (order) => 10);
+shippingRegistry.register('weight-based', (order) => order.totalWeight * 2.5);
+shippingRegistry.register('distance', (order) => 5 + order.distanceKm * 0.5);
+shippingRegistry.register('free-shipping', (order) => {
+  const subtotal = order.items.reduce((s, i) => s + i.price, 0);
+  return subtotal > 100 ? 0 : 10;
+});
+
+// Uso — selecciona estrategia por clave desde metadatos de la orden
+const calculate = shippingRegistry.select(order as Order & { strategyKey: string });
+const shipping = calculate(order);
+```
+
+### Strategy con Decorator Composition (TypeScript)
+
+```typescript
+interface PricingStrategy {
+  calculate(order: Order): Money;
+}
+
+class BasePricingStrategy implements PricingStrategy {
+  calculate(order: Order): Money {
+    return order.items.reduce(
+      (total, item) => total.add(item.price),
+      Money.zero('USD')
+    );
+  }
+}
+
+class DiscountDecorator implements PricingStrategy {
+  constructor(
+    private wrapped: PricingStrategy,
+    private discountPercentage: number
+  ) {}
+
+  calculate(order: Order): Money {
+    const base = this.wrapped.calculate(order);
+    const discount = base.multiply(this.discountPercentage / 100);
+    return base.subtract(discount);
+  }
+}
+
+class TaxDecorator implements PricingStrategy {
+  constructor(
+    private wrapped: PricingStrategy,
+    private taxRate: number
+  ) {}
+
+  calculate(order: Order): Money {
+    const base = this.wrapped.calculate(order);
+    const tax = base.multiply(this.taxRate / 100);
+    return base.add(tax);
+  }
+}
+
+class FreeShippingDecorator implements PricingStrategy {
+  constructor(
+    private wrapped: PricingStrategy,
+    private threshold: number
+  ) {}
+
+  calculate(order: Order): Money {
+    const base = this.wrapped.calculate(order);
+    if (base.amount > this.threshold) {
+      return base;
+    }
+    return base.add(new Money(10, 'USD'));
+  }
+}
+
+// Composición — apila decorators para construir la estrategia final
+const pricing = new FreeShippingDecorator(
+  new TaxDecorator(
+    new DiscountDecorator(
+      new BasePricingStrategy(),
+      10
+    ),
+    8
+  ),
+  100
+);
+
+const total = pricing.calculate(order);
+```
+
+### Selección de Estrategia Basada en Contexto (Python)
+
+```python
+from typing import Protocol
+
+class PaymentStrategy(Protocol):
+    def pay(self, amount: float) -> str: ...
+
+class CreditCardStrategy:
+    def __init__(self, card_number: str, cvv: str):
+        self._card = card_number
+        self._cvv = cvv
+
+    def pay(self, amount: float) -> str:
+        return f"Charged ${amount:.2f} to card ending in {self._card[-4:]}"
+
+class PayPalStrategy:
+    def __init__(self, email: str):
+        self._email = email
+
+    def pay(self, amount: float) -> str:
+        return f"Charged ${amount:.2f} via PayPal ({self._email})"
+
+class CryptoStrategy:
+    def __init__(self, wallet: str):
+        self._wallet = wallet
+
+    def pay(self, amount: float) -> str:
+        return f"Charged {amount / 50000:.8f} BTC from {self._wallet[:8]}..."
+
+class PaymentContext:
+    def __init__(self):
+        self._strategies: dict[str, PaymentStrategy] = {}
+
+    def register(self, key: str, strategy: PaymentStrategy):
+        self._strategies[key] = strategy
+
+    def pay(self, method: str, amount: float) -> str:
+        strategy = self._strategies.get(method)
+        if strategy is None:
+            raise ValueError(f"Unknown payment method: {method}")
+        return strategy.pay(amount)
+
+# Uso — registra estrategias, selecciona por clave de método
+context = PaymentContext()
+context.register('credit-card', CreditCardStrategy('4111111111111234', '123'))
+context.register('paypal', PayPalStrategy('user@example.com'))
+context.register('crypto', CryptoStrategy('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'))
+
+result = context.pay('paypal', 99.99)
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa una strategy factory para lógica de selección compleja.** Cuando la selección depende de múltiples factores (región, tier de cliente, tamaño de orden), encapsula la lógica:
+
+```typescript
+class ShippingStrategyFactory {
+  create(order: Order): ShippingStrategy {
+    if (order.isInternational) {
+      return new InternationalStrategy(order.customsFee);
+    }
+    if (order.isExpress) {
+      return new ExpressStrategy(order.distanceKm);
+    }
+    if (order.totalWeight > 20) {
+      return new FreightStrategy(order.pallets);
+    }
+    return new FlatRateStrategy(10);
+  }
+}
+```
+
+2. **Haz las estrategias inmutables.** Después de la construcción, una estrategia no debería cambiar su configuración. Esto las hace seguras para compartir entre threads y requests:
+
+```typescript
+class WeightBasedStrategy implements ShippingStrategy {
+  constructor(
+    private readonly ratePerKg: number,
+    private readonly fuelSurcharge: number
+  ) {}
+
+  calculate(order: Order): number {
+    return (order.totalWeight * this.ratePerKg) + this.fuelSurcharge;
+  }
+}
+```
+
+3. **Testea estrategias en aislamiento.** Cada estrategia es una unidad — testéala directamente sin el contexto:
+
+```typescript
+describe('WeightBasedStrategy', () => {
+  it('calculates shipping based on weight', () => {
+    const strategy = new WeightBasedStrategy(2.5);
+    const order = { totalWeight: 10 } as Order;
+    expect(strategy.calculate(order)).toBe(25);
+  });
+
+  it('returns zero for zero weight', () => {
+    const strategy = new WeightBasedStrategy(2.5);
+    const order = { totalWeight: 0 } as Order;
+    expect(strategy.calculate(order)).toBe(0);
+  });
+});
+```
+
+## Errores Comunes Adicionales
+
+1. **Interfaz de estrategia god.** Cuando la interfaz de estrategia crece a 5+ métodos, cada implementación se convierte en una god class. Separa en interfaces enfocadas:
+
+```typescript
+// Mal: una interfaz hace todo
+interface PaymentStrategy {
+  validate(): boolean;
+  charge(amount: number): void;
+  refund(transactionId: string): void;
+  getStatus(): PaymentStatus;
+  generateReceipt(): string;
+}
+
+// Bien: separa por responsabilidad
+interface PaymentValidator { validate(): boolean; }
+interface PaymentProcessor { charge(amount: number): void; refund(txId: string): void; }
+interface PaymentReporter { generateReceipt(): string; }
+```
+
+2. **Estrategia acoplada a persistencia.** Una estrategia que lee de una base de datos o llama una API acopla la selección de algoritmo a infraestructura. Inyecta los datos como parámetros:
+
+```typescript
+// Mal: estrategia obtiene sus propios datos
+class TaxStrategy implements ShippingStrategy {
+  constructor(private db: Database) {}
+  calculate(order: Order): number {
+    const rate = this.db.query('SELECT rate FROM tax_rates WHERE region = ?', order.region);
+    return order.subtotal * rate;
+  }
+}
+
+// Bien: estrategia recibe datos como parámetro
+class TaxStrategy implements ShippingStrategy {
+  constructor(private rate: number) {}
+  calculate(order: Order): number {
+    return order.subtotal * this.rate;
+  }
+}
+```
+
+3. **No manejar errores de estrategia.** Cada estrategia puede fallar diferente. Envuelve las llamadas a estrategia con manejo de errores consistente:
+
+```typescript
+class CheckoutService {
+  getTotal(order: Order): number {
+    const subtotal = order.items.reduce((s, i) => s + i.price, 0);
+    let shipping: number;
+    try {
+      shipping = this.shippingStrategy.calculate(order);
+    } catch (error) {
+      console.error('Shipping calculation failed', { strategy: this.shippingStrategy.constructor.name, error });
+      shipping = 10; // fallback
+    }
+    return subtotal + shipping;
+  }
+}
+```
+
+## FAQ Adicional
+
+### ¿Cómo manejo selección de estrategia basada en múltiples criterios?
+
+Usa un rules engine o chain of responsibility para selección multi-factor. Para casos simples, una factory con lógica condicional funciona. Para casos complejos, codifica reglas de selección como datos y evalúalas:
+
+```typescript
+interface StrategyRule {
+  matches(order: Order): boolean;
+  create(): ShippingStrategy;
+}
+
+const rules: StrategyRule[] = [
+  { matches: o => o.isInternational, create: () => new InternationalStrategy(15) },
+  { matches: o => o.isExpress, create: () => new ExpressStrategy(0.8) },
+  { matches: () => true, create: () => new FlatRateStrategy(10) }, // fallback
+];
+
+const strategy = rules.find(r => r.matches(order))!.create();
+```
+
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Sí. Los patrones de estrategia basados en clases, funciones y decorators compuestos son todos probados en producción. El patrón registry refleja cómo los DI containers resuelven estrategias por clave. La composición con decorators es estándar en sistemas de pricing y shipping. El enfoque basado en protocol de Python se usa en codebases modernos de Python con type checking.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+El dispatch de método de estrategia es una llamada virtual — overhead despreciable (nanosegundos). El registry añade una búsqueda en hash map (O(1)). El apilamiento de decorators añade una llamada virtual por capa — típicamente 2-3 capas, todavía sub-microsegundo. Las strategy factories que consultan bases de datos para configuración añaden latencia de I/O en la primera llamada; cachea el resultado. Para hot paths, pre-selecciona la estrategia al arranque en lugar de por-request.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Loggea el nombre de la clase de estrategia y los parámetros clave antes de delegar. Para stacks de decorators, loggea en cada capa para trazar cómo se construye el resultado. Para selección basada en registry, loggea la clave solicitada y la estrategia resuelta. Usa `toString()` o `constructor.name` de la estrategia para identificar qué implementación se ejecutó. Testea estrategias en aislamiento con inputs in-memory antes de integrar con el contexto.

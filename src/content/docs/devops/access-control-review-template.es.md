@@ -139,3 +139,173 @@ Si. Herramientas de gobernanza de identidad pueden recolectar datos de acceso, d
 ### Que evidencia necesita un auditor?
 
 Un registro de acceso completo, decisiones del revisor, acciones de remediacion y atestacion firmada con fechas y nombres de revisores.
+
+## Soluciones Avanzadas
+
+### Revision automatizada de acceso con AWS IAM Access Analyzer
+
+Usa AWS IAM Access Analyzer para detectar permisos no usados y generar hallazgos para revision:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Generar hallazgos de access analyzer
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+# Listar todos los usuarios IAM y su ultima actividad
+echo "=== IAM Users Last Activity ==="
+aws iam get-account-authorization-details --output json | \
+  jq -r '.UserDetailList[] | {
+    user: .UserName,
+    groups: (.Groups | join(", ")),
+    policies: (.AttachedManagedPolicies | map(.PolicyName) | join(", ")),
+    last_used: .PasswordLastUsed
+  }'
+
+# Verificar access keys no usadas
+echo ""
+echo "=== Unused Access Keys (>90 days) ==="
+for user in $(aws iam list-users --query 'Users[].UserName' --output text); do
+  aws iam list-access-keys --user-name "$user" --output json | \
+    jq -r '.AccessKeyMetadata[] | select(.Status=="Active") | "\(.UserName) \(.AccessKeyId) \(.CreateDate)"'
+done
+
+# Generar reporte de permisos no usados
+echo ""
+echo "=== IAM Access Analyzer Findings ==="
+aws accessanalyzer list-findings --analyzer-arn "$ANALYZER_ARN" --output json | \
+  jq -r '.findings[] | select(.status=="ACTIVE") | {
+    resource: .resource,
+    finding: .findingType,
+    principal: .principal
+  }'
+```
+
+### Script de auditoria de acceso en organizacion de GitHub
+
+Audita miembros de la organizacion de GitHub y su acceso a repositorios con la GitHub API:
+
+```python
+#!/usr/bin/env python3
+"""Auditar acceso de org de GitHub y flaggear miembros inactivos."""
+import requests
+import sys
+from datetime import datetime, timedelta
+
+ORG = "your-org"
+TOKEN = sys.argv[1] if len(sys.argv) > 1 else ""
+HEADERS = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github+json"}
+
+def get_org_members() -> list:
+    resp = requests.get(f"https://api.github.com/orgs/{ORG}/members", headers=HEADERS)
+    return resp.json()
+
+def get_user_activity(username: str) -> dict:
+    resp = requests.get(
+        f"https://api.github.com/users/{username}/events",
+        headers=HEADERS,
+        params={"per_page": 1},
+    )
+    events = resp.json()
+    if events:
+        last_event = datetime.strptime(events[0]["created_at"], "%Y-%m-%dT%H:%M:%SZ")
+        days_inactive = (datetime.utcnow() - last_event).days
+        return {"username": username, "last_active": events[0]["created_at"], "days_inactive": days_inactive}
+    return {"username": username, "last_active": "never", "days_inactive": 999}
+
+def audit_members() -> None:
+    members = get_org_members()
+    print(f"Total org members: {len(members)}\n")
+    print(f"{'Username':<25} {'Last Active':<25} {'Days Inactive':<15} {'Status'}")
+    print("-" * 80)
+
+    threshold = 90
+    for member in members:
+        username = member["login"]
+        activity = get_user_activity(username)
+        status = "REVIEW" if activity["days_inactive"] > threshold else "OK"
+        print(f"{username:<25} {activity['last_active']:<25} {activity['days_inactive']:<15} {status}")
+
+if __name__ == "__main__":
+    audit_members()
+```
+
+### Auditoria RBAC de Kubernetes con kubectl
+
+Audita bindings RBAC de Kubernetes e identifica subjects sobre-privilegiados:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+echo "=== ClusterRoleBindings with cluster-admin ==="
+kubectl get clusterrolebindings -o json | \
+  jq -r '.items[] | select(.roleRef.name=="cluster-admin") | "\(.metadata.name) -> \(.subjects[].name // "unknown")"'
+
+echo ""
+echo "=== RoleBindings per namespace ==="
+for ns in $(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}'); do
+  echo "--- Namespace: $ns ---"
+  kubectl get rolebindings -n "$ns" -o json | \
+    jq -r '.items[] | "\(.metadata.name): role=\(.roleRef.name) subjects=\([.subjects[].name] | join(", "))"'
+done
+
+echo ""
+echo "=== Service accounts with secrets ==="
+kubectl get serviceaccounts --all-namespaces -o json | \
+  jq -r '.items[] | select(.secrets != null and (.secrets | length > 0)) | "\(.metadata.namespace)/\(.metadata.name)"'
+```
+
+## Mejores Practicas Adicionales
+
+1. **Implementa acceso just-in-time para operaciones privilegiadas.** En vez de conceder acceso admin permanente, usa elevacion just-in-time con aprobacion y limites de tiempo. Esto reduce la superficie de ataque y crea una trazabilidad auditable:
+
+```yaml
+# Teleport role: acceso admin temporal con aprobacion
+kind: role
+metadata:
+  name: jit-admin
+spec:
+  allow:
+    node_labels: "*"
+    max_session_ttl: 4h
+    require_session_join: true
+```
+
+2. **Usa dashboards de revision de acceso para visibilidad continua.** Construye un dashboard que muestre metricas de acceso en tiempo real, como numero de cuentas privilegiadas, cuentas inactivas y cobertura de MFA:
+
+```sql
+-- Query: cuentas privilegiadas sin MFA
+SELECT u.username, u.role, u.last_login
+FROM users u
+LEFT JOIN mfa_enrollments m ON u.id = m.user_id
+WHERE u.role IN ('admin', 'operator') AND m.id IS NULL
+ORDER BY u.last_login DESC;
+```
+
+## Errores Comunes Adicionales
+
+1. **No revisar cuentas de servicio e identidades de maquina.** Las cuentas de servicio suelen acumular permisos con el tiempo y rara vez se revisan. Incluyelas en cada ciclo de revision de acceso y verifica su ultimo uso:
+
+```bash
+# Verificar fecha de ultimo uso para AWS access keys
+aws iam list-access-keys --user-name deploy-bot --query 'AccessKeyMetadata[].{Key:AccessKeyId, LastUsed:CreateDate, Status:Status}' --output table
+```
+
+2. **Confiar en spreadsheets manuales para revisiones de acceso.** Los spreadsheets son propensos a errores y se desactualizan rapidamente. Usa herramientas de gobernanza de identidad o scripts que extraigan datos en vivo de tu proveedor de identidad:
+
+```bash
+# Exportar datos de acceso en vivo en vez de mantener spreadsheets
+aws iam get-account-authorization-details --output json > access-snapshot-$(date +%Y%m%d).json
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Como manejo revisiones de acceso para contratistas y personal temporal?
+
+Establece fechas de vencimiento en todas las cuentas de contratistas al momento del aprovisionamiento. Usa asignaciones de roles con tiempo limitado que auto-expiran. Envia recordatorios al manager sponsor 7 dias antes del vencimiento. Requiere re-aprobacion para extension. Nunca concedas acceso permanente a no-empleados.
+
+### Cual es la diferencia entre atestacion y certificacion en revisiones de acceso?
+
+La atestacion es el acto de un revisor confirmando que el acceso es apropiado. La certificacion es un proceso formal y auditable donde el revisor firma toda la lista de acceso, a menudo con significancia legal o de cumplimiento. La mayoria de marcos de cumplimiento requieren certificacion, no solo atestacion.

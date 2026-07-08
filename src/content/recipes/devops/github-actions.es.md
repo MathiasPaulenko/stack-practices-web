@@ -237,3 +237,281 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### Reusable Workflow con Matrix Strategy
+
+```yaml
+# .github/workflows/test-matrix.yml
+name: Test Matrix
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: false
+        type: string
+        default: "20"
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false  # No cancelar otros jobs en fallo
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [18, 20, 22]
+        exclude:
+          - os: macos-latest
+            node: 18  # Saltar Node viejo en macOS
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test -- --coverage
+      - uses: codecov/codecov-action@v4
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 20
+```
+
+### Environment Protection Rules
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://myapp.example.com
+    # Revisores requeridos deben aprobar antes del deployment
+    # Configurado en repo Settings > Environments
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to production
+        run: |
+          echo "Deploying ${{ github.ref_name }} to production"
+          ./deploy.sh --env prod --version ${{ github.ref_name }}
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+```
+
+### Composite Action
+
+```yaml
+# .github/actions/setup-project/action.yml
+name: Setup Project
+description: Install dependencies and cache them
+inputs:
+  node-version:
+    required: false
+    default: '20'
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+    - name: Build
+      shell: bash
+      run: npm run build
+```
+
+```yaml
+# Uso en un workflow
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+        with:
+          node-version: '22'
+      - run: npm test
+```
+
+### Jobs y Steps Condicionales
+
+```yaml
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm run lint
+
+  deploy:
+    needs: [lint, test]
+    if: github.ref == 'refs/heads/main' && success()
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying only on main after lint+test pass"
+```
+
+### Job Summary para Comentarios de PR
+
+```yaml
+- name: Generate summary
+  if: always()
+  run: |
+    echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+    echo "| Suite | Status | Duration |" >> $GITHUB_STEP_SUMMARY
+    echo "|-------|--------|----------|" >> $GITHUB_STEP_SUMMARY
+    echo "| Unit  | ${{ job.status }} | 30s |" >> $GITHUB_STEP_SUMMARY
+    echo "| E2E   | ${{ job.status }} | 2m |" >> $GITHUB_STEP_SUMMARY
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Pinea versiones de actions a SHA.** Los tags pueden ser re-tagueados; los SHA son inmutables:
+
+```yaml
+# Mal: el tag puede cambiar
+- uses: actions/checkout@v4
+
+# Mejor: SHA es inmutable
+- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4
+```
+
+1. **Usa `concurrency` para cancelar runs stale.** No gastes minutes en pushes desactualizados:
+
+```yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+```
+
+1. **Setea timeouts en jobs.** Previene jobs colgados de consumir minutes:
+
+```yaml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # Matar después de 15 minutos
+```
+
+## Errores Comunes Adicionales
+
+1. **No usar grupos de `concurrency`.** Sin esto, cada push a un PR dispara un run nuevo, gastando minutes:
+
+```yaml
+# Añade esto para cancelar runs previos
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+```
+
+1. **Usar `needs` sin `if: always()`.** Los jobs downstream se saltan por defecto si upstream falla:
+
+```yaml
+notify:
+  needs: [test, lint, deploy]
+  if: always()  # Correr independientemente del status upstream
+  runs-on: ubuntu-latest
+  steps:
+    - run: ./notify.sh ${{ job.status }}
+```
+
+## FAQ
+
+### ¿Cómo comparto secrets entre entornos?
+
+Usa secrets a nivel de repositorio para valores no sensibles. Usa secrets a nivel de environment para credenciales de producción. Referéncialos con `${{ secrets.SECRET_NAME }}`:
+
+```yaml
+steps:
+  - run: deploy.sh
+    env:
+      API_KEY: ${{ secrets.PROD_API_KEY }}  # Secret de environment
+      LOG_LEVEL: ${{ vars.LOG_LEVEL }}       # Variable de repositorio
+```
+
+### ¿Cómo corro jobs secuencialmente vs en paralelo?
+
+Por defecto, los jobs corren en paralelo. Usa `needs` para crear dependencias:
+
+```yaml
+jobs:
+  build:    # Corre primero
+    runs-on: ubuntu-latest
+  test:     # Corre después de build
+    needs: build
+    runs-on: ubuntu-latest
+  deploy:   # Corre después de test
+    needs: test
+    runs-on: ubuntu-latest
+```
+
+### ¿Cómo paso artefactos entre jobs?
+
+Usa `actions/upload-artifact` y `actions/download-artifact`:
+
+```yaml
+build:
+  runs-on: ubuntu-latest
+  steps:
+    - run: npm run build
+    - uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist/
+
+deploy:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist/
+    - run: ./deploy.sh dist/
+```
+
+## Tips de Rendimiento
+
+1. **Cachéa dependencias agresivamente.** Cachea npm, pip, Maven y Gradle:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-npm-
+```
+
+1. **Usa self-hosted runners para builds pesados.** Salta la cola y usa más CPU:
+
+```yaml
+runs-on: self-hosted  # Tu propio hardware
+```
+
+1. **Divide test suites entre runners.** Usa matrix para paralelizar:
+
+```yaml
+strategy:
+  matrix:
+    shard: [1, 2, 3, 4]
+steps:
+  - run: npm test -- --shard=${{ matrix.shard }}/4
+```
+
+1. **Usa Docker layer caching.** Acelera builds de imágenes:
+
+```yaml
+- uses: docker/build-push-action@v5
+  with:
+    cache-from: type=gha
+    cache-to: type=gha,mode=max
+```

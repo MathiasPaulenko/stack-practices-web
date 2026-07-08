@@ -133,11 +133,340 @@ const service = new PaymentService(new StripeAdapter());
 - Mapea IDs externos a UUIDs internos para evitar filtrar nombres de proveedor
 - Versiona los adapters independientemente cuando las APIs de terceros cambian
 
+## Técnicas Avanzadas
+
+### Adapter bidireccional para conversión bidireccional
+
+Soporta convertir modelos internos de vuelta a formatos externos para actualizaciones:
+
+```typescript
+// adapters/BiDirectionalPaymentAdapter.ts
+interface BiDirectionalPaymentAdapter extends PaymentAdapter {
+  toExternal(payment: Payment): Promise<ExternalPayment>;
+}
+
+interface ExternalPayment {
+  provider: 'stripe' | 'paypal';
+  data: any;
+}
+
+class StripeBiDirectionalAdapter implements BiDirectionalPaymentAdapter {
+  async fetchPayment(externalId: string): Promise<Payment> {
+    const stripePayment = await stripeClient.paymentIntents.retrieve(externalId);
+    return this.fromStripe(stripePayment);
+  }
+
+  async toExternal(payment: Payment): Promise<ExternalPayment> {
+    const stripePayment = await this.toStripe(payment);
+    return { provider: 'stripe', data: stripePayment };
+  }
+
+  private fromStripe(stripePayment: any): Payment {
+    return {
+      id: stripePayment.id,
+      amount: stripePayment.amount / 100,
+      currency: stripePayment.currency.toUpperCase(),
+      status: this.mapStatus(stripePayment.status),
+      createdAt: new Date(stripePayment.created * 1000),
+    };
+  }
+
+  private async toStripe(payment: Payment): Promise<any> {
+    return {
+      amount: Math.round(payment.amount * 100),
+      currency: payment.currency.toLowerCase(),
+      metadata: { internal_id: payment.id },
+    };
+  }
+
+  private mapStatus(status: string): Payment['status'] {
+    const map: Record<string, Payment['status']> = {
+      'requires_payment_method': 'pending',
+      'succeeded': 'completed',
+      'canceled': 'failed',
+    };
+    return map[status] || 'failed';
+  }
+}
+```
+
+### Adapter con cache usando patrón proxy
+
+Combina adapter con proxy para cachear busquedas externas y reducir llamadas API:
+
+```typescript
+// adapters/CachingPaymentAdapter.ts
+class CachingPaymentAdapter implements PaymentAdapter {
+  private cache = new Map<string, { payment: Payment; expiresAt: number }>();
+  private readonly ttl = 60000; // 1 minuto
+
+  constructor(private delegate: PaymentAdapter) {}
+
+  async fetchPayment(externalId: string): Promise<Payment> {
+    const cached = this.cache.get(externalId);
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.payment;
+    }
+
+    const payment = await this.delegate.fetchPayment(externalId);
+    this.cache.set(externalId, {
+      payment,
+      expiresAt: Date.now() + this.ttl,
+    });
+    return payment;
+  }
+
+  invalidate(externalId: string): void {
+    this.cache.delete(externalId);
+  }
+}
+
+// Uso
+const stripeAdapter = new StripeAdapter();
+const cachingAdapter = new CachingPaymentAdapter(stripeAdapter);
+const service = new PaymentService(cachingAdapter);
+```
+
+### Adapter batch para endpoints paginados
+
+Adapta endpoints de lista a consultas internas paginadas:
+
+```typescript
+// adapters/BatchPaymentAdapter.ts
+interface PaginatedResult<T> {
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+class StripeBatchAdapter implements PaymentAdapter {
+  async fetchPayment(externalId: string): Promise<Payment> {
+    // Fetch de pago individual
+  }
+
+  async fetchPayments(options: {
+    page?: number;
+    pageSize?: number;
+    status?: Payment['status'];
+  }): Promise<PaginatedResult<Payment>> {
+    const page = options.page || 1;
+    const pageSize = options.pageSize || 20;
+
+    const stripePayments = await stripeClient.paymentIntents.list({
+      limit: pageSize,
+      starting_after: page > 1 ? this.getPageCursor(page - 1) : undefined,
+    });
+
+    const payments = stripePayments.data.map(sp => ({
+      id: sp.id,
+      amount: sp.amount / 100,
+      currency: sp.currency.toUpperCase(),
+      status: this.mapStatus(sp.status),
+      createdAt: new Date(sp.created * 1000),
+    }));
+
+    return {
+      items: payments,
+      total: stripePayments.total_count || 0,
+      page,
+      pageSize,
+    };
+  }
+
+  private mapStatus(status: string): Payment['status'] {
+    const map: Record<string, Payment['status']> = {
+      'requires_payment_method': 'pending',
+      'succeeded': 'completed',
+      'canceled': 'failed',
+    };
+    return map[status] || 'failed';
+  }
+
+  private getPageCursor(page: number): string {
+    // Implementa logica de cursor para paginacion
+    return '';
+  }
+}
+```
+
+### Factory de adapter para seleccion de proveedor
+
+Usa el patrón factory para seleccionar el adapter apropiado en runtime:
+
+```typescript
+// adapters/PaymentAdapterFactory.ts
+class PaymentAdapterFactory {
+  private adapters = new Map<string, PaymentAdapter>();
+
+  register(provider: string, adapter: PaymentAdapter): void {
+    this.adapters.set(provider, adapter);
+  }
+
+  getAdapter(provider: string): PaymentAdapter {
+    const adapter = this.adapters.get(provider);
+    if (!adapter) {
+      throw new Error(`No adapter registrado para proveedor: ${provider}`);
+    }
+    return adapter;
+  }
+
+  getAdapterFromConfig(config: { provider: string }): PaymentAdapter {
+    return this.getAdapter(config.provider);
+  }
+}
+
+// Uso
+const factory = new PaymentAdapterFactory();
+factory.register('stripe', new StripeAdapter());
+factory.register('paypal', new PayPalAdapter());
+factory.register('square', new SquareAdapter());
+
+// Seleccion en runtime
+const config = { provider: 'stripe' };
+const adapter = factory.getAdapterFromConfig(config);
+const service = new PaymentService(adapter);
+```
+
+### Adapter con retry y backoff exponencial
+
+Añade logica de retry a adapters para manejar fallos transitorios:
+
+```typescript
+// adapters/RetryPaymentAdapter.ts
+class RetryPaymentAdapter implements PaymentAdapter {
+  private readonly maxRetries = 3;
+  private readonly baseDelay = 1000;
+
+  constructor(private delegate: PaymentAdapter) {}
+
+  async fetchPayment(externalId: string): Promise<Payment> {
+    let lastError: Error;
+
+    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+      try {
+        return await this.delegate.fetchPayment(externalId);
+      } catch (error) {
+        lastError = error;
+        if (attempt < this.maxRetries) {
+          const delay = this.baseDelay * Math.pow(2, attempt);
+          await this.sleep(delay);
+        }
+      }
+    }
+
+    throw lastError;
+  }
+
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+}
+
+// Uso
+const stripeAdapter = new StripeAdapter();
+const retryAdapter = new RetryPaymentAdapter(stripeAdapter);
+const service = new PaymentService(retryAdapter);
+```
+
+### Adapter con validacion y normalizacion de errores
+
+Normaliza errores de diferentes proveedores en errores internos consistentes:
+
+```typescript
+// adapters/ValidatingPaymentAdapter.ts
+class PaymentAdapterError extends Error {
+  constructor(
+    message: string,
+    public readonly code: string,
+    public readonly provider: string
+  ) {
+    super(message);
+    this.name = 'PaymentAdapterError';
+  }
+}
+
+class ValidatingPaymentAdapter implements PaymentAdapter {
+  constructor(
+    private delegate: PaymentAdapter,
+    private provider: string
+  ) {}
+
+  async fetchPayment(externalId: string): Promise<Payment> {
+    try {
+      const payment = await this.delegate.fetchPayment(externalId);
+      this.validatePayment(payment);
+      return payment;
+    } catch (error) {
+      throw this.normalizeError(error);
+    }
+  }
+
+  private validatePayment(payment: Payment): void {
+    if (!payment.id) {
+      throw new PaymentAdapterError(
+        'Payment ID es requerido',
+        'MISSING_ID',
+        this.provider
+      );
+    }
+    if (payment.amount < 0) {
+      throw new PaymentAdapterError(
+        'El monto de pago no puede ser negativo',
+        'INVALID_AMOUNT',
+        this.provider
+      );
+    }
+  }
+
+  private normalizeError(error: any): PaymentAdapterError {
+    if (error instanceof PaymentAdapterError) {
+      return error;
+    }
+
+    // Normaliza errores especificos de proveedor
+    if (error.code === 'resource_missing') {
+      return new PaymentAdapterError(
+        'Pago no encontrado',
+        'NOT_FOUND',
+        this.provider
+      );
+    }
+
+    return new PaymentAdapterError(
+      error.message || 'Error desconocido',
+      'UNKNOWN',
+      this.provider
+    );
+  }
+}
+```
+
+## Mejores Prácticas
+
+1. **Mantén los adapters stateless.** Los adapters deberian enfocarse solo en traduccion, no mantener estado. Esto los hace mas faciles de probar y reutilizar.
+2. **Mapea IDs externos a UUIDs internos.** Evita filtrar formatos de ID especificos de proveedor en tu dominio mapeando a identificadores internos.
+3. **Versiona los adapters independientemente.** Cuando las APIs de terceros cambian, versiona tus adapters para soportar multiples versiones de API simultaneamente.
+4. **Usa interfaces para adapters.** Define interfaces claras que los adapters deben implementar, facilitando el intercambio de implementaciones.
+5. **Maneja todos los edge cases.** Considera campos faltantes, valores nulos y estructuras de datos inesperadas en respuestas externas.
+6. **Logea transformaciones de adapter.** Añade logging para rastrear como se transforman los datos externos, util para debug de problemas de integracion.
+7. **Prueba con respuestas grabadas.** Usa respuestas HTTP grabadas o mocks para unit testing, reservando llamadas API reales para tests de contrato.
+8. **Documenta contratos externos.** Manten documentacion de los contratos de API externos de los que dependen tus adapters.
+9. **Monitorea rendimiento de adapter.** Rastrea metricas de latencia de llamadas de adapter, tasas de error y tasas de cache hit.
+10. **Separa logica de validacion.** Manten la validacion de datos separada de la logica de traduccion para mantener responsabilidad unica.
+
 ## Errores Comunes
 
-- Agregar logica de negocio dentro del adapter en lugar del servicio de dominio
-- Retornar tipos externos directamente cuando solo se necesita un subconjunto de campos
-- No manejar campos faltantes o nulos en respuestas externas
+1. **Agregar logica de negocio dentro del adapter.** Los adapters deberian solo traducir datos, no contener reglas de negocio. Manten la logica de negocio en servicios de dominio.
+2. **Retornar tipos externos directamente.** Cuando solo se necesita un subconjunto de campos, mapea a tipos internos en lugar de retornar objetos externos.
+3. **No manejar campos faltantes o nulos.** Las APIs externas pueden omitir campos o retornar valores nulos. Siempre maneja estos casos gracefulmente.
+4. **Hard-codificar logica especifica de proveedor en servicios de dominio.** Esto derrota el proposito de adapters. Manten detalles de proveedor aislados.
+5. **Ignorar normalizacion de errores.** Diferentes proveedores retornan errores en diferentes formatos. Normalizalos en errores internos consistentes.
+6. **No versionar adapters.** Cuando las APIs externas cambian, soporta multiples versiones para evitar romper clientes existentes.
+7. **Sobre-cachear datos sensibles.** Ten cuidado al cachear datos financieros o personales. Considera estrategias de invalidacion de cache.
+8. **Mezclar concerns en adapters.** No combines autenticacion, rate limiting u otros concerns con logica de traduccion.
+9. **Filtrar formatos externos en mensajes de error.** Asegura que los mensajes de error usen terminologia interna, no terminologia especifica de proveedor.
+10. **Saltar tests de contrato.** Los unit tests con mocks no son suficientes. Ejecuta tests de contrato contra APIs reales para verificar integracion.
 
 ## FAQ
 
@@ -145,16 +474,34 @@ const service = new PaymentService(new StripeAdapter());
 R: Un [adapter](/patterns/design/adapter-pattern) implementa una interfaz conocida asi que el servicio consumidor no depende de que proveedor este activo. Un mapper es tipicamente una llamada de funcion aislada.
 
 **P: Deberia probar adapters con llamadas HTTP reales?**
-R: Prefiere respuestas grabadas o stubs para velocidad. Prueba el adapter real en una suite de test de contrato separada.
+R: Prefiere respuestas grabadas o stubs para velocidad. Prueba el adapter real en una suite de test de contrato separada para verificar integracion con la API real.
 
-### ¿Es este patrón adecuado para proyectos pequeños?
+**P: Puedo usar adapters para operaciones de escritura?**
+R: Si. Los adapters bidireccionales pueden convertir modelos internos de vuelta a formatos externos para actualizaciones, manteniendo los mismos beneficios de traduccion para escrituras.
 
-Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+**P: Como manejo rate limits de API en adapters?**
+R: Implementa rate limiting a nivel de adapter usando algoritmos de token bucket o ventana deslizante. Considera combinar con cache para reducir llamadas API.
 
-### ¿Cómo se compara este patrón con alternativas?
+**P: Deberian los adapters manejar autenticacion?**
+R: La autenticacion deberia manejarse separadamente, tipicamente por un cliente HTTP o interceptor. Los adapters deberian enfocarse solo en traduccion de datos.
 
-Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+**P: Como versiono adapters cuando las APIs externas cambian?**
+R: Crea clases de adapter separadas para cada version de API (ej. StripeV1Adapter, StripeV2Adapter) y usa una factory para seleccionar la version apropiada basada en configuracion.
 
-### ¿Puedo aplicar este patrón parcialmente?
+**P: Pueden los adapters usarse para streams de datos en tiempo real?**
+R: Si. Los adapters pueden transformar datos de streaming desde websockets o server-sent events a modelos de dominio internos en tiempo real.
 
-Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+**P: Como manejo fallos parciales en adapters batch?**
+R: Implementa manejo de exito parcial donde el adapter retorna tanto items transformados exitosamente como items fallidos con detalles de error.
+
+**P: Deberian los adapters realizar enriquecimiento de datos?**
+R: No. El enriquecimiento deberia manejarse por servicios de dominio. Los adapters deberian solo traducir datos externos a formatos internos.
+
+**P: ¿Es este patrón adecuado para proyectos pequeños?**
+R: Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+
+**P: ¿Cómo se compara este patrón con alternativas?**
+R: Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+
+**P: ¿Puedo aplicar este patrón parcialmente?**
+R: Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.

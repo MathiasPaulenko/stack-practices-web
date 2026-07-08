@@ -223,3 +223,285 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### GitLab CI Integration
+
+```yaml
+# .gitlab-ci.yml
+container_scan:
+  stage: test
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  variables:
+    TRIVY_NO_PROGRESS: "true"
+    TRIVY_CACHE_DIR: ".trivycache/"
+  cache:
+    key: trivy
+    paths:
+      - .trivycache/
+  before_script:
+    - docker build -t app:$CI_COMMIT_SHA .
+  script:
+    - trivy image --exit-code 1 --severity CRITICAL,HIGH --ignore-unfixed app:$CI_COMMIT_SHA
+  artifacts:
+    reports:
+      container_scanning: gl-container-scanning-report.json
+  allow_failure: false
+```
+
+### Grype (Alternative Scanner)
+
+```bash
+# Install Grype (Anchore)
+curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh
+
+# Scan an image
+grype myapp:latest
+
+# Only fail on fixable vulnerabilities
+grype myapp:latest --fail-on high --only-fixed
+
+# Output JSON for integration
+grype myapp:latest -o json > grype-results.json
+
+# SBOM generation with Syft (companion tool)
+syft myapp:latest -o json > sbom.json
+grype sbom:sbom.json --fail-on high
+```
+
+### SBOM (Software Bill of Materials)
+
+```bash
+# Generate SBOM with Syft
+syft myapp:latest -o cyclonedx-json > sbom.cyclonedx.json
+
+# Generate SPDX format
+syft myapp:latest -o spdx-json > sbom.spdx.json
+
+# Scan SBOM with Grype (no Docker needed)
+grype sbom:sbom.cyclonedx.json
+
+# Store SBOM as artifact for compliance
+# CI/CD: upload with build artifacts
+```
+
+```yaml
+# GitHub Actions: SBOM generation
+- name: Generate SBOM
+  run: |
+    curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh
+    syft app:${{ github.sha }} -o cyclonedx-json > sbom.json
+
+- uses: actions/upload-artifact@v4
+  with:
+    name: sbom
+    path: sbom.json
+    retention-days: 365  # Keep for compliance
+```
+
+### Kyverno Admission Control (Kubernetes)
+
+```yaml
+# kyverno-policy.yaml
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: deny-images-with-critical-vulns
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: deny-critical-vulnerabilities
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Images with CRITICAL vulnerabilities are not allowed"
+      foreach:
+      - list: "request.object.spec.containers"
+        deny:
+          conditions:
+            any:
+            - key: "{{ element.image }}"
+              operator: Equals
+              value: ""  # Add your vulnerable image check
+```
+
+### Multi-Stage Scan Pipeline
+
+```yaml
+# .github/workflows/multi-scan.yml
+name: Multi-Scanner Security
+on: [push]
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t app:${{ github.sha }} .
+      - uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: app:${{ github.sha }}
+          format: json
+          output: trivy.json
+
+  grype:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t app:${{ github.sha }} .
+      - run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh
+          grype app:${{ github.sha }} -o json > grype.json
+
+  secrets-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  report:
+    needs: [trivy, grype, secrets-scan]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+      - name: Consolidate reports
+        run: |
+          echo "## Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Trivy: $(jq '.Results | length' trivy/trivy.json) findings" >> $GITHUB_STEP_SUMMARY
+          echo "- Grype: $(jq '.matches | length' grype/grype.json) findings" >> $GITHUB_STEP_SUMMARY
+```
+
+## Additional Best Practices
+
+1. **Pin base image versions.** Never use `latest` tags in production Dockerfiles:
+
+```dockerfile
+# Bad: unpredictable, may introduce new vulnerabilities
+FROM node:latest
+
+# Good: pinned, reproducible, auditable
+FROM node:20.11.1-alpine3.19
+```
+
+1. **Scan base images separately.** Cache results to avoid rescanning unchanged layers:
+
+```bash
+# Scan base image once and cache
+trivy image node:20-alpine --cache-dir .trivycache
+
+# Scan only application layers (faster)
+trivy image --skip-dirs /usr/local/lib/node_modules app:latest
+```
+
+1. **Set up automatic base image updates.** Use Renovate or Dependabot for base image PRs:
+
+```yaml
+# .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+```
+
+## Additional Common Mistakes
+
+1. **Scanning only the final image.** Multi-stage builds can hide vulnerabilities in builder stages:
+
+```bash
+# Scan all stages, not just final
+trivy image --scan-source build,final app:latest
+```
+
+1. **Not scanning IaC files.** Misconfigurations in Kubernetes manifests and Terraform are also risks:
+
+```bash
+# Scan Kubernetes manifests
+trivy config k8s/
+
+# Scan Terraform
+trivy config terraform/
+
+# Scan Helm charts
+trivy config charts/
+```
+
+1. **Ignoring license compliance.** Vulnerability scanning is not enough; check licenses too:
+
+```bash
+# Syft can list licenses
+syft myapp:latest -o json | jq '.artifacts[] | .licenses'
+```
+
+## Additional FAQ
+
+### How do I handle false positives in vulnerability scans?
+
+Create an `.trivyignore` file with documented justifications:
+
+```bash
+# .trivyignore
+# CVE-2023-1234: False positive - package is not used at runtime
+CVE-2023-1234
+# CVE-2023-5678: Accepted risk - no fix available, mitigated by network policy
+CVE-2023-5678
+```
+
+### Should I scan in staging or only in production?
+
+Scan at every stage:
+- **Build time**: Block critical vulnerabilities before image is pushed
+- **Staging**: Full scan with policy enforcement
+- **Production**: Continuous scanning of running images for new CVEs
+
+```bash
+# Continuous scan of running production images
+trivy image --schedule "0 6 * * *" registry.io/app:prod
+```
+
+### What is SBOM and why do I need it?
+
+SBOM (Software Bill of Materials) lists every component in your image. It's required by US Executive Order 14028 for government software. Use Syft to generate and Grype to scan SBOMs without needing the actual image.
+
+## Performance Tips
+
+1. **Cache vulnerability databases.** Trivy downloads CVE databases on each run unless cached:
+
+```yaml
+# GitHub Actions: cache Trivy DB
+- uses: actions/cache@v4
+  with:
+    path: .trivycache
+    key: trivy-${{ hashFiles('**/trivy-cache-key') }}
+```
+
+1. **Use `--skip-dirs` for large images.** Skip directories with known-safe content:
+
+```bash
+trivy image --skip-dirs /usr/share/doc,/usr/share/man app:latest
+```
+
+1. **Scan in parallel with tests.** Run security scans concurrently with test jobs:
+
+```yaml
+jobs:
+  test:
+    # ...
+  scan:
+    # runs in parallel with test
+    needs: [build]
+```
+
+1. **Use `--ignore-unfixed` in CI.** Only block on vulnerabilities with available fixes to reduce noise:
+
+```bash
+trivy image --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 app:latest
+```

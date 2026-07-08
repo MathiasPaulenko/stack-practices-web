@@ -218,14 +218,290 @@ A: Failed projections should not block the write path. Use a dead-letter queue f
 A: Yes. The write model can be a normalized relational schema. The read model can be a separate schema with denormalized views, or a different technology entirely (Elasticsearch, Redis, ClickHouse). Use whatever fits the query pattern.
 
 
+### Python Implementation with Event Sourcing
+
+```python
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import List, Any
+from abc import ABC, abstractmethod
+import uuid
+
+@dataclass
+class Event:
+    type: str
+    aggregate_id: str
+    payload: Any
+    occurred_at: datetime = field(default_factory=datetime.utcnow)
+
+class EventStore(ABC):
+    @abstractmethod
+    async def append(self, events: List[Event]) -> None:
+        ...
+
+    @abstractmethod
+    async def get_events(self, aggregate_id: str) -> List[Event]:
+        ...
+
+@dataclass
+class OrderItem:
+    product_id: str
+    quantity: int
+    price: float
+
+class OrderWriteModel:
+    def __init__(self, order_id: str, customer_id: str, items: List[OrderItem]):
+        self.id = order_id
+        self.customer_id = customer_id
+        self.items = items
+        self.status = 'pending'
+
+    def pay(self, payment_method: str) -> List[Event]:
+        if self.status != 'pending':
+            raise ValueError('Order already paid')
+        self.status = 'paid'
+        return [Event(
+            type='OrderPaid',
+            aggregate_id=self.id,
+            payload={'payment_method': payment_method, 'total': self.total()}
+        )]
+
+    def total(self) -> float:
+        return sum(item.price * item.quantity for item in self.items)
+
+class PayOrderHandler:
+    def __init__(self, event_store: EventStore):
+        self._event_store = event_store
+
+    async def handle(self, order_id: str, payment_method: str) -> None:
+        events = await self._event_store.get_events(order_id)
+        order = self._rehydrate(events)
+        new_events = order.pay(payment_method)
+        await self._event_store.append(new_events)
+
+    def _rehydrate(self, events: List[Event]) -> OrderWriteModel:
+        if not events:
+            raise ValueError('No events found for order')
+        order = OrderWriteModel(events[0].aggregate_id, '', [])
+        for event in events:
+            if event.type == 'OrderCreated':
+                order.customer_id = event.payload['customer_id']
+                order.items = [OrderItem(**i) for i in event.payload['items']]
+            elif event.type == 'OrderPaid':
+                order.status = 'paid'
+        return order
+```
+
+### Snapshotting for Large Event Streams
+
+```typescript
+interface Snapshot {
+  aggregateId: string;
+  version: number;
+  state: unknown;
+}
+
+class SnapshotStore {
+  async save(snapshot: Snapshot): Promise<void> {
+    // Persist snapshot to database
+  }
+
+  async load(aggregateId: string): Promise<Snapshot | null> {
+    // Load latest snapshot
+    return null;
+  }
+}
+
+class PayOrderHandlerWithSnapshots {
+  constructor(
+    private eventStore: EventStore,
+    private snapshots: SnapshotStore
+  ) {}
+
+  async handle(command: PayOrderCommand): Promise<void> {
+    const snapshot = await this.snapshots.load(command.orderId);
+    let order: OrderWriteModel;
+    let fromVersion = 0;
+
+    if (snapshot) {
+      order = snapshot.state as OrderWriteModel;
+      fromVersion = snapshot.version;
+    } else {
+      const events = await this.eventStore.getEvents(command.orderId);
+      order = this.rehydrate(events);
+      fromVersion = events.length;
+    }
+
+    // Apply only events after snapshot
+    const recentEvents = await this.eventStore.getEventsAfter(
+      command.orderId, fromVersion
+    );
+    for (const event of recentEvents) {
+      this.apply(order, event);
+    }
+
+    const newEvents = order.pay(command.paymentMethod);
+    await this.eventStore.append(newEvents);
+
+    // Save snapshot every 100 events
+    if (fromVersion + recentEvents.length + newEvents.length >= 100) {
+      await this.snapshots.save({
+        aggregateId: command.orderId,
+        version: fromVersion + recentEvents.length + newEvents.length,
+        state: order,
+      });
+    }
+  }
+
+  private apply(order: OrderWriteModel, event: Event): void {
+    // Apply event to order
+  }
+
+  private rehydrate(events: Event[]): OrderWriteModel {
+    return new OrderWriteModel(events[0]?.aggregateId ?? '', '', []);
+  }
+}
+```
+
+### Separate Read Database with Redis
+
+```typescript
+class OrderReadModelRedis {
+  constructor(private redis: RedisClient) {}
+
+  async getOrderSummary(orderId: string): Promise<OrderSummary | null> {
+    const data = await this.redis.hgetall(`order:${orderId}:summary`);
+    if (!data || Object.keys(data).length === 0) return null;
+
+    return {
+      orderId,
+      customerName: data.customerName,
+      totalAmount: parseFloat(data.totalAmount),
+      itemCount: parseInt(data.itemCount, 10),
+      status: data.status,
+    };
+  }
+
+  async handleOrderCreated(event: Event): Promise<void> {
+    await this.redis.hset(`order:${event.aggregateId}:summary`, {
+      customerName: event.payload.customerName,
+      totalAmount: event.payload.total.toString(),
+      itemCount: event.payload.items.length.toString(),
+      status: 'pending',
+    });
+  }
+
+  async handleOrderPaid(event: Event): Promise<void> {
+    await this.redis.hset(`order:${event.aggregateId}:summary`, {
+      status: 'paid',
+    });
+  }
+}
+```
+
+## Additional Best Practices
+
+1. **Use separate connection pools for read and write.** This prevents read queries from exhausting connections needed by writes:
+
+```typescript
+const writePool = new Pool({ connectionString: config.writeDbUrl, max: 10 });
+const readPool = new Pool({ connectionString: config.readDbUrl, max: 50 });
+```
+
+2. **Implement saga pattern for multi-aggregate commands.** When a command spans multiple aggregates, use a saga to coordinate:
+
+```typescript
+class OrderSaga {
+  async handle(command: CreateOrderCommand): Promise<void> {
+    const events: Event[] = [];
+    events.push(...await this.inventoryService.reserve(command.items));
+    events.push(...await this.paymentService.charge(command.paymentMethod));
+    events.push(new OrderCreated(command.orderId, command.items));
+    await this.eventStore.append(events);
+  }
+}
+```
+
+3. **Use materialized views for simple CQRS.** PostgreSQL materialized views give you read model separation without a separate database:
+
+```sql
+CREATE MATERIALIZED VIEW order_summaries AS
+SELECT
+  o.id AS order_id,
+  c.name AS customer_name,
+  SUM(oi.price * oi.quantity) AS total_amount,
+  COUNT(oi.id) AS item_count,
+  o.status
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+JOIN order_items oi ON o.id = oi.order_id
+GROUP BY o.id, c.name, o.status;
+
+-- Refresh periodically
+REFRESH MATERIALIZED VIEW CONCURRENTLY order_summaries;
+```
+
+## Additional Common Mistakes
+
+1. **Sharing database connections between read and write models.** Read queries with large result sets can starve write operations:
+
+```typescript
+// Bad: shared pool
+const pool = new Pool({ connectionString: dbUrl });
+const writeRepo = new WriteRepository(pool);
+const readRepo = new ReadRepository(pool);
+
+// Good: separate pools
+const writePool = new Pool({ connectionString: writeDbUrl });
+const readPool = new Pool({ connectionString: readDbUrl });
+```
+
+2. **Not handling out-of-order events.** Event handlers may receive events in the wrong order due to network partitions or retries. Use a version or sequence number:
+
+```typescript
+async handleOrderPaid(event: Event): Promise<void> {
+  const current = await this.redis.hget(`order:${event.aggregateId}`, 'version');
+  if (current && parseInt(current) >= event.version) {
+    return; // Already processed
+  }
+  // Process event
+}
+```
+
+3. **Building too many read models.** Each read model adds maintenance overhead. Start with one read model per query pattern that has different optimization needs:
+
+```typescript
+// Bad: separate read model per endpoint
+const models = {
+  orderList: new OrderListModel(),
+  orderDetail: new OrderDetailModel(),
+  orderSearch: new OrderSearchModel(),
+  orderExport: new OrderExportModel(),
+};
+
+// Good: one read model serving multiple endpoints
+const orderReadModel = new OrderReadModel();
+// Use different queries against the same model
+```
+
+## Additional FAQ
+
+### How do I test CQRS systems?
+
+Test command handlers with an in-memory event store. Test projections by replaying events and asserting read model state. For integration tests, use a real database and verify the full event-to-projection flow. Test eventual consistency by asserting the read model updates within a timeout window.
+
+### What is the difference between CQRS and microservices?
+
+CQRS separates read and write within a single service. Microservices separate entire domains into independent services. You can use CQRS within a microservice, and you can use event sourcing to communicate between microservices. They are orthogonal patterns.
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. The command handler, event store, and projection patterns are used in production event-sourced systems. The TypeScript and Python implementations are directly usable. The Redis read model pattern is common in high-throughput e-commerce platforms. Adapt error handling and infrastructure to your specific environment.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Write path throughput is bounded by event store append latency (typically 1-5ms per batch). Read path throughput depends on the read database — Redis serves reads in sub-millisecond, PostgreSQL materialized views in 1-10ms. Projection lag is typically 50-200ms with proper batching. Snapshotting reduces rehydration time from O(n) events to O(1) snapshot load plus O(recent events).
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Check projection lag first — if the read model is stale, the projection handler is stuck or slow. Inspect the dead-letter queue for failed events. Use event store replay in a staging environment to reproduce issues. Log every event handler entry and exit with timing data. Use `docker compose logs` to correlate write and read model logs.

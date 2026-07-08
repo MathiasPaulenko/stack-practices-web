@@ -295,3 +295,11 @@ Los engineering handbooks pueden ser publicos y frecuentemente sirven como herra
 ### Que tan detallados deberian ser los estandares de codigo?
 
 Cubre principios y no-negociables (seguridad, manejo de errores, requisitos de testing). Deja el formateo a herramientas automatizadas (Prettier, Black, gofmt). No documentes cada decision posible — enfocate en donde el equipo ha hecho elecciones intencionales que difieren de los defaults de la industria.
+
+### Deberiamos usar un wiki o un repo Git para el handbook?
+
+Un repo Git te da historial de versiones, revisiones de pull request para cambios, y notificaciones de diff. Los wikis son mas faciles de editar pero carecen de flujos de revision. Si tu equipo ya usa PRs para codigo, un repo Git crea consistencia: los cambios del handbook pasan por el mismo proceso de revision que los cambios de codigo. Usa un wiki solo si no-ingenieros necesitan editar el handbook frecuentemente y un flujo de PR crearia friccion.
+
+### Como medimos si el handbook es util?
+
+Rastrea con que frecuencia los nuevos contratados lo referencian durante onboarding. Pregunta en check-ins de 30 dias: "El handbook respondio tus preguntas?" Monitorea queries de busqueda si tu sitio de docs soporta analiticas. Si las mismas preguntas siguen apareciendo en Slack a pesar de estar documentadas, el handbook puede ser dificil de encontrar o la seccion relevante puede ser poco clara.

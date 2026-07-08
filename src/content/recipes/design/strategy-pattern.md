@@ -241,14 +241,307 @@ A: The strategy interface should accept the broadest common input type. If strat
 A: Yes — expose a setter on the context. This is useful for adaptive algorithms (e.g., switching from A* to Dijkstra based on map size). Ensure thread safety if the context is shared between threads.
 
 
+### Strategy Registry with Dynamic Selection (TypeScript)
+
+```typescript
+class StrategyRegistry<TContext, TResult> {
+  private strategies: Map<string, (ctx: TContext) => TResult> = new Map();
+
+  register(key: string, strategy: (ctx: TContext) => TResult): void {
+    this.strategies.set(key, strategy);
+  }
+
+  select(context: TContext & { strategyKey?: string }): (ctx: TContext) => TResult {
+    const key = context.strategyKey;
+    if (!key || !this.strategies.has(key)) {
+      throw new Error(`No strategy registered for key: ${key}`);
+    }
+    return this.strategies.get(key)!;
+  }
+}
+
+// Registration at startup
+const shippingRegistry = new StrategyRegistry<Order, number>();
+
+shippingRegistry.register('flat-rate', (order) => 10);
+shippingRegistry.register('weight-based', (order) => order.totalWeight * 2.5);
+shippingRegistry.register('distance', (order) => 5 + order.distanceKm * 0.5);
+shippingRegistry.register('free-shipping', (order) => {
+  const subtotal = order.items.reduce((s, i) => s + i.price, 0);
+  return subtotal > 100 ? 0 : 10;
+});
+
+// Usage — select strategy by key from order metadata
+const calculate = shippingRegistry.select(order as Order & { strategyKey: string });
+const shipping = calculate(order);
+```
+
+### Strategy with Decorator Composition (TypeScript)
+
+```typescript
+interface PricingStrategy {
+  calculate(order: Order): Money;
+}
+
+class BasePricingStrategy implements PricingStrategy {
+  calculate(order: Order): Money {
+    return order.items.reduce(
+      (total, item) => total.add(item.price),
+      Money.zero('USD')
+    );
+  }
+}
+
+class DiscountDecorator implements PricingStrategy {
+  constructor(
+    private wrapped: PricingStrategy,
+    private discountPercentage: number
+  ) {}
+
+  calculate(order: Order): Money {
+    const base = this.wrapped.calculate(order);
+    const discount = base.multiply(this.discountPercentage / 100);
+    return base.subtract(discount);
+  }
+}
+
+class TaxDecorator implements PricingStrategy {
+  constructor(
+    private wrapped: PricingStrategy,
+    private taxRate: number
+  ) {}
+
+  calculate(order: Order): Money {
+    const base = this.wrapped.calculate(order);
+    const tax = base.multiply(this.taxRate / 100);
+    return base.add(tax);
+  }
+}
+
+class FreeShippingDecorator implements PricingStrategy {
+  constructor(
+    private wrapped: PricingStrategy,
+    private threshold: number
+  ) {}
+
+  calculate(order: Order): Money {
+    const base = this.wrapped.calculate(order);
+    if (base.amount > this.threshold) {
+      return base;
+    }
+    return base.add(new Money(10, 'USD'));
+  }
+}
+
+// Compose — stack decorators to build the final strategy
+const pricing = new FreeShippingDecorator(
+  new TaxDecorator(
+    new DiscountDecorator(
+      new BasePricingStrategy(),
+      10
+    ),
+    8
+  ),
+  100
+);
+
+const total = pricing.calculate(order);
+```
+
+### Context-Based Strategy Selection (Python)
+
+```python
+from typing import Protocol
+
+class PaymentStrategy(Protocol):
+    def pay(self, amount: float) -> str: ...
+
+class CreditCardStrategy:
+    def __init__(self, card_number: str, cvv: str):
+        self._card = card_number
+        self._cvv = cvv
+
+    def pay(self, amount: float) -> str:
+        return f"Charged ${amount:.2f} to card ending in {self._card[-4:]}"
+
+class PayPalStrategy:
+    def __init__(self, email: str):
+        self._email = email
+
+    def pay(self, amount: float) -> str:
+        return f"Charged ${amount:.2f} via PayPal ({self._email})"
+
+class CryptoStrategy:
+    def __init__(self, wallet: str):
+        self._wallet = wallet
+
+    def pay(self, amount: float) -> str:
+        return f"Charged {amount / 50000:.8f} BTC from {self._wallet[:8]}..."
+
+class PaymentContext:
+    def __init__(self):
+        self._strategies: dict[str, PaymentStrategy] = {}
+
+    def register(self, key: str, strategy: PaymentStrategy):
+        self._strategies[key] = strategy
+
+    def pay(self, method: str, amount: float) -> str:
+        strategy = self._strategies.get(method)
+        if strategy is None:
+            raise ValueError(f"Unknown payment method: {method}")
+        return strategy.pay(amount)
+
+# Usage — register strategies, select by method key
+context = PaymentContext()
+context.register('credit-card', CreditCardStrategy('4111111111111234', '123'))
+context.register('paypal', PayPalStrategy('user@example.com'))
+context.register('crypto', CryptoStrategy('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'))
+
+result = context.pay('paypal', 99.99)
+```
+
+## Additional Best Practices
+
+1. **Use a strategy factory for complex selection logic.** When selection depends on multiple factors (region, customer tier, order size), encapsulate the logic:
+
+```typescript
+class ShippingStrategyFactory {
+  create(order: Order): ShippingStrategy {
+    if (order.isInternational) {
+      return new InternationalStrategy(order.customsFee);
+    }
+    if (order.isExpress) {
+      return new ExpressStrategy(order.distanceKm);
+    }
+    if (order.totalWeight > 20) {
+      return new FreightStrategy(order.pallets);
+    }
+    return new FlatRateStrategy(10);
+  }
+}
+```
+
+2. **Make strategies immutable.** After construction, a strategy should not change its configuration. This makes them safe to share across threads and requests:
+
+```typescript
+class WeightBasedStrategy implements ShippingStrategy {
+  constructor(
+    private readonly ratePerKg: number,
+    private readonly fuelSurcharge: number
+  ) {}
+
+  calculate(order: Order): number {
+    return (order.totalWeight * this.ratePerKg) + this.fuelSurcharge;
+  }
+}
+```
+
+3. **Test strategies in isolation.** Each strategy is a unit — test it directly without the context:
+
+```typescript
+describe('WeightBasedStrategy', () => {
+  it('calculates shipping based on weight', () => {
+    const strategy = new WeightBasedStrategy(2.5);
+    const order = { totalWeight: 10 } as Order;
+    expect(strategy.calculate(order)).toBe(25);
+  });
+
+  it('returns zero for zero weight', () => {
+    const strategy = new WeightBasedStrategy(2.5);
+    const order = { totalWeight: 0 } as Order;
+    expect(strategy.calculate(order)).toBe(0);
+  });
+});
+```
+
+## Additional Common Mistakes
+
+1. **God strategy interface.** When the strategy interface grows to 5+ methods, each strategy implementation becomes a god class. Split into focused interfaces:
+
+```typescript
+// Bad: one interface does everything
+interface PaymentStrategy {
+  validate(): boolean;
+  charge(amount: number): void;
+  refund(transactionId: string): void;
+  getStatus(): PaymentStatus;
+  generateReceipt(): string;
+}
+
+// Good: split by responsibility
+interface PaymentValidator { validate(): boolean; }
+interface PaymentProcessor { charge(amount: number): void; refund(txId: string): void; }
+interface PaymentReporter { generateReceipt(): string; }
+```
+
+2. **Strategy coupled to persistence.** A strategy that reads from a database or calls an API couples algorithm selection to infrastructure. Inject data as parameters:
+
+```typescript
+// Bad: strategy fetches its own data
+class TaxStrategy implements ShippingStrategy {
+  constructor(private db: Database) {}
+  calculate(order: Order): number {
+    const rate = this.db.query('SELECT rate FROM tax_rates WHERE region = ?', order.region);
+    return order.subtotal * rate;
+  }
+}
+
+// Good: strategy receives data as parameter
+class TaxStrategy implements ShippingStrategy {
+  constructor(private rate: number) {}
+  calculate(order: Order): number {
+    return order.subtotal * this.rate;
+  }
+}
+```
+
+3. **Not handling strategy errors.** Each strategy can fail differently. Wrap strategy calls with consistent error handling:
+
+```typescript
+class CheckoutService {
+  getTotal(order: Order): number {
+    const subtotal = order.items.reduce((s, i) => s + i.price, 0);
+    let shipping: number;
+    try {
+      shipping = this.shippingStrategy.calculate(order);
+    } catch (error) {
+      console.error('Shipping calculation failed', { strategy: this.shippingStrategy.constructor.name, error });
+      shipping = 10; // fallback
+    }
+    return subtotal + shipping;
+  }
+}
+```
+
+## Additional FAQ
+
+### How do I handle strategy selection based on multiple criteria?
+
+Use a rules engine or a chain of responsibility for multi-factor selection. For simple cases, a factory with conditional logic works. For complex cases, encode selection rules as data and evaluate them:
+
+```typescript
+interface StrategyRule {
+  matches(order: Order): boolean;
+  create(): ShippingStrategy;
+}
+
+const rules: StrategyRule[] = [
+  { matches: o => o.isInternational, create: () => new InternationalStrategy(15) },
+  { matches: o => o.isExpress, create: () => new ExpressStrategy(0.8) },
+  { matches: () => true, create: () => new FlatRateStrategy(10) }, // fallback
+];
+
+const strategy = rules.find(r => r.matches(order))!.create();
+```
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. The class-based, function-based, and decorator-composed strategy patterns are all production-proven. The registry pattern mirrors how DI containers resolve strategies by key. The decorator composition is standard in pricing and shipping systems. The Python protocol-based approach is used in modern Python codebases with type checking.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Strategy method dispatch is a virtual call — negligible overhead (nanoseconds). The registry adds a hash map lookup (O(1)). Decorator stacking adds one virtual call per layer — typically 2-3 layers, still sub-microsecond. Strategy factories that query databases for configuration add I/O latency on first call; cache the result. For hot paths, pre-select the strategy at startup rather than per-request.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Log the strategy class name and key parameters before delegation. For decorator stacks, log at each layer to trace how the result is built. For registry-based selection, log the requested key and resolved strategy. Use the strategy's `toString()` or `constructor.name` to identify which implementation ran. Test strategies in isolation with in-memory inputs before integrating with the context.

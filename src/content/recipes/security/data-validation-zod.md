@@ -215,3 +215,338 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Advanced Solutions
+
+### Environment variable validation
+
+Validate environment variables at startup so missing or invalid config fails fast instead of causing runtime errors:
+
+```typescript
+// schemas/env.ts
+import { z } from 'zod';
+
+const EnvSchema = z.object({
+  NODE_ENV: z.enum(['development', 'staging', 'production']),
+  PORT: z.coerce.number().int().positive().default(3000),
+  DATABASE_URL: z.string().url(),
+  REDIS_URL: z.string().url().optional(),
+  JWT_SECRET: z.string().min(32, 'JWT secret must be at least 32 characters'),
+  JWT_EXPIRES_IN: z.string().regex(/^\d+[smhd]$/, 'Must be like "1h" or "7d"'),
+  CORS_ORIGINS: z.string()
+    .transform((val) => val.split(','))
+    .pipe(z.array(z.string().url())),
+  RATE_LIMIT_MAX: z.coerce.number().int().positive().default(100),
+  LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
+});
+
+const parsed = EnvSchema.safeParse(process.env);
+
+if (!parsed.success) {
+  console.error('Invalid environment configuration:');
+  parsed.error.issues.forEach((issue) => {
+    console.error(`  ${issue.path.join('.')}: ${issue.message}`);
+  });
+  process.exit(1);
+}
+
+export const env = parsed.data;
+// env is fully typed: env.PORT is number, env.CORS_ORIGINS is string[]
+```
+
+### Discriminated unions for API responses
+
+Handle polymorphic payloads with discriminated unions so each variant gets its own typed shape:
+
+```typescript
+// schemas/webhook.ts
+import { z } from 'zod';
+
+const OrderCreatedEvent = z.object({
+  type: z.literal('order.created'),
+  data: z.object({
+    orderId: z.string().uuid(),
+    customerId: z.string().uuid(),
+    amount: z.number().positive(),
+    currency: z.string().length(3),
+  }),
+});
+
+const OrderRefundedEvent = z.object({
+  type: z.literal('order.refunded'),
+  data: z.object({
+    orderId: z.string().uuid(),
+    refundAmount: z.number().positive(),
+    reason: z.string().min(1).max(500),
+  }),
+});
+
+const OrderShippedEvent = z.object({
+  type: z.literal('order.shipped'),
+  data: z.object({
+    orderId: z.string().uuid(),
+    carrier: z.string(),
+    trackingNumber: z.string(),
+    shippedAt: z.coerce.date(),
+  }),
+});
+
+const WebhookEvent = z.discriminatedUnion('type', [
+  OrderCreatedEvent,
+  OrderRefundedEvent,
+  OrderShippedEvent,
+]);
+
+type WebhookEvent = z.infer<typeof WebhookEvent>;
+
+// Usage: TypeScript narrows the type based on `type`
+function handleWebhook(event: WebhookEvent) {
+  switch (event.type) {
+    case 'order.created':
+      // event.data.amount is number
+      console.log(`Order ${event.data.orderId} created for ${event.data.amount}`);
+      break;
+    case 'order.refunded':
+      // event.data.refundAmount is number
+      console.log(`Refund ${event.data.refundAmount} for ${event.data.orderId}`);
+      break;
+    case 'order.shipped':
+      // event.data.trackingNumber is string
+      console.log(`Shipped via ${event.data.carrier}: ${event.data.trackingNumber}`);
+      break;
+  }
+}
+```
+
+### Async refinements for database checks
+
+```typescript
+// schemas/registration.ts
+import { z } from 'zod';
+import { db } from '../db/client';
+
+const RegistrationSchema = z.object({
+  email: z.string().email(),
+  username: z.string().min(3).max(20).regex(/^[a-zA-Z0-9_]+$/),
+  password: z.string().min(8),
+})
+  .refine(
+    async (data) => {
+      const existing = await db.user.findUnique({
+        where: { email: data.email },
+      });
+      return !existing;
+    },
+    { message: 'Email already registered', path: ['email'] },
+  )
+  .refine(
+    async (data) => {
+      const existing = await db.user.findUnique({
+        where: { username: data.username },
+      });
+      return !existing;
+    },
+    { message: 'Username already taken', path: ['username'] },
+  );
+
+// Usage with async parse
+async function registerUser(input: unknown) {
+  const result = await RegistrationSchema.safeParseAsync(input);
+  if (!result.success) {
+    return { errors: formatZodErrors(result.error) };
+  }
+  // result.data is fully validated including async checks
+  return { user: result.data };
+}
+```
+
+### Recursive schemas for nested comments
+
+```typescript
+// schemas/comment.ts
+import { z } from 'zod';
+
+const CommentSchema: z.ZodType<Comment> = z.lazy(() =>
+  z.object({
+    id: z.string().uuid(),
+    author: z.string().min(1),
+    body: z.string().min(1).max(5000),
+    createdAt: z.coerce.date(),
+    replies: z.array(CommentSchema).default([]),
+  }),
+);
+
+interface Comment {
+  id: string;
+  author: string;
+  body: string;
+  createdAt: Date;
+  replies: Comment[];
+}
+
+// Validates arbitrarily nested comment trees
+const commentTree = CommentSchema.parse(inputFromApi);
+```
+
+### Zod with React Hook Form integration
+
+```typescript
+// hooks/useZodForm.ts
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const RegistrationFormSchema = z.object({
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  email: z.string().email('Enter a valid email'),
+  password: z.string()
+    .min(8, 'At least 8 characters')
+    .regex(/[A-Z]/, 'Must contain an uppercase letter')
+    .regex(/[0-9]/, 'Must contain a number'),
+  confirmPassword: z.string(),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({ message: 'You must accept the terms' }),
+  }),
+}).refine(
+  (data) => data.password === data.confirmPassword,
+  { message: 'Passwords do not match', path: ['confirmPassword'] },
+);
+
+type RegistrationForm = z.infer<typeof RegistrationFormSchema>;
+
+function RegistrationForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegistrationForm>({
+    resolver: zodResolver(RegistrationFormSchema),
+  });
+
+  const onSubmit = async (data: RegistrationForm) => {
+    // data is fully typed and validated
+    await api.register(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('firstName')} />
+      {errors.firstName && <span>{errors.firstName.message}</span>}
+      <input {...register('email')} type="email" />
+      {errors.email && <span>{errors.email.message}</span>}
+      <input {...register('password')} type="password" />
+      {errors.password && <span>{errors.password.message}</span>}
+      <button type="submit" disabled={isSubmitting}>Register</button>
+    </form>
+  );
+}
+```
+
+## Additional Best Practices
+
+1. **Use `.strict()` on API input schemas.** Reject unexpected properties to prevent mass assignment attacks and catch client bugs early:
+
+```typescript
+const CreateUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(2),
+  role: z.enum(['user', 'admin']).default('user'),
+}).strict(); // Rejects unknown keys like `id`, `createdAt`, `isAdmin`
+
+// Without .strict(), an attacker could send { email, name, role: 'admin', id: '...' }
+// and the extra fields would pass through silently
+```
+
+2. **Reuse schemas with `.pick()`, `.omit()`, and `.extend()`.** Avoid duplicating schema definitions for related DTOs:
+
+```typescript
+const BaseUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(2),
+  role: z.enum(['user', 'admin']),
+});
+
+// CreateUser: same fields, no id
+const CreateUserSchema = BaseUserSchema.strict();
+
+// UpdateUser: all fields optional
+const UpdateUserSchema = BaseUserSchema.partial();
+
+// AdminUser: extends with admin-only fields
+const AdminUserSchema = BaseUserSchema.extend({
+  permissions: z.array(z.string()),
+  department: z.string(),
+});
+```
+
+## Additional Common Mistakes
+
+1. **Not stripping sensitive fields from output.** Validation schemas define what input you accept, but you also need output schemas to avoid leaking fields like `passwordHash`:
+
+```typescript
+// Input schema accepts password
+const RegisterInputSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+// Output schema excludes password
+const UserOutputSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+  name: z.string(),
+  createdAt: z.coerce.date(),
+}).strict();
+
+// Always validate output before sending to client
+app.post('/register', async (req, res) => {
+  const input = RegisterInputSchema.parse(req.body);
+  const user = await createUser(input);
+  const output = UserOutputSchema.parse(user); // Strips passwordHash
+  res.json(output);
+});
+```
+
+2. **Using `.regex()` for email validation instead of `.email()`.** Custom regex patterns often miss edge cases defined in RFC 5322. Use Zod's built-in `.email()` which handles common formats correctly, and add domain restrictions with `.refine()` only if needed.
+
+## Additional FAQ
+
+### How do I handle file uploads with Zod?
+
+Zod does not validate file contents directly. Validate the metadata (filename, MIME type, size) with Zod, then validate the file contents separately:
+
+```typescript
+const FileUploadSchema = z.object({
+  filename: z.string().min(1).max(255),
+  mimeType: z.enum(['image/jpeg', 'image/png', 'image/webp', 'application/pdf']),
+  size: z.number().int().positive().max(10 * 1024 * 1024, 'Max 10MB'),
+});
+
+// Validate metadata, then check magic bytes separately
+const fileMeta = FileUploadSchema.parse({
+  filename: file.name,
+  mimeType: file.type,
+  size: file.size,
+});
+```
+
+### Can I use Zod with MongoDB or Mongoose?
+
+Yes. Define Zod schemas for input validation and use Mongoose schemas for storage. Validate incoming data with Zod before passing to Mongoose models. This separates validation concerns (Zod) from persistence concerns (Mongoose):
+
+```typescript
+const CreateUserInput = z.object({
+  email: z.string().email(),
+  name: z.string().min(2),
+  age: z.number().int().min(0).max(150).optional(),
+});
+
+// Validate input, then save with Mongoose
+const validated = CreateUserInput.parse(req.body);
+const user = await User.create(validated);
+```
+
+### How does Zod handle prototype pollution?
+
+Zod strips `__proto__`, `constructor`, and `prototype` keys from parsed objects by default when using `.strict()` or when the schema does not explicitly allow those keys. Always use `.strict()` on API input schemas to reject any unexpected keys including prototype pollution attempts.

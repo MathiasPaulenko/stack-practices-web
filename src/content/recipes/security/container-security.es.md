@@ -161,3 +161,243 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### Dockerfile hardened multi-stage
+
+```dockerfile
+# Stage 1: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Instalar dependencias con audit
+COPY package*.json ./
+RUN npm ci --audit --omit=dev
+
+# Stage 2: Producción
+FROM gcr.io/distroless/nodejs20-debian12 AS production
+
+# Copiar solo artifacts construidos
+COPY --from=builder --chown=65532:65532 /app/node_modules /app/node_modules
+COPY --from=builder --chown=65532:65532 /app/package.json /app/package.json
+COPY --chown=65532:65532 . /app
+
+# Seguridad: usuario non-root, read-only filesystem, no new privileges
+USER 65532:65532
+WORKDIR /app
+
+# Dropear todas las capabilities de Linux
+# Setear via docker run: --cap-drop ALL --security-opt no-new-privileges
+# Setear via Kubernetes: securityContext.runAsNonRoot, readOnlyRootFilesystem
+
+EXPOSE 3000
+CMD ["server.js"]
+```
+
+### Generación de SBOM con Syft
+
+Genera un Software Bill of Materials (SBOM) para trazabilidad y compliance:
+
+```bash
+# Generar SBOM en formato SPDX
+syft myapp:latest -o spdx-json > sbom.spdx.json
+
+# Generar SBOM en formato CycloneDX
+syft myapp:latest -o cyclonedx-json > sbom.cyclonedx.json
+
+# Escanear SBOM para vulnerabilidades con Grype
+grype sbom:sbom.cyclonedx.json --fail-on high
+
+# Adjuntar SBOM a imagen como artifact OCI
+cosign attach sbom --sbom sbom.spdx.json myapp:latest
+```
+
+### Firma y verificación de imágenes con Cosign
+
+```bash
+# Generar par de keys para firma
+cosign generate-key-pair
+
+# Firmar la imagen
+export COSIGN_PASSWORD="tu-password"
+cosign sign --key cosign.key myapp:latest
+
+# Verificar la firma antes del deploy
+cosign verify --key cosign.pub myapp:latest
+
+# Firmar con OIDC (keyless signing en CI)
+cosign sign --identity-token $OIDC_TOKEN myapp:latest
+
+# Verificar con identidad de certificado
+cosign verify \
+  --certificate-identity "https://github.com/myorg/myrepo/.github/workflows/deploy.yml@refs/heads/main" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+  myapp:latest
+```
+
+### Kubernetes security context
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  template:
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: myapp
+          image: myapp:latest@sha256:abc123...
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
+```
+
+### Cache y políticas de ignore de Trivy
+
+```yaml
+# .trivyignore — falsos positivos conocidos o riesgos aceptados
+CVE-2023-1234  # Falso positivo: nuestro código no usa la función vulnerable
+CVE-2023-5678  # Riesgo aceptado: mitigado por network policy
+
+# trivy.yaml — configuración de Trivy
+scan:
+  severity: [CRITICAL, HIGH]
+  ignore-unfixed: true
+  ignore-policy: .trivyignore
+  skip-dirs:
+    - /tests
+    - /docs
+
+# GitHub Actions con caching
+name: Container Scan
+on: [push]
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Trivy DB
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ github.run_id }}
+          restore-keys: trivy-db-
+
+      - name: Build and scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'myapp:latest'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
+          exit-code: '1'
+
+      - name: Upload SARIF to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa `docker scan` o `trivy` localmente antes de pushear.** Captura vulnerabilidades temprano en desarrollo:
+
+```bash
+# Añadir a Makefile o scripts de package.json
+scan:
+    trivy fs --severity CRITICAL,HIGH .
+    trivy build --severity CRITICAL,HIGH .
+
+# Pre-commit hook
+#!/bin/bash
+trivy fs --severity CRITICAL,HIGH --exit-code 1 .
+```
+
+2. **Actualiza imágenes base regularmente.** Suscríbete a advisories de seguridad para tus imágenes base y configura PRs automatizados:
+
+```yaml
+# .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+```
+
+## Errores Comunes Adicionales
+
+1. **Ejecutar containers como root.** Muchas imágenes base usan root por defecto. Siempre especifica un usuario non-root:
+
+```dockerfile
+# INCORRECTO: ejecuta como root por defecto
+FROM node:20
+COPY . /app
+CMD ["node", "server.js"]
+
+# CORRECTO: usuario non-root explícito
+FROM node:20
+RUN groupadd -r app && useradd -r -g app app
+USER app
+COPY --chown=app:app . /app
+CMD ["node", "server.js"]
+```
+
+2. **No configurar límites de recursos.** Un container comprometido puede consumir todos los recursos del host. Siempre setea límites en Kubernetes o Docker:
+
+```bash
+# Docker: setear límites de memoria y CPU
+docker run --memory=256m --cpus=0.5 myapp:latest
+
+# Docker Compose
+services:
+  app:
+    image: myapp:latest
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo manejo falsos positivos en escaneos de vulnerabilidades?
+
+Crea un archivo `.trivyignore` listando los IDs de CVE que has revisado y determinado que son falsos positivos. Documenta la justificación de cada CVE ignorado y revisa la lista trimestralmente. Alternativamente, usa el flag `--ignore-policy` de Trivy con una política OPA Rego personalizada para filtrado más complejo.
+
+### ¿Cuál es la diferencia entre image scanning y runtime security?
+
+Image scanning ocurre en build time y verifica los contenidos estáticos de la imagen (paquetes, configs, secrets). Runtime security monitorea el container mientras se ejecuta — detectando ejecución de procesos anómalos, acceso a archivos, conexiones de red y escalada de privilegios. Usa ambos: scanning previene que vulnerabilidades conocidas se desplieguen, runtime security captura amenazas desconocidas y zero-days.
+
+### ¿Debo usar imágenes base distroless o Alpine?
+
+Ambas reducen la superficie de ataque pero difieren en compatibilidad. Las imágenes distroless no tienen shell, package manager ni binarios extra — menor superficie de ataque pero más difíciles de debuggear. Alpine usa musl libc en lugar de glibc, lo que puede causar problemas de compatibilidad con algunas librerías. Elige distroless para producción, Alpine para imágenes más pequeñas donde necesitas un shell para debugging.

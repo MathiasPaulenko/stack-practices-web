@@ -273,3 +273,198 @@ Configuration settings are typically static and apply globally (timeout values, 
 ### Can I use feature flags for authorization?
 
 No. Feature flags control feature visibility and rollout; authorization controls access rights. Do not use flags to enforce security boundaries. A user bypassing a flag check should not gain unauthorized access to sensitive data or operations.
+
+### Managed Service Integration (LaunchDarkly)
+
+```python
+from ldclient import LDClient
+from ldclient.config import Config
+
+ldclient = LDClient(Config(sdk_key="sdk-xxx"))
+
+def is_enabled(flag: str, user: dict) -> bool:
+    return ldclient.variation(flag, user, default=False)
+
+# Usage
+user = {"key": "user_123", "email": "user@example.com", "country": "US"}
+if is_enabled("new_checkout", user):
+    render_new_checkout()
+```
+
+### Staged Rollout Strategy
+
+```python
+# Progressive rollout schedule
+rollout_plan = [
+    {"percentage": 1,  "duration_hours": 24,  "monitor": True},
+    {"percentage": 5,  "duration_hours": 48,  "monitor": True},
+    {"percentage": 25, "duration_hours": 72,  "monitor": True},
+    {"percentage": 50, "duration_hours": 96,  "monitor": True},
+    {"percentage": 100,"duration_hours": 0,   "monitor": True},
+]
+
+def advance_rollout(flag: str, current_pct: int) -> int:
+    for stage in rollout_plan:
+        if stage["percentage"] > current_pct:
+            update_flag(flag, {"percentage": stage["percentage"]})
+            return stage["percentage"]
+    return 100
+```
+
+### A/B Testing with Feature Flags
+
+```javascript
+// Assign users to variant A or B deterministically
+function getVariant(flag, userId) {
+  const bucket = hashBucket(userId, flag);
+  if (bucket < 50) return "A";  // control
+  return "B";                    // treatment
+}
+
+// Track conversion events per variant
+function trackExperiment(flag, userId, variant, event) {
+  analytics.track({
+    experiment: flag,
+    userId,
+    variant,
+    event,
+    timestamp: Date.now(),
+  });
+}
+
+// Usage
+const variant = getVariant("checkout_redesign", userId);
+if (variant === "B") {
+  renderNewCheckout();
+} else {
+  renderOldCheckout();
+}
+trackExperiment("checkout_redesign", userId, variant, "checkout_view");
+```
+
+## Additional Best Practices
+
+1. **Name flags with a convention.** Use `team_feature_state` format for discoverability:
+
+```yaml
+# Good: clear team, feature, and state
+checkout_new_payment_flow_beta
+auth_oauth_migration_canary
+analytics_v2_enabled
+
+# Bad: ambiguous, no team prefix
+new_feature
+flag_1
+temp_toggle
+```
+
+2. **Add expiry dates to flags.** Prevent zombie flags by setting a cleanup date:
+
+```python
+flag_config = {
+    "new_dashboard": {
+        "enabled": True,
+        "expires": "2026-09-01",  # remove after this date
+        "owner": "frontend-team",
+    }
+}
+```
+
+3. **Use flag metadata for observability.** Tag flags with team, ticket, and risk level:
+
+```yaml
+new_checkout:
+  enabled: true
+  percentage: 25
+  owner: payments-team
+  ticket: PROJ-1234
+  risk: high
+  rollback_plan: "Set percentage to 0"
+```
+
+## Additional Common Mistakes
+
+1. **Nesting flags inside flags.** Complex conditional logic becomes untestable:
+
+```python
+# Bad: flag spaghetti
+if flags.is_enabled("feature_a"):
+    if flags.is_enabled("feature_b"):
+        if flags.is_enabled("feature_c"):
+            do_thing()
+
+# Good: one flag per concern
+if flags.is_enabled("feature_abc"):
+    do_thing()
+```
+
+2. **Not testing the off state.** Always verify the feature-off path works:
+
+```python
+# Test both states in CI
+@pytest.mark.parametrize("flag_state", [True, False])
+def test_checkout(flag_state, monkeypatch):
+    monkeypatch.setattr(flags, "is_enabled", lambda f, u=None: flag_state)
+    response = client.get("/checkout")
+    assert response.status_code == 200
+```
+
+3. **Toggling flags during active requests.** Use snapshot evaluation to avoid mid-request changes:
+
+```python
+# Evaluate once per request, not per check
+flag_snapshot = {
+    flag: flags.is_enabled(flag, user_id)
+    for flag in required_flags
+}
+# Use flag_snapshot throughout the request lifecycle
+```
+
+## Additional FAQ
+
+### How do I manage flags across environments?
+
+Use separate flag configs per environment (dev, staging, prod). In dev, flags can be on by default for testing. In prod, default to off. Managed services like LaunchDarkly or Unleash handle this with environment-scoped projects.
+
+### What is a dark launch?
+
+A dark launch deploys new code to production but keeps it invisible to users via a flag. You can test infrastructure, performance, and integration with real traffic by routing a copy of requests to the new code path while serving users the old response.
+
+### How many flags should I have?
+
+Keep active flags under 20-30 per service. More than that indicates insufficient cleanup. Run a monthly flag audit to identify and remove stale flags.
+
+## Performance Tips
+
+1. **Cache flag evaluations per request.** Avoid repeated lookups for the same flag:
+
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def cached_is_enabled(flag: str, user_id: str) -> bool:
+    return flags.is_enabled(flag, user_id)
+```
+
+2. **Use local evaluation.** Avoid network calls per flag check by downloading the flag config:
+
+```python
+# Download flag config once, evaluate locally
+flag_config = fetch_flag_config()  # periodic refresh
+local_flags = FeatureFlags(flag_config)
+
+# Evaluate without network calls
+if local_flags.is_enabled("new_feature", user_id):
+    ...
+```
+
+3. **Batch flag evaluations.** Reduce SDK calls by evaluating multiple flags at once:
+
+```python
+# LaunchDarkly: evaluate all flags in one call
+all_flags = ldclient.all_flags_state(user)
+if all_flags.get_flag_value("new_checkout"):
+    render_new_checkout()
+if all_flags.get_flag_value("new_search"):
+    render_new_search()
+```

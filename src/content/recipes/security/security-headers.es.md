@@ -159,3 +159,299 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Soluciones Avanzadas
+
+### CSP report-only con reporte de violaciones
+
+Despliega CSP en modo report-only primero para capturar violaciones sin romper nada:
+
+```javascript
+const express = require('express');
+const helmet = require('helmet');
+
+const app = express();
+
+// CSP report-only: logea violaciones pero no bloquea
+app.use(helmet.contentSecurityPolicy({
+  useDefaults: false,
+  directives: {
+    'default-src': ["'self'"],
+    'script-src': ["'self'", 'https://cdn.example.com'],
+    'style-src': ["'self'", 'https://fonts.googleapis.com'],
+    'img-src': ["'self'", 'data:', 'https:'],
+    'connect-src': ["'self'", 'https://api.example.com'],
+    'report-uri': ['/api/csp-report'],
+  },
+  reportOnly: true,
+}));
+
+// Endpoint para recibir reportes de violaciones CSP
+app.post('/api/csp-report', express.json({ type: 'application/csp-report' }), (req, res) => {
+  const report = req.body['csp-report'];
+  console.warn('Violación CSP:', {
+    'document-uri': report['document-uri'],
+    'violated-directive': report['violated-directive'],
+    'blocked-uri': report['blocked-uri'],
+    'line-number': report['line-number'],
+    'source-file': report['source-file'],
+  });
+  res.status(204).end();
+});
+
+// Después de recolectar reportes por 1-2 semanas, cambiar a CSP enforceante
+// removiendo reportOnly: true y manteniendo la directiva report-uri
+```
+
+### Django security headers middleware
+
+```python
+# settings.py
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # ... otro middleware
+]
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
+
+# CSP via django-csp
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://cdn.example.com')
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_IMG_SRC = ("'self'", 'data:', 'https:')
+CSP_CONNECT_SRC = ("'self'", 'https://api.example.com')
+CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
+CSP_FRAME_ANCESTORS = ("'none'",)
+CSP_REPORT_URI = '/csp-report/'
+```
+
+### Spring Boot security headers
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.header.writers.XXssProtectionHeaderWriter;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .headers(headers -> headers
+                .contentSecurityPolicy(csp -> csp.policyDirectives(
+                    "default-src 'self'; " +
+                    "script-src 'self' https://cdn.example.com; " +
+                    "style-src 'self' https://fonts.googleapis.com; " +
+                    "img-src 'self' data: https:; " +
+                    "connect-src 'self' https://api.example.com; " +
+                    "frame-ancestors 'none'; " +
+                    "base-uri 'self'; " +
+                    "object-src 'none'"
+                ))
+                .httpStrictTransportSecurity(hsts -> hsts
+                    .maxAgeInSeconds(31536000)
+                    .includeSubDomains(true)
+                    .preload(true)
+                )
+                .contentTypeOptions(opts -> {}) // X-Content-Type-Options: nosniff
+                .frameOptions(frame -> frame.deny())
+                .xssProtection(xss -> xss.headerValue(
+                    XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK
+                ))
+                .referrerPolicy(referrer -> referrer.policy(
+                    org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
+                ))
+            )
+            .csrf(csrf -> csrf.disable()); // Deshabilitar CSRF para apps API-only
+
+        return http.build();
+    }
+}
+```
+
+### Headers de aislamiento cross-origin (COEP, COOP, CORP)
+
+Para aplicaciones que necesitan SharedArrayBuffer u otras APIs avanzadas, configura headers de aislamiento cross-origin:
+
+```nginx
+# Nginx: habilitar aislamiento cross-origin
+server {
+    # Cross-Origin Embedder Policy: requiere CORS para recursos cross-origin
+    add_header Cross-Origin-Embedder-Policy "require-corp" always;
+
+    # Cross-Origin Opener Policy: aislar grupo de contexto de navegación
+    add_header Cross-Origin-Opener-Policy "same-origin" always;
+
+    # Cross-Origin Resource Policy: restringir quién puede embeber este recurso
+    add_header Cross-Origin-Resource-Policy "same-origin" always;
+
+    # Headers de seguridad estándar
+    add_header Content-Security-Policy "default-src 'self'" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()" always;
+}
+```
+
+### Auditoría automatizada de security headers (Python)
+
+```python
+import requests
+from typing import dict
+
+REQUIRED_HEADERS = {
+    'content-security-policy': 'Bloquea XSS e inyección de recursos',
+    'strict-transport-security': 'Fuerza HTTPS',
+    'x-content-type-options': 'Previene MIME sniffing',
+    'x-frame-options': 'Previene clickjacking',
+    'referrer-policy': 'Controla filtración de referrer',
+    'permissions-policy': 'Restringe APIs del navegador',
+}
+
+def audit_security_headers(url: str) -> dict:
+    """Auditar una URL para headers de seguridad faltantes."""
+    try:
+        response = requests.head(url, allow_redirects=True, timeout=10)
+    except requests.RequestException as e:
+        return {'error': str(e)}
+
+    results = {
+        'url': url,
+        'status': response.status_code,
+        'present': {},
+        'missing': {},
+        'warnings': [],
+    }
+
+    for header, purpose in REQUIRED_HEADERS.items():
+        value = response.headers.get(header)
+        if value:
+            results['present'][header] = value
+            # Verificar configuraciones débiles
+            if header == 'content-security-policy' and "'unsafe-inline'" in value:
+                results['warnings'].append(
+                    f"CSP contiene 'unsafe-inline' — considera usar nonces"
+                )
+            if header == 'strict-transport-security' and 'max-age=0' in value:
+                results['warnings'].append(
+                    "HSTS max-age es 0 — HSTS está efectivamente deshabilitado"
+                )
+        else:
+            results['missing'][header] = purpose
+
+    return results
+
+# Uso
+audit = audit_security_headers('https://example.com')
+print(f"Presentes: {len(audit['present'])}/{len(REQUIRED_HEADERS)}")
+if audit['missing']:
+    print("Headers faltantes:")
+    for h, p in audit['missing'].items():
+        print(f"  - {h}: {p}")
+if audit['warnings']:
+    print("Advertencias:")
+    for w in audit['warnings']:
+        print(f"  - {w}")
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Configura headers también en páginas de error.** Los navegadores siguen procesando headers en respuestas 404 y 500. Asegura que tu web server o framework aplique security headers universalmente:
+
+```javascript
+// Express: aplicar helmet antes de los route handlers para que cubra errores
+app.use(helmet());
+
+// Error handler sigue recibiendo security headers
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: 'Error interno del servidor' });
+  // Los headers de helmet ya están seteados en la respuesta
+});
+```
+
+2. **Usa `Permissions-Policy` para deshabilitar APIs no usadas.** Restringe acceso a features del navegador que tu app no necesita:
+
+```http
+Permissions-Policy: accelerometer=(), autoplay=(), camera=(), encrypted-media=(),
+  fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(),
+  midi=(), payment=(), picture-in-picture=(), sync-xhr=(), usb=()
+```
+
+## Errores Comunes Adicionales
+
+1. **Configurar HSTS en respuestas HTTP.** HSTS solo funciona sobre HTTPS. Configurarlo en respuestas HTTP no tiene efecto y puede confundir el debugging:
+
+```nginx
+# INCORRECTO: HSTS en HTTP
+server {
+    listen 80;
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    return 301 https://$host$request_uri;
+}
+
+# CORRECTO: redirigir HTTP a HTTPS, setear HSTS solo en HTTPS
+server {
+    listen 80;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+}
+```
+
+2. **Usar `X-Frame-Options: ALLOW-FROM` que está deprecado.** Los navegadores modernos ignoran `ALLOW-FROM`. Usa CSP `frame-ancestors` en su lugar:
+
+```http
+# INCORRECTO: deprecado e ignorado por navegadores modernos
+X-Frame-Options: ALLOW-FROM https://trusted-site.com
+
+# CORRECTO: usar CSP frame-ancestors
+Content-Security-Policy: frame-ancestors https://trusted-site.com
+```
+
+## Preguntas Frecuentes Adicionales
+
+### ¿Cómo pruebo CSP sin romper mi sitio?
+
+Usa el header `Content-Security-Policy-Report-Only`. Logea violaciones a un endpoint de reporte sin bloquear nada. Despliega en modo report-only por 1-2 semanas, revisa los reportes, arregla cualquier violación legítima, luego cambia a modo enforceante.
+
+### ¿Qué headers debo configurar para respuestas API-only?
+
+Para APIs JSON consumidas por navegadores, configura como mínimo: `Content-Type: application/json`, `X-Content-Type-Options: nosniff`, `Strict-Transport-Security`, `Cache-Control: no-store` (para datos sensibles), y `Access-Control-Allow-Origin` (si es cross-origin). CSP es menos relevante para respuestas API pero no duele.
+
+### ¿Cómo manejo CSP con scripts cargados dinámicamente?
+
+Usa nonces o hashes para scripts cargados dinámicamente. Genera un nonce por-request e inclúyelo tanto en el header CSP como en el script tag:
+
+```javascript
+// Server: generar nonce por request
+const nonce = crypto.randomUUID();
+res.setHeader('Content-Security-Policy',
+  `script-src 'self' 'nonce-${nonce}'`
+);
+
+// Client: incluir nonce al inyectar scripts
+const script = document.createElement('script');
+script.nonce = nonce; // Nonce del meta tag renderizado por server
+script.src = '/dynamic-loader.js';
+document.head.appendChild(script);
+```

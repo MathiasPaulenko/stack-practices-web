@@ -240,14 +240,208 @@ A: Let's Encrypt es una CA gratuita que valida la propiedad del dominio mediante
 **Q: ¿Por qué debería automatizar la renovación de certificados?**
 A: Los certificados TLS expiran. La renovación automatizada previene interrupciones del servicio por certificados vencidos y reduce el trabajo operativo manual.
 
-### ¿Esta solución está lista para producción?
+### Desafío DNS para Certificados Wildcard
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+```bash
+# Certificados wildcard requieren desafío DNS-01
+certbot certonly --manual --preferred-challenges dns \
+  -d "*.example.com" -d example.com \
+  --agree-tos --email admin@example.com
 
-### ¿Cuáles son las características de rendimiento?
+# Para validación DNS automatizada con Cloudflare
+pip install certbot-dns-cloudflare
+certbot certonly --dns-cloudflare \
+  --dns-cloudflare-credentials ~/.secrets/cloudflare.ini \
+  -d "*.example.com" -d example.com
+```
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+```ini
+# ~/.secrets/cloudflare.ini
+dns_cloudflare_api_token = your-api-token-here
+```
 
-### ¿Cómo depuro problemas con este enfoque?
+### Kubernetes Ingress con cert-manager
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+```yaml
+# cert-manager.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@example.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - example.com
+        - www.example.com
+      secretName: example-tls
+  rules:
+    - host: example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app
+                port:
+                  number: 80
+```
+
+### Headers de Seguridad y OCSP Stapling
+
+```nginx
+# Agregar al server block HTTPS
+server {
+    listen 443 ssl http2;
+    server_name example.com;
+
+    ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+    # OCSP stapling - handshakes TLS mas rápidos
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    resolver 8.8.8.8 8.8.4.4 valid=300s;
+    resolver_timeout 5s;
+
+    # Headers de seguridad
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    # Caché de sesiones para rendimiento
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+    ssl_session_tickets off;
+}
+```
+
+### Monitoreo de Expiración de Certificados
+
+```bash
+# Verificar expiración del certificado
+echo | openssl s_client -connect example.com:443 2>/dev/null \
+  | openssl x509 -noout -dates
+
+# Alerta con Prometheus blackbox exporter
+# Alertar si el certificado expira en 7 días
+- alert: SslCertificateExpiringSoon
+  expr: probe_ssl_earliest_cert_expiry - time() < 7 * 24 * 3600
+  for: 10m
+  labels:
+    severity: warning
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa certificados ECC cuando sea posible.** Las llaves ECDSA son más pequeñas y rápidas que RSA:
+
+```bash
+# Solicitar un certificado ECDSA
+certbot certonly --nginx --key-type ecdsa --elliptic-curve secp256r1 \
+  -d example.com
+```
+
+2. **Configura HSTS preload.** Envía tu dominio a hstspreload.org después de confirmar que HTTPS funciona en todas partes:
+
+```nginx
+# Debe incluir includeSubDomains y preload
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+```
+
+3. **Usa un servicio de monitoreo de certificados.** Herramientas como SSL Certificate Monitor o Uptime Robot te alertan antes de la expiración:
+
+```bash
+# Monitoreo basado en cron
+0 8 * * * /usr/local/bin/check-cert-expiry.sh example.com 14 >> /var/log/cert-check.log
+```
+
+## Errores Comunes Adicionales
+
+1. **Olvidar recargar el servidor web después de renovar.** Certbot actualiza archivos pero Nginx mantiene certificados viejos en memoria:
+
+```bash
+# Usa --deploy-hook para recargar automáticamente
+certbot renew --deploy-hook "systemctl reload nginx"
+```
+
+2. **No respetar los rate limits de Let's Encrypt.** Hay límites estrictos: 50 certificados por dominio registrado por semana:
+
+```bash
+# Usa --staging para testing y evitar rate limits
+certbot certonly --staging -d example.com
+```
+
+3. **Mezclar contenido HTTP y HTTPS.** Los navegadores bloquean mixed content activo. Asegúrate de que todos los assets usen HTTPS:
+
+```html
+<!-- Mal: mixed content bloqueado -->
+<script src="http://cdn.example.com/script.js"></script>
+
+<!-- Bien: HTTPS en todas partes -->
+<script src="https://cdn.example.com/script.js"></script>
+```
+
+## FAQ Adicional
+
+### Como obtengo un certificado wildcard?
+
+Los certificados wildcard (`*.example.com`) cubren todos los subdominios de primer nivel. Requieren desafío DNS-01, no HTTP-01. Usa un plugin DNS como `certbot-dns-cloudflare` o `certbot-dns-route53` para renovación automatizada.
+
+### Cuales son los rate limits de Let's Encrypt?
+
+- 50 certificados por dominio registrado por semana
+- 5 certificados duplicados por semana
+- 5 validaciones fallidas por hora por cuenta
+- 300 nuevas órdenes por 3 horas por cuenta
+
+Usa `--staging` para testing y evitar tocar los rate limits de producción.
+
+### Debo usar TLS 1.3?
+
+Sí. TLS 1.3 es más rápido (handshake 1-RTT vs 2-RTT) y elimina algoritmos inseguros. Todos los navegadores modernos lo soportan. Habilítalo junto con TLS 1.2 para compatibilidad:
+
+```nginx
+ssl_protocols TLSv1.2 TLSv1.3;
+```
+
+## Tips de Rendimiento
+
+1. **Habilita OCSP stapling.** Los clientes verifican el estado del cert sin contactar a la CA, reduciendo latencia del handshake:
+
+```nginx
+ssl_stapling on;
+ssl_stapling_verify on;
+```
+
+2. **Usa session resumption.** Cachéa sesiones TLS para saltar el handshake completo en clientes recurrentes:
+
+```nginx
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 1d;
+ssl_session_tickets off;
+```
+
+3. **Prefiere ECDSA sobre RSA.** Llaves más pequeñas significan handshakes más rápidos y menos uso de CPU:
+
+```bash
+certbot certonly --key-type ecdsa --elliptic-curve secp256r1 -d example.com
+```

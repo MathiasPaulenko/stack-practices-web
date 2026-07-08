@@ -242,3 +242,396 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### IAM Roles and Security Groups
+
+```hcl
+# iam.tf
+
+# Task execution role
+resource "aws_iam_role" "ecs_exec" {
+  name = "ecs-exec-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = { Service = "ecs-tasks.amazonaws.com" }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_exec" {
+  role       = aws_iam_role.ecs_exec.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+# Task role (application permissions)
+resource "aws_iam_role" "app_task" {
+  name = "app-task-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = { Service = "ecs-tasks.amazonaws.com" }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "app_task_s3" {
+  name = "app-s3-access"
+  role = aws_iam_role.app_task.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = ["s3:GetObject", "s3:PutObject"]
+      Resource = "arn:aws:s3:::my-app-bucket/*"
+    }]
+  })
+}
+
+# Security groups
+resource "aws_security_group" "alb" {
+  name        = "alb-sg"
+  vpc_id      = module.vpc.vpc_id
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "ecs" {
+  name        = "ecs-sg"
+  vpc_id      = module.vpc.vpc_id
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+```
+
+### Auto Scaling Configuration
+
+```hcl
+# autoscaling.tf
+
+resource "aws_appautoscaling_target" "ecs" {
+  max_capacity       = 10
+  min_capacity       = 2
+  resource_id        = "service/${aws_ecs_cluster.app.name}/${aws_ecs_service.app.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs"
+}
+
+resource "aws_appautoscaling_policy" "cpu" {
+  name               = "cpu-scaling"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.ecs.resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    target_value       = 70
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+    scale_in_cooldown  = 300
+    scale_out_cooldown = 60
+  }
+}
+
+resource "aws_appautoscaling_policy" "memory" {
+  name               = "memory-scaling"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.ecs.resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    target_value       = 80
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageMemoryUtilization"
+    }
+    scale_in_cooldown  = 300
+    scale_out_cooldown = 60
+  }
+}
+```
+
+### Secrets Manager Integration
+
+```hcl
+# secrets.tf
+
+resource "aws_secretsmanager_secret" "db_password" {
+  name = "prod/db/password"
+}
+
+resource "aws_secretsmanager_secret_version" "db_password" {
+  secret_id     = aws_secretsmanager_secret.db_password.id
+  secret_string = jsonencode({ password = var.db_password })
+}
+
+# Reference in task definition
+resource "aws_ecs_task_definition" "app_with_secrets" {
+  family                   = "web-app-secrets"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = aws_iam_role.ecs_exec.arn
+  task_role_arn            = aws_iam_role.app_task.arn
+
+  container_definitions = jsonencode([{
+    name  = "web"
+    image = "myapp:latest"
+    portMappings = [{ containerPort = 80, protocol = "tcp" }]
+    secrets = [{
+      name      = "DB_PASSWORD"
+      valueFrom = aws_secretsmanager_secret.db_password.arn
+    }]
+    environment = [
+      { name = "NODE_ENV", value = "production" },
+      { name = "PORT", value = "80" }
+    ]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = aws_cloudwatch_log_group.app.name
+        awslogs-region        = "us-east-1"
+        awslogs-stream-prefix = "ecs"
+      }
+    }
+  }])
+}
+```
+
+### Health Check Configuration
+
+```hcl
+resource "aws_lb_target_group" "app" {
+  name     = "app-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = module.vpc.vpc_id
+  target_type = "ip"
+
+  health_check {
+    enabled             = true
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    timeout             = 5
+    interval            = 30
+    path                = "/health"
+    matcher             = "200"
+  }
+
+  deregistration_delay = 30
+}
+```
+
+## Additional Best Practices
+
+1. **Use Fargate Spot for non-critical workloads.** Save up to 70% on cost:
+
+```hcl
+resource "aws_ecs_service" "app_spot" {
+  name            = "batch-worker"
+  cluster         = aws_ecs_cluster.app.id
+  task_definition = aws_ecs_task_definition.worker.arn
+  desired_count   = 4
+
+  capacity_provider_strategy {
+    capacity_provider = "FARGATE_SPOT"
+    weight            = 100
+  }
+}
+```
+
+2. **Enable ECS Exec for debugging.** Allows SSH-like access to running containers:
+
+```hcl
+resource "aws_ecs_service" "app" {
+  name            = "web-service"
+  cluster         = aws_ecs_cluster.app.id
+  task_definition = aws_ecs_task_definition.app.arn
+  desired_count   = 2
+  enable_execute_command = true
+}
+```
+
+```bash
+aws ecs execute-command \
+  --cluster production-cluster \
+  --task <task-id> \
+  --container web \
+  --command "/bin/sh" \
+  --interactive
+```
+
+3. **Use CloudWatch Container Insights for monitoring:**
+
+```bash
+aws ecs put-cluster-setting \
+  --cluster production-cluster \
+  --settings name=containerInsights,value=enabled
+```
+
+## Additional Common Mistakes
+
+1. **Not setting resource limits.** Fargate charges per CPU/memory unit:
+
+```hcl
+# Bad: over-provisioned
+cpu    = "2048"
+memory = "4096"
+
+# Good: right-sized based on actual usage
+cpu    = "512"
+memory = "1024"
+```
+
+2. **Using public subnets for tasks.** Fargate tasks should run in private subnets:
+
+```hcl
+# Bad
+subnets = module.vpc.public_subnets
+
+# Good
+subnets          = module.vpc.private_subnets
+assign_public_ip = false
+```
+
+3. **Not configuring deregistration delay.** Long delays keep old tasks alive:
+
+```hcl
+# Default is 300 seconds, reduce for faster rollouts
+deregistration_delay = 30
+```
+
+## Additional FAQ
+
+### How do I do blue/green deployments on ECS?
+
+Use CodeDeploy with ECS:
+
+```hcl
+resource "aws_codedeploy_app" "ecs" {
+  name          = "app-deployment"
+  compute_platform = "ECS"
+}
+
+resource "aws_codedeploy_deployment_group" "ecs" {
+  app_name               = aws_codedeploy_app.ecs.name
+  deployment_group_name  = "production"
+  service_role_arn       = aws_iam_role.codedeploy.arn
+
+  auto_rollback_configuration {
+    enabled = true
+    events  = ["DEPLOYMENT_FAILURE"]
+  }
+
+  blue_green_deployment_config {
+    deployment_ready_option {
+      action_on_timeout = "CONTINUE_DEPLOYMENT"
+    }
+    terminate_blue_instances_on_deployment_success {
+      action = "TERMINATE"
+      wait_time_in_minutes = 5
+    }
+  }
+
+  deployment_style {
+    deployment_type   = "BLUE_GREEN"
+    deployment_option = "WITH_TRAFFIC_CONTROL"
+  }
+
+  ecs_service {
+    cluster_name = aws_ecs_cluster.app.name
+    service_name = aws_ecs_service.app.name
+  }
+}
+```
+
+### What CPU and memory sizes does Fargate support?
+
+Fargate supports specific combinations:
+
+| CPU (vCPU) | Memory (GB) |
+|------------|-------------|
+| 0.25 | 0.5, 1, 2 |
+| 0.5 | 1, 2, 3, 4 |
+| 1 | 2, 3, 4, 5, 6, 7, 8 |
+| 2 | 4, 5, 6, 7, 8, 9, 10, 11, 12 |
+| 4 | 8, 9, 10, 11, 12, 13, 14, 15, 16, 20, 24, 28, 30 |
+
+### How do I view task logs?
+
+```bash
+# List log streams for a task family
+aws logs describe-log-streams \
+  --log-group-name "/ecs/web-app" \
+  --order-by LastEventTime \
+  --descending \
+  --max-items 5
+
+# Tail logs
+aws logs tail "/ecs/web-app" --follow
+```
+
+## Performance Tips
+
+1. **Right-size tasks based on CloudWatch metrics.** Check CPU and memory utilization over 7 days and adjust:
+
+```bash
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/ECS \
+  --metric-name CPUUtilization \
+  --dimensions Name=ClusterName,Value=production-cluster \
+  --start-time $(date -u -v-7d +%Y-%m-%dT%H:%M:%S) \
+  --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
+  --period 3600 \
+  --statistics Average
+```
+
+2. **Use ALB connection draining.** Allow in-flight requests to complete:
+
+```hcl
+resource "aws_lb" "app" {
+  name               = "app-alb"
+  internal           = false
+  load_balancer_type = "application"
+  subnets            = module.vpc.public_subnets
+  security_groups    = [aws_security_group.alb.id]
+
+  connection_draining        = true
+  connection_draining_timeout = 30
+}
+```
+
+3. **Minimize cold starts with warm pools.** Keep minimum capacity above zero:
+
+```hcl
+resource "aws_appautoscaling_target" "ecs" {
+  min_capacity = 2  # Keep at least 2 tasks warm
+  max_capacity = 10
+}
+```

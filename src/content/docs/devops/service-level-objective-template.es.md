@@ -149,3 +149,253 @@ No. Los SLOs son objetivos internos; los SLAs son contratos externos. Establece 
 ### ¿Qué pasa cuando agotamos el presupuesto de error?
 
 La política de presupuesto de error debería activar un congelamiento de funcionalidades y redirigir todo el esfuerzo de ingeniería a trabajo de confiabilidad. Esto no es un castigo; es un mecanismo de seguridad. Si el equipo agota presupuestos consistentemente, los objetivos SLO probablemente son irreales y deberían revisarse hacia abajo. Si los presupuestos nunca se tocan, los objetivos son demasiado laxos y podrías estar sobre-invirtiendo en confiabilidad a costa de la velocidad de entregas.
+
+## Soluciones Avanzadas
+
+### Monitoreo de SLO con Prometheus y Grafana
+
+Implementa seguimiento de SLO con reglas de grabacion de Prometheus y dashboards de Grafana:
+
+```yaml
+# prometheus-slo-rules.yaml
+groups:
+  - name: slo_availability
+    interval: 30s
+    rules:
+      - record: job:slo_availability:ratio_rate5m
+        expr: |
+          sum(rate(http_requests_total{status!~"5.."}[5m])) by (job)
+          /
+          sum(rate(http_requests_total[5m])) by (job)
+
+      - record: job:slo_availability:ratio_rate1h
+        expr: |
+          sum(rate(http_requests_total{status!~"5.."}[1h])) by (job)
+          /
+          sum(rate(http_requests_total[1h])) by (job)
+
+      - record: job:slo_availability:ratio_rate30d
+        expr: |
+          sum(rate(http_requests_total{status!~"5.."}[30d])) by (job)
+          /
+          sum(rate(http_requests_total[30d])) by (job)
+
+      - alert: SLOAvailabilityBurnRateHigh
+        expr: |
+          (
+            job:slo_availability:ratio_rate1h < 0.999
+            and
+            job:slo_availability:ratio_rate5m < 0.999
+          )
+        for: 2m
+        labels:
+          severity: page
+        annotations:
+          summary: "SLO availability burn rate is high for {{ $labels.job }}"
+
+  - name: slo_latency
+    interval: 30s
+    rules:
+      - record: job:slo_latency_p99:histogram_quantile
+        expr: |
+          histogram_quantile(0.99,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (le, job)
+          )
+
+      - alert: SLOLatencyP99Breach
+        expr: job:slo_latency_p99:histogram_quantile > 0.2
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: "P99 latency exceeds 200ms SLO for {{ $labels.job }}"
+```
+
+### Script de calculo de presupuesto de error
+
+Calcula la tasa de quema del presupuesto de error y el presupuesto restante programaticamente:
+
+```python
+import datetime
+from dataclasses import dataclass
+
+@dataclass
+class ErrorBudget:
+    slo_target: float          # e.g., 0.999 for 99.9%
+    window_days: int           # e.g., 30
+    total_requests: int
+    failed_requests: int
+
+    @property
+    def error_budget_total(self) -> float:
+        """Total allowed errors in the window."""
+        return self.total_requests * (1 - self.slo_target)
+
+    @property
+    def error_budget_consumed(self) -> float:
+        """Errors consumed so far."""
+        return self.failed_requests
+
+    @property
+    def error_budget_remaining(self) -> float:
+        """Errors remaining in the budget."""
+        return self.error_budget_total - self.error_budget_consumed
+
+    @property
+    def burn_rate(self) -> float:
+        """How fast we are consuming the budget (1.0 = on pace)."""
+        if self.error_budget_total == 0:
+            return 0
+        return self.error_budget_consumed / self.error_budget_total
+
+    @property
+    def status(self) -> str:
+        rate = self.burn_rate
+        if rate > 1.0:
+            return "EXHAUSTED"
+        elif rate > 0.8:
+            return "CRITICAL"
+        elif rate > 0.5:
+            return "AT RISK"
+        else:
+            return "HEALTHY"
+
+    def report(self) -> str:
+        return (
+            f"SLO Target: {self.slo_target*100}%\n"
+            f"Window: {self.window_days} days\n"
+            f"Total Requests: {self.total_requests:,}\n"
+            f"Failed Requests: {self.failed_requests:,}\n"
+            f"Budget Total: {self.error_budget_total:.0f}\n"
+            f"Budget Consumed: {self.error_budget_consumed:.0f}\n"
+            f"Budget Remaining: {self.error_budget_remaining:.0f}\n"
+            f"Burn Rate: {self.burn_rate:.2%}\n"
+            f"Status: {self.status}"
+        )
+
+# Example usage
+budget = ErrorBudget(
+    slo_target=0.999,
+    window_days=30,
+    total_requests=10_000_000,
+    failed_requests=15_000
+)
+print(budget.report())
+```
+
+### Alertas multi-ventana multi-tasa-de-quema
+
+Implementa las alertas de tasa de quema multi-ventana recomendadas por Google para detectar violaciones de SLO de quema rapida y lenta:
+
+```yaml
+# Multi-window burn rate alerts
+# Fast burn: 2% of budget in 1 hour
+# Slow burn: 10% of budget in 3 days
+groups:
+  - name: slo_multi_window_alerts
+    rules:
+      # Fast burn - Page immediately
+      - alert: SLOFastBurnRate
+        expr: |
+          (
+            job:slo_availability:ratio_rate5m < 0.999
+            and job:slo_availability:ratio_rate1h < 0.999
+          )
+        for: 2m
+        labels:
+          severity: page
+          burn_type: fast
+        annotations:
+          summary: "Fast SLO burn: 2% budget in 1h for {{ $labels.job }}"
+
+      # Slow burn - Warn for investigation
+      - alert: SLOSlowBurnRate
+        expr: |
+          (
+            job:slo_availability:ratio_rate1h < 0.999
+            and job:slo_availability:ratio_rate6h < 0.999
+          )
+        for: 15m
+        labels:
+          severity: warn
+          burn_type: slow
+        annotations:
+          summary: "Slow SLO burn: 10% budget in 3d for {{ $labels.job }}"
+
+      # Critical burn - Executive notification
+      - alert: SLOCriticalBurnRate
+        expr: |
+          (
+            job:slo_availability:ratio_rate30m < 0.99
+            and job:slo_availability:ratio_rate6h < 0.99
+          )
+        for: 10m
+        labels:
+          severity: critical
+          burn_type: critical
+        annotations:
+          summary: "Critical SLO burn for {{ $labels.job }} - exec notification required"
+```
+
+## Mejores Practicas Adicionales
+
+1. **Usa alertas basadas en SLI en lugar de alertas basadas en umbrales.** En vez de alertar cuando CPU > 80%, alerta cuando la tasa de quema del presupuesto de error excede 2x lo normal. Esto reduce falsos positivos y vincula las alertas al impacto en el usuario:
+
+```promql
+# Alert when 30-day error budget burns 2x faster than normal
+(
+  1 - job:slo_availability:ratio_rate1h
+) > 2 * (1 - 0.999) / 30 / 24
+```
+
+2. **Rastrea SLOs por viaje de usuario, no por servicio.** Un servicio puede estar saludable mientras un viaje critico de usuario esta roto. Define SLIs alrededor del flujo de checkout, no solo de la API de pagos:
+
+```yaml
+# User journey SLI: Checkout completion
+sli_checkout:
+  good_events: "checkout_completed_total"
+  bad_events: "checkout_failed_total + checkout_abandoned_total"
+  metric: "rate(checkout_completed_total[5m]) / rate(checkout_started_total[5m])"
+  target: 0.995
+```
+
+## Errores Comunes Adicionales
+
+1. **Establecer SLOs diferentes para el mismo servicio entre equipos.** Cuando multiples equipos poseen partes de un servicio, los SLOs inconsistentes crean puntos ciegos. Usa un SLO unificado que cubra el viaje completo del usuario:
+
+```bash
+# Validate SLO consistency across teams
+node -e "
+const slos = require('./slo-definitions.json');
+const services = {};
+slos.forEach(s => {
+  if (!services[s.service]) services[s.service] = [];
+  services[s.service].push(s.target);
+});
+for (const [svc, targets] of Object.entries(services)) {
+  const unique = [...new Set(targets)];
+  if (unique.length > 1) {
+    console.log('INCONSISTENT: ' + svc + ' has targets: ' + unique.join(', '));
+  }
+}
+"
+```
+
+2. **No contabilizar el mantenimiento planificado en los presupuestos de error.** Los despliegues programados y el mantenimiento consumen presupuesto de error. Excluye el downtime planificado de los calculos de SLI o asigna un presupuesto de mantenimiento separado:
+
+```promql
+# Exclude planned maintenance windows from SLI
+sum(rate(http_requests_total{status!~"5..", maintenance!="true"}[30d]))
+/
+sum(rate(http_requests_total{maintenance!="true"}[30d]))
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Como calculo el presupuesto de error en minutos?
+
+Para una ventana de 30 dias: `30 dias * 24 horas * 60 minutos * (1 - SLO_target)`. Al 99.9%: `43200 * 0.001 = 43.2 minutos` de downtime permitido por mes. Al 99.95%: `43200 * 0.0005 = 21.6 minutos`. Al 99.99%: `43200 * 0.0001 = 4.32 minutos`.
+
+### Deberia usar SLOs para servicios solo internos?
+
+Si. Los servicios internos afectan a los servicios orientados al usuario que dependen de ellos. Una API interna lenta aumenta la latencia del viaje del usuario. Establece SLOs en servicios internos con objetivos alineados a su impacto en los servicios descendentes. Un servicio de autenticacion interno que tarda 500ms violara el SLO de latencia orientado al usuario incluso si el frontend es rapido.

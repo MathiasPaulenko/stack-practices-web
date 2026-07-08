@@ -222,14 +222,278 @@ A: Yes. The Lambda handler is an adapter. It deserializes the event, calls the d
 A: Yes — each external dependency gets its own adapter implementing a domain-defined port. This isolates changes. If you switch from SendGrid to Mailgun, only the email adapter changes. The domain and application layers remain untouched.
 
 
+### Python Implementation
+
+```python
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Optional
+import uuid
+
+# Domain — no external dependencies
+class UserRepository(ABC):
+    @abstractmethod
+    async def find_by_id(self, id: str) -> Optional["User"]:
+        ...
+
+    @abstractmethod
+    async def save(self, user: "User") -> None:
+        ...
+
+class EmailService(ABC):
+    @abstractmethod
+    async def send(self, user: "User", subject: str, body: str) -> None:
+        ...
+
+@dataclass
+class User:
+    id: str
+    email: str
+    name: str
+    is_verified: bool = False
+
+    def verify(self) -> None:
+        self.is_verified = True
+
+class UserRegistrationService:
+    def __init__(self, users: UserRepository, email: EmailService):
+        self._users = users
+        self._email = email
+
+    async def register(self, email: str, name: str) -> User:
+        existing = await self._users.find_by_id(email)
+        if existing:
+            raise ValueError("User already exists")
+
+        user = User(id=str(uuid.uuid4()), email=email, name=name)
+        await self._users.save(user)
+        await self._email.send(user, "Welcome", f"Hello {name}, welcome aboard!")
+        return user
+
+    async def verify_email(self, user_id: str) -> None:
+        user = await self._users.find_by_id(user_id)
+        if not user:
+            raise ValueError("User not found")
+        user.verify()
+        await self._users.save(user)
+```
+
+### Unit Testing the Domain
+
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest';
+
+describe('UserRegistrationService', () => {
+  let users: InMemoryUserRepository;
+  let email: MockEmailService;
+  let service: UserRegistrationService;
+
+  beforeEach(() => {
+    users = new InMemoryUserRepository();
+    email = new MockEmailService();
+    service = new UserRegistrationService(users, email);
+  });
+
+  it('registers a new user', async () => {
+    const user = await service.register('alice@example.com', 'Alice');
+
+    expect(user.id).toBeDefined();
+    expect(user.email).toBe('alice@example.com');
+    expect(user.isVerified).toBe(false);
+    expect(email.sentEmails).toHaveLength(1);
+    expect(email.sentEmails[0].subject).toBe('Welcome');
+  });
+
+  it('rejects duplicate registration', async () => {
+    await service.register('alice@example.com', 'Alice');
+
+    await expect(
+      service.register('alice@example.com', 'Alice Again')
+    ).rejects.toThrow('User already exists');
+  });
+
+  it('verifies user email', async () => {
+    const user = await service.register('bob@example.com', 'Bob');
+
+    await service.verifyEmail(user.id);
+
+    const saved = await users.findById(user.id);
+    expect(saved?.isVerified).toBe(true);
+  });
+
+  it('throws when verifying unknown user', async () => {
+    await expect(
+      service.verifyEmail('nonexistent-id')
+    ).rejects.toThrow('User not found');
+  });
+});
+```
+
+### Unit of Work Pattern for Transactions
+
+```typescript
+// Port — defined by the domain
+interface UnitOfWork {
+  begin(): Promise<void>;
+  commit(): Promise<void>;
+  rollback(): Promise<void>;
+}
+
+// Enhanced application service with transaction support
+class OrderService {
+  constructor(
+    private orders: OrderRepository,
+    private inventory: InventoryRepository,
+    private uow: UnitOfWork
+  ) {}
+
+  async placeOrder(items: OrderItem[]): Promise<Order> {
+    await this.uow.begin();
+    try {
+      const order = new Order(crypto.randomUUID(), items);
+      await this.orders.save(order);
+
+      for (const item of items) {
+        await this.inventory.decrement(item.sku, item.quantity);
+      }
+
+      await this.uow.commit();
+      return order;
+    } catch (err) {
+      await this.uow.rollback();
+      throw err;
+    }
+  }
+}
+
+// PostgreSQL Unit of Work adapter
+class PostgresUnitOfWork implements UnitOfWork {
+  private client?: PoolClient;
+
+  constructor(private pool: Pool) {}
+
+  async begin(): Promise<void> {
+    this.client = await this.pool.connect();
+    await this.client.query('BEGIN');
+  }
+
+  async commit(): Promise<void> {
+    if (!this.client) throw new Error('Transaction not started');
+    await this.client.query('COMMIT');
+    this.client.release();
+  }
+
+  async rollback(): Promise<void> {
+    if (!this.client) throw new Error('Transaction not started');
+    await this.client.query('ROLLBACK');
+    this.client.release();
+  }
+}
+```
+
+## Additional Best Practices
+
+1. **Use result objects instead of throwing exceptions.** Domain errors are expected, not exceptional:
+
+```typescript
+type Result<T, E = Error> =
+  | { ok: true; value: T }
+  | { ok: false; error: E };
+
+class UserRegistrationService {
+  async register(email: string, name: string): Promise<Result<User>> {
+    const existing = await this.users.findById(email);
+    if (existing) return { ok: false, error: new Error("User exists") };
+
+    const user = new User(crypto.randomUUID(), email, name);
+    await this.users.save(user);
+    return { ok: true, value: user };
+  }
+}
+```
+
+2. **Keep ports minimal.** Define only what the domain needs, not what infrastructure offers:
+
+```typescript
+// Bad: leaking infrastructure concepts
+interface UserRepository {
+  query(sql: string, params: any[]): Promise<any[]>;
+}
+
+// Good: domain-centric interface
+interface UserRepository {
+  findById(id: string): Promise<User | null>;
+  save(user: User): Promise<void>;
+  findByEmail(email: string): Promise<User | null>;
+}
+```
+
+3. **Use factory functions for adapter creation.** Keeps the composition root clean:
+
+```typescript
+function createApp(config: AppConfig) {
+  const pool = new Pool({ connectionString: config.databaseUrl });
+  const users = new PostgresUserRepository(pool);
+  const email = config.environment === 'test'
+    ? new MockEmailService()
+    : new SmtpEmailService(config.smtp);
+  return new UserRegistrationService(users, email);
+}
+```
+
+## Additional Common Mistakes
+
+1. **Putting validation in adapters instead of the domain.** Business rules belong in domain entities:
+
+```typescript
+// Bad: validation in the HTTP controller
+app.post('/users', (req, res) => {
+  if (!req.body.email.includes('@')) return res.status(400).end();
+  // ...
+});
+
+// Good: validation in the domain entity
+class User {
+  constructor(public email: string) {
+    if (!email.includes('@')) throw new Error('Invalid email');
+  }
+}
+```
+
+2. **Testing through adapters instead of against ports.** Tests that hit real databases are slow and brittle:
+
+```typescript
+// Bad: slow, requires database
+const repo = new PostgresUserRepository(realPool);
+const service = new UserRegistrationService(repo, emailService);
+
+// Good: fast, no I/O
+const repo = new InMemoryUserRepository();
+const service = new UserRegistrationService(repo, mockEmail);
+```
+
+## Additional FAQ
+
+### How does hexagonal architecture compare to DDD?
+
+DDD is about modeling the domain (aggregates, value objects, bounded contexts). Hexagonal architecture is about structuring the code (ports, adapters, dependency inversion). They complement each other: DDD defines what the domain contains, hexagonal defines how to protect it from infrastructure.
+
+### Should I use hexagonal architecture for microservices?
+
+Yes, especially when each microservice has different infrastructure. One service might use PostgreSQL, another DynamoDB. With hexagonal, each service defines its own ports and implements adapters for its specific infrastructure. The domain logic remains consistent across services.
+
+### How do I handle cross-cutting concerns like logging?
+
+Define logging as a port in the domain. The domain calls `logger.info()` through an interface. Adapters implement the port with Winston, Pino, or a no-op logger for tests. This keeps the domain pure while allowing infrastructure-specific logging.
+
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Yes. The code examples show tested patterns used in production systems. The TypeScript and Python implementations are directly usable. Adapt error handling and configuration to your specific environment.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+The architecture itself adds no runtime overhead — it is a compile-time structure. Performance depends on adapter implementations. In-memory adapters used in tests run in microseconds. Database adapters are bounded by I/O latency. The abstraction cost is in code complexity, not runtime performance.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Test each layer independently. Unit tests with in-memory adapters isolate domain bugs. Integration tests with real adapters isolate infrastructure bugs. The composition root is the only place to debug wiring issues. Use `docker compose config` to verify adapter configuration.

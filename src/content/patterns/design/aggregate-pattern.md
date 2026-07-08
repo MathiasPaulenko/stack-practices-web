@@ -286,3 +286,209 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+## Advanced Solutions
+
+### Event-sourced aggregate with domain events
+
+Rebuild aggregate state from a stream of events instead of storing current state:
+
+```python
+from dataclasses import dataclass
+from typing import List
+from datetime import datetime
+import uuid
+
+@dataclass(frozen=True)
+class DomainEvent:
+    event_id: str
+    aggregate_id: str
+    event_type: str
+    occurred_at: datetime
+    data: dict
+
+@dataclass(frozen=True)
+class OrderCreated(DomainEvent):
+    pass
+
+@dataclass(frozen=True)
+class OrderLineAdded(DomainEvent):
+    pass
+
+class OrderAggregate:
+    def __init__(self, customer_id: str):
+        self.id = str(uuid.uuid4())
+        self.customer_id = customer_id
+        self.lines = []
+        self.status = "pending"
+        self.version = 0
+        self._uncommitted_events: List[DomainEvent] = []
+
+    def add_line(self, product_id: str, quantity: int, unit_price: float):
+        if self.status != "pending":
+            raise ValueError("Cannot modify submitted order")
+        
+        event = OrderLineAdded(
+            event_id=str(uuid.uuid4()),
+            aggregate_id=self.id,
+            event_type="OrderLineAdded",
+            occurred_at=datetime.now(),
+            data={"product_id": product_id, "quantity": quantity, "unit_price": unit_price}
+        )
+        self._apply_event(event)
+        self._uncommitted_events.append(event)
+        self.version += 1
+
+    def _apply_event(self, event: DomainEvent):
+        """Rebuild state from event."""
+        if event.event_type == "OrderLineAdded":
+            self.lines.append((event.data["product_id"], event.data["quantity"], event.data["unit_price"]))
+
+    def get_uncommitted_events(self) -> List[DomainEvent]:
+        """Return events not yet persisted."""
+        return self._uncommitted_events.copy()
+
+    def mark_events_as_committed(self):
+        """Clear uncommitted events after persistence."""
+        self._uncommitted_events.clear()
+
+    @classmethod
+    def rebuild_from_events(cls, events: List[DomainEvent]) -> "OrderAggregate":
+        """Rehydrate aggregate from event stream."""
+        # Find OrderCreated event to initialize
+        created = next(e for e in events if e.event_type == "OrderCreated")
+        aggregate = cls(created.data["customer_id"])
+        aggregate.id = created.aggregate_id
+        
+        # Apply all events in order
+        for event in events:
+            if event.event_type != "OrderCreated":
+                aggregate._apply_event(event)
+                aggregate.version += 1
+        
+        return aggregate
+```
+
+### Aggregate with snapshot optimization for event sourcing
+
+Store periodic snapshots to avoid replaying all events:
+
+```python
+from dataclasses import dataclass
+import json
+
+@dataclass
+class AggregateSnapshot:
+    aggregate_id: str
+    version: int
+    state: dict
+
+class OrderAggregate:
+    # ... (previous code)
+    
+    def to_snapshot(self) -> AggregateSnapshot:
+        """Create snapshot of current state."""
+        return AggregateSnapshot(
+            aggregate_id=self.id,
+            version=self.version,
+            state={
+                "customer_id": self.customer_id,
+                "lines": self.lines,
+                "status": self.status
+            }
+        )
+
+    @classmethod
+    def from_snapshot(cls, snapshot: AggregateSnapshot, events: List[DomainEvent]) -> "OrderAggregate":
+        """Rebuild from snapshot and events after snapshot."""
+        aggregate = cls(snapshot.state["customer_id"])
+        aggregate.id = snapshot.aggregate_id
+        aggregate.lines = snapshot.state["lines"]
+        aggregate.status = snapshot.state["status"]
+        aggregate.version = snapshot.version
+        
+        # Apply only events after snapshot version
+        for event in events:
+            if event.event_type != "OrderCreated":
+                aggregate._apply_event(event)
+                aggregate.version += 1
+        
+        return aggregate
+```
+
+### Aggregate with optimistic concurrency control
+
+Detect and handle concurrent modifications using version numbers:
+
+```python
+class ConcurrencyError(Exception):
+    pass
+
+class OrderAggregate:
+    # ... (previous code with version field)
+    
+    def add_line(self, product_id: str, quantity: int, unit_price: float, expected_version: int):
+        if self.version != expected_version:
+            raise ConcurrencyError(f"Expected version {expected_version}, but current is {self.version}")
+        
+        if self.status != "pending":
+            raise ValueError("Cannot modify submitted order")
+        
+        self.lines.append((product_id, quantity, unit_price))
+        self.version += 1
+
+# Usage in application service
+try:
+    order.add_line("prod-1", 2, 9.99, expected_version=order.version)
+    repository.save(order)
+except ConcurrencyError:
+    # Handle conflict: reload aggregate, retry, or notify user
+    pass
+```
+
+## Additional Best Practices
+
+1. **Design aggregates around business invariants.** The aggregate boundary should align with transactional consistency requirements. If a business rule requires multiple objects to change atomically, they belong in the same aggregate.
+
+2. **Use domain events to communicate state changes.** When an aggregate changes, emit a domain event to notify other aggregates or bounded contexts. This decouples aggregates while maintaining eventual consistency.
+
+```python
+class OrderAggregate:
+    # ... (previous code)
+    
+    def submit(self):
+        if not self.lines:
+            raise ValueError("Cannot submit empty order")
+        self.status = "submitted"
+        self.version += 1
+        
+        # Emit domain event
+        event = OrderSubmitted(
+            event_id=str(uuid.uuid4()),
+            aggregate_id=self.id,
+            event_type="OrderSubmitted",
+            occurred_at=datetime.now(),
+            data={"customer_id": self.customer_id, "total": self.total()}
+        )
+        self._uncommitted_events.append(event)
+```
+
+## Additional Common Mistakes
+
+1. **Mixing concerns in aggregates.** Aggregates should contain only domain logic. Infrastructure concerns like persistence, validation for external systems, or notification logic belong in application services, not in the aggregate.
+
+2. **Holding references to other aggregates.** Direct object references between aggregates break the boundary and cause loading cascades. Always reference other aggregates by ID only. Load them lazily when needed.
+
+## Additional Frequently Asked Questions
+
+### How do I handle validation across aggregates?
+
+Cross-aggregate validation is handled via domain events and eventual consistency. For example, to ensure a customer has sufficient credit before submitting an order, the order aggregate emits an `OrderSubmitted` event. A credit check bounded context listens for this event and approves or rejects the order asynchronously. The order status is updated via another event.
+
+### Should aggregates be immutable?
+
+No. Aggregates are mutable within their boundary. The aggregate root methods modify internal state. However, value objects within the aggregate should be immutable. This prevents shared references from causing unexpected side effects.
+
+### How do I test aggregates?
+
+Test aggregates by verifying that invariants are enforced and that business rules produce the expected state changes. Use unit tests that call aggregate methods and assert the resulting state or emitted events. Avoid testing persistence logic in aggregate tests; that belongs in repository tests.

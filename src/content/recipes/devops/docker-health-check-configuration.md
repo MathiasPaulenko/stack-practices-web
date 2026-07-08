@@ -266,3 +266,300 @@ docker inspect --format='{{.State.Health.Status}}' <container-name>
 ```
 
 This returns `healthy`, `unhealthy`, or `starting`.
+
+### Health Endpoint in Java (Spring Boot)
+
+```java
+// src/main/java/com/example/HealthController.java
+package com.example;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.stereotype.Component;
+
+@RestController
+public class HealthController {
+
+    @GetMapping("/health")
+    public String health() {
+        return "{\"status\":\"healthy\"}";
+    }
+}
+
+@Component
+public class DatabaseHealthIndicator implements HealthIndicator {
+
+    @Override
+    public Health health() {
+        // Check database connectivity
+        try {
+            // Perform a simple query
+            return Health.up().withDetail("database", "reachable").build();
+        } catch (Exception e) {
+            return Health.down().withDetail("error", e.getMessage()).build();
+        }
+    }
+}
+```
+
+```yaml
+# application.yml — Enable actuator health endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+```
+
+### Multi-Step Health Check Script
+
+```bash
+#!/bin/bash
+# healthcheck-advanced.sh — Multi-step health verification
+set -e
+
+FAIL=0
+
+# Step 1: Check HTTP endpoint
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/health 2>/dev/null || echo "000")
+if [ "$HTTP_CODE" != "200" ]; then
+    echo "FAIL: HTTP endpoint returned $HTTP_CODE"
+    FAIL=1
+fi
+
+# Step 2: Check disk space
+DISK_USAGE=$(df / | awk 'NR==2 {print int($5)}')
+if [ "$DISK_USAGE" -gt 90 ]; then
+    echo "FAIL: Disk usage at ${DISK_USAGE}%"
+    FAIL=1
+fi
+
+# Step 3: Check if critical process is running
+if ! pgrep -x "gunicorn" > /dev/null; then
+    echo "FAIL: gunicorn process not found"
+    FAIL=1
+fi
+
+# Step 4: Check memory usage
+MEM_USAGE=$(free | awk '/Mem:/ {printf "%.0f", $3/$2 * 100}')
+if [ "$MEM_USAGE" -gt 95 ]; then
+    echo "FAIL: Memory usage at ${MEM_USAGE}%"
+    FAIL=1
+fi
+
+if [ "$FAIL" -eq 0 ]; then
+    exit 0
+else
+    exit 1
+fi
+```
+
+### Health Check with Logging
+
+```bash
+#!/bin/bash
+# healthcheck-logged.sh — Health check with audit log
+LOG_FILE="/var/log/healthcheck.log"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/health 2>/dev/null || echo "000")
+
+if [ "$HTTP_CODE" = "200" ]; then
+    echo "$TIMESTAMP OK HTTP=$HTTP_CODE" >> "$LOG_FILE"
+    exit 0
+else
+    echo "$TIMESTAMP FAIL HTTP=$HTTP_CODE" >> "$LOG_FILE"
+    exit 1
+fi
+```
+
+### Docker Compose Override for Health Check Tuning
+
+```yaml
+# docker-compose.prod.yml — Override health check for production
+services:
+  api:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+
+  db:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d mydb && psql -U postgres -d mydb -c 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+```
+
+```bash
+# Apply production health check overrides
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+### Health Check for Message Queue Worker
+
+```dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+COPY . .
+RUN npm ci --omit=dev
+
+# Health check for a worker that processes queue messages
+HEALTHCHECK --interval=60s --timeout=10s --retries=3 --start-period=30s \
+    CMD node -e " \
+        const fs = require('fs'); \
+        const stats = fs.statSync('/tmp/worker.heartbeat'); \
+        const age = (Date.now() - stats.mtimeMs) / 1000; \
+        if (age > 120) { console.error('Heartbeat stale: ' + age + 's'); process.exit(1); } \
+        console.log('Heartbeat OK: ' + age + 's'); \
+    "
+
+CMD ["node", "worker.js"]
+```
+
+```javascript
+// worker.js — Write heartbeat file periodically
+const fs = require("fs");
+
+setInterval(() => {
+    fs.writeFileSync("/tmp/worker.heartbeat", new Date().toISOString());
+}, 30000);
+```
+
+## Additional Best Practices
+
+1. **Use `CMD-SHELL` for complex checks.** Allows shell features like pipes and conditionals:
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD-SHELL "curl -f http://localhost:3000/health || exit 1"
+```
+
+2. **Differentiate liveness vs readiness endpoints.** Liveness should be cheap and dependency-free:
+
+```javascript
+// Liveness: just check the process is alive
+app.get("/health", (req, res) => res.json({ status: "alive" }));
+
+// Readiness: check dependencies
+app.get("/ready", async (req, res) => {
+    try {
+        await db.ping();
+        await redis.ping();
+        res.json({ status: "ready" });
+    } catch (err) {
+        res.status(503).json({ status: "not ready", error: err.message });
+    }
+});
+```
+
+3. **Set `start_period` based on app type.** Different apps need different grace periods:
+
+| App Type | start_period | interval | timeout |
+|----------|-------------|----------|---------|
+| Node.js API | 10s | 30s | 5s |
+| Python ML | 60s | 30s | 10s |
+| Java Spring | 30s | 15s | 5s |
+| Database | 60s | 10s | 5s |
+| Worker | 30s | 60s | 10s |
+
+## Additional Common Mistakes
+
+1. **Health check depends on external services.** If your health check calls an external API, a slow response marks the container unhealthy:
+
+```dockerfile
+# Bad: depends on external service
+HEALTHCHECK CMD curl -f https://api.external.com/health
+
+# Good: check local endpoint only
+HEALTHCHECK CMD curl -f http://localhost:3000/health
+```
+
+2. **Using `CMD-SHELL` when `CMD` works.** Shell form spawns a shell process, adding overhead:
+
+```dockerfile
+# Slightly slower (spawns /bin/sh)
+HEALTHCHECK CMD-SHELL "curl -f http://localhost:3000/health"
+
+# Faster (direct exec)
+HEALTHCHECK CMD ["curl", "-f", "http://localhost:3000/health"]
+```
+
+3. **Not monitoring health check failures.** Set up alerts for containers that flip between healthy and unhealthy:
+
+```bash
+# Alert on unhealthy containers
+docker ps --filter "health=unhealthy" --format "{{.Names}}"
+```
+
+## Additional FAQ
+
+### How do I view health check history?
+
+```bash
+# Show last 5 health check results
+docker inspect --format='{{range .State.Health.Log}}{{.ExitCode}} {{.End}}: {{.Output}}{{end}}' <container>
+
+# Pretty print last health check
+docker inspect <container> | jq '.[0].State.Health.Log[-1]'
+```
+
+### How do I run a health check manually?
+
+```bash
+# Trigger a health check immediately
+docker exec <container> curl -f http://localhost:3000/health
+
+# Or run the health check command directly
+docker inspect --format='{{.Config.Healthcheck.Test}}' <container>
+```
+
+### Should I add health checks to development Dockerfiles?
+
+For development, health checks add value in Compose for `depends_on` ordering. Use longer intervals to avoid overhead:
+
+```dockerfile
+# Dev: less aggressive
+HEALTHCHECK --interval=60s --timeout=10s --retries=3 --start-period=30s \
+    CMD curl -f http://localhost:3000/health || exit 1
+```
+
+## Performance Tips
+
+1. **Keep health check commands fast.** Target under 1 second execution time:
+
+```bash
+# Fast: simple HTTP check
+curl -sf -m 2 http://localhost:3000/health
+
+# Slow: database query
+psql -c "SELECT count(*) FROM large_table"  # Don't do this
+```
+
+2. **Use `--start-period` to avoid false negatives during boot.** Set it to your app's typical startup time plus 50 percent margin:
+
+```dockerfile
+# App takes ~20s to boot, set start-period to 30s
+HEALTHCHECK --start-period=30s --interval=30s --timeout=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health
+```
+
+3. **Avoid health checks that write to disk.** Each check runs frequently and can fill disk with logs:
+
+```bash
+# Bad: writes to disk every 30s
+HEALTHCHECK CMD curl -f http://localhost:3000/health >> /var/log/health.log
+
+# Good: no disk writes
+HEALTHCHECK CMD curl -sf http://localhost:3000/health
+```

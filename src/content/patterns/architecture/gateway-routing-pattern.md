@@ -153,3 +153,204 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+## Advanced Solutions
+
+### Dynamic routing with service discovery
+
+Integrate gateway routing with service discovery for automatic upstream updates:
+
+```typescript
+import { ServiceRegistry } from './service-registry';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+
+class DynamicGateway {
+  private registry: ServiceRegistry;
+  private app: express.Application;
+
+  constructor(registry: ServiceRegistry) {
+    this.registry = registry;
+    this.app = express();
+    this.setupRoutes();
+  }
+
+  async setupRoutes() {
+    const services = await this.registry.getAllServices();
+    
+    services.forEach(service => {
+      const targets = service.instances.map(
+        instance => `${instance.host}:${instance.port}`
+      );
+
+      this.app.use(service.path, createProxyMiddleware({
+        target: `http://${targets[0]}`,
+        changeOrigin: true,
+        router: (req) => {
+          // Load balance across healthy instances
+          const healthyInstances = service.instances.filter(i => i.healthy);
+          const selected = healthyInstances[Math.floor(Math.random() * healthyInstances.length)];
+          return `${selected.host}:${selected.port}`;
+        },
+        onProxyReq: (proxyReq, req, res) => {
+          proxyReq.setHeader('X-Request-ID', req.id);
+        },
+        onError: (err, req, res) => {
+          console.error(`Proxy error: ${err.message}`);
+          res.status(502).json({ error: 'Bad Gateway' });
+        }
+      }));
+    });
+  }
+
+  listen(port: number) {
+    this.app.listen(port, () => console.log(`Gateway listening on ${port}`));
+  }
+}
+```
+
+### Circuit breaker integration
+
+Add circuit breaker pattern to prevent cascading failures:
+
+```typescript
+import CircuitBreaker from 'opossum';
+
+const options = {
+  timeout: 3000,
+  errorThresholdPercentage: 50,
+  resetTimeout: 30000
+};
+
+class CircuitBreakerGateway {
+  private breakers: Map<string, any>;
+
+  constructor() {
+    this.breakers = new Map();
+  }
+
+  getBreaker(serviceName: string) {
+    if (!this.breakers.has(serviceName)) {
+      const breaker = new CircuitBreaker(
+        async (url: string, options: RequestInit) => {
+          const response = await fetch(url, options);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        },
+        options
+      );
+
+      breaker.on('open', () => console.log(`Circuit opened for ${serviceName}`));
+      breaker.on('halfOpen', () => console.log(`Circuit half-open for ${serviceName}`));
+      breaker.on('close', () => console.log(`Circuit closed for ${serviceName}`));
+
+      this.breakers.set(serviceName, breaker);
+    }
+
+    return this.breakers.get(serviceName);
+  }
+
+  async proxyRequest(serviceName: string, path: string, request: Request) {
+    const breaker = this.getBreaker(serviceName);
+    const serviceUrl = `http://${serviceName}:3001${path}`;
+    
+    return breaker.fire(serviceUrl, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body
+    });
+  }
+}
+```
+
+### Request transformation middleware
+
+Transform requests and responses at the gateway:
+
+```typescript
+class TransformGateway {
+  private app: express.Application;
+
+  constructor() {
+    this.app = express();
+    this.setupTransforms();
+  }
+
+  setupTransforms() {
+    // Transform request headers
+    this.app.use('/api/v1', (req, res, next) => {
+      req.headers['x-api-version'] = 'v1';
+      req.headers['x-request-time'] = new Date().toISOString();
+      next();
+    });
+
+    // Transform response format
+    this.app.use('/api/v2', async (req, res, next) => {
+      const originalJson = res.json;
+      res.json = function(data) {
+        const transformed = {
+          meta: {
+            version: 'v2',
+            timestamp: new Date().toISOString()
+          },
+          data: data
+        };
+        originalJson.call(this, transformed);
+      };
+      next();
+    });
+
+    // Protocol translation (REST to gRPC)
+    this.app.post('/grpc-proxy', async (req, res) => {
+      const grpcClient = loadGrpcClient('users-service');
+      const grpcRequest = mapRestToGrpc(req.body);
+      
+      try {
+        const grpcResponse = await grpcClient.getUser(grpcRequest);
+        const restResponse = mapGrpcToRest(grpcResponse);
+        res.json(restResponse);
+      } catch (error) {
+        res.status(500).json({ error: 'gRPC translation failed' });
+      }
+    });
+  }
+}
+```
+
+## Additional Best Practices
+
+1. **Implement request/response transformation at the gateway.** Use middleware to normalize API versions, transform data formats, and handle protocol translation. This keeps backend services simple and consistent.
+
+2. **Use weighted routing for canary deployments.** Route a percentage of traffic to a new version of a service for gradual rollout. Monitor metrics and automatically roll back if errors increase.
+
+```yaml
+# Weighted routing configuration
+routes:
+  - path: /api/users
+    upstreams:
+      - service: users-service-v1
+        weight: 90  # 90% of traffic
+      - service: users-service-v2
+        weight: 10  # 10% of traffic (canary)
+```
+
+3. **Implement rate limiting per client.** Use IP-based, API key-based, or user-based rate limiting to prevent abuse. Store rate limit counters in Redis for distributed gateways.
+
+## Additional Common Mistakes
+
+1. **Creating a single point of failure.** The gateway becomes critical infrastructure. Deploy multiple gateway instances behind a load balancer with health checks to ensure high availability.
+
+2. **Overloading the gateway with transformation logic.** Complex transformations increase latency and make debugging difficult. Move heavy transformation logic to dedicated BFF (Backend for Frontend) services.
+
+## Additional Frequently Asked Questions
+
+### How do I handle authentication at the gateway?
+
+Validate JWT tokens or API keys at the gateway before routing. Extract user identity from the token and pass it as headers to backend services. This centralizes authentication logic and reduces duplicate validation.
+
+### Should the gateway handle response caching?
+
+Yes, cache GET responses for frequently accessed data at the gateway. Use cache headers from backend services to determine cache duration. Implement cache invalidation for dynamic content using webhooks or pub/sub events.
+
+### How do I monitor gateway performance?
+
+Track metrics for request latency, error rates, upstream health, and throughput. Use distributed tracing to follow requests across services. Set up alerts for increased error rates or latency to detect issues early.

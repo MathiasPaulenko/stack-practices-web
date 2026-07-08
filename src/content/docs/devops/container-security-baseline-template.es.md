@@ -152,3 +152,290 @@ Evita los contenedores privilegiados. Si una tarea de configuracion inicial requ
 ### Como hacemos cumplir la linea base automaticamente?
 
 Usa puertas de CI/CD para el escaneo de imagenes y controladores de admision como Kyverno o OPA Gatekeeper en Kubernetes. Pod Security Admission tambien puede hacer cumplir contextos de seguridad comunes.
+
+## Soluciones Avanzadas
+
+### Politicas de cluster Kyverno para aplicacion automatizada
+
+Despliega politicas Kyverno para hacer cumplir la linea base de seguridad de contenedores en tiempo de admision:
+
+```yaml
+# kyverno-enforce-non-root.yaml
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-non-root-user
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: check-runAsNonRoot
+      match:
+        resources:
+          kinds:
+            - Pod
+      validate:
+        message: "Containers must run as non-root user (UID > 10000)"
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  runAsNonRoot: true
+                  runAsUser: ">10000"
+
+---
+# kyverno-disallow-privileged.yaml
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-privileged-containers
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: reject-privileged
+      match:
+        resources:
+          kinds:
+            - Pod
+      validate:
+        message: "Privileged containers are not allowed"
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  privileged: "false"
+
+---
+# kyverno-require-resource-limits.yaml
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-resource-limits
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: check-resource-limits
+      match:
+        resources:
+          kinds:
+            - Pod
+      validate:
+        message: "CPU and memory limits are required"
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  limits:
+                    memory: "?*"
+                    cpu: "?*"
+```
+
+### Firma y verificacion de imagenes con cosign
+
+Firma imagenes de contenedor en tiempo de build y verificalas antes del despliegue:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Generate signing key
+cosign generate-key-pair
+
+# Sign image in CI pipeline
+IMAGE="registry.example.com/myapp:v1.2.3"
+cosign sign --key cosign.key "$IMAGE"
+
+# Attach SBOM as attestation
+syft "$IMAGE" -o cyclonedx-json > sbom.json
+cosign attest --key cosign.key \
+  --predicate sbom.json \
+  --type cyclonedx \
+  "$IMAGE"
+
+# Verify signature before deployment
+cosign verify --key cosign.pub "$IMAGE"
+
+# Verify SBOM attestation
+cosign verify-attestation --key cosign.pub \
+  --type cyclonedx \
+  "$IMAGE" | jq -r '.payload' | base64 -d | jq .
+```
+
+### Plantillas de politicas de red para negacion por defecto
+
+Implementa redes con negacion por defecto y reglas de permiso explicitas:
+
+```yaml
+# default-deny-all.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+
+---
+# allow-frontend-to-backend.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-to-backend
+  namespace: production
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: frontend
+      ports:
+        - protocol: TCP
+          port: 8080
+
+---
+# allow-dns-egress.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+```
+
+## Mejores Practicas Adicionales
+
+1. **Usa los estandares de Pod Security Admission de Kubernetes.** El perfil `restricted` hace cumplir no-root, sin privilegiados, capacidades eliminadas y seccomp. Aplicalo a nivel de namespace:
+
+```yaml
+# namespace-pod-security.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/audit-version: latest
+```
+
+2. **Implementa image pull secrets con gestion de secretos externa.** Evita credenciales de registro de larga duracion. Usa External Secrets Operator para sincronizar tokens de corta duracion:
+
+```yaml
+# external-secret-registry.yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: registry-pull-secret
+  namespace: production
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    template:
+      type: kubernetes.io/dockerconfigjson
+      data:
+        .dockerconfigjson: "{{ .dockerconfig | toString }}"
+  data:
+    - secretKey: dockerconfig
+      remoteRef:
+        key: registry/credentials
+        property: dockerconfigjson
+```
+
+## Errores Comunes Adicionales
+
+1. **No escanear imagenes base para vulnerabilidades transitivas de paquetes del SO.** Una imagen distroless reduce la superficie, pero si usas una base como `python:3.12-slim`, heredas paquetes de Debian. Escanea la imagen base de forma independiente:
+
+```bash
+# Scan base image separately
+trivy image --scanners vuln python:3.12-slim --format json > base-scan.json
+
+# Compare with your app image scan
+trivy image --scanners vuln myapp:v1.2.3 --format json > app-scan.json
+
+# Find vulnerabilities introduced by your layers only
+jq -r '.Results[] | select(.Target | contains("app")) | .Vulnerabilities[]?' app-scan.json
+```
+
+2. **Permitir egress a internet sin restricciones.** Los pods que pueden alcanzar cualquier endpoint externo pueden exfiltrar datos o descargar malware. Usa un proxy de egress o firewall:
+
+```yaml
+# egress-proxy-network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restrict-egress-internet
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: production
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Con que frecuencia debemos reconstruir y reescanear imagenes de contenedor?
+
+Reconstruye al menos mensualmente para obtener parches del SO. Para servicios criticos, configura un pipeline de reconstruccion semanal. Usa una tarea programada de CI que actualice el tag de la imagen base, reconstruya, escanee y despliegue si el escaneo pasa:
+
+```yaml
+# GitHub Actions weekly rebuild
+name: Weekly Image Rebuild
+on:
+  schedule:
+    - cron: "0 2 * * 1"
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and scan
+        run: |
+          docker build -t myapp:latest .
+          trivy image --exit-code 1 --severity HIGH,CRITICAL myapp:latest
+```
+
+### Cual es la diferencia entre Pod Security Standards y politicas Kyverno?
+
+Pod Security Standards son controles de admision integrados en Kubernetes con tres perfiles (`privileged`, `baseline`, `restricted`). Cubren contextos de seguridad comunes pero son limitados. Kyverno es un motor de politicas que puede hacer cumplir las mismas reglas mas politicas personalizadas para imagenes, recursos, labels y red. Usa Pod Security Standards para aplicacion de linea base y Kyverno para reglas especificas de la organizacion.

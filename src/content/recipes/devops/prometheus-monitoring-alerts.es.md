@@ -237,3 +237,272 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### Recording Rules para Rendimiento
+
+```yaml
+# rules/recording_rules.yml
+groups:
+  - name: http_metrics
+    interval: 30s
+    rules:
+      - record: job:http_request_rate:5m
+        expr: sum by(job) (rate(http_requests_total[5m]))
+
+      - record: job:http_error_rate:5m
+        expr: sum by(job) (rate(http_requests_total{status=~"5.."}[5m]))
+
+      - record: job:http_p99_latency:5m
+        expr: histogram_quantile(0.99, sum by(job, le) (rate(http_request_duration_seconds_bucket[5m])))
+
+      - record: instance:memory_usage:ratio
+        expr: |
+          (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes)
+          / node_memory_MemTotal_bytes
+```
+
+### Alerting Rules con Severidad
+
+```yaml
+# rules/alerting_rules.yml
+groups:
+  - name: service_alerts
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          job:http_error_rate:5m / job:http_request_rate:5m > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "High error rate on {{ $labels.job }}"
+          description: "{{ $labels.job }} has 5%+ error rate for 5 minutes"
+
+      - alert: HighLatency
+        expr: job:http_p99_latency:5m > 2
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "p99 latency above 2s on {{ $labels.job }}"
+
+      - alert: PodCrashLooping
+        expr: rate(kube_pod_container_status_restarts_total[5m]) > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Pod {{ $labels.pod }} is crash-looping"
+
+      - alert: DiskSpaceLow
+        expr: |
+          (node_filesystem_avail_bytes{mountpoint="/"}
+            / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 10
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk space below 10% on {{ $labels.instance }}"
+```
+
+### Alertmanager Routing
+
+```yaml
+# alertmanager.yml
+route:
+  receiver: default
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    - matchers:
+        - severity="critical"
+      receiver: pagerduty
+      group_wait: 10s
+      repeat_interval: 1h
+
+    - matchers:
+        - severity="warning"
+      receiver: slack
+      group_wait: 5m
+
+    - matchers:
+        - team="database"
+      receiver: db-team
+
+receivers:
+  - name: default
+    slack_configs:
+      - api_url: 'https://hooks.slack.com/services/...'
+        channel: '#alerts'
+
+  - name: pagerduty
+    pagerduty_configs:
+      - routing_key: 'your-routing-key'
+        severity: critical
+
+  - name: slack
+    slack_configs:
+      - api_url: 'https://hooks.slack.com/services/...'
+        channel: '#warnings'
+
+  - name: db-team
+    email_configs:
+      - to: 'db-team@example.com'
+```
+
+### Exporter Custom (Python)
+
+```python
+from prometheus_client import Counter, Histogram, Gauge, start_http_server
+import time
+import random
+
+# Definir métricas
+REQUESTS = Counter('app_requests_total', 'Total requests', ['endpoint', 'method'])
+LATENCY = Histogram('app_request_duration_seconds', 'Request latency', ['endpoint'])
+ACTIVE_CONNECTIONS = Gauge('app_active_connections', 'Active connections')
+
+def handle_request(endpoint, method):
+    start = time.time()
+    REQUESTS.labels(endpoint=endpoint, method=method).inc()
+    # Simular trabajo
+    time.sleep(random.uniform(0.01, 0.5))
+    LATENCY.labels(endpoint=endpoint).observe(time.time() - start)
+
+if __name__ == '__main__':
+    start_http_server(9090)
+    while True:
+        handle_request('/api/users', 'GET')
+        ACTIVE_CONNECTIONS.set(random.randint(1, 100))
+        time.sleep(0.1)
+```
+
+## Mejores Prácticas Adicionales
+
+1. **Usa recording rules para dashboards.** Precomputa queries caras para acelerar Grafana:
+
+```yaml
+# Precomputar en lugar de calcular en tiempo de query
+- record: job:http_p99:5m
+  expr: histogram_quantile(0.99, sum by(job, le)(rate(http_request_duration_seconds_bucket[5m])))
+```
+
+1. **Setea duraciones `for` sabiamente.** Muy corto causa flapping; muy largo retrasa alerts:
+
+```yaml
+# Critical: 2-5 minutos
+for: 2m
+
+# Warning: 10-15 minutos
+for: 10m
+
+# Info: 30+ minutos
+for: 30m
+```
+
+1. **Usa `keep_firing_for` para prevenir gaps de alerts.** Mantiene alerts firing durante delays de evaluación:
+
+```yaml
+- alert: HighErrorRate
+  expr: ...
+  for: 5m
+  keep_firing_for: 1m
+```
+
+## Errores Comunes Adicionales
+
+1. **Usar `rate()` con ventana muy corta.** `rate(metric[30s])` es ruidoso; usa al menos 5 minutos:
+
+```promql
+# Mal: ruidoso, alta varianza
+rate(http_requests_total[30s])
+
+# Bien: estable, significativo
+rate(http_requests_total[5m])
+```
+
+1. **No usar `histogram_quantile` correctamente.** Debe agregar por label `le`:
+
+```promql
+# Mal: falta agregación por le
+histogram_quantile(0.99, rate(http_duration_bucket[5m]))
+
+# Bien: agregar por le
+histogram_quantile(0.99, sum by(le)(rate(http_duration_bucket[5m])))
+```
+
+## FAQ Adicional
+
+### ¿Cómo reduzco el uso de storage de Prometheus?
+
+1. Reducir período de retención (default 15 días)
+2. Bajar frecuencia de scrape para servicios no críticos
+3. Usar recording rules en lugar de queries complejas
+4. Limitar cardinalidad de labels
+
+```yaml
+# prometheus.yml
+storage:
+  retention: 15d
+  tsdb:
+    max_block_duration: 2h
+```
+
+### ¿Cómo envío alerts a múltiples canales?
+
+Configura Alertmanager con múltiples receivers y routes:
+
+```yaml
+route:
+  routes:
+    - matchers: ['severity="critical"']
+      receiver: pagerduty
+    - matchers: ['severity="warning"']
+      receiver: slack
+```
+
+### ¿Cuál es la diferencia entre `rate` e `irate`?
+
+`rate` computa el promedio por segundo de incremento en un rango. `irate` computa el incremento por segundo usando solo los últimos dos samples. Usa `irate` para métricas volátiles en dashboards; usa `rate` para alerting.
+
+## Tips de Rendimiento
+
+1. **Usa recording rules para queries frecuentes.** Precomputa una vez, consulta muchas veces:
+
+```yaml
+# Computar una vez cada 30s
+- record: job:cpu_usage:5m
+  expr: 100 - avg by(job)(irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100
+```
+
+1. **Limita targets de scrape.** Demasiados targets ralentizan Prometheus:
+
+```yaml
+# Solo scrapear lo que necesitas
+scrape_configs:
+  - job_name: 'critical-services'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['app1:9090', 'app2:9090']  # No cada pod
+```
+
+1. **Usa `scrape_interval` sabiamente.** 15s para críticos, 60s para no críticos:
+
+```yaml
+scrape_configs:
+  - job_name: 'critical'
+    scrape_interval: 15s
+  - job_name: 'batch'
+    scrape_interval: 60s
+```
+
+1. **Usa Thanos para storage a largo plazo.** No guardes todo en Prometheus local:
+
+```yaml
+# Config del sidecar de Thanos
+--objstore.config-file=thanos-bucket.yaml
+--tsdb.path=/prometheus/data
+```

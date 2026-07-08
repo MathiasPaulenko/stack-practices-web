@@ -138,3 +138,194 @@ La mayoria de los sistemas necesitan entre tres y siete roles. Mas de diez roles
 ### Puede un usuario tener multiples roles?
 
 Si, pero los permisos combinados deben revisarse para evitar escalacion no intencionada de privilegios. Roles temporales y permanentes deben rastrearse por separado.
+
+## Soluciones Avanzadas
+
+### RBAC de Kubernetes con role bindings
+
+Define roles y bindings RBAC de Kubernetes para un cluster multi-equipo:
+
+```yaml
+# Role: developer-read-only
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer-read-only
+  namespace: team-payments
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch"]
+---
+# RoleBinding: vincular developers al role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developers-read-only
+  namespace: team-payments
+subjects:
+  - kind: Group
+    name: team-payments-developers
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: developer-read-only
+  apiGroup: rbac.authorization.k8s.io
+---
+# ClusterRole: namespace admin para platform team
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: namespace-admin
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+```
+
+### Politica AWS IAM con boundaries de privilegio minimo
+
+Define una politica IAM con permission boundaries para limitar lo que los developers pueden hacer incluso con roles mas amplios:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowS3ReadWrite",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::team-payments-data",
+        "arn:aws:s3:::team-payments-data/*"
+      ]
+    },
+    {
+      "Sid": "DenyDeleteBucket",
+      "Effect": "Deny",
+      "Action": [
+        "s3:DeleteBucket",
+        "s3:DeleteBucketPolicy"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "RequireMFAForSensitiveActions",
+      "Effect": "Deny",
+      "Action": [
+        "iam:CreateAccessKey",
+        "iam:DeleteAccessKey",
+        "iam:AttachUserPolicy"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "BoolIfExists": {
+          "aws:MultiFactorAuthPresent": "false"
+        }
+      }
+    }
+  ]
+}
+```
+
+### Politica RBAC as code con OPA Gatekeeper
+
+Aplica reglas RBAC usando Open Policy Agent (OPA) Gatekeeper en Kubernetes:
+
+```yaml
+# Constraint: prevenir escalacion de privilegios
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredRoleBindings
+metadata:
+  name: prevent-privilege-escalation
+spec:
+  match:
+    kinds:
+      - apiGroups: ["rbac.authorization.k8s.io"]
+        kinds: ["RoleBinding", "ClusterRoleBinding"]
+  parameters:
+    # Bloquear bindings a cluster-admin para namespaces no-platform
+    forbiddenRoles:
+      - cluster-admin
+    allowedGroups:
+      - platform-team
+      - security-team
+```
+
+```rego
+# Politica OPA: validar role bindings
+package k8srequiredrolebindings
+
+violation[{"msg": msg}] {
+  input.review.object.roleRef.name == "cluster-admin"
+  not input.review.object.subjects[_].name in input.parameters.allowedGroups
+  msg := sprintf("cluster-admin role cannot be bound to %v", [input.review.object.subjects[_].name])
+}
+```
+
+## Mejores Practicas Adicionales
+
+1. **Implementa acceso break-glass con auditoria completa.** El acceso admin de emergencia debe usar una cuenta separada, triggerar alertas y requerir revision post-incidente. Nunca uses cuentas break-glass para operaciones rutinarias:
+
+```python
+# Alertar sobre uso de break-glass
+def on_break_glass_login(user: str, resource: str) -> None:
+    alert_security_team(
+        f"Break-glass account {user} accessed {resource}. "
+        f"Post-incident review required within 24 hours."
+    )
+    create_incident_ticket(user, resource)
+```
+
+2. **Usa composicion de roles para conjuntos complejos de permisos.** En vez de crear un nuevo role para cada combinacion, compone roles de conjuntos de permisos mas pequenos. Esto reduce la explosion de roles:
+
+```yaml
+# Ejemplo de composicion de roles
+roles:
+  deployer:
+    inherits: [viewer, editor]
+    adds: [deploy, restart]
+  incident_commander:
+    inherits: [viewer, deployer]
+    adds: [scale, rollback, toggle_feature_flag]
+```
+
+## Errores Comunes Adicionales
+
+1. **Conceder el role `admin` como atajo durante incidentes y olvidar revocarlo.** Usa elevacion con tiempo limitado y expiracion automatica en vez de grants permanentes de admin. Establece un TTL maximo de 4 horas para acceso de emergencia:
+
+```bash
+# Conceder admin temporal con expiracion de 4 horas
+vault write identity/entity-alias/name=user@company.com \
+    policies=temp-admin ttl=4h
+```
+
+2. **No testear cambios de roles en staging antes de produccion.** Aplica cambios RBAC a un entorno staging primero y verifica que los usuarios pueden seguir realizando sus tareas. Tests automatizados pueden validar rutas de acceso:
+
+```bash
+# Test: verificar que un developer puede leer pero no escribir
+kubectl auth can-i get pods --as=developer@company.com -n staging
+# Esperado: yes
+kubectl auth can-i create pods --as=developer@company.com -n staging
+# Esperado: no
+```
+
+## Preguntas Frecuentes Adicionales
+
+### Como migro de permisos directos a RBAC sin disrupcion?
+
+Comienza inventariando todos los permisos directos existentes. Mapea cada permiso a un role. Asigna roles junto a los permisos directos existentes. Verifica que los usuarios pueden realizar sus tareas con solo el role. Luego elimina los permisos directos en una ventana de mantenimiento con capacidad de rollback.
+
+### Que es la explosion de roles y como la prevengo?
+
+La explosion de roles ocurre cuando una organizacion crea demasiados roles fine-grained, haciendo el modelo inmanejable. Prevenla usando nombres funcionales de roles, componiendo roles de conjuntos de permisos mas pequenos y revisando roles anualmente para fusionar o eliminar los no usados. Apunta a menos de 10 roles por sistema.

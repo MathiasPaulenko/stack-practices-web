@@ -153,3 +153,204 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+## Soluciones Avanzadas
+
+### Enrutamiento dinamico con descubrimiento de servicios
+
+Integra el enrutamiento de gateway con descubrimiento de servicios para actualizaciones automaticas de upstream:
+
+```typescript
+import { ServiceRegistry } from './service-registry';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+
+class DynamicGateway {
+  private registry: ServiceRegistry;
+  private app: express.Application;
+
+  constructor(registry: ServiceRegistry) {
+    this.registry = registry;
+    this.app = express();
+    this.setupRoutes();
+  }
+
+  async setupRoutes() {
+    const services = await this.registry.getAllServices();
+    
+    services.forEach(service => {
+      const targets = service.instances.map(
+        instance => `${instance.host}:${instance.port}`
+      );
+
+      this.app.use(service.path, createProxyMiddleware({
+        target: `http://${targets[0]}`,
+        changeOrigin: true,
+        router: (req) => {
+          // Balancear carga entre instancias saludables
+          const healthyInstances = service.instances.filter(i => i.healthy);
+          const selected = healthyInstances[Math.floor(Math.random() * healthyInstances.length)];
+          return `${selected.host}:${selected.port}`;
+        },
+        onProxyReq: (proxyReq, req, res) => {
+          proxyReq.setHeader('X-Request-ID', req.id);
+        },
+        onError: (err, req, res) => {
+          console.error(`Error de proxy: ${err.message}`);
+          res.status(502).json({ error: 'Bad Gateway' });
+        }
+      }));
+    });
+  }
+
+  listen(port: number) {
+    this.app.listen(port, () => console.log(`Gateway escuchando en ${port}`));
+  }
+}
+```
+
+### Integracion de circuit breaker
+
+Agrega el patron de circuit breaker para prevenir fallos en cascada:
+
+```typescript
+import CircuitBreaker from 'opossum';
+
+const options = {
+  timeout: 3000,
+  errorThresholdPercentage: 50,
+  resetTimeout: 30000
+};
+
+class CircuitBreakerGateway {
+  private breakers: Map<string, any>;
+
+  constructor() {
+    this.breakers = new Map();
+  }
+
+  getBreaker(serviceName: string) {
+    if (!this.breakers.has(serviceName)) {
+      const breaker = new CircuitBreaker(
+        async (url: string, options: RequestInit) => {
+          const response = await fetch(url, options);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        },
+        options
+      );
+
+      breaker.on('open', () => console.log(`Circuito abierto para ${serviceName}`));
+      breaker.on('halfOpen', () => console.log(`Circulo medio-abierto para ${serviceName}`));
+      breaker.on('close', () => console.log(`Circulo cerrado para ${serviceName}`));
+
+      this.breakers.set(serviceName, breaker);
+    }
+
+    return this.breakers.get(serviceName);
+  }
+
+  async proxyRequest(serviceName: string, path: string, request: Request) {
+    const breaker = this.getBreaker(serviceName);
+    const serviceUrl = `http://${serviceName}:3001${path}`;
+    
+    return breaker.fire(serviceUrl, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body
+    });
+  }
+}
+```
+
+### Middleware de transformacion de solicitudes
+
+Transforma solicitudes y respuestas en el gateway:
+
+```typescript
+class TransformGateway {
+  private app: express.Application;
+
+  constructor() {
+    this.app = express();
+    this.setupTransforms();
+  }
+
+  setupTransforms() {
+    // Transformar encabezados de solicitud
+    this.app.use('/api/v1', (req, res, next) => {
+      req.headers['x-api-version'] = 'v1';
+      req.headers['x-request-time'] = new Date().toISOString();
+      next();
+    });
+
+    // Transformar formato de respuesta
+    this.app.use('/api/v2', async (req, res, next) => {
+      const originalJson = res.json;
+      res.json = function(data) {
+        const transformed = {
+          meta: {
+            version: 'v2',
+            timestamp: new Date().toISOString()
+          },
+          data: data
+        };
+        originalJson.call(this, transformed);
+      };
+      next();
+    });
+
+    // Traduccion de protocolo (REST a gRPC)
+    this.app.post('/grpc-proxy', async (req, res) => {
+      const grpcClient = loadGrpcClient('users-service');
+      const grpcRequest = mapRestToGrpc(req.body);
+      
+      try {
+        const grpcResponse = await grpcClient.getUser(grpcRequest);
+        const restResponse = mapGrpcToRest(grpcResponse);
+        res.json(restResponse);
+      } catch (error) {
+        res.status(500).json({ error: 'Fallo de traduccion gRPC' });
+      }
+    });
+  }
+}
+```
+
+## Mejores Practicas Adicionales
+
+1. **Implementa transformacion de solicitud/respuesta en el gateway.** Usa middleware para normalizar versiones de API, transformar formatos de datos y manejar traduccion de protocolos. Esto mantiene los servicios backend simples y consistentes.
+
+2. **Usa enrutamiento ponderado para despliegues canary.** Enruta un porcentaje de trafico a una nueva version de un servicio para rollout gradual. Monitorea metricas y haz rollback automatico si los errores aumentan.
+
+```yaml
+# Configuracion de enrutamiento ponderado
+routes:
+  - path: /api/users
+    upstreams:
+      - service: users-service-v1
+        weight: 90  # 90% del trafico
+      - service: users-service-v2
+        weight: 10  # 10% del trafico (canary)
+```
+
+3. **Implementa rate limiting por cliente.** Usa rate limiting basado en IP, clave de API o usuario para prevenir abuso. Almacena contadores de rate limit en Redis para gateways distribuidos.
+
+## Errores Comunes Adicionales
+
+1. **Crear un unico punto de falla.** El gateway se convierte en infraestructura critica. Despliega multiples instancias de gateway detras de un balanceador de carga con health checks para asegurar alta disponibilidad.
+
+2. **Sobrecargar el gateway con logica de transformacion.** Las transformaciones complejas aumentan la latencia y dificultan el debugging. Mueve la logica de transformacion pesada a servicios BFF (Backend for Frontend) dedicados.
+
+## FAQs Adicionales
+
+### ¿Cómo manejo la autenticacion en el gateway?
+
+Valida tokens JWT o claves de API en el gateway antes del enrutamiento. Extrae la identidad del usuario del token y pasala como encabezados a los servicios backend. Esto centraliza la logica de autenticacion y reduce la validacion duplicada.
+
+### ¿Deberia el gateway manejar cache de respuestas?
+
+Si, cachea respuestas GET para datos frecuentemente accedidos en el gateway. Usa encabezados de cache de los servicios backend para determinar la duracion del cache. Implementa invalidacion de cache para contenido dinamico usando webhooks o eventos pub/sub.
+
+### ¿Cómo monitoreo el rendimiento del gateway?
+
+Rastrea metricas de latencia de solicitud, tasas de error, salud de upstream y throughput. Usa trazabilidad distribuida para seguir solicitudes a traves de servicios. Configura alertas para tasas de error aumentadas o latencia para detectar problemas temprano.
