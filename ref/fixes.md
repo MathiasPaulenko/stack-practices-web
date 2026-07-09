@@ -271,3 +271,4 @@ Last updated: 2026-07-09
 | 2026-07-09 | Thin content — recipes (parse-json, rest-api-design, javascript-event-loop, cache-invalidation, query-optimization) EN/ES | 10 files | f2272c9 |
 | 2026-07-09 | Thin content — recipes (caching-strategies, serverless-functions, parse-toml-files, parse-yaml-files, ai-agents-tool-use) EN/ES | 10 files | 465fdce |
 | 2026-07-09 | Thin content — recipes (graphql-mocking-apollo-server, graphql-directives-auth, graphql-pagination-relay-connections, serverless-orchestration, implement-mutation-testing) EN/ES | 10 files | 29905ca |
+| 2026-07-09 | Thin content — recipes (java-wiremock-stub-external, websocket-bidirectional-chat, flatten-unflatten-objects, javascript-vitest-snapshot-testing, measure-test-coverage) EN/ES | 10 files | 48f44e3 |
