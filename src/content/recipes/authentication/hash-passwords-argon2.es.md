@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/authentication/implement-rbac
   - /recipes/authentication/implement-sso-saml
   - /guides/security/secrets-management-guide
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Hashea y verifica contraseñas de forma segura con Argon2id, con tuning correcto de parámetros y estrategias de migración desde bcrypt."
@@ -250,14 +250,54 @@ A: Acepta hashes tanto de bcrypt como de Argon2 durante la verificación. En un 
 **Q: ¿Qué pasa si configuro memory_cost demasiado alto?**
 A: El servidor puede quedarse sin memoria bajo carga, causando OOM kills o denegación de servicio. Comienza con 64 MiB y aumenta solo después de pruebas de carga.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo manejo el rehashing cuando actualizo parámetros de Argon2?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Almacena los parámetros de Argon2 (time_cost, memory_cost, parallelism) junto con el hash en el formato codificado. Cuando verificas una contraseña, extrae los parámetros del hash almacenado y compáralos con tus parámetros actuales. Si difieren, verifica la contraseña con los parámetros antiguos y, si es correcta, rehashea con los parámetros nuevos. Esto permite ajustar parámetros sin invalidar contraseñas existentes.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Qué biblioteca debo usar para Argon2 en Python?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+`argon2-cffi` es la biblioteca recomendada. Es un binding CFFI de la referencia de implementación de Argon2. Usa `argon2.PasswordHasher()` con parámetros por defecto que siguen las recomendaciones de OWASP. Para Node.js, usa `@node-rs/argon2` o `argon2` (binding nativo). Para Go, usa `golang.org/x/crypto/argon2` con configuración manual de parámetros.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo prevengo ataques de timing en la verificación de contraseñas?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Usa comparación de tiempo constante al verificar hashes. `argon2-cffi` usa `secrets.compare_digest()` internamente. En Go, usa `crypto/subtle.ConstantTimeCompare()`. Nunca uses `==` para comparar hashes — un atacante puede medir diferencias de tiempo para deducir información del hash. La comparación de tiempo constante siempre toma el mismo tiempo independientemente de dónde difieran los hashes.
+
+### ¿Debo almacenar el salt en la base de datos?
+
+El salt se incluye en el hash codificado que genera la biblioteca (formato `$argon2id$v=19$m=65536,t=3,p=4$<salt>$<hash>`). No necesitas una columna separada para el salt. Si prefieres almacenarlos por separado, asegúrate de que el salt sea único por contraseña y tenga al menos 16 bytes. Nunca reuses salts entre usuarios.
+
+### ¿Cómo implemento rate limiting para el endpoint de login?
+
+Usa un contador de sliding window en Redis keyed por IP o user ID. Limita a 5 intentos por minuto por IP y 10 por hora por cuenta. Después de 5 fallos, requiere CAPTCHA o bloquea la cuenta temporalmente. Implementa exponential backoff en el cliente. Registra todos los intentos de login para detección de ataques de fuerza bruta.
+
+### ¿Qué hago si la base de datos de contraseñas se filtra?
+
+Si los hashes usan Argon2id con parámetros adecuados, los atacantes necesitarán recursos significativos para crackearlos. Notifica a los usuarios afectados y fuerza un reset de contraseña. Rota cualquier secreto de la aplicación. Revisa logs de acceso para detectar intentos de login sospechosos. Considera implementar notificaciones de login por email para todos los usuarios. Si usabas parámetros débiles, rehashea todas las contraseñas en el próximo login con parámetros más fuertes.
+
+### ¿Cómo implemento pepper en el hashing de contraseñas?
+
+Un pepper es un secreto del servidor añadido al password antes de hashing, almacenado fuera de la base de datos (ej., en una variable de entorno o KMS). Añade el pepper concatenándolo al password: `hash_password(password + pepper)`. Si la base de datos se filtra pero el pepper no, los hashes son inútiles sin el pepper. Usa un KMS (AWS KMS, HashiCorp Vault) para rotar el pepper periódicamente. Nunca hardcodees el pepper en el código fuente.
+
+### ¿Qué hago si un usuario olvida su contraseña?
+
+No almacenes contraseñas en texto plano ni reversibles. Implementa un flujo de reset: genera un token único con expiración corta (15 minutos), almacénalo hasheado en la base de datos, envía un email con un link conteniendo el token. Al confirmar el reset, invalida todas las sesiones activas del usuario. Usa `secrets.token_urlsafe(32)` para generar tokens criptográficamente seguros.
+
+### ¿Cómo manejo contraseñas en entornos de testing?
+
+Nunca uses contraseñas reales de usuarios en tests. Genera contraseñas de test con `faker` o `secrets.token_urlsafe()`. Usa parámetros de Argon2 más bajos en tests (time_cost=1, memory_cost=4096) para mantener los tests rápidos. Configura los parámetros de test vía variables de entorno para que el código de producción y test compartan la misma lógica con diferentes parámetros.
+
+### ¿Argon2 es resistente a ataques de GPU?
+
+Sí, Argon2id es resistente a ataques de GPU debido a su diseño memory-hard. El parámetro `memory_cost` fuerza al atacante a allocar la misma cantidad de memoria por cada hash que intenta crackear. Las GPUs tienen memoria limitada comparada con CPUs (típicamente 8-24 GB en GPUs de consumo vs. 64-256 GB en servidores). Con `memory_cost=65536` (64 MiB), una GPU con 8 GB solo puede hashear ~128 contraseñas en paralelo, reduciendo drásticamente el throughput del ataque comparado con bcrypt o SHA-256.
+
+### ¿Cómo implemento MFA junto con Argon2?
+
+MFA es complementario al hashing de contraseñas — Argon2 protege la contraseña en reposo, MFA protege el acceso incluso si la contraseña se compromete. Después de verificar la contraseña con Argon2, valida el segundo factor (TOTP, SMS, hardware key). Usa `pyotp` para TOTP en Python o `otplib` en Node.js. Almacena el secreto TOTP encriptado en la base de datos, nunca en texto plano. Si el usuario tiene MFA habilitado, no reveles si la contraseña fue correcta o incorrecta antes de pedir el segundo factor — esto previene enumeration attacks.
+
+### ¿Puedo usar Argon2 en un entorno serverless?
+
+Sí, pero ten cuidado con los cold starts. Argon2 con `memory_cost=65536` puede tardar 250-500ms, lo que excede los timeouts de algunas plataformas serverless. Usa `memory_cost=16384` (16 MiB) y `time_cost=2` para reducir la latencia. Configura el timeout de la función en al menos 5 segundos. Considera usar un warm pool o provisioned concurrency para mantener las instancias calientes. Monitorea la duración de las invocaciones con CloudWatch o Datadog para detectar degradación.
+
+### ¿Cómo audito la fortaleza de los hashes existentes?
+
+Escribe un script que lea los hashes de la base de datos y verifique: el algoritmo (debe ser Argon2id, no bcrypt ni PBKDF2), los parámetros (memory_cost >= 65536, time_cost >= 3, parallelism >= 4), y la longitud del salt (>= 16 bytes). Marca los hashes que no cumplen para rehashing en el próximo login. Ejecuta este audit trimestralmente. Documenta los resultados para compliance.

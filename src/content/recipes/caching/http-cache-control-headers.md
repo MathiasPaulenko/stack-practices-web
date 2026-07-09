@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/caching/redis-cache-aside-pattern
   - /patterns/caching/cache-aside-pattern
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configure HTTP Cache-Control headers for APIs and static assets. Use ETag, Last-Modified, max-age, and stale-while-revalidate for CDN caching."
@@ -247,14 +247,54 @@ A: One year (`max-age=31536000`) with `immutable` if filenames are content-hashe
 **Q: Does `stale-while-revalidate` work in browsers?**
 A: It works in Chrome and Firefox. Safari ignores it. CDNs like Cloudflare and Fastly support it regardless of browser.
 
-### Is this solution production-ready?
+### How do I invalidate cached responses?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Use `Cache-Control: no-cache` with `ETag` validation. When the resource changes, the server returns a new ETag, forcing the client to revalidate. For CDN invalidation, use the CDN's purge API (e.g., `POST /purge` on Cloudflare). Tag-based purging lets you invalidate groups of URLs by cache-tag (e.g., `user-123`). Avoid `Clear-Site-Data` for cache invalidation — it clears everything including cookies and storage.
 
-### What are the performance characteristics?
+### How do I handle caching for authenticated requests?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Set `Cache-Control: private` so shared caches (CDNs, proxies) do not store user-specific responses. Use `Vary: Authorization` to ensure the cache key includes the auth header. For user-specific data that changes rarely, use `stale-while-revalidate=60` so the client serves stale data while revalidating in the background. Never cache responses containing tokens or session IDs in shared caches.
 
-### How do I debug issues with this approach?
+### What is the difference between `max-age` and `s-maxage`?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+`max-age` applies to all caches (browser and CDN). `s-maxage` applies only to shared caches (CDNs, proxies) and overrides `max-age` for them. Use `s-maxage=600, max-age=60` to let CDNs cache for 10 minutes while browsers revalidate every minute. This pattern is useful for APIs where data changes frequently but can tolerate short staleness.
+
+### How do I cache API responses with query parameters?
+
+The cache key includes the full URL with query string by default. Ensure `Vary: Accept` if responses vary by content type. For pagination, cache each page separately by including the cursor or page number in the URL. Avoid caching responses with mutable query parameters like timestamps or random nonces — they create unique cache entries that are never reused.
+
+### How do I implement cache busting for hashed assets?
+
+Use content-hash in filenames: `app.a1b2c3d4.js`. Set `Cache-Control: public, max-age=31536000, immutable` for these files. When the file content changes, the hash changes, creating a new URL that the browser fetches fresh. Reference the hashed filenames in your HTML, which should use `no-cache` so the browser always gets the latest references.
+
+### How do I debug caching issues?
+
+Use `curl -I` to inspect response headers. Check `Cache-Control`, `ETag`, `Last-Modified`, `Age`, and `X-Cache` headers. Browser DevTools Network tab shows cache hit/miss status. Use the `Cache-Control: no-cache` header in a request to force revalidation. For CDN issues, check the CDN's dashboard for cache hit ratios and edge locations serving stale content.
+
+### How do I handle caching with Vary headers?
+
+`Vary` tells caches which request headers affect the response. `Vary: Accept-Encoding` caches gzip and brotli responses separately. `Vary: Accept` caches JSON and HTML responses separately. Avoid `Vary: *` — it disables caching entirely. Over-specifying `Vary` (e.g., `Vary: User-Agent`) fragments cache keys and reduces hit rates. Use `Vary: Accept, Accept-Encoding` for APIs that return multiple content types.
+
+### How do I use surrogate keys for CDN cache invalidation?
+
+Surrogate keys (or cache tags) let you invalidate groups of URLs with a single request. Add `Cache-Tag: user-123, posts` to responses. When user 123 updates their profile, send a purge request for the `user-123` tag. Cloudflare and Fastly support this natively. This is more efficient than purging individual URLs — a single tag purge can invalidate thousands of cached responses.
+
+### How do I handle cache for Server-Side Rendered pages?
+
+Set `Cache-Control: public, max-age=300, s-maxage=3600` for SSR pages. The browser revalidates every 5 minutes while the CDN serves cached HTML for 1 hour. Use `stale-while-revalidate=60` so the CDN serves stale HTML while fetching a fresh render in the background. For personalized SSR pages, use `Cache-Control: private, no-cache` and rely on client-side hydration for user-specific content.
+
+### How do I handle caching for API versioning?
+
+When you version your API (e.g., `/v1/users` vs `/v2/users`), each version has its own cache namespace naturally. Include the version in the URL path rather than in a header so caches key on it correctly. Set `Cache-Control: no-store` for deprecated API versions to prevent stale caching. When deprecating a version, set a sunset date in the `Deprecation` header and `Sunset` header so clients know when to migrate.
+
+### How do I handle caching with CORS?
+
+CORS preflight responses (`OPTIONS` requests) can be cached with `Access-Control-Max-Age: 86400` (24 hours). This tells the browser to skip preflight for same-origin requests within that period. Set `Vary: Origin` if your server returns different CORS headers per origin. Do not cache actual CORS responses with `Access-Control-Allow-Origin: *` alongside `Vary: Origin` — this creates conflicting cache entries.
+
+### What is the `Age` header?
+
+The `Age` header indicates how long (in seconds) a response has been cached by a CDN or proxy. It increments while the response sits in cache. Use `Age` to debug stale content — if `Age` exceeds `max-age`, the response is stale and should be revalidated. CDNs set this header automatically. Browsers do not set `Age` — it is a shared-cache-only header. Check `Age` alongside `X-Cache` (HIT/MISS) to understand cache behavior end-to-end.
+
+### How do I handle caching for A/B testing?
+
+Use `Vary: Cookie` if the A/B variant is set via a cookie. Alternatively, include the experiment variant in the URL (e.g., `?variant=b`) so each variant gets its own cache entry. Do not use `Vary: User-Agent` for A/B testing — it fragments the cache. Set `Cache-Control: private` if the variant is user-specific. For server-side A/B testing, inject the variant assignment before the CDN cache layer so the CDN caches each variant separately.

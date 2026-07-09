@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/server-sent-events-go
   - /patterns/design/ambassador-pattern-services
-lastUpdated: "2026-06-18"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye APIs REST production-ready en Go con Gin. Implementa middleware custom para logging, auth, validacion y manejo de errores en servicios de alto rendimiento."
@@ -256,3 +256,47 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### ¿Cómo estructuro una aplicación Gin grande?
+
+Agrupa rutas por dominio usando `gin.RouterGroup`. Crea archivos de rutas separados por dominio (ej., `routes/users.go`, `routes/orders.go`) y registrálalos en `main.go`. Inyecta dependencias (database, cache, external clients) vía un struct pasado a los handler methods en lugar de variables globales. Usa repositories basados en interfaces para que los handlers sean testeables con mocks.
+
+### ¿Cómo manejo graceful shutdown en Gin?
+
+Usa `http.Server` con `Shutdown(ctx)` para drenar requests en vuelo. Escucha señales `SIGINT` y `SIGTERM`, luego llama `server.Shutdown(context.WithTimeout(ctx, 30*time.Second))`. Cierra conexiones a database y flushea logs después de que shutdown complete. Gin no bloquea en shutdown por defecto — necesitas wrap `router.Run()` en una goroutine y manejar el lifecycle tú mismo.
+
+### ¿Cómo valido request bodies en Gin?
+
+Usa `binding` tags en los campos de tu struct: `json:"name" binding:"required,min=3"`. Gin valida automáticamente cuando llamas `c.ShouldBindJSON(&req)`. Para validación custom, registra un `validator.Func` con el binding validator. Retorna `400 Bad Request` con detalles de error a nivel de campo cuando la validación falla. Usa `ShouldBindJSON` (no `BindJSON`) para evitar auto-escribir la response de error para que puedas formatearla tú mismo.
+
+### ¿Cómo implemento rate limiting en Gin?
+
+Usa el middleware `gin-contrib/limiter` o implementa un token bucket con `golang.org/x/time/rate`. Keyea el limiter por IP address o user ID. Setea un burst limit (ej., 10 requests) y un refill rate (ej., 1 request/second). Retorna `429 Too Many Requests` con un header `Retry-After`. Para deployments distribuidos, usa rate limiting backed en Redis para que el límite sea compartido entre instancias.
+
+### ¿Cómo testeo handlers de Gin?
+
+Usa `httptest.NewRecorder()` y `router.ServeHTTP` para testear handlers sin levantar un server. Crea un router de test con dependencias mockeadas. Aserta en el status code de response, body, y headers. Para tests de middleware, encadena el middleware y handler juntos y verifica la response. Usa `c.Set()` en tests para inyectar valores mock en el context.
+
+### ¿Cómo manejo errores consistentemente en Gin?
+
+Define un struct de error response custom con campos `code`, `message`, y `details`. Escribe una función helper `respondError(c, status, code, message)` que setea la JSON response y llama `c.Abort()`. Usa `c.Error(err)` para attachear errores al context, luego llama `c.AbortWithStatusJSON()` en un recovery middleware. Loggea errores con request ID para tracing. Retorna códigos de error consistentes (ej., `INVALID_INPUT`, `NOT_FOUND`, `UNAUTHORIZED`) para que los clientes puedan manejarlos programáticamente.
+
+### ¿Cómo uso Gin con OpenAPI/Swagger?
+
+Usa `swaggo/swag` para generar docs OpenAPI desde annotations. Agrega comentarios `@Summary`, `@Description`, `@Tags`, `@Param`, `@Success`, `@Router` arriba de cada handler. Ejecuta `swag init` para generar el package `docs`. Sirve el Swagger UI en `/swagger/index.html` usando el middleware `ginSwagger`. Mantén las annotations en sync con las signatures de los handlers — annotations desactualizadas producen API docs misleading.
+
+### ¿Cómo manejo CORS en Gin?
+
+Usa el middleware `gin-contrib/cors` con origins, methods, y headers explícitos permitidos. No uses `AllowAllOrigins: true` en producción — expone tu API a cross-site attacks. Setea `AllowOrigins: []string{"https://yourdomain.com"}` explícitamente. Habilita `AllowCredentials: true` solo si usas cookies o Authorization headers. Setea `MaxAge: 12 * time.Hour` para reducir preflight requests.
+
+### ¿Cómo manejo file uploads en Gin?
+
+Usa `c.FormFile("file")` para uploads de un solo archivo y `c.MultipartForm()` para múltiples archivos. Setea `router.MaxMultipartMemory = 8 << 20` (8 MiB) para limitar el parsing en memoria. Para archivos grandes, streamea directamente a S3 o disk usando `file.Open()` e `io.Copy`. Valida el tipo de archivo chequeando los primeros 512 bytes con `http.DetectContentType` en lugar de confiar en el header `Content-Type`. Setea un max file size en middleware usando `c.Request.Body = http.MaxBytesReader(c.Writer, c.Request.Body, 50<<20)` para rechazar uploads oversized temprano.
+
+### ¿Cómo implemento health checks en Gin?
+
+Registra un endpoint `/health` que retorne `200 OK` con un body JSON `{"status": "healthy"}`. Para checks más profundos, agrega un endpoint `/health/ready` que verifique conectividad de base de datos, Redis ping, y disponibilidad de servicios externos. Retorna `503 Service Unavailable` si alguna dependencia está down. Usa `gin.HandlerFunc` con un timeout wrapper para prevenir health checks colgados. Container orchestrators (Kubernetes, ECS) usan estos endpoints para liveness y readiness probes. Mantén el liveness probe ligero — debería retornar en menos de 50ms. Agrega un endpoint `/health/live` que solo chequee si el proceso está corriendo, separado de los readiness checks que verifican dependencias.
+
+### ¿Cómo aseguro rutas de Gin con JWT?
+
+Usa el middleware `gin-jwt` o implementa un `gin.HandlerFunc` custom que extraiga el JWT del header `Authorization: Bearer <token>`. Valida el token con `jwt.ParseWithClaims` y setea el user ID en el context con `c.Set("userID", claims.Subject)`. Retorna `401 Unauthorized` para tokens inválidos o expirados. Para refresh tokens, implementa un endpoint separado `/refresh` que acepte un refresh token válido y retorne un nuevo access token.

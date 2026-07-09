@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/python-pytest-fixtures-parametrize
   - /recipes/testing/measure-test-coverage
   - /recipes/testing/python-mock-external-apis-responses
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Mide y exige cobertura de tests en Python con pytest-cov. Genera reportes HTML, branch coverage, excluye líneas y falla CI con umbrales bajos de cobertura."
@@ -258,3 +258,64 @@ Usa `diff-cover` con `--fail-under=100` para requerir 100% de cobertura en líne
 coverage xml
 diff-cover coverage.xml --compare-branch=origin/main --fail-under=100
 ```
+
+### ¿Cómo excluyo líneas de la cobertura?
+
+Agrega `# pragma: no cover` para excluir líneas individuales. Usa `# pragma: no cover <reason>` para documentación. Configura exclusiones en `.coveragerc`:
+
+```ini
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+```
+
+Excluye código de debug, métodos repr, y stubs de métodos abstractos. No excluyas paths de error handling — esos son críticos de testear.
+
+### ¿Cómo mido branch coverage en lugar de line coverage?
+
+Pasa `--cov-branch` a pytest-cov o setea `branch = True` en `.coveragerc`:
+
+```bash
+pytest --cov=myapp --cov-branch --cov-report=term-missing
+```
+
+Branch coverage reporta si tanto el path true como el false de cada condicional fueron ejecutados. Detecta else branches faltantes y paths de short-circuit evaluation que line coverage no detecta.
+
+### ¿Cómo genero badges de cobertura para mi README?
+
+Usa `coverage-badge` para generar badges SVG desde tu reporte de cobertura:
+
+```bash
+pip install coverage-badge
+coverage-badge -o coverage.svg
+```
+
+Agrega el badge a tu README: `![coverage](coverage.svg)`. En CI, genera el badge como artifact y commitealo a una rama `badges` o subelo a un servicio de badges como shields.io.
+
+### ¿Cómo manejo cobertura con multiprocessing?
+
+Usa `coverage` con `--concurrency=multiprocessing` en `.coveragerc`:
+
+```ini
+[run]
+concurrency = multiprocessing
+parallel = True
+```
+
+Esto genera archivos de coverage data separados por proceso. Ejecuta `coverage combine` después de la suite de tests para mergeearlos. Sin esto, la cobertura de procesos child se pierde.
+
+### ¿Cómo integro cobertura con GitHub Actions?
+
+Agrega un step en tu workflow para ejecutar pytest con cobertura y subir el reporte:
+
+```yaml
+- run: pytest --cov=myapp --cov-report=xml
+- uses: codecov/codecov-action@v4
+  with:
+    file: ./coverage.xml
+```
+
+Codecov publica un comentario en PRs con el diff de cobertura y visualiza líneas no cubiertas. Usa `fail_under` en `.coveragerc` para fallear el job de CI si la cobertura baja de un threshold.

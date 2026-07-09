@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/server-sent-events-go
   - /patterns/design/ambassador-pattern-services
-lastUpdated: "2026-06-18"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build production REST APIs in Go with Gin framework. Implement custom middleware for logging, auth, validation, and error handling in high-performance services."
@@ -256,3 +256,47 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### How do I structure a large Gin application?
+
+Group routes by domain using `gin.RouterGroup`. Create separate route files per domain (e.g., `routes/users.go`, `routes/orders.go`) and register them in `main.go`. Inject dependencies (database, cache, external clients) via a struct passed to handler methods rather than global variables. Use interface-based repositories so handlers are testable with mocks.
+
+### How do I handle graceful shutdown in Gin?
+
+Use `http.Server` with `Shutdown(ctx)` to drain in-flight requests. Listen for `SIGINT` and `SIGTERM` signals, then call `server.Shutdown(context.WithTimeout(ctx, 30*time.Second))`. Close database connections and flush logs after shutdown completes. Gin does not block on shutdown by default — you need to wrap `router.Run()` in a goroutine and manage the lifecycle yourself.
+
+### How do I validate request bodies in Gin?
+
+Use `binding` tags on your struct fields: `json:"name" binding:"required,min=3"`. Gin validates automatically when you call `c.ShouldBindJSON(&req)`. For custom validation, register a `validator.Func` with the binding validator. Return `400 Bad Request` with field-level error details when validation fails. Use `ShouldBindJSON` (not `BindJSON`) to avoid auto-writing the error response so you can format it yourself.
+
+### How do I implement rate limiting in Gin?
+
+Use `gin-contrib/limiter` middleware or implement a token bucket with `golang.org/x/time/rate`. Key the limiter by IP address or user ID. Set a burst limit (e.g., 10 requests) and a refill rate (e.g., 1 request/second). Return `429 Too Many Requests` with a `Retry-After` header. For distributed deployments, use Redis-backed rate limiting so the limit is shared across instances.
+
+### How do I test Gin handlers?
+
+Use `httptest.NewRecorder()` and `router.ServeHTTP` to test handlers without starting a server. Create a test router with mocked dependencies. Assert on the response status code, body, and headers. For middleware tests, chain the middleware and handler together and verify the response. Use `c.Set()` in tests to inject mock values into the context.
+
+### How do I handle errors consistently in Gin?
+
+Define a custom error response struct with `code`, `message`, and `details` fields. Write a helper function `respondError(c, status, code, message)` that sets the JSON response and calls `c.Abort()`. Use `c.Error(err)` to attach errors to the context, then call `c.AbortWithStatusJSON()` in a recovery middleware. Log errors with request ID for tracing. Return consistent error codes (e.g., `INVALID_INPUT`, `NOT_FOUND`, `UNAUTHORIZED`) so clients can handle them programmatically.
+
+### How do I use Gin with OpenAPI/Swagger?
+
+Use `swaggo/swag` to generate OpenAPI docs from annotations. Add `@Summary`, `@Description`, `@Tags`, `@Param`, `@Success`, `@Router` comments above each handler. Run `swag init` to generate the `docs` package. Serve the Swagger UI at `/swagger/index.html` using `ginSwagger` middleware. Keep annotations in sync with handler signatures — outdated annotations produce misleading API docs.
+
+### How do I handle CORS in Gin?
+
+Use `gin-contrib/cors` middleware with explicit allowed origins, methods, and headers. Do not use `AllowAllOrigins: true` in production — it exposes your API to cross-site attacks. Set `AllowOrigins: []string{"https://yourdomain.com"}` explicitly. Enable `AllowCredentials: true` only if you use cookies or Authorization headers. Set `MaxAge: 12 * time.Hour` to reduce preflight requests.
+
+### How do I handle file uploads in Gin?
+
+Use `c.FormFile("file")` for single file uploads and `c.MultipartForm()` for multiple files. Set `router.MaxMultipartMemory = 8 << 20` (8 MiB) to limit in-memory parsing. For large files, stream directly to S3 or disk using `file.Open()` and `io.Copy`. Validate file type by checking the first 512 bytes with `http.DetectContentType` rather than trusting the `Content-Type` header. Set a max file size in middleware using `c.Request.Body = http.MaxBytesReader(c.Writer, c.Request.Body, 50<<20)` to reject oversized uploads early.
+
+### How do I implement health checks in Gin?
+
+Register a `/health` endpoint that returns `200 OK` with a JSON body `{"status": "healthy"}`. For deeper checks, add a `/health/ready` endpoint that verifies database connectivity, Redis ping, and external service availability. Return `503 Service Unavailable` if any dependency is down. Use `gin.HandlerFunc` with a timeout wrapper to prevent hanging health checks. Container orchestrators (Kubernetes, ECS) use these endpoints for liveness and readiness probes. Keep the liveness probe lightweight — it should return in under 50ms. Add a `/health/live` endpoint that only checks if the process is running, separate from readiness checks that verify dependencies.
+
+### How do I secure Gin routes with JWT?
+
+Use `gin-jwt` middleware or implement a custom `gin.HandlerFunc` that extracts the JWT from the `Authorization: Bearer <token>` header. Validate the token with `jwt.ParseWithClaims` and set the user ID in the context with `c.Set("userID", claims.Subject)`. Return `401 Unauthorized` for invalid or expired tokens. For refresh tokens, implement a separate `/refresh` endpoint that accepts a valid refresh token and returns a new access token.

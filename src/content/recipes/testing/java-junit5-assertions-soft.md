@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/testing/unit-testing
   - /recipes/testing/java-testcontainers-integration
   - /recipes/testing/java-wiremock-stub-external
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use AssertJ soft assertions in JUnit5 to collect multiple failures per test, improving feedback and reducing test reruns for complex objects."
@@ -255,3 +255,47 @@ No. Soft assertions collect assertion failures, not exceptions. If code throws a
 ### How do I see all soft assertion failures in CI?
 
 AssertJ prints all failures to standard output when `assertAll()` is called. In CI, check the test report — the failure message lists every failed assertion with its custom description.
+
+### How do I use soft assertions with parameterized tests?
+
+Wrap each parameterized test invocation in its own `SoftAssertions` block. Do not share a `SoftAssertions` instance across parameter invocations — it accumulates failures from all runs. Use `@ParameterizedTest` with `@MethodSource` and assert within each invocation. If a single parameter fails, only that invocation fails, not the entire test.
+
+### How do I combine soft assertions with Hamcrest matchers?
+
+Use `assertThat(actual, matcher)` inside a `SoftAssertions` block. AssertJ's `SoftAssertions` supports Hamcrest matchers via `assertThat` overloads. Alternatively, use `MatcherAssert.assertThat` wrapped in a try-catch that collects `AssertionError` instances. This lets you migrate from Hamcrest to AssertJ gradually without rewriting all assertions at once.
+
+### What is the performance impact of soft assertions?
+
+Soft assertions add minimal overhead — each assertion is evaluated and stored in a list. The `assertAll()` call iterates the list and throws if any failed. For 10-20 assertions per test, the overhead is negligible. Avoid soft assertions in tight loops with thousands of iterations — use a single aggregate assertion instead (e.g., collect results into a list and assert once).
+
+### How do I group soft assertions by logical section?
+
+Use multiple `SoftAssertions` blocks per test, one per logical section (e.g., one for field validation, one for computed properties). Call `assertAll()` after each block so failures from the first section are reported before the second runs. This gives clearer test output and helps identify which logical section failed. Alternatively, use `SoftAssertionsProvider` with `assertSoftly` for a scoped block.
+
+### Can I use soft assertions with Kotlin?
+
+Yes. AssertJ works in Kotlin but consider using `assertk` or `Kluent` for more idiomatic Kotlin syntax. With AssertJ in Kotlin, use `SoftAssertions().apply { softly -> softly.assertThat(x).isEqualTo(y) }.assertAll()`. For Kotlin-specific soft assertions, `assertk` provides `assertAll { assert(x).isEqualTo(y) }` with a cleaner DSL.
+
+### How do I migrate from JUnit4 Assert to JUnit5 soft assertions?
+
+Replace `org.junit.Assert.assertEquals` calls with AssertJ `assertThat` inside a `SoftAssertions` block. Add AssertJ dependency (`org.assertj:assertj-core:3.25+`). Replace `Assert.assertEquals(expected, actual)` with `softly.assertThat(actual).isEqualTo(expected)`. Add `softly.assertAll()` at the end. The migration is mechanical — no test logic changes needed. Run both old and new assertions side by side during migration to catch regressions.
+
+### How do I use soft assertions with collections?
+
+AssertJ provides collection-specific assertions inside `SoftAssertions`. Use `softly.assertThat(list).hasSize(3).containsExactly("a", "b", "c")` to check multiple collection properties in one block. For nested collections, use `softly.assertThat(list).flatExtracting(Item::getTags).contains("tag1")`. For large collections, avoid `containsExactly` with soft assertions — if one element differs, the assertion message becomes unwieldy. Use `assertThat` with `contains` and `hasSize` separately for clearer failure messages.
+
+### How do I use soft assertions with streams and reactive code?
+
+For `Stream` and `Flux` assertions, collect the stream to a list first, then assert on the collected list. Do not assert on an open stream — terminal operations consume it. Use `softly.assertThat(stream.toList()).hasSize(3)` with AssertJ. For reactive streams (Project Reactor), use `StepVerifier` with `expectNext` and `expectComplete` — these are not soft assertions, so wrap multiple `StepVerifier` calls in separate test methods if you need independent failure reporting.
+
+### How do I use soft assertions with JSON responses?
+
+Use AssertJ's `assertThat(jsonNode).hasFieldOrProperty("name")` inside a `SoftAssertions` block. For Jackson `JsonNode`, extract fields with `node.get("field").asText()` and assert on each. For POJO deserialization, use `ObjectMapper.readValue(json, MyClass.class)` then assert on the deserialized object. AssertJ Guava provides `assertThat(jsonNode)` with JSON-specific assertions if you add `assertj-guava` dependency. For JSON arrays, use `softly.assertThat(arrayNode).hasSize(3)` and iterate with `arrayNode.elements()` to assert on each element individually.
+
+### How do I use soft assertions with custom assertion classes?
+
+Extend `AbstractSoftAssertions` to create custom soft assertion classes. Implement `assertThat(MyType actual)` returning a custom assertion that extends `AbstractAssert`. Register the class with `SoftAssertionsProvider` or use `SoftAssertions.assertSoftly(softly -> softly.assertThat(myObject).hasValidState())`. Custom assertions encapsulate domain-specific validation logic (e.g., `assertThat(user).isActive().hasValidEmail()`) and make test intent clearer than raw field-by-field assertions. Reuse custom assertions across test classes to reduce duplication and maintain consistency when domain rules change. Generate custom assertion classes with AssertJ's generator maven plugin to boilerplate-free assertions from your POJOs.
+
+### How do I disable soft assertions in production tests?
+
+Use JUnit5 `@Disabled` annotation on test classes that contain soft assertions if you need to skip them temporarily. For conditional disabling, use `@EnabledIfEnvironmentVariable` to run soft assertion tests only in CI. Do not wrap `softly.assertAll()` in a try-catch to suppress failures — this defeats the purpose. If soft assertions are too slow in CI, split them into a separate test suite tagged with `@Tag("soft")` and run them with Maven Surefire's `groups` configuration.
