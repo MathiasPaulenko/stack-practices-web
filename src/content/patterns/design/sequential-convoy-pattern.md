@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/design/queue-based-load-leveling-pattern
   - /patterns/design/idempotent-consumer-pattern
   - /patterns/design/distributed-lock-pattern
-lastUpdated: "2026-06-26"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Learn the Sequential Convoy Pattern for preserving message ordering. Examples in Python, Java, and JavaScript with sequence IDs, partition keys, and ordered processing."
@@ -404,14 +404,26 @@ A: Cross-region ordering is extremely difficult. Most systems accept eventual co
 **Q: How do I handle a consumer that is slow but correct?**
 A: Slow consumers delay all messages in their partitions. Solutions: split the entity into sub-entities with different keys, or use a dedicated high-priority consumer for the slow partition.
 
-### Is this pattern suitable for small projects?
+**Q: How do I test ordering guarantees?**
+A: Send messages with sequence numbers and verify the consumer processes them in order. Include delayed messages, duplicates, and gaps in your test suite. Use integration tests with a real broker, not just mocks.
 
-For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+**Q: What happens during consumer rebalancing?**
+A: Kafka rebalances partitions when consumers join or leave. During rebalancing, the consumer stops processing. After rebalancing, a different consumer may own the partition. Ordering is preserved because the new consumer continues from the last committed offset.
 
-### How does this pattern compare to alternatives?
+**Q: Can I use this pattern with SQS?**
+A: AWS SQS does not guarantee ordering in standard queues. SQS FIFO queues provide ordering within a message group, identified by a message group ID. This is the SQS equivalent of a partition key. FIFO queues have lower throughput (300 TPS per action).
 
-Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+**Q: How do I handle poison messages in a convoy?**
+A: A poison message blocks the entire convoy. Move it to a dead letter queue after N retries, then continue processing subsequent messages. Log the gap in sequence numbers so downstream systems know a message was skipped.
 
-### Can I partially apply this pattern?
+**Q: Should I use sequence numbers or timestamps for ordering?**
+A: Sequence numbers are deterministic and gap-detectable. Timestamps are unreliable because clocks skew across producers and messages can arrive out of order even within a partition. Use monotonically increasing sequence numbers per entity.
 
-Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+**Q: How does this pattern interact with idempotent consumers?**
+A: Ordering and idempotency complement each other. Ordering ensures messages are processed in the right sequence. Idempotency ensures that retried messages do not cause duplicate side effects. Together they provide exactly-once processing semantics.
+
+**Q: Can I batch-process messages within a convoy?**
+A: Yes, but only if the entire batch is for the same entity and you process the batch in sequence order. Batching across entities breaks ordering. Kafka consumer `poll()` returns messages from multiple partitions; process them partition by partition to preserve ordering.
+
+**Q: What monitoring should I have for convoys?**
+A: Track: queue depth per partition, processing lag (time between message production and consumption), sequence gap count (messages waiting for missing predecessors), and consumer throughput per partition. Alert on growing gaps and increasing lag.
