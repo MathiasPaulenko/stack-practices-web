@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/slack-bot-openai
   - /recipes/chatbot-openai
   - /recipes/image-generation
-lastUpdated: "2026-06-19"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Aprende a construir agentes de IA autónomos con uso de herramientas, patrón ReAct y razonamiento para completar tareas complejas y automatizar workflows."
@@ -134,6 +134,151 @@ Decisiones clave de diseño:
 4. **No validar salidas**: Los agentes pueden alucinar argumentos de herramientas
 5. **Omitir revisión humana**: Los agentes autónomos deben tener interruptores de emergencia
 
+## Avanzado: Patrón Plan-and-Execute
+
+```python
+import openai
+import json
+
+def plan_and_execute(query: str, tools: dict) -> str:
+    # Paso 1: Generar un plan
+    plan_response = openai.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "Divide la tarea en pasos. Devuelve un array JSON de pasos."},
+            {"role": "user", "content": query}
+        ],
+        response_format={"type": "json_object"}
+    )
+    steps = json.loads(plan_response.choices[0].message.content)["steps"]
+
+    # Paso 2: Ejecutar cada paso
+    results = []
+    for step in steps:
+        result = agente_react(step, tools)
+        results.append(result)
+
+    # Paso 3: Sintetizar
+    final = openai.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "Sintetiza los resultados en una respuesta final."},
+            {"role": "user", "content": f"Query: {query}\nResults: {json.dumps(results)}"}
+        ]
+    )
+    return final.choices[0].message.content
+```
+
+Plan-and-Execute separa la planificación de la ejecución. El planner divide la tarea en pasos, cada paso corre por un loop ReAct, y una llamada final sintetiza los resultados. Esto reduce el consumo de tokens porque cada paso tiene una ventana de contexto más pequeña. También habilita ejecución paralela de pasos independientes.
+
+## Avanzado: Schema de Herramientas con JSON Schema
+
+```python
+tool_schemas = [
+    {
+        "type": "function",
+        "function": {
+            "name": "search_database",
+            "description": "Buscar en la base de datos de productos por nombre o categoría",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "Término de búsqueda"
+                    },
+                    "category": {
+                        "type": "string",
+                        "enum": ["electronics", "books", "clothing"],
+                        "description": "Filtro de categoría de producto"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100,
+                        "default": 10
+                    }
+                },
+                "required": ["query"]
+            }
+        }
+    }
+]
+```
+
+Los schemas detallados de herramientas mejoran la precisión del agente. Incluye `description` para cada parámetro — el LLM lee estos para decidir cuándo y cómo llamar la herramienta. Usa `enum` para valores restringidos, `minimum`/`maximum` para rangos numéricos, y `required` para campos obligatorios. Cuanto más preciso el schema, menos argumentos alucinados.
+
+## Avanzado: Gestión de Ventana de Contexto
+
+```python
+def summarize_observations(messages: list, max_tokens: int = 4000) -> list:
+    """Resume las salidas de herramientas cuando el contexto crece demasiado."""
+    total = sum(len(str(m.get("content", ""))) for m in messages)
+    if total < max_tokens:
+        return messages
+
+    # Mantener system + primer mensaje user, resumir el resto
+    system = messages[0]
+    user_query = messages[1]
+    history = messages[2:]
+
+    summary = openai.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "Resume las llamadas a herramientas y resultados concisamente."},
+            {"role": "user", "content": json.dumps([{"role": m["role"], "content": m["content"][:500]} for m in history])}
+        ]
+    ).choices[0].message.content
+
+    return [system, user_query, {"role": "system", "content": f"Contexto previo: {summary}"}]
+```
+
+Las ejecuciones largas de agentes acumulan historiales grandes de observaciones que agotan la ventana de contexto. Resume periódicamente manteniendo el system prompt y la query original, luego comprime las salidas de herramientas en un resumen. Alternativamente, usa truncación sliding-window o selección de contexto retrieval-augmented para mantener solo observaciones relevantes.
+
+## Avanzado: Orquestación Multi-Agente
+
+```python
+def multi_agent_orchestrate(query: str) -> str:
+    agents = {
+        'researcher': {
+            'system': 'You are a research agent. Find information using search tools.',
+            'tools': ['web_search', 'read_file']
+        },
+        'coder': {
+            'system': 'You are a coding agent. Write and execute code.',
+            'tools': ['run_python', 'write_file']
+        },
+        'reviewer': {
+            'system': 'You are a review agent. Check code quality and correctness.',
+            'tools': ['read_file', 'run_tests']
+        }
+    }
+
+    # Ruta al researcher primero
+    research = run_agent(agents['researcher'], query)
+
+    # Pasa research al coder
+    code = run_agent(agents['coder'], f"Based on: {research}\nImplement the solution.")
+
+    # Review del código
+    review = run_agent(agents['reviewer'], f"Review this code:\n{code}")
+
+    if 'APPROVE' in review:
+        return code
+    else:
+        # Re-ruta al coder con feedback
+        return run_agent(agents['coder'], f"Fix issues:\n{review}\nOriginal:\n{code}")
+```
+
+La orquestación multi-agente asigna roles especializados a diferentes agentes. Cada agente tiene su propio system prompt y set de herramientas. Un coordinador rutea tareas entre agentes basado en el estado actual. Este patrón funciona bien para workflows complejos: investigar → implementar → revisar → desplegar. Mantén la comunicación entre agentes estructurada — pasa contexto como strings formateados o JSON, no historiales raw de mensajes.
+
+## Cuándo Evitar
+
+- **Q&A simple**: Si una sola llamada al LLM responde la pregunta, los agentes añaden latencia y costo innecesarios
+- **Decisiones de alto riesgo**: Diagnóstico médico, asesoría legal, trading financiero — los agentes pueden alucinar argumentos de herramientas
+- **Sistemas en tiempo real**: Los loops de agentes con múltiples llamadas LLM añaden 5-30 segundos de latencia
+- **Workloads sensibles a costo**: Cada iteración es una llamada completa al LLM; 5 iteraciones pueden costar $0.10+ por query
+
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre RAG y un agente?**
@@ -145,14 +290,18 @@ R: Comienza con 2-3. La investigación muestra que la precisión cae bruscamente
 **P: ¿Los agentes pueden funcionar sin OpenAI?**
 R: Sí. Modelos locales (Llama, Mistral) soportan llamado de herramientas vía formatos de salida estructurada como JSON mode.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo manejo fallos en llamadas a herramientas?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Envuelve cada ejecución de herramienta en un try/except. Devuelve mensajes de error como resultados de herramientas para que el agente pueda razonar sobre el fallo y reintentar o intentar una alternativa. Configura un conteo máximo de reintentos para prevenir loops infinitos. Registra el error completo para debugging mientras le das al agente una descripción concisa del error.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Cuál es el costo de correr un loop de agente?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Cada iteración es una llamada al LLM. Con GPT-4, un loop de 5 iteraciones con 2000 tokens por llamada cuesta aproximadamente $0.60. Con GPT-4o-mini, el mismo loop cuesta menos de $0.01. Usa modelos más baratos para tareas simples de tool-routing y reserva GPT-4 para razonamiento complejo. Cachea resultados de herramientas para evitar llamadas redundantes.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo testeo el comportamiento del agente?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Mockea las respuestas del LLM y llamadas a herramientas en tests unitarios. Para tests de integración, usa un entorno controlado con herramientas stub que devuelven resultados predecibles. Graba traces de producción y replícalas para testear cambios. Evita testear contra APIs en vivo — servicios externos flaky hacen los tests poco confiables.
+
+### ¿Cuándo debo usar orquestación multi-agente?
+
+Usa multi-agente cuando una tarea tiene fases distintas (investigar, implementar, revisar) que requieren diferentes instrucciones de sistema o sets de herramientas. Para tareas simples, un solo agente con múltiples herramientas es más eficiente y predecible. La orquestación multi-agente añade overhead de coordinación y costo — úsala solo cuando los roles son claramente separables.

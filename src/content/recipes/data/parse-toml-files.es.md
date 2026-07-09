@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/data/validate-json-schema
   - /recipes/data/serialize-deserialize-data
   - /recipes/data/parse-xml-files
-lastUpdated: "2026-06-20"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Aprende a analizar archivos TOML en Python, Java y JavaScript. Lee configs de aplicaciones con ejemplos prácticos de código."
@@ -141,6 +141,131 @@ Python 3.11 agregó `tomllib` a la librería estándar, eliminando la necesidad 
 - **Asumir que TOML preserva orden de claves**: La spec garantiza orden para arrays pero no necesariamente para tablas en todos los parsers
 - **No escapar backslashes en strings básicas**: Usa strings literales (`'...'`) para paths Windows y regex patterns
 
+## Avanzado: Merge de Config Específico por Ambiente
+
+```python
+import tomllib
+from pathlib import Path
+
+def load_config(env: str = 'dev') -> dict:
+    base = tomllib.loads(Path('config/base.toml').read_text())
+    env_file = Path(f'config/{env}.toml')
+    if env_file.exists():
+        override = tomllib.loads(env_file.read_bytes())
+        return deep_merge(base, override)
+    return base
+
+def deep_merge(base: dict, override: dict) -> dict:
+    result = base.copy()
+    for key, value in override.items():
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = value
+    return result
+```
+
+Carga un archivo de config base, luego superpone overrides específicos por ambiente. Este patrón soporta `base.toml` para settings compartidos y `prod.toml` / `staging.toml` para diferencias por ambiente. Haz deep-merge de tablas anidadas para que los overrides solo reemplacen las claves que especifican.
+
+## Avanzado: Validación TOML con Pydantic
+
+```python
+import tomllib
+from pydantic import BaseModel, ValidationError
+
+class DatabaseConfig(BaseModel):
+    host: str
+    port: int = 5432
+    password: str
+
+class AppConfig(BaseModel):
+    app_name: str
+    debug: bool = False
+    database: DatabaseConfig
+
+with open('config.toml', 'rb') as f:
+    raw = tomllib.load(f)
+
+try:
+    config = AppConfig(**raw)
+except ValidationError as e:
+    print(f"Config validation failed: {e}")
+    raise
+```
+
+Parsea TOML a un modelo Pydantic para obtener type checking, valores default y validación. Esto detecta campos requeridos faltantes, discrepancias de tipo y valores inválidos al inicio en lugar de en runtime. Usa `model_config = ConfigDict(extra='forbid')` para rechazar campos desconocidos.
+
+## Avanzado: Dotted Keys vs Tablas Anidadas en TOML
+
+```toml
+# Estos dos son equivalentes
+
+# Dotted keys
+[database]
+server.host = "localhost"
+server.port = 5432
+
+# Tabla anidada
+[database.server]
+host = "localhost"
+port = 5432
+```
+
+Las dotted keys producen la misma estructura que las tablas anidadas pero son más compactas. Usa dotted keys para anidación superficial (2-3 niveles). Cambia a headers `[section]` explícitos cuando la anidación es más profunda o cuando la sección tiene muchas claves. Mezclar ambas en la misma sección es válido pero puede confundir a los lectores.
+
+## Avanzado: Escribir Archivos TOML
+
+```python
+import tomli_w
+
+config = {
+    'app': {
+        'name': 'myapp',
+        'version': '2.1.0',
+        'debug': False
+    },
+    'database': {
+        'host': 'localhost',
+        'port': 5432,
+        'pool_size': 10
+    },
+    'features': ['auth', 'logging', 'metrics']
+}
+
+with open('config.toml', 'wb') as f:
+    tomli_w.dump(config, f)
+```
+
+El `tomllib` de Python es solo lectura. Usa `tomli-w` para escribir archivos TOML. La función `dump()` acepta un diccionario y un file handle binario. Para output como string, usa `tomli_w.dumps()` que devuelve un string. Nota que `tomli-w` no preserva comentarios ni formato del archivo original — genera TOML desde la estructura de datos.
+
+## Avanzado: Arrays de Tablas en TOML
+
+```toml
+[[servers]]
+name = "web-1"
+ip = "10.0.0.1"
+port = 8080
+
+[[servers]]
+name = "web-2"
+ip = "10.0.0.2"
+port = 8080
+
+[[servers]]
+name = "db-1"
+ip = "10.0.0.10"
+port = 5432
+```
+
+Los arrays de tablas usan la sintaxis `[[table_name]]` para definir múltiples entradas con la misma estructura. Esto es útil para listas de servidores, feature flags y pools de conexiones de base de datos. En Python, estos parsean a una lista de diccionarios bajo la clave `servers`. En JavaScript con `@iarna/toml`, se convierten en un array de objetos.
+
+## Cuándo Evitar
+
+- **Configs generados por máquinas**: JSON es mejor para configs escritos por herramientas y APIs
+- **Estructuras profundamente anidadas**: YAML maneja 5+ niveles de anidación más naturalmente que TOML
+- **Archivos de datos grandes**: TOML es para configuración, no almacenamiento de datos; usa JSON o una base de datos para datasets grandes
+- **Sistemas legacy**: Si tu toolchain solo soporta INI o JSON, añadir soporte TOML puede no valer el costo de migración
+
 ## Preguntas Frecuentes
 
 ### ¿Debo usar TOML o YAML para la configuración de mi proyecto?
@@ -154,3 +279,23 @@ TOML parsea en las mismas estructuras de datos que JSON (maps, arrays, escalares
 ### ¿Cómo mergeo múltiples archivos TOML?
 
 Parsea cada archivo independientemente, luego haz deep-merge de los diccionarios/maps resultantes. Python `deepmerge`, JavaScript `lodash.merge` y Java `Map.merge()` pueden combinar configs. Implementa reglas de override (e.g., `local.toml` overridea `base.toml`) explícitamente en tu lógica de aplicación.
+
+### ¿TOML soporta comentarios?
+
+Sí, TOML soporta comentarios inline con `#`. Los comentarios pueden aparecer en su propia línea o al final de cualquier línea. Esto hace TOML más legible que JSON para configs editados por humanos. A diferencia de YAML, los comentarios TOML son preservados por algunos parsers (e.g., `tomli-w` no preserva comentarios, pero la CLI `taplo` sí).
+
+### ¿Cómo manejo fechas y horas en TOML?
+
+TOML tiene tipos nativos de fecha y hora usando ISO 8601: `2026-07-09` (fecha), `07:30:00` (hora), `2026-07-09T07:30:00Z` (datetime). El `tomllib` de Python parsea estos a objetos `datetime.date`, `datetime.time` y `datetime.datetime`. Úsalos para configs de scheduling, fechas de expiración y timestamps de versión.
+
+### ¿Cuál es la diferencia entre TOML 1.0 y TOML 1.0.0-rc.1?
+
+TOML 1.0 se finalizó en noviembre 2021. El release candidate rc.1 tenía diferencias menores en reglas de trailing comma en arrays y comportamiento de multiline strings. La mayoría de los parsers ahora apuntan a TOML 1.0. Si usas features como arrays heterogéneos (arrays con tipos mixtos), revisa el soporte de versión de tu parser — algunos parsers rechazan arrays de tipos mixtos.
+
+### ¿Puedo usar TOML para manifiestos Kubernetes?
+
+No. Kubernetes usa YAML para manifiestos porque soporta archivos multi-documento (separador `---`), anidación compleja y anchors. TOML carece de soporte multi-documento y maneja anidación profunda menos naturalmente. Usa TOML para configs de aplicación y herramientas (`pyproject.toml`, `Cargo.toml`), no para manifiestos de infraestructura.
+
+### ¿Cómo convierto entre TOML y JSON?
+
+Parsea el archivo TOML a un diccionario, luego serializa a JSON. En Python: `json.dumps(tomllib.load(f))`. En JavaScript: `JSON.stringify(TOML.parse(content), null, 2)`. El reverso también funciona — parsea JSON y escribe con `tomli_w.dump()`. Esto es útil para tooling que espera input JSON pero tu config está en TOML.
