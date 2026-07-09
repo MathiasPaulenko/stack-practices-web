@@ -17,7 +17,7 @@ relatedResources:
   - /recipes/database-indexing
   - /recipes/sql-joins
   - /recipes/connection-pooling
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende optimización de queries de base de datos. Usa EXPLAIN, refactoriza queries y aplica técnicas para corregir SQL lento y mejorar rendimiento."
@@ -88,6 +88,35 @@ customers = db.query("""
 """, ([o.id for o in orders],))
 ```
 
+### Agregar Covering Indexes
+
+```sql
+-- Sin covering index: table lookup por cada fila
+SELECT id, email, name FROM users WHERE active = true;
+
+-- Agregar covering index (todas las columnas en la query)
+CREATE INDEX idx_users_active_covering
+ON users (active)
+INCLUDE (email, name);
+
+-- Ahora la query usa Index Only Scan — sin acceso a tabla
+```
+
+### Optimizar Paginación
+
+```sql
+-- LENTO: OFFSET escanea todas las filas saltadas
+SELECT * FROM orders ORDER BY created_at DESC LIMIT 20 OFFSET 10000;
+
+-- RÁPIDO: Keyset pagination usando el último valor visto
+SELECT * FROM orders
+WHERE created_at < '2025-06-15 10:30:00'
+ORDER BY created_at DESC
+LIMIT 20;
+```
+
+La paginación keyset (cursor) es O(1) independientemente de la profundidad de página. La paginación OFFSET es O(n) — la página 10000 es 500x más lenta que la página 1.
+
 ## Explicación
 
 - **EXPLAIN ANALYZE**: Ejecuta la query y muestra el plan de ejecución actual, incluyendo conteos de filas, condiciones de filtro y operaciones de I/O. Busca sequential scans, nested loops con altos conteos de filas, y operaciones de sort sin índices.
@@ -103,6 +132,113 @@ customers = db.query("""
 | Reescribir query | Alto | Medio | Joins ineficientes, subqueries |
 | Particionar tabla | Muy alto | Alto | Tablas > 10M filas con queries basadas en tiempo |
 | Vista materializada | Alto | Medio | Agregaciones complejas consultadas frecuentemente |
+| Desnormalizar | Medio | Medio | Carga de lectura pesada, pocos escritores |
+| Réplica de lectura | Medio | Alto | Escalado de lectura, reporting |
+
+## Avanzado: Leer Output de EXPLAIN
+
+```sql
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT o.id, o.total, c.name
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+WHERE o.created_at > '2025-01-01'
+ORDER BY o.total DESC
+LIMIT 100;
+```
+
+Cosas clave a buscar en el output:
+
+- **Seq Scan**: Full table scan. Generalmente malo para tablas grandes. Agrega un índice.
+- **Index Scan**: Bien — usando un índice para encontrar filas.
+- **Index Only Scan**: Mejor — todos los datos del índice, sin acceso a tabla.
+- **Hash Join**: Bien para joins grandes. Construye una hash table en la relación más pequeña.
+- **Nested Loop**: Bien para result sets pequeños. Malo para grandes (O(n*m)).
+- **Sort**: Costoso para result sets grandes. Agrega un índice en la columna de sort.
+- **Buffers: shared hit=X read=Y**: `hit` = caché, `read` = disco. Alto `read` significa I/O de disco.
+- **Rows removed by filter**: Si es mucho mayor que las filas devueltas, el índice no es suficientemente selectivo.
+
+## Avanzado: Caching de Query Plans
+
+La mayoría de bases de datos cachean los planes de ejecución. Las queries parametrizadas reutilizan planes cacheados:
+
+```python
+# Bien: parametrizada — el plan se cachea
+cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+
+# Mal: concatenación de strings — nuevo plan cada vez
+cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
+```
+
+Esto también previene SQL injection. Consulta [prevención de SQL injection](/recipes/security/sql-injection-prevention) para detalles.
+
+## Avanzado: Operaciones Batch
+
+```sql
+-- LENTO: 1000 INSERTs individuales
+INSERT INTO logs (message) VALUES ('msg1');
+INSERT INTO logs (message) VALUES ('msg2');
+-- ... 998 más
+
+-- RÁPIDO: single batch INSERT
+INSERT INTO logs (message) VALUES
+('msg1'), ('msg2'), /* ... */ ('msg1000');
+
+-- Aún más rápido: COPY (PostgreSQL)
+COPY logs FROM '/path/to/file.csv' WITH (FORMAT csv);
+```
+
+Las operaciones batch reducen round-trips de red y overhead de transacciones. Un batch INSERT de 1000 filas es típicamente 10-50x más rápido que 1000 INSERTs individuales.
+
+## Avanzado: Impacto del Connection Pooling en Queries
+
+Cada query adquiere una conexión del pool. Si el pool es muy pequeño, las queries hacen cola esperando una conexión libre. Esto se manifiesta como latencia aumentada sin ningún cuello de botella en la base de datos.
+
+```python
+# Mal: pool size 5 para un servicio de alto tráfico
+pool = psycopg2.pool.SimpleConnectionPool(5, 5, dsn=DATABASE_URL)
+
+# Bien: pool size basado en (core_count * 2) + effective_spikes
+pool = psycopg2.pool.ThreadedConnectionPool(
+    minconn=10,
+    maxconn=50,
+    dsn=DATABASE_URL
+)
+```
+
+Monitorea el pool wait time separadamente del query execution time. Si el pool wait > 10% de la latencia total, aumenta el pool size o reduce la duración de las queries.
+
+## Avanzado: Usar pg_stat_statements
+
+```sql
+-- Habilitar la extensión
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+-- Encontrar las top 10 queries más lentas por tiempo total
+SELECT
+    query,
+    calls,
+    total_exec_time,
+    mean_exec_time,
+    rows
+FROM pg_stat_statements
+ORDER BY total_exec_time DESC
+LIMIT 10;
+
+-- Encontrar queries con alta varianza (rendimiento inestable)
+SELECT
+    query,
+    calls,
+    mean_exec_time,
+    stddev_exec_time,
+    stddev_exec_time / mean_exec_time AS coefficient_of_variation
+FROM pg_stat_statements
+WHERE calls > 10
+ORDER BY coefficient_of_variation DESC
+LIMIT 10;
+```
+
+Resetea las estadísticas después de hacer cambios para obtener mediciones limpias: `SELECT pg_stat_statements_reset();`.
 
 ## Lo que funciona
 
@@ -121,27 +257,50 @@ customers = db.query("""
 
 ## Preguntas frecuentes
 
-**P: ¿Cómo sé si una query está usando un índice?**
-R: Revisa el output de `EXPLAIN`. `Index Scan` o `Index Only Scan` significa que la query usa un índice. `Seq Scan` significa que está leyendo la tabla completa.
+### ¿Cómo sé si una query está usando un índice?
 
-**P: ¿Debería siempre evitar `SELECT *`?**
-R: Para queries de producción, sí. Pero para exploración ad-hoc o tablas muy pequeñas, `SELECT *` está bien. La clave es ser intencional sobre lo que traes.
+Revisa el output de `EXPLAIN`. `Index Scan` o `Index Only Scan` significa que la query usa un índice. `Seq Scan` significa que está leyendo la tabla completa. Busca `Rows removed by filter` — si es alto, el índice no es suficientemente selectivo.
 
-**P: ¿Cuál es la diferencia entre `EXPLAIN` y `EXPLAIN ANALYZE`?**
-R: `EXPLAIN` muestra el plan estimado sin ejecutar. `EXPLAIN ANALYZE` ejecuta la query y muestra timings y conteos de filas reales. Siempre usa `ANALYZE` cuando estás tuneando.
+### ¿Debería siempre evitar `SELECT *`?
 
-**P: ¿Los ORMs pueden generar queries eficientes?**
-R: Usualmente, pero no siempre. ORMs como SQLAlchemy y Hibernate pueden generar queries N+1 o joins ineficientes. Consulta [prevención de SQL injection](/recipes/security/sql-injection-prevention) para patrones de queries seguras. Profile el SQL actual que emiten y optimiza a nivel SQL cuando sea necesario.
+Para queries de producción, sí. Traer columnas innecesarias desperdicia I/O y memoria, e impide Index Only Scans. Para exploración ad-hoc o tablas muy pequeñas, `SELECT *` está bien.
 
+### ¿Cuál es la diferencia entre `EXPLAIN` y `EXPLAIN ANALYZE`?
 
-### ¿Esta solución está lista para producción?
+`EXPLAIN` muestra el plan estimado sin ejecutar. `EXPLAIN ANALYZE` ejecuta la query y muestra timings y conteos de filas reales. Siempre usa `ANALYZE` cuando estás tuneando — las estimaciones del planner pueden ser incorrectas.
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+### ¿Los ORMs pueden generar queries eficientes?
 
-### ¿Cuáles son las características de rendimiento?
+Usualmente, pero no siempre. ORMs como SQLAlchemy y Hibernate pueden generar queries N+1 o joins ineficientes. Consulta [prevención de SQL injection](/recipes/security/sql-injection-prevention) para patrones de queries seguras. Profile el SQL actual que emiten y optimiza a nivel SQL cuando sea necesario.
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+### ¿Qué es un covering index?
 
-### ¿Cómo depuro problemas con este enfoque?
+Un índice que incluye todas las columnas que una query necesita. La base de datos puede responder la query desde el índice sin acceder a la tabla. Esto se llama Index Only Scan y puede ser 10x más rápido. Usa la cláusula `INCLUDE` en PostgreSQL o índices compuestos en MySQL.
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+### ¿Cómo optimizo la paginación?
+
+Usa paginación keyset (cursor) en lugar de OFFSET. La paginación keyset usa `WHERE created_at < last_value ORDER BY created_at DESC LIMIT 20` — es O(1) independientemente de la profundidad de página. La paginación OFFSET escanea todas las filas saltadas y se vuelve más lenta a medida que avanzas.
+
+### ¿Qué es el slow query log?
+
+Una feature de base de datos que loggea queries que exceden un umbral de tiempo. En PostgreSQL: `log_min_duration_statement = '1000ms'`. En MySQL: `long_query_time = 1`. Úsalo para identificar qué queries necesitan optimización. Combina con `pg_stat_statements` para estadísticas agregadas.
+
+### ¿Cómo optimizo JOINs?
+
+Asegúrate de que las columnas de join estén indexadas. Usa `EXPLAIN` para verificar la estrategia de join: Hash Join para joins grandes, Nested Loop para pequeños. Filtra temprano con WHERE antes de hacer join. Evita hacer join de tablas innecesarias. Considera desnormalizar si el mismo join se consulta frecuentemente.
+
+### ¿Qué es el caching de query plans?
+
+La base de datos cachea el plan de ejecución de una query para no reparsear y reoptimizar en cada ejecución. Las queries parametrizadas se benefician del caching de planes. Las queries con concatenación de strings no — cada una genera un plan nuevo.
+
+### ¿Cómo manejo queries lentas en producción?
+
+Configura slow query logging. Usa `pg_stat_statements` (PostgreSQL) o Performance Schema (MySQL) para encontrar las top queries más lentas por tiempo total. Optimiza las top 5 primero — usualmente account for 80% del tiempo total. Agrega índices, reescribe queries, o cachea resultados.
+
+### ¿Cuándo debería particionar una tabla?
+
+Cuando una tabla tiene más de 10 millones de filas y las queries filtran por rango de tiempo. Particiona por mes o semana. Esto convierte un full table scan en un single partition scan. PostgreSQL soporta particionamiento declarativo por RANGE, LIST o HASH.
+
+### ¿Qué es una vista materializada?
+
+Un result set precomputado almacenado como tabla. Útil para agregaciones complejas que se consultan frecuentemente pero cambian infrecuentemente. Refresca periódicamente con `REFRESH MATERIALIZED VIEW`. El tradeoff: espacio de almacenamiento y tiempo de refresh vs velocidad de query.
