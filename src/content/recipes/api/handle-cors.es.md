@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/rate-limiting
   - /recipes/input-validation
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende configuración de CORS en Python, JavaScript y Java. Cubre preflight requests, credenciales, orígenes permitidos y errores comunes de seguridad CORS."
@@ -250,3 +250,51 @@ No directamente en `Access-Control-Allow-Origin`. El header requiere una coincid
 ### ¿Necesito CORS si despliego mi frontend y API en el mismo dominio?
 
 No. CORS solo aplica cuando el origen (scheme + host + port) del frontend difiere del de la API. Si ambos corren en `https://example.com` (o la API está en un subdominio con configuración apropiada), no se necesitan headers CORS. Usar un [reverse proxy](/recipes/api/nginx-reverse-proxy) (nginx) para rutear `/api` a tu backend es una estrategia común de deployment de mismo origen.
+
+### ¿Cómo depuro errores CORS en el navegador?
+
+Abre DevTools → pestaña Network. Busca requests fallidos con errores CORS en la consola. Chequea el header `Access-Control-Allow-Origin` en la respuesta — si falta o no coincide con el `Origin` del request, el navegador bloquea la respuesta. Para fallos de preflight, chequea el status y headers de la respuesta `OPTIONS`. Usa `curl -H "Origin: https://yourapp.com" -X OPTIONS https://api.example.com/endpoint` para testear preflight sin navegador. Causas comunes: servidor no enviando headers, origen no en allowlist, o `Vary: Origin` faltante causando cache issues de CDN.
+
+### ¿Cómo manejo CORS con cookies y credenciales?
+
+Setea `Access-Control-Allow-Credentials: true` en el servidor. El cliente debe enviar requests con `credentials: 'include'` (fetch) o `withCredentials: true` (axios). El header `Access-Control-Allow-Origin` debe ser un origen exacto — no `*` — cuando hay credenciales involucradas. El navegador rechaza `Access-Control-Allow-Origin: *` con `Allow-Credentials: true`. Asegúrate de que el atributo `SameSite` de la cookie esté seteado a `None` con `Secure: true` para cookies cross-site. Sin `SameSite=None`, los navegadores bloquean cookies en requests cross-origin.
+
+### ¿Cómo configuro CORS en funciones serverless (AWS Lambda, Vercel)?
+
+Retorna headers CORS en la respuesta de la función. Para API Gateway + Lambda, configura CORS en el method response del API Gateway o retorna headers desde la Lambda function. Para funciones de Vercel/Netlify, setea headers en el objeto de respuesta: `res.setHeader('Access-Control-Allow-Origin', 'https://yourapp.com')`. Maneja el preflight `OPTIONS` retornando un 204 con los headers apropiados inmediatamente. No dependas solo de la configuración CORS a nivel plataforma — verifica que los headers estén presentes en la respuesta real.
+
+### ¿Cómo manejo CORS con WebSockets?
+
+WebSockets no usan CORS — el navegador no enforcea la Same-Origin Policy para conexiones WebSocket. El servidor valida el header `Origin` durante el handshake del WebSocket. Rechaza conexiones con orígenes inesperados chequeando el header `Origin` en el upgrade request. No dependas de CORS para seguridad de WebSocket — implementa tokens de autenticación en la URL de conexión o subprotocol.
+
+### ¿Cómo testeo configuración CORS?
+
+Usa `curl` con el header `Origin` para verificar respuestas del servidor: `curl -H "Origin: https://example.com" -I https://api.example.com/endpoint`. Chequea que `Access-Control-Allow-Origin` coincida con el origen del request. Para preflight: `curl -X OPTIONS -H "Origin: https://example.com" -H "Access-Control-Request-Method: PUT" -I https://api.example.com/endpoint`. Usa DevTools del navegador para verificar que el navegador acepta la respuesta. Tests automatizados con Playwright pueden verificar comportamiento CORS end-to-end haciendo requests cross-origin desde un contexto real de navegador.
+
+### ¿Cómo manejo CORS con service workers y Workbox?
+
+Los service workers pueden interceptar y modificar respuestas, incluyendo agregar headers CORS. Sin embargo, no agregues headers CORS en un service worker — el navegador enforcea CORS antes de que el service worker vea la respuesta. Configura CORS en el servidor de origen. Para Workbox, setea `cacheName` y `mode: 'cors'` en las opciones de strategy. Si cacheas respuestas cross-origin, asegúrate de que el servidor envíe `Access-Control-Allow-Origin` y `Vary: Origin`. Las respuestas opaque (mode: 'no-cors') no pueden ser leídas por JavaScript — úsalas solo para cachear assets que no necesitan ser leídos.
+
+### ¿Cómo manejo CORS para file uploads?
+
+Los file uploads con `multipart/form-data` desde un origen diferente requieren CORS. El servidor debe permitir el método `POST` y `Content-Type: multipart/form-data` en `Access-Control-Allow-Headers`. Para uploads presigned S3, configura la política CORS del bucket S3: `<CORSRule><AllowedOrigin>https://yourapp.com</AllowedOrigin><AllowedMethod>POST</AllowedMethod><AllowedHeader>*</AllowedHeader></CORSRule>`. No uses `Allow-Origin: *` con uploads presigned si envías credenciales — especifica orígenes exactos.
+
+### ¿Cómo manejo CORS con OAuth callbacks?
+
+Los redirect flows de OAuth no trigger CORS — el navegador navega a la URL del provider directamente, no via AJAX. El callback redirect de vuelta a tu app es también una full page navigation. CORS solo aplica a calls `fetch`/`XMLHttpRequest`. Sin embargo, si tu SPA usa `fetch` para intercambiar el authorization code por un token, el token endpoint debe enviar CORS headers permitiendo tu origen. Los token endpoints de Google y GitHub permiten todos los orígenes por defecto. Para providers OAuth self-hosted, configura el token endpoint para retornar `Access-Control-Allow-Origin: https://yourapp.com`.
+
+### ¿Cómo manejo CORS en una arquitectura de microservicios con API gateway?
+
+Configura CORS a nivel del API gateway, no en cada microservicio. El gateway maneja los requests preflight `OPTIONS` y agrega CORS headers a las respuestas. Kong, Envoy, y AWS API Gateway todos soportan configuración CORS. Si un microservicio es llamado directamente (no a través del gateway), debe manejar CORS él mismo. Para calls service-to-service internos, CORS es irrelevante — los navegadores no están involucrados. Usa una librería shared de CORS middleware across services para mantener la configuración consistente.
+
+### ¿Cómo manejo CORS con Server-Sent Events (SSE)?
+
+Las conexiones SSE (`EventSource`) están sujetas a CORS. El servidor debe enviar `Access-Control-Allow-Origin` en los headers de respuesta SSE. A diferencia de `fetch`, `EventSource` no soporta custom headers, así que no puedes enviar `Authorization` headers con SSE. Usa cookies para autenticación con `withCredentials: true` en el constructor de `EventSource`, o pasa tokens como query parameters. El servidor debe setear `Access-Control-Allow-Credentials: true` y especificar un origen exacto (no `*`).
+
+### ¿Cómo manejo CORS con orígenes específicos por entorno?
+
+Configura orígenes permitidos por entorno usando environment variables. En desarrollo, permite `http://localhost:3000`, `http://localhost:4321`. En staging, permite `https://staging.yourapp.com`. En producción, permite `https://yourapp.com`. Almacena la lista de orígenes permitidos en un archivo de config o environment variable: `ALLOWED_ORIGINS=https://yourapp.com,https://www.yourapp.com`. Parsea la lista al startup y valida cada `Origin` del request contra ella. No hardcodees orígenes en el código fuente — esto hace la promoción de entornos error-prone. Usa una sola env var `CORS_ORIGINS` con valores comma-separated para todos los entornos.
+
+### ¿Cómo manejo CORS con CDN caching?
+
+Agrega `Vary: Origin` a todas las respuestas CORS para que el CDN cachee diferentes respuestas por origen. Sin `Vary: Origin`, el CDN puede servir una respuesta cacheada para el origen A a un request del origen B, causando fallos de CORS. Configura el CDN para cachear respuestas CORS separadamente por origen: en Cloudflare, usa cache keys que incluyan el header `Origin`. En CloudFront, crea un cache behavior que incluya `Origin` en la cache key. Para APIs con validación dinámica de origen, deshabilita el CDN caching para respuestas CORS enteramente — setea `Cache-Control: no-store` en respuestas preflight `OPTIONS`.

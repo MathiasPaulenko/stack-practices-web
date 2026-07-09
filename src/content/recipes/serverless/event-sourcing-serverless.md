@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/saga-pattern-recipe
   - /recipes/serverless-orchestration
   - /recipes/event-driven-architecture
-lastUpdated: "2026-06-14"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn event sourcing in serverless architectures. Capture changes as immutable events using Lambda, DynamoDB streams, and event stores for audit trails."
@@ -228,27 +228,82 @@ class OrderAggregate {
 
 ## FAQ
 
-**Q: Is event sourcing more complex than CRUD?**
-A: Yes. It adds concepts (aggregates, projections, event versioning) and infrastructure (event stores, stream processors). Use it only when the benefits (audit, temporal queries, rebuild capability) justify the complexity. For simple CRUD without audit requirements, traditional state storage is sufficient.
+### Is event sourcing more complex than CRUD?
 
-**Q: How do I delete data under GDPR if events are immutable?**
-A: Implement crypto-shredding: encrypt event payloads with a key per user. To "delete" a user's data, delete their encryption key. The events remain but are unreadable. Alternatively, store PII in a separate mutable store and reference it from events.
+Yes. It adds concepts (aggregates, projections, event versioning) and infrastructure (event stores, stream processors). Use it only when the benefits (audit, temporal queries, rebuild capability) justify the complexity. For simple CRUD without audit requirements, traditional state storage is sufficient.
 
-**Q: Can I use event sourcing with relational databases?**
-A: Yes — use the outbox pattern. Write events to an `outbox` table in the same transaction as business data changes. A CDC (change data capture) process polls the outbox and publishes events. This gives you ACID guarantees with event sourcing semantics.
+### How do I delete data under GDPR if events are immutable?
 
-**Q: How do I query across aggregates?**
-A: You do not query the event store directly for cross-aggregate queries. Build read-model projections that denormalize data for query efficiency. The event store is the write model; projections are the read model. This separation is CQRS.
+Implement crypto-shredding: encrypt event payloads with a key per user. To "delete" a user's data, delete their encryption key. The events remain but are unreadable. Alternatively, store PII in a separate mutable store and reference it from events.
 
+### Can I use event sourcing with relational databases?
 
-### Is this solution production-ready?
+Yes — use the outbox pattern. Write events to an `outbox` table in the same transaction as business data changes. A CDC (change data capture) process polls the outbox and publishes events. This gives you ACID guarantees with event sourcing semantics.
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+### How do I query across aggregates?
 
-### What are the performance characteristics?
+You do not query the event store directly for cross-aggregate queries. Build read-model projections that denormalize data for query efficiency. The event store is the write model; projections are the read model. This separation is CQRS.
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+### How do I handle event schema evolution?
 
-### How do I debug issues with this approach?
+Version events explicitly: include a `version` field in every event. Use upcasters (transformers that convert old event versions to new) when reading events from the store. Never modify existing event classes — create a new version and write an upcaster. For protobuf, use `reserved` fields and add new fields with new numbers. For JSON events, use `json-schema` evolution with additive-only changes.
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+### How do I handle duplicate events in serverless?
+
+Use idempotency keys: include a unique event ID (UUID) and track processed IDs in a deduplication table. In AWS Lambda, use DynamoDB conditional writes to atomically mark an event as processed. Set a TTL on the deduplication table (e.g., 7 days) to limit storage. For Kinesis, use the sequence number as the deduplication key. Process events idempotently so reprocessing the same event produces the same result.
+
+### How do I replay events to rebuild read models?
+
+Read all events from the event store in order, apply each to the projection handler, and write the updated read model. Use a checkpoint table to track the last processed event sequence number. For large event stores, replay in batches (e.g., 1000 events at a time) to avoid memory pressure. Run the replay as a separate Lambda function or batch job. Pause the real-time projection handler during replay to avoid conflicts, then resume from the checkpoint.
+
+### How do I test event sourcing systems?
+
+Test aggregates by replaying events and asserting on the resulting state. Test projections by feeding a known event sequence and asserting on the read model output. Use event fixtures: a list of events that produce a known aggregate state. For integration tests, use an in-memory event store and verify the full cycle: command → events → projection. Test event versioning by replaying old-version events through upcasters and asserting the upcasted payload matches the new schema.
+
+### How do I handle concurrent writes to the same aggregate?
+
+Use optimistic concurrency control. Include the expected version number in the write request. The event store rejects the write if the current version does not match the expected version. In DynamoDB, use a conditional expression: `attribute_not_exists(version) OR version = :expected_version`. On conflict, retry by loading the latest events, reapplying the command, and writing again. For high-contention aggregates, consider using a saga or process manager to serialize writes. Do not use pessimistic locking in serverless — Lambda functions are stateless and cannot hold locks.
+
+### How do I implement snapshots for aggregates with long event histories?
+
+Periodically save the full aggregate state as a snapshot. Store snapshots in a separate table with the aggregate ID and version number. On load, fetch the latest snapshot and replay only events after the snapshot version. Take snapshots every N events (e.g., every 100) or after a time interval. In DynamoDB, store snapshots in a separate partition: `PK = AGGREGATE#123, SK = SNAPSHOT#42`. Snapshot creation should be async — do not block the write path. If a snapshot fails, the system continues working by replaying from the beginning.
+
+### How do I handle event ordering in serverless?
+
+Use sequence numbers from the event store (DynamoDB stream ARN + sequence number, Kinesis sequence number). Process events in order per aggregate by keying on aggregate ID. In Lambda, use the partition key to ensure all events for the same aggregate go to the same shard. Do not rely on event timestamps for ordering — clock skew between producers can cause misordering. For cross-aggregate ordering, use a global sequence (DynamoDB atomic counter or Snowflake ID) and process events in sequence order in the projection.
+
+### How do I handle event store growth in production?
+
+Set a retention policy: keep all events for recent aggregates (e.g., 90 days), then archive older events to cold storage (S3 Glacier). For audit requirements that mandate keeping all events, compress old events and move to S3 with lifecycle policies. Implement a compaction strategy: for aggregates with no future replay needs, create a final snapshot and delete the individual events. In DynamoDB, use TTL on old event records or archive to S3 via DynamoDB export. Monitor event store size and alert when growth exceeds projections. Partition the event store by time (monthly tables) to make archival and deletion manageable.
+
+### How do I implement sagas with event sourcing in serverless?
+
+A saga is a sequence of local transactions coordinated by events. Each step publishes an event that triggers the next step. In serverless, implement each saga step as a separate Lambda function triggered by events. Use a saga state table (DynamoDB) to track the current step and compensate on failure. For compensating actions, publish a compensation event that reverses the effect of a previous step. Do not implement sagas as a single long-running Lambda — Lambda has a 15-minute timeout. Use Step Functions for orchestration if you need visual workflow management, or use pure event-driven choreography for simpler sagas.
+
+### How do I migrate from CRUD to event sourcing incrementally?
+
+Start with a single aggregate. Wrap the existing CRUD operations in an event-sourcing adapter: on write, publish an event in addition to updating the database. On read, continue using the existing database. Once the event store is reliable, switch reads to projections built from events. Run both systems in parallel (dual write) and compare results. Once confident, remove the CRUD write path and rely solely on events. Do not attempt a big-bang migration — the risk of data loss is too high. Migrate one aggregate at a time, with full rollback capability at each step.
+
+### How do I handle event schema evolution in production?
+
+Version events with a `version` field in the event payload. When the schema changes, write an upcaster function that transforms old-version events to the new schema during replay. Store upcasters in a registry keyed by event type and version. For example, `UserCreatedV1` with `fullName` becomes `UserCreatedV2` with `firstName` and `lastName` by splitting the full name. Never modify existing events in the store — always upcast at read time. Test upcasters with event fixtures from production (anonymized). Document breaking changes in a changelog so projection developers can update their handlers.
+
+### How do I test event-sourced systems in serverless?
+
+Test aggregates by replaying events and asserting on the resulting state. Use given-when-then style: given a list of prior events, when a command is executed, then specific events should be produced. Test projections by feeding events and asserting on the materialized view. For Lambda functions, use `aws-sdk-client-mock` to mock DynamoDB and EventBridge. Test idempotency by replaying the same event twice and verifying no duplicate side effects. Test event ordering by sending events out of order and verifying the projection handles them correctly. Use LocalStack for integration tests with real AWS APIs locally.
+
+### How do I handle GDPR right-to-be-forgotten with event sourcing?
+
+Use crypto-shredding: encrypt sensitive fields with a per-user key, and delete the key when the user requests deletion. Store the encrypted key reference in the event payload, not the key itself. When the key is deleted, the encrypted data becomes unreadable. Store per-user encryption keys in a separate key management service (AWS KMS, HashiCorp Vault). For events that contain plain-text PII, implement a redaction projection that replaces PII with hashed placeholders. Do not modify historical events — the event store is immutable. Document the deletion process in your privacy policy and verify compliance with legal counsel.
+
+### How do I handle event replay and projection rebuilding?
+
+To rebuild a projection, create a new Lambda function that reads events from the beginning of the stream and feeds them to the projection handler. Use DynamoDB Scan with pagination or EventBridge replay to reprocess historical events. For large event stores, parallelize replay by partitioning by aggregate ID. Track replay progress in a DynamoDB table to support resumption. During replay, disable the projection's write path to avoid duplicate writes — use an idempotency key (event ID) to handle duplicates safely. Test replay on a staging projection first to verify correctness. Monitor replay throughput and estimate completion time based on event count and processing rate.
+
+### How do I handle backpressure and throttling in Lambda consumers?
+
+Lambda scales concurrently based on the number of events in the stream. If the projection cannot process events as fast as they arrive, DynamoDB Streams or EventBridge accumulate events. Configure `BatchSize` and `MaximumBatchingWindowInSeconds` to control how many events Lambda processes per invocation. Set `MaximumRecordAgeInSeconds` to discard old events if the consumer cannot keep up. Use an `OnFailure` destination (SQS or SNS) to capture events that failed after all retries. Monitor `IteratorAge` in CloudWatch — if it exceeds 60 seconds, the consumer is falling behind. Consider increasing Lambda concurrency or partitioning the stream to parallelize processing.
+
+### How do I handle eventual consistency in projections?
+
+Projections are eventually consistent by nature — there is a lag between the event write and the projection update. For reads that require strong consistency, read from the aggregate directly via replay instead of the projection. For UIs, display "last updated" timestamps based on the last processed event. Use CQRS with separate read/write models: the write model validates commands against the aggregate, the read model serves from projections. If the lag is unacceptable, consider updating the projection synchronously within the command handler, but this increases write latency.

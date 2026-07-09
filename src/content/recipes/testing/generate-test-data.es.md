@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/testing/setup-test-fixtures
   - /recipes/testing/measure-test-coverage
   - /patterns/factory-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Genera datos de test realistas y deterministas con Faker, factory-boy y generadores type-aware en Python, JavaScript y Java."
@@ -233,23 +233,74 @@ List<User> users = Instancio.ofList(User.class).size(100).create();
 
 ## Preguntas Frecuentes
 
-**Q: ¿Por qué debería usar factories en lugar de fixtures estáticos?**
-A: Las factories generan datos bajo demanda y son más fáciles de mantener. Las fixtures estáticas se vuelven obsoletas y fuerzan a los tests a depender de un dataset específico.
+### ¿Por qué debería usar factories en lugar de fixtures estáticos?
 
-**Q: ¿Cómo mantengo los datos de prueba deterministas?**
-A: Inicializa el generador aleatorio con un valor fijo, usa bibliotecas de datos falsos como Faker con semillas controladas y evita depender de sistemas externos reales.
+Las factories generan datos bajo demanda y se adaptan a cambios de schema automáticamente. Los fixtures estáticos se vuelven obsoletos cuando se agregan o eliminan campos — un archivo `users.json` commiteado a git no ejercita nuevas reglas de validación. Las factories también permiten overrides por test: `createUser({ email: 'invalid' })` testea validación sin modificar un fixture compartido. Usa fixtures estáticos solo para tests golden-path donde los datos exactos importan (ej., snapshot tests).
 
-**Q: ¿Qué datos nunca deberían estar en los tests?**
-A: Nunca uses datos personales reales, credenciales de producción o información de pagos en tests. Usa datos sintéticos que se parezcan a los reales sin exponer a nadie.
+### ¿Cómo mantengo los datos de test deterministas entre CI y runs locales?
 
-### ¿Esta solución está lista para producción?
+Siembra tu generador aleatorio con un valor fijo en un archivo de setup global. En Python, llama `Faker.seed(12345)` en `conftest.py`. En JavaScript, llama `faker.seed(12345)` en un `globalSetup` de Jest. En Java, construye `new Faker(new Random(12345))`. Nunca dependas del system time o `/dev/urandom` para generación de datos de test. Si los tests fallan intermitentemente, revisa generadores sin sembrar en funciones helper o librerías de terceros.
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+### ¿Qué datos nunca deberían aparecer en tests?
 
-### ¿Cuáles son las características de rendimiento?
+Nunca uses datos personales reales, credenciales de producción o información de pagos. Usa datos sintéticos que se parezcan a los reales sin exponer a nadie. Faker genera nombres, emails y direcciones plausibles que pasan validación de formato sin corresponder a personas reales. Para compliance PII, evita copiar datos de producción a entornos de test — incluso con masking, campos residuales pueden exponer individuos. Usa herramientas de data masking o genera datasets sintéticos frescos para tests de integración.
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+### ¿Cómo genero datos con relaciones entre entidades?
 
-### ¿Cómo depuro problemas con este enfoque?
+Pasa objetos relacionados explícitamente: `const user = createUser(); const order = createOrder({ customerId: user.id })`. No hagas que `createOrder()` llame internamente a `createUser()` — esto oculta el usuario del test y hace imposibles las aserciones sobre la relación. Para grafos de objetos complejos, usa un test data builder que construya el grafo completo con referencias explícitas. En Python, usa `factory.SubFactory(UserFactory)` en `factory-boy` para linkear factories.
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+### ¿Cómo genero datos de edge case sistemáticamente?
+
+Combina Faker con listas explícitas de edge cases. Genera 80% de los datos de test con Faker para cobertura amplia, luego agrega 20% de edge cases dirigidos: strings vacíos, strings de longitud máxima, caracteres Unicode, valores null, números negativos, cero, números muy grandes, fechas en boundaries (epoch, año 9999). Usa property-based testing (Hypothesis, fast-check) para generación exhaustiva de edge cases con shrinking.
+
+### ¿Cómo genero datos para tests de integración de base de datos?
+
+Usa factory-boy con SQLAlchemy o Django ORM: `class UserFactory(factory.django.DjangoModelFactory)` con `Meta: model = User`. Llama `UserFactory.create()` para insertar en la base de datos. Usa un fixture transaccional que haga rollback después de cada test para evitar acumulación de datos. Para datasets grandes (1000+ filas), usa `UserFactory.create_batch(1000)` en un fixture a nivel de módulo. Limpia con `User.objects.all().delete()` en teardown.
+
+### ¿Cómo comparto generadores de datos de test entre test suites?
+
+Extrae factories en un módulo compartido: `tests/factories/user_factory.py`. Importa en archivos de test: `from tests.factories import UserFactory`. Para JavaScript, exporta desde `test-utils/`: `export { createUser, createOrder } from './factories'`. Mantén los generadores framework-agnostic — no importes specifics del test runner en módulos de factory. Versiona el módulo compartido para que los breaking changes sean explícitos.
+
+### ¿Cómo genero payloads de API realistas para contract tests?
+
+Usa Faker para generar valores de campos, luego wrappéalos en el schema esperado de la API. Para specs OpenAPI, usa `@stoplight/prism-cli` para generar mock data desde el spec. Para protobuf, usa `buf` con plugins custom. Valida los payloads generados contra el schema con `ajv` (JSON Schema) o `protobufjs` antes de enviar. Incluye payloads inválidos en un test suite separado para verificar error handling.
+
+### ¿Cómo genero datos de test basados en tiempo para tests de scheduling?
+
+Usa los métodos de fecha de Faker con puntos de referencia fijos. Genera fechas relativas a una base conocida: `faker.date.between({ from: '2026-01-01', to: '2026-12-31' })`. Para tests de scheduling, genera eventos con ventanas de tiempo no superpuestas: `start = baseDate + i * duration`. Evita `faker.date.recent()` en tests — usa `Date.now()` y produce valores no deterministas. Para tests sensibles a timezone, genera fechas en UTC y convierte a la timezone objetivo en la aserción del test. Almacena la fecha base en un fixture para que todos los tests de un suite usen el mismo punto de referencia.
+
+### ¿Cómo genero datasets grandes para load testing?
+
+Usa generación en batch con `factory.build_batch(N)` en Python o `Array.from({ length: N }, () => createUser())` en JavaScript. Para 100K+ filas, streamea data a un archivo o base de datos en lugar de tener todo en memoria. En Python, usa `factory.build_batch(10000)` en un loop y escribe a CSV con `csv.writer`. En JavaScript, usa `createWriteStream` y escribe JSONL un registro a la vez. Siembra Faker una vez al inicio — re-sembrar mid-generation resetea la secuencia aleatoria y produce duplicados. Para seeding de base de datos, usa `COPY FROM` (PostgreSQL) o `LOAD DATA INFILE` (MySQL) para inserts 10x más rápidos que llamadas ORM row-by-row.
+
+### ¿Cómo manejo constraints de unicidad con datos generados?
+
+Faker no garantiza unicidad. Para emails, agrega un counter: `f"user{n}@example.com"`. Para UUIDs, usa `faker.string.uuid()` que es único por diseño. Para nombres únicos en un batch, usa `factory.Sequence(lambda n: f"user_{n}")` en factory-boy. En JavaScript, usa un counter: `let i = 0; const email = \`user\${i++}@example.com\``. Para tests de base de datos, wrappea la creación en try-catch y reintenta con un nuevo valor si ocurre una violación de unique constraint. No dependas de generación aleatoria para unicidad — la probabilidad de colisión aumenta con el batch size (birthday paradox).
+
+### ¿Cómo genero datos con constraints de foreign key?
+
+Crea padres antes que hijos: `user = UserFactory.create(); post = PostFactory.create(user_id=user.id)`. En factory-boy, usa `SubFactory`: `user = factory.SubFactory(UserFactory)`. Para constraints circulares (A referencia B, B referencia A), crea un registro placeholder primero, luego actualízalo. En tests de integración, usa `factory.PostGeneration` para crear registros dependientes después del padre. Limpia en orden inverso (hijos antes que padres) para evitar violaciones de foreign key. Usa `ON DELETE CASCADE` en el schema para que la limpieza sea automática.
+
+### ¿Cómo genero datos para tests de i18n y localización?
+
+Usa Faker con locales específicos: `Faker('es_ES')` para español, `Faker('ja_JP')` para japonés. Genera nombres, direcciones y números de teléfono que coincidan con el formato del locale. Testea validación de Unicode: caracteres CJK, emojis, caracteres RTL (árabe, hebreo). Genera strings con longitudes que excedan límites de bytes vs caracteres (un carácter CJK puede ser 3 bytes en UTF-8). Para tests de timezone, genera fechas en diferentes offsets y verifica que el sistema las convierta correctamente a UTC.
+
+### ¿Cómo genero datos para tests de concurrency?
+
+Genera N registros en paralelo y verifica que el sistema maneje concurrent writes correctamente. En Python, usa `concurrent.futures.ThreadPoolExecutor` para crear registros en paralelo. En JavaScript, usa `Promise.all` con múltiples factory calls. Testea race conditions: dos threads creando un registro con el mismo unique key simultáneamente. Verifica que las transactions se rollbackeen correctamente en deadlocks. Genera timestamps muy cercanos (dentro del mismo milisegundo) para testear ordering. Usa `factory.build_batch(N)` para generar datos sin persistir, luego persiste en paralelo para testear el database layer.
+
+### ¿Cómo genero datos para tests de edge cases?
+
+Genera valores en los límites: strings vacíos, strings de longitud máxima, null/undefined, números negativos, cero, `Number.MAX_SAFE_INTEGER`, fechas en el pasado lejano y futuro lejano. Para strings, prueba con caracteres especiales: comillas, backslashes, newlines, null bytes. Para arrays, prueba vacío, un elemento, y el máximo esperado. Para enums, prueba cada valor válido y un valor inválido. Usa property-based testing con `fast-check` (JavaScript) o `hypothesis` (Python) para generar casos de test automáticamente a partir de propiedades definidas.
+
+### ¿Cómo genero datos para tests de API contract testing?
+
+Genera payloads que coincidan exactamente con el schema del API contract. Usa los schemas OpenAPI/JSON Schema para crear datos válidos: extrae required fields, types, y constraints del schema. En JavaScript, usa `@faker-js/faker` con `openapi-backend` para generar requests válidos automáticamente. En Python, usa `hypothesis` con strategies basadas en el JSON Schema. Genera también payloads inválidos para testear validación: missing required fields, wrong types, valores fuera de rango. Para versioned APIs, genera payloads para cada versión y verifica que el server los maneje correctamente.
+
+### ¿Cómo genero datos para tests de performance y benchmarks?
+
+Genera datasets representativos de producción: misma distribución de tamaños de registros, misma proporción de tipos. Usa datos sintéticos con realismo estadístico: distribuciones gaussianas para edades, power-law para frecuencias de acceso. Para benchmarks de query, genera datasets de tamaños específicos (1K, 10K, 100K, 1M rows) y mide el tiempo de query en cada nivel. Genera índices con cardinalidad realista para testear el query planner. Para benchmarks de write, genera batches de diferentes tamaños y mide throughput. Usa `timeit` en Python o `benchmark.js` para mediciones precisas. Documenta los parámetros de generación para que los benchmarks sean reproducibles.
+
+### ¿Cómo limpio datos de test generados después de los tests?
+
+Usa transactional test fixtures: wrappea cada test en una database transaction y roll back al final. En pytest, usa el plugin `pytest-postgresql` o `factory-boy`'s `SQLAlchemyModelFactory` con fixtures session-scoped. En Jest, usa `beforeEach`/`afterEach` para setear y tear down data. Para estado compartido across tests, usa un schema o database dedicado que se trunca entre test runs. Nunca corras tests contra un production database. Usa `TRUNCATE TABLE` con `CASCADE` para fast cleanup entre test suites. Para file-based test data, usa directorios `tempfile` que se limpian automáticamente por el OS.

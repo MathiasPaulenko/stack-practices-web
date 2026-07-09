@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/testing/setup-test-fixtures
   - /recipes/testing/measure-test-coverage
   - /patterns/factory-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Generate realistic, deterministic test data with Faker, factory-boy, and type-aware generators in Python, JavaScript, and Java."
@@ -233,23 +233,70 @@ List<User> users = Instancio.ofList(User.class).size(100).create();
 
 ## Frequently Asked Questions
 
-**Q: Why should I use factories instead of static fixtures?**
-A: Factories generate data on demand and are easier to maintain. Static fixtures become stale and force tests to depend on a specific dataset.
+### Why should I use factories instead of static fixtures?
 
-**Q: How do I keep test data deterministic?**
-A: Seed your random generator with a fixed value, use fake data libraries like Faker with controlled seeds, and avoid depending on real external systems.
+Factories generate data on demand and adapt to schema changes automatically. Static fixtures become stale when fields are added or removed — a `users.json` file checked into git does not exercise new validation rules. Factories also allow per-test overrides: `createUser({ email: 'invalid' })` tests validation without modifying a shared fixture. Use static fixtures only for golden-path tests where the exact data matters (e.g., snapshot tests).
 
-**Q: What data should never be in tests?**
-A: Never use real personal data, production credentials, or payment information in tests. Use synthetic data that resembles real data without exposing anyone.
+### How do I keep test data deterministic across CI and local runs?
 
-### Is this solution production-ready?
+Seed your random generator with a fixed value in a global setup file. In Python, call `Faker.seed(12345)` in `conftest.py`. In JavaScript, call `faker.seed(12345)` in a Jest `globalSetup`. In Java, construct `new Faker(new Random(12345))`. Never rely on system time or `/dev/urandom` for test data generation. If tests fail intermittently, check for unseeded generators in helper functions or third-party libraries.
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+### What data should never appear in tests?
 
-### What are the performance characteristics?
+Never use real personal data, production credentials, or payment information. Use synthetic data that resembles real data without exposing anyone. Faker generates plausible names, emails, and addresses that pass format validation without corresponding to real people. For PII compliance, avoid copying production data to test environments — even with masking, residual fields can expose individuals. Use data masking tools or generate fresh synthetic datasets for integration tests.
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+### How do I generate data with relationships between entities?
 
-### How do I debug issues with this approach?
+Pass related objects explicitly: `const user = createUser(); const order = createOrder({ customerId: user.id })`. Do not have `createOrder()` internally call `createUser()` — this hides the user from the test and makes assertions on the relationship impossible. For complex object graphs, use a test data builder that constructs the entire graph with explicit references. In Python, use `factory.SubFactory(UserFactory)` in `factory-boy` to link factories.
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+### How do I generate edge case data systematically?
+
+Combine Faker with explicit edge case lists. Generate 80% of test data with Faker for broad coverage, then add 20% targeted edge cases: empty strings, maximum-length strings, Unicode characters, null values, negative numbers, zero, very large numbers, dates at boundaries (epoch, year 9999). Use property-based testing (Hypothesis, fast-check) for exhaustive edge case generation with shrinking.
+
+### How do I generate data for database integration tests?
+
+Use factory-boy with SQLAlchemy or Django ORM: `class UserFactory(factory.django.DjangoModelFactory)` with `Meta: model = User`. Call `UserFactory.create()` to insert into the database. Use a transactional test fixture that rolls back after each test to avoid data accumulation. For large datasets (1000+ rows), use `UserFactory.create_batch(1000)` in a module-level fixture. Clean up with `User.objects.all().delete()` in teardown.
+
+### How do I share test data generators across test suites?
+
+Extract factories into a shared module: `tests/factories/user_factory.py`. Import in test files: `from tests.factories import UserFactory`. For JavaScript, export from `test-utils/`: `export { createUser, createOrder } from './factories'`. Keep generators framework-agnostic — do not import test runner specifics into factory modules. Version the shared module so breaking changes are explicit.
+
+### How do I generate realistic API payloads for contract tests?
+
+Use Faker to generate field values, then wrap them in the API's expected schema. For OpenAPI specs, use `@stoplight/prism-cli` to generate mock data from the spec. For protobuf, use `buf` with custom plugins. Validate generated payloads against the schema with `ajv` (JSON Schema) or `protobufjs` before sending. Include invalid payloads in a separate test suite to verify error handling.
+
+### How do I generate time-based test data for scheduling tests?
+
+Use Faker's date methods with fixed reference points. Generate dates relative to a known base: `faker.date.between({ from: '2026-01-01', to: '2026-12-31' })`. For scheduling tests, generate events with non-overlapping time windows: `start = baseDate + i * duration`. Avoid `faker.date.recent()` in tests — it uses `Date.now()` and produces non-deterministic values. For timezone-sensitive tests, generate dates in UTC and convert to the target timezone in the test assertion. Store the base date in a fixture so all tests in a suite use the same reference point.
+
+### How do I generate large datasets for load testing?
+
+Use batch generation with `factory.build_batch(N)` in Python or `Array.from({ length: N }, () => createUser())` in JavaScript. For 100K+ rows, stream data to a file or database instead of holding it all in memory. In Python, use `factory.build_batch(10000)` in a loop and write to CSV with `csv.writer`. In JavaScript, use `createWriteStream` and write JSONL one record at a time. Seed Faker once at the start — re-seeding mid-generation resets the random sequence and produces duplicates. For database seeding, use `COPY FROM` (PostgreSQL) or `LOAD DATA INFILE` (MySQL) for 10x faster inserts than row-by-row ORM calls.
+
+### How do I handle unique constraints with generated data?
+
+Faker does not guarantee uniqueness. For emails, append a counter: `f"user{n}@example.com"`. For UUIDs, use `faker.string.uuid()` which is unique by design. For unique names in a batch, use `factory.Sequence(lambda n: f"user_{n}")` in factory-boy. In JavaScript, use a counter: `let i = 0; const email = \`user\${i++}@example.com\``. For database tests, wrap creation in a try-catch and retry with a new value if a unique constraint violation occurs. Do not rely on random generation for uniqueness — the probability of collision increases with batch size (birthday paradox).
+
+### How do I generate data with constraints of foreign key?
+
+Create parents before children: `user = UserFactory.create(); post = PostFactory.create(user_id=user.id)`. In factory-boy, use `SubFactory`: `user = factory.SubFactory(UserFactory)`. For circular constraints (A references B, B references A), create a placeholder record first, then update it. In integration tests, use `factory.PostGeneration` to create dependent records after the parent. Clean up in reverse order (children before parents) to avoid foreign key violations. Use `ON DELETE CASCADE` in the schema so cleanup is automatic.
+
+### How do I generate data for i18n and localization tests?
+
+Use Faker with specific locales: `Faker('es_ES')` for Spanish, `Faker('ja_JP')` for Japanese. Generate names, addresses, and phone numbers that match the locale format. Test Unicode validation: CJK characters, emojis, RTL characters (Arabic, Hebrew). Generate strings with lengths that exceed byte vs character limits (a CJK character can be 3 bytes in UTF-8). For timezone tests, generate dates in different offsets and verify the system converts them correctly to UTC.
+
+### How do I generate data for concurrency tests?
+
+Generate N records in parallel and verify the system handles concurrent writes correctly. In Python, use `concurrent.futures.ThreadPoolExecutor` to create records in parallel. In JavaScript, use `Promise.all` with multiple factory calls. Test race conditions: two threads creating a record with the same unique key simultaneously. Verify that transactions roll back correctly on deadlocks. Generate timestamps very close together (within the same millisecond) to test ordering. Use `factory.build_batch(N)` to generate data without persisting, then persist in parallel to test the database layer.
+
+### How do I generate data for API contract testing?
+
+Generate payloads that match the API contract schema exactly. Use OpenAPI/JSON Schema definitions to create valid data: extract required fields, types, and constraints from the schema. In JavaScript, use `@faker-js/faker` with `openapi-backend` to generate valid requests automatically. In Python, use `hypothesis` with strategies based on the JSON Schema. Generate invalid payloads too for validation testing: missing required fields, wrong types, out-of-range values. For versioned APIs, generate payloads for each version and verify the server handles them correctly.
+
+### How do I generate data for performance and benchmark tests?
+
+Generate datasets representative of production: same distribution of record sizes, same proportion of types. Use synthetic data with statistical realism: gaussian distributions for ages, power-law for access frequencies. For query benchmarks, generate datasets at specific sizes (1K, 10K, 100K, 1M rows) and measure query time at each level. Generate indexes with realistic cardinality to test the query planner. For write benchmarks, generate batches of different sizes and measure throughput. Use `timeit` in Python or `benchmark.js` for precise measurements. Document generation parameters so benchmarks are reproducible.
+
+### How do I clean up generated test data after tests?
+
+Use transactional test fixtures: wrap each test in a database transaction and roll back at the end. In pytest, use the `pytest-postgresql` plugin or `factory-boy`'s `SQLAlchemyModelFactory` with session-scoped fixtures. In Jest, use `beforeEach`/`afterEach` to set up and tear down data. For shared state across tests, use a dedicated test schema or database that is truncated between test runs. Never run tests against a production database. Use `TRUNCATE TABLE` with `CASCADE` for fast cleanup between test suites. For file-based test data, use `tempfile` directories that are automatically cleaned up by the OS.
