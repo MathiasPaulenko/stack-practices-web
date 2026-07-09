@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/go-rest-api-gin
   - /recipes/api/api-documentation-openapi
-lastUpdated: "2026-06-18"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement cursor-based pagination in PostgreSQL. Efficient keyset pagination for large datasets avoiding OFFSET degradation with indexed ordering and stable cursors."
@@ -258,14 +258,46 @@ A: Only for small datasets (< 10,000 rows) or admin interfaces where jumping to 
 **Q: How do I handle sorting by multiple columns?**
 A: Include all sort columns in the composite index and encode all values into the cursor.
 
-### Is this solution production-ready?
+### How do I encode a cursor safely for URLs?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Base64-encode the cursor payload (JSON or concatenated values) and URL-encode the result. Use base64url encoding (replace `+` with `-`, `/` with `_`, strip `=` padding) to avoid characters that need URL encoding. On the server, reverse the encoding to extract cursor values. Never pass raw SQL values in the cursor — always encode them to prevent tampering.
 
-### What are the performance characteristics?
+### How do I handle cursor pagination with UUID primary keys?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+UUIDs are not naturally ordered. Add a `created_at` timestamp column with an index and use `(created_at, id)` as the composite cursor. If you need random distribution, use UUIDv7 (time-ordered) instead of UUIDv4. For existing UUIDv4 tables, add a `serial` or `bigserial` column and use that as the cursor key instead.
 
-### How do I debug issues with this approach?
+### How do I implement bidirectional cursor pagination (previous page)?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Store the first and last cursor of the current page on the client. For the previous page, reverse the sort order and query `WHERE (created_at, id) < (previous_first_cursor_values)` with `ORDER BY created_at DESC, id DESC`. Then reverse the results client-side to maintain consistent ordering. Include `has_previous_page` and `has_next_page` booleans in the response.
+
+### How do I handle cursor pagination with filtered queries?
+
+Apply the WHERE filter before the cursor condition. The cursor still uses the sort columns: `WHERE (status = 'active') AND (created_at, id) < (cursor_values) ORDER BY created_at DESC, id DESC LIMIT 20`. Ensure the filter column has an index alongside the sort columns. For dynamic filters, use a composite index on `(filter_column, created_at, id)`.
+
+### What happens if a cursor references a deleted row?
+
+Nothing breaks — cursor pagination uses range comparison (`<` or `>`), not row lookup. The query simply returns the next rows after the cursor position, whether or not the original row still exists. This is a key advantage over offset pagination, which can skip or duplicate rows when data changes between requests.
+
+### How do I handle cursor pagination with time-based sorting?
+
+Use `(created_at, id)` as the cursor key to ensure stable ordering when multiple rows share the same timestamp. Create a composite index on `(created_at DESC, id DESC)` matching your sort direction. When two rows have identical `created_at`, the `id` tiebreaker ensures deterministic ordering. Avoid using `updated_at` as the sort key if rows can be updated concurrently — the cursor position may shift.
+
+### How do I implement cursor pagination in GraphQL connections?
+
+Follow the Relay Connection spec: return `edges` with `node` and `cursor` fields, plus `pageInfo` with `hasNextPage`, `hasPreviousPage`, `startCursor`, and `endCursor`. Encode cursors as base64 strings. On the server, decode the cursor, extract sort values, and query with `WHERE (created_at, id) < (cursor_values)`. The `first` and `last` arguments map to `LIMIT`.
+
+### How do I measure cursor pagination performance?
+
+Use `EXPLAIN ANALYZE` to verify the query uses the composite index and performs an index scan, not a sequential scan. Check that execution time stays constant as the cursor moves deeper into the dataset. Monitor query latency in production with `pg_stat_statements`. Compare p99 latency between first page and page 10000 — cursor pagination should show flat performance, unlike offset which degrades linearly.
+
+### How do I handle cursor pagination with soft-deleted rows?
+
+Add `WHERE deleted_at IS NULL` to your query alongside the cursor condition. The cursor still works correctly because it uses range comparison on sort columns. Create a partial index `CREATE INDEX ON items (created_at DESC, id DESC) WHERE deleted_at IS NULL` to keep the index small and fast. When a row is soft-deleted between requests, the next page simply skips it — no skipped or duplicated rows for the client.
+
+### How do I migrate from offset to cursor pagination?
+
+Start by adding a `created_at` column with an index if one doesn't exist. Implement the cursor endpoint alongside the existing offset endpoint (e.g., `/api/v2/items`). Return cursors in the response body as `next_cursor` and `previous_cursor` fields. Deprecate the old offset endpoint with a sunset header. Migrate frontend consumers to the new endpoint in a coordinated rollout. Keep both endpoints alive during the transition period to avoid breaking changes. Use feature flags to gradually shift traffic from offset to cursor endpoints.
+
+### How do I handle cursor pagination with concurrent inserts?
+
+Concurrent inserts do not affect cursor pagination correctness. New rows inserted after the first page is returned will appear on subsequent pages if their sort values fall within the cursor range. The `has_next_page` flag is computed by querying `LIMIT + 1` and checking if an extra row exists. For real-time feeds where new rows must appear immediately, use a separate "latest items" endpoint rather than modifying cursor behavior.

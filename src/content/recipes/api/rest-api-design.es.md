@@ -297,3 +297,5 @@ Tres estrategias comunes: path URI (`/v1/users`), parámetro de query (`/users?v
 ### ¿Qué código de estado debo usar para errores de validación?
 
 Devuelve 422 Unprocessable Entity cuando el body de la request es sintácticamente válido pero semánticamente incorrecto (e.g., campos requeridos faltantes, formato de email inválido). Usa 400 Bad Request para JSON malformado o headers content-type faltantes. Incluye un array `details` en la respuesta de error apuntando a errores de campos específicos.
+
+Para errores de lógica de negocio (e.g., saldo insuficiente, cuenta suspendida), usa 422 con un código de error específico en el body como `INSUFFICIENT_FUNDS`. Evita 400 para estos casos ya que la request es sintácticamente válida.

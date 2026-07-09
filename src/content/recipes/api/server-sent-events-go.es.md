@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/websocket-authentication
   - /recipes/real-time-websockets
-lastUpdated: "2026-06-18"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Server-Sent Events en Go. Construye streams de actualizacion en tiempo real con gestion de conexiones, heartbeats y manejo graceful de desconexiones de clientes."
@@ -263,14 +263,38 @@ R: Si, pero algunos proxies tienen timeouts agresivos. Envia heartbeat comments 
 **P: Cual es el numero maximo de conexiones SSE concurrentes?**
 R: El limite del navegador es 6 conexiones por dominio. Usa HTTP/2 o una conexion compartida para evitar esto.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo manejo la reconexión del cliente con Last-Event-ID?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+El header HTTP `Last-Event-ID` es enviado por el navegador cuando una conexión SSE cae y el cliente se reconecta. En el servidor, lee este header y replayea cualquier evento con ID mayor que el último recibido. Asigna IDs secuenciales a los eventos usando el campo `id:` en el formato SSE. Almacena eventos recientes en un ring buffer en memoria (ej., últimos 100 eventos por canal) para que los clientes reconectados puedan ponerse al día sin perder mensajes.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Debo usar SSE o WebSocket para actualizaciones en tiempo real?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Usa SSE para streams solo servidor-a-cliente (notificaciones, feeds en vivo, dashboards). SSE es más simple: usa HTTP estándar, soporta auto-reconexión y funciona a través de proxies con configuración mínima. Usa WebSocket cuando necesitas comunicación bidireccional (chat, edición colaborativa, gaming). SSE tiene un límite de navegador de 6 conexiones concurrentes por dominio sobre HTTP/1.1, pero HTTP/2 elimina este límite.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo broadcasteo SSE a múltiples clientes en Go?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Mantén un map de clientes conectados, cada uno con su propio channel. Al broadcastear, itera sobre el map y envía el evento al channel de cada cliente usando un send non-blocking (`select` con case `default`). Remueve clientes desconectados del map al cerrar. Para fan-out grande, usa un pub/sub broker como Redis Pub/Sub para que múltiples procesos Go compartan la carga de broadcast.
+
+### ¿Cómo testeo endpoints SSE en Go?
+
+Usa `httptest.NewServer` para iniciar el handler in-process. Conéctate con un cliente SSE (ej., paquete Go `eventsource` o un cliente HTTP raw que lea el body línea por línea). Aserta que los eventos lleguen en orden con data correcta. Para load testing, abre muchas conexiones concurrentes y mide la latencia de eventos. Usa `context.WithTimeout` para cancelar tests de larga duración.
+
+### ¿Cómo aseguro endpoints SSE con autenticación?
+
+Pasa tokens de auth como query parameters (`?token=...`) ya que las conexiones SSE no pueden setear headers custom desde la API `EventSource` del navegador. Valida el token server-side antes de registrar al cliente. Para producción, usa tokens de corta duración y rotalos. Alternativamente, usa cookies para auth (el navegador envía cookies con requests SSE automáticamente). Para SSE cross-origin, configura headers CORS en el endpoint SSE.
+
+### ¿Cómo manejo la limpieza de conexiones SSE en Go?
+
+Usa `context.Context` para propagar cancelación. Cuando el HTTP handler retorna, el context del request es cancelado — escucha `<-ctx.Done()` en tu event loop y cierra el flusher. Remueve el cliente del connection map dentro de un `defer` block para asegurar que la limpieza se ejecute incluso en panic. Setea un write timeout en cada flush para detectar conexiones stale. Ejecuta una goroutine en background que periódicamente chequee conexiones muertas y las remueva.
+
+### ¿Cómo comprimo respuestas SSE en Go?
+
+Habilita compresión gzip con `middleware.Compress` de chi o el middleware `Gzip` de gin. Las respuestas SSE se benefician de compresión cuando los eventos contienen payloads JSON repetitivos. Setea `Content-Encoding: gzip` y flushea después de cada chunk comprimido. Ten en cuenta que la compresión añade overhead de CPU por evento — benchmarkea con tamaños de payload realistas para determinar si mejora el throughput para tu caso de uso.
+
+### ¿Cómo manejo SSE detrás de un load balancer?
+
+Usa sticky sessions (session affinity) para que un cliente siempre se conecte a la misma instancia de backend. Configura tu load balancer (ALB, nginx, HAProxy) con timeouts largos (ej., 1 hora) para prevenir drops prematuros de conexión. Deshabilita response buffering en nginx: `proxy_buffering off;` y `proxy_cache off;`. Para broadcasting multi-instancia, usa Redis Pub/Sub para fanear eventos a todas las instancias de backend, cada una manteniendo sus propias conexiones SSE.
+
+### ¿Cómo implemento event IDs SSE para replay?
+
+Asigna un ID monotonically incremental a cada evento usando el campo `id:` en el formato SSE. Almacena eventos en un ring buffer keyed por ID. Cuando un cliente se reconecta con `Last-Event-ID: 42`, replayea eventos 43+ desde el buffer. Setea un TTL en los eventos almacenados (ej., 5 minutos) para limitar el uso de memoria. Para eventos más allá del window del buffer, retorna `204 No Content` y deja que el cliente decida si empezar fresh o mostrar un mensaje de reconexión.

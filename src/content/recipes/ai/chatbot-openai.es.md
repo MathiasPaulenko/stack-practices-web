@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/llm-fine-tuning
   - /guides/software-architecture-guide
   - /guides/system-design-interview-guide
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Crea un chatbot de IA con la OpenAI Assistants API. Maneja conversaciones, function calling, recuperación de archivos y gestión de threads con ejemplos."
@@ -263,3 +263,39 @@ Nunca incluyas PII directamente en los mensajes si no es necesario. Usa IDs anó
 ### ¿Puedo migrar de Chat Completions a Assistants?
 
 Sí, pero requiere refactorización. La lógica de historial y gestión de contexto se externaliza a la API de Assistants. Evalúa si el aumento de latencia y costo vale la conveniencia de la gestión de estado.
+
+### ¿Cómo manejo errores de function call de forma graceful?
+
+Cuando tu función lanza un error, captúralo y retorna un objeto JSON con campos `error` y `message` a la Assistants API vía el endpoint `submit_tool_outputs`. El LLM lee el mensaje de error y puede reintentar, pedir aclaración al usuario, o intentar un enfoque alternativo. Nunca retornes un string de excepción raw — sanitízalo para evitar filtrar detalles internos. Setea un máximo de reintentos (ej., 3) para prevenir loops infinitos donde el LLM sigue llamando la misma función que falla.
+
+### ¿Cómo streameo respuestas desde la Assistants API?
+
+Usa el parámetro `stream` al crear un run: `POST /v1/threads/{thread_id}/runs` con `"stream": true`. La API retorna Server-Sent Events con eventos `thread.run.step.delta` conteniendo texto incremental. Parsea el stream SSE y reenvía chunks al cliente vía WebSocket o SSE. Maneja `thread.run.completed` para señalizar el fin del stream. Implementa buffering client-side para manejar deltas JSON parciales.
+
+### ¿Cómo implemento rate limiting para mi chatbot?
+
+Rastrea requests por usuario en Redis con un contador de sliding window. Setea límites basados en tu plan (ej., 20 mensajes/minuto para free tier, 100 para paid). Retorna HTTP 429 con header `Retry-After` cuando se alcanza el límite. En el lado de OpenAI, monitorea el rate limit de token usage de tu organización. Implementa exponential backoff cuando la API de OpenAI retorna 429. Encola requests durante picos de tráfico y procésalos asincrónicamente.
+
+### ¿Cómo testeo una integración de Assistants API?
+
+Mockea el cliente de OpenAI con `vi.mock()` o `unittest.mock.patch`. Testea function calling retornando tool outputs predefinidos y asertando que el LLM los reciba. Para tests end-to-end, usa un assistant separado de OpenAI con un modelo más barato (ej., GPT-4o-mini) para reducir costos de test. Graba respuestas de la API con tools como VCR.py o Polly.js y replayealas en CI para evitar llamadas reales a la API. Testea el lifecycle del thread: crear, agregar mensajes, ejecutar y verificar la respuesta.
+
+### ¿Cómo manejo conversaciones largas que exceden la ventana de contexto?
+
+La Assistants API trunca automáticamente los mensajes más antiguos cuando el thread excede la ventana de contexto del modelo. Para preservar contexto importante, resume periódicamente la conversación y agrega el resumen como mensaje de sistema. Implementa una estrategia de truncación custom: mantén los últimos N mensajes y el primer mensaje (que suele contener instrucciones). Para chats knowledge-intensive, almacena hechos clave en una vector database y recupéralos con `file_search` en lugar de depender del historial completo del thread.
+
+### ¿Cómo implemento aislamiento multi-tenant con la Assistants API?
+
+Crea un assistant separado por tenant con instrucciones y uploads de archivos tenant-specific. Usa thread IDs scoped por tenant y valida que un usuario solo acceda a threads pertenecientes a su tenant antes de procesar. Almacena el mapeo tenant-to-assistant en tu database. Para assistants compartidos, incluye el contexto del tenant en el mensaje de sistema y usa function calling para scopear todas las queries de database por tenant ID. Nunca compartas file_search entre tenants — sube archivos a cada assistant de tenant separadamente.
+
+### ¿Cómo manejo deprecaciones de la Assistants API?
+
+OpenAI periódicamente depreca versiones de modelos y features de la API. Pinea tu versión de modelo en código (ej., `gpt-4o-2024-08-06`) en lugar de usar aliases como `gpt-4o` para evitar cambios silenciosos de comportamiento. Suscríbete al changelog y avisos de deprecación de OpenAI. Cuando un modelo es deprecado, testea el modelo de reemplazo con tu suite de tests existente antes de cambiar. Mantén una matriz de compatibilidad de modelos en tu config para poder swappear modelos sin cambios de código.
+
+### ¿Cómo implemento persistencia de conversación entre sesiones?
+
+Almacena thread IDs en tu database keyed por user ID. Cuando un usuario retorna, recupera su thread ID activo y agrega nuevos mensajes a él. Implementa archival de threads después de un período de inactividad (ej., 30 días) para reducir context bloat. Para soporte multi-device, crea un nuevo thread por sesión de device y mergea resúmenes de conversación periódicamente. Almacena metadata de mensajes (timestamps, resultados de function calls) junto a los thread IDs para audit trails.
+
+### ¿Cómo manejo alucinaciones en respuestas de function calling?
+
+Valida outputs de funciones contra un schema antes de retornarlos al LLM. Si el LLM alucina parámetros de función (ej., llama `get_user(email="not-a-real-email")`), valida inputs con un schema Zod o Pydantic y retorna un mensaje de error si la validación falla. El LLM reintentará con parámetros corregidos. Loggea todos los function calls y sus resultados para análisis post-hoc. Setea una instrucción en el system prompt: "Solo llama funciones con parámetros que extrajiste del mensaje del usuario o de outputs de tools anteriores."

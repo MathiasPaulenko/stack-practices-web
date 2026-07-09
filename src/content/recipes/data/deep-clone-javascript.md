@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/parse-json
   - /recipes/regular-expressions
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn deep cloning in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and what works for cloning."
@@ -295,3 +295,7 @@ No. `structuredClone` strips prototype chains, so instances of custom classes be
 ### How do I deep clone in Node.js without dependencies?
 
 In Node 17.0+, use `structuredClone` (available globally). In older Node versions, use `v8.deserialize(v8.serialize(obj))` which is Node's internal structured clone algorithm. Avoid `JSON.parse/stringify` for anything beyond simple plain objects.
+
+### How do I deep clone objects with getters/setters?
+
+`structuredClone` and `JSON.parse/stringify` do not preserve getters and setters — they evaluate the getter and copy the resulting value. To preserve property descriptors, use `Object.getOwnPropertyDescriptors` combined with `Object.create` to reconstruct the prototype chain. Libraries like Lodash `_.cloneDeep` preserve accessors by default. For class hierarchies with computed properties, write a custom clone method that copies descriptors explicitly.

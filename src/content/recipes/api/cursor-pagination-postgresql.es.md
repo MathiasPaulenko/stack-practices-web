@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/go-rest-api-gin
   - /recipes/api/api-documentation-openapi
-lastUpdated: "2026-06-18"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa paginacion por cursor en PostgreSQL. Paginacion keyset eficiente para datasets grandes evitando degradacion de OFFSET con ordenamiento indexado."
@@ -251,14 +251,50 @@ R: Solo para datasets pequenos (< 10.000 filas) o interfaces de admin donde salt
 **P: Como manejo ordenamiento por multiples columnas?**
 R: Incluye todas las columnas de sort en el indice compuesto y codifica todos los valores en el cursor.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo codifico un cursor de forma segura para URLs?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Base64-encodea el payload del cursor (JSON o valores concatenados) y URL-encodea el resultado. Usa base64url encoding (reemplaza `+` con `-`, `/` con `_`, quita el padding `=`) para evitar caracteres que necesiten URL encoding. En el servidor, revierte el encoding para extraer los valores del cursor. Nunca pases valores SQL raw en el cursor — siempre encodealos para prevenir tampering.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Cómo manejo paginación por cursor con primary keys UUID?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Los UUIDs no son naturalmente ordenados. Agrega una columna `created_at` timestamp con un índice y usa `(created_at, id)` como cursor compuesto. Si necesitas distribución aleatoria, usa UUIDv7 (time-ordered) en lugar de UUIDv4. Para tablas existentes con UUIDv4, agrega una columna `serial` o `bigserial` y usa esa como key del cursor.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo implemento paginación por cursor bidireccional (página anterior)?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Guarda el primer y último cursor de la página actual en el cliente. Para la página anterior, invierte el orden de sort y consulta `WHERE (created_at, id) < (previous_first_cursor_values)` con `ORDER BY created_at DESC, id DESC`. Luego invierte los resultados client-side para mantener ordenamiento consistente. Incluye booleanos `has_previous_page` y `has_next_page` en la respuesta.
+
+### ¿Cómo manejo paginación por cursor con queries filtradas?
+
+Aplica el filtro WHERE antes de la condición del cursor. El cursor sigue usando las columnas de sort: `WHERE (status = 'active') AND (created_at, id) < (cursor_values) ORDER BY created_at DESC, id DESC LIMIT 20`. Asegúrate de que la columna del filtro tenga un índice junto a las columnas de sort. Para filtros dinámicos, usa un índice compuesto en `(filter_column, created_at, id)`.
+
+### ¿Qué pasa si un cursor referencia una fila eliminada?
+
+Nada se rompe — la paginación por cursor usa comparación de rango (`<` o `>`), no lookup de fila. La query simplemente retorna las siguientes filas después de la posición del cursor, sin importar si la fila original aún existe. Esta es una ventaja clave sobre paginación por offset, que puede saltar o duplicar filas cuando los datos cambian entre requests.
+
+### ¿Cómo manejo paginación por cursor con ordenamiento por tiempo?
+
+Usa `(created_at, id)` como key del cursor para asegurar ordenamiento estable cuando múltiples filas comparten el mismo timestamp. Crea un índice compuesto en `(created_at DESC, id DESC)` matching tu dirección de sort. Cuando dos filas tienen `created_at` idéntico, el `id` tiebreaker asegura ordenamiento determinista. Evita usar `updated_at` como key de sort si las filas pueden ser actualizadas concurrentemente — la posición del cursor puede shiftear.
+
+### ¿Cómo implemento paginación por cursor en conexiones GraphQL?
+
+Sigue la spec de Relay Connection: retorna `edges` con campos `node` y `cursor`, plus `pageInfo` con `hasNextPage`, `hasPreviousPage`, `startCursor`, y `endCursor`. Encodea cursors como strings base64. En el servidor, decodea el cursor, extrae los valores de sort, y consulta con `WHERE (created_at, id) < (cursor_values)`. Los argumentos `first` y `last` mapean a `LIMIT`.
+
+### ¿Cómo mido la performance de la paginación por cursor?
+
+Usa `EXPLAIN ANALYZE` para verificar que la query usa el índice compuesto y realiza un index scan, no un sequential scan. Chequea que el tiempo de ejecución se mantenga constante a medida que el cursor se mueve más profundo en el dataset. Monitorea la latencia de query en producción con `pg_stat_statements`. Compara latencia p99 entre la primera página y la página 10000 — la paginación por cursor debería mostrar performance flat, a diferencia de offset que degrada linealmente.
+
+### ¿Cómo manejo paginación por cursor con filas soft-deleted?
+
+Agrega `WHERE deleted_at IS NULL` a tu query junto a la condición del cursor. El cursor sigue funcionando correctamente porque usa comparación de rango en columnas de sort. Crea un partial index `CREATE INDEX ON items (created_at DESC, id DESC) WHERE deleted_at IS NULL` para mantener el índice pequeño y rápido. Cuando una fila es soft-deleted entre requests, la siguiente página simplemente la salta — no hay filas saltadas o duplicadas para el cliente.
+
+### ¿Cómo implemento paginación por cursor con columnas calculadas?
+
+Si necesitas ordenar por una columna calculada (ej., `LOWER(name)` o `score / total`), materializa el valor en una columna generada y crea un índice sobre ella: `ALTER TABLE items ADD COLUMN name_lower TEXT GENERATED ALWAYS AS (LOWER(name)) STORED`. Usa la columna generada como parte del cursor compuesto. Esto evita que PostgreSQL tenga que computar la expresión por cada fila en cada query, manteniendo el index scan rápido.
+
+### ¿Cómo migro de offset a cursor pagination?
+
+Empieza agregando una columna `created_at` con un índice si no existe. Implementa el endpoint de cursor junto al endpoint de offset existente (ej., `/api/v2/items`). Retorna cursors en el response body como campos `next_cursor` y `previous_cursor`. Depreca el viejo endpoint de offset con un sunset header. Migra los consumidores frontend al nuevo endpoint en un rollout coordinado. Mantén ambos endpoints vivos durante el período de transición para evitar breaking changes. Usa feature flags para shiftear tráfico gradualmente de offset a cursor endpoints.
+
+### ¿Cómo manejo paginación por cursor con inserts concurrentes?
+
+Los inserts concurrentes no afectan la corrección de la paginación por cursor. Las nuevas filas insertadas después de que la primera página es retornada aparecerán en páginas subsiguientes si sus valores de sort caen dentro del rango del cursor. El flag `has_next_page` se computa consultando `LIMIT + 1` y chequeando si existe una fila extra. Para feeds en tiempo real donde las nuevas filas deben aparecer inmediatamente, usa un endpoint separado de "latest items" en lugar de modificar el comportamiento del cursor.

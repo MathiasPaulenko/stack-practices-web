@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/llm-fine-tuning
   - /guides/software-architecture-guide
   - /guides/event-driven-architecture-guide
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Create an AI chatbot with OpenAI Assistants API. Handle conversations, function calling, file retrieval, and thread management with examples."
@@ -258,3 +258,43 @@ No. The Assistants API is specific to OpenAI models. For custom models, use [Lan
 ### How much does it cost?
 
 You pay for the model's input/output tokens plus code interpreter sessions ($0.03 per session) and retrieval files ($0.20/GB per assistant per day). Always monitor usage in the OpenAI dashboard.
+
+### How do I handle function call errors gracefully?
+
+When your function throws an error, catch it and return a JSON object with `error` and `message` fields to the Assistants API via the `submit_tool_outputs` endpoint. The LLM reads the error message and can retry, ask the user for clarification, or try an alternative approach. Never return a raw exception string — sanitize it to avoid leaking internal details. Set a maximum retry count (e.g., 3) to prevent infinite loops where the LLM keeps calling the same failing function.
+
+### How do I stream responses from the Assistants API?
+
+Use the `stream` parameter when creating a run: `POST /v1/threads/{thread_id}/runs` with `"stream": true`. The API returns Server-Sent Events with `thread.run.step.delta` events containing incremental text. Parse the SSE stream and forward chunks to the client via WebSocket or SSE. Handle `thread.run.completed` to signal the end of the stream. Implement client-side buffering to handle partial JSON deltas.
+
+### How do I implement rate limiting for my chatbot?
+
+Track requests per user in Redis with a sliding window counter. Set limits based on your plan (e.g., 20 messages/minute for free tier, 100 for paid). Return HTTP 429 with a `Retry-After` header when the limit is hit. On the OpenAI side, monitor your organization's token usage rate limit. Implement exponential backoff when the OpenAI API returns 429. Queue requests during traffic spikes and process them asynchronously.
+
+### How do I test an Assistants API integration?
+
+Mock the OpenAI client with `vi.mock()` or `unittest.mock.patch`. Test function calling by returning predefined tool outputs and asserting the LLM receives them. For end-to-end tests, use a separate OpenAI assistant with a cheaper model (e.g., GPT-4o-mini) to reduce test costs. Record API responses with tools like VCR.py or Polly.js and replay them in CI to avoid real API calls. Test thread lifecycle: create, add messages, run, and verify the response.
+
+### How do I handle long conversations that exceed the context window?
+
+The Assistants API automatically truncates older messages when the thread exceeds the model's context window. To preserve important context, periodically summarize the conversation and add the summary as a system message. Implement a custom truncation strategy: keep the last N messages and the first message (which often contains instructions). For knowledge-intensive chats, store key facts in a vector database and retrieve them with `file_search` instead of relying on the full thread history.
+
+### How do I implement multi-tenant isolation with the Assistants API?
+
+Create a separate assistant per tenant with tenant-specific instructions and file uploads. Use tenant-scoped thread IDs and validate that a user only accesses threads belonging to their tenant before processing. Store the tenant-to-assistant mapping in your database. For shared assistants, include the tenant context in the system message and use function calling to scope all database queries by tenant ID. Never share file_search across tenants — upload files to each tenant's assistant separately.
+
+### How do I handle Assistants API deprecations?
+
+OpenAI periodically deprecates model versions and API features. Pin your model version in code (e.g., `gpt-4o-2024-08-06`) rather than using aliases like `gpt-4o` to avoid silent behavior changes. Subscribe to OpenAI's changelog and deprecation notices. When a model is deprecated, test the replacement model with your existing test suite before switching. Maintain a model compatibility matrix in your config so you can swap models without code changes.
+
+### How do I implement conversation persistence across sessions?
+
+Store thread IDs in your database keyed by user ID. When a user returns, retrieve their active thread ID and add new messages to it. Implement thread archival after a period of inactivity (e.g., 30 days) to reduce context bloat. For multi-device support, create a new thread per device session and merge conversation summaries periodically. Store message metadata (timestamps, function call results) alongside thread IDs for audit trails.
+
+### How do I handle hallucinations in function calling responses?
+
+Validate function outputs against a schema before returning them to the LLM. If the LLM hallucinates function parameters (e.g., calls `get_user(email="not-a-real-email")`), validate inputs with a Zod or Pydantic schema and return an error message if validation fails. The LLM will retry with corrected parameters. Log all function calls and their results for post-hoc analysis. Set a system prompt instruction: "Only call functions with parameters you extracted from the user's message or previous tool outputs."
+
+### How do I implement fallback when the OpenAI API is down?
+
+Implement a circuit breaker that trips after N consecutive failures (e.g., 5). When open, return cached responses or a graceful "service temporarily unavailable" message. Use a queue (e.g., BullMQ, Celery) to persist user messages during outages and process them when the API recovers. Configure a fallback model provider (e.g., Anthropic, local LLM) for critical paths. Monitor OpenAI status page and alert on elevated error rates.

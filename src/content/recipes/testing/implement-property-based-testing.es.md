@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/generate-test-data
   - /recipes/testing/setup-test-fixtures
   - /recipes/testing/implement-mutation-testing
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Escribe tests property-based con Hypothesis, fast-check y jqwik que generan miles de entradas para encontrar casos edge que los tests tradicionales no detectan."
@@ -254,14 +254,50 @@ A: Cuando se encuentra un contraejemplo, el framework reduce la entrada al valor
 **Q: ¿Cuándo PBT no es una buena opción?**
 A: PBT es menos útil para flujos de UI, máquinas de estado complejas o propiedades difíciles de expresar formalmente. Los tests basados en ejemplos siguen siendo valiosos para esos casos.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo escribo propiedades para sistemas con estado?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Modela el sistema como una máquina de estados y genera secuencias de comandos (ej., `push(x)`, `pop()`, `peek()`). Define un invariante que se cumpla después de cada comando — para un stack, `pop()` retorna el último valor pusheado. Usa el soporte del framework para testing con estado: Hypothesis `@st.composite` con rules, fast-check `fc.commands`, o `@Lifecycle` de jqwik. Ejecuta suficientes iteraciones para cubrir interleavings (500+ runs).
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Cuál es la diferencia entre testing generativo y basado en ejemplos?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Los tests basados en ejemplos usan inputs fijos que eliges. Los tests generativos (property-based) usan inputs generados por el framework a lo largo de muchas runs. Los tests basados en ejemplos son mejores para regresión (conoces el input exacto que falla). Los tests property-based son mejores para exploración (encuentran inputs que nunca se te ocurriría testear). Usa ambos: property tests para invariantes, example tests para edge cases específicos y regresión.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo controlo el runtime de los tests property-based en CI?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Setea `max_examples` (Hypothesis), `num_runs` (fast-check), o `@Trials` (jqwik) a un valor más bajo en CI (ej., 100) y más alto localmente (ej., 1000). Usa un profile de CI separado o variable de entorno. Marca los property tests de larga duración con un marker custom y excluyelos de los pipelines rápidos de CI. Ejecuta las suites completas de property tests nightly.
+
+### ¿Cómo reproduzco un test property-based que falla?
+
+Los frameworks imprimen el contraejemplo shrinkeado al fallar. Copia los valores exactos del input y escribe un test basado en ejemplos con esos valores. En Hypothesis, usa `@example` para fijar el caso que falla. En fast-check, usa `fc.constant` para reproducir. En jqwik, usa `@ForAll` con `@FromData`. Esto asegura que el test de regresión se ejecute deterministamente sin necesitar la run completa de property-based.
+
+### ¿Cómo genero data realista para tests property-based?
+
+Usa combinadores de strategies para constreñir la data generada a rangos realistas. Para emails, genera patrones `string@string.string`. Para fechas, genera valores dentro de bounds de lógica de negocio (ej., 1900-2100). Para JSON, usa generadores recursivos que produzcan objetos anidados. Librerías como `hypothesis-jsonschema` generan data matching un JSON Schema. Para data domain-specific, escribe strategies custom que encodeen reglas de negocio (ej., IBANs válidos, ISBNs válidos).
+
+### ¿Cómo integro tests property-based con pipelines CI/CD?
+
+Ejecuta los tests property-based como un job de CI separado de los unit tests para evitar bloquear PRs en runs largos. Setea `max_examples` a 50-100 en CI y 1000+ en runs nightly. Usa el marker `pytest --property-based-tests` o `npm run test:property` para aislarlos. Cachea la example database de Hypothesis entre runs de CI para que los casos que fallan conocidos se replayeen primero. Fallea el pipeline en cualquier contraejemplo encontrado, y adjunta el input shrinkeado como artifact de CI para debugging.
+
+### ¿Cómo escribo propiedades para funciones async?
+
+Wrappa funciones async en un adapter sync usando `asyncio.run()` o `pytest-asyncio`. En fast-check, usa `fc.asyncProperty` con arbitraries async. En Hypothesis, usa `@given` con `st.from_type` y llama `asyncio.run(fn(x))` dentro del test body. Para propiedades concurrentes, genera listas de operaciones async y aserta invariantes después de que todas settleen. Usa `anyio` para testear contra backends asyncio y trio con la misma propiedad.
+
+### ¿Cómo debuggeo un test property-based que falla?
+
+Lee el contraejemplo shrinkeado impreso por el framework. Agrega `print()` o logging dentro de la property function para trazar la ejecución con el input que falla. Usa `@seed` (Hypothesis) o `fc.seed` (fast-check) para reproducir la secuencia random exacta. Si el input shrinkeado sigue siendo complejo, agrega `assume()`/`fc.pre()` para constreñir el search space más. Escribe un unit test con el input exacto que falla para debuggear paso a paso en tu IDE.
+
+### ¿Cómo combino property-based testing con fuzzing?
+
+Property-based testing es una forma de fuzzing — genera inputs random y chequea propiedades. Para coverage-guided fuzzing, usa `Atheris` (Python) o `jsfuzz` (JavaScript) que trackean code coverage y mutan inputs para alcanzar nuevas branches. Combina con PBT definiendo propiedades que el fuzzer chequea: el fuzzer maximiza coverage mientras las property assertions verifican corrección. Usa `atheris.FuzzedDataProvider` para feedear data estructurada del fuzzer a tu propiedad.
+
+### ¿Cómo escribo propiedades para round-trips de serialización?
+
+La propiedad clásica: `deserialize(serialize(x)) == x` para todo `x` válido. Genera objetos del tipo target, serializalos, deserializa el resultado, y aserta igualdad. Para JSON, genera objetos con `st.recursive` conteniendo strings, ints, floats, lists, y dicts. Para protobuf, usa `st.from_type` con las clases generadas. Maneja pérdida de precisión explícitamente: floats pueden no round-tripear exactamente a través de JSON, así que compara con tolerancia en lugar de igualdad estricta.
+
+### ¿Cómo escribo propiedades para funciones puras vs funciones con side effects?
+
+Para funciones puras, las propiedades son straightforward: aserta invariantes como `f(x) >= 0` o `f(f(x)) == f(x)`. Para funciones con side effects, aísla los side effects usando dependency injection o mocks. Genera inputs, ejecuta la función con una database o API mockeada, y aserta propiedades sobre la secuencia de calls hechas (ej., "cada insert es seguido por un commit" o "ningún read ocurre después de un write a la misma key"). Usa stateful property testing para funciones con estado acumulado. Para funciones con external API calls, genera mock responses y aserta propiedades de retry/backoff.
+
+### ¿Cómo comparto strategies entre test suites?
+
+Extrae strategies reutilizables en un módulo compartido (ej., `test/strategies.py` o `test/strategies.ts`). Exporta generadores comunes como `email_strategy`, `date_strategy`, `json_strategy` que encodeen reglas de dominio. Impórtalos en los test files para mantener las properties DRY. En Hypothesis, usa `st.register_type_strategy` para bindear una strategy a un tipo custom para que `st.from_type(MyClass)` funcione automáticamente. En fast-check, exporta instancias de `fc.Arbitrary` desde un archivo compartido.
