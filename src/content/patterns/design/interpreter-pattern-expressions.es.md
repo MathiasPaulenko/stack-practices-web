@@ -276,14 +276,17 @@ console.log(formula.interpret({ price: 100, shipping: 10 })); // 90
 
 ## FAQ
 
-**P: En que se diferencia de Command?**
-R: [Command](/patterns/design/command-pattern) encapsula acciones para ejecutar mas tarde. Interpreter parsea y evalua expresiones para producir un resultado.
+### En que se diferencia de Command?
 
-**P: Cuando deberia usar un generador de parser en su lugar?**
-R: Cuando la gramatica tiene mas de 5-6 reglas de produccion, recursion izquierda, o necesita recuperacion de errores. PEG.js, ANTLR, o nearley.js manejan gramaticas complejas mejor que recursive descent hand-rolled.
+[Command](/patterns/design/command-pattern) encapsula acciones para ejecutar mas tarde. Interpreter parsea y evalua expresiones para producir un resultado.
 
-**P: Es lento el patron Interpreter?**
-R: Los interpretes tree-walking son mas lentos que codigo compilado. Para hot paths, compila el AST a una funcion JavaScript usando `new Function()`. Para la mayoria de reglas de negocio evaluadas ocasionalmente, tree-walking es suficientemente rapido.
+### Cuando deberia usar un generador de parser en su lugar?
+
+Cuando la gramatica tiene mas de 5-6 reglas de produccion, recursion izquierda, o necesita recuperacion de errores. PEG.js, ANTLR, o nearley.js manejan gramaticas complejas mejor que recursive descent hand-rolled.
+
+### Es lento el patron Interpreter?
+
+Los interpretes tree-walking son mas lentos que codigo compilado. Para hot paths, compila el AST a una funcion JavaScript usando `new Function()`. Para la mayoria de reglas de negocio evaluadas ocasionalmente, tree-walking es suficientemente rapido.
 
 **P: Puedo serializar arboles de expresion?**
 R: Si. Agrega un metodo `toJSON()` a cada expresion que outpute `{ type, children, value }`. Reconstruye el arbol con una funcion factory que mapea el string de tipo a la clase correcta. Esto permite almacenar reglas en una base de datos.

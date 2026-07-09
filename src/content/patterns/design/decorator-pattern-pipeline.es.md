@@ -218,11 +218,13 @@ El circuit breaker rastrea fallos consecutivos. Despues de `threshold` errores, 
 
 ## FAQ
 
-**P: Como se diferencia del middleware en Express?**
-R: El [middleware](/patterns/design/chain-of-responsibility-middleware) de Express opera en objetos request/response en secuencia. Los decorators envuelven una sola interfaz de cliente y pueden componerse a cualquier granularidad.
+### Como se diferencia del middleware en Express?
 
-**P: Los decorators pueden removerse dinamicamente?**
-R: Solo si reasignas la referencia del cliente. Los decorators se componen tipicamente al inicializar y permanecen fijos. Para composicion dinamica, usa una factory que reconstruya el stack.
+El [middleware](/patterns/design/chain-of-responsibility-middleware) de Express opera en objetos request/response en secuencia. Los decorators envuelven una sola interfaz de cliente y pueden componerse a cualquier granularidad.
+
+### Los decorators pueden removerse dinamicamente?
+
+Solo si reasignas la referencia del cliente. Los decorators se componen tipicamente al inicializar y permanecen fijos. Para composicion dinamica, usa una factory que reconstruya el stack.
 
 **P: En que orden deberian aplicarse los decorators?**
 R: El mas externo corre primero. Pon auth mas externo para que todos los reintentos carguen el token. Pon logging mas interno para medir tiempo real de red. Pon metrics mas externo para capturar latencia end-to-end incluyendo reintentos.

@@ -221,14 +221,17 @@ La View posee la presentacion. Recibe datos, renderiza markup y reenvia eventos.
 
 ## FAQ
 
-**P: React ya maneja MVC con hooks y context?**
-R: React proporciona bloques de construccion, no arquitectura. Los hooks manejan estado local; no enforcean separacion de preocupaciones. MVC agrega disciplina decidiendo donde viven la logica de dominio, la coordinacion y la presentacion.
+### React ya maneja MVC con hooks y context?
 
-**P: Cuando deberia usar Redux en lugar de MVC?**
-R: MVC funciona bien para funcionalidades localizadas. Para patrones de capa de datos, consulta [Repository](/patterns/design/repository-pattern-typescript). Redux brilla cuando multiples componentes no relacionados necesitan los mismos datos o cuando el debugging con time-travel es valioso.
+React proporciona bloques de construccion, no arquitectura. Los hooks manejan estado local; no enforcean separacion de preocupaciones. MVC agrega disciplina decidiendo donde viven la logica de dominio, la coordinacion y la presentacion.
 
-**P: Como manejo operaciones async en MVC?**
-R: Los Controllers manejan operaciones async. Usa async/await en metodos del controller y actualiza el Model con los resultados. La View muestra estados de loading y error mientras el Controller obtiene datos.
+### Cuando deberia usar Redux en lugar de MVC?
+
+MVC funciona bien para funcionalidades localizadas. Para patrones de capa de datos, consulta [Repository](/patterns/design/repository-pattern-typescript). Redux brilla cuando multiples componentes no relacionados necesitan los mismos datos o cuando el debugging con time-travel es valioso.
+
+### Como manejo operaciones async en MVC?
+
+Los Controllers manejan operaciones async. Usa async/await en metodos del controller y actualiza el Model con los resultados. La View muestra estados de loading y error mientras el Controller obtiene datos.
 
 **P: Los Models deberian ser clases planas o estado del framework?**
 R: Prefiere clases planas o estructuras de datos simples. El estado del framework pertenece a las Views o librerias de estado. Los Models puros son mas faciles de testear y reutilizar fuera de la capa de UI.

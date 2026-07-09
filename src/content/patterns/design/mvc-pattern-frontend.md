@@ -221,14 +221,17 @@ The View owns presentation. It receives data, renders markup, and forwards event
 
 ## FAQ
 
-**Q: Does React already handle MVC with hooks and context?**
-A: React provides building blocks, not architecture. Hooks manage local state; they do not enforce separation of concerns. MVC adds discipline by deciding where domain logic, coordination, and presentation live.
+### Does React already handle MVC with hooks and context?
 
-**Q: When should I use Redux instead of MVC?**
-A: MVC works well for localized capabilities. For data layer patterns, see [Repository](/patterns/design/repository-pattern-typescript). Redux shines when multiple unrelated components need the same data or when time-travel debugging is valuable.
+React provides building blocks, not architecture. Hooks manage local state; they do not enforce separation of concerns. MVC adds discipline by deciding where domain logic, coordination, and presentation live.
 
-**Q: How do I handle async operations in MVC?**
-A: Controllers handle async operations. Use async/await in controller methods and update the Model with results. The View shows loading and error states while the Controller fetches data.
+### When should I use Redux instead of MVC?
+
+MVC works well for localized capabilities. For data layer patterns, see [Repository](/patterns/design/repository-pattern-typescript). Redux shines when multiple unrelated components need the same data or when time-travel debugging is valuable.
+
+### How do I handle async operations in MVC?
+
+Controllers handle async operations. Use async/await in controller methods and update the Model with results. The View shows loading and error states while the Controller fetches data.
 
 **Q: Should Models be plain classes or framework state?**
 A: Prefer plain classes or simple data structures. Framework state belongs in Views or state libraries. Pure Models are easier to test and reuse outside the UI layer.

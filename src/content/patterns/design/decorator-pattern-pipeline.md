@@ -218,14 +218,17 @@ The circuit breaker tracks consecutive failures. After `threshold` errors, it op
 
 ## FAQ
 
-**Q: How is this different from middleware in Express?**
-A: Express [middleware](/patterns/design/chain-of-responsibility-middleware) operates on request/response objects in sequence. Decorators wrap a single client interface and can be composed at any granularity.
+### How is this different from middleware in Express?
 
-**Q: Can decorators be removed dynamically?**
-A: Only if you reassign the client reference. Decorators are typically composed at initialization and remain fixed. For dynamic composition, use a factory that rebuilds the stack.
+Express [middleware](/patterns/design/chain-of-responsibility-middleware) operates on request/response objects in sequence. Decorators wrap a single client interface and can be composed at any granularity.
 
-**Q: What order should decorators be applied?**
-A: Outermost runs first. Put auth outermost so all retries carry the token. Put logging innermost to measure actual network time. Put metrics outermost to capture end-to-end latency including retries.
+### Can decorators be removed dynamically?
+
+Only if you reassign the client reference. Decorators are typically composed at initialization and remain fixed. For dynamic composition, use a factory that rebuilds the stack.
+
+### What order should decorators be applied?
+
+Outermost runs first. Put auth outermost so all retries carry the token. Put logging innermost to measure actual network time. Put metrics outermost to capture end-to-end latency including retries.
 
 **Q: How do I test a decorator?**
 A: Pass a mock `HttpClient` that returns a fixed response or throws. Assert that the decorator calls through, modifies headers or options correctly, and re-throws errors. Each decorator should be testable without real network calls.

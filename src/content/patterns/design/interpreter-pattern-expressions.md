@@ -276,14 +276,17 @@ console.log(formula.interpret({ price: 100, shipping: 10 })); // 90
 
 ## FAQ
 
-**Q: How is this different from Command?**
-A: [Command](/patterns/design/command-pattern) encapsulates actions to execute later. Interpreter parses and evaluates expressions to produce a result.
+### How is this different from Command?
 
-**Q: When should I use a parser generator instead?**
-A: When the grammar has more than 5-6 production rules, left recursion, or needs error recovery. PEG.js, ANTLR, or nearley.js handle complex grammars better than hand-rolled recursive descent.
+[Command](/patterns/design/command-pattern) encapsulates actions to execute later. Interpreter parses and evaluates expressions to produce a result.
 
-**Q: Is the Interpreter pattern slow?**
-A: Tree-walking interpreters are slower than compiled code. For hot paths, compile the AST to a JavaScript function using `new Function()`. For most business rules evaluated occasionally, tree-walking is fast enough.
+### When should I use a parser generator instead?
+
+When the grammar has more than 5-6 production rules, left recursion, or needs error recovery. PEG.js, ANTLR, or nearley.js handle complex grammars better than hand-rolled recursive descent.
+
+### Is the Interpreter pattern slow?
+
+Tree-walking interpreters are slower than compiled code. For hot paths, compile the AST to a JavaScript function using `new Function()`. For most business rules evaluated occasionally, tree-walking is fast enough.
 
 **Q: Can I serialize expression trees?**
 A: Yes. Add a `toJSON()` method to each expression that outputs `{ type, children, value }`. Reconstruct the tree with a factory function that maps the type string to the correct class. This lets you store rules in a database.
