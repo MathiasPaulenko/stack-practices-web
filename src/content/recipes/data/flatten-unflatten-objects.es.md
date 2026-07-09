@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/parse-json
   - /recipes/regular-expressions
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende operaciones flatten y unflatten en Python, JavaScript y Java. Cubre notación por puntos, anidamiento profundo, manejo de arrays y conversión round-trip."
@@ -287,3 +287,15 @@ Escapa el separador en las claves antes de flatten (ej. reemplaza `.` por `\.`),
 ### ¿El round-trip flatten → unflatten siempre produce output idéntico?
 
 No siempre. Arrays con índices dispersos, objetos con prototipos `null`, y tipos especiales (Date, RegExp, Map) pueden diferir después del round-trip. Para fidelidad estricta, registra metadata sobre los tipos originales junto con los datos flatten, o usa un formato de serialización como JSON Pointer que preserva la información estructural.
+
+### ¿Cómo aplaneo objetos con referencias circulares?
+
+Usa un `WeakSet` para rastrear objetos visitados. Cuando la función recursiva encuentra un objeto ya en el set, reemplázalo con un placeholder como `[Circular]` u omite la clave completamente. Al hacer unflatten, la referencia circular se pierde — si necesitas preservarla, serializa con una librería como `flatted` o `circular-json` que codifica referencias circulares como rutas indexadas.
+
+### ¿Qué librerías manejan flatten/unflatten en producción?
+
+En JavaScript, `flat` (npm) es la más popular, soportando separadores custom, límites de profundidad y manejo seguro de claves. En Python, `flatten-dict` y `pandas.json_normalize` cubren la mayoría de los casos. En Java, `JsonPointer` de Jackson y el traversal de `JsonObject` de Gson pueden aplanar árboles JSON. Para flattening específico de base de datos (ej., PostgreSQL `jsonb_path_query`), usa las funciones JSON nativas de la base de datos en lugar de flattening a nivel aplicación.
+
+### ¿Cómo aplaneo objetos TypeScript preservando información de tipos?
+
+Usa una función genérica con conditional types para inferir la estructura de claves aplanada. Define un tipo `Flatten<T>` que recursivamente construye claves como ``${Prefix}.${Key}``. En runtime, la función flatten produce claves string; el tipo le dice al compiler qué claves esperar. Para type safety parcial, usa assertions `as const` en el output aplanado y valida con un schema Zod en el boundary donde data no confiable entra al sistema.

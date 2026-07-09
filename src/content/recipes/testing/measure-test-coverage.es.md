@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/setup-test-fixtures
   - /recipes/testing/generate-test-data
   - /guides/testing/testing-strategy-guide
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Mide, reporta y haz cumplir cobertura de código con branch y condition coverage usando pytest-cov, nyc y JaCoCo en pipelines CI/CD."
@@ -269,14 +269,32 @@ A: La cobertura de líneas cuenta líneas ejecutadas. La cobertura de ramas cuen
 **Q: ¿Cómo debo usar cobertura en CI?**
 A: Establece umbrales mínimos para módulos críticos, rastrea tendencias a lo largo del tiempo y rechaza pull requests que bajen considerablemente la cobertura sin justificación. Evita jugar con la métrica.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo manejo cobertura para código cargado dinámicamente?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+El código cargado vía `import()` o reflection puede no aparecer en reportes de cobertura. Configura tu herramienta de cobertura para incluir todos los archivos fuente, incluso los que no se importan durante el run de tests. En nyc, usa el flag `--all`. En JaCoCo, configura `<includes>` para cubrir todos los paquetes. En pytest-cov, usa `--cov=package_name` con `--cov-branch`.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Cuál es la diferencia entre branch y condition coverage?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Branch coverage chequea si cada rama de una estructura de control fue tomada (if true, if false). Condition coverage chequea si cada subexpresión booleana en una condición compuesta fue evaluada a true y false. Por ejemplo, `if (a && b)` tiene 2 branches pero 4 combinaciones de conditions. Condition coverage es más estricto y más informativo pero más difícil de alcanzar.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Debería usar badges de cobertura en mi README?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Los badges de cobertura son útiles para proyectos open-source para señalizar calidad. Sin embargo, pueden crear presión por mantener un número en lugar de tests significativos. Si usas badges, muestra branch coverage (no solo line coverage) y linkea al reporte completo. Evita usar badges como gate para contribuciones — revisa la calidad del test, no solo el porcentaje.
+
+### ¿Cómo excluyo código generado o vendored de la cobertura?
+
+Configura patrones de exclusión en tu herramienta de cobertura. En nyc, setea `exclude` en `.nycrc` para incluir `**/dist/**`, `**/vendor/**`, `**/*.d.ts`. En JaCoCo, usa `<excludes>` en la configuración del plugin con patrones estilo Ant. En pytest-cov, usa `--cov-config` con un archivo `.coveragerc` que setee patrones `omit`. Siempre excluye código generado, librerías de terceros y scripts de migración de los reportes de cobertura.
+
+### ¿Qué es MC/DC coverage y cuándo es requerido?
+
+MC/DC (Modified Condition/Decision Coverage) requiere que cada condición afecte independientemente el resultado de la decisión. Es obligatorio por estándares de seguridad de aviación (DO-178C) y automotriz (ISO 26262). MC/DC es más estricto que condition coverage — para `if (a && b)`, debes mostrar que toggleear `a` solo cambia el resultado cuando `b` es true, y viceversa. Herramientas como LDRA, VectorCAST y coverage.py (experimental) soportan análisis MC/DC.
+
+### ¿Cómo rastreo tendencias de cobertura a lo largo del tiempo?
+
+Sube reportes de cobertura a un servicio de tracking como Codecov, Coveralls o SonarQube en cada run de CI. Estos servicios almacenan datos históricos de cobertura y muestran tendencias como gráficos. Configura checks de pull request para comentar el diff de cobertura (líneas añadidas vs. removidas cubiertas). Setea alertas de tendencia que notifiquen cuando la cobertura baja más de un umbral configurable (ej., 2%). Para monorepos, rastrea cobertura por paquete para evitar enmascarar drops en un paquete con gains en otro.
+
+### ¿Pueden las herramientas de cobertura medir la efectividad de los tests?
+
+La cobertura mide qué código fue ejecutado durante los tests, no si los tests realmente verifican corrección. Para medir efectividad, combina cobertura con mutation testing (ver recipe `implement-mutation-testing`). Mutation testing modifica el código fuente y chequea si los tests capturan el cambio. Un score alto de cobertura con un score bajo de mutation significa que los tests ejecutan el código pero no asertan comportamiento significativo. Usa ambas métricas juntas para una imagen completa de la calidad del test. Trackea ambas métricas en CI para capturar regresiones en efectividad del test a lo largo del tiempo.
+
+Setea umbrales separados para cobertura y mutation score — requiere 80% branch coverage pero solo 60% mutation score inicialmente, luego sube el umbral a medida que la suite madura.

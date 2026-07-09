@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/parse-json
   - /recipes/regular-expressions
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn flatten and unflatten operations in Python, JavaScript, and Java. Covers dot-notation, deep nesting, array handling, and round-trip conversion."
@@ -288,3 +288,15 @@ Escape the separator in keys before flattening (e.g., replace `.` with `\.`), th
 ### Does round-trip flatten → unflatten always produce identical output?
 
 Not always. Arrays with sparse indices, objects with `null` prototypes, and special types (Date, RegExp, Map) may differ after round-trip. For strict fidelity, record metadata about original types alongside flattened data, or use a serialization format like JSON Pointer that preserves structural information.
+
+### How do I flatten objects with circular references?
+
+Use a `WeakSet` to track visited objects. When the recursive function encounters an object already in the set, replace it with a placeholder like `[Circular]` or omit the key entirely. On unflatten, the circular reference is lost — if you need to preserve it, serialize with a library like `flatted` or `circular-json` that encodes circular references as indexed paths.
+
+### What libraries handle flatten/unflatten in production?
+
+In JavaScript, `flat` (npm) is the most popular, supporting custom separators, depth limits, and safe key handling. In Python, `flatten-dict` and `pandas.json_normalize` cover most use cases. In Java, Jackson's `JsonPointer` and Gson's `JsonObject` traversal can flatten JSON trees. For database-specific flattening (e.g., PostgreSQL `jsonb_path_query`), use the database's built-in JSON functions instead of application-level flattening.
+
+### How do I flatten TypeScript objects while preserving type information?
+
+Use a generic function with conditional types to infer the flattened key structure. Define a `Flatten<T>` type that recursively constructs keys as ``${Prefix}.${Key}``. At runtime, the flatten function produces string keys; the type tells the compiler what keys to expect. For partial type safety, use `as const` assertions on the flattened output and validate with a Zod schema at the boundary where untrusted data enters the system.

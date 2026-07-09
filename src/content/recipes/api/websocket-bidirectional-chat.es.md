@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/websocket-authentication
   - /recipes/api/server-sent-events-go
-lastUpdated: "2026-06-18"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Chat bidireccional con WebSocket y Node.js. Construye mensajeria en tiempo real con delivery por salas, tracking de presencia y persistencia de mensajes para produccion."
@@ -276,14 +276,26 @@ R: Usa Redis Pub/Sub o un broker de mensajes para difundir mensajes entre todas 
 **P: Puedo usar WebSocket sobre HTTP/2?**
 R: WebSocket usa su propio protocolo, no HTTP/2. Para ambientes HTTP/2, considera Server-Sent Events para servidor-a-cliente y peticiones HTTP para cliente-a-servidor.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo manejo el orden de mensajes con WebSocket?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+WebSocket no garantiza el orden de mensajes entre reconexiones. Asigna un número de secuencia a cada mensaje en el servidor. En el cliente, bufferiza los mensajes fuera de orden y entregalos en secuencia. Para orden estricto, usa una cola de mensajes del lado servidor (Redis Streams, Kafka) y acuse cada mensaje antes de enviar el siguiente.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Cómo testeo conexiones WebSocket en CI?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Usa el cliente de la librería `ws` en tests de Node.js. Conéctate al servidor, envía un mensaje y aserta la respuesta. Para load testing, usa Artillery o k6 con escenarios WebSocket. Mockea el servidor WebSocket en tests unitarios usando `mock-socket` para evitar iniciar un servidor real.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo implemento detección de presencia (estado online/offline)?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Rastrea las conexiones de usuarios en un `Map<userId, Set<ws>>` en el servidor. Al conectar, agrega el socket y broadcastea un evento `presence:online` a las salas del usuario. Al desconectar (escucha `ws.on('close')`), remueve el socket y broadcastea `presence:offline` si no quedan sockets para ese usuario. Usa un intervalo heartbeat ping/pong (30 segundos) para detectar conexiones stale. Limpia sockets muertos en el handler del intervalo para prevenir memory leaks.
+
+### ¿Cuál es el número máximo de conexiones WebSocket concurrentes?
+
+Node.js puede manejar aproximadamente 10.000-25.000 conexiones WebSocket concurrentes por proceso, dependiendo de la frecuencia de mensajes y tamaño del payload. Para escalar más allá, usa un cluster de procesos Node.js detrás de un load balancer con sticky sessions. Usa Redis Pub/Sub para broadcastear mensajes entre procesos. Para deployments más grandes, considera gateways WebSocket dedicados como Centrifugo o servicios managed como AWS API Gateway WebSocket.
+
+### ¿Cómo manejo backpressure cuando un cliente es lento?
+
+Las conexiones WebSocket pueden bufferizar mensajes si el cliente lee más lento de lo que el servidor envía. Monitorea `ws.bufferedAmount` — cuando excede un umbral (ej., 1MB), pausa el envío y reanuda una vez que el cliente drena el buffer. Para chat basado en salas, descarta mensajes no críticos (como indicadores de typing) bajo backpressure y encola mensajes importantes (como mensajes de chat) para entrega posterior. Implementa un check de `highWaterMark` antes de cada broadcast para evitar memory exhaustion. Loggea eventos de backpressure para identificar clientes lentos que pueden necesitar ser desconectados o rate-limited.
+
+Para deployments multi-server, usa un store compartido de backpressure (Redis) para que todas las instancias sepan qué clientes están saturados.
+
+Desconecta clientes que permanezcan saturados más allá de un timeout (ej., 30 segundos) para proteger la estabilidad del servidor.

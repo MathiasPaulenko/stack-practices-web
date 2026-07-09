@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/setup-test-fixtures
   - /recipes/testing/generate-test-data
   - /guides/testing/testing-strategy-guide
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Measure, report, and enforce code coverage with branch and condition coverage using pytest-cov, nyc, and JaCoCo in CI/CD pipelines."
@@ -269,14 +269,32 @@ A: Line coverage counts executed lines. Branch coverage counts whether each deci
 **Q: How should I use coverage in CI?**
 A: Set minimum thresholds for critical modules, track trends over time, and reject pull requests that considerably lower coverage without justification. Avoid gaming the metric.
 
-### Is this solution production-ready?
+### How do I handle coverage for dynamically loaded code?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Code loaded via `import()` or reflection may not appear in coverage reports. Configure your coverage tool to include all source files, even those not imported during the test run. In nyc, use `--all` flag. In JaCoCo, configure `<includes>` to cover all packages. In pytest-cov, use `--cov=package_name` with `--cov-branch`.
 
-### What are the performance characteristics?
+### What is the difference between branch and condition coverage?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Branch coverage checks whether each branch of a control structure was taken (if true, if false). Condition coverage checks whether each boolean sub-expression in a compound condition was evaluated to both true and false. For example, `if (a && b)` has 2 branches but 4 condition combinations. Condition coverage is stricter and more informative but harder to achieve.
 
-### How do I debug issues with this approach?
+### Should I use coverage badges in my README?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Coverage badges are useful for open-source projects to signal quality. However, they can create pressure to maintain a number rather than meaningful tests. If you use badges, display branch coverage (not just line coverage) and link to the full report. Avoid using badges as a gate for contributions — review test quality, not just the percentage.
+
+### How do I exclude generated or vendored code from coverage?
+
+Configure exclude patterns in your coverage tool. In nyc, set `exclude` in `.nycrc` to include `**/dist/**`, `**/vendor/**`, `**/*.d.ts`. In JaCoCo, use `<excludes>` in the plugin configuration with Ant-style patterns. In pytest-cov, use `--cov-config` with an `.coveragerc` file that sets `omit` patterns. Always exclude generated code, third-party libraries, and migration scripts from coverage reports.
+
+### What is MC/DC coverage and when is it required?
+
+MC/DC (Modified Condition/Decision Coverage) requires that each condition independently affects the decision outcome. It is mandated by aviation (DO-178C) and automotive (ISO 26262) safety standards. MC/DC is stricter than condition coverage — for `if (a && b)`, you must show that toggling `a` alone changes the result when `b` is true, and vice versa. Tools like LDRA, VectorCAST, and coverage.py (experimental) support MC/DC analysis.
+
+### How do I track coverage trends over time?
+
+Upload coverage reports to a tracking service like Codecov, Coveralls, or SonarQube on every CI run. These services store historical coverage data and display trends as graphs. Configure pull request checks to comment the coverage diff (added vs. removed lines covered). Set trend alerts that notify when coverage drops by more than a configurable threshold (e.g., 2%). For monorepos, track coverage per-package to avoid masking drops in one package with gains in another.
+
+### Can coverage tools measure test effectiveness?
+
+Coverage measures which code was executed during tests, not whether the tests actually verify correctness. To measure effectiveness, combine coverage with mutation testing (see `implement-mutation-testing` recipe). Mutation testing modifies the source code and checks if tests catch the change. A high coverage score with a low mutation score means tests execute the code but do not assert meaningful behavior. Use both metrics together for a complete picture of test quality. Track both metrics in CI to catch regressions in test effectiveness over time.
+
+Set separate thresholds for coverage and mutation score — require 80% branch coverage but only 60% mutation score initially, then ratchet up as the suite matures.

@@ -17,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/api/websocket-authentication
   - /recipes/api/server-sent-events-go
-lastUpdated: "2026-06-18"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Bidirectional WebSocket chat with Node.js. Build real-time messaging with room-based delivery, presence tracking, and message persistence for production."
@@ -276,14 +276,26 @@ A: Use Redis Pub/Sub or a message broker to broadcast messages across all server
 **Q: Can I use WebSocket over HTTP/2?**
 A: WebSocket uses its own protocol, not HTTP/2. For HTTP/2 environments, consider Server-Sent Events for server-to-client and HTTP requests for client-to-server.
 
-### Is this solution production-ready?
+### How do I handle message ordering with WebSocket?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+WebSocket does not guarantee message ordering across reconnections. Assign a sequence number to each message on the server. On the client, buffer out-of-order messages and deliver them in sequence. For strict ordering, use a server-side message queue (Redis Streams, Kafka) and acknowledge each message before sending the next.
 
-### What are the performance characteristics?
+### How do I test WebSocket connections in CI?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Use `ws` library's client in Node.js tests. Connect to the server, send a message, and assert the response. For load testing, use Artillery or k6 with WebSocket scenarios. Mock the WebSocket server in unit tests using `mock-socket` to avoid starting a real server.
 
-### How do I debug issues with this approach?
+### How do I implement presence detection (online/offline status)?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Track user connections in a `Map<userId, Set<ws>>` on the server. On connect, add the socket and broadcast a `presence:online` event to the user's rooms. On disconnect (listen for `ws.on('close')`), remove the socket and broadcast `presence:offline` if no remaining sockets exist for that user. Use a heartbeat ping/pong interval (30 seconds) to detect stale connections. Clean up dead sockets in the interval handler to prevent memory leaks.
+
+### What is the maximum number of concurrent WebSocket connections?
+
+Node.js can handle approximately 10,000-25,000 concurrent WebSocket connections per process, depending on message frequency and payload size. To scale beyond that, use a cluster of Node.js processes behind a load balancer with sticky sessions. Use Redis Pub/Sub to broadcast messages across processes. For larger deployments, consider dedicated WebSocket gateways like Centrifugo or managed services like AWS API Gateway WebSocket.
+
+### How do I handle backpressure when a client is slow?
+
+WebSocket connections can buffer messages if the client reads slower than the server sends. Monitor `ws.bufferedAmount` — when it exceeds a threshold (e.g., 1MB), pause sending and resume once the client drains the buffer. For room-based chat, drop non-critical messages (like typing indicators) under backpressure and queue important messages (like chat messages) for later delivery. Implement a `highWaterMark` check before each broadcast to avoid memory exhaustion. Log backpressure events to identify slow clients that may need to be disconnected or rate-limited.
+
+For multi-server deployments, use a shared backpressure store (Redis) so all instances know which clients are saturated.
+
+Disconnect clients that remain saturated beyond a timeout (e.g., 30 seconds) to protect server stability.

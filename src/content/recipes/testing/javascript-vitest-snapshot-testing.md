@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/jest-snapshot-testing
   - /recipes/testing/nodejs-supertest-express-api
   - /recipes/frontend/react-usememo-usecallback-performance
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use Vitest snapshot testing to catch unintended React UI changes, with inline snapshots, update workflows, and CI integration best practices."
@@ -281,3 +281,21 @@ Yes. Snapshot files should be committed and reviewed in PRs. They serve as a con
 ### Can I use snapshot testing with React Server Components?
 
 Snapshot testing works for components that render to a string. For RSC, use `renderToString` from `react-dom/server` and snapshot the HTML output. Client-side rendering tests use `@testing-library/react` as usual.
+
+### How do I prevent snapshot drift in large test suites?
+
+Use `toMatchInlineSnapshot` for small outputs so the expected value is visible in code review. For `.snap` files, enable `--ci` flag in CI to fail on outdated snapshots instead of silently writing new ones. Run `vitest -u` only locally after verifying the change is intentional. Add a CI step that checks for modified `.snap` files and fails if they were not explicitly updated.
+
+### What is the performance impact of snapshot testing?
+
+Snapshot tests are faster than assertion-based tests because they compare strings instead of running logic. However, large snapshots (full DOM trees) slow down test serialization. Keep snapshots small by testing individual components rather than full pages. Use `toMatchInlineSnapshot` for small values to avoid file I/O overhead.
+
+### How do I snapshot async component output in Vitest?
+
+Render the component with `@testing-library/react`, then `await` the result before snapshotting. For components that fetch data, mock the API with `vi.mock()` or MSW (Mock Service Worker). Wait for the data to load using `findBy*` queries (which retry until the element appears), then call `toMatchSnapshot()` on the container's HTML. This ensures the snapshot captures the fully rendered state, not the loading state.
+
+### How do I snapshot error boundaries in Vitest?
+
+Wrap the component in an error boundary and trigger an error by passing invalid props or mocking a dependency to throw. Use `expect(container.innerHTML).toMatchSnapshot()` on the boundary's fallback UI. For React error boundaries, create a test component that throws in render and verify the boundary catches it. Test both the error state and the recovery state (when the error is resolved). Use `vi.spyOn(console, 'error')` to suppress React's error logging during the test.
+
+Reset the spy after each test with `afterEach(() => vi.restoreAllMocks())` to avoid leaking suppression into other tests.

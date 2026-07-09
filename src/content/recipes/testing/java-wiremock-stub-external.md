@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/java-testcontainers-integration
   - /recipes/testing/java-junit5-assertions-soft
   - /recipes/testing/integration-testing-strategies
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Stub external HTTP services in Java tests with WireMock. Simulate responses, delays, stateful behavior, and response templating for reliable integration tests."
@@ -290,3 +290,17 @@ companion object {
 ### How do I debug why a stub isn't matching?
 
 Enable console logging: `.notifier(new ConsoleNotifier(true))`. WireMock prints every incoming request and which stubs it tried to match.
+
+### How do I stub OAuth2 token endpoints with WireMock?
+
+Stub the token endpoint with a fixed expiry and use response templating to echo the requested scope:
+
+```java
+wireMock.stubFor(WireMock.post(WireMock.urlEqualTo("/oauth/token"))
+    .withRequestBody(WireMock.containing("grant_type=client_credentials"))
+    .willReturn(WireMock.aResponse()
+        .withHeader("Content-Type", "application/json")
+        .withBody("{"access_token":"test-token","expires_in":3600}")));
+```
+
+Configure your HTTP client to use the WireMock server URL as the token endpoint. This avoids hitting the real IdP during tests while still exercising the token retrieval flow.
