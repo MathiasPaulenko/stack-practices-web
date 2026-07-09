@@ -274,3 +274,4 @@ Last updated: 2026-07-09
 | 2026-07-09 | Thin content — recipes (java-wiremock-stub-external, websocket-bidirectional-chat, flatten-unflatten-objects, javascript-vitest-snapshot-testing, measure-test-coverage) EN/ES | 10 files | 48f44e3 |
 | 2026-07-09 | Thin content — recipes (deep-clone-javascript, server-sent-events-go, cursor-pagination-postgresql, implement-property-based-testing, chatbot-openai, rest-api-design.es) EN/ES | 11 files | 13a6fe3 |
 | 2026-07-09 | Thin content — recipes (hash-passwords-argon2.es, python-coverage-pytest-cov, http-cache-control-headers, go-rest-api-gin, java-junit5-assertions-soft) EN/ES | 9 files | 29b74e0 |
+| 2026-07-09 | Thin content — recipes (grpc-services-typescript, generate-test-data, event-sourcing-serverless, api-rate-limiting-redis, handle-cors) EN/ES | 10 files | f7e740d |
