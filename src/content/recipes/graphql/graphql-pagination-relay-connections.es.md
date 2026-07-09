@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/api/graphql-apollo-server
   - /recipes/data/cursor-pagination-postgresql
   - /patterns/graphql/graphql-batched-resolver-pattern
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa paginacion por cursores en GraphQL con la especificacion Relay Connections. Edges, nodes, cursores y pageInfo para recorrido eficiente."
@@ -229,6 +229,42 @@ export function encodeCompositeCursor(createdAt: string, id: string): string {
 }
 ```
 
+## Avanzado: Paginación con Sort Order
+
+Cuando paginas por una columna non-id (e.g., `createdAt`), codifica el valor de sort en el cursor:
+
+```typescript
+export function encodeSortCursor(value: string, id: string): string {
+  return Buffer.from(`${value}|${id}`).toString('base64');
+}
+
+export function decodeSortCursor(cursor: string): { value: string; id: string } {
+  const [value, id] = Buffer.from(cursor, 'base64').toString().split('|');
+  return { value, id };
+}
+```
+
+El resolver usa un `WHERE` compuesto para saltar las filas vistas en la página anterior:
+
+```typescript
+const { value, id } = after ? decodeSortCursor(after) : { value: null, id: null };
+
+const posts = await db.posts.findMany({
+  where: value
+    ? {
+        OR: [
+          { createdAt: { lt: new Date(value) } },
+          { createdAt: new Date(value), id: { lt: id } },
+        ],
+      }
+    : undefined,
+  orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+  take: take + 1,
+});
+```
+
+Esto maneja filas con valores idénticos de `createdAt` sin saltarlas ni duplicarlas.
+
 ## Mejores Practicas
 
 - **Limita `first` y `last`** a un maximo razonable (50-100) para evitar consultas costosas
@@ -256,14 +292,14 @@ A: Si. La especificacion de conexiones funciona con cualquier cliente GraphQL. A
 **Q: Que debe codificar el cursor?**
 A: Tipicamente la clave primaria o un compuesto de la columna de orden mas la clave primaria. Evita codificar offsets.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo manejo paginación con sort order?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Codifica el valor de la columna de sort más la clave primaria en el cursor (e.g., `createdAt|id`). El resolver usa un `WHERE` compuesto: filas donde `createdAt < cursor.createdAt`, o donde `createdAt == cursor.createdAt AND id < cursor.id`. Esto evita saltar filas con timestamps idénticos.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Debo incluir `totalCount` en cada respuesta?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Solo cuando el cliente lo necesita. `totalCount` requiere un query `COUNT` separado que puede ser costoso en tablas grandes. Hazlo opcional — retornalo solo cuando el cliente solicita el campo. Algunas APIs hacen `totalCount` nullable y retornan `null` cuando el count excede un umbral.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo limito el page size sin romper la spec?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Setea un máximo para `first` y `last` (e.g., 50–100) en el resolver. Si el cliente solicita más, clampea al máximo y retorna la cantidad clampeada. Esto evita queries costosos que escanean grandes porciones de la tabla.

@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/measure-test-coverage
   - /recipes/testing/implement-property-based-testing
   - /recipes/testing/setup-test-fixtures
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Usa mutation testing con MutPy, Stryker y PIT para evaluar si tus tests asertan comportamiento o simplemente ejecutan código."
@@ -230,6 +230,33 @@ src/cart.js:45  # cambiado >= a > en calculateTotal
 src/cart.js:67  # removido null check en applyDiscount
 ```
 
+## Avanzado: Configurar Mutators para Testing Dirigido
+
+Cada herramienta de mutation testing soporta diferentes sets de mutators. Elegir los mutators correctos reduce el runtime y se enfoca en mutaciones significativas:
+
+```xml
+<!-- PIT: solo mutators de lógica de negocio, omitir triviales -->
+<mutators>
+  <mutator>CONDITIONALS_BOUNDARY</mutator>
+  <mutator>NEGATE_CONDITIONALS</mutator>
+  <mutator>MATH</mutator>
+  <mutator>RETURN_VALS</mutator>
+  <mutator>VOID_METHOD_CALLS</mutator>
+  <!-- Omitir: INCREMENTS, EMPTY_RETURNS — bajo valor, alto ruido -->
+</mutators>
+```
+
+```json
+// Stryker JS: configurar mutators
+{
+  "mutator": {
+    "excludedMutations": ["StringLiteral", "BooleanLiteral"]
+  }
+}
+```
+
+Excluye mutaciones `StringLiteral` y `BooleanLiteral` cuando tus tests usan esos valores para setup, no para aserciones. Incluirlos produce mutantes sobrevivientes que no representan gaps reales de test.
+
 ## Lo que funciona
 
 - **Apunta al código de alto valor primero.** Ejecuta mutation testing en la lógica de negocio core, no en el wiring de controladores o mapeos de DTO. El mutation testing es costoso; enfócalo donde importa.
@@ -257,14 +284,18 @@ A: Un mutante sobreviviente significa que la suite de tests no falló después d
 **Q: ¿Por qué el mutation testing es lento?**
 A: Ejecuta la suite completa de tests contra cada mutante. Para bases de código grandes, pueden ser miles de ejecuciones. Las herramientas soportan ejecución incremental y paralela para mitigarlo.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo reduzco el runtime de mutation testing en CI?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Usa modo incremental (`-DwithHistory` de PIT, `--incremental` de Stryker) para solo mutar archivos cambiados. Ejecuta mutation testing completo en PRs que tocan módulos core, y programa runs nocturnos completos. Paraleliza con `--concurrency` en Stryker o el flag `--threads` de PIT. Apunta solo a los paquetes con lógica de negocio, no al codebase entero.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Qué son los mutantes equivalentes y cómo los manejo?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Los mutantes equivalentes son mutaciones que producen código semánticamente idéntico — los tests no pueden matarlos porque el comportamiento no cambia. Ejemplos: `a + 0` vs `a - 0`, o `true || x` vs `true`. Márcalos en archivos de configuración (`excludedMutators` de PIT, `excludedMutations` de Stryker) o anótalos en el reporte. No persigas un 100% cuando los mutantes equivalentes inflan el denominador.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Debo gatear CI en mutation score?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Solo gatea en módulos con tests estables y maduros. Setea un threshold (e.g., 70%) y falla el build cuando el score baja de ese valor. Para código nuevo o módulos en desarrollo activo, usa mutation testing como herramienta de reporting, no como gate. Gatear muy temprano incentiva a los desarrolladores a escribir tests que matan mutantes en lugar de tests que verifican requerimientos reales.
+
+### ¿Cómo integro mutation testing con GitHub Actions?
+
+Ejecuta mutation testing en PRs que tocan módulos core. Cachea la historia de mutaciones entre runs usando `actions/cache`. Postea el mutation score como comentario del PR usando una action custom. Programa un run nocturno completo en la rama default para detectar regresiones.

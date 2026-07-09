@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/api/graphql-apollo-server
   - /recipes/graphql/graphql-error-handling-best-practices
   - /recipes/authentication/jwt-authentication
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Agrega auth a nivel campo en GraphQL con directivas personalizadas. Verifica roles y permisos por campo con @auth y @requiresRole."
@@ -245,6 +245,19 @@ type Post {
 
 El campo requiere al menos rol `EDITOR` Y propiedad.
 
+### Guard de complejidad de query
+
+Usa una directiva para limitar la profundidad o costo de query:
+
+```graphql
+directive @cost(complexity: Int!) on FIELD_DEFINITION
+
+type Query {
+  users: [User!]! @cost(complexity: 10)
+  allPosts: [Post!]! @cost(complexity: 50)
+}
+```
+
 ## Mejores Practicas
 
 - **Declara auth en el schema** — las directivas hacen las reglas de autorizacion visibles y auditables
@@ -273,14 +286,18 @@ A: Si, pero cada subgrafo debe implementar la directiva independientemente. El g
 **Q: Como pruebo auth a nivel campo?**
 A: Envia consultas con diferentes tokens de usuario y verifica que los campos protegidos retornen errores o null segun el rol.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo testeo auth a nivel campo?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Envia consultas con diferentes tokens de usuario y verifica que los campos protegidos retornen errores o null segun el rol. Crea un helper de test que construya contexto con diferentes roles y permisos para ejecutar queries contra el schema.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Las directivas afectan el rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Las directivas añaden una capa de wrapper al resolver, pero el overhead es mínimo (una llamada de función adicional). El impacto real está en la lógica de auth — si verificas permisos contra una base de datos en cada campo, usa caching (Redis, en memoria) para evitar queries repetidas.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Puedo usar directivas con Apollo Federation?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Sí, pero cada subgrafo debe implementar la directiva independientemente. El gateway no re-ejecuta directivas de los subgrafos. Define las directivas en el schema de cada subgrafo y aplica las reglas de auth ahí mismo.
+
+### ¿Cómo combino auth basada en roles con ownership?
+
+Usa directivas apiladas: `@auth(requires: EDITOR) @owner`. La directiva `@auth` verifica el rol primero. Si pasa, `@owner` verifica que el usuario sea el dueño del recurso. Si falla cualquiera de las dos, el campo retorna error o null según la configuración.

@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/testing/measure-test-coverage
   - /recipes/testing/implement-property-based-testing
   - /recipes/testing/setup-test-fixtures
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Use mutation testing with MutPy, Stryker, and PIT to evaluate whether tests assert behavior or merely execute code in Python, Java, and JavaScript."
@@ -230,6 +230,33 @@ src/cart.js:45  # changed >= to > in calculateTotal
 src/cart.js:67  # removed null check in applyDiscount
 ```
 
+## Advanced: Configuring Mutators for Targeted Testing
+
+Each mutation testing tool supports different mutator sets. Choosing the right mutators reduces runtime and focuses on meaningful mutations:
+
+```xml
+<!-- PIT: only business-logic mutators, skip trivial ones -->
+<mutators>
+  <mutator>CONDITIONALS_BOUNDARY</mutator>
+  <mutator>NEGATE_CONDITIONALS</mutator>
+  <mutator>MATH</mutator>
+  <mutator>RETURN_VALS</mutator>
+  <mutator>VOID_METHOD_CALLS</mutator>
+  <!-- Skip: INCREMENTS, EMPTY_RETURNS — low value, high noise -->
+</mutators>
+```
+
+```json
+// Stryker JS: configure mutators
+{
+  "mutator": {
+    "excludedMutations": ["StringLiteral", "BooleanLiteral"]
+  }
+}
+```
+
+Exclude `StringLiteral` and `BooleanLiteral` mutations when your tests use those values for setup, not assertions. Including them produces surviving mutants that don't represent real test gaps.
+
 ## What Works
 
 - **Target high-value code first.** Run mutation testing on core business logic, not on controller wiring or DTO mappings. Mutation testing is expensive; focus where it matters.
@@ -257,14 +284,18 @@ A: A survived mutant means the test suite did not fail after the mutation, sugge
 **Q: Why is mutation testing slow?**
 A: It runs the full test suite against every mutant. For large codebases, this can be thousands of executions. Tools support incremental and parallel execution to mitigate this.
 
-### Is this solution production-ready?
+### How do I reduce mutation testing runtime in CI?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Use incremental mode (PIT's `-DwithHistory`, Stryker's `--incremental`) to only mutate changed files. Run full mutation testing on PRs touching core modules, and schedule nightly full runs. Parallelize with `--concurrency` in Stryker or PIT's `--threads` flag. Target only the packages with business logic, not the entire codebase.
 
-### What are the performance characteristics?
+### What are equivalent mutants and how do I handle them?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Equivalent mutants are mutations that produce semantically identical code — the tests cannot kill them because the behavior is unchanged. Examples: `a + 0` vs `a - 0`, or `true || x` vs `true`. Mark them in configuration files (PIT's `excludedMutators`, Stryker's `excludedMutations`) or annotate them in the report. Don't chase a 100% score when equivalent mutants inflate the denominator.
 
-### How do I debug issues with this approach?
+### Should I gate CI on mutation score?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Only gate on modules with stable, mature tests. Set a threshold (e.g., 70%) and fail the build when the score drops below it. For new code or modules under active development, use mutation testing as a reporting tool, not a gate. Gating too early encourages developers to write tests that kill mutants rather than tests that verify real requirements.
+
+### How do I integrate mutation testing with GitHub Actions?
+
+Run mutation testing on PRs that touch core modules. Cache the mutation history between runs using `actions/cache`. Post the mutation score as a PR comment using a custom action. Schedule a full run nightly on the default branch to catch regressions.

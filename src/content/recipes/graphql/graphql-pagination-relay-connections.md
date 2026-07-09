@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/api/graphql-apollo-server
   - /recipes/data/cursor-pagination-postgresql
   - /patterns/graphql/graphql-batched-resolver-pattern
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement cursor-based pagination in GraphQL using Relay connections spec. Edges, nodes, cursors, and pageInfo for efficient forward and backward traversal."
@@ -229,6 +229,42 @@ export function encodeCompositeCursor(createdAt: string, id: string): string {
 }
 ```
 
+## Advanced: Pagination with Sort Order
+
+When paginating by a non-id column (e.g., `createdAt`), encode the sort value in the cursor:
+
+```typescript
+export function encodeSortCursor(value: string, id: string): string {
+  return Buffer.from(`${value}|${id}`).toString('base64');
+}
+
+export function decodeSortCursor(cursor: string): { value: string; id: string } {
+  const [value, id] = Buffer.from(cursor, 'base64').toString().split('|');
+  return { value, id };
+}
+```
+
+The resolver uses a compound `WHERE` clause to skip rows seen in the previous page:
+
+```typescript
+const { value, id } = after ? decodeSortCursor(after) : { value: null, id: null };
+
+const posts = await db.posts.findMany({
+  where: value
+    ? {
+        OR: [
+          { createdAt: { lt: new Date(value) } },
+          { createdAt: new Date(value), id: { lt: id } },
+        ],
+      }
+    : undefined,
+  orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+  take: take + 1,
+});
+```
+
+This handles rows with identical `createdAt` values without skipping or duplicating them.
+
 ## Best Practices
 
 - **Cap `first` and `last`** at a reasonable maximum (50–100) to prevent expensive queries
@@ -256,14 +292,14 @@ A: Yes. The connection spec works with any GraphQL client. Apollo Client, urql, 
 **Q: What should the cursor encode?**
 A: Typically the primary key or a composite of the sort column plus primary key. Avoid encoding offsets.
 
-### Is this solution production-ready?
+### How do I handle pagination with sort order?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Encode the sort column value plus the primary key in the cursor (e.g., `createdAt|id`). The resolver uses a compound `WHERE` clause: rows where `createdAt < cursor.createdAt`, or where `createdAt == cursor.createdAt AND id < cursor.id`. This prevents skipping rows with identical timestamps.
 
-### What are the performance characteristics?
+### Should I include `totalCount` in every response?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Only when the client needs it. `totalCount` requires a separate `COUNT` query that can be expensive on large tables. Make it optional — return it only when the client requests the field. Some APIs make `totalCount` nullable and return `null` when the count exceeds a threshold.
 
-### How do I debug issues with this approach?
+### How do I cap page size without breaking the spec?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Set a maximum for `first` and `last` (e.g., 50–100) in the resolver. If the client requests more, clamp to the max and return the clamped amount. This prevents expensive queries that scan large portions of the table.

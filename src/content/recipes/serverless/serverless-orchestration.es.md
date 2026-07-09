@@ -18,7 +18,7 @@ relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/saga-pattern-recipe
   - /recipes/api-gateway
-lastUpdated: "2026-06-14"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende orquestación serverless con Step Functions y máquinas de estados. Coordina workflows, gestiona estado, reintentos y errores entre funciones distribuidas."
@@ -244,6 +244,37 @@ def order_orchestrator(context: df.DurableOrchestrationContext):
 - **Ignorar idempotencia en reintentos de actividades**: Step Functions puede reintentar una Lambda que parcialmente tuvo éxito (ej. cobró al cliente pero se agotó antes de retornar). El retry cobra al cliente de nuevo. Diseña siempre las actividades para chequear claves de idempotencia antes de mutar estado.
 - **No versionar máquinas de estados**: cambiar la definición de una máquina de estados en vivo afecta ejecuciones en curso. Usa versiones y aliases de Step Functions (o versionado de workflows de Temporal) para deployar cambios sin romper workflows en ejecución. Prueba nuevas versiones con canary antes de rollout completo.
 
+## Avanzado: Saga Pattern con Compensación
+
+Para workflows que abarcan múltiples servicios, el patrón saga coordina transacciones distribuidas con acciones compensatorias ante fallos:
+
+```typescript
+// Temporal saga con compensación
+export async function orderSaga(workflowId: string, order: Order): Promise<void> {
+  const compensations: (() => Promise<void>)[] = [];
+
+  try {
+    await Activities.reserveInventory(order);
+    compensations.push(() => Activities.releaseInventory(order));
+
+    await Activities.chargePayment(order);
+    compensations.push(() => Activities.refundPayment(order));
+
+    await Activities.scheduleShipment(order);
+    // Sin compensación para shipment — una vez enviado, está hecho
+  } catch (err) {
+    // Ejecuta compensaciones en orden inverso
+    for (const compensate of compensations.reverse()) {
+      try { await compensate(); }
+      catch (c) { console.error('Compensación falló:', c); }
+    }
+    throw err;
+  }
+}
+```
+
+Cada paso registra una compensación antes de avanzar al siguiente. Si cualquier paso falla, las compensaciones se ejecutan en orden inverso. Este patrón funciona con los tres orquestadores — Step Functions usa bloques `Catch` con invocaciones de Lambda de compensación, Durable Functions usa try/catch con llamadas a actividades.
+
 ## Preguntas frecuentes
 
 **P: ¿Debería usar Step Functions o Temporal?**
@@ -259,14 +290,14 @@ R: Los workflows Standard cobran por transición de estado. Un workflow de 10 es
 R: Step Functions Local (Docker) corre máquinas de estados localmente. Temporal provee un servidor de dev local (`temporal server start-dev`). Durable Functions tiene un runtime local integrado con Azure Functions Core Tools. Siempre testea workflows localmente antes de deployar.
 
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo implemento el patrón saga con compensación?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Registra una función de compensación antes de cada paso en el workflow. Si cualquier paso falla, ejecuta las compensaciones en orden inverso. En Temporal, usa un array de compensaciones e itera en reversa en el catch. En Step Functions, usa bloques `Catch` que invocan funciones Lambda de compensación. Cada compensación debe ser idempotente — puede ejecutarse múltiples veces.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Cómo versiono workflows sin romper ejecuciones en curso?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Step Functions: usa versiones y aliases para deployar nuevas definiciones sin afectar ejecuciones en curso. Temporal: usa `WorkflowVersion` para branchear lógica según la versión con la que inició la ejecución. Durable Functions: usa versionado de orquestación con `IDurableOrchestrationContext`. Siempre prueba nuevas versiones con un porcentaje canary antes de rollout completo.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cuál es la duración máxima de un workflow?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Step Functions Standard: hasta 1 año por ejecución. Express: hasta 5 minutos. Temporal: sin límite hard — los workflows pueden correr indefinidamente. Durable Functions: hasta el período de retención de storage (default 7 días, configurable). Para workflows más largos que el límite de plataforma, usa checkpoints y reinicia el workflow desde el último checkpoint.

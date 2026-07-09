@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/api/graphql-apollo-server
   - /recipes/api/api-mocking
   - /recipes/graphql/graphql-error-handling-best-practices
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Mockea resolvers GraphQL con Apollo Server para desarrollo frontend. Genera datos falsos, preserva tipos y desbloquea el trabajo de UI."
@@ -168,6 +168,81 @@ Con `preserveResolvers: true`, Apollo usa tus resolvers reales donde existen y f
 3. **`preserveResolvers`** permite mezclar datos reales y mockeados. Los campos con resolver usan la implementacion real; los que no tienen usan el mock.
 4. **Integracion con Faker** produce datos realistas — nombres, emails, frases, fechas — para que la UI se vea y comporte como con datos reales.
 
+## Avanzado: Mockear con Custom Scalars y Enums
+
+Cuando tu schema usa custom scalars o enums, proporciona funciones mock para ellos explícitamente:
+
+```typescript
+import { ApolloServer } from '@apollo/server';
+
+const typeDefs = gql`
+  enum Role {
+    ADMIN
+    EDITOR
+    VIEWER
+  }
+
+  scalar Date
+
+  type User {
+    id: ID!
+    name: String!
+    role: Role!
+    createdAt: Date!
+  }
+`;
+
+const mocks = {
+  Date: () => new Date().toISOString(),
+  Role: () => faker.helpers.arrayElement(['ADMIN', 'EDITOR', 'VIEWER']),
+  User: () => ({
+    name: () => faker.person.fullName(),
+    role: () => faker.helpers.arrayElement(['ADMIN', 'EDITOR', 'VIEWER']),
+    createdAt: () => faker.date.past().toISOString(),
+  }),
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  mock: { mocks },
+});
+```
+
+Sin mocks de custom scalars, Apollo retorna `null` para esos campos, lo que puede romper el frontend si espera un valor válido.
+
+## Avanzado: Mockear Paginación con Relay Connections
+
+Para schemas que usan paginación cursor estilo Relay, mockea la estructura de connection:
+
+```typescript
+const mocks = {
+  Query: () => ({
+    users: () => {
+      const edges = Array.from({ length: 10 }, (_, i) => ({
+        node: {
+          id: `user-${i}`,
+          name: faker.person.fullName(),
+          email: faker.internet.email(),
+        },
+        cursor: `cursor-${i}`,
+      }));
+      return {
+        edges,
+        pageInfo: {
+          hasNextPage: true,
+          hasPreviousPage: false,
+          startCursor: 'cursor-0',
+          endCursor: 'cursor-9',
+        },
+        totalCount: 100,
+      };
+    },
+  }),
+};
+```
+
+Esto permite al frontend probar infinite scroll, botones de load-more y navegación basada en cursor sin un backend real.
+
 ## Variantes
 
 ### Mock con MSW (Mock Service Worker)
@@ -259,14 +334,14 @@ A: Usa mocking de Apollo cuando quieras un servidor corriendo. Usa MSW cuando qu
 **Q: Puedo mockear suscripciones?**
 A: El mocking integrado de Apollo no soporta suscripciones. Usa un PubSub personalizado con eventos falsos para pruebas de suscripciones.
 
-### ¿Esta solución está lista para producción?
+### ¿Cómo mockeo custom scalars y enums?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Proporciona funciones mock para cada custom scalar y enum en el objeto `mocks`. Por ejemplo, `Date: () => new Date().toISOString()` y `Role: () => faker.helpers.arrayElement(['ADMIN', 'EDITOR', 'VIEWER'])`. Sin estos, Apollo retorna `null` para campos de custom scalar.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Puedo mockear paginación cursor estilo Relay?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Sí. Mockea los campos `edges`, `pageInfo` y `totalCount` en tu tipo connection. Retorna un array de objetos edge con propiedades `node` y `cursor`, y setea `hasNextPage` a `true` para probar el comportamiento de load-more en la UI.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Cómo comparto mocks entre tests y el dev server?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Exporta el objeto `mocks` desde un módulo compartido (e.g., `src/mocks/index.ts`). Impórtalo tanto en tu setup de tests como en la configuración del dev server. Esto asegura datos falsos consistentes entre entornos de test y desarrollo. Usa `faker.seed()` en tests para output determinístico.

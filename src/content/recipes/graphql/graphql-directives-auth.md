@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/api/graphql-apollo-server
   - /recipes/graphql/graphql-error-handling-best-practices
   - /recipes/authentication/jwt-authentication
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Add field-level auth to GraphQL with custom schema directives. Check roles and permissions per field using @auth and @requiresRole directives."
@@ -316,14 +316,14 @@ A: Yes, but each subgraph must implement the directive independently. The gatewa
 **Q: How do I test field-level auth?**
 A: Send queries with different user tokens and assert that protected fields return errors or null based on the role.
 
-### Is this solution production-ready?
+### How do I test field-level auth?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Send queries with different user tokens and assert that protected fields return errors or null based on the role. Create a test helper that builds context with different roles and permissions to run queries against the schema.
 
-### What are the performance characteristics?
+### Do directives affect performance?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Directives add a wrapper layer to the resolver, but the overhead is minimal (one extra function call). The real impact is in the auth logic — if you check permissions against a database on every field, use caching (Redis, in-memory) to avoid repeated queries.
 
-### How do I debug issues with this approach?
+### Can I use directives with Apollo Federation?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Yes, but each subgraph must implement the directive independently. The gateway does not re-run subgraph directives. Define directives in each subgraph's schema and apply auth rules there.
