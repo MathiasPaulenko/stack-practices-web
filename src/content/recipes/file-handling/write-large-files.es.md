@@ -491,20 +491,6 @@ except Exception:
     raise
 ```
 
-## Preguntas Frecuentes
-
-### ¿Debo usar modo append o reescribir?
-
-Usa append (`'a'` en Python, flag `'a'` en Node, `StandardOpenOption.APPEND` en Java) para logs. Usa renombrado atómico para archivos de datos que deben mantenerse consistentes.
-
-### ¿Cómo manejo errores de disco lleno?
-
-Captura `IOException` (Java), evento `error` en streams (JS) o `OSError` (Python). Pre-verificar espacio disponible con `shutil.disk_usage` (Python) o `fs.statvfs` (Node) puede ayudar.
-
-### ¿Es `BufferedWriter` más rápido que `FileWriter`?
-
-Sí. `BufferedWriter` agrupa escrituras, reduciendo syscalls. La diferencia es dramática para muchas escrituras pequeñas y negligible para escrituras de bloques grandes.
-
 ## FAQ Adicional
 
 ### ¿Cómo escribo a archivos concurrentemente desde múltiples hilos?

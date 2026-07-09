@@ -567,28 +567,6 @@ rl.on('line', (line) => {
 // (ver la Solución Avanzada de Node.js arriba)
 ```
 
-## Preguntas frecuentes
-
-**P: ¿Cómo proceso un archivo que tampoco cabe en disco?**
-R: Usa streaming de red o procesa chunks desde almacenamiento en la nube (S3 GetObject con headers Range) sin descargar el archivo completo.
-
-**P: ¿Puedo reanudar un stream interrumpido?**
-R: Sí. Trackea el último byte offset procesado exitosamente y posiciónate ahí al reiniciar. Incluye checksums para verificar continuidad.
-
-**P: ¿Los streams son siempre más rápidos que cargar el archivo completo?**
-R: No siempre. Para archivos pequeños, el overhead de gestión de streams puede exceder el costo de una sola lectura. Profile con tus tamaños de archivo reales.
-
-**P: ¿Cómo proceso archivos ZIP o GZIP con streams?**
-R: Usa librerías de compresión streaming como `zlib` (Node.js), `gzip` (Python), o `GZIPInputStream` (Java) como etapas intermedias del pipeline.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
 ## FAQ Adicional
 
 ### ¿Cómo hago stream-processing de datos desde una base de datos sin cargar todos los resultados?
