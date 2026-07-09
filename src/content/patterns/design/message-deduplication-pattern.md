@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/design/message-queue-load-leveling-pattern
   - /patterns/design/dead-letter-channel-pattern
   - /patterns/design/publish-subscribe-pattern
-lastUpdated: "2026-07-04"
+lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Prevent duplicate message processing with idempotency keys. Track message IDs in a store and skip already-handled messages in consumers."
@@ -43,6 +43,16 @@ The Message Deduplication pattern tracks message IDs in a store. Before processi
 - Processing a message twice causes side effects (payments, emails, inventory changes)
 - You need exactly-once processing semantics without a broker that supports it natively
 - Consumer crashes happen and messages get redelivered
+- You process webhooks from third-party services that may retry on network failures
+- You consume from multiple queues and need cross-queue deduplication
+
+## When to Avoid
+
+- **Your broker provides exactly-once delivery natively.** Kafka transactions and SQS FIFO with content-based dedup already handle this. Adding application-level dedup is redundant.
+- **Messages are idempotent by nature.** If processing twice has no side effects (e.g., updating a last-seen timestamp), dedup adds overhead without value.
+- **Throughput is critical and every millisecond counts.** Redis dedup adds ~0.5ms per message. For ultra-low-latency systems, rely on broker guarantees instead.
+- **You cannot afford a dedup store dependency.** If Redis downtime is unacceptable and you cannot fall back to idempotent processing, reconsider the architecture.
+- **Messages have no natural unique ID.** Generating content hashes for every message adds CPU overhead and may dedup incorrectly for same-payload-different-intent cases.
 
 ## Solution
 
@@ -190,20 +200,101 @@ For the deduplication to work, each message must carry a unique identifier. This
 - **Not handling dedup store failures**: If Redis is down, dedup fails. Decide whether to process (risk duplicates) or reject (lose messages).
 - **Dedup key based on mutable fields**: If the key includes fields that change, the same logical message gets different keys and is processed twice.
 
+## How It Works
+
+1. **Message arrives with unique ID**: Each message carries a deduplication key — either a producer-assigned UUID or a content hash. The consumer extracts this key before processing.
+2. **Atomic check-and-set**: The consumer attempts `SET NX EX` on the dedup key in a shared store (Redis). If the key does not exist, the consumer sets it and proceeds. If it exists, the message was already processed — skip it.
+3. **Process the message**: Only the consumer that successfully set the key processes the message. Concurrent consumers with the same message ID fail the `SET NX` and skip.
+4. **TTL expiry**: After the configured TTL, the key expires. This prevents the store from growing indefinitely. The TTL must exceed the broker's maximum redelivery window.
+
+The atomicity of `SET NX` is critical: without it, two consumers could both check, both see no key, and both process the same message.
+
+## Best Practices
+
+- **Use producer-assigned IDs over content hashes.** Content hashes dedup identical payloads, which may be wrong if the same payload represents different logical operations. Producer-assigned IDs dedup by identity, not content.
+- **Log skipped duplicates.** When a consumer skips a duplicate, log the message ID and timestamp. This helps debug redelivery issues and measure duplicate rates.
+- **Monitor dedup hit rate.** If 50% of messages are duplicates, something is wrong upstream — the producer is retrying too aggressively or the consumer is too slow to acknowledge.
+- **Use FIFO queues when available.** SQS FIFO and Kafka partition keys provide ordering and dedup at the broker level, reducing the need for application-level dedup.
+- **Graceful degradation on dedup store failure.** If Redis is down, decide between processing with idempotency or rejecting. Document the choice and alert on it.
+
+## Real-World Examples
+
+### Stripe Payment Webhooks
+
+Stripe sends webhooks for payment events. Network failures cause Stripe to retry, delivering the same webhook multiple times. Stripe recommends using event IDs for deduplication: check the event ID in a store before processing. Without dedup, a single payment could trigger multiple order fulfillments.
+
+### SQS + Lambda Order Processing
+
+An e-commerce platform uses SQS to trigger Lambda for order processing. SQS may redeliver messages if Lambda fails to acknowledge in time. The platform uses Redis `SET NX` with the order ID as the dedup key. Duplicate deliveries are skipped, preventing double-charging or double-shipping.
+
+### Kafka Consumer with Redis Dedup
+
+A streaming pipeline consumes events from Kafka and writes to a database. Kafka's at-least-once delivery means the same event may be consumed twice. The consumer checks Redis before writing to the database. This provides exactly-once semantics without Kafka transactions.
+
 ## FAQ
 
-### Is deduplication the same as idempotency?
+**Q: Is deduplication the same as idempotency?**
+A: No. Deduplication prevents a message from being processed twice. Idempotency means processing a message twice has the same effect as once. Both are needed: deduplication as the first line of defense, idempotency as the safety net.
 
-No. Deduplication prevents a message from being processed twice. Idempotency means processing a message twice has the same effect as once. Both are needed: deduplication as the first line of defense, idempotency as the safety net.
+**Q: Should I use content hashing or producer-assigned IDs?**
+A: Producer-assigned IDs are better when the same logical message should always be deduped. Content hashing dedupes identical payloads, which may be wrong if the same payload is sent for different logical operations.
 
-### Should I use content hashing or producer-assigned IDs?
+**Q: What if Redis goes down?**
+A: Your consumer cannot check for duplicates. Options: (1) fail fast and retry later, (2) process anyway and rely on idempotency, (3) use a fallback store. Most teams choose option 2 with idempotent consumers.
 
-Producer-assigned IDs are better when the same logical message should always be deduped. Content hashing dedupes identical payloads, which may be wrong if the same payload is sent for different logical operations.
+**Q: Does Kafka support deduplication natively?**
+A: Kafka supports idempotent producers (prevents duplicate messages at the producer level) and transactions (exactly-once semantics within Kafka). For cross-system exactly-once, you still need consumer-side deduplication.
 
-### What if Redis goes down?
+**Q: How do I choose the right TTL for dedup keys?**
+A: Set TTL to at least 2x your broker's maximum redelivery window. SQS retains messages up to 14 days, so use 172800 seconds (48 hours). For RabbitMQ, check the queue's message TTL and set dedup TTL higher.
 
-Your consumer cannot check for duplicates. Options: (1) fail fast and retry later, (2) process anyway and rely on idempotency, (3) use a fallback store. Most teams choose option 2 with idempotent consumers.
+**Q: Can I use a database instead of Redis for dedup?**
+A: Yes. Use a table with a unique constraint on the message ID. Insert before processing; if the insert fails with a duplicate key, skip the message. This is durable and transactional but slower than Redis and adds load to the database.
 
-### Does Kafka support deduplication natively?
+**Q: How do I handle dedup with multiple consumer instances?**
+A: Use a shared store (Redis, database) so all instances check the same dedup keys. In-memory sets per instance do not work — each instance has its own set and cannot see what others have processed.
 
-Kafka supports idempotent producers (prevents duplicate messages at the producer level) and transactions (exactly-once semantics within Kafka). For cross-system exactly-once, you still need consumer-side deduplication.
+**Q: What is the performance impact of dedup?**
+A: Redis `SET NX EX` is sub-millisecond. The overhead is negligible compared to message processing. Database-based dedup is 5-10ms per check. For high-throughput systems, Redis is the standard choice.
+
+**Q: How do I test deduplication?**
+A: Send the same message ID twice and verify only one is processed. Send messages with different IDs and verify both are processed. Test concurrent consumers with the same message ID. Test Redis failover to verify your fallback strategy.
+
+**Q: Should I dedup before or after processing?**
+A: Before. Check the dedup key, then process, then confirm the key. If you process first and the consumer crashes before setting the key, the message is redelivered and processed twice. Use atomic `SET NX` before processing for the strongest guarantee.
+
+**Q: What about dedup in event sourcing?**
+A: Event sourcing handles dedup at the aggregate level. Each event has a unique ID. The aggregate rejects events with duplicate IDs during replay. This is built into the event store, so you do not need a separate dedup store.
+
+**Q: Can I use SQS FIFO dedup instead of Redis?**
+A: Yes. SQS FIFO queues support content-based deduplication automatically. If you produce messages with a `MessageDeduplicationId`, SQS dedupes within a 5-minute window. This eliminates the need for Redis but limits throughput to 300 TPS.
+
+**Q: How do I handle dedup with Kafka consumer groups?**
+A: Kafka consumer groups rebalance partitions when consumers join or leave. During rebalancing, a consumer may reprocess messages from the last committed offset. Use Redis dedup with the topic-partition-offset as the key, or use Kafka transactions for exactly-once within Kafka.
+
+**Q: What is the relationship between dedup and exactly-once semantics?**
+A: Exactly-once requires three components: (1) idempotent producers (no duplicate messages at the source), (2) atomic consumer processing (process + commit offset in one transaction), (3) dedup as a safety net. Dedup alone does not guarantee exactly-once — it is one layer in the stack.
+
+**Q: How do I clean up expired dedup keys?**
+A: Redis TTL handles this automatically — keys expire after the configured time. For database-based dedup, run a periodic cleanup job that deletes rows older than the redelivery window. Do not delete keys manually — let TTL or scheduled jobs handle it.
+
+**Q: Can I use dedup with batch consumers?**
+A: Yes. Check all message IDs in the batch before processing any. Use Redis `MSETNX` for atomic multi-key check. Process only messages that were not duplicates. Acknowledge the entire batch only after all non-duplicate messages are processed.
+
+**Q: How do I handle dedup across different environments (dev/staging/prod)?**
+A: Use separate Redis namespaces or databases for each environment. A dedup key in dev should not block processing in prod. Prefix keys with the environment name: `dedup:prod:msg-001` vs `dedup:dev:msg-001`.
+
+**Q: What is the cost of dedup at scale?**
+A: Redis on a c5.large instance handles ~100,000 SET NX operations per second. For 10,000 messages/s, the dedup overhead is negligible. Memory usage: each key is ~50 bytes + overhead. 1M dedup keys per day = ~50MB. Set TTL to 48 hours to cap memory at ~100MB.
+
+**Q: Should I use dedup for internal service-to-service communication?**
+A: If both services are under your control and use a reliable transport (gRPC with retries, Kafka), dedup may be unnecessary. Use it when the producer is external (webhooks, third-party APIs) or when the broker does not guarantee exactly-once.
+
+**Q: How do I handle dedup with AWS Lambda?**
+A: Lambda may invoke multiple times for the same SQS message if the function times out or fails. Use Redis `SET NX` with the SQS message ID as the dedup key. Alternatively, use SQS FIFO with content-based deduplication to let AWS handle it. For DynamoDB-based dedup, use conditional writes with `attribute_not_exists(messageId)`.
+
+**Q: What is the difference between at-least-once and at-most-once delivery?**
+A: At-least-once means every message is delivered at least once, but may be delivered multiple times (requires dedup). At-most-once means every message is delivered zero or one times (messages may be lost). Exactly-once means every message is delivered exactly once (hardest to achieve). Most brokers provide at-least-once.
+
+**Q: How do I handle dedup with HTTP idempotency keys?**
+A: Use the `Idempotency-Key` HTTP header as the dedup key. Store it in Redis before processing the request. If a retry arrives with the same key, return the cached response instead of reprocessing. Stripe uses this pattern for payment APIs. The TTL should match the client's retry window.

@@ -21,7 +21,7 @@ tags:
 relatedResources:
   - /patterns/design/content-delivery-network-pattern
   - /patterns/design/sharding-pattern
-lastUpdated: "2026-06-26"
+lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
   metaDescription: "Learn the Static Content Hosting Pattern for serving assets from object storage. Examples in Python, Java, and JavaScript with S3, CloudFront, and CDN configuration."
@@ -353,14 +353,26 @@ A: Most CDNs charge per GB transferred. For typical web applications, CDN costs 
 **Q: Can I use a CDN for live content?**
 A: Limited — CDNs cache based on URL. Live content that changes per user should not be cached unless using edge functions (Cloudflare Workers, Lambda@Edge) for personalization.
 
-### Is this pattern suitable for small projects?
+**Q: How do I handle cache invalidation?**
+A: Use versioned filenames instead of invalidation. When you deploy a new `app.abc123.js`, the URL changes and browsers fetch the new file. For HTML (which cannot be versioned), set a short TTL (60s) or use CloudFront invalidation. Avoid wildcard invalidations — they are slow and expensive.
 
-For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+**Q: Should I use the same CDN for assets and API?**
+A: No. Assets are cacheable and benefit from CDN edge caching. API responses are dynamic and should go to the origin. Use different domains or path prefixes: `cdn.myapp.com` for assets, `api.myapp.com` for API calls.
 
-### How does this pattern compare to alternatives?
+**Q: How do I migrate from origin-served assets to a CDN?**
+A: Upload assets to S3, configure CloudFront to use S3 as origin, update your build to output CDN URLs, deploy. Keep the origin-served versions as fallback during the transition. Switch DNS when confident.
 
-Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+**Q: What about multi-region CDN setup?**
+A: Most CDNs (CloudFront, Cloudflare, Akamai) are global by default. Edge locations exist in dozens of countries. For data residency requirements, use geo-restriction or origin shield to control where content is stored.
 
-### Can I partially apply this pattern?
+**Q: How do I serve different image sizes for different devices?**
+A: Upload multiple variants (thumbnail, medium, large) or use on-the-fly resizing with CloudFront + Lambda@Edge or Cloudflare Image Resizing. Serve `srcset` attributes in HTML so browsers pick the right size.
 
-Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+**Q: Can I use this pattern for user-uploaded content?**
+A: Yes. Accept uploads through your origin server (for validation, virus scanning, auth), then move files to object storage. Generate a CDN URL for the user. For private uploads, use signed URLs with expiration.
+
+**Q: How do I monitor CDN performance?**
+A: Use CDN provider dashboards for cache hit ratio, edge latency, and error rates. Set up real-user monitoring (RUM) for actual page load times. Alert on cache hit ratio drops below 90% — it means too many requests reach the origin.
+
+**Q: What headers should I set for different asset types?**
+A: JS/CSS: `Cache-Control: public, max-age=31536000, immutable`. HTML: `Cache-Control: no-cache` (revalidate always). Images: `Cache-Control: public, max-age=31536000`. Fonts: `Cache-Control: public, max-age=31536000` plus `Access-Control-Allow-Origin: *`. Sitemap/robots: `Cache-Control: public, max-age=3600`.
