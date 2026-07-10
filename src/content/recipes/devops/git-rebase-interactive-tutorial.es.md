@@ -327,3 +327,23 @@ Usar `git reflog` para encontrar el hash del commit antes del rebase, luego `git
 ### ¿Debo hacer rebase antes de mergear un PR?
 
 Sí. Hacer rebase de tu feature branch sobre el último main antes de mergear mantiene el historial lineal y limpio. Hacer squash de commits WIP, reword mensajes poco claros, y drop commits innecesarios antes del merge final.
+
+### ¿Cuál es la diferencia entre `git rebase` y `git merge`?
+
+`git merge` crea un commit de merge que preserva el historial completo de la rama con ambos commits padre. `git rebase` re-reproduce tus commits sobre la rama target, produciendo un historial lineal sin commit de merge. Usa merge para ramas compartidas (main, develop) para preservar contexto. Usa rebase para feature branches privadas para mantener el historial limpio.
+
+### ¿Cómo resuelvo conflictos durante un rebase interactivo?
+
+Cuando ocurre un conflicto, Git pausa el rebase. Corrige los archivos en conflicto, haz `git add`, luego `git rebase --continue` para resumir. Usa `git rebase --abort` para cancelar y volver al estado pre-rebase. Usa `git rebase --skip` para descartar el commit actual si ya está aplicado. Siempre resuelve conflictos en lotes pequeños — rebasea un commit a la vez en lugar de todos a la vez.
+
+## Errores Comunes
+
+- Rebasear ramas compartidas que otros ya hicieron pull — reescribe el historial público y rompe los repos de los teammates
+- No usar `git stash` antes de iniciar un rebase con cambios sin commitear
+- Hacer squash de demasiados commits en uno solo — hace el commit resultante difícil de revisar y revertir
+- Olvidar que los comandos `exec` se ejecutan en el repo root, no en el directorio de trabajo original
+- Usar `drop` en commits de los que dependen otros commits — puede causar conflictos inesperados durante el replay
+- No comunicarse con el equipo antes de reescribir el historial de ramas compartidas — siempre coordina operaciones de rebase en ramas colaborativas
+- Rebasear más de ~20 commits a la vez — incrementa la superficie de conflicto y hace la recuperación más difícil si algo sale mal
+- No testear el build después de un rebase — rebasear puede romper código silenciosamente si un commit dependía de un cambio previo que fue reordenado
+- Olvidar force-push con `--force-with-lease` en lugar de `--force` — la variante lease es más segura porque verifica cambios remotos

@@ -323,3 +323,27 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes
+
+- Ejecutar scripts de seed contra bases de datos de producción — siempre añade un check de entorno que aborte si `NODE_ENV === 'production'`
+- No limpiar datos viejos antes de seedear — usa `TRUNCATE` o `DELETE` en una transacción antes de insertar datos frescos
+- Usar datos random sin un seed fijo — los tests se vuelven no reproducibles y fallan intermitentemente
+- Hardcodear seed data en archivos de migración — mantén los scripts de seed separados de las migraciones de schema por claridad
+- No verificar idempotencia en scripts de seed — ejecutar seed dos veces duplica registros a menos que uses `INSERT ... ON CONFLICT DO NOTHING`
+- Seedear passwords en plaintext — siempre hashea passwords en scripts de seed usando la misma config de bcrypt/argon2 que producción
+- No envolver operaciones de seed en una transacción — un fallo a mitad de camino deja datos parciales que rompen las restricciones de foreign key
+- No usar funciones factory para seed data — objetos JSON hardcodeados son difíciles de mantener y no pueden ser parametrizados para diferentes entornos
+- No limpiar secuencias de auto-increment después del seeding — los IDs empiezan desde donde el seed los dejó, causando confusión en assertions de test que esperan IDs específicos
+- No documentar las relaciones de seed data — los nuevos miembros del equipo no pueden entender qué registros dependen de cuáles sin un data dictionary o ERD
+- No versionar los scripts de seed — cuando el schema cambia, los scripts de seed antiguos pueden fallar silenciosamente o insertar datos inconsistentes
+- No separar seed data por entorno — usar datos similares a producción en entornos de test puede causar problemas de privacidad y romper principios de data minimization
+- No usar un seed runner CLI — scripts ad-hoc son difíciles de reproducir y documentar, usa un runner dedicado como `knex seed:run` o un CLI custom con opciones claras
+
+### ¿Cómo hago seed de datos relacionados con foreign keys?
+
+Inserta los registros padre primero, captura sus IDs, luego inserta los registros hijo con esos IDs. Usa una función factory que retorne los IDs creados. Para datasets grandes, deshabilita las verificaciones de foreign key durante el seeding y rehabilítalas después — esto es más rápido pero requiere ordering cuidadoso.
+
+### ¿Debo usar los mismos datos de seed para dev y test?
+
+No. Los datos de seed de dev deben ser realistas y suficientemente grandes para testear paginación y búsqueda en la UI. Los datos de seed de test deben ser mínimos y deterministas — solo lo que cada caso de test necesita. Compartir seed data entre dev y test crea acoplamiento y hace los tests frágiles.

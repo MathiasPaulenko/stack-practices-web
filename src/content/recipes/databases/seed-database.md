@@ -323,3 +323,27 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Mistakes
+
+- Running seed scripts against production databases — always add a environment check that aborts if `NODE_ENV === 'production'`
+- Not cleaning up old data before seeding — use `TRUNCATE` or `DELETE` in a transaction before inserting fresh data
+- Using random data without a fixed seed — tests become non-reproducible and fail intermittently
+- Hardcoding seed data in migration files — keep seed scripts separate from schema migrations for clarity
+- Not idempotency-checking seed scripts — running seed twice duplicates records unless you use `INSERT ... ON CONFLICT DO NOTHING`
+- Seeding passwords in plaintext — always hash passwords in seed scripts using the same bcrypt/argon2 config as production
+- Not wrapping seed operations in a transaction — a failure midway leaves partial data that breaks foreign key constraints
+- Not using factory functions for seed data — hardcoded JSON objects are hard to maintain and cannot be parameterized for different environments
+- Not cleaning up auto-increment sequences after seeding — IDs start from where the seed left off, causing confusion in test assertions that expect specific IDs
+- Not documenting seed data relationships — new team members cannot understand which records depend on which without a data dictionary or ERD
+- Not versioning seed scripts — when the schema changes, old seed scripts may fail silently or insert inconsistent data
+- Not separating seed data by environment — using production-like data in test environments can cause privacy issues and break data minimization principles
+- Not using a seed runner CLI — ad-hoc scripts are hard to reproduce and document, use a dedicated runner like `knex seed:run` or a custom CLI with clear options
+
+### How do I seed related data with foreign keys?
+
+Insert parent records first, capture their IDs, then insert child records with those IDs. Use a factory function that returns created IDs. For large datasets, disable foreign key checks during seeding and re-enable them after — this is faster but requires careful ordering.
+
+### Should I use the same seed data for dev and test?
+
+No. Dev seed data should be realistic and large enough to test UI pagination and search. Test seed data should be minimal and deterministic — only what each test case needs. Sharing seed data between dev and test creates coupling and makes tests fragile.

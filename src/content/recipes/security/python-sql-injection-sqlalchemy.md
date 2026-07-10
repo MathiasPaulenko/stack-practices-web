@@ -327,6 +327,21 @@ A: Both are safe when used correctly. ORM is safer by default because it's harde
 **Q: How do I test for SQL injection in my app?**
 A: Try injecting `' OR '1'='1' --` into every input field. If the query returns unexpected results, you have a vulnerability. Use tools like SQLMap for automated testing.
 
+### Does SQLAlchemy prevent all SQL injection?
+
+Parameterized queries via the ORM and Core expression language prevent injection in most cases. However, raw SQL via `text()` with string interpolation is still vulnerable. Always use bound parameters: `text("WHERE id = :id").bindparams(id=user_id)`.
+
+### What about `LIKE` queries with user input?
+
+Use `escape()` with parameterized wildcards:
+
+```python
+from sqlalchemy import escape
+
+search = escape(user_input)
+stmt = select(User).where(User.name.like(f"%{search}%"))
+```
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
