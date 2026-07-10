@@ -168,6 +168,120 @@ server {
 }
 ```
 
+### 6. Cacheo de Respuestas
+
+```nginx
+# /etc/nginx/conf.d/cache.conf
+proxy_cache_path /var/cache/nginx/api
+  levels=1:2
+  keys_zone=api_cache:10m
+  max_size=1g
+  inactive=60m
+  use_temp_path=off;
+
+server {
+  location /api/public/ {
+    proxy_cache api_cache;
+    proxy_cache_key "$scheme$request_method$host$request_uri";
+    proxy_cache_valid 200 10m;
+    proxy_cache_valid 404 1m;
+    proxy_cache_use_stale error timeout updating;
+    add_header X-Cache-Status $upstream_cache_status;
+
+    proxy_pass http://backend/;
+  }
+
+  # No cachear endpoints autenticados
+  location /api/private/ {
+    proxy_pass http://backend/;
+    proxy_set_header Cache-Control "no-store";
+  }
+}
+```
+
+### 7. Proxy WebSocket
+
+```nginx
+# /etc/nginx/sites-available/ws
+server {
+  listen 80;
+  server_name ws.example.com;
+
+  location /socket.io/ {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_read_timeout 86400s;
+    proxy_send_timeout 86400s;
+  }
+}
+```
+
+### 8. Balanceo de Carga Ponderado con Fallback
+
+```nginx
+upstream api_backend {
+  # Primario: 3 instancias con peso igual
+  server 10.0.1.10:8080 weight=3;
+  server 10.0.1.11:8080 weight=3;
+  server 10.0.1.12:8080 weight=3;
+
+  # Secundario: 2 instancias con peso menor para canary
+  server 10.0.1.20:8080 weight=1;
+  server 10.0.1.21:8080 weight=1;
+
+  # Backup: solo se usa cuando todos los primarios fallan
+  server 10.0.2.10:8080 backup;
+
+  keepalive 64;
+  keepalive_timeout 60s;
+}
+
+server {
+  location /api/ {
+    proxy_pass http://api_backend/;
+    proxy_next_upstream error timeout http_502 http_503 http_504;
+    proxy_next_upstream_tries 3;
+    proxy_next_upstream_timeout 10s;
+  }
+}
+```
+
+### 9. Compresión con Brotli
+
+```nginx
+# Requiere el modulo ngx_brotli
+brotli on;
+brotli_comp_level 6;
+brotli_types text/plain text/css application/json application/javascript
+  text/xml application/xml application/xml+rss text/javascript;
+
+server {
+  location /api/ {
+    proxy_pass http://backend/;
+    brotli on;
+    brotli_min_length 1024;
+  }
+}
+```
+
+## Variantes
+
+| Feature | Nginx OSS | Nginx Plus | Traefik | Kong |
+|---------|-----------|------------|---------|------|
+| Balanceo de carga | Round-robin, least_conn, ip_hash | + Health checks activos, slow start | Round-robin, ponderado | Round-robin, hashing consistente |
+| Terminacion SSL | Si | Si + rotacion de certificados | Si (ACME) | Si |
+| Rate limiting | Modulo `limit_req` | Si | Si (middleware) | Si (plugins) |
+| Service discovery | Upstreams estaticos | DNS + etcd | Docker, K8s, Consul | K8s, Consul |
+| Dashboard | No | Si (dashboard en vivo) | Si (web UI) | Si (admin API) |
+| Auth por API key | Lua custom / auth_request | Si | Si (middleware) | Si (plugins) |
+
 ## Como Funciona
 
 1. **Reverse Proxy** reenvia peticiones de clientes a servicios backend
@@ -182,12 +296,22 @@ server {
 - Usa conexiones **keepalive** a backends para reducir overhead de TCP
 - Implementa **sticky sessions** solo cuando sea necesario; prefiere diseno stateless
 - Monitorea **salud upstream** con checks activos o deteccion pasiva de fallos. Consulta [Logging y Auditoría de APIs](/recipes/api/api-logging-audit) para logging de health checks.
+- Configura **access logs** con formato custom para capturar tiempo de respuesta upstream: `log_format upstream '$remote_addr - $request_time $upstream_response_time $status';`
+- Usa **open file cache** para assets estaticos: `open_file_cache max=1000 inactive=20s; open_file_cache_valid 30s;`
+- Configura **limites de body del cliente**: `client_max_body_size 10m;` para APIs que aceptan subida de archivos
+- Habilita **gzip** para respuestas de texto: `gzip on; gzip_types application/json text/css;`
+- Setea **server tokens off** para ocultar la version de Nginx de los headers de respuesta
 
 ## Errores Comunes
 
 - No preservar headers `Host` y `X-Forwarded-*`, rompiendo routing de backend
 - Usar balanceo `ip_hash` sin considerar clientes NATed
 - Olvidar incrementar `worker_connections` para despliegues de alto trafico
+- Setear `proxy_read_timeout` muy bajo para endpoints de long-polling o streaming
+- No configurar `proxy_buffering off` para Server-Sent Events (SSE) — el buffering rompe el streaming en tiempo real
+- Usar `proxy_pass` con slashes finales inconsistentes entre bloques location, causando duplicacion o truncamiento de paths
+- No setear `client_max_body_size` para endpoints de subida de archivos, causando errores 413
+- Olvidar recargar Nginx despues de cambios de config con `nginx -s reload`
 
 ## FAQ
 
@@ -199,6 +323,18 @@ R: Agrega `proxy_set_header Upgrade $http_upgrade;` y `proxy_set_header Connecti
 
 **P: Puede Nginx cachear respuestas de API?**
 R: Si. Usa `proxy_cache` con cache keys basados en URL y headers de autorizacion. Se cauteloso con endpoints autenticados.
+
+**P: Como ajusto los worker processes de Nginx para alto trafico?**
+R: Setea `worker_processes auto;` para coincidir con los cores de CPU. Incrementa `worker_connections` (ej. 10240) para despliegues de alto trafico. Usa `worker_rlimit_nofile` para coincidir. Habilita `multi_accept on` para trafico burst. Monitorea con `nginx -T` y ajusta basado en metricas de conexiones.
+
+**P: Cual es la diferencia entre `proxy_pass` con y sin slash final?**
+R: Con slash final (`proxy_pass http://backend/;`), Nginx elimina el prefijo de location coincidido antes de reenviar. Sin el (`proxy_pass http://backend;`), el URI completo se reenvia. Esto es una fuente comun de bugs de routing — prueba cuidadosamente.
+
+**P: Como implemento despliegues blue-green con Nginx?**
+R: Usa dos bloques upstream (blue y green) y cambia el target de `proxy_pass`. O usa balanceo ponderado para desplazar trafico gradualmente: empieza con `weight=10` para blue y `weight=0` para green, luego incrementa green y decrementa blue. Usa `proxy_next_upstream` para manejar fallos durante el switch.
+
+**P: Como bloqueo IPs o user agents especificos?**
+R: Usa directivas `deny` y `allow` para bloqueo de IPs. Para user agents, usa `if` con `$http_user_agent` o bloqueo basado en map. Ejemplo: `deny 192.168.1.100;` dentro de un bloque location. Para bloqueo a gran escala, usa un map con un archivo de lista de IPs y `include`alo.
 
 ### ¿Esta solución está lista para producción?
 

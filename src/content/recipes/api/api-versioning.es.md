@@ -204,3 +204,99 @@ Sí. Usa controladores o handlers de ruta versionados que deleguen a servicios c
 ### ¿Cuánto tiempo debería mantener una versión antigua de API?
 
 Para APIs públicas: 12-24 meses con avisos activos de deprecación. Para APIs internas: 3-6 meses o hasta que todos los clientes conocidos migren. Siempre monitorea tráfico a versiones antiguas y contacta usuarios activos antes del sunset.
+
+## Mejores Prácticas
+
+- **Usa versionado por URL path para APIs públicas**: `/api/v1/users` es la estrategia más intuitiva y cacheable. Versionado por headers es elegante pero más difícil de debuggear y documentar. Versionado por path funciona con todos los clientes HTTP y proxies.
+- **Haz que los breaking changes sean difíciles**: requiere review arquitectónico para cualquier cambio que rompa backward compatibility. El costo de una nueva versión (mantenimiento, documentación, migración de clientes) siempre es mayor que el costo de un cambio aditivo.
+- **Documenta timelines de deprecación en headers**: retorna headers HTTP `Deprecation` y `Sunset` en endpoints deprecados. Esto da a clientes programáticos visibilidad sobre deadlines de migración sin leer docs.
+- **Mantén un changelog por versión**: trackea qué cambió entre versiones, cuándo y por qué. Usa semantic versioning para APIs internas (v1.1.0) y major-only para APIs públicas (v1, v2).
+- **Versiona tu response schema, no solo tus rutas**: incluso con la misma URL, los payloads de respuesta pueden evolucionar. Incluye una versión de schema en response metadata para que los clientes puedan detectar cambios de formato.
+- **Provee guías de migración**: para cada bump de major version, publica una guía de migración con ejemplos side-by-side del comportamiento old vs new. Esto reduce tickets de soporte durante los periodos de transición.
+
+## Checklist de Producción
+
+- [ ] Estrategia de versionado es consistente across todos los endpoints de la API
+- [ ] Endpoints deprecados retornan headers `Deprecation` y `Sunset`
+- [ ] Timeline de deprecación está documentado y comunicado a consumidores de API
+- [ ] Tráfico a versiones antiguas está monitoreado y alertado (notifica usuarios activos antes del sunset)
+- [ ] Documentación version-specific existe para cada versión soportada
+- [ ] Breaking changes requieren review arquitectónico y sign-off
+- [ ] Rutas del API gateway están configuradas para todas las versiones activas
+- [ ] Tests de integración corren against todas las versiones soportadas
+- [ ] Changelog se mantiene por versión con fechas y rationale
+- [ ] Guía de migración se publica antes de que el periodo de deprecación comience
+
+## Consideraciones de Escalado
+
+- **Complejidad de código con muchas versiones**: soportar 3+ versiones activas incrementa la complejidad de código exponencialmente. Cada versión necesita sus propios controllers, serializers y tests. Extrae lógica de negocio compartida en servicios version-agnostic y mantén las capas version-specific delgadas.
+- **Costo de infraestructura**: cada versión activa requiere su propio deployment, monitoring y documentación. A 5+ versiones activas, los costos de infraestructura pueden duplicarse. Enforcea un máximo de 3 versiones activas y haz sunset agresivo de las viejas.
+- **Migraciones de database schema**: APIs versionadas pueden necesitar diferentes database schemas. Usa view-based schemas o tablas separadas por versión para evitar conflictos de migración. Nunca rompas versiones viejas cambiando estructuras de tablas compartidas.
+- **CDN caching por versión**: las respuestas de cada versión deben tener cache keys distintos. Incluye la versión en el URL path (no solo en headers) para asegurar que el CDN caching funcione correctamente. Versionado por headers requiere Vary headers, lo que reduce cache hit rates.
+
+## Estimación de Costos
+
+| Componente | Costo | Notas |
+|-----------|------|-------|
+| API Gateway (por versión) | $0-$50/mes | AWS API Gateway, per-stage |
+| Documentation hosting (por versión) | $0-$20/mes | Stoplight, ReadMe, SwaggerHub |
+| Load testing (por versión) | $0-$100/mes | k6 Cloud, BlazeMeter |
+| Monitoring (por versión) | $50-$200/mes | Datadog, New Relic per service |
+| Development overhead | 2-3 engineer-weeks | Por migración de major version |
+
+Cada versión activa agrega ~$100-$400/mes en costos de infraestructura y tooling. El costo oculto es tiempo de ingeniería: mantener 3 versiones requiere ~30% de la capacidad del equipo de API para bug fixes, tests y documentación version-specific.
+
+## Cuándo No Usar Este Enfoque
+
+- **APIs internas con un solo cliente**: si controlas tanto la API como su único consumidor, deployea breaking changes atómicamente. Versionar agrega indirección innecesaria cuando puedes actualizar ambos lados en un release.
+- **APIs de prototipo y MVP**: APIs early-stage cambian rápidamente. Versionar formalmente ralentiza la iteración. Usa un prefijo `v0` para señalar inestabilidad y skipea procesos de deprecación hasta que la API se estabilice.
+- **APIs GraphQL**: GraphQL tiene un solo endpoint y evoluciona through adiciones de schema, no versiones de URL. Usa deprecation markers y field-level versioning en lugar de route-level versioning.
+
+## Benchmarks de Rendimiento
+
+| Estrategia | Overhead de routing | Cache hit rate | Notas |
+|----------|-----------------|---------------|-------|
+| URL path (`/v1/`) | 0ms | 95%+ | Best para CDN caching |
+| Header (`Accept: v=2`) | 0.1ms | 60-70% | Vary header reduce cache |
+| Query param (`?v=1`) | 0ms | 80-85% | Cacheable pero menos clean |
+| Content negotiation | 0.2ms | 50-60% | RESTful pero poor caching |
+
+Versionado por URL path tiene zero routing overhead y el cache hit rate más alto porque los CDN edge nodes cachean cada versión independientemente. Versionado por headers requiere `Vary: Accept` que fragmenta cache entries por cliente, reduciendo hit rates en 25-40%.
+
+## Estrategia de Testing
+
+- **Testea version routing**: envía peticiones a endpoints `/v1/` y `/v2/` y verifica que rutear al handler correcto. Testea que versiones desconocidas retornen 404 con un error message helpful listando versiones soportadas.
+- **Testea deprecation headers**: envía una petición a una versión deprecada y verifica que la respuesta incluya headers `Deprecation`, `Sunset` y `Link`. Testea que el header `Link` apunte a la migration guide.
+- **Testea backward compatibility**: corre la v1 test suite contra v2 y verifica que todos los v1 tests pasen (a menos que se hayan roto intencionalmente). Usa `openapi-diff` para detectar breaking changes entre versiones automáticamente en CI.
+- **Testea version sunset**: simula la sunset date y verifica que la API retorne 410 Gone con un mensaje dirigiendo usuarios a la nueva versión. Testea que el sunset grace period funcione correctamente.
+
+## Errores Comunes
+
+- **Versionar cada cambio minor**: no cada cambio necesita una nueva versión. Cambios aditivos (nuevos fields, nuevos endpoints) son backward-compatible y no requieren versionado. Reserva nuevas versiones solo para breaking changes.
+- **Mantener versiones viejas vivas demasiado tiempo**: mantener 3+ versiones simultáneamente aumenta code complexity, testing burden e infrastructure costs. Setea un timeline claro de deprecación (6-12 meses) y enfórzalo con sunset headers.
+- **Versionado inconsistente across endpoints**: algunos endpoints en v1, otros en v2, crea confusión para API consumers. Versiona la API surface entera, no endpoints individuales. Usa un global version prefix (`/v2/`) no per-endpoint versioning.
+- **No comunicar breaking changes**: releasear una nueva versión sin migration guides, changelogs o deprecation notices causa client breakage. Publica migration guides con code examples y anuncia deprecaciones via email, API response headers y status pages.
+
+## Monitoring y Observabilidad
+
+- **Trackea tráfico por versión**: monitorea peticiones/min para cada versión de API. Cuando el tráfico de v2 excede v1, planea el sunset de v1. Cuando el tráfico de v1 cae below 1% por 30 días, es seguro decommissionar.
+- **Monitorea impresiones de deprecation headers**: cuenta cuántos clientes reciben headers `Deprecation` y `Sunset`. Trackea el migration rate over time para medir qué tan rápido los clientes se mueven a la nueva versión.
+- **Alerta en 404s para versiones desconocidas**: clientes pidiendo versiones non-existent (e.g., `/v3/`) indican clientes mal configurados o typos. Loggea la versión pedida y client ID para ayudarles a fixear su integración.
+- **Trackea response times por versión**: versiones más nuevas deberían ser más rápidas o iguales. Si v2 es más lenta que v1, investiga si las nuevas features agregan overhead excesivo o si las database queries necesitan optimización.
+
+## Checklist de Despliegue
+
+- [ ] Elegir strategy de versionado (URL path, header, query param, content negotiation)
+- [ ] Configurar routing para todas las versiones soportadas en el API gateway
+- [ ] Setear deprecation headers (`Deprecation`, `Sunset`, `Link`) para versiones viejas
+- [ ] Publicar migration guides con code examples para cada transición de versión
+- [ ] Setear `openapi-diff` en CI para detectar breaking changes entre versiones
+- [ ] Configurar CDN caching por versión (separate cache keys para `/v1/` y `/v2/`)
+- [ ] Monitorear traffic distribution across versiones
+- [ ] Planear sunset timeline (6-12 meses deprecation, luego 410 Gone)
+- [ ] Documentar versioning policy en API documentation
+- [ ] Testear backward compatibility corriendo v1 test suite contra v2
+
+## Consideraciones de Seguridad
+
+- **Version header injection**: si usas header-based versioning, valida el version header para prevenir injection attacks. Solo acepta predefined version values y rechaza peticiones con headers inesperados.

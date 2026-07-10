@@ -223,6 +223,65 @@ function validateParams(schema: ZodSchema) {
 - Olvidar llamar `next()` en middleware sincronico, colgando requests indefinidamente
 - Lanzar strings en lugar de objetos Error, perdiendo stack traces
 
+## Mejores Prácticas
+
+- **El orden importa**: registra middleware en la secuencia correcta — logging primero, luego autenticación, luego autorización, luego rate limiting, luego lógica de negocio. Un stack mal ordenado puede permitir peticiones no autenticadas a endpoints costosos.
+- **Mantén middleware delgado**: cada middleware debería hacer una sola cosa. Evita combinar auth, logging y validación en una sola función. Middleware delgado es más fácil de testear, reutilizar y debuggear.
+- **Usa `express.Router()` para stacks modulares**: monta routers con diferentes stacks de middleware para diferentes grupos de rutas. Rutas de API get middleware de auth; rutas públicas get solo logging y CORS.
+- **Siempre maneja errores async**: wrappea middleware async en try/catch y pasa errores a `next(err)`. Usa `express-async-errors` o una función wrapper para evitar try/catch manual en cada middleware.
+- **Setea `req.locals` para data compartida**: pasa data entre middleware usando `req.locals` en lugar de mutar `req` directamente. Esta es la convención de Express y funciona con la mayoría de middleware de terceros.
+
+## Checklist de Producción
+
+- [ ] Orden de middleware es: logging → CORS → auth → rate limiting → routes → error handler
+- [ ] Error-handling middleware está registrado último (función con 4 args)
+- [ ] Middleware async usa error wrapper o paquete `express-async-errors`
+- [ ] Headers sensibles de request se stripped antes de loguear
+- [ ] CORS middleware está configurado con allowlist explícita de origins, no `*`
+- [ ] Body parser tiene límites de tamaño configurados (e.g., 1MB JSON, 10MB multipart)
+- [ ] Helmet middleware está habilitado para security headers
+- [ ] Request ID se genera y se attachea a `req.locals` para tracing
+- [ ] Endpoint de health check (`/health`) bypassa auth middleware
+- [ ] Graceful shutdown drena requests in-flight antes de cerrar
+
+## Consideraciones de Escalado
+
+- **Overhead de middleware a escala**: cada middleware agrega 0.1-1ms por petición. Con 10 funciones middleware, eso es 1-10ms de overhead antes de la lógica de negocio. Profilea middleware con `express-status-monitor` o timing middleware custom para identificar bottlenecks.
+- **Memory leaks en procesos long-running**: middleware que acumula estado (caches, connection pools) puede leakear memoria over días/semanas. Monitorea heap usage y restartea workers periódicamente con PM2 cluster mode o Kubernetes rolling restarts.
+- **Escalado horizontal**: middleware de Express corre por instancia. Middleware stateful (sessions, rate limiting) necesita shared storage (Redis, Memcached) al escalar a múltiples instancias. Middleware stateless (logging, CORS) funciona sin cambios.
+
+## Cuándo No Usar Este Enfoque
+
+- **APIs de alto rendimiento (>50K req/s)**: Express agrega overhead de la ejecución de la middleware chain y el JavaScript runtime. Para throughput extremo, usa Fastify (2-3x más rápido), Go con Gin/Fiber, o Rust con Actix.
+- **Funciones serverless**: las middleware chains de Express no cold-startean eficientemente en Lambda. Usa framework-native handlers (AWS Lambda handler, Vercel edge functions) para despliegues serverless.
+- **Servir archivos estáticos simple**: si tu app solo sirve archivos estáticos, Express middleware es excesivo. Usa Nginx, Caddy, o un CDN directamente para 10-100x mejor throughput.
+
+## Estrategia de Testing
+
+- **Unit test middleware en aislamiento**: crea una app Express minimal con `supertest`, monta solo el middleware bajo test y haz HTTP requests. Asserta sobre response status, headers y body. Mockea `next()` para verificar call order.
+- **Integration test el stack completo de middleware**: monta la app Express completa y testea el flow end-to-end de peticiones. Verifica middleware ordering, error handling y response transformations.
+- **Testea error paths explícitamente**: envía peticiones malformadas, triggerea timeouts y simula downstream failures. Verifica que error-handling middleware catchee y formatee errores correctamente.
+- **Performance test middleware overhead**: usa `autocannon` para benchmarkear middleware overhead. Compara baseline (sin middleware) vs stack completo para identificar bottlenecks. Target <5ms total middleware overhead por petición.
+
+## Estimación de Costos
+
+| Componente | Costo | Notas |
+|-----------|------|-------|
+| Express (self-hosted) | $0 | Open-source, MIT license |
+| PM2 cluster mode | $0 | Process manager, open-source |
+| Redis (para session/rate limit) | $10-$75/mes | Shared state across instancias |
+| Load balancer | $20-$100/mes | AWS ALB, GCP LB, Nginx |
+| Monitoring (PM2 Plus) | $0-$80/mes | PM2 Plus, Datadog APM |
+
+Para 10K req/s: 2x EC2 t3.large ($60/mes) + Redis ($15/mes) + ALB ($25/mes) = ~$100/mes. PM2 cluster mode es free. Agrega Datadog APM ($80/mes) para monitoring de producción.
+
+## Monitoring y Observabilidad
+
+- **Trackea execution time de middleware por petición**: usa `express-status-monitor` o custom timing middleware para registrar cuánto tarda cada middleware. Alerta si cualquier middleware excede 10ms p95.
+- **Monitorea error rates de middleware**: cuenta errores por función middleware. Setea alertas para error rate >1% en middleware critical (auth, CORS, rate limiting). Usa `prom-client` para exponer Prometheus metrics.
+- **Loggea violaciones de middleware order**: si middleware ejecuta out of order (e.g., auth después de body parsing), loggea un warning. Bugs de middleware order son hard to debug en producción.
+- **Trackea memory usage por middleware**: algún middleware (body-parser, session) allocatea memoria por petición. Monitorea heap growth y setea alertas para memory leaks. Usa `--max-old-space-size` para limitar heap y forzar garbage collection.
+
 ## FAQ
 
 **P: Deberia usar Express o Fastify para proyectos nuevos?**
