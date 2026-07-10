@@ -166,6 +166,53 @@ ws.onerror = (error) => console.error('WebSocket error:', error);
 ws.onclose = () => console.log('Connection closed');
 ```
 
+### Reconexión del Cliente con Backoff Exponencial
+
+```javascript
+class ReconnectingWebSocket {
+  constructor(url, options = {}) {
+    this.url = url;
+    this.maxRetries = options.maxRetries || 10;
+    this.baseDelay = options.baseDelay || 1000;
+    this.maxDelay = options.maxDelay || 30000;
+    this.retries = 0;
+    this.ws = null;
+    this.subscriptions = new Set();
+    this.connect();
+  }
+
+  connect() {
+    this.ws = new WebSocket(this.url);
+
+    this.ws.onopen = () => {
+      this.retries = 0;
+      // Resuscribir a canales previos
+      this.subscriptions.forEach((channel) => {
+        this.ws.send(JSON.stringify({ action: 'subscribe', channel }));
+      });
+    };
+
+    this.ws.onclose = () => {
+      if (this.retries < this.maxRetries) {
+        const delay = Math.min(
+          this.baseDelay * Math.pow(2, this.retries),
+          this.maxDelay
+        );
+        this.retries++;
+        setTimeout(() => this.connect(), delay);
+      }
+    };
+  }
+
+  subscribe(channel) {
+    this.subscriptions.add(channel);
+    if (this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(JSON.stringify({ action: 'subscribe', channel }));
+    }
+  }
+}
+```
+
 ## Explicación
 
 - **WebSocket API Gateway**: gestiona el handshake WebSocket, mantiene las conexiones abiertas y enruta los mensajes entrantes a Lambda basándose en la `route_selection_expression`. Las rutas `$connect` y `$disconnect` son gestionadas por el sistema.
@@ -190,6 +237,8 @@ ws.onclose = () => console.log('Connection closed');
 - **Habilita logging de CloudWatch**: registra `$connect`, `$disconnect` e invocaciones de rutas personalizadas para debugging y monitoreo de salud de conexiones.
 - **Asegura la conexión**: valida tokens de autenticación en la ruta `$connect` usando authorizers Lambda o lógica personalizada antes de permitir que el handshake WebSocket se complete.
 - **Implementa lógica de reconexión**: los clientes deberían reconectarse automáticamente con backoff exponencial si la conexión cae, resuscribiéndose a canales previos al reconectar.
+- **Usa TTLs de conexión**: setea un atributo TTL en los registros de conexión de DynamoDB para auto-expirar conexiones obsoletas incluso si `$disconnect` no se dispara.
+- **Batchea operaciones de DynamoDB**: cuando transmitas a muchas conexiones, usa `BatchWriteItem` para limpieza y llamadas paralelas `postToConnection` con concurrencia controlada.
 
 ## Errores comunes
 
@@ -197,6 +246,9 @@ ws.onclose = () => console.log('Connection closed');
 - **Escanear DynamoDB para audiencias grandes**: un escaneo completo de tabla en miles de conexiones es lento y costoso. Usa GSIs o streams para transmisiones dirigidas.
 - **Olvidar manejar errores `postToConnection` 410**: cuando un cliente se desconecta abruptamente, `postToConnection` arroja un error 410. Fallar en capturarlo y limpiar filtra registros de conexión.
 - **No configurar `route_selection_expression` de API Gateway**: sin `$request.body.action`, las rutas personalizadas como `sendMessage` no se evaluarán y los mensajes retornarán 400.
+- **Sin mecanismo de heartbeat**: las conexiones inactivas se desconectan después de 10 minutos. Sin mensajes ping del lado del cliente, las conexiones caen silenciosamente y los usuarios dejan de recibir actualizaciones.
+- **Transmitir a todas las conexiones por cada mensaje**: no todos los mensajes necesitan llegar a todos los clientes. Usa routing basado en salas para enviar mensajes solo a las conexiones relevantes.
+- **Sin manejo de errores en Lambda para rutas desconocidas**: los mensajes con acciones que no coinciden con ninguna ruta retornan 400. Loggea acciones desconocidas para debugging y retorna un error significativo al cliente.
 
 ## Preguntas frecuentes
 
@@ -211,6 +263,27 @@ R: Busca el `connectionId` del cliente en DynamoDB, luego llama `postToConnectio
 
 **P: ¿Cuál es el timeout de inactividad para API Gateway WebSockets?**
 R: 10 minutos de inactividad. Envía mensajes ping periódicos desde el cliente o servidor para mantener la conexión viva.
+
+**P: ¿Cómo autentico conexiones WebSocket?**
+R: Pasa un token como parámetro de query en la URL del WebSocket (`wss://...?token=xyz`). En el handler Lambda `$connect`, valida el token antes de almacenar la conexión en DynamoDB. Retorna 403 para rechazar conexiones no autorizadas.
+
+**P: ¿Cómo pruebo APIs WebSocket localmente?**
+R: Usa `wscat` (`npm install -g wscat`) para conectar y enviar mensajes desde la terminal: `wscat -c wss://your-api-url`. Para desarrollo local, usa `sam local start-api` con AWS SAM o mockea los endpoints WebSocket con un servidor local.
+
+**P: ¿Cuánto cuesta API Gateway WebSocket?**
+R: AWS cobra por minuto de conexión ($0.25 por millón de minutos) y por mensaje ($1.00 por millón de mensajes). Los costos de DynamoDB aplican para almacenamiento de conexiones. Para broadcasting de alto volumen, estima los costos cuidadosamente — miles de conexiones enviando mensajes cada segundo pueden sumar rápidamente.
+
+**P: ¿Puedo usar WebSocket APIs con API Gateway HTTP APIs?**
+R: No. Las WebSocket APIs requieren API Gateway v2 con `protocol_type = "WEBSOCKET"`. Las HTTP APIs solo soportan patrones request-response. Necesitas una instancia separada de API Gateway para soporte WebSocket.
+
+**P: ¿Cómo manejo backpressure al transmitir a muchas conexiones?**
+R: Usa concurrencia controlada — procesa llamadas `postToConnection` en batches de 50-100 con `Promise.allSettled`. Si una conexión retorna 410, elimínala de DynamoDB. Rastrea los envíos fallidos y reintenta solo aquellos que fallaron con errores transitorios.
+
+**P: ¿Cuál es el tamaño máximo de mensaje para API Gateway WebSockets?**
+R: El tamaño máximo de mensaje es 128 KB para la WebSocket API. Los mensajes mayores a 128 KB son rechazados. Para payloads más grandes, divide los datos en chunks o usa una URL presignada de S3 para subir los datos y envía la URL vía WebSocket.
+
+**P: ¿Cómo manejo tormentas de reconexión?**
+R: Cuando el servidor se reconecta, miles de clientes pueden reconectar simultáneamente. Usa exponential backoff con jitter del lado del cliente: espera una duración aleatoria entre 1-5 segundos antes de reconectar, luego duplica con jitter. Esto distribuye las reconexiones en el tiempo y previene sobrecargar el servidor.
 
 
 ### ¿Esta solución está lista para producción?

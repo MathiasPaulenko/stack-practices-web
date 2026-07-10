@@ -166,6 +166,53 @@ ws.onerror = (error) => console.error('WebSocket error:', error);
 ws.onclose = () => console.log('Connection closed');
 ```
 
+### Client Reconnection with Exponential Backoff
+
+```javascript
+class ReconnectingWebSocket {
+  constructor(url, options = {}) {
+    this.url = url;
+    this.maxRetries = options.maxRetries || 10;
+    this.baseDelay = options.baseDelay || 1000;
+    this.maxDelay = options.maxDelay || 30000;
+    this.retries = 0;
+    this.ws = null;
+    this.subscriptions = new Set();
+    this.connect();
+  }
+
+  connect() {
+    this.ws = new WebSocket(this.url);
+
+    this.ws.onopen = () => {
+      this.retries = 0;
+      // Resubscribe to previous channels
+      this.subscriptions.forEach((channel) => {
+        this.ws.send(JSON.stringify({ action: 'subscribe', channel }));
+      });
+    };
+
+    this.ws.onclose = () => {
+      if (this.retries < this.maxRetries) {
+        const delay = Math.min(
+          this.baseDelay * Math.pow(2, this.retries),
+          this.maxDelay
+        );
+        this.retries++;
+        setTimeout(() => this.connect(), delay);
+      }
+    };
+  }
+
+  subscribe(channel) {
+    this.subscriptions.add(channel);
+    if (this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(JSON.stringify({ action: 'subscribe', channel }));
+    }
+  }
+}
+```
+
 ## Explanation
 
 - **WebSocket API Gateway**: Manages the WebSocket handshake, keeps connections open, and routes incoming messages to Lambda based on the `route_selection_expression`. The `$connect` and `$disconnect` routes are system-managed.
@@ -190,6 +237,8 @@ ws.onclose = () => console.log('Connection closed');
 - **Enable CloudWatch logging**: log `$connect`, `$disconnect`, and custom route invocations for debugging and monitoring connection health.
 - **Secure the connection**: validate authentication tokens in the `$connect` route using Lambda authorizers or custom logic before allowing the WebSocket handshake to complete.
 - **Implement reconnection logic**: clients should automatically reconnect with exponential backoff if the connection drops, resubscribing to previous channels on reconnection.
+- **Use connection TTLs**: set a TTL attribute on DynamoDB connection records to auto-expire stale connections even if `$disconnect` fails to fire.
+- **Batch DynamoDB operations**: when broadcasting to many connections, use `BatchWriteItem` for cleanup and parallel `postToConnection` calls with controlled concurrency.
 
 ## Common mistakes
 
@@ -197,6 +246,9 @@ ws.onclose = () => console.log('Connection closed');
 - **Scanning DynamoDB for large audiences**: a full table scan on thousands of connections is slow and expensive. Use GSIs or streams for targeted broadcasts.
 - **Forgetting to handle `postToConnection` 410 errors**: when a client disconnects abruptly, `postToConnection` throws a 410 error. Failing to catch and clean up leaks connection records.
 - **Not setting API Gateway `route_selection_expression`**: without `$request.body.action`, custom routes like `sendMessage` will not be evaluated and messages will return 400.
+- **No heartbeat mechanism**: idle connections time out after 10 minutes. Without client-side ping messages, connections silently drop and users stop receiving updates.
+- **Broadcasting to all connections for every message**: not all messages need to reach all clients. Use room-based routing to send messages only to relevant connections.
+- **No error handling in Lambda for unknown routes**: messages with actions that don't match any route return 400. Log unknown actions for debugging and return a meaningful error to the client.
 
 ## FAQ
 
@@ -211,6 +263,27 @@ A: Look up the client's `connectionId` in DynamoDB, then call `postToConnection`
 
 **Q: What is the idle timeout for API Gateway WebSockets?**
 A: 10 minutes of inactivity. Send periodic ping messages from the client or server to keep the connection alive.
+
+**Q: How do I authenticate WebSocket connections?**
+A: Pass a token as a query parameter in the WebSocket URL (`wss://...?token=xyz`). In the `$connect` Lambda handler, validate the token before storing the connection in DynamoDB. Return 403 to reject unauthorized connections.
+
+**Q: How do I test WebSocket APIs locally?**
+A: Use `wscat` (`npm install -g wscat`) to connect and send messages from the terminal: `wscat -c wss://your-api-url`. For local development, use `sam local start-api` with AWS SAM or mock the WebSocket endpoints with a local server.
+
+**Q: How much does API Gateway WebSocket cost?**
+A: AWS charges per connection minute ($0.25 per million minutes) and per message ($1.00 per million messages). DynamoDB costs apply for connection storage. For high-volume broadcasting, estimate costs carefully — thousands of connections sending messages every second can add up quickly.
+
+**Q: Can I use WebSocket APIs with API Gateway HTTP APIs?**
+A: No. WebSocket APIs require API Gateway v2 with `protocol_type = "WEBSOCKET"`. HTTP APIs only support request-response patterns. You need a separate API Gateway instance for WebSocket support.
+
+**Q: How do I handle backpressure when broadcasting to many connections?**
+A: Use controlled concurrency — process `postToConnection` calls in batches of 50-100 with `Promise.allSettled`. If a connection returns 410, delete it from DynamoDB. Track failed sends and retry only those that failed with transient errors.
+
+**Q: What is the maximum message size for API Gateway WebSockets?**
+A: The maximum message size is 128 KB for the WebSocket API. Messages larger than 128 KB are rejected. For larger payloads, split the data into chunks or use a presigned S3 URL to upload the data and send the URL via WebSocket.
+
+**Q: How do I handle reconnection storms?**
+A: When the server reconnects, thousands of clients may reconnect simultaneously. Use jittered exponential backoff on the client side: wait a random duration between 1-5 seconds before reconnecting, then double with jitter. This spreads reconnections over time and prevents overwhelming the server.
 
 
 ### Is this solution production-ready?
