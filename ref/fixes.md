@@ -1,277 +1,288 @@
-# Content Issues — Fix Tracker
+# Recipe Expansion Roadmap — Thin Content Fix
 
-Last updated: 2026-07-09
+## Context
+
+StackPractices requires all recipe files to exceed **300 lines** to avoid thin content penalties from Google Search and AdSense. Currently **197 recipe files** (across EN + ES pairs) are below this threshold, with most sitting at 170-250 lines.
+
+### Goals per file
+
+- **SEO**: Expand content depth to improve keyword coverage, long-tail search visibility, and FAQ schema eligibility. Each file should have enough substance for search engines to consider it valuable.
+- **No thin content**: Google AdSense and Search Quality guidelines penalize shallow pages. Files under 300 lines risk being flagged as low-value content, reducing ad eligibility and search rankings.
+- **Humanization**: Expanded content must read naturally — avoid AI-isms ("comprehensive guide", "leverage", "seamless", "delve into", "game-changer", etc.). Write in a direct, practical developer-to-developer tone.
+
+### Expansion strategy
+
+Add meaningful content to each file:
+- More code examples (multi-language variants)
+- More "Common Mistakes" entries
+- More FAQ entries (2-4 per file)
+- Deeper explanations in existing sections
+- Production considerations and debugging tips
+
+### Rules
+
+- Bilingual parity: EN and ES files must have matching content and line counts
+- Vary line counts to avoid uniformity (target 300-380 range)
+- Defer lint/SEO meta fixes until after all expansions
+- Edit only files in `src/content/recipes/`
+
+---
+
+## Checklist
+
+### AI (16 files)
+
+- [x] `ai/ai-agents.md` — 308 lines
+- [x] `ai/ai-agents.es.md` — 308 lines
+- [x] `ai/image-generation.md` — 307 lines
+- [x] `ai/image-generation.es.md` — 304 lines
+- [x] `ai/llm-fine-tuning.md` — 304 lines
+- [x] `ai/llm-fine-tuning.es.md` — 305 lines
+- [x] `ai/prompt-engineering.md` — 301 lines
+- [x] `ai/prompt-engineering.es.md` — 301 lines
+- [x] `ai/python-sentiment-analysis-nltk.md` — 310 lines
+- [x] `ai/python-sentiment-analysis-nltk.es.md` — 309 lines
+- [x] `ai/rag-pipeline.md` — 305 lines
+- [x] `ai/rag-pipeline.es.md` — 306 lines
+- [x] `ai/semantic-search.md` — 312 lines
+- [x] `ai/semantic-search.es.md` — 313 lines
+- [x] `ai/slack-bot-openai.md` — 311 lines
+- [x] `ai/slack-bot-openai.es.md` — 311 lines
+
+### API (30 files)
+
+- [x] `api/api-logging-audit.md` — 303 lines
+- [x] `api/api-logging-audit.es.md` — 301 lines
+- [x] `api/api-rate-limiting.md` — 300 lines
+- [x] `api/api-rate-limiting.es.md` — 300 lines
+- [x] `api/api-versioning.md` — 302 lines
+- [x] `api/api-versioning.es.md` — 302 lines
+- [x] `api/call-rest-api.md` — 310 lines
+- [x] `api/call-rest-api.es.md` — 309 lines
+- [x] `api/express-middleware-patterns.md` — 306 lines
+- [x] `api/express-middleware-patterns.es.md` — 303 lines
+- [x] `api/graphql-api.md` — 300 lines
+- [x] `api/graphql-api.es.md` — 300 lines
+- [x] `api/graphql-apollo-server.md` — 303 lines
+- [x] `api/graphql-apollo-server.es.md` — 303 lines
+- [x] `api/grpc-api.md` — 301 lines
+- [x] `api/grpc-api.es.md` — 300 lines
+- [x] `api/handle-errors.md` — 301 lines
+- [x] `api/handle-errors.es.md` — 301 lines
+- [x] `api/input-validation.md` — 301 lines
+- [x] `api/input-validation.es.md` — 301 lines
+- [x] `api/logging.md` — 301 lines
+- [x] `api/logging.es.md` — 301 lines
+- [x] `api/middleware.md` — 301 lines
+- [x] `api/middleware.es.md` — 301 lines
+- [x] `api/pagination.md` — 301 lines
+- [x] `api/pagination.es.md` — 301 lines
+- [x] `api/rate-limiting.md` — 301 lines
+- [x] `api/rate-limiting.es.md` — 301 lines
+- [x] `api/real-time-notifications.md` — 316 lines
+- [x] `api/real-time-notifications.es.md` — 314 lines
+- [x] `api/send-emails-smtp.md` — 301 lines
+- [x] `api/send-emails-smtp.es.md` — 300 lines
+- [x] `api/server-sent-events-node.md` — 339 lines
+- [x] `api/server-sent-events-node.es.md` — 328 lines
+- [x] `api/webhooks.md` — 322 lines
+- [x] `api/webhooks.es.md` — 320 lines
+- [x] `api/websocket-authentication.md` — 313 lines
+- [x] `api/websocket-authentication.es.md` — 313 lines
+
+### Authentication (14 files)
+
+- [x] `authentication/api-key-authentication.md` — 322 lines
+- [x] `authentication/api-key-authentication.es.md` — 317 lines
+- [x] `authentication/implement-rbac.es.md` — 339 lines
+- [x] `authentication/magic-link-authentication.md` — 307 lines
+- [x] `authentication/magic-link-authentication.es.md` — 301 lines
+- [x] `authentication/oauth2-login.md` — 301 lines
+- [x] `authentication/oauth2-login.es.md` — 300 lines
+- [x] `authentication/password-hashing.md` — 301 lines
+- [x] `authentication/password-hashing.es.md` — 301 lines
+- [x] `authentication/session-management.md` — 378 lines
+- [x] `authentication/session-management.es.md` — 375 lines
+- [x] `authentication/two-factor-authentication.md` — 322 lines
+- [x] `authentication/two-factor-authentication.es.md` — 322 lines
+
+### Concurrency (8 files)
+
+- [x] `concurrency/async-patterns.md` — 301 lines
+- [x] `concurrency/async-patterns.es.md` — 301 lines
+- [x] `concurrency/concurrent-data-structures.md` — 303 lines
+- [x] `concurrency/concurrent-data-structures.es.md` — 300 lines
+- [x] `concurrency/csp-communication.md` — 315 lines
+- [x] `concurrency/csp-communication.es.md` — 315 lines
+- [x] `concurrency/locks-and-mutexes.md` — 316 lines
+- [x] `concurrency/locks-and-mutexes.es.md` — 303 lines
+
+### Data (44 files)
+
+- [x] `data/caching.md` — 306 lines
+- [x] `data/caching.es.md` — 306 lines
+- [x] `data/convert-csv-to-json.md` — 311 lines
+- [x] `data/convert-csv-to-json.es.md` — 311 lines
+- [x] `data/convert-json-to-csv.md` — 304 lines
+- [x] `data/convert-json-to-csv.es.md` — 304 lines
+- [x] `data/data-validation.md` — 303 lines
+- [x] `data/data-validation.es.md` — 302 lines
+- [x] `data/date-formatting.md` — 307 lines
+- [x] `data/date-formatting.es.md` — 307 lines
+- [x] `data/deep-clone-structured.md` — 315 lines
+- [x] `data/deep-clone-structured.es.md` — 305 lines
+- [x] `data/diff-json-objects.md` — 302 lines
+- [x] `data/diff-json-objects.es.md` — 302 lines
+- [x] `data/format-phone-numbers.md` — 309 lines
+- [x] `data/format-phone-numbers.es.md` — 309 lines
+- [x] `data/generate-pdf-report-python.md` — 316 lines
+- [x] `data/generate-pdf-report-python.es.md` — 315 lines
+- [x] `data/merge-json-files-javascript.md` — 314 lines
+- [x] `data/merge-json-files-javascript.es.md` — 314 lines
+- [x] `data/money-currency.md` — 316 lines
+- [x] `data/money-currency.es.md` — 316 lines
+- [x] `data/parse-command-line-arguments.md` — 305 lines
+- [x] `data/parse-command-line-arguments.es.md` — 305 lines
+- [x] `data/parse-csv-files.md` — 309 lines
+- [x] `data/parse-csv-files.es.md` — 309 lines
+- [x] `data/parse-csv-python-pandas.md` — 301 lines
+- [x] `data/parse-csv-python-pandas.es.md` — 301 lines
+- [x] `data/parse-excel-files.md` — 300 lines
+- [x] `data/parse-excel-files.es.md` — 300 lines
+- [x] `data/parse-log-files.md` — 310 lines
+- [x] `data/parse-log-files.es.md` — 310 lines
+- [x] `data/parse-markdown-files.md` — 329 lines
+- [x] `data/parse-markdown-files.es.md` — 329 lines
+- [x] `data/parse-pdf-files.md` — 303 lines
+- [x] `data/parse-pdf-files.es.md` — 303 lines
+- [x] `data/parse-xml-files.md` — 302 lines
+- [x] `data/parse-xml-files.es.md` — 302 lines
+- [x] `data/python-excel-read-write.md` — 300 lines
+- [x] `data/python-excel-read-write.es.md` — 316 lines
+- [x] `data/python-generate-qr-code.md` — 304 lines
+- [x] `data/python-generate-qr-code.es.md` — 304 lines
+- [x] `data/regular-expressions.md` — 302 lines
+- [x] `data/regular-expressions.es.md` — 303 lines
+- [x] `data/serialize-deserialize-data.md` — 307 lines
+- [x] `data/serialize-deserialize-data.es.md` — 307 lines
+- [x] `data/sort-array.md` — 305 lines
+- [x] `data/sort-array.es.md` — 305 lines
+- [x] `data/truncate-text.md` — 304 lines
+- [x] `data/truncate-text.es.md` — 304 lines
+- [x] `data/url-encoding-decoding.md` — 314 lines
+- [x] `data/url-encoding-decoding.es.md` — 304 lines
+- [x] `data/url-encoding.md` — 304 lines
+- [x] `data/url-encoding.es.md` — 304 lines
+- [x] `data/uuid-generation-strategies.md` — 302 lines
+- [x] `data/uuid-generation-strategies.es.md` — 300 lines
+- [x] `data/uuid-generation.md` — 301 lines
+- [x] `data/uuid-generation.es.md` — 301 lines
+- [x] `data/validate-json-schema.md` — 303 lines
+- [x] `data/validate-json-schema.es.md` — 303 lines
+
+### Frontend (6 files)
+
+- [x] `frontend/email-templates-mjml.md` — 306 lines
+- [x] `frontend/email-templates-mjml.es.md` — 300 lines
+- [x] `frontend/server-side-rendering.md` — 300 lines
+- [x] `frontend/server-side-rendering.es.md` — 300 lines
+- [x] `frontend/websockets-realtime.md` — 302 lines
+- [x] `frontend/websockets-realtime.es.md` — 300 lines
+
+### GraphQL (2 files)
+
+- [x] `graphql/graphql-dataloader-batching.md` — 302 lines
+- [x] `graphql/graphql-dataloader-batching.es.md` — 302 lines
+
+### Infrastructure (2 files)
+
+- [x] `infrastructure/cost-optimization.md` — 300 lines
+- [x] `infrastructure/cost-optimization.es.md` — 300 lines
+
+### Messaging (8 files)
+
+- [x] `messaging/dead-letter-queue.md` — 300 lines
+- [x] `messaging/dead-letter-queue.es.md` — 300 lines
+- [x] `messaging/event-driven-microservices.md` — 305 lines
+- [x] `messaging/event-driven-microservices.es.md` — 305 lines
+- [x] `messaging/message-idempotency.md` — 303 lines
+- [x] `messaging/message-idempotency.es.md` — 303 lines
+- [x] `messaging/rabbitmq-task-queue.md` — 301 lines
+- [x] `messaging/rabbitmq-task-queue.es.md` — 301 lines
+
+### Observability (12 files)
+
+- [x] `observability/distributed-tracing.md` — 300 lines
+- [x] `observability/distributed-tracing.es.md` — 300 lines
+- [x] `observability/log-aggregation.md` — 300 lines
+- [x] `observability/log-aggregation.es.md` — 300 lines
+- [x] `observability/metrics-collection.md` — 306 lines
+- [x] `observability/metrics-collection.es.md` — 306 lines
+- [x] `observability/prometheus-api-monitoring.md` — 300 lines
+- [x] `observability/prometheus-api-monitoring.es.md` — 300 lines
+- [x] `observability/real-user-monitoring.md` — 302 lines
+- [x] `observability/real-user-monitoring.es.md` — 302 lines
+- [x] `observability/structured-logging.md` — 303 lines
+- [x] `observability/structured-logging.es.md` — 301 lines
+
+### Performance (12 files) — COMPLETED
+
+- [x] `performance/brotli-nginx-compression.md` — 300 lines
+- [x] `performance/brotli-nginx-compression.es.md` — 300 lines
+- [x] `performance/cdn-edge-caching.md` — 303 lines
+- [x] `performance/cdn-edge-caching.es.md` — 303 lines
+- [x] `performance/connection-pooling.md` — 301 lines
+- [x] `performance/connection-pooling.es.md` — 301 lines
+- [x] `performance/lazy-loading.md` — 302 lines
+- [x] `performance/lazy-loading.es.md` — 302 lines
+- [x] `performance/load-testing-k6.md` — 303 lines
+- [x] `performance/load-testing-k6.es.md` — 303 lines
+- [x] `performance/spa-code-splitting-lazy.md` — 304 lines
+- [x] `performance/spa-code-splitting-lazy.es.md` — 304 lines
+
+### Serverless (8 files) — COMPLETED
+
+- [x] `serverless/cold-start-optimization.md` — 300 lines
+- [x] `serverless/cold-start-optimization.es.md` — 300 lines
+- [x] `serverless/event-driven-functions.md` — 302 lines
+- [x] `serverless/event-driven-functions.es.md` — 301 lines
+- [x] `serverless/scheduled-jobs.md` — 301 lines
+- [x] `serverless/scheduled-jobs.es.md` — 300 lines
+- [x] `serverless/serverless-api-gateway.md` — 300 lines
+- [x] `serverless/serverless-api-gateway.es.md` — 300 lines
+
+### Testing (12 files) — COMPLETED
+
+- [x] `testing/api-contract-testing.md` — 300 lines
+- [x] `testing/api-contract-testing.es.md` — 303 lines
+- [x] `testing/api-mocking.md` — 308 lines
+- [x] `testing/api-mocking.es.md` — 308 lines
+- [x] `testing/integration-testing-strategies.md` — 305 lines
+- [x] `testing/integration-testing-strategies.es.md` — 305 lines
+- [x] `testing/integration-testing.md` — 301 lines
+- [x] `testing/integration-testing.es.md` — 301 lines
+- [x] `testing/jest-snapshot-testing.md` — 307 lines
+- [x] `testing/jest-snapshot-testing.es.md` — 307 lines
+- [x] `testing/unit-testing-mocking.md` — 300 lines
+- [x] `testing/unit-testing-mocking.es.md` — 302 lines
+
+---
 
 ## Summary
 
-| Category | Count | Status |
-|----------|-------|--------|
-| AI-isms (EN) | 343 files | ✅ Fixed |
-| AI-isms (ES) | 170 files | ✅ Fixed |
-| Duplicate slugs | 7 | ✅ Fixed |
-| Broken relatedResources | 29 unique links | ✅ Fixed |
-| Titles >80 chars | 14 files | ✅ Fixed |
-| Duplicate H2 headings | ~109 | ✅ Fixed (validator bug) |
-| Thin content (<300 lines) | 759 files | In progress |
-| Build fix (link-to-screenshot.png) | 2 files | ✅ Fixed |
-
----
-
-## 1. AI-isms — "This recipe/guide/pattern/doc covers/shows/implements/explains" (343 EN files)
-
-**Problem**: 343 EN files use formulaic openings like "This recipe shows..." or "This guide covers..." — classic AI writing patterns.
-
-**Fix**: Rewrite to direct, varied openings. Remove the pattern entirely.
-
-**Files affected** (all in `src/content/`):
-
-### Recipes (majority)
-
-- `recipes/testing/unit-testing.md`
-- `recipes/testing/unit-testing-mocking.md`
-- `recipes/testing/setup-test-fixtures.md`
-- `recipes/testing/measure-test-coverage.md`
-- `recipes/testing/load-testing.md`
-- `recipes/testing/integration-testing-strategies.md`
-- `recipes/testing/api-contract-testing.md`
-- `recipes/testing/api-mocking.md`
-- `recipes/testing/generate-test-data.md`
-- `recipes/testing/implement-mutation-testing.md`
-- `recipes/testing/implement-property-based-testing.md`
-- `recipes/testing/integration-testing.md`
-- `recipes/testing/java-junit5-assertions-soft.md`
-- `recipes/testing/java-wiremock-stub-external.md`
-- `recipes/testing/javascript-vitest-snapshot-testing.md`
-- `recipes/testing/jest-snapshot-testing.md`
-- `recipes/testing/python-coverage-pytest-cov.md`
-- `recipes/security/sql-injection-prevention.md`
-- `recipes/security/sanitize-user-input.md`
-- `recipes/security/security-headers.md`
-- `recipes/security/rate-limiting.md`
-- `recipes/security/password-hashing-production.md`
-- `recipes/security/oauth2-pkce-spa.md`
-- `recipes/security/hmac-request-signing.md`
-- `recipes/security/escape-html-entities.md`
-- `recipes/security/encryption-at-rest.md`
-- `recipes/security/data-validation-zod.md`
-- `recipes/security/vault-dynamic-credentials.md`
-- `recipes/security/xss-prevention.md`
-- `recipes/security/request-signing-hmac.md`
-- `recipes/serverless/serverless-functions.md`
-- `recipes/serverless/serverless-orchestration.md`
-- `recipes/serverless/serverless-api-gateway.md`
-- `recipes/serverless/scheduled-jobs.md`
-- `recipes/serverless/real-time-websockets.md`
-- `recipes/serverless/event-sourcing-serverless.md`
-- `recipes/serverless/event-driven-functions.md`
-- `recipes/serverless/cold-start-optimization.md`
-- `recipes/api/*.md` (multiple)
-- `recipes/databases/*.md` (multiple)
-- `recipes/devops/*.md` (multiple)
-- `recipes/file-handling/*.md` (multiple)
-- `recipes/performance/*.md` (multiple)
-- `recipes/authentication/*.md` (multiple)
-- `recipes/concurrency/*.md` (multiple)
-- `recipes/messaging/*.md` (multiple)
-- `recipes/graphql/*.md` (multiple)
-- `recipes/frontend/*.md` (multiple)
-- `recipes/data/*.md` (multiple)
-- `recipes/design/*.md` (multiple)
-- `recipes/architecture/*.md` (multiple)
-- `recipes/caching/*.md` (multiple)
-- `recipes/deployment/*.md` (multiple)
-- `recipes/planning/*.md` (multiple)
-- `recipes/ai/*.md` (multiple)
-- `recipes/observability/*.md` (multiple)
-- `recipes/infrastructure/*.md` (multiple)
-
-### Guides (some)
-
-- `guides/ai/complete-guide-*.md` (multiple)
-- `guides/api/complete-guide-*.md` (multiple)
-- `guides/architecture/complete-guide-*.md` (multiple)
-- `guides/caching/complete-guide-*.md` (multiple)
-- `guides/code-quality/complete-guide-*.md` (multiple)
-
-**Approach**: Fix by category, 20-30 files per batch. Rewrite the opening sentence to be direct and varied.
-
----
-
-## 2. Duplicate Slugs (7)
-
-**Problem**: Same slug exists in two locations. Astro content collections will conflict.
-
-| Slug | Location 1 | Location 2 | Fix |
-|------|-----------|-----------|-----|
-| `ambassador-pattern` | `patterns/architecture/` | `patterns/design/` | Delete from `patterns/design/` |
-| `anti-corruption-layer-pattern` | `patterns/architecture/` | `patterns/design/` | Delete from `patterns/design/` |
-| `sidecar-pattern` | `patterns/architecture/` | `patterns/design/` | Delete from `patterns/design/` |
-| `strangler-fig-pattern` | `patterns/architecture/` | `patterns/design/` | Delete from `patterns/design/` |
-| `bulkhead-pattern` | `patterns/design/` | `patterns/resilience/` | Delete from `patterns/design/` |
-| `incident-postmortem-template` | `docs/observability/` | `docs/templates/` | Delete from `docs/templates/` |
-| `security-incident-response-template` | `docs/security/` | `docs/templates/` | Delete from `docs/templates/` |
-
-**Fix**: Delete the duplicate files (both EN and ES). Keep the canonical location.
-
----
-
-## 3. Broken relatedResources Links (29 unique)
-
-**Problem**: `relatedResources` frontmatter references slugs that don't exist.
-
-| Broken Link | Used in (file count) |
-|-------------|---------------------|
-| `/recipes/observability/health-checks` | 6 files |
-| `/guides/observability/prometheus-grafana-guide` | 4 files |
-| `/guides/observability/structured-logging-guide` | 4 files |
-| `/recipes/security/csp-headers` | 2 files |
-| `/recipes/security/cors-configuration` | 2 files |
-| `/recipes/security/encrypt-data-at-rest` | 2 files |
-| `/recipes/security/oauth2-authorization-code-flow` | 2 files |
-| `/recipes/frontend/css-grid-layouts` | 2 files |
-| `/recipes/frontend/lazy-load-components` | 2 files |
-| `/recipes/frontend/react-use-reducer` | 2 files |
-| `/recipes/frontend/typescript-utility-types` | 2 files |
-| `/recipes/frontend/type-narrowing-guards` | 2 files |
-| `/recipes/frontend/aria-live-regions` | 1 file |
-| `/recipes/frontend/flexbox-centering` | 1 file |
-| `/recipes/frontend/semantic-html` | 1 file |
-| `/guides/databases/complete-guide-database-indexing` | 1 file |
-| `/guides/devops/complete-guide-kubernetes-deployment` | 1 file |
-| `/guides/frontend/complete-guide-core-web-vitals` | 1 file |
-| `/guides/testing/complete-guide-testing-microservices` | 1 file |
-| `/guides/testing/complete-guide-test-pyramid` | 1 file |
-| `/patterns/architecture/api-gateway-pattern` | 1 file |
-| `/recipes/data/airflow-dag-template` | 1 file |
-| `/recipes/data/csv-to-json-pipeline` | 1 file |
-| `/recipes/data/pandas-data-validation` | 1 file |
-| `/recipes/data/sql-window-functions` | 1 file |
-| `/recipes/devops/docker-compose-template` | 1 file |
-| `/recipes/devops/github-actions-deploy-kubernetes` | 1 file |
-| `/recipes/devops/helm-chart-template` | 1 file |
-| `/recipes/devops/kubernetes-configmap-template` | 1 file |
-
-**Fix**: Either create the missing content or remove/replace the broken links with valid ones.
-
----
-
-## 4. Titles >80 chars (14 files)
-
-**Problem**: Title exceeds 80 chars, bad for SEO.
-
-| File | Chars | Current Title |
-|------|-------|---------------|
-| `guides/code-quality/complete-guide-refactoring-techniques.md` | 81 | — |
-| `guides/data/complete-guide-data-quality.es.md` | 81 | — |
-| `guides/data/complete-guide-data-quality.md` | 82 | — |
-| `guides/devops/complete-guide-kubernetes-config-management.es.md` | 84 | — |
-| `guides/devops/complete-guide-kubernetes-config-management.md` | 85 | — |
-| `guides/testing/complete-guide-property-based-testing.md` | 87 | — |
-| `guides/testing/complete-guide-pytest-production.es.md` | 85 | — |
-| `guides/testing/complete-guide-pytest-production.md` | 86 | — |
-| `patterns/data/batch-to-streaming-bridge-pattern.es.md` | 85 | — |
-| `patterns/data/batch-to-streaming-bridge-pattern.md` | 88 | — |
-| `patterns/data/schema-registry-evolution-pattern.es.md` | 81 | — |
-| `patterns/data/schema-registry-evolution-pattern.md` | 81 | — |
-| `patterns/frontend/islands-architecture-pattern.es.md` | 85 | — |
-| `patterns/testing/mock-server-pattern.es.md` | 81 | — |
-
-**Fix**: Shorten titles to ≤80 chars. Keep EN and ES in sync.
-
----
-
-## 5. Duplicate H2 Headings (~80)
-
-**Problem**: Same H2 heading appears multiple times in one file, causing MD024 lint errors.
-
-**Most affected files** (docs templates):
-
-- Bug report templates
-- ADR templates
-- Changelog templates
-- Release notes templates
-- PR templates
-- Security policy templates
-- Incident postmortem templates
-
-**Common duplicate headings**:
-`overview`, `description`, `testing`, `verification`, `security`, `checklist`, `summary`, `environment`, `prerequisites`, `scope`, `priority`, `severity`, `decision`, `sign-off`, `troubleshooting`, `health checks`, `rollback readiness`, `enforcement`, `highlights`, `improvements`, `bug fixes`, `breaking changes`, `deprecations`, `known issues`, `new capabilities`, `deployment info`, `full changelog`, `upgrade instructions`, `quick start`, `smoke tests`, `metrics validation`, `maintenance health`, `user value`, `problem statement`, `proposed solution`, `expected behavior`, `steps to reproduce`, `additional context`, `type of change`, `attribution`, `supply chain risk`, `our pledge`, `our standards`
-
-**Fix**: Rename duplicates to be unique (e.g., "Overview" → "Overview" and "Overview Summary" or use H3 for one instance).
-
----
-
-## 6. Thin Content — Files <300 lines (759 files)
-
-**Problem**: 37.2% of all content files are under 300 lines. Most are recipes from Batch 1-2 (pre-Jul 2026 standard).
-
-### Breakdown by category
-
-| Category | Files <300 |
-|----------|-----------|
-| design | 128 |
-| devops | 117 |
-| data | 78 |
-| api | 70 |
-| architecture | 58 |
-| testing | 48 |
-| templates | 38 |
-| security | 38 |
-| databases | 32 |
-| performance | 24 |
-| ai | 20 |
-| observability | 18 |
-| authentication | 17 |
-| serverless | 16 |
-| graphql | 13 |
-| messaging | 12 |
-| concurrency | 12 |
-| frontend | 10 |
-| planning | 4 |
-| caching | 2 |
-| infrastructure | 2 |
-
-**Total**: 759 files (37.2% of 2,042 total files)
-
-**Fix**: Expand content — add more code examples, variants, FAQ entries, and deeper explanations. Process by category, 10-20 files per batch.
-
-### Priority order for expansion
-
-1. **design** (128) — highest count
-2. **devops** (117) — second highest
-3. **data** (78)
-4. **api** (70)
-5. **architecture** (58)
-6. **testing** (48)
-7. **templates** (38)
-8. **security** (38)
-9. **databases** (32)
-10. **performance** (24)
-11. Remaining categories
-
----
-
-## Progress Log
-
-| Date | Batch | Files Fixed | Commit |
-|------|-------|-------------|--------|
-| 2026-07-06 | Duplicate slugs | 14 deleted | 68e6185 |
-| 2026-07-06 | Broken relatedResources | 58 files | 68e6185 |
-| 2026-07-06 | Titles >80 chars | 14 files | 68e6185 |
-| 2026-07-06 | Duplicate H2 (validator fix) | 1 file | b10b30b |
-| 2026-07-06 | metaDescription mismatch | 1 file | b10b30b |
-| 2026-07-06 | AI-isms EN (343) + ES (170) | 513 files | feda120 |
-| 2026-07-06 | Thin content — databases ES (2 files expanded) | 2 files | 2fb0e6f |
-| 2026-07-06 | Thin content — databases EN (2 files expanded) | 2 files | 2fb0e6f |
-| 2026-07-06 | Thin content — DevOps recipes (10 files expanded) | 10 files | 300b42f |
-| 2026-07-08 | Thin content — design patterns Batch 10 | 10 files | 0aca6a4 |
-| 2026-07-09 | Thin content — mvc-pattern-frontend EN/ES | 2 files | 53d9381 |
-| 2026-07-09 | Thin content — decorator-pattern-pipeline EN/ES | 2 files | 2fc78b9 |
-| 2026-07-09 | Thin content — Batch 11 patterns (static-content-hosting, message-queue-load-leveling, message-deduplication, async-generator) EN/ES | 8 files | 7cb800f |
-| 2026-07-09 | Thin content — recipes (parse-json, rest-api-design, javascript-event-loop, cache-invalidation, query-optimization) EN/ES | 10 files | f2272c9 |
-| 2026-07-09 | Thin content — recipes (caching-strategies, serverless-functions, parse-toml-files, parse-yaml-files, ai-agents-tool-use) EN/ES | 10 files | 465fdce |
-| 2026-07-09 | Thin content — recipes (graphql-mocking-apollo-server, graphql-directives-auth, graphql-pagination-relay-connections, serverless-orchestration, implement-mutation-testing) EN/ES | 10 files | 29905ca |
-| 2026-07-09 | Thin content — recipes (java-wiremock-stub-external, websocket-bidirectional-chat, flatten-unflatten-objects, javascript-vitest-snapshot-testing, measure-test-coverage) EN/ES | 10 files | 48f44e3 |
-| 2026-07-09 | Thin content — recipes (deep-clone-javascript, server-sent-events-go, cursor-pagination-postgresql, implement-property-based-testing, chatbot-openai, rest-api-design.es) EN/ES | 11 files | 13a6fe3 |
-| 2026-07-09 | Thin content — recipes (hash-passwords-argon2.es, python-coverage-pytest-cov, http-cache-control-headers, go-rest-api-gin, java-junit5-assertions-soft) EN/ES | 9 files | 29b74e0 |
-| 2026-07-09 | Thin content — recipes (grpc-services-typescript, generate-test-data, event-sourcing-serverless, api-rate-limiting-redis, handle-cors) EN/ES | 10 files | f7e740d |
+| Category | Files | Avg lines |
+|----------|-------|-----------|
+| AI | 16 | ~308 (done) |
+| API | 30 | ~210 |
+| Authentication | 14 | ~215 |
+| Concurrency | 8 | ~230 |
+| Data | 44 | ~190 |
+| Frontend | 6 | ~190 |
+| GraphQL | 2 | ~244 |
+| Infrastructure | 2 | ~177 |
+| Messaging | 8 | ~205 |
+| Observability | 12 | ~190 |
+| Performance | 12 | ~200 |
+| Serverless | 8 | ~185 |
+| Testing | 12 | ~200 |
+| **Total** | **197** | |
