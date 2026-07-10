@@ -157,6 +157,52 @@ ThreadPool.SetMinThreads(4, 4);
 ThreadPool.SetMaxThreads(8, 8);
 ```
 
+### Go Worker Pool (Goroutines + Channels)
+
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+func worker(id int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
+    defer wg.Done()
+    for j := range jobs {
+        results <- j * j
+    }
+}
+
+func main() {
+    numWorkers := 4
+    jobs := make(chan int, 100)
+    results := make(chan int, 100)
+    var wg sync.WaitGroup
+
+    for w := 1; w <= numWorkers; w++ {
+        wg.Add(1)
+        go worker(w, jobs, results, &wg)
+    }
+
+    for j := 1; j <= 20; j++ {
+        jobs <- j
+    }
+    close(jobs)
+
+    go func() {
+        wg.Wait()
+        close(results)
+    }()
+
+    for r := range results {
+        fmt.Println("result:", r)
+    }
+}
+```
+
+Las goroutines de Go son ligeras (2KB de stack vs 1MB para OS threads), por lo que puedes spawnear miles. Para trabajo CPU-bound, usa `runtime.GOMAXPROCS(runtime.NumCPU())` para limitar el paralelismo. Para trabajo I/O-bound, un mayor numero de workers esta bien ya que las goroutines bloqueadas ceden a otras.
+
 ## Explicación
 
 - **Core vs máximo pool size**: el core size es el número de threads mantenidos vivos incluso cuando están inactivos. El máximo es el límite superior. Cuando las tareas exceden el core size, nuevos threads se crean hasta el máximo. Threads por encima del core se terminan después del timeout de keep-alive si están inactivos. Esto permite al pool escalar entre una línea base y un pico.
@@ -181,6 +227,8 @@ ThreadPool.SetMaxThreads(8, 8);
 - **Siempre shutdown gracefulmente**: un executor no terminado filtra threads y previene salida del proceso JVM/Python. Llama `shutdown()`, espera terminación, luego `shutdownNow()` si es necesario. Usa try-with-resources en Python (`with ThreadPoolExecutor`).
 - **Usa colas acotadas con políticas de rechazo**: las colas ilimitadas ocultan backpressure. Un sistema que acepta tareas infinitas eventualmente se cae. Usa colas acotadas y maneja rechazo sheddando carga o ralentizando al submitter. Consulta [Rate Limiting](/recipes/api/rate-limiting) para gestionar sobrecarga.
 - **Nombra tus threads**: debuggear un thread dump de 50 threads sin nombre es imposible. Usa thread factories custom para nombrar threads (`worker-1`, `worker-2`). Esto hace profiling, logging y debugging triviales.
+- **Monitorea metricas del pool**: rastrea threads activos, tamano de cola, tareas completadas y conteo de rechazos. `ThreadPoolExecutor` de Java expone estos via getters. En Python, envuelve el executor para rastrear submissions y completions. Alerta cuando la profundidad de cola excede un umbral.
+- **Usa `shutdownNow()` con cuidado**: `shutdownNow()` interrumpe threads en ejecucion. Si tus tareas no chequean `Thread.interrupted()` o manejan `InterruptedException`, continuaran ejecutandose. Disena tareas cooperativas y responsivas a interrupcion.
 
 ## Errores comunes
 
@@ -188,6 +236,8 @@ ThreadPool.SetMaxThreads(8, 8);
 - **Usar threads para trabajo CPU-bound en Python**: el GIL de Python previene paralelismo real de threads para trabajo CPU. Un `ThreadPoolExecutor` con 8 threads en una máquina de 8 cores ejecuta tareas secuencialmente, no en paralelo. Usa `ProcessPoolExecutor` para trabajo CPU-bound en Python.
 - **Ignorar excepciones en tareas fire-and-forget**: enviar una tarea e ignorar el future traga excepciones. La tarea falla silenciosamente. Siempre captura futures y chequea excepciones, o usa un callback de completación.
 - **Crear un nuevo pool por request**: un web handler que crea un nuevo `ExecutorService` para cada request entrante derrota el propósito. Crea un pool en el startup de la aplicación y reutilízalo. Pásalo como dependencia a los handlers.
+- **Compartir un solo pool entre workloads no relacionados**: las tareas CPU-bound e I/O-bound tienen diferentes tamaños óptimos de pool. Si comparten un pool, un workload priva al otro. Usa pools separados por tipo de workload.
+- **No manejar `RejectedExecutionException`**: cuando usas `AbortPolicy`, el pool lanza `RejectedExecutionException` bajo sobrecarga. Si no lo capturas, la excepción propaga y puede crashear al llamador. Captúralo y degrada gracefulmente.
 
 ## Preguntas frecuentes
 
@@ -203,6 +253,15 @@ R: `CallerRunsPolicy` provee backpressure natural — el llamador se ralentiza c
 **P: ¿Puedo cambiar el tamaño del pool en runtime?**
 R: Sí — `ThreadPoolExecutor` de Java soporta `setCorePoolSize()` y `setMaximumPoolSize()`. Esto es útil para scaling en vivo basado en métricas de carga. Sin embargo, crecer el pool crea nuevos threads (costoso), y reducir no interrumpe threads activos.
 
+**P: ¿Cómo pruebo el comportamiento de un thread pool?**
+R: Usa `CountDownLatch` o `CyclicBarrier` para simular submissions concurrentes. Para testing de rechazo, envía más tareas de las que la cola puede contener y verifica que la política de rechazo dispare. Para testing de timeout, envía una tarea que duerma más que el timeout y verifica que `TimeoutException` se lance.
+
+**P: ¿Qué pasa si un worker thread lanza una excepción no capturada?**
+R: En Java, la excepción es capturada por el `Future` y relanzada en `get()`. Sin llamar `get()`, la excepción es tragada. En Python, las excepciones se almacenan en el `Future` y se relanzan en `result()`. Siempre llama `result()` o `get()` para surfacer fallos. Alternativamente, usa el hook `afterExecute` en Java para loggear excepciones.
+
+**P: ¿Debería usar `newFixedThreadPool` o `new ThreadPoolExecutor`?**
+R: `newFixedThreadPool` usa una cola ilimitada, lo que significa que las tareas nunca se rechazan — solo se acumulan hasta que la memoria se agota. Para producción, siempre usa `new ThreadPoolExecutor` con una cola acotada y política de rechazo explícita. Los métodos de conveniencia están bien para tests y prototipos.
+
 
 ### ¿Esta solución está lista para producción?
 
@@ -215,3 +274,27 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### ¿Cómo manejo deadlocks en thread pools?
+
+Los deadlocks ocurren cuando tareas esperan por resultados de otras tareas que no pueden ejecutarse. Para prevenirlos: nunca envíes una tarea desde dentro de otra tarea del mismo pool y esperes su resultado. Usa pools separados para tareas anidadas, o usa `CompletableFuture` con composición en lugar de bloqueo.
+
+### ¿Qué bibliotecas recomiendadas para thread pools en cada lenguaje?
+
+En Java, `java.util.concurrent` es el estándar. En Python, `concurrent.futures` viene incluido. Para uso avanzado, considera `uvloop` con `asyncio` para I/O de alta concurrencia. En Go, las goroutines y channels son nativos. En C#, la Task Parallel Library (TPL) viene con el framework. Para casos especiales, considera bibliotecas como `akka` (Java/Scala) para actores.
+
+### ¿Cuál es la diferencia entre Fixed y Cached thread pool?
+
+`FixedThreadPool` mantiene un número fijo de threads con una cola ilimitada. Es ideal para trabajo CPU-bound estable. `CachedThreadPool` crea threads bajo demanda (hasta Integer.MAX_VALUE) y los recicla después de 60 segundos de inactividad. Es mejor para burst I/O con tareas de corta duración. Nunca uses `CachedThreadPool` para trabajo CPU-bound porque puede crear miles de threads y agotar memoria.
+
+### ¿Cómo implemento backpressure con thread pools?
+
+El backpressure ocurre cuando el productor envía tareas más rápido de lo que el pool puede procesarlas. Tres estrategias: (1) `CallerRunsPolicy` — el thread del llamador ejecuta la tarea, ralentizando la submission. (2) Cola acotada con `AbortPolicy` — rechaza tareas y el llamador debe manejar el rechazo. (3) Semaphore — el llamador adquiere un permiso antes de enviar, bloqueando si no hay permisos disponibles.
+
+### ¿Cómo monitoreo la salud de un thread pool en producción?
+
+Registra métricas clave: tamaño actual del pool, tareas activas, tareas en cola, tareas completadas y rechazos. En Java, usa JMX o Micrometer para exponer estas métricas. En Python, usa `concurrent.futures` con callbacks de monitoreo. Configura alertas para rechazos sostenidos o crecimiento de cola, que indican saturación.
+
+### ¿Cómo elijo el tamaño óptimo del pool?
+
+Para tareas CPU-bound, usa la fórmula de Brian Goetz: `N_threads = N_cores * (1 + W/C)` donde W es el tiempo de espera y C es el tiempo de cómputo. Para tareas puramente CPU-bound, W/C ≈ 0, así que `N_threads = N_cores`. Para tareas I/O-bound, W/C puede ser 10-50, resultando en pools mucho más grandes. Mide el ratio real con un profiler antes de ajustar.

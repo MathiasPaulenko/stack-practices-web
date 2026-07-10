@@ -341,3 +341,11 @@ Con `MemoryJobStore`, el job se pierde. Con `SQLAlchemyJobStore`, el job se alma
 ### ¿Puedo ejecutar funciones async con APScheduler?
 
 Sí. Usar `AsyncIOScheduler` con `AsyncIOExecutor`. El scheduler se integra con el event loop de asyncio y ejecuta jobs async como coroutines.
+
+### ¿Cómo ejecuto diferentes jobs en diferentes procesos?
+
+Usa `ProcessPoolExecutor` como executor de jobs. APScheduler despachará jobs a un pool de procesos workers, útil para tareas CPU-bound. Configúralo en el scheduler: `executors={'default': ProcessPoolExecutor(max_workers=4)}`.
+
+### ¿Puedo agregar o eliminar jobs dinámicamente en runtime?
+
+Sí. Usa `scheduler.add_job(func, trigger, args=...)` para agregar y `scheduler.remove_job(job_id)` para eliminar. Guarda el `job_id` retornado para gestionar jobs dinámicamente. Útil para tareas programadas por usuarios o funcionalidad tipo cron en web apps.

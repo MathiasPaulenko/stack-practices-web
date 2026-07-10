@@ -341,3 +341,11 @@ With `MemoryJobStore`, the job is lost. With `SQLAlchemyJobStore`, the job is st
 ### Can I run async functions with APScheduler?
 
 Yes. Use `AsyncIOScheduler` with `AsyncIOExecutor`. The scheduler integrates with the asyncio event loop and runs async jobs as coroutines.
+
+### How do I run different jobs on different processes?
+
+Use `ProcessPoolExecutor` as the job executor. APScheduler will dispatch jobs to a pool of worker processes, which is useful for CPU-bound tasks. Configure it in the scheduler: `executors={'default': ProcessPoolExecutor(max_workers=4)}`.
+
+### Can I dynamically add or remove jobs at runtime?
+
+Yes. Use `scheduler.add_job(func, trigger, args=...)` to add and `scheduler.remove_job(job_id)` to remove. Store the returned `job_id` to manage jobs dynamically. This is useful for user-scheduled tasks or cron-like functionality in web apps.
