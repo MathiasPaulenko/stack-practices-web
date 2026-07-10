@@ -1,4 +1,4 @@
----
+﻿---
 contentType: recipes
 slug: graphql-dataloader-batching
 title: "Batch and Cache Database Queries with GraphQL DataLoader"
@@ -216,6 +216,61 @@ const loader = new DataLoader(batchFn, {
 - **Using `.load()` in a loop without awaiting** — DataLoader batches automatically, but you must still await each `.load()` call
 - **Caching across requests with the default cache** — use `{ cache: false }` or a request-scoped cache if you need cross-request caching
 
+## Error Handling and Recovery
+
+- **DataLoader error propagation**: when a batch function throws, DataLoader rejects all keys in the batch. Wrap batch functions in try/catch. Return individual errors per key using Error instances. Use .clear(key) to remove failed entries from cache. Log batch failures with key context for debugging
+- **Partial batch failures**: if some items in a batch succeed and others fail, return results for successful items and Error objects for failed ones. DataLoader supports returning a mix of values and errors in the batch array. The caller receives individual errors via .load() rejection
+- **Timeout handling**: set a timeout on batch functions (e.g., 5 seconds). If the timeout fires, reject all pending loads. Use Promise.race with a timeout promise. Clear the cache for timed-out keys to allow retries on subsequent requests
+- **Database connection failures**: if the database is unavailable, the batch function should reject with a descriptive error. Use a circuit breaker pattern to stop attempting batches after N consecutive failures. Fall back to cached data if available. Alert the team on circuit breaker activation
+- **Cache invalidation errors**: if prime() is called with stale data, subsequent loads return incorrect results. Validate primed data before caching. Use .clearAll() on schema changes or deployments. Implement a cache versioning strategy to invalidate stale entries
+- **Memory pressure from cache**: DataLoader caches by reference. Large cached objects can cause memory pressure in long-running processes. Set maxAgeMs or use a custom cache Map with LRU eviction. Monitor cache size and hit rate. Clear cache on memory pressure signals
+
+## Performance Optimization Tips
+
+- **Batch size tuning**: optimal batch size depends on database and query complexity. Start with 100-500 items per batch. Measure query latency at different batch sizes. Larger batches reduce round trips but increase per-query cost. Use database EXPLAIN to find the sweet spot
+- **Cache strategy selection**: default cache is per-request (Map). For read-heavy workloads, use a shared LRU cache across requests. Use Redis for distributed caching. Set cacheKeyFn for complex keys to avoid object reference issues. Disable caching with cache: false for unique queries
+- **Distributed batching**: in serverless environments, each instance has its own DataLoader. Use Redis to share batch results across instances. Publish batch results to a Redis channel. Other instances consume and prime their local DataLoader. Reduces duplicate database queries
+- **Schedule timing**: the default maxBatchSize and scheduling may not be optimal. Use a custom atchScheduleFn to control when batches are dispatched. For high-throughput scenarios, dispatch batches every 1ms instead of waiting for the next tick. Reduces latency at the cost of smaller batches
+- **Query optimization**: ensure database queries use appropriate indexes for batched lookups. Use IN clauses or batched SELECTs. Avoid N+1 within the batch function itself. Use EXPLAIN ANALYZE to verify query plans. Add covering indexes for common batch patterns
+- **Memory management**: use maxBatchSize to limit batch memory. Clear DataLoader instances after each request in web servers. Use WeakMap for cache if references are short-lived. Monitor RSS and heap usage. Profile with --inspect to find retention paths
+
+## Security Considerations
+
+- **Authorization in batch functions**: check permissions for each key in the batch. An attacker may request keys they are not authorized to access. Return null or Error for unauthorized keys. Do not leak existence of unauthorized resources. Use consistent error messages
+- **Batch injection attacks**: validate all keys before passing to the database. An attacker may craft keys to inject SQL or cause unexpected behavior. Use parameterized queries. Sanitize keys with the same validation as direct queries. Never concatenate keys into SQL strings
+- **Cache poisoning**: if an attacker can prime the cache with incorrect data, subsequent loads return poisoned results. Validate primed data server-side. Do not allow client-controlled cache priming. Use authenticated cache priming endpoints. Sign cache entries with HMAC
+- **Rate limiting batch loads**: a malicious client may call .load() thousands of times per request. Implement rate limiting at the resolver level. Limit the number of .load() calls per request (e.g., 100). Return an error if the limit is exceeded. Log excessive load patterns
+- **Information disclosure**: batch functions may return different error messages for existing vs non-existing keys. This can leak information about resource existence. Use consistent error messages for all failure cases. Log detailed errors server-side only. Return generic errors to clients
+- **DataLoader in federated schemas**: in a federated gateway, each subgraph has its own DataLoader. Ensure authorization checks are consistent across subgraphs. A subgraph may receive requests from the gateway without user context. Pass user context through the federation query plan. Validate permissions in each subgraph
+## Testing and Quality Assurance
+
+- **Unit testing batch functions**: test batch functions in isolation with mocked database calls. Verify that the function returns results in the same order as input keys. Test empty batch, single-item batch, and full batch. Test error handling for each key independently. Use Jest or Vitest with async/await
+- **Integration testing with DataLoader**: test DataLoader within a GraphQL resolver context. Verify that N+1 queries are eliminated by counting database calls. Use a query counter middleware. Assert that a query requesting 100 items results in exactly 1 database call. Test with nested resolvers to verify batching across the query tree
+- **Cache behavior testing**: test that .load() returns cached results on second call. Test that .clear(key) removes only the specified key. Test that .clearAll() removes all keys. Test that .prime(key, value) caches without fetching. Verify cache is per-instance, not shared across requests
+- **Load testing**: use Artillery or k6 to send 1000+ concurrent GraphQL queries. Measure database query count, response time, and memory usage. Verify that DataLoader reduces database queries by 80-95% compared to naive resolvers. Monitor for memory leaks under sustained load
+- **Snapshot testing**: snapshot the GraphQL response for representative queries. Compare snapshots on each CI run. Detects unintended changes in resolver behavior. Use graphql-response-snapshot pattern with Jest. Update snapshots only after intentional changes
+- **Error scenario testing**: test batch function with database timeout, connection failure, and partial failures. Verify that errors are properly propagated to individual .load() calls. Test that successful items in a partial failure are still returned. Verify that cache is cleared for failed keys
+
+## Deployment and CI/CD
+
+- **DataLoader lifecycle in web servers**: create a new DataLoader instance per request. Store on the request context object. Dispose after the response is sent. Never share DataLoader instances across requests in long-running servers. Use a middleware pattern to inject per-request DataLoader instances
+- **Monitoring DataLoader metrics**: track batch count, batch size, cache hit rate, and error rate. Export metrics via Prometheus. Set up Grafana dashboards. Alert on cache hit rate < 50% (indicates poor cache utilization). Alert on error rate > 1%. Track average batch size to tune maxBatchSize
+- **Feature flags for batching**: deploy DataLoader behind a feature flag. Roll out to a percentage of traffic first. Monitor database query count and response time. If metrics improve, increase rollout. If regressions occur, roll back immediately. Use LaunchDarkly or Unleash for feature flag management
+## Monitoring and Observability
+
+- **Batch metrics**: track batch count, average batch size, max batch size, and batch dispatch time. Use Prometheus histograms for batch size distribution. Alert on average batch size < 5 (indicates poor batching efficiency). Monitor batch dispatch latency p95 < 100ms
+- **Cache metrics**: track cache hit rate, cache size, and cache eviction count. Alert on cache hit rate < 30%. Monitor cache memory usage. Track cache key patterns to identify hot keys. Use cacheKeyFn metrics to understand key distribution
+- **Resolver-level tracing**: use Apollo Tracing or OpenTelemetry to trace resolver execution time. Identify resolvers that bypass DataLoader. Track the ratio of DataLoader loads vs direct database calls. Use distributed tracing to see the full request path from gateway to database
+- **Error rate monitoring**: track error rate per batch function. Alert on error rate > 1%. Log batch errors with key context, stack trace, and request ID. Use Sentry for error tracking with GraphQL context. Correlate errors with deployments using release tags
+## Cost Optimization
+
+- **Database connection pooling**: DataLoader reduces database queries but each batch still needs a connection. Use a connection pool (PgBouncer, Prisma Data Proxy) to share connections across batches. Set pool size based on peak concurrent batches. Monitor pool utilization and alert at 80% capacity
+- **Caching to reduce database load**: use DataLoader cache with Redis for cross-request caching. Cache common batch results for 5-15 minutes. Invalidate on mutations. Reduces database load by 50-90% for read-heavy workloads. Monitor cache hit rate and adjust TTL based on staleness tolerance
+- **Serverless cost impact**: in serverless environments, each invocation pays for execution time. DataLoader reduces database round trips, reducing execution time and cost. Measure cost per request before and after DataLoader adoption. Typical savings: 30-60% on database-related costs
+## Common Pitfalls and Anti-Patterns
+
+- **Sharing DataLoader across requests**: never share a DataLoader instance across HTTP requests in a web server. Each request should get a fresh instance. Sharing leads to cache leakage between users and potential authorization bypass. Use a per-request context pattern
+- **Not handling null keys**: DataLoader batch functions receive null keys when resolvers return null. Handle nulls explicitly in the batch function. Return null for null input keys. Do not pass null to database queries. Validate keys before processing
 ## FAQ
 
 **Q: Does DataLoader cache across requests?**
@@ -241,3 +296,7 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### Can I use DataLoader with non-database data sources?
+
+Yes. DataLoader works with any batchable data source: REST APIs, microservices, message queues, or in-memory stores. The batch function receives an array of keys and returns a Promise of an array of values. Use it for any N+1 problem, not just database queries.

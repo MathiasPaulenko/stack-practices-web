@@ -319,6 +319,23 @@ A: Yes. Extensions is an open map. Add `retryAfter`, `field`, `conflicts`, or an
 **Q: Should I localize error messages?**
 A: Return error codes and field names in extensions. Let clients localize the message based on the code and user locale.
 
+### Should I use partial data or null on errors?
+
+GraphQL spec allows returning both `data` and `errors` in the same response. If a non-null field errors, the field and its parent nullify up the tree. Design your schema with nullable fields where errors are expected, so partial data still reaches the client. Only use non-null for fields that truly cannot fail.
+
+### How do I handle authentication errors vs authorization errors?
+
+Return `UNAUTHENTICATED` (code 401) when no valid credential is provided. Return `FORBIDDEN` (code 403) when the credential is valid but lacks permissions. Include the required permission in `extensions.requiredRole` so clients can display meaningful messages or request elevated access.
+
+## Common Mistakes
+
+- Returning HTTP 200 with only `errors` and no `data` — clients expect `data` to be present even if null
+- Exposing stack traces in production — always strip `extensions.exception.stacktrace`
+- Using non-null fields where errors are possible — causes cascading nulls that wipe useful partial data
+- Not logging errors server-side — the client sees the error, but the server should log full context for debugging
+- Using generic `INTERNAL_SERVER_ERROR` for all failures — clients cannot differentiate between network issues, validation errors, and server bugs
+- Not wrapping resolver functions in try-catch — unhandled exceptions crash the entire request pipeline
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.

@@ -319,6 +319,23 @@ A: Si. Extensions es un mapa abierto. Agrega `retryAfter`, `field`, `conflicts` 
 **Q: Debo localizar mensajes de error?**
 A: Retorna codigos de error y nombres de campo en extensions. Deja que los clientes localicen el mensaje basandose en el codigo y el locale del usuario.
 
+### ¿Debo usar datos parciales o null en errores?
+
+La spec de GraphQL permite retornar tanto `data` como `errors` en la misma respuesta. Si un campo non-null falla, el campo y su padre se nullifican subiendo por el árbol. Diseña tu schema con campos nullable donde se esperan errores, para que los datos parciales lleguen al cliente. Usa non-null solo para campos que realmente no pueden fallar.
+
+### ¿Cómo manejo errores de autenticación vs autorización?
+
+Retorna `UNAUTHENTICATED` (código 401) cuando no se provee una credencial válida. Retorna `FORBIDDEN` (código 403) cuando la credencial es válida pero falta permisos. Incluye el permiso requerido en `extensions.requiredRole` para que los clientes puedan mostrar mensajes significativos o solicitar acceso elevado.
+
+## Errores Comunes
+
+- Retornar HTTP 200 con solo `errors` y sin `data` — los clientes esperan que `data` esté presente aunque sea null
+- Exponer stack traces en producción — siempre elimina `extensions.exception.stacktrace`
+- Usar campos non-null donde son posibles los errores — causa nulls en cascada que borran datos parciales útiles
+- No loguear errores en el servidor — el cliente ve el error, pero el servidor debería loguear el contexto completo para debugging
+- Usar `INTERNAL_SERVER_ERROR` genérico para todos los fallos — los clientes no pueden diferenciar entre problemas de red, errores de validación y bugs del servidor
+- No envolver funciones resolver en try-catch — las excepciones no manejadas crashean todo el pipeline de requests
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

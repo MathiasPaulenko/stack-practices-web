@@ -327,3 +327,23 @@ Directives add a wrapper layer to the resolver, but the overhead is minimal (one
 ### Can I use directives with Apollo Federation?
 
 Yes, but each subgraph must implement the directive independently. The gateway does not re-run subgraph directives. Define directives in each subgraph's schema and apply auth rules there.
+
+## Common Mistakes
+
+- Applying auth directives only at the query level — mutations and subscriptions need protection too
+- Returning detailed error messages that leak schema information — use generic `FORBIDDEN` messages in production
+- Not caching permission checks — repeated database lookups per field create performance bottlenecks
+- Forgetting to test directives with unauthenticated requests — ensure public fields work without a token
+- Not applying `@auth` to interface fields — implementations can expose fields without auth checks, bypassing the directive
+- Using `@auth` on list fields only — individual items may still expose sensitive data if the list itself is not filtered server-side
+- Not versioning directive implementations — changing auth logic without versioning breaks existing clients that depend on specific error shapes
+- Relying on client-side auth checks only — the server must enforce directives, never trust the client to filter sensitive fields
+- Not testing directive composition — stacked directives like `@auth @owner` may short-circuit in unexpected orders depending on the GraphQL server implementation
+
+### How do I combine role-based auth with ownership checks?
+
+Use stacked directives: `@auth(requires: EDITOR) @owner`. The `@auth` directive checks the role first. If it passes, `@owner` verifies that the user owns the resource. If either fails, the field returns an error or null based on configuration.
+
+### Should I use schema directives or middleware for auth?
+
+Schema directives are declarative and visible in the schema, making it easier to audit permissions. Middleware is imperative and harder to audit but offers more flexibility. Use directives for simple role/permission checks. Use middleware for complex, context-dependent logic that cannot be expressed declaratively.

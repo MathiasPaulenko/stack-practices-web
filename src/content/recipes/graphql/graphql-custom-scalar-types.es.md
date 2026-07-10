@@ -325,3 +325,25 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes
+
+- No validar el input en la función `parseValue` — aceptar datos malformados que rompen los resolvers downstream
+- Lanzar errores genéricos en lugar de `GraphQLError` — los clientes reciben mensajes de error poco claros sin extensions
+- Olvidar manejar `parseLiteral` para valores inline en queries — solo `parseValue` maneja inputs de variables
+- No documentar el formato esperado en la descripción del schema — los clientes adivinan el formato y envían datos inválidos
+- Retornar `null` desde `serialize` para valores inválidos — los clientes reciben `null` en lugar de un error, ocultando problemas de calidad de datos
+- No testear el comportamiento del escalar con queries de introspection — algunas herramientas dependen de introspection para descubrir tipos escalares y formatos
+- No manejar `undefined` vs `null` en `serialize` — retornar `undefined` causa que GraphQL omita el campo, mientras que `null` lo setea explícitamente a null
+- No añadir el escalar al type map del schema — olvidar llamar `schema.addScalarType()` resulta en que el escalar sea tratado como string
+- No manejar edge cases como `NaN`, `Infinity`, o strings vacíos en `parseValue` — estos valores pasan los checks de tipo pero rompen la lógica downstream
+- No registrar el escalar en herramientas de codegen — GraphQL Code Generator y herramientas similares necesitan configuración de plugin custom para generar tipos TypeScript correctos para escalares personalizados
+- No proporcionar un fallback para valores escalares desconocidos — cuando el escalar encuentra un tipo inesperado, debería lanzar un `GraphQLError` con un mensaje claro
+
+### ¿Cómo manejo escalares DateTime con timezone?
+
+Siempre parsea los timestamps entrantes a UTC en `parseValue`. Almacena y retorna UTC en todas partes. Deja que el cliente maneje la conversión de timezone para display. Nunca almacenes hora local en la base de datos — crea ambigüedad cuando servidores o clientes se mueven entre timezones.
+
+### ¿Puedo usar escalares personalizados con Apollo Federation?
+
+Sí. Define el escalar en cada subgrafo que lo usa. El gateway trata los escalares personalizados como tipos pass-through — no los valida ni transforma. Asegúrate de que todos los subgrafos implementen la misma lógica de parsing y serialización para evitar inconsistencias.

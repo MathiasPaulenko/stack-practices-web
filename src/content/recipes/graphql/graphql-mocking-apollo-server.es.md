@@ -345,3 +345,6 @@ Sí. Mockea los campos `edges`, `pageInfo` y `totalCount` en tu tipo connection.
 ### ¿Cómo comparto mocks entre tests y el dev server?
 
 Exporta el objeto `mocks` desde un módulo compartido (e.g., `src/mocks/index.ts`). Impórtalo tanto en tu setup de tests como en la configuración del dev server. Esto asegura datos falsos consistentes entre entornos de test y desarrollo. Usa `faker.seed()` en tests para output determinístico.
+
+**Q: Como mockeo errores y excepciones de GraphQL?**
+R: Retorna una funcion mock que lanza un `GraphQLError` con el codigo apropiado. Por ejemplo, `getUser: () => { throw new GraphQLError('Not found', { extensions: { code: 'NOT_FOUND' } }) }`. Esto prueba como tu UI maneja errores de GraphQL.

@@ -325,3 +325,25 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Mistakes
+
+- Not validating input in the `parseValue` function — accepting malformed data that breaks downstream resolvers
+- Throwing generic errors instead of `GraphQLError` — clients receive unclear error messages without extensions
+- Forgetting to handle `parseLiteral` for inline query values — only `parseValue` handles variable inputs
+- Not documenting the expected format in the schema description — clients guess the format and send invalid data
+- Returning `null` from `serialize` for invalid values — clients receive `null` instead of an error, hiding data quality issues
+- Not testing scalar behavior with introspection queries — some tools rely on introspection to discover scalar types and formats
+- Not handling `undefined` vs `null` in `serialize` — returning `undefined` causes GraphQL to omit the field, while `null` explicitly sets it to null
+- Not adding the scalar to the schema's type map — forgetting to call `schema.addScalarType()` results in the scalar being treated as a string
+- Not handling edge cases like `NaN`, `Infinity`, or empty strings in `parseValue` — these values pass type checks but break downstream logic
+- Not registering the scalar in codegen tools — GraphQL Code Generator and similar tools need custom plugin configuration to generate correct TypeScript types for custom scalars
+- Not providing a fallback for unknown scalar values — when the scalar encounters an unexpected type, it should throw a `GraphQLError` with a clear message
+
+### How do I handle timezone-aware DateTime scalars?
+
+Always parse incoming timestamps to UTC in `parseValue`. Store and return UTC everywhere. Let the client handle timezone conversion for display. Never store local time in the database — it creates ambiguity when servers or clients move across timezones.
+
+### Can I use custom scalars with Apollo Federation?
+
+Yes. Define the scalar in each subgraph that uses it. The gateway treats custom scalars as pass-through types — it does not validate or transform them. Ensure all subgraphs implement the same parsing and serialization logic to avoid inconsistencies.
