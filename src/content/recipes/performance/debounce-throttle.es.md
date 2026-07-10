@@ -327,3 +327,23 @@ Típicamente 200-500ms. Muy corto y consultas en cada pulsación; muy largo y la
 ### ¿Puedo combinar debounce y throttle?
 
 Sí. Un patrón común es "throttle luego debounce": garantiza una tasa mínima de ejecución (throttle) mientras espera pausas (debounce). Por ejemplo, actualiza una vista previa en vivo como máximo cada 100ms, pero también asegura una actualización final 300ms tras el usuario dejar de escribir.
+
+## Errores Comunes
+
+- Usar debounce para eventos de scroll — el handler nunca se ejecuta durante scroll continuo, solo después de que el usuario se detiene
+- Usar throttle para input de búsqueda — ejecuta queries intermedias que desperdician requests de red antes de que el usuario termine de escribir
+- No limpiar timers al desmontar componentes — causa memory leaks y llamadas setState en componentes desmontados
+- Elegir un delay sin testear en dispositivos reales — los teclados móviles son más lentos que los de desktop, ajusta en consecuencia
+- Usar `setTimeout` sin `requestAnimationFrame` — las actualizaciones visuales pueden ser entrecortadas si el callback se ejecuta fuera del paint cycle
+- No debouncear eventos de resize en frameworks SSR — los renders server-side no tienen `window`, protege con `typeof window !== 'undefined'`
+- Debouncear funciones async sin manejo de errores — si la llamada debounced rechaza, el error se traga a menos que añadas `.catch()`
+- Usar leading debounce para validación de formularios — la primera pulsación dispara validación antes de que el usuario termine de escribir, creando una UX pobre
+- No usar `AbortController` con llamadas fetch debounced — respuestas antiguas pueden llegar después de las nuevas, causando race conditions en la UI
+
+### ¿Cómo cancelo una llamada debounced pendiente?
+
+La mayoría de implementaciones de debounce retornan una función `cancel()`. Llámala cuando el componente se desmonta o cuando el usuario envía el formulario explícitamente. En Lodash, `_.debounce` retorna una función con un método `.cancel()`. En implementaciones custom, guarda el timer ID y llama `clearTimeout(timerId)`.
+
+### ¿Throttle garantiza exactamente una ejecución por intervalo?
+
+No. Throttle leading-edge se ejecuta inmediatamente en la primera llamada, luego espera. Throttle trailing-edge espera primero, luego se ejecuta al final. Algunas implementaciones ejecutan tanto leading como trailing. Revisa la documentación de tu librería para entender qué comportamiento obtienes.

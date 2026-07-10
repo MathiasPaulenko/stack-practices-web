@@ -327,3 +327,23 @@ Typically 200-500ms. Too short and you query on every keystroke; too long and th
 ### Can I combine debounce and throttle?
 
 Yes. A common pattern is "throttle then debounce": guarantee a minimum execution rate (throttle) while also waiting for pauses (debounce). For example, update a live preview at most every 100ms, but also ensure a final update 300ms after the user stops typing.
+
+## Common Mistakes
+
+- Using debounce for scroll events — the handler never fires during continuous scrolling, only after the user stops
+- Using throttle for search input — fires intermediate queries that waste network requests before the user finishes typing
+- Not cleaning up timers on component unmount — causes memory leaks and setState calls on unmounted components
+- Picking a delay without testing on real devices — mobile keyboards are slower than desktop, adjust accordingly
+- Using `setTimeout` without `requestAnimationFrame` — visual updates may be janky if the callback runs outside the paint cycle
+- Not debouncing resize events in SSR frameworks — server-side renders do not have `window`, guard with `typeof window !== 'undefined'`
+- Debouncing async functions without error handling — if the debounced call rejects, the error is swallowed unless you add `.catch()`
+- Using leading debounce for form validation — the first keystroke triggers validation before the user finishes typing, creating a poor UX
+- Not using `AbortController` with debounced fetch calls — outdated responses may arrive after newer ones, causing race conditions in the UI
+
+### How do I cancel a pending debounced call?
+
+Most debounce implementations return a `cancel()` function. Call it when the component unmounts or when the user submits the form explicitly. In Lodash, `_.debounce` returns a function with a `.cancel()` method. In custom implementations, store the timer ID and call `clearTimeout(timerId)`.
+
+### Does throttle guarantee exactly one execution per interval?
+
+No. Leading-edge throttle fires immediately on the first call, then waits. Trailing-edge throttle waits first, then fires at the end. Some implementations fire both leading and trailing. Check your library's documentation to understand which behavior you get.
