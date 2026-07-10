@@ -342,3 +342,11 @@ function useDebounce(fn, delay) {
 ### Can I use requestAnimationFrame instead of throttle?
 
 Yes, for visual updates. `requestAnimationFrame` syncs with the browser's repaint cycle (~60fps). It is smoother than throttle for animations and scroll-based visual updates. Use throttle for non-visual work like API calls.
+
+### What is the difference between leading and trailing edge debounce?
+
+Leading-edge debounce fires the function immediately on the first call, then ignores subsequent calls until the wait period expires. Trailing-edge debounce (the default) fires after the wait period with no new calls. Use leading for click events where you want immediate feedback, trailing for search-as-you-type where you want the latest value. Lodash supports both via `{ leading: true, trailing: false }`.
+
+### Should I cancel pending debounce calls on unmount?
+
+Yes. Always clear the timeout in a cleanup function (`useEffect` return) to prevent state updates after the component unmounts. This avoids memory leaks and React warnings about setting state on an unmounted component.

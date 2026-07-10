@@ -345,3 +345,7 @@ In private browsing, `localStorage.setItem()` may throw `QuotaExceededError` eve
 ### Can I use IndexedDB instead for larger data?
 
 Yes. IndexedDB supports much larger storage (hundreds of MB) and handles structured data better. Use IndexedDB for complex offline-first apps. Use localStorage with TTL for simple key-value caching.
+
+### How do I sync localStorage across tabs?
+
+Use the `storage` event listener. When one tab writes to localStorage, other tabs receive a `StorageEvent` with the key, old value, and new value. This enables cross-tab synchronization without polling or WebSockets.

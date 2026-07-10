@@ -345,3 +345,7 @@ En navegación privada, `localStorage.setItem()` puede lanzar `QuotaExceededErro
 ### ¿Puedo usar IndexedDB para datos más grandes?
 
 Sí. IndexedDB soporta almacenamiento mucho mayor (cientos de MB) y maneja datos estructurados mejor. Usa IndexedDB para apps offline-first complejas. Usa localStorage con TTL para caché simple key-value.
+
+### ¿Cómo sincronizo localStorage entre pestañas?
+
+Usa el listener del evento `storage`. Cuando una pestaña escribe en localStorage, otras pestañas reciben un `StorageEvent` con la key, valor anterior, y valor nuevo. Esto habilita sincronización cross-tab sin polling ni WebSockets.

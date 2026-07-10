@@ -344,3 +344,7 @@ Usa Chrome DevTools > Application > Service Workers. Puedes ver los SWs registra
 ### ¿Cuál es la diferencia entre skipWaiting y clients.claim?
 
 `skipWaiting()` le dice al SW en espera que se active inmediatamente, saltándose la espera normal de que todas las pestañas se cierren. `clients.claim()` hace que el SW activo tome control de todas las pestañas abiertas inmediatamente. Usa ambos juntos para updates instantáneos durante desarrollo.
+
+### ¿Cómo pruebo el comportamiento offline?
+
+Usa Chrome DevTools > Application > Service Workers > checkbox Offline. Esto simula sin red. También prueba con "Update on reload" habilitado para forzar updates del SW en cada page load. Para testing automatizado, usa Playwright con `context.setOffline(true)`.
