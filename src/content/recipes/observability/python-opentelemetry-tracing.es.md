@@ -342,3 +342,11 @@ span_id = format(span.get_span_context().span_id, "016x")
 
 logger.info("processing_order", trace_id=trace_id, span_id=span_id, order_id="ord-123")
 ```
+
+### ¿Cuál es el overhead de la instrumentación de OpenTelemetry?
+
+El overhead de CPU es típicamente 1–5% con export batch. La memoria depende del número de spans en vuelo. Usa `Sampler` con `ParentBased(TraceIdRatioBased(0.1))` para samplear el 10% de traces en producción y reducir el overhead.
+
+### ¿Puedo usar OpenTelemetry con Flask?
+
+Sí. Instala `opentelemetry-instrumentation-flask` y llama `FlaskInstrumentor().instrument_app(app)` en tu app factory. Esto auto-instrumenta todas las rutas de Flask con spans para requests HTTP entrantes.

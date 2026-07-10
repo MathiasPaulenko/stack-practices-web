@@ -344,3 +344,7 @@ app.use((req, res, next) => {
 ### ¿Cuál es la diferencia entre pino transports y pino destinations?
 
 Destinations son writable streams (rápidos, sincrónicos). Transports corren en un worker thread (async, soporta múltiples outputs). Usa destinations para velocidad pura, transports para rutear a archivos o servicios externos.
+
+### ¿Cómo redacto campos sensibles en logs de pino?
+
+Usa la opción `redact` en la configuración de pino. Especifica paths a remover o censurar: `redact: { paths: ['req.headers.authorization', 'password', '*.token'], remove: false }`. Con `remove: false` reemplaza el valor con `[Redacted]`. Con `remove: true` elimina la key completamente del output del log.
