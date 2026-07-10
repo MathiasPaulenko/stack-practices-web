@@ -333,6 +333,9 @@ A: Function calling is supported by Anthropic, Google, and others. The API diffe
 **Q: How much does structured output cost?**
 A: Same as a regular completion. The schema is sent as part of the request, adding a small token overhead (typically 100-300 tokens).
 
+**Q: What happens if the model returns invalid JSON?**
+A: With `strict: true`, the API guarantees valid JSON matching the schema. Without strict mode, wrap parsing in try/except and retry with a correction prompt. Pydantic's `ValidationError` gives detailed field-level error messages for debugging.
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.

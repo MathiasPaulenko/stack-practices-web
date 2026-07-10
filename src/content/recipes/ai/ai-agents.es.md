@@ -216,6 +216,84 @@ R: Implementa un presupuesto de costo por sesión, limita la tasa de llamadas a 
 **P: ¿Los agentes deberían reemplazar APIs backend tradicionales?**
 R: No. Los agentes son capas de orquestación sobre APIs existentes. Manejan ambigüedad y razonamiento multi-paso, pero la lógica de negocio subyacente, validación y seguridad deberían permanecer en tus servicios backend.
 
+**P: ¿Cómo testeo un agente end-to-end?**
+R: Construye un test suite con inputs conocidos y secuencias esperadas de tool calls. Mockea las respuestas del LLM para controlar el comportamiento del agente. Verifica que el agente llama las herramientas correctas en el orden correcto y produce el output final correcto. Usa LangSmith o Langfuse para tracing y debugging de ejecuciones del agente.
+
+**P: ¿Cuál es el número máximo de herramientas que un agente puede usar?**
+R: La mayoría de modelos manejan 10-20 herramientas bien. Más allá de eso, la precisión de selección de herramientas cae porque el modelo tiene que parsear demasiadas descripciones. Si necesitas más herramientas, agrúpalas por dominio y usa un router agent que delega a sub-agentes con sets de herramientas más pequeños.
+
+**P: ¿Cómo manejo fallos de agente graciosamente?**
+R: Implementa una cadena de fallback: (1) reintenta el tool call fallido con argumentos corregidos, (2) prueba una herramienta alternativa, (3) retorna un resultado parcial con una explicación de qué falló. Nunca dejes que un agente crashee silenciosamente — siempre loguea la razón del fallo y notifica al usuario.
+
+**P: ¿Los agentes pueden trabajar con streaming responses?**
+R: Sí. OpenAI y Anthropic soportan streaming function calls. Streamea el texto de razonamiento al usuario mientras ejecutas herramientas en background. Esto mejora la latencia percibida porque el usuario ve progreso en lugar de esperar una respuesta completa.
+
+**P: ¿Cómo comparto el estado del agente across múltiples sesiones?**
+R: Persiste el historial de conversación del agente, resultados de herramientas y razonamiento intermedio en una base de datos (Redis para corto plazo, Postgres para largo plazo). Al resumir la sesión, carga el estado y continúa desde donde el agente lo dejó. Esto habilita tareas de larga duración que span múltiples interacciones de usuario.
+
+## Errores comunes adicionales
+
+- **No rate-limitar tool calls** — un agente que llama una API paga en loop puede acumular costos significativos. Implementa rate limits por herramienta y un presupuesto total de costo por sesión del agente.
+- **Usar agentes para tareas determinísticas** — si una tarea siempre sigue los mismos pasos, escribe un script. Los agentes agregan variabilidad y costo que el código determinístico no necesita.
+- **No sandboxear herramientas de ejecución de código** — si el agente puede ejecutar código, usa un container o sandbox con permisos restringidos. Nunca dejes que un agente ejecute código en tu servidor de producción.
+- **Ignorar el uso de tokens en razonamiento multi-paso** — cada tool call agrega tokens al contexto. Después de 5-10 iteraciones, el contexto puede exceder el window del modelo. Recorta resultados de herramientas antiguos o usa un paso de summarization.
+- **No testear el manejo de errores de herramientas** — las herramientas fallan en producción (API caída, timeout, input inválido). Testea tu agente con fallos simulados de herramientas para asegurar que los maneja graciosamente.
+- **Usar un solo agente para todo** — un agente general-purpose que maneja soporte, billing y preguntas técnicas será mediocre en todos. Usa agentes especializados con sets de herramientas enfocados para cada dominio.
+- **No loguear los argumentos de tool calls** — cuando un agente se comporta mal, necesitas ver exactamente qué argumentos pasó a cada herramienta. Loguea el JSON completo del tool call para debugging y auditoría.
+- **Olvidar setear un timeout en la ejecución de herramientas** — una herramienta que cuelga (ej. un web scraper en un sitio lento) bloquea todo el loop del agente. Setea un timeout por herramienta y retorna un error si se excede.
+
+## Buenas Prácticas
+
+- **Empieza simple, luego añade complejidad**: comienza con un agente de una sola herramienta. Añade herramientas una a la vez y testea después de cada adición. Esto aísla qué herramienta causa regresiones.
+- **Usa outputs estructurados**: cuando el agente necesita retornar datos (no solo texto), solicita output JSON con un schema definido. Parsea y valida server-side antes de actuar.
+- **Implementa human-in-the-loop para acciones de alto riesgo**: para acciones que cuestan dinero, envían emails o modifican datos de producción, requiere confirmación del usuario antes de que el agente ejecute.
+- **Versiona la configuración de tu agente**: trackea cambios a system prompts, definiciones de herramientas y parámetros del modelo. Esto te permite rollbackear cuando un cambio degrada el rendimiento.
+- **Monitorea el costo del agente por sesión**: trackea el uso de tokens y conteo de tool calls por sesión. Setea un presupuesto y aborta si se excede. Esto previene agentes descontrolados de consumir todo tu presupuesto de API.
+- **Cachea resultados de herramientas cuando sea posible**: si una herramienta retorna el mismo resultado para el mismo input (ej. una query de búsqueda), cachea el resultado. Esto reduce latencia y llamadas API en razonamiento multi-paso.
+- **Usa streaming para agentes de larga duración**: streamea el razonamiento del agente al usuario para que vea progreso. Esto mejora el UX y permite a los usuarios abortar si el agente va en la dirección equivocada.
+
+## Checklist de Producción
+
+- [ ] Todas las herramientas tienen timeouts y manejo de errores
+- [ ] El loop del agente tiene un límite máximo de iteraciones (prevenir loops infinitos)
+- [ ] Argumentos de tool calls logueados para debugging y auditoría
+- [ ] Presupuesto de costo enforced por sesión (uso de tokens trackeado)
+- [ ] Herramientas de ejecución de código sandboxeadas en contenedores
+- [ ] Estado del agente persistido para resumir sesiones
+- [ ] Confirmación human-in-the-loop para acciones de alto riesgo
+- [ ] Resultados de herramientas cacheados para reducir llamadas API redundantes
+- [ ] Comportamiento del agente testeado con fallos simulados de herramientas
+- [ ] Streaming habilitado para tareas de razonamiento de larga duración
+
+## Consideraciones de Escalado
+
+Al desplegar agentes a escala, considera estos factores:
+
+- **El consumo de tokens crece cuadráticamente**: cada tool call agrega tokens al context window. Después de 10 iteraciones con outputs de herramientas verbose, puedes alcanzar el límite de contexto del modelo. Implementa gestión del context window: resume resultados de herramientas antiguos o drópalos después de N turnos.
+- **Sesiones de agente concurrentes**: cada sesión mantiene su propio estado e historial de conversación. Usa un diseño de API stateless donde el estado de sesión se carga desde Redis o Postgres al inicio de cada turno. Esto te permite escalar horizontalmente across múltiples instancias de servidor.
+- **La latencia del modelo se compounded**: un agente que hace 5 tool calls secuenciales con tiempos de respuesta de LLM de 2 segundos toma 10+ segundos. Para agentes orientados al usuario, streamea resultados intermedios para que los usuarios vean progreso. Para agentes en background, usa procesamiento async con una cola de jobs.
+- **Control de costos a escala**: una sola sesión de agente puede consumir 10K-50K tokens. Con el pricing de GPT-4, eso es $0.30-$1.50 por sesión. Setea límites de costo por sesión y switchea a modelos más baratos (GPT-4o-mini) para decisiones simples de tool-routing.
+
+## Estimación de Costos
+
+| Componente | Costo por sesión | Notas |
+|-----------|-----------------|-------|
+| LLM calls (5 iteraciones) | $0.15-$0.75 | GPT-4o a $5/1M input, $15/1M output |
+| Tool API calls | $0.00-$0.10 | Depende de las herramientas (search, database, etc.) |
+| Embedding (si hay RAG tool) | $0.001 | text-embedding-3-small |
+| Total por sesión | $0.15-$0.85 | 10K-50K tokens por sesión |
+
+Para 1000 sesiones/día: $150-$850/día. Switchea a GPT-4o-mini para decisiones de routing y reduce costos en 80%.
+
+## Cuándo No Usar Agentes
+
+Los agentes son potentes pero no siempre son la tool correcta. Evítalos cuando:
+
+- **La tarea es una sola llamada LLM**: si solo necesitas un resumen o clasificación, llama al LLM directamente. Wrappearlo en un loop de agente agrega latencia, costo y modos de fallo sin beneficio.
+- **Se requiere ejecución determinística**: los agentes son no-determinísticos por naturaleza. Si el mismo input debe siempre producir el mismo output, usa un pipeline fijo sin routing basado en LLM.
+- **El presupuesto de latencia es <2 segundos**: los loops de agente toman 5-30 segundos debido a múltiples llamadas LLM. Para respuestas sub-segundo, usa respuestas pre-computadas o una sola llamada LLM sin tools.
+- **El set de herramientas es inestable**: si tus APIs cambian frecuentemente, las definiciones de tools del agente se rompen. Usa un pipeline fijo donde controles los puntos de integración directamente.
+- **La sensibilidad de costo es alta**: cada sesión de agente cuesta 10-50x más que una sola llamada LLM. Para tareas de alto volumen y baja complejidad, una prompt chain es más cost-effective.
 
 ### ¿Esta solución está lista para producción?
 

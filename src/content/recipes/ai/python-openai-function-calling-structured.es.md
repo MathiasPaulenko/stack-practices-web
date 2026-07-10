@@ -333,6 +333,9 @@ A: Function calling es soportado por Anthropic, Google y otros. La API difiere l
 **Q: Cuanto cuesta la salida estructurada?**
 A: Igual que un completion regular. El esquema se envia como parte de la peticion, anadiendo un pequeno overhead de tokens (tipicamente 100-300 tokens).
 
+**Q: Que pasa si el modelo retorna JSON invalido?**
+R: Con `strict: true`, la API garantiza JSON valido que coincide con el esquema. Sin strict mode, envuelve el parsing en try/except y reintenta con un prompt de correccion. El `ValidationError` de Pydantic da mensajes de error detallados a nivel de campo para debugging.
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

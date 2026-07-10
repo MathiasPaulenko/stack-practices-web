@@ -218,3 +218,87 @@ QLoRA on Google Colab (free T4) works for 7B models with very small batch sizes.
 ### Should I use OpenAI's fine-tuning API instead?
 
 If you need proprietary model quality (GPT-4 class) and have budget, yes. See [Chatbot with OpenAI](/recipes/ai/chatbot-openai) for API-based approaches. For cost control, privacy, or on-premise deployment, use open-source models with LoRA/QLoRA on your own hardware.
+
+### How do I format my training data?
+
+Use a consistent prompt template. For code generation, the `### Task: ...\n### Response: ...` format works well. Each training example should be a single string with the task and response concatenated. Keep examples under 512 tokens to fit within memory constraints. For longer examples, increase `max_length` but reduce batch size.
+
+### How do I know if my fine-tuned model is better?
+
+Compare against the base model on a held-out test set. Measure exact-match accuracy for code completion, BLEU/ROUGE for natural language, and pass@k for code generation (does the generated code pass tests?). Also run human evaluation on 20-50 samples — automated metrics can miss subtle quality differences.
+
+### Can I fine-tune for multiple languages?
+
+Yes, but include language tags in your training data (e.g., `### Language: Python\n### Task: ...`). Mix examples from different languages in the same dataset. The model learns to use the language tag to switch contexts. For best results, use a multilingual base model like CodeLlama or DeepSeek-Coder.
+
+### How do I deploy a fine-tuned model?
+
+Three options: (1) merge LoRA weights into the base model and serve with vLLM or TGI, (2) serve with LoRA adapters separately using PEFT inference, (3) upload to OpenAI's fine-tuning API for hosted inference. For production, use vLLM with merged weights for best throughput.
+
+### What is the difference between LoRA rank and alpha?
+
+Rank (`r`) controls the size of the update matrices — higher rank means more capacity but more parameters to train. Alpha (`lora_alpha`) scales the LoRA update — it is typically set to 2x the rank. Start with r=16, alpha=32. Increase rank only if the model underfits after 3 epochs.
+
+## Additional Common Mistakes
+
+- **Not shuffling training data** — if your dataset is sorted by topic or difficulty, the model learns the order instead of the content. Always shuffle before training.
+- **Using too many epochs** — 3 epochs is usually enough for LoRA. Beyond that, the model memorizes training examples and loses generalization ability.
+- **Not using a validation set** — without a validation set, you cannot detect overfitting during training. Hold out 10-20% of your data for validation.
+- **Mixing chat and code formats** — if your base model is a chat model (e.g., Llama-3-Instruct), use chat format for fine-tuning. If it is a base model (e.g., CodeLlama), use completion format. Mixing formats confuses the model.
+- **Not checking for data contamination** — ensure your test set does not contain examples that appear in the training set, even with minor variations. Deduplicate by content hash.
+- **Using the wrong learning rate scheduler** — cosine decay with warmup is standard for LoRA. Linear decay can work but may underperform. Avoid constant learning rate — it prevents the model from settling into minima.
+- **Forgetting to save checkpoints** — save a checkpoint at each epoch. If training diverges at epoch 3, you can resume from epoch 2 instead of starting over.
+- **Not monitoring GPU utilization** — if GPU utilization is below 80%, increase batch size or gradient accumulation steps. Underutilized GPUs mean longer training times for no benefit.
+
+## Best Practices
+
+- **Start with a small subset**: train on 50-100 examples first to verify the pipeline works end-to-end. Debug formatting, tokenization, and training loop issues before scaling to the full dataset.
+- **Use weight decay for regularization**: set `weight_decay` to 0.01-0.1 in your optimizer config. This prevents the LoRA adapters from overfitting to noise in the training data.
+- **Log training metrics to Weights & Biases or TensorBoard**: track loss, learning rate, and validation metrics in real-time. Visualizing training curves helps detect divergence early.
+- **Test with diverse inputs after training**: evaluate the model on inputs that differ from training examples in style, length, and complexity. This reveals whether the model generalized or memorized.
+- **Merge LoRA weights before deployment**: merging reduces inference latency because the model no longer needs to compute LoRA adapters at runtime. Use `merge_and_unload()` in PEFT.
+- **Keep training data under version control**: store datasets in Git LFS or DVC. Tag each training run with the dataset version, model config, and training script used. This ensures reproducibility.
+- **Set up automated evaluation pipelines**: create a script that runs the model on a fixed test set and reports metrics after each training run. Compare against previous runs to detect regressions.
+
+## Production Checklist
+
+- [ ] Training data deduplicated and shuffled before training
+- [ ] Validation set held out (10-20% of data)
+- [ ] Checkpoints saved at each epoch
+- [ ] Training metrics logged to W&B or TensorBoard
+- [ ] GPU utilization monitored (target: 80%+)
+- [ ] LoRA weights merged before deployment (`merge_and_unload()`)
+- [ ] Model evaluated on diverse out-of-distribution inputs
+- [ ] Training data versioned in Git LFS or DVC
+- [ ] Learning rate scheduler uses cosine decay with warmup
+- [ ] Data contamination check passed (no test examples in training set)
+
+## Scaling Considerations
+
+When fine-tuning at scale, consider these factors:
+
+- **GPU memory limits**: LoRA reduces memory requirements, but you still need enough VRAM for the base model. A 7B model needs ~14 GB VRAM in 16-bit precision. Use gradient checkpointing and 4-bit quantization (QLoRA) to fit larger models on smaller GPUs.
+- **Training time**: fine-tuning a 7B model on 10K examples for 3 epochs takes 2-6 hours on a single A100. For larger datasets or models, use distributed training across multiple GPUs with DeepSpeed or FSDP.
+- **Dataset size vs. quality**: 500 high-quality examples often outperform 5000 mediocre ones. Focus on label accuracy, diverse phrasing, and edge cases. A dataset that is too large with noisy labels degrades model performance.
+- **Inference cost after fine-tuning**: a fine-tuned 7B model served via vLLM or TGI costs ~$0.001 per 1K tokens on a self-hosted GPU. Compare this against GPT-4o-mini at $0.00015 per 1K tokens. Fine-tuning wins when you need domain-specific behavior that prompting cannot achieve.
+- **Model serving infrastructure**: use vLLM, Text Generation Inference (TGI), or Ollama for serving fine-tuned models. vLLM supports PagedAttention for efficient batched inference. Set up auto-scaling based on request queue depth.
+
+## Cost Estimation
+
+| Component | Cost | Notes |
+|-----------|------|-------|
+| GPU rental (A100 80GB) | $2-$4/hour | AWS p4d, GCP a2-ultragpu |
+| Training (10K examples, 3 epochs) | $10-$25 | 2-6 hours on 1x A100 |
+| Storage (model weights) | $0.023/GB/month | S3 standard |
+| Inference (vLLM, 7B model) | $0.001/1K tokens | Self-hosted on 1x A10 |
+| Inference (GPT-4o-mini comparison) | $0.00015/1K tokens | OpenAI API |
+
+Fine-tuning is cost-effective when you need domain-specific behavior that prompting cannot achieve. For general tasks, use hosted APIs.
+
+## When Not to Fine-Tune
+
+- **Prompt engineering solves the problem**: try few-shot prompting, chain-of-thought, and structured output formats first. Fine-tuning is expensive and time-consuming compared to prompt iteration.
+- **Your dataset is <100 examples**: LoRA needs at least 200-500 examples to learn meaningful patterns. Below that, you are overfitting to noise.
+- **The task changes frequently**: fine-tuned models are frozen at training time. If your task definition shifts monthly, you will retrain repeatedly. Use prompting instead, which adapts instantly.
+- **You need multi-step reasoning**: fine-tuning improves style and tone but does not teach new reasoning capabilities. For complex reasoning, use agents or chain-of-thought prompting.
+- **Latency budget is tight**: fine-tuned 7B models on self-hosted GPUs have higher latency than GPT-4o-mini API calls. For low-latency applications, use hosted APIs with streaming.

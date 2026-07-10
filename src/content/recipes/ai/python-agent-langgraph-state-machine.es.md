@@ -334,6 +334,9 @@ A: El checkpointer guarda el estado completo despues de cada ejecucion de nodo. 
 **Q: Puedo visualizar el grafo?**
 A: Si. `app.get_graph().draw_png("agent.png")` genera un diagrama visual de la estructura del grafo.
 
+**Q: Como manejo errores en un nodo?**
+R: Lanza una excepcion dentro de la funcion del nodo. LangGraph la captura y enruta al error handler si esta configurado. Tambien puedes añadir un error edge a un nodo fallback que loguee el error y retorne un mensaje amigable para el usuario.
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

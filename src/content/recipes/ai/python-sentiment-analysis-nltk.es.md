@@ -231,3 +231,79 @@ No directamente. VADER puntúa el texto completo. Para análisis basado en aspec
 ### ¿Cómo manejo emojis?
 
 VADER tiene soporte integrado para emojis. `:)` puntúa positivo, `:(` puntúa negativo. Para sentimiento de emojis Unicode completos, usa la librería `emoji` para convertir emojis a descripciones de texto antes de puntuar.
+
+### ¿Cómo manejo sarcasmo e ironía?
+
+VADER no puede detectar sarcasmo porque puntúa significados literales de palabras. Una oración como "Oh great, another bug" puntúa positivo porque "great" es positivo. Para detección de sarcasmo, usa un modelo transformer fine-tuned en texto sarcástico, o añade un paso de preprocesamiento que detecte marcadores de sarcasmo (ej. "oh great", "just what I needed") y flipee el score.
+
+### ¿Qué es análisis de sentimiento basado en aspectos?
+
+Análisis de sentimiento basado en aspectos (ABSA) identifica el sentimiento hacia aspectos específicos de un producto o servicio. Por ejemplo, "La comida fue excelente pero el servicio fue terrible" tiene sentimiento positivo hacia la comida y negativo hacia el servicio. VADER no soporta ABSA directamente. Divide el texto por menciones de aspectos y puntúa cada segmento, o usa un modelo como `pyabsa` para extracción de aspectos y clasificación de sentimiento end-to-end.
+
+### ¿Cómo hago benchmark de VADER contra otros modelos?
+
+Crea un dataset etiquetado de 200-500 textos con etiquetas de sentimiento anotadas por humanos (positivo, negativo, neutral). Ejecuta VADER, TextBlob y un modelo transformer en el mismo dataset. Compara precision, recall y F1 scores. VADER típicamente alcanza 0.70-0.80 F1 en texto de redes sociales, mientras que transformers fine-tuned llegan a 0.90+.
+
+### ¿Puedo usar VADER para análisis de streaming en tiempo real?
+
+Sí, pero con caveats. VADER es rápido (no requiere inferencia de modelo), lo que lo hace adecuado para workloads de streaming. Sin embargo, procesar un texto a la vez agrega overhead de Python. Para streams de alto throughput, batchea textos y procesa en grupos de 100-1000. Usa una cola (Kafka, Redis Streams) para bufferar textos entrantes y un worker pool para paralelizar el scoring.
+
+## Errores comunes adicionales
+
+- **No manejar negación across límites de oración** — "The food was good. Not really." VADER puntúa cada oración independientemente, perdiendo negación que spannea oraciones. Procesa reviews completas, no oraciones individuales.
+- **Usar thresholds fijos para todos los dominios** — un threshold de compound de 0.05 puede ser muy estricto para reviews de productos (que tienden a ser positivos) y muy leniente para artículos de noticias (que tienden a ser neutrales). Calibra thresholds por dominio usando una muestra etiquetada.
+- **Ignorar el score neutral** — un ratio `neu` alto (ej. 0.9) significa que el texto es mayormente informativo. Estos textos deberían clasificarse como neutrales independientemente del compound score, que puede ser ligeramente positivo o negativo debido a ruido.
+- **No manejar puntuación repetida** — "Great!!!" puntúa más alto que "Great!" en VADER, lo que puede no ser deseado. Normaliza puntuación antes de puntuar si quieres resultados consistentes.
+- **Comparar scores de VADER across diferentes longitudes de texto** — el compound score de VADER está normalizado, pero textos muy cortos (1-3 palabras) producen scores extremos. Require una longitud mínima de texto antes de puntuar.
+- **No loguear scores individuales de palabras** — VADER puede outputar valence scores por palabra. Loguea estos para debugging de clasificaciones inesperadas y para construir léxicos domain-specific a lo largo del tiempo.
+- **Usar VADER para comparación de intensidad de sentimiento** — el compound score de VADER no es lineal. Un compound de 0.5 no es "dos veces más positivo" que 0.25. Úsalo para clasificación, no para ranking de intensidad de sentimiento.
+
+## Buenas Prácticas
+
+- **Preprocesa texto consistentemente**: pasa a lowercase todo el texto, normaliza whitespace, expande contracciones antes de puntuar. Esto reduce varianza en scores para inputs semánticamente idénticos.
+- **Calibra thresholds por dominio**: ejecuta VADER en una muestra etiquetada del texto de tu dominio. Plotea la distribución de compound scores para etiquetas positivas, negativas y neutrales. Elige thresholds que minimicen misclassification para tu dominio específico.
+- **Combina VADER con filtros basados en reglas**: usa VADER como primera pasada, luego aplica reglas domain-specific para edge cases conocidos (ej., flippea sentimiento para marcadores de sarcasmo detectados, boostea sentimiento para términos positivos específicos del producto).
+- **Trackea sentimiento a lo largo del tiempo**: para monitoreo de marca o feedback de producto, computa agregados de sentimiento diarios/semanales. Plotea tendencias para detectar cambios en percepción pública. Usa rolling averages para suavizar ruido.
+- **Loguea scores con contexto**: cuando almacenes resultados de sentimiento, incluye el output completo de VADER (pos, neg, neu, compound), longitud de texto y cualquier preprocesamiento aplicado. Esto habilita análisis post-hoc y recalibración de thresholds.
+- **Valida contra etiquetas humanas periódicamente**: incluso si VADER funcionó bien inicialmente, el lenguaje evoluciona. Re-valida contra datos frescos etiquetados por humanos cada 3-6 meses para asegurar que tus thresholds y léxico sigan siendo precisos.
+
+## Checklist de Producción
+
+- [ ] Pipeline de preprocesamiento de texto (lowercase, normalizar, expandir contracciones)
+- [ ] Thresholds domain-specific calibrados usando muestra etiquetada
+- [ ] Output completo de VADER logueado (pos, neg, neu, compound, longitud de texto)
+- [ ] Longitud mínima de texto enforced antes de puntuar
+- [ ] Puntuación normalizada para scoring consistente
+- [ ] Tendencias de sentimiento trackeadas a lo largo del tiempo (agregados diarios/semanales)
+- [ ] Filtros basados en reglas aplicados para edge cases conocidos (sarcasmo, términos del dominio)
+- [ ] Procesamiento en batch para workloads de alto throughput
+- [ ] Validación humana realizada cada 3-6 meses
+- [ ] Comportamiento de fallback para textos vacíos o muy cortos
+
+## Consideraciones de Escalado
+
+Al ejecutar análisis de sentimiento a escala, considera estos factores:
+
+- **Throughput**: VADER procesa 10K-50K textos por segundo en un solo core de CPU. Para mayor throughput, usa multiprocessing o distribuye across workers. Para workloads de streaming, batchea textos en grupos de 100-1000 antes de procesar para reducir overhead de Python.
+- **Uso de memoria**: el léxico de VADER es ~15 KB y se carga una vez en memoria. El principal bottleneck de memoria son los datos de texto mismos. Para procesamiento en batch de datasets grandes, streamea textos desde disco o base de datos en lugar de cargar todo en memoria.
+- **Soporte multi-idioma**: VADER está optimizado para inglés. Para otros idiomas, usa modelos multilingües como `cardiffnlp/twitter-xlm-roberta-base-sentiment` o traduce texto a inglés antes de puntuar. Mezclar VADER con texto traducido introduce errores de traducción que compounded la misclassification de sentimiento.
+- **Dashboards en tiempo real**: para monitoreo de marca, computa sentimiento en una ventana rolling (ej., últimas 24 horas). Usa una base de datos time-series (InfluxDB, TimescaleDB) para almacenar agregados de sentimiento horarios. Alerta cuando el sentimiento caiga por debajo de un baseline histórico por más de 2 desviaciones estándar.
+
+## Estimación de Costos
+
+| Componente | Costo | Notas |
+|-----------|------|-------|
+| VADER (NLTK) | $0 | Open-source, corre en CPU |
+| Infraestructura (1 vCPU) | $10-$20/mes | AWS t3.small, GCP e2-small |
+| Almacenamiento (time-series DB) | $5-$15/mes | 1M registros de sentimiento/mes |
+| Alternativa: modelo HuggingFace | $0.02-$0.10/1K textos | Via HF Inference API |
+
+VADER es gratis y corre localmente. Para análisis de sentimiento con transformers, self-hostear en una sola GPU ($200-$400/mes) es más barato que llamadas API a >1M textos/día.
+
+## Cuándo No Usar VADER
+
+- **Necesitas sentimiento aspect-based**: VADER puntúa el texto entero. Si necesitas saber que una review elogia la cámara pero critica la batería, usa aspect-based sentiment analysis con un modelo transformer.
+- **Tu texto es muy sarcástico o irónico**: VADER detecta negación básica pero se pierde el sarcasmo. Para análisis de social media donde el sarcasmo es común, usa un modelo transformer fine-tuned en texto sarcástico.
+- **Necesitas comparación de intensidad de sentimiento**: el compound score de VADER no es lineal. Un score de 0.5 no es "dos veces más positivo" que 0.25. Usa un modelo de regresión si necesitas scores de intensidad calibrados.
+- **Tu dominio usa mucho jerga**: el léxico de VADER es general-purpose. Texto médico, legal o técnico puede puntuar incorrectamente. Suplementa con un léxico domain-specific o switchea a un modelo fine-tuned.
+- **Necesitas detección de emociones en tiempo real**: VADER clasifica como positivo, negativo o neutral. Si necesitas emociones (ira, alegría, miedo, sorpresa), usa un clasificador de emociones multi-clase como GoEmotions.

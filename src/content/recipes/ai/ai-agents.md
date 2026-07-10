@@ -216,6 +216,84 @@ A: Implement a cost budget per session, rate-limit tool calls, and require user 
 **Q: Should agents replace traditional backend APIs?**
 A: No. Agents are orchestration layers on top of existing APIs. They handle ambiguity and multi-step reasoning, but the underlying business logic, validation, and security should remain in your backend services.
 
+**Q: How do I test an agent end-to-end?**
+A: Build a test suite with known inputs and expected tool call sequences. Mock the LLM responses to control the agent's behavior. Verify that the agent calls the right tools in the right order and produces the correct final output. Use LangSmith or Langfuse for tracing and debugging agent executions.
+
+**Q: What is the maximum number of tools an agent can use?**
+A: Most models handle 10-20 tools well. Beyond that, tool selection accuracy drops because the model has to parse too many descriptions. If you need more tools, group them by domain and use a router agent that delegates to sub-agents with smaller tool sets.
+
+**Q: How do I handle agent failures gracefully?**
+A: Implement a fallback chain: (1) retry the failed tool call with corrected arguments, (2) try an alternative tool, (3) return a partial result with an explanation of what failed. Never let an agent crash silently — always log the failure reason and notify the user.
+
+**Q: Can agents work with streaming responses?**
+A: Yes. OpenAI and Anthropic support streaming function calls. Stream the reasoning text to the user while executing tools in the background. This improves perceived latency because the user sees progress instead of waiting for a complete response.
+
+**Q: How do I share agent state across multiple sessions?**
+A: Persist the agent's conversation history, tool results, and intermediate reasoning in a database (Redis for short-term, Postgres for long-term). On session resume, load the state and continue from where the agent left off. This enables long-running tasks that span multiple user interactions.
+
+## Additional Common Mistakes
+
+- **Not rate-limiting tool calls** — an agent that calls a paid API in a loop can rack up significant costs. Implement per-tool rate limits and a total cost budget per agent session.
+- **Using agents for deterministic tasks** — if a task always follows the same steps, write a script. Agents add variability and cost that deterministic code does not need.
+- **Not sandboxing code execution tools** — if the agent can run code, use a container or sandbox with restricted permissions. Never let an agent execute code on your production server.
+- **Ignoring token usage in multi-step reasoning** — each tool call adds tokens to the context. After 5-10 iterations, the context may exceed the model's window. Trim old tool results or use a summarization step.
+- **Not testing tool error handling** — tools fail in production (API down, timeout, invalid input). Test your agent with simulated tool failures to ensure it handles them gracefully.
+- **Using a single agent for everything** — a general-purpose agent that handles support, billing, and technical questions will be mediocre at all of them. Use specialized agents with focused tool sets for each domain.
+- **Not logging tool call arguments** — when an agent misbehaves, you need to see exactly what arguments it passed to each tool. Log the full tool call JSON for debugging and auditing.
+- **Forgetting to set a timeout on tool execution** — a tool that hangs (e.g., a web scraper on a slow site) blocks the entire agent loop. Set a per-tool timeout and return an error if exceeded.
+
+## Best Practices
+
+- **Start simple, then add complexity**: begin with a single-tool agent. Add tools one at a time and test after each addition. This isolates which tool causes regressions.
+- **Use structured outputs**: when the agent needs to return data (not just text), request JSON output with a defined schema. Parse and validate server-side before acting on it.
+- **Implement human-in-the-loop for high-stakes actions**: for actions that cost money, send emails, or modify production data, require user confirmation before the agent executes.
+- **Version your agent configuration**: track changes to system prompts, tool definitions, and model parameters. This lets you roll back when a change degrades performance.
+- **Monitor agent cost per session**: track token usage and tool call count per session. Set a budget and abort if exceeded. This prevents runaway agents from consuming your entire API budget.
+- **Cache tool results when possible**: if a tool returns the same result for the same input (e.g., a search query), cache the result. This reduces latency and API calls in multi-step reasoning.
+- **Use streaming for long-running agents**: stream the agent's reasoning to the user so they see progress. This improves UX and lets users abort if the agent goes in the wrong direction.
+
+## Production Checklist
+
+- [ ] All tools have timeouts and error handling
+- [ ] Agent loop has a max iteration limit (prevent infinite loops)
+- [ ] Tool call arguments logged for debugging and auditing
+- [ ] Cost budget enforced per session (token usage tracked)
+- [ ] Code execution tools sandboxed in containers
+- [ ] Agent state persisted for session resumption
+- [ ] Human-in-the-loop confirmation for high-stakes actions
+- [ ] Tool results cached to reduce redundant API calls
+- [ ] Agent behavior tested with simulated tool failures
+- [ ] Streaming enabled for long-running reasoning tasks
+
+## Scaling Considerations
+
+When deploying agents at scale, consider these factors:
+
+- **Token consumption grows quadratically**: each tool call adds tokens to the context window. After 10 iterations with verbose tool outputs, you may hit the model's context limit. Implement context window management: summarize old tool results or drop them after N turns.
+- **Concurrent agent sessions**: each session maintains its own state and conversation history. Use a stateless API design where session state is loaded from Redis or Postgres at the start of each turn. This lets you scale horizontally across multiple server instances.
+- **Model latency compounds**: an agent that makes 5 sequential tool calls with 2-second LLM response times takes 10+ seconds. For user-facing agents, stream intermediate results so users see progress. For background agents, use async processing with a job queue.
+- **Cost control at scale**: a single agent session can consume 10K-50K tokens. At GPT-4 pricing, that's $0.30-$1.50 per session. Set per-session cost limits and switch to cheaper models (GPT-4o-mini) for simple tool-routing decisions.
+
+## Cost Estimation
+
+| Component | Cost per session | Notes |
+|-----------|-----------------|-------|
+| LLM calls (5 iterations) | $0.15-$0.75 | GPT-4o at $5/1M input, $15/1M output |
+| Tool API calls | $0.00-$0.10 | Depends on tools (search, database, etc.) |
+| Embedding (if RAG tool) | $0.001 | text-embedding-3-small |
+| Total per session | $0.15-$0.85 | 10K-50K tokens per session |
+
+For 1000 sessions/day: $150-$850/day. Switch to GPT-4o-mini for routing decisions to cut costs by 80%.
+
+## When Not to Use Agents
+
+Agents are powerful but not always the right tool. Avoid them when:
+
+- **The task is a single LLM call**: if you just need a summary or classification, call the LLM directly. Wrapping it in an agent loop adds latency, cost, and failure modes without benefit.
+- **Deterministic execution is required**: agents are non-deterministic by nature. If the same input must always produce the same output, use a fixed pipeline with no LLM-based routing.
+- **Latency budget is <2 seconds**: agent loops take 5-30 seconds due to multiple LLM calls. For sub-second responses, use pre-computed responses or a single LLM call with no tools.
+- **The tool set is unstable**: if your APIs change frequently, the agent's tool definitions break. Use a fixed pipeline where you control the integration points directly.
+- **Cost sensitivity is high**: each agent session costs 10-50x more than a single LLM call. For high-volume, low-complexity tasks, a prompt chain is more cost-effective.
 
 ### Is this solution production-ready?
 

@@ -334,6 +334,9 @@ A: The checkpointer saves the full state after each node execution. On the next 
 **Q: Can I visualize the graph?**
 A: Yes. `app.get_graph().draw_png("agent.png")` generates a visual diagram of the graph structure.
 
+**Q: How do I handle errors in a node?**
+A: Raise an exception inside the node function. LangGraph catches it and routes to the error handler if configured. You can also add an error edge to a fallback node that logs the error and returns a user-friendly message.
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.

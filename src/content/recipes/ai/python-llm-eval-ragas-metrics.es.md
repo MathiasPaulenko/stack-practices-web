@@ -332,6 +332,12 @@ A: Si. RAGAS soporta cualquier LLM y embeddings de LangChain. Pasa tu modelo a l
 **Q: Con que frecuencia debo ejecutar RAGAS?**
 A: Ejecutalo como parte de CI/CD cuando cambies componentes RAG (modelo de embedding, tamanio de chunk, LLM, prompt template).
 
+**Q: Cual es un buen score de faithfulness?**
+R: Un score de faithfulness arriba de 0.8 significa que la respuesta esta mayormente basada en el contexto recuperado. Abajo de 0.5 indica alucinacion — el modelo esta generando contenido no soportado por las fuentes. Investiga el tamanio de chunk, la calidad de retrieval, y las instrucciones del prompt.
+
+**Q: Puedo anadir metricas custom a RAGAS?**
+R: Si. Crea una clase que extienda `Metric` e implementa el metodo `score`. Registrala en el pipeline de evaluacion junto a las metricas built-in. Las metricas custom son utiles para checks especificos de dominio como precision de citas o cumplimiento de formato.
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

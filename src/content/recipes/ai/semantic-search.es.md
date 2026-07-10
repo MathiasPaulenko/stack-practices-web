@@ -232,3 +232,82 @@ Sí. `sentence-transformers` provee modelos de código abierto de alta calidad c
 ### ¿Cómo escalo a millones de documentos?
 
 Usa una base de datos vectorial de producción como Pinecone, Weaviate o pgvector con indexación HNSW. Consulta [Guía de Optimización de SQL](/guides/databases/sql-performance-tuning-guide) para optimización de base de datos. Particiona por categoría o tenant, e implementa búsqueda aproximada de vecinos más cercanos (ANN) para tiempos de consulta sub-segundo a escala.
+
+### ¿Qué es búsqueda híbrida y por qué debería usarla?
+
+Búsqueda híbrida combina búsqueda semántica (vectorial) y por palabras clave (BM25). La búsqueda semántica captura significado y sinónimos; la búsqueda por palabras clave asegura coincidencias exactas de términos. La mayoría de sistemas de búsqueda en producción usan búsqueda híbrida porque cubre ambos modos de fallo: la búsqueda semántica pierde terminología exacta, y la búsqueda por palabras clave pierde paráfrasis. Implementa búsqueda híbrida con reciprocal rank fusion (RRF) para mezclar resultados de ambos métodos.
+
+### ¿Cómo manejo búsqueda semántica multilingüe?
+
+Usa un modelo de embedding multilingüe como `multilingual-e5-large` o embeddings multilingües de Cohere. Estos modelos mapean texto de diferentes idiomas al mismo espacio vectorial, así una query en español puede coincidir con documentos en inglés. Evita traducir queries antes de embeber — la traducción agrega latencia y puede introducir errores.
+
+### ¿Cómo depuro resultados de búsqueda pobres?
+
+Verifica en orden: (1) ¿Los embeddings están normalizados? (2) ¿La métrica de distancia es correcta para el modelo? (3) ¿Queries y documentos usan el mismo modelo de embedding? (4) ¿Los fragmentos son demasiado grandes o pequeños? (5) ¿El threshold de relevancia es muy alto o muy bajo? Construye un pequeño test set de queries conocidas y resultados esperados para diagnosticar sistemáticamente.
+
+### ¿Cuál es el costo de búsqueda semántica a escala?
+
+`text-embedding-3-small` de OpenAI cuesta $0.02 por 1M de tokens. Indexar 100.000 documentos (avg 500 tokens cada uno) cuesta ~$1. Embeddings de query cuestan ~$0.00001 por query. Los costos de base de datos vectorial varían: pgvector es gratis (solo Postgres), Pinecone empieza en $70/mes, Weaviate self-hosted requiere una instancia GPU. Factora costos de re-indexación cuando los documentos cambian frecuentemente.
+
+## Errores comunes adicionales
+
+- **No normalizar embeddings antes de buscar** — cosine similarity requiere vectores normalizados. Si saltas L2 normalization, los scores de inner product son dominados por la magnitud del vector en lugar de la dirección.
+- **Usar un solo embedding para un documento largo** — un documento de 5000 tokens comprimido en un vector pierde contexto local. Fragmenta el documento y embebe cada fragmento separadamente para recuperación granular.
+- **No manejar términos fuera de vocabulario** — los modelos de embedding pueden no representar bien jerga domain-specific. Suplementa con búsqueda por palabras clave o fine-tunea embeddings en texto del dominio.
+- **Ignorar preprocesamiento de queries** — las queries de usuarios suelen contener typos, slang o abreviaciones. Normaliza queries antes de embeber: lowercase, strippea puntuación, expande abreviaciones comunes.
+- **No cachear embeddings de queries** — queries populares repetidas por múltiples usuarios generan el mismo embedding. Cachea por query hash para reducir llamadas API y latencia.
+- **Mezclar modelos de embedding en el mismo índice** — embeddings de diferentes modelos tienen diferentes dimensiones y espacios. Nunca mezcles modelos en el mismo índice sin re-embeber todo.
+- **No monitorear freshness del índice** — si los documentos se actualizan pero los embeddings no se regeneran, la calidad de búsqueda se degrada silenciosamente. Setea un pipeline de re-indexación triggered por cambios de contenido.
+
+## Buenas Prácticas
+
+- **Usa búsqueda híbrida para producción**: combina búsqueda vectorial con BM25 keyword search. Usa reciprocal rank fusion (RRF) para mergeear resultados. Esto captura tanto coincidencias semánticas como coincidencias de términos exactos, mejorando el recall significativamente.
+- **Implementa understanding de queries**: antes de embeber la query, clasifica el intent (informacional, navegacional, transaccional). Rutea diferentes intents a diferentes estrategias de búsqueda. Esto mejora la relevancia para tipos diversos de queries.
+- **Usa búsqueda vectorial filtrada**: adjunta tags de metadatos (categoría, fecha, idioma, autor) a los embeddings. Filtra por metadatos antes de la búsqueda vectorial para reducir el espacio de búsqueda y mejorar tanto velocidad como relevancia.
+- **Benchmarkea diferentes modelos de embedding**: testea 3-5 modelos de embedding en tu test set domain-specific. Compara recall@k y MRR. Modelos como `e5-large-v2`, `bge-large` y `text-embedding-3-large` pueden outperformar el default de OpenAI en ciertos dominios.
+- **Setea A/B testing para calidad de búsqueda**: rutea un porcentaje de búsquedas a una nueva configuración (diferente modelo, tamaño de fragmento o threshold). Mide métricas de engagement del usuario (click-through rate, tiempo para encontrar, zero-result rate). Promueve configuraciones que mejoren el engagement.
+- **Monitorea queries con cero resultados**: trackea queries que no retornan resultados above threshold. Estas indican gaps en tu corpus o issues con tu modelo de embedding. Úsalas para identificar contenido faltante o cambios de modelo necesarios.
+- **Implementa autocomplete y sugerencias de query**: usa un índice keyword ligero para sugerencias de autocomplete. Esto reduce la carga en búsqueda vectorial y mejora el UX guiando a los usuarios hacia queries que retornarán resultados.
+
+## Checklist de Producción
+
+- [ ] Embeddings L2-normalizados antes de indexación y búsqueda
+- [ ] Métrica de distancia matchea el entrenamiento del modelo de embedding
+- [ ] Documentos largos fragmentados y embebidos separadamente
+- [ ] Pipeline de preprocesamiento de queries (lowercase, strippear puntuación, expandir abreviaciones)
+- [ ] Cache de embeddings de queries por query hash
+- [ ] Búsqueda híbrida (vectorial + BM25) con reciprocal rank fusion
+- [ ] Filtros de metadatos aplicados antes de búsqueda vectorial
+- [ ] Freshness del índice monitoreado (re-indexación en cambios de contenido)
+- [ ] Queries con cero resultados trackeadas y analizadas
+- [ ] Framework de A/B testing para cambios de configuración de búsqueda
+
+## Consideraciones de Escalado
+
+Al desplegar búsqueda semántica a escala, considera estos factores:
+
+- **Tamaño de índice y memoria**: un embedding de 1536 dimensiones (OpenAI) toma ~6 KB por documento. Para 1M documentos, el índice es ~6 GB en memoria. Usa quantization (int8 o binary) para reducir memoria por 4-32x con pérdida mínima de accuracy. FAISS y Qdrant soportan índices quantized nativamente.
+- **Targets de latencia de query**: para e-commerce o búsqueda orientada al usuario, targetea <100ms p99 latency. Índices HNSW logran esto para hasta 10M vectores en una sola máquina. Para índices más grandes, sharda across múltiples nodos y mergeea resultados.
+- **Estrategia de re-indexación**: cuando cambias de modelo de embedding o actualizas la lógica de chunking, debes re-indexar todo. Para corpora grandes, haz esto en un despliegue blue-green: construye el índice nuevo alongside el viejo, luego switchea el tráfico cuando el índice nuevo esté listo.
+- **Optimización de costos**: las llamadas API de embedding son baratas ($0.02/1M tokens) pero se compounded a escala. Para 1M documentos actualizados semanalmente, embedding cuesta ~$10/semana. Cachea embeddings por content hash para evitar re-embeber documentos sin cambios. Usa modelos open-source (e5, bge) para inferencia self-hosted y eliminar costos de API enteramente.
+
+## Estimación de Costos
+
+| Componente | Costo | Notas |
+|-----------|------|-------|
+| Embedding (text-embedding-3-small) | $0.02/1M tokens | OpenAI API, 1536 dims |
+| Embedding (text-embedding-3-large) | $0.13/1M tokens | OpenAI API, 3072 dims |
+| Embedding (self-hosted bge-large) | $0 | Solo costo de GPU |
+| Vector store (pgvector) | $0 | Incluido con Postgres |
+| Vector store (Pinecone) | $0-$70/mes | Escala con conteo de vectores |
+| FAISS (self-hosted) | $0 | In-memory, sin costo de servicio |
+
+Para 1M documentos re-embebidos mensualmente: ~$2/mes con OpenAI small. Self-hostear bge-large en 1x A10 ($0.75/hr) break-even a ~500M tokens/mes.
+
+## Cuándo No Usar Búsqueda Semántica
+
+- **El match exacto es el use case principal**: si los usuarios buscan por product IDs, SKUs o error codes, keyword search (BM25, Elasticsearch) es más rápido y más accurate. La búsqueda semántica agrega ruido retornando resultados "similares" pero no matching.
+- **Tu corpus es <1000 documentos**: para corpora pequeños, keyword search con buen ranking es suficiente. El overhead de generación de embeddings y mantenimiento de índice vectorial no se justifica.
+- **Necesitas latencia sub-10ms**: la búsqueda vectorial con HNSW toma 10-50ms. Para requerimientos sub-10ms (autocomplete, typeahead), usa trie-based o prefix search en su lugar.
+- **Tu contenido es mayormente numérico o codificado**: los embeddings están diseñados para lenguaje natural. Para datos numéricos (precios, medidas), usa range queries. Para datos codificados (códigos ICD, standards ISO), usa exact match con sinónimos.
+- **Compliance requiere resultados explainable**: los scores de similitud vectorial no son intuitivos para end users. "¿Por qué matcheó este documento?" es más difícil de explicar con embeddings que con keyword highlighting. Usa BM25 con términos highlighted para transparencia.

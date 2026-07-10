@@ -232,3 +232,79 @@ Not directly. VADER scores the whole text. For aspect-based analysis (e.g., "the
 ### How do I handle emojis?
 
 VADER has built-in emoji support. `:)` scores positive, `:(` scores negative. For full Unicode emoji sentiment, use the `emoji` library to convert emojis to text descriptions before scoring.
+
+### How do I handle sarcasm and irony?
+
+VADER cannot detect sarcasm because it scores literal word meanings. A sentence like "Oh great, another bug" scores positive because "great" is positive. For sarcasm detection, use a transformer-based model fine-tuned on sarcastic text, or add a preprocessing step that detects sarcasm markers (e.g., "oh great", "just what I needed") and flips the score.
+
+### What is aspect-based sentiment analysis?
+
+Aspect-based sentiment analysis (ABSA) identifies sentiment toward specific aspects of a product or service. For example, "The food was great but the service was terrible" has positive sentiment toward food and negative sentiment toward service. VADER does not support ABSA directly. Split text by aspect mentions and score each segment, or use a model like `pyabsa` for end-to-end aspect extraction and sentiment classification.
+
+### How do I benchmark VADER against other models?
+
+Create a labeled dataset of 200-500 texts with human-annotated sentiment labels (positive, negative, neutral). Run VADER, TextBlob, and a transformer model on the same dataset. Compare precision, recall, and F1 scores. VADER typically achieves 0.70-0.80 F1 on social media text, while fine-tuned transformers reach 0.90+.
+
+### Can I use VADER for real-time streaming analysis?
+
+Yes, but with caveats. VADER is fast (no model inference required), making it suitable for streaming workloads. However, processing one text at a time adds Python overhead. For high-throughput streams, batch texts and process in groups of 100-1000. Use a queue (Kafka, Redis Streams) to buffer incoming texts and a worker pool to parallelize scoring.
+
+## Additional Common Mistakes
+
+- **Not handling negation across sentence boundaries** — "The food was good. Not really." VADER scores each sentence independently, missing negation that spans sentences. Process full reviews, not individual sentences.
+- **Using fixed thresholds for all domains** — a 0.05 compound threshold may be too strict for product reviews (which tend to be positive) and too lenient for news articles (which tend to be neutral). Calibrate thresholds per domain using a labeled sample.
+- **Ignoring the neutral score** — a high `neu` ratio (e.g., 0.9) means the text is mostly informational. These texts should be classified as neutral regardless of the compound score, which may be slightly positive or negative due to noise.
+- **Not handling repeated punctuation** — "Great!!!" scores higher than "Great!" in VADER, which may not be desired. Normalize punctuation before scoring if you want consistent results.
+- **Comparing VADER scores across different text lengths** — VADER's compound score is normalized, but very short texts (1-3 words) produce extreme scores. Require a minimum text length before scoring.
+- **Not logging individual word scores** — VADER can output per-word valence scores. Log these for debugging unexpected classifications and for building domain-specific lexicons over time.
+- **Using VADER for sentiment intensity comparison** — VADER's compound score is not linear. A compound of 0.5 is not "twice as positive" as 0.25. Use it for classification, not for ranking sentiment intensity.
+
+## Best Practices
+
+- **Preprocess text consistently**: lowercase all text, normalize whitespace, expand contractions before scoring. This reduces variance in scores for semantically identical inputs.
+- **Calibrate thresholds per domain**: run VADER on a labeled sample of your domain's text. Plot the distribution of compound scores for positive, negative, and neutral labels. Choose thresholds that minimize misclassification for your specific domain.
+- **Combine VADER with rule-based filters**: use VADER as a first pass, then apply domain-specific rules for known edge cases (e.g., flip sentiment for detected sarcasm markers, boost sentiment for product-specific positive terms).
+- **Track sentiment over time**: for brand monitoring or product feedback, compute daily/weekly sentiment aggregates. Plot trends to detect shifts in public perception. Use rolling averages to smooth noise.
+- **Log scores with context**: when storing sentiment results, include the full VADER output (pos, neg, neu, compound), text length, and any preprocessing applied. This enables post-hoc analysis and threshold recalibration.
+- **Validate against human labels periodically**: even if VADER worked well initially, language evolves. Re-validate against fresh human-labeled data every 3-6 months to ensure your thresholds and lexicon are still accurate.
+
+## Production Checklist
+
+- [ ] Text preprocessing pipeline (lowercase, normalize, expand contractions)
+- [ ] Domain-specific thresholds calibrated using labeled sample
+- [ ] Full VADER output logged (pos, neg, neu, compound, text length)
+- [ ] Minimum text length enforced before scoring
+- [ ] Punctuation normalized for consistent scoring
+- [ ] Sentiment trends tracked over time (daily/weekly aggregates)
+- [ ] Rule-based filters applied for known edge cases (sarcasm, domain terms)
+- [ ] Batch processing for high-throughput workloads
+- [ ] Human validation performed every 3-6 months
+- [ ] Fallback behavior for empty or very short texts
+
+## Scaling Considerations
+
+When running sentiment analysis at scale, consider these factors:
+
+- **Throughput**: VADER processes 10K-50K texts per second on a single CPU core. For higher throughput, use multiprocessing or distribute across workers. For streaming workloads, batch texts into groups of 100-1000 before processing to reduce Python overhead.
+- **Memory usage**: VADER's lexicon is ~15 KB and loaded once into memory. The main memory bottleneck is the text data itself. For batch processing of large datasets, stream texts from disk or database instead of loading everything into memory.
+- **Multi-language support**: VADER is optimized for English. For other languages, use multilingual models like `cardiffnlp/twitter-xlm-roberta-base-sentiment` or translate text to English before scoring. Mixing VADER with translated text introduces translation errors that compound sentiment misclassification.
+- **Real-time dashboards**: for brand monitoring, compute sentiment on a rolling window (e.g., last 24 hours). Use a time-series database (InfluxDB, TimescaleDB) to store hourly sentiment aggregates. Alert when sentiment drops below a historical baseline by more than 2 standard deviations.
+
+## Cost Estimation
+
+| Component | Cost | Notes |
+|-----------|------|-------|
+| VADER (NLTK) | $0 | Open-source, runs on CPU |
+| Infrastructure (1 vCPU) | $10-$20/month | AWS t3.small, GCP e2-small |
+| Storage (time-series DB) | $5-$15/month | 1M sentiment records/month |
+| Alternative: HuggingFace model | $0.02-$0.10/1K texts | Via HF Inference API |
+
+VADER is free and runs locally. For transformer-based sentiment analysis, self-hosting on a single GPU ($200-$400/month) is cheaper than API calls at >1M texts/day.
+
+## When Not to Use VADER
+
+- **You need aspect-based sentiment**: VADER scores the whole text. If you need to know that a review praises the camera but criticizes the battery, use aspect-based sentiment analysis with a transformer model.
+- **Your text is highly sarcastic or ironic**: VADER detects basic negation but misses sarcasm. For social media analysis where sarcasm is common, use a transformer model fine-tuned on sarcastic text.
+- **You need sentiment intensity comparison**: VADER's compound score is not linear. A score of 0.5 is not "twice as positive" as 0.25. Use a regression model if you need calibrated intensity scores.
+- **Your domain uses heavy jargon**: VADER's lexicon is general-purpose. Medical, legal, or technical text may score incorrectly. Supplement with a domain-specific lexicon or switch to a fine-tuned model.
+- **You need real-time emotion detection**: VADER classifies as positive, negative, or neutral. If you need emotions (anger, joy, fear, surprise), use a multi-class emotion classifier like GoEmotions.

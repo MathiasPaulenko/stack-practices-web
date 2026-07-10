@@ -205,6 +205,94 @@ A: Generate at the target display resolution (e.g., 1024px wide for hero images)
 **Q: How do I prevent users from generating inappropriate content?**
 A: Layer prompt filtering (blocklists, regex), API moderation flags, and human review queues. Rejected prompts should be logged and pattern-matched to detect users attempting to bypass filters.
 
+**Q: How do I generate consistent characters across multiple images?**
+A: Use character LoRA (Low-Rank Adaptation) fine-tuned on 10-20 images of your character. With DALL-E, include detailed character descriptions in every prompt (hair, clothing, features). With Stable Diffusion, use a reference image via IP-Adapter or ControlNet to maintain facial features across generations.
+
+**Q: What is the difference between img2img and text2img?**
+A: Text2img generates an image from a text prompt only. Img2img starts from an existing image and modifies it based on a text prompt, preserving structure and composition. Use img2img for variations, style transfer, and inpainting. Use text2img for original generation.
+
+**Q: How do I handle image generation failures in production?**
+A: Implement a retry queue with exponential backoff. If the API fails after 3 retries, fall back to a pre-generated placeholder or stock image. Log the failed prompt and error for debugging. Never expose raw API errors to users — show a friendly message and offer a retry button.
+
+**Q: Can I use AI image generation for print-on-demand products?**
+A: Yes, but check your provider's commercial use terms. DALL-E and Stable Diffusion allow commercial use. Midjourney requires a paid subscription. For print, generate at the highest resolution available and upscale with tools like Real-ESRGAN or Topaz Gigapixel to meet print DPI requirements (300 DPI for most products).
+
+**Q: How do I reduce generation costs for high-volume workloads?**
+A: Cache aggressively — store every generated image by prompt hash and serve from cache for repeat requests. Use smaller models (SDXL Turbo, DALL-E standard quality) for drafts and previews. Only use HD or high-step models for final output. Batch generation during off-peak hours if using self-hosted models.
+
+## Additional Common Mistakes
+
+- **Not testing prompts across model versions** — DALL-E 3 and DALL-E 4 may interpret the same prompt differently. Regression test your prompt library when upgrading models.
+- **Generating at 4K and downscaling** — this wastes tokens and time. Generate at the target display resolution. If you need higher resolution, use an upscaler post-generation.
+- **Not using negative prompts with Stable Diffusion** — negative prompts ("blurry, deformed, extra fingers, watermark") significantly improve quality. Always include a negative prompt for SD-based generation.
+- **Storing images without content hashes** — without a hash, you cannot detect duplicate generations or implement caching. Hash the prompt + model + seed and use it as the cache key.
+- **Not handling aspect ratio correctly** — DALL-E 3 supports 1024x1024, 1792x1024, and 1024x1792. Generating at the wrong aspect ratio produces distorted images. Match the aspect ratio to your display context.
+- **Forgetting to strip EXIF metadata** — AI-generated images may contain metadata about the generation process. Strip EXIF data before publishing to avoid leaking prompt text or API information.
+- **Not implementing user rate limits** — a single user generating hundreds of images per minute can exhaust your API quota. Implement per-user daily limits and queue excess requests.
+- **Using AI images for medical or legal content** — AI-generated images can be inaccurate or misleading in sensitive domains. Use real photography or illustrations for medical, legal, or safety-critical content.
+
+## Best Practices
+
+- **Build a prompt library**: maintain a versioned collection of tested prompts with their expected outputs. This ensures consistency across team members and serves as a regression test when models update.
+- **Generate multiple variants and pick the best**: request 2-4 images per prompt and select the highest quality. This costs more but significantly improves output quality, especially for marketing materials.
+- **Use deterministic seeds for reproducibility**: when you find a good result, save the seed. This lets you regenerate similar images or make small prompt adjustments while preserving composition.
+- **Implement a review queue for user-facing content**: never publish AI-generated images directly to users without a human review step. Set up a moderation queue that checks for artifacts, text rendering errors, and content policy violations.
+- **Store generation metadata separately from images**: keep prompt, model, seed, and parameters in a database. This enables auditing, debugging, and re-generation without parsing image metadata.
+- **Set up cost monitoring and alerts**: track daily image generation costs per user and per project. Alert when spending exceeds 80% of budget. Suspend generation for users who exceed their quota.
+
+## Production Checklist
+
+- [ ] API keys stored in environment variables, not hardcoded
+- [ ] Per-user rate limits enforced (daily image generation cap)
+- [ ] Generated images stored in object storage (S3, GCS), not local disk
+- [ ] Content moderation filter applied to prompts before generation
+- [ ] EXIF metadata stripped from generated images before publishing
+- [ ] Generation metadata (prompt, model, seed) stored in database
+- [ ] Fallback behavior when API is rate-limited or unavailable
+- [ ] Image dimensions validated before storage
+- [ ] Cost tracking and alerts configured per project
+- [ ] Prompt library versioned and tested across model updates
+
+## Scaling Considerations
+
+When generating images at scale, consider these factors:
+
+- **API rate limits**: OpenAI's DALL-E 3 has a rate limit of 5 images per minute for tier 1 users. For higher throughput, request a quota increase or use multiple API keys with a round-robin dispatcher. Stable Diffusion APIs (Stability AI, Replicate) have separate rate limits.
+- **Storage costs**: a single 1024x1024 PNG image is 1-3 MB. At 1000 images per day, that's 1-3 GB daily. Use object storage (S3, GCS) with lifecycle policies to move old images to cheaper storage tiers. Consider converting to WebP for 30-50% size reduction.
+- **Latency**: DALL-E 3 takes 10-30 seconds per image. For batch generation, parallelize with async requests. For user-facing generation, show a loading state with an estimated wait time. Consider pre-generating common image variants during off-peak hours.
+- **Content moderation at scale**: OpenAI automatically rejects prohibited content, but your users may find workarounds. Implement a secondary moderation layer using a tool like AWS Rekognition or Google Cloud Vision to scan generated images before storing them.
+- **CDN distribution**: serve generated images through a CDN (CloudFront, Cloudflare) to reduce latency for global users. Set appropriate cache headers and TTLs. Invalidating cached images when they are regenerated is important for consistency.
+
+## Cost Estimation
+
+| Component | Cost per image | Notes |
+|-----------|---------------|-------|
+| DALL-E 3 (standard) | $0.040 | 1024x1024, standard quality |
+| DALL-E 3 (HD) | $0.080 | 1024x1024, HD quality |
+| Stable Diffusion XL | $0.002-$0.006 | Via Replicate or Stability AI |
+| S3 storage | $0.023/GB/month | Standard tier |
+| CDN bandwidth | $0.085/GB | CloudFront first 10TB |
+
+For 1000 images/day at standard quality: $40/day in generation, ~$2-3/day in storage (after 30 days).
+
+## When Not to Use AI Image Generation
+
+- **Photorealistic accuracy is critical**: AI models struggle with fine details (hands, text, logos). For product photos or technical illustrations, use traditional photography or graphic design.
+- **Brand consistency across batches**: AI-generated images vary between generations even with the same prompt. For consistent visual identity across a campaign, use templates or human designers.
+- **Copyright-sensitive contexts**: AI models may reproduce training data patterns. For commercial work where IP clearance is required, use licensed stock photos or commission original artwork.
+- **Real-time generation (<5 seconds)**: DALL-E 3 takes 10-30 seconds. For real-time applications (avatars, live previews), use pre-generated assets or lightweight models like SDXL Turbo.
+- **High-volume, low-budget projects**: at $0.04/image, 10K images cost $400. For simple decorative graphics (icons, patterns, gradients), use CSS, SVG, or static asset libraries instead.
+
+## Performance Benchmarks
+
+| Model | Avg latency | Max resolution | Concurrent requests | Notes |
+|-------|------------|----------------|---------------------|-------|
+| DALL-E 3 (standard) | 12-20s | 1024x1024 | 5/min (tier 1) | OpenAI hosted |
+| DALL-E 3 (HD) | 20-30s | 1024x1024 | 5/min (tier 1) | Higher quality |
+| SDXL (Replicate) | 5-15s | 1024x1024 | 20/min | Self-hosted possible |
+| SDXL Turbo | 1-4s | 512x512 | 50/min | Fastest option |
+
+Benchmarks run on cold starts. Warm requests are 20-30% faster. For batch generation, parallelize across multiple API keys to bypass per-key rate limits.
 
 ### Is this solution production-ready?
 
