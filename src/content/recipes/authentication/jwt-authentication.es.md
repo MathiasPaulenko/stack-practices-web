@@ -166,6 +166,155 @@ Un JWT tiene tres partes separadas por puntos: `header.payload.signature`.
 
 ## Variants
 
+### Flujo de Refresh Token
+
+Los tokens de acceso son de corta duración (5–15 minutos). Cuando expiran, el cliente envía el refresh token para obtener un nuevo token de acceso sin re-autenticarse.
+
+```python
+import jwt
+import datetime
+import secrets
+
+SECRET = "your-256-bit-secret"
+ALGORITHM = "HS256"
+REFRESH_TTL_DAYS = 7
+
+# Almacena refresh tokens en una base de datos o Redis con el user ID
+refresh_store = {}  # En producción, usa Redis o una base de datos
+
+
+def create_access_token(user_id: str) -> str:
+    payload = {
+        "sub": user_id,
+        "type": "access",
+        "iat": datetime.datetime.utcnow(),
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=15),
+    }
+    return jwt.encode(payload, SECRET, algorithm=ALGORITHM)
+
+
+def create_refresh_token(user_id: str) -> str:
+    token_id = secrets.token_urlsafe(32)
+    payload = {
+        "sub": user_id,
+        "type": "refresh",
+        "jti": token_id,
+        "iat": datetime.datetime.utcnow(),
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(days=REFRESH_TTL_DAYS),
+    }
+    token = jwt.encode(payload, SECRET, algorithm=ALGORITHM)
+    refresh_store[token_id] = user_id
+    return token
+
+
+def refresh_access_token(refresh_token: str) -> str:
+    try:
+        claims = jwt.decode(refresh_token, SECRET, algorithms=[ALGORITHM])
+    except jwt.ExpiredSignatureError:
+        raise ValueError("El refresh token ha expirado")
+    except jwt.InvalidTokenError:
+        raise ValueError("Refresh token inválido")
+
+    if claims.get("type") != "refresh":
+        raise ValueError("No es un refresh token")
+
+    token_id = claims.get("jti")
+    if token_id not in refresh_store:
+        raise ValueError("El refresh token ha sido revocado")
+
+    return create_access_token(claims["sub"])
+
+
+def revoke_refresh_token(refresh_token: str) -> None:
+    try:
+        claims = jwt.decode(refresh_token, SECRET, algorithms=[ALGORITHM])
+    except jwt.InvalidTokenError:
+        return
+
+    token_id = claims.get("jti")
+    if token_id and token_id in refresh_store:
+        del refresh_store[token_id]
+
+
+# Uso
+access = create_access_token("user-123")
+refresh = create_refresh_token("user-123")
+
+# Cuando el access token expira, obtén uno nuevo
+new_access = refresh_access_token(refresh)
+
+# En logout, revoca el refresh token
+revoke_refresh_token(refresh)
+```
+
+### Variante RS256 (Asimétrico)
+
+Cuando múltiples servicios necesitan verificar tokens, usa RS256 para que cada servicio solo necesite la clave pública.
+
+```python
+from cryptography.hazmat.primitives import serialization
+import jwt
+
+# Cargar clave privada (solo en el servicio de auth)
+with open("private.pem", "rb") as f:
+    private_key = serialization.load_pem_private_key(f, password=None)
+
+# Cargar clave pública (en cada servicio que verifica)
+with open("public.pem", "rb") as f:
+    public_key = serialization.load_pem_public_key(f)
+
+
+def create_token_rs256(user_id: str) -> str:
+    payload = {"sub": user_id, "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=15)}
+    return jwt.encode(payload, private_key, algorithm="RS256")
+
+
+def verify_token_rs256(token: str) -> dict:
+    return jwt.decode(token, public_key, algorithms=["RS256"])
+```
+
+```javascript
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+
+const privateKey = fs.readFileSync('private.pem');
+const publicKey = fs.readFileSync('public.pem');
+
+function createTokenRS256(userId) {
+  return jwt.sign({ sub: userId }, privateKey, { algorithm: 'RS256', expiresIn: '15m' });
+}
+
+function verifyTokenRS256(token) {
+  return jwt.verify(token, publicKey, { algorithms: ['RS256'] });
+}
+```
+
+### Blacklist de Tokens con Redis
+
+```python
+import redis
+import jwt
+
+r = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
+
+
+def verify_with_blacklist(token: str, secret: str) -> dict:
+    claims = jwt.decode(token, secret, algorithms=["HS256"])
+    jti = claims.get("jti")
+    if jti and r.exists(f"blacklist:{jti}"):
+        raise ValueError("El token ha sido revocado")
+    return claims
+
+
+def revoke_token(token: str, secret: str) -> None:
+    claims = jwt.decode(token, secret, algorithms=["HS256"])
+    jti = claims.get("jti")
+    if jti:
+        ttl = int(claims["exp"] - datetime.datetime.utcnow().total_seconds())
+        if ttl > 0:
+            r.setex(f"blacklist:{jti}", ttl, "revoked")
+```
+
 | Tarea | Python | JavaScript | Java |
 |-------|--------|------------|------|
 | Firmar | `jwt.encode()` | `jwt.sign()` | `Jwts.builder().signWith()` |
@@ -199,6 +348,18 @@ A: Mantén una lista de bloqueo de tokens (ej. Redis con TTL igual a la expiraci
 
 **Q: ¿Cuál es la diferencia entre HS256 y RS256?**
 A: `HS256` es simétrico: un solo secreto firma y verifica. `RS256` es asimétrico: una clave privada firma y cualquier servicio con la clave pública puede verificar. Usa `RS256` cuando múltiples servicios necesiten verificar tokens independientemente.
+
+**Q: ¿Cuánto debería durar un JWT access token?**
+A: 5–15 minutos para access tokens. Los refresh tokens pueden durar 7–30 días dependiendo de tus requisitos de seguridad. Access tokens más cortos limitan la ventana de exposición si un token se filtra.
+
+**Q: ¿Puedo usar JWTs con WebSockets?**
+A: Sí. Pasa el JWT como query parameter durante el handshake del WebSocket (`wss://example.com/ws?token=...`) o en el header `Sec-WebSocket-Protocol`. Valida el token antes de aceptar la conexión. No envíes tokens en mensajes regulares después del handshake — la validación inicial es suficiente.
+
+**Q: ¿Qué claims debería incluir en un JWT?**
+A: Claims estándar: `sub` (user ID), `iat` (emitido en), `exp` (expiración), `jti` (ID único de token para revocación). Opcionales: `iss` (emisor), `aud` (audiencia), `roles` (roles de autorización), `scope` (OAuth scopes). Evita poner PII o secretos en el payload — está codificado en base64, no encriptado.
+
+**Q: ¿Cómo roto claves de firma sin invalidar todos los tokens?**
+A: Usa el header claim `kid` (key ID). Durante la rotación, acepta tokens firmados con ambas claves (vieja y nueva) por un periodo de transición. Una vez que todos los tokens viejos hayan expirado, elimina la clave vieja. Publica claves públicas via un endpoint JWKS para RS256.
 
 ### ¿Esta solución está lista para producción?
 

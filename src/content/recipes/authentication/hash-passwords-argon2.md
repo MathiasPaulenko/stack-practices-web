@@ -335,6 +335,9 @@ A: Accept both bcrypt and Argon2 hashes during verification. On successful bcryp
 **Q: What happens if I set memory_cost too high?**
 A: The server can run out of memory under load, causing OOM kills or denial of service. Start with 64 MiB and increase only after load testing.
 
+**Q: Should I use Argon2id, Argon2i, or Argon2d?**
+A: Use Argon2id (the default). It combines side-channel resistance from Argon2i with the performance of Argon2d. Argon2i is preferred for password hashing but Argon2id is the recommended default per the Argon2 RFC.
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.

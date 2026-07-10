@@ -326,3 +326,24 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Mistakes
+
+- Evaluating attributes on every request without caching — repeated database or LDAP lookups create latency spikes
+- Not defining a fallback policy when attribute sources are unavailable — decide whether to deny or allow when the policy engine cannot reach the attribute store
+- Creating policies that are too granular — each new attribute combination multiplies the policy matrix, making audits difficult
+- Not logging policy evaluation results — without audit trails, you cannot investigate access violations or debug policy logic
+- Mixing ABAC rules across tenants without namespacing — policies for one tenant can accidentally grant access to another tenant's resources
+- Not testing policy changes in staging before production — a single rule change can open or close access for all users
+- Not handling attribute expiration — cached attributes like device trust scores can become stale during long sessions
+- Not separating policy evaluation from policy definition — mixing them makes it hard to test policies in isolation
+- Not versioning policy files — when policies change, you lose the audit trail of what was enforced at a given point in time
+- Not using a policy linter — typos in attribute names or policy rules are silently ignored until a user reports an access issue
+
+### How do I test ABAC policies?
+
+Write unit tests for the policy engine with mock attributes. Test the happy path (all attributes match), the deny path (one attribute mismatches), and edge cases (missing attributes, null values). Use property-based testing to generate random attribute combinations and verify the policy never throws exceptions.
+
+### Can I combine ABAC with RBAC?
+
+Yes. Use RBAC as the first filter — the user must have a valid role. Then apply ABAC for fine-grained decisions within that role. For example, a user with the `editor` role can access the dashboard (RBAC), but can only edit articles in their department (ABAC). This reduces the policy matrix while maintaining flexibility.
