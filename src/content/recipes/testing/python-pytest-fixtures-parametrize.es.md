@@ -329,3 +329,33 @@ Parametrize directo pasa el valor raw a la función de test. Parametrize indirec
 ### ¿Cómo corro solo un caso de parametrize?
 
 Usa el node ID: `pytest tests/test_math.py::test_addition[ten_plus_twenty]`. El ID entre corchetes coincide con el parámetro `id=` o la representación de string auto-generada.
+
+### ¿Cómo parametrizo un fixture con múltiples argumentos?
+
+Usa `params` con `request.param` como dict o tuple:
+
+```python
+@pytest.fixture(params=[
+    {"input": "hello", "expected": 5},
+    {"input": "world", "expected": 5},
+], ids=lambda x: x["input"])
+def text_data(request):
+    return request.param
+
+def test_length(text_data):
+    assert len(text_data["input"]) == text_data["expected"]
+```
+
+### ¿Puedo combinar `@pytest.mark.parametrize` con fixtures?
+
+Sí. Parametriza la función de test para un argumento y usa un fixture para otro. PyTest ejecuta los casos parametrizados para cada instancia del fixture:
+
+```python
+@pytest.fixture(params=["sqlite", "postgres"])
+def db(request):
+    return create_db(request.param)
+
+@pytest.mark.parametrize("table", ["users", "orders"])
+def test_query(db, table):
+    assert db.query(table).count() >= 0
+```

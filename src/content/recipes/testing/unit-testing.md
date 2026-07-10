@@ -172,6 +172,41 @@ public class CalculatorTest {
 
 Run: `mvn test` or your IDE's test runner.
 
+### Parameterized Tests
+
+```python
+# test_calculator_parametrized.py
+import pytest
+from calculator import add
+
+@pytest.mark.parametrize("a, b, expected", [
+    (1, 2, 3),
+    (-1, 1, 0),
+    (0, 0, 0),
+    (100, 200, 300),
+    (-5, -5, -10),
+])
+def test_add_parametrized(a, b, expected):
+    assert add(a, b) == expected
+```
+
+```javascript
+// calculator.parametrized.test.js
+const { add } = require('./calculator');
+
+test.each([
+  [1, 2, 3],
+  [-1, 1, 0],
+  [0, 0, 0],
+  [100, 200, 300],
+  [-5, -5, -10],
+])('add(%i, %i) = %i', (a, b, expected) => {
+  expect(add(a, b)).toBe(expected);
+});
+```
+
+Parameterized tests let you run the same logic against multiple inputs without duplicating code. Each row is a separate test case — if one fails, the others still run.
+
 ## Explanation
 
 - **Arrange-Act-Assert (AAA)**: every test should set up state (arrange), execute the code under test (act), and verify the outcome (assert). This structure makes tests easy to scan.
@@ -196,6 +231,9 @@ Run: `mvn test` or your IDE's test runner.
 - **Avoid logic in tests**: no `if` statements or loops in tests — they make failures harder to diagnose.
 - **Use fakes over mocks when possible**: a fake in-memory repository is simpler than [mocking](/recipes/testing/unit-testing) every method call.
 - **Keep tests close to the code**: place test files next to the source (co-location) or in a mirrored `tests/` directory.
+- **Test boundary conditions**: zero, negative numbers, empty collections, maximum values, and null inputs are where most bugs hide.
+- **Use setup and teardown consistently**: shared setup belongs in `beforeEach` / `setUp`, not duplicated across tests.
+- **Run tests in random order**: order-dependent tests hide bugs. Use `pytest --randomly-seed` or Jest's `--randomize` to catch them.
 
 ## Common Mistakes
 
@@ -204,6 +242,10 @@ Run: `mvn test` or your IDE's test runner.
 - **Shared mutable state**: a test that mutates a global counter breaks every test that runs after it.
 - **Slow unit tests**: calling a real database or HTTP service turns unit tests into [integration tests](/recipes/testing/integration-testing) and slows the suite.
 - **Noisy output**: `console.log` or `System.out.println` in tests clutters CI logs. Use proper assertion failures instead.
+- **Testing too much per test**: a test with 20 assertions is hard to debug when it fails. Split into focused tests.
+- **Not testing error paths**: many developers only test the happy path. Test what happens when inputs are invalid, dependencies fail, or exceptions are thrown.
+- **Over-mocking**: mocking every internal function creates tests that pass but prove nothing about real behavior. Mock at boundaries only.
+- **Ignoring flaky tests**: a test that passes 90% of the time hides real bugs. Fix flaky tests immediately or quarantine them.
 
 ## Frequently Asked Questions
 
@@ -215,6 +257,35 @@ A: No. Test the public API. Private methods are implementation details; if you c
 
 **Q: What is the difference between a stub and a mock?**
 A: A stub provides canned answers to calls. A mock verifies that specific interactions happened (e.g., "this method was called exactly once"). Use stubs for inputs; use mocks sparingly for verifying side effects.
+
+**Q: How do I test async functions?**
+A: In pytest, use `pytest-asyncio` with `@pytest.mark.asyncio`. In Jest, use `async/await` inside `test()` or `it()`. In JUnit 5, use `assertThrows` with `CompletableFuture` or reactive testing utilities. Always await the result — do not fire-and-forget.
+
+**Q: What coverage should I aim for?**
+A: Coverage is a metric, not a goal. 80%+ is reasonable for most projects. Focus on covering critical business logic and edge cases. 100% coverage does not mean 100% correctness — a test that calls a function without asserting anything inflates coverage without value.
+
+**Q: How do I mock external dependencies?**
+A: In pytest, use `unittest.mock.patch` to replace functions or classes. In Jest, use `jest.mock('./module')` to auto-mock or `jest.fn()` for manual mocks. In JUnit, use Mockito's `@Mock` annotation. Always mock the interface, not the implementation — mock at the boundary (HTTP client, database) not at internal helpers.
+
+```python
+from unittest.mock import patch
+from myapp.weather import get_temperature
+
+@patch('myapp.weather.requests.get')
+def test_get_temperature(mock_get):
+    mock_get.return_value.json.return_value = {'temp': 22}
+    assert get_temperature('Madrid') == 22
+    mock_get.assert_called_once_with('https://api.weather.com/Madrid')
+```
+
+**Q: What is test-driven development (TDD)?**
+A: TDD is a workflow where you write the test first, watch it fail (red), write the minimal code to pass (green), then refactor. This ensures every line of production code is covered by a test from the start. TDD works best for bug fixes and new features with clear requirements.
+
+**Q: Should I use snapshots testing?**
+A: Snapshot tests are useful for serializable outputs (JSON, HTML, React components). They catch unintended changes but can become noisy if snapshots are updated without review. Use them alongside behavioral tests, not as a replacement.
+
+**Q: How do I test code that depends on the current time?**
+A: Inject a clock or time provider instead of calling `datetime.now()` or `Date.now()` directly. In tests, pass a fixed time. In Python, use `freezegun`. In Jest, use `jest.useFakeTimers()`. This makes tests deterministic and repeatable.
 
 ### Is this solution production-ready?
 

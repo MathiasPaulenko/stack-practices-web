@@ -340,3 +340,36 @@ assert len(api_calls) == 3
 ### Should I use `responses` or `unittest.mock.patch`?
 
 Use `responses` when your code uses the `requests` library. Use `unittest.mock.patch` when you want to mock at the function or method level. `responses` is more realistic because it tests the actual HTTP call path.
+
+### How do I mock streaming responses?
+
+```python
+import responses
+
+@responses.activate
+def test_streaming():
+    def stream_callback(request):
+        body = iter([b"chunk1\n", b"chunk2\n", b"chunk3\n"])
+        return (200, {"Content-Type": "text/plain"}, body)
+
+    responses.add_callback(
+        responses.GET,
+        "https://api.example.com/stream",
+        callback=stream_callback,
+    )
+```
+
+### Can I mock responses conditionally based on request body?
+
+Yes. Use `add_callback` to inspect the request and return different responses:
+
+```python
+@responses.activate
+def test_conditional():
+    def callback(request):
+        if b"premium" in request.body:
+            return (200, {}, json.dumps({"plan": "premium"}))
+        return (200, {}, json.dumps({"plan": "free"}))
+
+    responses.add_callback(responses.POST, "https://api.example.com/subscribe", callback=callback)
+```

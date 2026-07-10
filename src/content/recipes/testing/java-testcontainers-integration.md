@@ -337,3 +337,21 @@ companion object {
 ### How do I debug a container that won't start?
 
 Use `withLogTo(new Slf4jLogConsumer(logger))` to see container logs. Check Docker disk space, image availability, and port conflicts.
+
+### How do I speed up test execution with Testcontainers?
+
+Use `@Testcontainers` with container reuse: set `testcontainers.reuse.enable=true` in `.testcontainers.properties`. This keeps containers alive between test runs instead of destroying and recreating them. Also use `withReuse(true)` on container definitions.
+
+### Can I use Testcontainers with Spring Boot?
+
+Yes. Add the `testcontainers` Spring Boot starter dependency. Use `@ServiceConnection` on container fields to auto-configure Spring Data sources:
+
+```java
+@SpringBootTest
+@Testcontainers
+class MyIntegrationTest {
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
+}
+```

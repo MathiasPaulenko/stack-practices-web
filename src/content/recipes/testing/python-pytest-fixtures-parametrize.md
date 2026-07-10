@@ -329,3 +329,33 @@ Direct parametrize passes the raw value to the test function. Indirect parametri
 ### How do I run only one parametrize case?
 
 Use the node ID: `pytest tests/test_math.py::test_addition[ten_plus_twenty]`. The ID in brackets matches the `id=` parameter or the auto-generated string representation.
+
+### How do I parametrize a fixture with multiple arguments?
+
+Use `params` with `request.param` as a dict or tuple:
+
+```python
+@pytest.fixture(params=[
+    {"input": "hello", "expected": 5},
+    {"input": "world", "expected": 5},
+], ids=lambda x: x["input"])
+def text_data(request):
+    return request.param
+
+def test_length(text_data):
+    assert len(text_data["input"]) == text_data["expected"]
+```
+
+### Can I combine `@pytest.mark.parametrize` with fixtures?
+
+Yes. Parametrize the test function for one argument and use a fixture for another. PyTest runs the parametrized cases for each fixture instance:
+
+```python
+@pytest.fixture(params=["sqlite", "postgres"])
+def db(request):
+    return create_db(request.param)
+
+@pytest.mark.parametrize("table", ["users", "orders"])
+def test_query(db, table):
+    assert db.query(table).count() >= 0
+```
