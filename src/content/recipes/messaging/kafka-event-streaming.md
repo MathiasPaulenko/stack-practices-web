@@ -194,6 +194,33 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 ```
 
+### 6. Python Consumer with kafka-python
+
+```python
+from kafka import KafkaConsumer
+import json
+
+consumer = KafkaConsumer(
+    'orders.created',
+    bootstrap_servers=['localhost:9092'],
+    group_id='notification-service',
+    auto_offset_reset='latest',
+    enable_auto_commit=False,
+    value_deserializer=lambda x: json.loads(x.decode('utf-8')),
+)
+
+for message in consumer:
+    order = message.value
+    try:
+        send_email_notification(order)
+        consumer.commit()
+    except Exception as e:
+        print(f"Failed to process order {order['id']}: {e}")
+        # Do not commit — message will be reprocessed on restart
+```
+
+Manual commit gives you control over when offsets are saved. Only commit after successful processing to avoid losing messages on failure.
+
 ## How It Works
 
 - **Producers** publish messages to topics partitioned across brokers
@@ -206,12 +233,28 @@ services:
 - Run at least 3 Kafka brokers with replication factor 3 for fault tolerance
 - Monitor consumer lag with tools like Kafka Lag Exporter
 - Use schema registry (Confluent) to enforce Avro/Protobuf schemas on topics
+- Set appropriate retention policies — time-based (7 days default) or size-based
+- Enable log compaction for topics that store current state (e.g., user profiles) rather than events
+- Use `ack=all` producer setting to ensure messages are written to all replicas before confirming
+
+## Best Practices
+
+- **Use meaningful topic names**: `orders.created` not `topic1`. Namespace by domain and event type.
+- **Partition by key**: use a meaningful key (e.g., `userId`, `orderId`) to ensure ordering within a partition.
+- **Batch producer sends**: sending messages in batches improves throughput. Configure `batch.size` and `linger.ms`.
+- **Handle rebalances gracefully**: implement a rebalance listener to commit offsets and clean up resources before partitions are revoked.
+- **Use idempotent producers**: set `enable.idempotence=true` to prevent duplicate messages from retries.
 
 ## Common Mistakes
 
 - Not handling consumer rebalances, causing duplicate processing
 - Using auto-commit with long-running processes that may fail mid-batch
 - Creating too many partitions per topic, increasing coordination overhead
+- Not setting a `transactionalId` when using transactions, causing producer fencing errors
+- Ignoring consumer lag until it becomes critical — set alerts at 1000+ messages behind
+- Using default partitioner when message ordering matters — use key-based partitioning instead
+- Not configuring `max.poll.interval.ms` correctly — consumers that process slowly get kicked out of the group
+- Using `auto_offset_reset=none` without committed offsets — consumers crash on first run
 
 ## FAQ
 
@@ -220,6 +263,30 @@ A: Kafka is a distributed log optimized for high throughput and replay. RabbitMQ
 
 **Q: When should I use a schema registry?**
 A: When multiple teams produce and consume from shared topics, enforcing schemas prevents serialization mismatches.
+
+**Q: How many partitions should my topic have?**
+A: Start with a number equal to your expected consumer instances. Each partition is consumed by one instance in a group. More partitions increase parallelism but also coordination overhead. For most use cases, 6-12 partitions per topic is a good starting point.
+
+**Q: How do I handle poison pill messages?**
+A: A poison pill is a message that always fails processing. Use a dead letter queue (DLQ) pattern: catch processing errors, publish the failed message to a separate topic with the error details, and commit the original offset. This prevents the consumer from getting stuck retrying the same message.
+
+**Q: What is consumer lag and why does it matter?**
+A: Consumer lag is the difference between the latest offset in a partition and the last committed offset of a consumer. High lag means the consumer is falling behind. Monitor lag with Kafka Lag Exporter or Burrow. Persistent lag indicates that consumers cannot keep up with production rate — scale consumers or optimize processing.
+
+**Q: Should I use Avro or JSON for message serialization?**
+A: Avro with Schema Registry is preferred for production — it enforces schema compatibility, produces smaller payloads, and supports schema evolution. JSON is simpler for prototyping but lacks schema enforcement and is larger on the wire.
+
+**Q: How do I handle schema evolution without breaking consumers?**
+A: Use Schema Registry with `BACKWARD` compatibility mode. This allows adding optional fields and removing fields without breaking existing consumers. Never change field types or rename fields — create new fields instead. Test schema changes with `kafka-schema-registry-maven-plugin` before deploying.
+
+**Q: What is the difference between at-least-once and exactly-once delivery?**
+A: At-least-once means messages may be delivered more than once during retries — consumers must be idempotent. Exactly-once uses Kafka transactions to ensure messages are processed and committed exactly one time. Exactly-once has higher overhead — use it only when duplicates cause correctness issues (e.g., financial transactions).
+
+**Q: How do I monitor Kafka in production?**
+A: Use Kafka Lag Exporter for consumer lag metrics, Burrow for consumer health, and Confluent Control Center for cluster-wide monitoring. Export metrics to Prometheus and visualize in Grafana. Alert on lag growth, under-replicated partitions, and consumer group rebalance frequency. Set up dashboards for throughput, latency percentiles, and error rates to catch degradation early. Review broker logs for partition leadership changes and ISR shrinks weekly.
+
+**Q: Should I use Kafka Streams or a plain consumer?**
+A: Kafka Streams is ideal when you need stateful processing (aggregations, joins, windowing) within Kafka. For simple consume-process-produce pipelines, a plain consumer with manual offset control is lighter and easier to debug.
 
 ### Is this solution production-ready?
 
