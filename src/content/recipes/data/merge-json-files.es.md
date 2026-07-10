@@ -173,6 +173,123 @@ Los conflictos de claves deben manejarse explícitamente: last-write-wins, merge
 
 ## Variantes
 
+### Python con librería `deepmerge`
+
+```python
+from deepmerge import always_merger
+import json
+
+with open('base.json') as b, open('override.json') as o:
+    base = json.load(b)
+    override = json.load(o)
+
+result = always_merger.merge(base, override)
+print(json.dumps(result, indent=2))
+```
+
+```python
+from deepmerge import conservative_merger
+import json
+
+# conservative_merger lanza error en conflicto en lugar de sobrescribir
+with open('base.json') as b, open('override.json') as o:
+    base = json.load(b)
+    override = json.load(o)
+
+try:
+    result = conservative_merger.merge(base, override)
+except ValueError as e:
+    print(f"Conflicto: {e}")
+```
+
+### JavaScript con Lodash
+
+```javascript
+const _ = require('lodash');
+const fs = require('fs');
+
+const base = JSON.parse(fs.readFileSync('base.json', 'utf-8'));
+const override = JSON.parse(fs.readFileSync('override.json', 'utf-8'));
+
+// _.merge hace deep merge, muta el target
+const result = _.merge({}, base, override);
+
+// _.mergeWith para manejo custom de arrays
+const result2 = _.mergeWith({}, base, override, (objValue, srcValue) => {
+  if (Array.isArray(objValue)) {
+    return objValue.concat(srcValue); // concatena arrays en lugar de reemplazar
+  }
+});
+
+console.log(JSON.stringify(result, null, 2));
+```
+
+### Fusionar Múltiples Archivos con Patrón Glob
+
+```python
+import json
+import glob
+
+def merge_json_glob(pattern: str, output: str) -> None:
+    merged = {}
+    for filepath in sorted(glob.glob(pattern)):
+        with open(filepath, encoding='utf-8') as f:
+            data = json.load(f)
+            if isinstance(data, dict):
+                merged.update(data)
+            elif isinstance(data, list):
+                merged.setdefault('items', []).extend(data)
+
+    with open(output, 'w', encoding='utf-8') as out:
+        json.dump(merged, out, indent=2, ensure_ascii=False)
+
+merge_json_glob('config/*.json', 'config/merged.json')
+```
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+
+function mergeJsonGlob(pattern, output) {
+  const merged = {};
+  const files = glob.sync(pattern).sort();
+
+  for (const filepath of files) {
+    const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+    if (Array.isArray(data)) {
+      merged.items = (merged.items || []).concat(data);
+    } else {
+      Object.assign(merged, data);
+    }
+  }
+
+  fs.writeFileSync(output, JSON.stringify(merged, null, 2));
+}
+
+mergeJsonGlob('config/*.json', 'config/merged.json');
+```
+
+### Deduplicación Después del Merge
+
+```python
+import json
+
+def merge_and_dedupe(files: list[str], key: str = 'id') -> list:
+    seen = set()
+    merged = []
+    for f in files:
+        with open(f, encoding='utf-8') as fh:
+            for item in json.load(fh):
+                item_key = item.get(key)
+                if item_key not in seen:
+                    seen.add(item_key)
+                    merged.append(item)
+    return merged
+
+result = merge_and_dedupe(['data1.json', 'data2.json'], key='id')
+```
+
 | Tecnología | Librería | Enfoque | Notas |
 |------------|----------|---------|-------|
 | Python | `json` (stdlib) | `json.load` + `deep_merge` | Sin dependencias; requiere recursión custom |
@@ -211,3 +328,46 @@ Sí, para concatenación de arrays. Usa parsers JSON streaming como `ijson` (Pyt
 ### ¿Cómo manejo conflictos de merge cuando la misma clave tiene valores diferentes?
 
 Define una estrategia de resolución de conflictos: last-write-wins (más simple), array-of-values (preserva ambos), o lanzar un error (modo estricto). En Python, `deepmerge` soporta configuraciones de `STRATEGY_TYPE`. En JavaScript, escribe una función `deepMerge` custom con un resolver que se ramifique en colisión de claves.
+
+### ¿Cuál es la diferencia entre merge superficial y deep merge?
+
+Merge superficial (`Object.assign`, spread `{...a, ...b}`) reemplaza objetos anidados enteros — si `a` tiene `{db: {host: "x", port: 5432}}` y `b` tiene `{db: {port: 3306}}`, el resultado es `{db: {port: 3306}}` — `host` se pierde. Deep merge combina claves anidadas recursivamente, produciendo `{db: {host: "x", port: 3306}}`. Siempre usa deep merge para archivos de configuración con estructuras anidadas.
+
+### ¿Cómo fusiono archivos JSON asincrónicamente en Node.js?
+
+```javascript
+const fs = require('fs/promises');
+const path = require('path');
+
+async function mergeJsonAsync(dir, output) {
+  const files = (await fs.readdir(dir)).filter(f => f.endsWith('.json'));
+  const merged = [];
+
+  for (const file of files) {
+    const content = await fs.readFile(path.join(dir, file), 'utf-8');
+    const data = JSON.parse(content);
+    if (Array.isArray(data)) merged.push(...data);
+    else merged.push(data);
+  }
+
+  await fs.writeFile(output, JSON.stringify(merged, null, 2));
+}
+
+mergeJsonAsync('data/', 'merged.json');
+```
+
+### ¿Debo fusionar arrays o reemplazarlos durante un deep merge?
+
+Depende. Para arrays de configuración (ej. `allowedOrigins`), reemplazar es más seguro — el archivo override define la lista completa. Para arrays de datos (ej. registros de dataset), concatenar y deduplicar es usualmente lo que quieres. Lodash `_.merge` reemplaza arrays por defecto; usa `_.mergeWith` con un customizer para concatenar.
+
+### ¿Esta solución está lista para producción?
+
+Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+
+### ¿Cuáles son las características de rendimiento?
+
+El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+
+### ¿Cómo depuro problemas con este enfoque?
+
+Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.

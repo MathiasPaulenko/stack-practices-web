@@ -190,6 +190,42 @@ class CASStore<T> {
 }
 ```
 
+### 6. Python Asyncio Lock Example
+
+```python
+import asyncio
+
+class Account:
+    def __init__(self, balance: float):
+        self.balance = balance
+
+async def transfer(from_acc: Account, to_acc: Account, amount: float, lock: asyncio.Lock):
+    async with lock:
+        if from_acc.balance >= amount:
+            from_acc.balance -= amount
+            to_acc.balance += amount
+            return True
+        return False
+
+async def main():
+    account_a = Account(1000)
+    account_b = Account(500)
+    lock = asyncio.Lock()
+
+    # Concurrent transfers are serialized by the lock
+    results = await asyncio.gather(
+        transfer(account_a, account_b, 200, lock),
+        transfer(account_a, account_b, 300, lock),
+        transfer(account_b, account_a, 100, lock),
+    )
+    print(f"A: {account_a.balance}, B: {account_b.balance}")
+    print(f"Results: {results}")
+
+asyncio.run(main())
+```
+
+Without the lock, concurrent transfers could read `from_acc.balance` before any deduction, causing negative balances. The `asyncio.Lock` ensures only one transfer executes at a time.
+
 ## How It Works
 
 - **AbortController** cancels in-flight requests when superseded
@@ -209,6 +245,10 @@ class CASStore<T> {
 - Reading state before an async operation and using the stale value after
 - Not cleaning up event listeners or timers that modify shared state
 - Assuming `await` blocks all concurrent code execution
+- Using `setTimeout` for ordering instead of proper async sequencing
+- Forgetting to cancel pending requests when a component unmounts in React
+- Modifying shared arrays or objects without synchronization — `push` and `splice` are not atomic across await boundaries
+- Holding locks across network calls, which creates long wait times and potential deadlocks
 
 ## FAQ
 
@@ -217,6 +257,15 @@ A: Race conditions produce incorrect results from concurrent access. [Deadlocks]
 
 **Q: Do I need locks in single-threaded JavaScript?**
 A: JavaScript is single-threaded but async operations interleave. State can still be corrupted between await points.
+
+**Q: How do I test for race conditions?**
+A: Write tests that run concurrent operations and assert final state. Use `Promise.all` to trigger parallel calls. Inject random delays with `await delay(Math.random() * 100)` to increase the chance of catching interleaving bugs. Run tests multiple times — race conditions are non-deterministic.
+
+**Q: What is the difference between optimistic concurrency and pessimistic locking?**
+A: Optimistic concurrency assumes no conflict and retries on failure (CAS pattern). Pessimistic locking acquires a lock before accessing shared state (Mutex). Use optimistic concurrency when conflicts are rare. Use pessimistic locking when conflicts are frequent or retrying is expensive.
+
+**Q: Can I use `Promise.all` safely with shared state?**
+A: Only if each promise operates on independent data. If promises read and write the same variable, `Promise.all` does not serialize them — they interleave at await points. Use a mutex or serialize the operations with a promise chain.
 
 ### Is this solution production-ready?
 
@@ -229,3 +278,27 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### How do I detect race conditions in production?
+
+Race conditions are hard to detect because they are non-deterministic. Signs include inconsistent state after concurrent operations, intermittent test failures that pass on retry, and data that does not match expected totals. Use structured logging with correlation IDs to trace interleaving operations. Tools like Chrome DevTools Performance tab can show when async tasks interleave.
+
+### What tools help find race conditions?
+
+For JavaScript, use `console.trace()` at critical sections to log call stacks. For Python, `threading.get_ident()` helps identify which thread accessed shared state. For testing, frameworks like `jest` with `--detectOpenHandles` flag can surface async issues. For static analysis, TypeScript strict mode catches many stale-closure bugs that lead to race conditions.
+
+### Should I use AbortController or request IDs for cancellation?
+
+Both approaches work but serve different purposes. `AbortController` actually cancels the network request, saving bandwidth. Request IDs only ignore the response — the request still completes. Use `AbortController` when you want to save resources. Use request IDs when you cannot cancel the underlying operation (e.g., a computation already running).
+
+### What is the difference between a mutex and a semaphore?
+
+A mutex (mutual exclusion) allows only one thread to access a resource at a time. A semaphore allows up to N threads to access a resource concurrently. Use a mutex when only one operation should run at a time. Use a semaphore to limit concurrency to a fixed number of parallel operations (e.g., max 5 concurrent API calls).
+
+### Can race conditions happen in single-threaded JavaScript?
+
+Yes. JavaScript is single-threaded but asynchronous. When `await` yields control, other microtasks can interleave between the check and the update. For example, two `async` functions reading and writing the same variable can produce a race condition if both read before either writes.
+
+### How do I prevent race conditions in databases?
+
+Use transactions with the appropriate isolation level. For read-then-write, use `SELECT ... FOR UPDATE` (pessimistic locking) or row versions with `WHERE version = X` (optimistic locking). For atomic increments, use `UPDATE accounts SET balance = balance + 100 WHERE id = 1` instead of reading, adding, and writing.

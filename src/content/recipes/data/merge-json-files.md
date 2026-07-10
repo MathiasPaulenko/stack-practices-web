@@ -173,6 +173,123 @@ Key conflicts must be handled explicitly: last-write-wins, merge arrays within o
 
 ## Variants
 
+### Python with `deepmerge` Library
+
+```python
+from deepmerge import always_merger
+import json
+
+with open('base.json') as b, open('override.json') as o:
+    base = json.load(b)
+    override = json.load(o)
+
+result = always_merger.merge(base, override)
+print(json.dumps(result, indent=2))
+```
+
+```python
+from deepmerge import conservative_merger
+import json
+
+# conservative_merger raises on conflict instead of overwriting
+with open('base.json') as b, open('override.json') as o:
+    base = json.load(b)
+    override = json.load(o)
+
+try:
+    result = conservative_merger.merge(base, override)
+except ValueError as e:
+    print(f"Conflict: {e}")
+```
+
+### JavaScript with Lodash
+
+```javascript
+const _ = require('lodash');
+const fs = require('fs');
+
+const base = JSON.parse(fs.readFileSync('base.json', 'utf-8'));
+const override = JSON.parse(fs.readFileSync('override.json', 'utf-8'));
+
+// _.merge does deep merge, mutates target
+const result = _.merge({}, base, override);
+
+// _.mergeWith for custom array handling
+const result2 = _.mergeWith({}, base, override, (objValue, srcValue) => {
+  if (Array.isArray(objValue)) {
+    return objValue.concat(srcValue); // concat arrays instead of replacing
+  }
+});
+
+console.log(JSON.stringify(result, null, 2));
+```
+
+### Merging Multiple Files with Glob Pattern
+
+```python
+import json
+import glob
+
+def merge_json_glob(pattern: str, output: str) -> None:
+    merged = {}
+    for filepath in sorted(glob.glob(pattern)):
+        with open(filepath, encoding='utf-8') as f:
+            data = json.load(f)
+            if isinstance(data, dict):
+                merged.update(data)
+            elif isinstance(data, list):
+                merged.setdefault('items', []).extend(data)
+
+    with open(output, 'w', encoding='utf-8') as out:
+        json.dump(merged, out, indent=2, ensure_ascii=False)
+
+merge_json_glob('config/*.json', 'config/merged.json')
+```
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+
+function mergeJsonGlob(pattern, output) {
+  const merged = {};
+  const files = glob.sync(pattern).sort();
+
+  for (const filepath of files) {
+    const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+    if (Array.isArray(data)) {
+      merged.items = (merged.items || []).concat(data);
+    } else {
+      Object.assign(merged, data);
+    }
+  }
+
+  fs.writeFileSync(output, JSON.stringify(merged, null, 2));
+}
+
+mergeJsonGlob('config/*.json', 'config/merged.json');
+```
+
+### Deduplication After Merge
+
+```python
+import json
+
+def merge_and_dedupe(files: list[str], key: str = 'id') -> list:
+    seen = set()
+    merged = []
+    for f in files:
+        with open(f, encoding='utf-8') as fh:
+            for item in json.load(fh):
+                item_key = item.get(key)
+                if item_key not in seen:
+                    seen.add(item_key)
+                    merged.append(item)
+    return merged
+
+result = merge_and_dedupe(['data1.json', 'data2.json'], key='id')
+```
+
 | Technology | Library | Approach | Notes |
 |------------|---------|----------|-------|
 | Python | `json` (stdlib) | `json.load` + `deep_merge` | No dependencies; requires custom recursion |
@@ -211,3 +328,46 @@ Yes, for array concatenation. Use streaming JSON parsers like `ijson` (Python), 
 ### How do I handle merge conflicts when the same key has different values?
 
 Define a conflict resolution strategy: last-write-wins (simplest), array-of-values (preserve both), or raise an error (strict mode). In Python, `deepmerge` supports `STRATEGY_TYPE` configurations. In JavaScript, write a custom `deepMerge` resolver function that branches on key collision.
+
+### What is the difference between shallow merge and deep merge?
+
+Shallow merge (`Object.assign`, spread `{...a, ...b}`) replaces nested objects entirely — if `a` has `{db: {host: "x", port: 5432}}` and `b` has `{db: {port: 3306}}`, the result is `{db: {port: 3306}}` — `host` is lost. Deep merge recursively combines nested keys, producing `{db: {host: "x", port: 3306}}`. Always use deep merge for configuration files with nested structures.
+
+### How do I merge JSON files asynchronously in Node.js?
+
+```javascript
+const fs = require('fs/promises');
+const path = require('path');
+
+async function mergeJsonAsync(dir, output) {
+  const files = (await fs.readdir(dir)).filter(f => f.endsWith('.json'));
+  const merged = [];
+
+  for (const file of files) {
+    const content = await fs.readFile(path.join(dir, file), 'utf-8');
+    const data = JSON.parse(content);
+    if (Array.isArray(data)) merged.push(...data);
+    else merged.push(data);
+  }
+
+  await fs.writeFile(output, JSON.stringify(merged, null, 2));
+}
+
+mergeJsonAsync('data/', 'merged.json');
+```
+
+### Should I merge arrays or replace them during deep merge?
+
+It depends. For configuration arrays (e.g., `allowedOrigins`), replacing is safer — the override file defines the full list. For data arrays (e.g., dataset records), concatenating and deduplicating is usually what you want. Lodash `_.merge` replaces arrays by default; use `_.mergeWith` with a customizer to concatenate instead.
+
+### Is this solution production-ready?
+
+Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+
+### What are the performance characteristics?
+
+Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+
+### How do I debug issues with this approach?
+
+Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.

@@ -185,6 +185,42 @@ class CASStore<T> {
 }
 ```
 
+### 6. Ejemplo de Lock con Python Asyncio
+
+```python
+import asyncio
+
+class Account:
+    def __init__(self, balance: float):
+        self.balance = balance
+
+async def transfer(from_acc: Account, to_acc: Account, amount: float, lock: asyncio.Lock):
+    async with lock:
+        if from_acc.balance >= amount:
+            from_acc.balance -= amount
+            to_acc.balance += amount
+            return True
+        return False
+
+async def main():
+    account_a = Account(1000)
+    account_b = Account(500)
+    lock = asyncio.Lock()
+
+    # Transferencias concurrentes son serializadas por el lock
+    results = await asyncio.gather(
+        transfer(account_a, account_b, 200, lock),
+        transfer(account_a, account_b, 300, lock),
+        transfer(account_b, account_a, 100, lock),
+    )
+    print(f"A: {account_a.balance}, B: {account_b.balance}")
+    print(f"Results: {results}")
+
+asyncio.run(main())
+```
+
+Sin el lock, transferencias concurrentes podrian leer `from_acc.balance` antes de cualquier deduccion, causando saldos negativos. El `asyncio.Lock` asegura que solo una transferencia se ejecute a la vez.
+
 ## Como Funciona
 
 - **AbortController** cancela requests en vuelo cuando son superados
@@ -204,6 +240,10 @@ class CASStore<T> {
 - Leer estado antes de una operacion async y usar el valor stale despues
 - No limpiar event listeners o timers que modifican estado compartido
 - Asumir que `await` bloquea toda la ejecucion de codigo concurrente
+- Usar `setTimeout` para ordenar en lugar de secuenciacion async apropiada
+- Olvidar cancelar requests pendientes cuando un componente se desmonta en React
+- Modificar arrays u objetos compartidos sin sincronizacion — `push` y `splice` no son atomicos a traves de boundaries de await
+- Mantener locks a traves de llamadas de red, lo que crea tiempos de espera largos y potenciales deadlocks
 
 ## FAQ
 
@@ -212,6 +252,15 @@ R: Las race conditions producen resultados incorrectos por acceso concurrente. L
 
 **P: Necesito locks en JavaScript single-threaded?**
 R: JavaScript es single-threaded pero las operaciones async se intercalan. El estado aun puede corromperse entre puntos de await.
+
+**P: Como pruebo race conditions?**
+R: Escribe tests que ejecuten operaciones concurrentes y verifiquen el estado final. Usa `Promise.all` para disparar llamadas paralelas. Inyecta delays aleatorios con `await delay(Math.random() * 100)` para aumentar la probabilidad de detectar bugs de intercalacion. Ejecuta tests multiples veces — las race conditions son no deterministas.
+
+**P: Cual es la diferencia entre concurrencia optimista y locking pesimista?**
+R: La concurrencia optimista asume que no hay conflicto y reintenta en fallo (patron CAS). El locking pesimista adquiere un lock antes de acceder estado compartido (Mutex). Usa concurrencia optimista cuando los conflictos son raros. Usa locking pesimista cuando los conflictos son frecuentes o reintentar es costoso.
+
+**P: Puedo usar `Promise.all` con seguridad con estado compartido?**
+R: Solo si cada promise opera con datos independientes. Si los promises leen y escriben la misma variable, `Promise.all` no los serializa — se intercalan en puntos de await. Usa un mutex o serializa las operaciones con una cadena de promises.
 
 ### ¿Esta solución está lista para producción?
 
@@ -224,3 +273,31 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### ¿Cómo detecto race conditions en producción?
+
+Las race conditions son difíciles de detectar porque son no deterministas. Los síntomas incluyen estado inconsistente después de operaciones concurrentes, fallos intermitentes en tests que pasan al reintentar, y datos que no coinciden con los totales esperados. Usa logging estructurado con correlation IDs para rastrear operaciones intercaladas. Herramientas como Chrome DevTools Performance tab pueden mostrar cuando tareas async se intercalan.
+
+### ¿Qué herramientas ayudan a encontrar race conditions?
+
+Para JavaScript, usa `console.trace()` en secciones críticas para loggear call stacks. Para Python, `threading.get_ident()` ayuda a identificar qué thread accedió estado compartido. Para testing, frameworks como `jest` con el flag `--detectOpenHandles` pueden revelar problemas async. Para análisis estático, TypeScript strict mode captura muchos bugs de stale-closure que llevan a race conditions.
+
+### ¿Debo usar AbortController o request IDs para cancelación?
+
+Ambos enfoques funcionan pero sirven a propósitos diferentes. `AbortController` cancela la petición de red, ahorrando ancho de banda. Los request IDs solo ignoran la respuesta — la petición se completa. Usa `AbortController` cuando quieres ahorrar recursos. Usa request IDs cuando no puedes cancelar la operación subyacente (e.g., un cómputo ya en ejecución).
+
+### ¿Cuál es la diferencia entre un mutex y un semáforo?
+
+Un mutex (exclusión mutua) permite que solo un thread acceda a un recurso a la vez. Un semáforo permite que hasta N threads accedan a un recurso concurrentemente. Usa un mutex cuando solo una operación debe ejecutarse a la vez. Usa un semáforo para limitar la concurrencia a un número fijo de operaciones paralelas (e.g., máximo 5 llamadas API concurrentes).
+
+### ¿Pueden ocurrir race conditions en JavaScript single-threaded?
+
+Sí. JavaScript es single-threaded pero asíncrono. Cuando `await` cede el control, otras microtasks pueden intercalarse entre la verificación y la actualización. Por ejemplo, dos funciones `async` leyendo y escribiendo la misma variable pueden producir una race condition si ambas leen antes de que cualquiera escriba.
+
+### ¿Cómo prevengo race conditions en bases de datos?
+
+Usa transacciones con el nivel de aislamiento apropiado. Para read-then-write, usa `SELECT ... FOR UPDATE` (pessimistic locking) o versiones de fila con `WHERE version = X` (optimistic locking). Para incrementos atómicos, usa `UPDATE accounts SET balance = balance + 100 WHERE id = 1` en lugar de leer, sumar y escribir.
+
+### ¿Qué herramientas uso para detectar race conditions?
+
+Para detección en runtime, usa ThreadSanitizer (TSan) para C/C++/Rust, que detecta data races en tests. En Java, usa `jstack` para detectar threads bloqueados. En Python, usa `threading.settrace` para rastrear acceso concurrente. Para tests, ejecuta casos concurrentes miles de veces con semillas aleatorias diferentes para aumentar la probabilidad de reproducir races.
