@@ -333,6 +333,10 @@ Las respuestas streaming (`client.stream()`) no se cachean por defecto porque el
 
 Los caches basados en archivos no tienen un limite de tamano integrado. Las entradas viejas se remueven cuando expiran (basado en `max-age`). Para caching con limite de tamano, usa Redis con `maxmemory` y una politica de eviction.
 
+**Como invalido una respuesta cacheada especifica?**
+
+Usa `cache.delete(url)` para remover una sola entrada, o `cache.clear()` para limpiar todas las respuestas cacheadas. Para invalidacion basada en patrones, itera `cache.urls` y elimina las coincidencias. Setea `max-age` cortos para endpoints que cambian frecuentemente.
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

@@ -329,3 +329,21 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### ¿Cuál es la diferencia entre purge y ban en caché de CDN?
+
+Purge elimina el contenido cacheado inmediatamente y el próximo request obtiene una copia fresca del origin. Ban marca el contenido como stale pero lo deja en caché — el próximo request dispara una revalidación. Usa purge para limpieza inmediata. Usa ban cuando quieres invalidación lazy para reducir picos de carga en el origin.
+
+### ¿Cómo hago cache-bust sin cambiar la URL?
+
+No puedes. El caché de navegador y CDN está basado en URL. Para forzar un refresh, debes cambiar la URL — ya sea el filename (content hash), un query parameter (`?v=2`), o un path prefix (`/v2/asset.css`). Content hashing (ej. `[name].[contenthash].js`) es el approach más confiable porque el hash cambia solo cuando el contenido del archivo cambia.
+
+## Errores Comunes
+
+- Purgar todo el caché en lugar de URLs específicas — causa un pico de tráfico hacia el origin
+- Setear `Cache-Control: no-cache` en assets estáticos — anula el propósito del caché de CDN
+- No setear el header `Vary` para respuestas localizadas o específicas por dispositivo
+- Olvidar invalidar el caché después de desplegar nuevo contenido — los usuarios ven páginas stale
+- Usar TTLs cortos para assets estáticos — incrementa la carga del origin innecesariamente; usa TTLs largos con content hashing en su lugar
+- No setear headers `Surrogate-Key` — hace la invalidación granular imposible sin purgar zonas enteras de caché
+- Ignorar `stale-while-revalidate` — pierde una forma fácil de servir contenido stale mientras se refresca en background

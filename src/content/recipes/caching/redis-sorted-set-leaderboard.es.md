@@ -324,6 +324,18 @@ A: Si. Los sorted sets de Redis aceptan floats de doble precision. Ten cuidado c
 **Q: Como migro un leaderboard a una nueva clave?**
 A: Usa `ZUNIONSTORE` para mergear: `ZUNIONSTORE new_key 1 old_key`. O usa `DUMP`/`RESTORE` para volcar y restaurar.
 
+**Q: ¿Qué pasa cuando dos miembros tienen el mismo score?**
+A: Redis ordena por score primero, luego por nombre de miembro lexicográficamente. Si necesitas desempate por timestamp, encódalo en el score: `score = actual_score * 1e10 + (max_timestamp - timestamp)`.
+
+**Q: ¿Cómo expiro entradas viejas del leaderboard automáticamente?**
+A: Los sorted sets no soportan TTL por miembro. Usa un sorted set separado como índice de "última actividad" y elimina periódicamente miembros stale: `ZREMRANGEBYSCORE leaderboard -inf <cutoff_score>`. Alternativamente, ejecuta un job programado que elimine miembros cuyo timestamp de `last_active` sea anterior a tu umbral.
+
+**Q: ¿Cuál es el consumo de memoria de un sorted set?**
+A: Cada miembro usa aproximadamente 80–100 bytes (nombre del miembro + score + punteros de skiplist). Un leaderboard con 1 millón de miembros usa aproximadamente 80–100 MB. Monitorea con `MEMORY USAGE leaderboard_key`.
+
+**Q: ¿Puedo usar Redis Cluster con leaderboards de sorted sets?**
+A: Sí, pero todas las operaciones en un solo sorted set deben rutearse al mismo shard. Como los sorted sets son estructuras de clave única, Redis Cluster maneja esto automáticamente via asignación de hash slots. Operaciones cross-shard como `ZUNIONSTORE` requieren hash tags: `{leaderboard}:daily` y `{leaderboard}:weekly`.
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

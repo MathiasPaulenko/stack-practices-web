@@ -324,3 +324,26 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Mistakes
+
+- Using `INCR` alone without a Lua script — creates race conditions between increment and expiry checks
+- Not setting a TTL on rate limit keys — memory grows unbounded for users who make a single request
+- Using the same bucket for all endpoints — a burst to one API consumes tokens for unrelated endpoints
+- Not handling Redis downtime gracefully — decide whether to fail open (allow request) or fail closed (deny)
+- Using millisecond timestamps instead of seconds in the Lua script — Redis `TIME` returns seconds and microseconds, not milliseconds
+- Not monitoring token bucket refill rate vs actual traffic — if refill rate is too low, legitimate users get rate limited
+- Not using `EVALSHA` instead of `EVAL` — sending the full Lua script on every request wastes bandwidth, `EVALSHA` caches the script by hash
+- Not setting a maximum bucket capacity — unlimited capacity allows users to accumulate tokens during idle periods and burst past the intended rate limit
+- Not using per-user and per-endpoint keys — a single user can exhaust their bucket on one endpoint while another endpoint remains unaffected, which may or may not be desired
+- Not logging rate limit decisions — without logs of allow/deny per user, you cannot debug complaints about unexpected 429 responses
+- Not using a consistent key naming convention — mixing `rate_limit:user:ip` and `rl:user:ip` patterns makes monitoring and debugging harder
+- Not testing rate limiting under load — a rate limiter that works in development may fail under high concurrency due to Redis pipelining or network latency
+
+### What is the difference between token bucket and sliding window?
+
+Token bucket refills tokens at a fixed rate and allows bursts up to the bucket capacity. Sliding window counts requests in a moving time window and rejects when the count exceeds the limit. Token bucket is better for bursty traffic. Sliding window is better for strict rate enforcement.
+
+### How do I test rate limiting locally?
+
+Use a script that sends N concurrent requests and counts how many return 200 vs 429. Vary the burst size and refill rate to verify the bucket behavior. Use `redis-cli MONITOR` to observe the Lua script executions in real time.

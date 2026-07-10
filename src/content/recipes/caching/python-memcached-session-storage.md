@@ -333,6 +333,10 @@ Memcached does not encrypt data at rest. If you need to store sensitive data, en
 
 The default is 1MB per item. You can increase it with `-I 5m` flag on Memcached startup, but large sessions hurt performance. Keep sessions small.
 
+**Should I use Memcached or Redis for sessions?**
+
+Memcached is simpler and faster for pure key-value session storage. Redis offers persistence, replication, and richer data structures (lists, sets, sorted sets). If sessions must survive restarts or you need high availability, use Redis. If you want maximum speed and can tolerate session loss on restart, Memcached is fine.
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.

@@ -324,3 +324,26 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes
+
+- Usar `INCR` solo sin un script Lua — crea condiciones de carrera entre el incremento y las verificaciones de expiración
+- No setear TTL en las claves de rate limiting — la memoria crece sin límite para usuarios que hacen un solo request
+- Usar el mismo bucket para todos los endpoints — un burst a una API consume tokens para endpoints no relacionados
+- No manejar el downtime de Redis gracefulmente — decide si fallar abierto (permitir request) o fallar cerrado (denegar)
+- Usar timestamps en milisegundos en lugar de segundos en el script Lua — Redis `TIME` retorna segundos y microsegundos, no milisegundos
+- No monitorear el refill rate del token bucket vs tráfico real — si el refill rate es muy bajo, usuarios legítimos reciben rate limiting
+- No usar `EVALSHA` en lugar de `EVAL` — enviar el script Lua completo en cada request desperdicia ancho de banda, `EVALSHA` cachea el script por hash
+- No setear una capacidad máxima del bucket — capacidad ilimitada permite a los usuarios acumular tokens durante periodos idle y hacer burst más allá del rate limit intencionado
+- No usar claves por usuario y por endpoint — un solo usuario puede agotar su bucket en un endpoint mientras otro endpoint permanece sin afectar, lo cual puede o no ser deseado
+- No loggear decisiones de rate limiting — sin logs de allow/deny por usuario, no puedes debuggear quejas sobre respuestas 429 inesperadas
+- No usar una convención de naming consistente para las claves — mezclar patrones `rate_limit:user:ip` y `rl:user:ip` dificulta el monitoreo y debugging
+- No testear rate limiting bajo carga — un rate limiter que funciona en desarrollo puede fallar bajo alta concurrencia debido a Redis pipelining o latencia de red
+
+### ¿Cuál es la diferencia entre token bucket y sliding window?
+
+Token bucket rellena tokens a una tasa fija y permite bursts hasta la capacidad del bucket. Sliding window cuenta requests en una ventana de tiempo móvil y rechaza cuando el count excede el límite. Token bucket es mejor para tráfico bursty. Sliding window es mejor para enforcement estricto de rate.
+
+### ¿Cómo testeo rate limiting localmente?
+
+Usa un script que envíe N requests concurrentes y cuente cuántos retornan 200 vs 429. Varía el burst size y el refill rate para verificar el comportamiento del bucket. Usa `redis-cli MONITOR` para observar las ejecuciones del script Lua en tiempo real.

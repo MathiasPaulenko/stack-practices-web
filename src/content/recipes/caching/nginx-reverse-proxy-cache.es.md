@@ -329,3 +329,21 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+### ¿Cómo cachear solo códigos de respuesta específicos?
+
+Usa `proxy_cache_valid` con códigos de status explícitos: `proxy_cache_valid 200 302 10m;` cachea solo respuestas 200 y 302 por 10 minutos. Añade `proxy_cache_valid 404 1m;` para cachear 404s brevemente. Respuestas con otros códigos (500, 502, 503) no se cachean a menos que los listes explícitamente.
+
+### ¿Qué es la variable `upstream_cache_status`?
+
+`$upstream_cache_status` te dice si la respuesta vino del caché o del origin: `HIT` (servida desde caché), `MISS` (no en caché, obtenida del origin), `EXPIRED` (entrada expirada, re-obtenida), `BYPASS` (caché saltado), `REVALIDATED` (stale pero revalidada). Añádelo como header de respuesta con `add_header X-Cache-Status $upstream_cache_status;` para debuggear el comportamiento del caché.
+
+## Errores Comunes
+
+- No setear `proxy_cache_key` — la clave por defecto puede no incluir todas las variantes del request (método, headers)
+- Cachear respuestas con headers `Set-Cookie` — filtra datos de sesión entre usuarios
+- Olvidar `proxy_cache_bypass` para requests autenticados — cachea contenido personalizado
+- No monitorear el cache hit ratio — un ratio bajo significa que la config de caché necesita ajustes
+- Cachear requests POST por defecto — los bodies de POST no son parte de la cache key y nunca deberían cachearse
+- No setear `proxy_cache_lock on` — las thundering herd requests abruman el origin cuando las entradas de caché expiran simultáneamente
+- No definir un `proxy_cache_path` con `max_size` adecuado — el caché evicta entradas prematuramente si el espacio en disco es muy pequeño

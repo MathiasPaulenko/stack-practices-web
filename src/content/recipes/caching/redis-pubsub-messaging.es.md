@@ -322,6 +322,21 @@ A: Usa pub/sub para notificaciones en tiempo real donde la perdida de mensajes e
 **Q: Cuantos suscriptores puede tener un canal?**
 A: Miles. Redis maneja el fan-out eficientemente, pero cada suscriptor anade memoria para el buffer de salida.
 
+**Q: ¿Qué pasa con los mensajes cuando no hay suscriptores escuchando?**
+A: Los mensajes se descartan. Redis Pub/Sub no persiste mensajes. Si la durabilidad importa, usa Redis Streams en su lugar — almacenan mensajes y permiten que los consumer groups lean a su propio ritmo.
+
+**Q: ¿Puedo usar suscripciones por patrón con sharded Pub/Sub?**
+A: No. Sharded Pub/Sub (`SPUBLISH`/`SSUBSCRIBE`) no soporta pattern matching con globs. Usa `PUBLISH`/`PSUBSCRIBE` regular para suscripciones por patrón, pero ten en cuenta que estas no se benefician del sharding del cluster.
+
+## Errores Comunes
+
+- Asumir que los mensajes se entregan de forma confiable — Pub/Sub descarta mensajes cuando los suscriptores están desconectados
+- No manejar lógica de reconexión — los suscriptores deben resuscribirse después de una caída de conexión
+- Usar Pub/Sub para colas de tareas — usa Redis Streams o Lists con `BRPOP` en su lugar
+- Publicar payloads grandes (>1MB) — Redis bloquea el cliente que publica durante el fan-out
+- No setear timeout en conexiones de suscriptores — los consumidores lentos pueden acumular backlog en el buffer de salida
+- Usar Pub/Sub para notificaciones críticas sin una cola de fallback — si las garantías de entrega importan, combina con Redis Streams
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

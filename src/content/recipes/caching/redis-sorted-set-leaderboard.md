@@ -324,6 +324,18 @@ A: Yes. Redis sorted sets accept double-precision floats. Be aware of floating-p
 **Q: How do I migrate a leaderboard to a new key?**
 A: Use `ZUNIONSTORE` to merge: `ZUNIONSTORE new_key 1 old_key`. Or dump and restore with `DUMP`/`RESTORE`.
 
+**Q: What happens when two members have the same score?**
+A: Redis sorts by score first, then by member name lexicographically. If you need tie-breaking by timestamp, encode it in the score: `score = actual_score * 1e10 + (max_timestamp - timestamp)`.
+
+**Q: How do I expire old leaderboard entries automatically?**
+A: Sorted sets do not support per-member TTL. Use a separate sorted set as a "last seen" index and periodically remove stale members: `ZREMRANGEBYSCORE leaderboard -inf <cutoff_score>`. Alternatively, run a scheduled job that removes members whose `last_active` timestamp is older than your threshold.
+
+**Q: What is the memory consumption of a sorted set?**
+A: Each member uses approximately 80–100 bytes (member name + score + skiplist pointers). A leaderboard with 1 million members uses roughly 80–100 MB. Monitor with `MEMORY USAGE leaderboard_key`.
+
+**Q: Can I use Redis Cluster with sorted set leaderboards?**
+A: Yes, but all operations on a single sorted set must route to the same shard. Since sorted sets are single-key data structures, Redis Cluster handles this automatically via hash slot assignment. Cross-shard operations like `ZUNIONSTORE` require hash tags: `{leaderboard}:daily` and `{leaderboard}:weekly`.
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.

@@ -333,6 +333,10 @@ Memcached no encripta datos en reposo. Si necesitas almacenar datos sensibles, e
 
 El limite por defecto es 1MB por item. Puedes aumentarlo con el flag `-I 5m` al iniciar Memcached, pero las sesiones grandes afectan el rendimiento. Manten las sesiones pequenas.
 
+**Deberia usar Memcached o Redis para sesiones?**
+
+Memcached es mas simple y rapido para almacenamiento de sesiones key-value puro. Redis ofrece persistencia, replicacion y estructuras de datos mas ricas (lists, sets, sorted sets). Si las sesiones deben sobrevivir restarts o necesitas alta disponibilidad, usa Redis. Si quieres maxima velocidad y toleras perdida de sesiones en restart, Memcached esta bien.
+
 ### ¿Esta solución está lista para producción?
 
 Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.

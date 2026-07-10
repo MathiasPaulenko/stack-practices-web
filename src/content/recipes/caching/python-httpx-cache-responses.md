@@ -333,6 +333,10 @@ Streaming responses (`client.stream()`) are not cached by default because the bo
 
 File-based caches don't have a built-in size limit. Old entries are removed when they expire (based on `max-age`). For size-limited caching, use Redis with `maxmemory` and an eviction policy.
 
+**How do I invalidate a specific cached response?**
+
+Use `cache.delete(url)` to remove a single entry, or `cache.clear()` to wipe all cached responses. For pattern-based invalidation, iterate `cache.urls` and delete matches. Set short `max-age` values for endpoints that change frequently.
+
 ### Is this solution production-ready?
 
 Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
