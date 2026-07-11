@@ -217,3 +217,88 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: SOC2 Type II Audit Preparation
+
+```text
+System: B2B SaaS, 30 employees, 5 services
+Goal: SOC2 Type II in 6 months
+
+Trust Service Criteria (TSC):
+  | Criteria | Areas | Implementation |
+  |----------|-------|----------------|
+  | Security | CC1-CC9 | Common controls |
+  | Availability | A1 | SLA + monitoring |
+  | Processing Integrity | PI1 | Data validation |
+  | Confidentiality | C1 | Encryption + access control |
+  | Privacy | P1-P8 | GDPR + data retention |
+
+Common controls (CC1-CC9) implemented:
+  CC1: Control environment
+    - Written and approved security policy
+    - Code of conduct signed by employees
+    - Background checks in hiring
+
+  CC2: Communication and information
+    - Policies published in internal wiki
+    - Annual security training
+    - Incident reporting channel
+
+  CC3: Risk assessment
+    - Risk register updated quarterly
+    - Threat modeling per new feature
+    - Vendor risk assessment
+
+  CC4: Monitoring activities
+    - Immutable audit log (append-only)
+    - 24/7 security alerts
+    - Quarterly access review
+
+  CC5: Control activities
+    - RBAC + least privilege
+    - MFA mandatory
+    - Change management via PR + approval
+
+  CC6: Logical and physical access
+    - SSO + MFA
+    - Quarterly access reviews
+    - Automated offboarding (revoke access in 24h)
+
+  CC7: System operations
+    - Patch management (SLA: critical 48h, high 7d)
+    - Weekly vulnerability scanning
+    - Documented incident response plan
+
+  CC8: Change management
+    - CI/CD with approval gates
+    - Segregation of duties (dev != deploy)
+    - Documented rollback plan
+
+  CC9: Risk mitigation
+    - Disaster recovery plan
+    - Encrypted backups, tested quarterly
+    - Business continuity plan
+
+Audit timeline:
+  | Month | Activity |
+  |-------|----------|
+  | 1-2 | Gap assessment + remediation plan |
+  | 3-4 | Implement missing controls |
+  | 5 | Readiness assessment |
+  | 6 | Audit (fieldwork) |
+  | 7-8 | Final report |
+
+Lessons:
+  - SOC2 is a 6+ month project, not a sprint
+  - Documentation is as important as implementation
+  - Quarterly access reviews are mandatory
+  - Automated offboarding is the most audited control
+  - The auditor tests controls, does not just read policies
+```
+
+### How much does a SOC2 audit cost?
+
+A SOC2 Type I audit costs $15K-$30K. Type II costs $30K-$60K for the first year, $20K-$40K in subsequent years. Additional costs: tools (Drata, Vanta: $5K-$20K/year), readiness consultant ($10K-$25K), team time (200-400 hours). Budget $50K-$80K for the full first year.

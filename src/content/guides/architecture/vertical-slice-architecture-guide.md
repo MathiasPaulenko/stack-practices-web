@@ -189,3 +189,114 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: E-commerce App with Vertical Slices
+
+```text
+Project: E-commerce API (.NET 8, FastEndpoints + MediatR)
+Domains: Orders, Products, Customers, Cart, Checkout
+
+Folder structure:
+  src/
+    Features/
+      Orders/
+        CreateOrder/
+          ├── CreateOrderCommand.cs      # Input DTO
+          ├── CreateOrderHandler.cs       # Business logic
+          ├── CreateOrderValidator.cs     # Validation
+          ├── CreateOrderEndpoint.cs      # HTTP route
+          └── CreateOrderResponse.cs      # Output DTO
+        GetOrderById/
+          ├── GetOrderByIdQuery.cs
+          ├── GetOrderByIdHandler.cs
+          └── GetOrderByIdEndpoint.cs
+        UpdateOrderStatus/
+          ├── UpdateOrderStatusCommand.cs
+          ├── UpdateOrderStatusHandler.cs
+          ├── UpdateOrderStatusValidator.cs
+          └── UpdateOrderStatusEndpoint.cs
+        CancelOrder/
+          ├── CancelOrderCommand.cs
+          ├── CancelOrderHandler.cs
+          └── CancelOrderEndpoint.cs
+      Products/
+        CreateProduct/
+        GetProductById/
+        ListProducts/
+        UpdatePrice/
+      Cart/
+        AddToCart/
+        RemoveFromCart/
+        GetCart/
+    Common/
+      Behaviors/
+        ├── LoggingBehavior.cs            # Logging pipeline
+        ├── ValidationBehavior.cs         # Validation pipeline
+        └── TransactionBehavior.cs        # Transaction pipeline
+      Exceptions/
+        ├── NotFoundException.cs
+        ├── ValidationException.cs
+        └── ConflictException.cs
+      Infrastructure/
+        ├── AppDbContext.cs
+        ├── DependencyInjection.cs
+        └── EventBus.cs
+
+MediatR pipeline (chained behaviors):
+  Request -> LoggingBehavior -> ValidationBehavior -> TransactionBehavior -> Handler
+
+  // LoggingBehavior.cs
+  public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+  {
+      public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
+      {
+          logger.LogInformation("Handling {RequestType}", typeof(TRequest).Name);
+          var response = await next();
+          logger.LogInformation("Handled {RequestType}", typeof(TRequest).Name);
+          return response;
+      }
+  }
+
+Observed benefits:
+  - Change to "Create Order" touches 1 folder, not 5
+  - Merge conflicts reduced 80% (each team works in their slice)
+  - Faster onboarding: new dev reads one folder and understands the feature
+  - Tests organized by feature: Orders.Tests/CreateOrderTests.cs
+```
+
+### How do I migrate from layered architecture to vertical slices?
+
+Migrate one feature at a time. Start with the simplest feature (e.g., GetProductById). Create the Features/Products/GetProductById/ folder, move the relevant code, and verify tests pass. Remove the old code from the horizontal folders. Repeat with the next feature. Do not migrate everything at once: the risk of breaking is high and the value of each incremental migration is immediate.
+
+### How do I handle features that share domain entities?
+
+Shared domain entities (Order, Product, Customer) live in Common/Domain/ or a shared project. Slices reference these entities but contain their own business logic. If two features need the same domain logic, extract a method on the entity or create a domain service in Common/. The goal is cohesion within the slice, not forced duplication.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

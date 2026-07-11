@@ -155,3 +155,148 @@ No. El negocio no se detiene. Corre migración como track paralelo: 70% capacida
 ### ¿Qué pasa si terminamos con un monolito distribuido?
 
 Un monolito distribuido ocurre cuando servicios comparten BD o deployan juntos. La prevención es la cura: aplica database-per-service y pipelines de deploy independientes. Arreglarlo después es doloroso; préviene desde el inicio.
+
+
+## Escenario Detallado: Extraccion del Servicio de Notificaciones
+
+```text
+Sistema: E-commerce monolito (Rails, 450k lineas, 30 devs)
+Servicio a extraer: Notificaciones (email + SMS + push)
+Riesgo: Bajo (no afecta pagos ni pedidos)
+Esfuerzo estimado: 6 semanas
+
+Semana 1-2: Branch by Abstraction
+  1. Crear interfaz NotificationSender en el monolito
+     - send_email(user_id, template, data)
+     - send_sms(user_id, message)
+     - send_push(user_id, payload)
+  2. Mover implementacion existente a MonolithNotificationSender
+  3. Todos los callers usan la interfaz via DI
+  4. Tests existentes siguen pasando sin cambios
+
+Semana 3-4: Construir el servicio
+  $ mkdir notification-service && cd notification-service
+  $ npm init -y && npm install fastify aws-sdk pino
+  $ mkdir src && cat > src/handler.js << EOF
+  async function sendEmail(req, reply) {
+    const { user_id, template, data } = req.body;
+    const result = await ses.sendTemplatedEmail({
+      Source: "no-reply@app.com",
+      Destination: { ToAddresses: [await getUserEmail(user_id)] },
+      Template: template,
+      TemplateData: JSON.stringify(data)
+    }).promise();
+    return { id: result.MessageId, status: "sent" };
+  }
+  EOF
+  $ docker build -t notification-service:latest .
+  $ kubectl apply -f k8s/deployment.yaml
+
+Semana 5: Parallel run
+  - Feature flag: use_new_notification_service (50% de usuarios)
+  - Loggear divergencias entre monolito y servicio
+  - Monitorear latencia y tasa de error
+  - Configuracion del feature flag:
+    flags.configure("use_new_notification_service", {
+      percentage: 50,
+      user_id_hash: true  // consistencia: mismo user siempre va al mismo destino
+    })
+
+Semana 6: Cutover
+  - Subir a 100% en ventana de bajo trafico (domingo 2am)
+  - Monitorear 24h con rollback listo
+  - Despues de 7 dias estables, remover MonolithNotificationSender
+  - Despues de 30 dias, remover codigo de notificaciones del monolito
+
+Metricas antes/despues:
+  | Metrica | Monolito | Servicio |
+  |---------|----------|----------|
+  | Deploy frequency | Semanal | Diario |
+  | Lead time | 3 dias | 2 horas |
+  | P95 latencia send_email | 800ms | 120ms |
+  | Tasa de error | 0.8% | 0.1% |
+```
+
+### Como manejo la base de datos compartida durante la migracion?
+
+El patron mas seguro es Change Data Capture (CDC). Usa Debezium para replicar cambios del monolito al servicio nuevo sin modificar el codigo del monolito. El servicio nuevo lee de su propia base de datos alimentada por CDC. Cuando confias en la replicacion, cambia las escrituras al servicio nuevo. Finalmente, elimina la tabla del monolito. Nunca dejes dos servicios escribiendo a la misma tabla: las condiciones de carrera son inevitables.
+
+### Que hago cuando el equipo se resiste a la migracion?
+
+La resistencia suele ser racional: los devs conocen el monolito y temen lo desconocido. Empieza con un servicio de bajo riesgo y documenta el proceso en detalle. Invita al equipo escptico a participar en la primera extraccion. Muestra las metricas despues del cutover: deploy frequency, lead time, tasa de error. Los datos convencen mas que las presentaciones. Si la resistencia persiste, reconsidera si la migracion es necesaria.
+
+### Como testeo durante la migracion?
+
+Usa contract tests entre el monolito y el servicio nuevo. El monolito es consumidor del servicio durante la transicion. Pact tests verifican que el contrato no se rompe. Parallel run es tu test de integracion mas valioso: si ambas implementaciones producen el mismo resultado para los mismos inputs, la migracion es segura. Agrega tests E2E que cubran el flujo completo a traves del nuevo servicio.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

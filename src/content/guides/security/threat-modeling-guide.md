@@ -188,3 +188,115 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Threat Modeling for Payment API
+
+```text
+System: Payment API, OAuth2, handles credit cards
+Method: STRIDE (Spoofing, Tampering, Repudiation,
+  Info Disclosure, Denial of Service, Elevation of Privilege)
+
+Flow diagram:
+  Client -> API Gateway -> Auth Service -> Payment Service
+                                    -> Vault (secrets)
+                                    -> DB (transactions)
+                                    -> Stripe API
+
+Identified threats (STRIDE):
+  | Category | Threat | Mitigation | Severity |
+  |----------|--------|------------|----------|
+  | Spoofing | Forged JWT token | Verify signature + expiry | High |
+  | Spoofing | Client impersonates another user | Scope validation per user | High |
+  | Tampering | Modify amount in request | HMAC signature on payload | High |
+  | Tampering | Man-in-the-middle | TLS 1.3 + certificate pinning | Medium |
+  | Repudiation | User denies transaction | Immutable audit log + timestamp | High |
+  | Info Disclosure | Log of card number | Masking + PCI DSS compliance | Critical |
+  | Info Disclosure | Error exposes stack trace | Generic messages in prod | Medium |
+  | DoS | Request flood | Rate limiting + WAF | High |
+  | DoS | Expensive query without limit | Pagination + query timeout | Medium |
+  | EoP | Regular user accesses admin | RBAC + scope validation | High |
+  | EoP | Service account with excessive permissions | Least privilege + IAM audit | High |
+
+Prioritization (risk = impact x probability):
+  | Threat | Impact | Probability | Risk | Priority |
+  |--------|--------|-------------|------|----------|
+  | Card logging | Critical | Medium | 8 | 1 |
+  | Forged JWT | High | High | 9 | 1 |
+  | Amount modification | High | Medium | 6 | 2 |
+  | Missing rate limiting | High | High | 9 | 1 |
+  | Missing RBAC | High | Low | 3 | 3 |
+  | Stack trace exposed | Medium | High | 4 | 3 |
+
+Mitigation plan:
+  1. PCI DSS: tokenize cards via Stripe (never store PAN)
+  2. JWT: RS256 + expiry 15min + refresh token rotation
+  3. HMAC: sign critical payloads (amount, destination account)
+  4. Rate limiting: 100 req/min per user, 1000 per IP
+  5. RBAC: roles user/admin/super_admin with scope per resource
+  6. Audit log: append-only with hash chain (tamper-evident)
+  7. Error handling: generic messages, stack trace only in logs
+  8. WAF: OWASP rules + custom rules for payment endpoints
+
+Lessons:
+  - STRIDE is systematic: it does not skip categories
+  - Prioritize by risk, not by intuition
+  - PCI DSS: if you touch cards, tokenize everything
+  - Immutable audit log is your defense against repudiation
+  - Threat model is a living document: update per feature
+```
+
+### How often should I update the threat model?
+
+Update it on every significant change: new endpoint, new dependency, architecture change, new sensitive data type. At minimum, review quarterly. If you use CI/CD, add a threat modeling checklist to the PR template for changes affecting auth, payments, or sensitive data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

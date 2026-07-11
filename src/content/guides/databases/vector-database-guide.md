@@ -177,3 +177,126 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: RAG System for Technical Documentation
+
+```text
+System: RAG chatbot over 50,000 pages of technical documentation
+Stack: OpenAI text-embedding-3-small (1536 dim) + pgvector + GPT-4o
+Requirements: Accurate answers with citations, latency < 3s
+
+Pipeline:
+  1. Load documents (PDF, Markdown, HTML)
+  2. Chunk into ~500 token segments with 50 token overlap
+  3. Generate embeddings with OpenAI
+  4. Store in PostgreSQL with pgvector
+  5. On query: embed question, search similar chunks, augment LLM
+
+pgvector schema:
+  CREATE EXTENSION IF NOT EXISTS vector;
+
+  CREATE TABLE doc_chunks (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      doc_id VARCHAR(100) NOT NULL,
+      chunk_index INT NOT NULL,
+      content TEXT NOT NULL,
+      embedding vector(1536) NOT NULL,
+      metadata JSONB DEFAULT '{}',
+      created_at TIMESTAMPTZ DEFAULT NOW()
+  );
+
+  CREATE INDEX idx_doc_chunks_embedding
+  ON doc_chunks USING hnsw (embedding vector_cosine_ops)
+  WITH (m = 16, ef_construction = 64);
+
+  CREATE INDEX idx_doc_chunks_doc ON doc_chunks(doc_id);
+
+Ingestion (Python):
+  from openai import OpenAI
+  import psycopg2
+
+  client = OpenAI()
+  conn = psycopg2.connect("dbname=ragdb")
+
+  def embed_text(text: str) -> list[float]:
+      resp = client.embeddings.create(
+          input=text, model="text-embedding-3-small"
+      )
+      return resp.data[0].embedding
+
+  def ingest_document(doc_id: str, chunks: list[str]):
+      for i, chunk in enumerate(chunks):
+          emb = embed_text(chunk)
+          with conn.cursor() as cur:
+              cur.execute(
+                  "INSERT INTO doc_chunks (doc_id, chunk_index, content, embedding) "
+                  "VALUES (%s, %s, %s, %s)",
+                  (doc_id, i, chunk, emb)
+              )
+      conn.commit()
+
+RAG query:
+  def rag_query(question: str, top_k: int = 5) -> str:
+      q_emb = embed_text(question)
+      with conn.cursor() as cur:
+          cur.execute(
+              "SELECT content, doc_id, chunk_index, "
+              "1 - (embedding <=> %s) AS similarity "
+              "FROM doc_chunks "
+              "ORDER BY embedding <=> %s "
+              "LIMIT %s",
+              (q_emb, q_emb, top_k)
+          )
+          results = cur.fetchall()
+
+      context = "\n\n".join([r[0] for r in results])
+      sources = [f"doc:{r[1]} chunk:{r[2]} sim:{r[3]:.3f}" for r in results]
+
+      prompt = (
+          f"Context:\n{context}\n\n"
+          f"Question: {question}\n"
+          f"Answer based on the context. Cite the source."
+      )
+      response = client.chat.completions.create(
+          model="gpt-4o",
+          messages=[{"role": "user", "content": prompt}]
+      )
+      return response.choices[0].message.content + "\n\nSources: " + ", ".join(sources)
+
+Results:
+  | Metric | Value |
+  |--------|-------|
+  | Embedding time | 200ms |
+  | Vector search time | 15ms |
+  | LLM time | 1.5s |
+  | Total latency | ~1.7s |
+  | Recall@5 | 92% |
+  | Answer accuracy | 87% (with correct citations) |
+
+HNSW index tuning:
+  - m=16: balance between recall and memory (default)
+  - ef_construction=64: build quality (higher = better, slower)
+  - ef_search=40: tune at query time for recall/latency trade-off
+  - For 50K vectors: 50MB index, search < 20ms
+
+Lessons learned:
+  - pgvector is sufficient for < 1M vectors
+  - Chunk size affects quality: 500 tokens with overlap works well
+  - Filter by metadata before vector search to improve relevance
+  - HNSW outperforms IVF in recall for small-to-medium datasets
+```
+
+### How do I handle embedding updates when the model changes?
+
+Version your embeddings: store the model and version in metadata. When changing models, re-embed all documents into a new column or table. Keep both versions during the transition. Update queries to use the new version. Drop the old one when there is no traffic. Schedule re-embedding in batches during off-peak hours to avoid impacting latency.
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

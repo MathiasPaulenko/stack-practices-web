@@ -204,3 +204,99 @@ Aspira a 70-80% de coverage en lógica de negocio crítica. Mayor coverage es me
 ### Debería hacer mock de APIs externas en integration tests?
 
 Sí, haz mock de APIs externas en los boundaries de integration tests usando librerías como WireMock o MSW. Esto mantiene los tests determinísticos y rápidos mientras verifica los patrones de interacción de tu sistema.
+
+
+## Temas Avanzados
+
+### Escenario: Estrategia de Testing para Microservicios
+
+```text
+Sistema: 8 microservicios, API REST + queue workers
+Objetivo: 80% coverage, CI < 10 min, 0 flaky tests
+
+Piramide de testing:
+  | Nivel | Cantidad | Duracion | Herramienta |
+  |-------|----------|----------|-------------|
+  | Unit | 1200 | 2 min | Vitest + Jest |
+  | Integration | 300 | 4 min | Vitest + Testcontainers |
+  | Contract | 80 | 1 min | Pact |
+  | E2E | 40 | 3 min | Playwright |
+  | Total | 1620 | 10 min | |
+
+Estrategia por servicio:
+  | Servicio | Unit | Integration | Contract | E2E |
+  |----------|------|-------------|----------|-----|
+  | auth-service | 200 | 40 | 10 | 5 |
+  | payment-service | 180 | 50 | 15 | 8 |
+  | user-service | 150 | 35 | 8 | 5 |
+  | order-service | 170 | 45 | 12 | 7 |
+  | notification-service | 120 | 30 | 5 | 3 |
+  | search-service | 130 | 25 | 8 | 4 |
+  | analytics-service | 100 | 20 | 5 | 2 |
+  | api-gateway | 150 | 55 | 17 | 6 |
+
+Reglas de testing:
+  | Regla | Razon |
+  |-------|-------|
+  | Unit tests < 1s cada uno | Feedback rapido |
+  | Integration tests < 5s cada uno | Testcontainers |
+  | E2E tests < 30s cada uno | Playwright + headed |
+  | 0 flaky tests | Re-run 3x, si falla 1x, fix |
+  | Coverage min 70% en logica de negocio | Gate en CI |
+  | Coverage min 90% en payment-service | Critico |
+  | PR bloqueado si coverage baja | --coverage --check |
+  | Tests deterministicos | No depender de tiempo/orden |
+
+CI pipeline (10 min total):
+  1. Lint + type check (1 min)
+  2. Unit tests (2 min)
+  3. Integration tests (4 min)
+  4. Contract tests (1 min)
+  5. Build (1 min)
+  6. E2E tests en staging (3 min, paralelo con deploy)
+
+Lecciones:
+  - La piramide: muchos unit, pocos E2E
+  - Contract tests entre servicios son obligatorios
+  - 0 flaky tests: un test flaky es peor que no tener test
+  - CI < 10 min: si tarda mas, los devs pierden confianza
+  - Coverage es un proxy, no el objetivo: test behavior
+```
+
+### Como manejo tests de servicios externos?
+
+Usa contract testing con Pact: el consumidor define las expectativas, el proveedor las verifica. Para APIs de terceros (Stripe, GitHub), usa VCR o cassettes: graba la respuesta una vez, replay en tests. Para DB, usa Testcontainers: levanta un container real por test suite. Evita mocks manuales: son frágiles y no detectan cambios reales.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

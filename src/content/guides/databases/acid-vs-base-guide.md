@@ -210,3 +210,93 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Hybrid E-commerce ACID/BASE
+
+```text
+System: 10M users, 500K orders/day
+Model: ACID for payments/inventory, BASE for catalog/reviews
+
+Architecture:
+  | Service | Model | DB | Consistency |
+  |---------|-------|-----|-------------|
+  | Payments | ACID | PostgreSQL | Serializable |
+  | Inventory | ACID | PostgreSQL | Repeatable Read |
+  | Orders | ACID | PostgreSQL | Read Committed |
+  | Catalog | BASE | MongoDB | Eventual |
+  | Search | BASE | Elasticsearch | NRT |
+  | Analytics | BASE | ClickHouse | Eventual |
+
+Order flow (Saga):
+  1. Reserve inventory (ACID)
+     BEGIN; UPDATE inventory SET stock = stock - qty WHERE sku = ?;
+     INSERT INTO reservations ...; COMMIT;
+  2. Process payment (ACID)
+     BEGIN; INSERT INTO payments ...; UPDATE accounts ...; COMMIT;
+  3. Create order (ACID)
+     INSERT INTO orders ...; COMMIT;
+  4. Publish event (BASE, Kafka)
+     Produce OrderCreated to Kafka
+
+  Compensation on failure:
+  - Payment fails: release inventory
+  - Order fails: refund payment, release inventory
+
+  TypeScript:
+    class CheckoutSaga {
+      async execute(cart, paymentMethod) {
+        const reservation = await this.reserveInventory(cart.items);
+        try {
+          const payment = await this.processPayment(cart.total, paymentMethod);
+          const order = await this.createOrder(cart, payment.id);
+          await this.eventBus.publish(new OrderCreated(order));
+          return order;
+        } catch (error) {
+          await this.releaseInventory(reservation);
+          await this.refundPayment(payment?.id);
+          throw error;
+        }
+      }
+    }
+
+Outbox pattern (guarantees publication):
+  BEGIN; INSERT INTO orders ...;
+  INSERT INTO outbox (event_type, payload) VALUES ("OrderCreated", ...);
+  COMMIT;
+  -- Separate process reads outbox and publishes to Kafka
+
+Sync:
+  Catalog -> ES: MongoDB Change Stream, latency 1-5s
+  Orders -> Analytics: Kafka consumer -> ClickHouse, 30-60s
+
+Inconsistency handling:
+  | Scenario | Mitigation |
+  |----------|------------|
+  | Stale catalog | TTL cache + refresh |
+  | Review not indexed | Scheduled reindex |
+  | Analytics behind | Accept NRT |
+  | Saga fails to compensate | Alert + reconciliation |
+
+Monitoring:
+  - Kafka lag: < 60s (alert > 300s)
+  - Unprocessed outbox: > 100 (alert)
+  - Reconciliation: daily cross-store job
+
+Lessons:
+  - ACID for money, BASE for everything else
+  - Outbox solves dual-write
+  - Sagas need idempotent compensation
+  - Periodic reconciliation catches silent inconsistencies
+```
+
+### What is tunable consistency?
+
+Cassandra and DynamoDB let you adjust consistency per operation. ONE: reads one node (fast). QUORUM: reads majority (consistent). ALL: reads all (max consistency). Use QUORUM for critical operations and ONE for cache.
+
+
+
+
+End of document. Review and update quarterly.

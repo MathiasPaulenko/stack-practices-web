@@ -224,3 +224,86 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Query Optimization for E-commerce
+
+```sql
+-- Table: orders (50M rows, 500K/day)
+-- Problem: Dashboard queries take 30+ seconds
+
+-- Query 1: Orders by customer in date range
+-- Before: seq scan, 12 seconds
+EXPLAIN ANALYZE SELECT * FROM orders
+WHERE customer_id = 42 AND created_at >= '2026-01-01';
+
+-- Solution: composite index
+CREATE INDEX idx_orders_customer_date ON orders(customer_id, created_at DESC);
+-- After: index scan, 2ms
+
+-- Query 2: Orders by status and date (dashboard)
+-- Before: seq scan + sort, 28 seconds
+EXPLAIN ANALYZE SELECT * FROM orders
+WHERE status = 'pending' AND created_at >= '2026-01-01'
+ORDER BY created_at DESC LIMIT 50;
+
+-- Solution: partial composite index
+CREATE INDEX idx_orders_pending_date ON orders(created_at DESC)
+WHERE status = 'pending';
+-- Only indexes pending orders (~5% of total)
+-- After: index scan, 5ms
+
+-- Query 3: Full-text search on products
+-- Before: ILIKE, 15 seconds
+EXPLAIN ANALYZE SELECT * FROM products
+WHERE name ILIKE '%laptop%' OR description ILIKE '%laptop%';
+
+-- Solution: GIN index with tsvector
+CREATE INDEX idx_products_fts ON products
+USING GIN(to_tsvector('english', name || ' ' || description));
+
+SELECT * FROM products
+WHERE to_tsvector('english', name || ' ' || description)
+  @@ to_tsquery('english', 'laptop');
+-- After: 50ms
+
+-- Query 4: Daily order count (report)
+-- Before: seq scan + aggregate, 45 seconds
+EXPLAIN ANALYZE SELECT DATE(created_at), count(*)
+FROM orders WHERE created_at >= '2026-01-01'
+GROUP BY DATE(created_at) ORDER BY 1;
+
+-- Solution: BRIN index (data ordered by date)
+CREATE INDEX idx_orders_created_brin ON orders USING BRIN(created_at);
+-- Only 1% of B-Tree size
+-- After: 8 seconds (acceptable for reports)
+
+-- Query 5: JSONB on order metadata
+EXPLAIN ANALYZE SELECT * FROM orders
+WHERE metadata @> '{"channel": "mobile"}';
+
+CREATE INDEX idx_orders_metadata ON orders USING GIN(metadata jsonb_path_ops);
+-- After: 15ms
+
+-- Unused index audit (quarterly):
+SELECT schemaname, tablename, indexname, idx_scan
+FROM pg_stat_user_indexes
+WHERE idx_scan = 0 AND indexrelname NOT LIKE 'pg_toast%'
+ORDER BY pg_relation_size(indexrelid) DESC;
+
+-- Result: 3 unused indexes totaling 2GB -> DROP
+-- Impact: 15% less write overhead
+
+Lessons:
+  - Column order in composites matters enormously
+  - Partial indexes reduce size and improve writes
+  - BRIN is ideal for time-series with billions of rows
+  - GIN solves full-text search and JSONB
+  - Audit unused indexes quarterly
+```
+
+### How do I choose between B-Tree and BRIN?
+
+Use B-Tree for random access data with equality or range queries. Use BRIN for very large tables (billions of rows) where data is naturally ordered (time-series, append-only logs). BRIN is ~1% of B-Tree size but only useful when queries filter on the ordered column range.

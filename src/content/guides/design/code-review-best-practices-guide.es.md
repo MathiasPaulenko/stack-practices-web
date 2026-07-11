@@ -194,3 +194,109 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Checklist de Revision para Servicio de Pagos
+
+```text
+Servicio: Microservicio de procesamiento de pagos
+Riesgo: Alto (transacciones financieras, PII)
+Revisores: 2 requeridos (1 senior + 1 peer)
+
+Checks automatizados pre-revision:
+  [x] Linter pasa (ESLint + Prettier)
+  [x] Type checker pasa (tsc --noEmit)
+  [x] Tests unitarios pasan (>90% cobertura en lineas cambiadas)
+  [x] SAST scan limpio (Semgrep)
+  [x] Sin secrets en el diff (trufflehog)
+  [x] Audit de dependencias limpio (npm audit)
+
+Checklist de revision (reviewer completa):
+  Seguridad:
+  [ ] Validacion de input en todos los endpoints (Zod)
+  [ ] Sin SQL injection (queries parametrizadas)
+  [ ] Sin secrets o API keys hardcodeados
+  [ ] PII no se loguea (enmascarar tarjetas, emails)
+  [ ] Checks de auth presentes en cada ruta
+  [ ] Rate limiting en endpoints sensibles
+
+  Correccion:
+  [ ] Limites de transaccion correctos (ACID)
+  [ ] Manejo de errores cubre casos edge
+  [ ] Idempotencia en operaciones de pago
+  [ ] Aritmetica decimal (no floating point para dinero)
+  [ ] Checks de null/undefined en datos externos
+  [ ] Condiciones de carrera abordadas
+
+  Diseno:
+  [ ] Responsabilidad unica por funcion
+  [ ] Sin God classes o funciones > 50 lineas
+  [ ] Dependencias inyectadas (testeable)
+  [ ] Sin imports circulares
+  [ ] Contrato API coincide con OpenAPI spec
+
+  Testing:
+  [ ] Happy path cubierto
+  [ ] Paths de error cubiertos
+  [ ] Valores limite testeados (0, negativo, max)
+  [ ] Integration test para operaciones DB
+  [ ] Mock de servicios externos (Stripe, API bancaria)
+  [ ] Sin tests flaky (timeouts, random data)
+
+  Performance:
+  [ ] Queries N+1 eliminadas
+  [ ] Sin I/O sincrono en hot paths
+  [ ] Indices existen para queries nuevas
+  [ ] Paginacion en endpoints de lista
+  [ ] Sin datos innecesarios (SELECT * evitado)
+
+  Documentacion:
+  [ ] JSDoc en funciones exportadas
+  [ ] README actualizado si cambio el setup
+  [ ] Entrada en changelog
+  [ ] Breaking changes documentados
+
+Formato de comentarios:
+  [blocking] Debe arreglarse antes de merge
+  [suggestion] Considera este enfoque
+  [question] Por que esta decision de diseno?
+  [nit] Preferencia menor de estilo
+
+Metricas tracked:
+  | Metrica | Objetivo |
+  |---------|----------|
+  | Tiempo de revision | < 4 horas |
+  | Tasa de defectos escapados | < 5% |
+  | Carga de reviewer | < 5 PRs/dia |
+  | Tamano de PR | < 400 lineas cambiadas |
+  | Densidad de comentarios | 2-5 por PR |
+
+Lecciones:
+  - Checks automatizados reducen carga del reviewer
+  - Checklists aseguran consistencia entre reviewers
+  - PRs pequenos reciben mejores revisiones
+  - [blocking] vs [suggestion] aclara intencion
+  - Trackea metricas para mejorar el proceso
+```
+
+### Como manejo PRs grandes que son dificiles de revisar?
+
+Pide al autor que divida en PRs mas pequenos. Si no se puede dividir, pide un walkthrough (screen share o descripcion detallada). Revisa por chunks: primero el diseno, luego los tests, luego la implementacion. Usa diff tools que permitan comentar lineas especificas. PRs grandes (> 400 lineas) consistentemente reciben revisiones de menor calidad.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -210,3 +210,93 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Implementacion de Zero Trust para Microservicios
+
+```text
+Sistema: 15 microservicios en Kubernetes, 500 usuarios
+Objetivo: Arquitectura Zero Trust (sin confianza implicita)
+
+Principios:
+  1. Nunca confiar, siempre verificar
+  2. Acceso de minimo privilegio
+  3. Asumir compromiso (breach)
+  4. Verificar explicitamente
+
+Capas de arquitectura:
+  | Capa | Componente | Implementacion |
+  |------|-----------|----------------|
+  | Identidad | OIDC + MFA | Keycloak + WebAuthn |
+  | Dispositivo | Device posture check | Tanium / Intune |
+  | Red | mTLS entre servicios | SPIFFE/SPIRE |
+  | Aplicacion | RBAC + ABAC | OPA (Open Policy Agent) |
+  | Datos | Cifrado en reposo + transito | KMS + TLS 1.3 |
+  | Monitoreo | Audit log + SIEM | ELK + Falco |
+
+mTLS entre servicios (SPIFFE):
+  # Cada servicio obtiene una identidad criptografica
+  # SPIRE agent en cada nodo emite SVID
+  # Los servicios se autentican mutuamente via mTLS
+  # No hay IPs confiables: la identidad es criptografica
+
+  Servicio A -> mTLS -> Servicio B
+    A presenta su SVID
+    B verifica SVID contra trust bundle
+    B presenta su SVID
+    A verifica SVID contra trust bundle
+    Comunicacion cifrada con TLS 1.3
+
+Policy enforcement (OPA):
+  # Reglas declarativas en Rego
+  allow {
+    input.user.role == "admin"
+    input.action == "read"
+    input.resource.environment == "production"
+  }
+
+  allow {
+    input.user.team == input.resource.team
+    input.action == "update"
+  }
+
+  # Denegar por defecto, permitir explicitamente
+  # Cada request pasa por OPA sidecar
+
+Flujo de acceso:
+  Usuario -> IdP (OIDC + MFA) -> Token JWT
+  Usuario -> API Gateway (valida JWT) -> Servicio A
+    Servicio A -> OPA (policy check) -> autoriza?
+    Servicio A -> mTLS -> Servicio B
+    Servicio B -> OPA (policy check) -> autoriza?
+    Servicio B -> DB (cifrado, minimo privilegio)
+
+Fases de migracion:
+  Fase 1: Identidad (OIDC + MFA para todos)
+  Fase 2: Segmentacion de red (network policies K8s)
+  Fase 3: mTLS entre servicios (SPIFFE/SPIRE)
+  Fase 4: Policy enforcement (OPA sidecars)
+  Fase 5: Monitoreo continuo (audit log + SIEM)
+
+Lecciones:
+  - Zero Trust es un viaje, no un switch
+  - Empieza con identidad y MFA
+  - mTLS elimina la confianza basada en red
+  - OPA centraliza las politicas de autorizacion
+  - Monitoreo continuo: asume que estas comprometido
+```
+
+### Cuanto dura una migracion a Zero Trust?
+
+Para una organizacion mediana (50-200 servicios), espera 12-18 meses. Fase 1 (identidad + MFA) toma 1-3 meses. Fase 2 (segmentacion de red) toma 2-4 meses. Fase 3 (mTLS) toma 3-6 meses. Fase 4 (policy enforcement) toma 2-4 meses. Fase 5 (monitoreo) es continua. Empieza con los servicios mas criticos primero.
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

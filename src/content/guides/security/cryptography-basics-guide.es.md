@@ -224,3 +224,93 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Cifrado de Datos en una App Fintech
+
+```text
+Sistema: App fintech, maneja transacciones y PII
+Requisitos: Cifrado en transito + reposo + field-level
+
+Capas de cifrado:
+  | Capa | Tecnologia | Proposito |
+  |------|-----------|-----------|
+  | Transito | TLS 1.3 | Cifrar comunicacion red |
+  | Reposo (DB) | AES-256-GCM | Cifrar disco/volumen |
+  | Field-level | AES-256-GCM + envelope | Cifrar campos sensibles |
+  | Backups | AES-256 + KMS | Cifrar backups |
+  | Secrets | KMS + rotation | Rotar claves automaticamente |
+
+Envelope encryption (field-level):
+  1. Generar Data Encryption Key (DEK) aleatoria (256 bits)
+  2. Cifrar campo sensible con DEK (AES-256-GCM)
+  3. Cifrar DEK con Key Encryption Key (KEK) via KMS
+  4. Almacenar: ciphertext + DEK cifrada
+  5. Para descifrar: pedir a KMS que descifre DEK, luego descifrar campo
+
+```javascript
+// Envelope encryption con AWS KMS (Node.js)
+const { KMSClient, EncryptCommand, DecryptCommand } = require("@aws-sdk/client-kms");
+const crypto = require("crypto");
+
+async function encryptField(plaintext, kmsKeyId) {
+  // 1. Generate DEK
+  const dek = crypto.randomBytes(32);
+  const iv = crypto.randomBytes(12);
+
+  // 2. Encrypt data with DEK (AES-256-GCM)
+  const cipher = crypto.createCipheriv("aes-256-gcm", dek, iv);
+  const ciphertext = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
+  const authTag = cipher.getAuthTag();
+
+  // 3. Encrypt DEK with KMS (KEK)
+  const kms = new KMSClient();
+  const response = await kms.send(new EncryptCommand({
+    KeyId: kmsKeyId,
+    Plaintext: dek,
+  }));
+
+  // 4. Store: encrypted DEK + IV + authTag + ciphertext
+  return {
+    encryptedDek: response.CiphertextBlob.toString("base64"),
+    iv: iv.toString("base64"),
+    authTag: authTag.toString("base64"),
+    ciphertext: ciphertext.toString("base64"),
+  };
+}
+
+async function decryptField(encrypted) {
+  // 1. Decrypt DEK via KMS
+  const kms = new KMSClient();
+  const response = await kms.send(new DecryptCommand({
+    CiphertextBlob: Buffer.from(encrypted.encryptedDek, "base64"),
+  }));
+  const dek = response.Plaintext;
+
+  // 2. Decrypt data with DEK
+  const decipher = crypto.createDecipheriv(
+    "aes-256-gcm", dek, Buffer.from(encrypted.iv, "base64")
+  );
+  decipher.setAuthTag(Buffer.from(encrypted.authTag, "base64"));
+  const plaintext = Buffer.concat([
+    decipher.update(Buffer.from(encrypted.ciphertext, "base64")),
+    decipher.final()
+  ]);
+  return plaintext.toString("utf8");
+}
+```
+
+Lecciones:
+  - Nunca uses la misma clave para todo
+  - Envelope encryption: DEK para datos, KEK para DEK
+  - KMS rota las KEK automaticamente
+  - AES-256-GCM: cifrado autenticado (confidencialidad + integridad)
+  - Nunca almacenes DEK en texto plano
+  - IV debe ser unico por cifrado (nunca reutilizar)
+```
+
+### Cuando uso cifrado simetrico vs asimetrico?
+
+Usa simetrico (AES) para cifrar datos en reposo y grandes volumenes: es rapido y seguro. Usa asimetrico (RSA, ECC) para intercambio de claves, firmas digitales y autenticacion: no requiere compartir clave secreta. En la practica, se combinan: asimetrico para intercambiar DEK, simetrico para cifrar datos (envelope encryption).

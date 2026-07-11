@@ -257,3 +257,79 @@ Está bien. Documenta lo que sabes, lo que intentaste y qué monitorearás. Algu
 ## Conclusión
 
 La respuesta a incidentes es un deporte de equipo con reglas claras. Al declarar temprano, asignar roles, comunicar sin descanso y enfocarse en mitigación antes que investigación, conviertes interrupciones caóticas en eventos estructurados y aprendibles.
+
+
+## Temas Avanzados
+
+### Escenario: Respuesta a Incidente Sev-1 en Plataforma SaaS
+
+```text
+Incidente: API caida, 100% requests fallando
+Severidad: Sev-1 (critico)
+Inicio: 03:15 UTC
+On-call: Ana (primary), Luis (secondary)
+
+Timeline de respuesta:
+  03:15 - Alerta: APIErrorRate 100% en api-gateway
+  03:16 - Ana recibe page (PagerDuty)
+  03:17 - Ana abre Slack #incident-sev1
+  03:18 - Verifica: 503 en todos los endpoints
+  03:19 - Declara Sev-1, abre bridge (Zoom)
+  03:20 - Invita a Luis, team lead, DBA, infra
+  03:22 - Ana investiga: deploy reciente?
+         kubectl rollout history deploy/api-gateway
+         -> Deploy v3.2 hace 12 min
+  03:25 - Luis verifica DB: pool de conexiones saturado
+         -> 1000 conexiones activas (max 200)
+  03:28 - Ana decide rollback a v3.1
+  03:30 - Rollback ejecutado: kubectl rollout undo
+  03:33 - API restaurada, errores a 0%
+  03:38 - Ana confirma estabilidad por 5 min
+  03:42 - Cierra bridge, declara resuelto
+  03:43 - Crea ticket para post-mortem (48h)
+
+Roles durante el incidente:
+  | Rol | Persona | Responsabilidad |
+  |-----|---------|----------------|
+  | Incident Commander | Ana | Coordinar, decidir |
+  | Communications | Luis | Actualizar stakeholders |
+  | SME DB | Carlos (DBA) | Investigar base de datos |
+  | SME Infra | Pedro | Verificar infraestructura |
+  | Scribe | Bot | Timeline en Slack |
+
+Comunicaciones:
+  03:19 - #status: "Investigando Sev1 API caida"
+  03:25 - #status: "Causa identificada: deploy v3.2"
+  03:28 - #status: "Ejecutando rollback"
+  03:33 - #status: "API restaurada, monitoreando"
+  03:42 - #status: "Incidente resuelto. Post-mortem en 48h"
+
+Post-mortem (48h):
+  - Resumen: API caida 18 min por deploy defectuoso
+  - Impacto: 50K usuarios afectados, $15K revenue perdido
+  - Causa raiz: Migration introdujo query sin limite
+    que abrio conexiones ilimitadas al pool
+  - 5 Whys:
+    1. Por que cayo? Pool de conexiones agotado
+    2. Por que se agoto? Query sin LIMIT abrio 1000 conexiones
+    3. Por que no se detecto? Tests no cubrian carga
+    4. Por que no habia load test? CI no incluia performance tests
+    5. Por que? No habia budget para load testing en CI
+  - Acciones:
+    1. Agregar LIMIT obligatorio en queries (owner: team, 1 sem)
+    2. Agregar load test en CI con k6 (owner: platform, 2 sem)
+    3. Bajar max pool connections a 100 (owner: SRE, 3 dias)
+    4. Agregar alerta de pool saturation (owner: SRE, 3 dias)
+    5. Code review checklist para migrations (owner: team lead, 1 sem)
+
+Lecciones:
+  - El Incident Commander coordina, no investiga
+  - Comunicar temprano y frecuentemente
+  - Rollback es la primera opcion, no la ultima
+  - Post-mortem blameless: arreglar el sistema, no culpar
+  - Cada accion tiene owner y fecha
+```
+
+### Como preparo a un equipo nuevo para on-call?
+
+Comienza con shadowing: el nuevo ingeniero acompana al on-call durante 2 semanas sin responder pages. Luego responde pages de baja severidad con el senior como backup. Despues de 1 mes, toma turnos completos. Provee un runbook por servicio. Haz game days en staging para practicar respuesta a incidentes.

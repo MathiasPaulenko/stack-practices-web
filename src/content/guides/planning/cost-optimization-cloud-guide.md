@@ -294,3 +294,82 @@ Define clear metrics before starting: performance benchmarks, error rates, or ma
 ## Conclusion
 
 Cloud cost optimization is an ongoing discipline, not a one-time project. Combine technical tactics (right-sizing, reserved capacity, spot instances) with cultural practices (tagging, chargeback, FinOps) to build sustainable, cost-efficient infrastructure.
+
+
+## Advanced Topics
+
+### Scenario: Cloud Cost Optimization for Startup
+
+```text
+System: Startup on AWS, $8K/month, 5 services
+Goal: Reduce 40% without user impact
+
+Phase 1: Inventory and visibility
+  | Service | Cost/month | % of total | Tags |
+  |---------|-----------|------------|------|
+  | EC2 (8 instances) | $3,200 | 40% | Partial |
+  | RDS PostgreSQL | $1,500 | 19% | Yes |
+  | ElastiCache | $800 | 10% | No |
+  | S3 (10TB) | $600 | 8% | Yes |
+  | ALB + NAT | $500 | 6% | No |
+  | Lambda | $400 | 5% | Yes |
+  | Other | $1,000 | 12% | No |
+  | Total | $8,000 | 100% | |
+
+Phase 2: Optimization (prioritize by impact)
+  Action 1: Right-size EC2
+    - Analyze CPU/memory (CloudWatch, 30 days)
+    - 4 instances < 20% CPU -> reduce type
+    - 2 instances < 10% CPU -> terminate
+    - Savings: $1,200/month
+
+  Action 2: Reserved Instances
+    - 3 always-on instances -> 1yr RI (40% discount)
+    - Savings: $600/month
+
+  Action 3: S3 lifecycle
+    - Objects > 30 days -> S3 IA
+    - Objects > 90 days -> Glacier
+    - Savings: $300/month
+
+  Action 4: Spot instances for batch
+    - 2 processing workers -> Spot (70% discount)
+    - Savings: $400/month
+
+  Action 5: NAT Gateway optimization
+    - Move S3 access to VPC endpoint (no NAT)
+    - Savings: $200/month
+
+  Action 6: Lambda optimization
+    - Reduce memory from 1GB to 512MB (measure duration)
+    - Savings: $100/month
+
+Phase 3: Results
+  | Action | Savings/month |
+  |--------|---------------|
+  | Right-size EC2 | $1,200 |
+  | Reserved Instances | $600 |
+  | S3 lifecycle | $300 |
+  | Spot instances | $400 |
+  | NAT optimization | $200 |
+  | Lambda memory | $100 |
+  | Total | $2,800 (35%) |
+
+Phase 4: Continuous governance
+  - Mandatory tags: team, env, project, cost-center
+  - Budget alerts: 80% and 100%
+  - Weekly cost report per team
+  - Quarterly cost review
+  - FinOps dashboard: Cost Explorer + tags
+
+Lessons:
+  - Visibility first: you cannot optimize what you cannot see
+  - Right-sizing is the fastest win
+  - Reserved Instances for always-on workloads
+  - S3 lifecycle is set-and-forget
+  - Continuous governance prevents cost creep
+```
+
+### How do I allocate costs to teams without tags?
+
+For resources without tags, use heuristics: divide by number of services per team, or by CPU/memory usage. For EKS, use Kubecost to allocate costs per namespace. For RDS, split by queries per schema. Implement mandatory tags via CI/CD: block resource creation without tags using Service Control Policies (SCP) in AWS Organizations.

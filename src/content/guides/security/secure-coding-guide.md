@@ -265,3 +265,93 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Secure Code Review for Payment API
+
+```text
+System: Payment API Node.js, 20 endpoints
+Goal: Security code review before every release
+
+Secure code review checklist:
+  | Category | Item | Tool |
+  |----------|------|------|
+  | Input | Schema validation | Zod safeParse |
+  | Input | String sanitization | DOMPurify (HTML), escape SQL |
+  | Auth | JWT verified on every request | middleware |
+  | Auth | RBAC + scope per resource | OPA or middleware |
+  | Auth | Rate limiting on auth endpoints | express-rate-limit |
+  | Crypto | bcrypt for passwords (rounds 12+) | bcrypt |
+  | Crypto | AES-256-GCM for sensitive data | crypto module |
+  | Crypto | TLS 1.3 mandatory | nginx/ALB config |
+  | Output | No stack traces exposed | error handler |
+  | Output | No sensitive data in responses | DTO + mapping |
+  | Output | Security headers | helmet() |
+  | Session | JWT expiry (15min) | jwt.sign |
+  | Session | Refresh token rotation | DB tracking |
+  | Session | Logout invalidates token | Redis blacklist |
+  | Logging | No secrets/PII in logs | winston redact |
+  | Logging | Audit log of critical actions | audit table |
+  | Deps | npm audit in CI | npm audit |
+  | Deps | Snyk scan in CI | snyk test |
+  | Deps | License check | license-checker |
+  | Config | NODE_ENV=production | env var |
+  | Config | Strict CORS | cors middleware |
+  | Config | CSP headers | helmet contentSecurityPolicy |
+
+```javascript
+// Example: validation + auth + RBAC middleware
+const { z } = require("zod");
+
+const transferSchema = z.object({
+  destinationAccountId: z.string().uuid(),
+  amount: z.number().positive().max(100000),  // max 100K
+  currency: z.enum(["USD", "EUR", "GBP"]),
+  description: z.string().max(500).optional()
+});
+
+// Middleware chain: auth -> RBAC -> input validation -> handler
+app.post("/api/transfers",
+  authMiddleware,           // Verify JWT
+  roleMiddleware("user"),   // Verify role
+  (req, res, next) => {
+    const result = transferSchema.safeParse(req.body);
+    if (!result.success) {
+      return res.status(400).json({ error: "Invalid input" });
+    }
+    req.body = result.data;
+    next();
+  },
+  async (req, res) => {
+    // Verify ownership: user can only transfer from their accounts
+    const account = await db.query(
+      "SELECT owner_id FROM accounts WHERE id = $1",
+      [req.body.sourceAccountId]
+    );
+    if (account.rows[0].owner_id !== req.user.id) {
+      // Audit log of unauthorized access attempt
+      await auditLog({ userId: req.user.id, action: "UNAUTHORIZED_TRANSFER", ip: req.ip });
+      return res.status(403).json({ error: "Forbidden" });
+    }
+    // Execute transfer
+    const transfer = await processTransfer(req.body);
+    // Audit log
+    await auditLog({ userId: req.user.id, action: "TRANSFER", amount: req.body.amount });
+    res.json(transfer);
+  }
+);
+```
+
+Lessons:
+  - Input validation on every endpoint, no exceptions
+  - Verify ownership: IDOR is the most common vulnerability
+  - Audit log of critical actions and unauthorized attempts
+  - Never expose stack traces in responses
+  - npm audit + Snyk in CI: vulnerable deps are real risk
+```
+
+### What do I look for in a secure code review?
+
+Input validation (all fields validated), authorization (verify ownership and role), error handling (no sensitive info exposed), logging (no secrets logged), dependencies (no high CVEs), configuration (CORS, headers, TLS). Use semgrep for automated scanning in CI, but manual review is mandatory for business logic.

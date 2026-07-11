@@ -275,3 +275,139 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Ledger Bancario con CQRS + Event Sourcing
+
+```text
+Sistema: Ledger de cuentas bancarias (C# + .NET 8 + PostgreSQL + Elasticsearch)
+Requerimientos: Audit trail completo, consultas temporales, cumplimiento regulatorio
+Volumen: 2M cuentas, 50M transacciones/ano
+
+Schema del event store (PostgreSQL):
+  CREATE TABLE event_store (
+    event_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    stream_id VARCHAR(64) NOT NULL,  -- account-{accountId}
+    version BIGINT NOT NULL,
+    event_type VARCHAR(128) NOT NULL,
+    payload JSONB NOT NULL,
+    metadata JSONB,
+    occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE(stream_id, version)
+  );
+
+  CREATE INDEX idx_stream ON event_store(stream_id, version);
+  CREATE INDEX idx_event_type ON event_store(event_type);
+  CREATE INDEX idx_occurred ON event_store(occurred_at);
+
+Eventos de dominio:
+  AccountOpened { accountId, customerId, initialDeposit, openedAt }
+  MoneyDeposited { accountId, amount, balanceAfter, depositAt, tellerId }
+  MoneyWithdrawn { accountId, amount, balanceAfter, withdrawAt, atmId }
+  TransferInitiated { fromAccount, toAccount, amount, transferId }
+  TransferCompleted { transferId, completedAt }
+  AccountClosed { accountId, closedAt, reason }
+
+Aggregate: Account (C#)
+  public class Account : AggregateRoot
+  {
+      private decimal _balance;
+      private AccountStatus _status;
+
+      public static Account Open(Guid customerId, Money initialDeposit)
+      {
+          if (initialDeposit < Money.Zero)
+              throw new DomainException("Deposito inicial no puede ser negativo");
+          var account = new Account();
+          account.Raise(new AccountOpened(Guid.NewGuid(), customerId, initialDeposit, DateTime.UtcNow));
+          return account;
+      }
+
+      public void Deposit(Money amount, string tellerId)
+      {
+          if (_status != AccountStatus.Active)
+              throw new DomainException("Cuenta no activa");
+          if (amount <= Money.Zero)
+              throw new DomainException("Deposito debe ser positivo");
+          Raise(new MoneyDeposited(Id, amount, _balance + amount, DateTime.UtcNow, tellerId));
+      }
+
+      public void Withdraw(Money amount, string atmId)
+      {
+          if (_status != AccountStatus.Active)
+              throw new DomainException("Cuenta no activa");
+          if (amount > _balance)
+              throw new DomainException("Fondos insuficientes");
+          Raise(new MoneyWithdrawn(Id, amount, _balance - amount, DateTime.UtcNow, atmId));
+      }
+
+      protected override void When(object @event)
+      {
+          switch (@event)
+          {
+              case AccountOpened e:
+                  Id = e.AccountId;
+                  _balance = e.InitialDeposit;
+                  _status = AccountStatus.Active;
+                  break;
+              case MoneyDeposited e:
+                  _balance = e.BalanceAfter;
+                  break;
+              case MoneyWithdrawn e:
+                  _balance = e.BalanceAfter;
+                  break;
+              case AccountClosed:
+                  _status = AccountStatus.Closed;
+                  break;
+          }
+      }
+  }
+
+Estrategia de snapshots:
+  - Snapshot cada 500 eventos por cuenta
+  - Tabla snapshots: snapshots(stream_id, version, state, created_at)
+  - Al cargar: leer ultimo snapshot + eventos despues de la version del snapshot
+  - Cuenta promedio: 120 eventos (no necesita snapshot)
+  - Usuarios power: 5000+ eventos (snapshot ahorra ~4.5s de carga)
+
+Modelo de lectura: Elasticsearch (desnormalizado para consultas)
+  Indice: accounts
+    { accountId, customerId, balance, status, lastTransactionAt, ... }
+
+  Indice: transactions
+    { accountId, type, amount, balanceAfter, occurredAt, ... }
+
+Projection handler:
+  class AccountProjection :
+    - AccountOpened -> insertar doc de account
+    - MoneyDeposited -> actualizar balance + insertar doc de transaction
+    - MoneyWithdrawn -> actualizar balance + insertar doc de transaction
+    - AccountClosed -> actualizar status a closed
+
+Ejemplo de consulta temporal:
+  "Cual era el balance de la cuenta ABC-123 el 15 de marzo de 2026?"
+  -> Replay eventos de la cuenta ABC-123 hasta el 15 de marzo de 2026
+  -> Fold eventos para calcular el balance en ese punto
+  -> Retornar balance (no necesita consultar el read model)
+
+  // Implementacion en C#
+  public async Task<decimal> GetBalanceAt(Guid accountId, DateTime date)
+  {
+      var events = await _eventStore.ReadStreamAsync(
+          $"account-{accountId}", until: date);
+      var account = Account.FromHistory(events);
+      return account.Balance;
+  }
+
+Cumplimiento regulatorio:
+  - Cada transaccion es un evento inmutable (audit trail por diseno)
+  - Exportar eventos a cold storage (S3) trimestralmente para retencion de 7 anos
+  - Versionado de esquema de eventos con upcasters para compatibilidad
+  - PII encriptada en payloads de eventos (envelope encryption con KMS)
+```
+
+### Como manejo la evolucion del esquema de eventos sin romper consumers?
+
+Usa upcasters: al leer eventos antiguos, transformalos al esquema actual antes de aplicarlos. Nunca modifiques eventos almacenados. Agrega nuevos campos con valores por defecto (compatible hacia atras). Para cambios breaking, crea un nuevo tipo de evento (ej: OrderPlacedV2) y mantén ambas versiones en el event store hasta que todos los aggregates que usan V1 sean archivados. Los consumers manejan ambas versiones durante el periodo de transicion. Documenta cada cambio de esquema en un catalogo de eventos.

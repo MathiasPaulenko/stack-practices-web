@@ -174,3 +174,129 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Plataforma Interna para 50 Equipos
+
+```text
+Sistema: Empresa con 50 equipos de producto, 200 servicios
+Problema: Cada equipo construye su propio CI/CD, monitoring, auth
+Solucion: Platform team provee golden paths y tooling compartido
+
+Modelo: Platform as a Product (PaaP)
+  | Componente | Herramienta | Consumidores |
+  |-----------|------------|--------------|
+  | CI/CD | GitHub Actions + templates | 50 equipos |
+  | Deploy | ArgoCD + Helm charts | 50 equipos |
+  | Monitoring | Prometheus + Grafana | 50 equipos |
+  | Logging | Loki + Promtail | 50 equipos |
+  | Tracing | Jaeger + OpenTelemetry | 50 equipos |
+  | Auth | OAuth2 + SPIFFE | 50 equipos |
+  | Secrets | External Secrets Operator | 50 equipos |
+  | Service catalog | Backstage | 50 equipos |
+
+Golden paths (plantillas opinionadas):
+  1. Nuevo microservicio:
+     - Template: npm create @platform/microservice
+     - Genera: Dockerfile, Helm chart, CI/CD pipeline,
+       monitoring dashboards, alert rules, service catalog entry
+     - Tiempo: de 2 dias a 15 minutos
+
+  2. Nuevo endpoint API:
+     - Template genera: OpenAPI spec, handler, tests,
+       documentacion, client SDK
+     - Validacion automatica: linter, schema, tests
+
+  3. Onboarding de nuevo equipo:
+     - Backstage plugin: provisiona repos, namespaces,
+       dashboards, permisos
+     - Tiempo: de 1 semana a 1 hora
+
+Metricas de plataforma (SLOs internos):
+  | SLO | Objetivo | Metrica |
+  |-----|----------|---------|
+  | Tiempo de build | < 5 min | p50 pipeline duration |
+  | Disponibilidad de deploy | 99.9% | ArgoCD uptime |
+  | Adopcion de golden paths | > 80% | % servicios con template |
+  | Tiempo de onboarding | < 1 dia | Horas de provision |
+  | Satisfaccion del equipo | > 4/5 | Encuesta trimestral |
+
+Organizacion:
+  Platform team (8 personas):
+    - 3 platform engineers (CI/CD, deploy)
+    - 2 observability engineers (monitoring, tracing)
+    - 2 developer experience (Backstage, templates)
+    - 1 product manager (prioriza roadmap)
+
+  Engagement model:
+    - Office hours semanales (consultoria)
+    - Slack channel #platform-help
+    - Roadboard quarterly (feedback -> prioridades)
+    - RFCs abiertos para cambios mayores
+
+Lecciones:
+  - Trata la plataforma como un producto, no como infraestructura
+  - Mide adopcion y satisfaccion, no solo uptime
+  - Golden paths reducen tiempo de onboarding dramaticamente
+  - El platform team necesita un PM para priorizar
+  - Documentacion y examples > soporte 1:1
+```
+
+### Como evito que la plataforma se convierta en un bottleneck?
+
+Haz todo self-service. Templates generan todo automaticamente. Backstage provee catalog y scaffolding. Documentacion es comprehensiva y actualizada. Office hours son para consultoria, no para tickets. Si los equipos esperan a la plataforma para algo, automatizalo. Mide el tiempo de espera y reducelo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

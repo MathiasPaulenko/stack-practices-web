@@ -238,3 +238,131 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: CQRS para Sistema de Ordenes E-commerce
+
+```text
+Sistema: Gestion de ordenes e-commerce (TypeScript + Node.js)
+Modelo escritura: PostgreSQL (normalizado, ACID)
+Modelo lectura: Elasticsearch (desnormalizado, optimizado para busqueda)
+Event bus: Kafka (proyecciones event-driven)
+
+Lado escritura (command handlers):
+  POST /api/orders -> CreateOrderCommand -> Order aggregate -> OrderCreated event
+  PUT /api/orders/:id/confirm -> ConfirmOrderCommand -> Order aggregate -> OrderConfirmed event
+  PUT /api/orders/:id/cancel -> CancelOrderCommand -> Order aggregate -> OrderCancelled event
+
+  // Command handler
+  class CreateOrderHandler {
+    async handle(cmd: CreateOrderCommand): Promise<OrderId> {
+      const order = Order.create(cmd.customerId, cmd.items);
+      await this.orderRepo.save(order); // PostgreSQL
+      // Eventos despachados despues de guardar
+      return order.id;
+    }
+  }
+
+  // Aggregate aplica invariantes
+  class Order extends AggregateRoot {
+    static create(customerId: string, items: OrderItem[]): Order {
+      if (items.length === 0) throw new Error("Orden vacia");
+      if (items.length > 50) throw new Error("Max 50 items");
+      const order = new Order(OrderId.generate(), customerId);
+      order.status = OrderStatus.PENDING;
+      order.items = items;
+      order.total = items.reduce((s, i) => s + i.price * i.qty, 0);
+      order.raiseEvent(new OrderCreated(order.id, customerId, items, order.total));
+      return order;
+    }
+  }
+
+Flujo de eventos:
+  OrderCreated event -> Kafka topic orders.events -> Projection handler
+  OrderConfirmed event -> Kafka topic orders.events -> Projection handler
+  OrderCancelled event -> Kafka topic orders.events -> Projection handler
+
+Lado lectura (projection handlers):
+  class OrderProjection {
+    async handle(event: DomainEvent): Promise<void> {
+      switch (event.type) {
+        case "OrderCreated":
+          await this.es.index({
+            index: "orders",
+            id: event.orderId,
+            body: {
+              orderId: event.orderId,
+              customerId: event.customerId,
+              status: "pending",
+              total: event.total,
+              itemCount: event.items.length,
+              items: event.items, // Desnormalizado para lectura
+              createdAt: event.timestamp
+            }
+          });
+          break;
+        case "OrderConfirmed":
+          await this.es.update({
+            index: "orders",
+            id: event.orderId,
+            body: { doc: { status: "confirmed", confirmedAt: event.timestamp } }
+          });
+          break;
+        case "OrderCancelled":
+          await this.es.update({
+            index: "orders",
+            id: event.orderId,
+            body: { doc: { status: "cancelled", cancelledAt: event.timestamp } }
+          });
+          break;
+      }
+    }
+  }
+
+Lado lectura (query handlers):
+  GET /api/orders/search?q=laptop -> query Elasticsearch
+  GET /api/orders?status=pending&customerId=123 -> filter Elasticsearch
+  GET /api/orders/:id -> Elasticsearch GET por ID
+
+  class OrderQueryHandler {
+    async searchOrders(query: string, page: number): Promise<OrderListItem[]> {
+      const result = await this.es.search({
+        index: "orders",
+        body: {
+          query: { multi_match: { query, fields: ["items.name", "orderId"] } },
+          from: (page - 1) * 20,
+          size: 20
+        }
+      });
+      return result.hits.hits.map(h => h._source);
+    }
+  }
+
+Consistencia lee-tus-escrituras:
+  - Cuando un usuario crea una orden, retorna el order ID inmediatamente
+  - Frontend muestra orden optimista en la lista (desde estado local)
+  - Polling GET /api/orders/:id hasta que el status aparezca en Elasticsearch
+  - Lag tipico: 50-200ms (Kafka + proyeccion)
+  - Timeout: si no visible en 5s, fallback a query al modelo de escritura
+
+Escalado:
+  Lado escritura: 2 instancias PostgreSQL (master + replica)
+  Lado lectura: 3 nodos Elasticsearch (sharded por orderId)
+  Proyeccion: 4 instancias consumer (Kafka consumer group)
+  Event bus: Kafka con 12 particiones
+
+Metricas:
+  | Metrica | Target |
+  |---------|--------|
+  | Latencia escritura p95 | < 50ms |
+  | Latencia lectura p95 | < 20ms |
+  | Lag de proyeccion | < 500ms |
+  | Disponibilidad lectura | 99.95% |
+  | Disponibilidad escritura | 99.99% |
+```
+
+### Como reconstruyo un modelo de lectura desde cero?
+
+Si el modelo de lectura esta corrupto o necesita cambio de esquema, replay los eventos desde el event store. Deten los consumers de proyeccion, trunca el modelo de lectura, y replay todos los eventos desde el inicio. Para event stores grandes, usa replay basado en snapshots: procesa eventos en lotes de 10,000 con checkpoints. Alternativamente, ejecuta una "proyeccion sombra" junto a la existente, verifica consistencia de datos, luego cambia los query handlers al nuevo modelo de lectura.

@@ -145,3 +145,158 @@ Retén logs de error y auditoría por 30-90 días. Los logs de debug pueden mant
 ### Sobre qué debería alertar?
 
 Alerta sobre síntomas orientados a usuarios: tasa de error, latencia y disponibilidad. Evita alertar sobre métricas de infraestructura como CPU o memoria a menos que correlacionen directamente con impacto en usuarios.
+
+
+## Temas Avanzados
+
+### Escenario: Observabilidad para Microservicios E-commerce
+
+```text
+Sistema: 15 microservicios, 500K requests/min
+Stack: OpenTelemetry -> Jaeger (traces), Prometheus (metrics), Loki (logs)
+
+Arquitectura:
+  App -> OpenTelemetry SDK -> OTLP exporter -> Collector
+  Collector -> Jaeger (traces)
+  Collector -> Prometheus (metrics)
+  Collector -> Loki (logs)
+
+Instrumentacion (Node.js):
+  const { trace, metrics } = require("@opentelemetry/api");
+  const tracer = trace.getTracer("payment-service");
+
+  async function processPayment(payment) {
+    const span = tracer.startSpan("processPayment");
+    span.setAttribute("payment.amount", payment.amount);
+    span.setAttribute("payment.currency", payment.currency);
+    try {
+      const result = await gateway.charge(payment);
+      span.setAttribute("payment.status", result.status);
+      metrics.getOrCreateCounter("payments.total").add(1, {
+        status: result.status, gateway: "stripe"
+      });
+      return result;
+    } catch (error) {
+      span.recordException(error);
+      span.setStatus({ code: 2, message: error.message });
+      metrics.getOrCreateCounter("payments.errors").add(1, {
+        type: error.constructor.name
+      });
+      throw error;
+    } finally {
+      span.end();
+    }
+  }
+
+Estructura de logs (JSON estructurado):
+  {
+    "timestamp": "2026-01-15T10:30:00Z",
+    "level": "error",
+    "service": "payment-service",
+    "traceId": "abc123",
+    "spanId": "def456",
+    "message": "Payment failed",
+    "paymentId": "pay_789",
+    "amount": 99.99,
+    "currency": "USD",
+    "error": "InsufficientFunds"
+  }
+
+  // Correlacion: traceId conecta logs, metrics y traces
+  // Busca por traceId en Loki -> ve todos los logs del request
+  // Busca por traceId en Jaeger -> ve el trace completo
+
+Dashboard de SLOs:
+  | SLO | Objetivo | Metrica |
+  |-----|----------|---------|
+  | Disponibilidad | 99.9% | http_requests_total{status!~5..} / total |
+  | Latencia p99 | < 500ms | histogram_quantile(0.99, http_duration_bucket) |
+  | Tasa de error | < 0.1% | http_requests_total{status=~5..} / total |
+  | Throughput | > 10K/s | rate(http_requests_total[5m]) |
+
+Alertas (sintomas orientados a usuarios):
+  - Tasa de error > 1% durante 5 min -> page on-call
+  - Latencia p99 > 1s durante 10 min -> page on-call
+  - SLO burn rate > 14x en 1h -> page on-call
+  - Throughput < 5K/s durante 5 min -> ticket (no page)
+
+Lecciones:
+  - OpenTelemetry unifica traces, metrics y logs
+  - traceId es la clave para correlacionar todo
+  - Logs JSON estructurados > texto plano
+  - Alerta sobre SLOs, no sobre infraestructura
+  - El collector desacopla la app del backend de observabilidad
+```
+
+### Que es el SLO burn rate?
+
+El burn rate mide que tan rapido consumes tu presupuesto de error. Si tu SLO es 99.9% (43.2 min de error/mes), un burn rate de 14x significa que estas gastando el presupuesto 14 veces mas rapido de lo normal. A ese ritmo, agotaras el presupuesto en ~3 horas. Alertar sobre burn rate detecta problemas antes de que violen el SLO.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

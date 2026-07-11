@@ -209,3 +209,94 @@ Técnicamente sí, prácticamente no. Cambiar la shard key requiere reescribir t
 ### ¿Cómo manejo consultas que necesitan unir datos de múltiples shards?
 
 Evita los JOINs cross-shard en la base de datos. En su lugar, diseña tu esquema para que las consultas más frecuentes caigan en un único shard (query-based sharding), o usa patrones de aplicación como [CQRS](/guides/architecture/event-driven-architecture-guide) con tablas de lectura desnormalizadas. Para reportes analíticos, replica los datos a un data warehouse.
+
+
+## Temas Avanzados
+
+### Escenario: Sharding Multi-Tenant SaaS
+
+```text
+Sistema: SaaS con 2,000 tenants, 500GB por tenant
+Estrategia: Directory-based sharding por tenant_id
+
+Arquitectura:
+  App -> Shard Router -> shard_directory (metadata DB)
+  Shard 1 (us-east): tenants 1001, 1003, 1005
+  Shard 2 (eu-west): tenants 1002, 1004, 1006
+  Shard 3 (ap-southeast): tenants 1007, 1008
+
+Router (Node.js):
+  class ShardRouter {
+    constructor() { this.shards = new Map(); }
+    async loadDirectory() {
+      const rows = await this.metaDb.query(
+        "SELECT tenant_id, shard_id FROM shard_directory");
+      for (const r of rows) {
+        this.shards.set(r.tenant_id, this.pools[r.shard_id]);
+      }
+    }
+    getShard(tenantId) {
+      const pool = this.shards.get(tenantId);
+      if (!pool) throw new Error("Tenant no encontrado");
+      return pool;
+    }
+    async query(tenantId, sql, params) {
+      return this.getShard(tenantId).query(sql, params);
+    }
+  }
+
+  // Middleware extrae tenant_id del JWT
+  app.use((req, res, next) => {
+    req.db = shardRouter.getShard(req.user.tenantId);
+    next();
+  });
+
+Rebalanceo (Shard 1 al 80%):
+  1. Crear Shard 4
+  2. Migrar tenants seleccionados
+  3. Actualizar shard_directory
+  4. Recargar routing
+  5. Eliminar datos del shard viejo
+
+  async function migrateTenant(tenantId, from, to) {
+    const tables = ["users", "orders", "invoices"];
+    for (const t of tables) {
+      const rows = await from.query(
+        `SELECT * FROM ${t} WHERE tenant_id = $1`, [tenantId]);
+      for (const row of rows) {
+        const cols = Object.keys(row);
+        const ph = cols.map((_, i) => `$${i+1}`).join(",");
+        await to.query(`INSERT INTO ${t} (${cols.join(",")}) VALUES (${ph})`,
+          Object.values(row));
+      }
+    }
+    await metaDb.query(
+      "UPDATE shard_directory SET shard_id = $1 WHERE tenant_id = $2",
+      [newShardId, tenantId]);
+    for (const t of tables) {
+      await from.query(`DELETE FROM ${t} WHERE tenant_id = $1`, [tenantId]);
+    }
+  }
+
+Monitoreo:
+  | Metrica | Alerta |
+  |---------|--------|
+  | Disco por shard | > 75% |
+  | Queries/sec desviacion | > 30% del promedio |
+  | Tenants por shard | > 500 |
+  | Lag de migracion | > 5 min |
+
+Lecciones:
+  - Directory-based da control total de asignacion
+  - Rebalanceo es el desafio operativo mas grande
+  - Manten transacciones dentro de un shard
+  - Router debe cachear el directorio
+  - Tenants grandes pueden necesitar shard dedicado
+```
+
+### Como manejo consultas cross-shard?
+
+Evita consultas cross-shard. Para agregaciones globales usa un data warehouse alimentado por CDC. Para dashboards en tiempo real, pre-computa metricas via eventos. Si no hay alternativa, scatter-gather con timeout agresivo.
+
+
+End of document. Review and update quarterly.

@@ -166,3 +166,137 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Game Days para Plataforma E-commerce
+
+```text
+Sistema: E-commerce, 15 microservicios, K8s
+Objetivo: Validar resiliencia antes de Black Friday
+
+Calendario de Game Days (mensual):
+  | Mes | Experimento | Hipotesis | Resultado |
+  |-----|-------------|-----------|-----------|
+  | Ene | Matar pod de pagos | Auto-scaling reemplaza en < 30s | Pasa |
+  | Feb | Latencia 500ms en DB | Circuit breaker activa fallback | Falla: no habia fallback |
+  | Mar | Matar AZ completa | Trafico redirige a AZ sana | Pasa |
+  | Abr | Latencia en Redis | Cache miss degrada graceful | Falla: timeouts en cascada |
+  | May | Matar servicio de search | Catalogo sin search funciona | Pasa |
+  | Jun | Corrupt message en Kafka | Consumer maneja poison pill | Falla: consumer se cuelga |
+
+Experimento detallado (Feb):
+  Nombre: DB-latency-injection
+  Hipotesis: Si la DB tiene 500ms de latencia, el circuit breaker
+             activa el fallback de cache en < 5s sin errores 5xx
+  Blast radius: 10% del trafico (canary)
+  Duracion: 10 minutos
+  Aborto: tasa de error > 5% o latencia p99 > 3s
+
+  Ejecucion (Gremlin):
+    gremlin attack latency -t 500ms -i 600 --service payment-db
+    --tags env=canary
+
+  Monitoreo durante experimento:
+    - Tasa de error: 0% -> 12% (FALLO)
+    - Latencia p99: 200ms -> 4.5s (FALLO)
+    - Circuit breaker: nunca se activo (FALLO)
+    - Cache fallback: no implementado (FALLO)
+
+  Analisis post-mortem:
+    Causa raiz: Circuit breaker configurado con threshold de 10s
+                pero la DB respondia en 500ms (no timeout).
+                El fallback de cache no existia.
+
+    Acciones:
+    1. Implementar cache fallback para queries de producto
+    2. Bajar threshold del circuit breaker a 2s
+    3. Agregar timeout de 1s en queries de DB
+    4. Re-ejecutar experimento en staging
+
+  Re-ejecucion (Mar):
+    - Tasa de error: 0% (PASA)
+    - Latencia p99: 200ms -> 350ms (PASA)
+    - Circuit breaker: activo a los 3s (PASA)
+    - Cache fallback: sirvio datos stale (PASA)
+
+Automatizacion (Chaos Mesh):
+  apiVersion: chaos-mesh.org/v1alpha1
+  kind: PodChaos
+  metadata:
+    name: payment-pod-kill
+  spec:
+    action: pod-kill
+    mode: fixed-percent
+    value: "10"
+    selector:
+      namespaces: [production]
+      labelSelectors:
+        app: payment-service
+    scheduler:
+      cron: "@every 1h"
+```
+
+### Como convence a management de chaos engineering?
+
+Empieza con un game day en staging. Documenta los hallazgos: cada falla descubierta es un incidente de produccion evitado. Cuantifica el impacto: "Este experimento encontro un bug que habria causado 2h de downtime en Black Friday ($500K)". Los game days en staging tienen riesgo cero y alto ROI.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

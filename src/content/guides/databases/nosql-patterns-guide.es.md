@@ -173,3 +173,130 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Modelado de Blog con MongoDB
+
+```text
+Sistema: Plataforma de blog con 1M posts, 10M comentarios
+Patrones de acceso:
+  1. Leer post completo con autor y comentarios (90% de lecturas)
+  2. Listar posts por autor
+  3. Listar posts por tag
+  4. Buscar posts por texto
+
+Modelo embebido (post + comentarios):
+  db.posts.insertOne({
+    _id: "post-001",
+    title: "Patrones NoSQL en la practica",
+    slug: "patrones-nosql-practica",
+    author: {
+      id: "user-123",
+      name: "Ana Garcia",
+      avatar: "/avatars/ana.jpg"
+    },
+    tags: ["nosql", "mongodb", "modelado"],
+    content: "Contenido del post...",
+    comments: [
+      {
+        id: "c-001",
+        author: "Carlos",
+        text: "Excelente articulo",
+        createdAt: ISODate("2026-03-01"),
+        likes: 12
+      },
+      {
+        id: "c-002",
+        author: "Beatriz",
+        text: "Tengo una pregunta",
+        createdAt: ISODate("2026-03-02"),
+        likes: 3
+      }
+    ],
+    commentCount: 2,
+    publishedAt: ISODate("2026-03-01"),
+    updatedAt: ISODate("2026-03-05")
+  });
+
+Indices:
+  db.posts.createIndex({ slug: 1 }, { unique: true });
+  db.posts.createIndex({ "author.id": 1, publishedAt: -1 });
+  db.posts.createIndex({ tags: 1, publishedAt: -1 });
+  db.posts.createIndex({ title: "text", content: "text" });
+
+Consultas:
+  // Post completo por slug (una sola consulta)
+  db.posts.findOne({ slug: "patrones-nosql-practica" });
+
+  // Posts por autor (paginados)
+  db.posts.find({ "author.id": "user-123" })
+    .sort({ publishedAt: -1 })
+    .skip(0)
+    .limit(10);
+
+  // Posts por tag
+  db.posts.find({ tags: "mongodb" })
+    .sort({ publishedAt: -1 })
+    .limit(20);
+
+Cuando embeber vs referenciar comentarios:
+  | Criterio | Embeber | Referenciar |
+  |----------|---------|-------------|
+  | Comentarios por post | < 100 | > 1000 |
+  | Frecuencia de actualizacion | Baja | Alta |
+  | Tamano del comentario | Corto | Largo |
+  | Necesidad de query independiente | No | Si |
+
+Patron de migracion: empezar embebido, migrar a referenciado si:
+  - El documento excede 16MB (limite de MongoDB)
+  - Los tiempos de escritura se degradan
+  - Necesitas paginar comentarios independientemente
+
+Migracion:
+  1. Crear coleccion comments separada
+  2. Mover comentarios existentes con un script
+  3. Actualizar la app para leer de comments
+  4. Mantener commentCount en el post para evitar COUNT queries
+
+Lecciones aprendidas:
+  - Embeber cuando los datos se leen juntos y son pocos
+  - Referenciar cuando la lista crece sin limite
+  - Mantener contadores desnormalizados para evitar COUNT
+  - Los indices de texto eliminan necesidad de Elasticsearch para busqueda simple
+```
+
+### Como manejo consistencia eventual entre colecciones referenciadas?
+
+Usa el patron Outbox: cuando actualices una coleccion, escribe un evento en una coleccion outbox dentro de la misma transaccion. Un proceso separado lee el outbox y actualiza las colecciones dependientes. Para MongoDB, usa transacciones multi-documento (disponibles desde 4.0 con replica sets). Si no necesitas consistencia inmediata, usa change streams para reaccionar a cambios y actualizar vistas desnormalizadas.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

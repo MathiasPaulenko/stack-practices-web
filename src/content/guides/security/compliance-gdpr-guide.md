@@ -268,3 +268,86 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: GDPR Implementation for B2C SaaS
+
+```text
+System: B2C SaaS, users in EU, handles PII
+Goal: Full GDPR compliance
+
+GDPR principles:
+  1. Lawfulness, fairness, transparency
+  2. Purpose limitation
+  3. Data minimization
+  4. Accuracy
+  5. Storage limitation
+  6. Integrity and confidentiality
+  7. Accountability
+
+User rights (DSAR - Data Subject Access Request):
+  | Right | Implementation | SLA |
+  |-------|----------------|-----|
+  | Access | Export all user data | 30 days |
+  | Rectification | Edit personal data | 30 days |
+  | Erasure (forget me) | Delete account and all data | 30 days |
+  | Portability | Export in JSON/CSV format | 30 days |
+  | Objection | Opt-out of marketing | Immediate |
+  | Restriction | Freeze processing temporarily | 30 days |
+  | No automated | No algorithmic-only decisions | N/A |
+
+Technical implementation:
+  | Requirement | Implementation |
+  |-------------|----------------|
+  | Consent | Cookie banner + explicit opt-in |
+  | Encryption | AES-256 at rest, TLS 1.3 in transit |
+  | Minimization | Only collect necessary data |
+  | Retention | Auto-delete after 2 years inactive |
+  | DPA (Data Processing Agreement) | Contract with each sub-processor |
+  | DPO (Data Protection Officer) | Designate if > 250 employees |
+  | DPIA (Data Protection Impact Assessment) | For high-risk processing |
+  | Breach notification | Notify authority within 72h |
+  | Activity register | Log of data processing activities |
+
+```sql
+-- Consent table
+CREATE TABLE user_consents (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id),
+  purpose VARCHAR(100) NOT NULL,  -- marketing, analytics, etc
+  consent_given BOOLEAN NOT NULL,
+  consent_date TIMESTAMP NOT NULL DEFAULT NOW(),
+  withdrawal_date TIMESTAMP,
+  ip_address VARCHAR(45),
+  UNIQUE(user_id, purpose)
+);
+
+-- DSAR (Data Subject Access Requests) table
+CREATE TABLE dsar_requests (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id),
+  request_type VARCHAR(50) NOT NULL,  -- access, deletion, portability
+  status VARCHAR(20) DEFAULT "pending",  -- pending, processing, completed
+  requested_at TIMESTAMP DEFAULT NOW(),
+  completed_at TIMESTAMP,
+  notes TEXT
+);
+
+-- Auto-deletion: inactive users after 2 years
+-- Cron job: DELETE FROM users WHERE last_login < NOW() - INTERVAL "2 years";
+```
+
+Lessons:
+  - GDPR applies if you have users in EU, regardless of server location
+  - Consent must be explicit, not pre-checked
+  - Right to erasure: delete all data, including backups
+  - Breach notification within 72h is mandatory
+  - DPA with each sub-processor (AWS, Stripe, etc)
+  - Audit log of DSAR: who requested what and when it was completed
+```
+
+### How do I handle the right to erasure with backups?
+
+Delete the data from the active database immediately. For backups, mark the user for deletion in the next backup cycle. When the backup expires (per retention policy, typically 30-90 days), the data is permanently deleted. Document the process: regulators accept that backups take longer, as long as there is a defined process.

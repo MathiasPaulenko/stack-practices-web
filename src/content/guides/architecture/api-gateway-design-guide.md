@@ -183,6 +183,99 @@ Routing decisions should be **stateless and deterministic** so that any gateway 
 
 Circuit breakers prevent cascading failures. When a service is struggling, the gateway should fail fast rather than queue requests that will timeout. This protects both the struggling service and the caller. The half-open state allows gradual recovery: after a cooldown, a limited number of requests are allowed through to test if the service has recovered.
 
+
+### Detailed Scenario: API Gateway with Kong for E-commerce
+
+```text
+System: E-commerce with 6 microservices behind Kong
+Services: users, catalog, orders, payments, inventory, notifications
+Platform: Kubernetes (EKS) + Kong + Redis + Keycloak
+
+Kong configuration (kong.yml):
+  services:
+    - name: user-service
+      url: http://user-service.default.svc:8080
+      routes:
+        - name: users-route
+          paths: ["/api/users"]
+          strip_path: true
+      plugins:
+        - name: jwt
+        - name: rate-limiting
+          config: { minute: 100, hour: 1000 }
+        - name: correlation-id
+          config: { header_name: "X-Request-ID" }
+
+    - name: order-service
+      url: http://order-service.default.svc:8080
+      routes:
+        - name: orders-route
+          paths: ["/api/orders"]
+          strip_path: true
+      plugins:
+        - name: jwt
+        - name: rate-limiting
+          config: { minute: 50, hour: 500 }
+        - name: correlation-id
+
+Authentication with Keycloak (OIDC):
+  1. Client obtains JWT from Keycloak: POST /realms/ecommerce/protocol/openid-connect/token
+  2. Client sends JWT in header: Authorization: Bearer <token>
+  3. Kong validates JWT with Keycloak public key
+  4. Kong caches validation result in Redis (TTL: 5 min)
+  5. If valid, Kong routes to service; if not, returns 401
+
+Distributed rate limiting with Redis:
+  kong.conf:
+    rate_limiting = redis
+    redis_host = redis.default.svc
+    redis_port = 6379
+    redis_timeout = 2000
+
+  Limits per plan:
+    Free: 100 req/min, 1000 req/hour
+    Pro: 1000 req/min, 10000 req/hour
+    Enterprise: 10000 req/min, no hourly limit
+
+Observability:
+  - Prometheus plugin: exports metrics to /metrics
+  - Zipkin plugin: distributed traces with correlation ID
+  - File-log plugin: JSON logs to stdout (collected by Fluentd)
+  - Grafana dashboard: QPS, latency p50/p95/p99, error rate per route
+
+Circuit breaker per service:
+  kong.yml plugin:
+    - name: proxy-cache
+      config: { strategy: "redis", cache_ttl: 300 }
+    - name: pre-function
+      functions: [check_upstream_health]
+
+  Logic: if error rate > 50% in 30s, open circuit for 60s
+  When open: return 503 with Retry-After header
+  When half-open: allow 10 probe requests
+
+Kubernetes deployment:
+  - Kong via Helm chart: 3 replicas on different nodes
+  - HPA: min 3, max 10 replicas, CPU target 70%
+  - PodDisruptionBudget: min available 2
+  - Health check: /status endpoint
+  - Graceful shutdown: 30s drain period
+
+Production metrics (average):
+  | Metric | Value |
+  |--------|-------|
+  | Total QPS | 12,000 |
+  | Gateway p50 latency | 1.2ms |
+  | Gateway p95 latency | 3.8ms |
+  | Auth cache hit rate | 94% |
+  | Error rate | 0.08% |
+  | Uptime | 99.97% |
+```
+
+### How do I handle API versioning in the gateway?
+
+Use path-based versioning: /v1/users, /v2/users. The gateway routes to different services or versions of the same service. Keep v1 running while v2 is in use. Schedule v1 deprecation with a response header: Sunset: Sat, 31 Dec 2026 23:59:59 GMT. Document changes between versions. Never break v1 without 6 months notice.
+
 ## Variants
 
 | Gateway Type | Best For | Trade-off |

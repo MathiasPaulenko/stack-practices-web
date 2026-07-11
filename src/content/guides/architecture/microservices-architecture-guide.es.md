@@ -196,3 +196,107 @@ Lo suficientemente pequeño para ser reescrito en 2-4 semanas. Si un servicio re
 ### ¿Cuál es el mayor riesgo de los microservicios?
 
 Complejidad distribuida. [Debuggear](/recipes/observability/distributed-tracing), probar y razonar sobre un sistema que abarca docenas de servicios es considerablemente más difícil que un monolito. Sin fuerte [observabilidad](/recipes/observability/log-aggregation) y automatización, la arquitectura te ralentizará en lugar de acelerarte.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Descomposicion de Monolito de E-commerce
+
+```text
+Sistema: E-commerce monolito (Rails, 500k lineas, 40 devs)
+Problema: Deploy frequency semanal, lead time 5 dias, equipos bloqueados
+Meta: 5 servicios extraidos en 12 meses
+
+Analisis de dominios (DDD):
+  Contextos delimitados identificados:
+    1. Users (autenticacion, perfiles, direcciones)
+    2. Catalog (productos, categorias, busqueda)
+    3. Orders (checkout, historial, estado)
+    4. Payments (tarjetas, reembolsos, facturacion)
+    5. Notifications (email, SMS, push)
+    6. Inventory (stock, reservas, reabastecimiento)
+
+Matriz de extraccion (priorizar por riesgo bajo + valor alto):
+  | Servicio | Riesgo | Valor | Esfuerzo | Prioridad |
+  |----------|--------|-------|----------|-----------|
+  | Notifications | Bajo | Medio | 4 sem | 1 (extraer primero) |
+  | Inventory | Bajo | Alto | 6 sem | 2 |
+  | Catalog | Medio | Alto | 8 sem | 3 |
+  | Payments | Alto | Alto | 12 sem | 4 (parallel run) |
+  | Orders | Alto | Critico | 16 sem | 5 (ultimo) |
+
+Infraestructura compartida necesaria:
+  - API Gateway: Kong o AWS API Gateway
+    $ docker run -d --name kong -p 8000:8000 kong:latest
+    $ curl -X POST http://localhost:8001/services \
+        -d name=notification-service \
+        -d url=http://notification-service:3000
+
+  - Service Discovery: Consul o Kubernetes DNS
+  - Tracing distribuido: Jaeger o AWS X-Ray
+  - Centralized logging: ELK stack (Elasticsearch + Logstash + Kibana)
+  - Metricas: Prometheus + Grafana
+  - Mensajeria: RabbitMQ o Kafka para eventos async
+
+Estrategia de datos por servicio:
+  | Servicio | Base de datos | Justificacion |
+  |----------|--------------|---------------|
+  | Users | PostgreSQL | Datos relacionales, ACID necesario |
+  | Catalog | MongoDB | Productos con atributos variables |
+  | Orders | PostgreSQL | Transaccional, consistencia fuerte |
+  | Payments | PostgreSQL | Transaccional, auditoria |
+  | Notifications | DynamoDB | Key-value, alta escritura |
+  | Inventory | PostgreSQL | Transaccional, reservas |
+
+Comunicacion entre servicios:
+  Sincrona (REST/gRPC):
+    Orders -> Payments: cobrar al checkout
+    Catalog -> Inventory: verificar stock
+
+  Asincrona (eventos):
+    Orders -> Notifications: "OrderPlaced" event
+    Payments -> Orders: "PaymentConfirmed" event
+    Inventory -> Catalog: "StockUpdated" event
+
+  Configuracion de circuit breaker (Resilience4j):
+    CircuitBreaker:
+      failureRateThreshold: 50%
+      waitDurationInOpenState: 30s
+      slidingWindowSize: 10
+
+Metricas despues de 12 meses:
+  | Metrica | Monolito | 5 servicios |
+  |---------|----------|-------------|
+  | Deploy frequency | Semanal | Diario (por servicio) |
+  | Lead time | 5 dias | 4 horas |
+  | Tasa de fallo en deploy | 8% | 1.5% |
+  | MTTR | 2 horas | 15 minutos |
+  | Onboarding nuevo dev | 3 semanas | 1 semana |
+```
+
+### Como manejo testing en microservicios?
+
+Usa una estrategia de multiples niveles: unit tests dentro de cada servicio, contract tests entre servicios (Pact), integration tests con dependencias reales (Testcontainers), y E2E tests para flujos criticos. Los contract tests son los mas importantes en microservicios: verifican que el consumidor y el proveedor acuerdan el contrato. Sin contract tests, un cambio en un servicio rompe consumidores que no conoces.
+
+### Como manejo configuracion en microservicios?
+
+Externaliza toda configuracion. Usa variables de entorno para valores que cambian por entorno (dev, staging, prod). Usa un servicio de configuracion centralizado (Spring Cloud Config, AWS AppConfig, Consul KV) para valores que cambian en runtime. Nunca hardcodees URLs de servicios, credenciales, o feature flags. Los secretos deben estar en un gestor (AWS Secrets Manager, HashiCorp Vault), no en archivos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -291,3 +291,116 @@ Los conceptos se traducen bien a otros modelos. La programación funcional logra
 ### ¿Cómo convenzo a mi equipo de refactorizar hacia SOLID?
 
 No refactorices por los principios en sí. Espera hasta que se necesite un cambio, luego usa los principios para guiar un diseño más limpio. Muestra comparaciones antes/después en PRs.
+
+
+## Temas Avanzados
+
+### Escenario: Refactorizacion de Servicio de Pagos con SOLID
+
+```typescript
+// Antes: viola SRP, OCP y DIP
+class PaymentProcessor {
+  processPayment(payment: Payment) {
+    // Valida (violacion SRP)
+    if (!payment.amount || payment.amount <= 0) throw new Error("Invalid");
+    // Procesa con Stripe (violacion OCP - hardcoded)
+    const stripe = new StripeClient("sk_live_xxx");
+    const result = stripe.charge(payment.amount, payment.currency);
+    // Loguea a console (violacion SRP)
+    console.log("Payment processed:", result);
+    // Envia email (violacion SRP)
+    const email = new EmailService();
+    email.send(payment.customerEmail, "Payment received");
+    // Guarda a MySQL (violacion DIP - hardcoded)
+    const db = new MySQLConnection("localhost", "payments");
+    db.query("INSERT INTO payments ...", result);
+    return result;
+  }
+}
+
+// Despues: refactor conforme a SOLID
+
+// SRP: Cada clase tiene una responsabilidad
+interface PaymentValidator {
+  validate(payment: Payment): void;
+}
+class PaymentValidatorImpl implements PaymentValidator {
+  validate(payment: Payment) {
+    if (!payment.amount || payment.amount <= 0)
+      throw new Error("Monto invalido");
+    if (!payment.currency || payment.currency.length !== 3)
+      throw new Error("Moneda invalida");
+  }
+}
+
+// OCP: Nuevos gateways sin modificar codigo existente
+interface PaymentGateway {
+  charge(amount: number, currency: string): Promise<PaymentResult>;
+}
+class StripeGateway implements PaymentGateway {
+  constructor(private client: StripeClient) {}
+  async charge(amount: number, currency: string) {
+    return this.client.charge(amount, currency);
+  }
+}
+class PayPalGateway implements PaymentGateway {
+  constructor(private client: PayPalClient) {}
+  async charge(amount: number, currency: string) {
+    return this.client.createOrder(amount, currency);
+  }
+}
+
+// ISP: Interfaces segregadas
+interface PaymentRepository {
+  save(result: PaymentResult): Promise<void>;
+}
+interface NotificationService {
+  notify(email: string, subject: string, body: string): Promise<void>;
+}
+interface Logger {
+  log(level: string, message: string, meta?: object): void;
+}
+
+// DIP: Depende de abstracciones, no concreciones
+class PaymentProcessor {
+  constructor(
+    private validator: PaymentValidator,
+    private gateway: PaymentGateway,
+    private repo: PaymentRepository,
+    private notifier: NotificationService,
+    private logger: Logger
+  ) {}
+
+  async processPayment(payment: Payment): Promise<PaymentResult> {
+    this.validator.validate(payment);
+    this.logger.log("info", "Procesando pago", { amount: payment.amount });
+
+    const result = await this.gateway.charge(payment.amount, payment.currency);
+
+    await this.repo.save(result);
+    await this.notifier.notify(payment.customerEmail, "Pago recibido",
+      `Tu pago de ${payment.amount} ${payment.currency} fue procesado.`);
+    this.logger.log("info", "Pago completado", { id: result.id });
+    return result;
+  }
+}
+
+// LSP: Cualquier implementacion de PaymentGateway funciona
+const processor = new PaymentProcessor(
+  new PaymentValidatorImpl(),
+  new StripeGateway(stripeClient),  // o new PayPalGateway(paypalClient)
+  new PostgresPaymentRepository(db),
+  new EmailNotificationService(smtp),
+  new WinstonLogger()
+);
+
+// Testing: mockea todo via interfaces
+const testProcessor = new PaymentProcessor(
+  mockValidator, mockGateway, mockRepo, mockNotifier, mockLogger
+);
+// Cada dependencia es intercambiable y testeable independientemente
+```
+
+### Como aplican los principios SOLID a microservicios?
+
+SRP mapea a limites de servicio: cada servicio posee una capacidad de negocio. OCP significa que nuevas features son nuevos servicios o endpoints, no modificaciones a existentes. LSP asegura que los contratos API se respetan entre versiones. ISP significa que los clientes obtienen solo los endpoints que necesitan (patron BFF). DIP significa que los servicios dependen de contratos (API specs), no implementaciones.

@@ -289,3 +289,126 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Flight Reservation System with Event Sourcing
+
+```text
+System: Flight reservations (TypeScript + Node.js + PostgreSQL)
+Volume: 5000 reservations/day, 200 cancellations/day
+Requirement: Full audit trail, state replay for disputes
+
+Domain events:
+  FlightSearched { searchId, criteria, results, searchedAt }
+  SeatSelected { reservationId, flightId, seatNumber, selectedAt }
+  ReservationCreated { reservationId, flightId, passengerInfo, price, createdAt }
+  PaymentAdded { reservationId, paymentMethod, amount, paidAt }
+  ReservationConfirmed { reservationId, confirmedAt, confirmationCode }
+  ReservationCancelled { reservationId, reason, cancelledAt }
+  SeatChanged { reservationId, newSeat, changedAt }
+  BaggageAdded { reservationId, bags, addedAt }
+
+Aggregate: Reservation (TypeScript)
+  class Reservation extends AggregateRoot {
+    private status: ReservationStatus = ReservationStatus.DRAFT;
+    private seatNumber: string | null = null;
+    private price: Money = Money.ZERO;
+    private bags: number = 0;
+
+    static create(flightId: string, passenger: PassengerInfo, price: Money): Reservation {
+      const r = new Reservation();
+      r.apply(new ReservationCreatedEvent({
+        reservationId: generateId(),
+        flightId, passenger, price,
+        createdAt: new Date()
+      }));
+      return r;
+    }
+
+    changeSeat(newSeat: string): void {
+      if (this.status !== ReservationStatus.CONFIRMED)
+        throw new DomainError("Only confirmed reservations can change seats");
+      if (this.seatNumber === newSeat)
+        return; // No-op, idempotent
+      this.apply(new SeatChangedEvent({
+        reservationId: this.id,
+        newSeat,
+        changedAt: new Date()
+      }));
+    }
+
+    addBaggage(bags: number): void {
+      if (this.status === ReservationStatus.CANCELLED)
+        throw new DomainError("Cannot add baggage to cancelled reservation");
+      this.apply(new BaggageAddedEvent({
+        reservationId: this.id,
+        bags: this.bags + bags,
+        addedAt: new Date()
+      }));
+    }
+
+    cancel(reason: string): void {
+      if (this.status === ReservationStatus.CANCELLED)
+        throw new DomainError("Reservation already cancelled");
+      this.apply(new ReservationCancelledEvent({
+        reservationId: this.id,
+        reason,
+        cancelledAt: new Date()
+      }));
+    }
+
+    private when(event: DomainEvent): void {
+      switch (event.eventType) {
+        case "ReservationCreated":
+          this.id = event.payload.reservationId;
+          this.price = event.payload.price;
+          this.status = ReservationStatus.DRAFT;
+          break;
+        case "SeatChanged":
+          this.seatNumber = event.payload.newSeat;
+          break;
+        case "BaggageAdded":
+          this.bags = event.payload.bags;
+          break;
+        case "ReservationCancelled":
+          this.status = ReservationStatus.CANCELLED;
+          break;
+      }
+    }
+  }
+
+Dispute: "Passenger claims they never cancelled the reservation"
+  -> Replay events for reservation RES-456
+  -> Show sequence: ReservationCreated -> PaymentAdded -> ReservationConfirmed
+     -> ReservationCancelled (with reason: "passenger_request", timestamp, metadata: {agentId: "AG-789"})
+  -> Audit trail shows who cancelled, when and why
+  -> If cancellation was automatic (overbooking), metadata contains {autoOverbook: true}
+
+Snapshot strategy:
+  - Snapshot every 20 events (reservations have few events)
+  - Table: snapshots(stream_id, version, state, created_at)
+  - Average load: 5 events (no snapshot needed)
+  - Max load: 30 events (snapshot at 20)
+
+Event store in PostgreSQL:
+  CREATE TABLE reservation_events (
+    event_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    stream_id VARCHAR(64) NOT NULL,  -- reservation-{reservationId}
+    version INT NOT NULL,
+    event_type VARCHAR(128) NOT NULL,
+    payload JSONB NOT NULL,
+    metadata JSONB NOT NULL DEFAULT '{}',
+    occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE(stream_id, version)
+  );
+
+  -- Index for temporal queries
+  CREATE INDEX idx_reservation_events_time ON reservation_events(occurred_at);
+  CREATE INDEX idx_reservation_events_stream ON reservation_events(stream_id, version);
+```
+
+### How do I handle out-of-order events in projections?
+
+Use event versions for idempotency and ordering. Each projection stores the last version processed per stream. If an event arrives with a lower version, skip it. If it arrives with a higher version but there is a gap, queue it and wait for the missing events. For projections that do not require strict ordering, process events as they arrive and use idempotent upserts. Kafka guarantees order within a partition, so partition by aggregateId to maintain per-aggregate ordering.

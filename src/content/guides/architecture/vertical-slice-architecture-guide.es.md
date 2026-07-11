@@ -189,3 +189,114 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: App de E-commerce con Slices Verticales
+
+```text
+Proyecto: E-commerce API (.NET 8, FastEndpoints + MediatR)
+Dominios: Orders, Products, Customers, Cart, Checkout
+
+Estructura de carpetas:
+  src/
+    Features/
+      Orders/
+        CreateOrder/
+          ├── CreateOrderCommand.cs      # Input DTO
+          ├── CreateOrderHandler.cs       # Logica de negocio
+          ├── CreateOrderValidator.cs     # Validacion
+          ├── CreateOrderEndpoint.cs      # Route HTTP
+          └── CreateOrderResponse.cs      # Output DTO
+        GetOrderById/
+          ├── GetOrderByIdQuery.cs
+          ├── GetOrderByIdHandler.cs
+          └── GetOrderByIdEndpoint.cs
+        UpdateOrderStatus/
+          ├── UpdateOrderStatusCommand.cs
+          ├── UpdateOrderStatusHandler.cs
+          ├── UpdateOrderStatusValidator.cs
+          └── UpdateOrderStatusEndpoint.cs
+        CancelOrder/
+          ├── CancelOrderCommand.cs
+          ├── CancelOrderHandler.cs
+          └── CancelOrderEndpoint.cs
+      Products/
+        CreateProduct/
+        GetProductById/
+        ListProducts/
+        UpdatePrice/
+      Cart/
+        AddToCart/
+        RemoveFromCart/
+        GetCart/
+    Common/
+      Behaviors/
+        ├── LoggingBehavior.cs            # Pipeline de logging
+        ├── ValidationBehavior.cs         # Pipeline de validacion
+        └── TransactionBehavior.cs        # Pipeline de transaccion
+      Exceptions/
+        ├── NotFoundException.cs
+        ├── ValidationException.cs
+        └── ConflictException.cs
+      Infrastructure/
+        ├── AppDbContext.cs
+        ├── DependencyInjection.cs
+        └── EventBus.cs
+
+Pipeline de MediatR (comportamientos encadenados):
+  Request -> LoggingBehavior -> ValidationBehavior -> TransactionBehavior -> Handler
+
+  // LoggingBehavior.cs
+  public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+  {
+      public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
+      {
+          logger.LogInformation("Handling {RequestType}", typeof(TRequest).Name);
+          var response = await next();
+          logger.LogInformation("Handled {RequestType}", typeof(TRequest).Name);
+          return response;
+      }
+  }
+
+Beneficios observados:
+  - Cambio en "Crear Orden" toca 1 carpeta, no 5
+  - Merge conflicts reducidos 80% (cada equipo trabaja en su slice)
+  - Onboarding mas rapido: nuevo dev lee una carpeta y entiende la feature
+  - Tests organizados por feature: Orders.Tests/CreateOrderTests.cs
+```
+
+### Como migro de arquitectura por capas a slices verticales?
+
+Migra una feature a la vez. Empieza con la feature mas simple (ej: GetProductById). Crea la carpeta Features/Products/GetProductById/, mueve el codigo relevante, y verifica que los tests pasan. Elimina el codigo viejo de las carpetas horizontales. Repite con la siguiente feature. No migres todo a la vez: el riesgo de romper es alto y el valor de cada migracion incremental es inmediato.
+
+### Como manejo features que comparten entidades de dominio?
+
+Las entidades de dominio compartidas (Order, Product, Customer) viven en Common/Domain/ o en un proyecto compartido. Los slices referencian estas entidades pero contienen su propia logica de negocio. Si dos features necesitan la misma logica de dominio, extrae un metodo en la entidad o crea un servicio de dominio en Common/. El objetivo es cohesion dentro del slice, no duplicacion forzada.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

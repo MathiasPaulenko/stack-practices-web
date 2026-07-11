@@ -219,3 +219,109 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: User Registration App with Clean Architecture
+
+```text
+Project: Registration and authentication system (TypeScript + Node.js)
+Layers:
+  Entities (domain): User, Email, UserId, UserStatus
+  Use Cases (application): RegisterUserUseCase, AuthenticateUserUseCase
+  Interface Adapters: UserController, UserPresenter, RegisterUserDto
+  Frameworks: Express.js, PostgreSQL, SendGrid
+
+File structure:
+  src/
+    domain/
+      entities/User.ts
+      valueobjects/Email.ts
+      valueobjects/UserId.ts
+      valueobjects/UserStatus.ts
+      repositories/UserRepository.ts       # Interface (port)
+      services/EmailService.ts             # Interface (port)
+      errors/DomainError.ts
+    application/
+      usecases/RegisterUserUseCase.ts
+      usecases/AuthenticateUserUseCase.ts
+      dto/RegisterUserCommand.ts
+      dto/UserResponse.ts
+      results/Result.ts
+    infrastructure/
+      persistence/PostgresUserRepository.ts  # Implements UserRepository
+      email/SendGridEmailService.ts          # Implements EmailService
+      database/KnexConnection.ts
+    presentation/
+      controllers/UserController.ts
+      presenters/UserPresenter.ts
+      routes/userRoutes.ts
+    app.ts                                    # Entry point (Express)
+
+Flow: Register user via POST /users
+  1. Express receives POST /users with body { email, password }
+  2. UserController maps to RegisterUserCommand
+  3. Calls RegisterUserUseCase.execute(command)
+  4. UseCase:
+     a. userRepository.findByEmail(email) -> check if exists
+     b. If exists: return Result.failure("Email already registered")
+     c. User.create(email) -> create entity with status PENDING
+     d. userRepository.save(user)
+     e. emailService.sendWelcome(user.email)
+     f. Return Result.success(user)
+  5. UserPresenter maps Result to UserResponse
+  6. UserController returns 201 or 400
+
+Testing per layer:
+  // domain/entities/User.test.ts
+  describe("User", () => {
+    test("create should set status to PENDING", () => {
+      const user = User.create(Email.create("test@example.com"));
+      expect(user.isActive()).toBe(false);
+      expect(user.status).toBe(UserStatus.PENDING);
+    });
+
+    test("activate should change status to ACTIVE", () => {
+      const user = User.create(Email.create("test@example.com"));
+      user.activate();
+      expect(user.isActive()).toBe(true);
+    });
+  });
+
+  // application/usecases/RegisterUserUseCase.test.ts
+  describe("RegisterUserUseCase", () => {
+    let repo: InMemoryUserRepository;
+    let emailService: SpyEmailService;
+    let useCase: RegisterUserUseCase;
+
+    beforeEach(() => {
+      repo = new InMemoryUserRepository();
+      emailService = new SpyEmailService();
+      useCase = new RegisterUserUseCase(repo, emailService);
+    });
+
+    test("should register new user successfully", async () => {
+      const cmd = new RegisterUserCommand("test@example.com");
+      const result = await useCase.execute(cmd);
+      expect(result.isSuccess()).toBe(true);
+      expect(emailService.sentEmails).toHaveLength(1);
+    });
+
+    test("should fail if email already registered", async () => {
+      repo.add(User.create(Email.create("test@example.com")));
+      const cmd = new RegisterUserCommand("test@example.com");
+      const result = await useCase.execute(cmd);
+      expect(result.isFailure()).toBe(true);
+      expect(emailService.sentEmails).toHaveLength(0);
+    });
+  });
+
+  // Domain tests: < 10ms, no DB or network mocks
+  // Use case tests: < 50ms, with in-memory repos
+  // Integration tests: < 500ms, with Testcontainers + real PostgreSQL
+```
+
+### How do I handle data passing between layers without leaking details?
+
+Use DTOs (Data Transfer Objects) at each layer boundary. The controller receives a RequestDTO and converts it to a domain Command. The use case returns a Result with the domain entity. The presenter converts the entity to a ResponseDTO. Never pass the Express Request object to the domain. Never pass the JPA entity to the controller. Each layer speaks its own language; DTOs are the translation.

@@ -225,3 +225,78 @@ Yes. A CDN reduces latency by serving assets from edge locations near your users
 
 For LCP: optimize your largest content element (usually a hero image). For CLS: always set width/height on images and iframes. For INP: break up long JavaScript tasks and defer non-critical scripts.
 
+
+
+## Advanced Topics
+
+### Scenario: Web App Optimization for E-commerce
+
+```text
+System: E-commerce, 3s LCP, 0.3s INP, 0.25 CLS
+Goal: LCP < 1.5s, INP < 0.2s, CLS < 0.1
+
+Phase 1: Diagnosis (Lighthouse + WebPageTest)
+  | Metric | Before | Target | Tool |
+  |--------|--------|--------|------|
+  | LCP | 3.2s | < 1.5s | Lighthouse |
+  | INP | 320ms | < 200ms | WebPageTest |
+  | CLS | 0.25 | < 0.1 | Lighthouse |
+  | TTFB | 800ms | < 200ms | curl |
+  | Total weight | 3.2MB | < 1MB | DevTools |
+  | JS bundle | 850KB | < 200KB | webpack-bundle-analyzer |
+
+Phase 2: Image optimization (biggest impact)
+  - Convert JPG/PNG to WebP (50% reduction)
+  - Convert hero to AVIF (70% reduction)
+  - Responsive images: srcset + sizes
+  - Lazy loading: loading="lazy" on below-the-fold
+  - Width/height on all images (prevent CLS)
+  - Result: LCP 3.2s -> 1.8s, weight 3.2MB -> 1.8MB
+
+Phase 3: JavaScript optimization
+  - Code splitting: route-based lazy loading
+  - Tree shaking: remove unused imports
+  - Defer non-critical scripts: defer + async
+  - Replace heavy libraries:
+    moment.js -> date-fns (280KB -> 13KB)
+    lodash -> lodash-es + tree shaking
+  - Result: JS bundle 850KB -> 180KB, INP 320ms -> 180ms
+
+Phase 4: Network optimization
+  - CDN for static assets (CloudFront)
+  - HTTP/2 or HTTP/3 (multiplexing)
+  - Brotli compression (better than gzip)
+  - Cache-Control: max-age=31536000 for hashed assets
+  - Service Worker for offline cache
+  - Result: TTFB 800ms -> 180ms
+
+Phase 5: CSS optimization
+  - Critical CSS inline (above-the-fold)
+  - Async load the rest: media="print" onload
+  - PurgeCSS to remove unused styles
+  - Result: CLS 0.25 -> 0.05
+
+Phase 6: Final results
+  | Metric | Before | After | Target |
+  |--------|--------|-------|--------|
+  | LCP | 3.2s | 1.3s | < 1.5s |
+  | INP | 320ms | 165ms | < 200ms |
+  | CLS | 0.25 | 0.05 | < 0.1 |
+  | TTFB | 800ms | 180ms | < 200ms |
+  | Weight | 3.2MB | 0.9MB | < 1MB |
+  | JS bundle | 850KB | 180KB | < 200KB |
+
+Lessons:
+  - Image optimization is the fastest win
+  - Code splitting reduces bundle and improves INP
+  - CDN + HTTP/2 reduces TTFB dramatically
+  - Critical CSS inline improves LCP and CLS
+  - Measure before and after: no data, no optimization
+```
+
+### How do I prioritize performance optimizations?
+
+Start with LCP: it is the metric that most affects UX. Optimize the largest element (usually a hero image). Then CLS: fix width/height on images and iframes. Finally INP: break up long JS tasks and defer scripts. Use Lighthouse to identify opportunities by estimated impact. An optimization that reduces 1s of LCP is worth more than one that reduces 50ms of TTFB.
+
+
+End of document. Review and update quarterly.

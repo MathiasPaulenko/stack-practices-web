@@ -171,3 +171,132 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: IoT Monitoring with TimescaleDB
+
+```text
+System: 10,000 IoT sensor monitoring (TimescaleDB on PostgreSQL)
+Volume: 100,000 readings/second, 8.6B readings/day
+Requirements: Real-time alerts, historical dashboards, downsampling
+
+Schema:
+  CREATE EXTENSION IF NOT EXISTS timescaledb;
+
+  CREATE TABLE sensor_readings (
+      time TIMESTAMPTZ NOT NULL,
+      sensor_id INT NOT NULL,
+      temperature DOUBLE PRECISION,
+      humidity DOUBLE PRECISION,
+      pressure DOUBLE PRECISION,
+      battery_level DOUBLE PRECISION
+  );
+
+  SELECT create_hypertable("sensor_readings",
+      "time", chunk_time_interval => INTERVAL "6 hours");
+
+  CREATE INDEX idx_sensor_time ON sensor_readings(sensor_id, time DESC);
+
+Ingestion:
+  INSERT INTO sensor_readings (time, sensor_id, temperature, humidity, pressure)
+  SELECT
+      NOW() - (generate_series(1, 10000) * INTERVAL "1 second"),
+      (random() * 10000)::INT,
+      20 + random() * 15,
+      40 + random() * 20,
+      1013 + random() * 10;
+  -- Throughput: 100K rows/sec on commodity hardware
+
+Continuous aggregates (downsampling):
+  CREATE MATERIALIZED VIEW sensor_1m
+  WITH (timescaledb.continuous) AS
+  SELECT
+      time_bucket("1 minute", time) AS bucket,
+      sensor_id,
+      AVG(temperature) AS avg_temp,
+      MAX(temperature) AS max_temp,
+      MIN(temperature) AS min_temp,
+      AVG(humidity) AS avg_humidity
+  FROM sensor_readings
+  GROUP BY bucket, sensor_id
+  WITH NO DATA;
+
+  CREATE MATERIALIZED VIEW sensor_1h
+  WITH (timescaledb.continuous) AS
+  SELECT
+      time_bucket("1 hour", time) AS bucket,
+      sensor_id,
+      AVG(temperature) AS avg_temp,
+      MAX(temperature) AS max_temp,
+      MIN(temperature) AS min_temp,
+      COUNT(*) AS sample_count
+  FROM sensor_readings
+  GROUP BY bucket, sensor_id
+  WITH NO DATA;
+
+Retention policies:
+  SELECT add_retention_policy("sensor_readings", INTERVAL "7 days");
+  SELECT add_retention_policy("sensor_1m", INTERVAL "90 days");
+  SELECT add_retention_policy("sensor_1h", INTERVAL "5 years");
+
+Typical queries:
+  -- Latest reading per sensor
+  SELECT DISTINCT ON (sensor_id)
+      sensor_id, time, temperature, humidity
+  FROM sensor_readings
+  ORDER BY sensor_id, time DESC;
+
+  -- Alert: sensors with temp > 35C in last 10 min
+  SELECT sensor_id, MAX(temperature) AS max_temp
+  FROM sensor_readings
+  WHERE time > NOW() - INTERVAL "10 minutes"
+    AND temperature > 35
+  GROUP BY sensor_id
+  ORDER BY max_temp DESC;
+
+Tiered storage:
+  | Level | Data | Retention | Size |
+  |-------|------|-----------|------|
+  | Raw | All readings | 7 days | 50GB |
+  | 1-min | Per-minute aggregates | 90 days | 5GB |
+  | 1-hour | Per-hour aggregates | 5 years | 1GB |
+
+Performance:
+  | Query | Time | Rows scanned |
+  |-------|------|-------------|
+  | Latest reading (1 sensor) | 2ms | 1 |
+  | Real-time alerts (10 min) | 15ms | ~6M |
+  | 24h dashboard (1 sensor) | 8ms | 24 (from aggregate) |
+  | 30-day dashboard (all) | 120ms | 720 (from aggregate) |
+
+Lessons learned:
+  - TimescaleDB gives TSDB performance without leaving PostgreSQL
+  - Continuous aggregates eliminate need for pre-computation jobs
+  - Tiered retention saves storage dramatically
+  - chunk_time_interval should align with query patterns
+```
+
+### How do I handle backfill of historical data?
+
+TimescaleDB supports out-of-order inserts. For bulk backfill, temporarily disable retention policies, insert in batches of 100K rows, and re-enable. Continuous aggregates update automatically. In InfluxDB, use the correct timePrecision and avoid high-cardinality tags during backfill. In ClickHouse, insert into date-partitioned tables to optimize merges.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

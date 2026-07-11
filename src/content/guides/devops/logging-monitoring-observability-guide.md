@@ -221,3 +221,83 @@ Retain error and audit logs for 30-90 days. Debug logs can be kept for 7 days. A
 
 Alert on user-facing symptoms: error rate, latency, and availability. Avoid alerting on infrastructure metrics like CPU or memory unless they directly correlate with user impact.
 
+
+
+## Advanced Topics
+
+### Scenario: Observability for E-commerce Microservices
+
+```text
+System: 15 microservices, 500K requests/min
+Stack: OpenTelemetry -> Jaeger (traces), Prometheus (metrics), Loki (logs)
+
+Instrumentation (Node.js):
+  const { trace, metrics } = require("@opentelemetry/api");
+  const tracer = trace.getTracer("payment-service");
+
+  async function processPayment(payment) {
+    const span = tracer.startSpan("processPayment");
+    span.setAttribute("payment.amount", payment.amount);
+    span.setAttribute("payment.currency", payment.currency);
+    try {
+      const result = await gateway.charge(payment);
+      span.setAttribute("payment.status", result.status);
+      metrics.getOrCreateCounter("payments.total").add(1, {
+        status: result.status, gateway: "stripe"
+      });
+      return result;
+    } catch (error) {
+      span.recordException(error);
+      span.setStatus({ code: 2, message: error.message });
+      metrics.getOrCreateCounter("payments.errors").add(1, {
+        type: error.constructor.name
+      });
+      throw error;
+    } finally {
+      span.end();
+    }
+  }
+
+Structured logs (JSON):
+  {
+    "timestamp": "2026-01-15T10:30:00Z",
+    "level": "error",
+    "service": "payment-service",
+    "traceId": "abc123",
+    "spanId": "def456",
+    "message": "Payment failed",
+    "paymentId": "pay_789",
+    "amount": 99.99,
+    "currency": "USD",
+    "error": "InsufficientFunds"
+  }
+
+  // Correlation: traceId connects logs, metrics, and traces
+  // Search traceId in Loki -> see all request logs
+  // Search traceId in Jaeger -> see full trace
+
+SLO dashboard:
+  | SLO | Target | Metric |
+  |-----|--------|--------|
+  | Availability | 99.9% | http_requests_total{status!~5..} / total |
+  | Latency p99 | < 500ms | histogram_quantile(0.99, http_duration_bucket) |
+  | Error rate | < 0.1% | http_requests_total{status=~5..} / total |
+  | Throughput | > 10K/s | rate(http_requests_total[5m]) |
+
+Alerts (user-facing symptoms):
+  - Error rate > 1% for 5 min -> page on-call
+  - p99 latency > 1s for 10 min -> page on-call
+  - SLO burn rate > 14x in 1h -> page on-call
+  - Throughput < 5K/s for 5 min -> ticket (no page)
+
+Lessons:
+  - OpenTelemetry unifies traces, metrics, and logs
+  - traceId is the key to correlate everything
+  - Structured JSON logs > plain text
+  - Alert on SLOs, not on infrastructure metrics
+  - The collector decouples app from observability backend
+```
+
+### What is SLO burn rate?
+
+Burn rate measures how fast you consume your error budget. If your SLO is 99.9% (43.2 min of error/month), a burn rate of 14x means you are spending the budget 14 times faster than normal. At that rate, you will exhaust the budget in ~3 hours. Alerting on burn rate catches problems before they breach the SLO.

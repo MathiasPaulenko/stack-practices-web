@@ -168,3 +168,135 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Desnormalizacion para Dashboard de Ventas
+
+```text
+Sistema: Dashboard de ventas en tiempo real (PostgreSQL)
+Volumen: 10M ordenes, 50M items de orden
+Problema: Query de resumen diario tarda 8s con JOINs
+Objetivo: Reducir a < 200ms con desnormalizacion controlada
+
+Esquema normalizado (antes):
+  SELECT
+      DATE(o.created_at) AS day,
+      c.name AS category_name,
+      COUNT(*) AS order_count,
+      SUM(oi.quantity * oi.unit_price) AS revenue
+  FROM orders o
+  JOIN order_items oi ON oi.order_id = o.id
+  JOIN products p ON p.id = oi.product_id
+  JOIN categories c ON c.id = p.category_id
+  WHERE o.created_at >= NOW() - INTERVAL "30 days"
+  GROUP BY day, c.name
+  ORDER BY day DESC, revenue DESC;
+  -- Tiempo: 8.2s (3 JOINs + agregacion sobre 50M filas)
+
+Estrategia de desnormalizacion:
+
+  Paso 1: Agregar category_name en order_items
+  ALTER TABLE order_items ADD COLUMN category_name VARCHAR(100);
+  UPDATE order_items oi SET category_name = c.name
+  FROM products p JOIN categories c ON c.id = p.category_id
+  WHERE p.id = oi.product_id;
+
+  -- Trigger para mantener consistencia
+  CREATE FUNCTION sync_category_name() RETURNS TRIGGER AS $$
+  BEGIN
+      SELECT c.name INTO NEW.category_name
+      FROM products p JOIN categories c ON c.id = p.category_id
+      WHERE p.id = NEW.product_id;
+      RETURN NEW;
+  END;
+  $$ LANGUAGE plpgsql;
+
+  CREATE TRIGGER order_items_category
+  BEFORE INSERT OR UPDATE OF product_id ON order_items
+  FOR EACH ROW EXECUTE FUNCTION sync_category_name();
+
+  Paso 2: Crear tabla de resumen diario desnormalizada
+  CREATE TABLE daily_category_summary (
+      day DATE NOT NULL,
+      category_name VARCHAR(100) NOT NULL,
+      order_count INT NOT NULL DEFAULT 0,
+      revenue DECIMAL(12,2) NOT NULL DEFAULT 0,
+      avg_order_value DECIMAL(10,2) NOT NULL DEFAULT 0,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (day, category_name)
+  );
+
+  CREATE INDEX idx_summary_day ON daily_category_summary(day DESC);
+
+  Paso 3: Vista materializada para refresco periodico
+  CREATE MATERIALIZED VIEW mv_daily_category AS
+  SELECT
+      DATE(o.created_at) AS day,
+      oi.category_name,
+      COUNT(DISTINCT o.id) AS order_count,
+      SUM(oi.quantity * oi.unit_price) AS revenue,
+      AVG(oi.quantity * oi.unit_price) AS avg_order_value
+  FROM orders o
+  JOIN order_items oi ON oi.order_id = o.id
+  WHERE o.created_at >= NOW() - INTERVAL "90 days"
+  GROUP BY day, oi.category_name;
+
+  -- Refresco cada hora
+  REFRESH MATERIALIZED VIEW CONCURRENTLY mv_daily_category;
+
+  Paso 4: Query del dashboard usando la tabla desnormalizada
+  SELECT day, category_name, order_count, revenue, avg_order_value
+  FROM daily_category_summary
+  WHERE day >= CURRENT_DATE - INTERVAL "30 days"
+  ORDER BY day DESC, revenue DESC;
+  -- Tiempo: 45ms (sin JOINs, indice en day)
+
+Resultados:
+  | Metrica | Antes (normalizado) | Despues (desnormalizado) |
+  |---------|---------------------|--------------------------|
+  | Tiempo de query | 8.2s | 45ms |
+  | JOINs requeridos | 3 | 0 |
+  | Filas escaneadas | 50M | 90 (30 dias x 3 categorias) |
+  | Almacenamiento extra | 0 | +200MB (category_name + summary) |
+  | Mantenimiento | Ninguno | Trigger + refresh horario |
+
+Verificacion de consistencia (job nocturno):
+  SELECT a.day, a.category_name,
+         a.revenue AS denormalized, b.revenue AS fresh,
+         ABS(a.revenue - b.revenue) AS drift
+  FROM daily_category_summary a
+  JOIN mv_daily_category b ON a.day = b.day AND a.category_name = b.category_name
+  WHERE ABS(a.revenue - b.revenue) > 0.01;
+  -- Si drift > 0.01, alertar y investigar
+```
+
+### Como decido entre trigger, CDC o refresh para sincronizar?
+
+Usa triggers cuando la sincronizacion debe ser inmediata y el volumen de escrituras es bajo. Usa CDC (Debezium + Kafka) cuando necesitas desacoplar la sincronizacion del write path y toleras consistencia eventual. Usa refresh de vistas materializadas para agregados que no necesitan datos en tiempo real. La regla: triggers para datos criticos, CDC para escalabilidad, refresh para dashboards.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

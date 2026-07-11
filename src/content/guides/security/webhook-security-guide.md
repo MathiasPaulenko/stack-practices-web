@@ -221,3 +221,96 @@ Store processed webhook IDs in a deduplication store (Redis with TTL, or a datab
 ### Should I expose one webhook endpoint or multiple?
 
 **Multiple endpoints** are better for security and reliability. A dedicated `/webhooks/stripe` endpoint can have Stripe-specific IP allowlisting, signature verification, and payload parsing. If you use one generic `/webhooks` endpoint, a bug in the parser for one provider could expose data from another provider. Multiple endpoints also make monitoring and alerting more granular. The only case for a single endpoint is if you have dozens of providers and need a generic webhook ingestion pipeline — but even then, route by path or header to provider-specific handlers.
+
+
+## Advanced Topics
+
+### Scenario: Stripe Webhook Signature Verification
+
+```javascript
+// HMAC signature verification (Node.js)
+const crypto = require("crypto");
+
+function verifyStripeSignature(payload, signature, secret) {
+  // Stripe sends: t=timestamp,v1=signature
+  const elements = signature.split(",");
+  const timestamp = elements.find(e => e.startsWith("t="))?.split("=")[1];
+  const sig = elements.find(e => e.startsWith("v1="))?.split("=")[1];
+
+  // Prevent replay attacks: reject > 5 min old
+  if (Math.abs(Date.now() / 1000 - parseInt(timestamp)) > 300) {
+    throw new Error("Webhook timestamp out of range");
+  }
+
+  // Calculate expected signature
+  const signedPayload = `${timestamp}.${payload}`;
+  const expectedSig = crypto
+    .createHmac("sha256", secret)
+    .update(signedPayload)
+    .digest("hex");
+
+  // Secure comparison against timing attacks
+  if (crypto.timingSafeEqual(
+    Buffer.from(sig),
+    Buffer.from(expectedSig)
+  )) {
+    return true;
+  }
+  throw new Error("Invalid signature");
+}
+
+// Webhook endpoint
+app.post("/webhooks/stripe", (req, res) => {
+  const sig = req.headers["stripe-signature"];
+  const rawBody = req.rawBody; // Important: raw body, not parsed
+
+  try {
+    verifyStripeSignature(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    return res.status(400).send("Invalid signature");
+  }
+
+  const event = JSON.parse(rawBody);
+  // Idempotency: check if we already processed this event
+  const processed = await db.query(
+    "SELECT id FROM processed_webhooks WHERE id = $1",
+    [event.id]
+  );
+  if (processed.rows.length > 0) {
+    return res.status(200).send("Already processed");
+  }
+
+  // Process event
+  switch (event.type) {
+    case "payment_intent.succeeded":
+      await handlePaymentSuccess(event.data.object);
+      break;
+    case "payment_intent.payment_failed":
+      await handlePaymentFailure(event.data.object);
+      break;
+    default:
+      console.log(`Unhandled event: ${event.type}`);
+  }
+
+  // Mark as processed
+  await db.query(
+    "INSERT INTO processed_webhooks (id, type, created_at) VALUES ($1, $2, NOW())",
+    [event.id, event.type]
+  );
+
+  res.status(200).send("OK");
+});
+
+// Hardening:
+//   1. Use raw body (no JSON.parse before verifying)
+//   2. timingSafeEqual to prevent timing attacks
+//   3. Timestamp check to prevent replay
+//   4. Idempotency with DB unique constraint
+//   5. TTL on processed_webhooks (7 days)
+//   6. Rate limiting on the endpoint
+//   7. IP allowlist for Stripe (3.18.12.63, 3.130.6.84, ...)
+```
+
+### How do I handle webhooks from multiple providers?
+
+Use separate endpoints per provider: /webhooks/stripe, /webhooks/github, /webhooks/slack. Each endpoint has its own verification logic, IP allowlist, and parsing. A bug in one provider parser does not affect others. Granular monitoring per endpoint. If you need a generic endpoint, route by path or header to provider-specific handlers.

@@ -173,3 +173,130 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Blog Modeling with MongoDB
+
+```text
+System: Blog platform with 1M posts, 10M comments
+Access patterns:
+  1. Read full post with author and comments (90% of reads)
+  2. List posts by author
+  3. List posts by tag
+  4. Search posts by text
+
+Embedded model (post + comments):
+  db.posts.insertOne({
+    _id: "post-001",
+    title: "NoSQL Patterns in Practice",
+    slug: "nosql-patterns-practice",
+    author: {
+      id: "user-123",
+      name: "Ana Garcia",
+      avatar: "/avatars/ana.jpg"
+    },
+    tags: ["nosql", "mongodb", "modeling"],
+    content: "Post content...",
+    comments: [
+      {
+        id: "c-001",
+        author: "Carlos",
+        text: "Great article",
+        createdAt: ISODate("2026-03-01"),
+        likes: 12
+      },
+      {
+        id: "c-002",
+        author: "Beatriz",
+        text: "I have a question",
+        createdAt: ISODate("2026-03-02"),
+        likes: 3
+      }
+    ],
+    commentCount: 2,
+    publishedAt: ISODate("2026-03-01"),
+    updatedAt: ISODate("2026-03-05")
+  });
+
+Indexes:
+  db.posts.createIndex({ slug: 1 }, { unique: true });
+  db.posts.createIndex({ "author.id": 1, publishedAt: -1 });
+  db.posts.createIndex({ tags: 1, publishedAt: -1 });
+  db.posts.createIndex({ title: "text", content: "text" });
+
+Queries:
+  // Full post by slug (single query)
+  db.posts.findOne({ slug: "nosql-patterns-practice" });
+
+  // Posts by author (paginated)
+  db.posts.find({ "author.id": "user-123" })
+    .sort({ publishedAt: -1 })
+    .skip(0)
+    .limit(10);
+
+  // Posts by tag
+  db.posts.find({ tags: "mongodb" })
+    .sort({ publishedAt: -1 })
+    .limit(20);
+
+When to embed vs reference comments:
+  | Criterion | Embed | Reference |
+  |-----------|-------|-----------|
+  | Comments per post | < 100 | > 1000 |
+  | Update frequency | Low | High |
+  | Comment size | Short | Long |
+  | Independent query needed | No | Yes |
+
+Migration pattern: start embedded, move to referenced if:
+  - Document exceeds 16MB (MongoDB limit)
+  - Write times degrade
+  - Need to paginate comments independently
+
+Migration:
+  1. Create separate comments collection
+  2. Move existing comments with a script
+  3. Update app to read from comments collection
+  4. Keep commentCount on post to avoid COUNT queries
+
+Lessons learned:
+  - Embed when data is read together and is small
+  - Reference when the list grows unbounded
+  - Keep denormalized counters to avoid COUNT
+  - Text indexes eliminate need for Elasticsearch for simple search
+```
+
+### How do I handle eventual consistency between referenced collections?
+
+Use the Outbox pattern: when updating a collection, write an event to an outbox collection within the same transaction. A separate process reads the outbox and updates dependent collections. For MongoDB, use multi-document transactions (available since 4.0 with replica sets). If immediate consistency is not needed, use change streams to react to changes and update denormalized views.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

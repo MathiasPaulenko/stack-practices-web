@@ -215,3 +215,88 @@ Small enough to be rewritten in 2-4 weeks. If a service requires 6+ engineers an
 ### What is the biggest risk of microservices?
 
 Distributed complexity. [Debugging](/recipes/observability/distributed-tracing), testing, and reasoning about a system that spans dozens of services is considerably harder than a monolith. Without strong [observability](/recipes/observability/log-aggregation) and automation, the architecture will slow you down rather than speed you up.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Decomposing an E-commerce Monolith
+
+```text
+System: E-commerce monolith (Rails, 500k lines, 40 devs)
+Problem: Weekly deploy frequency, 5-day lead time, teams blocked
+Goal: 5 services extracted in 12 months
+
+Domain analysis (DDD):
+  Bounded contexts identified:
+    1. Users (authentication, profiles, addresses)
+    2. Catalog (products, categories, search)
+    3. Orders (checkout, history, status)
+    4. Payments (cards, refunds, invoicing)
+    5. Notifications (email, SMS, push)
+    6. Inventory (stock, reservations, restocking)
+
+Extraction matrix (prioritize by low risk + high value):
+  | Service | Risk | Value | Effort | Priority |
+  |---------|------|-------|--------|---------|
+  | Notifications | Low | Medium | 4 wk | 1 (extract first) |
+  | Inventory | Low | High | 6 wk | 2 |
+  | Catalog | Medium | High | 8 wk | 3 |
+  | Payments | High | High | 12 wk | 4 (parallel run) |
+  | Orders | High | Critical | 16 wk | 5 (last) |
+
+Shared infrastructure needed:
+  - API Gateway: Kong or AWS API Gateway
+    $ docker run -d --name kong -p 8000:8000 kong:latest
+    $ curl -X POST http://localhost:8001/services \
+        -d name=notification-service \
+        -d url=http://notification-service:3000
+
+  - Service Discovery: Consul or Kubernetes DNS
+  - Distributed tracing: Jaeger or AWS X-Ray
+  - Centralized logging: ELK stack
+  - Metrics: Prometheus + Grafana
+  - Messaging: RabbitMQ or Kafka for async events
+
+Data strategy per service:
+  | Service | Database | Justification |
+  |---------|----------|---------------|
+  | Users | PostgreSQL | Relational, ACID needed |
+  | Catalog | MongoDB | Products with variable attributes |
+  | Orders | PostgreSQL | Transactional, strong consistency |
+  | Payments | PostgreSQL | Transactional, audit trail |
+  | Notifications | DynamoDB | Key-value, high write volume |
+  | Inventory | PostgreSQL | Transactional, reservations |
+
+Inter-service communication:
+  Synchronous (REST/gRPC):
+    Orders -> Payments: charge at checkout
+    Catalog -> Inventory: verify stock
+
+  Asynchronous (events):
+    Orders -> Notifications: "OrderPlaced" event
+    Payments -> Orders: "PaymentConfirmed" event
+    Inventory -> Catalog: "StockUpdated" event
+
+  Circuit breaker config (Resilience4j):
+    CircuitBreaker:
+      failureRateThreshold: 50%
+      waitDurationInOpenState: 30s
+      slidingWindowSize: 10
+
+Metrics after 12 months:
+  | Metric | Monolith | 5 services |
+  |--------|----------|------------|
+  | Deploy frequency | Weekly | Daily (per service) |
+  | Lead time | 5 days | 4 hours |
+  | Deploy failure rate | 8% | 1.5% |
+  | MTTR | 2 hours | 15 minutes |
+  | New dev onboarding | 3 weeks | 1 week |
+```
+
+### How do I handle testing in microservices?
+
+Use a multi-level strategy: unit tests within each service, contract tests between services (Pact), integration tests with real dependencies (Testcontainers), and E2E tests for critical flows. Contract tests are the most important in microservices: they verify that consumer and provider agree on the contract. Without contract tests, a change in one service breaks consumers you do not know about.
+
+### How do I handle configuration in microservices?
+
+Externalize all configuration. Use environment variables for values that change per environment (dev, staging, prod). Use a centralized configuration service (Spring Cloud Config, AWS AppConfig, Consul KV) for values that change at runtime. Never hardcode service URLs, credentials, or feature flags. Secrets must live in a manager (AWS Secrets Manager, HashiCorp Vault), not in files.

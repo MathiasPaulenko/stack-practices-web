@@ -270,3 +270,112 @@ Yes, but modern languages often absorb patterns into their standard libraries. F
 
 Use as many as needed, but no more. Each pattern adds cognitive overhead. If a module uses more than 2-3 patterns, consider whether it is doing too much and should be split.
 
+
+
+## Advanced Topics
+
+### Scenario: Patterns in an Order Processing System
+
+```text
+System: E-commerce order processing
+Patterns applied: Strategy, Factory, Observer, Decorator, Command
+
+1. Strategy - Shipping calculation:
+  interface ShippingStrategy {
+    calculate(weight: number): number;
+  }
+  class StandardShipping implements ShippingStrategy {
+    calculate(weight: number) { return weight * 0.5; }
+  }
+  class ExpressShipping implements ShippingStrategy {
+    calculate(weight: number) { return weight * 1.5; }
+  }
+  class SameDayShipping implements ShippingStrategy {
+    calculate(weight: number) { return weight * 3.0; }
+  }
+
+  // Usage: select strategy at runtime
+  const shipping = strategies[order.shippingMethod];
+  const cost = shipping.calculate(order.totalWeight);
+
+2. Factory - Notification creation:
+  class NotificationFactory {
+    create(type: string): Notification {
+      switch (type) {
+        case "email": return new EmailNotification();
+        case "sms": return new SMSNotification();
+        case "push": return new PushNotification();
+        default: throw new Error("Unsupported type");
+      }
+    }
+  }
+
+3. Observer - Order events:
+  class OrderEventBus {
+    private handlers: Map<string, Function[]> = new Map();
+    on(event: string, handler: Function) {
+      if (!this.handlers.has(event)) this.handlers.set(event, []);
+      this.handlers.get(event).push(handler);
+    }
+    emit(event: string, data: any) {
+      this.handlers.get(event)?.forEach(h => h(data));
+    }
+  }
+  // Subscribers: inventory, email, analytics
+  bus.on("order.created", updateInventory);
+  bus.on("order.created", sendConfirmation);
+  bus.on("order.created", trackAnalytics);
+
+4. Decorator - Logging and cache:
+  function withLogging(fn: Function) {
+    return async (...args: any[]) => {
+      console.log("Calling:", fn.name, args);
+      const result = await fn(...args);
+      console.log("Result:", result);
+      return result;
+    };
+  }
+  function withCache(fn: Function, ttl: number) {
+    const cache = new Map();
+    return async (...args: any[]) => {
+      const key = JSON.stringify(args);
+      if (cache.has(key)) return cache.get(key);
+      const result = await fn(...args);
+      cache.set(key, result);
+      setTimeout(() => cache.delete(key), ttl);
+      return result;
+    };
+  }
+
+  // Composition: logging + cache
+  const cachedLoggedFetch = withCache(withLogging(fetchProduct), 60000);
+
+5. Command - Order operations:
+  interface Command { execute(): Promise<void>; }
+  class CancelOrderCommand implements Command {
+    constructor(private order: Order, private inventory: Inventory) {}
+    async execute() {
+      await this.inventory.release(this.order.items);
+      await this.order.update({ status: "cancelled" });
+    }
+  }
+  // Enables undo, queue, and operation logging
+
+Anti-patterns to avoid:
+  - Singleton for everything (global coupling)
+  - Factory when a constructor suffices
+  - Observer without unsubscribe (memory leaks)
+  - Excessive decorator stacking (> 3 layers)
+  - Command without undo (loses half the value)
+
+Lessons:
+  - Apply patterns when the problem requires it, not before
+  - Modern languages absorb patterns into their stdlib
+  - Composition > inheritance in most cases
+  - Each pattern adds complexity: weigh against value
+  - Refactor towards patterns, do not design them from the start
+```
+
+### How do patterns relate to SOLID?
+
+Strategy implements Open/Closed (new strategies without changing existing code). Factory implements Single Responsibility (creation separated from usage). Observer implements Dependency Inversion (depends on abstraction, not concretion). Decorator implements Open/Closed (extends without modifying). Command implements Single Responsibility (each command one responsibility).

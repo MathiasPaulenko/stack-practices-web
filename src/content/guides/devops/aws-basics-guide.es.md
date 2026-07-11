@@ -236,3 +236,77 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Arquitectura Web en AWS
+
+```text
+Sistema: App web escalable, multi-AZ
+Requisitos: 99.95% disponibilidad, auto-scaling, DR
+
+Arquitectura:
+  Route53 (DNS) -> CloudFront (CDN/WAF) -> ALB -> ECS Fargate
+    AZ-a: 2 tareas
+    AZ-b: 2 tareas
+
+  ECS -> RDS PostgreSQL (Multi-AZ)
+  ECS -> ElastiCache Redis (Multi-AZ)
+  ECS -> S3 (assets estaticos)
+  ECS -> SQS (cola async)
+
+Servicios clave:
+  | Capa | Servicio | Configuracion |
+  |------|----------|--------------|
+  | DNS | Route53 | Latency-based routing |
+  | CDN/WAF | CloudFront + WAF | Edge global, rate limiting |
+  | Load Balancer | ALB | Cross-zone, health checks |
+  | Compute | ECS Fargate | 2 vCPU / 4GB por tarea |
+  | DB | RDS PostgreSQL | db.r6g.large, Multi-AZ |
+  | Cache | ElastiCache Redis | cache.r6g.large, Multi-AZ |
+  | Storage | S3 | Standard + IA lifecycle |
+  | Queue | SQS | FIFO, DLQ configurado |
+  | Monitoring | CloudWatch + X-Ray | |
+  | Secrets | Secrets Manager | Rotation automatica |
+
+Auto-scaling:
+  - CPU > 70% por 5 min -> scale out (+2 tareas)
+  - CPU < 30% por 10 min -> scale in (-1 tarea)
+  - Min: 4 tareas, Max: 20 tareas
+  - ALB 5xx > 1% -> scale out + alert
+  - SQS queue depth > 1000 -> scale out
+
+Disaster Recovery:
+  | Componente | RPO | RTO | Estrategia |
+  |------------|-----|-----|------------|
+  | RDS | < 5s | < 2min | Multi-AZ synchronous |
+  | ElastiCache | < 1min | < 5min | Multi-AZ + failover |
+  | S3 | 0 | 0 | Cross-region replication |
+  | ECS | 0 | < 5min | Auto-scaling group multi-AZ |
+  | Route53 | 0 | < 30s | Health check failover |
+
+Costos estimados (mensual):
+  | Servicio | Costo |
+  |----------|-------|
+  | ECS Fargate (8 tareas) | $1,200 |
+  | RDS (r6g.large Multi-AZ) | $700 |
+  | ElastiCache (r6g.large) | $350 |
+  | S3 (1TB) | $25 |
+  | ALB + data transfer | $200 |
+  | CloudFront (1TB) | $85 |
+  | Route53 | $5 |
+  | Secrets Manager | $40 |
+  | Total | ~$2,600/mes |
+
+Lecciones:
+  - Fargate elimina gestion de servidores para containers
+  - Multi-AZ es obligatorio para produccion
+  - CloudFront + WAF protege en el edge
+  - SQS desacopla productores de consumidores
+  - Secrets Manager rota credenciales automaticamente
+```
+
+### Como elijo entre ECS y EKS?
+
+Usa ECS si solo necesitas containers sin orquestacion compleja. Es mas simple, mas barato y suficiente para la mayoria de apps. Usa EKS si necesitas Kubernetes nativo, Helm charts, service mesh, o si tu equipo ya conoce K8s. EKS tiene mas overhead operativo pero ofrece mas flexibilidad y un ecosistema mas amplio.

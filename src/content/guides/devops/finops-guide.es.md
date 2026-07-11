@@ -179,3 +179,124 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Optimizacion de Costos Cloud para SaaS
+
+```text
+Sistema: SaaS en AWS, $50K/mes, crecimiento 15% mensual
+Objetivo: Reducir 30% sin impacto en usuarios
+
+Fase 1: Visibilidad (semanas 1-2)
+  | Servicio | Costo/mes | % del total |
+  |----------|-----------|-------------|
+  | EC2 (20 instancias) | $18,000 | 36% |
+  | RDS PostgreSQL | $8,000 | 16% |
+  | ElastiCache Redis | $5,000 | 10% |
+  | S3 (50TB) | $4,500 | 9% |
+  | CloudFront | $3,500 | 7% |
+  | EKS (3 clusters) | $3,000 | 6% |
+  | NAT Gateway | $2,000 | 4% |
+  | Lambda | $1,500 | 3% |
+  | Otros | $4,500 | 9% |
+  | Total | $50,000 | 100% |
+
+Fase 2: Optimizacion (semanas 3-6)
+  Accion 1: Right-size EC2
+    - Analizar CPU/memoria promedio (CloudWatch, 30 dias)
+    - 12 instancias < 20% CPU -> reducir tipo
+    - 5 instancias < 10% CPU -> terminar
+    - Ahorro: $6,500/mes
+
+  Accion 2: Reserved Instances + Savings Plans
+    - 8 instancias always-on -> 1yr RI (40% descuento)
+    - Ahorro: $3,200/mes
+
+  Accion 3: S3 lifecycle policies
+    - Mover objetos > 30 dias a S3 IA
+    - Mover objetos > 90 dias a Glacier
+    - Ahorro: $2,000/mes
+
+  Accion 4: Spot instances para batch jobs
+    - 5 workers de procesamiento -> Spot (70% descuento)
+    - Ahorro: $1,500/mes
+
+  Accion 5: RDS optimization
+    - Reader replica -> eliminar (usar ElastiCache para reads)
+    - Storage: gp2 -> gp3 (20% mas barato)
+    - Ahorro: $1,800/mes
+
+Fase 3: Resultados
+  | Accion | Ahorro/mes |
+  |--------|------------|
+  | Right-size EC2 | $6,500 |
+  | Reserved Instances | $3,200 |
+  | S3 lifecycle | $2,000 |
+  | Spot instances | $1,500 |
+  | RDS optimization | $1,800 |
+  | Total | $15,000 (30%) |
+
+Fase 4: Gobernanza continua
+  - Tags obligatorios: team, env, project, cost-center
+  - Alertas de budget: 80% y 100% del monthly budget
+  - Reporte semanal de costos por equipo
+  - Quarterly cost review con todos los equipos
+  - FinOps dashboard: AWS Cost Explorer + custom tags
+
+Lecciones:
+  - Visibilidad primero: no puedes optimizar lo que no ves
+  - Right-sizing es el win mas rapido
+  - Reserved Instances para cargas always-on
+  - S3 lifecycle policies son set-and-forget
+  - La gobernanza continua previene el cost creep
+```
+
+### Como asigno costos a equipos individuales?
+
+Usa tags consistentes en todos los recursos: team, project, env. Configura AWS Cost Explorer con tag-based grouping. Para recursos compartidos (EKS, RDS), divide por proporcion de uso (CPU por namespace en EKS, queries por schema en RDS). Herramientas como Kubecost o CloudHealth automatizan esta asignacion.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

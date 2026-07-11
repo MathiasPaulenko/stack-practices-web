@@ -173,6 +173,89 @@ public class OrderControllerAdapter {
 - **Anemic domain models** — ports should expose behavior, not just data access
 - **Over-engineering simple CRUD** — hexagonal architecture adds ceremony; use it when the domain justifies it
 
+
+### Detailed Scenario: Order System with Hexagonal Architecture
+
+```text
+Project: Order system Java 21 + Spring Boot
+Ports defined:
+  Primary (driving):
+    - PlaceOrderUseCase: place(PlaceOrderCommand) -> OrderResult
+    - CancelOrderUseCase: cancel(CancelOrderCommand) -> void
+    - GetOrderQuery: getById(OrderId) -> OrderDto
+  Secondary (driven):
+    - OrderRepository: findById, save, update
+    - PaymentGatewayPort: charge(Money) -> PaymentResult
+    - NotificationPort: sendOrderConfirmation(OrderId, Email)
+    - InventoryPort: reserveItems(List<OrderItem>) -> ReservationId
+
+Adapters implemented:
+  Driving:
+    - RestOrderController (Spring @RestController)
+    - GrpcOrderService (gRPC service)
+    - CliOrderHandler (Picocli CLI)
+    - KafkaOrderConsumer (event consumer)
+  Driven:
+    - PostgresOrderRepository (JPA/Hibernate)
+    - StripePaymentAdapter (HTTP client)
+    - SmtpNotificationAdapter (JavaMail)
+    - RedisInventoryAdapter (Redis client)
+
+Flow: Place Order via REST
+  1. POST /orders -> RestOrderController
+  2. Controller maps request to PlaceOrderCommand
+  3. Calls PlaceOrderUseCase.place(command)
+  4. PlaceOrderService:
+     a. Creates Order.create(command)
+     b. InventoryPort.reserveItems(items)
+     c. PaymentGatewayPort.charge(order.total())
+     d. If payment ok: order.confirm(txId), OrderRepository.save(order)
+     e. NotificationPort.sendOrderConfirmation(order.id, email)
+     f. Returns OrderResult.success(order.id)
+  5. Controller maps OrderResult to OrderResponse
+
+Testing with in-memory adapters:
+  public class PlaceOrderServiceTest {
+      private InMemoryOrderRepository repo = new InMemoryOrderRepository();
+      private FakePaymentGateway payment = new FakePaymentGateway();
+      private SpyNotificationPort notification = new SpyNotificationPort();
+      private FakeInventoryPort inventory = new FakeInventoryPort();
+      private PlaceOrderService service;
+
+      @BeforeEach
+      void setUp() {
+          service = new PlaceOrderService(repo, payment, notification, inventory);
+      }
+
+      @Test
+      void shouldPlaceOrderWhenPaymentSucceeds() {
+          payment.setSuccess(true);
+          var cmd = new PlaceOrderCommand("cust-1", List.of(new Item("prod-1", 2)));
+          var result = service.place(cmd);
+          assertTrue(result.isSuccess());
+          assertEquals(1, notification.sentConfirmations());
+          assertTrue(repo.findById(result.orderId()).isPresent());
+      }
+
+      @Test
+      void shouldFailWhenPaymentDeclines() {
+          payment.setSuccess(false);
+          var cmd = new PlaceOrderCommand("cust-1", List.of(new Item("prod-1", 2)));
+          var result = service.place(cmd);
+          assertFalse(result.isSuccess());
+          assertEquals(0, notification.sentConfirmations());
+      }
+  }
+
+  // Tests run in < 100ms without DB or network
+  // Domain coverage: 95%+
+  // Adapters tested separately with Testcontainers
+```
+
+### How do I handle dependency wiring in hexagonal?
+
+Use dependency injection at the entry point (Application.java in Spring Boot). The domain does not know Spring. Adapters are annotated with @RestController, @Repository, @Service. Wiring happens in a configuration class: @Bean PlaceOrderUseCase with concrete adapters. For testing, simply construct the service with in-memory adapters using `new`. The domain never depends on the DI container.
+
 ## Variants
 
 - **Onion Architecture** — adds explicit domain services and application services layers
@@ -201,3 +284,19 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

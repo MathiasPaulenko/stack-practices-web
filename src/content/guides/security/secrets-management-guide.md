@@ -263,3 +263,81 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Secrets Management for Microservices
+
+```text
+System: 10 microservices on K8s, AWS
+Stack: AWS Secrets Manager + External Secrets Operator
+
+Architecture:
+  Developer -> GitHub (secret in repo: NEVER)
+  Developer -> AWS Secrets Manager (manual or CLI)
+  Secrets Manager -> External Secrets Operator (K8s)
+  ESO -> creates Kubernetes Secret
+  Pod -> mounts Secret as env var or volume
+
+Secret rules:
+  | Rule | Reason |
+  |------|--------|
+  | Never in code | Git history is permanent |
+  | Never in .env in prod | Plaintext file on disk |
+  | Never in logs | Logs are accessible |
+  | Never in error messages | Exposes to client |
+  | Automatic rotation | Minimizes leak impact |
+  | Least privilege | Each service only accesses its secrets |
+  | Audit log | Who accessed which secret and when |
+
+```yaml
+# External Secrets Operator - ExternalSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: payment-service-secrets
+  namespace: production
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: aws-secretsmanager
+    kind: ClusterSecretStore
+  target:
+    name: payment-service-secrets
+    creationPolicy: Owner
+  data:
+    - secretKey: DATABASE_URL
+      remoteRef:
+        key: production/payment-service/database-url
+    - secretKey: STRIPE_SECRET_KEY
+      remoteRef:
+        key: production/payment-service/stripe-key
+    - secretKey: JWT_PRIVATE_KEY
+      remoteRef:
+        key: production/payment-service/jwt-private
+```
+
+Automatic rotation (Secrets Manager):
+  - Database: rotate every 30 days (Lambda function)
+  - Stripe: manual rotation (API does not support auto-rotation)
+  - JWT: rotate every 90 days (deploy new key, keep old 7 days)
+  - API keys: rotate every 60 days
+
+Leak detection:
+  - git-secrets: pre-commit hook blocks commits with patterns
+  - TruffleHog: scans git history
+  - GitHub Secret Scanning: automatic alerts
+  - AWS CloudTrail: audit log of Secrets Manager access
+
+Lessons:
+  - External Secrets Operator syncs secrets without manual K8s secrets
+  - Automatic rotation minimizes leak impact
+  - git-secrets in pre-commit is the first line of defense
+  - Each service should have its own secrets (no sharing)
+  - Audit log of secret access is mandatory for SOC2
+```
+
+### How do I rotate secrets without downtime?
+
+Use the dual-secret pattern: configure the new secret while the old one is still active. Deploy the app with the new secret. Verify it works. After confirming, invalidate the old one. For JWT, accept both keys during a transition period (7 days). For DB, rotate the password via Secrets Manager with a Lambda that updates the password and refreshes the pods.

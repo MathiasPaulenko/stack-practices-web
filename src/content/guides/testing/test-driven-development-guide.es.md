@@ -270,3 +270,86 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: TDD para API de Pagos
+
+```text
+Sistema: API de pagos, 15 endpoints
+Objetivo: TDD estricto (red-green-refactor)
+
+Ciclo TDD por feature:
+  1. RED: Escribir test que falla
+     - Test: transferir $100 entre cuentas
+     - Resultado: FAIL (funcion no existe)
+  2. GREEN: Escribir codigo minimo que pasa
+     - Implementar transferencia basica
+     - Resultado: PASS
+  3. REFACTOR: Mejorar codigo sin romper tests
+     - Extraer validacion a funcion
+     - Resultado: PASS (sin cambios de comportamiento)
+
+```javascript
+// RED: Test para transferencia (falla)
+describe("POST /api/transfers", () => {
+  it("debe transferir entre cuentas del mismo usuario", async () => {
+    const res = await request(app)
+      .post("/api/transfers")
+      .set("Authorization", `Bearer ${userToken}`)
+      .send({
+        sourceAccountId: accountA.id,
+        destinationAccountId: accountB.id,
+        amount: 100,
+        currency: "USD"
+      });
+    expect(res.status).toBe(201);
+    expect(res.body.status).toBe("completed");
+    // Verificar saldo actualizado
+    const src = await getAccount(accountA.id);
+    const dst = await getAccount(accountB.id);
+    expect(src.balance).toBe(originalA - 100);
+    expect(dst.balance).toBe(originalB + 100);
+  });
+
+  it("debe rechazar transferencia a cuenta ajena", async () => {
+    const res = await request(app)
+      .post("/api/transfers")
+      .set("Authorization", `Bearer ${userToken}`)
+      .send({
+        sourceAccountId: accountA.id,
+        destinationAccountId: otherUserAccount.id,
+        amount: 100,
+        currency: "USD"
+      });
+    expect(res.status).toBe(403);
+  });
+
+  it("debe rechitar monto negativo", async () => {
+    const res = await request(app)
+      .post("/api/transfers")
+      .set("Authorization", `Bearer ${userToken}`)
+      .send({
+        sourceAccountId: accountA.id,
+        destinationAccountId: accountB.id,
+        amount: -50,
+        currency: "USD"
+      });
+    expect(res.status).toBe(400);
+  });
+});
+```
+
+Lecciones:
+  - RED primero: el test define el comportamiento esperado
+  - GREEN minimo: no agregues logica extra
+  - REFACTOR seguro: los tests protegen el cambio
+  - Un test por comportamiento, no por metodo
+  - Test nombres describen el comportamiento: "debe rechazar..."
+  - 0 flaky: tests deterministicos, sin dependencias externas
+```
+
+### Cuando NO usar TDD?
+
+No uses TDD para exploracion (spikes, POCs) o cuando no sabes que vas a construir. TDD requiere saber el comportamiento esperado. Para UI exploratoria, prototipos o migraciones de datos, escribe codigo primero y tests despues. Para bugs, escribe primero el test que reproduce el bug (RED), luego fix (GREEN).

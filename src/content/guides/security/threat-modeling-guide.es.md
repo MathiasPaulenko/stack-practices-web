@@ -188,3 +188,115 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Threat Modeling para API de Pagos
+
+```text
+Sistema: API de pagos, OAuth2, maneja tarjetas de credito
+Metodo: STRIDE (Spoofing, Tampering, Repudiation,
+  Info Disclosure, Denial of Service, Elevation of Privilege)
+
+Diagrama de flujo:
+  Cliente -> API Gateway -> Auth Service -> Payment Service
+                                    -> Vault (secrets)
+                                    -> DB (transacciones)
+                                    -> Stripe API
+
+Threats identificados (STRIDE):
+  | Categoria | Threat | Mitigacion | Severidad |
+  |-----------|--------|------------|-----------|
+  | Spoofing | Token JWT falsificado | Verificar firma + expiry | Alta |
+  | Spoofing | Cliente suplanta otro usuario | Scope validation por usuario | Alta |
+  | Tampering | Modificacion de monto en request | HMAC signature en payload | Alta |
+  | Tampering | Man-in-the-middle | TLS 1.3 + certificate pinning | Media |
+  | Repudiation | Usuario niega transaccion | Audit log inmutable + timestamp | Alta |
+  | Info Disclosure | Log de numero de tarjeta | Masking + PCI DSS compliance | Critica |
+  | Info Disclosure | Error expone stack trace | Mensajes genericos en prod | Media |
+  | DoS | Flood de requests | Rate limiting + WAF | Alta |
+  | DoS | Query costosa sin limite | Pagination + query timeout | Media |
+  | EoP | Usuario regular accede admin | RBAC + scope validation | Alta |
+  | EoP | Service account con permisos excesivos | Least privilege + IAM audit | Alta |
+
+Priorizacion (risk = impacto x probabilidad):
+  | Threat | Impacto | Probabilidad | Risk | Prioridad |
+  |--------|---------|--------------|------|-----------|
+  | Log de tarjeta | Critico | Media | 8 | 1 |
+  | JWT falsificado | Alto | Alta | 9 | 1 |
+  | Modificacion monto | Alto | Media | 6 | 2 |
+  | Rate limiting ausente | Alto | Alta | 9 | 1 |
+  | RBAC ausente | Alto | Baja | 3 | 3 |
+  | Stack trace expuesto | Medio | Alta | 4 | 3 |
+
+Plan de mitigacion:
+  1. PCI DSS: tokenizar tarjetas via Stripe (no almacenar PAN)
+  2. JWT: RS256 + expiry 15min + refresh token rotation
+  3. HMAC: firmar payloads criticos (monto, cuenta destino)
+  4. Rate limiting: 100 req/min por usuario, 1000 por IP
+  5. RBAC: roles user/admin/super_admin con scope por recurso
+  6. Audit log: append-only con hash chain (tamper-evident)
+  7. Error handling: mensajes genericos, stack trace solo en logs
+  8. WAF: OWASP rules + custom rules para payment endpoints
+
+Lecciones:
+  - STRIDE es sistematico: no te salta categorias
+  - Prioriza por risk, no por intuicion
+  - PCI DSS: si tocas tarjetas, tokeniza todo
+  - Audit log inmutable es tu defensa contra repudiation
+  - Threat model es un documento vivo: actualizalo por feature
+```
+
+### Con que frecuencia debo actualizar el threat model?
+
+Actualizalo en cada cambio significativo: nuevo endpoint, nueva dependencia, cambio de arquitectura, nuevo tipo de dato sensible. Como minimo, revisa quarterly. Si usas CI/CD, agrega un checklist de threat modeling en el PR template para cambios que afectan auth, pagos, o datos sensibles.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

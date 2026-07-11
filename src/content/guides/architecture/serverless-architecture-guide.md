@@ -177,3 +177,126 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Image Processing Pipeline
+
+```text
+Architecture: S3 upload -> Lambda -> SQS -> Lambda -> DynamoDB
+Platform: AWS
+Volume: 10k images/day
+
+Step 1: Image upload
+  User uploads image to S3 bucket: uploads/originals/
+  S3:ObjectCreated event triggers Lambda resize-function
+
+Step 2: Lambda resize-function
+  - Read image from S3
+  - Generate 3 sizes: thumbnail (100x100), medium (500x500), large (1200x1200)
+  - Upload versions to S3: uploads/resized/
+  - Publish message to SQS: image-processed-queue
+    Message: { "originalKey": "...", "thumbnailKey": "...", "mediumKey": "...", "largeKey": "..." }
+  - Timeout: 30s (large image resize can take 10-15s)
+  - Memory: 1024MB (needed for image processing)
+
+Step 3: SQS -> Lambda metadata-function
+  - Read message from SQS
+  - Extract metadata: dimensions, format, size, hash
+  - Store in DynamoDB table: ImageMetadata
+    PK: imageId (generated uuid), SK: version (thumbnail|medium|large)
+  - Delete message from SQS (successful processing)
+  - If fails 3 times -> DLQ: image-processed-dlq
+
+IaC configuration (Terraform):
+  resource "aws_lambda_function" "resize" {
+    function_name = "image-resize"
+    handler       = "handler.lambda_handler"
+    runtime       = "python3.11"
+    memory_size   = 1024
+    timeout       = 30
+    reserved_concurrent_executions = 50
+    environment {
+      variables = {
+        OUTPUT_BUCKET = "uploads-resized"
+        QUEUE_URL     = aws_sqs_queue.image_processed.id
+      }
+    }
+  }
+
+  resource "aws_sqs_queue" "image_processed" {
+    name              = "image-processed-queue"
+    visibility_timeout = 60  # > lambda timeout
+    redrive_policy = jsonencode({
+      deadLetterTargetArn = aws_sqs_queue.dlq.arn
+      maxReceiveCount     = 3
+    })
+  }
+
+Monitoring:
+  - CloudWatch Alarms: errors > 1%, duration p95 > 20s
+  - DLQ alert: message in DLQ -> SNS -> Slack
+  - X-Ray tracing to see latency per step
+
+Estimated cost (10k images/day):
+  Lambda: ~$15/month (1.5M invocations)
+  S3: ~$2/month (storage)
+  SQS: ~$0.40/month
+  DynamoDB: ~$1.25/month (on-demand)
+  Total: ~$19/month
+```
+
+### How do I handle distributed transactions in serverless?
+
+Do not use distributed ACID transactions. Use the saga pattern: each function does its part and publishes an event. If a step fails, a compensating function undoes the previous work. On AWS, Step Functions orchestrates sagas with compensation states. Alternatively, use the outbox pattern: the function writes to the DB and publishes the event in the same transaction. A separate process reads the outbox and publishes events.
+
+### How do I test serverless functions locally?
+
+Use SAM CLI for AWS Lambda: `sam local invoke -e event.json`. For Azure, Azure Functions Core Tools: `func start`. Create test events in JSON that mimic real events (S3, SQS, API Gateway). For integration testing, use LocalStack which emulates AWS services locally. For CI, run tests in GitHub Actions with SAM CLI installed. Keep handler tests separate from business logic tests.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

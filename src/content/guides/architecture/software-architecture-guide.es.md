@@ -221,3 +221,89 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Seleccion de Arquitectura para E-commerce
+
+```text
+Proyecto: Plataforma e-commerce (Python + Django)
+Equipo: 8 desarrolladores (creciendo a 15 en 12 meses)
+Volumen: 50k usuarios activos, 10k pedidos/dia
+Dominio: Catalogo, Orders, Payments, Users, Notifications
+
+Fase 1: Monolito modular (mes 0-6)
+  - Django con modulos separados por bounded context
+  - Esquema PostgreSQL por modulo (sin FKs entre modulos)
+  - Comunicacion via servicios internos (no acceso directo a DB)
+  - Deploy: 1 binario, CI/CD con GitHub Actions
+
+  Estructura:
+    shop/
+      modules/
+        catalog/
+          domain/          # Product, Category, SKU
+          application/     # CreateProductService, SearchService
+          infrastructure/  # ProductRepository (Django ORM)
+          api/             # CatalogApi (interfaz publica)
+          views/           # HTTP views
+        orders/
+          domain/          # Order, OrderLine, OrderStatus
+          application/     # PlaceOrderService, CancelOrderService
+          infrastructure/  # OrderRepository
+          api/             # OrdersApi
+          views/
+        payments/
+          domain/          # Payment, Transaction
+          application/     # ProcessPaymentService
+          infrastructure/  # StripeGateway, PaymentRepository
+          api/
+          views/
+      shared/
+        kernel/            # BaseEntity, Money, DomainEvent
+
+  Reglas de boundary:
+    - catalog NO importa de orders ni payments
+    - orders importa CatalogApi (interfaz), no implementacion
+    - payments importa OrdersApi (interfaz)
+    - Verificado con pylint-import-checker en CI
+
+  Testeo:
+    - Unitarios por modulo: < 10ms (sin DB)
+    - Integracion por modulo: < 200ms (SQLite en memoria)
+    - Cross-module: fakes en memoria de otros modulos
+    - E2E: Django test client, < 2s por test
+
+Fase 2: Extraccion de notificaciones (mes 6-9)
+  - Notificaciones es el modulo con menor acoplamiento
+  - Extraer a microservicio independiente (Go + RabbitMQ)
+  - Reemplazar NotificationApi in-process por cliente HTTP
+  - Migrar datos con CDC (Debezium -> Kafka -> nueva DB)
+  - Traffic shift gradual: 5% -> 25% -> 50% -> 100%
+
+Fase 3: Extraccion de catalogo (mes 12-18)
+  - Catalogo necesita escalado independiente (busquedas intensivas)
+  - Extraer a microservicio (Python + Elasticsearch)
+  - Migrar de PostgreSQL a Elasticsearch para busquedas
+  - Mantener PostgreSQL para escritura (CQRS)
+
+Decision matrix para extraccion:
+  | Modulo | Riesgo | Valor | Esfuerzo | Prioridad |
+  |--------|--------|-------|----------|-----------|
+  | Notifications | Bajo | Medio | 4 sem | 1 |
+  | Catalog | Medio | Alto | 8 sem | 2 |
+  | Payments | Alto | Alto | 12 sem | 3 |
+  | Orders | Alto | Critico | 16 sem | 4 |
+  | Users | Medio | Alto | 8 sem | 5 |
+
+Lecciones aprendidas:
+  - El monolito modular permitio extraccion mecanica (no arquitectonica)
+  - Los tests cross-module con fakes detectaron breaking changes
+  - El traffic shift gradual dio confianza al negocio
+  - CDC evito dual-write y posibles inconsistencias
+```
+
+### Como documento decisiones arquitectonicas?
+
+Usa ADRs (Architecture Decision Records). Cada ADR documenta: contexto, decision, alternativas consideradas, consecuencias. Guarda los ADRs en el repositorio junto al codigo (carpeta docs/adr/). Usa numeracion secuencial (ADR-001, ADR-002). Un ADR no se borra ni se edita; si la decision cambia, crea un nuevo ADR que lo suprime. Esto crea un historial auditable de decisiones y su razonamiento.

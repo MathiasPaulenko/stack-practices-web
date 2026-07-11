@@ -220,3 +220,112 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Lakehouse Pipeline with Delta Lake
+
+```text
+System: Streaming analytics platform
+Volume: 100M events/day (clicks, views, transactions)
+Platform: AWS EMR + S3 + Delta Lake + Athena
+
+Medallion Architecture:
+  Bronze: Kinesis -> S3 (raw JSON, untransformed)
+  Silver: Spark job -> S3 (Delta Lake, cleaned, typed)
+  Gold: Spark job -> S3 (Delta Lake, business aggregates)
+  Serving: Athena/Trino over S3 Gold -> BI tools
+
+Step 1: Ingest to Bronze
+  Kinesis Firehose writes to s3://lakehouse/bronze/events/dt=2026-07-11/
+  Format: JSON line-delimited, no Delta partition
+  Retention: 30 days (raw backup)
+
+Step 2: Bronze to Silver (cleaning + Delta)
+  $ spark-submit --master yarn --num-executors 30 \
+      --executor-memory 16g \
+      bronze_to_silver_delta.py
+
+  # bronze_to_silver_delta.py
+  from delta.tables import DeltaTable
+  from pyspark.sql import SparkSession
+
+  spark = SparkSession.builder.appName("BronzeToSilver").getOrCreate()
+
+  raw = spark.read.json("s3://lakehouse/bronze/events/dt=2026-07-11/")
+  cleaned = (raw
+      .filter("event_id is not null and user_id is not null")
+      .withColumn("event_time", to_timestamp("timestamp"))
+      .withColumn("event_date", to_date("event_time"))
+      .dropDuplicates(["event_id"]))
+
+  # Write with merge (upsert) into existing Delta table
+  if DeltaTable.isDeltaTable(spark, "s3://lakehouse/silver/events/"):
+      delta_table = DeltaTable.forPath(spark, "s3://lakehouse/silver/events/")
+      (delta_table.alias("target")
+          .merge(cleaned.alias("source"), "target.event_id = source.event_id")
+          .whenMatchedUpdateAll()
+          .whenNotMatchedInsertAll()
+          .execute())
+  else:
+      cleaned.write.format("delta")
+          .mode("overwrite")
+          .partitionBy("event_date")
+          .save("s3://lakehouse/silver/events/")
+
+Step 3: Silver to Gold (aggregates)
+  silver = spark.read.format("delta").load("s3://lakehouse/silver/events/")
+
+  # Daily aggregate by event type
+  daily = (silver.groupBy("event_date", "event_type")
+      .agg(count("*").alias("total_events"),
+           countDistinct("user_id").alias("unique_users"),
+           sum("amount").alias("revenue")))
+
+  daily.write.format("delta")
+      .mode("overwrite")
+      .option("overwriteSchema", "true")
+      .save("s3://lakehouse/gold/daily_metrics/")
+
+Step 4: Optimization and maintenance
+  # Compact small files (weekly)
+  delta_silver = DeltaTable.forPath(spark, "s3://lakehouse/silver/events/")
+  delta_silver.optimize().compact(minFileSize="10MB")
+
+  # Z-Order by user_id for filtered queries
+  delta_silver.optimize().zOrder("user_id")
+
+  # Vacuum: remove old versions (retain 7 days)
+  delta_silver.vacuum(retentionHours=168)
+
+Step 5: Query from Athena
+  -- Create external table over Delta Lake
+  CREATE EXTERNAL TABLE silver_events
+  STORED AS PARQUET
+  LOCATION "s3://lakehouse/silver/events/"
+  TBLPROPERTIES ("parquet.compression"="SNAPPY");
+
+  -- Direct query
+  SELECT event_type, count(*) as total
+  FROM silver_events
+  WHERE event_date >= DATE("2026-07-01")
+  GROUP BY event_type
+  ORDER BY total DESC;
+
+Monitoring:
+  - CloudWatch: job duration, memory usage, output file count
+  - Alert if Silver has > 1000 small files (< 10MB)
+  - Delta Lake transaction log monitoring via DeltaTable.history()
+  - Data quality: Great Expectations validates schema and nulls in Silver
+
+Estimated monthly cost:
+  S3 storage (100TB): ~$2,300
+  EMR (30 executors x 6h/day): ~$2,400
+  Athena (BI queries): ~$500
+  Total: ~$5,200/month
+```
+
+### How do I choose between Delta Lake, Iceberg, and Hudi?
+
+Delta Lake is the best option if you use Spark intensively: native integration, maturity, and abundant documentation. Iceberg is better if you need multi-engine support (Trino, Flink, Snowflake, DuckDB) with hidden partitioning and schema evolution. Hudi is better for CDC and incremental processing with record-level upserts. If you do not have a specific requirement, start with Delta Lake for its simplicity and maturity.

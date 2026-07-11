@@ -170,3 +170,133 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Istio Service Mesh para E-commerce
+
+```yaml
+# Istio VirtualService: reglas de routing para payment
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: payment-service
+  namespace: production
+spec:
+  hosts: [payment-service]
+  http:
+    # Canary: 10% a v2, 90% a v1
+    - match:
+        - headers:
+            x-canary:
+              exact: "true"
+      route:
+        - destination: { host: payment-service, subset: v2 }
+    - route:
+        - destination: { host: payment-service, subset: v1 }
+          weight: 90
+        - destination: { host: payment-service, subset: v2 }
+          weight: 10
+    # Timeout: 2s max
+    timeout: 2s
+    # Retry: 3 intentos en 5xx
+    retries:
+      attempts: 3
+      perTryTimeout: 500ms
+      retryOn: 5xx,reset,connect-failure
+
+# DestinationRule: mTLS + load balancing
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: payment-service
+spec:
+  host: payment-service
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL  # mTLS automatico
+    loadBalancer:
+      simple: LEAST_REQUEST
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+  subsets:
+    - name: v1
+      labels: { version: v1 }
+    - name: v2
+      labels: { version: v2 }
+
+# PeerAuthentication: mTLS estricto
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: production
+spec:
+  mtls:
+    mode: STRICT
+
+# AuthorizationPolicy: zero-trust
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: payment-allowlist
+  namespace: production
+spec:
+  selector:
+    matchLabels: { app: payment-service }
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            principals: ["cluster.local/ns/production/sa/order-service"]
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/api/v1/payments"]
+
+Beneficios observados:
+  | Feature | Antes del mesh | Despues del mesh |
+  |---------|----------------|-----------------|
+  | mTLS | Gestion manual de certs | Rotacion automatica |
+  | Canary | Scripts custom | Pesos en VirtualService |
+  | Retries | Codigo en la app | Sidecar proxy |
+  | Circuit breaker | Hystrix en app | OutlierDetection |
+  | Tracing | Instrumentacion manual | Headers automaticos |
+  | Auth | Middleware en app | AuthorizationPolicy |
+
+Costos:
+  - CPU overhead: ~10-15% por pod (Envoy proxy)
+  - Memoria: ~50-100MB por sidecar
+  - Complejidad: Istio control plane agrega carga operativa
+  - Debugging: sidecar agrega un hop para troubleshoot
+
+Lecciones:
+  - Empieza con observabilidad (telemetria), luego anade traffic control
+  - mTLS es el mayor win de seguridad con minimo esfuerzo
+  - Canary deployments se vuelven triviales con VirtualService
+  - El overhead del sidecar es real; mide antes de adoptar
+  - AuthorizationPolicy reemplaza middleware de auth en app
+```
+
+### Cuando NO deberia usar un service mesh?
+
+Cuando tienes menos de 5-10 servicios, el overhead operativo excede los beneficios. Cuando tu equipo no tiene bandwidth para aprender Istio/Linkerd. Cuando la latencia es critica y cada milisegundo cuenta (sidecar agrega 1-3ms). Cuando no estas en Kubernetes. Empieza sin mesh y adopta cuando los pain points (mTLS, traffic control, observabilidad) justifiquen el costo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

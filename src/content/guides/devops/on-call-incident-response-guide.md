@@ -241,3 +241,76 @@ Incidents are unplanned work. Track them. If a team spends > 20% of sprint capac
 ### Should junior engineers be on-call?
 
 Yes, with mentorship. Shadowing senior engineers during incidents is one of the fastest ways to learn how systems fail. Start with low-severity rotations and pair them with a senior for the first month.
+
+
+## Advanced Topics
+
+### Scenario: Sev-1 Incident Response in E-commerce
+
+```text
+Incident: Checkout down, 100% users affected
+Severity: Sev-1 (critical)
+Start: 14:12 UTC
+On-call: Maria (primary), Carlos (secondary)
+
+Response timeline:
+  14:12 - Alert fires: CheckoutErrorRate 100%
+  14:13 - Maria receives page (PagerDuty)
+  14:14 - Maria opens Slack #incident-checkout
+  14:15 - Maria verifies: 500 errors on all requests
+  14:16 - Declares Sev-1, opens bridge (Zoom)
+  14:17 - Invites Carlos (secondary), team lead, DBA
+  14:18 - Maria investigates: recent deploy?
+         kubectl rollout history deploy/checkout
+         -> Deploy v2.4 8 min ago
+  14:20 - Carlos checks DB: connections saturated
+         -> Connection pool exhausted
+  14:22 - Maria decides rollback to v2.3
+  14:23 - Rollback executed: kubectl rollout undo
+  14:26 - Service restored, errors at 0%
+  14:30 - Maria confirms stability for 5 min
+  14:35 - Closes bridge, declares resolved
+  14:36 - Creates ticket for post-mortem (48h)
+
+Roles during incident:
+  | Role | Person | Responsibility |
+  |------|--------|----------------|
+  | Incident Commander | Maria | Coordinate, decide |
+  | Communications | Carlos | Update stakeholders |
+  | Subject Matter Expert | DBA | Investigate DB |
+  | Scribe | Auto bot | Timeline in Slack |
+
+Communications:
+  14:15 - Slack #status: "Investigating Sev-1 checkout"
+  14:20 - Slack #status: "Root cause identified: deploy v2.4"
+  14:22 - Slack #status: "Executing rollback"
+  14:26 - Slack #status: "Service restored"
+  14:35 - Slack #status: "Incident resolved, post-mortem pending"
+
+Post-mortem (48h):
+  - Summary: Checkout down 14 min due to defective deploy
+  - Impact: $28K lost sales, 8K users affected
+  - Root cause: N+1 query introduced in v2.4, not caught by tests
+  - 5 Whys:
+    1. Why did it go down? Connection pool exhausted
+    2. Why exhausted? N+1 query opened 1000 connections
+    3. Why not detected? Tests did not cover concurrency
+    4. Why no tests? No DB integration tests existed
+    5. Why? CI did not require integration tests
+  - Actions:
+    1. Add DB integration test in CI (owner: team, 1 week)
+    2. Add N+1 detection in CI (owner: platform, 2 weeks)
+    3. Lower max pool connections (owner: SRE, 3 days)
+    4. Add pool saturation alert (owner: SRE, 3 days)
+
+Lessons:
+  - The Incident Commander coordinates, does not investigate
+  - Communicate early and often
+  - Rollback is the first option, not the last
+  - Blameless post-mortem: fix the system, not the blame
+  - Every action item has an owner and date
+```
+
+### How do I prepare a new team for on-call?
+
+Start with shadowing: the new engineer shadows the on-call for 2 weeks without responding to pages. Then they respond to low-severity pages with the senior as backup. After 1 month, they take full rotations with the senior available. Provide a runbook per service. Run game days in staging to practice incident response.

@@ -262,3 +262,74 @@ GCP offers a Free Tier with 300 USD credit for 90 days and always-free limits on
 ### How do I deploy from GitHub?
 
 Use Cloud Build triggers connected to GitHub repositories, or GitHub Actions with `google-github-actions/setup-gcloud` and `google-github-actions/deploy-cloudrun`.
+
+
+## Advanced Topics
+
+### Scenario: Web Architecture on GCP
+
+```text
+System: Scalable web app, multi-region
+Requirements: 99.95% availability, auto-scaling, DR
+
+Architecture:
+  Cloud Load Balancing -> Cloud Run (multi-region)
+    Region 1: us-central1
+    Region 2: europe-west1
+
+  Cloud Run -> Cloud SQL (regional HA)
+  Cloud Run -> Firestore (multi-region)
+  Cloud Run -> Memorystore Redis
+  Cloud Run -> Cloud Storage (assets)
+
+Key services:
+  | Layer | Service | Configuration |
+  |-------|---------|---------------|
+  | DNS/Routing | Cloud Load Balancing | Global, HTTP(S) |
+  | Compute | Cloud Run | 2 vCPU / 4GB, min 2 max 20 |
+  | DB | Cloud SQL PostgreSQL | db-custom-4-15360, HA |
+  | NoSQL | Firestore | multi-region nam-eur |
+  | Cache | Memorystore Redis | Standard 1GB |
+  | Storage | Cloud Storage | Standard + Nearline lifecycle |
+  | Monitoring | Cloud Monitoring + Cloud Trace | |
+  | Secrets | Secret Manager | |
+  | CDN | Cloud CDN | Edge caches global |
+
+Auto-scaling (Cloud Run):
+  - Concurrency: 80 requests per instance
+  - Min instances: 2 (warm), Max: 20
+  - CPU > 70% -> scale out
+  - Scale to zero in dev (cost savings)
+
+Disaster Recovery:
+  | Component | RPO | RTO | Strategy |
+  |-----------|-----|-----|----------|
+  | Cloud SQL | < 1min | < 1min | Regional HA (sync replica) |
+  | Firestore | 0 | 0 | Multi-region |
+  | Cloud Storage | 0 | 0 | Cross-region replication |
+  | Cloud Run | 0 | < 30s | Multi-region LB failover |
+  | Memorystore | < 1min | < 5min | Failover to replica |
+
+Estimated costs (monthly):
+  | Service | Cost |
+  |---------|------|
+  | Cloud Run (8 instances) | $800 |
+  | Cloud SQL (4 vCPU HA) | $1,200 |
+  | Firestore (1M reads/writes) | $200 |
+  | Memorystore (1GB) | $150 |
+  | Cloud Storage (1TB) | $25 |
+  | Load Balancing + CDN | $200 |
+  | Secret Manager | $30 |
+  | Total | ~$2,600/month |
+
+Lessons:
+  - Cloud Run scales to zero: ideal for variable workloads
+  - Cloud SQL HA gives RPO < 1min with synchronous replica
+  - Firestore multi-region eliminates DR for NoSQL
+  - Cloud CDN + Load Balancing is global and serverless
+  - Secret Manager integrates with Cloud Run via service account
+```
+
+### How do I choose between Cloud Run and GKE?
+
+Use Cloud Run for simple stateless services that do not need Kubernetes. It is serverless, scales to zero, and charges per use. Use GKE when you need full control: service mesh, Helm, operators, stateful workloads, or multiple services with complex networking. Cloud Run is simpler and cheaper; GKE is more flexible. Start with Cloud Run and migrate to GKE if needed.

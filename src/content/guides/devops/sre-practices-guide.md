@@ -202,3 +202,101 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: SRE Implementation in E-commerce
+
+```text
+System: E-commerce, 15 services, 99.9% SLO
+Team: 4 SREs + 30 developers
+
+Defined SLOs:
+  | Service | SLO | Error Budget |
+  |---------|-----|--------------|
+  | Checkout | 99.9% | 43.2 min/month |
+  | Payments | 99.95% | 21.6 min/month |
+  | Catalog | 99.5% | 216 min/month |
+  | Search | 99.0% | 432 min/month |
+  | API Gateway | 99.99% | 4.3 min/month |
+
+Error Budget Policy:
+  - Burn rate < 1x: normal feature velocity
+  - Burn rate 1-3x: features continue, but investigate
+  - Burn rate 3-14x: feature freeze, focus on reliability
+  - Burn rate > 14x: total freeze, reliability fixes only
+  - Budget exhausted: reliability-only deploys until new month
+
+Toil management:
+  | Toil type | Hours/week | Automation |
+  |-----------|-----------|------------|
+  | Manual restarts | 5 | Auto-healing (HPA + PDB) |
+  | Cert rotation | 3 | cert-manager |
+  | Backup verification | 2 | Automated script |
+  | Dashboard updates | 4 | Grafana provisioning (IaC) |
+  | On-call handoff docs | 2 | Standard template |
+  | Total | 16h | Target: < 10h |
+
+Post-mortems (blameless):
+  Template:
+  - Summary: what happened, impact, duration
+  - Timeline: minute-by-minute events
+  - Root cause: 5 whys
+  - Action items: owner + date + priority
+  - Lessons: what worked, what did not
+  - Metrics: MTTR, user impact, cost
+
+  Example:
+  Incident: Checkout down 23 min
+  Impact: $45K in lost sales, 12K users affected
+  Root cause: Deploy introduced query without index
+  Timeline:
+    14:00 - Deploy v2.3 to canary 5%
+    14:05 - Error rate 0% on canary
+    14:10 - Promoted to 100%
+    14:12 - DB CPU 100%, queries piling up
+    14:15 - Alert: PaymentLatencyHigh
+    14:18 - On-call identifies deploy as cause
+    14:20 - Rollback executed
+    14:23 - Service restored
+  Actions:
+    1. Require EXPLAIN ANALYZE in PR review (owner: team lead, 1 week)
+    2. Add index check to CI/CD (owner: platform, 2 weeks)
+    3. Lower canary threshold to 2% (owner: SRE, 1 week)
+    4. Add DB CPU > 80% alert (owner: SRE, 3 days)
+
+Lessons:
+  - SLOs quantify the trade-off between speed and reliability
+  - Error budget is the lever for prioritization
+  - Toil must be measured and reduced with automation
+  - Blameless post-mortems build a learning culture
+  - MTTR is the most important SRE metric
+```
+
+### How do I convince management to invest in SRE?
+
+Calculate the cost of downtime. If your revenue is $100K/hour and you have 4 incidents/month of 1h, that is $400K/month in losses. An SRE who reduces MTTR from 60min to 15min saves $300K/month. Their salary is a fraction of that. Present the ROI in terms of money, not best practices.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -168,3 +168,135 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Denormalization for Sales Dashboard
+
+```text
+System: Real-time sales dashboard (PostgreSQL)
+Volume: 10M orders, 50M order items
+Problem: Daily summary query takes 8s with JOINs
+Goal: Reduce to < 200ms with controlled denormalization
+
+Normalized schema (before):
+  SELECT
+      DATE(o.created_at) AS day,
+      c.name AS category_name,
+      COUNT(*) AS order_count,
+      SUM(oi.quantity * oi.unit_price) AS revenue
+  FROM orders o
+  JOIN order_items oi ON oi.order_id = o.id
+  JOIN products p ON p.id = oi.product_id
+  JOIN categories c ON c.id = p.category_id
+  WHERE o.created_at >= NOW() - INTERVAL "30 days"
+  GROUP BY day, c.name
+  ORDER BY day DESC, revenue DESC;
+  -- Time: 8.2s (3 JOINs + aggregation over 50M rows)
+
+Denormalization strategy:
+
+  Step 1: Add category_name to order_items
+  ALTER TABLE order_items ADD COLUMN category_name VARCHAR(100);
+  UPDATE order_items oi SET category_name = c.name
+  FROM products p JOIN categories c ON c.id = p.category_id
+  WHERE p.id = oi.product_id;
+
+  CREATE FUNCTION sync_category_name() RETURNS TRIGGER AS $$
+  BEGIN
+      SELECT c.name INTO NEW.category_name
+      FROM products p JOIN categories c ON c.id = p.category_id
+      WHERE p.id = NEW.product_id;
+      RETURN NEW;
+  END;
+  $$ LANGUAGE plpgsql;
+
+  CREATE TRIGGER order_items_category
+  BEFORE INSERT OR UPDATE OF product_id ON order_items
+  FOR EACH ROW EXECUTE FUNCTION sync_category_name();
+
+  Step 2: Create denormalized daily summary table
+  CREATE TABLE daily_category_summary (
+      day DATE NOT NULL,
+      category_name VARCHAR(100) NOT NULL,
+      order_count INT NOT NULL DEFAULT 0,
+      revenue DECIMAL(12,2) NOT NULL DEFAULT 0,
+      avg_order_value DECIMAL(10,2) NOT NULL DEFAULT 0,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (day, category_name)
+  );
+
+  CREATE INDEX idx_summary_day ON daily_category_summary(day DESC);
+
+  Step 3: Materialized view for periodic refresh
+  CREATE MATERIALIZED VIEW mv_daily_category AS
+  SELECT
+      DATE(o.created_at) AS day,
+      oi.category_name,
+      COUNT(DISTINCT o.id) AS order_count,
+      SUM(oi.quantity * oi.unit_price) AS revenue,
+      AVG(oi.quantity * oi.unit_price) AS avg_order_value
+  FROM orders o
+  JOIN order_items oi ON oi.order_id = o.id
+  WHERE o.created_at >= NOW() - INTERVAL "90 days"
+  GROUP BY day, oi.category_name;
+
+  REFRESH MATERIALIZED VIEW CONCURRENTLY mv_daily_category;
+
+  Step 4: Dashboard query using denormalized table
+  SELECT day, category_name, order_count, revenue, avg_order_value
+  FROM daily_category_summary
+  WHERE day >= CURRENT_DATE - INTERVAL "30 days"
+  ORDER BY day DESC, revenue DESC;
+  -- Time: 45ms (no JOINs, index on day)
+
+Results:
+  | Metric | Before (normalized) | After (denormalized) |
+  |--------|---------------------|----------------------|
+  | Query time | 8.2s | 45ms |
+  | JOINs required | 3 | 0 |
+  | Rows scanned | 50M | 90 (30 days x 3 categories) |
+  | Extra storage | 0 | +200MB (category_name + summary) |
+  | Maintenance | None | Trigger + hourly refresh |
+
+Consistency check (nightly job):
+  SELECT a.day, a.category_name,
+         a.revenue AS denormalized, b.revenue AS fresh,
+         ABS(a.revenue - b.revenue) AS drift
+  FROM daily_category_summary a
+  JOIN mv_daily_category b ON a.day = b.day AND a.category_name = b.category_name
+  WHERE ABS(a.revenue - b.revenue) > 0.01;
+  -- If drift > 0.01, alert and investigate
+```
+
+### How do I decide between trigger, CDC or refresh for synchronization?
+
+Use triggers when synchronization must be immediate and write volume is low. Use CDC (Debezium + Kafka) when you need to decouple synchronization from the write path and can tolerate eventual consistency. Use materialized view refresh for aggregates that do not need real-time data. The rule: triggers for critical data, CDC for scalability, refresh for dashboards.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

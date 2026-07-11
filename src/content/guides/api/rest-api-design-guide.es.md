@@ -201,3 +201,143 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Idempotencia
+
+La idempotencia asegura que reintentar un request produce el mismo resultado que el request inicial. Esto es critico para procesamiento de pagos, creacion de pedidos y cualquier operacion donde fallos de red pueden causar reintentos del cliente.
+
+Usa un header `Idempotency-Key` en requests `POST`:
+
+```text
+POST /v1/orders
+Idempotency-Key: client-uuid-12345
+Content-Type: application/json
+
+{"customer_id": "usr_123", "items": [{"sku": "PROD-001", "quantity": 2}]}
+```
+
+Comportamiento del servidor:
+- Primer request con una key nueva: procesa normalmente, almacena resultado
+- Requests subsecuentes con misma key y mismo body: retorna resultado almacenado
+- Misma key con body diferente: retorna 409 Conflict
+- Las keys expiran despues de 24 horas (configurable)
+
+### Negociacion de Contenido
+
+Soporta multiples formatos de respuesta via el header `Accept`:
+
+```text
+GET /v1/users/123
+Accept: application/json       -> respuesta JSON
+Accept: application/xml        -> respuesta XML (si se soporta)
+Accept: application/vnd.api+json -> formato JSON:API (si se soporta)
+```
+
+Usa `application/json` por defecto cuando el header falta. Retorna `406 Not Acceptable` si el formato solicitado no se soporta.
+
+### Operaciones en Lote
+
+Para actualizaciones o creaciones en lote, usa un endpoint dedicado:
+
+```text
+POST /v1/users/bulk
+Content-Type: application/json
+
+{
+  "users": [
+    {"email": "alice@example.com", "name": "Alice"},
+    {"email": "bob@example.com", "name": "Bob"},
+    {"email": "charlie@example.com", "name": "Charlie"}
+  ]
+}
+```
+
+Respuesta con resultados por item:
+
+```json
+{
+  "results": [
+    {"index": 0, "status": 201, "id": "usr_001"},
+    {"index": 1, "status": 201, "id": "usr_002"},
+    {"index": 2, "status": 422, "error": {"code": "DUPLICATE_EMAIL"}}
+  ],
+  "summary": {"created": 2, "failed": 1}
+}
+```
+
+### Configuracion CORS
+
+```text
+Access-Control-Allow-Origin: https://app.example.com
+Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE
+Access-Control-Allow-Headers: Authorization, Content-Type, Idempotency-Key
+Access-Control-Max-Age: 3600
+```
+
+Nunca uses `Access-Control-Allow-Origin: *` con credenciales. Especifica origenes exactos para requests con credenciales.
+
+### Headers de Rate Limiting
+
+```text
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 87
+X-RateLimit-Reset: 1721003460
+Retry-After: 30
+```
+
+Retorna `429 Too Many Requests` con un header `Retry-After` cuando se excede el limite.
+
+### Webhooks
+
+Para notificaciones asincronas, usa webhooks con verificacion de firma:
+
+```text
+POST /webhooks/orders
+X-Webhook-Signature: sha256=abc123...
+X-Webhook-Event: order.created
+X-Webhook-Timestamp: 1721003460
+
+{"event": "order.created", "order_id": "ord_123", "timestamp": "2026-07-11T14:30:00Z"}
+```
+
+Verifica la firma usando HMAC-SHA256 con un secret compartido. Rechaza requests con timestamps mayores a 5 minutos para prevenir replay attacks.
+
+### Como manejo operaciones de larga duracion?
+
+Para operaciones que tardan mas de unos segundos, retorna `202 Accepted` con una URL de estado:
+
+```text
+POST /v1/exports
+
+HTTP/1.1 202 Accepted
+Location: /v1/exports/exp_123/status
+
+{"export_id": "exp_123", "status": "processing"}
+```
+
+Los clientes hacen polling de la URL de estado hasta que la operacion completa:
+
+```text
+GET /v1/exports/exp_123/status
+
+{"export_id": "exp_123", "status": "completed", "download_url": "/v1/exports/exp_123/download"}
+```
+
+### Deberia usar PATCH o JSON Patch (RFC 6902)?
+
+PATCH simple con un body JSON parcial es mas facil para los clientes y suficiente para la mayoria de casos. JSON Patch (RFC 6902) usa operaciones como `add`, `remove`, `replace`, `move` y es mas preciso para estructuras anidadas complejas. Usa JSON Patch cuando necesitas operaciones atomicas en arrays u objetos anidados. Documenta que formato acepta tu API.
+
+### Como diseno la deprecacion de API?
+
+Agrega un header `Deprecation` y un header `Sunset` a los endpoints deprecados:
+
+```text
+Deprecation: true
+Sunset: Sat, 31 Dec 2026 23:59:59 GMT
+Link: </v2/users>; rel="successor-version"
+```
+
+Anuncia la deprecacion al menos 6 meses antes del sunset. Loguea el uso de endpoints deprecados y notifica a los consumidores individualmente. Retorna `410 Gone` despues del sunset.

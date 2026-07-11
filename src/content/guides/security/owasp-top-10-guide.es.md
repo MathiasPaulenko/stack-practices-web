@@ -230,3 +230,99 @@ Es un excelente punto de partida pero no exhaustivo. Considera OWASP ASVS (Appli
 ### ¿Cómo pruebo estas vulnerabilidades?
 
 Usa escáners automatizados (OWASP ZAP, Burp Suite) como línea base, luego realiza pruebas de penetración manuales y revisión de código.
+
+
+## Temas Avanzados
+
+### Escenario: Mitigacion OWASP Top 10 en API REST
+
+```text
+Sistema: API REST Node.js + PostgreSQL, 50 endpoints
+Objetivo: Mitigar las 10 vulnerabilidades OWASP
+
+A01: Broken Access Control
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | IDOR en /api/users/:id | Verificar ownership | JWT + scope check |
+  | Admin sin auth | RBAC estricto | middleware role("admin") |
+  | API sin rate limit | Rate limiting | express-rate-limit 100/min |
+
+A02: Cryptographic Failures
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | Password en MD5 | bcrypt + salt rounds 12 | bcrypt.hash(pw, 12) |
+  | HTTP sin TLS | TLS 1.3 obligatorio | redirect HTTP -> HTTPS |
+  | JWT con HS256 | RS256 + rotacion de claves | jwt.sign(..., RS256) |
+  | DB sin cifrar | AES-256 at rest | AWS RDS encryption |
+
+A03: Injection
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | SQL injection | Queries parametrizadas | pool.query(..., [params]) |
+  | NoSQL injection | Schema validation | Zod safeParse |
+  | Command injection | No eval/exec | child_process con args array |
+  | LDAP injection | Input sanitization | escapeLDAP filter |
+
+A04: Insecure Design
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | Sin threat modeling | STRIDE por feature | Threat model doc |
+  | Sin rate limit en auth | Rate limit + lockout | 5 intentos -> lock 15min |
+  | Sin audit log | Append-only log | Audit table + hash chain |
+
+A05: Security Misconfiguration
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | Headers ausentes | helmet() | X-Frame-Options, CSP, HSTS |
+  | CORS abierto | Origin estricto | cors({ origin: [...] }) |
+  | Debug en prod | NODE_ENV=production | app.set("env", "production") |
+  | Errores con stack | Mensajes genericos | error handler middleware |
+
+A06: Vulnerable Components
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | Deps desactualizadas | npm audit en CI | npm audit --audit-level=high |
+  | CVE sin parchear | Renovar semanalmente | Dependabot + Snyk |
+  | Licencias incompatibles | License check | license-checker en CI |
+
+A07: Auth Failures
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | Password debil | Min 12 chars + complexity | Zod password schema |
+  | Sin MFA | TOTP + backup codes | speakeasy + qrcode |
+  | Session sin expiracion | JWT 15min + refresh | Rotacion de refresh token |
+  | Brute force | Rate limit + lockout | 5 intentos -> lock 15min |
+
+A08: Data Integrity Failures
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | JWT sin verificacion | Verify signature + expiry | jwt.verify(token, key) |
+  | Deserializacion insegura | Schema validation | Zod safeParse |
+  | CI/CD sin firma | Firmar artifacts | Cosign + Sigstore |
+
+A09: Logging Failures
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | Sin audit log | Log eventos criticos | winston + audit table |
+  | Logs sin alerta | SIEM + alertas | ELK + alerting rules |
+  | Logs con PII | Masking de datos | redact(email, phone) |
+
+A10: SSRF
+  | Vulnerabilidad | Mitigacion | Implementacion |
+  |---------------|------------|----------------|
+  | Fetch de URL usuario | Allowlist de dominios | validateURL(url) |
+  | Internal metadata | Bloquear 169.254.169.254 | Network policy |
+  | Redirect SSRF | No seguir redirects | fetch(url, { redirect: "manual" }) |
+
+Lecciones:
+  - OWASP Top 10 es el minimo, no el objetivo
+  - Broken Access Control es #1: verifica ownership en cada request
+  - Queries parametrizadas eliminan SQL injection
+  - helmet() + CORS estricto en cada API
+  - npm audit + Dependabot en CI para deps vulnerables
+  - Audit log inmutable para deteccion y respuesta
+```
+
+### Como integro OWASP ZAP en CI/CD?
+
+Usa la imagen Docker de ZAP en tu pipeline: `docker run -t owasp/zap2docker-stable zap-baseline.py -t https://staging.example.com`. Configura el baseline scan en PRs y el full scan en merges a main. Guarda el reporte como artifact. Falla el pipeline si hay alertas HIGH o CRITICAL. Para APIs, usa zap-api-scan con un OpenAPI spec.

@@ -251,3 +251,83 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Dockerfile Optimizado para Node.js
+
+```dockerfile
+# Multi-stage build: reduce imagen final de 900MB a 80MB
+FROM node:20-slim AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+# Instala dev deps solo para build
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage final: solo archivos de produccion
+FROM node:20-slim AS runner
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+COPY --from=builder /app/dist ./dist
+# Usuario no-root por seguridad
+RUN groupadd -r app && useradd -r -g app appuser
+USER appuser
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+  CMD wget --quiet --tries=1 --spider http://localhost:3000/health || exit 1
+CMD ["node", "dist/main.js"]
+
+# docker-compose.yml para desarrollo
+```yaml
+version: "3.9"
+services:
+  app:
+    build: .
+    ports: ["3000:3000"]
+    environment:
+      DATABASE_URL: postgresql://user:pass@db:5432/app
+      REDIS_URL: redis://cache:6379
+    depends_on: [db, cache]
+    volumes:
+      - ./src:/app/src  # Hot reload en desarrollo
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: app
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+  cache:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+volumes:
+  pgdata:
+```
+
+Optimizaciones:
+  | Tecnica | Antes | Despues |
+  |----------|-------|---------|
+  | Multi-stage | 900MB | 80MB |
+  | Alpine/slim | 900MB | 180MB |
+  | npm ci | 60s | 20s |
+  | Layer cache (copy package primero) | Reinstala todo | Cache hit |
+  | Non-root user | Root | appuser |
+  | Healthcheck | Sin check | Auto-restart |
+
+Lecciones:
+  - Multi-stage build reduce tamano dramaticamente
+  - Copiar package.json antes que codigo aprovecha layer cache
+  - Usuario non-root es obligatorio en produccion
+  - Healthcheck permite auto-restart en orquestadores
+  - docker-compose para dev, Dockerfile para prod
+```
+
+### Como depuro un container en produccion?
+
+Usa `docker exec -it <container> sh` para entrar al container. Si no tiene shell (distroless), usa `docker logs <container>` y `docker inspect`. Para debugging de red, usa `docker run --rm --network container:<id> nicolaka/netshoot`. Para ver procesos: `docker top <container>`. Para ver recursos: `docker stats`.

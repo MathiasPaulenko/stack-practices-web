@@ -253,3 +253,125 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Pipeline CI/CD para Microservicio Node.js
+
+```yaml
+# .github/workflows/ci.yml
+name: CI/CD
+on:
+  push: { branches: [main] }
+  pull_request: { branches: [main] }
+
+permissions:
+  contents: read
+  id-token: write  # OIDC para deploy
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm test -- --coverage
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+
+  security:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx semgrep ci --config=p/owasp-top-ten
+      - run: npm audit --audit-level=high
+      - run: npx trivy fs --scanners vuln,secret .
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with: { registry: ${{ env.REGISTRY }}, token: ${{ secrets.GITHUB_TOKEN }} }
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to staging
+        run: |
+          kubectl set image deployment/app \
+            container=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          kubectl rollout status deployment/app --timeout=5m
+
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm run test:integration -- --base-url=https://staging.example.com
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: integration-test
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Canary deploy
+        run: |
+          kubectl set image deployment/app \
+            container=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          kubectl rollout status deployment/app --timeout=10m
+
+Metricas del pipeline:
+  | Stage | Duracion target |
+  |-------|-----------------|
+  | lint | < 1 min |
+  | test | < 3 min |
+  | security | < 2 min |
+  | build | < 5 min |
+  | deploy-staging | < 2 min |
+  | integration-test | < 5 min |
+  | deploy-prod | < 5 min |
+  | Total | < 23 min |
+
+Lecciones:
+  - Paraleliza lint, test y security para reducir tiempo
+  - Cache de Docker layers reduce build time 50%+
+  - OIDC elimina secrets de long-lived
+  - Integration tests contra staging, no contra mock
+  - Deploy a prod requiere environment approval
+```
+
+### Como hago rollback automatico?
+
+Configura ArgoCD Rollout o Flagger con analisis de Prometheus. Si la tasa de error > 1% o latencia p99 > baseline x2 durante 2 min, rollback automatico. Alternativamente, usa `kubectl rollout undo` manual. Documenta el criterio de rollback en el runbook. El rollback debe tomar < 30 segundos.

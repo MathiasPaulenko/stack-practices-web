@@ -222,3 +222,119 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Disenar un Acortador de URLs
+
+```text
+Problema: Disenar un acortador de URLs como bit.ly
+Requerimientos:
+  Funcional: Acortar URL, redirigir, alias personalizados, analytics
+  Escala: 100M URLs nuevas/dia, 10B lecturas/dia
+  Latencia: < 50ms para redirecciones
+  Disponibilidad: 99.99%
+
+Paso 1: Estimacion de capacidad
+  Escrituras: 100M/dia = ~1,160/s (peak ~3,000/s)
+  Lecturas: 10B/dia = ~115,000/s (peak ~300,000/s)
+  Ratio Lectura:Escritura = 100:1
+
+  Storage por URL:
+    short_code: 7 bytes (base62)
+    long_url: 500 bytes promedio
+    user_id: 8 bytes
+    created_at: 8 bytes
+    metadata: 50 bytes
+    Total: ~573 bytes por registro
+
+  Storage diario: 100M x 573B = ~57 GB/dia
+  Storage anual: ~21 TB/ano
+  Storage 5 anos: ~105 TB
+
+Paso 2: Diseno de API
+  POST /api/v1/shorten
+    Body: { "url": "https://example.com/...", "custom_alias": "my-link" }
+    Response: { "short_url": "https://s.io/my-link", "code": "my-link" }
+
+  GET /:code
+    Response: 301 redirect a long_url
+    Headers: Cache-Control: public, max-age=31536000
+
+  GET /api/v1/stats/:code
+    Response: { "clicks": 12345, "unique_visitors": 8900, ... }
+
+Paso 3: Generacion de short code
+  Opcion A: Base62 encoding de auto-increment ID
+    - ID 1 -> "1", ID 1000000 -> "15FTI"
+    - Pro: Sin colisiones, sortable
+    - Contra: Predecible (alguien puede enumerar URLs)
+
+  Opcion B: MD5 hash + primeros 7 chars
+    - hash(long_url + user_id) -> primeros 7 chars de base62
+    - Pro: Misma URL = mismo code (deduplicacion)
+    - Contra: Riesgo de colision (necesita retry logic)
+
+  Opcion C: Contador distribuido (Snowflake ID)
+    - 64-bit ID: timestamp + worker_id + sequence
+    - Base62 encode -> 11 chars, tomar primeros 7
+    - Pro: Sin coordinacion, sin colisiones
+    - Contra: Codes mas largos de lo necesario
+
+  Decision: Opcion A con XOR obfuscation para prevenir enumeracion
+
+Paso 4: Modelo de datos
+  PostgreSQL (escritura) + Redis (cache) + Cassandra (analytics)
+
+  -- PostgreSQL: Mapeo de URLs
+  CREATE TABLE url_mappings (
+      short_code VARCHAR(7) PRIMARY KEY,
+      long_url TEXT NOT NULL,
+      user_id BIGINT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      expires_at TIMESTAMP,
+      INDEX idx_long_url (long_url)
+  );
+
+  -- Cassandra: Click analytics (escritura intensiva)
+  CREATE TABLE click_events (
+      short_code TEXT,
+      clicked_at TIMESTAMP,
+      ip_address TEXT,
+      user_agent TEXT,
+      referrer TEXT,
+      PRIMARY KEY (short_code, clicked_at)
+  ) WITH CLUSTERING ORDER BY (clicked_at DESC);
+
+Paso 5: Diagrama de arquitectura
+  Cliente -> CDN (edge redirect cache)
+    -> Load Balancer
+      -> API Servers (stateless, auto-scaled)
+        -> Redis (cache lookup, 95% hit rate)
+        -> PostgreSQL (escritura + cache miss)
+        -> Kafka (async click events)
+          -> Analytics Consumer -> Cassandra
+
+Paso 6: Estrategia de caching
+  - Redis cache: short_code -> long_url (TTL: 24h)
+  - CDN cache: 301 redirects cached en edge (TTL: 1 ano)
+  - Cache hit rate target: > 95% (solo 5% llega a PostgreSQL)
+  - Invalidacion: en update de URL, borrar de Redis + CDN purge
+
+Paso 7: Sharding (ano 2+)
+  Shard por short_code hash: 16 shards
+  Cada shard: 1 master + 3 read replicas
+  Capacidad escritura: 16 x 3,000 = 48,000 writes/s
+  Capacidad lectura: 16 x 20,000 = 320,000 reads/s (con replicas)
+
+Paso 8: Preocupaciones operacionales
+  - Monitoreo: latencia de redirect, cache hit rate, error rate
+  - Alerting: p99 > 100ms, cache hit < 90%, error rate > 0.1%
+  - Backup: PostgreSQL PITR + snapshot diario a S3
+  - DR: Multi-AZ, RPO < 1 min, RTO < 15 min
+```
+
+### Como estimo storage y bandwidth en una entrevista?
+
+Empieza con los numeros dados en los requerimientos. Calcula escrituras y lecturas diarias. Multiplica por el tamanio del registro para obtener storage diario. Multiplica por 365 para el anual. Agrega 20% de overhead para indices y metadata. Para bandwidth, multiplica requests/segundo por el tamanio promedio de respuesta. Establece tus suposiciones explicitamente y redondea para facilitar la matematica. Los entrevistadores evaluan el proceso, no los numeros exactos.

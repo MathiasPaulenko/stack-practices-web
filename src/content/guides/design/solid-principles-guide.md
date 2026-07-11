@@ -290,3 +290,116 @@ The concepts translate well to other models. Functional programming achieves DIP
 ### How do I convince my team to refactor toward SOLID?
 
 Don't refactor for the sake of the principles. Wait until a change is needed, then use the principles to guide a cleaner design. Show before/after comparisons in PRs.
+
+
+## Advanced Topics
+
+### Scenario: Refactoring a Payment Service with SOLID
+
+```typescript
+// Before: violates SRP, OCP, and DIP
+class PaymentProcessor {
+  processPayment(payment: Payment) {
+    // Validates (SRP violation)
+    if (!payment.amount || payment.amount <= 0) throw new Error("Invalid");
+    // Processes with Stripe (OCP violation - hardcoded)
+    const stripe = new StripeClient("sk_live_xxx");
+    const result = stripe.charge(payment.amount, payment.currency);
+    // Logs to console (SRP violation)
+    console.log("Payment processed:", result);
+    // Sends email (SRP violation)
+    const email = new EmailService();
+    email.send(payment.customerEmail, "Payment received");
+    // Saves to MySQL (DIP violation - hardcoded)
+    const db = new MySQLConnection("localhost", "payments");
+    db.query("INSERT INTO payments ...", result);
+    return result;
+  }
+}
+
+// After: SOLID-compliant refactor
+
+// SRP: Each class has one responsibility
+interface PaymentValidator {
+  validate(payment: Payment): void;
+}
+class PaymentValidatorImpl implements PaymentValidator {
+  validate(payment: Payment) {
+    if (!payment.amount || payment.amount <= 0)
+      throw new Error("Invalid amount");
+    if (!payment.currency || payment.currency.length !== 3)
+      throw new Error("Invalid currency");
+  }
+}
+
+// OCP: New gateways without modifying existing code
+interface PaymentGateway {
+  charge(amount: number, currency: string): Promise<PaymentResult>;
+}
+class StripeGateway implements PaymentGateway {
+  constructor(private client: StripeClient) {}
+  async charge(amount: number, currency: string) {
+    return this.client.charge(amount, currency);
+  }
+}
+class PayPalGateway implements PaymentGateway {
+  constructor(private client: PayPalClient) {}
+  async charge(amount: number, currency: string) {
+    return this.client.createOrder(amount, currency);
+  }
+}
+
+// ISP: Segregated interfaces
+interface PaymentRepository {
+  save(result: PaymentResult): Promise<void>;
+}
+interface NotificationService {
+  notify(email: string, subject: string, body: string): Promise<void>;
+}
+interface Logger {
+  log(level: string, message: string, meta?: object): void;
+}
+
+// DIP: Depends on abstractions, not concretions
+class PaymentProcessor {
+  constructor(
+    private validator: PaymentValidator,
+    private gateway: PaymentGateway,
+    private repo: PaymentRepository,
+    private notifier: NotificationService,
+    private logger: Logger
+  ) {}
+
+  async processPayment(payment: Payment): Promise<PaymentResult> {
+    this.validator.validate(payment);
+    this.logger.log("info", "Processing payment", { amount: payment.amount });
+
+    const result = await this.gateway.charge(payment.amount, payment.currency);
+
+    await this.repo.save(result);
+    await this.notifier.notify(payment.customerEmail, "Payment received",
+      `Your payment of ${payment.amount} ${payment.currency} was processed.`);
+    this.logger.log("info", "Payment completed", { id: result.id });
+    return result;
+  }
+}
+
+// LSP: Any PaymentGateway implementation works
+const processor = new PaymentProcessor(
+  new PaymentValidatorImpl(),
+  new StripeGateway(stripeClient),  // or new PayPalGateway(paypalClient)
+  new PostgresPaymentRepository(db),
+  new EmailNotificationService(smtp),
+  new WinstonLogger()
+);
+
+// Testing: mock everything via interfaces
+const testProcessor = new PaymentProcessor(
+  mockValidator, mockGateway, mockRepo, mockNotifier, mockLogger
+);
+// Each dependency is swappable and testable independently
+```
+
+### How do SOLID principles apply to microservices?
+
+SRP maps to service boundaries: each service owns one business capability. OCP means new features are new services or new endpoints, not modifications to existing ones. LSP ensures API contracts are respected across versions. ISP means clients get only the endpoints they need (BFF pattern). DIP means services depend on contracts (API specs), not implementations.

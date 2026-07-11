@@ -265,3 +265,93 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Secure Code Review para API de Pagos
+
+```text
+Sistema: API de pagos Node.js, 20 endpoints
+Objetivo: Code review de seguridad antes de cada release
+
+Checklist de secure code review:
+  | Categoria | Item | Herramienta |
+  |-----------|------|------------|
+  | Input | Validacion con schema | Zod safeParse |
+  | Input | Sanitizacion de strings | DOMPurify (HTML), escape SQL |
+  | Auth | JWT verificado en cada request | middleware |
+  | Auth | RBAC + scope por recurso | OPA o middleware |
+  | Auth | Rate limiting en auth endpoints | express-rate-limit |
+  | Crypto | bcrypt para passwords (rounds 12+) | bcrypt |
+  | Crypto | AES-256-GCM para datos sensibles | crypto module |
+  | Crypto | TLS 1.3 obligatorio | nginx/ALB config |
+  | Output | No exponer stack traces | error handler |
+  | Output | No exponer datos sensibles en respuestas | DTO + mapping |
+  | Output | Headers de seguridad | helmet() |
+  | Session | Expiracion de JWT (15min) | jwt.sign |
+  | Session | Refresh token rotation | DB tracking |
+  | Session | Logout invalida token | Redis blacklist |
+  | Logging | No logear secrets/PII | winston redact |
+  | Logging | Audit log de acciones criticas | audit table |
+  | Deps | npm audit en CI | npm audit |
+  | Deps | Snyk scan en CI | snyk test |
+  | Deps | License check | license-checker |
+  | Config | NODE_ENV=production | env var |
+  | Config | CORS estricto | cors middleware |
+  | Config | CSP headers | helmet contentSecurityPolicy |
+
+```javascript
+// Ejemplo: middleware de validacion + auth + RBAC
+const { z } = require("zod");
+
+const transferSchema = z.object({
+  destinationAccountId: z.string().uuid(),
+  amount: z.number().positive().max(100000),  // max 100K
+  currency: z.enum(["USD", "EUR", "GBP"]),
+  description: z.string().max(500).optional()
+});
+
+// Middleware chain: auth -> RBAC -> input validation -> handler
+app.post("/api/transfers",
+  authMiddleware,           // Verifica JWT
+  roleMiddleware("user"),   // Verifica rol
+  (req, res, next) => {
+    const result = transferSchema.safeParse(req.body);
+    if (!result.success) {
+      return res.status(400).json({ error: "Invalid input" });
+    }
+    req.body = result.data;
+    next();
+  },
+  async (req, res) => {
+    // Verificar ownership: el usuario solo puede transferir desde sus cuentas
+    const account = await db.query(
+      "SELECT owner_id FROM accounts WHERE id = $1",
+      [req.body.sourceAccountId]
+    );
+    if (account.rows[0].owner_id !== req.user.id) {
+      // Audit log de intento de acceso no autorizado
+      await auditLog({ userId: req.user.id, action: "UNAUTHORIZED_TRANSFER", ip: req.ip });
+      return res.status(403).json({ error: "Forbidden" });
+    }
+    // Ejecutar transferencia
+    const transfer = await processTransfer(req.body);
+    // Audit log
+    await auditLog({ userId: req.user.id, action: "TRANSFER", amount: req.body.amount });
+    res.json(transfer);
+  }
+);
+```
+
+Lecciones:
+  - Validacion de input en cada endpoint, sin excepciones
+  - Verificar ownership: IDOR es la vulnerabilidad mas comun
+  - Audit log de acciones criticas y intentos no autorizados
+  - Nunca exponer stack traces en respuestas
+  - npm audit + Snyk en CI: deps vulnerables son riesgo real
+```
+
+### Que busco en un secure code review?
+
+Input validation (todos los campos validados), autorizacion (verificar ownership y rol), manejo de errores (no exponer info sensible), logging (no logear secrets), dependencias (sin CVEs altos), configuracion (CORS, headers, TLS). Usa semgrep para escaneo automatizado en CI, pero el review manual es obligatorio para logica de negocio.

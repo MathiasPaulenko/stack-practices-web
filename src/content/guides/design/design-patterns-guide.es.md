@@ -258,3 +258,112 @@ Sí, pero los lenguajes modernos a menudo absorben patterns en sus librerías es
 ### Cuántos patterns debería usar en un módulo?
 
 Usa tantos como necesites, pero no más. Cada pattern agrega carga cognitiva. Si un módulo usa más de 2-3 patterns, considera si está haciendo demasiado y debería dividirse.
+
+
+## Temas Avanzados
+
+### Escenario: Patrones en un Sistema de Pedidos
+
+```text
+Sistema: Procesamiento de pedidos e-commerce
+Patrones aplicados: Strategy, Factory, Observer, Decorator, Command
+
+1. Strategy - Calculo de envio:
+  interface ShippingStrategy {
+    calculate(weight: number): number;
+  }
+  class StandardShipping implements ShippingStrategy {
+    calculate(weight: number) { return weight * 0.5; }
+  }
+  class ExpressShipping implements ShippingStrategy {
+    calculate(weight: number) { return weight * 1.5; }
+  }
+  class SameDayShipping implements ShippingStrategy {
+    calculate(weight: number) { return weight * 3.0; }
+  }
+
+  // Uso: seleccionar estrategia en runtime
+  const shipping = strategies[order.shippingMethod];
+  const cost = shipping.calculate(order.totalWeight);
+
+2. Factory - Creacion de notificaciones:
+  class NotificationFactory {
+    create(type: string): Notification {
+      switch (type) {
+        case "email": return new EmailNotification();
+        case "sms": return new SMSNotification();
+        case "push": return new PushNotification();
+        default: throw new Error("Tipo no soportado");
+      }
+    }
+  }
+
+3. Observer - Eventos de pedido:
+  class OrderEventBus {
+    private handlers: Map<string, Function[]> = new Map();
+    on(event: string, handler: Function) {
+      if (!this.handlers.has(event)) this.handlers.set(event, []);
+      this.handlers.get(event).push(handler);
+    }
+    emit(event: string, data: any) {
+      this.handlers.get(event)?.forEach(h => h(data));
+    }
+  }
+  // Suscriptores: inventario, email, analytics
+  bus.on("order.created", updateInventory);
+  bus.on("order.created", sendConfirmation);
+  bus.on("order.created", trackAnalytics);
+
+4. Decorator - Logging y cache:
+  function withLogging(fn: Function) {
+    return async (...args: any[]) => {
+      console.log("Calling:", fn.name, args);
+      const result = await fn(...args);
+      console.log("Result:", result);
+      return result;
+    };
+  }
+  function withCache(fn: Function, ttl: number) {
+    const cache = new Map();
+    return async (...args: any[]) => {
+      const key = JSON.stringify(args);
+      if (cache.has(key)) return cache.get(key);
+      const result = await fn(...args);
+      cache.set(key, result);
+      setTimeout(() => cache.delete(key), ttl);
+      return result;
+    };
+  }
+
+  // Composicion: logging + cache
+  const cachedLoggedFetch = withCache(withLogging(fetchProduct), 60000);
+
+5. Command - Operaciones de pedido:
+  interface Command { execute(): Promise<void>; }
+  class CancelOrderCommand implements Command {
+    constructor(private order: Order, private inventory: Inventory) {}
+    async execute() {
+      await this.inventory.release(this.order.items);
+      await this.order.update({ status: "cancelled" });
+    }
+  }
+  // Permite undo, queue, y logging de operaciones
+
+Anti-patrones a evitar:
+  - Singleton para todo (acoplamiento global)
+  - Factory cuando un constructor basta
+  - Observer sin unsubscribe (memory leaks)
+  - Decorator stacking excesivo (> 3 niveles)
+  - Command sin undo (pierde la mitad del valor)
+
+Lecciones:
+  - Aplica patrones cuando el problema lo requiere, no antes
+  - Los lenguajes modernos absorben patrones en su stdlib
+  - Composicion > herencia en la mayoria de casos
+  - Cada patron agrega complejidad: midela contra el valor
+  - Refactoriza hacia patrones, no los disenes desde el inicio
+```
+
+### Como se relacionan los patrones con SOLID?
+
+Strategy implementa Open/Closed (nuevas estrategias sin cambiar codigo existente). Factory implementa Single Responsibility (creacion separada de uso). Observer implementa Dependency Inversion (depende de abstraccion, no concrecion). Decorator implementa Open/Closed (extiende sin modificar). Command implementa Single Responsibility (cada comando una responsabilidad).

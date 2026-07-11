@@ -257,3 +257,149 @@ Always acquire locks in the same order across your codebase. Use timeouts on loc
 
 Concurrency is about structuring a program to handle multiple tasks (interleaving). Parallelism is about executing multiple tasks simultaneously (truly at the same time). Async I/O is concurrent; multithreading on multiple cores is parallel.
 
+
+
+## Advanced Topics
+
+### Detailed Scenario: Parallel Order Processing
+
+```text
+System: E-commerce order processing (Python + asyncio)
+Volume: 10,000 orders/hour during peaks
+Requirement: Each order requires 3 external API calls (inventory, payment, shipping)
+
+Problem: Sequential processing takes 3s per order (3 x 1s)
+Goal: Reduce to 1s per order with concurrency
+
+Solution: asyncio.gather to parallelize the 3 calls
+
+  async def process_order(order: Order) -> OrderResult:
+      inventory, payment, shipping = await asyncio.gather(
+          check_inventory(order.items),
+          process_payment(order.total, order.customer_id),
+          arrange_shipping(order.address),
+          return_exceptions=True
+      )
+
+      if isinstance(inventory, Exception):
+          return OrderResult(failed=True, reason="inventory_error")
+      if isinstance(payment, Exception):
+          return OrderResult(failed=True, reason="payment_error")
+      if isinstance(shipping, Exception):
+          return OrderResult(failed=True, reason="shipping_error")
+
+      return OrderResult(success=True, order_id=order.id)
+
+Rate limiting with semaphore: max 50 concurrent orders
+  semaphore = asyncio.Semaphore(50)
+
+  async def process_batch(orders: List[Order]):
+      async def limited_process(order):
+          async with semaphore:
+              return await process_order(order)
+      return await asyncio.gather(*[limited_process(o) for o in orders])
+
+Results:
+  | Metric | Sequential | Concurrent |
+  |--------|-----------|------------|
+  | Time per order | 3.0s | 1.1s |
+  | Throughput | 1,200/h | 10,000/h |
+  | CPU usage | 15% | 35% |
+  | Memory | 50MB | 120MB |
+  | Timeout errors | 2% | 0.3% |
+
+Lessons learned:
+  - asyncio.gather reduces parallel I/O latency
+  - return_exceptions=True prevents one failure from canceling the batch
+  - The semaphore prevents overwhelming external APIs
+  - Monitor memory: each concurrent task consumes RAM
+```
+
+### Actor Model Pattern (Erlang/Elixir)
+
+The actor model treats concurrency as isolated entities communicating via messages. Each actor has its own state, no sharing. Erlang and Elixir use this model on the BEAM VM.
+
+```elixir
+defmodule Counter do
+  use GenServer
+
+  def start_link(initial_value \\ 0) do
+    GenServer.start_link(__MODULE__, initial_value)
+  end
+
+  def increment(pid) do
+    GenServer.call(pid, :increment)
+  end
+
+  def get_value(pid) do
+    GenServer.call(pid, :get_value)
+  end
+
+  def init(initial_value) do
+    {:ok, initial_value}
+  end
+
+  def handle_call(:increment, _from, state) do
+    new_state = state + 1
+    {:reply, new_state, new_state}
+  end
+
+  def handle_call(:get_value, _from, state) do
+    {:reply, state, state}
+  end
+end
+
+{:ok, counter1} = Counter.start_link(0)
+{:ok, counter2} = Counter.start_link(100)
+Counter.increment(counter1)  # => 1
+Counter.increment(counter1)  # => 2
+Counter.get_value(counter2)  # => 100 (unaffected)
+```
+
+### Circuit Breaker for Concurrency
+
+When a concurrent resource fails repeatedly, the circuit breaker stops calls temporarily to prevent cascading failures.
+
+```python
+import asyncio
+from enum import Enum
+
+class CircuitState(Enum):
+    CLOSED = "closed"
+    OPEN = "open"
+    HALF_OPEN = "half_open"
+
+class CircuitBreaker:
+    def __init__(self, failure_threshold=5, recovery_timeout=30):
+        self.failure_count = 0
+        self.failure_threshold = failure_threshold
+        self.recovery_timeout = recovery_timeout
+        self.state = CircuitState.CLOSED
+        self.last_failure_time = None
+        self._lock = asyncio.Lock()
+
+    async def call(self, func, *args, **kwargs):
+        async with self._lock:
+            if self.state == CircuitState.OPEN:
+                if asyncio.get_event_loop().time() - self.last_failure_time > self.recovery_timeout:
+                    self.state = CircuitState.HALF_OPEN
+                else:
+                    raise Exception("Circuit breaker is OPEN")
+        try:
+            result = await func(*args, **kwargs)
+            async with self._lock:
+                self.failure_count = 0
+                self.state = CircuitState.CLOSED
+            return result
+        except Exception as e:
+            async with self._lock:
+                self.failure_count += 1
+                self.last_failure_time = asyncio.get_event_loop().time()
+                if self.failure_count >= self.failure_threshold:
+                    self.state = CircuitState.OPEN
+            raise
+```
+
+### How do I test concurrent code?
+
+Use tools like ThreadSanitizer (C++/Go), Helgrind (Valgrind) or pytest-asyncio to detect race conditions. Write tests that run concurrent operations under load. For deadlocks, use timeouts in tests. For determinism, use controlled execution models like loctest or property-based testing with hypothesis.

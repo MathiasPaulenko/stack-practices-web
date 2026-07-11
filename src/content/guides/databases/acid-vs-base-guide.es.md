@@ -210,3 +210,93 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: E-commerce Hibrido ACID/BASE
+
+```text
+Sistema: 10M usuarios, 500K ordenes/dia
+Modelo: ACID para pagos/inventario, BASE para catalogo/reviews
+
+Arquitectura:
+  | Servicio | Modelo | DB | Consistencia |
+  |----------|--------|-----|-------------|
+  | Pagos | ACID | PostgreSQL | Serializable |
+  | Inventario | ACID | PostgreSQL | Repeatable Read |
+  | Ordenes | ACID | PostgreSQL | Read Committed |
+  | Catalogo | BASE | MongoDB | Eventual |
+  | Search | BASE | Elasticsearch | NRT |
+  | Analytics | BASE | ClickHouse | Eventual |
+
+Flujo de orden (Saga):
+  1. Reservar inventario (ACID)
+     BEGIN; UPDATE inventory SET stock = stock - qty WHERE sku = ?;
+     INSERT INTO reservations ...; COMMIT;
+  2. Procesar pago (ACID)
+     BEGIN; INSERT INTO payments ...; UPDATE accounts ...; COMMIT;
+  3. Crear orden (ACID)
+     INSERT INTO orders ...; COMMIT;
+  4. Publicar evento (BASE, Kafka)
+     Producir OrderCreated a Kafka
+
+  Compensacion si falla:
+  - Pago falla: liberar inventario
+  - Orden falla: reembolsar pago, liberar inventario
+
+  TypeScript:
+    class CheckoutSaga {
+      async execute(cart, paymentMethod) {
+        const reservation = await this.reserveInventory(cart.items);
+        try {
+          const payment = await this.processPayment(cart.total, paymentMethod);
+          const order = await this.createOrder(cart, payment.id);
+          await this.eventBus.publish(new OrderCreated(order));
+          return order;
+        } catch (error) {
+          await this.releaseInventory(reservation);
+          await this.refundPayment(payment?.id);
+          throw error;
+        }
+      }
+    }
+
+Patron Outbox (garantiza publicacion):
+  BEGIN; INSERT INTO orders ...;
+  INSERT INTO outbox (event_type, payload) VALUES ("OrderCreated", ...);
+  COMMIT;
+  -- Proceso separado lee outbox y publica a Kafka
+
+Sincronizacion:
+  Catalogo -> ES: MongoDB Change Stream, latencia 1-5s
+  Ordenes -> Analytics: Kafka consumer -> ClickHouse, 30-60s
+
+Manejo de inconsistencias:
+  | Escenario | Mitigacion |
+  |-----------|------------|
+  | Catalogo desactualizado | TTL cache + refresh |
+  | Review no indexada | Reindex programado |
+  | Analytics atrasado | Aceptar NRT |
+  | Saga no compensa | Alerta + reconciliacion |
+
+Monitoreo:
+  - Kafka lag: < 60s (alerta > 300s)
+  - Outbox sin procesar: > 100 (alerta)
+  - Reconciliacion: job diario cross-store
+
+Lecciones:
+  - ACID para dinero, BASE para lo demas
+  - Outbox resuelve dual-write
+  - Sagas necesitan compensacion idempotente
+  - Reconciliacion periodica detecta inconsistencias silenciosas
+```
+
+### Que es consistencia ajustable?
+
+Cassandra y DynamoDB permiten ajustar consistencia por operacion. ONE: lee un nodo (rapido). QUORUM: lee mayoria (consistente). ALL: lee todos (max consistencia). Usa QUORAM para operaciones criticas y ONE para cache.
+
+
+
+
+End of document. Review and update quarterly.

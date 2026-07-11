@@ -196,6 +196,103 @@ Protocol Buffers son el formato de serialización. Son **binarios y tipados**, l
 
 El balanceo de carga en gRPC es más complejo que en HTTP/1.1. Como las conexiones HTTP/2 son persistentes, un balanceador L4 puede enviar todo el tráfico a una sola instancia. Necesitas balanceo L7 (Envoy, Nginx con módulo gRPC, o service mesh) que entienda gRPC y pueda balancear por RPC en lugar de por conexión.
 
+
+### Escenario Detallado: Migracion de REST a gRPC en E-commerce
+
+```text
+Sistema: E-commerce con 8 microservicios (Python + Flask REST)
+Problema: Latencia interna promedio 45ms (JSON + HTTP/1.1)
+Objetivo: Reducir latencia interna a < 10ms con gRPC
+
+Servicios a migrar (orden por beneficio):
+  1. payment-service (1000 RPS, payloads grandes)
+  2. inventory-service (3000 RPS, payloads pequenos)
+  3. order-service (500 RPS, payloads medianos)
+  4. user-service (200 RPS, payloads pequenos)
+
+Semana 1-2: Definir proto files
+  // proto/payment.proto
+  syntax = "proto3";
+  package ecommerce.payments;
+
+  service PaymentService {
+    rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+    rpc RefundPayment (RefundRequest) returns (RefundResponse);
+    rpc GetPaymentStatus (StatusRequest) returns (PaymentStatus);
+  }
+
+  message PaymentRequest {
+    string order_id = 1;
+    string customer_id = 2;
+    double amount = 3;
+    string currency = 4;
+    string payment_method_id = 5;
+  }
+
+  message PaymentResponse {
+    string transaction_id = 1;
+    bool success = 2;
+    string error_message = 3;
+    string processed_at = 4;
+  }
+
+  Generar codigo: python -m grpc_tools.protoc -I proto/ --python_out=. --grpc_python_out=. proto/payment.proto
+
+Semana 3-4: Implementar servidor gRPC (paralelo a REST)
+  class PaymentServicer(payment_pb2_grpc.PaymentServiceServicer):
+      def ProcessPayment(self, request, context):
+          # Misma logica de negocio que el endpoint REST
+          result = self.payment_service.process(
+              order_id=request.order_id,
+              customer_id=request.customer_id,
+              amount=request.amount,
+              currency=request.currency,
+              payment_method_id=request.payment_method_id
+          )
+          return payment_pb2.PaymentResponse(
+              transaction_id=result.id,
+              success=result.success,
+              error_message=result.error or "",
+              processed_at=result.timestamp
+          )
+
+  # Health check gRPC (requerido para load balancing)
+  class HealthServicer(health_pb2_grpc.HealthServicer):
+      def Check(self, request, context):
+          return health_pb2.HealthCheckResponse(
+              status=health_pb2.HealthCheckResponse.SERVING)
+
+Semana 5: Deploy con Envoy como proxy
+  Envoy config: L7 load balancing, gRPC health checks, timeouts
+  HPA: min 3, max 10 replicas (CPU 70%)
+  Graceful shutdown: 30s drain (gRPC GoAway frame)
+
+Semana 6: Migrar consumidores internos
+  - order-service cambia de REST a gRPC para llamar a payment-service
+  - Feature flag: 10% gRPC, 50% gRPC, 100% gRPC
+  - Monitoreo: compara latencia REST vs gRPC
+
+Resultados despues de 2 semanas en produccion:
+  | Metrica | REST (antes) | gRPC (despues) |
+  |---------|-------------|----------------|
+  | Latencia p50 | 45ms | 8ms |
+  | Latencia p95 | 120ms | 22ms |
+  | Payload size | 2.1KB (JSON) | 340B (protobuf) |
+  | Throughput | 1,000 RPS | 3,500 RPS |
+  | CPU usage | 60% | 35% |
+  | Conexiones TCP | 800 | 12 (HTTP/2 multiplexed) |
+
+Problemas encontrados:
+  - Envoy requirio configuracion explicita para HTTP/2 end-to-end
+  - protobuf backward compatibility: agregar campos OK, cambiar tipos NO
+  - Debugging: gRPC no es legible sin tooling (grpcurl, BloomRPC)
+  - Timeout default infinito: agregar deadlines en cada llamada
+```
+
+### Como debuggeo servicios gRPC en desarrollo?
+
+Usa grpcurl (CLI) o BloomRPC (GUI) para invocar metodos gRPC manualmente. Para inspectar trafico, usa Wireshark con filtro http2 o el panel de gRPC de Envoy admin. Agrega logging estructurado en interceptores para registrar cada RPC con correlation ID. Para performance, usa ghz para benchmarking con cargas realistas.
+
 ## Variantes
 
 | Situación | Enfoque | Notas |

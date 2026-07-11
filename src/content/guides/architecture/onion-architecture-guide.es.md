@@ -191,3 +191,112 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: App de Pedidos con Arquitectura Onion
+
+```text
+Proyecto: Sistema de pedidos .NET 8
+Estructura de proyectos:
+  src/
+    Domain/                    # Nucleo — sin dependencias externas
+      ├── Entities/
+      │   ├── Order.cs          # Entidad con logica de negocio
+      │   ├── OrderLine.cs      # Value object
+      │   └── Product.cs
+      ├── ValueObjects/
+      │   ├── Money.cs          # Value object inmutable
+      │   └── OrderId.cs
+      ├── Events/
+      │   ├── OrderPlacedEvent.cs
+      │   └── OrderCancelledEvent.cs
+      ├── Interfaces/
+      │   ├── IOrderRepository.cs   # Puerto definido en dominio
+      │   ├── IProductRepository.cs
+      │   └── IEventBus.cs
+      └── Exceptions/
+          └── DomainException.cs
+    Application/               # Casos de uso — depende de Domain
+      ├── Orders/
+      │   ├── PlaceOrder/
+      │   │   ├── PlaceOrderCommand.cs
+      │   │   ├── PlaceOrderHandler.cs
+      │   │   └── PlaceOrderValidator.cs
+      │   ├── CancelOrder/
+      │   │   ├── CancelOrderCommand.cs
+      │   │   └── CancelOrderHandler.cs
+      │   └── GetOrderById/
+      │       ├── GetOrderByIdQuery.cs
+      │       └── GetOrderByIdHandler.cs
+      └── DTOs/
+          └── OrderDto.cs
+    Infrastructure/           # Implementaciones — depende de Application
+      ├── Persistence/
+      │   ├── AppDbContext.cs
+      │   ├── Configurations/
+      │   │   └── OrderConfiguration.cs   # Mapeo EF Core
+      │   └── Repositories/
+      │       ├── SqlOrderRepository.cs    # Implementa IOrderRepository
+      │       └── SqlProductRepository.cs
+      ├── Messaging/
+      │   └── RabbitMqEventBus.cs          # Implementa IEventBus
+      └── DependencyInjection.cs
+    Presentation/             # API — depende de Application
+      ├── Controllers/
+      │   └── OrdersController.cs
+      └── Program.cs
+
+Reglas de dependencia (verificadas con NetArchTest):
+  Domain no referencia ningun proyecto
+  Application referencia solo Domain
+  Infrastructure referencia Application y Domain
+  Presentation referencia Application y Domain
+  Ningun proyecto referencia Infrastructure (inversion de dependencias)
+
+Testeo por capa:
+  | Capa | Tipo | Herramienta |
+  |------|------|------------|
+  | Domain | Unit puro, sin mocks | xUnit |
+  | Application | Unit con mocks de repos | xUnit + NSubstitute |
+  | Infrastructure | Integration con Testcontainers | xUnit + Testcontainers |
+  | Presentation | Integration con WebApplicationFactory | xUnit |
+
+Verificacion arquitectura en CI:
+  // ArchUnitTest.cs
+  var result = Types.InAssembly(typeof(Order).Assembly)
+      .Should().NotHaveDependencyOn("Infrastructure")
+      .And().NotHaveDependencyOn("Presentation")
+      .And().NotHaveDependencyOn("Microsoft.EntityFrameworkCore")
+      .GetResult();
+  result.IsSuccessful.Should().BeTrue();
+```
+
+### Como manejo transacciones en Arquitectura Onion?
+
+Define una interfaz IUnitOfWork en el dominio. La infraestructura la implementa con EF Core o Dapper. El handler de aplicacion usa IUnitOfWork para coordinar transacciones: abre la unidad de trabajo, ejecuta operaciones de dominio, y hace commit o rollback. El dominio no sabe nada sobre transacciones; solo expone metodos que cambian su estado. La capa de aplicacion decide cuando persistir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

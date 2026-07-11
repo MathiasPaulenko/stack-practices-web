@@ -183,6 +183,99 @@ Las decisiones de enrutamiento deben ser **stateless y determinísticas** para q
 
 Los circuit breakers previenen fallos en cascada. Cuando un servicio está luchando, el gateway debe fallar rápido en lugar de encolar requests que van a timeout. Esto protege tanto al servicio en dificultades como al llamador. El estado half-open permite recuperación gradual: después de un enfriamiento, se permite un número limitado de requests para probar si el servicio se ha recuperado.
 
+
+### Escenario Detallado: API Gateway con Kong para E-commerce
+
+```text
+Sistema: E-commerce con 6 microservicios detras de Kong
+Servicios: users, catalog, orders, payments, inventory, notifications
+Plataforma: Kubernetes (EKS) + Kong + Redis + Keycloak
+
+Configuracion de Kong (kong.yml):
+  services:
+    - name: user-service
+      url: http://user-service.default.svc:8080
+      routes:
+        - name: users-route
+          paths: ["/api/users"]
+          strip_path: true
+      plugins:
+        - name: jwt
+        - name: rate-limiting
+          config: { minute: 100, hour: 1000 }
+        - name: correlation-id
+          config: { header_name: "X-Request-ID" }
+
+    - name: order-service
+      url: http://order-service.default.svc:8080
+      routes:
+        - name: orders-route
+          paths: ["/api/orders"]
+          strip_path: true
+      plugins:
+        - name: jwt
+        - name: rate-limiting
+          config: { minute: 50, hour: 500 }
+        - name: correlation-id
+
+Autenticacion con Keycloak (OIDC):
+  1. Cliente obtiene JWT de Keycloak: POST /realms/ecommerce/protocol/openid-connect/token
+  2. Cliente envia JWT en header: Authorization: Bearer <token>
+  3. Kong valida JWT con clave publica de Keycloak
+  4. Kong cachea el resultado de validacion en Redis (TTL: 5 min)
+  5. Si valido, Kong enruta al servicio; si no, retorna 401
+
+Rate limiting distribuido con Redis:
+  kong.conf:
+    rate_limiting = redis
+    redis_host = redis.default.svc
+    redis_port = 6379
+    redis_timeout = 2000
+
+  Limites por plan:
+    Free: 100 req/min, 1000 req/hora
+    Pro: 1000 req/min, 10000 req/hora
+    Enterprise: 10000 req/min, sin limite por hora
+
+Observabilidad:
+  - Prometheus plugin: exporta metricas a /metrics
+  - Zipkin plugin: trazas distribuidas con correlation ID
+  - File-log plugin: logs en JSON a stdout (recogidos por Fluentd)
+  - Dashboard Grafana: QPS, latencia p50/p95/p99, error rate por ruta
+
+Circuit breaker por servicio:
+  kong.yml plugin:
+    - name: proxy-cache
+      config: { strategy: "redis", cache_ttl: 300 }
+    - name: pre-function
+      functions: [check_upstream_health]
+
+  Logica: si error rate > 50% en 30s, abrir circuito por 60s
+  En circuito abierto: retornar 503 con Retry-After header
+  En half-open: permitir 10 requests de prueba
+
+Despliegue en Kubernetes:
+  - Kong via Helm chart: 3 replicas en nodos distintos
+  - HPA: min 3, max 10 replicas, CPU target 70%
+  - PodDisruptionBudget: min available 2
+  - Health check: /status endpoint
+  - Graceful shutdown: 30s drain period
+
+Metricas de produccion (promedio):
+  | Metrica | Valor |
+  |---------|-------|
+  | QPS total | 12,000 |
+  | Latencia p50 (gateway) | 1.2ms |
+  | Latencia p95 (gateway) | 3.8ms |
+  | Cache hit rate (auth) | 94% |
+  | Error rate | 0.08% |
+  | Uptime | 99.97% |
+```
+
+### Como manejo versionado de API en el gateway?
+
+Usa path-based versionado: /v1/users, /v2/users. El gateway enruta a diferentes servicios o versiones del mismo servicio. Manten v1 mientras v2 esta en uso. Programa la deprecacion de v1 con un header de respuesta: Sunset: Sat, 31 Dec 2026 23:59:59 GMT. Documenta los cambios entre versiones. Nunca rompas v1 sin aviso con 6 meses de antelacion.
+
 ## Variantes
 
 | Tipo de Gateway | Mejor Para | Trade-off |

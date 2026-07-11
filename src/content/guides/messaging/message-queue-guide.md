@@ -222,3 +222,93 @@ Use **idempotent consumers**: design your processing logic so that processing th
 ### What is consumer lag and how do I fix it?
 
 Consumer lag is the difference between the newest message in the queue and the oldest unprocessed message. High lag means your consumers are slower than your producers. Fix it by: (1) scaling out consumers (add more instances), (2) optimizing processing time (profile your consumer code), (3) reducing message size, or (4) splitting into more partitions (Kafka) or queues (RabbitMQ). If lag is chronic, your architecture may need redesign — queues absorb spikes, not sustained overload.
+
+
+## Advanced Topics
+
+### Scenario: Order Processing System with Queues
+
+```text
+System: E-commerce, 10K orders/hour
+Stack: RabbitMQ + Node.js consumers + DLQ
+
+Architecture:
+  API -> exchange (order.created) -> queue (order.process)
+    -> consumer (validate payment)
+    -> queue (order.fulfill)
+    -> consumer (ship + notify)
+    -> queue (order.complete)
+
+  Dead Letter Queue: failed orders after 3 retries
+    -> human alert + dashboard
+
+RabbitMQ configuration:
+  | Parameter | Value | Reason |
+  |-----------|-------|--------|
+  | prefetch | 10 | Balance throughput vs fairness |
+  | retry | 3 | Exponential backoff: 1s, 5s, 30s |
+  | DLQ | Yes | Unprocessable orders |
+  | TTL | 24h | Orders expire if not processed |
+  | durable | true | Survives broker restart |
+  | persistent | true | Messages on disk |
+
+Consumer (Node.js):
+  const amqp = require("amqplib");
+
+  async function startConsumer() {
+    const conn = await amqp.connect("amqp://rabbitmq:5672");
+    const ch = await conn.createChannel();
+    await ch.prefetch(10);
+
+    ch.consume("order.process", async (msg) => {
+      const order = JSON.parse(msg.content.toString());
+      try {
+        await processPayment(order);
+        await ch.publish("", "order.fulfill",
+          Buffer.from(JSON.stringify(order)));
+        ch.ack(msg);
+      } catch (error) {
+        const attempts = msg.properties.headers["x-retry"] || 0;
+        if (attempts < 3) {
+          // Retry with exponential backoff
+          const delay = Math.pow(5, attempts) * 1000;
+          ch.publish("", "order.process.retry",
+            msg.content, {
+              headers: { "x-retry": attempts + 1 },
+              expiration: delay
+            });
+        } else {
+          // Send to DLQ
+          ch.publish("", "order.dlq", msg.content);
+        }
+        ch.ack(msg); // Always ack to prevent auto-requeue
+      }
+    });
+  }
+
+Idempotency:
+  - Each order has a unique orderId
+  - Before processing: check if orderId was already processed
+  - processed_orders table: orderId + status + timestamp
+  - If exists, ack without reprocessing
+
+Metrics:
+  | Metric | Target |
+  |---------|--------|
+  | Messages in queue | < 100 |
+  | Processing time | < 5s per order |
+  | Error rate | < 1% |
+  | Messages in DLQ | < 10/day |
+  | Throughput | > 3K/hour |
+
+Lessons:
+  - Low prefetch (10) prevents one consumer from monopolizing the queue
+  - DLQ is mandatory: never lose unprocessable messages
+  - Idempotency: processing twice must produce the same result
+  - Exponential backoff: do not flood the system with retries
+  - Manual ack: you control when a message is truly processed
+```
+
+### How do I monitor RabbitMQ health?
+
+Enable the management plugin: `rabbitmq-plugins enable rabbitmq_management`. It exposes the API on :15672. Key metrics: messages_ready (queued backlog), messages_unacknowledged (in flight), consumer_utilization (efficiency). Set alerts: messages_ready > 1000, consumer_utilization < 50%, connections > max. Use Prometheus + rabbitmq_exporter to integrate with Grafana.

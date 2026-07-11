@@ -239,3 +239,66 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Trunk-Based Development para 20 Equipos
+
+```text
+Sistema: Monorepo, 20 equipos, 200 servicios
+Estrategia: Trunk-based development con feature flags
+
+Flujo diario:
+  1. Developer crea rama feature desde main
+     git checkout -b feature/payment-v2
+  2. Desarrolla localmente con tests
+  3. Push diario (keep branches short-lived, < 3 dias)
+  4. Abre PR cuando tests pasan
+  5. Review: 1 approver + CI verde
+  6. Squash merge a main
+  7. Deploy automatico a staging desde main
+  8. Canary a produccion via feature flag
+
+Feature flags (LaunchDarkly / Unleash):
+  // Desplegar codigo inactivo a produccion
+  if (featureFlag.isEnabled("payment-v2", user)) {
+    return processPaymentV2(payment);
+  } else {
+    return processPaymentV1(payment);
+  }
+
+  // Activar gradualmente:
+  // 1% -> 5% -> 25% -> 50% -> 100%
+  // Rollback instantaneo: flag off
+
+Reglas de branching:
+  | Regla | Razon |
+  |-------|-------|
+  | Branches < 3 dias | Reduce merge conflicts |
+  | Max 400 lineas por PR | Revisiones de calidad |
+  | Squash merge | Historial lineal y limpio |
+  | CI obligatorio | No mergear codigo rojo |
+  | 1 approver minimo | Revision por pares |
+  | Feature flags para risks | Decouple deploy de release |
+  | No branches release | Deploy desde main |
+
+Comparacion de estrategias:
+  | Estrategia | Equipos | Frecuencia deploy | Complejidad |
+  |------------|---------|-------------------|-------------|
+  | GitFlow | 1-5 | Semanal | Alta |
+  | GitHub Flow | 5-20 | Diario | Media |
+  | Trunk-based | 20+ | Multiples al dia | Baja |
+  | Release Flow | 10-50 | Semanal + hotfix | Media |
+
+Lecciones:
+  - Trunk-based + feature flags es el estandar moderno
+  - Branches cortas reducen conflictos y bugs
+  - Feature flags desacoplan deploy de release
+  - Squash merge mantiene historial limpio
+  - CI verde obligatorio antes de merge
+```
+
+### Como manejo hotfixes en trunk-based?
+
+Crea una rama desde el ultimo tag de release. Aplica el fix. Abre PR directo a main. Una vez mergeado, cherry-pick al tag de release y crea nuevo tag. Si usas feature flags, simplemente activa el flag para el fix. La mayoria de los hotfixes no necesitan branch de release si deployas desde main continuamente.

@@ -268,3 +268,71 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: WCAG 2.2 Audit for E-commerce
+
+```text
+System: Online store, 50 pages, 200 components
+Goal: Full WCAG 2.2 Level AA compliance
+
+Automated audit (axe-core):
+  npm install --save-dev @axe-core/playwright
+
+  test("homepage passes WCAG", async ({ page }) => {
+    await page.goto("https://shop.example.com");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  // Results by category:
+  // | Rule | Violations | Severity |
+  // |------|------------|----------|
+  // | color-contrast | 12 | Critical |
+  // | aria-label | 5 | Serious |
+  // | heading-order | 3 | Moderate |
+  // | image-alt | 8 | Critical |
+  // | tab-order | 2 | Serious |
+  // | focus-visible | 4 | Serious |
+
+Manual audit (checklist):
+  | Category | Item | Status |
+  |----------|------|--------|
+  | Perceivable | Alt text on images | Pending |
+  | Perceivable | Color contrast > 4.5:1 | Pending |
+  | Perceivable | Text resizable to 200% | Pending |
+  | Operable | Full keyboard navigation | Pending |
+  | Operable | Focus visible on all elements | Pending |
+  | Operable | No timeouts without extend option | Pending |
+  | Operable | Skip to main content link | Pending |
+  | Understandable | Labels on all form fields | Pending |
+  | Understandable | Error identification in forms | Pending |
+  | Understandable | Page language declared | Pending |
+  | Robust | ARIA roles correct | Pending |
+  | Robust | Screen reader compatible | Pending |
+
+Tools:
+  | Tool | Type | Use |
+  |------|------|-----|
+  | axe-core | Automated | CI/CD + E2E tests |
+  | Lighthouse | Automated | Quick audit |
+  | NVDA | Manual | Screen reader Windows |
+  | VoiceOver | Manual | Screen reader macOS |
+  | WAVE | Automated | Browser extension |
+  | keyboard-nav | Manual | Keyboard-only navigation |
+
+Lessons:
+  - Automate what you can, but manual audit is mandatory
+  - axe-core in CI/CD prevents regressions
+  - Testing with real screen readers is indispensable
+  - Color contrast is the most common violation
+  - WCAG 2.2 AA is the legal standard in many countries
+```
+
+### How do I make a modal dialog accessible?
+
+Use `role="dialog"` and `aria-modal="true"`. Manage focus: move it to the first interactive element on open, trap it inside the modal, and restore it to the element that opened the modal on close. Close with Escape. Use `inert` on the rest of the page. Example: `<div role="dialog" aria-modal="true" aria-labelledby="title">`. Test with keyboard and screen reader.

@@ -202,3 +202,101 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Implementacion SRE en E-commerce
+
+```text
+Sistema: E-commerce, 15 servicios, 99.9% SLO
+Equipo: 4 SREs + 30 desarrolladores
+
+SLOs definidos:
+  | Servicio | SLO | Error Budget |
+  |----------|-----|--------------|
+  | Checkout | 99.9% | 43.2 min/mes |
+  | Pagos | 99.95% | 21.6 min/mes |
+  | Catalogo | 99.5% | 216 min/mes |
+  | Search | 99.0% | 432 min/mes |
+  | API Gateway | 99.99% | 4.3 min/mes |
+
+Error Budget Policy:
+  - Si burn rate < 1x: velocidad normal de features
+  - Si burn rate 1-3x: features continuan, pero investigar
+  - Si burn rate 3-14x: freeze de features, enfocar en fiabilidad
+  - Si burn rate > 14x: freeze total, solo fixes de fiabilidad
+  - Si budget agotado: solo despliegues de fiabilidad hasta nuevo mes
+
+Toil management:
+  | Tipo de toil | Horas/sem | Automatizacion |
+  |--------------|-----------|----------------|
+  | Reinicios manuales | 5 | Auto-healing (HPA + PDB) |
+  | Cert rotation | 3 | cert-manager |
+  | Backup verification | 2 | Script automatizado |
+  | Dashboard updates | 4 | Grafana provisioning (IaC) |
+  | On-call handoff docs | 2 | Plantilla estandar |
+  | Total | 16h | Objetivo: < 10h |
+
+Post-mortems (blameless):
+  Plantilla:
+  - Resumen: que paso, impacto, duracion
+  - Timeline: eventos minuto a minuto
+  - Causa raiz: 5 whys
+  - Acciones: owner + fecha + prioridad
+  - Lecciones: que funciono, que no
+  - Metricas: MTTR, impacto en usuarios, costo
+
+  Ejemplo:
+  Incidente: Checkout caido 23 min
+  Impacto: $45K en ventas perdidas, 12K usuarios afectados
+  Causa raiz: Deploy introdujo query sin indice
+  Timeline:
+    14:00 - Deploy v2.3 a canary 5%
+    14:05 - Tasa de error 0% en canary
+    14:10 - Promovido a 100%
+    14:12 - DB CPU 100%, queries acumulandose
+    14:15 - Alerta: PaymentLatencyHigh
+    14:18 - On-call identifica deploy como causa
+    14:20 - Rollback ejecutado
+    14:23 - Servicio restaurado
+  Acciones:
+    1. Requerir EXPLAIN ANALYZE en PR review (owner: team lead, 1 sem)
+    2. Agregar check de indice en CI/CD (owner: platform, 2 sem)
+    3. Bajar canary threshold a 2% (owner: SRE, 1 sem)
+    4. Agregar alerta de DB CPU > 80% (owner: SRE, 3 dias)
+
+Lecciones:
+  - SLOs cuantifican el trade-off entre velocidad y fiabilidad
+  - El error budget es la palanca para priorizar
+  - Toil debe medirse y reducirse con automatizacion
+  - Post-mortems blameless construyen cultura de aprendizaje
+  - MTTR es la metrica mas importante de SRE
+```
+
+### Como convence a management de invertir en SRE?
+
+Calcula el costo de downtime. Si tu revenue es $100K/hora y tienes 4 incidentes/mes de 1h, eso es $400K/mes en perdidas. Un SRE que reduce MTTR de 60min a 15min ahorra $300K/mes. Su salario es una fraccion de eso. Presenta el ROI en terminos de dinero, no de mejores practicas.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

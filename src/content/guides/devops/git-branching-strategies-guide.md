@@ -239,3 +239,66 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Trunk-Based Development for 20 Teams
+
+```text
+System: Monorepo, 20 teams, 200 services
+Strategy: Trunk-based development with feature flags
+
+Daily flow:
+  1. Developer creates feature branch from main
+     git checkout -b feature/payment-v2
+  2. Develops locally with tests
+  3. Push daily (keep branches short-lived, < 3 days)
+  4. Opens PR when tests pass
+  5. Review: 1 approver + CI green
+  6. Squash merge to main
+  7. Auto-deploy to staging from main
+  8. Canary to production via feature flag
+
+Feature flags (LaunchDarkly / Unleash):
+  // Deploy inactive code to production
+  if (featureFlag.isEnabled("payment-v2", user)) {
+    return processPaymentV2(payment);
+  } else {
+    return processPaymentV1(payment);
+  }
+
+  // Gradual rollout:
+  // 1% -> 5% -> 25% -> 50% -> 100%
+  // Instant rollback: flag off
+
+Branching rules:
+  | Rule | Reason |
+  |------|--------|
+  | Branches < 3 days | Reduces merge conflicts |
+  | Max 400 lines per PR | Quality reviews |
+  | Squash merge | Clean linear history |
+  | CI mandatory | No merging broken code |
+  | 1 approver minimum | Peer review |
+  | Feature flags for risk | Decouple deploy from release |
+  | No release branches | Deploy from main |
+
+Strategy comparison:
+  | Strategy | Teams | Deploy frequency | Complexity |
+  |----------|-------|-------------------|------------|
+  | GitFlow | 1-5 | Weekly | High |
+  | GitHub Flow | 5-20 | Daily | Medium |
+  | Trunk-based | 20+ | Multiple per day | Low |
+  | Release Flow | 10-50 | Weekly + hotfix | Medium |
+
+Lessons:
+  - Trunk-based + feature flags is the modern standard
+  - Short branches reduce conflicts and bugs
+  - Feature flags decouple deploy from release
+  - Squash merge keeps history clean
+  - CI green mandatory before merge
+```
+
+### How do I handle hotfixes in trunk-based?
+
+Create a branch from the latest release tag. Apply the fix. Open a PR directly to main. Once merged, cherry-pick to the release tag and create a new tag. If you use feature flags, simply enable the flag for the fix. Most hotfixes do not need a release branch if you deploy from main continuously.

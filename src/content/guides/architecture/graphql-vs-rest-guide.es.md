@@ -151,6 +151,79 @@ El problema N+1 es el mayor riesgo de GraphQL. Si un query solicita 100 posts y 
 
 El versionado en GraphQL se maneja mediante **evolución del schema**: agregar campos es no-ruptor; deprecar campos en lugar de eliminarlos. Esto elimina el caos de `/v1`, `/v2`, pero requiere disciplina del equipo. El schema actúa como contrato; romperlo es un breaking change detectable por herramientas.
 
+
+### Escenario Detallado: Migracion Gradual de REST a GraphQL
+
+```text
+Sistema: Plataforma de blog con API REST existente
+Endpoints REST: /posts, /posts/:id, /users/:id, /comments, /tags
+Problema: App movil hace 4-5 requests por pantalla (over-fetching)
+Meta: Reducir a 1 request por pantalla con GraphQL
+
+Fase 1: Capa de agregacion GraphQL sobre REST (semana 1-2)
+  - Instalar Apollo Server como proxy
+  - Cada resolver llama al endpoint REST existente
+  - Sin cambios en servicios backend
+
+  const resolvers = {
+    Query: {
+      post: (_, { id }) => fetch(`https://api.example.com/posts/${id}`).then(r => r.json()),
+      posts: (_, { limit = 10 }) => fetch(`https://api.example.com/posts?limit=${limit}`).then(r => r.json()),
+      user: (_, { id }) => fetch(`https://api.example.com/users/${id}`).then(r => r.json()),
+    },
+    Post: {
+      author: (post) => fetch(`https://api.example.com/users/${post.authorId}`).then(r => r.json()),
+      comments: (post) => fetch(`https://api.example.com/posts/${post.id}/comments`).then(r => r.json()),
+    }
+  }
+
+  Resultado: App movil hace 1 query GraphQL en lugar de 4-5 requests REST
+  Latencia: Similar (el proxy agrega overhead, pero reduce round-trips)
+
+Fase 2: DataLoader para N+1 (semana 3)
+  - Sin DataLoader: query de 10 posts con autores = 11 requests REST
+  - Con DataLoader: 2 requests REST (posts + batch de autores)
+
+  const authorLoader = new DataLoader(async (authorIds) => {
+    const users = await fetch(`https://api.example.com/users?ids=${authorIds.join(",")}`).then(r => r.json());
+    return authorIds.map(id => users.find(u => u.id === id));
+  });
+
+  Post: {
+    author: (post) => authorLoader.load(post.authorId)
+  }
+
+Fase 3: Migrar resolvers a base de datos directa (mes 2-3)
+  - Reemplazar fetch REST por queries SQL directas
+  - Medir latencia antes/despues de cada migracion
+  - Mantener REST para servicios que ya tienen buena latencia
+
+Fase 4: Persisted queries en produccion (mes 4)
+  - Precompilar queries en build time
+  - Cliente envia hash en lugar de query string
+  - Reducir payload de request en 60-80%
+
+  // Cliente
+  const query = gql`query GetPost($id: ID!) { post(id: $id) { title author { name } } }`;
+  // En produccion: envia solo el hash "abc123"
+
+Metricas antes/despues:
+  | Metrica | REST | GraphQL (fase 4) |
+  |---------|------|-----------------|
+  | Requests por pantalla (movil) | 4-5 | 1 |
+  | Payload de request | 200-500 bytes | 8 bytes (hash) |
+  | Latencia p95 | 350ms | 180ms |
+  | Datos transferidos por pantalla | 8KB | 2KB |
+```
+
+### Como manejo el caching en GraphQL?
+
+GraphQL no tiene caching HTTP nativo como REST. Usa Apollo Client cache (normalized cache en el cliente) para evitar refetch. En el servidor, cachea resolvers con Redis o Memcached. Configura `cacheControl` en tus resolvers para que Apollo Server genere headers HTTP para CDN caching de respuestas. Para datos inmutables, usa `maxAge: 3600`. Para datos volatiles, usa `maxAge: 0`.
+
+### Como prevengo ataques de queries maliciosas en GraphQL?
+
+Configura tres protecciones: (1) maxDepth para limitar profundidad de query (ej: 7 niveles), (2) complexity score para limitar el costo total de una query, (3) rate limiting basado en costo, no en numero de requests. Un query complejo cuenta mas que uno simple. Usa `graphql-cost-analysis` o `graphql-query-complexity` para calcular el costo. Bloquea queries que excedan el limite antes de ejecutarlas.
+
 ## Variantes
 
 | Situación | Recomendación | Razonamiento |
@@ -191,3 +264,39 @@ Agrega un servidor GraphQL que actúe como proxy/resolver sobre tus endpoints RE
 ### ¿GraphQL es más lento que REST?
 
 Depende. Para queries simples de un solo recurso, REST es más rápido debido al caching HTTP y menor overhead. Para queries complejas con múltiples relaciones, GraphQL puede ser más rápido porque hace un solo request en lugar de múltiples requests REST. El rendimiento de GraphQL depende casi enteramente de la calidad de tus resolvers y si usas DataLoader.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

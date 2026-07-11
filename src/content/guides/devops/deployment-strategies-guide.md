@@ -196,3 +196,107 @@ Until you have statistical confidence. For high-traffic services, 15-30 minutes 
 ### What if the database schema needs to change?
 
 Use the expand-contract pattern. Step 1: deploy schema change (add new column, keep old). Step 2: deploy code that writes to both. Step 3: backfill data. Step 4: deploy code that reads from new column only. Step 5: drop old column. This takes multiple deploys but ensures zero downtime.
+
+
+## Advanced Topics
+
+### Scenario: Deployment Pipeline for E-commerce
+
+```yaml
+# ArgoCD Application: canary deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: payment-service
+spec:
+  replicas: 10
+  strategy:
+    canary:
+      steps:
+        - setWeight: 5        # 5% traffic to v2
+        - pause: { duration: 5m }  # Observe 5 min
+        - setWeight: 20       # 20% traffic
+        - pause: { duration: 10m }
+        - setWeight: 50       # 50% traffic
+        - analysis:           # Automatic analysis
+            templates:
+            - templateName: success-rate
+            args:
+            - name: service-name
+              value: payment-service
+        - setWeight: 100      # 100% if passes
+  selector:
+    matchLabels: { app: payment-service }
+  template:
+    spec:
+      containers:
+        - name: payment
+          image: registry.example.com/payment:v2.1.0
+          resources:
+            requests: { cpu: 200m, memory: 256Mi }
+            limits: { cpu: 500m, memory: 512Mi }
+
+# AnalysisTemplate: success criteria
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate
+spec:
+  args:
+    - name: service-name
+  metrics:
+    - name: success-rate
+      interval: 1m
+      successCondition: result[0] >= 0.99
+      failureLimit: 3
+      provider:
+        prometheus:
+          address: http://prometheus:9090
+          query: |
+            sum(rate(http_requests_total{
+              service="{{args.service-name}}",
+              status!~"5.."}[2m]))
+            / sum(rate(http_requests_total{
+              service="{{args.service-name}}"}[2m]))
+
+Strategies by change type:
+  | Change | Strategy | Duration |
+  |--------|----------|----------|
+  | Typo fix | Rolling | 2 min |
+  | Dependency update | Rolling | 5 min |
+  | New UI feature | Blue-green | 10 min |
+  | Logic refactor | Canary 5->20->50->100 | 30 min |
+  | DB schema change | Expand-contract | Multi-deploy |
+  | Infra migration | Shadow + canary | 1-2 hours |
+
+Automatic rollback:
+  - Error rate > 1% for 2 min -> rollback
+  - p99 latency > 2x baseline -> rollback
+  - AnalysisTemplate fails 3 times -> rollback
+  - Rollback: ArgoCD reverts to previous revision in 30s
+
+Lessons:
+  - Canary with automatic analysis > manual canary
+  - Define success criteria before deploying
+  - Automatic rollback reduces MTTR dramatically
+  - Expand-contract for schema changes is mandatory
+  - Shadow deploy validates without user impact
+```
+
+### How do I handle cross-region deployments?
+
+Use ArgoCD ApplicationSet with multiregion clusters. Deploy sequentially: us-east first, then eu-west, then ap-southeast. Pause between regions to detect problems. Use a global load balancer (Route53, Cloudflare) for health checks. If one region fails, the others are already on the new version.
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

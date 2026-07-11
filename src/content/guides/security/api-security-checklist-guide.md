@@ -285,3 +285,90 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: REST API Hardening for Production
+
+```text
+System: REST API Node.js, 50 endpoints, 100K users
+Goal: Complete API security checklist
+
+API security checklist (40 items):
+  Authentication:
+  [x] JWT with RS256 (not HS256)
+  [x] Token expiry: 15 min access, 7 days refresh
+  [x] Refresh token rotation
+  [x] MFA for admin endpoints
+  [x] Rate limiting on login: 5 attempts -> lock 15 min
+  [x] No token in URL
+  [x] Logout invalidates token (Redis blacklist)
+  [x] Password policy: min 12 chars, complexity
+
+  Authorization:
+  [x] RBAC: roles user/admin/super_admin
+  [x] Verify ownership on every request (anti-IDOR)
+  [x] Scope per resource: user only accesses their data
+  [x] Deny by default, allow explicitly
+  [x] No auto-increment IDs (use UUID)
+
+  Input:
+  [x] Schema validation (Zod) on every endpoint
+  [x] Payload size limit (max 1MB)
+  [x] String sanitization (no HTML injection)
+  [x] Parameterized queries (anti-SQL injection)
+  [x] No eval/exec with user input
+  [x] File upload: validate type, size, content
+
+  Output:
+  [x] No stack traces in prod
+  [x] DTO mapping: no internal fields exposed
+  [x] Headers: X-Content-Type-Options, X-Frame-Options, CSP, HSTS
+  [x] No server/framework version exposed
+  [x] Global rate limiting: 100 req/min per user
+
+  Transport:
+  [x] TLS 1.3 mandatory (no TLS 1.0/1.1)
+  [x] Redirect HTTP -> HTTPS
+  [x] HSTS: max-age=31536000; includeSubDomains
+  [x] Certificate pinning (mobile apps)
+
+  Configuration:
+  [x] CORS: strict origin, no wildcard
+  [x] NODE_ENV=production
+  [x] Secrets in Secrets Manager (no .env in prod)
+  [x] Helmet() configured
+  [x] Compression with Brotli (not gzip to avoid BREACH)
+
+  Logging and monitoring:
+  [x] Audit log of critical actions
+  [x] No logging secrets, passwords, tokens, PII
+  [x] Alerts for failed auth attempts
+  [x] Alerts for rate limit exceeded
+  [x] SIEM integration (ELK + alerting)
+
+  Dependencies:
+  [x] npm audit in CI (--audit-level=high)
+  [x] Dependabot/Snyk configured
+  [x] Lockfile in repo (package-lock.json)
+  [x] License check in CI
+
+  CI/CD:
+  [x] SAST (semgrep) in pipeline
+  [x] DAST (OWASP ZAP) on staging
+  [x] Container scan (Trivy) in build
+  [x] Secret scan (git-secrets) in pre-commit
+  [x] Code review mandatory (1 approver min)
+
+Lessons:
+  - 40 items is the minimum for production
+  - IDOR is #1: verify ownership always
+  - Schema validation on every endpoint, no exceptions
+  - Audit log + alerting = early detection
+  - SAST + DAST + secret scan in CI is mandatory
+```
+
+### How do I prioritize if I have limited time?
+
+Start with authentication (secure JWT + rate limiting), authorization (verify ownership), input validation (Zod on every endpoint), and TLS. These 4 cover 80% of vulnerabilities. Then add headers (helmet), audit log, and dependency scanning. Finally, SAST/DAST in CI. Security is a continuous process, not a one-time project.

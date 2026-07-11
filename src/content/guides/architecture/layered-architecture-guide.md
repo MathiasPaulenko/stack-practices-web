@@ -175,3 +175,128 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: E-commerce App with Four Layers
+
+```text
+Project: E-commerce .NET 8
+Layer structure:
+  src/
+    ECommerce.Web/            # Presentation (Controllers, Views)
+    ECommerce.Application/    # Application (Services, DTOs, Validators)
+    ECommerce.Domain/         # Domain (Entities, Value Objects, Rules)
+    ECommerce.Infrastructure/ # Infrastructure (EF Core, Email, Cache)
+
+Flow: Create order
+  1. Web: OrderController.Create(CreateOrderRequest)
+     - Validate input with DataAnnotations
+     - Map to CreateOrderCommand
+     - Call _orderService.CreateOrderAsync(cmd)
+
+  2. Application: OrderService.CreateOrderAsync(cmd)
+     - Check stock via _productRepository
+     - Calculate total, discounts, taxes
+     - Create Order entity (logic in domain)
+     - Persist via _orderRepository
+     - Publish OrderCreated event
+     - Return OrderDto
+
+  3. Domain: Order.Create(customerId, items)
+     - Apply business rules: min 1 item,
+       max 100 items, total > 0
+     - Set status = Pending
+     - Set created date
+
+  4. Infrastructure: OrderRepository.AddAsync(order)
+     - EF Core maps entity to Orders table
+     - SaveChangesAsync persists
+     - Publish event to RabbitMQ via outbox
+
+Dependency rules:
+  Web -> Application -> Domain
+  Infrastructure -> Domain (implements domain interfaces)
+  Domain depends on nothing (pure, no external references)
+
+Testing per layer:
+  | Layer | Test type | Tool |
+  |-------|-----------|------|
+  | Domain | Pure unit | xUnit, no mocks |
+  | Application | Unit with repo mocks | xUnit + Moq |
+  | Infrastructure | Integration with Testcontainers | xUnit + Testcontainers |
+  | Web | Integration with TestServer | xUnit + Web.ApplicationFactory |
+```
+
+### How do I avoid the anemic domain model?
+
+Move business logic into domain entities. An Order entity should have methods like AddItem(), CalculateTotal(), Cancel(). If all logic lives in OrderService and Order only has getters/setters, you have an anemic model. The service should coordinate, not contain rules. Rules belong to the entity that governs them. This makes rules testable without mocks and reusable across services.
+
+### Should I use dependency injection in every layer?
+
+Yes, but with different purposes. In the application layer, DI coordinates services and repositories. In the domain layer, avoid DI: the domain should be pure and constructible with `new`. In infrastructure, DI configures concrete implementations (EF Core, Redis, SMTP). Use dependency composition at the entry point (Program.cs) to wire everything together.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

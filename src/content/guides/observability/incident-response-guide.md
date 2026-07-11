@@ -257,3 +257,79 @@ That is okay. Document what you know, what you tried, and what you will monitor.
 ## Conclusion
 
 Incident response is a team sport with clear rules. By declaring early, assigning roles, communicating relentlessly, and focusing on mitigation before investigation, you turn chaotic outages into structured, learnable events.
+
+
+## Advanced Topics
+
+### Scenario: Sev-1 Incident Response in SaaS Platform
+
+```text
+Incident: API down, 100% requests failing
+Severity: Sev-1 (critical)
+Start: 03:15 UTC
+On-call: Ana (primary), Luis (secondary)
+
+Response timeline:
+  03:15 - Alert fires: APIErrorRate 100% on api-gateway
+  03:16 - Ana receives page (PagerDuty)
+  03:17 - Ana opens Slack #incident-sev1
+  03:18 - Verifies: 503 on all endpoints
+  03:19 - Declares Sev-1, opens bridge (Zoom)
+  03:20 - Invites Luis, team lead, DBA, infra
+  03:22 - Ana investigates: recent deploy?
+         kubectl rollout history deploy/api-gateway
+         -> Deploy v3.2 12 min ago
+  03:25 - Luis checks DB: connection pool saturated
+         -> 1000 active connections (max 200)
+  03:28 - Ana decides rollback to v3.1
+  03:30 - Rollback executed: kubectl rollout undo
+  03:33 - API restored, errors at 0%
+  03:38 - Ana confirms stability for 5 min
+  03:42 - Closes bridge, declares resolved
+  03:43 - Creates ticket for post-mortem (48h)
+
+Roles during incident:
+  | Role | Person | Responsibility |
+  |------|--------|----------------|
+  | Incident Commander | Ana | Coordinate, decide |
+  | Communications | Luis | Update stakeholders |
+  | SME DB | Carlos (DBA) | Investigate database |
+  | SME Infra | Pedro | Verify infrastructure |
+  | Scribe | Bot | Timeline in Slack |
+
+Communications:
+  03:19 - #status: "Investigating Sev1 API down"
+  03:25 - #status: "Root cause identified: deploy v3.2"
+  03:28 - #status: "Executing rollback"
+  03:33 - #status: "API restored, monitoring"
+  03:42 - #status: "Incident resolved. Post-mortem in 48h"
+
+Post-mortem (48h):
+  - Summary: API down 18 min due to defective deploy
+  - Impact: 50K users affected, $15K revenue lost
+  - Root cause: Migration introduced query without LIMIT
+    that opened unlimited connections to the pool
+  - 5 Whys:
+    1. Why did it go down? Connection pool exhausted
+    2. Why exhausted? Query without LIMIT opened 1000 connections
+    3. Why not detected? Tests did not cover load
+    4. Why no load test? CI did not include performance tests
+    5. Why? No budget for load testing in CI
+  - Actions:
+    1. Require LIMIT in queries (owner: team, 1 week)
+    2. Add load test in CI with k6 (owner: platform, 2 weeks)
+    3. Lower max pool connections to 100 (owner: SRE, 3 days)
+    4. Add pool saturation alert (owner: SRE, 3 days)
+    5. Code review checklist for migrations (owner: team lead, 1 week)
+
+Lessons:
+  - The Incident Commander coordinates, does not investigate
+  - Communicate early and often
+  - Rollback is the first option, not the last
+  - Blameless post-mortem: fix the system, not the blame
+  - Every action item has an owner and date
+```
+
+### How do I prepare a new team for on-call?
+
+Start with shadowing: the new engineer shadows the on-call for 2 weeks without responding to pages. Then they respond to low-severity pages with the senior as backup. After 1 month, they take full rotations. Provide a runbook per service. Run game days in staging to practice incident response.

@@ -191,3 +191,112 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Order System with Onion Architecture
+
+```text
+Project: Order system .NET 8
+Project structure:
+  src/
+    Domain/                    # Core — no external dependencies
+      ├── Entities/
+      │   ├── Order.cs          # Entity with business logic
+      │   ├── OrderLine.cs      # Value object
+      │   └── Product.cs
+      ├── ValueObjects/
+      │   ├── Money.cs          # Immutable value object
+      │   └── OrderId.cs
+      ├── Events/
+      │   ├── OrderPlacedEvent.cs
+      │   └── OrderCancelledEvent.cs
+      ├── Interfaces/
+      │   ├── IOrderRepository.cs   # Port defined in domain
+      │   ├── IProductRepository.cs
+      │   └── IEventBus.cs
+      └── Exceptions/
+          └── DomainException.cs
+    Application/               # Use cases — depends on Domain
+      ├── Orders/
+      │   ├── PlaceOrder/
+      │   │   ├── PlaceOrderCommand.cs
+      │   │   ├── PlaceOrderHandler.cs
+      │   │   └── PlaceOrderValidator.cs
+      │   ├── CancelOrder/
+      │   │   ├── CancelOrderCommand.cs
+      │   │   └── CancelOrderHandler.cs
+      │   └── GetOrderById/
+      │       ├── GetOrderByIdQuery.cs
+      │       └── GetOrderByIdHandler.cs
+      └── DTOs/
+          └── OrderDto.cs
+    Infrastructure/           # Implementations — depends on Application
+      ├── Persistence/
+      │   ├── AppDbContext.cs
+      │   ├── Configurations/
+      │   │   └── OrderConfiguration.cs   # EF Core mapping
+      │   └── Repositories/
+      │       ├── SqlOrderRepository.cs    # Implements IOrderRepository
+      │       └── SqlProductRepository.cs
+      ├── Messaging/
+      │   └── RabbitMqEventBus.cs          # Implements IEventBus
+      └── DependencyInjection.cs
+    Presentation/             # API — depends on Application
+      ├── Controllers/
+      │   └── OrdersController.cs
+      └── Program.cs
+
+Dependency rules (verified with NetArchTest):
+  Domain references no project
+  Application references only Domain
+  Infrastructure references Application and Domain
+  Presentation references Application and Domain
+  No project references Infrastructure (dependency inversion)
+
+Testing per layer:
+  | Layer | Type | Tool |
+  |-------|------|------|
+  | Domain | Pure unit, no mocks | xUnit |
+  | Application | Unit with repo mocks | xUnit + NSubstitute |
+  | Infrastructure | Integration with Testcontainers | xUnit + Testcontainers |
+  | Presentation | Integration with WebApplicationFactory | xUnit |
+
+Architecture verification in CI:
+  // ArchUnitTest.cs
+  var result = Types.InAssembly(typeof(Order).Assembly)
+      .Should().NotHaveDependencyOn("Infrastructure")
+      .And().NotHaveDependencyOn("Presentation")
+      .And().NotHaveDependencyOn("Microsoft.EntityFrameworkCore")
+      .GetResult();
+  result.IsSuccessful.Should().BeTrue();
+```
+
+### How do I handle transactions in Onion Architecture?
+
+Define an IUnitOfWork interface in the domain. Infrastructure implements it with EF Core or Dapper. The application handler uses IUnitOfWork to coordinate transactions: open the unit of work, execute domain operations, and commit or rollback. The domain knows nothing about transactions; it only exposes methods that change its state. The application layer decides when to persist.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

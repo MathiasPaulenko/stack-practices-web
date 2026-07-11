@@ -209,3 +209,94 @@ Treat outdated docs as a bug. In your bug tracker, create a label "documentation
 ### Should we use Confluence or Markdown in Git?
 
 Use both for different purposes. Git-based Markdown for code-adjacent docs (READMEs, ADRs, runbooks) that change with the code. Confluence/Notion for cross-team knowledge, onboarding, and process docs that evolve independently.
+
+
+## Advanced Topics
+
+### Scenario: Documentation System for Platform
+
+```text
+System: Platform with 50 teams, 200 services
+Strategy: Diataxis framework (4 doc types)
+
+Diataxis Framework:
+  | Type | Purpose | Audience | Examples |
+  |------|---------|----------|----------|
+  | Tutorial | Learn | Novices | "Create your first service" |
+  | How-to | Solve | Practitioners | "How to configure Redis" |
+  | Reference | Consult | Everyone | API docs, CLI flags |
+  | Explanation | Understand | Curious | "Why we use Kafka" |
+
+Docs structure (Backstage):
+  services/
+    payment-service/
+      README.md          # How-to: how to run locally
+      api.yaml           # Reference: OpenAPI spec
+      runbook.md         # How-to: what to do when it breaks
+      architecture.md    # Explanation: design decisions
+      on-call.md         # How-to: on-call procedures
+    order-service/
+      ...
+
+  tutorials/
+    new-microservice.md  # Tutorial: step by step
+    new-endpoint.md
+    local-dev-setup.md
+
+  adr/
+    001-record-events.md
+    002-use-postgresql.md
+    003-adopt-kafka.md
+
+Runbook template:
+  # Runbook: Payment Service
+  ## Symptom: Error rate > 1%
+  1. Check error dashboard
+  2. Check recent deploy: kubectl rollout history
+  3. If recent deploy: rollback
+  4. If not: check logs in Loki {service="payment"}
+  5. Check DB: active connections, locks
+  6. Escalate: contact DBA if DB saturated
+  7. Post-mortem within 48h
+
+  ## Symptom: p99 latency > 500ms
+  1. Check trace in Jaeger
+  2. Identify slow span
+  3. If DB query: check EXPLAIN ANALYZE
+  4. If external API: check status page
+  5. If CPU: check HPA scaling
+  6. Post-mortem if > 10 min
+
+Documentation metrics:
+  | Metric | Target |
+  |---------|--------|
+  | % services with README | 100% |
+  | % services with runbook | 100% |
+  | Docs updated in last PR | > 90% |
+  | Onboarding time | < 1 day |
+  | Searches with no result | < 10% |
+
+Lessons:
+  - Diataxis separates doc types with distinct purposes
+  - Runbooks are living docs: update after every incident
+  - ADRs preserve the "why" behind decisions
+  - Backstage centralizes service catalog and docs
+  - Measure doc quality like you measure code quality
+```
+
+### How do I keep documentation up to date?
+
+Make doc updates part of the Definition of Done. Block PRs that change code without updating docs. Run automated checks: broken links, stale diagrams, APIs that do not match specs. Assign owners to every document. Review docs quarterly like you review code.
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

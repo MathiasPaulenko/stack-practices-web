@@ -283,3 +283,108 @@ Enable Dependabot, use OIDC for cloud auth, pin action versions, enable branch p
 ## Conclusion
 
 CI/CD security is a continuous process, not a one-time hardening task. Every component, from the runner image to the deployment script, is a potential attack surface. Apply defense in depth, verify every artifact, and assume compromise will happen.
+
+
+## Advanced Topics
+
+### Scenario: Secure CI/CD Pipeline for Microservices
+
+```yaml
+# GitHub Actions: build, scan, sign, deploy
+name: Secure CI/CD
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write  # OIDC for AWS
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.build.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # for diff analysis
+
+      - name: Build container
+        id: build
+        run: |
+          docker build -t app:${{ github.sha }} .
+          echo "image=app:${{ github.sha }}" >> $GITHUB_OUTPUT
+
+      - name: Scan with Trivy
+        run: |
+          trivy image --exit-code 1 --severity HIGH,CRITICAL \
+            app:${{ github.sha }}
+          # Fails build on HIGH/CRITICAL vulnerabilities
+
+      - name: Sign with cosign
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_KEY }}
+        run: |
+          cosign sign --key env://COSIGN_PRIVATE_KEY \
+            registry.example.com/app:${{ github.sha }}
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: SAST with Semgrep
+        run: semgrep ci --config=p/owasp-top-ten
+
+      - name: Dependency scan
+        run: |
+          npm audit --audit-level=high
+          # Verifies lock file against advisory DB
+
+      - name: Secret scanning
+        run: trivy fs --scanners secret .
+
+  deploy:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Auth AWS with OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123:role/github-actions
+          aws-region: us-east-1
+          # No long-lived AWS secrets: OIDC token exchange
+
+      - name: Deploy with verification
+        run: |
+          cosign verify --key cosign.pub \
+            registry.example.com/app:${{ github.sha }}
+          kubectl set image deployment/app \
+            container=registry.example.com/app:${{ github.sha }}
+          kubectl rollout status deployment/app --timeout=5m
+
+Security controls:
+  | Control | Tool | Frequency |
+  |---------|------|-----------|
+  | SAST | Semgrep | Every push |
+  | SCA | npm audit | Every push |
+  | Container scan | Trivy | Every build |
+  | Secret scan | Trivy secret | Every push |
+  | Image signing | cosign | Every build |
+  | OIDC auth | AWS IAM | Every deploy |
+  | Branch protection | GitHub | Always |
+  | CodeQL | GitHub Advanced | Weekly |
+
+Lessons:
+  - OIDC eliminates long-lived secrets in CI/CD
+  - Image signing prevents supply chain attacks
+  - Scan on every push, not just PRs
+  - Branch protection is the first line of defense
+  - Fail builds on HIGH/CRITICAL, not on LOW
+```
+
+### How do I handle secrets in CI/CD?
+
+Use OIDC for cloud auth (no secrets). For other secrets, use the CI secret store (GitHub Secrets, GitLab CI Variables). Never hardcode secrets in YAML. Rotate secrets regularly. Use dynamic references when possible (e.g., AWS Secrets Manager at runtime, not build time).

@@ -166,3 +166,137 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Game Days for E-commerce Platform
+
+```text
+System: E-commerce, 15 microservices, K8s
+Goal: Validate resilience before Black Friday
+
+Game Day calendar (monthly):
+  | Month | Experiment | Hypothesis | Result |
+  |-------|-----------|-----------|--------|
+  | Jan | Kill payment pod | Auto-scaling replaces in < 30s | Pass |
+  | Feb | 500ms DB latency | Circuit breaker activates fallback | Fail: no fallback |
+  | Mar | Kill entire AZ | Traffic reroutes to healthy AZ | Pass |
+  | Apr | Redis latency | Cache miss degrades gracefully | Fail: cascading timeouts |
+  | May | Kill search service | Catalog without search works | Pass |
+  | Jun | Corrupt Kafka message | Consumer handles poison pill | Fail: consumer hangs |
+
+Detailed experiment (Feb):
+  Name: DB-latency-injection
+  Hypothesis: If DB has 500ms latency, circuit breaker
+              activates cache fallback in < 5s with no 5xx errors
+  Blast radius: 10% of traffic (canary)
+  Duration: 10 minutes
+  Abort: error rate > 5% or p99 latency > 3s
+
+  Execution (Gremlin):
+    gremlin attack latency -t 500ms -i 600 --service payment-db
+    --tags env=canary
+
+  Monitoring during experiment:
+    - Error rate: 0% -> 12% (FAIL)
+    - p99 latency: 200ms -> 4.5s (FAIL)
+    - Circuit breaker: never activated (FAIL)
+    - Cache fallback: not implemented (FAIL)
+
+  Post-mortem analysis:
+    Root cause: Circuit breaker threshold set to 10s
+                but DB responded in 500ms (no timeout).
+                Cache fallback did not exist.
+
+    Actions:
+    1. Implement cache fallback for product queries
+    2. Lower circuit breaker threshold to 2s
+    3. Add 1s timeout on DB queries
+    4. Re-run experiment in staging
+
+  Re-run (Mar):
+    - Error rate: 0% (PASS)
+    - p99 latency: 200ms -> 350ms (PASS)
+    - Circuit breaker: active at 3s (PASS)
+    - Cache fallback: served stale data (PASS)
+
+Automation (Chaos Mesh):
+  apiVersion: chaos-mesh.org/v1alpha1
+  kind: PodChaos
+  metadata:
+    name: payment-pod-kill
+  spec:
+    action: pod-kill
+    mode: fixed-percent
+    value: "10"
+    selector:
+      namespaces: [production]
+      labelSelectors:
+        app: payment-service
+    scheduler:
+      cron: "@every 1h"
+```
+
+### How do I convince management to do chaos engineering?
+
+Start with a game day in staging. Document findings: each discovered failure is a production incident avoided. Quantify impact: "This experiment found a bug that would have caused 2h downtime on Black Friday ($500K)". Staging game days have zero risk and high ROI.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

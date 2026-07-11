@@ -177,3 +177,126 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Sistema RAG para Documentacion Tecnica
+
+```text
+Sistema: Chatbot RAG sobre 50,000 paginas de documentacion tecnica
+Stack: OpenAI text-embedding-3-small (1536 dim) + pgvector + GPT-4o
+Requisitos: Respuestas precisas con citas, latencia < 3s
+
+Pipeline:
+  1. Cargar documentos (PDF, Markdown, HTML)
+  2. Fragmentar en chunks de ~500 tokens con overlap de 50
+  3. Generar embeddings con OpenAI
+  4. Almacenar en PostgreSQL con pgvector
+  5. En consulta: embeber pregunta, buscar chunks similares, aumentar LLM
+
+Esquema pgvector:
+  CREATE EXTENSION IF NOT EXISTS vector;
+
+  CREATE TABLE doc_chunks (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      doc_id VARCHAR(100) NOT NULL,
+      chunk_index INT NOT NULL,
+      content TEXT NOT NULL,
+      embedding vector(1536) NOT NULL,
+      metadata JSONB DEFAULT '{}',
+      created_at TIMESTAMPTZ DEFAULT NOW()
+  );
+
+  -- Indice HNSW para busqueda ANN
+  CREATE INDEX idx_doc_chunks_embedding
+  ON doc_chunks USING hnsw (embedding vector_cosine_ops)
+  WITH (m = 16, ef_construction = 64);
+
+  -- Indice para filtrado por documento
+  CREATE INDEX idx_doc_chunks_doc ON doc_chunks(doc_id);
+
+Ingestion (Python):
+  from openai import OpenAI
+  import psycopg2
+
+  client = OpenAI()
+  conn = psycopg2.connect("dbname=ragdb")
+
+  def embed_text(text: str) -> list[float]:
+      resp = client.embeddings.create(
+          input=text, model="text-embedding-3-small"
+      )
+      return resp.data[0].embedding
+
+  def ingest_document(doc_id: str, chunks: list[str]):
+      for i, chunk in enumerate(chunks):
+          emb = embed_text(chunk)
+          with conn.cursor() as cur:
+              cur.execute(
+                  "INSERT INTO doc_chunks (doc_id, chunk_index, content, embedding) "
+                  "VALUES (%s, %s, %s, %s)",
+                  (doc_id, i, chunk, emb)
+              )
+      conn.commit()
+
+Consulta RAG:
+  def rag_query(question: str, top_k: int = 5) -> str:
+      q_emb = embed_text(question)
+      with conn.cursor() as cur:
+          cur.execute(
+              "SELECT content, doc_id, chunk_index, "
+              "1 - (embedding <=> %s) AS similarity "
+              "FROM doc_chunks "
+              "ORDER BY embedding <=> %s "
+              "LIMIT %s",
+              (q_emb, q_emb, top_k)
+          )
+          results = cur.fetchall()
+
+      context = "\n\n".join([r[0] for r in results])
+      sources = [f"doc:{r[1]} chunk:{r[2]} sim:{r[3]:.3f}" for r in results]
+
+      prompt = (
+          f"Contexto:\n{context}\n\n"
+          f"Pregunta: {question}\n"
+          f"Responde basandote en el contexto. Cita la fuente."
+      )
+      response = client.chat.completions.create(
+          model="gpt-4o",
+          messages=[{"role": "user", "content": prompt}]
+      )
+      return response.choices[0].message.content + "\n\nFuentes: " + ", ".join(sources)
+
+Resultados:
+  | Metrica | Valor |
+  |---------|-------|
+  | Tiempo de embedding | 200ms |
+  | Tiempo de busqueda vectorial | 15ms |
+  | Tiempo de LLM | 1.5s |
+  | Latencia total | ~1.7s |
+  | Recall@5 | 92% |
+  | Precision de respuestas | 87% (con citas correctas) |
+
+Optimizacion de indice HNSW:
+  - m=16: balance entre recall y memoria (default)
+  - ef_construction=64: calidad de construccion (mayor = mejor, mas lento)
+  - ef_search=40: ajustar en consulta para trade-off recall/latencia
+  - Para 50K vectores: 50MB de indice, busqueda < 20ms
+
+Lecciones aprendidas:
+  - pgvector es suficiente para < 1M vectores
+  - El tamano de chunk afecta la calidad: 500 tokens con overlap funciona bien
+  - Filtrar por metadata antes de la busqueda vectorial mejora relevancia
+  - HNSW supera a IVF en recall para datasets pequenos-medianos
+```
+
+### Como manejo actualizaciones de embeddings cuando cambia el modelo?
+
+Versiona los embeddings: almacena el modelo y la version en metadata. Cuando cambies de modelo, re-embebe todos los documentos en una nueva columna o tabla. Manten ambas versiones durante la transicion. Actualiza las consultas para usar la nueva version. Elimina la vieja cuando no haya trafico. Programa re-embedding en lotes durante horas de baja carga para evitar impactar latencia.
+
+
+
+
+
+End of document. Review and update quarterly.

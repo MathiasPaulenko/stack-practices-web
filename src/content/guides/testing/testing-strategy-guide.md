@@ -209,3 +209,94 @@ Aim for 70-80% coverage on critical business logic. Higher coverage is better, b
 ### Should I mock external APIs in integration tests?
 
 Mock external APIs at integration test boundaries using libraries like WireMock or MSW. This keeps tests deterministic and fast while still verifying your system's interaction patterns.
+
+
+## Advanced Topics
+
+### Scenario: Testing Strategy for Microservices
+
+```text
+System: 8 microservices, REST API + queue workers
+Goal: 80% coverage, CI < 10 min, 0 flaky tests
+
+Testing pyramid:
+  | Level | Count | Duration | Tool |
+  |-------|-------|----------|------|
+  | Unit | 1200 | 2 min | Vitest + Jest |
+  | Integration | 300 | 4 min | Vitest + Testcontainers |
+  | Contract | 80 | 1 min | Pact |
+  | E2E | 40 | 3 min | Playwright |
+  | Total | 1620 | 10 min | |
+
+Strategy per service:
+  | Service | Unit | Integration | Contract | E2E |
+  |---------|------|-------------|----------|-----|
+  | auth-service | 200 | 40 | 10 | 5 |
+  | payment-service | 180 | 50 | 15 | 8 |
+  | user-service | 150 | 35 | 8 | 5 |
+  | order-service | 170 | 45 | 12 | 7 |
+  | notification-service | 120 | 30 | 5 | 3 |
+  | search-service | 130 | 25 | 8 | 4 |
+  | analytics-service | 100 | 20 | 5 | 2 |
+  | api-gateway | 150 | 55 | 17 | 6 |
+
+Testing rules:
+  | Rule | Reason |
+  |------|--------|
+  | Unit tests < 1s each | Fast feedback |
+  | Integration tests < 5s each | Testcontainers |
+  | E2E tests < 30s each | Playwright + headed |
+  | 0 flaky tests | Re-run 3x, if fails 1x, fix |
+  | Coverage min 70% on business logic | CI gate |
+  | Coverage min 90% on payment-service | Critical |
+  | PR blocked if coverage drops | --coverage --check |
+  | Tests deterministic | No time/order dependency |
+
+CI pipeline (10 min total):
+  1. Lint + type check (1 min)
+  2. Unit tests (2 min)
+  3. Integration tests (4 min)
+  4. Contract tests (1 min)
+  5. Build (1 min)
+  6. E2E tests on staging (3 min, parallel with deploy)
+
+Lessons:
+  - The pyramid: many unit, few E2E
+  - Contract tests between services are mandatory
+  - 0 flaky tests: a flaky test is worse than no test
+  - CI < 10 min: if it takes longer, devs lose trust
+  - Coverage is a proxy, not the goal: test behavior
+```
+
+### How do I handle tests for external services?
+
+Use contract testing with Pact: the consumer defines expectations, the provider verifies them. For third-party APIs (Stripe, GitHub), use VCR or cassettes: record the response once, replay in tests. For DB, use Testcontainers: spin up a real container per test suite. Avoid manual mocks: they are brittle and miss real changes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

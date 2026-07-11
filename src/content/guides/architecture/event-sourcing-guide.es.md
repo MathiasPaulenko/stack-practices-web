@@ -288,3 +288,126 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Sistema de Reservas de Vuelos con Event Sourcing
+
+```text
+Sistema: Reservas de vuelos (TypeScript + Node.js + PostgreSQL)
+Volumen: 5000 reservas/dia, 200 cancelaciones/dia
+Requerimiento: Audit trail completo, replay de estado para disputas
+
+Eventos de dominio:
+  FlightSearched { searchId, criteria, results, searchedAt }
+  SeatSelected { reservationId, flightId, seatNumber, selectedAt }
+  ReservationCreated { reservationId, flightId, passengerInfo, price, createdAt }
+  PaymentAdded { reservationId, paymentMethod, amount, paidAt }
+  ReservationConfirmed { reservationId, confirmedAt, confirmationCode }
+  ReservationCancelled { reservationId, reason, cancelledAt }
+  SeatChanged { reservationId, newSeat, changedAt }
+  BaggageAdded { reservationId, bags, addedAt }
+
+Aggregate: Reservation (TypeScript)
+  class Reservation extends AggregateRoot {
+    private status: ReservationStatus = ReservationStatus.DRAFT;
+    private seatNumber: string | null = null;
+    private price: Money = Money.ZERO;
+    private bags: number = 0;
+
+    static create(flightId: string, passenger: PassengerInfo, price: Money): Reservation {
+      const r = new Reservation();
+      r.apply(new ReservationCreatedEvent({
+        reservationId: generateId(),
+        flightId, passenger, price,
+        createdAt: new Date()
+      }));
+      return r;
+    }
+
+    changeSeat(newSeat: string): void {
+      if (this.status !== ReservationStatus.CONFIRMED)
+        throw new DomainError("Solo reservas confirmadas pueden cambiar asiento");
+      if (this.seatNumber === newSeat)
+        return; // No-op, idempotente
+      this.apply(new SeatChangedEvent({
+        reservationId: this.id,
+        newSeat,
+        changedAt: new Date()
+      }));
+    }
+
+    addBaggage(bags: number): void {
+      if (this.status === ReservationStatus.CANCELLED)
+        throw new DomainError("No se puede agregar equipaje a reserva cancelada");
+      this.apply(new BaggageAddedEvent({
+        reservationId: this.id,
+        bags: this.bags + bags,
+        addedAt: new Date()
+      }));
+    }
+
+    cancel(reason: string): void {
+      if (this.status === ReservationStatus.CANCELLED)
+        throw new DomainError("Reserva ya cancelada");
+      this.apply(new ReservationCancelledEvent({
+        reservationId: this.id,
+        reason,
+        cancelledAt: new Date()
+      }));
+    }
+
+    private when(event: DomainEvent): void {
+      switch (event.eventType) {
+        case "ReservationCreated":
+          this.id = event.payload.reservationId;
+          this.price = event.payload.price;
+          this.status = ReservationStatus.DRAFT;
+          break;
+        case "SeatChanged":
+          this.seatNumber = event.payload.newSeat;
+          break;
+        case "BaggageAdded":
+          this.bags = event.payload.bags;
+          break;
+        case "ReservationCancelled":
+          this.status = ReservationStatus.CANCELLED;
+          break;
+      }
+    }
+  }
+
+Disputa: "El pasajero dice que nunca cancelo la reserva"
+  -> Replay eventos de la reserva RES-456
+  -> Mostrar secuencia: ReservationCreated -> PaymentAdded -> ReservationConfirmed
+     -> ReservationCancelled (con reason: "passenger_request", timestamp, metadata: {agentId: "AG-789"})
+  -> El audit trail muestra quien cancelo, cuando y por que
+  -> Si la cancelacion fue automatica (overbooking), metadata contiene {autoOverbook: true}
+
+Snapshot strategy:
+  - Snapshot cada 20 eventos (reservas tienen pocos eventos)
+  - Tabla: snapshots(stream_id, version, state, created_at)
+  - Carga promedio: 5 eventos (sin snapshot)
+  - Carga maxima: 30 eventos (snapshot a los 20)
+
+Event store en PostgreSQL:
+  CREATE TABLE reservation_events (
+    event_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    stream_id VARCHAR(64) NOT NULL,  -- reservation-{reservationId}
+    version INT NOT NULL,
+    event_type VARCHAR(128) NOT NULL,
+    payload JSONB NOT NULL,
+    metadata JSONB NOT NULL DEFAULT '{}',
+    occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE(stream_id, version)
+  );
+
+  -- Indice para consultas temporales
+  CREATE INDEX idx_reservation_events_time ON reservation_events(occurred_at);
+  CREATE INDEX idx_reservation_events_stream ON reservation_events(stream_id, version);
+```
+
+### Como manejo eventos fuera de orden en proyecciones?
+
+Usa versiones de evento para idempotencia y ordenamiento. Cada proyeccion guarda la ultima version procesada por stream. Si llega un evento con version menor, se ignora. Si llega con version mayor pero hay un gap, se encola y espera los eventos faltantes. Para proyecciones que no requieren orden estricto, procesa eventos conforme llegan y usa upserts idempotentes. Kafka garantiza orden dentro de particion, particiona por aggregateId para mantener orden por aggregate.

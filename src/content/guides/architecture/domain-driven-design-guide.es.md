@@ -228,3 +228,127 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Modelado de Dominio para E-commerce
+
+```text
+Proyecto: Plataforma e-commerce (Java + Spring Boot)
+Dominio: Ventas, Inventario, Envios, Soporte
+Equipo: 12 desarrolladores divididos por bounded context
+
+Paso 1: Event Storming (taller de 2 dias)
+  Participantes: 2 expertos de dominio, 1 product manager, 4 desarrolladores
+  Output: 340 eventos post-it, 47 comandos, 12 agregados identificados
+
+  Eventos clave descubiertos:
+    - CarritoAbandonado, CarritoConvertido
+    - OrdenCreada, OrdenConfirmada, OrdenCancelada
+    - PagoProcesado, PagoRechazado, ReembolsoEmitido
+    - StockReservado, StockLiberado, StockAgotado
+    - EnvioCreado, EnvioDespachado, EnvioEntregado
+
+Paso 2: Identificar bounded contexts
+  | Contexto | Responsabilidad | Equipo |
+  |----------|----------------|--------|
+  | Ventas | Carrito, ordenes, checkout | 4 devs |
+  | Pagos | Procesamiento, reembolsos | 2 devs |
+  | Inventario | Stock, reservas, reabastecimiento | 3 devs |
+  | Envios | Logistica, carriers, tracking | 3 devs |
+
+  Context map:
+    Ventas -> Pagos: Customer/Supplier (ACL en Ventas)
+    Ventas -> Inventario: Customer/Supplier (ACL en Ventas)
+    Inventario -> Envios: Shared Kernel (modelo de envio compartido)
+    Soporte -> Ventas: Conformist (Soporte se adapta a Ventas)
+
+Paso 3: Modelar agregados (contexto Ventas)
+
+  Aggregate: Order (root)
+    - OrderId (identidad)
+    - CustomerId (value object)
+    - List<OrderLine> (entidades dentro del aggregate)
+    - OrderStatus (value object: PENDING, CONFIRMED, SHIPPED, CANCELLED)
+    - Money total (value object)
+
+  Invariantes del aggregate Order:
+    - No se pueden agregar items a una orden confirmada
+    - El total debe ser > 0 para confirmar
+    - Una orden cancelada no puede cambiar de estado
+    - Max 50 items por orden (regla de negocio)
+
+  // Order.java (aggregate root)
+  public class Order extends AggregateRoot {
+      private OrderId id;
+      private CustomerId customerId;
+      private List<OrderLine> lines = new ArrayList<>();
+      private OrderStatus status = OrderStatus.PENDING;
+      private Money total = Money.ZERO;
+
+      public void addLine(ProductId productId, int quantity, Money unitPrice) {
+          if (status != OrderStatus.PENDING)
+              throw new DomainException("Cannot modify confirmed order");
+          if (lines.size() >= 50)
+              throw new DomainException("Max 50 items per order");
+          if (quantity <= 0)
+              throw new DomainException("Quantity must be positive");
+          lines.add(new OrderLine(productId, quantity, unitPrice));
+          total = total.add(unitPrice.multiply(quantity));
+      }
+
+      public void confirm() {
+          if (lines.isEmpty())
+              throw new DomainException("Cannot confirm empty order");
+          if (total.isZero())
+              throw new DomainException("Total must be positive");
+          status = OrderStatus.CONFIRMED;
+          registerEvent(new OrderConfirmed(id, customerId, total));
+      }
+  }
+
+Paso 4: Domain events para integracion cross-context
+
+  OrderConfirmed (publicado por Ventas):
+    - Pagos escucha -> procesa pago
+    - Inventario escucha -> reserva stock
+    - Notificaciones escucha -> envia confirmacion al cliente
+
+  Integracion via Kafka (eventos como Avro):
+    topic: orders.confirmed
+    schema: OrderConfirmed.avsc
+    particiones: 12 (por order_id)
+
+Paso 5: Anti-Corruption Layer (ACL)
+  Ventas necesita datos de Inventario, pero no quiere acoplarse
+  al modelo de Inventario. Usa un ACL:
+
+  // En el contexto de Ventas
+  public interface InventoryService {
+      boolean isAvailable(ProductId productId, int quantity);
+  }
+
+  // Implementacion del ACL (adapter)
+  public class InventoryServiceACL implements InventoryService {
+      private InventoryApiClient client; // llama al API de Inventario
+
+      public boolean isAvailable(ProductId productId, int quantity) {
+          // Traduce del modelo de Ventas al modelo de Inventario
+          var request = new CheckStockRequest(productId.value(), quantity);
+          var response = client.checkStock(request);
+          return response.available();
+      }
+  }
+
+Lecciones aprendidas:
+  - Event Storming revelo eventos que el equipo no habia considerado
+  - Los bounded contexts se alinearon con la estructura de equipos
+  - Los aggregates pequenos permitieron concurrencia sin conflictos
+  - Los domain events desacoplaron Ventas de Pagos e Inventario
+  - El ACL protegio a Ventas de cambios en el modelo de Inventario
+```
+
+### Como manejo la consistencia entre bounded contexts?
+
+Usa consistencia eventual con domain events. Dentro de un bounded context, usa transacciones ACID para mantener invariantes del aggregate. Entre bounded contexts, publica domain events y deja que cada contexto reaccione de forma independiente. Si necesitas consistencia fuerte cross-context, reconsidera los limites: quizas pertenecen al mismo contexto. Para procesos multi-paso, usa el patron Saga con compensaciones.

@@ -237,3 +237,131 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: CQRS for an E-commerce Order System
+
+```text
+System: E-commerce order management (TypeScript + Node.js)
+Write model: PostgreSQL (normalized, ACID)
+Read model: Elasticsearch (denormalized, search-optimized)
+Event bus: Kafka (event-driven projections)
+
+Write side (command handlers):
+  POST /api/orders -> CreateOrderCommand -> Order aggregate -> OrderCreated event
+  PUT /api/orders/:id/confirm -> ConfirmOrderCommand -> Order aggregate -> OrderConfirmed event
+  PUT /api/orders/:id/cancel -> CancelOrderCommand -> Order aggregate -> OrderCancelled event
+
+  // Command handler
+  class CreateOrderHandler {
+    async handle(cmd: CreateOrderCommand): Promise<OrderId> {
+      const order = Order.create(cmd.customerId, cmd.items);
+      await this.orderRepo.save(order); // PostgreSQL
+      // Events dispatched after save
+      return order.id;
+    }
+  }
+
+  // Aggregate enforces invariants
+  class Order extends AggregateRoot {
+    static create(customerId: string, items: OrderItem[]): Order {
+      if (items.length === 0) throw new Error("Empty order");
+      if (items.length > 50) throw new Error("Max 50 items");
+      const order = new Order(OrderId.generate(), customerId);
+      order.status = OrderStatus.PENDING;
+      order.items = items;
+      order.total = items.reduce((s, i) => s + i.price * i.qty, 0);
+      order.raiseEvent(new OrderCreated(order.id, customerId, items, order.total));
+      return order;
+    }
+  }
+
+Event flow:
+  OrderCreated event -> Kafka topic orders.events -> Projection handler
+  OrderConfirmed event -> Kafka topic orders.events -> Projection handler
+  OrderCancelled event -> Kafka topic orders.events -> Projection handler
+
+Read side (projection handlers):
+  class OrderProjection {
+    async handle(event: DomainEvent): Promise<void> {
+      switch (event.type) {
+        case "OrderCreated":
+          await this.es.index({
+            index: "orders",
+            id: event.orderId,
+            body: {
+              orderId: event.orderId,
+              customerId: event.customerId,
+              status: "pending",
+              total: event.total,
+              itemCount: event.items.length,
+              items: event.items, // Denormalized for read
+              createdAt: event.timestamp
+            }
+          });
+          break;
+        case "OrderConfirmed":
+          await this.es.update({
+            index: "orders",
+            id: event.orderId,
+            body: { doc: { status: "confirmed", confirmedAt: event.timestamp } }
+          });
+          break;
+        case "OrderCancelled":
+          await this.es.update({
+            index: "orders",
+            id: event.orderId,
+            body: { doc: { status: "cancelled", cancelledAt: event.timestamp } }
+          });
+          break;
+      }
+    }
+  }
+
+Read side (query handlers):
+  GET /api/orders/search?q=laptop -> Elasticsearch query
+  GET /api/orders?status=pending&customerId=123 -> Elasticsearch filter
+  GET /api/orders/:id -> Elasticsearch GET by ID
+
+  class OrderQueryHandler {
+    async searchOrders(query: string, page: number): Promise<OrderListItem[]> {
+      const result = await this.es.search({
+        index: "orders",
+        body: {
+          query: { multi_match: { query, fields: ["items.name", "orderId"] } },
+          from: (page - 1) * 20,
+          size: 20
+        }
+      });
+      return result.hits.hits.map(h => h._source);
+    }
+  }
+
+Read-your-writes consistency:
+  - When a user creates an order, return the order ID immediately
+  - Frontend shows optimistic order in the list (from local state)
+  - Poll GET /api/orders/:id until status appears in Elasticsearch
+  - Typical lag: 50-200ms (Kafka + projection)
+  - Timeout: if not visible in 5s, fallback to write model query
+
+Scaling:
+  Write side: 2 PostgreSQL instances (master + replica)
+  Read side: 3 Elasticsearch nodes (sharded by orderId)
+  Projection: 4 consumer instances (Kafka consumer group)
+  Event bus: Kafka with 12 partitions
+
+Metrics:
+  | Metric | Target |
+  |--------|--------|
+  | Write latency p95 | < 50ms |
+  | Read latency p95 | < 20ms |
+  | Projection lag | < 500ms |
+  | Read availability | 99.95% |
+  | Write availability | 99.99% |
+```
+
+### How do I rebuild a read model from scratch?
+
+If the read model is corrupted or needs a schema change, replay events from the event store. Stop the projection consumers, truncate the read model, and replay all events from the beginning. For large event stores, use snapshot-based replay: process events in batches of 10,000 with checkpoints. Alternatively, run a "shadow projection" alongside the existing one, verify data consistency, then switch the query handlers to the new read model.

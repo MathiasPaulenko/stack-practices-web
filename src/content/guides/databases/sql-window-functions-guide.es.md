@@ -177,3 +177,126 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Analisis de Ventas con Funciones de Ventana
+
+```sql
+-- Tabla: orders(id, customer_id, order_date, product_category, amount)
+-- Volumen: 10M ordenes en 2 anos
+
+-- 1. Top 3 productos por ingresos en cada categoria, cada mes
+WITH monthly_category_sales AS (
+    SELECT
+        DATE_TRUNC('month', order_date) AS month,
+        product_category,
+        product_id,
+        SUM(amount) AS total_revenue,
+        RANK() OVER (
+            PARTITION BY DATE_TRUNC('month', order_date), product_category
+            ORDER BY SUM(amount) DESC
+        ) AS rank_in_category
+    FROM orders
+    WHERE order_date >= '2026-01-01'
+    GROUP BY DATE_TRUNC('month', order_date), product_category, product_id
+)
+SELECT month, product_category, product_id, total_revenue, rank_in_category
+FROM monthly_category_sales
+WHERE rank_in_category <= 3
+ORDER BY month DESC, product_category, rank_in_category;
+
+-- 2. Crecimiento mes-a-mes por categoria
+WITH monthly_totals AS (
+    SELECT
+        DATE_TRUNC('month', order_date) AS month,
+        product_category,
+        SUM(amount) AS revenue
+    FROM orders
+    GROUP BY DATE_TRUNC('month', order_date), product_category
+)
+SELECT
+    month,
+    product_category,
+    revenue,
+    LAG(revenue) OVER (PARTITION BY product_category ORDER BY month) AS prev_month,
+    revenue - LAG(revenue) OVER (PARTITION BY product_category ORDER BY month) AS abs_change,
+    ROUND((
+        (revenue - LAG(revenue) OVER (PARTITION BY product_category ORDER BY month))
+        / NULLIF(LAG(revenue) OVER (PARTITION BY product_category ORDER BY month), 0)
+    ) * 100, 2) AS pct_change
+FROM monthly_totals
+ORDER BY product_category, month;
+
+-- 3. Total acumulado y porcentaje del total anual
+WITH monthly_totals AS (
+    SELECT
+        DATE_TRUNC('month', order_date) AS month,
+        SUM(amount) AS revenue
+    FROM orders
+    WHERE order_date >= '2026-01-01'
+    GROUP BY DATE_TRUNC('month', order_date)
+)
+SELECT
+    month,
+    revenue,
+    SUM(revenue) OVER (ORDER BY month) AS running_total,
+    ROUND(
+        revenue / NULLIF(SUM(revenue) OVER (), 0) * 100, 2
+    ) AS pct_of_year,
+    ROUND(
+        AVG(revenue) OVER (ORDER BY month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW),
+        2
+    ) AS three_month_avg
+FROM monthly_totals
+ORDER BY month;
+
+-- 4. Identificar clientes VIP por cuartil de gasto
+WITH customer_totals AS (
+    SELECT
+        customer_id,
+        SUM(amount) AS lifetime_value,
+        COUNT(*) AS order_count,
+        NTILE(4) OVER (ORDER BY SUM(amount) DESC) AS spending_quartile,
+        PERCENT_RANK() OVER (ORDER BY SUM(amount) ASC) AS percentile
+    FROM orders
+    WHERE order_date >= '2026-01-01'
+    GROUP BY customer_id
+)
+SELECT
+    customer_id,
+    lifetime_value,
+    order_count,
+    spending_quartile,
+    ROUND(percentile * 100, 1) AS percentile_pct
+FROM customer_totals
+WHERE spending_quartile = 1  -- Top 25%
+ORDER BY lifetime_value DESC;
+```
+
+### Como optimizo funciones de ventana en tablas grandes?
+
+Crea indices compuestos que coincidan con PARTITION BY + ORDER BY. Por ejemplo, si usas `PARTITION BY category ORDER BY revenue DESC`, crea un indice en `(category, revenue DESC)`. Para LAG/LEAD sobre series temporales, un indice en `(entity_id, date DESC)` acelera drasticamente. Considera particionar la tabla por fecha si las consultas siempre filtran por rango temporal. En PostgreSQL, el paralelismo ayuda con tablas grandes: configura `max_parallel_workers_per_gather`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

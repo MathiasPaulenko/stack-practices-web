@@ -219,3 +219,109 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: App de Registro de Usuarios con Clean Architecture
+
+```text
+Proyecto: Sistema de registro y autenticacion (TypeScript + Node.js)
+Capas:
+  Entities (dominio): User, Email, UserId, UserStatus
+  Use Cases (aplicacion): RegisterUserUseCase, AuthenticateUserUseCase
+  Interface Adapters: UserController, UserPresenter, RegisterUserDto
+  Frameworks: Express.js, PostgreSQL, SendGrid
+
+Estructura de archivos:
+  src/
+    domain/
+      entities/User.ts
+      valueobjects/Email.ts
+      valueobjects/UserId.ts
+      valueobjects/UserStatus.ts
+      repositories/UserRepository.ts       # Interfaz (puerto)
+      services/EmailService.ts             # Interfaz (puerto)
+      errors/DomainError.ts
+    application/
+      usecases/RegisterUserUseCase.ts
+      usecases/AuthenticateUserUseCase.ts
+      dto/RegisterUserCommand.ts
+      dto/UserResponse.ts
+      results/Result.ts
+    infrastructure/
+      persistence/PostgresUserRepository.ts  # Implementa UserRepository
+      email/SendGridEmailService.ts          # Implementa EmailService
+      database/KnexConnection.ts
+    presentation/
+      controllers/UserController.ts
+      presenters/UserPresenter.ts
+      routes/userRoutes.ts
+    app.ts                                    # Entry point (Express)
+
+Flujo: Registrar usuario via POST /users
+  1. Express recibe POST /users con body { email, password }
+  2. UserController mapea a RegisterUserCommand
+  3. Llama RegisterUserUseCase.execute(command)
+  4. UseCase:
+     a. userRepository.findByEmail(email) -> verifica si ya existe
+     b. Si existe: retorna Result.failure("Email ya registrado")
+     c. User.create(email) -> crea entidad con status PENDING
+     d. userRepository.save(user)
+     e. emailService.sendWelcome(user.email)
+     f. Retorna Result.success(user)
+  5. UserPresenter mapea Result a UserResponse
+  6. UserController retorna 201 o 400
+
+Testeo por capa:
+  // domain/entities/User.test.ts
+  describe("User", () => {
+    test("create should set status to PENDING", () => {
+      const user = User.create(Email.create("test@example.com"));
+      expect(user.isActive()).toBe(false);
+      expect(user.status).toBe(UserStatus.PENDING);
+    });
+
+    test("activate should change status to ACTIVE", () => {
+      const user = User.create(Email.create("test@example.com"));
+      user.activate();
+      expect(user.isActive()).toBe(true);
+    });
+  });
+
+  // application/usecases/RegisterUserUseCase.test.ts
+  describe("RegisterUserUseCase", () => {
+    let repo: InMemoryUserRepository;
+    let emailService: SpyEmailService;
+    let useCase: RegisterUserUseCase;
+
+    beforeEach(() => {
+      repo = new InMemoryUserRepository();
+      emailService = new SpyEmailService();
+      useCase = new RegisterUserUseCase(repo, emailService);
+    });
+
+    test("should register new user successfully", async () => {
+      const cmd = new RegisterUserCommand("test@example.com");
+      const result = await useCase.execute(cmd);
+      expect(result.isSuccess()).toBe(true);
+      expect(emailService.sentEmails).toHaveLength(1);
+    });
+
+    test("should fail if email already registered", async () => {
+      repo.add(User.create(Email.create("test@example.com")));
+      const cmd = new RegisterUserCommand("test@example.com");
+      const result = await useCase.execute(cmd);
+      expect(result.isFailure()).toBe(true);
+      expect(emailService.sentEmails).toHaveLength(0);
+    });
+  });
+
+  // Tests del dominio: < 10ms, sin mocks de BD ni red
+  // Tests de use cases: < 50ms, con repos en memoria
+  // Tests de integracion: < 500ms, con Testcontainers + PostgreSQL real
+```
+
+### Como manejo el paso de datos entre capas sin filtrar detalles?
+
+Usa DTOs (Data Transfer Objects) en cada frontera de capa. El controlador recibe un RequestDTO y lo convierte a un Command del dominio. El use case retorna un Result con la entidad del dominio. El presenter convierte la entidad a un ResponseDTO. Nunca pases el objeto Request de Express al dominio. Nunca pases la entidad JPA al controlador. Cada capa habla su propio idioma; los DTOs son la traduccion.

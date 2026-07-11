@@ -244,3 +244,66 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 ## Conclusion
 
 La planificación de capacidad es una práctica continua, no un ejercicio de una sola vez. Mide, pronostica, prueba y revisa regularmente para mantener tu infraestructura alineada con el crecimiento del negocio mientras controlas costos.
+
+
+## Temas Avanzados
+
+### Escenario: Planificacion de Capacidad para SaaS
+
+```text
+Sistema: SaaS, 10K usuarios activos, crecimiento 15% mensual
+Objetivo: Planear infraestructura para 6 meses
+
+Datos actuales:
+  | Metrica | Actual | Crecimiento | Proyeccion 6m |
+  |---------|--------|-------------|---------------|
+  | Usuarios activos | 10K | 15% mes | 23K |
+  | Requests/min | 50K | 15% mes | 115K |
+  | CPU promedio | 45% | 15% mes | 85% |
+  | Memoria | 60% | 10% mes | 95% |
+  | Storage | 500GB | 20% mes | 1.5TB |
+  | Bandwidth | 200GB/mes | 15% mes | 460GB/mes |
+
+Capacidad actual vs proyectada:
+  | Recurso | Capacidad actual | Uso actual | Uso proyectado | Accion |
+  |---------|-----------------|-----------|----------------|--------|
+  | CPU (8 cores) | 8 cores | 3.6 cores | 6.8 cores | Agregar 4 cores mes 4 |
+  | Memoria (32GB) | 32GB | 19.2GB | 30.4GB | Agregar 16GB mes 3 |
+  | Storage (1TB) | 1TB | 500GB | 1.5TB | Agregar 2TB mes 2 |
+  | Bandwidth | 1TB/mes | 200GB | 460GB | OK hasta mes 6 |
+  | DB connections | 200 | 80 | 184 | Agregar pool mes 5 |
+
+Plan de accion:
+  | Mes | Accion | Costo estimado |
+  |-----|--------|---------------|
+  | 1-2 | Storage +2TB | $100/mes |
+  | 3 | Memoria +16GB | $80/mes |
+  | 4 | CPU +4 cores | $150/mes |
+  | 5 | DB pool +100 connections | $0 (config) |
+  | 6 | Evaluar cluster upgrade | $500/mes |
+
+Strategias de scaling:
+  - Vertical: mas CPU/RAM en nodo existente (simple, downtime)
+  - Horizontal: mas nodos (complejo, sin downtime)
+  - Auto-scaling: HPA en K8s, auto-scaling groups en cloud
+  - Read replicas: para DB read-heavy
+  - Caching: Redis para reducir carga de DB
+
+Metricas para monitorear:
+  - CPU utilization > 70% por 10 min -> escalar
+  - Memory utilization > 80% -> escalar
+  - Disk usage > 75% -> expandir
+  - DB connection pool > 80% -> aumentar pool
+  - Response time p99 > 500ms -> investigar
+
+Lecciones:
+  - Planifica con datos, no con suposiciones
+  - El crecimiento compuesto es enganoso (15% mes = 2.3x en 6m)
+  - El storage crece mas rapido que CPU/memoria
+  - Auto-scaling absorbe picos, no crecimiento sostenido
+  - Revisa el plan mensualmente, no semestralmente
+```
+
+### Como calculo el crecimiento compuesto?
+
+Usa la formula: F = P * (1 + r)^n, donde P es el valor actual, r es la tasa de crecimiento mensual, y n es el numero de meses. Ejemplo: 10K usuarios, 15% mensual, 6 meses: 10000 * (1.15)^6 = 23,133 usuarios. Siempre redondea hacia arriba y anade un 20% de buffer para imprevistos.

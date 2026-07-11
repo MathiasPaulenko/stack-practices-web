@@ -268,3 +268,71 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Auditoria WCAG 2.2 para E-commerce
+
+```text
+Sistema: Tienda online, 50 paginas, 200 componentes
+Objetivo: WCAG 2.2 nivel AA completo
+
+Auditoria automatizada (axe-core):
+  npm install --save-dev @axe-core/playwright
+
+  test("homepage cumple WCAG", async ({ page }) => {
+    await page.goto("https://shop.example.com");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  // Resultados por categoria:
+  // | Regla | Violaciones | Severidad |
+  // |-------|-------------|-----------|
+  // | color-contrast | 12 | Critical |
+  // | aria-label | 5 | Serious |
+  // | heading-order | 3 | Moderate |
+  // | image-alt | 8 | Critical |
+  // | tab-order | 2 | Serious |
+  // | focus-visible | 4 | Serious |
+
+Auditoria manual (checklist):
+  | Categoria | Item | Estado |
+  |-----------|------|--------|
+  | Perceptible | Texto alternativo en imagenes | Pendiente |
+  | Perceptible | Contraste de color > 4.5:1 | Pendiente |
+  | Perceptible | Texto redimensionable hasta 200% | Pendiente |
+  | Operable | Navegacion por teclado completa | Pendiente |
+  | Operable | Focus visible en todos los elementos | Pendiente |
+  | Operable | Sin time-outs sin opcion de extender | Pendiente |
+  | Operable | Skip to main content link | Pendiente |
+  | Comprensible | Labels en todos los formularios | Pendiente |
+  | Comprensible | Identificacion de errores en formularios | Pendiente |
+  | Comprensible | Lenguaje de pagina declarado | Pendiente |
+  | Robusto | ARIA roles correctos | Pendiente |
+  | Robusto | Compatible con lectores de pantalla | Pendiente |
+
+Herramientas:
+  | Herramienta | Tipo | Uso |
+  |-------------|------|-----|
+  | axe-core | Automatico | CI/CD + E2E tests |
+  | Lighthouse | Automatico | Auditoria rapida |
+  | NVDA | Manual | Lector de pantalla Windows |
+  | VoiceOver | Manual | Lector de pantalla macOS |
+  | WAVE | Automatico | Extension navegador |
+  | keyboard-nav | Manual | Navegacion solo teclado |
+
+Lecciones:
+  - Automatiza lo que puedas, pero la auditoria manual es obligatoria
+  - axe-core en CI/CD previene regresiones
+  - Probar con lectores de pantalla reales es indispensable
+  - El contraste de color es la violacion mas comun
+  - WCAG 2.2 AA es el estandar legal en muchos paises
+```
+
+### Como hago un componente modal accesible?
+
+Usa `role="dialog"` y `aria-modal="true"`. Gestiona el focus: muevelo al primer elemento interactivo al abrir, atrapalo dentro del modal, y restauralo al elemento que abrio el modal al cerrar. Cierra con Escape. Usa `inert` en el resto de la pagina. Ejemplo: `<div role="dialog" aria-modal="true" aria-labelledby="title">`. Probar con teclado y lector de pantalla.

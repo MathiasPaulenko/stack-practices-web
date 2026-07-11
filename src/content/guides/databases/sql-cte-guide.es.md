@@ -176,3 +176,127 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Jerarquia de Empleados con CTE Recursiva
+
+```sql
+-- Estructura: organigrama con 5 niveles de profundidad
+-- Tabla: employees(id, name, manager_id, salary, department)
+
+-- 1. Encontrar todos los reportes directos e indirectos del CEO
+WITH RECURSIVE org_tree AS (
+    SELECT id, name, manager_id, salary, 1 AS depth,
+           ARRAY[id] AS path
+    FROM employees
+    WHERE manager_id IS NULL  -- CEO no tiene manager
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id, e.salary,
+           ot.depth + 1,
+           ot.path || e.id
+    FROM employees e
+    INNER JOIN org_tree ot ON e.manager_id = ot.id
+    WHERE ot.depth < 10  -- Limite de seguridad
+)
+SELECT
+    id,
+    name,
+    depth,
+    path,
+    salary,
+    (SELECT name FROM employees m WHERE m.id = ot.manager_id) AS manager_name
+FROM org_tree ot
+ORDER BY path;
+
+-- 2. Calcular presupuesto total por rama del organigrama
+WITH RECURSIVE org_tree AS (
+    SELECT id, name, manager_id, salary AS total_budget, 1 AS depth
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id,
+           ot.total_budget + e.salary,
+           ot.depth + 1
+    FROM employees e
+    INNER JOIN org_tree ot ON e.manager_id = ot.id
+)
+SELECT name, total_budget, depth
+FROM org_tree
+WHERE depth <= 3
+ORDER BY total_budget DESC;
+
+-- 3. Encontrar la cadena de mando desde un empleado hasta el CEO
+WITH RECURSIVE chain_of_command AS (
+    SELECT id, name, manager_id, 1 AS steps_to_ceo
+    FROM employees
+    WHERE id = 42  -- Empleado especifico
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id, coc.steps_to_ceo + 1
+    FROM employees e
+    INNER JOIN chain_of_command coc ON e.id = coc.manager_id
+)
+SELECT name, steps_to_ceo
+FROM chain_of_command
+ORDER BY steps_to_ceo;
+
+-- 4. Bill of Materials: explosion de componentes
+-- Tabla: bom(product_id, component_id, quantity)
+WITH RECURSIVE bom_explosion AS (
+    SELECT
+        product_id,
+        component_id,
+        quantity,
+        1 AS level,
+        CAST(quantity AS FLOAT) AS total_quantity,
+        CAST(component_id AS VARCHAR(1000)) AS component_path
+    FROM bom
+    WHERE product_id = 100  -- Producto final
+
+    UNION ALL
+
+    SELECT
+        b.product_id,
+        b.component_id,
+        b.quantity,
+        be.level + 1,
+        be.total_quantity * b.quantity,
+        be.component_path || '>' || b.component_id
+    FROM bom b
+    INNER JOIN bom_explosion be ON b.product_id = be.component_id
+    WHERE be.level < 20  -- Limite de profundidad
+)
+SELECT
+    level,
+    component_id,
+    total_quantity,
+    component_path
+FROM bom_explosion
+ORDER BY component_path;
+```
+
+### Como optimizo CTEs recursivas en grandes datasets?
+
+Agrega un limite de profundidad (WHERE depth < N) para evitar recursion infinita. Usa indices en la columna de join (manager_id, product_id). En PostgreSQL, considera materializar la CTE con la clausula MATERIALIZED si se referencia multiples veces. Para jerarquias muy profundas (>1000 niveles), considera almacenar el camino materializado (path enumeration) en una columna adicional para evitar recursion en cada consulta.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -260,3 +260,95 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Optimizacion de Dashboard E-commerce
+
+```sql
+-- Problema: Query del dashboard tarda 45 segundos
+-- Tabla: orders (50M filas), order_items (200M filas)
+
+-- Query original:
+EXPLAIN ANALYZE
+SELECT c.name, SUM(oi.line_total) AS revenue,
+       COUNT(DISTINCT o.id) AS orders
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+JOIN order_items oi ON o.id = oi.order_id
+WHERE o.created_at >= '2026-01-01'
+  AND o.status = 'completed'
+GROUP BY c.name
+ORDER BY revenue DESC LIMIT 20;
+
+-- Plan: 2 seq scans + hash joins + sort, 45s
+
+-- Fix 1: Indices compuestos
+CREATE INDEX idx_orders_date_status ON orders(created_at, status)
+  WHERE status = 'completed';
+CREATE INDEX idx_order_items_order ON order_items(order_id);
+-- Plan: 2 index scans + merge join, 8s
+
+-- Fix 2: Materialized view para pre-agregacion
+CREATE MATERIALIZED VIEW mv_daily_sales AS
+SELECT DATE(o.created_at) AS sale_date,
+       c.name AS customer,
+       SUM(oi.line_total) AS revenue,
+       COUNT(DISTINCT o.id) AS orders
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+JOIN order_items oi ON o.id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY DATE(o.created_at), c.name;
+
+CREATE UNIQUE INDEX idx_mv_daily ON mv_daily_sales(sale_date, customer);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mv_daily_sales;
+
+-- Dashboard ahora usa MV:
+SELECT customer, SUM(revenue) AS total, SUM(orders) AS order_count
+FROM mv_daily_sales
+WHERE sale_date >= '2026-01-01'
+GROUP BY customer
+ORDER BY total DESC LIMIT 20;
+-- Plan: seq scan MV (1M filas) + aggregate, 200ms
+
+-- Fix 3: Connection pooling (PgBouncer)
+  [databases]
+  production = host=10.0.0.1 port=5432 dbname=app
+  [pgbouncer]
+  pool_mode = transaction
+  max_client_conn = 1000
+  default_pool_size = 25
+  -- Reduce overhead de conexion de 50ms a 2ms
+
+-- Fix 4: Particionar orders por mes
+CREATE TABLE orders (
+    id BIGSERIAL, customer_id BIGINT, status VARCHAR(20),
+    created_at TIMESTAMPTZ NOT NULL, total DECIMAL(10,2)
+) PARTITION BY RANGE (created_at);
+
+CREATE TABLE orders_2026_01 PARTITION OF orders
+    FOR VALUES FROM ('2026-01-01') TO ('2026-02-01');
+-- Query solo escanea particion de enero, no 50M filas
+
+Resultados:
+  | Optimizacion | Antes | Despues |
+  |--------------|-------|---------|
+  | Sin optimizar | 45s | - |
+  | + Indices | 45s | 8s |
+  | + Materialized view | 8s | 200ms |
+  | + Connection pool | 200ms + 50ms | 200ms + 2ms |
+  | + Particionado | MV refresh 60s | MV refresh 15s |
+
+Lecciones:
+  - Indices raramente resuelven queries analiticas complejas
+  - Materialized views pre-computan agregaciones costosas
+  - Connection pooling elimina overhead por request
+  - Particionado reduce scope de scan para queries temporales
+  - Siempre mide con EXPLAIN ANALYZE antes y despues
+```
+
+### Cuando deberia usar query hints?
+
+Evita query hints en PostgreSQL (no existen). En MySQL, USE INDEX o FORCE INDEX pueden ayudar cuando el planificador se equivoca. Pero los hints son parches: la solucion real es actualizar estadisticas (ANALYZE), crear mejores indices o reestructurar la query. Los hints se vuelven obsoletos cuando los datos cambian.

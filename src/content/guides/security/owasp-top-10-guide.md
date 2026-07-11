@@ -230,3 +230,99 @@ It is a great starting point but not exhaustive. Consider OWASP ASVS (Applicatio
 ### How do I test for these vulnerabilities?
 
 Use automated scanners (OWASP ZAP, Burp Suite) for a baseline, then follow with manual penetration testing and code review.
+
+
+## Advanced Topics
+
+### Scenario: OWASP Top 10 Mitigation in REST API
+
+```text
+System: REST API Node.js + PostgreSQL, 50 endpoints
+Goal: Mitigate all 10 OWASP vulnerabilities
+
+A01: Broken Access Control
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | IDOR in /api/users/:id | Verify ownership | JWT + scope check |
+  | Admin without auth | Strict RBAC | middleware role("admin") |
+  | API without rate limit | Rate limiting | express-rate-limit 100/min |
+
+A02: Cryptographic Failures
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | Password in MD5 | bcrypt + salt rounds 12 | bcrypt.hash(pw, 12) |
+  | HTTP without TLS | TLS 1.3 mandatory | redirect HTTP -> HTTPS |
+  | JWT with HS256 | RS256 + key rotation | jwt.sign(..., RS256) |
+  | DB unencrypted | AES-256 at rest | AWS RDS encryption |
+
+A03: Injection
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | SQL injection | Parameterized queries | pool.query(..., [params]) |
+  | NoSQL injection | Schema validation | Zod safeParse |
+  | Command injection | No eval/exec | child_process with args array |
+  | LDAP injection | Input sanitization | escapeLDAP filter |
+
+A04: Insecure Design
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | No threat modeling | STRIDE per feature | Threat model doc |
+  | No rate limit on auth | Rate limit + lockout | 5 attempts -> lock 15min |
+  | No audit log | Append-only log | Audit table + hash chain |
+
+A05: Security Misconfiguration
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | Missing headers | helmet() | X-Frame-Options, CSP, HSTS |
+  | Open CORS | Strict origin | cors({ origin: [...] }) |
+  | Debug in prod | NODE_ENV=production | app.set("env", "production") |
+  | Errors with stack | Generic messages | error handler middleware |
+
+A06: Vulnerable Components
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | Outdated deps | npm audit in CI | npm audit --audit-level=high |
+  | Unpatched CVE | Weekly renewal | Dependabot + Snyk |
+  | Incompatible licenses | License check | license-checker in CI |
+
+A07: Auth Failures
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | Weak password | Min 12 chars + complexity | Zod password schema |
+  | No MFA | TOTP + backup codes | speakeasy + qrcode |
+  | Session no expiry | JWT 15min + refresh | Refresh token rotation |
+  | Brute force | Rate limit + lockout | 5 attempts -> lock 15min |
+
+A08: Data Integrity Failures
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | JWT without verification | Verify signature + expiry | jwt.verify(token, key) |
+  | Insecure deserialization | Schema validation | Zod safeParse |
+  | Unsigned CI/CD | Sign artifacts | Cosign + Sigstore |
+
+A09: Logging Failures
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | No audit log | Log critical events | winston + audit table |
+  | Logs without alerts | SIEM + alerting | ELK + alerting rules |
+  | Logs with PII | Data masking | redact(email, phone) |
+
+A10: SSRF
+  | Vulnerability | Mitigation | Implementation |
+  |--------------|------------|----------------|
+  | User URL fetch | Domain allowlist | validateURL(url) |
+  | Internal metadata | Block 169.254.169.254 | Network policy |
+  | Redirect SSRF | No follow redirects | fetch(url, { redirect: "manual" }) |
+
+Lessons:
+  - OWASP Top 10 is the minimum, not the goal
+  - Broken Access Control is #1: verify ownership on every request
+  - Parameterized queries eliminate SQL injection
+  - helmet() + strict CORS on every API
+  - npm audit + Dependabot in CI for vulnerable deps
+  - Immutable audit log for detection and response
+```
+
+### How do I integrate OWASP ZAP into CI/CD?
+
+Use the ZAP Docker image in your pipeline: `docker run -t owasp/zap2docker-stable zap-baseline.py -t https://staging.example.com`. Configure baseline scan on PRs and full scan on merges to main. Save the report as an artifact. Fail the pipeline on HIGH or CRITICAL alerts. For APIs, use zap-api-scan with an OpenAPI spec.

@@ -171,6 +171,111 @@ The biggest operational challenge is **load balancing**. HTTP/2 connections are 
 
 **Streaming** is where gRPC truly differentiates itself. Unlike REST, where streaming requires WebSockets or Server-Sent Events, gRPC has four built-in patterns: unary (request/response), server streaming (server sends a sequence), client streaming (client sends a sequence), and bidirectional streaming (both send sequences). Bidirectional streaming is ideal for real-time capabilities like chat, collaborative editing, or live dashboards.
 
+
+### Detailed Scenario: gRPC Migration for E-commerce Microservices
+
+```text
+System: E-commerce with 6 microservices (Python + Go)
+Current: REST/JSON between services, p95 latency 45ms
+Goal: Migrate to gRPC, target p95 < 15ms
+
+Services to migrate (priority order):
+  1. user-service (Python) -> high call volume from all services
+  2. catalog-service (Go) -> large payloads (product data)
+  3. order-service (Python) -> medium volume
+  4. payment-service (Go) -> low volume but latency-sensitive
+  5. inventory-service (Python) -> medium volume
+  6. notification-service (Go) -> async, low priority
+
+Step 1: Define .proto contracts
+  // proto/user_service.proto
+  syntax = "proto3";
+  package ecommerce.v1;
+
+  service UserService {
+    rpc GetUser(GetUserRequest) returns (User);
+    rpc GetUserByEmail(GetUserByEmailRequest) returns (User);
+    rpc CreateUser(CreateUserRequest) returns (User);
+    rpc UpdateUser(UpdateUserRequest) returns (User);
+  }
+
+  message User {
+    string id = 1;
+    string email = 2;
+    string name = 3;
+    string phone = 4;
+    int64 created_at = 5;
+    int64 updated_at = 6;
+  }
+
+Step 2: Generate stubs
+  # Python
+  $ python -m grpc_tools.protoc -I proto/ \
+      --python_out=src/gen/ --grpc_python_out=src/gen/ \
+      proto/user_service.proto
+
+  # Go
+  $ protoc -I proto/ --go_out=src/gen/ --go-grpc_out=src/gen/ \
+      proto/user_service.proto
+
+Step 3: Implement gRPC server (Python)
+  class UserServiceServicer(user_pb2_grpc.UserServiceServicer):
+      def GetUser(self, request, context):
+          user = self.repo.get_by_id(request.id)
+          if not user:
+              context.set_code(grpc.StatusCode.NOT_FOUND)
+              context.set_details("User not found")
+              return user_pb2.User()
+          return user_pb2.User(id=user.id, email=user.email, name=user.name)
+
+Step 4: Deploy with Envoy proxy (L7 load balancing)
+  # envoy.yaml
+  static_resources:
+    listeners:
+      - address: { socket_address: { address: 0.0.0.0, port_value: 50051 } }
+        filter_chains:
+          - filters:
+              - name: envoy.filters.network.http_connection_manager
+                typed_config:
+                  stat_prefix: user_service
+                  codec_type: AUTO
+                  route_config:
+                    virtual_hosts:
+                      - name: user_service
+                        routes: [{ match: { prefix: "/" }, route: { cluster: user_service_grpc } }]
+                  http_filters:
+                    - name: envoy.filters.http.router
+    clusters:
+      - name: user_service_grpc
+        connect_timeout: 0.25s
+        type: STRICT_DNS
+        lb_policy: ROUND_ROBIN
+        http2_protocol_options: {}
+        load_assignment:
+          cluster_name: user_service_grpc
+          endpoints: [{ lb_endpoints: [{ endpoint: { address: { socket_address: { address: user-service, port_value: 50051 } } } }] }]
+
+Step 5: Migrate traffic gradually
+  - Phase 1: gRPC server runs alongside REST (dual stack)
+  - Phase 2: 10% of internal calls use gRPC (feature flag)
+  - Phase 3: 50% gRPC, monitor latency and errors
+  - Phase 4: 100% gRPC, deprecate REST endpoints
+
+Benchmark results (user-service):
+  | Metric | REST/JSON | gRPC/Protobuf | Improvement |
+  |--------|-----------|---------------|-------------|
+  | Payload size (GetUser) | 412 bytes | 68 bytes | 83% smaller |
+  | p50 latency | 18ms | 6ms | 67% faster |
+  | p95 latency | 45ms | 12ms | 73% faster |
+  | p99 latency | 120ms | 28ms | 77% faster |
+  | Throughput (req/s) | 8,000 | 35,000 | 4.4x |
+  | CPU usage (server) | 60% | 25% | 58% less |
+```
+
+### How do I handle backward compatibility in .proto files?
+
+Never change field numbers for existing fields. Adding new fields with new numbers is safe (old clients ignore them). Removing fields is safe if you reserve the field number and name. Changing field types is breaking. Changing field names is technically safe on the wire but breaks code generation. Use `reserved` keywords for removed fields to prevent reuse. For major changes, create a new service version: `UserServiceV2`.
+
 ## Variants
 
 | Pattern | Use Case | gRPC Feature |

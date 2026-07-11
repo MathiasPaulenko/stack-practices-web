@@ -209,3 +209,94 @@ Trata docs desactualizados como un bug. En tu tracker de bugs, crea una etiqueta
 ### ¿Deberíamos usar Confluence o Markdown en Git?
 
 Usa ambos para diferentes propósitos. Markdown en Git para docs adyacentes al código (READMEs, ADRs, runbooks) que cambian con el código. Confluence/Notion para conocimiento cross-team, onboarding y docs de proceso que evolucionan independientemente.
+
+
+## Temas Avanzados
+
+### Escenario: Sistema de Documentacion para Plataforma
+
+```text
+Sistema: Plataforma con 50 equipos, 200 servicios
+Estrategia: Diataxis framework (4 tipos de docs)
+
+Framework Diataxis:
+  | Tipo | Proposito | Audiencia | Ejemplos |
+  |------|----------|-----------|----------|
+  | Tutorial | Aprender | Novatos | "Crear tu primer servicio" |
+  | Guia | Resolver | Practicantes | "Como configurar Redis" |
+  | Referencia | Consultar | Todos | API docs, CLI flags |
+  | Explicacion | Entender | Curiosos | "Por que usamos Kafka" |
+
+Estructura de docs (Backstage):
+  services/
+    payment-service/
+      README.md          # Guia: como ejecutar local
+      api.yaml           # Referencia: OpenAPI spec
+      runbook.md         # Guia: que hacer cuando falla
+      architecture.md    # Explicacion: decisiones de diseno
+      on-call.md         # Guia: procedimientos de on-call
+    order-service/
+      ...
+
+  tutorials/
+    new-microservice.md  # Tutorial: paso a paso
+    new-endpoint.md
+    local-dev-setup.md
+
+  adr/
+    001-record-events.md
+    002-use-postgresql.md
+    003-adopt-kafka.md
+
+Plantilla de runbook:
+  # Runbook: Payment Service
+  ## Sintoma: Tasa de error > 1%
+  1. Verificar dashboard de errores
+  2. Revisar deploy reciente: kubectl rollout history
+  3. Si deploy reciente: rollback
+  4. Si no: revisar logs en Loki {service="payment"}
+  5. Verificar DB: conexiones activas, locks
+  6. Escalar: contactar DBA si DB saturada
+  7. Post-mortem dentro de 48h
+
+  ## Sintoma: Latencia p99 > 500ms
+  1. Verificar trace en Jaeger
+  2. Identificar span lento
+  3. Si DB query: revisar EXPLAIN ANALYZE
+  4. Si API externa: verificar status page
+  5. Si CPU: verificar HPA scaling
+  6. Post-mortem si > 10 min
+
+Metricas de documentacion:
+  | Metrica | Objetivo |
+  |---------|----------|
+  | % servicios con README | 100% |
+  | % servicios con runbook | 100% |
+  | Docs actualizadas en ultimo PR | > 90% |
+  | Tiempo de onboarding | < 1 dia |
+  | Busquedas sin resultado | < 10% |
+
+Lecciones:
+  - Diataxis separa tipos de docs con propositos distintos
+  - Runbooks son docs vivos: actualizalos despues de cada incidente
+  - ADRs preservan el "por que" de las decisiones
+  - Backstage centraliza el catalogo de servicios y docs
+  - Mide la calidad de docs como mides la del codigo
+```
+
+### Como mantengo la documentacion actualizada?
+
+Hace que actualizar docs sea parte del Definition of Done. Bloquea PRs que cambian codigo sin actualizar docs. Ejecuta checks automaticos: enlaces rotos, diagramas obsoletos, APIs que no coinciden con la spec. Asigna owners a cada documento. Revisa docs quarterly como revisas codigo.
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

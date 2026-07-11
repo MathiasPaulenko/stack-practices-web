@@ -216,3 +216,125 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Monolito Modular para E-commerce
+
+```text
+Proyecto: E-commerce (Java 21 + Spring Boot)
+Equipos: 3 equipos (Catalog, Orders, Payments) + 2 devs shared kernel
+Tamanio: 120k lineas, 1 deployable
+
+Estructura de modulos:
+  src/modules/
+    catalog/
+      domain/
+        entities/Product.java
+        valueobjects/SKU.java
+        events/ProductPriceChangedEvent.java
+      application/
+        services/CreateProductService.java
+        services/UpdatePriceService.java
+        dto/ProductDto.java
+      infrastructure/
+        persistence/ProductRepository.java
+        persistence/ProductJpaEntity.java
+      api/
+        CatalogApi.java          # Interfaz publica del modulo
+        ProductController.java   # REST controller
+    orders/
+      domain/
+        entities/Order.java
+        entities/OrderLine.java
+        valueobjects/OrderId.java
+        events/OrderPlacedEvent.java
+      application/
+        services/PlaceOrderService.java
+        dto/PlaceOrderCommand.java
+      infrastructure/
+        persistence/OrderRepository.java
+      api/
+        OrdersApi.java
+        OrderController.java
+    payments/
+      domain/
+        entities/Payment.java
+        valueobjects/TransactionId.java
+      application/
+        services/ProcessPaymentService.java
+      infrastructure/
+        persistence/PaymentRepository.java
+        external/StripeGateway.java
+      api/
+        PaymentsApi.java
+        PaymentController.java
+  src/shared/kernel/
+    BaseEntity.java
+    DomainEvent.java
+    Money.java
+    IdGenerator.java
+    ClockProvider.java
+
+Reglas de build (Gradle):
+  modules/catalog/build.gradle:
+    dependencies { implementation project(":shared:kernel") }
+    // NO puede depender de orders o payments
+
+  modules/orders/build.gradle:
+    dependencies {
+      implementation project(":shared:kernel")
+      implementation project(":modules:catalog")  # Solo interfaz API
+    }
+
+  modules/payments/build.gradle:
+    dependencies {
+      implementation project(":shared:kernel")
+      implementation project(":modules:orders")   # Solo interfaz API
+    }
+
+Comunicacion entre modulos:
+  Orders -> Catalog: llama CatalogApi.getProduct(id)
+  Orders -> Payments: llama PaymentsApi.process(payment)
+  Catalog -> Orders: escucha evento OrderPlaced (via Spring Events)
+
+  // CatalogApi.java — interfaz publica del modulo Catalog
+  public interface CatalogApi {
+      ProductSnapshot getProduct(UUID productId);
+      boolean checkAvailability(UUID productId, int quantity);
+  }
+
+  // PlaceOrderService.java — Orders depende de la interfaz
+  public class PlaceOrderService {
+      private final CatalogApi catalogApi;
+      private final PaymentsApi paymentsApi;
+      private final OrderRepository orderRepo;
+
+      public OrderId execute(PlaceOrderCommand cmd) {
+          ProductSnapshot product = catalogApi.getProduct(cmd.productId());
+          PaymentResult payment = paymentsApi.process(new Payment(cmd.orderId(), product.price()));
+          if (!payment.success()) throw new PaymentFailedException();
+          Order order = Order.create(cmd, product);
+          orderRepo.save(order);
+          return order.id();
+      }
+  }
+
+Esquemas de base de datos (separados):
+  catalog_schema: products, categories, product_reviews
+  orders_schema: orders, order_items, order_status_history
+  payments_schema: payments, refunds, transactions
+  -- Sin foreign keys entre esquemas
+
+Extraccion futura a microservicio:
+  1. Mover payments a su propio binario (Spring Boot app)
+  2. Reemplazar PaymentsApi in-process por cliente HTTP
+  3. Mover payments_schema a su propia instancia de PostgreSQL
+  4. Deployar payments-service independientemente
+  5. El monolito sigue funcionando con el resto de modulos
+```
+
+### Como fuerzo los limites entre modulos en runtime?
+
+Usa ArchUnit o Spring Modulith para verificar en tests que ningun modulo accede a las clases internas de otro. Spring Modulith automaticamente detecta violaciones de limites y falla el test. Tambien puedes usar JPMS (Java Platform Module System) con `requires` y `exports` para forzar limites a nivel de compilador. Sin herramientas de verificacion, los limites se degradan con el tiempo.

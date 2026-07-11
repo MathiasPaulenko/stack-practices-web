@@ -175,3 +175,128 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Internal Platform for 50 Teams
+
+```text
+System: Company with 50 product teams, 200 services
+Problem: Each team builds their own CI/CD, monitoring, auth
+Solution: Platform team provides golden paths and shared tooling
+
+Model: Platform as a Product (PaaP)
+  | Component | Tool | Consumers |
+  |-----------|------|-----------|
+  | CI/CD | GitHub Actions + templates | 50 teams |
+  | Deploy | ArgoCD + Helm charts | 50 teams |
+  | Monitoring | Prometheus + Grafana | 50 teams |
+  | Logging | Loki + Promtail | 50 teams |
+  | Tracing | Jaeger + OpenTelemetry | 50 teams |
+  | Auth | OAuth2 + SPIFFE | 50 teams |
+  | Secrets | External Secrets Operator | 50 teams |
+  | Service catalog | Backstage | 50 teams |
+
+Golden paths (opinionated templates):
+  1. New microservice:
+     - Template: npm create @platform/microservice
+     - Generates: Dockerfile, Helm chart, CI/CD pipeline,
+       monitoring dashboards, alert rules, service catalog entry
+     - Time: from 2 days to 15 minutes
+
+  2. New API endpoint:
+     - Template generates: OpenAPI spec, handler, tests,
+       documentation, client SDK
+     - Automatic validation: linter, schema, tests
+
+  3. New team onboarding:
+     - Backstage plugin: provisions repos, namespaces,
+       dashboards, permissions
+     - Time: from 1 week to 1 hour
+
+Platform metrics (internal SLOs):
+  | SLO | Target | Metric |
+  |-----|--------|--------|
+  | Build time | < 5 min | p50 pipeline duration |
+  | Deploy availability | 99.9% | ArgoCD uptime |
+  | Golden path adoption | > 80% | % services with template |
+  | Onboarding time | < 1 day | Provision hours |
+  | Team satisfaction | > 4/5 | Quarterly survey |
+
+Organization:
+  Platform team (8 people):
+    - 3 platform engineers (CI/CD, deploy)
+    - 2 observability engineers (monitoring, tracing)
+    - 2 developer experience (Backstage, templates)
+    - 1 product manager (prioritizes roadmap)
+
+  Engagement model:
+    - Weekly office hours (consulting)
+    - Slack channel #platform-help
+    - Quarterly roadmap (feedback -> priorities)
+    - Open RFCs for major changes
+
+Lessons:
+  - Treat the platform as a product, not infrastructure
+  - Measure adoption and satisfaction, not just uptime
+  - Golden paths reduce onboarding time dramatically
+  - The platform team needs a PM to prioritize
+  - Documentation and examples > 1:1 support
+```
+
+### How do I prevent the platform from becoming a bottleneck?
+
+Make everything self-service. Templates generate everything automatically. Backstage provides catalog and scaffolding. Documentation is comprehensive and up to date. Office hours are for consulting, not tickets. If teams wait on the platform for something, automate it. Measure wait time and reduce it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

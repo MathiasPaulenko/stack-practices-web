@@ -191,3 +191,112 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: OTel Instrumentation for E-commerce API
+
+```typescript
+// Automatic instrumentation (Node.js)
+const { NodeSDK } = require("@opentelemetry/sdk-node");
+const { getNodeAutoInstrumentations } = require("@opentelemetry/auto-instrumentations-node");
+const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-grpc");
+const { OTLPMetricExporter } = require("@opentelemetry/exporter-metrics-otlp-grpc");
+const { PrometheusExporter } = require("@opentelemetry/exporter-prometheus");
+
+const sdk = new NodeSDK({
+  traceExporter: new OTLPTraceExporter({
+    url: "http://otel-collector:4317"
+  }),
+  metricExporter: new PrometheusExporter({
+    port: 9464
+  }),
+  instrumentations: [getNodeAutoInstrumentations({
+    "@opentelemetry/instrumentation-fs": { enabled: false }
+  })]
+});
+sdk.start();
+
+// Manual instrumentation: custom spans
+const { trace } = require("@opentelemetry/api");
+const tracer = trace.getTracer("ecommerce-api");
+
+async function checkout(cart) {
+  return tracer.startActiveSpan("checkout", async (span) => {
+    span.setAttribute("cart.items", cart.items.length);
+    span.setAttribute("cart.total", cart.total);
+
+    try {
+      // Sub-span: validation
+      const validation = await tracer.startActiveSpan("validate_cart",
+        async (childSpan) => {
+          childSpan.setAttribute("items.count", cart.items.length);
+          const result = validateCart(cart);
+          childSpan.setAttribute("valid", result.valid);
+          childSpan.end();
+          return result;
+        });
+
+      // Sub-span: payment
+      const payment = await tracer.startActiveSpan("process_payment",
+        async (childSpan) => {
+          childSpan.setAttribute("payment.method", cart.paymentMethod);
+          const result = await processPayment(cart);
+          childSpan.setAttribute("payment.status", result.status);
+          childSpan.end();
+          return result;
+        });
+
+      span.setAttribute("checkout.success", true);
+      span.setStatus({ code: 1 });
+      return { validation, payment };
+    } catch (error) {
+      span.recordException(error);
+      span.setStatus({ code: 2, message: error.message });
+      span.setAttribute("checkout.success", false);
+      throw error;
+    } finally {
+      span.end();
+    }
+  });
+}
+
+// Custom metrics
+const { metrics } = require("@opentelemetry/api");
+const meter = metrics.getMeter("ecommerce-api");
+
+const checkoutCounter = meter.createCounter("checkouts.total", {
+  description: "Total checkouts processed"
+});
+const checkoutDuration = meter.createHistogram("checkout.duration", {
+  description: "Checkout duration in ms",
+  unit: "ms"
+});
+
+// Usage:
+checkoutCounter.add(1, { status: "success", method: "stripe" });
+checkoutDuration.record(450, { status: "success" });
+
+// Collector pipeline:
+// App -> OTLP -> Collector -> Jaeger (traces)
+//                          -> Prometheus (metrics)
+//                          -> Loki (logs)
+```
+
+### How do I migrate from Jaeger client to OpenTelemetry?
+
+Replace the Jaeger SDK with the OpenTelemetry SDK. OTel exporters can send to Jaeger via OTLP. OTel auto-instrumentation replaces Jaeger manual instrumentation. Traces look identical in Jaeger UI. Migration is gradual: instrument new services with OTel first, migrate existing ones later.
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

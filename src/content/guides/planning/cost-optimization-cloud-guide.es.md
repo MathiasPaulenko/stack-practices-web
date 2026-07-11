@@ -294,3 +294,82 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 ## Conclusion
 
 La optimización de costos cloud es una disciplina continua, no un proyecto de una sola vez. Combina tácticas técnicas (dimensionamiento, capacidad reservada, instancias spot) con prácticas culturales (etiquetado, chargeback, FinOps) para construir infraestructura sostenible y eficiente en costos.
+
+
+## Temas Avanzados
+
+### Escenario: Optimizacion de Costos Cloud para Startup
+
+```text
+Sistema: Startup en AWS, $8K/mes, 5 servicios
+Objetivo: Reducir 40% sin impacto en usuarios
+
+Fase 1: Inventario y visibilidad
+  | Servicio | Costo/mes | % del total | Tags |
+  |----------|-----------|-------------|------|
+  | EC2 (8 instancias) | $3,200 | 40% | Parcial |
+  | RDS PostgreSQL | $1,500 | 19% | Si |
+  | ElastiCache | $800 | 10% | No |
+  | S3 (10TB) | $600 | 8% | Si |
+  | ALB + NAT | $500 | 6% | No |
+  | Lambda | $400 | 5% | Si |
+  | Otros | $1,000 | 12% | No |
+  | Total | $8,000 | 100% | |
+
+Fase 2: Optimizacion (priorizar por impacto)
+  Accion 1: Right-size EC2
+    - Analizar CPU/memoria (CloudWatch, 30 dias)
+    - 4 instancias < 20% CPU -> reducir tipo
+    - 2 instancias < 10% CPU -> terminar
+    - Ahorro: $1,200/mes
+
+  Accion 2: Reserved Instances
+    - 3 instancias always-on -> 1yr RI (40% descuento)
+    - Ahorro: $600/mes
+
+  Accion 3: S3 lifecycle
+    - Objetos > 30 dias -> S3 IA
+    - Objetos > 90 dias -> Glacier
+    - Ahorro: $300/mes
+
+  Accion 4: Spot instances para batch
+    - 2 workers de procesamiento -> Spot (70% descuento)
+    - Ahorro: $400/mes
+
+  Accion 5: NAT Gateway optimization
+    - Mover S3 access a VPC endpoint (sin NAT)
+    - Ahorro: $200/mes
+
+  Accion 6: Lambda optimization
+    - Reducir memory de 1GB a 512MB (medir duracion)
+    - Ahorro: $100/mes
+
+Fase 3: Resultados
+  | Accion | Ahorro/mes |
+  |--------|------------|
+  | Right-size EC2 | $1,200 |
+  | Reserved Instances | $600 |
+  | S3 lifecycle | $300 |
+  | Spot instances | $400 |
+  | NAT optimization | $200 |
+  | Lambda memory | $100 |
+  | Total | $2,800 (35%) |
+
+Fase 4: Gobernanza continua
+  - Tags obligatorios: team, env, project, cost-center
+  - Alertas de budget: 80% y 100%
+  - Reporte semanal de costos por equipo
+  - Quarterly cost review
+  - FinOps dashboard: Cost Explorer + tags
+
+Lecciones:
+  - Visibilidad primero: no puedes optimizar lo que no ves
+  - Right-sizing es el win mas rapido
+  - Reserved Instances para cargas always-on
+  - S3 lifecycle es set-and-forget
+  - La gobernanza continua previene el cost creep
+```
+
+### Como asigno costos a equipos sin tags?
+
+Para recursos sin tags, usa heuristicas: divide por numero de servicios por equipo, o por uso de CPU/memoria. Para EKS, usa Kubecost para asignar costos por namespace. Para RDS, divide por queries por schema. Implementa tags obligatorios via CI/CD: bloquea creacion de recursos sin tags usando Service Control Policies (SCP) en AWS Organizations.

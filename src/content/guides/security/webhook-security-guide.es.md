@@ -197,3 +197,106 @@ Diseña para **idempotencia** desde el inicio. Cada evento debe tener un ID úni
 ### ¿Qué pasa si el secreto de firma se filtra?
 
 Rota inmediatamente. La mayoría de proveedores permiten configurar un nuevo secreto mientras el anterior sigue funcionando (ventana de migración). Genera un nuevo secreto, actualiza tu aplicación, verifica que los webhooks nuevos funcionan, luego invalida el anterior. Si no hay soporte de doble secreto, acepta un breve periodo de fallo mientras rotas.
+
+
+## Temas Avanzados
+
+### Escenario: Verificacion de Webhooks de Stripe
+
+```javascript
+// Verificacion de firma HMAC (Node.js)
+const crypto = require("crypto");
+
+function verifyStripeSignature(payload, signature, secret) {
+  // Stripe envia: t=timestamp,v1=signature
+  const elements = signature.split(",");
+  const timestamp = elements.find(e => e.startsWith("t="))?.split("=")[1];
+  const sig = elements.find(e => e.startsWith("v1="))?.split("=")[1];
+
+  // Prevenir replay attacks: rechazar > 5 min
+  if (Math.abs(Date.now() / 1000 - parseInt(timestamp)) > 300) {
+    throw new Error("Webhook timestamp fuera de rango");
+  }
+
+  // Calcular firma esperada
+  const signedPayload = `${timestamp}.${payload}`;
+  const expectedSig = crypto
+    .createHmac("sha256", secret)
+    .update(signedPayload)
+    .digest("hex");
+
+  // Comparacion segura contra timing attacks
+  if (crypto.timingSafeEqual(
+    Buffer.from(sig),
+    Buffer.from(expectedSig)
+  )) {
+    return true;
+  }
+  throw new Error("Firma invalida");
+}
+
+// Endpoint del webhook
+app.post("/webhooks/stripe", (req, res) => {
+  const sig = req.headers["stripe-signature"];
+  const rawBody = req.rawBody; // Importante: body crudo, no parsed
+
+  try {
+    verifyStripeSignature(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    return res.status(400).send("Invalid signature");
+  }
+
+  const event = JSON.parse(rawBody);
+  // Idempotencia: verificar si ya procesamos este evento
+  const processed = await db.query(
+    "SELECT id FROM processed_webhooks WHERE id = $1",
+    [event.id]
+  );
+  if (processed.rows.length > 0) {
+    return res.status(200).send("Already processed");
+  }
+
+  // Procesar evento
+  switch (event.type) {
+    case "payment_intent.succeeded":
+      await handlePaymentSuccess(event.data.object);
+      break;
+    case "payment_intent.payment_failed":
+      await handlePaymentFailure(event.data.object);
+      break;
+    default:
+      console.log(`Evento no manejado: ${event.type}`);
+  }
+
+  // Marcar como procesado
+  await db.query(
+    "INSERT INTO processed_webhooks (id, type, created_at) VALUES ($1, $2, NOW())",
+    [event.id, event.type]
+  );
+
+  res.status(200).send("OK");
+});
+
+// Hardening:
+//   1. Usar body crudo (no JSON.parse antes de verificar)
+//   2. timingSafeEqual para prevenir timing attacks
+//   3. Timestamp check para prevenir replay
+//   4. Idempotencia con DB unique constraint
+//   5. TTL en processed_webhooks (7 dias)
+//   6. Rate limiting en el endpoint
+//   7. IP allowlist de Stripe (3.18.12.63, 3.130.6.84, ...)
+```
+
+### Como manejo webhooks de multiples proveedores?
+
+Usa endpoints separados por proveedor: /webhooks/stripe, /webhooks/github, /webhooks/slack. Cada endpoint tiene su propia logica de verificacion, IP allowlist y parsing. Un bug en el parser de un proveedor no afecta a otros. Monitoreo granular por endpoint. Si necesitas un endpoint generico, rutea por path o header a handlers especificos.
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

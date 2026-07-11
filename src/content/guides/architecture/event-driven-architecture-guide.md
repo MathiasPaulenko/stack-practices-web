@@ -223,3 +223,98 @@ With durable message brokers (Kafka, persistent queues), events are retained. Th
 ### Should every microservice communication be async?
 
 No. Use sync for real-time queries and when the caller needs an immediate answer. Use async for background work, notifications, and decoupling. A healthy system uses both.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Order Processing with Kafka and Saga
+
+```text
+System: E-commerce order processing (Java + Spring Boot + Kafka)
+Services: Order, Payment, Inventory, Shipping, Notifications
+Pattern: Choreography Saga with Kafka topics
+
+Kafka topics:
+  orders.created      (partitioned by order_id, 12 partitions)
+  payments.processed  (partitioned by order_id, 6 partitions)
+  inventory.reserved  (partitioned by order_id, 6 partitions)
+  shipping.created    (partitioned by order_id, 6 partitions)
+  orders.cancelled    (partitioned by order_id, 6 partitions)
+  orders.completed    (partitioned by order_id, 6 partitions)
+
+Saga flow (happy path):
+  1. Order Service: create order (PENDING) -> publish orders.created
+  2. Payment Service: consume orders.created -> charge card
+     - On success: publish payments.processed { status: SUCCESS }
+     - On failure: publish payments.processed { status: FAILED }
+  3. Inventory Service: consume payments.processed (SUCCESS)
+     - Reserve stock -> publish inventory.reserved { status: RESERVED }
+     - If out of stock: publish inventory.reserved { status: FAILED }
+  4. Shipping Service: consume inventory.reserved (RESERVED)
+     - Create shipment -> publish shipping.created
+  5. Order Service: consume shipping.created
+     - Update order status to SHIPPED -> publish orders.completed
+  6. Notifications Service: consume orders.completed
+     - Send shipping confirmation email
+
+Saga flow (compensation - payment fails):
+  1. Payment Service: publish payments.processed { status: FAILED }
+  2. Order Service: consume payments.processed (FAILED)
+     - Update order status to CANCELLED
+     - Publish orders.cancelled { reason: PAYMENT_FAILED }
+  3. Notifications Service: consume orders.cancelled
+     - Send payment failure email
+
+Consumer configuration (Spring Boot):
+  @KafkaListener(topics = "orders.created", groupId = "payment-service")
+  public void handleOrderCreated(OrderCreatedEvent event) {
+      try {
+          PaymentResult result = paymentGateway.charge(
+              event.getPaymentMethodId(), event.getTotal());
+          if (result.isSuccess()) {
+              kafkaTemplate.send("payments.processed",
+                  new PaymentProcessedEvent(event.getOrderId(), "SUCCESS"));
+          } else {
+              kafkaTemplate.send("payments.processed",
+                  new PaymentProcessedEvent(event.getOrderId(), "FAILED"));
+          }
+      } catch (Exception e) {
+          // Retry with exponential backoff (Spring Kafka retry)
+          throw new PaymentProcessingException(e);
+      }
+  }
+
+Idempotency (critical for at-least-once delivery):
+  @KafkaListener(topics = "orders.created", groupId = "payment-service")
+  public void handleOrderCreated(OrderCreatedEvent event) {
+      if (processedOrders.contains(event.getOrderId())) {
+          return; // Already processed, skip
+      }
+      processPayment(event);
+      processedOrders.add(event.getOrderId()); // Redis SET with TTL
+  }
+
+Dead letter queue configuration:
+  spring.kafka.consumer.properties.max.poll.records=500
+  spring.kafka.listener.retry.max-attempts=3
+  spring.kafka.listener.retry.back-off-initial-interval=1000
+  spring.kafka.listener.retry.back-off-multiplier=2.0
+  # After 3 retries, message goes to DLT topic
+  # Topic naming: orders.created.DLT
+
+Monitoring:
+  - Consumer lag: kafka-consumer-groups --describe --group payment-service
+  - Alert if lag > 1000 messages for > 5 minutes
+  - Grafana dashboard: lag per partition, throughput, error rate
+  - Trace correlation: X-Trace-Id propagated in event headers
+
+Schema evolution (Avro + Schema Registry):
+  - Events serialized as Avro with schema registered in Confluent Schema Registry
+  - Backward compatible changes: add optional fields with defaults
+  - Breaking changes: new topic (orders.created.v2) or compatibility check fails
+  - Consumer auto-deserializes using schema ID from registry
+```
+
+### How do I test event-driven systems?
+
+Use three levels: (1) Unit tests for event handlers with mocked Kafka, (2) Integration tests with Testcontainers (real Kafka in Docker), (3) Contract tests for event schemas using schema registry compatibility checks. For end-to-end, use a test consumer that subscribes to all topics and verifies the saga completes. Test compensation paths explicitly: inject a payment failure and verify the order is cancelled and notifications are sent.

@@ -244,3 +244,66 @@ Define clear metrics before starting: performance benchmarks, error rates, or ma
 ## Conclusion
 
 Capacity planning is an ongoing practice, not a one-time exercise. Measure, forecast, test, and review regularly to keep your infrastructure aligned with business growth while controlling costs.
+
+
+## Advanced Topics
+
+### Scenario: Capacity Planning for SaaS
+
+```text
+System: SaaS, 10K active users, 15% monthly growth
+Goal: Plan infrastructure for 6 months
+
+Current data:
+  | Metric | Current | Growth | 6-month projection |
+  |--------|---------|--------|---------------------|
+  | Active users | 10K | 15% mo | 23K |
+  | Requests/min | 50K | 15% mo | 115K |
+  | Avg CPU | 45% | 15% mo | 85% |
+  | Memory | 60% | 10% mo | 95% |
+  | Storage | 500GB | 20% mo | 1.5TB |
+  | Bandwidth | 200GB/mo | 15% mo | 460GB/mo |
+
+Current vs projected capacity:
+  | Resource | Current capacity | Current usage | Projected usage | Action |
+  |----------|-----------------|---------------|-----------------|--------|
+  | CPU (8 cores) | 8 cores | 3.6 cores | 6.8 cores | Add 4 cores month 4 |
+  | Memory (32GB) | 32GB | 19.2GB | 30.4GB | Add 16GB month 3 |
+  | Storage (1TB) | 1TB | 500GB | 1.5TB | Add 2TB month 2 |
+  | Bandwidth | 1TB/mo | 200GB | 460GB | OK until month 6 |
+  | DB connections | 200 | 80 | 184 | Add pool month 5 |
+
+Action plan:
+  | Month | Action | Estimated cost |
+  |-------|--------|----------------|
+  | 1-2 | Storage +2TB | $100/mo |
+  | 3 | Memory +16GB | $80/mo |
+  | 4 | CPU +4 cores | $150/mo |
+  | 5 | DB pool +100 connections | $0 (config) |
+  | 6 | Evaluate cluster upgrade | $500/mo |
+
+Scaling strategies:
+  - Vertical: more CPU/RAM on existing node (simple, downtime)
+  - Horizontal: more nodes (complex, no downtime)
+  - Auto-scaling: HPA in K8s, auto-scaling groups in cloud
+  - Read replicas: for read-heavy DB
+  - Caching: Redis to reduce DB load
+
+Metrics to monitor:
+  - CPU utilization > 70% for 10 min -> scale
+  - Memory utilization > 80% -> scale
+  - Disk usage > 75% -> expand
+  - DB connection pool > 80% -> increase pool
+  - Response time p99 > 500ms -> investigate
+
+Lessons:
+  - Plan with data, not assumptions
+  - Compounding growth is deceptive (15% mo = 2.3x in 6m)
+  - Storage grows faster than CPU/memory
+  - Auto-scaling absorbs spikes, not sustained growth
+  - Review the plan monthly, not semi-annually
+```
+
+### How do I calculate compounding growth?
+
+Use the formula: F = P * (1 + r)^n, where P is the current value, r is the monthly growth rate, and n is the number of months. Example: 10K users, 15% monthly, 6 months: 10000 * (1.15)^6 = 23,133 users. Always round up and add a 20% buffer for unexpected spikes.

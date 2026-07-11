@@ -238,3 +238,73 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Reportes Multi-tabla en E-commerce
+
+```sql
+-- 5 tablas: customers, orders, order_items, products, categories
+-- Objetivo: reporte de ventas por categoria y cliente
+
+-- Query 1: Top 10 clientes por gasto total
+SELECT c.id, c.email, SUM(oi.line_total) AS total_spent,
+       COUNT(DISTINCT o.id) AS order_count
+FROM customers c
+INNER JOIN orders o ON c.id = o.customer_id
+INNER JOIN order_items oi ON o.id = oi.order_id
+WHERE o.status = 'completed'
+  AND o.created_at >= '2026-01-01'
+GROUP BY c.id, c.email
+ORDER BY total_spent DESC
+LIMIT 10;
+
+-- Query 2: Ventas por categoria (mes actual)
+SELECT cat.name AS category,
+       SUM(oi.line_total) AS revenue,
+       SUM(oi.quantity) AS units_sold,
+       COUNT(DISTINCT o.id) AS order_count
+FROM categories cat
+INNER JOIN products p ON p.category_id = cat.id
+INNER JOIN order_items oi ON oi.product_id = p.id
+INNER JOIN orders o ON o.id = oi.order_id
+WHERE o.status = 'completed'
+  AND o.created_at >= DATE_TRUNC('month', NOW())
+GROUP BY cat.name
+ORDER BY revenue DESC;
+
+-- Query 3: Clientes sin ordenes en 90 dias (churn)
+SELECT c.id, c.email, MAX(o.created_at) AS last_order
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id, c.email
+HAVING MAX(o.created_at) < NOW() - INTERVAL '90 days'
+   OR MAX(o.created_at) IS NULL
+ORDER BY last_order DESC NULLS LAST;
+
+-- Query 4: Productos nunca comprados
+SELECT p.sku, p.name, p.price
+FROM products p
+LEFT JOIN order_items oi ON p.id = oi.product_id
+WHERE oi.id IS NULL
+  AND p.is_active = true
+ORDER BY p.created_at DESC;
+
+-- Indices necesarios para estos joins:
+CREATE INDEX idx_orders_customer ON orders(customer_id);
+CREATE INDEX idx_orders_status_date ON orders(status, created_at);
+CREATE INDEX idx_order_items_order ON order_items(order_id);
+CREATE INDEX idx_order_items_product ON order_items(product_id);
+CREATE INDEX idx_products_category ON products(category_id);
+
+-- Plan de ejecucion optimo:
+-- Query 1: 2 index scans + hash join, 50ms
+-- Query 2: 3 index scans + hash joins + aggregate, 120ms
+-- Query 3: seq scan customers + index scan orders, 200ms
+-- Query 4: seq scan products + anti-join, 80ms
+```
+
+### Como evito el problema N+1 en ORMs?
+
+Usa eager loading. En Prisma: `include: { orderItems: true }`. En TypeORM: `relations: ['orderItems']`. En SQLAlchemy: `joinedload(Order.items)`. En Django ORM: `prefetch_related('items')`. El ORM genera un solo JOIN en lugar de N queries separadas. Monitorea con tools como Django Debug Toolbar o Prisma Query Logging.

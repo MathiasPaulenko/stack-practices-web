@@ -268,3 +268,86 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Implementacion GDPR para SaaS B2C
+
+```text
+Sistema: SaaS B2C, usuarios en EU, maneja PII
+Objetivo: Cumplimiento GDPR completo
+
+Principios GDPR:
+  1. Lawfulness, fairness, transparency
+  2. Purpose limitation
+  3. Data minimization
+  4. Accuracy
+  5. Storage limitation
+  6. Integrity and confidentiality
+  7. Accountability
+
+Derechos del usuario (DSAR - Data Subject Access Request):
+  | Derecho | Implementacion | SLA |
+  |---------|----------------|-----|
+  | Acceso | Exportar todos los datos del usuario | 30 dias |
+  | Rectificacion | Editar datos personales | 30 dias |
+  | Supresion (olvido) | Eliminar cuenta y todos los datos | 30 dias |
+  | Portabilidad | Export en formato JSON/CSV | 30 dias |
+  | Oposicion | Opt-out de marketing | Inmediato |
+  | Limitacion | Congelar procesamiento temporal | 30 dias |
+  | No automatizada | No decisiones solo por algoritmo | N/A |
+
+Implementacion tecnica:
+  | Requisito | Implementacion |
+  |-----------|----------------|
+  | Consentimiento | Banner de cookies + opt-in explicito |
+  | Cifrado | AES-256 en reposo, TLS 1.3 en transito |
+  | Minimizacion | Solo recolectar datos necesarios |
+  | Retencion | Auto-delete despues de 2 anos inactivo |
+  | DPA (Data Processing Agreement) | Contrato con cada sub-procesador |
+  | DPO (Data Protection Officer) | Designar si > 250 empleados |
+  | DPIA (Data Protection Impact Assessment) | Para procesamiento de alto riesgo |
+  | Notificacion de breach | Notificar autoridad en 72h |
+  | Registro de actividades | Log de procesamiento de datos |
+
+```sql
+-- Tabla de consentimiento
+CREATE TABLE user_consents (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id),
+  purpose VARCHAR(100) NOT NULL,  -- marketing, analytics, etc
+  consent_given BOOLEAN NOT NULL,
+  consent_date TIMESTAMP NOT NULL DEFAULT NOW(),
+  withdrawal_date TIMESTAMP,
+  ip_address VARCHAR(45),
+  UNIQUE(user_id, purpose)
+);
+
+-- Tabla de DSAR (Data Subject Access Requests)
+CREATE TABLE dsar_requests (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id),
+  request_type VARCHAR(50) NOT NULL,  -- access, deletion, portability
+  status VARCHAR(20) DEFAULT "pending",  -- pending, processing, completed
+  requested_at TIMESTAMP DEFAULT NOW(),
+  completed_at TIMESTAMP,
+  notes TEXT
+);
+
+-- Auto-deletion: usuarios inactivos por 2 anos
+-- Cron job: DELETE FROM users WHERE last_login < NOW() - INTERVAL "2 years";
+```
+
+Lecciones:
+  - GDPR aplica si tienes usuarios en EU, sin importar donde esta tu server
+  - Consentimiento debe ser explicito, no pre-tildado
+  - Derecho al olvido: eliminar todos los datos, incluyendo backups
+  - Notificacion de breach en 72h es obligatoria
+  - DPA con cada sub-procesador (AWS, Stripe, etc)
+  - Audit log de DSAR: quien pidio que y cuando se completo
+```
+
+### Como manejo el derecho al olvido con backups?
+
+Elimina los datos de la base de datos activa inmediatamente. Para backups, marca el usuario para eliminacion en el siguiente ciclo de backup. Cuando el backup expire (segun politica de retencion, tipicamente 30-90 dias), los datos se eliminan permanentemente. Documenta el proceso: el regulador acepta que los backups tardan mas, siempre que haya un proceso definido.

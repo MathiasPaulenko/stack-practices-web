@@ -282,3 +282,95 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Production K8s Deployment for E-commerce
+
+```yaml
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  namespace: production
+  labels: { app: payment-service }
+spec:
+  replicas: 4
+  strategy:
+    rollingUpdate: { maxSurge: 1, maxUnavailable: 0 }
+  selector:
+    matchLabels: { app: payment-service }
+  template:
+    metadata:
+      labels: { app: payment-service }
+    spec:
+      containers:
+        - name: payment
+          image: registry.example.com/payment:v2.1.0
+          ports: [{ containerPort: 3000 }]
+          resources:
+            requests: { cpu: 200m, memory: 256Mi }
+            limits: { cpu: 500m, memory: 512Mi }
+          readinessProbe:
+            httpGet: { path: /health, port: 3000 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /health, port: 3000 }
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef: { name: db-secret, key: url }
+      # PodDisruptionBudget ensures availability during node drain
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector: { matchLabels: { app: payment-service } }
+                topologyKey: kubernetes.io/hostname
+
+# hpa.yaml - Horizontal Pod Autoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: payment-service }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: payment-service }
+  minReplicas: 4
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } }
+    - type: Resource
+      resource: { name: memory, target: { type: Utilization, averageUtilization: 80 } }
+
+# pdb.yaml - Pod Disruption Budget
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: payment-service }
+spec:
+  minAvailable: 3
+  selector: { matchLabels: { app: payment-service } }
+
+Production checklist:
+  | Item | Status |
+  |------|--------|
+  | Resource limits | Set |
+  | Readiness probe | Configured |
+  | Liveness probe | Configured |
+  | HPA | Enabled |
+  | PDB | minAvailable set |
+  | Anti-affinity | Spread across nodes |
+  | Secrets | From Secret Manager |
+  | Rolling update | maxUnavailable: 0 |
+  | Image tag | Pinned (not latest) |
+  | Namespace | Dedicated |
+```
+
+### How do I debug a CrashLoopBackOff?
+
+Check events: `kubectl describe pod <name>`. Check logs: `kubectl logs <name> --previous` (previous container crash). Common causes: missing env vars, wrong command, OOMKilled (increase memory limit), failed readiness probe (check path and port), permission issues (check service account and RBAC). Fix the root cause, do not just restart the pod.

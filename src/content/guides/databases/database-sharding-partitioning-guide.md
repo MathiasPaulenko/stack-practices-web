@@ -256,3 +256,91 @@ Partitioning splits a table into smaller pieces on the same server. Sharding dis
 ### Can I change the shard key later?
 
 Technically yes, practically no. Changing the shard key requires rewriting all data. Design your shard key as if it were immutable. If you must change it, use a double-write and migration strategy over weeks.
+
+
+## Advanced Topics
+
+### Scenario: Multi-Tenant Sharding for SaaS
+
+```text
+System: SaaS with 2,000 tenants, 500GB per tenant
+Strategy: Directory-based sharding by tenant_id
+
+Architecture:
+  App -> Shard Router -> shard_directory (metadata DB)
+  Shard 1 (us-east): tenants 1001, 1003, 1005
+  Shard 2 (eu-west): tenants 1002, 1004, 1006
+  Shard 3 (ap-southeast): tenants 1007, 1008
+
+Router (Node.js):
+  class ShardRouter {
+    constructor() { this.shards = new Map(); }
+    async loadDirectory() {
+      const rows = await this.metaDb.query(
+        "SELECT tenant_id, shard_id FROM shard_directory");
+      for (const r of rows) {
+        this.shards.set(r.tenant_id, this.pools[r.shard_id]);
+      }
+    }
+    getShard(tenantId) {
+      const pool = this.shards.get(tenantId);
+      if (!pool) throw new Error("Tenant not found");
+      return pool;
+    }
+    async query(tenantId, sql, params) {
+      return this.getShard(tenantId).query(sql, params);
+    }
+  }
+
+  // Middleware extracts tenant_id from JWT
+  app.use((req, res, next) => {
+    req.db = shardRouter.getShard(req.user.tenantId);
+    next();
+  });
+
+Rebalancing (Shard 1 at 80%):
+  1. Create Shard 4
+  2. Migrate selected tenants
+  3. Update shard_directory
+  4. Reload routing
+  5. Delete data from old shard
+
+  async function migrateTenant(tenantId, from, to) {
+    const tables = ["users", "orders", "invoices"];
+    for (const t of tables) {
+      const rows = await from.query(
+        `SELECT * FROM ${t} WHERE tenant_id = $1`, [tenantId]);
+      for (const row of rows) {
+        const cols = Object.keys(row);
+        const ph = cols.map((_, i) => `$${i+1}`).join(",");
+        await to.query(`INSERT INTO ${t} (${cols.join(",")}) VALUES (${ph})`,
+          Object.values(row));
+      }
+    }
+    await metaDb.query(
+      "UPDATE shard_directory SET shard_id = $1 WHERE tenant_id = $2",
+      [newShardId, tenantId]);
+    for (const t of tables) {
+      await from.query(`DELETE FROM ${t} WHERE tenant_id = $1`, [tenantId]);
+    }
+  }
+
+Monitoring:
+  | Metric | Alert |
+  |---------|--------|
+  | Disk per shard | > 75% |
+  | Queries/sec deviation | > 30% from average |
+  | Tenants per shard | > 500 |
+  | Migration lag | > 5 min |
+
+Lessons:
+  - Directory-based gives full control over assignment
+  - Rebalancing is the biggest operational challenge
+  - Keep transactions within a shard (one tenant = one shard)
+  - Router should cache the directory to avoid latency
+  - Large tenants may need their own dedicated shard
+```
+
+### How do I handle cross-shard queries?
+
+Avoid cross-shard queries. For global aggregations use a separate data warehouse fed by CDC. For real-time dashboards, pre-compute metrics via events. If no alternative, use scatter-gather with aggressive timeout and accept it will be slow.

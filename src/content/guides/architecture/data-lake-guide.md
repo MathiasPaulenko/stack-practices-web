@@ -182,3 +182,121 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Event Pipeline with Spark and Delta Lake
+
+```text
+System: E-commerce analytics platform
+Volume: 50M events/day (clicks, views, purchases)
+Storage: S3 with Bronze/Silver/Gold zones
+Engine: EMR with Spark 3.5
+
+Architecture:
+  Sources -> Kinesis -> S3 Bronze (raw JSON)
+  S3 Bronze -> Spark job -> S3 Silver (Parquet + Delta)
+  S3 Silver -> Spark job -> S3 Gold (aggregates)
+  S3 Gold -> Athena/Trino -> BI tools
+
+Step 1: Ingest to Bronze
+  Kinesis Firehose writes raw JSON to s3://lake/bronze/events/dt=2026-07-11/
+  Partition by date (dt) for efficient queries
+  No transformation: data exactly as it arrives
+
+Step 2: Bronze to Silver (cleaning)
+  $ spark-submit --master yarn \\
+      --num-executors 20 \\
+      --executor-memory 8g \\
+      bronze_to_silver.py
+
+  # bronze_to_silver.py
+  raw = spark.read.json("s3://lake/bronze/events/dt=2026-07-11/")
+  cleaned = raw.filter("user_id is not null") \\
+      .withColumn("event_time", to_timestamp("timestamp")) \\
+      .withColumn("event_date", to_date("event_time")) \\
+      .dropDuplicates(["event_id"])
+  cleaned.write.format("delta") \\
+      .mode("append") \\
+      .partitionBy("event_date") \\
+      .save("s3://lake/silver/events/")
+
+Step 3: Silver to Gold (aggregates)
+  silver = spark.read.format("delta").load("s3://lake/silver/events/")
+  daily = silver.groupBy("event_date", "event_type") \\
+      .agg(count("*").alias("total_events"),
+           countDistinct("user_id").alias("unique_users"))
+  daily.write.format("delta") \\
+      .mode("overwrite") \\
+      .option("overwriteSchema", "true") \\
+      .save("s3://lake/gold/daily_events/")
+
+Step 4: Optimization
+  # Compact small files weekly
+  delta_table = DeltaTable.forPath(spark, "s3://lake/silver/events/")
+  delta_table.optimize().compact(minFileSize="10MB")
+
+  # Vacuum: remove old versions (retain 7 days)
+  delta_table.vacuum(retentionHours=168)
+
+Monitoring:
+  - CloudWatch: job duration, memory usage, output file count
+  - Alert if Silver has > 1000 small files (< 1MB)
+  - Alert if Gold not updated in 24h
+  - Data quality: Great Expectations validates schema and nulls in Silver
+
+Estimated monthly cost:
+  S3 storage (50TB): ~$1,150
+  EMR (20 executors x 4h/day): ~$800
+  Athena (BI queries): ~$200
+  Total: ~$2,150/month
+```
+
+### How do I handle schema evolution in a Data Lake?
+
+Use formats that support schema evolution: Parquet, Avro, or Delta Lake. With Delta Lake, the `mergeSchema` option adds new columns without breaking existing reads. For major changes (renaming columns, changing types), use table versioning: `events_v1`, `events_v2`. Document the change in the data catalog. Consumers should use column names, not positions, to avoid breakage.
+
+### When should I compact files in the lake?
+
+Compact when the number of small files (< 10MB) exceeds 1000 per partition. Small files degrade performance because Spark/Trino must open each file individually. Run `OPTIMIZE` weekly for Silver tables and monthly for Gold tables. After compacting, run `VACUUM` to remove old versions and reclaim storage.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

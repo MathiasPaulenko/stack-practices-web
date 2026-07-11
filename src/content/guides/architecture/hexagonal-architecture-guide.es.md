@@ -173,6 +173,89 @@ public class OrderControllerAdapter {
 - **Modelos de dominio anémicos** — los puertos deben exponer comportamiento, no solo acceso a datos
 - **Sobre-ingeniería en CRUD simple** — la arquitectura hexagonal agrega ceremonia; úsala cuando el dominio lo justifique
 
+
+### Escenario Detallado: Sistema de Pedidos con Arquitectura Hexagonal
+
+```text
+Proyecto: Sistema de pedidos Java 21 + Spring Boot
+Puertos definidos:
+  Primarios (driving):
+    - PlaceOrderUseCase: place(PlaceOrderCommand) -> OrderResult
+    - CancelOrderUseCase: cancel(CancelOrderCommand) -> void
+    - GetOrderQuery: getById(OrderId) -> OrderDto
+  Secundarios (driven):
+    - OrderRepository: findById, save, update
+    - PaymentGatewayPort: charge(Money) -> PaymentResult
+    - NotificationPort: sendOrderConfirmation(OrderId, Email)
+    - InventoryPort: reserveItems(List<OrderItem>) -> ReservationId
+
+Adaptadores implementados:
+  Driving:
+    - RestOrderController (Spring @RestController)
+    - GrpcOrderService (gRPC service)
+    - CliOrderHandler (Picocli CLI)
+    - KafkaOrderConsumer (event consumer)
+  Driven:
+    - PostgresOrderRepository (JPA/Hibernate)
+    - StripePaymentAdapter (HTTP client)
+    - SmtpNotificationAdapter (JavaMail)
+    - RedisInventoryAdapter (Redis client)
+
+Flujo: Place Order via REST
+  1. POST /orders -> RestOrderController
+  2. Controller mapea request a PlaceOrderCommand
+  3. Llama PlaceOrderUseCase.place(command)
+  4. PlaceOrderService:
+     a. Crea Order.create(command)
+     b. InventoryPort.reserveItems(items)
+     c. PaymentGatewayPort.charge(order.total())
+     d. Si pago ok: order.confirm(txId), OrderRepository.save(order)
+     e. NotificationPort.sendOrderConfirmation(order.id, email)
+     f. Retorna OrderResult.success(order.id)
+  5. Controller mapea OrderResult a OrderResponse
+
+Testeo con adaptadores en memoria:
+  public class PlaceOrderServiceTest {
+      private InMemoryOrderRepository repo = new InMemoryOrderRepository();
+      private FakePaymentGateway payment = new FakePaymentGateway();
+      private SpyNotificationPort notification = new SpyNotificationPort();
+      private FakeInventoryPort inventory = new FakeInventoryPort();
+      private PlaceOrderService service;
+
+      @BeforeEach
+      void setUp() {
+          service = new PlaceOrderService(repo, payment, notification, inventory);
+      }
+
+      @Test
+      void shouldPlaceOrderWhenPaymentSucceeds() {
+          payment.setSuccess(true);
+          var cmd = new PlaceOrderCommand("cust-1", List.of(new Item("prod-1", 2)));
+          var result = service.place(cmd);
+          assertTrue(result.isSuccess());
+          assertEquals(1, notification.sentConfirmations());
+          assertTrue(repo.findById(result.orderId()).isPresent());
+      }
+
+      @Test
+      void shouldFailWhenPaymentDeclines() {
+          payment.setSuccess(false);
+          var cmd = new PlaceOrderCommand("cust-1", List.of(new Item("prod-1", 2)));
+          var result = service.place(cmd);
+          assertFalse(result.isSuccess());
+          assertEquals(0, notification.sentConfirmations());
+      }
+  }
+
+  // Tests ejecutan en < 100ms sin BD ni red
+  // Cobertura del dominio: 95%+
+  // Adaptadores se testean por separado con Testcontainers
+```
+
+### Como manejo la configuracion de dependencias en hexagonal?
+
+Usa inyeccion de dependencias en el punto de entrada (Application.java en Spring Boot). El dominio no conoce Spring. Los adaptadores se anotan con @RestController, @Repository, @Service. El ensamblaje ocurre en la clase de configuracion: @Bean PlaceOrderUseCase con los adaptadores concretos. Para testing, simplemente construye el servicio con adaptadores en memoria usando `new`. El dominio nunca depende del contenedor DI.
+
 ## Variantes
 
 - **Arquitectura Cebolla** — agrega capas explícitas de servicios de dominio y aplicación
@@ -201,3 +284,19 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

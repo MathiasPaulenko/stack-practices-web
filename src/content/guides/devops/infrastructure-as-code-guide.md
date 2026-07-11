@@ -250,3 +250,103 @@ Never hardcode secrets. Use:
 ### Should I apply Terraform from my laptop or CI/CD?
 
 Always from CI/CD. Local applies are untraceable, unreviewed, and bypass approval workflows. Use Terraform Cloud, Atlantis, or a GitOps pipeline for all production changes.
+
+
+## Advanced Topics
+
+### Scenario: Modular IaC for Multi-Environment
+
+```hcl
+# Directory structure
+# infra/
+#   modules/
+#     vpc/
+#     eks/
+#     rds/
+#     redis/
+#   environments/
+#     dev/
+#     staging/
+#     production/
+```
+
+```hcl
+# modules/vpc/main.tf
+variable "cidr" { type = string }
+variable "name" { type = string }
+variable "region" { type = string }
+
+resource "aws_vpc" "main" {
+  cidr_block = var.cidr
+  tags = { Name = "${var.name}-vpc", Environment = var.name }
+}
+
+resource "aws_subnet" "private" {
+  count = 3
+  vpc_id = aws_vpc.main.id
+  cidr_block = cidrsubnet(var.cidr, 8, count.index)
+  availability_zone = "${var.region}${element(["a","b","c"], count.index)}"
+  tags = { Name = "${var.name}-private-${count.index}" }
+}
+
+resource "aws_subnet" "public" {
+  count = 3
+  vpc_id = aws_vpc.main.id
+  cidr_block = cidrsubnet(var.cidr, 8, count.index + 100)
+  availability_zone = "${var.region}${element(["a","b","c"], count.index)}"
+  map_public_ip_on_launch = true
+  tags = { Name = "${var.name}-public-${count.index}" }
+}
+
+output "vpc_id" { value = aws_vpc.main.id }
+output "private_subnet_ids" { value = aws_subnet.private[*].id }
+output "public_subnet_ids" { value = aws_subnet.public[*].id }
+```
+
+```hcl
+# environments/production/main.tf
+module "vpc" {
+  source = "../../modules/vpc"
+  cidr = "10.0.0.0/16"
+  name = "production"
+  region = "us-east-1"
+}
+
+module "eks" {
+  source = "../../modules/eks"
+  cluster_name = "production-cluster"
+  vpc_id = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnet_ids
+  node_count = 5
+  node_type = "m5.large"
+}
+
+module "rds" {
+  source = "../../modules/rds"
+  vpc_id = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnet_ids
+  instance_class = "db.r5.xlarge"
+  allocated_storage = 500
+  multi_az = true
+  backup_retention = 30
+}
+
+terraform {
+  backend "s3" {
+    bucket = "tf-state-production"
+    key = "infra/terraform.tfstate"
+    region = "us-east-1"
+    dynamodb_table = "tf-locks"
+    encrypt = true
+  }
+}
+
+# Environment differences:
+#   dev: 1 node, db.t3.medium, no multi-az
+#   staging: 3 nodes, db.t3.large, multi-az
+#   production: 5 nodes, db.r5.xlarge, multi-az, backup 30 days
+```
+
+### How do I handle infrastructure drift?
+
+Run `terraform plan` daily via CI/CD. If it detects drift (someone changed something manually), notify the team. Never apply manual changes in the console. If there is drift, import it to state with `terraform import` or revert it. Document who and why made the manual change. Drift is a symptom that your IaC does not cover a use case.

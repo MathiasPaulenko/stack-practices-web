@@ -183,3 +183,120 @@ No. When there is no partition, you can have both. The trade-off only applies du
 ### How do I choose between CP and AP?
 
 Ask: "What hurts more — a failed write or stale data?" If failed writes are unacceptable (payments, inventory), choose CP. If stale data is acceptable (feeds, analytics), choose AP. Most systems use a mix: CP for critical paths, AP for everything else.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Database Choice for a FinTech App
+
+```text
+System: FinTech payment app (microservices)
+Services: Accounts, Transfers, Notifications, Analytics
+
+Requirements matrix per service:
+  | Service | Consistency | Availability | Latency | Choice |
+  |---------|-------------|--------------|---------|--------|
+  | Accounts (balances) | Strong (CP) | 99.99% | < 10ms | PostgreSQL (primary + sync replica) |
+  | Transfers | Strong (CP) | 99.99% | < 50ms | PostgreSQL + saga pattern |
+  | Notifications | Eventual (AP) | 99.9% | < 500ms | Cassandra (write-heavy) |
+  | Analytics | Eventual (AP) | 99.9% | < 5s | ClickHouse (columnar OLAP) |
+  | Session cache | Eventual (AP) | 99.95% | < 2ms | Redis (in-memory) |
+  | Feature flags | Strong (CP) | 99.9% | < 50ms | etcd (Raft consensus) |
+
+PostgreSQL config for Accounts service:
+  - Primary: 1 instance (writes)
+  - Sync replicas: 2 (reads + failover)
+  - Synchronous commit: ON (wait for at least 1 replica)
+  - Failover: Patroni with etcd for consensus
+
+  postgresql.conf:
+    synchronous_commit = on
+    synchronous_standby_names = "FIRST 1 (replica1, replica2)"
+    wal_level = replica
+    max_wal_senders = 10
+
+Cassandra config for Notifications:
+  - 5 nodes across 3 datacenters
+  - Replication factor: 3 per datacenter
+  - Consistency level: LOCAL_QUORUM for writes
+  - Compaction: Size-tiered (STCS) for notification data
+
+  CREATE KEYSPACE notifications WITH replication = {
+      "class": "NetworkTopologyStrategy",
+      "dc1": 3, "dc2": 3, "dc3": 3
+  };
+
+  CREATE TABLE notifications (
+      user_id UUID,
+      notification_id TIMEUUID,
+      type TEXT,
+      payload JSON,
+      read BOOLEAN DEFAULT FALSE,
+      created_at TIMESTAMP,
+      PRIMARY KEY (user_id, notification_id)
+  ) WITH CLUSTERING ORDER BY (notification_id DESC);
+
+Network partition handling:
+  - Accounts (CP): If primary loses contact with replicas,
+    rejects writes. Users cannot transfer money
+    but balances are consistent.
+  - Notifications (AP): If a datacenter is isolated,
+    notifications are accepted on both sides.
+    Hinted handoff resolves consistency on reconnect.
+
+Monitoring:
+  - PostgreSQL replication lag: < 100ms (alert if > 500ms)
+  - Cassandra repair: run weekly for anti-entropy
+  - etcd leader changes: alert if > 1 per hour
+  - Failed transfers due to partition: real-time dashboard
+
+Lessons learned:
+  - Not all services need the same database
+  - CP for money, AP for everything else
+  - The cost of strong consistency is latency and reduced availability
+  - Monitoring replication lag is critical to detect problems early
+```
+
+### What is tunable consistency?
+
+Systems like Cassandra and DynamoDB let you adjust the consistency level per operation. ONE: reads from one node (fast, eventual). QUORUM: reads from majority (consistent, slower). ALL: reads from all (max consistency, lowest availability). This lets you choose the trade-off per query, not per system. Use QUORUM for critical operations and ONE for cache reads or analytics.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

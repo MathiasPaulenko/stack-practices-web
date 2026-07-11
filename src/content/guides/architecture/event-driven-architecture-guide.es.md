@@ -224,3 +224,97 @@ Con brokers durables (Kafka, colas persistentes), los eventos se retienen. El co
 ### ¿Toda comunicación entre microservicios debería ser async?
 
 No. Usa sync para consultas en tiempo real y cuando el llamador necesita una respuesta inmediata. Usa async para trabajo en background, notificaciones y desacoplamiento. Un sistema saludable usa ambos.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Procesamiento de Ordenes con Kafka y Saga
+
+```text
+Sistema: Procesamiento de ordenes e-commerce (Java + Spring Boot + Kafka)
+Servicios: Order, Payment, Inventory, Shipping, Notifications
+Patron: Choreography Saga con topics de Kafka
+
+Topics de Kafka:
+  orders.created      (particionado por order_id, 12 particiones)
+  payments.processed  (particionado por order_id, 6 particiones)
+  inventory.reserved  (particionado por order_id, 6 particiones)
+  shipping.created    (particionado por order_id, 6 particiones)
+  orders.cancelled    (particionado por order_id, 6 particiones)
+  orders.completed    (particionado por order_id, 6 particiones)
+
+Flujo saga (camino feliz):
+  1. Order Service: crear orden (PENDING) -> publica orders.created
+  2. Payment Service: consume orders.created -> cobra tarjeta
+     - Exito: publica payments.processed { status: SUCCESS }
+     - Fallo: publica payments.processed { status: FAILED }
+  3. Inventory Service: consume payments.processed (SUCCESS)
+     - Reservar stock -> publica inventory.reserved { status: RESERVED }
+     - Sin stock: publica inventory.reserved { status: FAILED }
+  4. Shipping Service: consume inventory.reserved (RESERVED)
+     - Crear envio -> publica shipping.created
+  5. Order Service: consume shipping.created
+     - Actualizar orden a SHIPPED -> publica orders.completed
+  6. Notifications Service: consume orders.completed
+     - Envia email de confirmacion de envio
+
+Flujo saga (compensacion - pago falla):
+  1. Payment Service: publica payments.processed { status: FAILED }
+  2. Order Service: consume payments.processed (FAILED)
+     - Actualizar orden a CANCELLED
+     - Publica orders.cancelled { reason: PAYMENT_FAILED }
+  3. Notifications Service: consume orders.cancelled
+     - Envia email de fallo de pago
+
+Configuracion de consumer (Spring Boot):
+  @KafkaListener(topics = "orders.created", groupId = "payment-service")
+  public void handleOrderCreated(OrderCreatedEvent event) {
+      try {
+          PaymentResult result = paymentGateway.charge(
+              event.getPaymentMethodId(), event.getTotal());
+          if (result.isSuccess()) {
+              kafkaTemplate.send("payments.processed",
+                  new PaymentProcessedEvent(event.getOrderId(), "SUCCESS"));
+          } else {
+              kafkaTemplate.send("payments.processed",
+                  new PaymentProcessedEvent(event.getOrderId(), "FAILED"));
+          }
+      } catch (Exception e) {
+          throw new PaymentProcessingException(e);
+      }
+  }
+
+Idempotencia (critico para entrega at-least-once):
+  @KafkaListener(topics = "orders.created", groupId = "payment-service")
+  public void handleOrderCreated(OrderCreatedEvent event) {
+      if (processedOrders.contains(event.getOrderId())) {
+          return; // Ya procesado, saltar
+      }
+      processPayment(event);
+      processedOrders.add(event.getOrderId()); // Redis SET con TTL
+  }
+
+Configuracion de dead letter queue:
+  spring.kafka.consumer.properties.max.poll.records=500
+  spring.kafka.listener.retry.max-attempts=3
+  spring.kafka.listener.retry.back-off-initial-interval=1000
+  spring.kafka.listener.retry.back-off-multiplier=2.0
+  // Despues de 3 reintentos, mensaje va a topic DLT
+  // Naming: orders.created.DLT
+
+Monitoreo:
+  - Consumer lag: kafka-consumer-groups --describe --group payment-service
+  - Alertar si lag > 1000 mensajes por > 5 minutos
+  - Dashboard Grafana: lag por particion, throughput, error rate
+  - Correlacion de traces: X-Trace-Id propagado en headers de eventos
+
+Evolucion de esquema (Avro + Schema Registry):
+  - Eventos serializados como Avro con esquema en Confluent Schema Registry
+  - Cambios backward compatible: anadir campos opcionales con defaults
+  - Cambios breaking: nuevo topic (orders.created.v2) o check de compatibilidad falla
+  - Consumer auto-deserializa usando schema ID del registry
+```
+
+### Como testeo sistemas orientados a eventos?
+
+Usa tres niveles: (1) Tests unitarios para handlers de eventos con Kafka mockeado, (2) Tests de integracion con Testcontainers (Kafka real en Docker), (3) Tests de contrato para esquemas de eventos usando compatibility checks del schema registry. Para end-to-end, usa un consumer de test que se suscribe a todos los topics y verifica que la saga completa. Testea rutas de compensacion explicitamente: inyecta un fallo de pago y verifica que la orden se cancele y se envien notificaciones.

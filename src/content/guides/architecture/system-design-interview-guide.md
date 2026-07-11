@@ -220,3 +220,119 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Design a URL Shortener
+
+```text
+Problem: Design a URL shortener like bit.ly
+Requirements:
+  Functional: Shorten URL, redirect, custom aliases, analytics
+  Scale: 100M new URLs/day, 10B reads/day
+  Latency: < 50ms for redirects
+  Availability: 99.99%
+
+Step 1: Capacity estimation
+  Writes: 100M/day = ~1,160/s (peak ~3,000/s)
+  Reads: 10B/day = ~115,000/s (peak ~300,000/s)
+  Read:Write ratio = 100:1
+
+  Storage per URL:
+    short_code: 7 bytes (base62)
+    long_url: 500 bytes average
+    user_id: 8 bytes
+    created_at: 8 bytes
+    metadata: 50 bytes
+    Total: ~573 bytes per record
+
+  Daily storage: 100M x 573B = ~57 GB/day
+  Yearly storage: ~21 TB/year
+  5-year storage: ~105 TB
+
+Step 2: API design
+  POST /api/v1/shorten
+    Body: { "url": "https://example.com/...", "custom_alias": "my-link" }
+    Response: { "short_url": "https://s.io/my-link", "code": "my-link" }
+
+  GET /:code
+    Response: 301 redirect to long_url
+    Headers: Cache-Control: public, max-age=31536000
+
+  GET /api/v1/stats/:code
+    Response: { "clicks": 12345, "unique_visitors": 8900, ... }
+
+Step 3: Short code generation
+  Option A: Base62 encoding of auto-increment ID
+    - ID 1 -> "1", ID 1000000 -> "15FTI"
+    - Pro: No collisions, sortable
+    - Con: Predictable (someone can enumerate URLs)
+
+  Option B: MD5 hash + first 7 chars
+    - hash(long_url + user_id) -> take first 7 chars of base62
+    - Pro: Same URL = same code (deduplication)
+    - Con: Collision risk (need retry logic)
+
+  Option C: Distributed counter (Snowflake ID)
+    - 64-bit ID: timestamp + worker_id + sequence
+    - Base62 encode -> 11 chars, take first 7
+    - Pro: No coordination needed, collision-free
+    - Con: Longer codes than necessary
+
+  Decision: Option A with XOR obfuscation to prevent enumeration
+
+Step 4: Data model
+  PostgreSQL (write-optimized) + Redis (cache) + Cassandra (analytics)
+
+  -- PostgreSQL: URL mapping
+  CREATE TABLE url_mappings (
+      short_code VARCHAR(7) PRIMARY KEY,
+      long_url TEXT NOT NULL,
+      user_id BIGINT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      expires_at TIMESTAMP,
+      INDEX idx_long_url (long_url)
+  );
+
+  -- Cassandra: Click analytics (write-heavy)
+  CREATE TABLE click_events (
+      short_code TEXT,
+      clicked_at TIMESTAMP,
+      ip_address TEXT,
+      user_agent TEXT,
+      referrer TEXT,
+      PRIMARY KEY (short_code, clicked_at)
+  ) WITH CLUSTERING ORDER BY (clicked_at DESC);
+
+Step 5: Architecture diagram
+  Client -> CDN (edge redirect cache)
+    -> Load Balancer
+      -> API Servers (stateless, auto-scaled)
+        -> Redis (cache lookup, 95% hit rate)
+        -> PostgreSQL (write + cache miss)
+        -> Kafka (async click events)
+          -> Analytics Consumer -> Cassandra
+
+Step 6: Caching strategy
+  - Redis cache: short_code -> long_url (TTL: 24h)
+  - CDN cache: 301 redirects cached at edge (TTL: 1 year)
+  - Cache hit rate target: > 95% (only 5% hits PostgreSQL)
+  - Cache invalidation: on URL update, delete from Redis + CDN purge
+
+Step 7: Sharding (year 2+)
+  Shard by short_code hash: 16 shards
+  Each shard: 1 master + 3 read replicas
+  Write capacity: 16 x 3,000 = 48,000 writes/s
+  Read capacity: 16 x 20,000 = 320,000 reads/s (with replicas)
+
+Step 8: Operational concerns
+  - Monitoring: redirect latency, cache hit rate, error rate
+  - Alerting: p99 > 100ms, cache hit < 90%, error rate > 0.1%
+  - Backup: PostgreSQL PITR + daily S3 snapshot
+  - Disaster recovery: Multi-AZ, RPO < 1 min, RTO < 15 min
+```
+
+### How do I estimate storage and bandwidth in an interview?
+
+Start with the numbers given in the requirements. Calculate daily writes and reads. Multiply by record size to get daily storage. Multiply by 365 for yearly. Add 20% overhead for indexes and metadata. For bandwidth, multiply requests/second by average response size. State your assumptions explicitly and round to make math easier. Interviewers care about the process, not exact numbers.

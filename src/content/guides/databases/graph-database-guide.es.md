@@ -144,3 +144,159 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Red Social con Neo4j
+
+```text
+Sistema: Red social profesional (Neo4j 5.x)
+Volumen: 2M usuarios, 15M conexiones, 50M interacciones
+Requisitos: Busqueda de conexiones, recomendaciones, analisis de comunidades
+
+Modelo de datos:
+  Nodos: Person, Company, Skill, Group, Post
+  Relaciones: KNOWS, WORKS_AT, HAS_SKILL, MEMBER_OF, POSTED, LIKES
+
+  (:Person {name, email, title, location})
+  (:Company {name, industry, size})
+  (:Skill {name, category})
+  (:Group {name, description})
+
+  [:KNOWS {since, strength}]
+  [:WORKS_AT {since, role}]
+  [:HAS_SKILL {level: 1-5}]
+  [:MEMBER_OF {joinedAt}]
+
+Consultas clave:
+
+  -- Grado de separacion entre dos personas
+  MATCH p = shortestPath(
+    (a:Person {email: "alice@example.com"})-[:KNOWS*]-(b:Person {email: "bob@example.com"})
+  )
+  RETURN length(p) AS degrees, nodes(p) AS path
+
+  -- Recomendacion de conexiones (amigos de amigos no conectados)
+  MATCH (me:Person {email: "alice@example.com"})-[:KNOWS]-(friend)-[:KNOWS]-(fof)
+  WHERE NOT (me)-[:KNOWS]-(fof) AND me <> fof
+  WITH fof, count(friend) AS mutual_count
+  ORDER BY mutual_count DESC
+  RETURN fof.name, fof.title, mutual_count
+  LIMIT 10
+
+  -- Deteccion de comunidades (algoritmo Louvain)
+  CALL gds.louvain.stream("socialGraph")
+  YIELD nodeId, communityId
+  RETURN gds.util.asNode(nodeId).name AS person, communityId
+  ORDER BY communityId, person
+
+  -- Personas con skills complementarias en la misma ciudad
+  MATCH (me:Person {email: "alice@example.com"})-[:HAS_SKILL]->(mySkill)
+  MATCH (other:Person)-[:HAS_SKILL]->(theirSkill)
+  WHERE me.location = other.location
+    AND me <> other
+    AND NOT (mySkill = theirSkill)
+    AND NOT (me)-[:KNOWS]-(other)
+  WITH other, collect(DISTINCT theirSkill.name) AS complementary_skills
+  RETURN other.name, other.title, complementary_skills
+  LIMIT 5
+
+Indices y optimizacion:
+  CREATE INDEX person_email IF NOT EXISTS FOR (p:Person) ON (p.email)
+  CREATE INDEX person_location IF NOT EXISTS FOR (p:Person) ON (p.location)
+  CREATE INDEX company_name IF NOT EXISTS FOR (c:Company) ON (c.name)
+
+  -- Constraint para unicidad
+  CREATE CONSTRAINT person_email_unique IF NOT EXISTS
+  FOR (p:Person) REQUIRE p.email IS UNIQUE
+
+Performance:
+  | Consulta | Tiempo (Neo4j) | Tiempo (PostgreSQL equivalente) |
+  |----------|----------------|-------------------------------|
+  | Amigos de amigos (2 saltos) | 2ms | 45ms (2 JOINs) |
+  | Grado de separacion (hasta 5) | 15ms | >2s (5 JOINs recursivos) |
+  | Deteccion de comunidades | 800ms | N/A (requiere algoritmo externo) |
+  | Recomendacion de conexiones | 12ms | 300ms (3 JOINs + subconsulta) |
+
+Lecciones aprendidas:
+  - Neo4j brilla en recorridos profundos (3+ saltos)
+  - Para 1-2 saltos, PostgreSQL con JOINs es suficiente
+  - Los indices son criticos incluso en grafos
+  - Limitar profundidad de recorridos variables para evitar explosion
+  - Usar algoritmos GDS para analisis a nivel de grafo completo
+```
+
+### Como modelo jerarquias en un grafo?
+
+Usa relaciones recursivas con profundidad variable. Por ejemplo, una jerarquia organizacional: `(:Employee)-[:REPORTS_TO*]->(:Manager)`. Para arboles, usa el patron arbol con una relacion `[:CHILD_OF]`. Para consultar todos los descendientes: `MATCH (parent)-[:CHILD_OF*]->(descendant)`. Para ancestros: `MATCH (descendant)<-[:CHILD_OF*]-(ancestor)`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

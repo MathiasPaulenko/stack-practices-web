@@ -214,3 +214,119 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Pipeline Lakehouse con Delta Lake
+
+```text
+Sistema: Plataforma de analitica de streaming
+Volumen: 100M eventos/dia (clicks, vistas, transacciones)
+Plataforma: AWS EMR + S3 + Delta Lake + Athena
+
+Arquitectura Medallion:
+  Bronze: Kinesis -> S3 (JSON crudo, sin transformar)
+  Silver: Spark job -> S3 (Delta Lake, limpio, tipado)
+  Gold: Spark job -> S3 (Delta Lake, agregados de negocio)
+  Serving: Athena/Trino sobre S3 Gold -> BI tools
+
+Paso 1: Ingesta a Bronze
+  Kinesis Firehose escribe a s3://lakehouse/bronze/events/dt=2026-07-11/
+  Formato: JSON line-delimited, sin particion Delta
+  Retencion: 30 dias (raw backup)
+
+Paso 2: Bronze a Silver (limpieza + Delta)
+  $ spark-submit --master yarn --num-executors 30 \\
+      --executor-memory 16g \\
+      bronze_to_silver_delta.py
+
+  # bronze_to_silver_delta.py
+  from delta.tables import DeltaTable
+  from pyspark.sql import SparkSession
+
+  spark = SparkSession.builder.appName("BronzeToSilver").getOrCreate()
+
+  raw = spark.read.json("s3://lakehouse/bronze/events/dt=2026-07-11/")
+  cleaned = (raw
+      .filter("event_id is not null and user_id is not null")
+      .withColumn("event_time", to_timestamp("timestamp"))
+      .withColumn("event_date", to_date("event_time"))
+      .dropDuplicates(["event_id"]))
+
+  # Escritura con merge (upsert) en tabla Delta existente
+  if DeltaTable.isDeltaTable(spark, "s3://lakehouse/silver/events/"):
+      delta_table = DeltaTable.forPath(spark, "s3://lakehouse/silver/events/")
+      (delta_table.alias("target")
+          .merge(cleaned.alias("source"), "target.event_id = source.event_id")
+          .whenMatchedUpdateAll()
+          .whenNotMatchedInsertAll()
+          .execute())
+  else:
+      cleaned.write.format("delta")
+          .mode("overwrite")
+          .partitionBy("event_date")
+          .save("s3://lakehouse/silver/events/")
+
+Paso 3: Silver a Gold (agregados)
+  silver = spark.read.format("delta").load("s3://lakehouse/silver/events/")
+
+  # Agregado diario por tipo de evento
+  daily = (silver.groupBy("event_date", "event_type")
+      .agg(count("*").alias("total_events"),
+           countDistinct("user_id").alias("unique_users"),
+           sum("amount").alias("revenue")))
+
+  daily.write.format("delta")
+      .mode("overwrite")
+      .option("overwriteSchema", "true")
+      .save("s3://lakehouse/gold/daily_metrics/")
+
+Paso 4: Optimizacion y mantenimiento
+  # Compactar archivos pequenos (semanal)
+  delta_silver = DeltaTable.forPath(spark, "s3://lakehouse/silver/events/")
+  delta_silver.optimize().compact(minFileSize="10MB")
+
+  # Z-Order por user_id para queries filtradas por usuario
+  delta_silver.optimize().zOrder("user_id")
+
+  # Vacuum: eliminar versiones viejas (retener 7 dias)
+  delta_silver.vacuum(retentionHours=168)
+
+  # Generar manifiesto para Athena/Catalog
+  delta_silver.generate("symlink_format_manifest")
+
+Paso 5: Consulta desde Athena
+  -- Crear tabla externa sobre Delta Lake
+  CREATE EXTERNAL TABLE silver_events
+  STORED AS PARQUET
+  LOCATION "s3://lakehouse/silver/events/"
+  TBLPROPERTIES ("parquet.compression"="SNAPPY");
+
+  -- Consulta directa
+  SELECT event_type, count(*) as total
+  FROM silver_events
+  WHERE event_date >= DATE("2026-07-01")
+  GROUP BY event_type
+  ORDER BY total DESC;
+
+Monitoreo:
+  - CloudWatch: duracion de jobs, uso de memoria, archivos de salida
+  - Alerta si Silver tiene > 1000 archivos pequenos (< 10MB)
+  - Delta Lake transaction log monitoring via DeltaTable.history()
+  - Data quality: Great Expectations valida schema y nulls en Silver
+
+Costo mensual estimado:
+  S3 storage (100TB): ~$2,300
+  EMR (30 ejecutores x 6h/dia): ~$2,400
+  Athena (queries BI): ~$500
+  Total: ~$5,200/mes
+```
+
+### Como elijo entre Delta Lake, Iceberg y Hudi?
+
+Delta Lake es la mejor opcion si usas Spark intensivamente: integracion nativa, madurez, y documentacion abundante. Iceberg es mejor si necesitas multi-motor (Trino, Flink, Snowflake, DuckDB) con particionado oculto y evolucion de esquemas. Hudi es mejor para CDC y procesamiento incremental con upserts a nivel de registro. Si no tienes un requerimiento especifico, empieza con Delta Lake por su simplicidad y madurez.
+
+### Como manejo la evolucion de esquemas en Lakehouse?
+
+Los tres formatos soportan evolucion de esquema. Delta Lake: usa `mergeSchema: true` para anadir columnas automaticamente, o `overwriteSchema: true` para cambiar el esquema completo. Iceberg: evolucion de esquemas nativa sin reescribir datos (anadir, renombrar, eliminar columnas). Hudi: soporta evolucion de esquema con `hoodie.schema.on.read.enable=true`. Para cambios mayores, versiona las tablas: `events_v1`, `events_v2`. Documenta los cambios en el catalogo de datos.

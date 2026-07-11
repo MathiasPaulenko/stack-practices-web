@@ -176,3 +176,127 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Employee Hierarchy with Recursive CTE
+
+```sql
+-- Structure: org chart with 5 levels of depth
+-- Table: employees(id, name, manager_id, salary, department)
+
+-- 1. Find all direct and indirect reports of the CEO
+WITH RECURSIVE org_tree AS (
+    SELECT id, name, manager_id, salary, 1 AS depth,
+           ARRAY[id] AS path
+    FROM employees
+    WHERE manager_id IS NULL  -- CEO has no manager
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id, e.salary,
+           ot.depth + 1,
+           ot.path || e.id
+    FROM employees e
+    INNER JOIN org_tree ot ON e.manager_id = ot.id
+    WHERE ot.depth < 10  -- Safety limit
+)
+SELECT
+    id,
+    name,
+    depth,
+    path,
+    salary,
+    (SELECT name FROM employees m WHERE m.id = ot.manager_id) AS manager_name
+FROM org_tree ot
+ORDER BY path;
+
+-- 2. Calculate total budget per org chart branch
+WITH RECURSIVE org_tree AS (
+    SELECT id, name, manager_id, salary AS total_budget, 1 AS depth
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id,
+           ot.total_budget + e.salary,
+           ot.depth + 1
+    FROM employees e
+    INNER JOIN org_tree ot ON e.manager_id = ot.id
+)
+SELECT name, total_budget, depth
+FROM org_tree
+WHERE depth <= 3
+ORDER BY total_budget DESC;
+
+-- 3. Find chain of command from an employee to the CEO
+WITH RECURSIVE chain_of_command AS (
+    SELECT id, name, manager_id, 1 AS steps_to_ceo
+    FROM employees
+    WHERE id = 42  -- Specific employee
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id, coc.steps_to_ceo + 1
+    FROM employees e
+    INNER JOIN chain_of_command coc ON e.id = coc.manager_id
+)
+SELECT name, steps_to_ceo
+FROM chain_of_command
+ORDER BY steps_to_ceo;
+
+-- 4. Bill of Materials: component explosion
+-- Table: bom(product_id, component_id, quantity)
+WITH RECURSIVE bom_explosion AS (
+    SELECT
+        product_id,
+        component_id,
+        quantity,
+        1 AS level,
+        CAST(quantity AS FLOAT) AS total_quantity,
+        CAST(component_id AS VARCHAR(1000)) AS component_path
+    FROM bom
+    WHERE product_id = 100  -- Final product
+
+    UNION ALL
+
+    SELECT
+        b.product_id,
+        b.component_id,
+        b.quantity,
+        be.level + 1,
+        be.total_quantity * b.quantity,
+        be.component_path || '>' || b.component_id
+    FROM bom b
+    INNER JOIN bom_explosion be ON b.product_id = be.component_id
+    WHERE be.level < 20  -- Depth limit
+)
+SELECT
+    level,
+    component_id,
+    total_quantity,
+    component_path
+FROM bom_explosion
+ORDER BY component_path;
+```
+
+### How do I optimize recursive CTEs on large datasets?
+
+Add a depth limit (WHERE depth < N) to prevent infinite recursion. Use indexes on the join column (manager_id, product_id). In PostgreSQL, consider materializing the CTE with the MATERIALIZED clause if it is referenced multiple times. For very deep hierarchies (>1000 levels), consider storing the materialized path (path enumeration) in an additional column to avoid recursion on every query.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

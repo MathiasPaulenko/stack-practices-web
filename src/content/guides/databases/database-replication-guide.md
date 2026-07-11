@@ -243,3 +243,90 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: High Availability with Patroni
+
+```text
+System: PostgreSQL cluster with 3 nodes
+  - 1 primary (us-east-1a)
+  - 2 replicas (us-east-1b, us-east-1c)
+  - etcd cluster (3 nodes) for consensus
+  - HAProxy as load balancer
+
+Topology:
+  Clients -> HAProxy -> Primary (writes)
+                      -> Replica1 (reads)
+                      -> Replica2 (reads)
+
+  etcd <- Patroni (health checks, leader election)
+  Patroni manages: automatic failover, restart, reconfiguration
+
+Patroni config:
+  scope: production
+  restapi:
+    listen: 0.0.0.0:8008
+  etcd:
+    hosts: 10.0.0.10:2379,10.0.0.11:2379,10.0.0.12:2379
+  postgresql:
+    data_dir: /var/lib/postgresql/data
+    parameters:
+      wal_level: replica
+      max_wal_senders: 10
+      hot_standby: on
+      synchronous_commit: on
+      synchronous_standby_names: "FIRST 1 (replica1, replica2)"
+    recovery_conf:
+      primary_conninfo: "host=10.0.0.1 port=5432 user=replicator"
+
+HAProxy config:
+  listen pg_write
+    bind *:5432
+    mode tcp
+    option tcp-check
+    tcp-check send GET /master HTTP/1.0\r\n\r\n
+    tcp-check expect status 200
+    server pg1 10.0.0.1:5432 check port 8008
+    server pg2 10.0.0.2:5432 check port 8008 backup
+    server pg3 10.0.0.3:5432 check port 8008 backup
+
+  listen pg_read
+    bind *:5433
+    mode tcp
+    balance roundrobin
+    option tcp-check
+    tcp-check send GET /replica HTTP/1.0\r\n\r\n
+    tcp-check expect status 200
+    server pg2 10.0.0.2:5432 check port 8008
+    server pg3 10.0.0.3:5432 check port 8008
+
+Automatic failover:
+  1. Patroni detects primary down (health check fails)
+  2. etcd performs leader election among replicas
+  3. Winning replica promotes to primary
+  4. HAProxy re-routes traffic automatically
+  5. Other replicas reconnect to new primary
+  Total time: 10-30 seconds
+
+Monitoring:
+  | Metric | Alert |
+  |---------|--------|
+  | Replication lag | > 5s |
+  | Patroni health | non-200 |
+  | etcd leader changes | > 1/h |
+  | Active connections | > 80% of max |
+  | WAL backlog | > 1GB |
+
+Lessons:
+  - Patroni + etcd gives robust automatic failover
+  - HAProxy distinguishes primary/replica via Patroni REST API
+  - Synchronous commit guarantees zero data loss
+  - 3 nodes is minimum for quorum (never use 2)
+  - Test failover regularly in staging
+```
+
+### How do I handle split-brain?
+
+Split-brain occurs when two nodes believe they are primary. Patroni prevents it with etcd quorum: only one node can acquire the leader lock. If etcd is unavailable, Patroni degrades to read-only. Never configure two primaries manually. If split-brain occurs, stop one immediately, resolve conflicts with pg_rewind, and reconnect as replica.

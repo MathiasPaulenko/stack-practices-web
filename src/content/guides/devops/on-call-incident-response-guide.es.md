@@ -240,3 +240,76 @@ Los incidentes son trabajo no planificado. Rastrealos. Si un equipo gasta > 20% 
 ### ¿Deberían los ingenieros juniors estar on-call?
 
 Sí, con mentoría. Hacer shadow de ingenieros senior durante incidentes es una de las formas más rápidas de aprender cómo fallan los sistemas. Empieza con rotaciones de baja severidad y páralos con un senior el primer mes.
+
+
+## Temas Avanzados
+
+### Escenario: Response a Incidente Sev-1 en E-commerce
+
+```text
+Incidente: Checkout caido, 100% usuarios afectados
+Severidad: Sev-1 (critico)
+Inicio: 14:12 UTC
+On-call: Maria (primary), Carlos (secondary)
+
+Timeline de respuesta:
+  14:12 - Alerta dispara: CheckoutErrorRate 100%
+  14:13 - Maria recibe page (PagerDuty)
+  14:14 - Maria abre Slack #incident-checkout
+  14:15 - Maria verifica: error 500 en todos los requests
+  14:16 - Declara Sev-1, abre bridge (Zoom)
+  14:17 - Invita a Carlos (secondary), team lead, DBA
+  14:18 - Maria investiga: deploy reciente?
+         kubectl rollout history deploy/checkout
+         -> Deploy v2.4 hace 8 min
+  14:20 - Carlos verifica DB: conexiones saturadas
+         -> Pool de conexiones agotado
+  14:22 - Maria decide rollback a v2.3
+  14:23 - Rollback ejecutado: kubectl rollout undo
+  14:26 - Servicio restaurado, errores a 0%
+  14:30 - Maria confirma estabilidad por 5 min
+  14:35 - Cierra bridge, declara resuelto
+  14:36 - Crea ticket para post-mortem (48h)
+
+Roles durante el incidente:
+  | Rol | Persona | Responsabilidad |
+  |-----|---------|----------------|
+  | Incident Commander | Maria | Coordinar, decidir |
+  | Communications | Carlos | Actualizar stakeholders |
+  | Subject Matter Expert | DBA | Investigar DB |
+  | Scribe | Bot automatico | Timeline en Slack |
+
+Comunicaciones:
+  14:15 - Slack #status: "Investigando Sev-1 checkout"
+  14:20 - Slack #status: "Causa identificada: deploy v2.4"
+  14:22 - Slack #status: "Ejecutando rollback"
+  14:26 - Slack #status: "Servicio restaurado"
+  14:35 - Slack #status: "Incidente resuelto, post-mortem pendiente"
+
+Post-mortem (48h):
+  - Resumen: Checkout caido 14 min por deploy defectuoso
+  - Impacto: $28K ventas perdidas, 8K usuarios afectados
+  - Causa raiz: Query N+1 introducida en v2.4, no detectada por tests
+  - 5 Whys:
+    1. Por que cayo? Pool de conexiones agotado
+    2. Por que se agoto? Query N+1 abrio 1000 conexiones
+    3. Por que no se detecto? Tests no cubrian concurrency
+    4. Por que no habia tests? No habia integration test de DB
+    5. Por que? CI no requería integration tests
+  - Acciones:
+    1. Agregar integration test de DB en CI (owner: team, 1 sem)
+    2. Agregar check de N+1 en CI (owner: platform, 2 sem)
+    3. Bajar pool max connections (owner: SRE, 3 dias)
+    4. Agregar alerta de pool saturation (owner: SRE, 3 dias)
+
+Lecciones:
+  - El Incident Commander coordina, no investiga
+  - Comunicar temprano y frecuentemente
+  - Rollback es la primera opcion, no la ultima
+  - Post-mortem blameless: arreglar el sistema, no culpar
+  - Cada accion tiene owner y fecha
+```
+
+### Como preparo a un equipo nuevo para on-call?
+
+Comienza con shadowing: el nuevo ingeniero acompana al on-call durante 2 semanas sin responder pages. Luego responde pages de baja severidad con el senior como backup. Despues de 1 mes, toma turnos completos con el senior disponible. Provee un runbook por servicio. Haz game days en staging para practicar respuesta a incidentes.

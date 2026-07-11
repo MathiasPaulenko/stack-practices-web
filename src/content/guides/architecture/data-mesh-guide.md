@@ -191,3 +191,112 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Data Mesh Implementation in E-commerce
+
+```text
+Organization: E-commerce with 8 domain teams
+Problem: Central data team with 6-month backlog
+Goal: 3 pilot data products in 4 months
+
+Phase 1: Identify domains and pilot products (month 1)
+  Domains identified:
+    - Orders (team A): owns order lifecycle events
+    - Payments (team B): owns payment and refund events
+    - Inventory (team C): owns stock levels and movements
+
+  Pilot products selected:
+    1. orders.fact_order_events (event stream)
+    2. payments.fact_payment_events (event stream)
+    3. inventory.current_stock_levels (snapshot table)
+
+  Selection criteria:
+    - High business value (analytics and ML consume them)
+    - Domain team willing to publish
+    - Stable schema (not in active refactor)
+
+Phase 2: Build minimal platform (month 2)
+  Components implemented:
+    - Catalog: DataHub (open source) for discovery
+    - Schema Registry: Confluent Schema Registry for Avro
+    - Storage: S3 with Delta Lake for ACID
+    - Access: AWS Lake Formation for cross-domain permissions
+    - Lineage: OpenLineage + Marquez for traceability
+
+  $ docker-compose up datahub-backend datahub-frontend schema-registry
+  $ aws lakeformation grant-permissions --principal DataLakePrincipalIdentifier=orders-team \\
+      --permissions SELECT --resource TableWithColumns=orders.fact_order_events
+
+Phase 3: Publish pilot products (month 3)
+  Orders team publishes fact_order_events:
+    - Define Avro schema in Schema Registry
+    - Configure pipeline: Kafka -> S3 Delta Lake
+    - Register metadata in DataHub with SLAs
+    - Configure quality alerts (Great Expectations)
+
+  Published specification:
+    name: orders.fact_order_events
+    owner: orders-team@company.com
+    freshness_sla: 5 minutes
+    completeness: 99.9%
+    pii_fields: [customer_email]
+
+Phase 4: Cross-domain consumption (month 4)
+  Analytics team subscribes to 3 products:
+    orders = consumer.subscribe("orders.fact_order_events")
+    payments = consumer.subscribe("payments.fact_payment_events")
+    inventory = consumer.subscribe("inventory.current_stock_levels")
+
+  Revenue report created with cross-domain join:
+    SELECT o.order_id, o.total, p.paid_amount, i.stock_level
+    FROM orders.fact_order_events o
+    JOIN payments.fact_payment_events p ON o.order_id = p.order_id
+    JOIN inventory.current_stock_levels i ON o.product_id = i.product_id
+
+Success metrics (after 6 months):
+  | Metric | Before | After |
+  |--------|--------|-------|
+  | Data access time | 6 weeks (request to central team) | 1 day (self-service) |
+  | Data products | 0 | 12 |
+  | Teams publishing | 1 (central) | 5 |
+  | Data quality (SLA met) | N/A | 97.3% |
+```
+
+### How do I handle PII data governance in Data Mesh?
+
+Federated governance defines global privacy policies. Each domain implements enforcement locally. Use AWS Lake Formation or Apache Ranger to control access at the column level. Mark PII fields in the catalog (DataHub). Data products with PII have "restricted" classification and require approval for consumption. The platform team provides automatic masking tools for development environments.
+
+### What size organization needs Data Mesh?
+
+Data Mesh is for organizations with 50+ data engineers or 5+ domain teams. Smaller organizations are better served by a centralized data lake and a single data team. Data Mesh solves the problem of organizational scale, not technical scale. If your problem is data volume, not team count, a lake with better governance is sufficient.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -214,3 +214,94 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Hardening Node.js API for Production
+
+```javascript
+// 1. Helmet: HTTP security headers
+const helmet = require("helmet");
+app.use(helmet());
+// X-Content-Type-Options: nosniff
+// X-Frame-Options: DENY
+// Strict-Transport-Security: max-age=31536000
+// Content-Security-Policy: default-src self
+
+// 2. Rate limiting
+const rateLimit = require("express-rate-limit");
+app.use("/api", rateLimit({
+  windowMs: 60 * 1000,  // 1 minute
+  max: 100,              // 100 requests per minute
+  message: "Too many requests"
+}));
+
+// 3. Strict CORS
+const cors = require("cors");
+app.use(cors({
+  origin: ["https://app.example.com"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+// 4. Input validation (Zod)
+const { z } = require("zod");
+const userSchema = z.object({
+  email: z.string().email().max(255),
+  password: z.string().min(12).max(128),
+  name: z.string().min(1).max(100).regex(/^[a-zA-Z0-9 ]+$/)
+});
+app.post("/api/users", (req, res) => {
+  const result = userSchema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+  // ... process
+});
+
+// 5. SQL injection prevention (parameterized queries)
+app.get("/api/users/:id", async (req, res) => {
+  // NEVER: `SELECT * FROM users WHERE id = ${req.params.id}`
+  // ALWAYS: parameterized queries
+  const result = await pool.query(
+    "SELECT id, email, name FROM users WHERE id = $1",
+    [req.params.id]
+  );
+  res.json(result.rows[0]);
+});
+
+// 6. Secure JWT
+const jwt = require("jsonwebtoken");
+const token = jwt.sign(
+  { userId: user.id, role: user.role },
+  process.env.JWT_SECRET,
+  { expiresIn: "15m", algorithm: "RS256" }
+);
+
+// 7. Audit logging
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on("finish", () => {
+    logger.info({
+      method: req.method,
+      path: req.path,
+      status: res.statusCode,
+      duration: Date.now() - start,
+      ip: req.ip,
+      userId: req.user?.id,
+    });
+  });
+  next();
+});
+
+// 8. Dependency scanning in CI
+// npm audit --audit-level=high
+// npx snyk test
+// npx trivy fs .
+```
+
+### Which security headers are mandatory?
+
+X-Content-Type-Options: nosniff (prevent MIME sniffing), Strict-Transport-Security: max-age=31536000 (enforce HTTPS), X-Frame-Options: DENY (prevent clickjacking), Content-Security-Policy: default-src self (prevent XSS), Referrer-Policy: no-referrer (minimize exposed info). Use helmet() in Express to configure all of them automatically.

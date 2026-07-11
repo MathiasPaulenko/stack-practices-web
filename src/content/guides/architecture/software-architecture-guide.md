@@ -221,3 +221,89 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Architecture Selection for E-commerce
+
+```text
+Project: E-commerce platform (Python + Django)
+Team: 8 developers (growing to 15 in 12 months)
+Volume: 50k active users, 10k orders/day
+Domain: Catalog, Orders, Payments, Users, Notifications
+
+Phase 1: Modular monolith (month 0-6)
+  - Django with modules separated by bounded context
+  - PostgreSQL schema per module (no FKs across modules)
+  - Communication via internal services (no direct DB access)
+  - Deploy: 1 binary, CI/CD with GitHub Actions
+
+  Structure:
+    shop/
+      modules/
+        catalog/
+          domain/          # Product, Category, SKU
+          application/     # CreateProductService, SearchService
+          infrastructure/  # ProductRepository (Django ORM)
+          api/             # CatalogApi (public interface)
+          views/           # HTTP views
+        orders/
+          domain/          # Order, OrderLine, OrderStatus
+          application/     # PlaceOrderService, CancelOrderService
+          infrastructure/  # OrderRepository
+          api/             # OrdersApi
+          views/
+        payments/
+          domain/          # Payment, Transaction
+          application/     # ProcessPaymentService
+          infrastructure/  # StripeGateway, PaymentRepository
+          api/
+          views/
+      shared/
+        kernel/            # BaseEntity, Money, DomainEvent
+
+  Boundary rules:
+    - catalog does NOT import from orders or payments
+    - orders imports CatalogApi (interface), not implementation
+    - payments imports OrdersApi (interface)
+    - Verified with pylint-import-checker in CI
+
+  Testing:
+    - Unit per module: < 10ms (no DB)
+    - Integration per module: < 200ms (in-memory SQLite)
+    - Cross-module: in-memory fakes of other modules
+    - E2E: Django test client, < 2s per test
+
+Phase 2: Extract notifications (month 6-9)
+  - Notifications is the module with lowest coupling
+  - Extract to independent microservice (Go + RabbitMQ)
+  - Replace in-process NotificationApi with HTTP client
+  - Migrate data with CDC (Debezium -> Kafka -> new DB)
+  - Gradual traffic shift: 5% -> 25% -> 50% -> 100%
+
+Phase 3: Extract catalog (month 12-18)
+  - Catalog needs independent scaling (search-intensive)
+  - Extract to microservice (Python + Elasticsearch)
+  - Migrate from PostgreSQL to Elasticsearch for search
+  - Keep PostgreSQL for writes (CQRS)
+
+Extraction decision matrix:
+  | Module | Risk | Value | Effort | Priority |
+  |--------|------|-------|--------|----------|
+  | Notifications | Low | Medium | 4 wk | 1 |
+  | Catalog | Medium | High | 8 wk | 2 |
+  | Payments | High | High | 12 wk | 3 |
+  | Orders | High | Critical | 16 wk | 4 |
+  | Users | Medium | High | 8 wk | 5 |
+
+Lessons learned:
+  - Modular monolith enabled mechanical extraction (not architectural)
+  - Cross-module tests with fakes caught breaking changes
+  - Gradual traffic shift gave business confidence
+  - CDC avoided dual-write and potential inconsistencies
+```
+
+### How do I document architectural decisions?
+
+Use ADRs (Architecture Decision Records). Each ADR documents: context, decision, alternatives considered, consequences. Store ADRs in the repository alongside code (docs/adr/ folder). Use sequential numbering (ADR-001, ADR-002). An ADR is never deleted or edited; if the decision changes, create a new ADR that supersedes it. This creates an auditable history of decisions and their reasoning.

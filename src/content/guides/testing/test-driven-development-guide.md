@@ -270,3 +270,86 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: TDD for Payment API
+
+```text
+System: Payment API, 15 endpoints
+Goal: Strict TDD (red-green-refactor)
+
+TDD cycle per feature:
+  1. RED: Write failing test
+     - Test: transfer $100 between accounts
+     - Result: FAIL (function does not exist)
+  2. GREEN: Write minimum code to pass
+     - Implement basic transfer
+     - Result: PASS
+  3. REFACTOR: Improve code without breaking tests
+     - Extract validation to function
+     - Result: PASS (no behavior change)
+
+```javascript
+// RED: Test for transfer (fails)
+describe("POST /api/transfers", () => {
+  it("should transfer between same user accounts", async () => {
+    const res = await request(app)
+      .post("/api/transfers")
+      .set("Authorization", `Bearer ${userToken}`)
+      .send({
+        sourceAccountId: accountA.id,
+        destinationAccountId: accountB.id,
+        amount: 100,
+        currency: "USD"
+      });
+    expect(res.status).toBe(201);
+    expect(res.body.status).toBe("completed");
+    // Verify updated balances
+    const src = await getAccount(accountA.id);
+    const dst = await getAccount(accountB.id);
+    expect(src.balance).toBe(originalA - 100);
+    expect(dst.balance).toBe(originalB + 100);
+  });
+
+  it("should reject transfer to foreign account", async () => {
+    const res = await request(app)
+      .post("/api/transfers")
+      .set("Authorization", `Bearer ${userToken}`)
+      .send({
+        sourceAccountId: accountA.id,
+        destinationAccountId: otherUserAccount.id,
+        amount: 100,
+        currency: "USD"
+      });
+    expect(res.status).toBe(403);
+  });
+
+  it("should reject negative amount", async () => {
+    const res = await request(app)
+      .post("/api/transfers")
+      .set("Authorization", `Bearer ${userToken}`)
+      .send({
+        sourceAccountId: accountA.id,
+        destinationAccountId: accountB.id,
+        amount: -50,
+        currency: "USD"
+      });
+    expect(res.status).toBe(400);
+  });
+});
+```
+
+Lessons:
+  - RED first: the test defines expected behavior
+  - GREEN minimal: do not add extra logic
+  - REFACTOR safe: tests protect the change
+  - One test per behavior, not per method
+  - Test names describe behavior: "should reject..."
+  - 0 flaky: deterministic tests, no external dependencies
+```
+
+### When NOT to use TDD?
+
+Do not use TDD for exploration (spikes, POCs) or when you do not know what you will build. TDD requires knowing the expected behavior. For exploratory UI, prototypes, or data migrations, write code first and tests after. For bugs, write the test that reproduces the bug first (RED), then fix (GREEN).

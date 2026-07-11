@@ -290,3 +290,102 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Modular Terraform for Production
+
+```hcl
+# Directory structure
+# infra/
+#   modules/
+#     vpc/
+#     eks/
+#     rds/
+#   environments/
+#     dev/
+#     staging/
+#     production/
+```
+
+```hcl
+# modules/rds/main.tf
+variable "vpc_id" { type = string }
+variable "subnet_ids" { type = list(string) }
+variable "instance_class" { type = string }
+variable "allocated_storage" { type = number, default = 100 }
+variable "multi_az" { type = bool, default = true }
+variable "backup_retention" { type = number, default = 7 }
+variable "tags" { type = map(string), default = {} }
+
+resource "aws_db_instance" "main" {
+  engine = "postgres"
+  engine_version = "16"
+  instance_class = var.instance_class
+  allocated_storage = var.allocated_storage
+  multi_az = var.multi_az
+  backup_retention_period = var.backup_retention
+  storage_encrypted = true
+  kms_key_id = aws_kms_key.rds.arn
+  db_subnet_group_name = aws_db_subnet_group.main.name
+  vpc_security_group_ids = [aws_security_group.rds.id]
+  tags = merge(var.tags, {
+    Name = "postgres-main"
+    ManagedBy = "terraform"
+  })
+}
+
+resource "aws_kms_key" "rds" {
+  description = "KMS key for RDS encryption"
+  enable_key_rotation = true
+}
+
+resource "aws_db_subnet_group" "main" {
+  name = "main-db-subnet-group"
+  subnet_ids = var.subnet_ids
+}
+
+resource "aws_security_group" "rds" {
+  name = "rds-sg"
+  vpc_id = var.vpc_id
+  ingress {
+    from_port = 5432
+    to_port = 5432
+    protocol = "tcp"
+    security_groups = [var.app_sg_id]
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+output "endpoint" { value = aws_db_instance.main.endpoint }
+output "db_arn" { value = aws_db_instance.main.arn }
+```
+
+```hcl
+# environments/production/main.tf
+module "rds" {
+  source = "../../modules/rds"
+  vpc_id = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnet_ids
+  instance_class = "db.r5.xlarge"
+  allocated_storage = 500
+  multi_az = true
+  backup_retention = 30
+  tags = { Environment = "production", Team = "platform" }
+}
+
+# Environment differences:
+#   dev: db.t3.medium, 20GB, no multi-az, backup 1 day
+#   staging: db.t3.large, 100GB, multi-az, backup 7 days
+#   production: db.r5.xlarge, 500GB, multi-az, backup 30 days
+```
+
+### How do I handle remote state and locking?
+
+Use a remote backend (S3 + DynamoDB for locking). S3 stores the state file. DynamoDB prevents concurrent writes. Configure `encrypt = true` on the backend. Never commit the .tfstate file to the repo. Use `terraform state pull` and `terraform state push` with caution. For large teams, use Terraform Cloud or Atlantis to apply changes via PRs.

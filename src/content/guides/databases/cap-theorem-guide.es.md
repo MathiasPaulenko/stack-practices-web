@@ -163,3 +163,140 @@ No. Cuando no hay partición, puedes tener ambas. El trade-off solo aplica duran
 ### ¿Cómo elijo entre CP y AP?
 
 Pregunta: "¿Qué duele más — una escritura fallida o datos stale?" Si escrituras fallidas son inaceptables (pagos, inventario), elige CP. Si datos stale son aceptables (feeds, analytics), elige AP. La mayoría de sistemas usa una mezcla: CP para paths críticos, AP para todo lo demás.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Eleccion de Base de Datos para una App FinTech
+
+```text
+Sistema: App de pagos FinTech (microservicios)
+Servicios: Cuentas, Transferencias, Notificaciones, Analytics
+
+Matriz de requisitos por servicio:
+  | Servicio | Consistencia | Disponibilidad | Latencia | Eleccion |
+  |----------|--------------|----------------|----------|----------|
+  | Cuentas (saldos) | Fuerte (CP) | 99.99% | < 10ms | PostgreSQL (primario + replica sync) |
+  | Transferencias | Fuerte (CP) | 99.99% | < 50ms | PostgreSQL + saga pattern |
+  | Notificaciones | Eventual (AP) | 99.9% | < 500ms | Cassandra (write-heavy) |
+  | Analytics | Eventual (AP) | 99.9% | < 5s | ClickHouse (columnar OLAP) |
+  | Cache de sesion | Eventual (AP) | 99.95% | < 2ms | Redis (in-memory) |
+  | Feature flags | Fuerte (CP) | 99.9% | < 50ms | etcd (Raft consensus) |
+
+Configuracion PostgreSQL para servicio de Cuentas:
+  - Primario: 1 instancia (escrituras)
+  - Replicas sincronas: 2 (lecturas + failover)
+  - Synchronous commit: ON (esperar confirmacion de al menos 1 replica)
+  - Failover: Patroni con etcd para consensus
+
+  postgresql.conf:
+    synchronous_commit = on
+    synchronous_standby_names = "FIRST 1 (replica1, replica2)"
+    wal_level = replica
+    max_wal_senders = 10
+
+Configuracion Cassandra para Notificaciones:
+  - 5 nodos en 3 datacenters
+  - Replication factor: 3 por datacenter
+  - Consistency level: LOCAL_QUORUM para escrituras
+  - Compaction: Size-tiered (STCS) para datos de notificacion
+
+  CREATE KEYSPACE notifications WITH replication = {
+      "class": "NetworkTopologyStrategy",
+      "dc1": 3, "dc2": 3, "dc3": 3
+  };
+
+  CREATE TABLE notifications (
+      user_id UUID,
+      notification_id TIMEUUID,
+      type TEXT,
+      payload JSON,
+      read BOOLEAN DEFAULT FALSE,
+      created_at TIMESTAMP,
+      PRIMARY KEY (user_id, notification_id)
+  ) WITH CLUSTERING ORDER BY (notification_id DESC);
+
+Manejo de particiones de red:
+  - Cuentas (CP): Si el primario pierde contacto con replicas,
+    rechaza escrituras. Los usuarios no pueden transferir dinero
+    pero los saldos son consistentes.
+  - Notificaciones (AP): Si un datacenter se aisla,
+    las notificaciones se aceptan en ambos lados.
+    Hinted handoff resuelve la consistencia al reconectar.
+
+Monitoreo:
+  - Replication lag PostgreSQL: < 100ms (alerta si > 500ms)
+  - Cassandra repair: ejecutar weekly para anti-entropy
+  - etcd leader changes: alertar si > 1 por hora
+  - Transferencias fallidas por particion: dashboard en tiempo real
+
+Lecciones aprendidas:
+  - No todos los servicios necesitan la misma base de datos
+  - CP para dinero, AP para todo lo demas
+  - El costo de consistencia fuerte es latencia y disponibilidad reducida
+  - Monitorear replication lag es critico para detectar problemas antes
+```
+
+### Que es consistencia tunable?
+
+Sistemas como Cassandra y DynamoDB permiten ajustar el nivel de consistencia por operacion. ONE: lee de un nodo (rapido, eventual). QUORUM: lee de mayoria (consistente, mas lento). ALL: lee de todos (maxima consistencia, menor disponibilidad). Esto te permite elegir el trade-off por consulta, no por sistema. Usa QUORUM para operaciones criticas y ONE para lecturas de cache o analytics.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

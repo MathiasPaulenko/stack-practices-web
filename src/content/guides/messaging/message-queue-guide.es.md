@@ -193,3 +193,110 @@ El ordenamiento global y la escalabilidad son mutuamente excluyentes. Si necesit
 ### ¿Qué hacer cuando un consumidor es más lento que el productor?
 
 Escala los consumidores horizontalmente — más instancias leyendo de la misma cola/topic. Para Kafka, asegúrate de tener suficientes particiones (una partición = un consumidor). Para RabbitMQ, agrega más consumidores (competirán por mensajes). Para SQS, usa más Lambdas o instancias de procesamiento. Si ya escaste la escala horizontal, optimiza el procesamiento: ¿estás haciendo I/O bloqueante? ¿Puedes procesar en batch? ¿Hay una base de datos lenta?
+
+
+## Temas Avanzados
+
+### Escenario: Sistema de Procesamiento de Ordenes con Colas
+
+```text
+Sistema: E-commerce, 10K ordenes/hora
+Stack: RabbitMQ + consumidores Node.js + DLQ
+
+Arquitectura:
+  API -> exchange (order.created) -> queue (order.process)
+    -> consumer (validate payment)
+    -> queue (order.fulfill)
+    -> consumer (ship + notify)
+    -> queue (order.complete)
+
+  Dead Letter Queue: ordenes fallidas despues de 3 reintentos
+    -> alerta humana + dashboard
+
+Configuracion RabbitMQ:
+  | Parametro | Valor | Razon |
+  |-----------|-------|-------|
+  | prefetch | 10 | Balance throughput vs fairness |
+  | retry | 3 | Exponential backoff: 1s, 5s, 30s |
+  | DLQ | Si | Ordenes irreprocesables |
+  | TTL | 24h | Ordenes expiran si no se procesan |
+  | durable | true | Sobrevive restart de broker |
+  | persistent | true | Mensajes en disco |
+
+Consumidor (Node.js):
+  const amqp = require("amqplib");
+
+  async function startConsumer() {
+    const conn = await amqp.connect("amqp://rabbitmq:5672");
+    const ch = await conn.createChannel();
+    await ch.prefetch(10);
+
+    ch.consume("order.process", async (msg) => {
+      const order = JSON.parse(msg.content.toString());
+      try {
+        await processPayment(order);
+        await ch.publish("", "order.fulfill",
+          Buffer.from(JSON.stringify(order)));
+        ch.ack(msg);
+      } catch (error) {
+        const attempts = msg.properties.headers["x-retry"] || 0;
+        if (attempts < 3) {
+          // Reintentar con backoff exponencial
+          const delay = Math.pow(5, attempts) * 1000;
+          ch.publish("", "order.process.retry",
+            msg.content, {
+              headers: { "x-retry": attempts + 1 },
+              expiration: delay
+            });
+        } else {
+          // Enviar a DLQ
+          ch.publish("", "order.dlq", msg.content);
+        }
+        ch.ack(msg); // Siempre ack para no requeue automatico
+      }
+    });
+  }
+
+Idempotencia:
+  - Cada orden tiene un orderId unico
+  - Antes de procesar: verificar si orderId ya fue procesado
+  - Tabla processed_orders: orderId + status + timestamp
+  - Si ya existe, ack sin reprocesar
+
+Metricas:
+  | Metrica | Objetivo |
+  |---------|----------|
+  | Mensajes en cola | < 100 |
+  | Tiempo de procesamiento | < 5s por orden |
+  | Tasa de error | < 1% |
+  | Mensajes en DLQ | < 10/dia |
+  | Throughput | > 3K/hora |
+
+Lecciones:
+  - Prefetch bajo (10) evita que un consumidor monopolice la cola
+  - DLQ es obligatorio: nunca pierdas mensajes irreprocesables
+  - Idempotencia: procesar dos veces debe dar el mismo resultado
+  - Backoff exponencial: no satures el sistema con reintentos
+  - ack manual: controlas cuando un mensaje esta realmente procesado
+```
+
+### Como monitoreo la salud de RabbitMQ?
+
+Habilita el plugin de management: `rabbitmq-plugins enable rabbitmq_management`. Expone la API en :15672. Metricas clave: messages_ready (cola acumulada), messages_unacknowledged (en proceso), consumer_utilization (eficiencia). Configura alertas: messages_ready > 1000, consumer_utilization < 50%, connections > max. Usa Prometheus + rabbitmq_exporter para integrar con Grafana.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

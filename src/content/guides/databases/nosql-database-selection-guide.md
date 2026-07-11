@@ -210,3 +210,93 @@ Yes, and it is common. Use Redis for cache/sessions, DynamoDB for user profiles,
 ### How do I handle transactions across NoSQL databases?
 
 Most NoSQL stores do not support cross-document or cross-table ACID transactions. Use [sagas](/guides/architecture/event-driven-architecture-guide), outbox patterns, or [idempotent operations](/recipes/messaging/message-idempotency) with at-least-once delivery to achieve eventual consistency.
+
+
+## Advanced Topics
+
+### Scenario: Polyglot Persistence for Social Platform
+
+```text
+System: 50M users, 200M posts, 2B interactions/day
+Stores: 6 databases, each optimized for its workload
+
+Store selection:
+  | Data | Store | Why | Access Pattern |
+  |------|-------|-----|----------------|
+  | Profiles | MongoDB | Flexible schema | Point reads by user_id |
+  | Posts | Cassandra | High write volume | Partition by user_id |
+  | Graph | Neo4j | Relationship traversal | Friend-of-friend |
+  | Feed | Redis | Low-latency sorted sets | ZREVRANGE |
+  | Search | Elasticsearch | Full-text, faceted | Multi-field search |
+  | Analytics | ClickHouse | Columnar OLAP | Aggregations |
+
+Data flow:
+  User creates post
+    -> Write to Cassandra (durable)
+    -> Publish event to Kafka
+    -> Consumers:
+       a. Feed: ZADD to Redis (fan-out to followers)
+       b. Search: Index in Elasticsearch
+       c. Analytics: Insert into ClickHouse
+       d. Graph: Update Neo4j relationships
+
+  Cassandra schema:
+    CREATE TABLE posts_by_user (
+        user_id UUID, post_id TIMEUUID, content TEXT,
+        media_urls LIST<TEXT>, created_at TIMESTAMP,
+        PRIMARY KEY ((user_id), post_id)
+    ) WITH CLUSTERING ORDER BY (post_id DESC);
+
+  Redis timeline (fan-out on write):
+    ZADD feed:user:{follower_id} {timestamp} {post_id}
+    EXPIRE feed:user:{follower_id} 86400
+    ZREVRANGE feed:user:{user_id} 0 49 WITHSCORES
+
+  Neo4j social graph:
+    MATCH (me:User {id: "user-123"})-[:FOLLOWS]->(:User)
+          -[:FOLLOWS]->(rec:User)
+    WHERE NOT (me)-[:FOLLOWS]->(rec) AND me <> rec
+    RETURN rec.id, rec.name, count(*) AS mutual_friends
+    ORDER BY mutual_friends DESC LIMIT 10;
+
+  ClickHouse analytics:
+    CREATE TABLE interactions (
+        event_date Date, user_id UInt64, post_id UInt64,
+        event_type Enum8("like"=1,"comment"=2,"share"=3,"view"=4),
+        timestamp DateTime
+    ) ENGINE = MergeTree()
+    PARTITION BY toYYYYMM(event_date)
+    ORDER BY (event_type, timestamp);
+
+Operational complexity:
+  | Challenge | Mitigation |
+  |-----------|------------|
+  | 6 databases | Dedicated team per store |
+  | Cross-store consistency | Outbox + Kafka events |
+  | Schema evolution | Versioned events |
+  | Data duplication | Accept; each store optimized |
+  | Monitoring | Unified dashboard per store |
+
+Lessons:
+  - Polyglot persistence is powerful but expensive
+  - Start with 1-2 stores, add more when patterns diverge
+  - Event-driven sync (Kafka) is the glue
+  - Each store owns a specific access pattern
+  - Data duplication is acceptable; manage via events
+```
+
+### How do I handle schema evolution across stores?
+
+Version your events and schemas. Use schema registry for compatibility. Apply backward-compatible changes first (add fields, never remove). Consumers handle missing fields with defaults. For breaking changes, publish new event type and migrate consumers gradually.
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

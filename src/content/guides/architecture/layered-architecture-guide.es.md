@@ -175,3 +175,128 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+### Escenario Detallado: App de E-commerce con Cuatro Capas
+
+```text
+Proyecto: E-commerce .NET 8
+Estructura de capas:
+  src/
+    ECommerce.Web/          # Presentacion (Controllers, Views)
+    ECommerce.Application/  # Aplicacion (Servicios, DTOs, Validadores)
+    ECommerce.Domain/       # Dominio (Entidades, Value Objects, Reglas)
+    ECommerce.Infrastructure/ # Infraestructura (EF Core, Email, Cache)
+
+Flujo: Crear pedido
+  1. Web: OrderController.Create(CreateOrderRequest)
+     - Valida input con DataAnnotations
+     - Mapea a CreateOrderCommand
+     - Llama _orderService.CreateOrderAsync(cmd)
+
+  2. Application: OrderService.CreateOrderAsync(cmd)
+     - Verifica stock via _productRepository
+     - Calcula total, descuentos, impuestos
+     - Crea entidad Order (logica en el dominio)
+     - Persiste via _orderRepository
+     - Publica evento OrderCreated
+     - Retorna OrderDto
+
+  3. Domain: Order.Create(customerId, items)
+     - Aplica reglas de negocio: minimo 1 item,
+       maximo 100 items, total > 0
+     - Asigna estado = Pending
+     - Asigna fecha de creacion
+
+  4. Infrastructure: OrderRepository.AddAsync(order)
+     - EF Core mapea entidad a tabla Orders
+     - SaveChangesAsync persiste
+     - Publica evento a RabbitMQ via outbox
+
+Reglas de dependencia:
+  Web -> Application -> Domain
+  Infrastructure -> Domain (implementa interfaces del dominio)
+  Domain no depende de nadie (puro, sin referencias externas)
+
+Testeo por capa:
+  | Capa | Tipo de test | Herramienta |
+  |------|-------------|-------------|
+  | Domain | Unit puro | xUnit, sin mocks |
+  | Application | Unit con mocks de repos | xUnit + Moq |
+  | Infrastructure | Integration con Testcontainers | xUnit + Testcontainers |
+  | Web | Integration con TestServer | xUnit + Web.ApplicationFactory |
+```
+
+### Como evito el modelo de dominio anemico?
+
+Mueve la logica de negocio a las entidades del dominio. Una entidad Order debe tener metodos como AddItem(), CalculateTotal(), Cancel(). Si toda la logica esta en OrderService y Order solo tiene getters/setters, tienes un modelo anemico. El servicio debe coordinar, no contener reglas. Las reglas pertenecen a la entidad que las gobierna. Esto hace las reglas testeable sin mocks y reutilizables entre servicios.
+
+### Deberia usar inyeccion de dependencias en cada capa?
+
+Si, pero con diferentes propositos. En la capa de aplicacion, DI coordina servicios y repositorios. En la capa de dominio, evita DI: el dominio debe ser puro y construible con `new`. En infraestructura, DI configura implementaciones concretas (EF Core, Redis, SMTP). Usa composicion de dependencias en el punto de entrada (Program.cs) para cablear todo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

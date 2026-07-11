@@ -182,3 +182,121 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Three Pillars for Microservices
+
+```text
+System: 12 microservices, 200K requests/min
+Stack: OpenTelemetry -> Prometheus (metrics), Loki (logs), Jaeger (traces)
+Dashboard: Unified Grafana
+
+1. Metrics (Prometheus):
+   # Four Golden Signals
+   - Latency: histogram_quantile(0.99, http_duration_bucket)
+   - Traffic: rate(http_requests_total[5m])
+   - Errors: rate(http_requests_total{status=~"5.."}[5m])
+   - Saturation: node_cpu_seconds_total / node_cpu_cores
+
+   # SLO tracking
+   - Availability: 1 - (errors / total) > 0.999
+   - Latency p99 < 500ms
+   - Burn rate: error_rate / error_budget < 14
+
+2. Logs (Loki):
+   # Structured JSON with mandatory fields
+   {
+     "ts": "2026-01-15T10:30:00Z",
+     "level": "error",
+     "service": "order-service",
+     "traceId": "abc123",
+     "msg": "Order processing failed",
+     "orderId": "ord-789",
+     "error": "PaymentTimeout",
+     "stack": "..."
+   }
+
+   # LogQL queries
+   {service="order-service"} |= "error" | json
+   {service="payment-service", level="error"}
+   count_over_time({service="order-service"}[5m]) > 100
+
+3. Traces (Jaeger):
+   # Span tree for a slow request
+   POST /api/orders (2.5s total)
+   ├── validate_order (5ms)
+   ├── check_inventory (1.8s)  <-- bottleneck
+   │   ├── redis_get (2ms)
+   │   └── db_query (1.79s)   <-- slow query
+   ├── process_payment (450ms)
+   │   ├── stripe_api (420ms)
+   │   └── db_save (30ms)
+   └── send_notification (5ms)
+
+   # Correlation: traceId in logs and metrics
+   # Search traceId in Loki -> request logs
+   # Search traceId in Jaeger -> full trace
+   # Metric with traceId label -> context
+
+Cross-pillar correlation:
+   Alert: p99 latency > 1s on order-service
+   -> Search Loki: {service="order-service"} | json
+      | traceId!="": filter by alert time
+   -> Take traceId from error log
+   -> Search Jaeger: traceId=abc123
+   -> View span tree, identify bottleneck
+   -> db_query 1.79s -> check slow query log
+   -> Fix: add missing index
+
+Lessons:
+  - The 3 pillars are complementary, not redundant
+  - traceId is the key that connects everything
+  - Metrics for alerting, logs for investigation, traces for perf
+  - Grafana unifies visualization across all 3 pillars
+  - OpenTelemetry is the standard that unifies instrumentation
+```
+
+### What is an error budget and how is it used?
+
+The error budget is the failure allowance your SLO permits. If your SLO is 99.9% uptime, your error budget is 0.1% = 43.2 min/month of allowed downtime. If you spend the budget fast (high burn rate), you should freeze feature deploys and focus on reliability. If you spend little, you can move faster. It is the balance between innovation and stability.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -216,3 +216,125 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Modular Monolith for E-commerce
+
+```text
+Project: E-commerce (Java 21 + Spring Boot)
+Teams: 3 teams (Catalog, Orders, Payments) + 2 shared kernel devs
+Size: 120k lines, 1 deployable
+
+Module structure:
+  src/modules/
+    catalog/
+      domain/
+        entities/Product.java
+        valueobjects/SKU.java
+        events/ProductPriceChangedEvent.java
+      application/
+        services/CreateProductService.java
+        services/UpdatePriceService.java
+        dto/ProductDto.java
+      infrastructure/
+        persistence/ProductRepository.java
+        persistence/ProductJpaEntity.java
+      api/
+        CatalogApi.java          # Module public interface
+        ProductController.java   # REST controller
+    orders/
+      domain/
+        entities/Order.java
+        entities/OrderLine.java
+        valueobjects/OrderId.java
+        events/OrderPlacedEvent.java
+      application/
+        services/PlaceOrderService.java
+        dto/PlaceOrderCommand.java
+      infrastructure/
+        persistence/OrderRepository.java
+      api/
+        OrdersApi.java
+        OrderController.java
+    payments/
+      domain/
+        entities/Payment.java
+        valueobjects/TransactionId.java
+      application/
+        services/ProcessPaymentService.java
+      infrastructure/
+        persistence/PaymentRepository.java
+        external/StripeGateway.java
+      api/
+        PaymentsApi.java
+        PaymentController.java
+  src/shared/kernel/
+    BaseEntity.java
+    DomainEvent.java
+    Money.java
+    IdGenerator.java
+    ClockProvider.java
+
+Build rules (Gradle):
+  modules/catalog/build.gradle:
+    dependencies { implementation project(":shared:kernel") }
+    // CANNOT depend on orders or payments
+
+  modules/orders/build.gradle:
+    dependencies {
+      implementation project(":shared:kernel")
+      implementation project(":modules:catalog")  # Only API interface
+    }
+
+  modules/payments/build.gradle:
+    dependencies {
+      implementation project(":shared:kernel")
+      implementation project(":modules:orders")   # Only API interface
+    }
+
+Inter-module communication:
+  Orders -> Catalog: calls CatalogApi.getProduct(id)
+  Orders -> Payments: calls PaymentsApi.process(payment)
+  Catalog -> Orders: listens to OrderPlaced event (via Spring Events)
+
+  // CatalogApi.java — public interface of Catalog module
+  public interface CatalogApi {
+      ProductSnapshot getProduct(UUID productId);
+      boolean checkAvailability(UUID productId, int quantity);
+  }
+
+  // PlaceOrderService.java — Orders depends on the interface
+  public class PlaceOrderService {
+      private final CatalogApi catalogApi;
+      private final PaymentsApi paymentsApi;
+      private final OrderRepository orderRepo;
+
+      public OrderId execute(PlaceOrderCommand cmd) {
+          ProductSnapshot product = catalogApi.getProduct(cmd.productId());
+          PaymentResult payment = paymentsApi.process(new Payment(cmd.orderId(), product.price()));
+          if (!payment.success()) throw new PaymentFailedException();
+          Order order = Order.create(cmd, product);
+          orderRepo.save(order);
+          return order.id();
+      }
+  }
+
+Database schemas (separate):
+  catalog_schema: products, categories, product_reviews
+  orders_schema: orders, order_items, order_status_history
+  payments_schema: payments, refunds, transactions
+  -- No foreign keys across schemas
+
+Future extraction to microservice:
+  1. Move payments to its own binary (Spring Boot app)
+  2. Replace in-process PaymentsApi with HTTP client
+  3. Move payments_schema to its own PostgreSQL instance
+  4. Deploy payments-service independently
+  5. Monolith continues running with remaining modules
+```
+
+### How do I enforce module boundaries at runtime?
+
+Use ArchUnit or Spring Modulith to verify in tests that no module accesses another module internal classes. Spring Modulith automatically detects boundary violations and fails the test. You can also use JPMS (Java Platform Module System) with `requires` and `exports` to enforce boundaries at the compiler level. Without verification tools, boundaries degrade over time.

@@ -219,3 +219,86 @@ No. The business does not pause. Run migration as a parallel track: 70% capabili
 ### What if we end up with a distributed monolith?
 
 A distributed monolith happens when services share a database or deploy together. The fix is the same as the prevention: enforce database-per-service and independent deployment pipelines. It is painful to fix, so prevent it from the start.
+
+
+## Advanced Topics
+
+### Detailed Scenario: Extracting Notifications from a Rails Monolith
+
+```text
+System: Rails monolith (450k lines, 35 devs, PostgreSQL)
+Target: Extract notification-service as first microservice
+Timeline: 8 weeks
+
+Week 1-2: Analyze current notification code
+  - Identified 12 notification types (order confirmation, shipping, password reset, etc.)
+  - 3 delivery channels: email (SendGrid), SMS (Twilio), push (Firebase)
+  - Notification logic scattered across 18 Rails models
+  - Shared database table: notifications (written by 8 different controllers)
+
+Week 3: Create abstraction layer (Branch by Abstraction)
+  # app/services/notification_sender.rb
+  class NotificationSender
+    def self.send(user_id, type, payload)
+      if FeatureFlags.enabled?("use-notification-service", user_id)
+        NotificationServiceClient.send(user_id, type, payload)
+      else
+        MonolithNotificationDelivery.send(user_id, type, payload)
+      end
+    end
+  end
+
+  # Replace all direct calls throughout the monolith
+  # Before: NotificationMailer.order_confirmation(user).deliver_now
+  # After:  NotificationSender.send(user.id, :order_confirmation, {order: order})
+
+Week 4-5: Build notification-service (Go)
+  - gRPC server listening on :50051
+  - Reads from its own PostgreSQL database
+  - Integrates SendGrid, Twilio, Firebase via adapters
+  - Supports templates, retry logic, dead-letter queue
+
+  // proto/notifications.proto
+  service NotificationService {
+    rpc Send(SendNotificationRequest) returns (SendNotificationResponse);
+    rpc GetStatus(GetStatusRequest) returns (NotificationStatus);
+  }
+
+Week 6: Data migration with CDC
+  - Deploy Debezium connector on monolith PostgreSQL
+  - Stream notifications table changes to Kafka topic
+  - notification-service consumes from Kafka and writes to its DB
+  - Run for 1 week in shadow mode (no traffic served)
+
+  [Monolith DB] -> [Debezium] -> [Kafka] -> [notification-service] -> [New DB]
+
+Week 7: Gradual traffic shift
+  - Day 1-2: 5% of notifications via new service (feature flag)
+  - Day 3-4: 25% traffic, monitor error rates and latency
+  - Day 5-6: 50% traffic
+  - Day 7: 100% traffic
+
+  Monitoring dashboard:
+    - notification.success_rate (target: > 99.5%)
+    - notification.latency_p95 (target: < 200ms)
+    - notification.retry_count (target: < 5% of total)
+    - notification.dead_letter_count (target: < 0.1% of total)
+
+Week 8: Cleanup
+  - Remove MonolithNotificationDelivery from Rails
+  - Drop notifications table from monolith DB (after backup)
+  - Remove Debezium connector
+  - Document the new service in architecture wiki
+
+Results after 1 month:
+  | Metric | Monolith | notification-service |
+  |--------|----------|---------------------|
+  | Deploy frequency | Weekly | On-demand (3x/week) |
+  | Error rate | 2.1% | 0.3% |
+  | p95 latency | 450ms | 120ms |
+  | Template changes | PR + deploy | Config update (no deploy) |
+```
+
+### How do I handle shared libraries during migration?
+
+Extract shared code into a versioned library (gem, npm package, JAR) that both the monolith and new services can depend on. Keep it minimal: shared value objects, DTOs, and utility functions. Do not share domain logic or business rules — those belong to the service that owns the domain. Version the library with semantic versioning and publish to a private registry. When the monolith is retired, the library continues to serve the remaining services.

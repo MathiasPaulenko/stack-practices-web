@@ -285,3 +285,90 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Hardening de API REST para Produccion
+
+```text
+Sistema: API REST Node.js, 50 endpoints, 100K usuarios
+Objetivo: Checklist completo de seguridad API
+
+Checklist de seguridad API (40 items):
+  Autenticacion:
+  [x] JWT con RS256 (no HS256)
+  [x] Expiracion de token: 15 min access, 7 dias refresh
+  [x] Refresh token rotation
+  [x] MFA para endpoints admin
+  [x] Rate limiting en login: 5 intentos -> lock 15 min
+  [x] No exponer token en URL
+  [x] Logout invalida token (Redis blacklist)
+  [x] Password policy: min 12 chars, complejidad
+
+  Autorizacion:
+  [x] RBAC: roles user/admin/super_admin
+  [x] Verificar ownership en cada request (anti-IDOR)
+  [x] Scope por recurso: user solo accede sus datos
+  [x] Denegar por defecto, permitir explicitamente
+  [x] No auto-increment IDs (usar UUID)
+
+  Input:
+  [x] Schema validation (Zod) en cada endpoint
+  [x] Limite de tamano de payload (max 1MB)
+  [x] Sanitizacion de strings (no HTML injection)
+  [x] Queries parametrizadas (anti-SQL injection)
+  [x] No eval/exec con input de usuario
+  [x] File upload: validar tipo, tamano, contenido
+
+  Output:
+  [x] No exponer stack traces en prod
+  [x] DTO mapping: no exponer campos internos
+  [x] Headers: X-Content-Type-Options, X-Frame-Options, CSP, HSTS
+  [x] No exponer version del server/framework
+  [x] Rate limiting global: 100 req/min por usuario
+
+  Transporte:
+  [x] TLS 1.3 obligatorio (no TLS 1.0/1.1)
+  [x] Redirect HTTP -> HTTPS
+  [x] HSTS: max-age=31536000; includeSubDomains
+  [x] Certificate pinning (mobile apps)
+
+  Configuracion:
+  [x] CORS: origin estricto, no wildcard
+  [x] NODE_ENV=production
+  [x] Secrets en Secrets Manager (no .env en prod)
+  [x] Helmet() configurado
+  [x] Compression con Brotli (no gzip para evitar BREACH)
+
+  Logging y monitoreo:
+  [x] Audit log de acciones criticas
+  [x] No logear secrets, passwords, tokens, PII
+  [x] Alertas de intentos de auth fallidos
+  [x] Alertas de rate limit excedido
+  [x] SIEM integration (ELK + alerting)
+
+  Dependencias:
+  [x] npm audit en CI (--audit-level=high)
+  [x] Dependabot/Snyk configurado
+  [x] Lockfile en repo (package-lock.json)
+  [x] License check en CI
+
+  CI/CD:
+  [x] SAST (semgrep) en pipeline
+  [x] DAST (OWASP ZAP) en staging
+  [x] Container scan (Trivy) en build
+  [x] Secret scan (git-secrets) en pre-commit
+  [x] Code review obligatorio (1 approver min)
+
+Lecciones:
+  - 40 items es el minimo para produccion
+  - IDOR es #1: verificar ownership siempre
+  - Schema validation en cada endpoint, sin excepciones
+  - Audit log + alerting = deteccion temprana
+  - SAST + DAST + secret scan en CI es obligatorio
+```
+
+### Como priorizo si tengo poco tiempo?
+
+Empieza por autenticacion (JWT seguro + rate limiting), autorizacion (verificar ownership), input validation (Zod en cada endpoint) y TLS. Estos 4 cubren el 80% de vulnerabilidades. Despues agrega headers (helmet), audit log, y dependency scanning. Finalmente, SAST/DAST en CI. La seguridad es un proceso continuo, no un proyecto unico.

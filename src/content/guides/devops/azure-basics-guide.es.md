@@ -235,3 +235,75 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario: Arquitectura Web en Azure
+
+```text
+Sistema: App web escalable, multi-region
+Requisitos: 99.95% disponibilidad, auto-scaling, DR
+
+Arquitectura:
+  Front Door (WAF + routing) -> App Service (multi-region)
+    Region 1: East US
+    Region 2: West Europe
+
+  App Service -> Azure SQL (Active Geo-Replication)
+  App Service -> Cosmos DB (multi-master)
+  App Service -> Redis Cache
+  App Service -> Blob Storage (static assets)
+
+Servicios clave:
+  | Capa | Servicio | Configuracion |
+  |------|----------|--------------|
+  | DNS/Routing | Front Door | Priority routing, WAF |
+  | Compute | App Service | P1v3, auto-scale 2-10 |
+  | DB | Azure SQL | Business Critical, 4 vCores |
+  | NoSQL | Cosmos DB | 10K RU/s, multi-master |
+  | Cache | Azure Cache for Redis | Standard C1 |
+  | Storage | Blob Storage | GRS, hot tier |
+  | Monitoring | App Insights + Log Analytics | |
+  | Secrets | Key Vault | |
+  | CDN | Azure CDN | Edge nodes global |
+
+Auto-scaling rules:
+  - CPU > 70% por 5 min -> scale out (+1 instancia)
+  - CPU < 30% por 10 min -> scale in (-1 instancia)
+  - Min: 2 instancias, Max: 10 instancias
+  - Queue length > 100 -> scale out
+  - HTTP 5xx > 1% -> scale out + alert
+
+Disaster Recovery:
+  | Componente | RPO | RTO | Estrategia |
+  |------------|-----|-----|------------|
+  | Azure SQL | < 5s | < 1min | Active Geo-Replication |
+  | Cosmos DB | 0 | 0 | Multi-master |
+  | Blob Storage | < 15min | < 15min | GRS + async copy |
+  | App Service | 0 | < 5min | Front Door failover |
+  | Redis | < 1min | < 5min | Geo-replica + warm-up |
+
+Costos estimados (mensual):
+  | Servicio | Costo |
+  |----------|-------|
+  | App Service (2x P1v3) | $1,000 |
+  | Azure SQL (BC, 4 vCores) | $1,800 |
+  | Cosmos DB (10K RU/s) | $600 |
+  | Redis (C1) | $300 |
+  | Storage (1TB GRS) | $50 |
+  | Front Door | $200 |
+  | Bandwidth (1TB) | $50 |
+  | Total | ~$4,000/mes |
+
+Lecciones:
+  - Front Door unifica WAF, routing y health checks
+  - Active Geo-Replication da RPO < 5s para SQL
+  - Cosmos DB multi-master elimina write conflicts
+  - App Service auto-scaling responde en 3-5 min
+  - Key Vault centraliza secrets con rotation automatica
+```
+
+### Como elijo entre Azure SQL y Cosmos DB?
+
+Usa Azure SQL para datos relacionales con esquema estable, queries complejas, y transacciones ACID. Usa Cosmos DB para datos semi-estructurados, escalabilidad horizontal automatica, baja latencia global, y cuando necesites multi-master. Si necesitas ambos, usa SQL para transaccional y Cosmos para catalogo/perfil de usuario.

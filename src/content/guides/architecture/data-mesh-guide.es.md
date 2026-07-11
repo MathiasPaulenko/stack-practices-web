@@ -191,3 +191,112 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+
+## Temas Avanzados
+
+### Escenario Detallado: Implementacion de Data Mesh en E-commerce
+
+```text
+Organizacion: E-commerce con 8 equipos de dominio
+Problema: Equipo central de datos con backlog de 6 meses
+Meta: 3 productos de datos piloto en 4 meses
+
+Fase 1: Identificar dominios y productos piloto (mes 1)
+  Dominios identificados:
+    - Orders (equipo A): posee eventos de ciclo de vida de pedidos
+    - Payments (equipo B): posee eventos de pago y reembolso
+    - Inventory (equipo C): posee niveles de stock y movimientos
+
+  Productos piloto seleccionados:
+    1. orders.fact_order_events (stream de eventos)
+    2. payments.fact_payment_events (stream de eventos)
+    3. inventory.current_stock_levels (tabla snapshot)
+
+  Criterios de seleccion:
+    - Alto valor de negocio (analytics y ML los consumen)
+    - Equipo de dominio dispuesto a publicar
+    - Esquema estable (no en refactor activo)
+
+Fase 2: Construir plataforma minima (mes 2)
+  Componentes implementados:
+    - Catalogo: DataHub (open source) para descubrimiento
+    - Schema Registry: Confluent Schema Registry para Avro
+    - Storage: S3 con Delta Lake para ACID
+    - Acceso: AWS Lake Formation para permisos cross-dominio
+    - Lineage: OpenLineage + Marquez para trazabilidad
+
+  $ docker-compose up datahub-backend datahub-frontend schema-registry
+  $ aws lakeformation grant-permissions --principal DataLakePrincipalIdentifier=orders-team \\
+      --permissions SELECT --resource TableWithColumns=orders.fact_order_events
+
+Fase 3: Publicar productos piloto (mes 3)
+  Equipo de Orders publica fact_order_events:
+    - Define esquema Avro en Schema Registry
+    - Configura pipeline: Kafka -> S3 Delta Lake
+    - Registra metadata en DataHub con SLAs
+    - Configura alertas de calidad (Great Expectations)
+
+  Especificacion publicada:
+    name: orders.fact_order_events
+    owner: orders-team@company.com
+    freshness_sla: 5 minutos
+    completeness: 99.9%
+    pii_fields: [customer_email]
+
+Fase 4: Consumo cross-dominio (mes 4)
+  Equipo de Analytics suscribe a 3 productos:
+    orders = consumer.subscribe("orders.fact_order_events")
+    payments = consumer.subscribe("payments.fact_payment_events")
+    inventory = consumer.subscribe("inventory.current_stock_levels")
+
+  Reporte de revenue creado con join cross-dominio:
+    SELECT o.order_id, o.total, p.paid_amount, i.stock_level
+    FROM orders.fact_order_events o
+    JOIN payments.fact_payment_events p ON o.order_id = p.order_id
+    JOIN inventory.current_stock_levels i ON o.product_id = i.product_id
+
+Metricas de exito (despues de 6 meses):
+  | Metrica | Antes | Despues |
+  |---------|-------|---------|
+  | Tiempo de acceso a datos | 6 semanas (solicitud al equipo central) | 1 dia (self-service) |
+  | Productos de datos | 0 | 12 |
+  | Equipos publicando | 1 (central) | 5 |
+  | Calidad de datos (SLA cumplido) | N/A | 97.3% |
+```
+
+### Como manejo la gobernanza de datos privados (PII) en Data Mesh?
+
+La gobernanza federada define politicas globales de privacidad. Cada dominio implementa el cumplimiento localmente. Usa AWS Lake Formation o Apache Ranger para controlar acceso a nivel de columna. Marca campos PII en el catalogo (DataHub). Los productos de datos con PII tienen clasificacion "restricted" y requieren aprobacion para consumo. El equipo de plataforma provee herramientas de enmascaramiento automatico para entornos de desarrollo.
+
+### Que tamano de organizacion necesita Data Mesh?
+
+Data Mesh es para organizaciones con 50+ ingenieros de datos o 5+ equipos de dominio. Organizaciones mas pequenas estan mejor con un data lake centralizado y un equipo de datos. Data Mesh resuelve el problema de escala organizacional, no de escala tecnica. Si tu problema es volumen de datos, no numero de equipos, un lake con mejor gobernanza es suficiente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

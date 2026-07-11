@@ -157,3 +157,146 @@ El monitoreo hace preguntas conocidas ("¿CPU está alta?"). La observabilidad p
 ### ¿Cuántas alertas debería tener un servicio?
 
 3-5 alertas críticas (pages), 5-10 advertencias (tickets), información ilimitada (logs/dashboards). Más de 10 alertas críticas significa que estás alertando sobre síntomas, no impacto al usuario.
+
+
+## Temas Avanzados
+
+### Escenario: Sistema de Alertas para E-commerce
+
+```yaml
+# Prometheus alerting rules
+groups:
+  - name: payment-service
+    rules:
+      # SLO: tasa de error > 1% durante 5 min
+      - alert: PaymentErrorRateHigh
+        expr: |
+          sum(rate(http_requests_total{job="payment",status=~"5.."}[5m]))
+          / sum(rate(http_requests_total{job="payment"}[5m]))
+          > 0.01
+        for: 5m
+        labels:
+          severity: page
+          team: payments
+        annotations:
+          summary: "Payment error rate > 1%"
+          description: "Error rate is {{ $value | humanizePercentage }}"
+          runbook: "https://wiki/runbooks/payment-errors"
+
+      # SLO: latencia p99 > 500ms durante 10 min
+      - alert: PaymentLatencyHigh
+        expr: |
+          histogram_quantile(0.99,
+            rate(http_duration_bucket{job="payment"}[10m]))
+          > 0.5
+        for: 10m
+        labels:
+          severity: page
+          team: payments
+        annotations:
+          summary: "Payment p99 latency > 500ms"
+          runbook: "https://wiki/runbooks/payment-latency"
+
+      # SLO burn rate: 14x en 1h
+      - alert: PaymentSLOBurnRate
+        expr: |
+          (
+            sum(rate(http_requests_total{job="payment",status=~"5.."}[1h]))
+            / sum(rate(http_requests_total{job="payment"}[1h]))
+          ) > 14 * 0.001
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: "Payment SLO burn rate > 14x"
+
+      # Warning: throughput anormal
+      - alert: PaymentThroughputAnomaly
+        expr: |
+          rate(http_requests_total{job="payment"}[5m])
+          < 100
+        for: 10m
+        labels:
+          severity: ticket
+        annotations:
+          summary: "Payment throughput < 100 req/s"
+
+  - name: infrastructure
+    rules:
+      # Disco: > 85% en 30 min
+      - alert: DiskSpaceLow
+        expr: |
+          (1 - node_filesystem_avail_bytes
+           / node_filesystem_size_bytes) > 0.85
+        for: 30m
+        labels:
+          severity: ticket
+        annotations:
+          summary: "Disk > 85% on {{ $labels.instance }}"
+
+      # Memoria: OOM inminente
+      - alert: MemoryExhausted
+        expr: |
+          (1 - node_memory_MemAvailable_bytes
+           / node_memory_MemTotal_bytes) > 0.95
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: "Memory > 95% on {{ $labels.instance }}"
+
+# Alertmanager routing
+route:
+  receiver: default
+  group_by: [alertname, team]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    - matchers: [severity="page"]
+      receiver: pagerduty
+      group_wait: 0s
+    - matchers: [severity="ticket"]
+      receiver: jira
+      group_wait: 10m
+
+receivers:
+  - name: pagerduty
+    pagerduty_configs:
+      - service_key: $PAGERDUTY_KEY
+  - name: jira
+    webhook_configs:
+      - url: "https://jira.example.com/alerts"
+  - name: default
+    slack_configs:
+      - channel: "#alerts"
+```
+
+### Como elimino alert fatigue?
+
+1. Audita alertas cada trimestre: elimina las que nunca disparan o siempre disparan. 2. Usa severity levels: page solo para impacto en usuarios. 3. Agrupa alertas relacionadas (Alertmanager group_by). 4. Configura repeat_interval para no re-notificar. 5. Cada alerta debe tener un runbook. 6. Mide el numero de alertas por on-call shift: > 5/noche es excesivo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

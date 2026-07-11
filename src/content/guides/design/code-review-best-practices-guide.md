@@ -193,3 +193,110 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+
+## Advanced Topics
+
+### Scenario: Code Review Checklist for a Payment Service
+
+```text
+Service: Payment processing microservice
+Risk: High (financial transactions, PII)
+Reviewers: 2 required (1 senior + 1 peer)
+
+Pre-review automated checks:
+  [x] Linter passes (ESLint + Prettier)
+  [x] Type checker passes (tsc --noEmit)
+  [x] Unit tests pass (>90% coverage on changed lines)
+  [x] SAST scan clean (Semgrep)
+  [x] No secrets in diff (trufflehog)
+  [x] Dependency audit clean (npm audit)
+
+Review checklist (reviewer fills):
+  Security:
+  [ ] Input validation on all endpoints (Zod schemas)
+  [ ] No SQL injection (parameterized queries)
+  [ ] No hardcoded secrets or API keys
+  [ ] PII not logged (mask card numbers, emails)
+  [ ] Auth checks present on every route
+  [ ] Rate limiting on sensitive endpoints
+
+  Correctness:
+  [ ] Transaction boundaries correct (ACID)
+  [ ] Error handling covers edge cases
+  [ ] Idempotency for payment operations
+  [ ] Decimal arithmetic (no floating point for money)
+  [ ] Null/undefined checks on external data
+  [ ] Race conditions addressed
+
+  Design:
+  [ ] Single responsibility per function
+  [ ] No God classes or functions > 50 lines
+  [ ] Dependencies injected (testable)
+  [ ] No circular imports
+  [ ] API contract matches OpenAPI spec
+
+  Testing:
+  [ ] Happy path covered
+  [ ] Error paths covered
+  [ ] Boundary values tested (0, negative, max)
+  [ ] Integration test for DB operations
+  [ ] Mock external services (Stripe, bank API)
+  [ ] No flaky tests (timeouts, random data)
+
+  Performance:
+  [ ] N+1 queries eliminated
+  [ ] No synchronous I/O in hot paths
+  [ ] Indexes exist for new queries
+  [ ] Pagination on list endpoints
+  [ ] No unnecessary data fetched (SELECT * avoided)
+
+  Documentation:
+  [ ] JSDoc on exported functions
+  [ ] README updated if setup changed
+  [ ] Changelog entry added
+  [ ] Breaking changes documented
+
+Review comments format:
+  [blocking] Must fix before merge
+  [suggestion] Consider this approach
+  [question] Why this design choice?
+  [nit] Minor style preference
+
+Metrics tracked:
+  | Metric | Target |
+  |--------|--------|
+  | Review time | < 4 hours |
+  | Defect escape rate | < 5% |
+  | Reviewer load | < 5 PRs/day |
+  | PR size | < 400 lines changed |
+  | Comment density | 2-5 per PR |
+
+Lessons:
+  - Automated checks reduce reviewer burden
+  - Checklists ensure consistency across reviewers
+  - Small PRs get better reviews than large ones
+  - [blocking] vs [suggestion] clarifies intent
+  - Track metrics to improve the review process
+```
+
+### How do I handle large PRs that are hard to review?
+
+Ask the author to split into smaller PRs. If splitting is not possible, request a walkthrough (screen share or detailed description). Review in chunks: first the design, then the tests, then the implementation. Use diff tools that allow commenting on specific lines. Large PRs (> 400 lines) consistently get lower quality reviews.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.
