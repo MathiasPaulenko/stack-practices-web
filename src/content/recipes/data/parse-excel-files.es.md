@@ -295,3 +295,62 @@ Sí. `openpyxl` soporta fuentes, rellenos, bordes y formatos numéricos vía el 
 ### ¿Cómo manejo fechas correctamente al analizar Excel?
 
 Excel almacena fechas como números de punto flotante (días desde 1900 o 1904). `openpyxl` retorna objetos `datetime` cuando `data_only=True` está seteado y los valores están cacheados. `pandas` convierte automáticamente columnas de fecha si se especifica `parse_dates`. En Java, usa `DataFormatter` para renderizar valores de celda como strings, luego parsea con `DateTimeFormatter`.
+
+## Temas Avanzados
+
+### Escenario: Parsear Excel con Formulas y Multiples Hojas
+
+```python
+import openpyxl
+from openpyxl.utils import get_column_letter
+
+# Leer workbook con formulas
+wb = openpyxl.load_workbook("report.xlsx", data_only=False)
+
+# Listar hojas
+print(wb.sheetnames)  # ["Summary", "Data", "Charts"]
+
+# Leer una hoja especifica
+ws = wb["Data"]
+
+# Iterar filas con tipos preservados
+for row in ws.iter_rows(min_row=2, max_col=5, values_only=False):
+    for cell in row:
+        print(f"{cell.coordinate}: {cell.value} (type: {cell.data_type})")
+
+# Leer valor calculado de una formula
+wb_calc = openpyxl.load_workbook("report.xlsx", data_only=True)
+ws_calc = wb_calc["Summary"]
+print(ws_calc["B2"].value)  # Resultado de la formula, no la formula
+
+# Crear nuevo Excel con formato
+wb_new = openpyxl.Workbook()
+ws_new = wb_new.active
+ws_new.title = "Results"
+ws_new.append(["Product", "Price", "Stock", "Total"])
+for product in products:
+    ws_new.append([product.name, product.price, product.stock, product.price * product.stock])
+
+# Formato condicional
+from openpyxl.formatting.rule import ColorScaleRule
+ws_new.conditional_formatting.add("D2:D100", ColorScaleRule(
+    start_type="min", start_color="FF63BE7B",
+    mid_type="percentile", mid_value=50, mid_color="FFFFEB84",
+    end_type="max", end_color="FFF8696B",
+))
+
+wb_new.save("results.xlsx")
+```
+
+Lecciones:
+  - data_only=False: lee formulas. data_only=True: lee valores calculados
+  - iter_rows: iterar eficientemente sin cargar todo en memoria
+  - cell.data_type: preserva tipos (n, s, b, d, f, e)
+  - Formato condicional: ColorScaleRule para heatmaps
+  - Para archivos grandes (>100MB), usar openpyxl en read-only mode
+  - Alternativas: pandas.read_excel (mas simple), xlrd (legacy .xls)
+```
+
+### Como manejo archivos Excel muy grandes?
+
+Usa openpyxl en read-only mode: wb = load_workbook(filename, read_only=True). Esto usa streaming: no carga todo en memoria. Para escribir, usa write_only mode: wb = Workbook(write_only=True). Alternativa: usar pandas con chunksize: pd.read_excel(filename, sheet_name=0, chunksize=10000). Para archivos extremos (>1GB), convertir a CSV primero con libreoffice headless y luego procesar el CSV con pandas chunked.

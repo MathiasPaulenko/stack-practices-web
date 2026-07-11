@@ -296,3 +296,71 @@ Pass `usecols=["name", "email"]` to `read_csv`. This saves memory when the file 
 ### What is the difference between read_csv and read_table?
 
 Nothing meaningful. `read_table` uses `sep="\t"` by default; `read_csv` uses `sep=","`. They are aliases otherwise.
+
+## Advanced Topics
+
+### Scenario: Process Large CSV with Pandas
+
+```python
+import pandas as pd
+import numpy as np
+
+# Read CSV with optimized types
+dtypes = {
+    "id": "int32",
+    "name": "string",
+    "price": "float32",
+    "quantity": "int16",
+    "date": "string",  # parse later
+}
+df = pd.read_csv("sales.csv", dtype=dtypes, parse_dates=["date"],
+                  encoding="utf-8", na_values=["", "NULL", "N/A"])
+
+# Read large CSV in chunks
+chunks = pd.read_csv("big_sales.csv", chunksize=50000, dtype=dtypes)
+for chunk in chunks:
+    process_chunk(chunk)
+
+# Filter and transform
+df["total"] = df["price"] * df["quantity"]
+df_filtered = df[(df["total"] > 100) & (df["quantity"] > 0)]
+
+# Group and aggregate
+summary = df.groupby("category").agg({
+    "total": ["sum", "mean", "count"],
+    "quantity": "sum",
+}).round(2)
+
+# Pivot table
+pivot = df.pivot_table(
+    index="category",
+    columns="region",
+    values="total",
+    aggfunc="sum",
+    fill_value=0,
+)
+
+# Export to CSV
+df.to_csv("processed.csv", index=False, encoding="utf-8")
+summary.to_csv("summary.csv")
+
+# Export to Excel with multiple sheets
+with pd.ExcelWriter("report.xlsx") as writer:
+    df.to_excel(writer, sheet_name="Data")
+    summary.to_excel(writer, sheet_name="Summary")
+    pivot.to_excel(writer, sheet_name="Pivot")
+```
+
+Lessons:
+  - Specifying dtypes reduces memory: int32 vs int64, float32 vs float64
+  - chunksize: process large files without loading everything into memory
+  - parse_dates: convert columns to datetime on read
+  - na_values: define which values count as NaN
+  - groupby + agg: efficient vectorized aggregation
+  - pivot_table: cross tables with fill_value for NaN
+  - ExcelWriter: multiple sheets in one file
+```
+
+### How do I optimize memory with Pandas?
+
+Use explicit dtypes: int32 instead of int64, category for strings with few unique values. Convert repetitive strings to category: df["category"] = df["category"].astype("category"). Use downcast: pd.to_numeric(df["col"], downcast="integer"). For very large DataFrames, use polars (10x faster) or dask (out-of-core). Monitor with df.memory_usage(deep=True). For large CSVs, chunksize + concat only what is needed.

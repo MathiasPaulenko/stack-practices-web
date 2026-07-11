@@ -295,3 +295,62 @@ Yes. `openpyxl` supports fonts, fills, borders, and number formats via the `open
 ### How do I handle dates correctly when parsing Excel?
 
 Excel stores dates as floating-point serial numbers (days since 1900 or 1904). `openpyxl` returns `datetime` objects when `data_only=True` is set and values are cached. `pandas` automatically converts date columns if `parse_dates` is specified. In Java, use `DataFormatter` to render cell values as strings, then parse with `DateTimeFormatter`.
+
+## Advanced Topics
+
+### Scenario: Parse Excel with Formulas and Multiple Sheets
+
+```python
+import openpyxl
+from openpyxl.utils import get_column_letter
+
+# Read workbook with formulas
+wb = openpyxl.load_workbook("report.xlsx", data_only=False)
+
+# List sheets
+print(wb.sheetnames)  # ["Summary", "Data", "Charts"]
+
+# Read a specific sheet
+ws = wb["Data"]
+
+# Iterate rows with preserved types
+for row in ws.iter_rows(min_row=2, max_col=5, values_only=False):
+    for cell in row:
+        print(f"{cell.coordinate}: {cell.value} (type: {cell.data_type})")
+
+# Read calculated value of a formula
+wb_calc = openpyxl.load_workbook("report.xlsx", data_only=True)
+ws_calc = wb_calc["Summary"]
+print(ws_calc["B2"].value)  # Formula result, not the formula
+
+# Create new Excel with formatting
+wb_new = openpyxl.Workbook()
+ws_new = wb_new.active
+ws_new.title = "Results"
+ws_new.append(["Product", "Price", "Stock", "Total"])
+for product in products:
+    ws_new.append([product.name, product.price, product.stock, product.price * product.stock])
+
+# Conditional formatting
+from openpyxl.formatting.rule import ColorScaleRule
+ws_new.conditional_formatting.add("D2:D100", ColorScaleRule(
+    start_type="min", start_color="FF63BE7B",
+    mid_type="percentile", mid_value=50, mid_color="FFFFEB84",
+    end_type="max", end_color="FFF8696B",
+))
+
+wb_new.save("results.xlsx")
+```
+
+Lessons:
+  - data_only=False: reads formulas. data_only=True: reads calculated values
+  - iter_rows: iterate efficiently without loading everything into memory
+  - cell.data_type: preserves types (n, s, b, d, f, e)
+  - Conditional formatting: ColorScaleRule for heatmaps
+  - For large files (>100MB), use openpyxl in read-only mode
+  - Alternatives: pandas.read_excel (simpler), xlrd (legacy .xls)
+```
+
+### How do I handle very large Excel files?
+
+Use openpyxl in read-only mode: wb = load_workbook(filename, read_only=True). This uses streaming: does not load everything into memory. For writing, use write_only mode: wb = Workbook(write_only=True). Alternative: use pandas with chunksize: pd.read_excel(filename, sheet_name=0, chunksize=10000). For extreme files (>1GB), convert to CSV first with libreoffice headless and then process the CSV with pandas chunked.

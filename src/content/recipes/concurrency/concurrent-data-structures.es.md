@@ -295,3 +295,60 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 Empieza con el ejemplo mÃ­nimo de arriba. AÃ±ade logging en cada paso. Prueba con entradas pequeÃ±as primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
 - **Corrupcion de estado via referencias stale**: si un thread obtiene una referencia a un objeto mutable desde una coleccion concurrente y otro thread lo modifica simultaneamente, el primer thread puede leer datos corruptos. Usa defensive copies o valores inmutables
 - **DoS via crecimiento de segmentos**: un atacante puede forzar el crecimiento de segmentos internos de ConcurrentHashMap insertando keys con hash collisions, degradando el rendimiento. Usa funciones de hash con buena distribucion
+
+
+## Temas Avanzados
+
+### Escenario: Estructuras de Datos Concurrentes en Java
+
+```java
+// ConcurrentHashMap: thread-safe sin bloquear toda la estructura
+ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
+// Operaciones atomicas
+map.putIfAbsent("count", 0);
+map.computeIfPresent("count", (k, v) -> v + 1);
+map.computeIfAbsent("stats", k -> new ArrayList<>());
+
+// AtomicLong: contador thread-safe sin locks
+AtomicLong counter = new AtomicLong(0);
+counter.incrementAndGet();      // ++counter
+counter.compareAndSet(5, 10);   // if (counter == 5) counter = 10
+counter.updateAndGet(x -> x * 2); // counter *= 2
+
+// BlockingQueue: productor-consumidor thread-safe
+BlockingQueue<Task> queue = new LinkedBlockingQueue<>(1000);
+// Productor
+queue.put(task);  // bloquea si la queue esta llena
+// Consumidor
+Task task = queue.take();  // bloquea si la queue esta vacia
+
+// CopyOnWriteArrayList: optimizado para lectura, copia en write
+CopyOnWriteArrayList<Listener> listeners = new CopyOnWriteArrayList<>();
+listeners.add(new Listener());  // copia el array interno
+for (Listener l : listeners) { l.notify(); }  // sin sincronizacion en read
+```
+
+```text
+Comparacion de estructuras concurrentes:
+  | Estructura | Lectura | Escritura | Use case |
+  |------------|---------|-----------|----------|
+  | ConcurrentHashMap | No bloquea | Segment lock | Cache, mapa compartido |
+  | synchronizedMap | Bloquea | Bloquea | Legacy, simple |
+  | CopyOnWriteArrayList | No bloquea | Copia array | Listeners, configs |
+  | BlockingQueue | Bloquea | Bloquea | Producer-consumer |
+  | ConcurrentLinkedQueue | No bloquea | CAS | Work stealing |
+  | AtomicLong | No bloquea | CAS | Contadores, secuencias |
+```
+
+Lecciones:
+  - ConcurrentHashMap: segment locks, no bloquea toda la estructura
+  - Atomic*: CAS (Compare-And-Swap), sin locks del SO
+  - BlockingQueue: bloquea al productor/consumidor, ideal para pipelines
+  - CopyOnWrite: optimizado para mucho read, poco write
+  - Evitar synchronized en metodos: granularidad gruesa, contencion
+  - Preferir java.util.concurrent sobre synchronized Collections
+```
+
+### Como evito deadlocks con estructuras concurrentes?
+
+Usa estructuras lock-free cuando sea posible (ConcurrentLinkedQueue, Atomic*). Si necesitas multiples locks, adquiere siempre en el mismo orden. Usa tryLock con timeout: no bloquees indefinidamente. Evita locks anidados: si tienes lock A y lock B, reestructura para no necesitar ambos. Usa java.util.concurrent en lugar de synchronized: las clases concurrentes estan disenadas para evitar deadlocks. Para transacciones, usar STM (Software Transactional Memory) o database transactions.
