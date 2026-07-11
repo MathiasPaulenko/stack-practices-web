@@ -144,6 +144,73 @@ Antes de anunciar la deprecacion:
 
 La linea de tiempo es el nucleo de este documento. Cada hito da a los consumidores multiples oportunidades de notar y actuar. El **plan de comunicacion** asegura que el mensaje llegue a todas las audiencias a traves de sus canales preferidos. La **ruta de migracion** elimina la ambiguedad — los consumidores deben saber exactamente que cambiar. El **plan de soporte** establece expectativas: ayudaras, pero solo por un periodo definido. El **periodo de gracia** reconoce que las migraciones del mundo real se retrasan y te da una politica para manejar excepciones sin socavar la fecha limite.
 
+## Plantilla de Anuncio de Deprecacion
+
+```text
+Asunto: [Accion Requerida] Deprecacion de [SISTEMA/API] — Efectivo [FECHA]
+
+A todos los usuarios de [SISTEMA/API],
+
+Anunciamos la deprecacion de [SISTEMA/API] efectiva [FECHA].
+Este sistema sera apagado el [FECHA_APAGADO].
+
+Por que lo deprecamos?
+  [RAZON BREVE: ej., "El sistema ha sido reemplazado por [NUEVO_SISTEMA]
+   que proporciona mejor rendimiento, confiabilidad y features."]
+
+Que necesitas hacer?
+  1. Revisa la guia de migracion: [LINK]
+  2. Actualiza tu codigo para usar [NUEVO_SISTEMA] antes de [FECHA_LIMITE]
+  3. Prueba tu integracion en staging antes de produccion
+  4. Contacta a [EMAIL_EQUIPO] si necesitas soporte de migracion
+
+Cronograma:
+  - [FECHA]: Deprecacion anunciada (este email)
+  - [FECHA+3meses]: Sin nuevas features ni bug fixes
+  - [FECHA+6meses]: Sistema entra en modo solo lectura
+  - [FECHA+9meses]: Sistema apagado
+
+Soporte:
+  - Guia de migracion: [LINK]
+  - Horas de oficina: [DIA/HORA] para preguntas de migracion
+  - Soporte directo: [EMAIL_EQUIPO]
+
+Estamos comprometidos a hacer esta transicion lo mas suave posible.
+Por favor contactanos si tienes alguna preocupacion.
+
+[EQUIPO]
+```
+
+## Dashboard de Seguimiento de Migracion
+
+```text
+=== Tracker de Migracion de Deprecacion ===
+
+Sistema: [NOMBRE_SISTEMA]
+Fecha de Deprecacion: 2026-07-11
+Fecha de Apagado: 2027-01-11
+
+Consumidor       | Estado      | Ultimo Contacto | Nivel Riesgo | Notas
+-----------------|-------------|-----------------|--------------|------------------
+Equipo A (api)   | Migrado     | 2026-08-15      | Bajo         | Completado temprano
+Equipo B (web)   | En Progreso | 2026-09-20      | Medio        | Necesita ayuda schema
+Equipo C (movil) | No Iniciado | 2026-09-01      | Alto         | Sin respuesta aun
+Equipo D (data)  | Migrado     | 2026-08-30      | Bajo         | Completado
+Equipo E (infra) | En Progreso | 2026-09-25      | Medio        | Pruebas en staging
+
+Resumen:
+  Migrados:      2/5 (40%)
+  En Progreso:   2/5 (40%)
+  No Iniciados:  1/5 (20%)
+  En Riesgo:     1/5 (20%)
+
+Proximas Acciones:
+  - Seguir con Equipo C (sin respuesta en 3 semanas)
+  - Programar sesion de migracion con Equipo B
+  - Verificar que pruebas de staging del Equipo E pasen
+```
+
+
 ## Variantes
 
 | Contexto | Ajustes | Notas |
@@ -183,3 +250,52 @@ Ten una politica documentada de periodo de gracia antes de anunciar. No hagas ex
 ### Debemos mantener la API anterior retornando un redirect?
 
 Por un corto periodo despues del apagado (dias, no meses), retornar un error claro con un link a la documentacion de migracion es util. Los redirects permanentes ocultan el problema y retrasan la migracion. Eventualmente el endpoint debe retornar un error definitivo.
+
+
+### Como manejamos la deprecacion para consumidores internos vs externos?
+
+Para consumidores internos: usa comunicacion directa (Slack, reuniones de equipo), rastrea la migracion en Jira o una hoja compartida, ofrece sesiones de pair-programming para ayuda de migracion, y escala a engineering managers si los equipos no responden. Para consumidores externos: usa canales publicos (blog post, pagina de estado, newsletter), proporciona guias de migracion detalladas con ejemplos de codigo, ofrece horas de oficina o un canal de soporte dedicado, y respeta los periodos de notificacion contractuales. Las deprecaciones internas pueden moverse mas rapido (3 meses) mientras que las externas necesitan mas tiempo (6-12 meses).
+
+### Que metricas deberiamos rastrear durante una deprecacion?
+
+Rastrea: numero de consumidores migrados vs total, porcentaje de trafico que aun llega al sistema deprecado, tasa de error en el sistema deprecado, volumen de tickets de soporte relacionados con migracion, y tiempo restante hasta el apagado. Configura un dashboard que muestre el progreso de migracion semanalmente. Alerta si la tasa de migracion se estanca (sin nuevas migraciones en 2 semanas). Revisa metricas en la revision operativa semanal. Comparte el progreso con stakeholders para mantener urgencia.
+
+### Como manejamos una deprecacion que afecta a clientes que pagan?
+
+Para clientes que pagan: revisa los contratos por requisitos de periodo de notificacion antes de anunciar. Contacta a los account managers para notificar a clientes clave directamente antes del anuncio publico. Ofrece timelines extendidos para clientes enterprise si los contratos lo requieren. Proporciona soporte de migracion white-glove para clientes top-tier. Considera ofrecer creditos o descuentos por la inconveniencia. Documenta cualquier obligacion contractual en el timeline de deprecacion. Nunca sorprendas a un cliente que paga con un anuncio publico del que no fue advertido.
+
+### Que pasa si el sistema de reemplazo no esta listo cuando necesitamos deprecar?
+
+Si el reemplazo no esta listo, retrasa el anuncio de deprecacion hasta que lo este. Anunciar una deprecacion sin reemplazo fuerza a los consumidores a construir sus propias soluciones, lo que fragmenta el ecosistema. Si el sistema deprecado tiene vulnerabilidades de seguridad criticas que fuerzan el apagado inmediato, comunica el riesgo claramente y proporciona una solucion puente (ej., una capa de compatibilidad o un reemplazo minimal viable). Documenta la decision de retrasar o acelerar en un ADR.
+
+### Como comunicamos el apagado final?
+
+Envia un recordatorio final 1 semana antes del apagado: "Este es un recordatorio final de que [SISTEMA] sera apagado el [FECHA]. Despues de esta fecha, el sistema no estara disponible." El dia del apagado: actualiza la pagina de estado, envia un email de confirmacion, y monitorea trafico inesperado (indicando que alguien perdio los avisos). Mantén logs de error por 30 dias para identificar consumidores que se perdieron. Despues de 30 dias sin trafico, desmantela la infraestructura. Documenta el apagado en un post-mortem.
+
+
+
+Fin del documento. Revisa y actualiza los timelines de deprecacion trimestralmente. Asegura que todos los consumidores hayan migrado antes de la fecha de apagado. Documenta las lecciones aprendidas en una retrospectiva despues de cada deprecacion completada.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

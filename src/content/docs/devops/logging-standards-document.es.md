@@ -145,6 +145,66 @@ Reglas:
 
 Logging consistente transforma archivos de texto ruidosos en datos estructurados y buscables. Al definir niveles, campos y retencion, los equipos pueden correlacionar eventos entre servicios, investigar incidentes mas rapido y cumplir con requisitos regulatorios. Los logs estructurados tambien se integran con tracing y metricas para crear una vision completa de observabilidad.
 
+## Ejemplo de Formato de Log Estructurado
+
+```json
+{
+  "timestamp": "2026-07-11T10:55:32.123Z",
+  "level": "ERROR",
+  "service": "auth-service",
+  "environment": "production",
+  "correlationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "userId": "usr_8f7e6d5c",
+  "message": "Validacion JWT fallo",
+  "errorCode": "AUTH_JWT_INVALID",
+  "context": {
+    "endpoint": "/api/v1/auth/verify",
+    "method": "POST",
+    "statusCode": 401,
+    "durationMs": 12,
+    "ipAddress": "10.0.1.42",
+    "userAgent": "MobileApp/2.3.1"
+  },
+  "error": {
+    "type": "TokenExpiredError",
+    "message": "jwt expirado",
+    "stack": "TokenExpiredError: jwt expirado\n    at ..."
+  }
+}
+```
+
+## Matriz de Decision de Niveles de Log
+
+```text
+=== Cuando Usar Cada Nivel de Log ===
+
+FATAL   - El sistema no puede continuar. El proceso terminara.
+          Ejemplos: fallo de carga de config, error de binding de puerto, OOM
+
+ERROR   - Operacion fallo pero el sistema continua.
+          Ejemplos: request fallo, error de query DB, timeout de API externa
+
+WARN    - Condicion inesperada pero recuperable.
+          Ejemplos: retry exitoso, cache miss, uso de API deprecada
+
+INFO    - Evento significativo de negocio u operacional.
+          Ejemplos: login de usuario, orden realizada, despliegue iniciado
+
+DEBUG   - Detalle diagnostico para troubleshooting.
+          Ejemplos: estado de variable, params de query, contenido de cache
+
+TRACE   - Flujo de ejecucion mas fino.
+          Ejemplos: entrada/salida de funcion, conteo de iteracion de loop
+
+REGLAS:
+  - Produccion: INFO y superior (DEBUG/TRACE apagados)
+  - Staging: DEBUG y superior
+  - Desarrollo: TRACE y superior
+  - Nunca loguear a DEBUG en produccion a menos que estes depurando
+  - ERROR debe ser accionable — si no lo es, es INFO
+```
+
+
 ## Variantes
 
 - **Estandares de logging en cloud**: Adaptados para AWS CloudWatch, Azure Monitor o Google Cloud Logging.
@@ -187,3 +247,55 @@ Un correlation ID es un identificador unico que se pasa a traves de todos los se
 ### Como manejamos datos sensibles en logs?
 
 Usa un enfoque de lista permitida: solo registra campos explicitamente aprobados, y redacta o tokeniza valores sensibles antes de que lleguen al flujo de logs.
+
+
+### Como implementamos correlation IDs en una arquitectura de microservicios?
+
+Genera un correlation ID en el API gateway para cada request entrante. Propagalo via headers HTTP (ej., `X-Correlation-Id`). Cada servicio downstream lee el header, lo incluye en todas las entradas de log, y lo pasa a llamadas downstream adicionales. Para mensajes asincronos, incluye el correlation ID en los metadatos del mensaje. Para jobs en background, almacenalo en el contexto del job. Usa middleware o interceptores para automatizar la propagacion para que los desarrolladores no tengan que manejarlo manualmente. Asegura que el correlation ID aparezca en reportes de error y alertas de monitoreo.
+
+### Que es log sampling y cuando deberiamos usarlo?
+
+Log sampling significa loguear solo un porcentaje de eventos para reducir volumen y costo. Usa sampling para logs de alto volumen y bajo valor (ej., respuestas de health check, requests de assets estaticos). Nunca samplees logs de ERROR o seguridad. Estrategias comunes: sampling aleatorio (loguea 1 de 100), basado en tasa (loguea primeros N por segundo), o basado en cola (loguea todos los errores, samplea exitos). Usa herramientas como Fluentd o Logstash para sampling a nivel de collector. Documenta la tasa de sampling y asegurate de que no oculte patrones importantes.
+
+### Como manejamos los costos de almacenamiento de logs?
+
+Controla costos mediante: retencion en tiers (almacenamiento hot por 7-30 dias, archivo cold por mas tiempo), sampling de logs de alto volumen, compresion de archivos de log, exclusion de endpoints ruidosos del logging, y uso de logging estructurado para habilitar consultas eficientes. Configura alertas de facturacion para almacenamiento de logs. Revisa el volumen de logs mensualmente e identifica los principales contribuyentes. Considera usar una solucion dedicada de archivo de logs (S3 Glacier, Azure Archive Storage) para retencion a largo plazo en lugar de plataformas de log hot costosas.
+
+### Cual es la diferencia entre logs, metricas y traces?
+
+Los logs son eventos discretos con timestamps — que paso en un momento especifico. Las metricas son medidas agregadas en el tiempo — uso de CPU, conteo de requests, tasa de error. Los traces siguen una sola request a traves de fronteras de servicio — el camino y timing de una request a traves del sistema. Juntos forman los tres pilares de la observabilidad. Los logs responden "que paso," las metricas responden "cuanto," y los traces responden "a donde fue el tiempo." Usa los tres para observabilidad completa.
+
+### Como probamos el logging en CI/CD?
+
+Agrega tests que verifiquen: el formato de log es JSON valido, los campos requeridos estan presentes (timestamp, level, service, correlationId), los datos sensibles no se loguean, los niveles de log se usan correctamente, y el volumen de log no excede umbrales. Usa un test harness que capture la salida de log y la valide contra el schema. Ejecuta tests de parsing de log para asegurar que el pipeline de agregacion puede ingerir los logs. Incluye tests de logging en la checklist de despliegue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

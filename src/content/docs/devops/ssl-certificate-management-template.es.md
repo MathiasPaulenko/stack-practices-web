@@ -122,6 +122,90 @@ Los certificados SSL/TLS protegen los datos en transito al cifrar el trafico ent
 
 La gestion de certificados es una tarea operativa repetitiva que se vuelve riesgosa a escala. La plantilla centraliza el inventario, las fechas de renovacion y los procedimientos de despliegue para que los certificados no expiren inesperadamente. Tambien vincula la salud de los certificados con monitoreo y respuesta a incidentes, haciendo que los problemas de certificados sean mas faciles de detectar y resolver rapidamente.
 
+## Script de Renovacion Automatica con Certbot
+
+```bash
+#!/bin/bash
+# Renovar todos los certificados de Let's Encrypt y recargar nginx
+set -euo pipefail
+
+CERTBOT=/usr/bin/certbot
+WEBROOT=/var/www/certbot
+NGINX_CONTAINER=nginx
+
+# Renovar certificados
+$CERTBOT renew --webroot --webroot-path $WEBROOT --quiet --deploy-hook "docker exec $NGINX_CONTAINER nginx -s reload"
+
+# Verificar codigo de salida
+if [ $? -eq 0 ]; then
+  echo "[$(date)] Renovacion de certificado exitosa" >> /var/log/certbot-renew.log
+else
+  echo "[$(date)] Renovacion de certificado FALLIDA" >> /var/log/certbot-renew.log
+  # Enviar alerta a Slack
+  curl -X POST -H 'Content-type: application/json' \
+    --data '{"text":"Renovacion de certificado SSL FALLIDA en $(hostname)"}' \
+    $SLACK_WEBHOOK_URL
+  exit 1
+fi
+```
+
+## Configuracion de cert-manager en Kubernetes
+
+```yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: platform@example.com
+    privateKeySecretRef:
+      name: letsencrypt-prod-key
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-tls
+  namespace: production
+spec:
+  secretName: api-tls-secret
+  duration: 2160h    # 90 dias
+  renewBefore: 360h  # 15 dias antes de expirar
+  dnsNames:
+    - api.example.com
+    - www.api.example.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+```
+
+## Consulta para Dashboard de Inventario de Certificados
+
+```sql
+-- Alerta de Prometheus: certificado por expirar
+-- Regla de Alertmanager para cert-manager
+SELECT
+  domain_name,
+  issuer,
+  expiry_date,
+  owner_team,
+  CASE
+    WHEN expiry_date < NOW() + INTERVAL '7 days' THEN 'CRITICAL'
+    WHEN expiry_date < NOW() + INTERVAL '30 days' THEN 'WARNING'
+    WHEN expiry_date < NOW() + INTERVAL '60 days' THEN 'INFO'
+    ELSE 'OK'
+  END AS status
+FROM certificate_inventory
+WHERE expiry_date < NOW() + INTERVAL '90 days'
+ORDER BY expiry_date ASC;
+```
+
+
 ## Variantes
 
 - **Automatizacion con Let's Encrypt**: Usa Certbot, acme.sh o clientes ACME con renovacion y despliegue automatizados.
@@ -164,3 +248,54 @@ Los wildcards son convenientes para muchos subdominios pero comparten una sola c
 ### Como prevenimos interrupciones por vencimiento de certificados?
 
 Usa renovacion automatica con alertas de monitoreo, manten un inventario preciso y prueba los despliegues. Trata los certificados que vencen en 7 dias como incidentes.
+
+
+### Como manejamos certificados para servicios internos?
+
+Usa una autoridad certificadora (CA) interna como step-ca, HashiCorp Vault PKI o AWS Private CA. Distribuye el CA raiz a todos los clientes internos via gestion de configuracion. Automatiza la emision con certificados de corta duracion (24-48 horas). Para Kubernetes, usa cert-manager con un emisor privado. Monitorea la salud del CA interno y la expiracion de certificados separadamente de los certificados publicos.
+
+### Que es certificate pinning y deberiamos usarlo?
+
+Certificate pinning fija el certificado o clave publica esperado en el cliente, rechazando conexiones con certificados diferentes. Previene ataques MITM incluso si el CA se ve comprometido. Usalo para apps moviles que se comunican con tus propias APIs. Evita pinning para servicios de navegador ya que complica la rotacion de certificados. Si usas pinning, ten un pin de respaldo y un plan de rotacion.
+
+### Como migramos de HTTP a HTTPS sin downtime?
+
+1. Obten certificados para todos los dominios. 2. Configura HTTPS en el load balancer o reverse proxy. 3. Habilita HSTS con un max-age corto inicialmente. 4. Configura redirecciones de HTTP a HTTPS. 5. Prueba todos los subdominios y APIs. 6. Incrementa gradualmente el max-age de HSTS. 7. Actualiza enlaces internos y origenes de CDN. 8. Monitorea advertencias de mixed-content. 9. Envia tu dominio a listas de preload HSTS una vez estable.
+
+### Que es OCSP stapling y por que deberiamos habilitarlo?
+
+OCSP (Online Certificate Status Protocol) stapling adjunta un estado de revocacion firmado al handshake TLS, para que el cliente no necesite contactar al CA por separado. Esto mejora el rendimiento (menos round trips) y privacidad (el CA no ve las conexiones del cliente). Habilita en nginx, Apache o tu load balancer. Prueba con openssl s_client para verificar que la respuesta stapled esta presente.
+
+### Como manejamos la seguridad de certificados wildcard?
+
+Los certificados wildcard (*.example.com) comparten una unica clave privada entre todos los subdominios. Si la clave se compromete, todos los subdominios se ven afectados. Mitiga: almacenando la clave en un vault seguro, limitando acceso al servicio de despliegue, usando certificados de corta duracion, monitoreando exposicion de claves, y teniendo un plan de revocacion y re-emision. Para entornos de alta seguridad, prefiere certificados por subdominio.
+
+
+### Como automatizamos el despliegue de certificados a load balancers?
+
+Usa infrastructure-as-code (Terraform, CloudFormation) para gestionar adjuntos de certificados. Para AWS, usa el ARN del certificado ACM en tu regla de listener del ALB. Para nginx, usa un deploy hook que copie el certificado y recargue. Para Kubernetes, cert-manager maneja esto automaticamente. Nunca adjuntes certificados manualmente en produccion. Prueba el despliegue en staging primero y verifica que la cadena de certificados este completa.
+
+### Que es certificate transparency y por que importa?
+
+Certificate Transparency (CT) es un sistema donde los CAs registran cada certificado emitido en logs publicos y de solo adicion. Esto permite a cualquiera monitorear certificados no autorizados para sus dominios. Monitorea logs de CT usando herramientas como CertSpotter o SSLMate Cert Monitor. Configura alertas para cualquier certificado emitido para tus dominios que no solicitaste. Esto detecta certificados mal emitidos y takeovers no autorizados de subdominios.
+
+### Como monitoreamos la salud de certificados?
+
+Usa una herramienta de monitoreo de certificados como SSL Certificate Monitor, Datadog, o un exporter personalizado de Prometheus. Rastrea: dias hasta expiracion, completitud de cadena de certificados, version de protocolo TLS, fortaleza de cipher suite, y estado OCSP. Configura alertas a 60, 30, 14, 7 y 1 dia antes de expirar. Crea un dashboard mostrando todos los certificados ordenados por fecha de expiracion. Ejecuta verificaciones semanales de logs de certificate transparency para detectar certificados no autorizados para tus dominios.
+
+### Como manejamos certificados para CDN y ubicaciones edge?
+
+Para certificados de CDN, usa la opcion de certificado gestionado por el proveedor de CDN cuando este disponible (Cloudflare, CloudFront). Para certificados personalizados, sube via la API del proveedor de CDN y configura por dominio. Asegura que los certificados cubran todas las ubicaciones edge. Monitorea el estado de despliegue de certificados en todos los edges del CDN separadamente de los certificados de origen. Documenta el proceso de renovacion de certificados del CDN y asegurate de que este automatizado, ya que los proveedores de CDN pueden no alertar antes de la expiracion.
+
+
+Revisa el inventario de certificados mensualmente. Elimina certificados expirados de servidores y archivos de configuracion. Verifica que todos los endpoints de produccion sirvan certificados validos con cadenas completas.
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

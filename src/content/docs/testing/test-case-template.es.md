@@ -189,6 +189,66 @@ Negative test cases son dónde most bugs hide. Testear solo el happy path da fal
 
 La traceability matrix linkea requirements a test cases. Esto es mandatory para compliance (SOC 2, ISO 27001, FDA) y useful para coverage analysis: si un requirement no tiene test cases, está untested.
 
+
+### Escenario Detallado: Caso de Prueba para API de Creacion de Pedidos
+
+```text
+API: POST /v1/orders
+Modulo: Orders
+Prioridad: Critical
+Tipo: Functional + Integration
+
+Precondiciones:
+  1. Servicio de orders corriendo en staging
+  2. Usuario autenticado con token JWT valido
+  3. Al menos 3 productos con stock disponible en BD
+  4. Direccion de envio valida creada previamente
+
+Pasos:
+  | # | Accion | Resultado Esperado |
+  |---|--------|-------------------|
+  | 1 | POST /v1/orders con body valido | 201 Created con body {id, status, total} |
+  | 2 | Verificar header Location | Contiene /v1/orders/{id} |
+  | 3 | GET /v1/orders/{id} | 200 OK con mismo body |
+  | 4 | Verificar stock descontado | GET /v1/products/{sku} muestra stock -1 |
+  | 5 | Verificar evento publicado | Cola de mensajes tiene evento order.created |
+  | 6 | Repetir POST con mismo Idempotency-Key | 200 OK con mismo order (no duplicado) |
+
+Casos Negativos:
+  | ID | Descripcion | Resultado |
+  |----|-------------|-----------|
+  | N1 | customer_id inexistente | 400 con error VALIDATION_ERROR |
+  | N2 | items array vacio | 422 con error EMPTY_ITEMS |
+  | N3 | quantity <= 0 | 422 con error INVALID_QUANTITY |
+  | N4 | SKU sin stock | 409 con error OUT_OF_STOCK |
+  | N5 | Sin Authorization header | 401 Unauthorized |
+  | N6 | Idempotency-Key repetido con body diferente | 409 Conflict |
+
+Casos Limite:
+  | ID | Descripcion | Resultado |
+  |----|-------------|-----------|
+  | E1 | Pedido con 100 items | 201 Created, latencia < 2s |
+  | E2 | Pedido con caracteres unicode en direccion | 201 Created, datos preservados |
+  | E3 | quantity = 999999 | 201 Created o 422 si excede max permitido |
+  | E4 | Concurrencia: 2 pedidos del mismo SKU simultaneos | Solo uno pasa, otro 409 OUT_OF_STOCK |
+
+Trazabilidad:
+  | Requisito | Casos |
+  |-----------|-------|
+  | REQ-ORD-001 | TC-ORD-001 (happy path) |
+  | REQ-ORD-002 | TC-ORD-N1..N6 (validacion) |
+  | REQ-ORD-003 | TC-ORD-E4 (concurrencia) |
+  | REQ-ORD-004 | TC-ORD-001 paso 6 (idempotencia) |
+```
+
+### Como documento test cases para flujos asincronos?
+
+Para flujos asincronos (colas de mensajes, webhooks, eventos), documenta el evento esperado como resultado. En lugar de verificar una respuesta HTTP inmediata, verifica: (1) el mensaje publicado en la cola, (2) el estado final despues del procesamiento, (3) el timeout maximo aceptable. Usa polling con retry en automatizacion: verificar cada 500ms hasta 10s maximo.
+
+### Deberia usar BDD (Gherkin) para escribir test cases?
+
+BDD (Given-When-Then) es util cuando trabajas con product managers o stakeholders que necesitan leer los test cases. Para equipos tecnicos, el formato tabular es mas directo. Si usas Cucumber o Behave, el formato Gherkin es obligatorio. Para Playwright o Vitest, el formato tabular mapea directamente a codigo.
+
 ## Variants
 
 | Context | Approach | Notes |

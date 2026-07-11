@@ -119,6 +119,156 @@ Un cambio es incompatible si:
 
 El contrato actúa como una **fuente de verdad compartida** entre los equipos proveedor y consumidor. Elimina ambigüedad sobre quién es responsable de qué, qué tan rápido debe responder y qué ocurre cuando algo falla. La política de versionado evita eliminaciones sorpresa. El SLA establece expectativas medibles. El procedimiento de cambios incompatibles da tiempo a los consumidores para migrar.
 
+## Pruebas de Contrato con Pact
+
+Las pruebas de contrato orientadas al consumidor verifican que la implementación del proveedor coincida con lo que los consumidores esperan. Aquí hay un test de Pact en JavaScript:
+
+```javascript
+const { Pact } = require("@pact-foundation/pact");
+const path = require("path");
+
+const provider = new Pact({
+  consumer: "web-frontend",
+  provider: "user-service",
+  port: 8080,
+  log: path.resolve(__dirname, "logs", "pact.log"),
+  dir: path.resolve(__dirname, "pacts"),
+});
+
+describe("Contrato User Service", () => {
+  beforeAll(() => provider.setup());
+  afterAll(() => provider.finalize());
+
+  it("devuelve un usuario por ID", async () => {
+    await provider.addInteraction({
+      uponReceiving: "una solicitud para usuario 123",
+      withRequest: {
+        method: "GET",
+        path: "/users/123",
+        headers: { Accept: "application/json" },
+      },
+      willRespondWith: {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+        body: {
+          id: 123,
+          name: "Alice",
+          email: "alice@example.com",
+        },
+      },
+    });
+
+    const res = await fetch("http://localhost:8080/users/123", {
+      headers: { Accept: "application/json" },
+    });
+    const body = await res.json();
+    expect(res.status).toBe(200);
+    expect(body.id).toBe(123);
+    expect(body.name).toBe("Alice");
+  });
+});
+```
+
+El archivo pact generado se publica en un broker (Pact Broker o PactFlow). El proveedor luego verifica todos los pacts de consumidores en cada build, detectando cambios incompatibles antes del despliegue.
+
+## Fragmento de Especificación OpenAPI
+
+El contrato debe enlazar a una especificación legible por máquina. Aquí hay un fragmento mínimo de OpenAPI 3.1:
+
+```yaml
+openapi: 3.1.0
+info:
+  title: User Service API
+  version: 2.1.0
+  contact:
+    name: Platform Team
+    email: platform@example.com
+
+paths:
+  /users/{id}:
+    get:
+      summary: Obtener usuario por ID
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    User:
+      type: object
+      required: [id, name, email]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+```
+
+## Ejemplo de Contrato gRPC
+
+Para servicios gRPC, el archivo proto es el contrato:
+
+```protobuf
+syntax = "proto3";
+
+package users.v2;
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (User);
+  rpc CreateUser(CreateUserRequest) returns (User);
+}
+
+message GetUserRequest {
+  int32 id = 1;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+}
+
+message User {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+```
+
+Usa buf breaking para detectar cambios incompatibles entre versiones de proto:
+
+```bash
+buf breaking --against ".git#branch=main"
+# Falla si numeros de campo o tipos cambiaron de forma incompatible
+```
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -126,6 +276,8 @@ El contrato actúa como una **fuente de verdad compartida** entre los equipos pr
 | Servicios internos | Markdown ligero | Almacenar en repo compartido, revisión por PR para cambios |
 | Socios externos | Apéndice legal de SLA | Puede requerir firmas formales |
 | Event-driven | Registro de esquemas async | Usar Avro / JSON Schema con reglas de compatibilidad |
+| GraphQL | Contrato schema-first | Usar registro de esquemas y herramientas de detección de diff |
+| gRPC | Archivo proto como contrato | Usar buf para detección de cambios incompatibles |
 
 ## Lo que funciona
 
@@ -134,6 +286,8 @@ El contrato actúa como una **fuente de verdad compartida** entre los equipos pr
 3. Revisar SLAs trimestralmente y ajustar según métricas observadas
 4. Mantener un changelog de versiones de contrato con guías de migración
 5. Usar registros de esquemas (Confluent, AWS Glue) para contratos orientados a eventos
+6. Generar SDKs cliente desde el contrato para reducir fricción de integración
+7. Etiquetar versiones de contrato en git para que los consumidores puedan fijar una versión específica
 
 ## Errores Comunes
 
@@ -142,17 +296,35 @@ El contrato actúa como una **fuente de verdad compartida** entre los equipos pr
 3. No monitorear uso de consumidores antes de eliminar endpoints deprecados
 4. Establecer SLAs poco realistas que el proveedor no puede cumplir
 5. Almacenar contratos en wikis privadas donde los consumidores no pueden encontrarlos
+6. No versionar el contrato independientemente del despliegue del servicio
+7. Agregar campos opcionales sin documentar los valores por defecto
 
 ## Preguntas Frecuentes
 
 ### ¿Quién es dueño del contrato cuando múltiples consumidores usan la misma API?
 
-El proveedor es dueño del contrato pero debe recopilar input de todos los consumidores antes de cambios incompatibles. Considera un consejo de consumidores para APIs de alto tráfico.
+El proveedor es dueño del contrato pero debe recopilar input de todos los consumidores antes de cambios incompatibles. Considera un consejo de consumidores para APIs de alto tráfico donde representantes de cada equipo consumidor votan en cambios de contrato.
 
 ### ¿Los contratos deben cubrir detalles de implementación interna?
 
-No. Los contratos deben especificar solo la interfaz pública (endpoints, esquemas, SLAs). Los esquemas internos de base de datos o detalles de despliegue están fuera de alcance.
+No. Los contratos deben especificar solo la interfaz pública (endpoints, esquemas, SLAs). Los esquemas internos de base de datos o detalles de despliegue están fuera de alcance. Si los consumidores necesitan conocer detalles de implementación, documéntalos separadamente en un runbook.
 
 ### ¿Cómo hago cumplir un contrato en código?
 
-Usa Pact o Spring Cloud Contract para pruebas de contrato orientadas al consumidor. Estas herramientas verifican que la implementación del proveedor coincida con el contrato acordado en cada build.
+Usa Pact o Spring Cloud Contract para pruebas de contrato orientadas al consumidor. Estas herramientas verifican que la implementación del proveedor coincida con el contrato acordado en cada build. Para gRPC, usa buf breaking para detectar cambios incompatibles a nivel de proto.
+
+### ¿Cuál es la diferencia entre un contrato y una especificación de API?
+
+Una especificación de API (OpenAPI, proto) define la forma de requests y responses. Un contrato agrega SLAs, políticas de versionado, procedimientos de cambios incompatibles y rutas de escalamiento. La especificación es un subconjunto del contrato.
+
+### ¿Cómo manejo adiciones compatibles hacia atrás?
+
+Agregar campos opcionales o nuevos endpoints es compatible hacia atrás. Documenta la adición en el changelog, actualiza la especificación y notifica a los consumidores. No se requiere bump de versión para cambios aditivos, pero un incremento de versión minor ayuda a rastrear la evolución.
+
+### ¿Debería versionar el contrato separadamente de la API?
+
+Sí. La versión del contrato rastrea cambios al acuerdo (actualizaciones de SLA, nuevos endpoints). La versión de la API rastrea cambios a la implementación. Pueden moverse independientemente: puedes actualizar el SLA sin cambiar la API, o agregar un endpoint sin cambiar el SLA.
+
+### ¿Qué pasa cuando el proveedor no puede cumplir el SLA?
+
+El proveedor debe notificar a todos los consumidores, documentar la causa raíz y presentar un reporte de incidente. Si el incumplimiento del SLA es recurrente, renegocia el SLA con los consumidores. Los consumidores pueden tener cláusulas de penalización en sus contratos por violaciones de SLA.

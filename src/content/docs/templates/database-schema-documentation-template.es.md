@@ -200,6 +200,71 @@ users 1───∞ orders
 - Mezclar timestamps UTC y locales — elige uno (UTC) y enlóralo con `timestamptz`
 - Omitir la sección de "reglas de negocio" — los constraints SQL no capturan todas las reglas a nivel aplicación
 
+
+## Comparacion de Variantes
+
+| Variante | Contexto | Enfoque | Notas |
+|----------|----------|---------|-------|
+| Docs auto-generadas | Esquema grande, cambios frecuentes | tbls/dbdocs extraen DDL | Agregar narrativa encima |
+| Markdown en-repo | Equipo pequeno, cambios en PR | Docs junto al codigo | Revision en PR garantiza sync |
+| Wiki/Confluence | Org con wiki existente | Adaptar secciones a paginas | Linkea migraciones y postmortems |
+| DBML/ERD visual | Onboarding rapido, stakeholders | Diagrama visual + docs minimas | Actualizar en cada migracion |
+
+## Escenario Detallado: Documentar una Migracion de Esquema
+
+```text
+Sistema: Base de datos de pedidos (PostgreSQL 16)
+Cambio: Agregar columna shipping_address_id a orders
+Migracion: 023_add_shipping_address
+
+Paso 1 - Escribir la migracion:
+  -- 023_add_shipping_address.sql
+  ALTER TABLE orders ADD COLUMN shipping_address_id uuid;
+  ALTER TABLE orders ADD CONSTRAINT orders_shipping_address_id_fkey
+    FOREIGN KEY (shipping_address_id) REFERENCES addresses(id)
+    ON DELETE SET NULL;
+
+  CREATE INDEX orders_shipping_address_id_idx
+    ON orders(shipping_address_id)
+    WHERE shipping_address_id IS NOT NULL;
+
+Paso 2 - Actualizar la documentacion del esquema:
+  Tabla: orders
+  | Columna | Tipo | Nullable | Default | Descripcion |
+  |---------|------|----------|---------|-------------|
+  | shipping_address_id | uuid | YES | NULL | FK a addresses.id, SET NULL on delete |
+
+  Indices:
+  | orders_shipping_address_id_idx | shipping_address_id | btree | Lookup de pedidos por direccion | 023_add_shipping_address |
+
+  Constraints:
+  | orders_shipping_address_id_fkey | FK (shipping_address_id) REFERENCES addresses(id) ON DELETE SET NULL |
+
+Paso 3 - Actualizar historial de migraciones:
+  | 023 | 2026-07-11 | Agregar shipping_address_id a orders | Mathias | ALTER TABLE orders DROP COLUMN shipping_address_id; |
+
+Paso 4 - Actualizar diagrama ER:
+  orders --- addresses (N:1, SET NULL on delete)
+
+Paso 5 - Notas de rollback:
+  - La columna es nullable, no rompe queries existentes
+  - Rollback: DROP COLUMN (indice y FK se eliminan en cascada)
+  - Datos: la columna se pierde, pero es derivable de order_items
+
+Paso 6 - Comunicar al equipo:
+  - PR con migracion + docs actualizadas
+  - Nota en Slack: "Nueva columna shipping_address_id en orders"
+  - Actualizar ORM models (Prisma, TypeORM, SQLAlchemy)
+```
+
+### Como documento columnas calculadas o virtuales?
+
+Documenta la formula o logica de calculo en la seccion de reglas de negocio de la tabla. Indica si la columna es almacenada (stored) o calculada en runtime (virtual). Para columnas generadas en PostgreSQL (`GENERATED ALWAYS AS`), documenta la expresion SQL y nota que no se puede escribir directamente.
+
+### Que hago cuando una tabla tiene mas de 50 columnas?
+
+Considera dividir la documentacion por grupos logicos de columnas. Por ejemplo, en una tabla `users`: grupo de autenticacion (email, password_hash, status), grupo de perfil (display_name, avatar_url), grupo de metadata (metadata jsonb, created_at, updated_at). Esto hace la documentacion mas legible sin perder completitud.
+
 ## Variantes
 
 ### Docs auto-generadas (tbls / dbdocs)

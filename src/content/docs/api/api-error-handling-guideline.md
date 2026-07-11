@@ -145,6 +145,172 @@ Every error response must be logged with:
 
 The guideline forces every error to include a machine-readable code (`INVALID_PARAMETER`) and a human-readable message. The `errorId` enables consumers to reference the exact failure when contacting support. The `retryable` boolean tells client SDKs whether automatic retry is safe. Separating REST and GraphQL formats acknowledges that GraphQL returns 200 OK even for errors, so the error information lives in the `errors` array.
 
+## Error Handler Implementation
+
+### Express.js Central Error Handler
+
+```javascript
+function errorHandler(err, req, res, next) {
+  const errorId = `err_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+  const statusCode = err.statusCode || 500;
+  const code = err.code || "INTERNAL_ERROR";
+
+  const payload = {
+    error: {
+      id: errorId,
+      code: code,
+      message: statusCode >= 500
+        ? "An internal error occurred. Please try again."
+        : err.message,
+      details: err.details || [],
+      timestamp: new Date().toISOString(),
+      path: req.path,
+      retryable: err.retryable || false,
+      documentation_url: `https://docs.example.com/errors/${code}`,
+    },
+  };
+
+  if (statusCode >= 500) {
+    logger.error({
+      errorId,
+      code,
+      message: err.message,
+      stack: err.stack,
+      requestId: req.id,
+      userId: req.user?.id,
+      path: req.path,
+      method: req.method,
+    });
+  } else {
+    logger.warn({
+      errorId,
+      code,
+      message: err.message,
+      requestId: req.id,
+      path: req.path,
+    });
+  }
+
+  res.status(statusCode).json(payload);
+}
+
+class ApiError extends Error {
+  constructor(code, message, statusCode, options = {}) {
+    super(message);
+    this.code = code;
+    this.statusCode = statusCode;
+    this.details = options.details || [];
+    this.retryable = options.retryable || false;
+  }
+}
+
+// Usage in route handlers
+app.post("/v1/users", (req, res, next) => {
+  if (!req.body.email || !req.body.email.includes("@")) {
+    return next(new ApiError("INVALID_PARAMETER", "The 'email' field must be a valid email address.", 400, {
+      details: [{ field: "email", issue: "invalid_format", value: req.body.email }],
+    }));
+  }
+  res.status(201).json({ id: 1, email: req.body.email });
+});
+
+app.use(errorHandler);
+```
+
+### Python Flask Error Handler
+
+```python
+import uuid
+import logging
+from flask import Flask, request, jsonify, g
+
+logger = logging.getLogger(__name__)
+
+class ApiError(Exception):
+    def __init__(self, code, message, status_code, details=None, retryable=False):
+        self.code = code
+        self.message = message
+        self.status_code = status_code
+        self.details = details or []
+        self.retryable = retryable
+        super().__init__(message)
+
+@app.errorhandler(ApiError)
+def handle_api_error(e):
+    error_id = f"err_{uuid.uuid4().hex[:12]}"
+    payload = {
+        "error": {
+            "id": error_id,
+            "code": e.code,
+            "message": e.message,
+            "details": e.details,
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "path": request.path,
+            "retryable": e.retryable,
+            "documentation_url": f"https://docs.example.com/errors/{e.code}",
+        }
+    }
+
+    if e.status_code >= 500:
+        logger.error(
+            "API error",
+            extra={
+                "errorId": error_id,
+                "code": e.code,
+                "requestId": getattr(g, "request_id", None),
+                "userId": getattr(g, "user_id", None),
+            },
+        )
+
+    return jsonify(payload), e.status_code
+```
+
+## Structured Logging for Errors
+
+Use structured JSON logging so errors are searchable and correlated across services:
+
+```json
+{
+  "timestamp": "2026-06-26T10:00:00.123Z",
+  "level": "error",
+  "errorId": "err_7f8a9b2c",
+  "requestId": "req_abc123",
+  "userId": "usr_xyz789",
+  "code": "INTERNAL_ERROR",
+  "message": "Database connection timeout",
+  "stack": "Error: Database connection timeout\n    at ...",
+  "path": "/v1/orders",
+  "method": "POST",
+  "duration_ms": 5023,
+  "service": "order-service",
+  "version": "2.1.0"
+}
+```
+
+## RFC 9457 Problem Details Format
+
+For REST APIs that want to follow an IETF standard, use RFC 9457 (formerly RFC 7807):
+
+```json
+{
+  "type": "https://docs.example.com/errors/INVALID_PARAMETER",
+  "title": "Invalid Parameter",
+  "status": 400,
+  "detail": "The 'email' field must be a valid email address.",
+  "instance": "/v1/users",
+  "traceId": "err_7f8a9b2c",
+  "errors": [
+    {
+      "field": "email",
+      "issue": "invalid_format",
+      "value": "not-an-email"
+    }
+  ]
+}
+```
+
+Set the `Content-Type` header to `application/problem+json` for RFC 9457 responses.
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -152,6 +318,7 @@ The guideline forces every error to include a machine-readable code (`INVALID_PA
 | Public API | Full format with docs URLs | Consumers need self-service debugging |
 | Internal API | Lightweight format | Smaller payload, simpler consumers |
 | Microservices | Include request ID for tracing | Essential for distributed debugging |
+| gRPC | Use status codes with details proto | gRPC has its own error model |
 
 ## What Works
 
@@ -160,6 +327,8 @@ The guideline forces every error to include a machine-readable code (`INVALID_PA
 3. **Always include a request ID** for cross-service tracing
 4. **Document every error code** in a public error reference page
 5. **Return 404 for missing resources** without distinguishing "exists but forbidden"
+6. **Use a custom error class** in your codebase to standardize error creation
+7. **Log 4xx at warn level, 5xx at error level** — different severity for different audiences
 
 ## Common Mistakes
 
@@ -168,6 +337,9 @@ The guideline forces every error to include a machine-readable code (`INVALID_PA
 3. **Not distinguishing retryable vs non-retryable errors**
 4. **Exposing internal implementation details** in error messages
 5. **Using 500 for validation errors** — 500 means server bug, not user error
+6. **Different error formats per endpoint** — each team invents their own structure
+7. **Not logging 4xx errors** — client errors reveal API misuse patterns worth tracking
+8. **Returning the error ID only in logs** — consumers need it in the response to reference it
 
 ## Frequently Asked Questions
 
@@ -182,3 +354,23 @@ Include a `details` array with one entry per field error. Each entry contains th
 ### What if a consumer sends an invalid API version?
 
 Return `400 Bad Request` with code `UNSUPPORTED_API_VERSION` and a message pointing to the supported versions. Do not return 404 — the endpoint exists, the version does not.
+
+### Should I use RFC 9457 Problem Details or a custom format?
+
+RFC 9457 gives you a standardized format with `Content-Type: application/problem+json` that some client libraries understand automatically. A custom format gives you more flexibility (e.g., `retryable` field, `documentation_url`). If you do not need the flexibility, use RFC 9457 for interoperability.
+
+### How do I handle errors in async/background jobs?
+
+For background jobs, log the error with the same structured format and notify the job owner. If the job has a webhook callback, send an error event to the callback URL with the same error payload structure.
+
+### Should I localize error messages?
+
+Return machine-readable codes always. For the human-readable `message` field, use the consumer's `Accept-Language` header to return localized text. Keep the code in English so it is searchable regardless of locale.
+
+### How do I version error codes?
+
+Error codes should be stable across API versions. If you need to change the meaning of a code, create a new code instead. Deprecate old codes with a sunset date and document the replacement in your error reference.
+
+### What HTTP status should I use for rate limiting vs quota exceeded?
+
+Use `429 Too Many Requests` for rate limiting (temporary, retry after delay). Use `402 Payment Required` or `403 Forbidden` with code `QUOTA_EXCEEDED` for quota exhaustion (requires plan upgrade, not just waiting).

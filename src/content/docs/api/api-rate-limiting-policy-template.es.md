@@ -142,6 +142,164 @@ Los limites de burst permiten picos cortos por encima de la tasa sostenida:
 
 La politica separa los **limites sostenidos** (promedio en el tiempo) de los **limites de burst** (picos a corto plazo). El algoritmo de token bucket es el estandar de la industria porque permite rafagas mientras impone promedios a largo plazo. Los headers de respuesta dan a los consumidores retroalimentacion en tiempo real para que puedan retroceder antes de alcanzar los limites. La ruta de escalamiento previene tickets de soporte de consumidores que simplemente necesitan un tier mas alto.
 
+## Implementacion de Token Bucket
+
+El algoritmo de token bucket es el enfoque mas comun para rate limiting. Aqui hay una implementacion basada en Redis:
+
+### Token Bucket en Redis con Node.js
+
+```javascript
+const redis = require("redis");
+
+async function rateLimit(redisClient, key, options) {
+  const { capacity, refillRate, refillIntervalSec } = options;
+  const now = Date.now();
+  const bucketKey = `ratelimit:${key}`;
+
+  const result = await redisClient
+    .multi()
+    .hGetAll(bucketKey)
+    .hSet(bucketKey, {
+      tokens: capacity,
+      lastRefill: now,
+    })
+    .expire(bucketKey, refillIntervalSec * 2)
+    .exec();
+
+  const bucket = result[0];
+  let tokens = parseFloat(bucket.tokens) || capacity;
+  let lastRefill = parseInt(bucket.lastRefill) || now;
+
+  const elapsed = (now - lastRefill) / 1000;
+  const refillAmount = elapsed * (capacity / refillIntervalSec);
+  tokens = Math.min(capacity, tokens + refillAmount);
+
+  if (tokens >= 1) {
+    tokens -= 1;
+    await redisClient.hSet(bucketKey, {
+      tokens: tokens.toString(),
+      lastRefill: now.toString(),
+    });
+    return { allowed: true, remaining: Math.floor(tokens) };
+  } else {
+    const retryAfter = Math.ceil((1 - tokens) / (capacity / refillIntervalSec));
+    await redisClient.hSet(bucketKey, {
+      tokens: tokens.toString(),
+      lastRefill: now.toString(),
+    });
+    return { allowed: false, remaining: 0, retryAfter };
+  }
+}
+```
+
+### Middleware en Express.js
+
+```javascript
+const TIERS = {
+  free: { capacity: 10, refillRate: 60, refillIntervalSec: 60 },
+  starter: { capacity: 50, refillRate: 300, refillIntervalSec: 60 },
+  pro: { capacity: 200, refillRate: 1000, refillIntervalSec: 60 },
+  enterprise: { capacity: 2000, refillRate: 10000, refillIntervalSec: 60 },
+};
+
+async function rateLimitMiddleware(req, res, next) {
+  const apiKey = req.headers["x-api-key"];
+  const tier = await getTierForApiKey(apiKey);
+  const options = TIERS[tier] || TIERS.free;
+
+  const result = await rateLimit(redisClient, apiKey, options);
+
+  res.setHeader("X-RateLimit-Limit", options.refillRate);
+  res.setHeader("X-RateLimit-Remaining", result.remaining);
+  res.setHeader("X-RateLimit-Policy", `${tier};w=${options.refillIntervalSec}`);
+
+  if (!result.allowed) {
+    res.setHeader("Retry-After", result.retryAfter);
+    return res.status(429).json({
+      error: {
+        code: "RATE_LIMIT_EXCEEDED",
+        message: "Limite de tasa excedido. Reintenta despues del retraso indicado.",
+        retryAfter: result.retryAfter,
+      },
+    });
+  }
+
+  next();
+}
+```
+
+### Implementacion en Python con Redis
+
+```python
+import time
+import redis
+
+def rate_limit(redis_client, key, capacity, refill_rate, interval_sec):
+    bucket_key = f"ratelimit:{key}"
+    now = time.time()
+
+    pipe = redis_client.pipeline()
+    pipe.hgetall(bucketKey)
+    pipe.hset(bucketKey, tokens=capacity, lastRefill=now)
+    pipe.expire(bucketKey, interval_sec * 2)
+    results = pipe.execute()
+
+    bucket = results[0]
+    tokens = float(bucket.get(b"tokens", capacity))
+    last_refill = float(bucket.get(b"lastRefill", now))
+
+    elapsed = now - last_refill
+    refill_amount = elapsed * (capacity / interval_sec)
+    tokens = min(capacity, tokens + refill_amount)
+
+    if tokens >= 1:
+        tokens -= 1
+        redis_client.hset(bucketKey, tokens=tokens, lastRefill=now)
+        return {"allowed": True, "remaining": int(tokens)}
+    else:
+        retry_after = int((1 - tokens) / (capacity / interval_sec)) + 1
+        redis_client.hset(bucketKey, tokens=tokens, lastRefill=now)
+        return {"allowed": False, "remaining": 0, "retryAfter": retry_after}
+```
+
+## Patron de Reintento del Lado del Cliente
+
+Los consumidores deberian implementar backoff exponencial con jitter al recibir respuestas 429:
+
+```javascript
+async function fetchWithRetry(url, options, maxRetries = 3) {
+  let attempt = 0;
+  while (attempt < maxRetries) {
+    const response = await fetch(url, options);
+
+    if (response.status !== 429) {
+      return response;
+    }
+
+    const retryAfter = parseInt(response.headers.get("Retry-After") || "1");
+    const jitter = Math.random() * 0.5;
+    const delay = (retryAfter + jitter) * 1000;
+
+    console.warn(`Limitado. Reintentando en ${delay}ms (intento ${attempt + 1})`);
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    attempt++;
+  }
+
+  throw new Error(`Maximos reintentos (${maxRetries}) excedidos`);
+}
+```
+
+## Rate Limiting Distribuido
+
+Para despliegues multi-instancia, usa un almacen compartido (Redis, Memcached) en lugar de contadores en memoria:
+
+| Enfoque | Pros | Contras |
+|---------|------|---------|
+| En memoria | Mas rapido, sin dependencia externa | No compartido entre instancias |
+| Redis | Estado compartido, operaciones atomicas | Latencia de red, dependencia de Redis |
+| Memcached | Simple, rapido | Sin persistencia, menos flexible |
+| Base de datos | Persistente, consultable | Lento, no apto para alto throughput |
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -149,6 +307,7 @@ La politica separa los **limites sostenidos** (promedio en el tiempo) de los **l
 | SaaS Publico | Precios por tier con tier gratis | Orientado a conversion, los limites impulsan upgrades |
 | Plataforma interna | Cuotas por equipo con pool compartido | Previene que un equipo ahogue a otros |
 | API de Partners | Limites negociados por contrato | Definidos en acuerdos legales |
+| API GraphQL | Limites por complejidad de query | Costo = numero de campos, profundidad y peso de resolvers |
 
 ## Lo que funciona
 
@@ -157,6 +316,8 @@ La politica separa los **limites sostenidos** (promedio en el tiempo) de los **l
 3. **Documentar el comportamiento de reinicio** — los consumidores necesitan saber cuando reintentar
 4. **Proporcionar endpoints bulk** — un `POST /orders/bulk` es mejor que 100 `POST /orders`
 5. **Monitorear tasas de 429** — tasas altas de 429 indican limites mal configurados o abuso de consumidores
+6. **Usar Redis para despliegues distribuidos** — los limites en memoria son inexactos con multiples instancias
+7. **Separar limites de lectura y escritura** — las escrituras son mas costosas y deberian tener limites mas estrictos
 
 ## Errores Comunes
 
@@ -165,6 +326,9 @@ La politica separa los **limites sostenidos** (promedio en el tiempo) de los **l
 3. **Limites inconsistentes entre endpoints** — misma key, diferentes reglas, confusion del consumidor
 4. **Sin allowance de burst** — picos de trafico legitimos son bloqueados
 5. **Limites estrictos sin escalamiento** — los clientes enterprise no pueden negociar mayor capacidad
+6. **Usar contadores en memoria con multiples instancias** — cada instancia rastrea por separado, permitiendo N x el limite
+7. **No retornar el header Retry-After** — los consumidores adivinan cuando reintentar, causando thundering herd
+8. **Rate limiting solo por IP** — NAT y proxies hacen los limites por IP poco confiables para tiers pagos
 
 ## Preguntas Frecuentes
 
@@ -179,3 +343,19 @@ No. Las operaciones de escritura son mas costosas y deberian tener limites mas b
 ### Como pruebo mi integracion sin alcanzar los limites?
 
 Usa un entorno sandbox dedicado con limites mas altos o ilimitados. Alternativamente, simula las respuestas de API en tu suite de pruebas y verifica que parses los headers de rate limit correctamente.
+
+### Deberia usar ventana fija o ventana deslizante?
+
+Las ventanas fijas son mas simples y baratas de implementar pero permiten 2x de trafico en los limites de ventana (un burst al final de una ventana mas un burst al inicio de la siguiente). Las ventanas deslizantes son mas precisas pero requieren mas memoria. Para la mayoria de APIs, ventanas fijas con un allowance de burst son suficientes.
+
+### Como manejo el rate limiting para GraphQL?
+
+Usa analisis de complejidad de query en lugar de conteo de solicitudes. Asigna un costo a cada campo basado en la complejidad del resolver, luego limita el costo total por solicitud. Herramientas como `graphql-cost-analysis` pueden aplicar esto.
+
+### Cual es la diferencia entre rate limiting y throttling?
+
+Rate limiting aplica un maximo de solicitudes por ventana de tiempo. Throttling ralentiza o retrasa solicitudes que exceden el limite (encolandolas). Rate limiting rechaza solicitudes excesivas con 429; throttling las hace esperar. La mayoria de APIs usan rate limiting porque es mas simple y da a los consumidores retroalimentacion clara.
+
+### Deberia limitar solicitudes autenticadas y no autenticadas de forma diferente?
+
+Si. Las solicitudes no autenticadas deberian tener limites mas bajos (o ser rechazadas) para prevenir abuso. Las solicitudes autenticadas pueden vincularse al tier del consumidor y facturarse en consecuencia.

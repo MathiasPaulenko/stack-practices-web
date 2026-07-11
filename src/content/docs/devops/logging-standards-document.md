@@ -145,6 +145,66 @@ Rules:
 
 Consistent logging transforms noisy text files into searchable, structured data. By defining levels, fields, and retention, teams can correlate events across services, investigate incidents faster, and meet compliance requirements. Structured logs also integrate with tracing and metrics to create a complete observability picture.
 
+## Structured Log Format Example
+
+```json
+{
+  "timestamp": "2026-07-11T10:55:32.123Z",
+  "level": "ERROR",
+  "service": "auth-service",
+  "environment": "production",
+  "correlationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "userId": "usr_8f7e6d5c",
+  "message": "JWT validation failed",
+  "errorCode": "AUTH_JWT_INVALID",
+  "context": {
+    "endpoint": "/api/v1/auth/verify",
+    "method": "POST",
+    "statusCode": 401,
+    "durationMs": 12,
+    "ipAddress": "10.0.1.42",
+    "userAgent": "MobileApp/2.3.1"
+  },
+  "error": {
+    "type": "TokenExpiredError",
+    "message": "jwt expired",
+    "stack": "TokenExpiredError: jwt expired\n    at ..."
+  }
+}
+```
+
+## Log Level Decision Matrix
+
+```text
+=== When to Use Each Log Level ===
+
+FATAL   - System cannot continue. Process will exit.
+          Examples: config load failure, port binding error, OOM
+
+ERROR   - Operation failed but system continues.
+          Examples: request failed, DB query error, external API timeout
+
+WARN    - Unexpected but recoverable condition.
+          Examples: retry succeeded, cache miss, deprecated API usage
+
+INFO    - Significant business or operational event.
+          Examples: user login, order placed, deployment started
+
+DEBUG   - Diagnostic detail for troubleshooting.
+          Examples: variable state, query params, cache contents
+
+TRACE   - Finest-grained execution flow.
+          Examples: function entry/exit, loop iteration count
+
+RULES:
+  - Production: INFO and above (DEBUG/TRACE off)
+  - Staging: DEBUG and above
+  - Development: TRACE and above
+  - Never log at DEBUG in production unless actively debugging
+  - ERROR must be actionable — if it is not, it is INFO
+```
+
+
 ## Variants
 
 - **Cloud logging standards**: Tailored for AWS CloudWatch, Azure Monitor, or Google Cloud Logging.
@@ -187,3 +247,55 @@ A correlation ID is a unique identifier passed through all services that handle 
 ### How do we handle sensitive data in logs?
 
 Use an allowlist approach: only log fields that are explicitly approved, and redact or tokenize sensitive values before they reach the log stream.
+
+
+### How do we implement correlation IDs in a microservices architecture?
+
+Generate a correlation ID at the API gateway for each incoming request. Propagate it via HTTP headers (e.g., `X-Correlation-Id`). Each downstream service reads the header, includes it in all log entries, and passes it to further downstream calls. For asynchronous messages, include the correlation ID in message metadata. For background jobs, store it in job context. Use middleware or interceptors to automate propagation so developers do not need to handle it manually. Ensure the correlation ID appears in error reports and monitoring alerts.
+
+### What is log sampling and when should we use it?
+
+Log sampling means logging only a percentage of events to reduce volume and cost. Use sampling for high-volume, low-value logs (e.g., health check responses, static asset requests). Never sample ERROR or security logs. Common strategies: random sampling (log 1 in 100), rate-based (log first N per second), or tail-based (log all errors, sample successes). Use tools like Fluentd or Logstash for sampling at the collector level. Document the sampling rate and ensure it does not hide important patterns.
+
+### How do we handle log storage costs?
+
+Control costs through: tiered retention (hot storage for 7-30 days, cold archive for longer), sampling high-volume logs, compressing log files, excluding noisy endpoints from logging, and using structured logging to enable efficient querying. Set up billing alerts for log storage. Review log volume monthly and identify top contributors. Consider using a dedicated log archival solution (S3 Glacier, Azure Archive Storage) for long-term retention instead of expensive hot log platforms.
+
+### What is the difference between logs, metrics, and traces?
+
+Logs are discrete events with timestamps — what happened at a specific moment. Metrics are aggregated measurements over time — CPU usage, request count, error rate. Traces follow a single request across service boundaries — the path and timing of a request through the system. Together they form the three pillars of observability. Logs answer "what happened," metrics answer "how much," and traces answer "where did time go." Use all three for complete observability.
+
+### How do we test logging in CI/CD?
+
+Add tests that verify: log format is valid JSON, required fields are present (timestamp, level, service, correlationId), sensitive data is not logged, log levels are used correctly, and log volume does not exceed thresholds. Use a test harness that captures log output and validates it against the schema. Run log parsing tests to ensure the aggregation pipeline can ingest the logs. Include logging tests in the deployment checklist.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

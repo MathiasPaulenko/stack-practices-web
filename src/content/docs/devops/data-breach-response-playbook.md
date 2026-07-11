@@ -175,6 +175,74 @@ Before a breach occurs:
 
 The playbook is divided into phases that match the time pressure of a breach: the first hours are about confirming and containing; the next days are about investigating and notifying; the following weeks are about fixing and learning. Each phase has owner-assigned checkboxes so nothing is forgotten in the chaos. The notification decision matrix is critical. Missing a legal deadline can turn a security incident into a regulatory penalty.
 
+## Breach Response Communication Templates
+
+```text
+=== Internal: Initial Breach Alert (Slack/Email) ===
+
+SUBJECT: [SEV-SECURITY] Suspected data breach — [SYSTEM]
+
+Incident commander: [NAME]
+Bridge: [PHONE/VIDEO LINK]
+Status: Investigating
+Summary: [BRIEF DESCRIPTION — what was detected, when, by whom]
+Impact: [UNKNOWN / CONFIRMED — what systems/data may be affected]
+Next steps: [CONTAINMENT / FORENSICS / NOTIFICATION]
+
+Do NOT discuss details in public channels.
+Use the incident bridge and #sec-incident-private only.
+
+=== External: Customer Notification Email ===
+
+Subject: Important Security Notice — [COMPANY NAME]
+
+Dear [CUSTOMER_NAME],
+
+We are writing to inform you of a security incident that may have
+affected your account information. We discovered the incident on
+[DATE] and took immediate action to secure our systems.
+
+What happened:
+  [BRIEF, NON-TECHNICAL DESCRIPTION]
+
+What data was involved:
+  [LIST OF DATA TYPES — e.g., name, email, hashed password]
+
+What we have done:
+  - Contained the breach and secured affected systems
+  - Engaged forensic investigators and notified authorities
+  - [ADDITIONAL STEPS]
+
+What you should do:
+  - Change your password immediately
+  - Enable two-factor authentication
+  - Monitor your account for suspicious activity
+  - [ADDITIONAL RECOMMENDATIONS]
+
+We take the security of your data seriously and apologize for any
+concern this may cause. We will provide updates as we learn more.
+
+Contact: [SUPPORT_EMAIL / DEDICATED PHONE]
+
+[COMPANY_NAME] Security Team
+
+=== External: Status Page Update ===
+
+[INVESTIGATING] We are investigating a security incident affecting
+[SYSTEM]. We have taken affected systems offline and are working to
+determine the scope. We will update this page every [INTERVAL] until
+resolved.
+
+[IDENTIFIED] We have identified the cause of the security incident
+and contained the threat. Affected systems are being restored with
+enhanced security measures. We will notify affected users directly.
+
+[RESOLVED] The security incident has been resolved. All affected
+systems are secure and operational. A detailed post-incident report
+will be published on [DATE].
+```
+
+
 ## Variants
 
 | Context | Adjustments | Notes |
@@ -214,3 +282,24 @@ Assume persistence. Change all credentials, review all accounts for unauthorized
 ### Who decides whether to notify customers?
 
 Legal counsel, working with the incident commander and executive leadership. The decision is based on applicable law, contractual obligations, and risk assessment. The communications lead executes the decision, but does not make it unilaterally.
+
+
+### How do we preserve evidence during containment?
+
+Before isolating or rebuilding systems: capture volatile data first (memory dumps, network connections, running processes, login sessions). Use tools like LiME (Linux Memory Extractor) or WinPMEM for memory capture. Take disk images of affected systems before wiping. Preserve all logs (system, application, network, access) in a write-once location. Document the chain of custody for all evidence. Timestamp every action taken during containment. Use a dedicated evidence storage location with restricted access. If you lack in-house forensics capability, engage an external firm immediately — they can guide evidence preservation remotely.
+
+### What regulatory notification timelines apply?
+
+Timelines vary by jurisdiction and data type. GDPR: notify the supervisory authority within 72 hours of becoming aware of the breach. CCPA: no specific timeline but "without unreasonable delay." HIPAA: notify affected individuals within 60 days. US state laws: typically 30-60 days depending on the state. PCI DSS: notify card brands and acquirers immediately. Check your specific obligations with legal counsel — do not assume. Document the notification decision and rationale regardless of whether notification is required. When in doubt, notify — the penalty for late notification is often worse than the penalty for over-notification.
+
+### How do we run a breach response tabletop exercise?
+
+Schedule a 2-hour session with the incident response team. Scenario: a specific breach type (e.g., credential theft, ransomware, insider data exfiltration). Walk through each phase: detection, containment, investigation, notification, remediation. Discuss: who does what, what information is needed, what decisions are made, and what could go wrong. Assign an observer to note gaps in the playbook. After the exercise, update the playbook based on findings. Run tabletop exercises quarterly with different scenarios. Include legal, communications, and executive participants — not just engineers.
+
+### What should we do if we discover the breach weeks after it occurred?
+
+If the breach is discovered late: do not panic, but act quickly. Engage legal counsel immediately — notification deadlines may have already started. Engage a forensics firm to determine the timeline and scope. Preserve all available evidence (logs, backups, system images). Notify regulators if required — be transparent about the delay and the reason. Notify affected customers with clear, honest communication. Review why detection was delayed and improve monitoring. Document everything — late detection is a finding, not an excuse. The postmortem should address both the breach and the detection gap.
+
+### How do we handle a breach at a third-party vendor?
+
+If a vendor experiences a breach affecting your data: confirm what data of yours was involved. Review your Data Processing Agreement (DPA) for notification requirements. Request a detailed incident report from the vendor. Assess whether to continue using the vendor or switch providers. Notify your affected customers if required — you are responsible for their data even when a vendor holds it. Coordinate communication with the vendor to ensure consistent messaging. Document the vendor response and your assessment for legal and compliance records. Consider legal action if the vendor failed to meet contractual security obligations.

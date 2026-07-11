@@ -124,6 +124,115 @@ Use this resource when:
 
 The template separates **backup** (creating copies) from **restore testing** (proving they work). A backup without a tested restore is just hope. The **RTO** (Recovery Time Objective) is how fast you must be back online; the **RPO** (Recovery Point Objective) is how much data loss is acceptable. The restore scenarios ensure you test the full spectrum: from a single deleted file to a cross-region disaster.
 
+## PostgreSQL Restore Verification Script
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+BACKUP_FILE=$1
+RESTORE_DB="restore_test_$(date +%s)"
+PG_HOST="localhost"
+PG_USER="postgres"
+
+echo "Creating test database: $RESTORE_DB"
+createdb -h "$PG_HOST" -U "$PG_USER" "$RESTORE_DB"
+
+echo "Restoring from: $BACKUP_FILE"
+pg_restore -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -v "$BACKUP_FILE"
+
+echo "Verifying row counts..."
+TABLES=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -t -c \
+  "SELECT tablename FROM pg_tables WHERE schemaname='public';")
+
+for table in $TABLES; do
+  count=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -t -c \
+    "SELECT COUNT(*) FROM $table;")
+  echo "  $table: $count rows"
+done
+
+echo "Verifying checksums..."
+psql -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -c \
+  "SELECT 'users' as table, COUNT(*) as rows, MD5(string_agg(id::text, ',' ORDER BY id)) as checksum FROM users;"
+
+echo "Cleaning up test database..."
+dropdb -h "$PG_HOST" -U "$PG_USER" "$RESTORE_DB"
+echo "Restore verification complete."
+```
+
+## AWS Backup Vault Lock Configuration
+
+For immutable backups that survive ransomware attacks:
+
+```json
+{
+  "BackupVaultName": "production-backups",
+  "BackupVaultLockSettings": {
+    "MinRetentionDays": 30,
+    "MaxRetentionDays": 365,
+    "ChangeableForDays": 3
+  }
+}
+```
+
+Once the lock is active, no user (including root) can delete backups before the minimum retention period expires. The `ChangeableForDays` parameter gives a cooling-off window to fix misconfigurations.
+
+## RTO and RPO Calculation Worksheet
+
+```text
+Service: Order Processing API
+Criticality: P0
+
+RPO Calculation:
+  - Transaction log frequency: Every 15 minutes
+  - Maximum acceptable data loss: 15 minutes of orders
+  - RPO target: 15 minutes
+
+RTO Calculation:
+  - Detection time: 5 minutes (automated alert)
+  - Acknowledgment time: 5 minutes (on-call SLA)
+  - Provision restore environment: 10 minutes
+  - Execute restore: 45 minutes (50GB database)
+  - Verify data integrity: 15 minutes
+  - Redirect traffic: 5 minutes
+  - Total RTO: 85 minutes (target: 4 hours) PASS
+```
+
+## Automated Backup Monitoring with Prometheus
+
+```yaml
+groups:
+  - name: backup_alerts
+    rules:
+      - alert: BackupJobFailed
+        expr: backup_last_success_timestamp > 0 and time() - backup_last_success_timestamp > 86400
+        for: 1h
+        labels:
+          severity: P1
+        annotations:
+          summary: "Backup job has not succeeded in 24 hours"
+          runbook: "/runbooks/backup-failure"
+
+      - alert: BackupSizeAnomaly
+        expr: |
+          backup_size_bytes / backup_size_bytes offset 1d < 0.9
+        for: 1h
+        labels:
+          severity: P2
+        annotations:
+          summary: "Backup size dropped > 10% compared to yesterday"
+          runbook: "/runbooks/backup-size-anomaly"
+
+      - alert: RestoreTestOverdue
+        expr: time() - restore_test_last_run_timestamp > 2592000
+        for: 1h
+        labels:
+          severity: P2
+        annotations:
+          summary: "Monthly restore test is overdue"
+          runbook: "/runbooks/restore-test"
+```
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -133,6 +242,9 @@ The template separates **backup** (creating copies) from **restore testing** (pr
 | MongoDB | mongodump + ops manager | Consider oplog replay for PITR |
 | S3 / Object storage | Cross-region replication | Versioning + lifecycle policies |
 | Kubernetes PVCs | Velero + CSI snapshots | Include cluster metadata in backup |
+| Redis | RDB snapshots + AOF | Test both RDB and AOF restore paths |
+| Elasticsearch | Snapshot + restore API | Use repository plugins for cloud storage |
+| Kafka | Tiered storage + mirror maker | Backup topic configs and consumer offsets separately |
 
 ## What Works
 
@@ -141,6 +253,9 @@ The template separates **backup** (creating copies) from **restore testing** (pr
 3. Store backups in a different region or cloud provider than the primary data
 4. Encrypt backups at rest and in transit; rotate encryption keys independently
 5. Document who can access backups; restrict to break-glass roles only
+6. Use immutable backups (AWS Vault Lock, GCP Bucket Lock) to protect against ransomware
+7. Include database schema and migration files in backups; data without schema is useless
+8. Tag backup resources with cost allocation tags to track backup spend
 
 ## Common Mistakes
 
@@ -149,6 +264,8 @@ The template separates **backup** (creating copies) from **restore testing** (pr
 3. Ignoring backup size growth until storage costs explode or jobs start failing
 4. Not including schema/migrations in database backups (data without schema is useless)
 5. Allowing backup credentials to remain active for longer than necessary, creating a lateral movement risk
+6. Not testing restores under time pressure; a restore that works in 4 hours during a drill may take 8 during an incident
+7. Forgetting to backup configuration files, secrets, and IAM policies alongside data
 
 ## Frequently Asked Questions
 
@@ -163,3 +280,21 @@ Yes. Encrypt at rest with a key managed separately from the primary data. If ran
 ### What is the 3-2-1 backup rule?
 
 3 copies of data, on 2 different media, with 1 copy offsite. For cloud-native systems: 3 copies (primary + backup + cross-region), 2 formats (snapshot + logical dump), 1 offsite (different region or provider). Immutable backups add an extra layer against deletion.
+
+### What is the difference between RTO and RPO?
+
+RTO (Recovery Time Objective) is the maximum acceptable downtime: how long until you are back online. RPO (Recovery Point Objective) is the maximum acceptable data loss: how much data you can afford to lose. A 15-minute transaction log backup gives a 15-minute RPO. A 2-hour restore process gives a 2-hour RTO.
+
+### How do I handle backups for stateful Kubernetes workloads?
+
+Use Velero with CSI snapshots for persistent volumes. Include cluster metadata (ConfigMaps, Secrets, Deployments) in the backup scope. For databases running in Kubernetes, use the database native backup tool (pg_dump, mongodump) rather than volume snapshots, as volume snapshots may capture inconsistent state.
+
+### Should I use cloud-native backup services or self-managed tools?
+
+Start with cloud-native services (AWS Backup, GCP Backup) for simplicity and integration. Move to self-managed tools (pg_dump + custom scripts, Velero) when you need finer control over retention, encryption, or cross-cloud portability. The best approach is often a hybrid: cloud-native for snapshots, self-managed for logical dumps.
+
+### How do I verify backup integrity without a full restore?
+
+Use checksums: compute SHA-256 of the backup file after creation and compare on verification. For PostgreSQL, use `pg_verifybackup` to check manifest integrity. For file-level backups, compare file counts and total sizes against the source. A full restore test is still required periodically, but checksums catch corruption between tests.
+
+For large databases (>1TB), consider incremental restore verification: restore only changed blocks and verify checksums on those blocks to reduce test time from hours to minutes.

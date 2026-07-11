@@ -143,6 +143,54 @@ Use this resource when:
 
 The playbook enforces a **single Incident Commander** to avoid conflicting decisions during high-stress moments. Severity classification determines response speed so P1 incidents get immediate attention without medium-severity alerts consuming the entire team. Containment prioritizes stopping the bleed before investigating root cause. Recovery includes a monitoring period because attackers often leave persistence mechanisms that trigger after the initial response.
 
+## Incident Response Phases
+
+```text
+=== Phase 1: Detection and Triage (0-15 min) ===
+
+- Alert received via monitoring, user, or third party
+- On-call confirms it is a real incident (not false positive)
+- Severity assigned: SEV1 (Critical) / SEV2 (High) / SEV3 (Medium) / SEV4 (Low)
+- Incident Commander (IC) assigned
+- Incident channel created (#incident-xxx)
+- Stakeholders notified
+
+=== Phase 2: Containment (15-60 min) ===
+
+- Immediate action to stop the impact:
+  - Revert deploy
+  - Block malicious traffic (WAF, IP block)
+  - Disable compromised account/feature
+  - Failover to backup region/instance
+- Preserve evidence (logs, snapshots, dumps) before remediation
+- Document actions taken and timestamps
+
+=== Phase 3: Eradication (1-4 hours) ===
+
+- Identify and eliminate the root cause
+- Apply permanent fix (not just workaround)
+- Rotate compromised credentials
+- Update vulnerable configurations
+- Verify the incident is contained
+
+=== Phase 4: Recovery (1-24 hours) ===
+
+- Restore services to normal operation
+- Verify data integrity
+- Monitor closely for recurrence (24-48 hours)
+- Communicate resolution to stakeholders
+- Close incident channel
+
+=== Phase 5: Postmortem (1-5 days) ===
+
+- Blameless postmortem within 48 hours
+- Identify root cause and contributing factors
+- Create action items with owners and due dates
+- Share learnings with the organization
+- Update runbooks and playbooks
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -180,3 +228,75 @@ Consult legal and law enforcement first. Most security experts and law enforceme
 ### How do I prevent the same incident from recurring?
 
 The Lessons Learned phase is mandatory, not optional. Track action items in the same backlog as feature work with the same priority. Re-run the tabletop exercise with the updated playbook to validate fixes.
+
+
+### How do we choose the Incident Commander (IC)?
+
+The IC is the person who coordinates the incident response — not necessarily the person who fixes the problem. IC responsibilities: maintain focus on mitigation, coordinate communication, assign tasks, and make decisions when there is ambiguity. The IC should not be writing code — they delegate implementation to others. For SEV1/SEV2: the IC should be a senior engineer or manager with incident experience. For SEV3/SEV4: the on-call can be the IC. Rotate the IC role to build experience across the team. Train all engineers in the IC role through game days. The IC declares the incident resolved — not the engineer who fixes the problem.
+
+### What do we do if the incident involves customer data?
+
+If the incident involves customer data: escalate immediately to legal and compliance. Document what data was affected, which users, and the scope. For GDPR: notification to the regulator required within 72 hours. For CCPA: notification to affected consumers "without unreasonable delay." Prepare a customer communication with: what happened, what data was affected, what we are doing, and what they should do. Do not hide the scope — transparency builds trust. Coordinate with legal for the exact notification language. Record all decisions and communications for audit. Consider offering credit monitoring if financial data was exposed.
+
+### How do we handle communication during an incident?
+
+Incident communication follows the principle of "communicate early, communicate often." Internal: use a dedicated Slack/Teams channel for the incident. Update every 30 minutes for SEV1, every 1 hour for SEV2. The IC is responsible for updates. External: use the status page (status.io, Statuspage) for user-facing communications. Prepare communication templates in advance. For SEV1: notify executive leadership immediately. Designate one person to handle external communication — the IC should not handle both. Never blame individuals in communications — use factual language. After resolution: send a final communication with summary and next steps.
+
+### How do we prevent the same incident from recurring?
+
+The postmortem is the primary tool for preventing recurrence. Conduct a blameless postmortem within 48 hours. Identify the root cause — not just the immediate cause. Use "5 Whys" or root cause analysis. Create specific, measurable action items with owners and due dates. Prioritize action items by impact on recurrence prevention. Add regression tests to verify the fix works. Update runbooks and playbooks with learnings. Share the postmortem with all of engineering — patterns repeat across services. Track action items to completion — a postmortem with uncompleted action items is useless. Review overdue action items monthly.
+
+### How do we train the team for incident response?
+
+Train the team with regular game days. Schedule a quarterly game day where you simulate a real incident. Use scenarios based on past incidents or potential threats. Rotate roles (IC, communicator, implementer) so everyone gains experience. After the game day: conduct a retro on what worked and what did not. Document the game day as a postmortem. Maintain an on-call calendar with shadowing for new members. Create an incident response onboarding with runbooks and playbooks. Use chaos engineering tools (Gremlin, Chaos Monkey) to inject failures in staging. Practice makes the real response faster and more effective.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

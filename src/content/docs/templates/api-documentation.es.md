@@ -254,3 +254,72 @@ La documentación de API es la guía legible por humanos con explicaciones, ejem
 ### Cómo mantengo la documentación de API sincronizada con el código?
 
 Genera la documentación desde anotaciones de código o specs OpenAPI como parte de tu pipeline de CI. Usa herramientas como Swagger UI, Redoc o Stoplight para renderizar specs automáticamente. Consulta [REST API Design Guide](/guides/api/rest-api-design-guide) para ver lo que funciona en diseño de API. La documentación manual se desactualiza rápidamente sin automatización.
+
+
+## Comparacion de Variantes
+
+| Variante | Contexto | Enfoque | Notas |
+|----------|----------|---------|-------|
+| REST con OpenAPI | API publica, clientes externos | Spec OpenAPI + docs narrativas | Genera clientes automaticamente |
+| GraphQL con schema | API con consultas flexibles | Schema SDL + ejemplos de queries | Una sola endpoint |
+| gRPC con proto | Microservicios internos | Archivos .proto + docs generadas | Binario, alto rendimiento |
+| Markdown simple | API interna pequena | Documentacion manual en repo | Suficiente para 2-3 endpoints |
+
+## Escenario Detallado: Documentar un Endpoint de Creacion de Pedidos
+
+```text
+Endpoint: POST /v1/orders
+Autenticacion: Bearer token (JWT)
+Rate limit: 100 req/min por usuario
+
+Request:
+  POST /v1/orders HTTP/1.1
+  Host: api.example.com
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+  Content-Type: application/json
+  Idempotency-Key: client-uuid-12345
+
+  {
+    "customer_id": "usr_abc123",
+    "items": [
+      {"sku": "PROD-001", "quantity": 2},
+      {"sku": "PROD-002", "quantity": 1}
+    ],
+    "shipping_address_id": "addr_xyz789"
+  }
+
+Response 201 Created:
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Location: /v1/orders/ord_def456
+
+  {
+    "id": "ord_def456",
+    "customer_id": "usr_abc123",
+    "status": "pending",
+    "items": [
+      {"sku": "PROD-001", "quantity": 2, "unit_price_cents": 1999},
+      {"sku": "PROD-002", "quantity": 1, "unit_price_cents": 4999}
+    ],
+    "total_cents": 8997,
+    "currency": "USD",
+    "placed_at": "2026-07-11T14:30:00Z"
+  }
+
+Headers clave:
+  Idempotency-Key: Previene duplicados si el cliente reintenta
+  Location: URL del recurso creado para redirect
+
+Errores posibles:
+  400 - customer_id no existe o esta inactivo
+  409 - Idempotency-Key ya usada con body diferente
+  422 - quantity <= 0 o SKU no encontrado
+```
+
+### Como documento paginacion cursor-based vs offset-based?
+
+Documenta ambos si los soportas. Offset-based usa `page` y `limit` (mas simple, pero lento en datasets grandes). Cursor-based usa `after` (un ID u opaco cursor) y `limit` (mas eficiente, no salta registros). Incluye ejemplos de ambos en la documentacion y recomienda cursor-based para datasets que superan 10,000 registros.
+
+### Deberia incluir ejemplos de codigo en multiples lenguajes?
+
+Si tu API tiene consumidores en multiples lenguajes, si. Incluye ejemplos en cURL (universal), Python (requests), y JavaScript (fetch). Manten los ejemplos cortos y enfocados en un endpoint cada uno. Para APIs internas con un solo lenguaje consumidor, un lenguaje basta.

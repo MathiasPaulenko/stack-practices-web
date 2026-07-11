@@ -173,6 +173,63 @@ No aparece mensaje de error en la UI. La consola no muestra errores.
 - **Linkea duplicados** — mezcla bugs que reportan el mismo issue y linkealos
 - **Verifica severidad** — los reporteros tienden a sobreestimar severidad; ajusta durante triage
 
+## Ejemplo de Bug Report
+
+```text
+=== Bug Report: Error 500 al exportar pedidos ===
+
+Titulo: Error 500 al exportar mas de 1000 pedidos a CSV
+ID: BUG-1234
+Reportado por: bob@company.com
+Fecha: 2026-07-12
+Severidad: Alta
+Ambiente: Produccion
+
+Comportamiento Esperado:
+  Al hacer clic en "Exportar CSV" en la pagina de pedidos con un
+  filtro de fecha que retorna mas de 1000 pedidos, el sistema deberia
+  descargar un archivo CSV con todos los pedidos.
+
+Comportamiento Actual:
+  El sistema retorna un error 500 despues de ~30 segundos.
+  El error aparece en los logs como "Timeout de base de datos".
+
+Pasos para Reproducir:
+  1. Iniciar sesion como administrador
+  2. Ir a /admin/pedidos
+  3. Seleccionar rango de fechas: 2026-06-01 a 2026-07-01
+  4. Hacer clic en "Exportar CSV"
+  5. Esperar ~30 segundos
+  6. Observar error 500 en el navegador
+
+Evidencia:
+  - Screenshot del error: https://drive.company.com/screenshot-error.png
+  - Stack trace: https://pastebin.company.com/abc123
+  - Request ID: req-abc-456 (buscar en Kibana)
+
+Frecuencia:
+  - Siempre reproducible con > 1000 pedidos
+  - Funciona correctamente con < 500 pedidos
+  - Intermittente entre 500-1000 pedidos
+
+Impacto:
+  - El equipo de ventas no puede exportar pedidos mensuales
+  - Workaround temporal: exportar por semana (4 exportaciones)
+  - 15 usuarios afectados
+
+Ambiente:
+  - Navegador: Chrome 126.0
+  - OS: macOS 14.5
+  - App version: v2.4.3
+  - Region: us-east-1
+
+Notas Adicionales:
+  - Empezo despues del release v2.4.0
+  - El endpoint es GET /api/orders/export
+  - El timeout de DB es 30s; la query tarda 45s con 1000+ pedidos
+```
+
+
 ## Variantes
 
 ### Orientada al cliente (portal de soporte)
@@ -216,3 +273,30 @@ Sí, si ayudan. Screenshots del error, grabaciones de pantalla de los pasos de r
 ### ¿Qué pasa si el bug está en una dependencia de terceros?
 
 Archiva el bug en tu tracker interno para visibilidad, pero también archiva un bug en el issue tracker de la dependencia. Linkea los dos tickets. Nota la versión de la dependencia y si existe un workaround. Si la dependencia está abandonada, nótalo y planifica una migración.
+
+
+### Como determinamos la severidad de un bug?
+
+Severidad mide el impacto en el negocio, no la complejidad tecnica. Critico: servicio caido o datos perdidos; resolver en 24h. Alto: feature principal no funciona para muchos usuarios; resolver en 48h. Medio: feature no funciona pero hay workaround; resolver en 1 semana. Bajo: problema menor sin impacto significativo; resolver en 30 dias. Informativo: cosmetic o typo; resolver cuando sea posible. Para determinar severidad: cuantos usuarios afecta? que tan frecuente es? hay workaround? impacta revenue? La severidad puede cambiar despues del triage — si el impacto es menor del esperado, baja la severidad. Documenta la razon del cambio.
+
+### Como manejamos bug reports duplicados?
+
+Antes de crear un nuevo bug report: buscar en el tracker si ya existe un report para el mismo problema. Buscar por palabras clave del error, no por el titulo exacto. Si encuentras un report existente: agrega tu informacion como comentario con pasos adicionales o evidencia, no crees un duplicado. Si no estas seguro si es el mismo bug: crea el report pero marca "posible duplicado de #XXX". El equipo de QA cierra duplicados y enlaza al report original. Manten los duplicados cerrados visibles — ayudan a buscar el bug por diferentes sintomas. Un bug con 5 reportes duplicados indica que es frecuente — sube la prioridad.
+
+### Que informacion es obligatoria en un bug report?
+
+Obligatorio: titulo descriptivo, pasos para reproducir, comportamiento esperado vs actual, ambiente (navegador, OS, version), y frecuencia. Recomendado: screenshots, stack traces, request IDs, impacto en usuarios, workaround si existe. Opcional: sospecha de causa raiz, logs adicionales, video. Un bug report sin pasos para reproducir es inutil — el ingeniero no puede confirmar el bug. Si no puedes reproducirlo: reporta lo que viste, marca "no reproducible consistentemente", y da el contexto. El reportero debe estar disponible para preguntas de seguimiento — el ingeniero puede necesitar mas informacion.
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

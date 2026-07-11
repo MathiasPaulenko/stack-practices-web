@@ -168,6 +168,44 @@ Antes de conducir un PRR:
 
 El PRR esta organizado en diez dominios que cubren el ciclo de vida completo de operar software en produccion. Cada dominio tiene checkboxes concretas que pueden verificarse objetivamente. La seccion de sign-off asegura que ninguna persona pueda declarar un servicio listo sin input de ingenieria, producto, seguridad, y operaciones. La tabla de notas de revision captura gaps que no son bloqueadores pero necesitan seguimiento.
 
+## Ejemplo de PRR Completado
+
+```markdown
+# PRR: Servicio de Notificaciones en Tiempo Real
+
+## Servicio
+- Nombre: notification-service
+- Tipo: Microservicio (Go)
+- Tier: 1 (Critico para experiencia de usuario)
+- Fecha de revision: 2026-07-11
+
+## Hallazgos de Revision
+
+| Item | Hallazgo | Riesgo | Mitigacion | Dueno | Fecha |
+|------|----------|--------|------------|-------|-------|
+| Observabilidad | No hay dashboard de WebSocket | Medio | Crear dashboard antes de lanzar | alice | 2026-07-15 |
+| Alertas | No hay alerta para conexiones rechazadas | Alto | Agregar alerta antes de lanzar | bob | 2026-07-14 |
+| Seguridad | JWT validacion falta test de expiracion | Alto | Agregar test antes de lanzar | carol | 2026-07-14 |
+| Documentacion | Runbook de rollback no existe | Medio | Escribir runbook antes de lanzar | alice | 2026-07-16 |
+| Operacional | On-call no entrenado en WebSocket | Medio | Sesion de capacitacion | platform | 2027-07-18 |
+
+## Sign-Off
+
+| Rol | Nombre | Fecha | Decision |
+|-----|--------|-------|----------|
+| Dueno de ingenieria | alice | 2026-07-18 | Aprobar condicional |
+| Product owner | dave | 2026-07-18 | Aprobar |
+| Revisor de seguridad | carol | 2026-07-18 | Aprobar (test agregado) |
+| SRE / Plataforma | bob | 2026-07-18 | Aprobar condicional |
+
+## Decision
+Aprobado condicionalmente. Lanzamiento permitido despues de
+completar los 3 items de riesgo Alto (alertas, seguridad, test).
+Items de riesgo Medio rastreados con fechas limite pero no
+bloquean el lanzamiento.
+```
+
+
 ## Variantes
 
 | Contexto | Ajustes | Notas |
@@ -207,3 +245,57 @@ El equipo aborda los gaps, reprograma la revision, y no despliega a produccion h
 ### Deberiamos revisar servicios existentes?
 
 Si. Programa PRRs anuales para servicios Tier 1 y Tier 2. Refactors mayores, migraciones de infraestructura, o cambios de equipo deberian disparar una revision fuera de ciclo. El objetivo es preparacion a lo largo del tiempo, no solo en el lanzamiento.
+
+
+### Como automatizamos partes del production readiness review?
+
+Automatiza checks que son objetivamente verificables: cobertura de tests (umbral > 80%), scans de dependencias (Snyk, Dependabot), scans de seguridad (SAST/DAST), health checks de deploy, y verificacion de configuracion de alertas. Usa CI/CD para ejecutar estos checks automaticamente y generar un reporte. Integra los resultados en el PRR document. Para checks que requieren juicio humano (calidad de runbooks, utilidad de dashboards), usa una checklist estructurada con criterios claros. La automatizacion reduce el esfuerzo de revision y hace los checks reproducibles.
+
+### Que pasa si un servicio falla el PRR repetidamente?
+
+Si un servicio falla el PRR mas de 2 veces: programa una revision con liderazgo de ingenieria para entender por que. Es falta de recursos? Falta de conocimiento? El servicio es demasiado complejo? Considera: asignar un SRE embedido al equipo, simplificar el servicio antes de reintentar, o reducir el alcance del lanzamiento para pasar menos items del PRR. Documenta los gaps recurrentes y escalalos si son sistemicos. Nunca apruebes un servicio que falla el PRR sin un plan de remediacion con fechas limite. Un servicio no listo para produccion es un riesgo para todos.
+
+### Como manejamos el PRR para migraciones de infraestructura?
+
+Para migraciones (ej., cambio de proveedor cloud, migracion de base de datos): ejecuta un PRR completo tanto para el sistema nuevo como para el proceso de migracion. El PRR del sistema nuevo verifica que cumple los estandares operacionales. El PRR del proceso de migracion verifica: plan de rollback, comunicacion con stakeholders, ventana de mantenimiento, monitoreo durante la migracion, y criterios de exito/fracaso. Ejecuta el PRR de migracion al menos 2 semanas antes de la migracion programada. Documenta los riesgos de migracion por separado de los riesgos del servicio.
+
+### Con que frecuencia debemos revisar servicios existentes?
+
+Servicios Tier 1 (criticos): PRR anual completo. Servicios Tier 2 (importantes): PRR cada 18 meses. Servicios Tier 3 (internos): PRR cada 2 anos o cuando hay un cambio mayor. Disparadores para PRR fuera de ciclo: cambio de equipo dueo, refactor arquitectonico mayor, migracion de infraestructura, incidente SEV1 que revela gaps operacionales, o cambio de requisitos de compliance. Mantén un registro de PRRs por servicio con fechas y hallazgos. Incluye el estado del PRR en el dashboard de salud del servicio.
+
+### Cual es el rol del SRE en el production readiness review?
+
+El SRE o ingeniero de plataforma es el revisor tecnico del PRR. Su rol: verificar que las alertas son accionables (no solo ruido), que los dashboards muestran metricas utiles (no vanity metrics), que los runbooks son ejecutables por alguien que no escribio el servicio, que el escalado esta probado, y que el plan de rollback funciona. El SRE no es un aprobador de seguridad o producto — su dominio es la operabilidad. Si el SRE bloquea, el bloqueo es sobre preparacion operacional, no sobre features o prioridades de producto. Documenta los bloqueos del SRE con criterios especificos para desbloquear.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

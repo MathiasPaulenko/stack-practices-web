@@ -156,3 +156,147 @@ Los backups son un componente de DR. DR incluye las personas, procesos y herrami
 ### ¿Debería automatizar failover o usar aprobación humana?
 
 Automatiza detección y preparación (pre-stage región secundaria), pero requiere aprobación humana para el switch real de tráfico. Los falsos positivos son costosos; failover automatizado a una región rota es peor que breve downtime.
+
+
+## Variantes
+
+| Contexto | Enfoque | Notas |
+|----------|---------|-------|
+| Startup | DR simplificado: backup + restore | RTO 8h, RPO 24h aceptable |
+| Enterprise | DR multi-region activo-activo | RTO 15min, RPO 0 |
+| E-commerce | DR con prioridad en catalogo y checkout | Restaurar en orden de impacto en ingresos |
+| Fintech | DR con prioridad en integridad de transacciones | Cero perdida de datos tolerable |
+
+## Ejemplo de DR Plan: Fallo de Region Primaria
+
+```text
+=== DR Plan: Fallo de Region us-east-1 ===
+
+Escenario: Region us-east-1 no disponible
+RTO Objetivo: 1 hora
+RPO Objetivo: 15 minutos
+
+Triage Inicial (0-5 min):
+  1. Confirmar que us-east-1 esta caida (no es un falso positivo)
+     - Verificar AWS Health Dashboard
+     - Verificar status.aws.amazon.com
+  2. Declarar incidente DR-SEV1
+  3. Notificar a liderazgo y stakeholders
+  4. Activar canal de DR (#dr-incident)
+
+Ejecucion de Failover (5-45 min):
+  Paso 1: Promover region secundaria (eu-west-1) a primaria
+    - Actualizar DNS (Route 53) a apuntar a eu-west-1
+    - Verificar que los health checks pasan en eu-west-1
+    - Tiempo estimado: 5-10 min
+
+  Paso 2: Escalar recursos en eu-west-1
+    - Aumentar replicas para manejar el trafico completo
+    - kubectl scale deployment app -n production --replicas=20
+    - Tiempo estimado: 5-10 min
+
+  Paso 3: Restaurar datos desde backup
+    - Ultimo backup de RDS: hace 12 min (dentro de RPO)
+    - Restaurar snapshot a nueva instancia en eu-west-1
+    - Tiempo estimado: 15-20 min
+
+  Paso 4: Verificar servicios
+    - Health checks en todos los endpoints
+    - Smoke tests en flujos criticos (login, pago, checkout)
+    - Verificar que no hay datos perdidos (comparar conteos)
+    - Tiempo estimado: 5-10 min
+
+Comunicacion (paralelo a ejecucion):
+  - Pagina de status: "Investigando interrupcion en us-east-1"
+  - A los 15 min: "Failover a eu-west-1 en progreso"
+  - A los 45 min: "Servicios restaurados en eu-west-1"
+  - A los 60 min: "Incidente resuelto; investigando causa raiz"
+
+Rollback (si failover falla):
+  - Si eu-west-1 no puede manejar la carga: degradar a modo solo-lectura
+  - Si datos no se pueden restaurar: usar ultimo backup valido (RPO mayor)
+  - Si todo falla: activar plan de comunicacion de caida prolongada
+
+Post-Recuperacion:
+  - Monitorear estabilidad en eu-west-1 por 24 horas
+  - Investigar causa raiz del fallo de us-east-1
+  - Conducir postmortem dentro de 48 horas
+  - Actualizar DR plan con learnings
+  - Planificar migracion de vuelta a us-east-1 (o nueva region)
+```
+
+### Con que frecuencia debemos probar el DR plan?
+
+Prueba el DR plan al menos anualmente para empresas, trimestralmente para servicios criticos. Tipos de prueba: walkthrough de mesa (paper exercise, 2 horas), simulacion parcial (failover de un servicio no critico, 4 horas), y failover completo (migrar todo el trafico, 8 horas). Documenta cada prueba: que funciono, que fallo, tiempo real vs RTO/RPO. Una prueba de DR que no falla nada no es una prueba real — busca puntos de fallo en un entorno controlado. Involucra a personas que no son los autores del plan — si solo el autor puede ejecutarlo, el plan no es resiliente.
+
+### Cual es la diferencia entre RTO y RPO?
+
+RTO (Recovery Time Objective) es cuanto tiempo tarda en restaurar el servicio — el tiempo desde la caida hasta que los usuarios pueden usar el sistema de nuevo. RPO (Recovery Point Objective) es cuanto datos puedes perder — el tiempo entre el ultimo backup valido y la caida. Un RTO de 1 hora significa que el servicio debe estar de vuelta en 1 hora. Un RPO de 15 minutos significa que puedes perder hasta 15 minutos de datos. RTO mide tiempo de recuperacion; RPO mide perdida de datos. Ambos son objetivos, no garantias — mide el tiempo real durante las pruebas de DR.
+
+### Como calculamos el costo de un DR plan?
+
+El costo de DR incluye: infraestructura de respaldo (region secundaria, instancias, storage), costos de replicacion (transferencia de datos entre regiones), costos de backup (snapshots, almacenamiento), costos de prueba (horas de ingenieria para game days), y costos de herramientas (DR orchestration, monitoring). Compara el costo de DR con el costo de caida: si una hora de caida cuesta $100K y el DR cuesta $50K/ano, el DR se paga solo en 30 minutos de caida evitada. Para servicios no criticos: un DR ligero (backup + restore manual) puede ser suficiente. Para servicios criticos: DR activo-activo es necesario a pesar del costo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

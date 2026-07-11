@@ -143,6 +143,54 @@ Usa este recurso cuando:
 
 El playbook impone un **único Incident Commander** para evitar decisiones conflictivas durante momentos de alta presión. La clasificación de severidad determina la velocidad de respuesta para que incidentes P1 reciban atención inmediata sin que alertas de severidad media consuman todo el equipo. La contención prioriza detener la hemorragia antes de investigar la causa raíz. La recuperación incluye un período de monitoreo porque los atacantes a menudo dejan mecanismos de persistencia que se activan después de la respuesta inicial.
 
+## Fases de Respuesta a Incidentes
+
+```text
+=== Fase 1: Deteccion y Triage (0-15 min) ===
+
+- Alerta recibida via monitoring, usuario, o tercero
+- On-call confirma que es un incidente real (no falso positivo)
+- Severidad asignada: SEV1 (Critico) / SEV2 (Alto) / SEV3 (Medio) / SEV4 (Bajo)
+- Incident Commander (IC) asignado
+- Canal de incidente creado (#incident-xxx)
+- Stakeholders notificados
+
+=== Fase 2: Contencion (15-60 min) ===
+
+- Accion inmediata para detener el impacto:
+  - Revertir deploy
+  - Bloquear trafico malicioso (WAF, IP block)
+  - Deshabilitar cuenta/feature comprometida
+  - Conmutar a region/instancia de respaldo
+- Preservar evidencia (logs, snapshots, dumps) antes de remediar
+- Documentar acciones tomadas y timestamps
+
+=== Fase 3: Erradicacion (1-4 horas) ===
+
+- Identificar y eliminar la causa raiz
+- Aplicar fix permanente (no solo workaround)
+- Rotar credenciales comprometidas
+- Actualizar configuraciones vulnerables
+- Verificar que el incidente esta contenido
+
+=== Fase 4: Recuperacion (1-24 horas) ===
+
+- Restaurar servicios a operacion normal
+- Verificar integridad de datos
+- Monitorear de cerca por recurrencia (24-48 horas)
+- Comunicar resolucion a stakeholders
+- Cerrar canal de incidente
+
+=== Fase 5: Postmortem (1-5 dias) ===
+
+- Postmortem blameless dentro de 48 horas
+- Identificar causa raiz y factores contribuyentes
+- Crear action items con duenos y fechas
+- Compartir learnings con la organizacion
+- Actualizar runbooks y playbooks
+```
+
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -180,3 +228,75 @@ Consulta con legal y fuerzas del orden primero. La mayoría de expertos en segur
 ### ¿Cómo evito que el mismo incidente se repita?
 
 La fase de Lecciones Aprendidas es obligatoria, no opcional. Rastrea acciones de seguimiento en el mismo backlog que el trabajo de funcionalidades con la misma prioridad. Vuelve a ejecutar el ejercicio de simulacro con el playbook actualizado para validar las correcciones.
+
+
+### Como elegimos el Incident Commander (IC)?
+
+El IC es la persona que coordina la respuesta al incidente — no necesariamente la persona que arregla el problema. Responsabilidades del IC: mantener el foco en la mitigacion, coordinar comunicacion, asignar tareas, y tomar decisiones cuando hay ambiguedad. El IC no debe estar escribiendo codigo — delega la implementacion a otros. Para SEV1/SEV2: el IC debe ser un ingeniero senior o manager con experiencia en incidentes. Para SEV3/SEV4: el on-call puede ser el IC. Rota el rol de IC para desarrollar experiencia en el equipo. Entrena a todos los ingenieros en el rol de IC con simulacros. El IC declara el incidente resuelto — no el ingeniero que arregla el problema.
+
+### Que hacemos si el incidente involucra datos de clientes?
+
+Si el incidente involucra datos de clientes: escala inmediatamente a legal y compliance. Documenta que datos fueron afectados, que usuarios, y el alcance. Para GDPR: notificacion al regulador requerida en 72 horas. Para CCPA: notificacion a consumidores afectados "sin demora irrazonable". Prepara una comunicacion para clientes con: que paso, que datos fueron afectados, que estamos haciendo, y que deben hacer. No ocultes el alcance — la transparencia construye confianza. Coordina con legal para el lenguaje exacto de la notificacion. Registra todas las decisiones y comunicaciones para auditoria. Considera ofrecer monitoreo de credito si datos financieros fueron expuestos.
+
+### Como manejamos comunicacion durante un incidente?
+
+Comunicacion durante incidentes sigue el principio de "comunicar temprano, comunicar a menudo". Interno: usa un canal dedicado de Slack/Teams para el incidente. Actualiza cada 30 minutos para SEV1, cada 1 hora para SEV2. El IC es responsable de las actualizaciones. Externo: usa la pagina de status (status.io, Statuspage) para comunicaciones a usuarios. Prepara plantillas de comunicacion con anticipacion. Para SEV1: notifica a liderazgo ejecutivo inmediatamente. Designa a una persona para manejar comunicacion externa — el IC no debe manejar ambos. Nunca culpes a individuos en comunicaciones — usa lenguaje factual. Despues de la resolucion: envia una comunicacion final con resumen y proximos pasos.
+
+### Como prevenimos que el mismo incidente recurra?
+
+El postmortem es la herramienta principal para prevenir recurrencia. Conduce un postmortem blameless dentro de 48 horas. Identifica la causa raiz — no solo la causa inmediata. Usa "5 Whys" o analisis de causa raiz. Crea action items especificos, medibles, con duenos y fechas limite. Prioriza action items por impacto en prevencion de recurrencia. Agrega tests de regression para verificar que el fix funciona. Actualiza runbooks y playbooks con los aprendizajes. Comparte el postmortem con toda la ingenieria — los patrones se repiten entre servicios. Rastrea action items hasta su completacion — un postmortem sin action items completados es inutil. Revisa action items vencidos mensualmente.
+
+### Como entrenamos al equipo para respuesta a incidentes?
+
+Entrena al equipo con simulacros regulares (game days). Programa un game day trimestral donde simulas un incidente real. Usa escenarios basados en incidentes pasados o amenazas potenciales. Rota roles (IC, comunicador, implementador) para que todos ganen experiencia. Despues del simulacro: conduce un retro sobre que funciono y que no. Documenta el simulacro como un postmortem. Mantiene un calendario de on-call con sombreado (shadow on-call) para nuevos miembros. Crea un onboarding de respuesta a incidentes con runbooks y playbooks. Usa herramientas de simulacion (Gremlin, Chaos Monkey) para inyectar fallos en staging. La practica hace que la respuesta real sea mas rapida y efectiva.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

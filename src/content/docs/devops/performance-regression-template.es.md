@@ -130,6 +130,145 @@ Usa este recurso cuando:
 
 La plantilla fuerza una **decisión cuantificada** en lugar de una corazonada. Muchos equipos o hacen rollback a todo pánico o nunca hacen rollback y dejan que el rendimiento se degrade. Las tablas de comparación hacen visible la regresión con números, y la matriz de decisión rollback/fix-forward elimina la ambigüedad. Los pasos de diagnóstico están ordenados por frecuencia: la mayoría de las regresiones son causadas por una mala consulta, una caché faltante, o una lentitud downstream — no por problemas exóticos de infraestructura.
 
+## Configuracion de Performance Gate en CI
+
+```yaml
+# GitHub Actions performance gate
+name: Performance Regression Check
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment
+        run: |
+          npm ci
+          docker compose up -d test-db
+      - name: Run benchmark suite
+        run: npm run benchmark -- --output=results.json
+      - name: Compare with baseline
+        run: |
+          node scripts/compare-baseline.js \
+            --current results.json \
+            --baseline baselines/main.json \
+            --threshold 5 \
+            --fail-on-regression
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: results.json
+      - name: Comment on PR
+        if: always()
+        run: node scripts/pr-comment.js --results results.json
+```
+
+## Script de Comparacion de Benchmarks
+
+```python
+#!/usr/bin/env python3
+"""Comparar resultados de benchmark actuales contra baseline."""
+import json
+import sys
+import argparse
+
+def compare(current_path, baseline_path, threshold_pct):
+    with open(current_path) as f:
+        current = json.load(f)
+    with open(baseline_path) as f:
+        baseline = json.load(f)
+
+    regressions = []
+    improvements = []
+
+    for metric in baseline:
+        name = metric['name']
+        base_value = metric['value']
+        curr = next((m for m in current if m['name'] == name), None)
+        if not curr:
+            continue
+        change_pct = ((curr['value'] - base_value) / base_value) * 100
+        if change_pct > threshold_pct:
+            regressions.append({
+                'name': name,
+                'baseline': base_value,
+                'current': curr['value'],
+                'change': f'+{change_pct:.1f}%'
+            })
+        elif change_pct < -threshold_pct:
+            improvements.append({
+                'name': name,
+                'baseline': base_value,
+                'current': curr['value'],
+                'change': f'{change_pct:.1f}%'
+            })
+
+    if regressions:
+        print('REGRESIONES DETECTADAS:')
+        for r in regressions:
+            print(f"  {r['name']}: {r['baseline']} -> {r['current']} ({r['change']})")
+        sys.exit(1)
+    else:
+        print('No se detectaron regresiones.')
+        if improvements:
+            print('Mejoras:')
+            for i in improvements:
+                print(f"  {i['name']}: {i['baseline']} -> {i['current']} ({i['change']})")
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--current', required=True)
+    parser.add_argument('--baseline', required=True)
+    parser.add_argument('--threshold', type=float, default=5.0)
+    args = parser.parse_args()
+    compare(args.current, args.baseline, args.threshold)
+```
+
+## Arbol de Decision para Triage de Regresion de Rendimiento
+
+```text
+=== Triage de Regresion de Rendimiento ===
+
+1. IDENTIFICAR ALCANCE (5 min)
+   - Que endpoint/servicio regreso?
+   - P50, P95 o P99 afectado?
+   - Cuando empezo? (correlacionar con deploys)
+
+2. REVISAR HISTORIAL DE DEPLOYS (10 min)
+   - Hubo un deploy en las ultimas 24h?
+   - La regresion empezo al momento del deploy?
+   - SI -> Rollback o fix-forward. Ir al paso 4.
+   - NO -> Continuar al paso 3.
+
+3. REVISAR INFRAESTRUCTURA (15 min)
+   - Base de datos: queries lentas? replication lag? connection pool?
+   - Cache: hit rate bajo? evictions? memoria redis?
+   - Red: latencia aumentada entre servicios? problemas DNS?
+   - Disco: IOPS saturados? disco lleno?
+
+4. DIAGNOSTICAR CAUSA RAIZ (30 min)
+   - Codigo: queries N+1, indice faltante, loop sin limite
+   - Config: cambio de pool size, timeout, cache TTL
+   - Datos: tabla crecio mas alla de capacidad de indice, hot partition
+   - Dependencia: servicio downstream mas lento, API rate limited
+
+5. DECIDIR: ROLLBACK O FIX-FORWARD (5 min)
+   - Rollback si: regresion > 20%, afecta usuario, fix desconocido
+   - Fix-forward si: regresion < 10%, fix listo, bajo riesgo
+   - Feature flag si: regresion vinculada a feature especifica
+
+6. VERIFICAR FIX (continuo)
+   - Re-ejecutar benchmarks
+   - Monitorear APM por 24h
+   - Confirmar metricas vuelven a baseline
+```
+
+
 ## Variantes
 
 | Contexto | Métricas Clave | Consideración Especial |
@@ -170,3 +309,24 @@ Sí, para regresiones Críticas y Altas. Para Medias, usa una advertencia que re
 ### ¿Qué pasa si la regresión solo afecta a un pequeño subconjunto de usuarios?
 
 Una regresión de subconjunto puede seguir siendo grave si afecta a clientes de alto valor o una característica crítica. Documenta el segmento afectado en el reporte. Si es un caso de uso de nicho, puedes avanzar con el arreglo. Si es un segmento de alto valor, considera un rollback dirigido o deshabilitar la feature flag. Nunca ignores una regresión solo porque es "solo el 1% de usuarios" sin entender quién es ese 1%.
+
+
+### Como establecemos umbrales de regresion de rendimiento?
+
+Establece umbrales basados en impacto al usuario, no porcentajes arbitrarios. Una regresion del 5% en un endpoint de 50ms es insignificante (2.5ms). Una regresion del 5% en un endpoint de 5s es notable (250ms). Usa umbrales escalonados: 10% para P50, 15% para P95, 20% para P99. Bloquea releases solo en regresiones de P95 y P99. Registra regresiones de P50 para seguimiento. Ajusta umbrales por servicio segun criticidad de negocio.
+
+### Que herramientas deberiamos usar para benchmarking de rendimiento?
+
+Para benchmarks de API: k6, Locust o Artillery. Para benchmarks de base de datos: pgbench (PostgreSQL), sysbench (MySQL). Para frontend: Lighthouse CI, WebPageTest. Para load testing: k6 con ejecucion distribuida. Integra benchmarks en CI usando GitHub Actions o Jenkins. Almacena resultados en una base de datos time-series (InfluxDB, Prometheus) para analisis de tendencias. Usa herramientas APM (Datadog, New Relic, Dynatrace) para monitoreo de rendimiento en produccion.
+
+### Como manejamos benchmarks inestables (flaky)?
+
+Los benchmarks flaky erosionan la confianza en el performance gate. Reparalos: ejecutando benchmarks en entornos aislados (runners dedicados, sin recursos compartidos), calentando antes de medir, ejecutando multiples iteraciones y tomando la mediana, excluyendo outliers, y usando cooldown entre grupos de prueba. Si un benchmark es inherentemente flaky, aumenta el umbral o marcalo como informativo en lugar de bloqueante. Rastrea la tasa de flakiness y arregla benchmarks con > 5% de flakiness.
+
+### Cual es la diferencia entre load testing y benchmarking de rendimiento?
+
+Load testing mide el comportamiento del sistema bajo carga esperada y pico (ej. podemos manejar 10,000 RPS?). Benchmarking de rendimiento mide metricas especificas contra un baseline (ej. este cambio hizo la API 10% mas lenta?). Load testing trata sobre capacidad; benchmarking trata sobre regresion. Ejecuta load tests trimestralmente o antes de lanzamientos importantes. Ejecuta benchmarks en cada pipeline de CI. Ambos son necesarios pero sirven diferentes propositos.
+
+### Como medimos regresiones de rendimiento frontend?
+
+Rastrea Core Web Vitals: LCP (Largest Contentful Paint), INP (Interaction to Next Paint), CLS (Cumulative Layout Shift). Usa Lighthouse CI en GitHub Actions para bloquear regresiones en estas metricas. Recopila datos de Real User Monitoring (RUM) desde produccion usando la libreria web-vitals. Establece umbrales: LCP < 2.5s, INP < 200ms, CLS < 0.1. Rastrea el tamano del bundle como indicador principal — un aumento de 50KB eventualmente causara regresion de LCP. Usa source maps para atribuir cambios de tamano de bundle a commits especificos.

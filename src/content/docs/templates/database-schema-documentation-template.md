@@ -200,6 +200,71 @@ users 1───∞ orders
 - Mixing UTC and local timestamps — pick one (UTC) and enforce it with `timestamptz`
 - Skipping the "business rules" section — constraints in SQL do not capture all application-level rules
 
+
+## Variant Comparison
+
+| Variant | Context | Approach | Notes |
+|---------|---------|----------|-------|
+| Auto-generated (tbls/dbdocs) | Large schema, frequent changes | Extract DDL, generate diagrams | Layer narrative docs on top |
+| Markdown in-repo | Small team, PR-based changes | Docs alongside code | PR review ensures sync |
+| Wiki/Confluence | Org with existing wiki | Adapt sections to wiki pages | Link migrations and postmortems |
+| DBML/ERD visual | Fast onboarding, stakeholders | Visual diagram + minimal docs | Update on every migration |
+
+## Detailed Scenario: Documenting a Schema Migration
+
+```text
+System: Orders database (PostgreSQL 16)
+Change: Add shipping_address_id column to orders
+Migration: 023_add_shipping_address
+
+Step 1 - Write the migration:
+  -- 023_add_shipping_address.sql
+  ALTER TABLE orders ADD COLUMN shipping_address_id uuid;
+  ALTER TABLE orders ADD CONSTRAINT orders_shipping_address_id_fkey
+    FOREIGN KEY (shipping_address_id) REFERENCES addresses(id)
+    ON DELETE SET NULL;
+
+  CREATE INDEX orders_shipping_address_id_idx
+    ON orders(shipping_address_id)
+    WHERE shipping_address_id IS NOT NULL;
+
+Step 2 - Update schema documentation:
+  Table: orders
+  | Column | Type | Nullable | Default | Description |
+  |---------|------|----------|---------|-------------|
+  | shipping_address_id | uuid | YES | NULL | FK to addresses.id, SET NULL on delete |
+
+  Indexes:
+  | orders_shipping_address_id_idx | shipping_address_id | btree | Lookup orders by address | 023_add_shipping_address |
+
+  Constraints:
+  | orders_shipping_address_id_fkey | FK (shipping_address_id) REFERENCES addresses(id) ON DELETE SET NULL |
+
+Step 3 - Update migration history:
+  | 023 | 2026-07-11 | Add shipping_address_id to orders | Mathias | ALTER TABLE orders DROP COLUMN shipping_address_id; |
+
+Step 4 - Update ER diagram:
+  orders --- addresses (N:1, SET NULL on delete)
+
+Step 5 - Rollback notes:
+  - Column is nullable, does not break existing queries
+  - Rollback: DROP COLUMN (index and FK drop in cascade)
+  - Data: column is lost, but derivable from order_items
+
+Step 6 - Communicate to team:
+  - PR with migration + updated docs
+  - Slack note: "New shipping_address_id column on orders"
+  - Update ORM models (Prisma, TypeORM, SQLAlchemy)
+```
+
+### How do I document computed or virtual columns?
+
+Document the formula or calculation logic in the business rules section of the table. Indicate whether the column is stored or computed at runtime. For PostgreSQL generated columns (`GENERATED ALWAYS AS`), document the SQL expression and note that the column cannot be written to directly.
+
+### What if a table has more than 50 columns?
+
+Consider splitting the documentation by logical column groups. For example, in a `users` table: authentication group (email, password_hash, status), profile group (display_name, avatar_url), metadata group (metadata jsonb, created_at, updated_at). This makes the documentation more readable without losing completeness.
+
 ## Variants
 
 ### Auto-generated docs (tbls / dbdocs)

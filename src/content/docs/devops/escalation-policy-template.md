@@ -121,6 +121,93 @@ Use this resource when:
 
 The template separates **severity classification** from **escalation timing**. Many teams conflate the two: they assume a critical alert automatically pages the CTO. In practice, escalation should be **time-based**, not just severity-based. A SEV 1 that resolves in 10 minutes never needs executive involvement. The escalation paths force structured decisions at fixed intervals, preventing both premature panic and dangerous delay.
 
+## PagerDuty Escalation Policy Configuration
+
+```yaml
+escalation_policy:
+  name: "Platform Team - SEV1"
+  num_loops: 2
+  rules:
+    - escalation_delay_in_minutes: 5
+      targets:
+        - type: user
+          id: "L1-primary"
+    - escalation_delay_in_minutes: 10
+      targets:
+        - type: user
+          id: "L1-backup"
+    - escalation_delay_in_minutes: 15
+      targets:
+        - type: user
+          id: "L2-team-lead"
+    - escalation_delay_in_minutes: 30
+      targets:
+        - type: user
+          id: "L3-engineering-manager"
+  on_call_handoff_time: "08:00:00"
+  on_call_handoff_timezone: "UTC"
+```
+
+## Incident Communication Templates
+
+### Initial Customer Notice (SEV 1)
+
+```text
+[INCIDENT] We are investigating an issue affecting <service>.
+Impact: <description of user-facing impact>
+Started: <timestamp UTC>
+Status: Investigating
+Next update: Within 15 minutes
+```
+
+### Resolution Notice
+
+```text
+[RESOLVED] <service> is operating normally.
+Duration: <total time>
+Root cause: <brief summary>
+Affected users: <approximate count or percentage>
+Preventive action: <what we are doing to prevent recurrence>
+```
+
+## Post-Incident Review Template
+
+```markdown
+# Post-Incident Review: <Incident Title>
+
+## Summary
+- Date: YYYY-MM-DD
+- Duration: X hours Y minutes
+- Severity: SEV X
+- Impact: <users affected, revenue impact, downtime>
+
+## Timeline
+| Time (UTC) | Event |
+|------------|-------|
+| 00:00 | Alert fired |
+| 00:05 | On-call acknowledged |
+| 00:15 | Root cause identified |
+| 00:45 | Fix deployed |
+| 01:00 | Confirmed resolved |
+
+## Root Cause
+<What caused the incident>
+
+## Contributing Factors
+<What made it worse or harder to detect>
+
+## What Went Well
+- <Things that worked>
+
+## What Went Wrong
+- <Things that did not work>
+
+## Action Items
+| Action | Owner | Due Date | Priority |
+|--------|-------|----------|----------|
+| <action> | @name | YYYY-MM-DD | P1 |
+```
+
 ## Variants
 
 | Organization Size | Escalation Depth | Key Difference |
@@ -130,6 +217,8 @@ The template separates **severity classification** from **escalation timing**. M
 | Enterprise (100+) | L1 → L2 → L3 → L4 | VP/CTO only for multi-hour SEV 1 |
 | 24/7 SaaS | Add L0 — NOC / SRE on-call | NOC triages before engineering pages |
 | Follow-the-sun | Regional L1 handoffs | APAC → EMEA → AMER rotation |
+| Regulated industry | Add compliance officer escalation | Notify DPO or compliance lead for data breaches |
+| Multi-tenant SaaS | Add customer success escalation | Notify CSM for accounts > $100k ARR |
 
 ## What works
 
@@ -138,6 +227,8 @@ The template separates **severity classification** from **escalation timing**. M
 3. Test the escalation path quarterly with a synthetic page; phone numbers go stale
 4. Define "no meaningful progress" explicitly (e.g., "no root-cause hypothesis within 10 minutes")
 5. Document out-of-hours contact methods separately; do not rely on Slack DMs at 3 a.m.
+6. Automate escalation in your paging tool; manual escalation fails under stress
+7. Include a "cooling off" period after on-call rotation to prevent burnout
 
 ## Common Mistakes
 
@@ -146,6 +237,8 @@ The template separates **severity classification** from **escalation timing**. M
 3. Using severity as a measure of effort instead of impact
 4. Skipping the status page update because "it will be fixed soon"
 5. Not reviewing escalation decisions after incidents; patterns reveal training gaps
+6. Escalating to individuals instead of roles; people leave, roles persist
+7. Not updating contact info after team changes; stale phone numbers cause critical delays
 
 ## Frequently Asked Questions
 
@@ -160,3 +253,52 @@ Avoid it if possible. Context switching between unrelated services during an out
 ### How do I handle an on-call engineer who is unresponsive?
 
 The policy must specify an unresponsive timeout (e.g., 5 minutes for SEV 1, 10 minutes for SEV 2). After the timeout, the paging system automatically escalates to the backup on-call, then to the team lead. Do not let "maybe they are in the shower" become a 30-minute delay. Automate this in PagerDuty, Opsgenie, or your paging tool.
+
+### How long should an on-call shift be?
+
+One week is the standard. Shorter shifts (3-4 days) reduce fatigue but increase handoff overhead. Longer shifts (2 weeks) cause burnout and reduce alertness. Never schedule someone for more than 2 weeks consecutively. Include a cooling-off period of at least one week off after each rotation.
+
+### What is the difference between an escalation policy and an incident response plan?
+
+An escalation policy defines who to contact and when. An incident response plan defines what to do once contacted: triage, mitigate, communicate, resolve, and review. The escalation policy is a component of the broader incident response plan.
+
+### Should we use a single escalation policy across all teams?
+
+Use a shared template but allow per-team customization. The severity levels and communication standards should be organization-wide. The contact roster, escalation depth, and paging rules should be team-specific. This balances consistency with practical flexibility.
+
+### How do we measure escalation policy effectiveness?
+
+Track these metrics monthly: mean time to acknowledge (MTTA), mean time to resolve (MTTR), percentage of incidents escalated, false escalation rate, and on-call satisfaction score. If MTTA is consistently above SLA, the policy or paging tool needs adjustment.
+
+
+### Should we notify customers during SEV 2 incidents?
+
+If the incident affects users, yes. Send an initial notice within 30 minutes and updates every 30 minutes until resolved. Even if impact is minor, transparency builds trust. Use the SEV 1 customer notice template but adjust the tone to reflect lower severity.
+
+### How do we prevent on-call burnout?
+
+Rotate weekly, limit to 2 consecutive weeks max, include a cooling-off week after each rotation, and compensate with time off or extra pay. Monitor page count per shift. If an engineer receives more than 5 pages in a shift, reassign services or tune alert thresholds.
+
+### What if the on-call engineer is sick or unavailable?
+
+The policy must define a swap procedure: the engineer notifies the backup and team lead as early as possible. The backup assumes on-call immediately. If both primary and backup are unavailable, the team lead (L2) takes over temporarily while a replacement is found. Document the swap in the on-call Slack channel.
+
+### Should we have a NOC (L0) before the engineering team?
+
+For 24/7 services with high alert volume, yes. A NOC or SRE on-call (L0) filters repeated alerts, executes known runbooks, and only escalates to engineering when service-specific expertise is needed. This reduces engineering pages by 40-60%. For small teams, L1 does this filtering.
+
+### How do we handle cross-team escalations during an incident?
+
+Designate an Incident Commander (IC) who coordinates across teams. The IC does not fix the problem directly but facilitates communication, assigns actions, and maintains the timeline. If the incident involves 3 or more teams, the IC should be someone outside the affected teams to maintain objectivity. The IC reports to L3/L4 with a summary every 30 minutes.
+
+### What tools do we recommend for automating escalation?
+
+PagerDuty, Opsgenie, and Grafana Oncall are the most common options. All support: automatic rotations, time-based escalation, routing rules by severity, and integrations with Slack/Teams. Choose based on your existing stack: PagerDuty for broad ecosystem, Opsgenie if you use Atlassian, Grafana Oncall if you already have Grafana.
+
+### How do we track escalation policy compliance?
+
+Review monthly: percentage of incidents acknowledged within SLA, percentage of escalations that were justified, average time to escalation, and number of incidents that required L3 or L4 involvement. Share these metrics with engineering leadership quarterly. If SLA compliance drops below 90%, schedule a policy review.
+
+### Should we integrate the escalation policy with our ticketing system?
+
+Yes. Configure PagerDuty or Opsgenie to create a ticket automatically when an incident is resolved, ensuring post-incident action items are tracked. Link the incident to the ticket for traceability. Review open action items monthly to prevent accumulation.

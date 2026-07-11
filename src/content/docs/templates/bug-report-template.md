@@ -173,6 +173,63 @@ No error message appears in the UI. Console shows no errors.
 - **Link duplicates** — merge bugs reporting the same issue and link them
 - **Verify severity** — reporters tend to over-rate severity; adjust during triage
 
+## Bug Report Example
+
+```text
+=== Bug Report: 500 error on order export ===
+
+Title: 500 error when exporting more than 1000 orders to CSV
+ID: BUG-1234
+Reported by: bob@company.com
+Date: 2026-07-12
+Severity: High
+Environment: Production
+
+Expected Behavior:
+  When clicking "Export CSV" on the orders page with a date filter
+  that returns more than 1000 orders, the system should download a
+  CSV file with all orders.
+
+Actual Behavior:
+  The system returns a 500 error after ~30 seconds.
+  The error appears in logs as "Database timeout."
+
+Steps to Reproduce:
+  1. Log in as administrator
+  2. Go to /admin/orders
+  3. Select date range: 2026-06-01 to 2026-07-01
+  4. Click "Export CSV"
+  5. Wait ~30 seconds
+  6. Observe 500 error in browser
+
+Evidence:
+  - Screenshot of error: https://drive.company.com/screenshot-error.png
+  - Stack trace: https://pastebin.company.com/abc123
+  - Request ID: req-abc-456 (search in Kibana)
+
+Frequency:
+  - Always reproducible with > 1000 orders
+  - Works correctly with < 500 orders
+  - Intermittent between 500-1000 orders
+
+Impact:
+  - Sales team cannot export monthly orders
+  - Temporary workaround: export per week (4 exports)
+  - 15 users affected
+
+Environment:
+  - Browser: Chrome 126.0
+  - OS: macOS 14.5
+  - App version: v2.4.3
+  - Region: us-east-1
+
+Additional Notes:
+  - Started after release v2.4.0
+  - Endpoint is GET /api/orders/export
+  - DB timeout is 30s; query takes 45s with 1000+ orders
+```
+
+
 ## Variants
 
 ### Customer-facing (support portal)
@@ -216,3 +273,30 @@ Yes, if they help. Screenshots of the error, screen recordings of the reproducti
 ### What if the bug is in a third-party dependency?
 
 File the bug in your internal tracker for visibility, but also file a bug in the dependency's issue tracker. Link the two tickets. Note the dependency version and whether a workaround exists. If the dependency is abandoned, note that and plan a migration.
+
+
+### How do we determine the severity of a bug?
+
+Severity measures business impact, not technical complexity. Critical: service down or data loss; resolve in 24h. High: main feature broken for many users; resolve in 48h. Medium: feature broken but workaround exists; resolve in 1 week. Low: minor issue with no significant impact; resolve in 30 days. Informational: cosmetic or typo; resolve when possible. To determine severity: how many users are affected? how frequent is it? is there a workaround? does it impact revenue? Severity can change after triage — if the impact is lower than expected, lower the severity. Document the reason for the change.
+
+### How do we handle duplicate bug reports?
+
+Before creating a new bug report: search the tracker for an existing report of the same issue. Search by error keywords, not by exact title. If you find an existing report: add your information as a comment with additional steps or evidence, do not create a duplicate. If you are unsure if it is the same bug: create the report but mark "possible duplicate of #XXX." The QA team closes duplicates and links to the original report. Keep closed duplicates visible — they help find the bug by different symptoms. A bug with 5 duplicate reports indicates it is frequent — raise the priority.
+
+### What information is mandatory in a bug report?
+
+Mandatory: descriptive title, steps to reproduce, expected vs actual behavior, environment (browser, OS, version), and frequency. Recommended: screenshots, stack traces, request IDs, user impact, workaround if any. Optional: suspected root cause, additional logs, video. A bug report without steps to reproduce is useless — the engineer cannot confirm the bug. If you cannot reproduce it: report what you saw, mark "not consistently reproducible," and give context. The reporter should be available for follow-up questions — the engineer may need more information.
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

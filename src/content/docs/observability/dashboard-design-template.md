@@ -240,6 +240,29 @@ Dashboard variables let engineers filter without writing queries. The `$endpoint
 
 Annotation layers correlate deployments and incidents with metric changes. When latency spikes, seeing a deployment annotation at the same timestamp immediately points to the cause.
 
+## Dashboard Review Checklist
+
+```text
+=== Quarterly Dashboard Review ===
+
+[ ] All panels still have valid data sources (no "No data" panels)
+[ ] Thresholds reflect current SLOs and performance baselines
+[ ] Variables return correct values (environments, instances, endpoints)
+[ ] Annotation layers are still receiving events (deploys, incidents)
+[ ] Links to runbooks, logs, and traces are not broken
+[ ] No panel has more than 10 series (cardinality check)
+[ ] Color coding is consistent (green/yellow/red across all panels)
+[ ] Dashboard loads in under 3 seconds
+[ ] Mobile view is readable (on-call engineers check from phones)
+[ ] At least one other engineer can interpret the dashboard without explanation
+[ ] SLO panels match current SLO definitions
+[ ] Error budget panel is accurate and not showing stale data
+[ ] Business metrics panels reflect current KPIs
+[ ] Unused panels removed (check Grafana panel views metric)
+[ ] Dashboard is tagged with service name and team owner
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -293,3 +316,20 @@ The error budget is the amount of unreliability you can afford while still meeti
 ### Should we have separate dashboards for each environment?
 
 Yes. Production, staging, and development have different metrics, different traffic patterns, and different audiences. A production dashboard is for on-call engineers. A staging dashboard is for QA. Keep them separate to avoid confusion.
+
+
+### How do we handle dashboard sprawl?
+
+Dashboard sprawl happens when every engineer creates dashboards without governance. To manage: assign a dashboard owner for each dashboard. Tag dashboards with service name and team. Review dashboards quarterly — if a dashboard has not been viewed in 30 days, archive it. Use Grafana folders to organize by team or service. Create a "golden dashboards" set that is maintained and trusted. discourage personal dashboards in shared folders. Provide templates so engineers start from a consistent base. Track dashboard usage metrics to identify abandoned dashboards.
+
+### What metrics should every service dashboard have?
+
+Every service dashboard should include the RED metrics: Rate (requests per second), Errors (error rate percentage), and Duration (p95 and p99 latency). Additionally: CPU and memory utilization, database connection pool usage, and dependency health (upstream and downstream). For business-critical services, add business metrics (orders/min, revenue/min, conversion rate). For queue consumers, add lag, throughput, and processing time. The RED metrics cover 80% of service health — the rest is service-specific.
+
+### How do we design dashboards for incident response?
+
+During an incident, engineers need information fast. Design for incident response: put the status banner at the top (green/red indicator). Show the RED metrics next — these identify most issues. Use large panels with clear thresholds so they are readable from across the room. Add links to logs, traces, and runbooks directly in the dashboard. Use annotation layers for deployments so engineers can correlate changes. Avoid complex queries that load slowly — a dashboard that takes 10 seconds to load is useless during an incident. Test the dashboard during a tabletop exercise to verify it provides the right information.
+
+### How do we share dashboards with non-technical stakeholders?
+
+For executives and product managers: create a separate business-facing dashboard with KPIs (revenue, conversion, uptime percentage, active users). Avoid technical metrics (CPU, latency p99, connection pools). Use simple visualizations (stat panels, gauges, single numbers). Add a status banner that shows green/red. Schedule regular screenshots or PDF exports via Grafana reporting. Keep the dashboard simple — if a stakeholder asks "what does this mean?" the dashboard has failed. Update the dashboard when business priorities change.

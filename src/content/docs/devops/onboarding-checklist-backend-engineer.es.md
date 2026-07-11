@@ -184,6 +184,47 @@ Antes de que el nuevo contratado empiece:
 
 La checklist separa el onboarding en tres fases: Dia 1 (administrativo y configuracion tecnica), Semana 1 (orientacion al codebase y primera contribucion), y Semana 2 (conciencia de produccion y ownership). La estructura reconoce que los nuevos ingenieros necesitan cosas diferentes en diferentes momentos: primero entornos que funcionen, luego contexto, despues ownership. El sistema de companero asegura que nadie se atasca, y la verificacion de completitud crea responsabilidad tanto para el nuevo contratado como para el equipo.
 
+## Plan de Onboarding 30-60-90 Dias
+
+```text
+=== Dia 30: Contribuyendo ===
+
+Objetivos:
+  - Entorno completamente configurado y funcionando
+  - Primeros 3-5 PRs mergeados (bug fixes, features pequenas, tests)
+  - Participando en revisiones de codigo (revisando a otros)
+  - Entiende el flujo del equipo (standups, planning, retros)
+  - Ha conocido a todos los miembros del equipo 1:1
+  - Capacitacion de seguridad y compliance completada
+
+Check-in: Manager + buddy revisan progreso, identifican bloqueadores
+
+=== Dia 60: Tomando Responsabilidad ===
+
+Objetivos:
+  - Es dueno de un servicio o componente (revisor primario de cambios)
+  - Ha sido on-call shadow por 2+ turnos
+  - Participando en discusiones de diseno
+  - Puede desplegar a staging independientemente
+  - Puede debuggear problemas de produccion con guia
+  - Ha escrito o actualizado documentacion
+
+Check-in: Manager revisa preparacion para responsabilidad, ajusta alcance
+
+=== Dia 90: Independiente ===
+
+Objetivos:
+  - On-call independiente (con backup disponible)
+  - Puede desplegar a produccion independientemente
+  - Liderando una feature pequena o mejora
+  - Mentoreando al proximo nuevo contratado (si aplica)
+  - Ha completado o contribuido a un postmortem
+  - Revision de desempeno: en camino para las expectativas
+
+Check-in: Manager + skip-level, confirmar onboarding exitoso
+```
+
+
 ## Variants
 
 | Contexto | Ajustes | Notas |
@@ -223,3 +264,45 @@ No. Primero observa guardia (sin responsabilidad), luego unete a rotacion con un
 ### Que pasa si el nuevo contratado termina todo temprano?
 
 Esa es una senal de un proceso bien ejecutado. Usa el tiempo extra para exploracion mas profunda del dominio, contribuciones a mejoras de herramientas, o observacion de otros equipos. La terminacion temprana tambien indica que tu documentacion y tooling estan en buena forma.
+
+
+### Como medimos el exito del onboarding?
+
+Rastrea estas metricas: tiempo al primer PR (objetivo: < 3 dias), tiempo al primer despliegue a produccion (objetivo: < 2 semanas), tiempo a on-call independiente (objetivo: < 2 meses), puntaje de satisfaccion del nuevo contratado (encuesta al dia 30, 60, 90), puntaje de satisfaccion del buddy, y tasa de retencion a 6 meses. Revisa metricas trimestralmente y ajusta el proceso de onboarding. Compara metricas entre equipos para identificar mejores practicas. Comparte patrones de onboarding exitosos con otros equipos. Un buen proceso de onboarding mejora la retencion y reduce el tiempo a productividad.
+
+### Que deberia incluir el rol de buddy?
+
+El buddy es la persona de referencia del nuevo contratado para preguntas del dia a dia. Responsabilidades: ayudar con la configuracion del entorno, responder preguntas de "como hago...", revisar los primeros PRs, explicar normas del equipo no escritas, presentar a otros miembros del equipo, y hacer check-in diario durante la semana 1. El buddy no es un mentor (crecimiento profesional) ni un manager (desempeno) — es un guia par. Asigna el buddy antes del dia 1. El buddy deberia haber estado en el equipo por al menos 6 meses. Rota las asignaciones de buddy para prevenir burnout. Reconoce las contribuciones del buddy en revisiones de desempeno.
+
+### Como manejamos el onboarding remoto?
+
+Para onboarding remoto: envia el hardware para que llegue antes del dia 1. Programa una videollamada para la primera manana (no solo un mensaje de Slack). Usa screen sharing para la configuracion del entorno. Graba todas las revisiones de arquitectura e introducciones del equipo. Crea un canal virtual de "water cooler" para chat informal. Programa check-ins diarios de 15 minutos con el buddy para la semana 1. Usa sesiones de pair programming para el primer PR. Se explicito sobre las normas de comunicacion (que canales para que, expectativas de tiempo de respuesta). Envia un paquete de bienvenida (swag de la empresa, cuaderno) a la casa del nuevo contratado. Considera diferencias de zona horaria al programar reuniones.
+
+### Que pasa si el nuevo contratado esta teniendo dificultades?
+
+Si un nuevo contratado esta teniendo dificultades: identifica el area especifica (tecnica, conocimiento de dominio, proceso, social). Ajusta el plan de onboarding: agrega mas tiempo 1:1 con el buddy, divide tareas en piezas mas pequenas, proporciona recursos de capacitacion adicionales, o programa mas pair programming. Programa un check-in con el manager para discutir preocupaciones abierta y constructivamente. Documenta ejemplos especificos y feedback accionable. Establece expectativas claras y un cronograma para mejora. Si la dificultad es sistemica (no culpa del contratado), revisa el proceso de onboarding por brechas. La mayoria de las dificultades son solucionables con soporte dirigido — no esperes para actuar.
+
+### Como mantenemos la checklist actualizada?
+
+Despues de que cada nuevo contratado complete el onboarding: pidele que revise la checklist y anote que falto, que esta desactualizado, o que fue confuso. Actualiza la checklist dentro de 1 semana mientras el feedback es fresco. Revisa la checklist trimestralmente con el equipo — los servicios cambian, las herramientas cambian, los procesos cambian. Asigna un dueno de checklist (usualmente el manager de ingenieria o un ingeniero senior. Versiona la checklist para que los cambios sean rastreados. Comparte actualizaciones con el equipo para que todos sepan que cambio. Una checklist obsoleta es peor que ninguna checklist — engana a los nuevos contratados y erosiona la confianza en el proceso.
+
+
+### Como medimos el exito del onboarding?
+
+Rastrea estas metricas: tiempo al primer PR (objetivo: < 3 dias), tiempo al primer despliegue a produccion (objetivo: < 2 semanas), tiempo a on-call independiente (objetivo: < 2 meses), puntaje de satisfaccion del nuevo contratado (encuesta al dia 30, 60, 90), puntaje de satisfaccion del buddy, y tasa de retencion a 6 meses. Revisa metricas trimestralmente y ajusta el proceso de onboarding. Compara metricas entre equipos para identificar mejores practicas. Comparte patrones de onboarding exitosos con otros equipos. Un buen proceso de onboarding mejora la retencion y reduce el tiempo a productividad.
+
+### Que deberia incluir el rol de buddy?
+
+El buddy es la persona de referencia del nuevo contratado para preguntas del dia a dia. Responsabilidades: ayudar con la configuracion del entorno, responder preguntas de "como hago...", revisar los primeros PRs, explicar normas del equipo no escritas, presentar a otros miembros del equipo, y hacer check-in diario durante la semana 1. El buddy no es un mentor (crecimiento profesional) ni un manager (desempeno) — es un guia par. Asigna el buddy antes del dia 1. El buddy deberia haber estado en el equipo por al menos 6 meses. Rota las asignaciones de buddy para prevenir burnout. Reconoce las contribuciones del buddy en revisiones de desempeno.
+
+### Como manejamos el onboarding remoto?
+
+Para onboarding remoto: envia el hardware para que llegue antes del dia 1. Programa una videollamada para la primera manana (no solo un mensaje de Slack). Usa screen sharing para la configuracion del entorno. Graba todas las revisiones de arquitectura e introducciones del equipo. Crea un canal virtual de "water cooler" para chat informal. Programa check-ins diarios de 15 minutos con el buddy para la semana 1. Usa sesiones de pair programming para el primer PR. Se explicito sobre las normas de comunicacion (que canales para que, expectativas de tiempo de respuesta). Envia un paquete de bienvenida (swag de la empresa, cuaderno) a la casa del nuevo contratado. Considera diferencias de zona horaria al programar reuniones.
+
+### Que pasa si el nuevo contratado esta teniendo dificultades?
+
+Si un nuevo contratado esta teniendo dificultades: identifica el area especifica (tecnica, conocimiento de dominio, proceso, social). Ajusta el plan de onboarding: agrega mas tiempo 1:1 con el buddy, divide tareas en piezas mas pequenas, proporciona recursos de capacitacion adicionales, o programa mas pair programming. Programa un check-in con el manager para discutir preocupaciones abierta y constructivamente. Documenta ejemplos especificos y feedback accionable. Establece expectativas claras y un cronograma para mejora. Si la dificultad es sistemica (no culpa del contratado), revisa el proceso de onboarding por brechas. La mayoria de las dificultades son solucionables con soporte dirigido — no esperes para actuar.
+
+### Como mantenemos la checklist actualizada?
+
+Despues de que cada nuevo contratado complete el onboarding: pidele que revise la checklist y anote que falto, que esta desactualizado, o que fue confuso. Actualiza la checklist dentro de 1 semana mientras el feedback es fresco. Revisa la checklist trimestralmente con el equipo — los servicios cambian, las herramientas cambian, los procesos cambian. Asigna un dueno de checklist (usualmente el manager de ingenieria o un ingeniero senior). Versiona la checklist para que los cambios sean rastreados. Comparte actualizaciones con el equipo para que todos sepan que cambio. Una checklist obsoleta es peor que ninguna checklist — engana a los nuevos contratados y erosiona la confianza en el proceso.

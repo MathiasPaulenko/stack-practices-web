@@ -126,6 +126,110 @@ Guidelines:
 
 SLOs give teams a shared language for reliability. By defining SLIs, targets, and error budgets, an organization can decide when to prioritize new capabilities versus stability work. SLOs also reduce alert fatigue by focusing monitoring on user-impacting reliability rather than every internal metric.
 
+## SLO Definition in Prometheus (Sloth)
+
+```yaml
+version: "prometheus/v1"
+service: "api-gateway"
+slos:
+  - name: "availability"
+    objective: 99.9
+    description: "Successful HTTP responses for the API gateway"
+    sli:
+      events:
+        error_query: sum(rate(http_requests_total{job="api-gateway",status=~"5.."}[{{.window}}]))
+        total_query: sum(rate(http_requests_total{job="api-gateway"}[{{.window}}]))
+    alerting:
+      name: ApiGatewayAvailability
+      page_alert:
+        disable: false
+        labels:
+          severity: page
+          team: platform
+      ticket_alert:
+        disable: false
+        labels:
+          severity: ticket
+          team: platform
+
+  - name: "latency-p99"
+    objective: 99
+    description: "P99 latency below 500ms for API gateway"
+    sli:
+      events:
+        error_query: |
+          sum(rate(http_request_duration_seconds_bucket{job="api-gateway",le="0.5"}[{{.window}}]))
+          /
+          sum(rate(http_request_duration_seconds_count{job="api-gateway"}[{{.window}}]))
+        total_query: "1"
+    alerting:
+      name: ApiGatewayLatency
+      page_alert:
+        disable: false
+      ticket_alert:
+        disable: false
+```
+
+## Error Budget Calculation Worksheet
+
+```text
+=== Error Budget Calculation ===
+
+SLO Target: 99.9% availability
+Period: 30 days (43,200 minutes)
+
+Total allowed downtime (error budget):
+  43,200 * (1 - 0.999) = 43.2 minutes per month
+
+Budget consumed this period:
+  - Incident 1 (2026-06-05): 12 min downtime -> 12 min consumed
+  - Incident 2 (2026-06-12): 8 min downtime -> 8 min consumed
+  - Incident 3 (2026-06-20): 5 min downtime -> 5 min consumed
+  Total consumed: 25 minutes
+
+Remaining budget: 43.2 - 25 = 18.2 minutes (42% of budget remaining)
+
+Burn rate:
+  - Fast burn (1h window): 2x normal -> alert if > 6x
+  - Slow burn (6h window): 1x normal -> alert if > 3x
+
+Decision: 42% budget remaining at day 20 of 30.
+  - Green (>50%): Continue normal releases
+  - Yellow (20-50%: Reduce release frequency, prioritize stability
+  - Red (<20%): Freeze non-critical releases, focus on reliability
+```
+
+## SLO Review Meeting Agenda
+
+```text
+=== Monthly SLO Review ===
+
+1. SLO Compliance Report (10 min)
+   - Did we meet each SLO target?
+   - Error budget status: consumed vs remaining
+   - Trend: improving, stable, or degrading?
+
+2. Incident Review (15 min)
+   - Incidents that consumed budget
+   - Root cause patterns
+   - Action items from post-incident reviews
+
+3. SLO Target Discussion (10 min)
+   - Should any targets be adjusted?
+   - Are SLIs still measuring the right thing?
+   - New services needing SLOs?
+
+4. Release Planning (10 min)
+   - Error budget guidance for next month
+   - Planned risky changes
+   - Stability work priorities
+
+5. Action Items (5 min)
+   - Owner and deadline for each action
+   - Next review date
+```
+
+
 ## Variants
 
 - **Customer-facing SLO**: Used to support external SLAs and customer communications.
@@ -168,3 +272,29 @@ Start with historical data, consider user pain points, and balance reliability a
 ### What happens when an error budget is exhausted?
 
 The team should reduce risky changes, prioritize reliability improvements, and review recent incidents. It is a signal to invest in stability rather than a reason to blame individuals.
+
+
+### How do we calculate error budget burn rate?
+
+Burn rate measures how fast you are consuming your error budget. A burn rate of 1 means you are consuming budget at the normal rate (will exhaust exactly at period end). Burn rate of 2 means you will exhaust in half the period. Alert on multi-window burn: page if 1-hour burn rate exceeds 14.4x (exhausts in 2 hours) and ticket if 6-hour burn rate exceeds 6x (exhausts in 1 day). This catches both acute outages and slow degradations.
+
+### What is a multi-window multi-burn-rate alert?
+
+Multi-window multi-burn-rate alerts evaluate the burn rate over two time windows simultaneously. For example: alert if the 1-hour burn rate is above 14.4x AND the 5-minute burn rate is also above 14.4x. The short window prevents false positives from transient spikes, while the long window ensures the issue is sustained. This is the recommended approach from the Google SRE workbook.
+
+### How do we set SLOs for batch processing jobs?
+
+For batch jobs, use completion SLOs instead of availability. Define SLIs as: percentage of jobs completed within the deadline window (e.g., 95% of daily ETL jobs complete within 4 hours). Track freshness: percentage of data that is less than X hours old. Track throughput: jobs per hour vs expected. Set error budget as: allowed late jobs per period (e.g., 1 late job per week for 99% SLO).
+
+### Should we have different SLOs for different user tiers?
+
+Yes for business reasons, but be careful with implementation. You can define tier-specific SLOs (e.g., 99.99% for enterprise, 99.9% for free tier) by tagging requests with user tier and calculating SLIs per tier. This requires more complex monitoring but allows differentiated service. Ensure the infrastructure can actually deliver different reliability levels, otherwise you are just measuring the same thing.
+
+### How do we handle SLOs during incidents?
+
+During an incident, the SLO is already being missed (budget is being consumed). Focus on resolution, not measurement. After resolution, calculate the budget consumed and update the error budget dashboard. Use the incident as input for the next SLO review: was the SLO target appropriate? Did the alerting catch it early enough? Should the runbook be updated?
+
+
+Review SLO targets after major architecture changes, new feature launches, or significant traffic pattern shifts. Document all target changes with rationale and date.
+
+Track SLO compliance trends over 6-month windows to identify degrading services before they miss targets.

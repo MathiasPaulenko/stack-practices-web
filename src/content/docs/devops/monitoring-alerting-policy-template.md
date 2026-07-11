@@ -121,6 +121,114 @@ A Monitoring and Alerting Policy defines how an organization detects problems, n
 
 This policy turns raw monitoring signals into useful alerts. By assigning severity, routing, and escalation rules, the organization ensures that critical problems get fast attention while low-priority warnings do not disrupt on-call engineers. The review and maintenance section prevents alert fatigue by continuously tuning thresholds and removing noisy alerts.
 
+
+## Prometheus Alert Rules Example
+
+```yaml
+groups:
+  - name: api_alerts
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+          / sum(rate(http_requests_total[5m])) by (service) > 0.05
+        for: 2m
+        labels:
+          severity: P1
+          team: platform
+        annotations:
+          summary: "{{ $labels.service }} error rate > 5%"
+          description: "{{ $labels.service }} has {{ $value | humanizePercentage }} error rate for 2 minutes"
+          runbook: "https://runbooks.example.com/high-error-rate"
+
+      - alert: HighLatencyP99
+        expr: |
+          histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[10m])) by (le, service)) > 1
+        for: 5m
+        labels:
+          severity: P2
+          team: platform
+        annotations:
+          summary: "{{ $labels.service }} p99 latency > 1s"
+          runbook: "https://runbooks.example.com/high-latency"
+
+      - alert: DiskSpaceLow
+        expr: |
+          (node_filesystem_avail_bytes{mountpoint="/"}
+          / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 10
+        for: 15m
+        labels:
+          severity: P2
+          team: infrastructure
+        annotations:
+          summary: "Disk space < 10% on {{ $labels.instance }}"
+          runbook: "https://runbooks.example.com/disk-space"
+```
+
+## Alertmanager Routing Configuration
+
+```yaml
+route:
+  receiver: default
+  group_by: ["alertname", "service", "severity"]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    - matchers:
+        - severity = "P1"
+      receiver: pagerduty-critical
+      group_wait: 0s
+      repeat_interval: 30m
+    - matchers:
+        - severity = "P2"
+      receiver: pagerduty-warning
+      group_wait: 30s
+      repeat_interval: 2h
+    - matchers:
+        - severity = "P3"
+      receiver: slack-alerts
+      group_wait: 5m
+    - matchers:
+        - severity = "P4"
+      receiver: email-alerts
+      group_wait: 1h
+
+receivers:
+  - name: pagerduty-critical
+    pagerduty_configs:
+      - service_key: "P1_KEY"
+  - name: pagerduty-warning
+    pagerduty_configs:
+      - service_key: "P2_KEY"
+  - name: slack-alerts
+    slack_configs:
+      - channel: "#alerts"
+        api_url: "SLACK_WEBHOOK_URL"
+  - name: email-alerts
+    email_configs:
+      - to: "team@example.com"
+  - name: default
+    slack_configs:
+      - channel: "#alerts"
+```
+
+## Alert Quality Scorecard
+
+Review each alert quarterly using this scorecard:
+
+| Criterion | Score (1-5) | Notes |
+|-----------|-------------|-------|
+| Actionable: Does the alert trigger a clear response? | | |
+| Accuracy: Is the false-positive rate below 5%? | | |
+| Timely: Does the alert fire before user impact? | | |
+| Routed: Does it reach the team that can fix it? | | |
+| Documented: Is there a runbook linked? | | |
+| Unique: Is this alert redundant with another? | | |
+
+Total score below 18 means the alert needs tuning or removal.
+
 ## Variants
 
 - **Cloud-native alerting policy**: Uses Prometheus Alertmanager, Grafana Oncall, or PagerDuty for container and serverless environments.
@@ -128,6 +236,9 @@ This policy turns raw monitoring signals into useful alerts. By assigning severi
 - **Security alerting policy**: Emphasizes SIEM rules, threat detection, and incident response triggers.
 - **Business operations alerting**: Tracks KPIs, revenue, and customer-facing metrics with business-hour notifications.
 - **Developer self-service alerting**: Allows teams to define their own alert rules within guardrails.
+- **Multi-cloud alerting policy**: Uses cloud-agnostic tools (Grafana, Datadog) to unify alerts across AWS, GCP, and Azure.
+- **Cost alerting policy**: Monitors cloud spend with budget thresholds and anomaly detection on cost metrics.
+- **Compliance alerting policy**: Tracks audit log gaps, failed access reviews, and policy violations for regulated environments.
 
 ## What Works
 
@@ -139,6 +250,8 @@ This policy turns raw monitoring signals into useful alerts. By assigning severi
 - Review noisy alerts weekly and tune or delete them.
 - Test escalation paths during regular drills.
 - Document alert thresholds and the rationale for changes.
+- Use alert grouping to batch related alerts into a single notification during incidents.
+- Implement alert suppression for known maintenance windows and deployments.
 
 ## Common Mistakes
 
@@ -149,6 +262,9 @@ This policy turns raw monitoring signals into useful alerts. By assigning severi
 - Ignoring alerts that fire repeatedly without action.
 - Missing escalation paths for severe incidents.
 - Failing to review and retire stale alerts after system changes.
+- Setting thresholds based on gut feeling instead of historical data.
+- Not including service name and environment in alert labels, making triage harder.
+- Alerting on absolute values instead of rates or ratios, causing false positives during traffic spikes.
 
 ## FAQs
 
@@ -163,3 +279,21 @@ No. Only P1 and P2 alerts should page the on-call engineer. Lower-severity alert
 ### How do we know if our thresholds are right?
 
 Track the ratio of useful alerts to total alerts, measure mean time to acknowledge and resolve, and review false-positive rates. If an alert fires frequently without action, it is a candidate for tuning or removal.
+
+### What is multi-window alerting and why should I use it?
+
+Multi-window alerting evaluates a condition over both a short and long time window before firing. For example, error rate above 5% for both 1m and 5m windows. This prevents alerts from firing on transient spikes while still catching sustained issues. Prometheus supports this with the `for` clause and multiple expressions.
+
+### How do we handle alerts during planned maintenance?
+
+Use alert suppression or silencing in your alerting tool. In Alertmanager, create a silence rule with start/end times and matchers for the affected services. Document the maintenance window in an incident channel so on-call engineers know why alerts are suppressed. Never disable alerts globally; suppress only the specific rules affected.
+
+### Should we use SLO-based alerting instead of threshold-based alerting?
+
+SLO-based alerting (error budget burn rate) is more robust for user-facing services because it directly measures user impact. Threshold-based alerting is simpler and works well for infrastructure metrics (CPU, disk, memory). Use SLO-based alerting for critical user journeys and threshold-based for infrastructure health.
+
+### How many alerts should an on-call engineer receive per shift?
+
+A healthy on-call shift has 0-2 pages (P1/P2) and 5-15 Slack/email alerts (P3/P4). If an engineer receives more than 5 pages per shift, the alerting policy needs immediate tuning. Track alert volume per shift and review in weekly on-call retros.
+
+Alerts scoring below 12 should be deleted immediately. Alerts scoring 12-17 should be put on a 30-day improvement plan with a named owner.

@@ -127,6 +127,50 @@ Use this resource when:
 
 The template treats vendor assessment as a **structured, evidence-based process**, not a checkbox exercise. Each control requires **evidence**, not just a "yes." The risk scoring forces trade-offs: a cheap vendor with poor encryption may be acceptable for public marketing data but never for health records. The data handling section is particularly critical because vendors often commingle customer data in multi-tenant architectures, making deletion and breach containment harder.
 
+## Vendor Risk Assessment Process
+
+```text
+=== Vendor Evaluation Flow ===
+
+1. IDENTIFICATION
+   - Team identifies need for a new vendor/SaaS
+   - Completes assessment request with use case and data to share
+   - Security team receives request and assigns evaluator
+
+2. INITIAL QUESTIONNAIRE
+   - Send security questionnaire to vendor (SOC 2, ISO 27001, etc.)
+   - Request: certifications, security policies, audit reports
+   - Review: status page, incident history, breach notification policy
+   - Response deadline: 2 weeks
+
+3. TECHNICAL ASSESSMENT
+   - Review authentication methods (SSO, MFA, SAML)
+   - Review encryption (in transit and at rest)
+   - Review access management (RBAC, least privilege)
+   - Review data retention and deletion
+   - Review data location (residency, processing)
+   - Review sub-processors (does the vendor use other vendors?)
+
+4. COMPLIANCE ASSESSMENT
+   - Map regulatory requirements (GDPR, CCPA, HIPAA, SOC 2)
+   - Review DPA (Data Processing Agreement)
+   - Verify breach notification clauses (72 hours for GDPR)
+   - Verify audit rights and right to inspection
+
+5. DECISION
+   - Risk score calculated: Critical / High / Medium / Low
+   - Approval: security team + legal + engineering leadership
+   - If High/Critical: requires mitigations before approval
+   - Document decision and approval conditions
+
+6. CONTINUOUS MONITORING
+   - Review vendor annually
+   - Subscribe to vendor incident notifications
+   - Review sub-processor changes
+   - Reassess if vendor changes security posture
+```
+
+
 ## Variants
 
 | Context | Focus | Additional Checks |
@@ -166,3 +210,93 @@ A DPA is a legal contract that defines how a vendor (processor) handles your dat
 ### How often should I re-assess vendors?
 
 Annually for all vendors. Semi-annually for high-risk or critical vendors. Immediately after any security incident, acquisition, or major product change by the vendor. Do not let assessments expire; set calendar reminders tied to the contract renewal cycle.
+
+
+### How do we handle vendors already in use without assessment?
+
+For existing vendors without assessment: prioritize by risk — vendors with access to Restricted or Confidential data first. Conduct a retroactive assessment using the same process. If the assessment reveals unacceptable risks: implement mitigations (restrict data access, add monitoring, renegotiate contract terms). If risk is not mitigable: consider migrating to an alternative vendor. Document the assessment gap and remediation plan. Set a deadline for completing all retroactive assessments. Use this as a case study to justify the mandatory assessment process before onboarding.
+
+### What do we do if a vendor suffers a data breach?
+
+If a vendor suffers a breach: activate the incident response plan. Identify what data of yours was at the vendor. Assess impact: customer data exposed? credentials compromised? intellectual property leaked? Notify your customers if their data was exposed (GDPR requires notification within 72 hours). Rotate any credentials shared with the vendor. Review contract terms for notification and compensation obligations. Document the incident and conduct a postmortem. Reassess the vendor relationship — a breach may be an isolated incident or a pattern of poor security. If the vendor did not notify within the contractual timeframe, consider contract termination.
+
+### How do we evaluate cloud infrastructure vendors (AWS, GCP, Azure)?
+
+Cloud providers are high-risk vendors due to data volume and operational dependency. To evaluate: review their certifications (SOC 2 Type II, ISO 27001, FedRAMP). Review the shared responsibility model — what is the provider's responsibility vs. yours. Configure cloud security posture management (CSPM) for continuous monitoring. Review the provider's incident history and transparency in postmortems. Evaluate data regions and residency options. For compliance: verify the provider supports your regulatory requirements (GDPR, HIPAA, PCI DSS). Major cloud providers have extensive public assessments — use them but do not take them as gospel.
+
+### How do we handle vendor sub-processors?
+
+A sub-processor is a vendor that your vendor uses to process data. To manage: require the vendor to disclose all sub-processors. Review the vendor's contract — it must require sub-processors to meet the same security standards. Verify the DPA covers sub-processors. Subscribe to sub-processor change notifications — you have the right to object. For Restricted data: verify each sub-processor's security posture. Document the data processing chain. If a sub-processor changes, reassess the risk. The sub-processor chain is often the weakest link in the security posture.
+
+### How often should we reassess vendors?
+
+Reassess vendors: annually for vendors with access to Restricted or Confidential data. Biannually for vendors with access to Internal data. Triennially for vendors with access only to Public data. Out-of-cycle reassessment when: the vendor suffers a breach, changes sub-processors, changes terms of service, or changes security posture (e.g., loses a certification). Document each reassessment. If a vendor degrades their security posture: implement mitigations or consider contract termination. A reassessment is not a rubber stamp — it is a genuine evaluation of whether the vendor still meets your standards.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

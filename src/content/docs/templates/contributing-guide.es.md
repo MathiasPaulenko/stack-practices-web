@@ -179,3 +179,124 @@ Busca labels como `good first issue`, `help wanted` o `beginner-friendly` en el 
 ### Qué pasa si mi contribución es rechazada?
 
 No lo tomes personalmente. Los mantenedores pueden rechazar contribuciones que no se alinean con los objetivos del proyecto o necesitan rework mayor. Pide feedback específico e itera. Cada proyecto tiene diferentes estándares y prioridades.
+
+
+## Variantes
+
+| Contexto | Enfoque | Notas |
+|----------|---------|-------|
+| Open source | Guia publica con CLA | Incluir codigo de conducta y proceso de CLA |
+| Proyecto interno | Guia con workflow de CI/CD | Enfocarse en estandares internos |
+| Monorepo | Guia con reglas de scope | Incluir que va en cada paquete |
+| Libreria | Guia con versionado semver | Incluir politica de breaking changes |
+
+## Ejemplo de Flujo de Contribucion
+
+```text
+=== Flujo: De idea a merge ===
+
+1. Propuesta
+   - Crear issue describiendo el problema o feature
+   - Para features grandes: crear RFC (Request for Comments)
+   - Esperar feedback de maintainers antes de empezar
+
+2. Setup
+   - Hacer fork del repo (o branch si es interno)
+   - Clonar localmente
+   - Instalar dependencias: npm install
+   - Correr tests: npm test
+   - Correr linter: npm run lint
+
+3. Implementacion
+   - Crear branch desde main: git checkout -b feature/descripcion-corta
+   - Escribir codigo siguiendo los estandares del proyecto
+   - Escribir o actualizar tests
+   - Actualizar documentacion si es necesario
+   - Commit con mensaje convencional: feat: agrega validacion de email
+
+4. Verificacion Local
+   - npm test (todos los tests pasan)
+   - npm run lint (sin errores)
+   - npm run build (compila sin errores)
+   - Verificar que no hay cambios no relacionados
+
+5. Pull Request
+   - Push al fork/branch
+   - Crear PR con la plantilla del proyecto
+   - Descripcion clara del cambio y el por que
+   - Linkear el issue relacionado: "Closes #123"
+   - Adjuntar screenshots si hay cambios de UI
+   - Esperar CI: todos los checks deben pasar
+
+6. Code Review
+   - Responder a comentarios de review
+   - Hacer cambios solicitados
+   - Marcar conversaciones como resueltas
+   - No forzar merge si hay objections de maintainers
+   - Squash commits si es necesario
+
+7. Merge
+   - Maintainer aprueba y mergea
+   - Branch eliminada despues del merge
+   - Issue cerrado automaticamente
+```
+
+### Como manejamos contribuciones de la comunidad?
+
+Para contribuciones externas: ten un archivo CONTRIBUTING.md claro y publico. Usa un CLA (Contributor License Agreement) si es necesario para proteccion legal. Responde a issues y PRs dentro de 7 dias — la falta de respuesta desanima a contribuidores. Usa etiquetas: "good first issue", "help wanted", "needs review" para guiar a contribuidores. Manten un codigo de conducta (Contributor Covenant) y enforce lo. Crea una guia de estilo de codigo. Usa plantillas de issue y PR. Reconoce a contribuidores en el README o en un archivo CONTRIBUTORS. Para contribuciones grandes: pide un RFC primero. La comunidad es tu mayor activo — tratala bien.
+
+### Como manejamos breaking changes en contribuciones?
+
+Para breaking changes: etiqueta el PR como "breaking change". Requiere aprobacion de al menos 2 maintainers. Documenta el cambio en CHANGELOG con instrucciones de migracion. Si el proyecto usa semver: el merge debe ir en un release major (v2.x -> v3.0). Proporciona un codemod o script de migracion si es posible. Comunica el breaking change con anticipacion: deprecation warning en la version anterior, nota en el README, y post en el blog/chat. Para librerias: publica una version beta primero para que los usuarios puedan probar. Nunca merges un breaking change sin un plan de comunicacion — los usuarios se enteraran cuando sus tests fallen.
+
+### Como mantenemos la calidad de las contribuciones?
+
+Usa CI/CD para enforce calidad: linter, tests, build, y coverage en cada PR. Requiere que todos los checks pasen antes del merge. Usa protection rules en GitHub: require review de N maintainers, require status checks, require branches actualizadas. Manten un estandar de code review: revisa logica, tests, documentacion, y estilo. Da feedback constructivo — no "esto esta mal" sino "considera usar X porque Y". Cierra PRs que no han tenido actividad en 30 dias. Para contribuidores nuevos: se mas paciente y ofrece mas guia. La calidad es un balance — no seas tan estricto que ahuyentes contribuidores ni tan laxo que el codigo se degrade.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

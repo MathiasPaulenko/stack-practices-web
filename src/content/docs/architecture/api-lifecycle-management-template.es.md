@@ -131,6 +131,124 @@ Usa este recurso cuando:
 
 El checklist impone un **período mínimo de aviso** que respeta los cronogramas de los consumidores. Las APIs externas necesitan ventanas de deprecación más largas porque no puedes controlar cuándo los consumidores actualizan. El header `Sunset` es legible por máquinas, permitiendo que las librerías cliente adviertan a desarrolladores automáticamente. Rastrear tráfico antes del cierre previene roturas sorpresa de integraciones internas olvidadas.
 
+## Headers de Deprecación y Sunset
+
+Agrega headers HTTP a cada respuesta del endpoint deprecado para que los consumidores descubran la deprecación programáticamente:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Deprecation: true
+Sunset: Sat, 31 Dec 2026 23:59:59 GMT
+Link: <https://api.example.com/v3/users>; rel="successor-version"
+```
+
+Las librerías cliente pueden parsear estos headers y registrar advertencias:
+
+```javascript
+function checkDeprecationHeaders(response) {
+  const sunset = response.headers.get("Sunset");
+  const deprecation = response.headers.get("Deprecation");
+  const successor = response.headers.get("Link");
+
+  if (deprecation === "true") {
+    console.warn(`Este endpoint esta deprecado. Fecha de cierre: ${sunset}`);
+    if (successor) {
+      console.warn(`Migra a: ${successor.match(/<([^>]+)>/)?.[1]}`);
+    }
+  }
+}
+```
+
+## Plantilla de Guía de Migración
+
+Proporciona una guía de migración estructurada para cada cambio incompatible:
+
+```markdown
+# Guía de Migración: v2 -> v3 User Service API
+
+## Resumen
+- Campo `name` dividido en `firstName` y `lastName`
+- Endpoint `/v2/users/{id}` reemplazado por `/v3/users/{id}`
+- Respuestas de error ahora usan formato RFC 7807 Problem Details
+
+## Antes (v2)
+```json
+GET /v2/users/123
+{
+  "id": 123,
+  "name": "Alice Johnson",
+  "email": "alice@example.com"
+}
+```
+
+## Después (v3)
+```json
+GET /v3/users/123
+{
+  "id": 123,
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "email": "alice@example.com"
+}
+```
+
+## Cambio de Formato de Error
+```json
+// Error v2
+{ "error": "User not found", "code": 404 }
+
+// Error v3 (RFC 7807)
+{
+  "type": "https://api.example.com/errors/not-found",
+  "title": "User not found",
+  "status": 404,
+  "detail": "User 123 does not exist"
+}
+```
+
+## Pasos de Migración Automatizados
+1. Actualizar URL base de `/v2/` a `/v3/`
+2. Reemplazar `name` con `firstName` + `lastName` en modelos de request/response
+3. Actualizar manejo de errores para parsear formato RFC 7807
+4. Probar contra sandbox en `https://sandbox.api.example.com/v3/`
+```
+
+## Script de Monitoreo de Cierre Automatizado
+
+Rastrea tráfico a endpoints deprecados para saber cuándo es seguro cerrarlos:
+
+```python
+import requests
+from datetime import datetime, timedelta
+
+def check_sunset_readiness(grafana_url, dashboard_id, api_token):
+    headers = {"Authorization": f"Bearer {api_token}"}
+    end = datetime.utcnow()
+    start = end - timedelta(days=7)
+
+    query = f'sum(rate(http_requests_total{{version="v2"}}[1h]))'
+    params = {
+        "query": query,
+        "start": start.timestamp(),
+        "end": end.timestamp(),
+        "step": 3600,
+    }
+
+    resp = requests.get(f"{grafana_url}/api/datasources/proxy/1/api/v1/query_range",
+                        headers=headers, params=params)
+    data = resp.json()
+
+    hourly_rates = [float(point[1]) for point in data["data"]["result"][0]["values"]]
+    zero_traffic_days = sum(1 for rate in hourly_rates if rate == 0)
+
+    if zero_traffic_days >= 7:
+        print("LISTO PARA CIERRE: 7 dias consecutivos de trafico cero")
+    else:
+        print(f"NO LISTO: Solo {zero_traffic_days} horas de trafico cero en ultimos 7 dias")
+        print(f"Trafico promedio por hora: {sum(hourly_rates) / len(hourly_rates):.1f} requests")
+```
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -138,6 +256,8 @@ El checklist impone un **período mínimo de aviso** que respeta los cronogramas
 | Microservicios internos | Tiempos más cortos, cumplimiento más estricto | Los equipos pueden coordinar vía canal Slack compartido |
 | API pública SaaS | Tiempos largos, revisión legal | Puede requerir compromisos SLA para avisos de deprecación |
 | Backends de app móvil | Forzar actualización vía app store | Usar verificaciones de versión mínima para cerrar endpoints antiguos |
+| APIs GraphQL | Directivas de deprecación de esquema | Usar directiva `@deprecated` en campos y tipos |
+| Event-driven | Modos de compatibilidad del registro de esquemas | Transicionar de BACKWARD a NONE antes de eliminar esquema antiguo |
 
 ## Lo que funciona
 
@@ -146,6 +266,8 @@ El checklist impone un **período mínimo de aviso** que respeta los cronogramas
 3. Mantener un changelog público de la API con fechas para cada cambio
 4. Versionar el contrato de API independientemente del despliegue del servicio
 5. Mantener endpoints deprecados observables con dashboards dedicados
+6. Enviar avisos de deprecación por múltiples canales (email, headers, changelog, página de estado)
+7. Proporcionar un shim de compatibilidad para migraciones complejas para reducir esfuerzo del consumidor
 
 ## Errores Comunes
 
@@ -154,6 +276,8 @@ El checklist impone un **período mínimo de aviso** que respeta los cronogramas
 3. Eliminar documentación antes de que la API se cierre
 4. Asumir que todos los consumidores leen los avisos por email
 5. Forzar migraciones durante temporadas altas o cierres fiscales
+6. No proporcionar un entorno sandbox para que los consumidores prueben la nueva versión
+7. Cerrar sin monitorear 404s de consumidores desconocidos post-cierre
 
 ## Preguntas Frecuentes
 
@@ -168,3 +292,19 @@ El versionado por URL (`/v1/`, `/v2/`) es explícito y fácil de depurar. El ver
 ### ¿Qué hago si un consumidor se niega a migrar?
 
 Si un consumidor es crítico y no puede migrar a tiempo, negocia una extensión con fecha límite dura. Si el consumidor no es crítico, procede con el cierre; la respuesta `410 Gone` forzará la acción.
+
+### ¿Cómo manejo el versionado para APIs GraphQL?
+
+GraphQL usa un único endpoint. Deprecar campos con la directiva `@deprecated` y monitorear uso vía consultas de introspección. Eliminar campos deprecados solo después de que el uso baje a cero.
+
+### ¿Qué es un shim de compatibilidad y cuándo debo usarlo?
+
+Un shim de compatibilidad es una capa de traducción que acepta requests en formato antiguo y los convierte al nuevo formato internamente. Úsalo cuando la migración es compleja (ej. división de campos, reestructuración de respuesta) y los consumidores necesitan tiempo para adaptarse. Elimina el shim después de que todos los consumidores hayan migrado.
+
+### ¿Debería mantener SDKs separados para cada versión de API?
+
+Mantén SDKs para la versión major actual y la anterior. Elimina soporte para SDKs más antiguos después de que la ventana de deprecación expire. Publica guías de migración junto con actualizaciones de SDK para que los desarrolladores puedan actualizar en una sola pasada.
+
+### ¿Cómo automatizo la verificación de preparación para cierre?
+
+Instrumenta tu API gateway o load balancer para etiquetar requests por versión. Construye un dashboard que muestre tráfico por versión a lo largo del tiempo. Configura una alerta cuando el tráfico a una versión deprecada baje de un umbral durante 7 días consecutivos, señalando preparación para cierre.

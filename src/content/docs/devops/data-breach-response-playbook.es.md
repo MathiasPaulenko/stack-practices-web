@@ -175,6 +175,76 @@ Antes de que ocurra una violacion:
 
 El playbook esta dividido en fases que coinciden con la presion temporal de una violacion: las primeras horas son sobre confirmar y contener; los siguientes dias sobre investigar y notificar; las siguientes semanas sobre arreglar y aprender. Cada fase tiene casillas de verificacion con responsables asignados para que nada se olvide en el caos. La matriz de decision de notificacion es critica. Omitir un plazo legal puede convertir un incidente de seguridad en una multa regulatoria.
 
+## Plantillas de Comunicacion de Respuesta a Brecha
+
+```text
+=== Interno: Alerta Inicial de Brecha (Slack/Email) ===
+
+ASUNTO: [SEV-SECURITY] Sospecha de brecha de datos — [SISTEMA]
+
+Comandante de incidente: [NOMBRE]
+Bridge: [TELEFONO/VIDEO LINK]
+Estado: Investigando
+Resumen: [DESCRIPCION BREVE — que se detecto, cuando, por quien]
+Impacto: [DESCONOCIDO / CONFIRMADO — que sistemas/datos pueden estar afectados]
+Proximos pasos: [CONTENCION / FORENSICS / NOTIFICACION]
+
+NO discutir detalles en canales publicos.
+Usar el bridge del incidente y #sec-incident-private solo.
+
+=== Externo: Email de Notificacion al Cliente ===
+
+Asunto: Aviso de Seguridad Importante — [EMPRESA]
+
+Estimado [CLIENTE],
+
+Le escribimos para informarle de un incidente de seguridad que puede
+haber afectado la informacion de su cuenta. Descubrimos el incidente el
+[FECHA] y tomamos accion inmediata para asegurar nuestros sistemas.
+
+Que paso:
+  [DESCRIPCION BREVE, NO TECNICA]
+
+Que datos estuvieron involucrados:
+  [LISTA DE TIPOS DE DATOS — ej., nombre, email, password hasheado]
+
+Que hemos hecho:
+  - Contenido la brecha y asegurado los sistemas afectados
+  - Contratado investigadores forenses y notificado a autoridades
+  - [PASOS ADICIONALES]
+
+Que debe hacer:
+  - Cambie su contrasena inmediatamente
+  - Habilite autenticacion de dos factores
+  - Monitoree su cuenta por actividad sospechosa
+  - [RECOMENDACIONES ADICIONALES]
+
+Tomamos la seguridad de sus datos en serio y pedimos disculpas por
+cualquier preocupacion que esto pueda causar. Proporcionaremos
+actualizaciones a medida que sepamos mas.
+
+Contacto: [EMAIL_SOPORTE / TELEFONO DEDICADO]
+
+Equipo de Seguridad de [EMPRESA]
+
+=== Externo: Actualizacion de Pagina de Estado ===
+
+[INVESTIGANDO] Estamos investigando un incidente de seguridad que
+afecta a [SISTEMA]. Hamos tomado los sistemas afectados fuera de
+linea y estamos trabajando para determinar el alcance. Actualizaremos
+esta pagina cada [INTERVALO] hasta que se resuelva.
+
+[IDENTIFICADO] Hemos identificado la causa del incidente de seguridad
+y contenido la amenaza. Los sistemas afectados estan siendo restaurados
+con medidas de seguridad mejoradas. Notificaremos a los usuarios
+afectados directamente.
+
+[RESUELTO] El incidente de seguridad ha sido resuelto. Todos los
+sistemas afectados estan seguros y operacionales. Un reporte detallado
+post-incidente sera publicado el [FECHA].
+```
+
+
 ## Variantes
 
 | Contexto | Ajustes | Notas |
@@ -214,3 +284,24 @@ Asume persistencia. Cambia todas las credenciales, revisa todas las cuentas por 
 ### Quien decide si notificar a los clientes?
 
 El asesor legal, trabajando con el comandante de incidente y el liderazgo ejecutivo. La decision se basa en la ley aplicable, obligaciones contractuales y evaluacion de riesgos. El lider de comunicaciones ejecuta la decision, pero no la toma unilateralmente.
+
+
+### Como preservamos evidencia durante la contencion?
+
+Antes de aislar o reconstruir sistemas: captura datos volatiles primero (dumps de memoria, conexiones de red, procesos en ejecucion, sesiones de login). Usa herramientas como LiME (Linux Memory Extractor) o WinPMEM para captura de memoria. Toma imagenes de disco de los sistemas afectados antes de limpiar. Preserva todos los logs (sistema, aplicacion, red, acceso) en una ubicacion de solo escritura. Documenta la cadena de custodia para toda la evidencia. Marca con timestamp cada accion tomada durante la contencion. Usa una ubicacion de almacenamiento de evidencia dedicada con acceso restringido. Si careces de capacidad forense interna, contrata una firma externa inmediatamente — pueden guiar la preservacion de evidencia remotamente.
+
+### Que cronogramas de notificacion regulatoria aplican?
+
+Los cronogramas varian por jurisdiccion y tipo de datos. GDPR: notificar a la autoridad supervisora dentro de 72 horas de conocer la brecha. CCPA: sin cronograma especifico pero "sin demora irrazonable." HIPAA: notificar a individuos afectados dentro de 60 dias. Leyes estatales de EE.UU.: tipicamente 30-60 dias dependiendo del estado. PCI DSS: notificar a las marcas de tarjetas y adquirentes inmediatamente. Verifica tus obligaciones especificas con asesor legal — no asumas. Documenta la decision de notificacion y la justificacion independientemente de si se requiere notificacion. En caso de duda, notifica — la penalidad por notificacion tardia es a menudo peor que la penalidad por sobre-notificacion.
+
+### Como realizamos un ejercicio de simulacro de respuesta a brecha?
+
+Programa una sesion de 2 horas con el equipo de respuesta a incidentes. Escenario: un tipo de brecha especifico (ej., robo de credenciales, ransomware, exfiltracion de datos por insider). Recorre cada fase: deteccion, contencion, investigacion, notificacion, remediacion. Discute: quien hace que, que informacion se necesita, que decisiones se toman, y que puede salir mal. Asigna un observador para anotar brechas en el playbook. Despues del ejercicio, actualiza el playbook basado en los hallazgos. Ejecuta ejercicios trimestralmente con escenarios diferentes. Incluye participantes legales, de comunicaciones y ejecutivos — no solo ingenieros.
+
+### Que deberiamos hacer si descubrimos la brecha semanas despues de que ocurrio?
+
+Si la brecha se descubre tarde: no entres en panico, pero actua rapidamente. Involucra asesor legal inmediatamente — los plazos de notificacion pueden haber comenzado ya. Contrata una firma forense para determinar el cronograma y alcance. Preserva toda la evidencia disponible (logs, backups, imagenes de sistema). Notifica a reguladores si es requerido — se transparente sobre el retraso y la razon. Notifica a clientes afectados con comunicacion clara y honesta. Revisa por que la deteccion se retraso y mejora el monitoreo. Documenta todo — la deteccion tardia es un hallazgo, no una excusa. El postmortem deberia abordar tanto la brecha como la brecha de deteccion.
+
+### Como manejamos una brecha en un proveedor externo?
+
+Si un proveedor experimenta una brecha que afecta tus datos: confirma que datos tuyos estuvieron involucrados. Revisa tu Acuerdo de Procesamiento de Datos (DPA) para requisitos de notificacion. Solicita un reporte detallado del incidente al proveedor. Evalua si continuar usando el proveedor o cambiar de proveedor. Notifica a tus clientes afectados si es requerido — eres responsable de sus datos incluso cuando un proveedor los tiene. Coordina la comunicacion con el proveedor para asegurar mensajeria consistente. Documenta la respuesta del proveedor y tu evaluacion para registros legales y de compliance. Considera accion legal si el proveedor no cumplio las obligaciones contractuales de seguridad.

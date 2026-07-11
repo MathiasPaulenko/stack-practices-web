@@ -131,6 +131,127 @@ Use this resource when:
 
 Cost allocation only works when **every resource is tagged consistently**. Without tags, spending becomes "shared overhead" that no team owns. The template forces a tagging policy enforced in CI/CD, so every deployed resource is traceable to a team and service. The **shared cost** section acknowledges that some infrastructure benefits everyone and cannot be tagged directly. The allocation basis (headcount, usage, even split) should be agreed upon with finance upfront to avoid disputes.
 
+## Terraform Tag Enforcement Policy
+
+```hcl
+# Terraform module with mandatory tags
+variable "required_tags" {
+  type = map(string)
+  default = {
+    Team        = "platform"
+    Environment = "production"
+    Project     = "api-gateway"
+    CostCenter  = "PL-0001"
+  }
+}
+
+resource "aws_instance" "app" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.medium"
+  tags          = var.required_tags
+}
+
+# Tag validation in CI
+resource "null_resource" "tag_validator" {
+  provisioner "local-exec" {
+    command = "python3 scripts/validate_tags.py --tfplan tfplan.json"
+  }
+}
+```
+
+## Untagged Resource Detection Script
+
+```python
+#!/usr/bin/env python3
+"""Detect untagged AWS resources and report estimated cost."""
+import boto3
+import json
+from datetime import datetime, timedelta
+
+def check_untagged_resources():
+    ce = boto3.client('ce')
+    ec2 = boto3.client('ec2')
+
+    # Query cost by resource for the last 7 days
+    end_date = datetime.now().strftime('%Y-%m-%d')
+    start_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+
+    response = ce.get_cost_and_usage(
+        TimePeriod={'Start': start_date, 'End': end_date},
+        Granularity='DAILY',
+        Filter={'Dimensions': {'Key': 'RECORD_TYPE', 'Values': ['Usage']}},
+        GroupBy=[{'Type': 'DIMENSION', 'Key': 'RESOURCE_ID'}],
+        Metrics=['UnblendedCost']
+    )
+
+    untagged_cost = 0
+    untagged_resources = []
+
+    for group in response['ResultsByTime']:
+        for result in group['Groups']:
+            resource_id = result['Keys'][0]
+            cost = float(result['Metrics']['UnblendedCost']['Amount'])
+            if cost > 0:
+                try:
+                    if 'instance/' in resource_id:
+                        instance_id = resource_id.split('/')[-1]
+                        tags = ec2.describe_tags(
+                            Filters=[{'Name': 'resource-id', 'Values': [instance_id]}]
+                        )
+                        if not tags['Tags']:
+                            untagged_cost += cost
+                            untagged_resources.append({
+                                'resource_id': resource_id,
+                                'cost': cost
+                            })
+                except Exception:
+                    pass
+
+    print(f'Untagged resources: {len(untagged_resources)}')
+    print(f'Estimated weekly cost: ${untagged_cost:.2f}')
+    if untagged_cost > 500:
+        print('ALERT: Untagged resources exceed $500/week')
+    return untagged_resources
+
+if __name__ == '__main__':
+    check_untagged_resources()
+```
+
+## Cost Dashboard by Team
+
+```text
+=== Cost Dashboard by Team (Monthly) ===
+
+Team Platform:
+  EC2:          $3,200  (40%)
+  RDS:          $1,800  (22%)
+  S3:             $400  (5%)
+  DataTransfer:   $600  (8%)
+  Total:        $6,000  (100%)
+
+Team Data:
+  EMR:          $4,500  (55%)
+  RDS:          $2,000  (24%)
+  S3:          $1,200  (15%)
+  Lambda:         $500  (6%)
+  Total:        $8,200  (100%)
+
+Team Frontend:
+  CloudFront:   $1,200  (60%)
+  S3:             $300  (15%)
+  EC2:            $500  (25%)
+  Total:        $2,000  (100%)
+
+Shared Costs:
+  Load Balancers: $800
+  Monitoring:     $400
+  Networking:     $300
+  Total:        $1,500
+
+MONTHLY TOTAL: $17,700
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -169,3 +290,24 @@ Use a FinOps platform (CloudHealth, Finout, Vantage) or build a pipeline that ex
 ### How do I reduce costs without impacting reliability?
 
 Right-size instances based on actual CPU/memory usage (not peak). Use spot/preemptible for non-critical workloads. Archive old logs and data. Enable auto-shutdown for dev environments after hours. Each change should have a rollback plan and be tested in staging.
+
+
+### How do we implement tag enforcement in CI/CD?
+
+Use Terraform Cloud or GitHub Actions with tag validation. Create a script that parses the Terraform plan and verifies all resources have required tags (team, environment, project, cost-center). Fail the pipeline if any tag is missing. For existing resources, run weekly scans with Cloud Custodian or custom scripts that identify untagged resources and notify owners.
+
+### What is Cloud Custodian and how does it help?
+
+Cloud Custodian (c7n) is an open-source cloud management tool that lets you write policies in YAML to audit, enforce, and optimize resources across AWS, Azure, and GCP. You can write rules like "delete untagged resources after 7 days" or "stop EC2 instances outside business hours." Run it daily via Lambda or CI/CD. Store results in S3 or CloudWatch for audit trails.
+
+### How do we handle cross-region data transfer costs?
+
+Cross-region data transfer costs apply on both sides. Track egress by region using AWS Cost Explorer grouped by region. Allocate transfer costs to the service that initiates the transfer. For multi-region architectures, consider VPC peering or Transit Gateway to reduce costs. Document transfer patterns and review quarterly to identify optimization opportunities.
+
+### How do we optimize Kubernetes costs?
+
+1. Set appropriate requests and limits per pod. 2. Enable Horizontal Pod Autoscaler to scale with demand. 3. Use spot instances for non-critical workloads. 4. Implement cluster autoscaler to adjust nodes. 5. Review idle resources (pods with no traffic, abandoned namespaces). 6. Use Kubecost or similar for per-namespace visibility. 7. Consolidate small services into shared clusters. 8. Use mixed-instance node groups.
+
+### How do we calculate cost per active user?
+
+Total service cost divided by monthly active users (MAU). Include all direct costs (compute, storage, network) and allocated shared costs. Track this monthly. If cost per user increases while user count stays flat, there is inefficiency. Compare across teams to identify outliers. Set a target cost per user and review quarterly.

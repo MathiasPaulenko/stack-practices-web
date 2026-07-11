@@ -149,6 +149,51 @@ Antes de reconstruir la cronologia:
 
 La cronologia expone **brechas** — los periodos donde no paso nada util. La mayoria de las mejoras de MTTR provienen de eliminar estas brechas, no de hacer mas rapido el trabajo activo. La plantilla fuerza a documentar la fuente de cada marca de tiempo (linea de log, mensaje de Slack, sistema de monitoreo) para que la cronologia sea verificable, no basada en memoria. El analisis de retrasos convierte la cronologia en mejoras útiles en lugar de solo un registro historico.
 
+## Ejemplo Real de Timeline de Incidente
+
+```text
+=== Timeline de Incidente: INC-2026-07-11-001 ===
+
+Severidad: SEV1 (Critico)
+Servicio: auth-service
+Inicio: 2026-07-11 10:55 UTC
+Fin:    2026-07-11 11:25 UTC
+Duracion: 30 minutos
+
+TIMELINE:
+10:42  [SISTEMA]  CPU de DB comienza a subir (metrica CloudWatch)
+10:50  [SISTEMA]  CPU de DB llega a 95% (umbral: 80%)
+10:52  [SISTEMA]  Latencia de login p99 excede 2s (umbral: 1s)
+10:55  [ALERTA]   PagerDuty dispara: "auth-service latencia critica"
+10:55  [ALERTA]   PagerDuty dispara: "DB CPU critico"
+10:57  [HUMANO]   On-call reconoce ambas alertas
+10:58  [HUMANO]   On-call abre canal de incidente #inc-2026-07-11
+11:00  [HUMANO]   On-call declara SEV1 — 15% de logins fallando
+11:01  [HUMANO]   On-call revisa despliegues recientes — config deploy a las 10:40
+11:03  [HUMANO]   On-call identifica cambio de config: rotacion de JWT secret
+11:04  [HUMANO]   On-call notifica a canal #support sobre problemas de login
+11:05  [HUMANO]   On-call inicia rollback del cambio de config
+11:08  [SISTEMA]  Rollback de config desplegado
+11:08  [HUMANO]   On-call monitorea tasa de error: 15% -> 8% -> 3%
+11:12  [SISTEMA]  Tasa de error cae debajo de 0.5%
+11:12  [HUMANO]   On-call actualiza pagina de estado: "Problema identificado, fix desplegado"
+11:15  [HUMANO]   On-call monitorea por 10 minutos (ventana de estabilidad)
+11:25  [HUMANO]   On-call declara incidente resuelto
+11:25  [HUMANO]   On-call actualiza pagina de estado: "Resuelto"
+
+ANALISIS DE RETRASOS:
+  Deteccion -> Alerta:        3 min  (CPU DB subiendo a las 10:42, alerta a las 10:55)
+  Alerta -> Reconocimiento:   2 min  (Bien)
+  Reconocimiento -> Declarar: 3 min  (Bien)
+  Declarar -> Identificar:    4 min  (Bien — reviso deploys recientes)
+  Identificar -> Fix:         3 min  (Bien — rollback rapido)
+  Fix -> Estable:             7 min  (Aceptable — drenaje de tasa de error)
+  Estable -> Resolver:       10 min  (Ventana de estabilidad estandar)
+
+TOTAL: 30 minutos (RTO objetivo: 30 min — CUMPLIDO)
+```
+
+
 ## Variants
 
 | Contexto | Enfoque | Notas |
@@ -187,3 +232,70 @@ En postmortems sin culpa, enfocate en roles ("ingeniero de guardia", "ingeniero 
 ### Que tan detallada deberia ser la cronologia?
 
 Apunta a eventos cada 5-10 minutos durante la respuesta activa. No necesitas documentar cada mensaje de Slack, pero deberias capturar cada accion, decision y escalamiento significativos. Si un periodo de 30 minutos no tiene entradas, esa es una brecha que vale la pena investigar.
+
+
+### Como automatizamos la recopilacion de timeline durante incidentes?
+
+Usa una herramienta de gestion de incidentes que capture timestamps automaticamente: PagerDuty, FireHydrant, o Rootly. Estas herramientas se integran con Slack, monitoreo y CI/CD para construir el timeline automaticamente. Usa un canal de Slack dedicado para incidentes con un bot que registre todos los mensajes con timestamps. Configura CloudWatch o Datadog para publicar anomalias de metricas al canal de incidentes. Usa un rol de scribe durante el incidente para registrar manualmente decisiones y acciones clave. Despues del incidente, exporta el timeline de la herramienta y refinelo para el post-mortem.
+
+### Que es un post-mortem sin culpa y como soporta el timeline?
+
+Un post-mortem sin culpa se enfoca en sistemas y procesos, no individuos. El timeline soporta esto mostrando que paso y cuando, sin asignar culpa. En lugar de "Alice tardo 10 minutos en identificar el problema", escribe "El ingeniero on-call tardo 10 minutos en identificar el problema porque el runbook no cubria este escenario." El timeline revela brechas sistemicas: alertas faltantes, runbooks poco claros, rutas de escalacion lentas. Los action items abordan estas brechas, no el rendimiento individual. Revisa el timeline con el equipo para validar hechos e identificar patrones.
+
+### Como usamos timelines para encontrar patrones entre incidentes?
+
+Mantén una base de datos de timelines de incidentes. Trimestralmente, revisa todos los timelines en busca de patrones: brechas de deteccion recurrentes (misma alerta faltante multiples veces), retrasos de escalacion recurrentes (mismo equipo lento en responder), fallos de rollback recurrentes (mismo problema de migracion), y retrasos de comunicacion recurrentes (pagina de estado no actualizada rapidamente). Crea un reporte de "top 5 patrones" para liderazgo. Prioriza action items que aborden patrones sobre problemas unicos. Rastrea la resolucion de patrones como metrica: "incidentes con brecha de deteccion reducidos de 60% a 30%."
+
+### Deberiamos compartir timelines de incidentes con clientes?
+
+Para incidentes SEV1-2, comparte un timeline resumido en el post-mortem publicado en la pagina de estado. Incluye: cuando empezo el problema, cuando fue detectado, cuando se desplego un fix, y cuando fue resuelto. Omite detalles de herramientas internas y nombres de responders. Para incidentes SEV3, un breve resumen es suficiente. El timeline muestra a los clientes que tomas los incidentes en serio y tienes un proceso de respuesta estructurado. Tambien establece expectativas para incidentes futuros — los clientes aprenden tus patrones de deteccion y resolucion.
+
+### Como manejamos timelines para incidentes de larga duracion (multi-hora o multi-dia)?
+
+Para incidentes largos, divide el timeline en fases: Deteccion, Investigacion, Mitigacion, Resolucion, Recuperacion. Dentro de cada fase, registra eventos clave cada 15-30 minutos. Para brechas mayores a 30 minutos, nota que se estaba investigando incluso si no se tomo accion. Asigna un scribe dedicado que rote cada 4 horas para prevenir fatiga. Usa el timeline para identificar cuando se perdio momentum (brechas largas sin progreso) — estas son oportunidades para escalacion. Despues de la resolucion, el timeline puede necesitar condensarse para el post-mortem, pero mantén la version completa para referencia.
+
+
+### Como automatizamos la recopilacion de timeline durante incidentes?
+
+Usa una herramienta de gestion de incidentes que capture timestamps automaticamente: PagerDuty, FireHydrant, o Rootly. Estas herramientas se integran con Slack, monitoreo y CI/CD para construir el timeline automaticamente. Usa un canal de Slack dedicado para incidentes con un bot que registre todos los mensajes con timestamps. Configura CloudWatch o Datadog para publicar anomalias de metricas al canal de incidentes. Usa un rol de scribe durante el incidente para registrar manualmente decisiones y acciones clave. Despues del incidente, exporta el timeline de la herramienta y refinelo para el post-mortem.
+
+### Que es un post-mortem sin culpa y como soporta el timeline?
+
+Un post-mortem sin culpa se enfoca en sistemas y procesos, no individuos. El timeline soporta esto mostrando que paso y cuando, sin asignar culpa. En lugar de "Alice tardo 10 minutos en identificar el problema", escribe "El ingeniero on-call tardo 10 minutos en identificar el problema porque el runbook no cubria este escenario." El timeline revela brechas sistemicas: alertas faltantes, runbooks poco claros, rutas de escalacion lentas. Los action items abordan estas brechas, no el rendimiento individual. Revisa el timeline con el equipo para validar hechos e identificar patrones.
+
+### Como usamos timelines para encontrar patrones entre incidentes?
+
+Mantén una base de datos de timelines de incidentes. Trimestralmente, revisa todos los timelines en busca de patrones: brechas de deteccion recurrentes, retrasos de escalacion recurrentes, fallos de rollback recurrentes, y retrasos de comunicacion recurrentes. Crea un reporte de "top 5 patrones" para liderazgo. Prioriza action items que aborden patrones sobre problemas unicos. Rastrea la resolucion de patrones como metrica: "incidentes con brecha de deteccion reducidos de 60% a 30%."
+
+### Deberiamos compartir timelines de incidentes con clientes?
+
+Para incidentes SEV1-2, comparte un timeline resumido en el post-mortem publicado en la pagina de estado. Incluye: cuando empezo el problema, cuando fue detectado, cuando se desplego un fix, y cuando fue resuelto. Omite detalles de herramientas internas y nombres de responders. Para incidentes SEV3, un breve resumen es suficiente. El timeline muestra a los clientes que tomas los incidentes en serio y tienes un proceso de respuesta estructurado.
+
+### Como manejamos timelines para incidentes de larga duracion?
+
+Para incidentes largos, divide el timeline en fases: Deteccion, Investigacion, Mitigacion, Resolucion, Recuperacion. Dentro de cada fase, registra eventos clave cada 15-30 minutos. Para brechas mayores a 30 minutos, nota que se estaba investigando incluso si no se tomo accion. Asigna un scribe dedicado que rote cada 4 horas para prevenir fatiga. Usa el timeline para identificar cuando se perdio momentum — estas son oportunidades para escalacion. Despues de la resolucion, el timeline puede necesitar condensarse para el post-mortem, pero mantén la version completa para referencia.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

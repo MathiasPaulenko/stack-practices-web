@@ -173,6 +173,72 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 - Descripciones vagas como "varias mejoras" — nombra la mejora y cuantifícala
 - Sin link a guía de migración para breaking changes — los usuarios necesitan un path paso a paso
 
+## Ejemplo de Release Notes
+
+```text
+=== Release Notes: v2.5.0 ===
+
+# v2.5.0 - 2026-07-15
+
+## Nuevas Caracteristicas
+
+- **Autenticacion con passkeys**: Los usuarios ahora pueden registrarse y
+  autenticarse usando passkeys (WebAuthn) ademas de contrasenas.
+  Configuracion en Configuracion > Seguridad > Passkeys.
+
+- **Exportacion de datos a CSV**: Los administradores pueden exportar
+  cualquier tabla a CSV desde el panel de administracion.
+
+- **Soporte multi-idioma**: Agregado soporte para Frances y Portugues.
+  Total de idiomas soportados: 5 (EN, ES, FR, PT, DE).
+
+## Mejoras
+
+- **Rendimiento de busqueda**: La busqueda full-text ahora es 3x mas rapida
+  gracias a la migracion a indices GIN en PostgreSQL.
+
+- **Paginacion**: El limite de pagina aumento de 50 a 200 resultados por pagina.
+
+- **Logs estructurados**: Todos los logs ahora usan formato JSON con
+  correlation IDs para facilitar debugging.
+
+## Correcciones de Bugs
+
+- **#456**: Error 500 al crear cuenta con email de mas de 50 caracteres
+- **#459**: Las notificaciones push no se enviaban en iOS 17.4+
+- **#462**: El contador de notificaciones no se reseteaba al leer todas
+- **#465**: Los timestamps en la API mostraban zona horaria incorrecta
+
+## Cambios Breaking
+
+- **API v1 deprecada**: La v1 de la API se eliminara en v3.0. Migrar a v2.
+  Guia de migracion: docs/api-migration-v1-to-v2.md
+
+- **Campo user.name removido**: Reemplazado por user.firstName y user.lastName.
+  Los clientes que usen user.name recibiran un error 400.
+
+## Notas de Seguridad
+
+- Actualizada la libreria de JWT de 2.1.0 a 2.3.0 (CVE-2026-1234)
+- Agregada validacion de origen para prevenir CSRF en formularios
+- Rotacion automatica de secrets cada 90 dias (configurable)
+
+## Actualizar
+
+  Docker: docker pull company/app:2.5.0
+  npm: npm install company-app@2.5.0
+  Helm: helm upgrade app company/app --version 2.5.0
+
+## Metricas del Release
+
+  Commits: 47
+  Contributors: 6
+  Issues cerrados: 12
+  PRs mergeados: 31
+  Lineas cambiadas: +3,245 / -1,892
+```
+
+
 ## Variantes
 
 ### Release notes automatizadas (release-please, semantic-release)
@@ -212,3 +278,25 @@ Usa múltiples canales: notificaciones in-app para breaking changes, email para 
 ### ¿Qué pasa si un release introduce una regresión?
 
 Reconócela rápido. Agrega una sección "Issues Conocidos" a las release notes con la regresión, un workaround si está disponible, y una versión objetivo de fix. Si la regresión es severa, considera retirar el release y re-publicar una vez arreglado.
+
+
+### Como decidimos que incluir en las release notes?
+
+Incluye: nuevas caracteristicas (con instrucciones de uso), mejoras notables (con impacto en el usuario), correcciones de bugs (con numero de issue), cambios breaking (con instrucciones de migracion), y notas de seguridad (con CVEs si aplica). No incluyas: cambios internos de refactorizacion sin impacto en el usuario, actualizaciones de dependencias sin cambios de comportamiento, o correcciones de typos. Para cambios breaking: incluye un ejemplo de codigo antes/despues. Para features: incluye un screenshot o GIF si hay cambios de UI. Manten el lenguaje accesible — los usuarios no son ingenieros. Si una feature requiere configuracion: incluye los pasos.
+
+### Con que frecuencia publicamos release notes?
+
+Publica release notes con cada release. Para releases frecuentes (continuos): publica notas semanales o por sprint con un resumen de cambios. Para releases con version semver: publica notas por version (v2.5.0, v2.5.1, etc.). Para hotfixes: publica notas con el fix y la razon. Manten un archivo CHANGELOG.md con todas las release notes historicas. Usa un formato consistente para que los usuarios puedan escanear rapidamente. Para proyectos open source: publica notas en GitHub Releases ademas del CHANGELOG. Las release notes son la comunicacion mas importante con tus usuarios — no las trates como una ocurrencia tardia.
+
+### Como automatizamos la generacion de release notes?
+
+Usa conventional commits (feat:, fix:, breaking:) para que las release notes se generen automaticamente. Herramientas como semantic-release, changesets, o release-please pueden generar notas desde los commits. Configura CI para que cada PR agregue una entrada al CHANGELOG. Usa GitHub Releases con release notes auto-generadas. Para mayor control: usa un template de release notes y llenalo manualmente con los cambios mas importantes. Automatiza las notas rutinarias (dependencias, typos) y escribe manualmente las notas importantes (features, breaking changes). La automatizacion reduce el trabajo pero no reemplaza el juicio humano sobre que es importante.
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -135,6 +135,73 @@ Each section serves a specific purpose:
 - **Contributing**: Set expectations for PRs, issues, and code style. Link to [Contributing Guide](/docs/templates/contributing-guide) for details.
 - **License**: Protects both authors and users legally
 
+## README Example
+
+```text
+=== README: payment-service ===
+
+# Payment Service
+
+Payment processing service for the platform.
+
+## Quick Start
+
+Requirements:
+  - Node.js 20+
+  - Docker 24+
+  - PostgreSQL 16+
+
+Installation:
+  git clone https://github.com/company/payment-service.git
+  cd payment-service
+  npm install
+  cp .env.example .env  # edit with your values
+  docker compose up -d  # postgres and redis
+  npm run db:migrate
+  npm run dev
+
+Tests:
+  npm test           # unit tests
+  npm run test:e2e   # end-to-end tests
+  npm run test:cov   # coverage report
+
+## Architecture
+
+  Client -> API Gateway -> payment-service -> PostgreSQL
+                                       -> Redis (cache)
+                                       -> Carrier API (shipping)
+
+## Endpoints
+
+  POST   /payments          Create a payment
+  GET    /payments/:id      Get a payment
+  POST   /payments/:id/refund  Refund a payment
+  GET    /health            Health check
+
+## Configuration
+
+  Variable          | Required | Default | Description
+  ------------------|----------|---------|-------------------
+  DATABASE_URL      | Yes      | -       | PostgreSQL URL
+  REDIS_URL         | Yes      | -       | Redis URL
+  CARRIER_API_KEY   | Yes      | -       | Carrier API key
+  LOG_LEVEL         | No       | info    | Log level
+  PORT              | No       | 3000    | Server port
+
+## Monitoring
+
+  - Dashboard: https://grafana.company.com/d/payment
+  - Logs: https://kibana.company.com/app/discover#/payment
+  - Alerts: PagerDuty service PD-1234
+  - SLO: 99.9% availability, p95 < 500ms
+
+## Contributing
+
+  See CONTRIBUTING.md for the contribution flow.
+  Contact: #payments-team on Slack.
+```
+
+
 ## Variants
 
 | Project Type | Sections to Add | Sections to Skip |
@@ -184,3 +251,52 @@ Assign reviewers based on the document type. Technical documents need engineerin
 ### How do I version documents created from this template?
 
 Use your version control system. Store documents in a docs/ directory with clear naming. Tag or branch significant versions. Review and update living documents quarterly.
+
+
+### How do we structure the README for open source projects?
+
+For open source: the README is the first impression. Start with the name and a 1-line description. Add badges (CI status, coverage, npm version, license). Include a "Why?" section — what problem does it solve. Add "Quick Start" with copy-paste commands. Include a requirements section. Add usage examples — not just installation. Include an architecture diagram if complex. Add a contributing section with link to CONTRIBUTING.md. Include the license. Add a code of conduct. Keep the README concise — if it is too long, move details to docs/. A clear README attracts more users and contributors than an exhaustive but unreadable one.
+
+### What sections are mandatory in a README?
+
+Mandatory: title and description, installation/quick start, basic usage, license. Recommended: requirements, configuration, tests, contributing, support/contact. Optional: architecture, roadmap, FAQ, changelog, credits. For libraries: API table, code examples, comparison with alternatives. For services: endpoints, configuration, monitoring, deployment. For monorepos: directory structure, what goes in each package. The rule: if a new engineer cannot use the project in 15 minutes reading only the README, the README is incomplete.
+
+### How do we keep the README up to date?
+
+The README should live in the same repo as the code — PRs that change behavior should update the README. Add a CI check that verifies the README has no broken links. Review the README at each release — if installation changed, update it. Assign an owner to the README (usually the main maintainer). Use a markdown linter to keep formatting consistent. If the README has code examples: automate that examples work with tests. A stale README is worse than no README — it misleads users. Mark the README with last-reviewed date in frontmatter or a comment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

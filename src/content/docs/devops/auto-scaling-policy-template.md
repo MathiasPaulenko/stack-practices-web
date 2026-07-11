@@ -132,6 +132,147 @@ Use this resource when:
 
 The template separates **scale-up** (fast, aggressive) from **scale-down** (slow, conservative). Scale-up triggers use shorter durations because you need capacity before failures happen. Scale-down uses longer durations to avoid thrashing instances in and out during normal traffic jitter. The **cooldown** prevents the autoscaler from reacting to metric noise caused by the scaling event itself. **Min instances** exist for redundancy: even at zero traffic, you need enough instances to survive a rolling deployment without downtime.
 
+## AWS Auto Scaling Terraform Configuration
+
+```hcl
+resource "aws_autoscaling_group" "app" {
+  name                = "app-asg"
+  vpc_zone_identifier = data.aws_subnets.private.ids
+  min_size            = 3
+  max_size            = 20
+  desired_capacity    = 5
+
+  launch_template {
+    id      = aws_launch_template.app.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "Team"
+    value               = "platform"
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_autoscaling_policy" "scale_up" {
+  name                   = "scale-up"
+  autoscaling_group_name = aws_autoscaling_group.app.name
+  adjustment_type        = "ChangeInCapacity"
+  scaling_adjustment     = 2
+  cooldown               = 300
+}
+
+resource "aws_autoscaling_policy" "scale_down" {
+  name                   = "scale-down"
+  autoscaling_group_name = aws_autoscaling_group.app.name
+  adjustment_type        = "ChangeInCapacity"
+  scaling_adjustment     = -1
+  cooldown               = 600
+}
+
+resource "aws_cloudwatch_metric_alarm" "high_cpu" {
+  alarm_name          = "high-cpu"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 60
+  statistic           = "Average"
+  threshold           = 70
+  alarm_actions       = [aws_autoscaling_policy.scale_up.arn]
+}
+
+resource "aws_cloudwatch_metric_alarm" "low_cpu" {
+  alarm_name          = "low-cpu"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = 10
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 60
+  statistic           = "Average"
+  threshold           = 30
+  alarm_actions       = [aws_autoscaling_policy.scale_down.arn]
+}
+```
+
+## Kubernetes HPA with Custom Metrics
+
+```yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api-hpa
+  namespace: production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api
+  minReplicas: 3
+  maxReplicas: 30
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Pods
+      pods:
+        metric:
+          name: http_requests_per_second
+        target:
+          type: AverageValue
+          averageValue: "1000"
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 60
+        - type: Pods
+          value: 4
+          periodSeconds: 60
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Percent
+          value: 25
+          periodSeconds: 120
+      selectPolicy: Min
+```
+
+## Scaling Event Dashboard Query
+
+```text
+=== Scaling Event Log (Last 24h) ===
+
+Time         Direction   Trigger              From -> To   Duration
+02:15 UTC    Scale UP    CPU > 70% (2 min)    5 -> 7       45s warm-up
+02:45 UTC    Scale UP    CPU > 70% (2 min)    7 -> 9       42s warm-up
+04:30 UTC    Scale DOWN  CPU < 30% (10 min)   9 -> 8       15s drain
+08:00 UTC    Scale UP    RPS > 1000 (1 min)   8 -> 12      38s warm-up
+08:30 UTC    Scale UP    RPS > 1000 (1 min)   12 -> 16     41s warm-up
+10:00 UTC    Scale DOWN  CPU < 30% (10 min)   16 -> 14     12s drain
+14:00 UTC    Scale DOWN  CPU < 30% (10 min)   14 -> 10     18s drain
+18:00 UTC    Scale DOWN  CPU < 30% (10 min)   10 -> 8      15s drain
+22:00 UTC    Scale DOWN  CPU < 30% (10 min)   8 -> 5       20s drain
+
+Total scaling events: 9
+Scale-up events: 4 (avg warm-up: 41s)
+Scale-down events: 5 (avg drain: 16s)
+Thrashing detected: No (min 2h between opposing events)
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -170,3 +311,24 @@ Predictive scaling (AWS, GCP) uses historical traffic to pre-warm instances befo
 ### How do I prevent cost explosions from auto-scaling?
 
 Set a hard max instance count. Use budget alerts. Review instance types quarterly (a newer generation may be cheaper and faster). Use reserved instances for baseline capacity and auto-scaling for overflow. Tag instances by service so finance can attribute costs accurately.
+
+
+### How do we handle scaling for stateful services?
+
+Stateful services (databases, caches with persistence) should not use standard auto-scaling. Instead, use read replicas for scaling reads and vertical scaling (larger instances) for write capacity. If you must scale stateful services horizontally, use sticky sessions or consistent hashing to distribute load. Never allow scale-down to zero for stateful services. Document the scaling strategy separately from stateless services.
+
+### What is step scaling vs target tracking?
+
+Target tracking maintains a target metric value (e.g., 70% CPU) by adjusting capacity automatically. It is simpler and requires less tuning. Step scaling uses CloudWatch alarms with specific adjustments (e.g., +2 instances when CPU > 70%, +4 when > 85%). It offers more control but requires more configuration. Use target tracking for most workloads. Use step scaling when you need different responses at different thresholds.
+
+### How do we test auto-scaling policies?
+
+1. Deploy the policy in staging. 2. Generate load with tools like k6, Locust, or Artillery. 3. Verify scale-up triggers at the expected threshold and time window. 4. Stop load and verify scale-down after the cooldown. 5. Check that new instances pass health checks before receiving traffic. 6. Verify connection draining works during scale-down. 7. Monitor cost impact. 8. Document the test results and adjust thresholds if needed.
+
+### What is warm-up time and why does it matter?
+
+Warm-up time is the delay between an instance starting and being ready to serve traffic. During warm-up, the instance consumes resources but does not handle requests. For JVM applications, warm-up can be 60-120 seconds due to JIT compilation. For containerized services, 10-30 seconds is typical. Set the warm-up time in your auto-scaling policy to avoid counting instances that are not yet ready. If warm-up is too short, new instances may fail health checks and trigger unnecessary scale-up events.
+
+### How do we handle scaling during deployments?
+
+Use rolling deployments with max surge and max unavailable settings to control how many new instances are created. For blue-green deployments, scale the green environment before cutting traffic. For canary deployments, scale incrementally as traffic shifts. Pause auto-scaling during deployments if the deployment itself changes resource usage patterns. Resume auto-scaling after the deployment stabilizes. Document the deployment-specific scaling behavior in the deployment runbook.

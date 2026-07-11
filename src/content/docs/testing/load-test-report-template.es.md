@@ -131,6 +131,71 @@ Usa este recurso cuando:
 
 La plantilla separa el **resumen** (para ejecutivos), los **detalles** (para ingenieros) y las **acciones** (para planificación). El formato tabular hace que el estado de aprobado/reprobado sea fácil de escanear. Los cuellos de botella enlazan a evidencia para que los revisores puedan verificar las afirmaciones. Las acciones incluyen responsables y fechas para evitar que los hallazgos se olviden.
 
+
+### Escenario Detallado: Prueba de Carga del Checkout de E-commerce
+
+```text
+Sistema: API de checkout de e-commerce
+Herramienta: k6
+Objetivo: Validar que el checkout maneja 500 usuarios concurrentes al pico
+
+Script de prueba (k6):
+  import http from "k6/http";
+  import { check, sleep } from "k6";
+
+  export const options = {
+    stages: [
+      { duration: "2m", target: 100 },
+      { duration: "5m", target: 500 },
+      { duration: "2m", target: 500 },
+      { duration: "1m", target: 0 },
+    ],
+    thresholds: {
+      http_req_duration: ["p(95)<300", "p(99)<500"],
+      http_req_failed: ["rate<0.01"],
+    },
+  };
+
+  export default function () {
+    const res = http.post("https://staging.example.com/api/checkout",
+      JSON.stringify({ cart_id: "cart_123", payment_method: "card" }),
+      { headers: { "Content-Type": "application/json" } });
+    check(res, {
+      "status es 201": (r) => r.status === 201,
+      "respuesta tiene order_id": (r) => r.json("order_id") !== undefined,
+    });
+    sleep(1);
+  }
+
+Ejecucion:
+  $ k6 run --out json=results.json checkout_load.js
+
+Resultados:
+  - p50 latencia: 85ms (objetivo < 100ms) APROBADO
+  - p95 latencia: 320ms (objetivo < 300ms) ADVERTENCIA
+  - p99 latencia: 680ms (objetivo < 500ms) REPROBADO
+  - Tasa de error: 0.05% (objetivo < 0.1%) APROBADO
+  - Rendimiento: 1,150 req/s (objetivo 1,000) APROBADO
+
+Cuello de botella encontrado:
+  - Consulta DB en tabla order_items tarda 400ms bajo carga
+  - Falta indice compuesto en (order_id, product_sku)
+  - Pool de conexiones agotado a 1,200 usuarios concurrentes
+
+Acciones:
+  P0: Agregar indice en order_items(order_id, product_sku) - @backend
+  P1: Aumentar pool de 20 a 40 - @devops
+  P2: Agregar cache Redis para product lookups - @architect
+```
+
+### Que percentiles debo reportar?
+
+Reporta p50 (mediana), p95 y p99 como minimo. p50 muestra la experiencia tipica. p95 detecta la mayoria de las degradaciones. p99 revela problemas de latencia de cola que afectan a usuarios reales. Si tienes SLOs en p99.9, incluyelo tambien. Nunca reportes solo promedios: ocultan los picos de latencia de cola.
+
+### Como simulo comportamiento realista de usuarios en pruebas de carga?
+
+Usa think time (pausas entre acciones) para coincidir con patrones reales de usuarios. Distribuye requests entre endpoints proporcionalmente al trafico de produccion. Incluye flujos de navegacion, busqueda y checkout, no solo el endpoint mas pesado. Parametriza los datos de prueba para que cada usuario virtual hittee registros diferentes y evitar que los cache hits sesguen los resultados.
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -168,3 +233,70 @@ Evita probar producción directamente. Usa un entorno similar a producción con 
 ### ¿Con qué frecuencia se deben repetir las pruebas de carga?
 
 Antes de cada lanzamiento mayor, después de cambios mayores de infraestructura, y trimestralmente como verificación de regresión. Automatiza pruebas de humo nocturnas con carga pequeña para detectar regresiones temprano.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

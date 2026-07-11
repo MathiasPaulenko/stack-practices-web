@@ -159,3 +159,144 @@ Detente inmediatamente. No apliques migraciones subsiguientes. Evalúa si hacer 
 ### ¿Puedo correr migraciones en una transacción?
 
 Sí, para bases de datos DDL-safe (PostgreSQL). Para MySQL, DDL se commitea implícitamente, así que las transacciones no te protegen. Conoce el comportamiento de tu base de datos antes de planear la estrategia de migración.
+
+
+## Variantes
+
+| Contexto | Enfoque | Notas |
+|----------|---------|-------|
+| Migracion de schema | Expand/contract pattern | Sin downtime; compatible con version vieja y nueva |
+| Migracion de datos | Backfill + verificacion | Puede tardar horas; ejecutar en background |
+| Migracion de engine | Blue-green con replicacion | Cambiar de MySQL a PostgreSQL por ejemplo |
+| Migracion zero-downtime | Expand -> migrate -> contract | 3 fases; cada deploy es independiente |
+
+## Ejemplo de Migracion: Agregar Columna NOT NULL
+
+```text
+=== Migracion: Agregar columna email_verified (NOT NULL) ===
+
+Servicio: user-service
+Base de datos: PostgreSQL (users table)
+Riesgo: Medio (requiere 3 deploys)
+Duracion estimada: 2 dias
+
+Fase 1: Expand (Deploy 1)
+  - Agregar columna como nullable:
+    ALTER TABLE users ADD COLUMN email_verified BOOLEAN;
+  - Deploy codigo que escribe a la nueva columna:
+    - En cada login, set email_verified = true si email verificado
+    - En cada signup, set email_verified = false
+  - Backfill datos existentes:
+    UPDATE users SET email_verified = true WHERE email IN (SELECT email FROM verified_emails);
+    -- Ejecutar en batches de 1000 para no bloquear
+  - Verificar: SELECT count(*) FROM users WHERE email_verified IS NULL;
+    -- Debe ser 0 despues del backfill
+
+Fase 2: Migrate (Deploy 2)
+  - Verificar que no hay NULLs:
+    SELECT count(*) FROM users WHERE email_verified IS NULL; -- debe ser 0
+  - Agregar constraint NOT NULL:
+    ALTER TABLE users ALTER COLUMN email_verified SET NOT NULL;
+  - Agregar default:
+    ALTER TABLE users ALTER COLUMN email_verified SET DEFAULT false;
+  - Verificar: intentar insertar sin email_verified -> debe usar default
+
+Fase 3: Contract (Deploy 3)
+  - Remover codigo que maneja el caso NULL (ya no es posible)
+  - Remover codigo de backfill
+  - Verificar que la app funciona correctamente
+  - Monitorear errores por 24 horas
+
+Rollback:
+  - Fase 1: ALTER TABLE users DROP COLUMN email_verified;
+  - Fase 2: ALTER TABLE users ALTER COLUMN email_verified DROP NOT NULL;
+  - Fase 3: No se puede revertir facilmente; mantener codigo defensivo
+
+Verificacion Post-Migracion:
+  - Todos los usuarios tienen email_verified no NULL
+  - Nuevos signups tienen email_verified = false
+  - Logins verifican email correctamente
+  - No hay errores en logs relacionados con la columna
+```
+
+### Como manejamos migraciones de base de datos con zero downtime?
+
+Usa el patron expand-contract: Fase 1 (Expand) agrega la nueva estructura sin romper la vieja — la app vieja y nueva funcionan. Fase 2 (Migrate) mueve datos y aplica constraints cuando es seguro. Fase 3 (Contract) remueve la estructura vieja. Cada fase es un deploy independiente. Nunca hagas un ALTER que bloquee la tabla en produccion — usa tools como pt-online-schema-change (MySQL) o CREATE INDEX CONCURRENTLY (PostgreSQL). Para columnas NOT NULL: agregalas como nullable primero, haz backfill, luego agrega el constraint. Para renombrar columnas: agrega la nueva, escribe en ambas, migra lecturas, luego remueve la vieja.
+
+### Que hacemos si una migracion falla a mitad de camino?
+
+Si una migracion falla: evalua el estado actual de la base de datos. Si la migracion no comenzo: no hacer nada, corregir el script y reintentar. Si la migracion comenzo pero no completo: determinar si es seguro reanudar o si hay que revertir. Para migraciones con transacciones: el rollback es automatico. Para migraciones sin transacciones (DDL en MySQL): revertir manualmente con un script de rollback preparado. Si los datos fueron modificados: usar el backup para comparar y restaurar si es necesario. Documenta el fallo y la causa. Nunca fuerces una migracion que fallo — investiga la causa raiz primero. Comunica al equipo si la migracion afecta la disponibilidad.
+
+### Como probamos migraciones antes de produccion?
+
+Prueba migraciones en un entorno que replica produccion: usa un dump de produccion (sanitizado si es necesario) en staging. Ejecuta la migracion y mide el tiempo. Verifica que la app funciona con el nuevo schema. Prueba el rollback — debe funcionar y restaurar el estado anterior. Prueba con datos en gran volumen — una migracion que tarda 1 segundo con 100 filas puede tardar horas con 10 millones. Ejecuta la migracion con la app bajo carga para detectar locks. Usa un checklist de verificacion post-migracion. Si la migracion tiene multiples fases: prueba cada fase independientemente y la secuencia completa.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -126,6 +126,87 @@ Una politica de retencion de datos define cuanto tiempo una organizacion conserv
 
 La retencion de datos es un equilibrio entre valor de negocio, obligacion legal y costo de almacenamiento. Una politica escrita elimina la ambiguedad, asegura la ejecucion consistente y proporciona evidencia durante auditorias. Al clasificar los datos, definir periodos de retencion y automatizar las acciones del ciclo de vida, los equipos pueden reducir el trabajo manual y evitar conservar datos mas tiempo del necesario.
 
+## Configuracion de Politica de Ciclo de Vida S3
+
+```json
+{
+  "Rules": [
+    {
+      "ID": "transition-to-glacier",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "logs/" },
+      "Transitions": [
+        { "Days": 30, "StorageClass": "STANDARD_IA" },
+        { "Days": 90, "StorageClass": "GLACIER" },
+        { "Days": 365, "StorageClass": "DEEP_ARCHIVE" }
+      ],
+      "Expiration": { "Days": 2555 }
+    },
+    {
+      "ID": "expire-temp-data",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "temp/" },
+      "Expiration": { "Days": 7 }
+    },
+    {
+      "ID": "retain-user-data",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "users/" },
+      "NoncurrentVersionExpiration": { "NoncurrentDays": 90 },
+      "Expiration": { "Days": 3650 }
+    }
+  ]
+}
+```
+
+## Script de Purga de Retencion de Base de Datos
+
+```sql
+-- Trabajo programado de purga en PostgreSQL
+-- Ejecutar semanalmente via pg_cron o scheduler externo
+
+-- Purgar sesiones expiradas (retencion: 30 dias)
+DELETE FROM sessions
+WHERE created_at < NOW() - INTERVAL '30 days';
+
+-- Purgar logs de auditoria (retencion: 7 anos para cumplimiento)
+-- NO PURGAR: archivados por separado
+
+-- Purgar datos de usuarios eliminados (retencion: 90 dias despues de eliminacion)
+DELETE FROM user_data
+WHERE deleted_at IS NOT NULL
+  AND deleted_at < NOW() - INTERVAL '90 days';
+
+-- Purgar logs de eventos (retencion: 180 dias)
+DELETE FROM event_logs
+WHERE created_at < NOW() - INTERVAL '180 days';
+
+-- Vacuum y analyze despues de purga
+VACUUM ANALYZE sessions;
+VACUUM ANALYZE user_data;
+VACUUM ANALYZE event_logs;
+```
+
+## Matriz de Clasificacion y Retencion de Datos
+
+```text
+=== Matriz de Clasificacion y Retencion de Datos ===
+
+| Tipo de Dato        | Clasificacion  | Retencion  | Almacenamiento  | Metodo de Purga    |
+|---------------------|----------------|------------|-----------------|---------------------|
+| PII de Usuario      | Confidencial   | 3 anos     | RDS Cifrado     | Purga programada    |
+| Registros de pago   | Restringido    | 7 anos     | RDS Cifrado     | Revision legal      |
+| Logs de auditoria   | Interno        | 7 anos     | S3 Glacier      | Politica lifecycle  |
+| Logs de aplicacion  | Interno        | 90 dias    | CloudWatch      | Auto-expire         |
+| Datos de sesion     | Interno        | 30 dias    | Redis           | TTL auto-expire     |
+| Archivos temporales | Publico        | 7 dias     | S3 temp/        | Politica lifecycle  |
+| Eventos analytics   | Interno        | 2 anos     | BigQuery        | Partition expire    |
+| Backups             | Confidencial   | 90 dias    | S3 + Glacier    | Politica backup     |
+| Exportes cliente    | Confidencial   | 30 dias    | S3 signed URL   | Politica lifecycle  |
+| Datos ML training   | Interno        | 1 ano      | S3 IA           | Purga programada    |
+```
+
+
 ## Variantes
 
 - **Politica de ciclo de vida de almacenamiento de objetos en la nube**: Reglas de ciclo de vida de S3, Azure Blob o GCP Storage para transicion y expiracion.
@@ -171,3 +252,50 @@ Los backups deben tener su propia programacion de retencion. Cuando se eliminan 
 ### Que pasa si una retencion legal entra en conflicto con la politica de retencion?
 
 La retencion legal tiene prioridad. Los datos afectados deben preservarse mas alla de su periodo de retencion normal hasta que se levante la retencion, y esta excepcion debe documentarse.
+
+
+### Como manejamos solicitudes de derecho al olvido del GDPR?
+
+Cuando un usuario solicita la eliminacion de datos, identifica todos los almacenes de datos que contienen su PII. Crea un ticket de eliminacion que rastree cada almacen. Elimina o anonimiza datos en la base de datos primaria, object storage, caches, indices de busqueda, data warehouses y backups. Para backups, documenta que los datos seran purgados cuando expire el periodo de retencion del backup (o inicia una purga acelerada si es requerido). Registra la eliminacion con timestamp, alcance y aprobador. Proporciona confirmacion al usuario dentro de 30 dias. Prueba el proceso de eliminacion trimestralmente.
+
+### Que es la anonimizacion de datos y cuando deberiamos usarla?
+
+La anonimizacion de datos elimina u oculta informacion personal identificable preservando la estructura de datos para analitica. Las tecnicas incluyen: masking (reemplazar PII con datos falsos), hashing (transformacion unidireccional), aggregation (agrupar datos para eliminar registros individuales), y pseudonymization (reemplazar identificadores directos con pseudonimos). Usa anonimizacion cuando necesitas datos historicos para analitica pero ya no necesitas el PII. Documenta el metodo de anonimizacion y verifica que no pueda revertirse.
+
+### Como gestionamos los bloqueos legales (legal holds)?
+
+Cuando se emite un bloqueo legal, suspende inmediatamente toda eliminacion y purga de los datos afectados. Etiqueta los datos con un flag de legal-hold en el sistema. Documenta el bloqueo: alcance, autoridad emisora, fecha y duracion esperada. Notifica a todos los equipos con acceso a los datos. Monitorea el estado del bloqueo regularmente. Cuando se libera el bloqueo, documenta la liberacion y reanuda los calendarios de retencion normales. Nunca auto-elimines datos con un bloqueo legal activo. Audita el cumplimiento de bloqueos legales anualmente.
+
+### Como verificamos que los datos han sido eliminados?
+
+Despues de que un trabajo de purga se ejecuta, verifica la eliminacion: consultando registros mas antiguos que el periodo de retencion (debe devolver cero filas), verificando conteos de archivos en prefijos S3 (debe coincidir con lo esperado), y ejecutando una verificacion de muestra en registros especificos. Registra los resultados de verificacion. Para cumplimiento, una segunda persona debe verificar la eliminacion. Almacena certificados o logs de eliminacion en un bucket de almacenamiento inmutable. Revisa los resultados de verificacion de eliminacion mensualmente.
+
+### Como manejamos la retencion de datos entre multiples regiones?
+
+Diferentes regiones tienen diferentes requisitos legales (GDPR en EU, CCPA en California, PDPA en Singapur). Crea una matriz de retencion que mapee tipos de datos a requisitos regionales. Aplica el periodo de retencion mas estricto cuando los datos cruzan regiones. Almacena datos en la region donde fueron recolectados cuando sea posible. Documenta los flujos de datos cross-region y las reglas de retencion que aplican. Revisa los requisitos regionales anualmente a medida que las leyes cambian.
+
+
+### Como manejamos la retencion de datos para modelos de machine learning?
+
+Los modelos ML y los datos de entrenamiento tienen necesidades unicas de retencion. Reten los artefactos del modelo durante el tiempo de vida del modelo en produccion mas 1 ano para auditoria. Los datos de entrenamiento deben seguir la politica de clasificacion de datos de la fuente. Los feature stores deben expirar features que ya no se usan. Registra las predicciones del modelo por 90 dias para debugging y auditoria de sesgo. Documenta que datasets se usaron para entrenar cada version del modelo para reproducibilidad y cumplimiento.
+
+### Que es el almacenamiento inmutable y cuando lo necesitamos?
+
+El almacenamiento inmutable (S3 Object Lock, Azure Immutable Blob) previene que los objetos sean eliminados o sobrescritos durante un periodo de retencion especificado. Usalo para: requisitos de cumplimiento (SEC, FINRA, HIPAA), datos con bloqueo legal, logs de auditoria que deben ser a prueba de manipulacion, y registros financieros. Configura el modo WORM (Write Once Read Many) a nivel de bucket. Documenta el periodo de inmutabilidad y asegurate de que se alinee con los requisitos regulatorios. Prueba que los intentos de eliminacion sean bloqueados.
+
+### Como manejamos la retencion de datos para archivos de log?
+
+Logs de aplicacion: retener 90 dias en almacenamiento hot (CloudWatch, Elasticsearch), luego archivar a S3 Glacier por 1 ano. Logs de infraestructura: retener 30 dias hot, 180 dias archivados. Logs de seguridad: retener 1 ano hot, 7 anos archivados para cumplimiento. Logs de acceso (ALB, CloudFront): retener 90 dias hot, 1 ano archivados. Usa herramientas de agregacion de logs (Fluentd, Logstash) para enrutar logs al tier de retencion correcto automaticamente. Configura alertas para fallos de ingestion de logs.
+
+### Como documentamos la retencion de datos para auditores?
+
+Crea un registro de retencion de datos que liste: tipo de dato, clasificacion, ubicacion de almacenamiento, periodo de retencion, base legal, metodo de purga, fecha de ultima purga, y responsable. Almacena el registro en un repositorio con control de versiones. Genera reportes trimestrales mostrando logs de ejecucion de purga y estado de cumplimiento. Durante auditorias, proporciona el registro, logs de purga y documentos de politica. Asegura que los auditores puedan rastrear un tipo de dato desde la creacion hasta la eliminacion a traves de la documentacion.
+
+
+Revisa la politica de retencion de datos anualmente y despues de cualquier cambio regulatorio. Actualiza la matriz de retencion, los calendarios de purga y los procedimientos de bloqueo legal. Capacita a todos los miembros del equipo en la politica actualizada.
+
+
+
+
+
+End of document. Review and update quarterly.

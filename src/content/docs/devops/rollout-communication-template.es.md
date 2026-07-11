@@ -156,6 +156,64 @@ Usa este recurso cuando:
 
 La plantilla separa comunicación **interna** (técnica, útil) de **externa** (amigable, enfocada en beneficios). La matriz de audiencias previene el fallo donde ingeniería anuncia en Slack, soporte se entera por un ticket, y ventas descubre una semana después. Los criterios de rollback dan permiso explícito para actuar rápido sin comité a medianoche.
 
+## Plantilla de Email de Anuncio de Release
+
+```text
+Asunto: Nuevo Release: [NOMBRE FEATURE] — [FECHA]
+
+Hola [NOMBRE],
+
+Nos emociona anunciar [NOMBRE FEATURE], ahora disponible para [SEGMENTO_USUARIO].
+
+Que es?
+  [UN PARRAFO EN LENGUAJE DE CLIENTE — SIN JERGA]
+
+Que hay de nuevo?
+  - [BENEFICIO 1: que puede hacer ahora el usuario]
+  - [BENEFICIO 2: que mejoro]
+  - [BENEFICIO 3: que se agrego]
+
+Como usarlo:
+  1. [PASO 1]
+  2. [PASO 2]
+  3. [PASO 3]
+
+Mas informacion:
+  - Documentacion: [LINK]
+  - Blog post: [LINK]
+  - Video tutorial: [LINK]
+
+Preguntas?
+  Responde a este email o contacta a soporte@[DOMINIO].
+
+[EQUIPO]
+```
+
+## Plantilla de Anuncio de Release en Slack
+
+```text
+=== Canal #releases ===
+
+:rocket: **Release [VERSION] — [FECHA]**
+
+**Que hay de nuevo:**
+  - [FEATURE]: [DESCRIPCION DE UNA LINEA]
+  - [FIX]: [DESCRIPCION DE UNA LINEA]
+
+**Impacto:** [QUIEN ESTA AFECTADO / "Sin cambios visibles para el usuario"]
+
+**Rollout:** [PORCENTAJE] — [NOMBRE FLAG: feature_flag_xxx]
+
+**Monitoreo:** [LINK DASHBOARD]
+
+**Rollback:** [CONDICION / "Feature flag off"]
+
+**Preguntas?** Pregunta en #[CANAL_SOPORTE]
+
+:thread: Hilo para discusion y feedback abajo.
+```
+
+
 ## Variantes
 
 | Contexto | Adición Clave | Tono |
@@ -196,3 +254,48 @@ Dos fases: "Desplegado" (código en producción) y "Habilitado" (flag activo par
 ### ¿Qué pasa si necesito rollback?
 
 Usa el anuncio pre-escrito: "Hemos revertido temporalmente `<release>` por `<issue>`. El equipo investiga y re-desplegará una vez resuelto. Impacto: `<alcance>`". Notifica en orden inverso: clientes primero, luego soporte, luego internos. La velocidad y honestidad importan más que la prosa pulida.
+
+
+### Como coordinamos la comunicacion a traves de zonas horarias?
+
+Para equipos globales: programa el rollout durante una ventana de bajo trafico que funcione para todas las regiones. Prepara anuncios con anticipacion y programalos para enviar a la hora local apropiada. Asigna un dueno de comunicacion en cada zona horaria principal que pueda responder preguntas en tiempo real. Si el rollout es por fases por region, anuncia por region con contexto local. Evita anunciar un release a las 5 PM del viernes en una region si es sabado por la manana en otra — la cobertura de soporte puede estar ausente.
+
+### Que deberiamos incluir en un anuncio de rollback?
+
+Un anuncio de rollback deberia incluir: que se revirtio (nombre de feature y version), por que (razon breve, no tecnica), que experimentaran los usuarios (la feature no esta temporalmente disponible), que esta haciendo el equipo (investigando y arreglando), y cuando esperar una actualizacion (timeframe especifico). Enviarlo a los mismos canales que el anuncio original. Se honesto sobre el rollback — los usuarios respetan la transparencia mas que el silencio. Actualiza la pagina de estado si hay impacto para el cliente. Siguelo con un mensaje de resolucion cuando el fix se despliegue.
+
+### Como medimos la efectividad de la comunicacion?
+
+Rastrea: tasa de apertura de emails de anuncio de release, tasa de click-through a documentacion, engagement con notas de release en el blog o in-app, volumen de tickets de soporte relacionados con el release (menor = mejor comunicacion), y tiempo desde el anuncio hasta la primera adopcion del usuario. Encuesta a usuarios trimestralmente: "Como te enteraste de las nuevas features?" Revisa metricas despues de cada release mayor y ajusta la estrategia de comunicacion. Si los usuarios no leen las notas de release, experimenta con formatos diferentes (video, tours in-app, resumenes mas cortos).
+
+### Como manejamos la comunicacion para un rollout fallido?
+
+Si un rollout falla: notifica a los clientes inmediatamente via la pagina de estado y email. Se especifico sobre que fallo y que pueden esperar los usuarios. Ejemplo: "Intentamos lanzar [FEATURE] pero encontramos un problema inesperado. Hemos revertido el cambio. [FEATURE] no esta disponible actualmente. Reintentaremos el release el [FECHA]." Notifica al soporte con talking points y FAQs. Haz un postmortem tanto del fallo tecnico como del proceso de comunicacion. Documenta las lecciones aprendidas para el proximo rollout.
+
+### Deberiamos usar feature flags para todos los rollouts?
+
+Los feature flags son recomendados para todos los cambios excepto los mas pequenos. Desacoplan el despliegue del release, permitiendo desplegar codigo de forma segura y habilitarlo cuando este listo. Los flags habilitan rollouts por fases (1%, 5%, 25%, 50%, 100%), rollback instantaneo sin redespliegue, y A/B testing. Sin embargo, los flags agregan complejidad: necesitan convenciones de nombres, gestion de ciclo de vida (creado, habilitado, verificado, removido), y documentacion. Usa una herramienta de gestion de feature flags (LaunchDarkly, Unleash, Flagsmith) para sistemas de produccion. Limpia los flags obsoletos regularmente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -126,6 +126,110 @@ Lineamientos:
 
 Los SLOs dan a los equipos un lenguaje compartido para la confiabilidad. Al definir SLIs, objetivos y presupuestos de error, una organizacion puede decidir cuando priorizar nuevas funciones versus trabajo de estabilidad. Los SLOs tambien reducen la fatiga de alertas al enfocar el monitoreo en la confiabilidad que impacta al usuario en lugar de cada metrica interna.
 
+## Definicion de SLO en Prometheus (Sloth)
+
+```yaml
+version: "prometheus/v1"
+service: "api-gateway"
+slos:
+  - name: "availability"
+    objective: 99.9
+    description: "Respuestas HTTP exitosas para el API gateway"
+    sli:
+      events:
+        error_query: sum(rate(http_requests_total{job="api-gateway",status=~"5.."}[{{.window}}]))
+        total_query: sum(rate(http_requests_total{job="api-gateway"}[{{.window}}]))
+    alerting:
+      name: ApiGatewayAvailability
+      page_alert:
+        disable: false
+        labels:
+          severity: page
+          team: platform
+      ticket_alert:
+        disable: false
+        labels:
+          severity: ticket
+          team: platform
+
+  - name: "latency-p99"
+    objective: 99
+    description: "Latencia P99 por debajo de 500ms para el API gateway"
+    sli:
+      events:
+        error_query: |
+          sum(rate(http_request_duration_seconds_bucket{job="api-gateway",le="0.5"}[{{.window}}]))
+          /
+          sum(rate(http_request_duration_seconds_count{job="api-gateway"}[{{.window}}]))
+        total_query: "1"
+    alerting:
+      name: ApiGatewayLatency
+      page_alert:
+        disable: false
+      ticket_alert:
+        disable: false
+```
+
+## Hoja de Calculo de Presupuesto de Error
+
+```text
+=== Calculo de Presupuesto de Error ===
+
+Objetivo SLO: 99.9% disponibilidad
+Periodo: 30 dias (43,200 minutos)
+
+Tiempo de inactividad permitido (presupuesto de error):
+  43,200 * (1 - 0.999) = 43.2 minutos por mes
+
+Presupuesto consumido este periodo:
+  - Incidente 1 (2026-06-05): 12 min inactividad -> 12 min consumidos
+  - Incidente 2 (2026-06-12): 8 min inactividad -> 8 min consumidos
+  - Incidente 3 (2026-06-20): 5 min inactividad -> 5 min consumidos
+  Total consumido: 25 minutos
+
+Presupuesto restante: 43.2 - 25 = 18.2 minutos (42% del presupuesto restante)
+
+Tasa de quemado:
+  - Quemado rapido (ventana 1h): 2x normal -> alertar si > 6x
+  - Quemado lento (ventana 6h): 1x normal -> alertar si > 3x
+
+Decision: 42% del presupuesto restante al dia 20 de 30.
+  - Verde (>50%): Continuar releases normales
+  - Amarillo (20-50%): Reducir frecuencia de releases, priorizar estabilidad
+  - Rojo (<20%): Congelar releases no criticos, enfocar en confiabilidad
+```
+
+## Agenda de Reunion de Revision de SLO
+
+```text
+=== Revision Mensual de SLO ===
+
+1. Reporte de Cumplimiento de SLO (10 min)
+   - Cumplimos cada objetivo SLO?
+   - Estado del presupuesto de error: consumido vs restante
+   - Tendencia: mejorando, estable o degradando?
+
+2. Revision de Incidentes (15 min)
+   - Incidentes que consumieron presupuesto
+   - Patrones de causa raiz
+   - Acciones de revisiones post-incidente
+
+3. Discusion de Objetivos SLO (10 min)
+   - Debemos ajustar algun objetivo?
+   - Los SLIs siguen midiendo lo correcto?
+   - Nuevos servicios que necesitan SLOs?
+
+4. Planificacion de Releases (10 min)
+   - Guia de presupuesto de error para el proximo mes
+   - Cambios riesgosos planificados
+   - Prioridades de trabajo de estabilidad
+
+5. Acciones (5 min)
+   - Responsable y fecha limite para cada accion
+   - Proxima fecha de revision
+```
+
+
 ## Variantes
 
 - **SLO orientado al cliente**: Se usa para respaldar SLAs externos y comunicaciones con clientes.
@@ -168,3 +272,29 @@ Comienza con datos historicos, considera los puntos de dolor del usuario y equil
 ### Que pasa cuando se agota el presupuesto de error?
 
 El equipo debe reducir cambios riesgosos, priorizar mejoras de confiabilidad y revisar incidentes recientes. Es una senal para invertir en estabilidad, no una razon para culpar a individuos.
+
+
+### Como calculamos la tasa de quemado del presupuesto de error?
+
+La tasa de quemado mide que tan rapido estas consumiendo tu presupuesto de error. Una tasa de 1 significa que estas consumiendo presupuesto a ritmo normal (se agotara exactamente al final del periodo). Tasa de 2 significa que se agotara en la mitad del periodo. Alerta con multi-window burn: pagina si la tasa de 1 hora excede 14.4x (se agota en 2 horas) y ticket si la tasa de 6 horas excede 6x (se agota en 1 dia). Esto detecta tanto interrupciones agudas como degradaciones lentas.
+
+### Que es una alerta multi-window multi-burn-rate?
+
+Las alertas multi-window multi-burn-rate evaluan la tasa de quemado sobre dos ventanas de tiempo simultaneamente. Por ejemplo: alerta si la tasa de 1 hora es mayor a 14.4x Y la tasa de 5 minutos tambien es mayor a 14.4x. La ventana corta previene falsos positivos de picos transitorios, mientras la ventana larga asegura que el problema es sostenido. Esta es la aproximacion recomendada del Google SRE workbook.
+
+### Como establecemos SLOs para jobs de procesamiento batch?
+
+Para jobs batch, usa SLOs de completitud en lugar de disponibilidad. Define SLIs como: porcentaje de jobs completados dentro de la ventana de plazo (ej. 95% de jobs ETL diarios completan en 4 horas). Rastrea frescura: porcentaje de datos con menos de X horas de antiguedad. Rastrea throughput: jobs por hora vs esperado. Establece presupuesto de error como: jobs tardios permitidos por periodo (ej. 1 job tardio por semana para SLO de 99%).
+
+### Deberiamos tener SLOs diferentes para diferentes niveles de usuario?
+
+Si por razones de negocio, pero ten cuidado con la implementacion. Puedes definir SLOs especificos por nivel (ej. 99.99% para enterprise, 99.9% para tier gratuito) etiquetando requests con nivel de usuario y calculando SLIs por nivel. Esto requiere monitoreo mas complejo pero permite servicio diferenciado. Asegura que la infraestructura pueda realmente entregar diferentes niveles de confiabilidad, de lo contrario solo estas midiendo lo mismo.
+
+### Como manejamos los SLOs durante incidentes?
+
+Durante un incidente, el SLO ya se esta incumpliendo (el presupuesto se esta consumiendo). Enfocate en resolucion, no en medicion. Despues de la resolucion, calcula el presupuesto consumido y actualiza el dashboard de presupuesto de error. Usa el incidente como entrada para la proxima revision de SLO: era apropiado el objetivo SLO? Detecto el alerting lo suficientemente temprano? Deberia actualizarse el runbook?
+
+
+Revisa objetivos SLO despues de cambios arquitectonicos mayores, lanzamientos de nuevas features, o cambios significativos en patrones de trafico. Documenta todos los cambios de objetivos con justificacion y fecha.
+
+Rastrea tendencias de cumplimiento de SLO en ventanas de 6 meses para identificar servicios que degradan antes de que incumplan objetivos.

@@ -154,6 +154,72 @@ Antes de escribir una especificacion de feature:
 
 La plantilla esta organizada por **audiencia**: producto posee el resumen y objetivos, diseno posee la seccion UX, ingenieria posee el enfoque tecnico, y QA posee los criterios de aceptacion. Separar requerimientos funcionales de no-funcionales previene el error comun de olvidar rendimiento, seguridad, o accesibilidad hasta tarde en el desarrollo. La **seccion de no-objetivos** es particularmente importante: previene el scope creep haciendo explicito lo que esta fuera de alcance.
 
+## Ejemplo de Especificacion de Feature
+
+```markdown
+# Spec de Feature: Notificaciones de Orden en Tiempo Real
+
+## Resumen
+Agregar notificaciones en tiempo real del estado de ordenes al
+dashboard del usuario usando conexiones WebSocket. Los usuarios
+veran actualizaciones de ordenes inmediatamente sin refrescar la pagina.
+
+## Objetivos
+- Reducir tickets de soporte sobre estado de ordenes en 30%
+- Mejorar el engagement del usuario con el dashboard
+- Proporcionar entrega de notificaciones sub-segundo
+
+## No-Objetivos
+- Notificaciones push moviles (feature separado)
+- Notificaciones por email (ya implementado)
+- Busqueda en historial de ordenes (feature separado)
+
+## Historias de Usuario
+1. Como comprador, quiero ver actualizaciones de estado de orden en
+   tiempo real para no necesitar refrescar la pagina.
+2. Como vendedor, quiero saber cuando se realiza una orden para poder
+   preparar el envio inmediatamente.
+3. Como agente de soporte, quiero ver las mismas notificaciones para
+   poder responder preguntas de clientes con precision.
+
+## Requisitos Funcionales
+- Conexion WebSocket al cargar el dashboard
+- Reconexion con backoff exponencial al desconectar
+- Payload de notificacion incluye: ID de orden, estado, timestamp
+- Las notificaciones aparecen como toast messages y en un panel
+
+## Requisitos No-Funcionales
+- Latencia de entrega de notificacion: p95 < 500ms
+- Conexiones WebSocket: soportar 10,000 concurrentes
+- Fallback a polling si WebSocket falla despues de 3 reintentos
+- Accesibilidad: notificaciones anunciadas via ARIA live region
+
+## Enfoque Tecnico
+- WebSocket gateway: AWS API Gateway WebSocket
+- Message broker: Redis Pub/Sub
+- Auth: JWT token pasado en query params de conexion
+- Frontend: WebSocket API nativo con wrapper de reconexion
+
+## Cambios de API
+- Nuevo endpoint: GET /api/v1/notifications/stream (WebSocket upgrade)
+- Nuevo endpoint: GET /api/v1/notifications (REST fallback, polling)
+- Sin cambios disruptivos a endpoints existentes
+
+## Estrategia de Rollout
+- Fase 1: Testing interno con 10 usuarios (1 semana)
+- Fase 2: Beta con 5% de usuarios (2 semanas)
+- Fase 3: Disponibilidad general (monitorear por 1 semana)
+- Rollback: Deshabilitar feature flag de WebSocket, usuarios caen a polling
+
+## Criterios de Aceptacion
+- [ ] WebSocket se conecta al cargar el dashboard
+- [ ] Cambios de estado de orden aparecen en 500ms
+- [ ] La conexion se recupera automaticamente despues de interrupcion de red
+- [ ] Las notificaciones son accesibles via screen reader
+- [ ] El sistema maneja 10,000 conexiones concurrentes en load test
+```
+
+
 ## Variantes
 
 | Contexto | Ajustes | Notas |
@@ -193,3 +259,43 @@ Producto es dueno del problema, objetivos, y criterios de exito. Ingenieria es d
 ### Que pasa si los requerimientos cambian durante el desarrollo?
 
 Actualiza la spec y notifica a los stakeholders. Si el cambio es mayor, re-estima y re-prioriza. La spec es un documento viviente, no un contrato. Lo peligroso es la divergencia silenciosa — cuando el codigo va por un lado y la spec dice otro.
+
+
+### Como manejamos cambios de alcance durante el desarrollo?
+
+Cuando el alcance cambia: actualiza la spec inmediatamente y notifica a todos los stakeholders. Si el cambio es significativo (nuevos requisitos, cronograma cambiado, enfoque diferente), re-estima el trabajo y re-prioriza. Realiza una breve reunion de revision con ingenieria, producto y diseno para confirmar la spec actualizada. Documenta la razon del cambio en el changelog de la spec. Nunca dejes que la spec y la implementacion diverjan silenciosamente — la divergencia es como ocurren bugs y requisitos perdidos.
+
+### Cual es la diferencia entre una spec de feature y un documento de requisitos de producto (PRD)?
+
+Un PRD es un documento de mayor nivel que describe la oportunidad de mercado, las necesidades del usuario, los objetivos de negocio y el panorama competitivo. Una spec de feature es mas tactica: describe el enfoque de implementacion especifico, el diseno tecnico, los cambios de API y los criterios de aceptacion. Un PRD responde "por que construir esto?" y "que problema resuelve?" Una spec de feature responde "como lo construiremos?" y "como sabremos que esta terminado?" Las features grandes pueden tener tanto un PRD como una spec de feature.
+
+### Como estimamos el trabajo a partir de una spec de feature?
+
+Divide la spec en tareas de ingenieria durante una reunion de planificacion. Estima cada tarea usando story points o tiempo. Identifica dependencias entre tareas. Agrega tiempo para testing, revision de codigo e integracion. Agrega un buffer para desconocidos (tipicamente 20%). Compara la estimacion total con la velocidad del equipo. Si la estimacion excede la capacidad del sprint, divide la feature en incrementos entregables mas pequenos. Documenta la estimacion y comparala con los reales despues de la entrega para mejorar estimaciones futuras.
+
+### Deberian las specs incluir wireframes o mockups?
+
+Si, para features con cambios de UI orientados al usuario. Los wireframes o mockups aclaran la experiencia del usuario y previenen malentendidos entre diseno e ingenieria. Enlaza a archivos de Figma o Sketch en lugar de embeber imagenes en la spec. Para features solo de API o backend, incluye schemas de API y diagramas de secuencia en su lugar. Mantén los artefactos visuales enlazados, no embebidos, para que se mantengan sincronizados con la herramienta de diseno.
+
+### Como aseguramos que las specs sean leidas y comprendidas?
+
+Revisa la spec en una reunion con todos los stakeholders antes de que comience la implementacion. Usa la reunion para recorrer el resumen, objetivos y requisitos clave. Fomenta preguntas y documenta decisiones. Despues de la reunion, los stakeholders confirman que han leido y comprendido la spec (ej., un thumbs up en el documento o un comentario). Mantén la spec en una ubicacion que el equipo visite diariamente (ej., el wiki del proyecto o enlazada desde el ticket de Jira). Referencia la spec en pull requests que la implementan.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -144,6 +144,83 @@ Before writing an ADR:
 
 The ADR format is intentionally lightweight. It does not require UML diagrams or formal proofs — just enough structure that someone reading it in two years understands why the decision was made and what was sacrificed. The **status field** is critical: it tells readers whether the decision is active, outdated, or replaced. The **consequences section** prevents the common mistake of documenting only the happy path; every architectural choice has downsides, and hiding them creates surprises later.
 
+## Full ADR Example
+
+```markdown
+# ADR-015: Migrate to PostgreSQL as primary data store
+
+## Status
+Accepted (2026-07-11)
+
+## Context
+The application has used MySQL 5.7 since 2023. With team and data growth, we have hit limitations:
+- No JSONB support or native JSON queries
+- Limited logical replication compared to PostgreSQL
+- No declarative partitioning
+- MySQL Enterprise licensing costs
+
+The platform team needs table-level partitioning to handle the events table growth (currently 2TB, growing 50% annually).
+
+## Decision
+Migrate to PostgreSQL 16 as the primary database.
+
+## Alternatives Considered
+
+### 1. Stay on MySQL 8.0
+- Pros: Simpler migration, team familiarity
+- Cons: Weaker JSONB, limited partitioning
+- Rejected: Does not solve partitioning requirement
+
+### 2. Migrate to Amazon Aurora PostgreSQL
+- Pros: PostgreSQL compatible, managed, global replication
+- Cons: Higher cost, vendor lock-in
+- Deferred: Evaluate after self-managed PostgreSQL migration
+
+### 3. Migrate to CockroachDB
+- Pros: Distributed, PostgreSQL-compatible SQL
+- Cons: Cost, complexity, no team experience
+- Rejected: Over-engineering for current needs
+
+## Consequences
+
+### Positive
+- Native declarative partitioning
+- JSONB for semi-structured data
+- Robust logical replication
+- Active community and mature tooling (pgAdmin, pgBackRest)
+
+### Negative
+- Team learning curve (2-4 weeks)
+- Need to migrate MySQL-specific queries
+- Different monitoring tools (pg_stat_statements vs slow query log)
+
+### Mitigations
+- Team training on PostgreSQL before migration
+- Use pgloader for automatic schema and data migration
+- Keep MySQL in parallel for 30 days as fallback
+
+## Implementation Notes
+1. Phase 1: Set up PostgreSQL in staging, migrate schema with pgloader
+2. Phase 2: Migrate data in staging, run application tests
+3. Phase 3: Migrate production with planned downtime (maintenance window)
+4. Phase 4: Monitor for 30 days, decommission MySQL
+
+## Related Decisions
+
+| ADR | Relationship |
+|-----|-------------|
+| ADR-008 | Depends on (database monitoring) |
+| ADR-012 | Complements (backup strategy) |
+
+## Change Log
+
+| Date | Change | Author |
+|------|--------|--------|
+| 2026-07-04 | Proposed | alice@example.com |
+| 2026-07-11 | Accepted | platform-team |
+```
+
+
 ## Variants
 
 | Context | Adjustments | Notes |
@@ -183,3 +260,42 @@ The person or team proposing the decision writes the first draft. Stakeholders w
 ### When should an ADR be updated?
 
 Update the status when the decision is accepted, deprecated, or superseded. Update the content when new information changes the trade-offs (e.g., a previously rejected option becomes viable). Do not edit accepted ADRs to rewrite history — append a changelog entry instead.
+
+
+### How do we organize ADRs in the repository?
+
+Create a `docs/adr/` directory in the repository. Name each file `ADR-NNN-short-descriptive-title.md` (e.g., `ADR-015-migrate-postgresql.md`). Maintain a `README.md` in the directory that lists all ADRs with their current status. Use relative links between related ADRs. Add the ADR directory to onboarding documentation so new engineers can review past decisions. Consider using a tool like `adr-tools` to scaffold and link ADRs automatically.
+
+### When should an ADR be superseded?
+
+An ADR should be superseded when: the chosen technology reaches end of life, a new option becomes clearly superior, requirements changed significantly, or the decision caused operational issues that outweigh benefits. Do not edit the original ADR — create a new ADR that references the old one, mark the old one's status as "Superseded by ADR-NNN", and explain why the change is being made. Keep the original ADR in the repository for historical reference.
+
+### How do we integrate ADRs with the pull request workflow?
+
+When a pull request introduces a significant architectural change, require an ADR as part of the PR. The ADR is reviewed alongside the code. Use a PR template that asks: "Does this PR introduce an architectural change? If yes, link the ADR." Tag PRs with ADRs so they are easy to find. Require platform or architecture team approval for org-level ADRs. For team-level ADRs, peer review is sufficient.
+
+### What tools exist for managing ADRs?
+
+Popular tools: `adr-tools` (CLI for creating and linking ADRs), `log4brains` (static site generator for ADRs), `adr-viewer` (web viewer for markdown ADRs), and `backstage` (developer portal platform with ADR support). You can also use plain markdown in a versioned directory — simplicity is an advantage. The best tool is the one your team will actually use. Start with plain markdown and adopt tools if management becomes manual.
+
+### How do we prevent ADRs from going stale?
+
+Review ADRs quarterly during architecture reviews. Verify the status is correct (Accepted, Deprecated, Superseded). For ADRs older than 2 years, check if the decision is still relevant. If the chosen technology is no longer used, mark the ADR as "Obsolete". If a new decision replaces an old one, update the old ADR's status immediately. Assign an owner to each ADR responsible for keeping its status current. Include ADR review in the architecture review checklist.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

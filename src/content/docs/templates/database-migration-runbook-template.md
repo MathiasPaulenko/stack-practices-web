@@ -159,3 +159,144 @@ Stop immediately. Do not apply subsequent migrations. Assess whether to rollback
 ### Can I run migrations in a transaction?
 
 Yes, for DDL-safe databases (PostgreSQL). For MySQL, DDL is implicitly committed, so transactions do not protect you. Know your database's behavior before you plan the migration strategy.
+
+
+## Variants
+
+| Context | Approach | Notes |
+|---------|----------|-------|
+| Schema migration | Expand/contract pattern | Zero downtime; compatible with old and new versions |
+| Data migration | Backfill + verification | May take hours; run in background |
+| Engine migration | Blue-green with replication | Switch from MySQL to PostgreSQL for example |
+| Zero-downtime migration | Expand -> migrate -> contract | 3 phases; each deploy is independent |
+
+## Migration Example: Add NOT NULL Column
+
+```text
+=== Migration: Add email_verified column (NOT NULL) ===
+
+Service: user-service
+Database: PostgreSQL (users table)
+Risk: Medium (requires 3 deploys)
+Estimated duration: 2 days
+
+Phase 1: Expand (Deploy 1)
+  - Add column as nullable:
+    ALTER TABLE users ADD COLUMN email_verified BOOLEAN;
+  - Deploy code that writes to new column:
+    - On each login, set email_verified = true if email verified
+    - On each signup, set email_verified = false
+  - Backfill existing data:
+    UPDATE users SET email_verified = true WHERE email IN (SELECT email FROM verified_emails);
+    -- Run in batches of 1000 to avoid locking
+  - Verify: SELECT count(*) FROM users WHERE email_verified IS NULL;
+    -- Must be 0 after backfill
+
+Phase 2: Migrate (Deploy 2)
+  - Verify no NULLs remain:
+    SELECT count(*) FROM users WHERE email_verified IS NULL; -- must be 0
+  - Add NOT NULL constraint:
+    ALTER TABLE users ALTER COLUMN email_verified SET NOT NULL;
+  - Add default:
+    ALTER TABLE users ALTER COLUMN email_verified SET DEFAULT false;
+  - Verify: try inserting without email_verified -> should use default
+
+Phase 3: Contract (Deploy 3)
+  - Remove code that handles NULL case (no longer possible)
+  - Remove backfill code
+  - Verify app works correctly
+  - Monitor errors for 24 hours
+
+Rollback:
+  - Phase 1: ALTER TABLE users DROP COLUMN email_verified;
+  - Phase 2: ALTER TABLE users ALTER COLUMN email_verified DROP NOT NULL;
+  - Phase 3: Cannot easily revert; keep defensive code
+
+Post-Migration Verification:
+  - All users have email_verified non-NULL
+  - New signups have email_verified = false
+  - Logins verify email correctly
+  - No errors in logs related to the column
+```
+
+### How do we handle database migrations with zero downtime?
+
+Use the expand-contract pattern: Phase 1 (Expand) adds the new structure without breaking the old — both old and new app versions work. Phase 2 (Migrate) moves data and applies constraints when safe. Phase 3 (Contract) removes the old structure. Each phase is an independent deploy. Never run an ALTER that locks the table in production — use tools like pt-online-schema-change (MySQL) or CREATE INDEX CONCURRENTLY (PostgreSQL). For NOT NULL columns: add as nullable first, backfill, then add the constraint. For column renames: add the new one, write to both, migrate reads, then remove the old one.
+
+### What do we do if a migration fails mid-way?
+
+If a migration fails: assess the current database state. If the migration did not start: do nothing, fix the script and retry. If the migration started but did not complete: determine if it is safe to resume or if you need to roll back. For migrations with transactions: rollback is automatic. For non-transactional migrations (DDL in MySQL): roll back manually with a prepared rollback script. If data was modified: use the backup to compare and restore if needed. Document the failure and the cause. Never force a failed migration — investigate the root cause first. Communicate to the team if the migration affects availability.
+
+### How do we test migrations before production?
+
+Test migrations in an environment that replicates production: use a production dump (sanitized if needed) in staging. Run the migration and measure time. Verify the app works with the new schema. Test the rollback — it must work and restore the previous state. Test with large data volumes — a migration that takes 1 second with 100 rows may take hours with 10 million. Run the migration with the app under load to detect locks. Use a post-migration verification checklist. If the migration has multiple phases: test each phase independently and the full sequence.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

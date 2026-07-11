@@ -143,6 +143,71 @@ Las pruebas de carga evaluan como se comporta un sistema bajo trafico realista o
 
 Las pruebas de carga no solo tratan de encontrar el punto de ruptura. Se trata de entender como se degrada un sistema, donde estan los cuellos de botella y si la capacidad actual cumple con las expectativas de usuarios y negocio. Un plan de ejecucion documentado hace que las pruebas de rendimiento sean repetibles, comparables entre releases y útiles para los equipos de ingenieria.
 
+## Ejemplo de Script de Load Test con k6
+
+```javascript
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+import { Rate } from 'k6/metrics';
+
+const failureRate = new Rate('check_failure_rate');
+
+export const options = {
+  stages: [
+    { duration: '2m', target: 100 },
+    { duration: '5m', target: 100 },
+    { duration: '2m', target: 300 },
+    { duration: '5m', target: 300 },
+    { duration: '2m', target: 500 },
+    { duration: '5m', target: 500 },
+    { duration: '2m', target: 2000 },
+    { duration: '5m', target: 2000 },
+    { duration: '5m', target: 0 },
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<500', 'p(99)<1000'],
+    http_req_failed: ['rate<0.01'],
+    check_failure_rate: ['rate<0.05'],
+  },
+};
+
+export default function () {
+  const correlationId = `corr_${__VU}_${__ITER}`;
+  const headers = {
+    'X-Correlation-Id': correlationId,
+    'Content-Type': 'application/json',
+  };
+
+  const loginRes = http.post('https://api.example.com/auth/login', JSON.stringify({
+    username: `user_${__VU % 100}`,
+    password: 'test-password',
+  }), { headers });
+
+  check(loginRes, {
+    'login status 200': (r) => r.status === 200,
+    'login has token': (r) => r.json('token') !== undefined,
+  });
+
+  failureRate.add(!check(loginRes, {
+    'login success': (r) => r.status === 200,
+  }));
+
+  sleep(Math.random() * 2 + 1);
+
+  const listRes = http.get('https://api.example.com/orders', {
+    headers: { ...headers, Authorization: `Bearer ${loginRes.json('token')}` },
+  });
+
+  check(listRes, {
+    'orders status 200': (r) => r.status === 200,
+    'orders has items': (r) => r.json('items').length > 0,
+  });
+
+  sleep(Math.random() * 3 + 1);
+}
+```
+
+
 ## Variantes
 
 - **Plan de spike test**: Enfocado en rafagas repentinas de trafico y comportamiento de recuperacion.
@@ -188,3 +253,49 @@ Usa logs de produccion para modelar patrones de request, agrega think time entre
 ### Deberiamos ejecutar pruebas de carga en produccion?
 
 Las pruebas de carga en produccion son riesgosas y generalmente solo se hacen con trafico sintetico, feature flags y aislamiento. Prefiere entornos dedicados similares a produccion para la mayoria de las pruebas de carga.
+
+
+### Como correlacionamos resultados de load test con metricas de infraestructura?
+
+Durante el test, captura metricas de infraestructura (CPU, memoria, red, disco I/O) junto con metricas de aplicacion (RPS, latencia, tasa de error). Usa un dashboard que superponga eventos de load test con metricas de infraestructura. Despues del test, analiza: que componente de infraestructura alcanzo su limite primero, si el bottleneck fue CPU, memoria, red o disco, si el auto-scaling se disparo y si fue suficientemente rapido, y si las conexiones de base de datos o la latencia de query fueron el bottleneck. Documenta el bottleneck y el cambio de infraestructura necesario para abordarlo.
+
+### Cual es la diferencia entre spike, stress y endurance testing?
+
+Spike testing: aumento repentino y extremo de trafico (ej., 10x normal por 30 segundos) para probar si el sistema sobrevive y se recupera. Stress testing: aumentar gradualmente la carga hasta que el sistema se rompa, para encontrar el modo de fallo y la capacidad maxima. Endurance testing: ejecutar carga moderada por horas o dias para detectar memory leaks, agotamiento de recursos o deriva de rendimiento. Cada tipo de test revela problemas diferentes. Ejecuta los tres como parte de una estrategia integral de performance testing.
+
+### Como manejamos load testing para servicios con estado?
+
+Los servicios con estado (bases de datos, colas de mensajes, caches) requieren consideraciones especiales de load testing. Usa volumenes de datos realistas — probar con 100 filas cuando produccion tiene 10 millones oculta problemas de rendimiento. Calienta caches antes de medir. Prueba con tamaños de connection pool realistas. Monitorea el lag de replicacion durante el test. Prueba escenarios de escritura pesada y lectura pesada separadamente. Para bases de datos, prueba con distribucion de datos similar a produccion (no datos aleatorios uniformes). Documenta el procedimiento de setup y teardown de datos para reproducibilidad.
+
+### Que deberiamos hacer si el load test falla?
+
+Si el load test falla: no re-ejecutes inmediatamente — analiza el fallo primero. Identifica que escenario fallo y que umbral fue superado. Revisa metricas de infraestructura para el bottleneck. Revisa logs de aplicacion para errores durante el test. Determina si el fallo es un problema real de rendimiento o un problema del entorno de test. Documenta el hallazgo con un plan de remediacion y responsable. Re-ejecuta el test despues del fix para confirmar la mejora. Nunca marques un load test fallido como aprobado sin remediacion.
+
+### Con que frecuencia deberiamos ejecutar load tests?
+
+Ejecuta load tests completos antes de cada release mayor (mensual o trimestral). Ejecuta load tests de regresion en CI para caminos criticos (cada PR o diario). Ejecuta endurance tests trimestralmente para detectar memory leaks. Ejecuta spike tests antes de eventos de trafico esperados (Black Friday, lanzamientos de productos, campanas de marketing). Re-ejecuta load tests despues de cambios significativos de infraestructura (nuevos tipos de instancia, upgrades de base de datos, cambios de arquitectura). Documenta el calendario de load tests en la estrategia de testing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -214,6 +214,69 @@ X-RateLimit-Reset: 1721003460
 - Returning `200 OK` with an error body — violates HTTP semantics and breaks middleware
 - Different error formats per endpoint — clients need one consistent format
 
+
+## Variant Comparison
+
+| Variant | Context | Approach | Notes |
+|---------|---------|----------|-------|
+| RFC 7807 Problem Details | Public API, external clients | Structured JSON with type, title, status | IETF standard, libraries available |
+| Simple legacy format | Internal API, backward compat | code + message + request_id | Minimal, sufficient for small APIs |
+| GraphQL errors | GraphQL API | errors array with extensions | No HTTP status codes |
+| gRPC errors | Internal microservices | Status codes 0-16 + protobuf details | Binary, high performance |
+
+## Detailed Scenario: Handling a Downstream Error Cascade
+
+```text
+System: Orders API that calls inventory service
+Flow: POST /orders -> check stock -> create order
+
+Scenario: Inventory service times out
+
+Step 1 - Error detection:
+  - Request to inventory times out after 3s
+  - Circuit breaker open (3 consecutive failures)
+  - Error is not client-side, it is downstream
+
+Step 2 - Response to client:
+  HTTP/1.1 503 Service Unavailable
+  Content-Type: application/problem+json
+  Retry-After: 60
+
+  {
+    "type": "https://api.example.com/errors/service-unavailable",
+    "title": "Service Unavailable",
+    "status": 503,
+    "detail": "The inventory service is temporarily unavailable. Retry in 60 seconds.",
+    "instance": "/orders",
+    "request_id": "req_abc123",
+    "correlation_id": "corr_xyz789"
+  }
+
+Step 3 - Internal logging:
+  - Full log: original request, timeout, circuit breaker state
+  - Tag: downstream_timeout, service=inventory
+  - Metric: inventory_timeout_count++
+  - Trace span: inventory.call (status=error, duration=3001ms)
+
+Step 4 - Client communication:
+  - 503 with Retry-After indicates temporary failure
+  - Client should retry with exponential backoff
+  - If client receives 503 repeatedly, show maintenance message
+
+Step 5 - Degradation (optional):
+  - If circuit breaker is open, accept orders in degraded mode
+  - Mark order as "pending_stock_verification"
+  - Reconciliation queue when inventory recovers
+```
+
+### How do I document errors that vary by customer plan?
+
+Use the same error code but vary the `detail` field based on context. For example, a free plan that exceeds the export limit returns 403 with `detail: "Your plan allows 100 exports/month. Upgrade for more."`. Do not create separate error codes per plan; the code identifies the problem, not the user context.
+
+### Should I include timestamps in error responses?
+
+Yes, add a `timestamp` field in ISO 8601 format. This helps clients correlate errors with their own logs and report issues accurately. Some teams prefer using the HTTP `Date` header, but including it in the body is more useful for clients that only log the error body.
+
 ## Variants
 
 ### GraphQL errors

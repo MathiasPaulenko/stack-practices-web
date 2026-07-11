@@ -121,6 +121,114 @@ Una Politica de Monitoreo y Alertas define como una organizacion detecta problem
 
 Esta politica convierte senales de monitoreo en alertas útiles. Al asignar severidad, enrutamiento y reglas de escalacion, la organizacion asegura que los problemas criticos reciban atencion rapida mientras que las advertencias de baja prioridad no interrumpen a los ingenieros de guardia. La seccion de revision y mantenimiento previene la fatiga de alertas mediante el ajuste continuo de umbrales y la eliminacion de alertas ruidosas.
 
+## Reglas de Alerta de Prometheus (Ejemplo)
+
+```yaml
+groups:
+  - name: api_alerts
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+          / sum(rate(http_requests_total[5m])) by (service) > 0.05
+        for: 2m
+        labels:
+          severity: P1
+          team: platform
+        annotations:
+          summary: "{{ $labels.service }} tasa de error > 5%"
+          description: "{{ $labels.service }} tiene {{ $value | humanizePercentage }} tasa de error por 2 minutos"
+          runbook: "https://runbooks.example.com/high-error-rate"
+
+      - alert: HighLatencyP99
+        expr: |
+          histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[10m])) by (le, service)) > 1
+        for: 5m
+        labels:
+          severity: P2
+          team: platform
+        annotations:
+          summary: "{{ $labels.service }} latencia p99 > 1s"
+          runbook: "https://runbooks.example.com/high-latency"
+
+      - alert: DiskSpaceLow
+        expr: |
+          (node_filesystem_avail_bytes{mountpoint="/"}
+          / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 10
+        for: 15m
+        labels:
+          severity: P2
+          team: infrastructure
+        annotations:
+          summary: "Espacio en disco < 10% en {{ $labels.instance }}"
+          runbook: "https://runbooks.example.com/disk-space"
+```
+
+## Configuracion de Enrutamiento de Alertmanager
+
+```yaml
+route:
+  receiver: default
+  group_by: ["alertname", "service", "severity"]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    - matchers:
+        - severity = "P1"
+      receiver: pagerduty-critical
+      group_wait: 0s
+      repeat_interval: 30m
+    - matchers:
+        - severity = "P2"
+      receiver: pagerduty-warning
+      group_wait: 30s
+      repeat_interval: 2h
+    - matchers:
+        - severity = "P3"
+      receiver: slack-alerts
+      group_wait: 5m
+    - matchers:
+        - severity = "P4"
+      receiver: email-alerts
+      group_wait: 1h
+
+receivers:
+  - name: pagerduty-critical
+    pagerduty_configs:
+      - service_key: "P1_KEY"
+  - name: pagerduty-warning
+    pagerduty_configs:
+      - service_key: "P2_KEY"
+  - name: slack-alerts
+    slack_configs:
+      - channel: "#alerts"
+        api_url: "SLACK_WEBHOOK_URL"
+  - name: email-alerts
+    email_configs:
+      - to: "team@example.com"
+  - name: default
+    slack_configs:
+      - channel: "#alerts"
+```
+
+## Tabla de Puntuacion de Calidad de Alertas
+
+Revisa cada alerta trimestralmente con esta tabla:
+
+| Criterio | Puntuacion (1-5) | Notas |
+|----------|-----------------|-------|
+| Accionable: La alerta desencadena una respuesta clara? | | |
+| Precision: La tasa de falsos positivos es menor a 5%? | | |
+| Oportuna: La alerta se dispara antes del impacto al usuario? | | |
+| Enrutada: Llega al equipo que puede resolverla? | | |
+| Documentada: Hay un runbook vinculado? | | |
+| Unica: Esta alerta es redundante con otra? | | |
+
+Puntuacion total menor a 18 significa que la alerta necesita ajuste o eliminacion.
+
+
 ## Variantes
 
 - **Politica de alertas cloud-native**: Usa Prometheus Alertmanager, Grafana Oncall o PagerDuty para ambientes de contenedores y serverless.
@@ -163,3 +271,31 @@ No. Solo las alertas P1 y P2 deben pagar al ingeniero de guardia. Las alertas de
 ### Como sabemos si nuestros umbrales son correctos?
 
 Rastrea la proporcion de alertas útiles respecto al total, mide el tiempo medio de reconocimiento y resolucion, y revisa las tasas de falsos positivos. Si una alerta suena frecuentemente sin generar accion, es candidata a ajuste o eliminacion.
+
+
+### Que es el alerting multi-ventana y por que deberia usarlo?
+
+El alerting multi-ventana evalua una condicion sobre una ventana de tiempo corta y larga antes de dispararse. Por ejemplo, tasa de error above 5% por ambas ventanas de 1m y 5m. Esto previene que las alertas se disparen en picos transitorios mientras aun captura problemas sostenidos. Prometheus soporta esto con la clausula `for` y multiples expresiones.
+
+### Como manejamos las alertas durante mantenimiento planificado?
+
+Usa supresion o silenciamiento de alertas en tu herramienta de alertas. En Alertmanager, crea una regla de silencio con horas de inicio/fin y matchers para los servicios afectados. Documenta la ventana de mantenimiento en un canal de incidentes para que los ingenieros de guardia sepan por que las alertas estan suprimidas. Nunca deshabilites las alertas globalmente; suprime solo las reglas especificas afectadas.
+
+### Deberiamos usar alerting basado en SLO en lugar de alerting basado en umbrales?
+
+El alerting basado en SLO (tasa de quemado de presupuesto de error) es mas robusto para servicios orientados al usuario porque mide directamente el impacto al usuario. El alerting basado en umbrales es mas simple y funciona bien para metricas de infraestructura (CPU, disco, memoria). Usa alerting basado en SLO para rutas de usuario criticas y basado en umbrales para salud de infraestructura.
+
+### Cuantas alertas deberia recibir un ingeniero de guardia por turno?
+
+Un turno de guardia saludable tiene 0-2 paginas (P1/P2) y 5-15 alertas de Slack/correo (P3/P4). Si un ingeniero recibe mas de 5 paginas por turno, la politica de alertas necesita ajuste inmediato. Rastrea el volumen de alertas por turno y revisa en retros semanales de guardia.
+
+
+Alertas con puntuacion menor a 12 deben eliminarse inmediatamente. Alertas con puntuacion 12-17 deben ponerse en un plan de mejora de 30 dias con un dueno asignado.
+
+### Deberiamos tener un NOC (L0) antes del equipo de ingenieria?
+
+Para servicios 24/7 con alto volumen de alertas, si. Un NOC o equipo SRE de guardia (L0) filtra alertas repetidas, ejecuta runbooks conocidos y solo escala a ingenieria cuando se necesita experiencia del servicio. Esto reduce las paginas al equipo de ingenieria en un 40-60%.
+
+Para equipos pequenos, el L1 hace este filtrado. El diseno del NOC debe incluir runbooks automatizados para las top 10 alertas mas frecuentes.
+
+Configura integraciones con tu herramienta de tickets para crear tickets automaticamente cuando se resuelve un incidente.

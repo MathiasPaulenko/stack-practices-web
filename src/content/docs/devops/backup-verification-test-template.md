@@ -125,6 +125,101 @@ A backup that cannot be restored is not a backup. This template helps teams sche
 
 Backup verification is the only way to prove that a disaster recovery plan works. Regular tests expose issues like missing backups, credential drift, runbook errors, and RTO/RPO mismatches before an emergency. Documenting each test creates an audit trail and drives continuous improvement of restore procedures.
 
+## PostgreSQL Restore Verification Script
+
+```bash
+#!/bin/bash
+# Restore and verify a PostgreSQL backup
+set -euo pipefail
+
+BACKUP_FILE="/backups/prod_db_2026-07-11.sql.gz"
+TEST_DB="restore_test_$(date +%s)"
+PG_HOST="test-db.internal"
+PG_USER="restore_verifier"
+
+echo "=== PostgreSQL Backup Restore Verification ==="
+echo "Backup: $BACKUP_FILE"
+echo "Test DB: $TEST_DB"
+echo ""
+
+# Create test database
+echo "[1/6] Creating test database..."
+createdb -h "$PG_HOST" -U "$PG_USER" "$TEST_DB"
+
+# Restore backup
+echo "[2/6] Restoring backup..."
+gunzip -c "$BACKUP_FILE" | psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -v ON_ERROR_STOP=1 > /dev/null
+
+# Verify row counts
+echo "[3/6] Verifying row counts..."
+TABLES=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT tablename FROM pg_tables WHERE schemaname='public'")
+for table in $TABLES; do
+  count=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT count(*) FROM $table")
+  echo "  $table: $count rows"
+done
+
+# Verify constraints
+echo "[4/6] Verifying constraints..."
+CONSTRAINTS=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT count(*) FROM pg_constraint WHERE conrelid IN (SELECT oid FROM pg_class WHERE relnamespace='public'::regnamespace)")
+echo "  Active constraints: $CONSTRAINTS"
+
+# Verify indexes
+echo "[5/6] Verifying indexes..."
+INDEXES=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT count(*) FROM pg_indexes WHERE schemaname='public'")
+echo "  Active indexes: $INDEXES"
+
+# Run test queries
+echo "[6/6] Running smoke queries..."
+psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -c "SELECT 1 as test" > /dev/null && echo "  Smoke query: PASS" || echo "  Smoke query: FAIL"
+
+# Measure restore time
+RESTORE_TIME=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT now() - '$START_TIME'::timestamp")
+
+# Cleanup
+echo ""
+echo "Cleaning up test database..."
+dropdb -h "$PG_HOST" -U "$PG_USER" "$TEST_DB"
+echo "=== Verification Complete ==="
+```
+
+## RTO/RPO Measurement Worksheet
+
+```text
+=== Backup Verification RTO/RPO Worksheet ===
+
+Test Date: 2026-07-11
+Service: production-database
+Backup Type: Full + WAL streaming
+
+RPO Measurement:
+  - Last successful backup: 2026-07-11 02:00 UTC
+  - Last WAL archived:     2026-07-11 10:45 UTC
+  - Test restore point:    2026-07-11 11:00 UTC
+  - Data loss:             15 minutes
+  - RPO Target:            30 minutes
+  - RPO Status:            PASS (15 min < 30 min)
+
+RTO Measurement:
+  - Restore start time:    11:00 UTC
+  - Database available:    11:08 UTC
+  - Application connected: 11:10 UTC
+  - Smoke tests passed:    11:12 UTC
+  - Total RTO:             12 minutes
+  - RTO Target:            30 minutes
+  - RTO Status:            PASS (12 min < 30 min)
+
+Issues Found:
+  - WAL archive gap of 3 minutes during 09:30-09:33
+  - Restore script hard-coded path (BVT-001)
+  - Missing secret rotation step (BVT-002)
+
+Remediation:
+  - Investigate WAL gap cause
+  - Fix hard-coded paths by 2026-07-04
+  - Add secret rotation to runbook by 2026-07-11
+```
+
+
 ## Variants
 
 - **Database backup verification**: Restore full and incremental backups, verify transaction log replay, and run consistency checks.
@@ -171,3 +266,36 @@ RTO (Recovery Time Objective) is the maximum acceptable time to restore a servic
 ### Should we test restores during business hours?
 
 Restore tests should be performed during planned maintenance windows to avoid impacting production. Use isolated environments whenever possible.
+
+
+### How do we automate backup verification?
+
+Schedule restore tests using cron or CI/CD pipelines. Create a script that restores the latest backup to an isolated environment, runs data integrity checks, measures RTO/RPO, and sends a report. Store results in a dashboard for trend analysis. Alert on failed verifications. For databases, use tools like pgBackRest verify or AWS RDS automated restore testing. For file systems, use checksum comparison. Automate as much as possible but keep a manual runbook for edge cases.
+
+### What should we do if a backup verification fails?
+
+Treat it as a P1 incident. Immediately check if the production backup system is functioning. If the backup is corrupt or missing, identify the root cause and create a new backup. Do not wait for the next scheduled test. Document the failure, the root cause, and the fix. Notify stakeholders if the service is at risk. Run a full verification after the fix to confirm the backup system is healthy. Review the incident in the next team meeting.
+
+### How do we test incremental backup restores?
+
+Incremental backups require the full backup plus all subsequent incremental backups applied in order. Test by: restoring the full backup, applying each incremental backup in sequence, and verifying the final state. Test point-in-time recovery by restoring to a specific timestamp. Verify that transaction logs replay correctly. Test broken incremental chains by deleting one incremental backup and confirming the system detects the gap. Document the full restore procedure including all steps.
+
+### What environments should we use for restore testing?
+
+Use an isolated environment that mirrors production topology but does not share resources. This can be a dedicated test VPC, a separate Kubernetes namespace, or a docker-compose setup. The environment should have the same database version, network configuration, and application version as production. Never restore to the production environment. Clean up the test environment after each verification. Use infrastructure-as-code to provision and tear down the test environment automatically.
+
+### How do we handle backup verification for distributed systems?
+
+For distributed systems (microservices, event-driven architectures), verify each component independently and then test the integrated restore. Restore databases, message queues, and object stores separately. Then verify that the application can start and process requests with all restored components. Test event replay to ensure consistency. Verify that distributed transactions or sagas complete correctly after restore. Document the restore order — some services may depend on others being restored first.
+
+
+
+Review backup verification results monthly. Track RTO/RPO trends over time to identify degrading performance before it becomes a compliance issue.
+
+### How do we verify cross-region backup replication?
+
+Cross-region replication copies backups to a secondary region for disaster recovery. Verify replication by: checking the replication status in the cloud console, comparing backup sizes between primary and secondary regions, and performing a restore from the secondary region backup. Test failover to the secondary region at least quarterly. Document the replication lag and ensure it meets RPO requirements. Verify that encryption keys are accessible in the secondary region.
+
+
+
+End of document. Review and update quarterly.

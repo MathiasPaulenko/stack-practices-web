@@ -124,6 +124,52 @@ Use this resource when:
 
 The template treats rotation as a **lifecycle**, not a one-time event. The inventory answers "what do we have?" The cadence answers "how often?" The procedure answers "how?" The emergency playbook answers "what if?" Zero-downtime rotation is the hardest part: dual-read mode lets you rotate without coordination windows. The validation checklist prevents the common failure where a secret is rotated but an old cron job or cached connection string still uses the old value.
 
+## Secrets Rotation Automation Examples
+
+```bash
+#!/bin/bash
+# Example: Rotate database password with zero downtime
+# Uses dual-read pattern: old + new password both valid during transition
+
+set -euo pipefail
+
+DB_HOST="db.internal"
+DB_NAME="appdb"
+OLD_USER="app_user_old"
+NEW_USER="app_user_new"
+NEW_PASSWORD=$(openssl rand -base64 32)
+
+# Step 1: Create new user with identical permissions
+psql -h "$DB_HOST" -U admin -d "$DB_NAME" -c "
+  CREATE USER $NEW_USER WITH PASSWORD '$NEW_PASSWORD';
+  GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO $NEW_USER;
+  GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO $NEW_USER;
+"
+
+# Step 2: Update secret manager with new credentials
+aws secretsmanager update-secret \
+  --secret-id prod/db/app-user \
+  --secret-string "{"username":"$NEW_USER","password":"$NEW_PASSWORD"}"
+
+# Step 3: Trigger app reload to pick up new secret
+kubectl rollout restart deployment/app -n production
+
+# Step 4: Wait for rollout to complete
+kubectl rollout status deployment/app -n production --timeout=300s
+
+# Step 5: Verify new connections use new user
+psql -h "$DB_HOST" -U admin -d "$DB_NAME" -c "
+  SELECT usename, count(*) FROM pg_stat_activity
+  WHERE datname='appdb' GROUP BY usename;
+"
+
+# Step 6: After verification, drop old user
+psql -h "$DB_HOST" -U admin -d "$DB_NAME" -c "DROP USER $OLD_USER;"
+
+echo "Rotation complete. Old user dropped."
+```
+
+
 ## Variants
 
 | Context | Key Difference | Tool |
@@ -163,3 +209,94 @@ That is a dependency risk. Before rotating, identify all consumers using audit l
 ### Should I rotate secrets after an employee leaves?
 
 Yes, for all secrets the departing employee had access to, regardless of trust level. Access logs show what they touched, but not what they memorized or copied. The cost of rotation is lower than the cost of a breach. For shared secrets (e.g., database passwords), rotate immediately. For personal credentials (e.g., their own AWS IAM user), disable the account, do not rotate.
+
+
+### What is the difference between rotation and revocation?
+
+Rotation replaces a secret with a new one while maintaining service continuity. Revocation invalidates a secret immediately, potentially causing service disruption. Rotation is planned and uses dual-read patterns. Revocation is reactive and used when a secret is known to be compromised. After revocation, you must also rotate — revocation alone leaves services without valid credentials. The rotation procedure should include a revocation step at the end (dropping the old secret) but revocation procedures should be separate and faster, designed for incident response.
+
+### How do we manage secrets in CI/CD pipelines?
+
+CI/CD pipelines need secrets to build, test, and deploy. Never store secrets in pipeline configuration files or environment variables in the CI tool's UI. Use a secret manager (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault) and inject secrets at runtime. Use short-lived tokens for CI — OIDC-based authentication for cloud providers eliminates long-lived keys entirely. Rotate CI secrets quarterly. Audit CI secret access logs monthly. Restrict CI secrets to the minimum permissions needed — a build pipeline does not need production database access. Use separate secrets for staging and production CI jobs.
+
+### How do we handle secrets in containerized environments?
+
+In Kubernetes: use External Secrets Operator to sync secrets from Vault/AWS SM into Kubernetes Secrets. Use CSI Secrets Store provider for mounting secrets as files. Never bake secrets into container images — use runtime injection. For database credentials, use the dual-read pattern with init containers. For TLS certificates, use cert-manager for automatic rotation. For service-to-service authentication, use SPIFFE/SPIRE for short-lived identity certificates. Scan container images for hardcoded secrets with Trivy or GitLeaks in CI. If a secret is found in an image, rotate it immediately — the image may have been pulled by attackers.
+
+### What should we do if a secret is leaked?
+
+If a secret is leaked: rotate it immediately — do not wait for the scheduled rotation. Revoke the old secret after rotation. Investigate the leak: how was it exposed (commit to public repo, log file, screenshot, CI output)? Fix the root cause (add pre-commit hooks, update logging to redact secrets, restrict CI output). Audit access logs for the leaked secret — was it used by unauthorized parties? If yes, treat as a security incident and follow the incident response playbook. Notify affected users if their data may have been accessed. Document the incident and add controls to prevent recurrence. A leaked secret that is not rotated is an open door.
+
+### How do we audit secret usage?
+
+Enable access logging on your secret manager (Vault audit logs, AWS CloudTrail for Secrets Manager). Log every secret read, write, and delete. Send logs to a SIEM (Splunk, ELK) for centralized analysis. Set up alerts for anomalous access patterns: secret accessed from a new IP, secret accessed outside business hours, bulk secret reads, or secret access by a non-human identity. Review access logs monthly — verify that only expected services and engineers are accessing secrets. Remove access for services that no longer need a secret. Quarterly access reviews ensure that secret permissions match current ownership.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

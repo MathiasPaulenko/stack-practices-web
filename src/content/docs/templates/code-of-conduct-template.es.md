@@ -207,6 +207,65 @@ versión 2.1, disponible en https://www.contributor-covenant.org/version/2/1/cod
 - Sin definición de alcance — los colaboradores no saben dónde aplica el código
 - Discusiones de cumplimiento públicas — las violaciones deben manejarse privadamente
 
+
+## Comparacion de Variantes
+
+| Variante | Contexto | Enfoque | Notas |
+|----------|----------|---------|-------|
+| Contributor Covenant 2.1 | Proyecto open-source, comunidad general | Compromiso + estandares + cumplimiento | Mas comun; ampliamente reconocido |
+| Codigo corporativo | Proyecto interno de empresa | Agregar referencia HR, asignacion IP, NDA | Alinea con handbook de empleados |
+| Codigo de evento | Conferencia o meetup | Agregar fotografias, alcohol, accesibilidad | Incluir telefono en sitio |
+| Codigo simplificado | Proyecto pequeno (1-2 mantenedores) | Compromiso + 5 positivos + 5 negativos + email | Omitir niveles de cumplimiento |
+
+## Escenario Detallado: Aplicar una Violacion del Codigo de Conducta
+
+```text
+Incidente: Un colaborador publica comentarios despectivos sobre la
+calidad del codigo de otro colaborador en un issue publico de GitHub.
+
+Paso 1 - Triaje (dentro de 24 horas):
+  - El equipo de moderacion revisa el thread del issue
+  - Dos moderadores coinciden: esto es una violacion Nivel 1
+  - Un moderador se asigna como responsable del caso
+
+Paso 2 - Accion (dentro de 48 horas):
+  - El responsable envia un mensaje privado al infractor:
+    "Tu comentario en el issue #142 viola nuestro Codigo de Conducta.
+    Especificamente, el lenguaje usado es despectivo y personal.
+    Por favor revisa nuestros estandares en [link]. Esta es una
+    advertencia formal. Violaciones repetidas resultaran en ban temporal."
+  - El responsable envia un mensaje privado al colaborador afectado:
+    "Vimos el comentario en el issue #142 y lo hemos abordado.
+    No deberias lidiar con ataques personales aqui.
+    Avisanos si hay mas incidentes."
+  - El comentario infractor se edita o se oculta (no se elimina)
+
+Paso 3 - Documentacion:
+  - Registrar el incidente en el log privado de moderacion:
+    Fecha, numero de issue, infractor, accion tomada, responsable
+  - Agendar revision del comportamiento del infractor en 30 dias
+
+Paso 4 - Escalacion (si se repite):
+  - Segunda violacion dentro de 90 dias -> Nivel 2 (ban temporal)
+  - Enviar notificacion privada con duracion y condiciones del ban
+  - Remover de organizacion de GitHub, Discord, mailing lists
+  - Documentar la escalacion en el log de moderacion
+
+Paso 5 - Readmision:
+  - Despues del periodo de ban, revisar el caso
+  - Si el colaborador reconoce la violacion y se compromete
+    con el codigo, readmitir con nota en el log
+  - Tercera violacion -> ban permanente, sin readmision
+```
+
+### Como manejo reportes anonimos?
+
+Acepta reportes via un formulario anonimo (ej: Google Forms, Typeform) enlazado desde la pagina del Codigo de Conducta. Los reportes anonimos son mas dificiles de investigar pero deben revisarse igualmente. Acusa recibo si se provee informacion de contacto. No descartes reportes anonimos: patrones de reportes anonimos sobre la misma persona indican un problema real.
+
+### Que pasa si la violacion ocurre fuera de los espacios de la comunidad?
+
+El codigo aplica cuando alguien representa a la comunidad (ej: habla en una conferencia, publica en el Twitter oficial del proyecto). Para comportamiento en espacios puramente personales, el codigo no aplica directamente. Sin embargo, si el comportamiento personal de un miembro hace que otros se sientan inseguros en la comunidad, el equipo de moderacion puede actuar. Usa juicio y documenta el razonamiento.
+
 ## Variantes
 
 ### Código de conducta corporativo

@@ -131,6 +131,124 @@ Use this resource when:
 
 The checklist enforces a **minimum notice period** that respects consumer timelines. External APIs need longer deprecation windows because you cannot control when consumers update. The `Sunset` header is machine-readable, allowing client libraries to warn developers automatically. Tracking traffic before shutdown prevents surprise breakages from forgotten internal integrations.
 
+## Deprecation and Sunset Headers
+
+Add HTTP headers to every response from the deprecated endpoint so consumers discover the deprecation programmatically:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Deprecation: true
+Sunset: Sat, 31 Dec 2026 23:59:59 GMT
+Link: <https://api.example.com/v3/users>; rel="successor-version"
+```
+
+Client libraries can parse these headers and log warnings:
+
+```javascript
+function checkDeprecationHeaders(response) {
+  const sunset = response.headers.get("Sunset");
+  const deprecation = response.headers.get("Deprecation");
+  const successor = response.headers.get("Link");
+
+  if (deprecation === "true") {
+    console.warn(`This endpoint is deprecated. Sunset date: ${sunset}`);
+    if (successor) {
+      console.warn(`Migrate to: ${successor.match(/<([^>]+)>/)?.[1]}`);
+    }
+  }
+}
+```
+
+## Migration Guide Template
+
+Provide a structured migration guide for each breaking change:
+
+```markdown
+# Migration Guide: v2 -> v3 User Service API
+
+## Summary
+- Field `name` split into `firstName` and `lastName`
+- Endpoint `/v2/users/{id}` replaced by `/v3/users/{id}`
+- Error responses now use RFC 7807 Problem Details format
+
+## Before (v2)
+```json
+GET /v2/users/123
+{
+  "id": 123,
+  "name": "Alice Johnson",
+  "email": "alice@example.com"
+}
+```
+
+## After (v3)
+```json
+GET /v3/users/123
+{
+  "id": 123,
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "email": "alice@example.com"
+}
+```
+
+## Error Format Change
+```json
+// v2 error
+{ "error": "User not found", "code": 404 }
+
+// v3 error (RFC 7807)
+{
+  "type": "https://api.example.com/errors/not-found",
+  "title": "User not found",
+  "status": 404,
+  "detail": "User 123 does not exist"
+}
+```
+
+## Automated Migration Steps
+1. Update base URL from `/v2/` to `/v3/`
+2. Replace `name` with `firstName` + `lastName` in request/response models
+3. Update error handling to parse RFC 7807 format
+4. Test against sandbox at `https://sandbox.api.example.com/v3/`
+```
+
+## Automated Sunset Monitoring Script
+
+Track traffic to deprecated endpoints so you know when it is safe to shut them down:
+
+```python
+import requests
+from datetime import datetime, timedelta
+
+def check_sunset_readiness(grafana_url, dashboard_id, api_token):
+    headers = {"Authorization": f"Bearer {api_token}"}
+    end = datetime.utcnow()
+    start = end - timedelta(days=7)
+
+    query = f'sum(rate(http_requests_total{{version="v2"}}[1h]))'
+    params = {
+        "query": query,
+        "start": start.timestamp(),
+        "end": end.timestamp(),
+        "step": 3600,
+    }
+
+    resp = requests.get(f"{grafana_url}/api/datasources/proxy/1/api/v1/query_range",
+                        headers=headers, params=params)
+    data = resp.json()
+
+    hourly_rates = [float(point[1]) for point in data["data"]["result"][0]["values"]]
+    zero_traffic_days = sum(1 for rate in hourly_rates if rate == 0)
+
+    if zero_traffic_days >= 7:
+        print("READY FOR SHUTDOWN: 7 consecutive days of zero traffic")
+    else:
+        print(f"NOT READY: Only {zero_traffic_days} hours of zero traffic in last 7 days")
+        print(f"Average hourly traffic: {sum(hourly_rates) / len(hourly_rates):.1f} requests")
+```
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -138,6 +256,8 @@ The checklist enforces a **minimum notice period** that respects consumer timeli
 | Internal microservices | Shorter timelines, stricter enforcement | Teams can coordinate via shared Slack channel |
 | Public SaaS API | Long timelines, legal review | May require SLA commitments for deprecation notice |
 | Mobile app backends | Force upgrade via app store | Use minimum app version checks to sunset old endpoints |
+| GraphQL APIs | Schema deprecation directives | Use `@deprecated` directive on fields and types |
+| Event-driven | Schema registry compatibility modes | Transition from BACKWARD to NONE before removing old schema |
 
 ## What Works
 
@@ -146,6 +266,8 @@ The checklist enforces a **minimum notice period** that respects consumer timeli
 3. Maintain a public API changelog with dates for every change
 4. Version the API contract independently of the service deployment
 5. Keep deprecated endpoints observable with dedicated dashboards
+6. Send deprecation notices through multiple channels (email, headers, changelog, status page)
+7. Provide a compatibility shim for complex migrations to reduce consumer effort
 
 ## Common Mistakes
 
@@ -154,6 +276,8 @@ The checklist enforces a **minimum notice period** that respects consumer timeli
 3. Removing documentation before the API is shut down
 4. Assuming all consumers read email announcements
 5. Forcing migrations during holiday seasons or fiscal quarter-ends
+6. Not providing a sandbox environment for consumers to test the new version
+7. Shutting down without monitoring for 404s from unknown consumers post-shutdown
 
 ## Frequently Asked Questions
 
@@ -168,3 +292,19 @@ URL versioning (`/v1/`, `/v2/`) is explicit and easy to debug. Header versioning
 ### What if a consumer refuses to migrate?
 
 If a consumer is critical and cannot migrate in time, negotiate an extension with a hard deadline. If the consumer is non-critical, proceed with shutdown; the `410 Gone` response will force action.
+
+### How do I handle versioning for GraphQL APIs?
+
+GraphQL uses a single endpoint. Deprecate fields with the `@deprecated` directive and monitor usage via introspection queries. Remove deprecated fields only after usage drops to zero.
+
+### What is a compatibility shim and when should I use one?
+
+A compatibility shim is a translation layer that accepts old-format requests and converts them to the new format internally. Use it when the migration is complex (e.g., field splitting, response restructuring) and consumers need time to adapt. Remove the shim after all consumers have migrated.
+
+### Should I maintain separate SDKs for each API version?
+
+Maintain SDKs for the current and previous major version. Drop support for older SDKs after the deprecation window expires. Publish migration guides alongside SDK updates so developers can upgrade in one pass.
+
+### How do I automate the sunset readiness check?
+
+Instrument your API gateway or load balancer to tag requests by version. Build a dashboard that shows traffic per version over time. Set an alert when traffic to a deprecated version drops below a threshold for 7 consecutive days, signaling readiness for shutdown.

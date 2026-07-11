@@ -184,6 +184,47 @@ Before the new hire starts:
 
 The checklist separates onboarding into three phases: Day 1 (administrative and technical setup), Week 1 (codebase orientation and first contribution), and Week 2 (production awareness and domain knowledge). The structure recognizes that new engineers need different things at different times: first they need working environments, then they need context, then they need ownership. The buddy system ensures no one gets stuck, and the completion verification creates accountability for both the new hire and the team.
 
+## 30-60-90 Day Onboarding Plan
+
+```text
+=== Day 30: Contributing ===
+
+Goals:
+  - Environment fully configured and working
+  - First 3-5 PRs merged (bug fixes, small features, tests)
+  - Participating in code reviews (reviewing others)
+  - Understands team workflow (standups, planning, retros)
+  - Has met all team members 1:1
+  - Completed security and compliance training
+
+Check-in: Manager + buddy review progress, identify blockers
+
+=== Day 60: Owning ===
+
+Goals:
+  - Owns a service or component (primary reviewer for changes)
+  - Has been on-call shadow for 2+ shifts
+  - Participating in design discussions
+  - Can deploy to staging independently
+  - Can debug production issues with guidance
+  - Has written or updated documentation
+
+Check-in: Manager reviews ownership readiness, adjust scope
+
+=== Day 90: Independent ===
+
+Goals:
+  - Fully independent on-call (with backup available)
+  - Can deploy to production independently
+  - Leading a small feature or improvement
+  - Mentoring the next new hire (if applicable)
+  - Has completed a postmortem or contributed to one
+  - Performance review: on track for expectations
+
+Check-in: Manager + skip-level, confirm successful onboarding
+```
+
+
 ## Variants
 
 | Context | Adjustments | Notes |
@@ -223,3 +264,38 @@ No. Shadow on-call first (observe without responsibility), then join rotation wi
 ### What if the new hire finishes everything early?
 
 That is a sign of a well-run process, not a problem. Use extra time for deeper domain exploration, contributing to tooling improvements, or shadowing other teams. Early completion also indicates your documentation and tooling are in good shape.
+
+
+### How do we measure onboarding success?
+
+Track these metrics: time to first PR (target: < 3 days), time to first production deploy (target: < 2 weeks), time to independent on-call (target: < 2 months), new hire satisfaction score (survey at day 30, 60, 90), buddy satisfaction score, and 6-month retention rate. Review metrics quarterly and adjust the onboarding process. Compare metrics across teams to identify best practices. Share successful onboarding patterns with other teams. A good onboarding process improves retention and reduces time-to-productivity.
+
+### What should the buddy role include?
+
+The buddy is the new hire's go-to person for day-to-day questions. Responsibilities: help with environment setup, answer "how do I..." questions, review first PRs, explain unwritten team norms, introduce to other team members, and check in daily during week 1. The buddy is not a mentor (career growth) or a manager (performance) — they are a peer guide. Assign the buddy before day 1. The buddy should have been on the team for at least 6 months. Rotate buddy assignments to prevent burnout. Recognize buddy contributions in performance reviews.
+
+### How do we handle remote onboarding?
+
+For remote onboarding: ship hardware to arrive before day 1. Schedule a video call for the first morning (not just a Slack message). Use screen sharing for environment setup. Record all architecture overviews and team introductions. Create a virtual "water cooler" channel for informal chat. Schedule daily 15-minute check-ins with the buddy for week 1. Use pair programming sessions for the first PR. Be explicit about communication norms (which channels for what, response time expectations). Send a welcome package (company swag, notebook) to the new hire's home. Consider time zone differences when scheduling meetings.
+
+### What if the new hire is struggling?
+
+If a new hire is struggling: identify the specific area (technical, domain knowledge, process, social). Adjust the onboarding plan: add more 1:1 time with the buddy, break tasks into smaller pieces, provide additional training resources, or pair program more frequently. Schedule a check-in with the manager to discuss concerns openly and constructively. Document specific examples and actionable feedback. Set clear expectations and a timeline for improvement. If the struggle is systemic (not the hire's fault), review the onboarding process for gaps. Most struggles are fixable with targeted support — do not wait to act.
+
+### How do we keep the checklist updated?
+
+After each new hire completes onboarding: ask them to review the checklist and note what was missing, outdated, or confusing. Update the checklist within 1 week while feedback is fresh. Review the checklist quarterly with the team — services change, tools change, processes change. Assign a checklist owner (usually the engineering manager or a senior engineer). Version the checklist so changes are tracked. Share updates with the team so everyone knows what changed. A stale checklist is worse than no checklist — it misleads new hires and erodes trust in the process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -137,6 +137,93 @@ Los despliegues sin tiempo de inactividad actualizan servicios de produccion sin
 
 Los despliegues sin tiempo de inactividad dependen de tres cosas: mecanismos de rollout seguros, senales de salud confiables y rollback rapido. Un checklist asegura que cada release considere el enrutamiento de trafico, la compatibilidad de datos y la observabilidad antes de que cualquier usuario sea expuesto. Combinar esta disciplina con la automatizacion reduce el riesgo de incidentes en produccion y mejora la confianza en los releases.
 
+## Configuracion de Rolling Update en Kubernetes
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 0
+  template:
+    spec:
+      containers:
+        - name: api
+          image: registry.example.com/api:v2.3.1
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 15 && kill -SIGTERM 1"]
+      terminationGracePeriodSeconds: 60
+```
+
+## Configuracion de Canary con Argo Rollouts
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: api-gateway
+spec:
+  replicas: 10
+  strategy:
+    canary:
+      steps:
+        - setWeight: 10
+        - pause: { duration: 5m }
+        - analysis:
+            templates:
+              - templateName: success-rate
+            args:
+              - name: service-name
+                value: api-gateway
+        - setWeight: 30
+        - pause: { duration: 5m }
+        - analysis:
+            templates:
+              - templateName: success-rate
+            args:
+              - name: service-name
+                value: api-gateway
+        - setWeight: 50
+        - pause: { duration: 10m }
+        - setWeight: 100
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api
+          image: registry.example.com/api:v2.3.1
+          ports:
+            - containerPort: 8080
+```
+
+
 ## Variantes
 
 - Checklist de rolling update en Kubernetes: Enfoque en readiness probes, max surge, max unavailable y pod disruption budgets.
@@ -180,3 +267,35 @@ Usa cambios aditivos primero (agregar columnas, tablas, indices), despliega codi
 ### Cuando debemos hacer rollback inmediatamente?
 
 Haz rollback cuando los health checks fallan ampliamente, la tasa de error se dispara, caen metricas criticas de negocio o se dispara una alerta P1. Un rollback mas rapido preserva la confianza del usuario y los ingresos.
+
+
+### Como manejamos conexiones de larga duracion durante el despliegue?
+
+Las conexiones de larga duracion (WebSockets, SSE, gRPC streams) requieren manejo especial. Usa un preStop hook para dar tiempo a las conexiones para drenar naturalmente. Configura el load balancer con connection draining (AWS: deregistration delay, GCP: connection draining timeout). Establece terminationGracePeriodSeconds lo suficientemente alto para la conexion mas larga esperada. Para WebSockets, envia un close frame del lado del servidor antes de terminar. Monitorea el conteo de conexiones activas durante el rollout y espera a que llegue a cero antes de forzar el kill de pods.
+
+### Cual es el patron expand-contract para migraciones de base de datos?
+
+Expand-contract es un patron de tres fases para cambios de esquema sin downtime. Fase 1 (Expand): agrega nuevas columnas, tablas o indices sin remover las viejas. Tanto codigo viejo como nuevo pueden ejecutarse. Fase 2 (Migrate): despliega codigo que escribe a ambos esquemas viejo y nuevo, backfill de datos existentes, y lee del nuevo esquema. Fase 3 (Contract): despliega codigo que solo usa el nuevo esquema, luego elimina columnas viejas en un despliegue posterior. Cada fase es un despliegue separado con su propio periodo de validacion.
+
+### Como probamos despliegues sin downtime antes de produccion?
+
+Prueba en staging con carga realista: usa un generador de carga que simule patrones de trafico de produccion. Despliega mientras la carga esta corriendo y mide: tasa de error durante el rollout, percentiles de latencia (p50, p95, p99), tasa de conexiones dropeadas, y tasa de exito de requests. Verifica que el rollout complete dentro del tiempo esperado. Prueba rollback bajo carga tambien. Ejecuta estas pruebas en CI para cada release mayor. Documenta el comportamiento esperado y alerta si los rollouts de produccion se desvian de los resultados de staging.
+
+### Como manejamos toggles de feature flags durante el despliegue?
+
+Despliega con el feature flag deshabilitado. Verifica que el despliegue es estable. Luego habilita el flag para un pequeno porcentaje de usuarios (1-5%). Monitorea metricas por 10-15 minutos. Incrementa gradualmente el porcentaje (10%, 25%, 50%, 100%) con monitoreo en cada paso. Si aparecen problemas, deshabilita el flag instantaneamente sin rollback. Mantén el flag en el codigo por al menos un ciclo de release despues de la habilitacion completa antes de removerlo. Documenta el ciclo de vida del flag: creado, habilitado, verificado, removido.
+
+### Que monitoreo necesitamos durante despliegues sin downtime?
+
+Monitorea: tasa de error (alerta si > 0.5% por 2 min), latencia p99 (alerta si > baseline + 30%), tasa de exito de health checks (alerta si < 95%), progreso del despliegue (alerta si estancado), conteo de reinicios de pod (alerta si > 2 en 5 min), y metricas de negocio (alerta si conversion cae > 5%). Usa un dashboard de despliegue que superponga eventos de despliegue con metricas de aplicacion. Configura triggers de rollback automatizados basados en estas metricas. Revisa metricas de despliegue en la validacion post-despliegue.
+
+
+
+
+Revisa y actualiza esta checklist despues de cada incidente de despliegue. Elimina pasos que no agregan valor, agrega pasos que habrian detectado el problema, y refina los gates de automatizacion.
+
+
+Fin del documento. Revisar trimestralmente.
+
+
+End of document. Review and update quarterly.

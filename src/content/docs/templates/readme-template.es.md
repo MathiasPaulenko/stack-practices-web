@@ -135,6 +135,73 @@ Cada sección sirve un propósito específico:
 - **Contribución**: Establece expectativas para PRs, issues y estilo de código. Enlaza a la [Guía de Contribución](/docs/templates/contributing-guide) para detalles.
 - **Licencia**: Protege legalmente tanto a autores como usuarios
 
+## Ejemplo de README
+
+```text
+=== README: payment-service ===
+
+# Payment Service
+
+Servicio de procesamiento de pagos para la plataforma.
+
+## Inicio Rapido
+
+Requisitos:
+  - Node.js 20+
+  - Docker 24+
+  - PostgreSQL 16+
+
+Instalacion:
+  git clone https://github.com/company/payment-service.git
+  cd payment-service
+  npm install
+  cp .env.example .env  # editar con tus valores
+  docker compose up -d  # postgres y redis
+  npm run db:migrate
+  npm run dev
+
+Tests:
+  npm test           # tests unitarios
+  npm run test:e2e   # tests end-to-end
+  npm run test:cov   # coverage report
+
+## Arquitectura
+
+  Client -> API Gateway -> payment-service -> PostgreSQL
+                                       -> Redis (cache)
+                                       -> Carrier API (shipping)
+
+## Endpoints
+
+  POST   /payments          Crear un pago
+  GET    /payments/:id      Obtener un pago
+  POST   /payments/:id/refund  Reembolsar un pago
+  GET    /health            Health check
+
+## Configuracion
+
+  Variable          | Requerido | Default | Descripcion
+  ------------------|-----------|---------|------------------
+  DATABASE_URL      | Si        | -       | URL de PostgreSQL
+  REDIS_URL         | Si        | -       | URL de Redis
+  CARRIER_API_KEY   | Si        | -       | API key del carrier
+  LOG_LEVEL         | No        | info    | Nivel de logging
+  PORT              | No        | 3000    | Puerto del servidor
+
+## Monitoreo
+
+  - Dashboard: https://grafana.company.com/d/payment
+  - Logs: https://kibana.company.com/app/discover#/payment
+  - Alertas: PagerDuty service PD-1234
+  - SLO: 99.9% disponibilidad, p95 < 500ms
+
+## Contribuir
+
+  Ver CONTRIBUTING.md para el flujo de contribucion.
+  Contacto: #payments-team en Slack.
+```
+
+
 ## Variants
 
 | Tipo de Proyecto | Secciones a Agregar | Secciones a Omitir |
@@ -184,3 +251,52 @@ Asigna revisores según el tipo de documento. Los documentos técnicos necesitan
 ### ¿Cómo versiono los documentos creados de esta plantilla?
 
 Usa tu sistema de control de versiones. Guarda los documentos en un directorio docs/ con naming claro. Tag o branch versiones significativas. Revisa y actualiza documentos vivos trimestralmente.
+
+
+### Como estructuramos el README para proyectos open source?
+
+Para open source: el README es la primera impresion. Empieza con el nombre y una descripcion de 1 linea. Agrega badges (CI status, coverage, npm version, license). Incluye una seccion "Por que?" — que problema resuelve. Agrega "Inicio Rapido" con comandos copy-paste. Incluye una seccion de requisitos. Agrega ejemplos de uso — no solo instalacion. Incluye un diagrama de arquitectura si es complejo. Agrega una seccion de contribuir con link a CONTRIBUTING.md. Incluye la licencia. Agrega un codigo de conducta. Manten el README conciso — si es muy largo, mueve detalles a docs/. Un README claro atrae mas usuarios y contribuidores que uno exhaustivo pero ilegible.
+
+### Que secciones son obligatorias en un README?
+
+Obligatorio: titulo y descripcion, instalacion/inicio rapido, uso basico, licencia. Recomendado: requisitos, configuracion, tests, contribuir, soporte/contacto. Opcional: arquitectura, roadmap, FAQ, changelog, creditos. Para librerias: tabla de API, ejemplos de codigo, comparacion con alternativas. Para servicios: endpoints, configuracion, monitoreo, deployment. Para monorepos: estructura de directorios, que va en cada paquete. La regla: si un nuevo ingeniero no puede usar el proyecto en 15 minutos leyendo solo el README, el README esta incompleto.
+
+### Como mantenemos el README actualizado?
+
+El README debe vivir en el mismo repo que el codigo — los PRs que cambian el comportamiento deben actualizar el README. Agrega un check en CI que verifique que el README no tiene links rotos. Revisa el README en cada release — si la instalacion cambio, actualizalo. Asigna un owner al README (usualmente el maintainer principal). Usa un linter de markdown para mantener formato consistente. Si el README tiene ejemplos de codigo: automatiza que los ejemplos funcionen con tests. Un README obsoleto es peor que no tener README — engana a los usuarios. Marca el README con fecha de ultima revision en el frontmatter o en un comentario.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

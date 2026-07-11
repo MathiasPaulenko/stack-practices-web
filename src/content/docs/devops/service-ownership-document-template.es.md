@@ -189,6 +189,50 @@ Antes de escribir documentos de ownership:
 
 La plantilla sigue el principio de **revelacion progresiva**: la primera seccion responde "que es esto y a quien llamo?" en segundos. La arquitectura y los links operacionales siguen para ingenieros que necesiten depurar o modificar el servicio. Las secciones de dependencias y seguridad existen para respuesta a incidentes y auditorias. Manteniendo todo en una pagina, el documento sigue siendo usable bajo presion.
 
+## Ejemplo de Tarjeta de Ownership de Servicio
+
+```text
+=== Servicio: notification-service ===
+
+Dueno:     Team Comms (comm-team@company.com)
+On-call:   PagerDuty schedule "comms-oncall"
+Tier:      1 (Critico)
+Slack:     #comms-team
+
+Tech Stack:
+  Lenguaje:   Go 1.22
+  Framework:  Chi router
+  Base datos: PostgreSQL 15 (managed)
+  Cache:      Redis 7
+  Cola:       AWS SQS
+
+Links Clave:
+  Repo:        github.com/company/notification-service
+  Dashboard:   grafana.company.com/d/notif-overview
+  Runbook:     wiki.company.com/runbooks/notification-service
+  API Docs:    api.company.com/docs/notifications
+  Postmortems: wiki.company.com/postmortems?service=notification
+
+Dependencias:
+  Upstream:    user-service (critico), auth-service (critico)
+  Downstream:  email-provider (SendGrid), sms-provider (Twilio)
+  Terceros:    SendGrid, Twilio (ambos tienen pagina de estado)
+
+Deploy:
+  CI:          GitHub Actions (build, test, deploy)
+  Metodo:      Argo CD (GitOps)
+  Frecuencia:  2-3x por semana
+  Rollback:    Argo CD rollback a revision anterior
+
+Riesgos Conocidos:
+  - Rate limits de SendGrid pueden causar demoras en bursts de email
+  - Conexiones WebSocket necesitan graceful shutdown durante deploys
+  - Pool de conexiones DB maxea en 100; monitorear durante horas pico
+
+Ultima actualizacion: 2026-07-11 por alice
+```
+
+
 ## Variantes
 
 | Contexto | Ajustes | Notas |
@@ -228,3 +272,31 @@ Todo servicio en produccion deberia tener uno. Herramientas experimentales o int
 ### Que pasa cuando el ownership cambia?
 
 Actualiza el documento inmediatamente. Programa una reunion de handoff donde el dueno saliente recorra incidentes recientes, riesgos conocidos, y pasos complicados de deploy. El documento captura hechos; el handoff captura contexto.
+
+
+### Como manejamos servicios compartidos con multiples duenos?
+
+Para servicios compartidos (ej., una API de plataforma usada por multiples equipos): designa un equipo dueno primario responsable del servicio. Otros equipos son consumidores con input consultivo. El dueno primario mantiene el doc de ownership, runbooks, y rotacion on-call. Crea un canal compartido para que los equipos consumidores reporten problemas. Para cambios que afectan a consumidores, usa un cronograma de deprecation (ver plantilla de deprecation). Documenta el modelo de gobernanza: quien decide sobre cambios breaking, como se notifica a consumidores, y como es el soporte de migracion. Evita co-ownership — lleva a responsabilidad poco clara durante incidentes.
+
+### Que pasa si un servicio no tiene un dueno claro?
+
+Si un servicio no tiene un dueno claro: asigna uno inmediatamente. Un servicio sin dueno es un pasivo. Si el equipo original se desband o reorganizo: identifica el equipo que mas lo usa o tiene mas contexto. Si nadie tiene contexto: tratalo como un servicio legacy y programa un esfuerzo de recuperacion de conocimiento. Documenta la brecha de ownership en el registro de servicios. Temporalmente asigna al equipo de plataforma/SRE como contacto on-call. Establece una fecha limite para asignacion de ownership permanente. Un servicio sin dueno en produccion es un incidente esperando a pasar.
+
+### Como mantenemos los docs de ownership actualizados?
+
+Configura recordatorios automatizados: notificacion de revision trimestral al dueno del servicio. Enlaza el doc de ownership desde el README del repo, pipeline de CI, y dashboard de monitoreo — si el doc esta obsoleto, los ingenieros lo notaran. Usa una herramienta de catalogo de servicios (Backstage, OpsLevel, ServiceNow) que fuerce actualizaciones de docs de ownership en cambios de servicio. Rastrea la fecha de ultima actualizacion y marca docs con mas de 6 meses. Incluye revision de docs de ownership en el proceso de onboarding de nuevos miembros del equipo — ojos frescos detectan info obsoleta. Haz que actualizar el doc sea parte de la definicion de done para cambios mayores.
+
+### Deberiamos usar una herramienta de catalogo de servicios?
+
+Para organizaciones con mas de 10 servicios: si. Un catalogo de servicios (Backstage, OpsLevel, Spinnaker) centraliza docs de ownership, dependencias, y metricas de salud. Fuerza consistencia, habilita busqueda, y proporciona una fuente unica de verdad. Para organizaciones mas pequenas: un wiki bien organizado o un repo de archivos markdown es suficiente. La clave es buscabilidad y cadencia de revision. No dejes que la herramienta se convierta en el objetivo — un archivo markdown simple que esta actualizado es mejor que una herramienta sofisticada con datos obsoletos.
+
+### Como documentamos servicios durante migraciones?
+
+Durante migraciones (ej., monolito a microservicios): mantén docs de ownership tanto para el sistema viejo como para el nuevo. Marca el sistema viejo como "deprecado — migracion en progreso" con el cronograma de migracion. El sistema nuevo deberia tener su propio doc de ownership desde el dia uno, incluso si aun no esta en produccion. Referencia cruzada entre los dos docs. Actualiza la rotacion on-call para cubrir ambos sistemas durante el periodo de migracion. Documenta el plan de cutover y procedimiento de rollback. Despues de completar la migracion, archiva el doc de ownership viejo y actualiza todas las referencias.
+
+
+
+
+
+
+End of document. Review and update quarterly.

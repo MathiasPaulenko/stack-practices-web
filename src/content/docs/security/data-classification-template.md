@@ -107,6 +107,56 @@ Use this resource when:
 
 The template replaces vague terms like "sensitive" with four concrete levels. Each level has explicit handling rules for access, transmission, and storage. The dataset inventory forces you to catalog what you have before you can protect it. The exception log acknowledges that business needs sometimes require bending rules, but only with documented risk acceptance.
 
+## Data Classification Decision Tree
+
+```text
+=== Decision Tree: Classifying a New Dataset ===
+
+Q1: Does the dataset contain personally identifiable information (PII)?
+  YES -> Q2
+  NO  -> Q3
+
+Q2: Is the PII sensitive (health, financial, biometric, government ID)?
+  YES -> Classification: RESTRICTED
+  NO  -> Q2a
+
+Q2a: Does the dataset contain data covered by GDPR, CCPA, or HIPAA?
+  YES -> Classification: RESTRICTED
+  NO  -> Classification: CONFIDENTIAL
+
+Q3: Does the dataset contain business-critical information?
+  (trade secrets, source code, internal metrics, revenue data)
+  YES -> Classification: CONFIDENTIAL
+  NO  -> Q4
+
+Q4: Is the dataset intended for public consumption?
+  (marketing materials, public docs, open data)
+  YES -> Classification: PUBLIC
+  NO  -> Q5
+
+Q5: Is the dataset internal-only but not business-critical?
+  (test data, internal notes, non-sensitive configs)
+  YES -> Classification: INTERNAL
+  NO  -> Default to CONFIDENTIAL (when in doubt, classify higher)
+```
+
+## Classification Handling Requirements
+
+```text
+=== Handling Matrix ===
+
+Classification    | Encryption  | Access       | Logging    | Retention
+-----------------|-------------|--------------|------------|------------------
+PUBLIC           | Not required| Anyone       | Optional   | No restriction
+INTERNAL         | At rest     | Employees    | Required   | Per policy
+CONFIDENTIAL     | At rest +   | Need-to-know | Required + | Per policy +
+                 | in transit  | only         | audit trail| legal hold
+RESTRICTED       | At rest +   | Named        | Required + | Per policy +
+                 | in transit  | individuals  | tamper-    | legal hold +
+                 | + key vault | only         | proof logs | right to erasure
+```
+
+
 ## Variants
 
 | Context | Extra Levels | Key Difference |
@@ -146,3 +196,107 @@ Classify at the highest level present. A spreadsheet with Public marketing copy 
 ### How do I classify data in logs and observability tools?
 
 Logs are often the most overlooked data class. Any log containing user IDs, emails, or request payloads with PII is at least Confidential. Use log redaction or tokenization to strip PII before sending to centralized logging. If you must retain full logs for debugging, store them in a Restricted-access bucket and set short retention periods.
+
+
+### How do we automate data classification?
+
+Use DLP (Data Loss Prevention) tools to automatically detect and tag data based on patterns: credit card numbers (regex), SSNs, email addresses, phone numbers, and custom patterns. Integrate DLP scanning into your data pipeline — when data lands in a warehouse or lake, it is scanned and tagged automatically. Use cloud provider tools (AWS Macie, GCP DLP API, Azure Purview) for managed scanning. For databases, use schema-level classification — tag columns containing PII at the schema level. For logs, use redaction pipelines that detect and mask PII before centralization. Automation reduces human error but does not replace human review for edge cases.
+
+### What is data classification in practice for a SaaS application?
+
+For a SaaS application: user profiles (name, email, phone) are Confidential. Payment data (credit card numbers, billing addresses) is Restricted. Usage analytics (page views, feature usage) is Internal. Marketing content is Public. API keys and secrets are Restricted. Log files containing user IDs are Confidential. Database backups containing user data are Restricted. The classification determines encryption, access controls, retention, and sharing policies. Every new feature should include a data classification review as part of the security checklist.
+
+### How do we handle data classification for third-party integrations?
+
+When sending data to a third-party: classify the data being sent. Ensure the vendor's security posture matches the classification (e.g., Restricted data requires a vendor with SOC 2 Type II). Document the data flow in your data inventory. Include classification in the DPA (Data Processing Agreement). For Restricted data, require encryption in transit and at rest by the vendor. Review vendor security annually. If a vendor downgrades their security posture, reassess whether to continue sending classified data. Never send Restricted data to a vendor without a signed DPA and security review.
+
+### How often should we review data classifications?
+
+Review classifications: quarterly for Restricted datasets, biannually for Confidential, annually for Internal and Public. Trigger out-of-cycle reviews when: a dataset's purpose changes, new regulations apply, a data breach occurs, or a dataset is merged with another. Track review dates in the data inventory. Assign a data owner responsible for each dataset's classification. Document review findings and any classification changes. A classification that has not been reviewed in over a year is considered stale and should be flagged.
+
+### What are the consequences of misclassification?
+
+Over-classification (classifying everything as Restricted): slows engineering, increases costs (encryption, access management, audit), and trains engineers to ignore classification labels. Under-classification (classifying Restricted data as Public): leads to data breaches, regulatory fines (GDPR: up to 4% of annual revenue), loss of customer trust, and legal liability. The goal is accurate classification — not maximum classification. Regular reviews and automated scanning help maintain accuracy. Document the rationale for each classification decision for audit purposes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

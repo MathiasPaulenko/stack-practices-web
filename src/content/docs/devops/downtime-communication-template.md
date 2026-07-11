@@ -142,6 +142,63 @@ Use this resource when:
 
 The template separates **internal** communication (detailed, technical, fast) from **external** communication (simple, reassuring, accurate). The most common failure during incidents is promising a resolution time you cannot meet. The templates deliberately omit specific ETAs unless the fix is already deployed and validating. The audience matrix prevents support from learning about an outage from angry customers instead of from engineering.
 
+## Status Page Message Templates
+
+```text
+=== SEV 1: Initial Detection ===
+
+Status: Investigating
+We are investigating an issue affecting [SERVICE/AFFECTED FEATURE].
+Customers may experience [SYMPTOMS: e.g., login failures, slow responses].
+We identified the issue at [TIME] and are actively working on a fix.
+Next update in 15 minutes.
+
+=== SEV 1: Identified ===
+
+Status: Identified
+We have identified the root cause: [PLAIN LANGUAGE DESCRIPTION].
+A fix is being deployed and we expect service to be restored within [TIMEFRAME].
+Next update in 15 minutes.
+
+=== SEV 1: Monitoring ===
+
+Status: Monitoring
+A fix has been deployed and we are monitoring the service.
+Preliminary indicators show improvement but we want to confirm stability.
+Next update in 15 minutes.
+
+=== SEV 1: Resolved ===
+
+Status: Resolved
+The issue has been resolved. Service is operating normally.
+We will publish a post-mortem within 72 hours.
+Thank you for your patience.
+```
+
+## Internal Slack Communication Templates
+
+```text
+=== Incident Channel: #incident-2026-07-11 ===
+
+[11:00] @on-call: SEV1 declared — auth-service returning 500s
+[11:01] @on-call: Impact: ~15% of login attempts failing, EU region
+[11:02] @sre: Investigating — checking recent deployments and DB health
+[11:05] @sre: Found — recent config deploy changed JWT secret rotation
+[11:06] @on-call: Fix identified — rolling back config change
+[11:08] @sre: Rollback deployed, monitoring error rate
+[11:12] @on-call: Error rate dropping — 15% -> 3% -> 0.5%
+[11:15] @on-call: Error rate at 0%. Monitoring for 10 more minutes.
+[11:25] @on-call: Stable. SEV1 resolved. Post-mortem scheduled for tomorrow.
+
+=== Support Channel: #support ===
+
+[11:02] @on-call: SEV1 — login failures for EU users. Status page updated.
+[11:03] @on-call: If customers ask: "We are aware of login issues in EU and are working on it."
+[11:08] @on-call: Fix deployed, monitoring. Do not promise resolution time yet.
+[11:25] @on-call: Resolved. Status page updated to green. Thank support team.
+```
+
+
 ## Variants
 
 | Context | Channel Mix | Tone |
@@ -181,3 +238,64 @@ Communicate what you know (symptoms, affected areas, actions being taken) and wh
 ### How do I handle a security incident differently?
 
 Security incidents require legal and compliance review before external communication. Do not disclose details that could help attackers. Notify affected customers directly (not just a public status page). Follow your incident response plan and any breach notification laws (GDPR 72-hour rule, state breach laws). The message should be factual, limited, and approved by legal.
+
+
+### How do we communicate during a prolonged outage?
+
+For outages lasting more than 1 hour: update the status page every 30 minutes even if there is no new information. Share what you are doing, not just what you know. Example: "We are testing a database failover to the secondary region. This process takes approximately 20 minutes." Assign a dedicated communicator who is not in the incident resolution path. The communicator gathers updates from the incident commander and translates them for external audiences. Keep internal and external messages consistent in tone and facts.
+
+### What should we include in a post-mortem?
+
+A post-mortem should include: incident summary (what happened, when, impact), timeline of events (detection, response, resolution), root cause analysis (the actual cause, not just the symptom), contributing factors (what made it worse or harder to detect), action items with owners and deadlines, lessons learned (what went well, what did not), and appendices (graphs, logs, screenshots). Write it blamelessly — focus on systems and processes, not individuals. Share it with the entire engineering team. Track action items to completion.
+
+### How do we handle communication for partial degradation?
+
+Partial degradation is harder to communicate than a full outage. Be specific about what is affected and what is not. Example: "Search functionality is degraded — results may be delayed by up to 10 seconds. All other features are operating normally." Avoid vague terms like "some users" — quantify if possible. Update the status page with a "Partial Outage" or "Degraded Performance" indicator. Monitor whether the partial degradation worsens into a full outage and escalate communication accordingly.
+
+### Should we use social media during incidents?
+
+Use social media (Twitter/X) for consumer-facing services to reach users who may not check the status page. Keep messages short and link to the status page for details. Do not engage in technical debates on social media during an active incident. Assign one person to monitor social media for customer reports. After resolution, post a summary linking to the post-mortem. For B2B services, social media is less important — focus on direct customer communication.
+
+### How do we train the team on incident communication?
+
+Run regular incident communication drills (game days). Simulate an incident and practice the communication flow: status page updates, internal Slack messages, support team notifications, and stakeholder emails. Review the messages afterward for clarity, tone, and timing. Rotate the communicator role so multiple team members gain experience. Create a communication runbook with templates and decision trees. Review past incident communications in team retrospectives to identify improvements.
+
+
+### How do we handle communication for scheduled maintenance?
+
+For scheduled maintenance: notify customers at least 7 days in advance via email and status page. Include: maintenance window (start and end time), expected impact (downtime, degraded performance, or read-only mode), affected services, and reason for maintenance. Send a reminder 24 hours before. Update the status page to "Maintenance" during the window. Provide real-time updates during maintenance. Send a resolution notification when maintenance completes. Document the maintenance in the post-mortem if any unexpected issues occurred.
+
+### What is a status page and which service should we use?
+
+A status page is a public web page that shows the current operational status of your service. Popular options: Atlassian Statuspage, Better Uptime, Instatus, or self-hosted (Cachet, Staytus). Choose based on: budget, integration with monitoring tools, customization needs, and incident management workflow. The status page should show: current status (operational, degraded, partial outage, major outage), active incidents with timestamps, scheduled maintenance, and incident history. Keep it on a separate domain or subdomain so it is accessible even if your main service is down.
+
+### How do we measure communication effectiveness during incidents?
+
+Track: time from detection to first external communication (target: < 15 min for SEV1), number of status page updates during the incident, customer satisfaction with communication (post-incident survey), support ticket volume during the incident (lower = better communication), and social media sentiment. Review these metrics in the post-mortem. Set targets: first update within 15 minutes, updates every 15-30 minutes, post-mortem within 72 hours. Improve communication processes based on these metrics.
+
+
+End of document. Review and update communication templates after every major incident. Train all on-call engineers on the communication process quarterly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

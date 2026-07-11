@@ -198,6 +198,79 @@ La plantilla cubre:
 - Ignorar límites de conexiones — bases de datos y load balancers tienen límites hard de conexiones que se alcanzan antes que CPU o memoria
 - No planificar rollback — si escalas y luego el tráfico baja, ¿puedes escalar hacia abajo?
 
+
+## Comparacion de Variantes
+
+| Variante | Contexto | Enfoque | Notas |
+|----------|----------|---------|-------|
+| Cloud-native (auto-scaling) | Infraestructura en la nube | Configurar umbrales y limites de escalado | El lag de escalado requiere margen adicional |
+| On-premise (capacidad fija) | Hardware propio | Pre-provisionar con 6 meses de anticipacion | Lead time de procurement: 4-8 semanas |
+| Serverless (pay-per-use) | Carga variable, equipo pequeno | Planificar concurrencia y costo total | Cold starts limitan respuestas a picos subitos |
+| Hibrido | Mix de cloud y on-premise | Critico on-premise, variable en cloud | Requiere visibilidad de capacidad en ambos lados |
+
+## Escenario Detallado: Preparacion para Lanzamiento de Producto
+
+```text
+Sistema: Plataforma de e-commerce
+Evento: Lanzamiento de producto nuevo (Q3)
+Trafico esperado: 3x pico normal durante 2 semanas
+
+Paso 1 - Recopilar datos de linea base:
+  $ kubectl top pods -n production --sort-by=cpu
+  $ aws cloudwatch get-metric-statistics \
+      --namespace AWS/RDS \
+      --metric-name DatabaseConnections \
+      --start-time 2026-06-01 --end-time 2026-06-30 \
+      --period 3600 --statistics Average,Maximum
+
+  Resultados:
+  - API servers: 6 instancias, CPU pico 72%, memoria pico 68%
+  - BD connections: pico 140 de 200 max (70% utilizacion)
+  - RPS pico: 18,000 de 25,000 limite (28% margen)
+
+Paso 2 - Proyectar carga del lanzamiento:
+  - RPS pico esperado: 18,000 * 3 = 54,000
+  - Conexiones BD esperadas: 140 * 3 = 420 (excede 200 max)
+  - CPU API esperada: 72% * 3 = 216% (excede 100% por instancia)
+
+Paso 3 - Identificar cuellos de botella:
+  1. Conexiones BD: se agotan a 200 (critico)
+  2. CPU API: se necesita triplicar instancias o optimizar
+  3. Ancho de banda: 450 Mbps * 3 = 1,350 Mbps (excede 1 Gbps)
+
+Paso 4 - Plan de mitigacion:
+  - BD: agregar 2 replicas de lectura + connection pooling (pgbouncer)
+    Config: pool_mode=transaction, max_client_conn=500
+  - API: agregar 12 instancias al burst pool (total 18)
+    Auto-scaling: min=6, max=20, target CPU=60%
+  - Red: upgrade a 2 Gbps + habilitar CDN para assets estaticos
+  - Pre-warm: escalar a 18 instancias 1 hora antes del lanzamiento
+
+Paso 5 - Pruebas de carga:
+  $ k6 run --vus 500 --duration 10m launch_test.js
+  $ locust -f locustfile.py --host https://staging.example.com \
+      --users 1000 --spawn-rate 50
+
+  Criterios de aceptacion:
+  - P99 latency < 500ms a 50k RPS
+  - Error rate < 0.1%
+  - BD connections < 180 con pooling
+  - CPU < 70% en todas las instancias
+
+Paso 6 - Rollback plan:
+  - Si error rate > 1%: habilitar modo degradado (rate limiting)
+  - Si BD connections > 190: activar circuit breaker en reads
+  - Si CPU > 85% por 5 min: escalar manualmente a 24 instancias
+```
+
+### Como calculo el margen de seguridad necesario?
+
+Regla general: 30-40% sobre el pico proyectado. Para sistemas criticos (pagos, autenticacion), apunta a 50%. El margen cubre imprevistos: picos mas altos de lo esperado, degradacion de performance bajo carga, y tiempo de reaccion del auto-scaling. Si tu margen es menor a 20%, estas operando al limite.
+
+### Que metricas debo trackear para detectar cuellos de botella temprano?
+
+Trackea: CPU por servicio, memoria por servicio, conexiones de BD, latencia P99 por endpoint, tasa de errores, profundidad de cola de mensajes, y utilizacion de disco. Configura alertas en el 70% de cada limite. Si una metrica toca el 80%, ya estas en zona de riesgo.
+
 ## Variantes
 
 ### Cloud-native (auto-scaling)

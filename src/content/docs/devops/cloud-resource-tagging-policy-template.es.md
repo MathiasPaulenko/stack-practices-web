@@ -130,6 +130,139 @@ El Etiquetado de Recursos Cloud es la practica de aplicar etiquetas de metadatos
 
 Las etiquetas son metadatos que potencian la asignacion de costos, seguridad, operaciones y cumplimiento. Una politica de etiquetado asegura que cada recurso tenga etiquetas consistentes y significativas desde la creacion hasta la retirada. Sin gobernanza, las etiquetas se vuelven inconsistentes, haciendo que la automatizacion y los reportes sean poco confiables. La combinacion de etiquetas requeridas, convenciones de nombres y herramientas de cumplimiento crea un modelo de operacion cloud preparado para crecer.
 
+## Politica de Etiquetas con Terraform
+
+```hcl
+# Modulo de etiquetas obligatorias para AWS
+variable "required_tags" {
+  type = map(string)
+  default = {
+    Team        = ""
+    Environment = ""
+    Project     = ""
+    CostCenter  = ""
+    Owner       = ""
+  }
+}
+
+locals {
+  default_tags = {
+    Team        = var.required_tags["Team"]
+    Environment = var.required_tags["Environment"]
+    Project     = var.required_tags["Project"]
+    CostCenter  = var.required_tags["CostCenter"]
+    Owner       = var.required_tags["Owner"]
+    ManagedBy   = "terraform"
+    CreatedAt   = formatdate("YYYY-MM-DD", timestamp())
+  }
+}
+
+# Aplicar etiquetas a todos los recursos
+resource "aws_instance" "app" {
+  ami           = data.aws_ami.app.id
+  instance_type = var.instance_type
+  tags          = local.default_tags
+}
+
+resource "aws_s3_bucket" "data" {
+  bucket = var.bucket_name
+  tags   = local.default_tags
+}
+
+resource "aws_db_instance" "database" {
+  engine         = "postgres"
+  instance_class = var.db_class
+  tags           = local.default_tags
+}
+```
+
+## Script de Deteccion de Recursos Sin Etiquetar
+
+```python
+#!/usr/bin/env python3
+"""Detectar recursos sin etiquetar en AWS."""
+import boto3
+import json
+from datetime import datetime
+
+REQUIRED_TAGS = ['Team', 'Environment', 'Project', 'CostCenter', 'Owner']
+REGIONS = ['us-east-1', 'eu-west-1', 'ap-southeast-1']
+
+def check_ec2_instances(region):
+    ec2 = boto3.client('ec2', region_name=region)
+    untagged = []
+    response = ec2.describe_instances()
+    for res in response['Reservations']:
+        for inst in res['Instances']:
+            tags = {t['Key']: t['Value'] for t in inst.get('Tags', [])}
+            missing = [t for t in REQUIRED_TAGS if t not in tags]
+            if missing:
+                untagged.append({
+                    'resource_id': inst['InstanceId'],
+                    'type': 'EC2',
+                    'region': region,
+                    'missing_tags': missing,
+                    'launch_time': inst['LaunchTime'].isoformat()
+                })
+    return untagged
+
+def check_s3_buckets(region):
+    s3 = boto3.client('s3', region_name=region)
+    untagged = []
+    for bucket in s3.list_buckets()['Buckets']:
+        tags = s3.get_bucket_tagging(Bucket=bucket['Name']).get('TagSet', [])
+        tag_keys = [t['Key'] for t in tags]
+        missing = [t for t in REQUIRED_TAGS if t not in tag_keys]
+        if missing:
+            untagged.append({
+                'resource_id': bucket['Name'],
+                'type': 'S3',
+                'region': region,
+                'missing_tags': missing
+            })
+    return untagged
+
+def check_rds_instances(region):
+    rds = boto3.client('rds', region_name=region)
+    untagged = []
+    for db in rds.describe_db_instances()['DBInstances']:
+        arn = db['DBInstanceArn']
+        tags = rds.list_tags_for_resource(ResourceName=arn).get('TagList', [])
+        tag_keys = [t['Key'] for t in tags]
+        missing = [t for t in REQUIRED_TAGS if t not in tag_keys]
+        if missing:
+            untagged.append({
+                'resource_id': db['DBInstanceIdentifier'],
+                'type': 'RDS',
+                'region': region,
+                'missing_tags': missing
+            })
+    return untagged
+
+def main():
+    all_untagged = []
+    for region in REGIONS:
+        all_untagged.extend(check_ec2_instances(region))
+        all_untagged.extend(check_s3_buckets(region))
+        all_untagged.extend(check_rds_instances(region))
+
+    report = {
+        'timestamp': datetime.now().isoformat(),
+        'total_untagged': len(all_untagged),
+        'resources': all_untagged
+    }
+    print(json.dumps(report, indent=2))
+
+    if all_untagged:
+        print(f'\nRecursos sin etiquetar: {len(all_untagged)}')
+        for r in all_untagged:
+            print(f"  {r['type']} {r['resource_id']} ({r['region']}): falta {', '.join(r['missing_tags'])}")
+
+if __name__ == '__main__':
+    main()
+```
+
+
 ## Variantes
 
 - **Politica de etiquetado AWS**: Usa AWS Organizations tag policies, AWS Config rules y Cost Allocation Tags.
@@ -173,3 +306,24 @@ Usa controles de policy-as-code en CI/CD que fallen rapido cuando faltan etiquet
 ### Podemos etiquetar recursos existentes retroactivamente?
 
 Si, usa herramientas nativas del cloud o automatizacion de terceros como Cloud Custodian para escanear, reportar y remediar recursos sin etiquetar. Establece un plazo para remediacion manual antes del etiquetado o apagado automatico.
+
+
+### Como implementamos aplicacion de etiquetas en CI/CD?
+
+Usa Terraform Cloud o GitHub Actions con validacion de etiquetas. Crea un script que analice el plan de Terraform y verifique que todos los recursos tengan las etiquetas requeridas (team, environment, project, cost-center). Falla el pipeline si falta alguna etiqueta. Para recursos existentes, ejecuta escaneos semanales con Cloud Custodian o scripts personalizados que identifiquen recursos sin etiquetar y notifiquen a los responsables.
+
+### Que es Cloud Custodian y como nos ayuda?
+
+Cloud Custodian (c7n) es una herramienta de codigo abierto para gestion de nube que permite escribir politicas en YAML para auditar, hacer cumplir y optimizar recursos en AWS, Azure y GCP. Puedes escribir reglas como "eliminar recursos sin etiquetar despues de 7 dias" o "detener instancias EC2 fuera de horario laboral". Ejecutalo diariamente via Lambda o CI/CD. Almacena los resultados en S3 o CloudWatch para auditoria.
+
+### Como manejamos etiquetas para recursos compartidos?
+
+Etiqueta el recurso con el dueno primario o el equipo que lo gestiona. Usa una etiqueta adicional Shared=true y un reporte de asignacion de costos para distribuir los costos compartidos. Documenta los acuerdos de costos compartidos en la politica de etiquetado. Para recursos compartidos por muchos equipos, considera usar un centro de costos dedicado en lugar de asignar a un solo equipo.
+
+### Con que frecuencia debemos auditar el cumplimiento de etiquetas?
+
+Ejecuta escaneos automaticos diariamente para detectar recursos sin etiquetar. Genera un reporte semanal de cumplimiento para liderazgo. Realiza una auditoria completa trimestral que incluya: porcentaje de recursos con etiquetas completas, recursos con etiquetas no conformes, costo asociado a recursos sin etiquetar, y tendencias de cumplimiento. Comparte el reporte con los equipos y establece plazos de remediacion.
+
+### Como evitamos la proliferacion de valores de etiquetas no validos?
+
+Mantén un registro central de valores permitidos para cada etiqueta. Usa AWS Organizations Tag Policies para restringir valores a nivel de organizacion. En Terraform, usa variables con validacion para limitar valores. En CI/CD, agrega un paso que valide los valores de etiquetas contra el registro central. Revisa y actualiza los valores permitidos trimestralmente a medida que cambian equipos y productos.

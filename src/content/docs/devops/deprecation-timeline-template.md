@@ -144,6 +144,73 @@ Before announcing deprecation:
 
 The timeline is the core of this document. Each milestone gives consumers multiple opportunities to notice and act. The **communication plan** ensures the message reaches all audiences through their preferred channels. The **migration path** removes ambiguity — consumers should know exactly what to change. The **support plan** sets expectations: you will help, but only for a defined period. The **grace period** acknowledges that real-world migrations slip and gives you a policy for handling exceptions without undermining the deadline.
 
+## Deprecation Announcement Template
+
+```text
+Subject: [Action Required] Deprecation of [SYSTEM/API] — Effective [DATE]
+
+To all users of [SYSTEM/API],
+
+We are announcing the deprecation of [SYSTEM/API] effective [DATE].
+This system will be shut down on [SHUTDOWN_DATE].
+
+Why are we deprecating?
+  [BRIEF REASON: e.g., "The system has been replaced by [NEW_SYSTEM]
+   which provides better performance, reliability, and features."]
+
+What do you need to do?
+  1. Review the migration guide: [LINK]
+  2. Update your code to use [NEW_SYSTEM] by [MIGRATION_DEADLINE]
+  3. Test your integration in staging before production
+  4. Contact [TEAM_EMAIL] if you need migration support
+
+Timeline:
+  - [DATE]: Deprecation announced (this email)
+  - [DATE+3mo]: No new features or bug fixes
+  - [DATE+6mo]: System enters read-only mode
+  - [DATE+9mo]: System shut down
+
+Support:
+  - Migration guide: [LINK]
+  - Office hours: [DAY/TIME] for migration questions
+  - Direct support: [TEAM_EMAIL]
+
+We are committed to making this transition as smooth as possible.
+Please reach out if you have any concerns.
+
+[TEAM_NAME]
+```
+
+## Migration Tracking Dashboard
+
+```text
+=== Deprecation Migration Tracker ===
+
+System: [SYSTEM_NAME]
+Deprecation Date: 2026-07-11
+Shutdown Date: 2027-01-11
+
+Consumer        | Status      | Last Contact  | Risk Level | Notes
+----------------|-------------|---------------|------------|------------------
+Team A (api)    | Migrated    | 2026-08-15    | Low        | Completed early
+Team B (web)    | In Progress | 2026-09-20    | Medium     | Needs schema help
+Team C (mobile) | Not Started | 2026-09-01    | High       | No response yet
+Team D (data)   | Migrated    | 2026-08-30    | Low        | Completed
+Team E (infra)  | In Progress | 2026-09-25    | Medium     | Testing in staging
+
+Summary:
+  Migrated:     2/5 (40%)
+  In Progress:  2/5 (40%)
+  Not Started:  1/5 (20%)
+  At Risk:      1/5 (20%)
+
+Next Actions:
+  - Follow up with Team C (no response in 3 weeks)
+  - Schedule migration session with Team B
+  - Verify Team E staging tests pass
+```
+
+
 ## Variants
 
 | Context | Adjustments | Notes |
@@ -183,3 +250,52 @@ Have a documented grace period policy before you announce. Do not make exception
 ### Should we keep the old API returning a redirect?
 
 For a short period after shutdown (days, not months), returning a clear error with a link to migration docs is helpful. Permanent redirects hide the problem and delay migration. Eventually the endpoint should return a definitive error.
+
+
+### How do we handle deprecation for internal vs external consumers?
+
+For internal consumers: use direct communication (Slack, team meetings), track migration in Jira or a shared spreadsheet, offer pair-programming sessions for migration help, and escalate to engineering managers if teams are not responding. For external consumers: use public channels (blog post, status page, email newsletter), provide detailed migration guides with code examples, offer office hours or a dedicated support channel, and respect contractual notice periods. Internal deprecations can move faster (3 months) while external deprecations need more lead time (6-12 months).
+
+### What metrics should we track during a deprecation?
+
+Track: number of consumers migrated vs total, percentage of traffic still hitting the deprecated system, error rate on the deprecated system, support ticket volume related to migration, and time remaining until shutdown. Set up a dashboard that shows migration progress weekly. Alert if migration rate stalls (no new migrations in 2 weeks). Review metrics in the weekly ops review. Share progress with stakeholders to maintain urgency.
+
+### How do we handle a deprecation that affects paying customers?
+
+For paying customers: review contracts for notice period requirements before announcing. Contact account managers to notify key customers directly before the public announcement. Offer extended timelines for enterprise customers if contracts require it. Provide white-glove migration support for top-tier customers. Consider offering credits or discounts for the inconvenience. Document any contractual obligations in the deprecation timeline. Never surprise a paying customer with a public announcement they were not warned about.
+
+### What if the replacement system is not ready when we need to deprecate?
+
+If the replacement is not ready, delay the deprecation announcement until it is. Announcing a deprecation without a replacement forces consumers to build their own solutions, which fragments the ecosystem. If the deprecated system has critical security vulnerabilities that force immediate shutdown, communicate the risk clearly and provide a bridge solution (e.g., a compatibility layer or a minimal viable replacement). Document the decision to delay or accelerate in an ADR.
+
+### How do we communicate the final shutdown?
+
+Send a final reminder 1 week before shutdown: "This is a final reminder that [SYSTEM] will be shut down on [DATE]. After this date, the system will be unavailable." On shutdown day: update the status page, send a confirmation email, and monitor for unexpected traffic (indicating someone missed the notices). Keep error logs for 30 days to identify any consumers that were missed. After 30 days with no traffic, decommission the infrastructure. Document the shutdown in a post-mortem.
+
+
+
+End of document. Review and update deprecation timelines quarterly. Ensure all consumers have migrated before the shutdown date. Document lessons learned in a retrospective after each deprecation completes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

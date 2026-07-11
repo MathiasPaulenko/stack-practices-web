@@ -240,6 +240,29 @@ Dashboard variables le dejan a engineers filterar sin escribir queries. La `$end
 
 Annotation layers correlatean deployments e incidents con metric changes. Cuando latency spikea, ver un deployment annotation en el same timestamp inmediatamente pointa al cause.
 
+## Checklist de Revision de Dashboard
+
+```text
+=== Revision Trimestral de Dashboard ===
+
+[ ] Todos los paneles tienen fuentes de datos validas (sin paneles "No data")
+[ ] Los umbrales reflejan SLOs y baselines de rendimiento actuales
+[ ] Las variables retornan valores correctos (entornos, instancias, endpoints)
+[ ] Las capas de anotaciones siguen recibiendo eventos (deploys, incidentes)
+[ ] Los links a runbooks, logs, y traces no estan rotos
+[ ] Ningun panel tiene mas de 10 series (check de cardinalidad)
+[ ] La codificacion de colores es consistente (verde/amarillo/rojo en todos)
+[ ] El dashboard carga en menos de 3 segundos
+[ ] La vista movil es legible (ingenieros on-call revisan desde el telefono)
+[ ] Al menos otro ingeniero puede interpretar el dashboard sin explicacion
+[ ] Los paneles de SLO coinciden con las definiciones actuales de SLO
+[ ] El panel de error budget es preciso y no muestra datos obsoletos
+[ ] Los paneles de metricas de negocio reflejan los KPIs actuales
+[ ] Los paneles no usados fueron removidos (revisar metrica de vistas de Grafana)
+[ ] El dashboard esta etiquetado con nombre de servicio y equipo dueno
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -293,3 +316,20 @@ El error budget es el amount de unreliability que te podés afford mientras toda
 ### ¿Deberíamos tener separate dashboards para cada environment?
 
 Sí. Production, staging y development tienen different metrics, different traffic patterns y different audiences. Un production dashboard es para on-call engineers. Un staging dashboard es para QA. Mantenelos separados para avoid confusion.
+
+
+### Como manejamos la proliferacion de dashboards?
+
+La proliferacion de dashboards ocurre cuando cada ingeniero crea dashboards sin gobernanza. Para manejarlo: asigna un dueno de dashboard para cada dashboard. Etiqueta dashboards con nombre de servicio y equipo. Revisa dashboards trimestralmente — si un dashboard no ha sido visto en 30 dias, archivalo. Usa carpetas de Grafana para organizar por equipo o servicio. Crea un conjunto de "dashboards dorados" que son mantenidos y confiables. Desalienta dashboards personales en carpetas compartidas. Proporciona plantillas para que los ingenieros empiecen desde una base consistente. Rastrea metricas de uso de dashboards para identificar dashboards abandonados.
+
+### Que metricas deberia tener cada dashboard de servicio?
+
+Cada dashboard de servicio deberia incluir las metricas RED: Rate (requests por segundo), Errors (porcentaje de tasa de error), y Duration (latencia p95 y p99). Adicionalmente: utilizacion de CPU y memoria, uso del pool de conexiones de base de datos, y salud de dependencias (upstream y downstream). Para servicios criticos de negocio, agrega metricas de negocio (ordenes/min, ingresos/min, tasa de conversion). Para consumidores de cola, agrega lag, throughput, y tiempo de procesamiento. Las metricas RED cubren el 80% de la salud del servicio — el resto es especifico del servicio.
+
+### Como disenamos dashboards para respuesta a incidentes?
+
+Durante un incidente, los ingenieros necesitan informacion rapida. Disena para respuesta a incidentes: pon el banner de estado arriba (indicador verde/rojo). Muestra las metricas RED despues — estas identifican la mayoria de los problemas. Usa paneles grandes con umbrales claros para que sean legibles desde el otro lado del cuarto. Agrega links a logs, traces, y runbooks directamente en el dashboard. Usa capas de anotaciones para despliegues para que los ingenieros puedan correlacionar cambios. Evita queries complejas que cargan lentamente — un dashboard que tarda 10 segundos en cargar es inutil durante un incidente. Prueba el dashboard durante un ejercicio de simulacro para verificar que proporciona la informacion correcta.
+
+### Como compartimos dashboards con stakeholders no tecnicos?
+
+Para ejecutivos y product managers: crea un dashboard separado orientado a negocio con KPIs (ingresos, conversion, porcentaje de uptime, usuarios activos). Evita metricas tecnicas (CPU, latencia p99, pools de conexiones). Usa visualizaciones simples (paneles stat, gauges, numeros individuales). Agrega un banner de estado que muestre verde/rojo. Programa capturas de pantalla regulares o exportaciones PDF via reporting de Grafana. Manten el dashboard simple — si un stakeholder pregunta "que significa esto?" el dashboard ha fallado. Actualiza el dashboard cuando las prioridades de negocio cambien.

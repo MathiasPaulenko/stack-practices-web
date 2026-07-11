@@ -126,6 +126,52 @@ vault delete secret/api-gateway-key/v1
 
 La plantilla aborda tres problemas comunes: **no saber qué secretos tienes**, **no saber cuándo expiran** y **no saber quién los usa**. El inventario es el paso uno; sin un inventario, la rotación es imposible. Las cadencias diferenciadas reconocen que no todos los secretos son iguales: los certificados TLS necesitan rotación suave mientras que las claves de API comprometidas necesitan rotación inmediata. El procedimiento de 7 pasos evita el error más común: rotar un secreto, verificar que un servicio funciona y descubrir tres días después que otro servicio falló silenciosamente.
 
+## Automatizacion de Rotacion de Secrets
+
+```bash
+#!/bin/bash
+# Ejemplo: Rotar password de base de datos con zero downtime
+# Usa patron dual-read: password vieja + nueva validas durante transicion
+
+set -euo pipefail
+
+DB_HOST="db.internal"
+DB_NAME="appdb"
+OLD_USER="app_user_old"
+NEW_USER="app_user_new"
+NEW_PASSWORD=$(openssl rand -base64 32)
+
+# Paso 1: Crear nuevo usuario con permisos identicos
+psql -h "$DB_HOST" -U admin -d "$DB_NAME" -c "
+  CREATE USER $NEW_USER WITH PASSWORD '$NEW_PASSWORD';
+  GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO $NEW_USER;
+  GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO $NEW_USER;
+"
+
+# Paso 2: Actualizar secret manager con nuevas credenciales
+aws secretsmanager update-secret \
+  --secret-id prod/db/app-user \
+  --secret-string "{\"username\":\"$NEW_USER\",\"password\":\"$NEW_PASSWORD\"}"
+
+# Paso 3: Triggerar reload de app para tomar nuevo secret
+kubectl rollout restart deployment/app -n production
+
+# Paso 4: Esperar a que el rollout complete
+kubectl rollout status deployment/app -n production --timeout=300s
+
+# Paso 5: Verificar que nuevas conexiones usan nuevo usuario
+psql -h "$DB_HOST" -U admin -d "$DB_NAME" -c "
+  SELECT usename, count(*) FROM pg_stat_activity
+  WHERE datname='appdb' GROUP BY usename;
+"
+
+# Paso 6: Despues de verificacion, eliminar usuario viejo
+psql -h "$DB_HOST" -U admin -d "$DB_NAME" -c "DROP USER $OLD_USER;"
+
+echo "Rotacion completa. Usuario viejo eliminado."
+```
+
+
 ## Variantes
 
 | Contexto | Desafío | Adaptación |
@@ -165,3 +211,92 @@ Los sistemas legacy a menudo no soportan secretos duales. El patrón es: (1) cre
 ### ¿Debería rotar secretos después de la salida de un empleado?
 
 Sí, para todos los secretos a los que el empleado tuvo acceso. Esto incluye tokens de API personales, claves SSH y credenciales compartidas que el empleado pudo haber visto. No asumas que "nunca los usó"; el acceso al vault o al sistema de gestión de configuración es suficiente evidencia de exposición. Las rotaciones forzadas por salida de personal deberían ser estándar, no excepcionales. Automatiza la generación de lista de secretos afectados desde logs de auditoría del vault.
+
+
+### Cual es la diferencia entre rotacion y revocacion?
+
+La rotacion reemplaza un secret por uno nuevo manteniendo continuidad del servicio. La revocacion invalida un secret inmediatamente, potencialmente causando disrupcion. La rotacion es planificada y usa patrones dual-read. La revocacion es reactiva y se usa cuando un secret se sabe comprometido. Despues de revocar, tambien debes rotar — la revocacion sola deja servicios sin credenciales validas. El procedimiento de rotacion deberia incluir un paso de revocacion al final (eliminar el secret viejo) pero los procedimientos de revocacion deberian ser separados y mas rapidos, disenados para respuesta a incidentes.
+
+### Como gestionamos secrets en pipelines de CI/CD?
+
+Los pipelines de CI/CD necesitan secrets para construir, testear, y desplegar. Nunca almacenes secrets en archivos de configuracion del pipeline o variables de entorno en la UI del CI. Usa un secret manager (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault) e inyecta secrets en runtime. Usa tokens de corta duracion para CI — autenticacion basada en OIDC para proveedores cloud elimina keys de larga duracion. Rota secrets de CI trimestralmente. Audita logs de acceso a secrets de CI mensualmente. Restringe secrets de CI a los permisos minimos necesarios — un pipeline de build no necesita acceso a la base de datos de produccion. Usa secrets separados para jobs de staging y produccion.
+
+### Como manejamos secrets en entornos containerizados?
+
+En Kubernetes: usa External Secrets Operator para sincronizar secrets desde Vault/AWS SM a Kubernetes Secrets. Usa CSI Secrets Store provider para montar secrets como archivos. Nunca hornees secrets en imagenes de contenedor — usa inyeccion en runtime. Para credenciales de base de datos, usa el patron dual-read con init containers. Para certificados TLS, usa cert-manager para rotacion automatica. Para autenticacion servicio-a-servicio, usa SPIFFE/SPIRE para certificados de identidad de corta duracion. Escanea imagenes de contenedor en busca de secrets hardcoded con Trivy o GitLeaks en CI. Si se encuentra un secret en una imagen, rotalo inmediatamente — la imagen puede haber sido descargada por atacantes.
+
+### Que debemos hacer si un secret se filtra?
+
+Si un secret se filtra: rotalo inmediatamente — no esperes a la rotacion programada. Revoca el secret viejo despues de rotar. Investiga la fuga: como fue expuesto (commit a repo publico, archivo de log, captura, output de CI)? Arregla la causa raiz (agrega pre-commit hooks, actualiza logging para redactar secrets, restringe output de CI). Audita logs de acceso para el secret filtrado — fue usado por partes no autorizadas? Si si, tratalo como incidente de seguridad y sigue el playbook de respuesta a incidentes. Notifica a usuarios afectados si sus datos pueden haber sido accedidos. Documenta el incidente y agrega controles para prevenir recurrencia. Un secret filtrado que no se rota es una puerta abierta.
+
+### Como auditamos el uso de secrets?
+
+Habilita logging de acceso en tu secret manager (Vault audit logs, AWS CloudTrail para Secrets Manager). Registra cada lectura, escritura, y eliminacion de secrets. Envia logs a un SIEM (Splunk, ELK) para analisis centralizado. Configura alertas para patrones de acceso anomalo: secret accedido desde una IP nueva, secret accedido fuera de horario laboral, lecturas masivas de secrets, o acceso a secrets por una identidad no humana. Revisa logs de acceso mensualmente — verifica que solo servicios e ingenieros esperados esten accediendo a secrets. Remueve acceso para servicios que ya no necesitan un secret. Revisiones trimestrales de acceso aseguran que los permisos de secrets coincidan con el ownership actual.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -133,6 +133,163 @@ Las siguientes situaciones se excluyen de los calculos de SLA:
 
 La plantilla separa **objetivos** (lo que prometes) de **indicadores** (como mides) y **presupuestos de error** (cuanto fallo es aceptable). Sin presupuestos de error, los equipos o sobre-ingenierian buscando perfeccion o despliegan imprudentemente. Las alertas de tasa de quema traducen porcentajes abstractos en acciones concretas: a 10x de tasa de quema, detener despliegues y arreglar el problema.
 
+## Ejemplos de Calculo de Presupuesto de Error
+
+Entender los presupuestos de error requiere numeros concretos. Aqui hay calculos para objetivos SLO comunes:
+
+### Presupuestos de Disponibilidad
+
+| Objetivo SLO | Presupuesto de Error | Downtime / 30 dias | Downtime / 90 dias |
+|--------------|---------------------|---------------------|---------------------|
+| 99.0% | 1.0% | 432 minutos (7.2 horas) | 1,296 minutos (21.6 horas) |
+| 99.5% | 0.5% | 216 minutos (3.6 horas) | 648 minutos (10.8 horas) |
+| 99.9% | 0.1% | 43.2 minutos | 129.6 minutos |
+| 99.95% | 0.05% | 21.6 minutos | 64.8 minutos |
+| 99.99% | 0.01% | 4.32 minutos | 12.96 minutos |
+
+### Calcular Tasa de Quema
+
+La tasa de quema mide que tan rapido consumes tu presupuesto de error relativo al ritmo esperado:
+
+```python
+def calculate_burn_rate(
+    errors_minutes: float,
+    total_minutes: float,
+    slo_target: float,
+    window_days: int,
+) -> float:
+    error_budget = 1.0 - slo_target
+    actual_error_rate = errors_minutes / total_minutes
+    expected_error_rate = error_budget
+    burn_rate = actual_error_rate / expected_error_rate
+    return burn_rate
+
+# Ejemplo: 20 minutos de downtime en 1 dia con SLO 99.9%
+burn = calculate_burn_rate(
+    errors_minutes=20,
+    total_minutes=1440,
+    slo_target=0.999,
+    window_days=1,
+)
+print(f"Tasa de quema: {burn:.1f}x")
+# Output: Tasa de quema: 13.9x (critica - congelar deploys)
+```
+
+### Politica de Presupuesto de Error
+
+| Presupuesto Restante | Accion |
+|----------------------|--------|
+| > 50% | Operaciones normales, desplegar libremente |
+| 25% - 50% | Proceder con precaucion, revisar riesgo de cambios |
+| 10% - 25% | Congelar deploys no criticos, priorizar confiabilidad |
+| < 10% | Congelar todos los deploys excepto fixes de confiabilidad |
+| < 0% | Incidente obligatorio, postmortem requerido antes de reanudar |
+
+## Monitoreo de SLOs con Prometheus
+
+Usa Prometheus y Grafana para rastrear cumplimiento de SLOs y tasa de quema del presupuesto de error.
+
+### Reglas de Grabacion de Prometheus
+
+```yaml
+groups:
+  - name: slo_rules
+    interval: 1m
+    rules:
+      - record: request_total:rate5m
+        expr: sum(rate(http_requests_total[5m]))
+
+      - record: request_errors:rate5m
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m]))
+
+      - record: slo:availability:rate5m
+        expr: 1 - (request_errors:rate5m / request_total:rate5m)
+
+      - record: slo:error_budget:remaining
+        expr: |
+          1 - (
+            sum(rate(http_requests_total{status=~"5.."}[30d]))
+            /
+            sum(rate(http_requests_total[30d]))
+          ) / (1 - 0.999)
+
+      - record: slo:burn_rate:1h
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[1h]))
+            /
+            sum(rate(http_requests_total[1h]))
+          ) / (1 - 0.999)
+
+      - record: slo:burn_rate:5m
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total[5m]))
+          ) / (1 - 0.999)
+```
+
+### Reglas de Alerta de Prometheus
+
+```yaml
+groups:
+  - name: slo_alerts
+    rules:
+      - alert: SLOBurnRateCritical
+        expr: slo:burn_rate:5m > 10 and slo:burn_rate:1h > 10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Presupuesto de error quemando 10x mas rapido de lo esperado"
+          description: "Congelar deploys no criticos e investigar."
+
+      - alert: SLOBurnRateWarning
+        expr: slo:burn_rate:1h > 2
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Presupuesto de error quemando 2x mas rapido de lo esperado"
+          description: "Monitorear de cerca y revisar cambios recientes."
+
+      - alert: SLOErrorBudgetExhausted
+        expr: slo:error_budget:remaining < 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Presupuesto de error agotado"
+          description: "Todos los deploys congelados hasta que el presupuesto se recupere."
+```
+
+### JSON de Dashboard de Grafana
+
+```json
+{
+  "panels": [
+    {
+      "title": "Disponibilidad (30d)",
+      "targets": [{"expr": "slo:availability:rate5m * 100", "legendFormat": "Disponibilidad %"}],
+      "thresholds": [{"value": 99.9, "colorMode": "critical"}]
+    },
+    {
+      "title": "Presupuesto de Error Restante",
+      "targets": [{"expr": "slo:error_budget:remaining * 100", "legendFormat": "Presupuesto %"}],
+      "thresholds": [{"value": 10, "colorMode": "warning"}, {"value": 0, "colorMode": "critical"}]
+    },
+    {
+      "title": "Tasa de Quema (1h vs 5m)",
+      "targets": [
+        {"expr": "slo:burn_rate:1h", "legendFormat": "Tasa 1h"},
+        {"expr": "slo:burn_rate:5m", "legendFormat": "Tasa 5m"}
+      ]
+    }
+  ]
+}
+```
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -140,6 +297,7 @@ La plantilla separa **objetivos** (lo que prometes) de **indicadores** (como mid
 | SaaS Publico | SLA estricto con creditos automaticos | La confianza del cliente es una ventaja competitiva |
 | Plataforma interna | SLA relajado, enfocado en SLOs | Los equipos internos necesitan confiabilidad, no contratos legales |
 | Contrato enterprise | SLA personalizado por trato | Negociado individualmente con aprobacion legal |
+| SaaS Multi-tenant | SLAs por tiers de plan | Tiers mas altos obtienen garantias mas estrictas y respuesta mas rapida |
 
 ## Lo que funciona
 
@@ -148,6 +306,8 @@ La plantilla separa **objetivos** (lo que prometes) de **indicadores** (como mid
 3. **Medir desde la perspectiva del consumidor** — disponibilidad no es solo "servidor arriba" sino "solicitud exitosa"
 4. **Revisar trimestralmente** — los servicios evolucionan, los objetivos deben evolucionar con ellos
 5. **Publicar estado en tiempo real** — una pagina de estado publica construye confianza durante incidentes
+6. **Automatizar el seguimiento del presupuesto de error** — los calculos manuales se desviaran y perderan precision
+7. **Vincular el presupuesto de error a la politica de deploy** — hacer el presupuesto accionable, no solo informativo
 
 ## Errores Comunes
 
@@ -156,6 +316,9 @@ La plantilla separa **objetivos** (lo que prometes) de **indicadores** (como mid
 3. **Ignorar latencia en los SLAs** — lento es el nuevo caido
 4. **No definir presupuestos de error** — los equipos no tienen marco para equilibrar confiabilidad y cambios
 5. **Hacer las revisiones de SLA solo reactivas** — programar revisiones trimestrales incluso cuando todo esta verde
+6. **Establecer el mismo SLO para todos los endpoints** — un endpoint de health check necesita mayor disponibilidad que uno de reportes
+7. **No contabilizar el mantenimiento programado** — excluirlo de los calculos o los consumidores veran violaciones falsas
+8. **Elegir 99.99% sin infraestructura para soportarlo** — cada nueve cuesta exponencialmente mas
 
 ## Preguntas Frecuentes
 
@@ -176,3 +339,19 @@ Si, pero se realista. Un objetivo de latencia p95 de 200ms es alcanzable para la
 ### Que pasa si quemamos todo el presupuesto de error antes de que termine la ventana?
 
 Congelar despliegues no criticos y priorizar trabajo de confiabilidad hasta que el presupuesto se recupere. Este es el principio central de SRE: las politicas de presupuesto de error deben impulsar las prioridades de ingenieria.
+
+### Deberia usar ventana rodante o ventana calendario?
+
+Las ventanas rodantes (ej. ultimos 30 dias) son mejores para decisiones operativas porque reflejan el estado actual. Las ventanas calendario (ej. mensual) son mejores para reportes de SLA y facturacion. Usar ambas: rodante para SLOs internos, calendario para cumplimiento de SLA externo.
+
+### Como manejo dependencias en mi SLO?
+
+Si tu servicio depende de una API de terceros, rastrea la disponibilidad del tercero por separado. Excluye las caidas de terceros de tu SLO si estan fuera de tu control, pero documentalo en la seccion de exclusiones de tu SLA.
+
+### Puedo tener diferentes SLOs para diferentes endpoints?
+
+Si. Los endpoints criticos (pago, auth) pueden tener SLOs mas estrictos que los no criticos (reportes, analiticas). Documenta el SLO de cada endpoint para que los consumidores sepan que esperar.
+
+### Con que frecuencia debo revisar los objetivos de SLO?
+
+Trimestralmente para servicios estables. Mensualmente para servicios nuevos o que experimentan cambios significativos. Cualquier incidente P1 debe disparar una revision ad-hoc para evaluar si los objetivos necesitan ajuste.

@@ -129,3 +129,174 @@ Un SLO es un target interno de confiabilidad. Consulta la [Guía de Respuesta a 
 ### ¿Cada microservicio debería tener su propio SLO?
 
 Sí, pero mantenlo proporcional. Un servicio crítico orientado a usuarios necesita SLOs detallados. Un procesador batch interno podría solo necesitar un SLO de disponibilidad. No cada servicio necesita un SLO de latencia.
+
+
+## Variantes
+
+| Contexto | Enfoque | Notas |
+|----------|---------|-------|
+| Startup | SLOs basicos: disponibilidad y latencia | Objetivo Nivel 2 primero |
+| Enterprise | SLOs multi-ventana + error budget policies | Nivel 3-4 con revisiones trimestrales |
+| Microservicios | SLOs por servicio + SLOs de dependencia | Incluir SLOs de servicios upstream |
+| Batch processing | SLOs de frescura y throughput | La latencia no aplica igual |
+
+## Ejemplo de SLO Completo
+
+```text
+=== SLO: payment-service ===
+
+SLI: Tasa de exito de transacciones
+  Definicion: requests HTTP 2xx+3xx / total requests HTTP
+  Fuente: Prometheus (http_requests_total)
+  Query: sum(rate(http_requests_total{service="payment",status!~"5.."}[5m])) / sum(rate(http_requests_total{service="payment"}[5m]))
+
+SLO: 99.9% de exito en ventana de 30 dias
+  Error budget: 0.1% = 43.2 minutos de errores en 30 dias
+  Alerta fast burn: 2% del budget en 1 hora
+  Alerta slow burn: 5% del budget en 6 horas
+
+SLI: Latencia p95
+  Definicion: percentil 95 del tiempo de respuesta
+  Fuente: Prometheus (http_request_duration_seconds)
+  Query: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{service="payment"}[5m]))
+
+SLO: p95 < 500ms en ventana de 30 dias
+  Error budget: 0.1% de requests pueden exceder 500ms
+
+Revision: Trimestral
+Owner: Team Payments
+```
+
+## Politica de Error Budget
+
+```text
+=== Politica de Error Budget ===
+
+Budget restante | Accion
+----------------|--------
+75-100%         | Desarrollo normal; feature work prioritizado
+50-75%          | Desarrollo normal; monitorear tendencias
+25-50%          | Freeze de deploys para cambios riesgosos
+< 25%           | Freeze excepto fixes criticos
+< 10%           | Todos manos a fiabilidad; detener feature work
+
+Excepciones:
+- Hotfixes de seguridad: siempre permitidos
+- Fixes que restauran budget: siempre permitidos
+- Feature flags deshabilitadas: permitidas (no afectan budget)
+```
+
+### Como definimos SLIs que importan a los usuarios?
+
+Un buen SLI mide lo que los usuarios experimentan, no lo que la infraestructura hace. "Uso de CPU" no es un SLI — a los usuarios no les importa el CPU. "Tasa de exito de requests" si es un SLI — los usuarios notan cuando sus requests fallan. Para definir SLIs: identifica el viaje del usuario (ej., "usuario hace un pago"). Para cada paso del viaje, define que significa "exitoso" (ej., "transaccion completada en < 500ms"). Mide eso. Evita SLIs de infraestructura (CPU, memoria, disco) a menos que esten directamente correlacionados con la experiencia del usuario. Usa el modelo RED (Rate, Errors, Duration) para servicios y USE (Utilization, Saturation, Errors) para infraestructura.
+
+### Como ajustamos SLOs que son demasiado agresivos?
+
+Si un SLO es demasiado agresivo (el equipo consistentemente quema el error budget): no bajes el SLO inmediatamente. Primero, investiga por que el SLO no se cumple: hay bugs recurrentes? dependencias inestables? deuda tecnica? Si la causa es sistemica: crea un plan de mejora de fiabilidad antes de ajustar el SLO. Si despues de 1-2 trimestres de mejora el SLO sigue sin cumplirse: ajusta el SLO a un nivel alcanzable. Documenta el cambio y la razon. Comunica a stakeholders que el SLO se ajusta para ser realista. Nunca ajustes un SLO despues de un solo mal mes — puede ser una anomalia. Usa datos de 2-3 meses para decisiones de ajuste de SLO.
+
+### Como comunicamos SLOs a stakeholders no tecnicos?
+
+Traduce SLOs a lenguaje de negocio: "99.9% de disponibilidad significa que el servicio puede estar caido 43 minutos por mes." En lugar de "p95 < 500ms", usa "el 95% de las requests se completan en menos de medio segundo." Conecta SLOs a impacto de negocio: "cada minuto de caida del servicio de pagos cuesta $10,000 en transacciones perdidas." Usa dashboards visuales con semaforos (verde/amarillo/rojo) en lugar de numeros. Reporta SLOs mensualmente a liderazgo. Incluye el error budget restante y las acciones tomadas cuando se agota. No uses jerga (SLI, SLO, burn rate) con stakeholders no tecnicos — traduce a impacto.
+
+### Que herramientas necesitamos para implementar SLOs?
+
+Para implementar SLOs necesitas: un sistema de monitoreo (Prometheus, Datadog) para recolectar metricas. Un sistema de dashboards (Grafana) para visualizar SLOs y error budgets. Un sistema de alertas (Alertmanager, PagerDuty) para alertas basadas en burn rate. Opcionalmente: una herramienta de SLO (Sloth, Prometheus Operator, Nobl9) para automatizar el calculo de error budget y las alertas. Para servicios sin metricas tradicionales (batch, event-driven): usa herramientas como OpenTelemetry para generar metricas personalizadas. Empieza simple — Prometheus + Grafana es suficiente para Nivel 2. Agrega herramientas especializadas cuando alcances Nivel 3-4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

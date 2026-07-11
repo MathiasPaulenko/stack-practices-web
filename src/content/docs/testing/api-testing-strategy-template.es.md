@@ -135,6 +135,62 @@ Usa este recurso cuando:
 
 Los tests de contrato son el **ciclo de retroalimentación más rápido** para cambios de API porque se ejecutan en milisegundos y detectan inconsistencias de schema antes del despliegue. Los tests de integración verifican que tu código funciona con dependencias reales (base de datos, cola de mensajes) sin la sobrecarga de un suite E2E completo. Los tests de carga no se tratan de pasar un número; revelan fugas de recursos, agotamiento de conexiones y misconfiguraciones de autoscaling que solo aparecen bajo carga sostenida.
 
+
+### Escenario Detallado: Estrategia de Testing para API de Pedidos
+
+```text
+API: POST /v1/orders (creacion de pedidos)
+Equipos: Backend (proveedor), Mobile (consumidor), Web (consumidor)
+
+Capa 1 - Tests de Contrato:
+  Pact broker: https://pact.example.com
+  Consumidor Mobile publica contrato:
+    - Request: POST /v1/orders con body {customer_id, items[]}
+    - Response: 201 con body {id, status, total_cents}
+  Proveedor verifica en CI:
+    $ pact-provider-verifier --provider-base-url=http://localhost:8080 \
+      --pact-broker-url=https://pact.example.com \
+      --provider=orders-api --consumer=mobile-app
+  Gate: si el contrato falla, el PR no se mergea
+
+Capa 2 - Tests de Integracion:
+  Herramienta: Testcontainers + supertest
+  Casos:
+    - Happy path: pedido valido retorna 201
+    - customer_id inexistente: retorna 400
+    - items vacio: retorna 422
+    - sin auth token: retorna 401
+    - idempotency key repetida: retorna 409
+  BD: PostgreSQL en Testcontainer, datos aislados por test
+
+Capa 3 - Tests de Carga:
+  Herramienta: k6
+  Escenarios:
+    - Baseline: 500 RPS por 10 min, p95 < 300ms
+    - Spike: 5,000 RPS en 30s, sin errores 5xx
+    - Soak: 300 RPS por 2h, memoria estable
+  Frecuencia: semanal + pre-release
+
+Capa 4 - E2E:
+  Herramienta: Cypress
+  Journey: login -> agregar al carrito -> checkout -> confirmar
+  Frecuencia: nightly
+
+Integracion CI/CD:
+  Pre-commit: lint + unit tests (30s)
+  PR build: integracion + contrato (3min)
+  Nightly: E2E + carga baseline (20min)
+  Pre-release: carga completa + soak (45min)
+```
+
+### Como manejo tests de contrato cuando hay multiples consumidores?
+
+Cada consumidor publica su propio contrato en el Pact Broker. El proveedor verifica todos los contratos en CI. Si un cambio rompe un consumidor pero no otros, el proveedor puede publicar una version nueva del contrato y notificar al consumidor afectado. Manten una matriz de compatibilidad: que consumidor usa que version del proveedor.
+
+### Deberia usar la misma base de datos de produccion para tests de integracion?
+
+No. Usa Testcontainers (PostgreSQL en Docker) con la misma version y configuracion que produccion. Esto garantiza compatibilidad sin riesgo de mutar datos de produccion. Para datos de referencia estables (paises, monedas), usa fixtures versionados. Para datos transaccionales, usa factories que generen entidades frescas por test.
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -172,3 +228,75 @@ Mockea servicios que no poseas o controles (pasarelas de pago, APIs de terceros)
 ### ¿Cuál es la diferencia entre tests de contrato e integración?
 
 Los tests de contrato verifican que el schema de request/response coincide con el acuerdo entre consumidor y proveedor. Los tests de integración verifican que tu código de aplicación funciona correctamente con dependencias reales. Los tests de contrato son rápidos y enfocados en schema; los de integración son más lentos y enfocados en comportamiento.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

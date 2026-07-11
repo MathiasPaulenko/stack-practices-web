@@ -114,6 +114,59 @@ Usa este recurso cuando:
 
 El checklist está organizado por **dominio de seguridad** para que los equipos puedan dividir el trabajo entre especialidades: ingenieros backend manejan auth y validación de entradas, DevOps asegura la infraestructura, y los equipos de cumplimiento validan documentación. Cada ítem es binario aprobado/reprobado para mantener auditorías objetivas. La plantilla puede copiarse a un sistema de tickets o ejecutarse como un escaneo de cumplimiento automatizado.
 
+## Guia de Ejecucion de Auditoria de Seguridad
+
+```text
+=== Preparacion Pre-Auditoria (1 semana antes) ===
+
+[ ] Definir alcance de auditoria (que servicios, entornos, equipos)
+[ ] Notificar a los equipos las fechas de auditoria y evidencia requerida
+[ ] Recopilar documentacion de seguridad existente (politicas, procedimientos)
+[ ] Revisar hallazgos de auditorias previas y estado de remediacion
+[ ] Preparar acceso a sistemas, repos, e infraestructura para el auditor
+[ ] Programar entrevistas con lideres de equipo y duenos de seguridad
+
+=== Durante la Auditoria ===
+
+[ ] Recorrer cada seccion del checklist con el equipo responsable
+[ ] Capturar evidencia: capturas, archivos de config, links a politicas, output de herramientas
+[ ] Documentar hallazgos: pasa, falla, parcial, no aplica
+[ ] Asignar severidad a cada hallazgo: Critico, Alto, Medio, Bajo
+[ ] Notar pasos de remediacion para cada hallazgo
+[ ] Identificar quick wins (arreglables en 1 semana)
+[ ] Identificar items a largo plazo (requieren planificacion o presupuesto)
+
+=== Post-Auditoria (1 semana despues) ===
+
+[ ] Compilar reporte de auditoria con hallazgos y evidencia
+[ ] Compartir reporte con liderazgo de ingenieria y equipo de seguridad
+[ ] Crear tickets para cada hallazgo con severidad y fecha limite
+[ ] Programar revision de remediacion a 30/60/90 dias
+[ ] Actualizar politicas de seguridad basado en aprendizajes de auditoria
+[ ] Planificar proxima fecha de auditoria (trimestral para servicios criticos)
+```
+
+## Plantillas de Evidencia de Auditoria
+
+```text
+=== Evidencia: Revision de Autenticacion ===
+
+Servicio: [NOMBRE_SERVICIO]
+Fecha: [FECHA]
+Revisor: [NOMBRE]
+
+Metodo de autenticacion: [OAuth2 / SAML / JWT / Sesion]
+MFA aplicado: [Si / No]
+Politica de contrasenas: [Min longitud, complejidad, rotacion]
+Timeout de sesion: [Duracion]
+Bloqueo por login fallido: [Umbral y duracion]
+Evidencia: [Captura de config de auth / link a politica]
+
+Hallazgo: [Pasa / Falla / Parcial]
+Notas: [OBSERVACIONES]
+```
+
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -151,3 +204,99 @@ Sí, al menos anualmente. Los equipos internos conocen demasiado bien el sistema
 ### ¿Qué pasa si un ítem falla pero la corrección es costosa?
 
 Documenta el riesgo, crea un plan de mitigación (workarounds, monitoreo, seguro) y asigna una fecha objetivo. Algunos riesgos se aceptan con firma ejecutiva, pero deben revisitarse regularmente.
+
+
+### Como priorizamos hallazgos de auditoria de seguridad?
+
+Prioriza por severidad y explotabilidad: hallazgos Criticos (ejecucion remota de codigo, bypass de autenticacion, exposicion de datos) deben arreglarse inmediatamente — en 24-48 horas. Hallazgos Altos (escalada de privilegios, SQL injection) en 1 semana. Hallazgos Medios (falta de encripcion, politica de contrasenas debil) en 30 dias. Hallazgos Bajos (divulgacion de informacion, headers faltantes) en 90 dias. Usa el score CVSS como baseline pero ajusta segun contexto de negocio — un hallazgo Critico en un servicio publico es mas urgente que en una herramienta interna. Rastrea todos los hallazgos en una herramienta de gestion de vulnerabilidades con fechas limite y duenos.
+
+### Que herramientas debemos usar durante una auditoria de seguridad?
+
+Usa una combinacion de herramientas automatizadas y manuales: SAST (SonarQube, Semgrep, CodeQL) para analisis de codigo fuente. DAST (OWASP ZAP, Burp Suite) para testing en runtime. Escaneo de dependencias (Snyk, Dependabot, OWASP Dependency-Check) para librerias vulnerables. Escaneo de infraestructura (tfsec, CIS benchmarks, cloud security posture management). Escaneo de secrets (GitLeaks, TruffleHog) para secrets hardcoded. Revision manual — revision de codigo, revision de arquitectura, y threat modeling. Ninguna herramienta individual encuentra todos los problemas — usa multiples herramientas y revision manual.
+
+### Como conducimos una auditoria de seguridad para arquitectura de microservicios?
+
+Para microservicios: audita cada servicio individualmente pero tambien audita la comunicacion entre servicios. Por servicio: autenticacion, autorizacion, validacion de entradas, escaneo de dependencias, y gestion de secrets. Entre servicios: mTLS, network policies, seguridad del API gateway, y configuracion del service mesh. Verifica broken access control entre servicios — un servicio con acceso a todas las bases de datos es un riesgo. Revisa el API gateway para rate limiting, autenticacion, y validacion de requests. Audita el pipeline de CI/CD de cada servicio — un pipeline comprometido puede inyectar codigo malicioso. Documenta el grafo de dependencias de servicios e identifica caminos de ataque.
+
+### Cual es la diferencia entre auditoria de seguridad y penetration test?
+
+Una auditoria de seguridad es una revision exhaustiva de controles, politicas, y configuraciones de seguridad — responde "son nuestras medidas de seguridad adecuadas?" Un penetration test es un ataque simulado — responde "alguien puede realmente entrar?" Las auditorias son mas amplias (politicas, procedimientos, configuraciones) mientras que los pentests son mas profundos (explotando vulnerabilidades especificas). Las auditorias son tipicamente internas o por un asesor externo; los pentests son por firmas de seguridad especializadas. Ambos son necesarios: una auditoria identifica brechas en controles, un pentest valida que los controles funcionan bajo ataque. Programa auditorias trimestralmente y pentests anualmente o antes de releases mayores.
+
+### Como rastreamos la remediacion de hallazgos de auditoria?
+
+Usa una herramienta de gestion de vulnerabilidades (Jira, GitHub Issues, DefectDojo) para rastrear cada hallazgo. Crea un ticket con: descripcion del hallazgo, severidad, evidencia, pasos de remediacion, dueno, y fecha limite. Revisa hallazgos abiertos semanalmente en el standup de seguridad. Escala hallazgos Criticos y Altos vencidos a liderazgo de ingenieria. Cierra hallazgos solo despues de verificacion — re-prueba el fix y documenta la evidencia. Genera reportes mensuales del estado de hallazgos (abiertos, en progreso, cerrados) para liderazgo. Conduce una revision de remediacion a 30, 60, y 90 dias post-auditoria para asegurar que los fixes se sostienen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

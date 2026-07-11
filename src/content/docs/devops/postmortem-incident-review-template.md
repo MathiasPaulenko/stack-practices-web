@@ -152,6 +152,64 @@ ______
 
 The template separates the **story** (timeline, what happened) from the **analysis** (why it happened) from the **action** (what we will do). The **root cause analysis** section uses a chain of questions that expose not just the trigger but the conditions that allowed the trigger to cause an outage. The **"where we got lucky"** section is critical: it identifies near-misses and hidden risks that did not materialize this time but may next time.
 
+## Real Postmortem Example
+
+```markdown
+# Postmortem: INC-2026-07-11-001 — Login Failures in EU
+
+## Summary
+On July 11, 2026, the authentication service experienced a 15%
+error rate for login attempts in the EU region for 30 minutes.
+The root cause was a configuration change that altered the JWT
+secret rotation interval, causing token validation to fail for
+active sessions.
+
+## Impact
+- Duration: 30 minutes (10:55 - 11:25 UTC)
+- Users affected: ~15,000 (15% of login attempts)
+- Region: eu-west-1
+- Revenue lost: estimated $2,500
+- Support tickets: 47
+
+## Timeline
+- 10:42  DB CPU begins rising
+- 10:55  PagerDuty alerts fire
+- 11:00  SEV1 declared
+- 11:03  Config change identified as cause
+- 11:05  Rollback initiated
+- 11:08  Rollback deployed
+- 11:12  Error rate at 0%
+- 11:25  Incident resolved
+
+## Root Cause Analysis
+1. Why did token validation fail?
+   The JWT secret rotated before existing tokens expired.
+2. Why did the secret rotate?
+   The config change reduced the rotation interval from 24h to 1h.
+3. Why did the change pass tests?
+   Config tests did not validate secret rotation behavior.
+4. Why was there no alert before impact?
+   The latency alert threshold was set too high.
+
+## What went well
+- Fast detection and response (3 min from detection to declaration)
+- Clear communication to stakeholders and support
+- Quick and effective rollback
+
+## What went wrong
+- Config change without security review
+- Insufficient config tests
+- Alert thresholds too high
+
+## Action Items
+| Action | Owner | Due Date | Priority |
+|--------|-------|----------|----------|
+| Add secret rotation test | alice | 2026-07-18 | P0 |
+| Review latency alert thresholds | bob | 2026-07-15 | P1 |
+| Add security review for config changes | platform | 2026-07-25 | P1 |
+```
+
+
 ## Variants
 
 | Context | Adjustments | Notes |
@@ -191,3 +249,53 @@ Internal postmortems should be visible to all engineering teams. Customer-facing
 ### How do we prevent "action item bankruptcy"?
 
 Track postmortem action items in the same backlog as feature work. Review them in sprint planning. If an action item is repeatedly deprioritized, ask whether it is truly important — and if not, close it explicitly rather than letting it rot.
+
+
+### How do we facilitate an effective postmortem session?
+
+Assign a facilitator who was not an incident responder — they bring fresh perspective. Start with the timeline to establish facts. Then use the "5 whys" technique for root cause analysis. Encourage questions, not accusations. Limit the session to 60 minutes — if more time is needed, schedule a follow-up. Document everything in real-time in a shared document. Assign action items at the end with owners and due dates. Send the postmortem to all engineering teams within 48 hours.
+
+### What is the "5 whys" technique and how do we apply it?
+
+The "5 whys" is a root cause analysis method that asks "why" successively until reaching the fundamental cause. Example: "Why did login fail?" -> "Tokens were invalid." -> "Why were they invalid?" -> "The secret rotated." -> "Why did it rotate?" -> "The interval was changed." -> "Why was it changed?" -> "The config change was not reviewed." -> "Why was it not reviewed?" -> "No review process exists for config changes." The root cause is the missing process, not the change itself. Document the full chain in the postmortem.
+
+### How do we handle postmortems for recurring incidents?
+
+If an incident is similar to a previous one, reference the prior postmortem and compare. Ask: why did this happen again? Were the previous action items completed? Were they effective? Is there a deeper systemic cause? For incidents occurring 3+ times, escalate to leadership for an architecture review. Consider that the system may need a redesign, not just incremental fixes. Document the recurring pattern and actions taken at each iteration.
+
+### How do we measure postmortem effectiveness?
+
+Track: percentage of action items completed by due date (target: > 80%), average time to complete action items, number of recurring incidents (same type) after a postmortem, and time from incident to postmortem publication (target: < 72 hours). Review these metrics quarterly. If action items are not being completed, investigate why — are they too ambitious? Lack of resources? Not prioritized? Adjust the process based on findings.
+
+### Who should approve the postmortem before publication?
+
+The postmortem should be reviewed by: the incident commander (for factual accuracy), key responders (for technical accuracy), and the team lead or engineering manager (for action items and prioritization). For SEV1 incidents, the CTO or VP of engineering should review. For security incidents, legal and compliance teams must approve before any external publication. Document reviewers in the postmortem changelog. Never publish a postmortem without review — errors in a postmortem erode trust.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -208,6 +208,46 @@ El gap analysis es el actionable output. Para cada criterion below target, el te
 
 El roadmap sequencea improvements by quarter, balanceando quick wins (tunear alerts, addear log levels) con larger initiatives (SLO definition, full tracing instrumentation). Cada item tiene un owner y effort estimate, haciéndolo actionable para sprint planning.
 
+## Definiciones de Niveles de Madurez
+
+```text
+=== Nivel 1: Ad Hoc ===
+  Logging:    No estructurado, ad-hoc, sin centralizacion
+  Metricas:   Metricas basicas de infra (CPU, memoria, disco)
+  Tracing:    Ninguno o correlacion basada en logs
+  Alertas:    Basadas en umbrales, alta tasa de falsos positivos
+  Cultura:    Reactiva, sin postmortems, sin SLOs
+
+=== Nivel 2: Basico ===
+  Logging:    Centralizado pero no estructurado (ELK, CloudWatch)
+  Metricas:   RED metrics para algunos servicios, dashboards Grafana
+  Tracing:    Algunos servicios instrumentados, propagacion basica
+  Alertas:    Basadas en umbrales, algunos runbooks, routing PagerDuty
+  Cultura:    Postmortems para incidentes mayores, on-call basico
+
+=== Nivel 3: Estructurado ===
+  Logging:    JSON estructurado, centralizado, correlation IDs
+  Metricas:   RED metrics para todos, SLOs definidos
+  Tracing:    OpenTelemetry en todos, propagacion de traces
+  Alertas:    Alertas basadas en SLO, runbooks para todas
+  Cultura:    Postmortems blameless, tracking de action items, capacitacion on-call
+
+=== Nivel 4: Proactivo ===
+  Logging:    Estructurado, PII redacted, alertas basadas en logs
+  Metricas:   USE + RED + metricas de negocio, alertas SLO
+  Tracing:    Tail-based sampling, exemplars trace-to-metric
+  Alertas:    Multi-window burn rate, deteccion de anomalias
+  Cultura:    Mejora proactiva, onboarding de observability, revisiones trimestrales
+
+=== Nivel 5: Autonomo ===
+  Logging:    Analisis automatizado de logs, deteccion de patrones
+  Metricas:   Alertas predictivas, forecast de capacidad
+  Tracing:    Analisis automatizado de causa raiz desde traces
+  Alertas:    Self-healing, remediacion automatizada
+  Cultura:    Optimizacion continua, observability as code
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -259,3 +299,37 @@ Traducí gaps en business impact: "60% de alerts son false positives, costeando 
 ### ¿Qué tools necesitamos para cada level?
 
 Level 1-2: Structured logging (pino, Winston), Prometheus, Grafana. Level 3: Addeá OpenTelemetry, Jaeger/Tempo, Alertmanager. Level 4: Addeá SLO tooling (Sloth, Prometheus Operator), anomaly detection. Level 5: Addeá automated remediation (Kubernetes operators, policy engines).
+
+
+### Como empezamos si estamos en Nivel 1?
+
+Empieza con logging: centraliza todos los logs en un solo lugar (ELK, CloudWatch, Loki). Agrega logging estructurado (formato JSON con campos) a tu servicio mas critico. Luego agrega metricas basicas: CPU, memoria, disco, y tasa de requests para tus top 3 servicios. Crea un solo dashboard de Grafana con estas metricas. Configura alertas basicas: alertas basadas en umbrales para CPU > 80%, tasa de error > 5%. Escribe runbooks para las top 5 alertas. Esto toma 1-2 semanas y te mueve de Nivel 1 a Nivel 2. No intentes implementar todo a la vez — progreso incremental es progreso sostenible.
+
+### Como involucramos a todo el equipo en la evaluacion?
+
+Programa un taller de medio dia con el equipo de ingenieria. Recorre cada dimension juntos. Para cada criterio, pregunta al equipo: "Que evidencia tenemos?" Deja que el equipo se auto-evalue — ellos conocen la realidad mejor que un evaluador externo. Documenta desacuerdos — si un ingeniero evalua Nivel 3 y otro Nivel 1, eso es un hallazgo. Discute las brechas y haz brainstorm de acciones. Asigna duenos y estimaciones de esfuerzo para cada action item. Comparte los resultados con liderazgo. Haz de la evaluacion una cadencia regular — trimestral es ideal.
+
+### Cual es la relacion entre SLOs y madurez de observability?
+
+Los SLOs (Service Level Objectives) son una practica de Nivel 3-4. Requieren: indicadores de nivel de servicio definidos (metricas), tracking de error budget, y alertas basadas en SLO. No puedes tener SLOs significativos sin metricas de Nivel 2+. Los SLOs dirigen la inversion en observability: si tu SLO es 99.9% de disponibilidad, necesitas monitoreo que pueda detectar degradacion del 0.1%. Los SLOs tambien priorizan las alertas — las alertas de burn rate se enfocan en lo que importa a los usuarios, no en lo que importa a la infraestructura. Empieza la implementacion de SLOs con tu servicio mas critico y expande desde ahi.
+
+### Como medimos el ROI de mejoras de observability?
+
+Rastrea estas metricas antes y despues de mejoras: tiempo medio a deteccion (MTTD) de incidentes, tiempo medio a resolucion (MTTR), numero de incidentes detectados por monitoreo vs. reportados por usuarios, tasa de falsos positivos de alertas, horas de ingenieria gastadas en alertas, y puntaje de satisfaccion on-call. Calcula el costo de incidentes antes y despues. Ejemplo: "Antes de tracing, MTTR era 45 minutos. Despues de tracing, MTTR es 15 minutos. A 4 incidentes/mes, esto ahorra 20 horas de ingenieria/mes." Presenta ROI en terminos de horas de ingenieria ahorradas, incidentes prevenidos, e impacto al cliente reducido.
+
+
+### Como empezamos si estamos en Nivel 1?
+
+Empieza con logging: centraliza todos los logs en un solo lugar (ELK, CloudWatch, Loki). Agrega logging estructurado (formato JSON con campos) a tu servicio mas critico. Luego agrega metricas basicas: CPU, memoria, disco, y tasa de requests para tus top 3 servicios. Crea un solo dashboard de Grafana con estas metricas. Configura alertas basicas: alertas basadas en umbrales para CPU > 80%, tasa de error > 5%. Escribe runbooks para las top 5 alertas. Esto toma 1-2 semanas y te mueve de Nivel 1 a Nivel 2. No intentes implementar todo a la vez — progreso incremental es progreso sostenible.
+
+### Como involucramos a todo el equipo en la evaluacion?
+
+Programa un taller de medio dia con el equipo de ingenieria. Recorre cada dimension juntos. Para cada criterio, pregunta al equipo: "Que evidencia tenemos?" Deja que el equipo se auto-evalue — ellos conocen la realidad mejor que un evaluador externo. Documenta desacuerdos — si un ingeniero evalua Nivel 3 y otro Nivel 1, eso es un hallazgo. Discute las brechas y haz brainstorm de acciones. Asigna duenos y estimaciones de esfuerzo para cada action item. Comparte los resultados con liderazgo. Haz de la evaluacion una cadencia regular — trimestral es ideal.
+
+### Cual es la relacion entre SLOs y madurez de observability?
+
+Los SLOs (Service Level Objectives) son una practica de Nivel 3-4. Requieren: indicadores de nivel de servicio definidos (metricas), tracking de error budget, y alertas basadas en SLO. No puedes tener SLOs significativos sin metricas de Nivel 2+. Los SLOs dirigen la inversion en observability: si tu SLO es 99.9% de disponibilidad, necesitas monitoreo que pueda detectar degradacion del 0.1%. Los SLOs tambien priorizan las alertas — las alertas de burn rate se enfocan en lo que importa a los usuarios, no en lo que importa a la infraestructura. Empieza la implementacion de SLOs con tu servicio mas critico y expande desde ahi.
+
+### Como medimos el ROI de mejoras de observability?
+
+Rastrea estas metricas antes y despues de mejoras: tiempo medio a deteccion (MTTD) de incidentes, tiempo medio a resolucion (MTTR), numero de incidentes detectados por monitoreo vs. reportados por usuarios, tasa de falsos positivos de alertas, horas de ingenieria gastadas en alertas, y puntaje de satisfaccion on-call. Calcula el costo de incidentes antes y despues. Ejemplo: "Antes de tracing, MTTR era 45 minutos. Despues de tracing, MTTR es 15 minutos. A 4 incidentes/mes, esto ahorra 20 horas de ingenieria/mes." Presenta ROI en terminos de horas de ingenieria ahorradas, incidentes prevenidos, e impacto al cliente reducido.

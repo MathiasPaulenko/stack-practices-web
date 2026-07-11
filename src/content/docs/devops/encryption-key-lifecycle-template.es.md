@@ -123,6 +123,99 @@ La gestion del ciclo de vida de claves de cifrado define como se crean, almacena
 
 El cifrado es tan fuerte como las claves que lo protegen. La plantilla de ciclo de vida asegura que las claves se generen con algoritmos robustos, se almacenen en servicios aprobados, se accedan con minimo privilegio, se roten regularmente y se destruyan de forma segura cuando ya no se necesiten. Separar responsabilidades entre custodios, usuarios y auditores evita que una sola persona controle todo el ciclo de vida.
 
+## Politica de Rotacion de Claves en AWS KMS
+
+```yaml
+# Clave AWS KMS con rotacion automatica
+Resources:
+  EncryptionKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Clave de cifrado de datos de aplicacion
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:role/app-role'
+            Action:
+              - kms:Encrypt
+              - kms:Decrypt
+              - kms:ReEncrypt*
+              - kms:GenerateDataKey*
+              - kms:DescribeKey
+            Resource: '*'
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action:
+              - kms:CreateAlias
+              - kms:DeleteAlias
+              - kms:UpdateAlias
+              - kms:ScheduleKeyDeletion
+              - kms:EnableKeyRotation
+            Resource: '*'
+      PendingWindowInDays: 30
+```
+
+## Script de Automatizacion de Rotacion de Claves
+
+```bash
+#!/bin/bash
+# Verificar y reportar estado de rotacion de claves en AWS KMS
+set -euo pipefail
+
+REGION="us-east-1"
+ALERT_DAYS=7
+
+for key_id in $(aws kms list-keys --region $REGION --query 'Keys[*].KeyId' --output text); do
+  rotation_status=$(aws kms get-key-rotation-status --key-id $key_id --region $REGION --query 'KeyRotationEnabled' --output text 2>/dev/null || echo "N/A")
+  key_desc=$(aws kms describe-key --key-id $key_id --region $REGION --query 'KeyMetadata.Description' --output text 2>/dev/null || echo "N/A")
+  creation_date=$(aws kms describe-key --key-id $key_id --region $REGION --query 'KeyMetadata.CreationDate' --output text 2>/dev/null || echo "N/A")
+
+  echo "Clave: $key_id | Descripcion: $key_desc | Rotacion: $rotation_status | Creada: $creation_date"
+
+  if [ "$rotation_status" = "False" ]; then
+    echo "ADVERTENCIA: La clave $key_id no tiene rotacion automatica habilitada"
+  fi
+done
+```
+
+## Runbook de Respuesta a Compromiso de Clave
+
+```text
+=== Respuesta a Compromiso de Clave ===
+
+1. CONTENER (inmediato, 0-15 min)
+   - Deshabilitar la clave comprometida en KMS/HSM
+   - Revocar todas las politicas de acceso para la clave
+   - Identificar todos los datos cifrados con la clave comprometida
+
+2. EVALUAR (15-60 min)
+   - Determinar alcance: que servicios, bases de datos, backups afectados
+   - Revisar logs de acceso por uso no autorizado de la clave
+   - Notificar al equipo de seguridad y al custodio de la clave
+
+3. REEMPLAZAR (1-4 horas)
+   - Crear nueva clave con la misma politica
+   - Re-cifrar todos los datos afectados con la nueva clave
+   - Actualizar configuraciones de aplicacion para usar nuevo ARN/ID de clave
+   - Desplegar configuraciones actualizadas
+
+4. DESTRUIR (despues de verificacion)
+   - Programar eliminacion de la clave comprometida
+   - Verificar que todos los datos usan la nueva clave
+   - Documentar incidente y actualizar inventario de claves
+
+5. POST-INCIDENTE (dentro de 1 semana)
+   - Revisar causa raiz del compromiso
+   - Actualizar politicas de acceso y monitoreo
+   - Conducir auditoria completa de inventario de claves
+   - Actualizar documentacion del ciclo de vida de claves
+```
+
+
 ## Variantes
 
 - **Ciclo de vida de claves en KMS cloud**: Utiliza AWS KMS, Azure Key Vault o Google Cloud KMS con rotacion automatica y politicas IAM.
@@ -165,3 +258,44 @@ Si. La rotacion programada limita la ventana de exposicion si una clave se compr
 ### Como rotamos una clave que protege una base de datos grande?
 
 Utiliza una rotacion de dos claves: agrega la nueva clave, recifra los datos gradualmente o de forma perezosa, luego retira la clave vieja cuando todos los datos esten protegidos por la nueva clave.
+
+
+### Que es envelope encryption y por que deberiamos usarlo?
+
+Envelope encryption usa un KEK (Key Encryption Key) para cifrar DEKs (Data Encryption Keys). El DEK cifra los datos reales, y el KEK cifra el DEK. Esto permite que el DEK se almacene junto con los datos cifrados mientras el KEK permanece en un KMS seguro. Beneficios: el KMS solo ve el DEK (no los datos), reduciendo latencia; el KEK puede rotarse sin re-cifrar todos los datos; y el control de acceso se centraliza a nivel de KEK.
+
+### Como gestionamos claves entre multiples proveedores de nube?
+
+Usa un KMS agnostico de nube como HashiCorp Vault Transit engine, o manten KMS separados por nube con un inventario centralizado de claves. Para workloads multi-cloud, considera claves multi-region de AWS KMS o un formato de clave portable. Documenta que claves protegen que datos en cada nube. Nunca copies material de clave entre proveedores a menos que uses un proceso BYOK (Bring Your Own Key) con claves respaldadas por HSM.
+
+### Que es BYOK y cuando deberiamos usarlo?
+
+BYOK (Bring Your Own Key) permite generar y poseer el material de clave en tu propio HSM, luego importarlo a un KMS de nube. Usalo cuando el cumplimiento requiera que el material de clave permanezca bajo tu control, o cuando necesites la misma clave entre multiples proveedores de nube. Asegura que el proceso de importacion use una clave de wrapping segura y que el KMS de nube soporte eliminacion de clave con verificacion.
+
+### Como auditamos el uso de claves?
+
+Habilita el logging de acceso a KMS (AWS CloudTrail eventos KMS, Azure Key Vault diagnostics, GCP Cloud Audit Logs para KMS). Registra cada Encrypt, Decrypt, GenerateDataKey y accion administrativa. Envia logs a un SIEM para alertas en tiempo real sobre patrones inusuales (ej. decrypt desde una IP nueva, eliminacion de clave sin aprobacion). Revisa reportes de uso de claves mensualmente y compara contra patrones esperados de aplicacion.
+
+### Que es crypto-shredding?
+
+Crypto-shredding es el proceso de destruir datos cifrados eliminando la clave de cifrado. Cuando la clave se elimina, los datos se vuelven permanentemente irrecuperables. Esto es util para cumplimiento con solicitudes de eliminacion de datos (GDPR derecho al olvido). Usa claves por tenant o por cliente para que eliminar una sola clave destruya solo los datos de ese cliente. Documenta el mapeo clave-a-datos y el proceso de destrucion.
+
+
+### Como manejamos la rotacion de claves para certificados TLS?
+
+La rotacion de claves TLS la maneja tu sistema de gestion de certificados. Para ACM, la rotacion es automatica. Para certificados auto-gestionados, genera un nuevo par de claves, crea un CSR, obtén el nuevo certificado, despliegalo junto al antiguo, luego elimina el antiguo despues de verificar. Usa un despliegue de certificado dual durante la transicion para evitar downtime. Automatiza este proceso con cert-manager en Kubernetes o Certbot para servidores tradicionales.
+
+### Que es un custodio de claves y cuales son sus responsabilidades?
+
+Un custodio de claves es una persona designada responsable de la gestion del ciclo de vida de las claves de cifrado. Sus deberes incluyen: aprobar creacion y rotacion de claves, monitorear logs de uso de claves, coordinar destruccion de claves con cumplimiento, mantener el inventario de claves, y responder a incidentes de compromiso de claves. El custodio no debe ser la misma persona que usa las claves en aplicaciones (separacion de deberes).
+
+### Que es HSM y cuando lo necesitamos?
+
+Un HSM (Hardware Security Module) es un dispositivo fisico que genera, almacena y gestiona claves criptograficas en hardware resistente a manipulacion. Usa HSMs cuando el cumplimiento requiera FIPS 140-2 Nivel 3 o superior (PCI DSS, gobierno, salud), cuando las claves nunca deban salir de memoria protegida por hardware, o para operaciones criptograficas de alto throughput. Opciones de HSM en nube: AWS CloudHSM, Azure Dedicated HSM, Google Cloud HSM.
+
+Documenta el procedimiento de failover del HSM y pruebalo trimestralmente. La disponibilidad del HSM es critica para cualquier servicio que dependa de claves almacenadas en el HSM.
+
+Prueba los procedimientos de recuperacion de claves anualmente. Una clave que no puede recuperarse cuando se necesita puede causar perdida de datos tan severa como una brecha de seguridad.
+
+
+End of document. Review and update quarterly.

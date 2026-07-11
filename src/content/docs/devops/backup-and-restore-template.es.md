@@ -124,6 +124,115 @@ Usa este recurso cuando:
 
 La plantilla separa **backup** (crear copias) de **prueba de restauración** (demostrar que funcionan). Un backup sin una restauración probada es solo esperanza. El **RTO** (Recovery Time Objective) es qué tan rápido debes volver a estar en línea; el **RPO** (Recovery Point Objective) es cuánta pérdida de datos es aceptable. Los escenarios de restauración aseguran que pruebes todo el espectro: desde un único archivo eliminado hasta un desastre cross-region.
 
+## Script de Verificación de Restauración para PostgreSQL
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+BACKUP_FILE=$1
+RESTORE_DB="restore_test_$(date +%s)"
+PG_HOST="localhost"
+PG_USER="postgres"
+
+echo "Creando base de datos de prueba: $RESTORE_DB"
+createdb -h "$PG_HOST" -U "$PG_USER" "$RESTORE_DB"
+
+echo "Restaurando desde: $BACKUP_FILE"
+pg_restore -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -v "$BACKUP_FILE"
+
+echo "Verificando conteo de filas..."
+TABLES=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -t -c \
+  "SELECT tablename FROM pg_tables WHERE schemaname='public';")
+
+for table in $TABLES; do
+  count=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -t -c \
+    "SELECT COUNT(*) FROM $table;")
+  echo "  $table: $count filas"
+done
+
+echo "Verificando checksums..."
+psql -h "$PG_HOST" -U "$PG_USER" -d "$RESTORE_DB" -c \
+  "SELECT 'users' as tabla, COUNT(*) as filas, MD5(string_agg(id::text, ',' ORDER BY id)) as checksum FROM users;"
+
+echo "Limpiando base de datos de prueba..."
+dropdb -h "$PG_HOST" -U "$PG_USER" "$RESTORE_DB"
+echo "Verificación de restauración completa."
+```
+
+## Configuración de AWS Backup Vault Lock
+
+Para backups inmutables que sobreviven ataques de ransomware:
+
+```json
+{
+  "BackupVaultName": "production-backups",
+  "BackupVaultLockSettings": {
+    "MinRetentionDays": 30,
+    "MaxRetentionDays": 365,
+    "ChangeableForDays": 3
+  }
+}
+```
+
+Una vez activado el bloqueo, ningún usuario (incluyendo root) puede eliminar backups antes de que expire el período mínimo de retención. El parámetro `ChangeableForDays` da una ventana de enfriamiento para corregir configuraciones erróneas.
+
+## Hoja de Cálculo de RTO y RPO
+
+```text
+Servicio: API de Procesamiento de Órdenes
+Criticidad: P0
+
+Cálculo de RPO:
+  - Frecuencia de log de transacciones: Cada 15 minutos
+  - Pérdida máxima aceptable de datos: 15 minutos de órdenes
+  - Objetivo RPO: 15 minutos
+
+Cálculo de RTO:
+  - Tiempo de detección: 5 minutos (alerta automatizada)
+  - Tiempo de acusar recibo: 5 minutos (SLA de guardia)
+  - Aprovisionar entorno de restauración: 10 minutos
+  - Ejecutar restauración: 45 minutos (base de datos 50GB)
+  - Verificar integridad de datos: 15 minutos
+  - Redirigir tráfico: 5 minutos
+  - RTO total: 85 minutos (objetivo: 4 horas) PASS
+```
+
+## Monitoreo Automatizado de Backups con Prometheus
+
+```yaml
+groups:
+  - name: backup_alerts
+    rules:
+      - alert: BackupJobFailed
+        expr: backup_last_success_timestamp > 0 and time() - backup_last_success_timestamp > 86400
+        for: 1h
+        labels:
+          severity: P1
+        annotations:
+          summary: "El trabajo de backup no ha tenido éxito en 24 horas"
+          runbook: "/runbooks/backup-failure"
+
+      - alert: BackupSizeAnomaly
+        expr: |
+          backup_size_bytes / backup_size_bytes offset 1d < 0.9
+        for: 1h
+        labels:
+          severity: P2
+        annotations:
+          summary: "El tamaño del backup cayó > 10% comparado con ayer"
+          runbook: "/runbooks/backup-size-anomaly"
+
+      - alert: RestoreTestOverdue
+        expr: time() - restore_test_last_run_timestamp > 2592000
+        for: 1h
+        labels:
+          severity: P2
+        annotations:
+          summary: "La prueba mensual de restauración está atrasada"
+          runbook: "/runbooks/restore-test"
+```
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -133,6 +242,9 @@ La plantilla separa **backup** (crear copias) de **prueba de restauración** (de
 | MongoDB | mongodump + ops manager | Considera replay de oplog para PITR |
 | S3 / Almacenamiento de objetos | Replicación cross-region | Versionamiento + políticas de ciclo de vida |
 | PVCs de Kubernetes | Velero + snapshots CSI | Incluye metadatos del cluster en el backup |
+| Redis | Snapshots RDB + AOF | Probar rutas de restauración RDB y AOF |
+| Elasticsearch | API de snapshot + restore | Usa plugins de repositorio para almacenamiento en nube |
+| Kafka | Tiered storage + mirror maker | Respaldar configs de topics y offsets de consumidores por separado |
 
 ## Lo que funciona
 
@@ -141,6 +253,9 @@ La plantilla separa **backup** (crear copias) de **prueba de restauración** (de
 3. Almacena backups en una región o proveedor de nube diferente al de los datos primarios
 4. Cifra backups en reposo y en tránsito; rota las claves de cifrado independientemente
 5. Documenta quién puede acceder a los backups; restringe a roles de emergencia únicamente
+6. Usa backups inmutables (AWS Vault Lock, GCP Bucket Lock) para protección contra ransomware
+7. Incluye esquema y archivos de migración en los backups; datos sin esquema son inútiles
+8. Etiqueta recursos de backup con tags de asignación de costos para rastrear el gasto
 
 ## Errores Comunes
 
@@ -149,6 +264,8 @@ La plantilla separa **backup** (crear copias) de **prueba de restauración** (de
 3. Ignorar el crecimiento del tamaño de backup hasta que los costos de almacenamiento exploten o los trabajos empiecen a fallar
 4. No incluir el esquema/migraciones en los backups de base de datos (datos sin esquema son inútiles)
 5. Permitir que las credenciales de backup permanezcan activas por más tiempo del necesario, creando un riesgo de movimiento lateral
+6. No probar restauraciones bajo presión de tiempo; una restauración que funciona en 4 horas durante un drill puede tomar 8 durante un incidente
+7. Olvidar respaldar archivos de configuración, secrets y políticas de IAM junto con los datos
 
 ## Preguntas Frecuentes
 
@@ -163,3 +280,22 @@ Sí. Cifra en reposo con una clave gestionada separadamente de los datos primari
 ### ¿Qué es la regla de backup 3-2-1?
 
 3 copias de datos, en 2 medios diferentes, con 1 copia fuera del sitio. Para sistemas nativos de nube: 3 copias (primario + backup + cross-region), 2 formatos (snapshot + dump lógico), 1 fuera del sitio (región o proveedor diferente). Los backups inmutables agregan una capa extra contra la eliminación.
+
+### ¿Cuál es la diferencia entre RTO y RPO?
+
+RTO (Recovery Time Objective) es el downtime máximo aceptable: cuánto hasta volver a estar en línea. RPO (Recovery Point Objective) es la pérdida máxima aceptable de datos: cuántos datos puedes permitirte perder. Un backup de log de transacciones cada 15 minutos da un RPO de 15 minutos. Un proceso de restauración de 2 horas da un RTO de 2 horas.
+
+### ¿Cómo manejo backups para workloads stateful de Kubernetes?
+
+Usa Velero con snapshots CSI para volúmenes persistentes. Incluye metadatos del cluster (ConfigMaps, Secrets, Deployments) en el alcance del backup. Para bases de datos que corren en Kubernetes, usa la herramienta nativa de backup de la base de datos (pg_dump, mongodump) en lugar de snapshots de volumen, ya que los snapshots de volumen pueden capturar estado inconsistente.
+
+### ¿Debería usar servicios de backup nativos de nube o herramientas auto-gestionadas?
+
+Comienza con servicios nativos de nube (AWS Backup, GCP Backup) por simplicidad e integración. Pasa a herramientas auto-gestionadas (pg_dump + scripts personalizados, Velero) cuando necesites control más fino sobre retención, cifrado o portabilidad cross-cloud. El mejor enfoque suele ser híbrido: nativo de nube para snapshots, auto-gestionado para dumps lógicos.
+
+### ¿Cómo verifico la integridad del backup sin una restauración completa?
+
+Usa checksums: calcula SHA-256 del archivo de backup después de crearlo y compara al verificar. Para PostgreSQL, usa `pg_verifybackup` para verificar integridad del manifest. Para backups a nivel de archivo, compara conteos de archivos y tamaños totales contra la fuente. Una prueba de restauración completa sigue siendo necesaria periódicamente, pero los checksums detectan corrupción entre pruebas.
+
+
+Para bases de datos grandes (>1TB), considera verificacion incremental: restaura solo bloques cambiados y verifica checksums en esos bloques para reducir el tiempo de prueba de horas a minutos.

@@ -131,6 +131,121 @@ Before decommissioning a system:
 
 The checklist is ordered by risk: discovery first (so you know what you are touching), data handling second (so you do not delete something you must keep), dependency removal third (so upstream systems do not break), shutdown fourth, cleanup fifth, and documentation last. The verification section catches the things that always get forgotten: a DNS record with a long TTL, a cron job on a forgotten server, or an IAM role that quietly grants access to something else.
 
+## Remaining Resource Verification Script
+
+```bash
+#!/bin/bash
+# Verify remaining resources after decommissioning
+set -euo pipefail
+
+SERVICE_NAME="legacy-auth-service"
+AWS_REGION="us-east-1"
+
+echo "=== Remaining Resource Verification ==="
+echo "Service: $SERVICE_NAME"
+echo "Date: $(date)"
+echo ""
+
+# Check DNS records
+echo "--- DNS Records ---"
+dig +short "$SERVICE_NAME.internal.example.com" && echo "WARNING: DNS record still exists" || echo "OK: No DNS record"
+
+# Check AWS resources
+echo "--- AWS Resources ---"
+aws ec2 describe-instances --region $AWS_REGION --filters "Name=tag:Service,Values=$SERVICE_NAME" --query 'Reservations[*].Instances[*].InstanceId' --output text 2>/dev/null | while read id; do
+  [ -n "$id" ] && echo "WARNING: EC2 instance found: $id"
+done
+
+aws rds describe-db-instances --region $AWS_REGION --query 'DBInstances[?DBInstanceIdentifier.contains(@, `'$SERVICE_NAME'`)].DBInstanceIdentifier' --output text 2>/dev/null | while read id; do
+  [ -n "$id" ] && echo "WARNING: RDS instance found: $id"
+done
+
+aws s3 ls --region $AWS_REGION 2>/dev/null | grep "$SERVICE_NAME" && echo "WARNING: S3 bucket found" || echo "OK: No S3 buckets"
+
+# Check certificates
+echo "--- Certificates ---"
+aws acm list-certificates --region $AWS_REGION --query 'CertificateSummaryList[*].DomainName' --output text 2>/dev/null | tr '	' '
+' | grep -i "$SERVICE_NAME" && echo "WARNING: ACM certificate found" || echo "OK: No certificates"
+
+# Check CloudWatch alarms
+echo "--- CloudWatch Alarms ---"
+aws cloudwatch describe-alarms --region $AWS_REGION --query 'MetricAlarms[?AlarmName.contains(@, `'$SERVICE_NAME'`)].AlarmName' --output text 2>/dev/null | while read alarm; do
+  [ -n "$alarm" ] && echo "WARNING: CloudWatch alarm found: $alarm"
+done
+
+echo ""
+echo "=== Verification Complete ==="
+```
+
+## Decommissioning Notification Template
+
+```text
+=== Service Decommissioning Notification ===
+
+To: engineering@example.com, stakeholders@example.com
+From: platform-team@example.com
+Date: [DATE]
+Subject: Decommissioning of [SERVICE_NAME]
+
+The service [SERVICE_NAME] will be decommissioned on [SHUTDOWN_DATE].
+
+What does this mean?
+- The service will stop accepting traffic on [SHUTDOWN_DATE]
+- Data will be archived and available for [RETENTION_PERIOD]
+- Endpoints will return 410 Gone after shutdown
+- Upstream dependencies must be updated before [SHUTDOWN_DATE]
+
+What do you need to do?
+1. Check if your service depends on [SERVICE_NAME]
+2. If it does, migrate to [REPLACEMENT_SERVICE] before [SHUTDOWN_DATE]
+3. Update configurations, environment variables, and documentation
+4. Contact platform-team@example.com if you need migration support
+
+Timeline:
+- [TODAY]: Notification sent
+- [T-30]: Service shutdown (stop)
+- [T-60]: Infrastructure deletion
+- [T-90]: Data deletion (per retention policy)
+
+Contact: platform-team@example.com
+```
+
+## Post-Decommissioning Audit Checklist
+
+```text
+=== Post-Decommissioning Audit (30 days) ===
+
+Infrastructure:
+  [ ] No cloud resources generating charges
+  [ ] No active alerts referencing the service
+  [ ] No obsolete dashboards in Grafana/Datadog
+  [ ] No targets in Prometheus/CloudWatch
+
+Network and DNS:
+  [ ] DNS records deleted or redirected
+  [ ] TLS certificates revoked or deleted
+  [ ] Firewall/security group rules deleted
+  [ ] Load balancers and target groups deleted
+
+Code and CI/CD:
+  [ ] Repository archived (not deleted)
+  [ ] CI/CD pipelines disabled
+  [ ] Webhooks removed
+  [ ] CI environment variables deleted
+
+Data:
+  [ ] Backups archived to cheap storage
+  [ ] Retention policy documented
+  [ ] Access to archived data restricted and audited
+
+Documentation:
+  [ ] Tombstone created in wiki/documentation
+  [ ] Service catalog updated
+  [ ] Architecture diagrams updated
+  [ ] Runbooks referencing the service updated
+```
+
+
 ## Variants
 
 | Context | Adjustments | Notes |
@@ -170,3 +285,24 @@ Have a rollback plan: keep the service artifacts (code, config, data snapshot) f
 ### Should we keep the code repository?
 
 Archive it, do not delete it. Move it to an "archive" or "retired" organization. Preserve the git history — it contains the rationale for decisions that may still be relevant. Delete active CI/CD triggers and deployment keys.
+
+
+### What do we do with data after decommissioning?
+
+Export data to a portable format (CSV, JSON, SQL dump) and store it in cheap archival storage (S3 Glacier, Azure Archive). Document the schema, the meaning of each column, and any transformations applied. Set a retention policy based on legal and business requirements. Configure cost alerts for the archival storage. Create a recovery procedure for cases where archived data needs to be queried.
+
+### How do we handle dependencies on already-decommissioned services?
+
+Before shutdown, identify all consumers using traffic analysis, code review, and team surveys. Notify each consumer at least 30 days in advance. Provide migration documentation and support during the transition. If a consumer cannot migrate in time, consider keeping the service in read-only mode until they complete migration. Document any consumers that could not migrate and the reason.
+
+### Should we reuse the service name after decommissioning?
+
+No. Service names should be unique over time to avoid confusion. If a new service uses the same name, engineers may confuse it with the old service, leading to configuration errors and incorrect documentation references. Use versioned or descriptive names (auth-service-v2 instead of auth-service). Keep a tombstone in the documentation indicating the original name was retired.
+
+### How do we calculate cost savings from decommissioning?
+
+Sum all direct costs (compute, storage, network, licenses) and indirect costs (engineering time for maintenance, monitoring, on-call). Subtract the cost of archival storage. Track savings monthly for 6 months to verify costs actually decreased. Report savings to finance and leadership. Use these numbers to justify future decommissioning efforts.
+
+### What if we need to restart a decommissioned service?
+
+If you have the artifacts (code, configuration, data snapshot) stored, you can restart temporarily. Follow the documented rollback procedure. Notify that the service is being reactivated temporarily. Set a deadline for permanent migration. If artifacts were deleted, rebuild from the archived repository using the tagged version at decommissioning time. Document the reason for restart and update the tombstone.

@@ -206,6 +206,65 @@ Trend analysis is the most valuable section for stakeholders. A single month's c
 
 Action items close the loop. A coverage report without action items is just data. Each gap should have an owner, priority, and due date. Review action items from the previous report before creating new ones.
 
+
+### Detailed Scenario: Coverage Report for Payments Module
+
+```text
+Project: E-commerce API
+Period: July 2026
+Tool: Vitest + c8 + Codecov
+
+Situation: Payments coverage below target (89.4% vs 95%)
+
+Step 1 - Collect data:
+  $ npx vitest run --coverage --reporter=json
+  $ cat coverage/coverage-summary.json | node -e "
+      const d = JSON.parse(require("fs").readFileSync(0,"utf8"));
+      console.log("payments lines:", d["src/modules/payments/"].lines.pct);
+      console.log("payments branches:", d["src/modules/payments/"].branches.pct);
+    "
+  Result: lines=89.4%, branches=76.1%
+
+Step 2 - Identify gaps:
+  Files with coverage < 80%:
+    src/modules/payments/refund.ts        - 62.1% lines, 45.0% branches
+    src/modules/payments/webhook.ts       - 71.8% lines, 55.2% branches
+    src/modules/payments/currency.ts      - 78.5% lines, 60.0% branches
+
+Step 3 - Analyze gaps:
+  refund.ts: 4 uncovered branches (partial refund, refund after partial shipment,
+    refund rejected by gateway, refund with currency conversion)
+  webhook.ts: 3 uncovered branches (invalid signature, duplicate event,
+    event for unknown order)
+  currency.ts: 2 uncovered branches (rate lookup fallback, rate cache miss)
+
+Step 4 - Create action items:
+  | # | Action | Owner | Priority | Due |
+  |---|--------|-------|----------|-----|
+  | 1 | Tests for refund.ts (4 branches) | @backend | High | 2026-07-10 |
+  | 2 | Tests for webhook.ts (3 branches) | @backend | High | 2026-07-12 |
+  | 3 | Tests for currency.ts (2 branches) | @backend | Medium | 2026-07-15 |
+
+Step 5 - Verify after implementation:
+  $ npx vitest run --coverage
+  payments lines: 89.4% -> 96.2% (target 95%) PASS
+  payments branches: 76.1% -> 88.5% (target 85%) PASS
+
+Step 6 - Update report:
+  - Payments module: 96.2% lines, 88.5% branches
+  - Trend: +6.8% lines, +12.4% branches
+  - Close action items 1, 2, 3
+  - Document lesson: webhook signature validation requires test with real HMAC
+```
+
+### How do I handle coverage in a monorepo with multiple packages?
+
+Generate coverage per package and aggregate with a script. Use Turborepo or Nx to run tests per package. Report aggregated coverage in the main report and per-package coverage in a separate section. Set targets per package: core packages (auth, payments) at 95%, peripheral packages at 80%. Codecov supports monorepos with flag-based coverage.
+
+### What do I do when coverage drops after a refactor?
+
+Investigate before acting. If the refactor removed dead code, the coverage drop is positive (less untested code). If the refactor changed structure but tests were not updated, tests are broken. Compare the absolute number of covered lines, not the percentage. If covered lines go up but percentage goes down, the team added new code without tests.
+
 ## Variants
 
 | Context | Approach | Notes |

@@ -179,6 +179,78 @@ GitHub Releases puede auto-generar notas desde PRs y commits. Usa filtrado por l
 
 Escribe breaking changes y notas de migración manualmente. Auto-genera entradas de bug fixes y mejoras menores desde commits. Esto balancea precisión para cambios importantes con eficiencia para los rutinarios.
 
+## Ejemplo de Changelog
+
+```text
+=== CHANGELOG: payment-service ===
+
+# Changelog
+
+Todos los cambios notables de payment-service se documentan aqui.
+El formato esta basado en Keep a Changelog (https://keepachangelog.com)
+y este proyecto adhiere a Semantic Versioning (https://semver.org).
+
+## [Unreleased]
+
+### Agregado
+- Endpoint de reembolso parcial: POST /payments/:id/refund-partial
+- Campo metadata en respuestas de pago para datos personalizados
+
+### Cambiado
+- El campo amount ahora retorna como entero en centavos (antes decimal)
+
+### Corregido
+- Validacion de monto maximo ahora aplica correctamente a reembolsos
+
+## [2.5.0] - 2026-07-15
+
+### Agregado
+- Autenticacion con passkeys (WebAuthn)
+- Exportacion de datos a CSV desde panel de administracion
+- Soporte multi-idioma: Frances y Portugues
+
+### Cambiado
+- Busqueda full-text 3x mas rapida (indices GIN en PostgreSQL)
+- Limite de paginacion aumentado de 50 a 200 resultados
+- Logs estructurados en formato JSON con correlation IDs
+
+### Corregido
+- #456: Error 500 al crear cuenta con email > 50 caracteres
+- #459: Push notifications no enviadas en iOS 17.4+
+- #462: Contador de notificaciones no se reseteaba
+- #465: Timestamps mostraban zona horaria incorrecta
+
+### Seguridad
+- Actualizada libreria JWT 2.1.0 -> 2.3.0 (CVE-2026-1234)
+- Validacion de origen para prevenir CSRF
+- Rotacion automatica de secrets cada 90 dias
+
+### Breaking
+- API v1 deprecada (remover en v3.0)
+- Campo user.name removido (usar user.firstName y user.lastName)
+
+## [2.4.0] - 2026-06-15
+
+### Agregado
+- Dashboard de metricas en tiempo real
+- Webhooks para eventos de pago
+- API de consulta de estado de transaccion
+
+### Corregido
+- #401: Race condition en procesamiento de pagos concurrentes
+- #405: Memory leak en worker de notificaciones
+
+## [2.3.0] - 2026-05-15
+
+### Agregado
+- Soporte para multiples metodos de pago por cliente
+- Reportes mensuales automatizados
+
+### Cambiado
+- Migracion de Express a Fastify (mejora de rendimiento 20%)
+```
+
+
 ## Variantes
 
 ### Changelog de librería
@@ -218,3 +290,12 @@ Usa labels de pre-release de semver: `1.0.0-alpha.1`, `1.0.0-beta.2`, `1.0.0-rc.
 ### Debería mantener entradas viejas para siempre?
 
 Sí. El changelog es un registro histórico. Los usuarios que actualizan de v1.0 a v3.0 necesitan leer todos los cambios intermedios. Si el archivo se vuelve muy largo, considera dividir por major version (`CHANGELOG-v1.md`, `CHANGELOG-v2.md`) con un índice.
+
+
+### Como mantenemos el changelog consistente?
+
+Usa el formato Keep a Changelog: secciones Agregado, Cambiado, Corregido, Breaking, y Seguridad. Cada entrada debe ser una linea que un usuario no tecnico pueda entender. Incluye el numero de issue o PR para trazabilidad. Usa lenguaje imperativo: "Agrega" no "Se agrego". Agrupa cambios por version con fecha. Manten una seccion [Unreleased] para cambios que van en el proximo release. Cada release mueve los cambios de [Unreleased] a una nueva seccion con version y fecha. Nunca edites entradas de versiones pasadas — si necesitas corregir algo, crea una nueva entrada. El changelog debe generarse o revisarse en cada release — no lo dejes para el final.
+
+### Como automatizamos el changelog?
+
+Usa conventional commits para que el changelog se genere desde los commits. Herramientas como changesets, semantic-release, o auto pueden generar el changelog automaticamente. Configura CI para que cada PR agregue una entrada a la seccion [Unreleased]. Para mayor control: usa un archivo CHANGELOG.md que los ingenieros actualizan manualmente en cada PR. Usa un linter que verifique que el changelog tiene entradas para cada release. Para open source: publica el changelog en GitHub Releases ademas del archivo. La automatizacion reduce el trabajo pero el Product Owner debe revisar que las entradas sean comprensibles para usuarios.

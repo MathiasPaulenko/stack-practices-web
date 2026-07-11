@@ -119,6 +119,42 @@ Use this resource when:
 
 The template creates a **closed-loop system**: findings enter the tracker, get assigned owners and SLAs, and are only closed after validation. The risk acceptance section prevents the common anti-pattern of ignoring low-priority findings forever. The validation evidence requirement prevents teams from marking items "fixed" without proof.
 
+## Pen-Test Finding Lifecycle
+
+```text
+=== Finding Lifecycle ===
+
+1. DISCOVERY
+   - Tester identifies vulnerability during assessment
+   - Finding documented with steps to reproduce, screenshots, and impact
+   - Finding imported into remediation tracker within 48 hours
+
+2. TRIAGE
+   - Security team validates finding (reproduce if needed)
+   - Severity assigned: Critical / High / Medium / Low / Informational
+   - Owner assigned: service team lead or individual engineer
+   - SLA clock starts from triage date, not discovery date
+
+3. REMEDIATION
+   - Owner develops fix in a feature branch
+   - Fix reviewed by security team before merge
+   - Fix deployed to staging for validation
+   - Fix deployed to production
+
+4. VALIDATION
+   - Same tester (or security team) re-tests in production
+   - Evidence captured: screenshots, tool output, test results
+   - Finding closed ONLY after validation passes
+   - If validation fails, finding reopens with new SLA
+
+5. POST-REMEDIATION
+   - Regression test added to CI/CD pipeline
+   - Finding pattern shared with engineering team
+   - Threat model updated if attack surface changed
+   - Finding archived with full evidence trail
+```
+
+
 ## Variants
 
 | Context | Extra Columns | Differentiator |
@@ -158,3 +194,109 @@ Not necessarily. Fix Critical and High findings. For Medium and Low, use the ris
 ### How do we prevent the same findings in future releases?
 
 Add regression tests and automated scans to CI. If a pen-tester found SQL injection, add SAST rules for unsafe queries. If they found exposed files, add config audits to deployment pipelines. Pen-tests should drive security automation, not just point-in-time fixes.
+
+
+### How do we coordinate with external penetration testers?
+
+Establish a single point of contact (SPOC) on the engineering side. Share the SPOC's contact info with the tester for questions during the engagement. Provide the tester with: scope documentation, test credentials (non-production), architecture diagrams, and a list of out-of-scope systems. Schedule a kickoff call to align on scope, timeline, and rules of engagement. Schedule a debrief call at the end to walk through findings. Request the raw report (not just the executive summary) for the remediation tracker. Agree on a retest window — typically 30-90 days post-report. Maintain the relationship; testers who know your system find deeper issues over time.
+
+### What should we include in a pen-test scope document?
+
+The scope document should include: in-scope URLs and IP addresses, in-scope services and APIs, test accounts and credentials, out-of-scope systems (explicitly listed), testing windows (when testing is allowed), rate limits (if any), data handling rules (what tester can access and store), communication plan (who to contact, how), and escalation procedures (if testing causes an outage). Include the testing methodology (OWASP, PTES) and any specific compliance requirements (PCI DSS, SOC 2). A clear scope prevents disputes and ensures the tester focuses on what matters.
+
+### How do we handle a Critical finding discovered on a Friday afternoon?
+
+For Critical findings on a Friday: notify the on-call engineer and security lead immediately. Assess if the finding is exploitable by external attackers — if yes, begin remediation immediately, even if it means an emergency deploy. If the finding requires internal access or is not remotely exploitable, document it and schedule remediation for Monday morning. Do not leave Critical findings unaddressed over the weekend without a compensating control (WAF rule, IP restriction, feature flag off). Communicate to leadership: a Friday Critical finding is a leadership-level decision, not an engineering-only decision.
+
+### How do we measure pen-test remediation effectiveness?
+
+Track these metrics: percentage of findings remediated within SLA (target: 95%+), average time to remediation by severity, percentage of findings that fail validation on first attempt (target: < 10%), number of recurring findings across pen-tests (target: decreasing), and number of findings per pen-test over time (target: decreasing as root causes are addressed). Compare findings year-over-year — if the same issues appear in consecutive pen-tests, the root cause is not being addressed. Share metrics with leadership quarterly to justify security investment.
+
+### What is the relationship between pen-tests and continuous security testing?
+
+Pen-tests are point-in-time assessments — they capture a snapshot of security posture. Continuous security testing (DAST scanning, SAST in CI, dependency scanning, container scanning) runs constantly and catches issues between pen-tests. Use pen-tests for deep manual testing that automated tools cannot do: business logic flaws, complex authentication bypasses, multi-step attack chains. Use continuous testing for known vulnerability patterns (SQL injection, XSS, vulnerable dependencies). Both are necessary: continuous testing catches the 80%, pen-tests catch the 20% that require human creativity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

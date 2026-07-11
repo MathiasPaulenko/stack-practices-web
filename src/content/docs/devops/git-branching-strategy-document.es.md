@@ -247,6 +247,40 @@ git revert -m 1 <merge-commit-hash>
 
 El documento separa la estrategia de branching en **tipos de ramas** (como se llaman y para que sirven), **flujo de trabajo** (como crearlas y mergearlas), **convenciones de commits** (como describir cambios), y **reglas de proteccion** (como prevenir accidentes). El principio clave es que cada rama tiene exactamente un proposito y exactamente un target de merge. La ambiguedad sobre de donde vienen las ramas y a donde van crea los conflictos de merge y errores de despliegue que ralentizan a los equipos.
 
+## Ejemplo de Flujo de Hotfix
+
+```bash
+# 1. Crear rama de hotfix desde main
+git checkout main
+git pull origin main
+git checkout -b hotfix/fix-payment-webhook-validation
+
+# 2. Hacer el fix
+git add src/payments/webhook.go
+git commit -m "fix(payments): validate webhook signature
+
+Prevents replay attacks by verifying Stripe signature
+header before processing events.
+Closes PROJ-456"
+
+# 3. Push y abrir PR a main (expeditado)
+git push origin hotfix/fix-payment-webhook-validation
+# Crear PR con label "hotfix" para revision expeditada
+
+# 4. Despues de merge a main, tag el hotfix
+git checkout main
+git pull origin main
+git tag -a v1.2.4 -m "Hotfix: fix payment webhook validation"
+git push origin v1.2.4
+
+# 5. Backport a develop
+git checkout develop
+git pull origin develop
+git merge --no-ff main
+git push origin develop
+```
+
+
 ## Variants
 
 | Estrategia | Mejor Para | Trade-off |
@@ -285,3 +319,20 @@ Evitalas. Si una feature toma mas de una semana, dividela en entregables mas peq
 ### Que pasa si un hotfix entra en conflicto con trabajo ya en develop?
 
 Resuelve el conflicto al hacer backport. La rama de hotfix mergea limpiamente a main (salio de main), pero cherry-pick o merge a develop pueden tener conflictos. Testea la resolucion del conflicto en una rama de feature antes de mergear a develop.
+
+
+### Como manejamos releases con multiples versiones en produccion?
+
+Para productos con multiples versiones LTS en produccion: usa ramas de release (release/1.x, release/2.x). Cada rama de release tiene su propio pipeline de CI y recibe backports de hotfixes. Documenta que versiones estan soportadas y cuales estan EOL. Cuando un hotfix entra a main, cherry-pick a cada rama de release soportada. Tag cada hotfix con el version correcto (v1.4.1, v2.1.3). Mantén un matriz de compatibilidad de versiones. Programa EOL con al menos 6 meses de anticipacion y notifica a los usuarios.
+
+### Que hacemos con ramas de feature abandonadas?
+
+Ramas de feature abandonadas crean desorden y confusion. Establece una politica: ramas sin actividad por 30 dias se marcan como "stale" con un comentario automatico. Despues de 60 dias sin actividad, se eliminan automaticamente (con notificacion previa). Si el trabajo aun es relevante, se puede recrear la rama o reabrir el PR. Documenta features abandonadas en el ticket para que el contexto no se pierda. Usa GitHub Actions o scripts para automatizar el proceso de stale branches. Mantén el repo limpio — las ramas activas deberian ser solo las que tienen trabajo en progreso.
+
+### Como manejamos conflictos de merge durante un release freeze?
+
+Durante un release freeze: no merges a main. Los features pueden seguir mergeandose a develop. Si un hotfix critico es necesario durante el freeze: sigue el proceso de hotfix normal pero notifica al release manager. Documenta el hotfix en las notas de release. Si el freeze es por una temporada alta (ej., Black Friday): prepara ramas de feature antes del freeze y haz staging de releases para despues. Comunica el freeze con fechas claras y excepciones definidas. No prolongues el freeze mas de lo necesario — los freezes largos acumulan cambios y aumentan el riesgo post-freeze.
+
+### Como integramos conventional commits con release automatico?
+
+Usa semantic-release o release-please para automatizar el versionado basado en conventional commits. semantic-release analiza los commits desde el ultimo release, determina el bump de version (major, minor, patch), genera el changelog, crea el tag, y publica el release. Configura el pipeline de CI para ejecutar semantic-release en cada merge a main. Para pre-releases, usa conventional commits con sufijos (ej., feat(auth): add OAuth2 login [skip ci]). Asegura que todos los ingenieros entiendan conventional commits — un commit mal tipado causa un bump incorrecto. Usa commitlint en CI para validar el formato antes del merge.

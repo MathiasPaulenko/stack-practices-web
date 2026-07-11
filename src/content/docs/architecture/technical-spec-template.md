@@ -162,6 +162,89 @@ sequenceDiagram
 
 The spec separates **what** (requirements) from **how** (design) and **when** (implementation plan). Goals and non-goals prevent scope creep. Requirements are traceable IDs for test case linkage. The design section links to living documents (diagrams, contracts) rather than duplicating them. The rollout plan forces teams to think about production readiness before coding starts.
 
+## Example: Filled-Out Requirements Section
+
+```markdown
+## 4. Requirements
+
+### Functional Requirements
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-1 | The system must allow users to create, read, update, and delete orders | P0 |
+| FR-2 | The system must send an email confirmation when an order is placed | P1 |
+| FR-3 | The system should support bulk order import via CSV | P2 |
+| FR-4 | The system must enforce role-based access control (admin, manager, user) | P0 |
+
+### Non-Functional Requirements
+
+| ID | Requirement | Target |
+|----|-------------|--------|
+| NFR-1 | Latency p95 for order creation | < 200ms |
+| NFR-2 | Availability during business hours | 99.9% |
+| NFR-3 | Throughput peak | 1,000 req/s |
+| NFR-4 | Data durability | 99.999999% (11 nines) |
+| NFR-5 | Audit log retention | 7 years |
+```
+
+## Example: Feature Flag Rollout Config
+
+```yaml
+feature_flags:
+  - name: orders_v2_api
+    description: "New order processing pipeline with async validation"
+    default_state: off
+    rollout_strategy: percentage
+    rollout_steps:
+      - percentage: 5
+        duration: 24h
+        success_criteria:
+          error_rate: < 0.5%
+          p95_latency: < 200ms
+      - percentage: 25
+        duration: 48h
+        success_criteria:
+          error_rate: < 0.5%
+          p95_latency: < 200ms
+      - percentage: 100
+        duration: indefinite
+    rollback_criteria:
+      error_rate: > 1%
+      p95_latency: > 500ms
+    target_rules:
+      - attribute: user_id
+        operator: in
+        values: [12345, 67890]  # Internal testers first
+```
+
+## Example: Risk Assessment Template
+
+```markdown
+## 9. Risks & Mitigations
+
+| Risk | Impact | Likelihood | Mitigation | Owner |
+|------|--------|------------|------------|-------|
+| Data migration takes longer than expected | High | Medium | Run migration in batches of 10k rows, test on copy of prod | @dba |
+| Third-party payment API downtime | High | Low | Cache responses, implement circuit breaker, queue retries | @backend |
+| Frontend performance regression | Medium | Medium | Run Lighthouse CI on every PR, block merge if score drops > 5 points | @frontend |
+| Schema change locks the table | High | Low | Use online schema change tool (gh-ost, pt-online-schema-change) | @dba |
+| New API contract breaks mobile clients | High | Medium | Maintain v1 compatibility shim for 90 days, ship SDK update | @mobile |
+```
+
+## Spec Review Checklist
+
+Before circulating the spec for approval:
+
+- [ ] Every functional requirement has a traceable ID (FR-x)
+- [ ] Every non-functional requirement has a measurable target
+- [ ] Goals and non-goals are explicitly listed
+- [ ] Design section links to diagrams, not inline images
+- [ ] Implementation plan has owner and ETA for each phase
+- [ ] Rollout plan includes feature flag config and rollback criteria
+- [ ] Risk table includes impact, likelihood, and mitigation for each risk
+- [ ] Success metrics are quantitative and measurable
+- [ ] Spec is under 10 pages (excluding appendices)
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -169,6 +252,8 @@ The spec separates **what** (requirements) from **how** (design) and **when** (i
 | Startup | Lightweight (1-2 pages) | Focus on goals, design sketch, and rollout |
 | Enterprise | Full template with approvals | Require sign-off from architecture review board |
 | Open source | RFC format | Publish for community comment before implementation |
+| Regulated industry | Add compliance section | Map requirements to HIPAA, PCI-DSS, or SOX controls |
+| Cross-team | Add dependency timeline | Show which teams need to deliver what and when |
 
 ## What Works
 
@@ -177,6 +262,8 @@ The spec separates **what** (requirements) from **how** (design) and **when** (i
 3. Review the spec with stakeholders before implementation begins
 4. Update the spec as implementation discoveries change the plan
 5. Store specs in version control alongside the code they describe
+6. Include a "spec status" header (draft, in-review, approved, implemented) so readers know where it stands
+7. Link the spec in the PR description when implementation starts so reviewers have context
 
 ## Common Mistakes
 
@@ -185,6 +272,8 @@ The spec separates **what** (requirements) from **how** (design) and **when** (i
 3. Skipping non-functional requirements until production issues surface
 4. Not defining rollback criteria, leading to panic during incidents
 5. Treating the spec as immutable after the first draft
+6. Writing vague NFRs like "should be fast" instead of measurable targets like "p95 < 200ms"
+7. Not assigning owners to implementation phases, leading to diffusion of responsibility
 
 ## Frequently Asked Questions
 
@@ -199,3 +288,19 @@ The engineer leading the implementation writes the first draft. Product managers
 ### Should I include code in a technical spec?
 
 Only pseudo-code or SQL schemas to illustrate the design. Real code belongs in pull requests. The spec should describe intent and structure, not implementation details.
+
+### What is the difference between a spec and an ADR?
+
+A technical spec covers a full feature: requirements, design, plan, risks. An ADR covers a single decision: what was decided, why, and what alternatives were rejected. Specs link to ADRs for individual design decisions.
+
+### How do I handle spec changes during implementation?
+
+Update the spec in the same PR as the code change that prompted it. Add a "Changes" section at the top listing what was modified and why. Never silently change the spec without a version bump or changelog entry.
+
+### Should I use a template engine or plain Markdown?
+
+Plain Markdown in version control is the most common approach. Tools like Notion or Confluence work for collaboration but lose version history. If you need structured fields, use YAML frontmatter with a Markdown body.
+
+### How do I get stakeholders to actually read the spec?
+
+Keep it short. Use a TL;DR section at the top with 3 bullet points. Schedule a 30-minute review meeting with decision-makers. Send the spec 48 hours before the meeting so they can read it asynchronously.

@@ -198,6 +198,80 @@ debe ocurrir antes de Q4 para no bloquear el roadmap de reporting.
 - No linkear ADRs relacionados — las decisiones existen en una cadena
 - Borrar o reescribir ADRs viejos — la historia es el valor
 
+## Ejemplo de ADR
+
+```text
+=== ADR-015: Migracion de Express a Fastify ===
+
+# ADR-015: Migracion de Express a Fastify
+
+Fecha: 2026-07-10
+Estado: Aceptado
+Decisores: Tech Lead, SRE Lead, Product Owner
+
+## Contexto
+
+payment-service usa Express 4.x desde su creacion. El servicio maneja
+~10,000 requests/segundo en horas pico. Profiling mostro que Express
+agrega overhead significativo:
+
+- Parsing de JSON: 15ms promedio vs 3ms en Fastify
+- Routing: 8ms vs 2ms en Fastify
+- Memory per request: 2.1KB vs 0.8KB en Fastify
+
+El equipo evaluo tres opciones: quedarse en Express, migrar a Fastify,
+o migrar a Hono. Express no resuelve el overhead. Hono es mas nuevo
+con menos ecosystem y menos casos de produccion documentados.
+
+## Decision
+
+Migrar payment-service de Express a Fastify.
+
+Motivos:
+1. Fastify es 2-3x mas rapido en benchmarks y en nuestro profiling
+2. API similar a Express — curva de aprendizaje baja
+3. Ecosystem maduro con plugins para todo lo que necesitamos
+4. Soporte nativo de JSON Schema validation
+5. Logs estructurados integrados (Pino)
+
+## Consecuencias
+
+Positivas:
+- Reduccion estimada de latencia p95 de 120ms a 80ms
+- Reduccion de uso de memoria por request de 2.1KB a 0.8KB
+- Mejor throughput: ~30% mas requests/segundo con misma infra
+- Validacion de schema nativa elimina dependencia de Joi
+
+Negativas:
+- Esfuerzo de migracion: ~3 sprints (2 ingenieros)
+- Algunos middlewares de Express no tienen equivalente en Fastify
+- Necesidad de actualizar documentacion de API
+- Riesgo de bugs durante la migracion
+
+Neutras:
+- Fastify usa Pino para logs (cambio de Winston)
+- Fastify usa schema-based serialization (cambio de res.json)
+
+## Plan de Migracion
+
+Fase 1 (Sprint 1): Setup y health endpoints
+  - Instalar Fastify en paralelo con Express
+  - Migrar /health y /health/ready
+  - Verificar que ambos servidores corren en paralelo
+
+Fase 2 (Sprint 2): Migrar endpoints de lectura
+  - Migrar GET /payments y GET /payments/:id
+  - Migrar GET /orders y GET /orders/:id
+  - Tests E2E en paralelo con Express y Fastify
+
+Fase 3 (Sprint 3): Migrar endpoints de escritura
+  - Migrar POST /payments y POST /payments/:id/refund
+  - Migrar webhooks
+  - Remover Express
+  - Deploy con feature flag para rollback rapido
+```
+
+
 ## Variantes
 
 ### ADR Ligero (equipos pequeños)
@@ -237,3 +311,16 @@ Por defecto, públicos dentro de tu organización. ADRs privados son apropiados 
 ### Debería usar una herramienta para gestionar ADRs?
 
 Un directorio `docs/adr/` en control de versiones es suficiente para la mayoría de equipos. Herramientas como `adr-tools` (CLI) y `log4brains` (web UI) agregan automatización de numeración y búsqueda. Empieza simple y adopta una herramienta solo si gestionar ADRs manualmente se vuelve una carga.
+
+
+### Cuando debemos crear un ADR?
+
+Crea un ADR cuando la decision: tiene impacto a largo plazo (dificil de revertir), afecta a multiples equipos o servicios, tiene alternativas significativas, o establece un precedente. No crees un ADR para: decisiones triviales (nombre de variable), decisiones que se pueden revertir facilmente, o decisiones que solo afectan a un servicio sin dependencias. Si dudas: crea el ADR — es mejor documentar de mas que de menos. El costo de un ADR es bajo (1-2 horas de escritura); el costo de una decision no documentada es alto (alguien la revierte sin entender el contexto). Los ADRs son inmutables una vez aceptados — si la decision cambia, crea un nuevo ADR que supersede el anterior.
+
+### Como aseguramos que los ADRs se sigan?
+
+Los ADRs no son solo documentos — son acuerdos. Para asegurar cumplimiento: enlaza el ADR en el README del servicio afectado. En code review: si un PR contradice un ADR, el reviewer debe bloquear el merge. En arquitectura reviews: verifica que nuevos servicios cumplan con los ADRs relevantes. En onboarding: incluye los ADRs relevantes en la lectura de la primera semana. Si un ADR es dificil de seguir: evalua si el ADR es correcto o si el equipo necesita soporte. Nunca ignores un ADR silenciosamente — si crees que el ADR es incorrecto, crea un nuevo ADR que lo supersede con la nueva decision y la razon del cambio.
+
+### Donde almacenamos los ADRs?
+
+Almacena los ADRs en el repo del proyecto, usualmente en docs/adr/. Usa nombres numerados: adr-001-titulo.md, adr-002-titulo.md. Manten un indice en docs/adr/README.md con el estado de cada ADR (Propuesto, Aceptado, Rechazado, Superseded). Para decisiones que afectan a multiples servicios: almacena el ADR en el repo de infraestructura o en un repo de documentacion compartida. Versiona los ADRs con git — el historial de cambios es valioso. Nunca almacenes ADRs en un wiki separado del codigo — se desconectan del codigo y se vuelven obsoletos. Los ADRs deben vivir cerca del codigo que afectan.

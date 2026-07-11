@@ -131,6 +131,121 @@ Antes de desmantelar un sistema:
 
 La checklist esta ordenada por riesgo: descubrimiento primero (para saber que estas tocando), manejo de datos segundo (para no eliminar algo que debes conservar), eliminacion de dependencias tercero (para que sistemas upstream no se rompan), apagado cuarto, limpieza quinto y documentacion al final. La seccion de verificacion atrapa lo que siempre se olvida: un registro DNS con TTL largo, un trabajo cron en un servidor olvidado, o un rol IAM que silenciosamente otorga acceso a otra cosa.
 
+## Script de Verificacion de Recursos Remanentes
+
+```bash
+#!/bin/bash
+# Verificar recursos remanentes despues del desmantelamiento
+set -euo pipefail
+
+SERVICE_NAME="legacy-auth-service"
+AWS_REGION="us-east-1"
+
+echo "=== Verificacion de Recursos Remanentes ==="
+echo "Servicio: $SERVICE_NAME"
+echo "Fecha: $(date)"
+echo ""
+
+# Verificar registros DNS
+echo "--- Registros DNS ---"
+dig +short "$SERVICE_NAME.internal.example.com" && echo "ADVERTENCIA: Registro DNS aun existe" || echo "OK: Sin registro DNS"
+
+# Verificar recursos AWS
+echo "--- Recursos AWS ---"
+aws ec2 describe-instances --region $AWS_REGION --filters "Name=tag:Service,Values=$SERVICE_NAME" --query 'Reservations[*].Instances[*].InstanceId' --output text 2>/dev/null | while read id; do
+  [ -n "$id" ] && echo "ADVERTENCIA: Instancia EC2 encontrada: $id"
+done
+
+aws rds describe-db-instances --region $AWS_REGION --query 'DBInstances[?DBInstanceIdentifier.contains(@, `'$SERVICE_NAME'`)].DBInstanceIdentifier' --output text 2>/dev/null | while read id; do
+  [ -n "$id" ] && echo "ADVERTENCIA: Instancia RDS encontrada: $id"
+done
+
+aws s3 ls --region $AWS_REGION 2>/dev/null | grep "$SERVICE_NAME" && echo "ADVERTENCIA: Bucket S3 encontrado" || echo "OK: Sin buckets S3"
+
+# Verificar certificados
+echo "--- Certificados ---"
+aws acm list-certificates --region $AWS_REGION --query 'CertificateSummaryList[*].DomainName' --output text 2>/dev/null | tr '	' '
+' | grep -i "$SERVICE_NAME" && echo "ADVERTENCIA: Certificado ACM encontrado" || echo "OK: Sin certificados"
+
+# Verificar CloudWatch alarms
+echo "--- Alarmas CloudWatch ---"
+aws cloudwatch describe-alarms --region $AWS_REGION --query 'MetricAlarms[?AlarmName.contains(@, `'$SERVICE_NAME'`)].AlarmName' --output text 2>/dev/null | while read alarm; do
+  [ -n "$alarm" ] && echo "ADVERTENCIA: Alarma CloudWatch encontrada: $alarm"
+done
+
+echo ""
+echo "=== Verificacion Completada ==="
+```
+
+## Plantilla de Notificacion de Desmantelamiento
+
+```text
+=== Notificacion de Desmantelamiento de Servicio ===
+
+Para: engineering@example.com, stakeholders@example.com
+De: platform-team@example.com
+Fecha: [FECHA]
+Asunto: Desmantelamiento de [NOMBRE_SERVICIO]
+
+El servicio [NOMBRE_SERVICIO] sera desmantelado el [FECHA_APERTURA].
+
+Que significa esto?
+- El servicio dejara de aceptar trafico el [FECHA_APERTURA]
+- Los datos seran archivados y disponibles por [PERIODO_RETENCION]
+- Los endpoints devolveran 410 Gone despues del apagado
+- Las dependencias upstream deben actualizarse antes del [FECHA_APERTURA]
+
+Que necesitas hacer?
+1. Verifica si tu servicio depende de [NOMBRE_SERVICIO]
+2. Si depende, migra a [SERVICIO_REEMPLAZO] antes del [FECHA_APERTURA]
+3. Actualiza configuraciones, variables de entorno y documentacion
+4. Contacta a platform-team@example.com si necesitas ayuda con la migracion
+
+Cronograma:
+- [FECHA_HOY]: Notificacion enviada
+- [FECHA-30]: Apagado del servicio (stop)
+- [FECHA-60]: Eliminacion de infraestructura
+- [FECHA-90]: Eliminacion de datos (segun politica de retencion)
+
+Contacto: platform-team@example.com
+```
+
+## Checklist de Auditoria Post-Desmantelamiento
+
+```text
+=== Auditoria Post-Desmantelamiento (30 dias) ===
+
+Infraestructura:
+  [ ] Ningun recurso cloud genera cargos
+  [ ] No hay alarmas activas referenciando el servicio
+  [ ] No hay dashboards obsoletos en Grafana/Datadog
+  [ ] No hay targets en Prometheus/CloudWatch
+
+Red y DNS:
+  [ ] Registros DNS eliminados o redirigidos
+  [ ] Certificados TLS revocados o eliminados
+  [ ] Reglas de firewall/security groups eliminadas
+  [ ] Load balancers y target groups eliminados
+
+Codigo y CI/CD:
+  [ ] Repositorio archivado (no eliminado)
+  [ ] Pipelines de CI/CD deshabilitados
+  [ ] Webhooks eliminados
+  [ ] Variables de entorno en CI eliminadas
+
+Datos:
+  [ ] Backups archivados en almacenamiento economico
+  [ ] Politica de retencion documentada
+  [ ] Acceso a datos archivados restringido y auditado
+
+Documentacion:
+  [ ] Lapida creada en wiki/documentacion
+  [ ] Catalogo de servicios actualizado
+  [ ] Diagramas de arquitectura actualizados
+  [ ] Runbooks referenciando el servicio actualizados
+```
+
+
 ## Variantes
 
 | Contexto | Ajustes | Notas |
@@ -170,3 +285,24 @@ Ten un plan de rollback: manten los artefactos del servicio (codigo, config, sna
 ### Deberiamos mantener el repositorio de codigo?
 
 Archivalo, no lo elimines. Muevelo a una organizacion "archivo" o "retirado". Preserva el historial git — contiene la justificacion de decisiones que aun pueden ser relevantes. Elimina los triggers activos de CI/CD y las claves de despliegue.
+
+
+### Que hacemos con los datos despues del desmantelamiento?
+
+Exporta los datos a un formato portable (CSV, JSON, dump SQL) y almacenalos en almacenamiento economico (S3 Glacier, Azure Archive). Documenta el esquema, el significado de cada columna y cualquier transformacion aplicada. Establece una politica de retencion basada en requisitos legales y de negocio. Configura alertas de costo para el almacenamiento de archivo. Crea un procedimiento de recuperacion para casos donde los datos archivados necesiten consultarse.
+
+### Como manejamos dependencias de servicios ya desmantelados?
+
+Antes del apagado, identifica todos los consumidores del servicio usando analisis de trafico, revision de codigo y encuestas a equipos. Notifica a cada consumidor con al menos 30 dias de anticipacion. Proporciona documentacion de migracion y soporte durante la transicion. Si un consumidor no puede migrar a tiempo, considera mantener el servicio en modo solo-lectura hasta que complete la migracion. Documenta cualquier consumidor que no pudo migrar y la razon.
+
+### Deberiamos reutilizar el nombre del servicio despues del desmantelamiento?
+
+No. Los nombres de servicios deben ser unicos en el tiempo para evitar confusion. Si un nuevo servicio usa el mismo nombre, los ingenieros pueden confundirlo con el servicio anterior, lo que lleva a errores de configuracion y referencias incorrectas en documentacion. Usa nombres versionados o descriptivos (auth-service-v2 en lugar de auth-service). Manten una lapida en la documentacion indicando que el nombre original fue retirado.
+
+### Como calculamos el ahorro de costos del desmantelamiento?
+
+Suma todos los costos directos (computo, almacenamiento, red, licencias) y costos indirectos (tiempo de ingenieria para mantenimiento, monitoreo, on-call). Resta el costo del almacenamiento de archivo. Rastrea el ahorro mensualmente durante 6 meses para verificar que los costos realmente disminuyeron. Reporta el ahorro a finanzas y liderazgo. Usa estos numeros para justificar futuros desmantelamientos.
+
+### Que hacemos si necesitamos reiniciar un servicio desmantelado?
+
+Si tienes los artefactos (codigo, configuracion, snapshot de datos) almacenados, puedes reiniciar temporalmente. Sigue el procedimiento de rollback documentado. Notifica que el servicio se reactiva temporalmente. Establece una fecha limite para la migracion definitiva. Si los artefactos fueron eliminados, reconstruye desde el repositorio archivado usando la version etiquetada en el momento del desmantelamiento. Documenta la razon del reinicio y actualiza la lapida.

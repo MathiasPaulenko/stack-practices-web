@@ -157,6 +157,35 @@ Link to relevant runbook or troubleshooting guide.
 
 The template structures the handoff into **incidents** (what's broken), **alerts** (what might break), **health** (current state), and **changes** (what's coming). The escalation path section is critical for the incoming engineer who may not know who to call at 3 AM. The notes section captures the subtle context that doesn't fit into other categories but can prevent surprises.
 
+## Handoff Checklist
+
+```text
+=== Pre-Handoff Checklist ===
+
+[ ] All active incidents documented with current status and next steps
+[ ] All alerts from this shift reviewed and disposition noted
+[ ] System health dashboard screenshot or link included
+[ ] Scheduled changes for next shift documented
+[ ] Known issues and workarounds updated
+[ ] Escalation paths verified (contacts still valid)
+[ ] Unusual observations noted even if not alerting
+[ ] Requests from other teams documented
+[ ] PagerDuty schedule confirmed for incoming engineer
+[ ] Incoming engineer has acknowledged receipt of handoff
+
+=== Handoff Conversation Flow ===
+
+1. Walk through active incidents first (5 min)
+2. Review alerts that may escalate (3 min)
+3. Check system health together (2 min)
+4. Discuss scheduled changes (2 min)
+5. Review known issues (2 min)
+6. Share unusual observations (1 min)
+7. Incoming engineer asks questions (5 min)
+8. Both confirm handoff is complete
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -195,3 +224,78 @@ Still complete the handoff. Note any unusual patterns in metrics, upcoming chang
 ### Should I include customer-impacting issues that haven't triggered alerts?
 
 Yes. If support has reported customer issues or if you've noticed degraded behavior that hasn't crossed alert thresholds, document it in the notes section. These are often the first indicators of brewing problems.
+
+
+### How do we handle handoffs across time zones?
+
+For global teams: schedule a 15-minute overlap window for synchronous handoff. If no overlap exists, use an async handoff with a recorded video walkthrough (Loom) plus the written document. Set a deadline for the incoming engineer to acknowledge receipt. For critical handoffs, have a backup contact in the incoming engineer's region. Use a shared handoff document that persists across shifts (e.g., a wiki page or Slack thread) so context is not lost. Rotate handoff times periodically so the same person is not always doing handoffs at inconvenient hours.
+
+### What tools should we use for on-call handoffs?
+
+Use a combination of: a written handoff document (shared doc, wiki, or template in the incident management tool), a synchronous conversation (video call or Slack huddle), and the monitoring dashboard (shared link, not screenshot). PagerDuty or Opsgenie for schedule visibility. Slack or Teams for real-time communication. A shared runbook repository for escalation paths and known issues. Avoid email for handoffs — it is too slow and easily missed. The handoff document should be searchable for future reference.
+
+### How do we train new engineers on the handoff process?
+
+Pair the new engineer with an experienced on-call engineer for their first 2-3 shifts. Have them observe the handoff process, then co-write the handoff document, then lead the handoff with the experienced engineer reviewing. Provide a written guide that explains each section of the template and what information is expected. Conduct a mock handoff during onboarding training. Review the new engineer's first solo handoff and provide feedback. Include handoff training in the on-call readiness checklist.
+
+### What if the incoming engineer is unavailable for handoff?
+
+If the incoming engineer does not respond within 15 minutes of the scheduled handoff: call them directly (phone, not just Slack). If no response after 30 minutes: escalate to the on-call manager. If no response after 1 hour: contact the backup on-call engineer. Document the missed handoff in the shift report. The outgoing engineer should remain on-call until handoff is completed — never leave the system without an on-call engineer. Review repeated missed handoffs in the team retrospective and adjust the schedule or process.
+
+### How do we improve handoff quality over time?
+
+Review handoff documents weekly in the team meeting — highlight good handoffs and identify gaps. Track metrics: number of incidents missed after handoff, time to first response after shift change, and incoming engineer satisfaction with handoff quality. Survey incoming engineers monthly: "Did the handoff give you enough context to handle the shift?" Adjust the template based on feedback. Remove sections that are consistently empty. Add sections for recurring gaps. Share best practices across teams.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

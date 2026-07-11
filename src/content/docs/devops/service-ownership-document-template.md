@@ -189,6 +189,50 @@ Before writing service ownership documents:
 
 The template follows the principle of **progressive disclosure**: the first section answers "what is this and who do I call?" in seconds. Architecture and operational links follow for engineers who need to debug or modify the service. Dependencies and security sections exist for incident response and audit purposes. By keeping everything on one page, the document stays usable under pressure.
 
+## Service Ownership Card Example
+
+```text
+=== Service: notification-service ===
+
+Owner:     Team Comms (comm-team@company.com)
+On-call:   PagerDuty schedule "comms-oncall"
+Tier:      1 (Critical)
+Slack:     #comms-team
+
+Tech Stack:
+  Language:  Go 1.22
+  Framework: Chi router
+  Database:  PostgreSQL 15 (managed)
+  Cache:     Redis 7
+  Queue:     AWS SQS
+
+Key Links:
+  Repo:       github.com/company/notification-service
+  Dashboard:  grafana.company.com/d/notif-overview
+  Runbook:    wiki.company.com/runbooks/notification-service
+  API Docs:   api.company.com/docs/notifications
+  Postmortems: wiki.company.com/postmortems?service=notification
+
+Dependencies:
+  Upstream:   user-service (critical), auth-service (critical)
+  Downstream: email-provider (SendGrid), sms-provider (Twilio)
+  Third-party: SendGrid, Twilio (both have status pages)
+
+Deploy:
+  CI:         GitHub Actions (build, test, deploy)
+  Method:     Argo CD (GitOps)
+  Frequency:  2-3x per week
+  Rollback:   Argo CD rollback to previous revision
+
+Known Risks:
+  - SendGrid rate limits can cause email delays during bursts
+  - WebSocket connections need graceful shutdown during deploys
+  - DB connection pool maxes at 100; monitor during peak hours
+
+Last Updated: 2026-07-11 by alice
+```
+
+
 ## Variants
 
 | Context | Adjustments | Notes |
@@ -228,3 +272,31 @@ Every production service should have one. Experimental or internal tools can use
 ### What happens when ownership changes?
 
 Update the document immediately. Schedule a handoff meeting where the outgoing owner walks through recent incidents, known risks, and tricky deployment steps. The document captures facts; the handoff captures context.
+
+
+### How do we handle shared services with multiple owners?
+
+For shared services (e.g., a platform API used by multiple teams): designate a primary owner team responsible for the service. Other teams are consumers with advisory input. The primary owner maintains the ownership doc, runbooks, and on-call rotation. Create a shared channel for consumer teams to report issues. For changes that affect consumers, use a deprecation timeline (see deprecation template). Document the governance model: who decides on breaking changes, how consumers are notified, and what the migration support looks like. Avoid co-ownership — it leads to unclear accountability during incidents.
+
+### What if a service has no clear owner?
+
+If a service has no clear owner: assign one immediately. An unowned service is a liability. If the original team disbanded or reorganized: identify the team that uses it most or has the most context. If no one has context: treat it as a legacy service and schedule a knowledge recovery effort. Document the ownership gap in the service registry. Temporarily assign the platform/SRE team as the on-call contact. Set a deadline for permanent ownership assignment. An unowned service in production is an incident waiting to happen.
+
+### How do we keep ownership docs up to date?
+
+Set up automated reminders: quarterly review notification to the service owner. Link the ownership doc from the repo README, CI pipeline, and monitoring dashboard — if the doc is stale, engineers will notice. Use a service catalog tool (Backstage, OpsLevel, ServiceNow) that enforces ownership doc updates on service changes. Track the last-updated date and flag docs older than 6 months. Include ownership doc review in the onboarding process for new team members — fresh eyes spot stale info. Make updating the doc part of the definition of done for major changes.
+
+### Should we use a service catalog tool?
+
+For organizations with more than 10 services: yes. A service catalog (Backstage, OpsLevel, Spinnaker) centralizes ownership docs, dependencies, and health metrics. It enforces consistency, enables search, and provides a single source of truth. For smaller organizations: a well-organized wiki or repo of markdown files is sufficient. The key is searchability and a review cadence. Do not let the tool become the goal — a simple markdown file that is current is better than a sophisticated tool with stale data.
+
+### How do we document services during migration?
+
+During migrations (e.g., monolith to microservices): maintain ownership docs for both the old and new systems. Mark the old system as "deprecated — migration in progress" with the migration timeline. The new system should have its own ownership doc from day one, even if it is not yet in production. Cross-reference the two docs. Update the on-call rotation to cover both systems during the migration period. Document the cutover plan and rollback procedure. After migration completion, archive the old ownership doc and update all references.
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -157,6 +157,35 @@ Enlace al runbook o guia de troubleshooting relevante.
 
 La plantilla estructura la entrega en **incidentes** (que esta roto), **alertas** (que podria romperse), **salud** (estado actual) y **cambios** (lo que viene). La seccion de ruta de escalamiento es critica para el ingeniero entrante que puede no saber a quien llamar a las 3 AM. La seccion de notas captura el contexto sutil que no encaja en otras categorias pero puede prevenir sorpresas.
 
+## Checklist de Handoff
+
+```text
+=== Checklist Pre-Handoff ===
+
+[ ] Todos los incidentes activos documentados con estado actual y proximos pasos
+[ ] Todas las alertas de este turno revisadas y disposicion anotada
+[ ] Screenshot o link del dashboard de salud del sistema incluido
+[ ] Cambios programados para el proximo turno documentados
+[ ] Problemas conocidos y workarounds actualizados
+[ ] Rutas de escalacion verificadas (contactos aun validos)
+[ ] Observaciones inusuales anotadas incluso si no estan alertando
+[ ] Peticiones de otros equipos documentadas
+[ ] Cronograma de PagerDuty confirmado para el ingeniero entrante
+[ ] El ingeniero entrante ha reconocido la recepcion del handoff
+
+=== Flujo de Conversacion de Handoff ===
+
+1. Revisar incidentes activos primero (5 min)
+2. Revisar alertas que pueden escalar (3 min)
+3. Revisar salud del sistema juntos (2 min)
+4. Discutir cambios programados (2 min)
+5. Revisar problemas conocidos (2 min)
+6. Compartir observaciones inusuales (1 min)
+7. El ingeniero entrante hace preguntas (5 min)
+8. Ambos confirman que el handoff esta completo
+```
+
+
 ## Variants
 
 | Contexto | Enfoque | Notas |
@@ -195,3 +224,79 @@ Aun asi completa la entrega. Anota cualquier patron inusual en metricas, cambios
 ### Debo incluir problemas que impactan clientes pero que no han disparado alertas?
 
 Si. Si soporte reporto problemas de clientes o si notaste comportamiento degradado que no ha cruzado umbrales de alerta, documentalo en la seccion de notas. Estos son frecuentemente los primeros indicadores de problemas en gestacion.
+
+
+### Como manejamos handoffs a traves de zonas horarias?
+
+Para equipos globales: programa una ventana de 15 minutos de superposicion para handoff sincrono. Si no hay superposicion, usa un handoff asincrono con una grabacion de video (Loom) mas el documento escrito. Establece un plazo para que el ingeniero entrante reconozca la recepcion. Para handoffs criticos, ten un contacto de respaldo en la region del ingeniero entrante. Usa un documento de handoff compartido que persista entre turnos (ej., una pagina wiki o hilo de Slack) para que el contexto no se pierda. Rota los horarios de handoff periodicamente para que la misma persona no siempre haga handoffs a horas inconvenientes.
+
+### Que herramientas deberiamos usar para handoffs on-call?
+
+Usa una combinacion de: un documento de handoff escrito (doc compartido, wiki, o plantilla en la herramienta de gestion de incidentes), una conversacion sincrona (videollamada o huddle de Slack), y el dashboard de monitoreo (link compartido, no screenshot). PagerDuty u Opsgenie para visibilidad del cronograma. Slack o Teams para comunicacion en tiempo real. Un repositorio de runbooks compartido para rutas de escalacion y problemas conocidos. Evita email para handoffs — es muy lento y facil de perder. El documento de handoff deberia ser buscable para referencia futura.
+
+### Como capacitamos a nuevos ingenieros en el proceso de handoff?
+
+Empareja al nuevo ingeniero con un ingeniero on-call experimentado por sus primeros 2-3 turnos. Haz que observe el proceso de handoff, luego co-escriba el documento de handoff, luego lidere el handoff con el ingeniero experimentado revisando. Proporciona una guia escrita que explique cada seccion de la plantilla y que informacion se espera. Conduce un handoff simulado durante la capacitacion de onboarding. Revisa el primer handoff solo del nuevo ingeniero y proporciona feedback. Incluye capacitacion de handoff en la checklist de preparacion on-call.
+
+### Que pasa si el ingeniero entrante no esta disponible para el handoff?
+
+Si el ingeniero entrante no responde dentro de 15 minutos del handoff programado: llamalo directamente (telefono, no solo Slack). Si no hay respuesta despues de 30 minutos: escala al manager on-call. Si no hay respuesta despues de 1 hora: contacta al ingeniero on-call de respaldo. Documenta el handoff perdido en el reporte de turno. El ingeniero saliente debe permanecer on-call hasta que el handoff se complete — nunca dejes el sistema sin un ingeniero on-call. Revisa handoffs perdidos repetidos en la retrospectiva del equipo y ajusta el cronograma o proceso.
+
+### Como mejoramos la calidad del handoff con el tiempo?
+
+Revisa documentos de handoff semanalmente en la reunion del equipo — destaca buenos handoffs e identifica brechas. Rastrea metricas: numero de incidentes perdidos despues del handoff, tiempo hasta la primera respuesta despues del cambio de turno, y satisfaccion del ingeniero entrante con la calidad del handoff. Encuesta a ingenieros entrantes mensualmente: "El handoff te dio suficiente contexto para manejar el turno?" Ajusta la plantilla basada en feedback. Elimina secciones que estan consistentemente vacias. Agrega secciones para brechas recurrentes. Comparte mejores practicas entre equipos.
+
+
+### Como manejamos handoffs a traves de zonas horarias?
+
+Para equipos globales: programa una ventana de 15 minutos de superposicion para handoff sincrono. Si no hay superposicion, usa un handoff asincrono con una grabacion de video (Loom) mas el documento escrito. Establece un plazo para que el ingeniero entrante reconozca la recepcion. Para handoffs criticos, ten un contacto de respaldo en la region del ingeniero entrante. Usa un documento de handoff compartido que persista entre turnos (ej., una pagina wiki o hilo de Slack) para que el contexto no se pierda. Rota los horarios de handoff periodicamente para que la misma persona no siempre haga handoffs a horas inconvenientes.
+
+### Que herramientas deberiamos usar para handoffs on-call?
+
+Usa una combinacion de: un documento de handoff escrito (doc compartido, wiki, o plantilla en la herramienta de gestion de incidentes), una conversacion sincrona (videollamada o huddle de Slack), y el dashboard de monitoreo (link compartido, no screenshot). PagerDuty u Opsgenie para visibilidad del cronograma. Slack o Teams para comunicacion en tiempo real. Un repositorio de runbooks compartido para rutas de escalacion y problemas conocidos. Evita email para handoffs — es muy lento y facil de perder. El documento de handoff deberia ser buscable para referencia futura.
+
+### Como capacitamos a nuevos ingenieros en el proceso de handoff?
+
+Empareja al nuevo ingeniero con un ingeniero on-call experimentado por sus primeros 2-3 turnos. Haz que observe el proceso de handoff, luego co-escriba el documento de handoff, luego lidere el handoff con el ingeniero experimentado revisando. Proporciona una guia escrita que explique cada seccion de la plantilla y que informacion se espera. Conduce un handoff simulado durante la capacitacion de onboarding. Revisa el primer handoff solo del nuevo ingeniero y proporciona feedback. Incluye capacitacion de handoff en la checklist de preparacion on-call.
+
+### Que pasa si el ingeniero entrante no esta disponible para el handoff?
+
+Si el ingeniero entrante no responde dentro de 15 minutos del handoff programado: llamalo directamente (telefono, no solo Slack). Si no hay respuesta despues de 30 minutos: escala al manager on-call. Si no hay respuesta despues de 1 hora: contacta al ingeniero on-call de respaldo. Documenta el handoff perdido en el reporte de turno. El ingeniero saliente debe permanecer on-call hasta que el handoff se complete — nunca dejes el sistema sin un ingeniero on-call. Revisa handoffs perdidos repetidos en la retrospectiva del equipo y ajusta el cronograma o proceso.
+
+### Como mejoramos la calidad del handoff con el tiempo?
+
+Revisa documentos de handoff semanalmente en la reunion del equipo — destaca buenos handoffs e identifica brechas. Rastrea metricas: numero de incidentes perdidos despues del handoff, tiempo hasta la primera respuesta despues del cambio de turno, y satisfaccion del ingeniero entrante con la calidad del handoff. Encuesta a ingenieros entrantes mensualmente: "El handoff te dio suficiente contexto para manejar el turno?" Ajusta la plantilla basada en feedback. Elimina secciones que estan consistentemente vacias. Agrega secciones para brechas recurrentes. Comparte mejores practicas entre equipos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

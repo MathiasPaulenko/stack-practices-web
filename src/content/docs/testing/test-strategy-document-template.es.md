@@ -216,6 +216,76 @@ El test strategy document es un living artifact. Debería ser reviewed quarterly
 
 La CI/CD gates section es la most important: define qué debe pasar antes de que code move forward. Sin explicit gates, testing se vuelve optional y quality degrada. Coverage thresholds deberían ser enforced por CI, no por manual review.
 
+
+### Escenario Detallado: Estrategia de Testing para Microservicio de Pagos
+
+```text
+Servicio: payments-service
+Equipo: 4 backend devs, 1 QA, 1 SRE
+Stack: Node.js, PostgreSQL, RabbitMQ, Stripe API
+
+Piramide de Testing:
+  Unit: 75% (120 tests, < 20s)
+    - Logica de calculo de totales, impuestos, descuentos
+    - Validacion de schemas de request
+    - Maquina de estados del pedido (pending -> paid -> refunded)
+    - Helpers de formato de moneda y redondeo
+
+  Integration: 18% (28 tests, < 4min)
+    - POST /payments con PostgreSQL real (Testcontainers)
+    - Webhook de Stripe con firma HMAC valida e invalida
+    - Publicacion de eventos en RabbitMQ
+    - Idempotencia: mismo payment_intent_id no crea doble pago
+
+  E2E: 5% (8 tests, < 10min)
+    - Flujo completo: crear pedido -> pagar -> confirmar -> reembolsar
+    - Flujo de error: pago rechazado -> notificacion al usuario
+    - Concurrencia: dos pagos simultaneos del mismo pedido
+
+  Contract: 2% (4 tests, < 30s)
+    - Contrato con orders-service (consumidor)
+    - Contrato con notifications-service (consumidor)
+
+Gates de CI/CD:
+  Pre-commit: lint + type check (15s)
+    Gate: 0 errores
+  PR build: unit + integration + contract (5min)
+    Gate: 100% pass, coverage >= 90% (payments es critical)
+    Gate: sin nuevos tests flaky
+  Nightly: E2E + load baseline (25min)
+    Gate: 95% pass, p95 < 300ms, sin memory leaks
+  Pre-release: full load + soak (60min)
+    Gate: 100% pass, SLOs cumplidos, sin errores 5xx
+
+Riesgos especificos:
+  | Riesgo | Probabilidad | Impacto | Mitigacion |
+  |--------|-------------|---------|------------|
+  | Stripe cambia API | Baja | Critico | Contract tests con Stripe en sandbox |
+  | Webhook perdido | Media | Alto | Retry + reconciliacion nocturna |
+  | Doble pago por retry | Media | Critico | Idempotency key + DB unique constraint |
+  | Race condition en stock | Alta | Alto | SELECT FOR UPDATE en transaccion |
+
+Datos de test:
+  - Factory: createPayment(), createRefund(), createWebhookEvent()
+  - Stripe sandbox: claves de test, tarjetas 4242, 4000, etc.
+  - BD: PostgreSQL en Testcontainer, datos aislados por test
+  - RabbitMQ: instancia en memoria o Testcontainer
+
+Metricas trackeadas:
+  - Coverage: 90% line, 85% branch (target mas alto que el general)
+  - Defect escape rate: < 2 por sprint (payments es critical)
+  - p95 latencia: < 300ms en baseline
+  - Flaky test rate: < 0.5% (mas estricto que el general)
+```
+
+### Como justifico la inversion en testing ante la direccion?
+
+Conecta las metricas de testing con resultados de negocio. Calcula el costo de un bug en produccion: horas de ingeniero en hotfix, perdida de ventas, dano reputacional. Compara con el costo de prevenirlo: 1 hora de test vs 4 horas de hotfix + 2 horas de postmortem. Muestra la tendencia: a medida que la cobertura sube, el defect escape rate baja. Un reporte trimestral con esta correlacion suele convencer.
+
+### Que hago cuando el equipo crece y la estrategia ya no sirve?
+
+Revisa la estrategia cuando el equipo cambie de tamano, estructura o dominio. Si el equipo pasa de 4 a 12 personas, divide la piramide por sub-equipes con targets compartidos. Si anades un nuevo servicio, crea un addendum con sus riesgos especificos. Manten el documento central con los estandares compartidos (gates, flaky policy, coverage targets) y delega los detalles al nivel de cada equipo.
+
 ## Variants
 
 | Context | Approach | Notes |

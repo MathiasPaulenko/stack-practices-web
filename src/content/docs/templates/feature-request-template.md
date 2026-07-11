@@ -175,6 +175,58 @@ implementation patterns.
 - **Close stale requests** — if a request has had no activity for 6 months, close it with a note
 - **Batch similar requests** — if 3 requests ask for the same thing, merge them and link the duplicates
 
+## Feature Request Example
+
+```text
+=== Feature Request: Bulk order export ===
+
+Title: Bulk order export to Excel
+ID: FR-789
+Requester: bob@company.com (Sales)
+Priority: Medium
+Date: 2026-07-10
+
+Problem:
+  The sales team needs to export orders to Excel for offline analysis.
+  Currently, the only way is to export page by page from the dashboard
+  (max 50 per page). For a month with 5000 orders, this requires 100
+  manual exports.
+
+Proposed Solution:
+  Add an "Export all" button on the orders page that generates an Excel
+  file with all orders in the selected date range. The file is generated
+  async and sent by email when ready.
+
+Alternatives Considered:
+  1. Export API endpoint: requires sales to use curl/Postman
+     - Rejected: sales does not have technical skills
+  2. BI dashboard (Metabase): requires setup and maintenance
+     - Rejected: overkill for this need
+  3. CSV export instead of Excel: fewer features
+     - Rejected: sales uses Excel formulas and charts
+
+Impact:
+  Users affected: 15 (sales team)
+  Frequency: monthly
+  Hours saved: ~8 hours/month in manual exports
+
+Acceptance Criteria:
+  - "Export all" button visible on orders page
+  - Allows selecting date range
+  - Generates .xlsx file with columns: ID, date, customer, total, status
+  - File sent by email to the requesting user
+  - In-app notification when file is ready
+  - Limit of 50,000 orders per export
+  - File expires from storage after 7 days
+
+Technical Notes:
+  - Use exceljs library for Excel generation
+  - Use job queue (Bull/Redis) for async generation
+  - Store file in S3 with 7-day expiration
+  - Rate limit: 1 export per user per hour
+```
+
+
 ## Variants
 
 ### Lightweight (Slack/Teams)
@@ -214,3 +266,37 @@ Break it into phases. Create an epic for the full vision, then individual reques
 ### Should I track rejected requests?
 
 Yes. Keep them in a "rejected" state with a reason. If the same request comes up multiple times, the pattern itself is signal that it should be reconsidered.
+
+
+### How do we prioritize feature requests?
+
+Prioritize by: user impact (how many, how much), frequency of use, roadmap alignment, estimated effort, and business urgency. Use a framework like RICE (Reach, Impact, Confidence, Effort) to quantify. For sales/marketing requests: evaluate if the impact justifies the engineering effort. For enterprise customer requests: evaluate retention and revenue impact. Do not prioritize just by who shouts loudest — use data. Communicate the decision to the requester: if rejected, explain why; if deferred, give an estimated date. Review feature requests monthly in the product committee. A feature request without a response is worse than a rejected request — communication builds trust.
+
+### How do we handle contradictory feature requests?
+
+When two requests contradict (e.g., "add more form fields" vs "simplify the form"): evaluate which has greater user impact. If both have impact: find a solution that satisfies both (e.g., optional fields with defaults). If no middle ground: prioritize the one that aligns with the product vision. Document the decision and the reason. Communicate to both requesters why one was chosen over the other. Use A/B testing if possible — let the data decide. Contradictions are normal in product — the Product Owner's job is to make data-driven decisions, not to please everyone.
+
+### How do we differentiate a feature request from a bug?
+
+A bug is behavior that does not work as specified or expected. A feature request is new behavior that does not exist. If the current behavior is clearly wrong (e.g., the button does not work): it is a bug. If the current behavior is correct but the user wants something different (e.g., the button works but they also want it to send an email): it is a feature request. If there is debate: ask "was this behavior ever correct?" — if yes, it is a bug; if no, it is a feature request. Bugs are prioritized by severity; feature requests are prioritized by impact. Never label a feature request as a bug to boost its priority — that distorts the process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

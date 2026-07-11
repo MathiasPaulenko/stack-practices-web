@@ -189,6 +189,66 @@ Negative test cases are where most bugs hide. Testing only the happy path gives 
 
 The traceability matrix links requirements to test cases. This is mandatory for compliance (SOC 2, ISO 27001, FDA) and useful for coverage analysis: if a requirement has no test cases, it's untested.
 
+
+### Detailed Scenario: Test Case for Order Creation API
+
+```text
+API: POST /v1/orders
+Module: Orders
+Priority: Critical
+Type: Functional + Integration
+
+Preconditions:
+  1. Orders service running in staging
+  2. User authenticated with valid JWT token
+  3. At least 3 products with available stock in DB
+  4. Valid shipping address created beforehand
+
+Steps:
+  | # | Action | Expected Result |
+  |---|--------|-----------------|
+  | 1 | POST /v1/orders with valid body | 201 Created with body {id, status, total} |
+  | 2 | Verify Location header | Contains /v1/orders/{id} |
+  | 3 | GET /v1/orders/{id} | 200 OK with same body |
+  | 4 | Verify stock decremented | GET /v1/products/{sku} shows stock -1 |
+  | 5 | Verify event published | Message queue has order.created event |
+  | 6 | Repeat POST with same Idempotency-Key | 200 OK with same order (no duplicate) |
+
+Negative Cases:
+  | ID | Description | Result |
+  |----|-------------|--------|
+  | N1 | Nonexistent customer_id | 400 with VALIDATION_ERROR |
+  | N2 | Empty items array | 422 with EMPTY_ITEMS |
+  | N3 | quantity <= 0 | 422 with INVALID_QUANTITY |
+  | N4 | SKU out of stock | 409 with OUT_OF_STOCK |
+  | N5 | Missing Authorization header | 401 Unauthorized |
+  | N6 | Duplicate Idempotency-Key with different body | 409 Conflict |
+
+Edge Cases:
+  | ID | Description | Result |
+  |----|-------------|--------|
+  | E1 | Order with 100 items | 201 Created, latency < 2s |
+  | E2 | Order with unicode characters in address | 201 Created, data preserved |
+  | E3 | quantity = 999999 | 201 Created or 422 if exceeds max allowed |
+  | E4 | Concurrency: 2 orders for same SKU simultaneously | One succeeds, other 409 OUT_OF_STOCK |
+
+Traceability:
+  | Requirement | Cases |
+  |-------------|-------|
+  | REQ-ORD-001 | TC-ORD-001 (happy path) |
+  | REQ-ORD-002 | TC-ORD-N1..N6 (validation) |
+  | REQ-ORD-003 | TC-ORD-E4 (concurrency) |
+  | REQ-ORD-004 | TC-ORD-001 step 6 (idempotency) |
+```
+
+### How do I document test cases for asynchronous flows?
+
+For asynchronous flows (message queues, webhooks, events), document the expected event as the result. Instead of verifying an immediate HTTP response, verify: (1) the message published to the queue, (2) the final state after processing, (3) the maximum acceptable timeout. Use polling with retry in automation: check every 500ms up to 10s max.
+
+### Should I use BDD (Gherkin) for writing test cases?
+
+BDD (Given-When-Then) is useful when working with product managers or stakeholders who need to read the test cases. For technical teams, the tabular format is more direct. If you use Cucumber or Behave, Gherkin format is required. For Playwright or Vitest, the tabular format maps directly to code.
+
 ## Variants
 
 | Context | Approach | Notes |

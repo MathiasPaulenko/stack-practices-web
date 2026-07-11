@@ -130,6 +130,145 @@ Use this resource when:
 
 The template forces a **quantified decision** rather than gut feeling. Many teams either panic-rollback every regression or never rollback and let performance decay. The comparison tables make the regression visible with numbers, and the rollback/fix-forward decision matrix removes ambiguity. The diagnostic steps are ordered by frequency: most regressions are caused by a bad query, a missing cache, or a downstream slowdown—not exotic infrastructure issues.
 
+## CI Performance Gate Configuration
+
+```yaml
+# GitHub Actions performance gate
+name: Performance Regression Check
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment
+        run: |
+          npm ci
+          docker compose up -d test-db
+      - name: Run benchmark suite
+        run: npm run benchmark -- --output=results.json
+      - name: Compare with baseline
+        run: |
+          node scripts/compare-baseline.js \
+            --current results.json \
+            --baseline baselines/main.json \
+            --threshold 5 \
+            --fail-on-regression
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: results.json
+      - name: Comment on PR
+        if: always()
+        run: node scripts/pr-comment.js --results results.json
+```
+
+## Benchmark Comparison Script
+
+```python
+#!/usr/bin/env python3
+"""Compare current benchmark results against baseline."""
+import json
+import sys
+import argparse
+
+def compare(current_path, baseline_path, threshold_pct):
+    with open(current_path) as f:
+        current = json.load(f)
+    with open(baseline_path) as f:
+        baseline = json.load(f)
+
+    regressions = []
+    improvements = []
+
+    for metric in baseline:
+        name = metric['name']
+        base_value = metric['value']
+        curr = next((m for m in current if m['name'] == name), None)
+        if not curr:
+            continue
+        change_pct = ((curr['value'] - base_value) / base_value) * 100
+        if change_pct > threshold_pct:
+            regressions.append({
+                'name': name,
+                'baseline': base_value,
+                'current': curr['value'],
+                'change': f'+{change_pct:.1f}%'
+            })
+        elif change_pct < -threshold_pct:
+            improvements.append({
+                'name': name,
+                'baseline': base_value,
+                'current': curr['value'],
+                'change': f'{change_pct:.1f}%'
+            })
+
+    if regressions:
+        print('REGRESSIONS DETECTED:')
+        for r in regressions:
+            print(f"  {r['name']}: {r['baseline']} -> {r['current']} ({r['change']})")
+        sys.exit(1)
+    else:
+        print('No regressions detected.')
+        if improvements:
+            print('Improvements:')
+            for i in improvements:
+                print(f"  {i['name']}: {i['baseline']} -> {i['current']} ({i['change']})")
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--current', required=True)
+    parser.add_argument('--baseline', required=True)
+    parser.add_argument('--threshold', type=float, default=5.0)
+    args = parser.parse_args()
+    compare(args.current, args.baseline, args.threshold)
+```
+
+## Performance Regression Triage Decision Tree
+
+```text
+=== Performance Regression Triage ===
+
+1. IDENTIFY SCOPE (5 min)
+   - Which endpoint/service regressed?
+   - P50, P95, or P99 affected?
+   - When did it start? (correlate with deploys)
+
+2. CHECK DEPLOY HISTORY (10 min)
+   - Was there a deploy in the last 24h?
+   - Did the regression start at deploy time?
+   - YES -> Rollback or fix-forward. Go to step 4.
+   - NO -> Continue to step 3.
+
+3. CHECK INFRASTRUCTURE (15 min)
+   - Database: slow queries? replication lag? connection pool?
+   - Cache: hit rate dropped? evictions? redis memory?
+   - Network: increased latency between services? DNS issues?
+   - Disk: IOPS saturated? disk full?
+
+4. DIAGNOSE ROOT CAUSE (30 min)
+   - Code: N+1 queries, missing index, unbounded loop
+   - Config: changed pool size, timeout, cache TTL
+   - Data: table grew beyond index capacity, hot partition
+   - Dependency: downstream service slower, API rate limited
+
+5. DECIDE: ROLLBACK OR FIX-FORWARD (5 min)
+   - Rollback if: regression > 20%, user-facing, fix unknown
+   - Fix-forward if: regression < 10%, fix is ready, low-risk
+   - Feature flag if: regression tied to specific feature
+
+6. VERIFY FIX (ongoing)
+   - Re-run benchmarks
+   - Monitor APM for 24h
+   - Confirm metrics return to baseline
+```
+
+
 ## Variants
 
 | Context | Key Metrics | Special Consideration |
@@ -170,3 +309,24 @@ Yes, for Critical and High regressions. For Medium, use a warning gate that requ
 ### What if the regression only affects a small subset of users?
 
 A subset regression can still be severe if it affects high-value customers or a critical feature. Document the affected segment in the report. If it is a niche use case, you may fix forward. If it is a high-value segment, consider a targeted rollback or feature flag disable. Never ignore a regression just because it is "only 1% of users" without understanding who that 1% is.
+
+
+### How do we set performance regression thresholds?
+
+Set thresholds based on user impact, not arbitrary percentages. A 5% regression on a 50ms endpoint is negligible (2.5ms). A 5% regression on a 5s endpoint is noticeable (250ms). Use tiered thresholds: 10% for P50, 15% for P95, 20% for P99. Block releases only on P95 and P99 regressions. Log P50 regressions for tracking. Adjust thresholds per service based on business criticality.
+
+### What tools should we use for performance benchmarking?
+
+For API benchmarks: k6, Locust, or Artillery. For database benchmarks: pgbench (PostgreSQL), sysbench (MySQL). For frontend: Lighthouse CI, WebPageTest. For load testing: k6 with distributed execution. Integrate benchmarks into CI using GitHub Actions or Jenkins. Store results in a time-series database (InfluxDB, Prometheus) for trend analysis. Use APM tools (Datadog, New Relic, Dynatrace) for production performance monitoring.
+
+### How do we handle flaky benchmarks?
+
+Flaky benchmarks erode trust in the performance gate. Fix them by: running benchmarks in isolated environments (dedicated runners, no shared resources), warming up before measurement, running multiple iterations and taking the median, excluding outliers, and using a cooldown between test groups. If a benchmark is inherently flaky, increase the threshold or mark it as informational rather than blocking. Track flakiness rate and fix benchmarks with > 5% flakiness.
+
+### What is the difference between load testing and performance benchmarking?
+
+Load testing measures system behavior under expected and peak load (e.g., can we handle 10,000 RPS?). Performance benchmarking measures specific metrics against a baseline (e.g., did this change make the API 10% slower?). Load testing is about capacity; benchmarking is about regression. Run load tests quarterly or before major launches. Run benchmarks in every CI pipeline. Both are needed but serve different purposes.
+
+### How do we measure frontend performance regressions?
+
+Track Core Web Vitals: LCP (Largest Contentful Paint), INP (Interaction to Next Paint), CLS (Cumulative Layout Shift). Use Lighthouse CI in GitHub Actions to block regressions on these metrics. Collect Real User Monitoring (RUM) data from production using the web-vitals library. Set thresholds: LCP < 2.5s, INP < 200ms, CLS < 0.1. Track bundle size as a leading indicator — a 50KB bundle increase will eventually cause LCP regression. Use source maps to attribute bundle size changes to specific commits.

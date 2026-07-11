@@ -160,6 +160,49 @@ Antes de crear un pronostico de capacidad:
 
 La plantilla separa la **medicion** (estado actual) de la **prediccion** (suposiciones de crecimiento y proyecciones de trafico) de la **decision** (plan de escalado y proyeccion de costos). La **tabla de pronostico de recursos** resalta cual recurso alcanzara su limite primero — este es el cuello de botella que determina tu linea de tiempo de escalado. La **proyeccion de costos** enmarca el plan tecnico en terminos de negocio, facilitando la obtencion de presupuesto.
 
+## Ejemplo de Dashboard de Forecast de Capacidad
+
+```text
+=== Dashboard de Forecast de Capacidad — Q3 2026 ===
+
+ESTADO ACTUAL (al 2026-07-11):
+  Utilizacion CPU (prom):    42%
+  Utilizacion CPU (pico):    68%
+  Utilizacion Memoria (prom): 55%
+  Utilizacion Memoria (pico): 78%
+  Uso de disco:              3.2 TB / 5 TB (64%)
+  Throughput de red (prom):  120 Mbps
+  Throughput de red (pico):  450 Mbps
+  Conexiones DB (prom):      45 / 100
+  Conexiones DB (pico):      82 / 100
+
+SUPUESTOS DE CRECIMIENTO:
+  Tasa de crecimiento de usuarios:  8% / mes (basado en ultimos 6 meses)
+  Tasa de crecimiento de trafico:   12% / mes (trafico crece mas rapido que usuarios)
+  Tasa de crecimiento de datos:     50 GB / mes
+  Factor de pico estacional:        2.5x (Black Friday, temporada navidena)
+
+PROYECCION A 6 MESES:
+  Mes      | CPU Pico | Mem Pico | Disco   | DB Conn Pico
+  ---------|----------|----------|---------|-------------
+  Ago 2026 | 72%      | 82%      | 3.7 TB  | 88
+  Sep 2026 | 78%      | 86%      | 4.2 TB  | 94
+  Oct 2026 | 85%      | 91%      | 4.7 TB  | 102 (SOBRE!)
+  Nov 2026 | 95%      | 96%      | 5.2 TB  | 115 (SOBRE!)
+  Dic 2026 | 98%      | 98%      | 5.7 TB  | 125 (SOBRE!)
+  Ene 2027 | 100%+    | 100%+    | 6.2 TB  | 140 (SOBRE!)
+
+BOTTLENECK: Conexiones de DB alcanzan limite en Octubre 2026
+ACCION: Aumentar pool de conexiones a 200 para Septiembre 2026
+
+BOTTLENECK: Disco alcanza limite de 5 TB en Noviembre 2026
+ACCION: Agregar 3 TB de almacenamiento para Octubre 2026
+
+BOTTLENECK: CPU alcanza 90% en Noviembre 2026 (pico estacional)
+ACCION: Agregar 4 instancias al auto-scaling group para Octubre 2026
+```
+
+
 ## Variantes
 
 | Contexto | Ajustes | Notas |
@@ -199,3 +242,60 @@ Construye contingencias en el plan: auto-escalado para picos inesperados, instan
 ### Quien deberia ser responsable de la planificacion de capacidad?
 
 Los equipos de plataforma o SRE usualmente son propietarios del proceso, pero producto e ingenieria deben proporcionar las suposiciones de crecimiento. Finanzas deberia revisar las proyecciones de costo. Es un documento multifuncional, no un ejercicio individual.
+
+
+### Como hacemos forecast para picos de trafico estacionales?
+
+Analiza datos historicos de trafico para patrones estacionales: compras navidenas, temporada de impuestos, vuelta a la escuela, o eventos especificos de la industria. Identifica el multiplicador de pico (ej., 2.5x trafico normal). Planifica capacidad para el pico, no el promedio. Pre-escala antes de que comience la temporada — escalar toma tiempo, y hacerlo durante el pico es demasiado tarde. Usa instancias reservadas para la carga base y on-demand para el pico estacional. Despues de la temporada, escala hacia abajo y revisa la precision del forecast. Documenta el real vs. proyectado para planificacion futura. Configura alertas que se disparen al 70% de la capacidad del pico estacional.
+
+### Cual es la diferencia entre escalado vertical y horizontal?
+
+Escalado vertical (escalar hacia arriba) significa agregar mas recursos a instancias existentes (mas CPU, mas RAM). Es mas simple pero tiene un limite duro — el tamano maximo de instancia. A menudo requiere downtime. Escalado horizontal (escalar hacia afuera) significa agregar mas instancias. Es mas complejo (requiere load balancing, servicios stateless) pero no tiene limite teorico. La mayoria de los sistemas usan una combinacion: vertical para bases de datos (que son dificiles de escalar horizontalmente), horizontal para servicios stateless (que son faciles de escalar). Planifica para ambos en tu forecast de capacidad.
+
+### Como manejamos la planificacion de capacidad para arquitecturas serverless?
+
+Para serverless: rastrea conteo de invocaciones, ejecuciones concurrentes, y frecuencia de cold-start. Monitorea cuotas de servicio (AWS Lambda: 1000 ejecuciones concurrentes por defecto). Pronostica basado en la tasa de crecimiento de requests, no CPU o memoria. Planifica para cold starts durante picos de trafico — pre-calienta funciones si es necesario. Considera provisioned concurrency para caminos sensibles a latencia. Monitorea costo por invocacion — los costos serverless pueden escalar super-linealmente con el trafico. Incluye configuracion de timeout y memoria en el plan de capacidad. Documenta el comportamiento de escalado y los limites de cada servicio serverless en uso.
+
+### Como comunicamos necesidades de capacidad al liderazgo?
+
+Traduce metricas tecnicas a terminos de negocio: "Al crecimiento actual, nos quedaremos sin capacidad de base de datos en Octubre. Esto causara respuestas lentas para el 30% de los usuarios. La solucion cuesta $5,000/mes y toma 3 semanas implementar." Usa la tabla de proyeccion de costos para mostrar el costo de inaccion vs. el costo de accion. Incluye un cronograma con fechas limite. Usa ayudas visuales — un grafico mostrando utilizacion tendiendo hacia 100% es mas convincente que una tabla. Presenta el forecast en la revision mensual de ingenieria, no como emergencia cuando la capacidad ya esta agotada. Conecta capacidad a metricas de negocio (usuarios, ingresos, transacciones).
+
+### Que herramientas ayudan con la planificacion de capacidad?
+
+Herramientas utiles: Dashboards de proveedor cloud (AWS CloudWatch, GCP Monitoring, Azure Monitor) para metricas actuales. Datadog o New Relic para observabilidad unificada. Kubernetes metrics-server y cluster autoscaler para workloads en contenedores. Terraform para infraestructura como codigo (para provisionar capacidad rapidamente). Herramientas de gestion de costos (AWS Cost Explorer, CloudHealth) para proyecciones de costos. Modelos de hoja de calculo para forecasting (simple pero efectivo). Grafana para dashboards personalizados de capacidad. La mejor herramienta es una que se integra con tu monitoreo existente y proporciona datos historicos para analisis de tendencias.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

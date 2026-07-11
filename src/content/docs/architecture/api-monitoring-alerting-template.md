@@ -130,6 +130,148 @@ Use this resource when:
 
 SLIs are **what** you measure, SLOs are **how good** it must be, and alerts are **when** to act. The template separates page alerts (requires human intervention) from warnings (can wait for business hours). Burn rate alerts catch SLO violations early by tracking how fast your error budget is consumed. Dashboard rows group related metrics so on-call engineers can triage in under 30 seconds.
 
+## Prometheus Alert Rules
+
+Define alerts as code so they are version-controlled and reviewable:
+
+```yaml
+groups:
+  - name: api_slo_alerts
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total[5m]))
+          ) > 0.01
+        for: 2m
+        labels:
+          severity: P1
+          team: platform
+        annotations:
+          summary: "Error rate above 1% for 2 minutes"
+          runbook: "/runbooks/api-error-spike"
+
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(0.95, rate(
+            http_request_duration_seconds_bucket[5m]
+          )) > 1.0
+        for: 3m
+        labels:
+          severity: P1
+          team: platform
+        annotations:
+          summary: "p95 latency above 1s for 3 minutes"
+          runbook: "/runbooks/api-latency-spike"
+
+      - alert: SLOBurnRateFast
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[1h]))
+            /
+            sum(rate(http_requests_total[1h]))
+          ) > 0.002
+        for: 5m
+        labels:
+          severity: P1
+          team: platform
+        annotations:
+          summary: "SLO burn rate exceeds 2% budget in 1 hour"
+          runbook: "/runbooks/slo-burn-rate"
+
+      - alert: TrafficDrop
+        expr: |
+          sum(rate(http_requests_total[5m]))
+          <
+          sum(rate(http_requests_total[5m] offset 1h)) * 0.5
+        for: 5m
+        labels:
+          severity: P1
+          team: platform
+        annotations:
+          summary: "Traffic dropped 50% compared to 1 hour ago"
+          runbook: "/runbooks/api-traffic-drop"
+```
+
+## Grafana Dashboard JSON
+
+A minimal dashboard panel for error rate tracking:
+
+```json
+{
+  "dashboard": {
+    "title": "API Monitoring Overview",
+    "panels": [
+      {
+        "title": "Error Rate (5xx)",
+        "type": "stat",
+        "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])) * 100",
+            "legendFormat": "Error %"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "thresholds": {
+              "steps": [
+                { "value": null, "color": "green" },
+                { "value": 0.1, "color": "yellow" },
+                { "value": 1, "color": "red" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "p95 Latency by Endpoint",
+        "type": "heatmap",
+        "gridPos": { "h": 8, "w": 12, "x": 6, "y": 0 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum by (endpoint, le) (rate(http_request_duration_seconds_bucket[5m]))) * 1000",
+            "legendFormat": "{{endpoint}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": { "unit": "ms" }
+        }
+      }
+    ]
+  }
+}
+```
+
+## Runbook Template
+
+Each alert must link to a runbook. Here is a minimal template:
+
+```markdown
+# Runbook: API Error Spike
+
+## Alert Condition
+Error rate > 1% for 2+ minutes (P1)
+
+## Quick Triage (under 60 seconds)
+1. Check the dashboard: which endpoints are returning 5xx?
+2. Check recent deployments: was there a release in the last 30 minutes?
+3. Check dependency health: are any upstream services down?
+
+## Mitigation Steps
+1. If a bad deployment caused the spike, roll back to the previous version
+2. If a dependency is down, enable circuit breaker fallback
+3. If traffic is abnormal, enable rate limiting at the gateway
+
+## Post-Incident
+1. File an incident report within 24 hours
+2. Add the root cause to the known issues list
+3. Update this runbook with any new mitigation steps
+```
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -137,6 +279,7 @@ SLIs are **what** you measure, SLOs are **how good** it must be, and alerts are 
 | Internal microservices | Lower SLOs, simpler alerts | 99% availability, Slack-only alerts |
 | Public SaaS API | Strict SLOs, multi-channel paging | 99.99% availability, PagerDuty + SMS |
 | Serverless / Lambda | Focus on cold start and concurrency | Alert on throttling, not CPU |
+| Event-driven | Alert on lag and DLQ depth | Consumer lag is the equivalent of latency |
 
 ## What Works
 
@@ -145,6 +288,8 @@ SLIs are **what** you measure, SLOs are **how good** it must be, and alerts are 
 3. Include runbook links directly in alert messages
 4. Review and tune alert thresholds monthly; false positives erode trust
 5. Use different channels for page vs warning so on-call knows urgency immediately
+6. Track alert volume per week to identify noisy alerts that need tuning
+7. Add a "test alert" button in your alerting tool to verify paging works end-to-end
 
 ## Common Mistakes
 
@@ -153,6 +298,8 @@ SLIs are **what** you measure, SLOs are **how good** it must be, and alerts are 
 3. Using mean latency instead of percentiles (means hide outliers)
 4. Alerting on single errors without a duration or rate threshold
 5. Forgetting to alert on traffic drops (absence of errors can mean total failure)
+6. Not testing alert delivery (PagerDuty rotation, Slack webhook) before an incident
+7. Creating alerts without runbooks, leaving on-call engineers to guess mitigation steps
 
 ## Frequently Asked Questions
 
@@ -167,3 +314,19 @@ Generally no for page alerts. 4xx indicates client mistakes, not server problems
 ### How do I avoid alert fatigue?
 
 Tune thresholds so each alert fires < 3 times per week. If an alert fires daily and is always benign, raise the threshold or convert it to a dashboard-only metric. Every alert must have a documented runbook.
+
+### What is the difference between SLI, SLO, and SLA?
+
+SLI is the metric you measure (e.g., p95 latency). SLO is the target you set for that metric (e.g., p95 < 200ms). SLA is the formal agreement with consumers that includes consequences for missing the SLO (e.g., service credits).
+
+### How do I set up burn rate alerts?
+
+A burn rate alert fires when you are consuming your error budget too fast. For a 30-day SLO of 99.9%, a 1-hour burn rate of 14.4x means you will exhaust the entire monthly budget in 2 hours. Set fast burn alerts (1h window, 14.4x threshold) for page alerts and slow burn alerts (6h window, 6x threshold) for warnings.
+
+### Should I monitor individual endpoints or aggregate?
+
+Both. Aggregate monitoring tells you if the API is healthy overall. Per-endpoint monitoring tells you which endpoint is causing the problem. Set SLOs at the endpoint level for critical paths and at the aggregate level for overall health.
+
+### What tools should I use for API monitoring?
+
+Prometheus for metrics, Grafana for dashboards, PagerDuty or Opsgenie for paging, and an APM tool (Datadog, New Relic, Honeycomb) for distributed tracing. Use OpenTelemetry for vendor-neutral instrumentation.

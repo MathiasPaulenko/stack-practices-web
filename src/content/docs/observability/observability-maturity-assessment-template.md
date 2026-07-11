@@ -208,6 +208,46 @@ The gap analysis is the actionable output. For each criterion below target, the 
 
 The roadmap sequences improvements by quarter, balancing quick wins (tuning alerts, adding log levels) with larger initiatives (SLO definition, full tracing instrumentation). Each item has an owner and effort estimate, making it actionable for sprint planning.
 
+## Maturity Level Definitions
+
+```text
+=== Level 1: Ad Hoc ===
+  Logging:    Unstructured, ad-hoc, no centralization
+  Metrics:    Basic infrastructure metrics (CPU, memory, disk)
+  Tracing:    None or log-based correlation
+  Alerting:   Threshold-based, high false positive rate
+  Culture:    Reactive, no postmortems, no SLOs
+
+=== Level 2: Basic ===
+  Logging:    Centralized but unstructured (ELK, CloudWatch)
+  Metrics:    RED metrics for some services, Grafana dashboards
+  Tracing:    Some services instrumented, basic trace propagation
+  Alerting:   Threshold-based, some runbooks, PagerDuty routing
+  Culture:    Postmortems for major incidents, basic on-call
+
+=== Level 3: Structured ===
+  Logging:    Structured JSON, centralized, correlation IDs
+  Metrics:    RED metrics for all services, SLOs defined
+  Tracing:    OpenTelemetry in all services, trace propagation
+  Alerting:   SLO-based alerting, runbooks for all alerts
+  Culture:    Blameless postmortems, action item tracking, on-call training
+
+=== Level 4: Proactive ===
+  Logging:    Structured, PII-redacted, log-based alerts
+  Metrics:    USE + RED + business metrics, SLO-based alerting
+  Tracing:    Tail-based sampling, trace-to-metric exemplars
+  Alerting:   Multi-window burn rate, anomaly detection
+  Culture:    Proactive improvement, observability onboarding, quarterly reviews
+
+=== Level 5: Autonomous ===
+  Logging:    Automated log analysis, pattern detection
+  Metrics:    Predictive alerting, capacity forecasting
+  Tracing:    Automated root cause analysis from traces
+  Alerting:   Self-healing, automated remediation
+  Culture:    Continuous optimization, observability as code
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -259,3 +299,20 @@ Translate gaps into business impact: "60% of alerts are false positives, costing
 ### What tools do we need for each level?
 
 Level 1-2: Structured logging (pino, Winston), Prometheus, Grafana. Level 3: Add OpenTelemetry, Jaeger/Tempo, Alertmanager. Level 4: Add SLO tooling (Sloth, Prometheus Operator), anomaly detection. Level 5: Add automated remediation (Kubernetes operators, policy engines).
+
+
+### How do we get started if we are at Level 1?
+
+Start with logging: centralize all logs in one place (ELK, CloudWatch, Loki). Add structured logging (JSON format with fields) to your most critical service. Then add basic metrics: CPU, memory, disk, and request rate for your top 3 services. Create a single Grafana dashboard with these metrics. Set up basic alerting: threshold-based alerts for CPU > 80%, error rate > 5%. Write runbooks for the top 5 alerts. This takes 1-2 weeks and moves you from Level 1 to Level 2. Do not try to implement everything at once — incremental progress is sustainable progress.
+
+### How do we involve the whole team in the assessment?
+
+Schedule a half-day workshop with the engineering team. Walk through each dimension together. For each criterion, ask the team: "What evidence do we have?" Let the team self-score — they know the reality better than an external assessor. Document disagreements — if one engineer scores Level 3 and another scores Level 1, that is a finding. Discuss the gaps and brainstorm actions. Assign owners and effort estimates for each action item. Share the results with leadership. Make the assessment a regular cadence — quarterly is ideal.
+
+### What is the relationship between SLOs and observability maturity?
+
+SLOs (Service Level Objectives) are a Level 3-4 practice. They require: defined service level indicators (metrics), error budget tracking, and SLO-based alerting. You cannot have meaningful SLOs without Level 2+ metrics. SLOs drive observability investment: if your SLO is 99.9% availability, you need monitoring that can detect 0.1% degradation. SLOs also prioritize alerting — burn rate alerts focus on what matters to users, not what matters to infrastructure. Start SLO implementation with your most critical service and expand from there.
+
+### How do we measure the ROI of observability improvements?
+
+Track these metrics before and after improvements: mean time to detection (MTTD) for incidents, mean time to resolution (MTTR), number of incidents detected by monitoring vs. reported by users, false positive alert rate, engineering hours spent on alerting, and on-call satisfaction score. Calculate the cost of incidents before and after. Example: "Before tracing, MTTR was 45 minutes. After tracing, MTTR is 15 minutes. At 4 incidents/month, this saves 20 engineering hours/month." Present ROI in terms of engineering hours saved, incidents prevented, and customer impact reduced.

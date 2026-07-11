@@ -142,6 +142,63 @@ Usa este recurso cuando:
 
 La plantilla separa la comunicación **interna** (detallada, técnica, rápida) de la **externa** (sencilla, tranquilizadora, precisa). El fallo más común durante incidentes es prometer un tiempo de resolución que no puedes cumplir. Las plantillas omiten deliberadamente ETAs específicas a menos que el arreglo ya esté desplegado y validándose. La matriz de audiencias evita que el soporte se entere de una interrupción por clientes enojados en lugar de por ingeniería.
 
+## Plantillas de Mensajes para Pagina de Estado
+
+```text
+=== SEV 1: Deteccion Inicial ===
+
+Estado: Investigando
+Estamos investigando un problema que afecta a [SERVICIO/FEATURE AFECTADA].
+Los clientes pueden experimentar [SINTOMAS: ej., fallos de login, respuestas lentas].
+Identificamos el problema a las [HORA] y estamos trabajando activamente en una solucion.
+Proxima actualizacion en 15 minutos.
+
+=== SEV 1: Identificado ===
+
+Estado: Identificado
+Hemos identificado la causa raiz: [DESCRIPCION EN LENGUAJE PLANO].
+Se esta desplegando una correccion y esperamos que el servicio se restaure dentro de [TIMEFRAME].
+Proxima actualizacion en 15 minutos.
+
+=== SEV 1: Monitoreando ===
+
+Estado: Monitoreando
+Se ha desplegado una correccion y estamos monitoreando el servicio.
+Los indicadores preliminares muestran mejora pero queremos confirmar estabilidad.
+Proxima actualizacion en 15 minutos.
+
+=== SEV 1: Resuelto ===
+
+Estado: Resuelto
+El problema ha sido resuelto. El servicio opera normalmente.
+Publicaremos un post-mortem dentro de 72 horas.
+Gracias por su paciencia.
+```
+
+## Plantillas de Comunicacion Interna en Slack
+
+```text
+=== Canal de Incidente: #incident-2026-07-11 ===
+
+[11:00] @on-call: SEV1 declarado — auth-service devolviendo 500s
+[11:01] @on-call: Impacto: ~15% de intentos de login fallando, region EU
+[11:02] @sre: Investigando — revisando despliegues recientes y salud de DB
+[11:05] @sre: Encontrado — deploy de config reciente cambio rotacion de JWT secret
+[11:06] @on-call: Fix identificado — revirtiendo cambio de config
+[11:08] @sre: Rollback desplegado, monitoreando tasa de error
+[11:12] @on-call: Tasa de error bajando — 15% -> 3% -> 0.5%
+[11:15] @on-call: Tasa de error en 0%. Monitoreando por 10 minutos mas.
+[11:25] @on-call: Estable. SEV1 resuelto. Post-mortem programado para manana.
+
+=== Canal de Soporte: #support ===
+
+[11:02] @on-call: SEV1 — fallos de login para usuarios EU. Pagina de estado actualizada.
+[11:03] @on-call: Si clientes preguntan: "Somos conscientes de problemas de login en EU y estamos trabajando en ello."
+[11:08] @on-call: Fix desplegado, monitoreando. No prometer tiempo de resolucion aun.
+[11:25] @on-call: Resuelto. Pagina de estado actualizada a verde. Gracias equipo de soporte.
+```
+
+
 ## Variantes
 
 | Contexto | Mezcla de Canales | Tono |
@@ -181,3 +238,64 @@ Comunica lo que sabes (síntomas, áreas afectadas, acciones en curso) y lo que 
 ### ¿Cómo manejo un incidente de seguridad de manera diferente?
 
 Los incidentes de seguridad requieren revisión legal y de cumplimiento antes de la comunicación externa. No divulgues detalles que puedan ayudar a atacantes. Notifica a los clientes afectados directamente (no solo una página de estado pública). Sigue tu plan de respuesta a incidentes y cualquier ley de notificación de violaciones (regla de 72 horas del GDPR, leyes estatales de violaciones). El mensaje debe ser factual, limitado y aprobado por legal.
+
+
+### Como comunicamos durante una interrupcion prolongada?
+
+Para interrupciones que duran mas de 1 hora: actualiza la pagina de estado cada 30 minutos incluso si no hay nueva informacion. Comparte lo que estas haciendo, no solo lo que sabes. Ejemplo: "Estamos probando un failover de base de datos a la region secundaria. Este proceso toma aproximadamente 20 minutos." Asigna un comunicador dedicado que no este en la ruta de resolucion del incidente. El comunicador recopila actualizaciones del incident commander y las traduce para audiencias externas. Mantén mensajes internos y externos consistentes en tono y hechos.
+
+### Que deberiamos incluir en un post-mortem?
+
+Un post-mortem deberia incluir: resumen del incidente (que paso, cuando, impacto), cronologia de eventos (deteccion, respuesta, resolucion), analisis de causa raiz (la causa real, no solo el sintoma), factores contribuyentes (que empeoro o dificulto la deteccion), action items con responsables y plazos, lecciones aprendidas (que fue bien, que no), y anexos (graficos, logs, capturas). Escribelo sin culpa — enfocate en sistemas y procesos, no individuos. Compartelo con todo el equipo de ingenieria. Rastrea los action items hasta completarlos.
+
+### Como manejamos la comunicacion para degradacion parcial?
+
+La degradacion parcial es mas dificil de comunicar que una interrupcion total. Se especifico sobre que esta afectado y que no. Ejemplo: "La funcionalidad de busqueda esta degradada — los resultados pueden tardar hasta 10 segundos. Todas las demas features operan normalmente." Evita terminos vagos como "algunos usuarios" — cuantifica si es posible. Actualiza la pagina de estado con un indicador de "Interrupcion Parcial" o "Rendimiento Degradado". Monitorea si la degradacion parcial empeora hacia una interrupcion total y escala la comunicacion en consecuencia.
+
+### Deberiamos usar redes sociales durante incidentes?
+
+Usa redes sociales (Twitter/X) para servicios orientados al consumidor para alcanzar usuarios que pueden no revisar la pagina de estado. Mantén mensajes cortos y enlaza a la pagina de estado para detalles. No participes en debates tecnicos en redes sociales durante un incidente activo. Asigna a una persona para monitorear redes sociales por reportes de clientes. Despues de la resolucion, publica un resumen enlazando al post-mortem. Para servicios B2B, las redes sociales son menos importantes — enfocate en comunicacion directa con clientes.
+
+### Como capacitamos al equipo en comunicacion de incidentes?
+
+Ejecuta ejercicios regulares de comunicacion de incidentes (game days). Simula un incidente y practica el flujo de comunicacion: actualizaciones de pagina de estado, mensajes internos de Slack, notificaciones al equipo de soporte, y emails a stakeholders. Revisa los mensajes despues por claridad, tono y timing. Rota el rol de comunicador para que multiples miembros del equipo ganen experiencia. Crea un runbook de comunicacion con plantillas y arboles de decision. Revisa comunicaciones de incidentes pasados en retrospectivas de equipo para identificar mejoras.
+
+
+### Como manejamos la comunicacion para mantenimiento programado?
+
+Para mantenimiento programado: notifica a los clientes con al menos 7 dias de anticipacion via email y pagina de estado. Incluye: ventana de mantenimiento (hora de inicio y fin), impacto esperado (downtime, rendimiento degradado, o modo solo lectura), servicios afectados, y razon del mantenimiento. Envia un recordatorio 24 horas antes. Actualiza la pagina de estado a "Mantenimiento" durante la ventana. Proporciona actualizaciones en tiempo real durante el mantenimiento. Envia una notificacion de resolucion cuando el mantenimiento completa. Documenta el mantenimiento en el post-mortem si ocurrieron problemas inesperados.
+
+### Que es una pagina de estado y que servicio deberiamos usar?
+
+Una pagina de estado es una pagina web publica que muestra el estado operacional actual de tu servicio. Opciones populares: Atlassian Statuspage, Better Uptime, Instatus, o auto-alojada (Cachet, Staytus). Elige basado en: presupuesto, integracion con herramientas de monitoreo, necesidades de personalizacion, y flujo de gestion de incidentes. La pagina de estado deberia mostrar: estado actual (operacional, degradado, interrupcion parcial, interrupcion mayor), incidentes activos con timestamps, mantenimiento programado, e historial de incidentes. Mantenla en un dominio o subdominio separado para que sea accesible incluso si tu servicio principal esta caido.
+
+### Como medimos la efectividad de la comunicacion durante incidentes?
+
+Rastrea: tiempo desde deteccion hasta primera comunicacion externa (objetivo: < 15 min para SEV1), numero de actualizaciones de pagina de estado durante el incidente, satisfaccion del cliente con la comunicacion (encuesta post-incidente), volumen de tickets de soporte durante el incidente (menor = mejor comunicacion), y sentimiento en redes sociales. Revisa estas metricas en el post-mortem. Establece objetivos: primera actualizacion dentro de 15 minutos, actualizaciones cada 15-30 minutos, post-mortem dentro de 72 horas. Mejora los procesos de comunicacion basados en estas metricas.
+
+
+Fin del documento. Revisa y actualiza las plantillas de comunicacion despues de cada incidente mayor. Capacita a todos los ingenieros on-call en el proceso de comunicacion trimestralmente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

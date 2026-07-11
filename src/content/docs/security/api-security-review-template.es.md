@@ -133,6 +133,43 @@ Usa este recurso cuando:
 
 Esta plantilla agrupa la seguridad de API en capas concéntricas. La **autenticación** verifica quién eres. La **autorización** verifica qué puedes hacer. La **validación de entrada** limpia todo lo que entra. El **rate limiting** previene abuso. El **manejo de secretos** protege claves de compromiso. El **logging** permite detección de intrusiones. El checklist OWASP Top 10 asegura que no se omitan riesgos conocidos. Cada casilla sin marcar es un riesgo documentado que debe priorizarse antes del lanzamiento.
 
+## Checklist de Revision de Seguridad de API
+
+```text
+=== Autenticacion y Autorizacion ===
+
+[ ] Autenticacion requerida en todos los endpoints (excepto health/public)
+[ ] JWT validado: signature, expiracion, issuer, audience
+[ ] Refresh tokens: rotacion, revocacion, expiracion corta
+[ ] OAuth2/OIDC: validacion de state, PKCE, redirect URI allowlist
+[ ] RBAC o ABAC implementado y testeado
+[ ] No hay bypass de autenticacion via path traversal o HTTP method override
+[ ] Rate limiting aplicado por usuario y por IP
+[ ] MFA disponible y requerido para operaciones sensibles
+
+=== Validacion de Entradas ===
+
+[ ] Todos los parametros validados (tipo, longitud, formato, rango)
+[ ] SQL injection: queries parametrizadas, ORMs, no string concat
+[ ] XSS: output encoding, Content-Security-Policy header
+[ ] Command injection: no shell exec con input de usuario
+[ ] Path traversal: validacion de rutas, no user input en file paths
+[ ] SSRF: allowlist de dominios para requests salientes
+[ ] XML/JSON: limite de tamaño y profundidad (DoS)
+[ ] Content-Type validation en uploads
+
+=== Datos y Respuestas ===
+
+[ ] No hay datos sensibles en respuestas (passwords, tokens, PII innecesaria)
+[ ] Encripcion en transito (TLS 1.2+, HSTS header)
+[ ] No hay secrets en URLs (tokens en headers, no en query params)
+[ ] Logging no contiene datos sensibles (redactar PII, tokens)
+[ ] Error messages no revelan informacion interna (stack traces, SQL)
+[ ] CORS configurado correctamente (no wildcard en produccion)
+[ ] Headers de seguridad: X-Content-Type-Options, X-Frame-Options, etc.
+```
+
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -171,3 +208,95 @@ Sí. Los checklists encuentran configuraciones incorrectas y omisiones conocidas
 ### ¿Cómo manejo dependencias con vulnerabilidades conocidas?
 
 Prioriza por severidad CVSS. Parchea las críticas (9.0+) en 24 horas. Documenta las medias (4.0-8.9) con plan de mitigación. Usa una herramienta de análisis de dependencias (Snyk, Dependabot) para detectar temprano.
+
+
+### Como manejamos rate limiting y prevencion de abuso?
+
+Implementa rate limiting en multiples capas: por IP (Nginx, CloudFlare) para prevenir DDoS, por usuario/token (API gateway) para prevenir abuso de cuenta, y por endpoint (app-level) para proteger operaciones costosas. Usa el algoritmo de token bucket para flexibilidad o sliding window para precision. Configura limites diferenciados: endpoints de lectura pueden tener limites mas altos que endpoints de escritura. Para APIs publicas: documenta los limites y devuelve headers de rate limit (X-RateLimit-Limit, X-RateLimit-Remaining, Retry-After). Monitorea patrones de abuso: un usuario que siempre esta cerca del limite puede ser un bot. Para prevencion de abuso: agrega CAPTCHA para registros, deteccion de bots, y analisis de comportamiento.
+
+### Que headers de seguridad son obligatorios en APIs?
+
+Headers obligatorios: Strict-Transport-Security (HSTS) — fuerza HTTPS, minimo 1 ano con preload. X-Content-Type-Options: nosniff — previene MIME sniffing. X-Frame-Options: DENY o SAMEORIGIN — previene clickjacking. Content-Security-Policy — previene XSS (para APIs que sirven HTML). Access-Control-Allow-Origin — configurado a dominios especificos, no wildcard. Cache-Control: no-store para respuestas con datos sensibles. X-Request-ID — para correlacion de requests en logs. Para APIs REST: agrega X-API-Version para versionado explicito. Testa headers con herramientas como securityheaders.com o OWASP ZAP.
+
+### Como revisamos seguridad de webhooks?
+
+Los webhooks son endpoints expuestos que reciben datos de terceros. Para asegurarlos: valida la firma del webhook (HMAC o firma asimetrica) — nunca proceses un webhook sin verificar la firma. Usa un secret compartido rotado regularmente. Valida el timestamp para prevenir replay attacks (rechaza webhooks con timestamp > 5 minutos). Implementa idempotencia — el mismo webhook enviado dos veces no debe causar efectos duplicados. Rate limita tu propio endpoint de webhook. Retorna 200 rapidamente y procesa async — el remitente puede timeout si el procesamiento toma demasiado. Loga todos los webhooks recibidos para auditoria. Si el webhook falla, implementa retry con exponential backoff en el lado del remitente.
+
+### Como manejamos versionado de API desde una perspectiva de seguridad?
+
+El versionado de API tiene implicaciones de seguridad: las versiones viejas pueden tener vulnerabilidades conocidas. Documenta el ciclo de vida de cada version: GA, deprecation, sunset. Monitorea el uso de versiones viejas — si una version tiene poco uso, acelera el sunset. Para versiones deprecadas: agrega headers de deprecation (Sunset, Deprecation) y notifica a los usuarios. No apliques fixes de seguridad a versiones deprecadas — migra a los usuarios a la version actual. Si una vulnerabilidad Critica afecta una version deprecada: aplica el fix pero acelera el sunset. Documenta el modelo de soporte: cuanto tiempo se soporta cada version, que fixes se aplican.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

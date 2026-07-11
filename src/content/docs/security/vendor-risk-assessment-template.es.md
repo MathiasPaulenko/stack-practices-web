@@ -127,6 +127,50 @@ Usa este recurso cuando:
 
 La plantilla trata la evaluación de proveedores como un **proceso estructurado basado en evidencia**, no un ejercicio de casillas. Cada control requiere **evidencia**, no solo un "sí". La puntuación de riesgo fuerza compensaciones: un proveedor barato con cifrado deficiente puede ser aceptable para datos de marketing públicos pero nunca para registros de salud. La sección de manejo de datos es particularmente crítica porque los proveedores a menudo mezclan datos de clientes en arquitecturas multi-tenant, dificultando la eliminación y contención de brechas.
 
+## Proceso de Evaluacion de Riesgo de Vendors
+
+```text
+=== Flujo de Evaluacion de Vendor ===
+
+1. IDENTIFICACION
+   - Equipo identifica necesidad de un nuevo vendor/SaaS
+   - Completa solicitud de evaluacion con caso de uso y datos a compartir
+   - Security team recibe solicitud y asigna evaluador
+
+2. CUESTIONARIO INICIAL
+   - Enviar cuestionario de seguridad al vendor (SOC 2, ISO 27001, etc.)
+   - Solicitar: certificaciones, politicas de seguridad, reportes de auditoria
+   - Revisar: pagina de status, historial de incidentes, breach notification policy
+   - Deadline de respuesta: 2 semanas
+
+3. EVALUACION TECNICA
+   - Revisar metodos de autenticacion (SSO, MFA, SAML)
+   - Revisar encripcion (en transito y reposo)
+   - Revisar gestion de acceso (RBAC, least privilege)
+   - Revisar retencion y eliminacion de datos
+   - Revisar ubicacion de datos (residencia, procesamiento)
+   - Revisar sub-procesadores (el vendor usa otros vendors?)
+
+4. EVALUACION DE COMPLIANCE
+   - Mapear requisitos regulatorios (GDPR, CCPA, HIPAA, SOC 2)
+   - Revisar DPA (Data Processing Agreement)
+   - Verificar clausulas de breach notification (72 horas para GDPR)
+   - Verificar clausulas de auditoria y derecho a inspeccion
+
+5. DECISION
+   - Score de riesgo calculado: Critico / Alto / Medio / Bajo
+   - Aprobacion: security team + legal + liderazgo de ingenieria
+   - Si Alto/Critico: requiere mitigaciones antes de aprobar
+   - Documentar decision y condiciones de aprobacion
+
+6. MONITOREO CONTINUO
+   - Revisar vendor anualmente
+   - Suscribirse a notificaciones de incidentes del vendor
+   - Revisar cambios en sub-procesadores
+   - Reevaluar si el vendor cambia su postura de seguridad
+```
+
+
 ## Variantes
 
 | Contexto | Enfoque | Verificaciones Adicionales |
@@ -166,3 +210,93 @@ Un DPA es un contrato legal que define cómo un proveedor (procesador) maneja tu
 ### ¿Con qué frecuencia debo reevaluar proveedores?
 
 Anualmente para todos los proveedores. Semestralmente para proveedores de alto riesgo o críticos. Inmediatamente después de cualquier incidente de seguridad, adquisición o cambio importante de producto por parte del proveedor. No dejes que las evaluaciones caduquen; configura recordatorios de calendario vinculados al ciclo de renovación del contrato.
+
+
+### Como manejamos vendors que ya estan en uso sin evaluacion?
+
+Para vendors existentes sin evaluacion: prioriza por riesgo — vendors con acceso a datos Restringidos o Confidenciales primero. Conduce una evaluacion retroactiva usando el mismo proceso. Si la evaluacion revela riesgos inaceptables: implementa mitigaciones (restringe acceso a datos, agrega monitoring, renegocia terminos del contrato). Si el riesgo no es mitigable: considera migrar a un vendor alternativo. Documenta la brecha de evaluacion y el plan de remediacion. Establece una fecha limite para completar todas las evaluaciones retroactivas. Usa esto como caso de estudio para justificar el proceso de evaluacion obligatorio antes de onboarding.
+
+### Que hacemos si un vendor sufre una brecha de datos?
+
+Si un vendor sufre una brecha: activa el plan de respuesta a incidentes. Identifica que datos de tu empresa estaban en el vendor. Evalua el impacto: datos de clientes expuestos? credenciales comprometidas? propiedad intelectual filtrada? Notifica a tus clientes si sus datos fueron expuestos (GDPR requiere notificacion en 72 horas). Rota cualquier credencial compartida con el vendor. Revisa los terminos del contrato para obligaciones de notificacion y compensacion. Documenta el incidente y conducir un postmortem. Reevalua la relacion con el vendor — una brecha puede ser un incidente aislado o un patron de mala seguridad. Si el vendor no notifico dentro del plazo contractual, considera terminacion del contrato.
+
+### Como evaluamos vendors de infraestructura cloud (AWS, GCP, Azure)?
+
+Los proveedores cloud son vendors de alto riesgo debido al volumen de datos y la dependencia operacional. Para evaluar: revisa sus certificaciones (SOC 2 Type II, ISO 27001, FedRAMP). Revisa el shared responsibility model — que es responsabilidad del proveedor vs. tuya. Configura cloud security posture management (CSPM) para monitorear continuamente. Revisa el historial de incidentes del proveedor y su transparencia en postmortems. Evalua las regiones de datos y las opciones de residencia. Para compliance: verifica que el proveedor soporta tus requisitos regulatorios (GDPR, HIPAA, PCI DSS). Los proveedores cloud principales tienen evaluaciones extensas publicas — usalas pero no las tomes como gospel.
+
+### Como manejamos sub-procesadores de vendors?
+
+Un sub-procesador es un vendor que tu vendor usa para procesar datos. Para gestionarlos: requiere que el vendor disclose todos los sub-procesadores. Revisa el contrato del vendor — debe requerir que los sub-procesadores cumplan con los mismos estandares de seguridad. Verifica que el DPA cubre sub-procesadores. Suscribete a notificaciones de cambios de sub-procesadores — tienes derecho a objetar. Para datos Restringidos: verifica la postura de seguridad de cada sub-procesador. Documenta la cadena de procesamiento de datos. Si un sub-procesador cambia, reevalua el riesgo. La cadena de sub-procesadores es a menudo el eslabon mas debil en la postura de seguridad.
+
+### Con que frecuencia debemos reevaluar vendors?
+
+Reevalua vendors: anualmente para vendors con acceso a datos Restringidos o Confidenciales. Bienalmente para vendors con acceso a datos Internos. Trienalmente para vendors con acceso solo a datos Publicos. Reevaluacion fuera de ciclo cuando: el vendor sufre una brecha, cambia sus sub-procesadores, cambia sus terminos de servicio, o cambia su postura de seguridad (ej., pierde una certificacion). Documenta cada reevaluacion. Si un vendor degrada su postura de seguridad: implementa mitigaciones o considera terminacion del contrato. Una reevaluacion no es un rubber stamp — es una evaluacion genuina de si el vendor sigue cumpliendo tus estandares.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

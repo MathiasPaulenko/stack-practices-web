@@ -121,6 +121,74 @@ Infrastructure Cost Allocation is the practice of distributing cloud and on-prem
 
 Cost allocation is not just an accounting exercise. When teams can see the cost of their resources and understand how shared services are split, they make better architectural decisions. Tagging consistency, transparent allocation rules, and regular reporting create a FinOps culture where engineering and finance speak the same language.
 
+## AWS Cost Allocation Tags Policy
+
+```yaml
+# AWS Tag Policy (Organization level)
+tag_policy:
+  enforce_on_create: true
+  enforce_on_update: true
+  required_tags:
+    - key: Team
+      allowed_values: ["platform", "data", "frontend", "mobile", "security"]
+    - key: Environment
+      allowed_values: ["production", "staging", "development", "sandbox"]
+    - key: Project
+      pattern: "^[a-z0-9-]+$"
+    - key: CostCenter
+      pattern: "^[A-Z]{2}-[0-9]{4}$"
+  non_compliant_action: alert_and_quarantine
+```
+
+## Kubernetes Cost Allocation with Kubecost
+
+```yaml
+# Kubecost namespace allocation config
+allocation:
+  aggregation:
+    - namespace
+    - label:app
+    - label:team
+  shared_costs:
+    - name: "Shared Load Balancers"
+      allocation: weighted_by_traffic
+    - name: "Shared Databases"
+      allocation: weighted_by_connection_count
+    - name: "Control Plane"
+      allocation: evenly_across_namespaces
+  idle_cost_allocation: evenly_across_namespaces
+  network_cost_allocation: weighted_by_egress_bytes
+```
+
+## Monthly Cost Report Template
+
+```text
+=== Monthly Cost Report: YYYY-MM ===
+
+Total Cloud Spend: $XX,XXX (delta: +/-X% vs last month)
+
+By Team:
+  Platform:    $XX,XXX (XX%) [delta: +/-X%]
+  Data:        $XX,XXX (XX%) [delta: +/-X%]
+  Frontend:    $XX,XXX (XX%) [delta: +/-X%]
+  Mobile:      $XX,XXX (XX%) [delta: +/-X%]
+  Security:    $XX,XXX (XX%) [delta: +/-X%]
+
+Shared Services: $X,XXX (allocated by usage)
+
+Untagged Resources: $XXX (X% of total) [ACTION REQUIRED]
+
+Top 5 Cost Increases:
+  1. <resource> <team> +$XXX (reason)
+  2. <resource> <team> +$XXX (reason)
+
+Recommendations:
+  - Rightsizing: <instance> -> <instance> saves $XXX/mo
+  - Reserved Instance: <service> 1yr RI saves $XXX/mo
+  - Delete orphaned: <resource> saves $XXX/mo
+```
+
+
 ## Variants
 
 - **Cloud-native cost allocation**: Uses AWS, Azure, or GCP cost management tools and billing exports.
@@ -164,3 +232,69 @@ Split by namespace-level resource usage such as CPU and memory requests, or by p
 ### What if a team disputes their allocated cost?
 
 Provide a clear breakdown of direct costs, shared cost allocation basis, and the time period. Document exceptions and escalate to finance or the FinOps team if the dispute is not resolved.
+
+
+### How do we implement tag enforcement?
+
+Use cloud-native policy engines: AWS Tag Policies with Organizations, Azure Policy with tag rules, or GCP Organization Policy Constraints. Configure policies to require specific tags at resource creation and block non-compliant resources. For existing resources, run weekly automated scans that identify untagged resources and notify owners. Quarantine untagged resources into a central cost center and require remediation within 7 days.
+
+### What tools do we use for cost visualization?
+
+Cloud-native: AWS Cost Explorer, Azure Cost Management, GCP Billing Reports. Third-party: Kubecost for Kubernetes, CloudHealth by VMware, Vantage for multi-cloud. For custom dashboards: Grafana with cloud billing data sources, or Looker with BigQuery billing exports. Choose based on your cloud providers and existing observability stack.
+
+### How do we handle data transfer costs in allocation?
+
+Data transfer is often the hardest cost to allocate because it involves two endpoints. Track egress bytes per service using cloud billing tags or network monitoring. Allocate egress costs to the service that initiates the transfer. For inter-AZ or inter-region traffic, split costs 50/50 between source and destination services. Document the allocation method and review quarterly.
+
+### What is FinOps and how does it relate to cost allocation?
+
+FinOps is the practice of bringing financial accountability to variable cloud spending. It combines real-time cost visibility, cross-functional collaboration, and automated controls. Cost allocation is a foundational FinOps capability: without knowing who spends what, you cannot optimize. The FinOps Foundation defines a maturity model (Crawl, Walk, Run) that organizations follow to advance their cloud financial management.
+
+### How do we calculate cost per request or per user?
+
+Total service cost divided by request count gives cost per request. Total service cost divided by active users gives cost per user. Track these as SLOs alongside latency and error rate. A sudden increase in cost per request may indicate inefficiency or a bug. Compare cost per user across teams to identify outliers and share optimization practices.
+
+
+### How do we implement budget alerts?
+
+Configure cloud-native budget alerts: AWS Budgets, Azure Cost Alerts, or GCP Budget Alerts. Set thresholds at 50%, 80%, and 100% of monthly budget. Route alerts to team-specific Slack channels, not just email. For critical budgets, configure auto-scaling limits or deployment freezes when spending exceeds 100%. Review budget accuracy quarterly and adjust based on seasonal patterns and growth.
+
+### What is the difference between reserved instances and savings plans?
+
+Reserved Instances (RI) commit to a specific instance type and AZ for 1-3 years in exchange for up to 72% discount. Savings Plans commit to a dollar amount of compute spend per hour for 1-3 years, offering flexibility across instance types and regions. Use RIs for stable, predictable workloads. Use Savings Plans for flexible workloads that may change instance types. Combine both for maximum savings.
+
+### How do we handle cost allocation for serverless functions?
+
+Tag serverless functions (Lambda, Cloud Functions) with team and project tags. Allocate costs by invocation count or execution duration. For shared API Gateway or function URLs, allocate by request count per downstream service. Use AWS CUR (Cost and Usage Report) or GCP billing exports to get per-function cost breakdowns. For functions triggered by events (SQS, EventBridge), allocate the function cost to the service that produces the events.
+
+### What metrics should we track for FinOps maturity?
+
+Track: percentage of tagged resources (target: 95%+), cost per team per month, cost per deployment, idle resource percentage (target: under 5%), forecast accuracy (actual vs predicted), savings from optimizations, and time to detect cost anomalies. Review these monthly in a FinOps council with engineering and finance representatives.
+
+### How do we deal with orphaned resources?
+
+Run weekly automated scans using tools like AWS Trusted Advisor, Cloud Custodian, or custom scripts. Identify resources that have no traffic, no recent modifications, and no tags linking them to an active project. Notify the last-known owner. If no response within 7 days, move to a quarantine account. Delete after 30 days with documented approval. Track orphaned resource cost as a KPI for the FinOps team.
+
+### How do we calculate the true cost of a feature?
+
+Sum all direct costs (compute, storage, network for the feature services) plus allocated shared costs (database, cache, load balancer proportion). Add engineering time cost (hours x hourly rate) for maintenance. Divide by number of users or requests to get unit cost. Track this monthly to identify features that cost more to run than they generate in value. Use this data to prioritize refactoring or deprecation.
+
+### What is cloud cost anomaly detection?
+
+Cloud cost anomaly detection identifies unexpected spending patterns using machine learning or threshold-based rules. Configure daily anomaly alerts that compare current spend against historical baselines. Common anomalies: a service suddenly using 10x compute, a forgotten test environment running 24/7, or a misconfigured auto-scaling policy. Use AWS Cost Anomaly Detection, GCP Anomaly Detection, or third-party tools like CloudZero and Vantage.
+
+### How do we handle multi-cloud cost consolidation?
+
+Export billing data from each cloud provider to a central data warehouse (BigQuery, Snowflake, Redshift). Normalize currency, service names, and tag schemas. Use a BI tool (Looker, Tableau, Metabase) to build unified dashboards. Define a common tag taxonomy across all providers. Reconcile consolidated data with individual provider invoices monthly. Consider tools like CloudHealth, Apptio, or Vantage for pre-built multi-cloud consolidation.
+
+### How do we handle cost allocation for databases?
+
+Allocate database costs by connection count, query volume, or storage size per tenant. For RDS, use tag-based allocation. For shared databases, track per-tenant query volume using pg_stat_statements or similar tools. Allocate 60% by storage and 40% by query volume as a starting point. Adjust weights based on your workload profile. Review allocation quarterly.
+
+### What is the FinOps maturity model?
+
+The FinOps Foundation defines three maturity levels: Crawl (basic tagging, monthly reporting, manual optimization), Walk (automated tagging, real-time dashboards, proactive optimization, cross-team collaboration), and Run (ML-driven anomaly detection, automated rightsizing, unit economics tracking, full chargeback). Most organizations are at Crawl or Walk. Progress by focusing on one capability at a time.
+
+### How often should we review cost allocation?
+
+Review allocation rules quarterly. Audit tag compliance monthly. Run cost optimization reviews monthly with each team. Conduct a full FinOps assessment annually to evaluate maturity, tooling, and process improvements. Adjust allocation weights when team structures change, new services are added, or shared infrastructure is modified.

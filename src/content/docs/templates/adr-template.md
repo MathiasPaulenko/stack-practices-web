@@ -198,6 +198,73 @@ Q4 to avoid blocking the reporting roadmap.
 - Not linking to related ADRs — decisions exist in a chain
 - Deleting or rewriting old ADRs — the history is the value
 
+
+## Variant Comparison
+
+| Variant | Context | Approach | Notes |
+|---------|---------|----------|-------|
+| Lightweight ADR | Small team, low-stakes decision | Title + Context (2-3 sentences) + Decision + Date | Skip alternatives for reversible choices |
+| Full ADR | Cross-team impact, costly to reverse | All sections including alternatives and consequences | Store in `docs/adr/` with sequential numbering |
+| RFC-style | Large org, multiple stakeholders | Add goals, non-goals, rollout plan, risks | Circulate for comments before accepting |
+| MADR | Machine-readable metadata needed | Structured frontmatter with status, deciders, tags | Enables automated ADR index generation |
+
+## Detailed Scenario: Choosing a Message Broker
+
+```text
+ADR-007: Adopt RabbitMQ as the Internal Message Broker
+
+Context:
+  The platform uses synchronous HTTP calls between the order service and
+  the inventory service. When inventory is slow or down, orders fail.
+  The team evaluated three options: RabbitMQ, Kafka, and SQS.
+
+  Current pain points:
+  - 0.3% of orders fail due to inventory service timeouts
+  - No retry mechanism; failed orders require manual reconciliation
+  - Peak traffic (Black Friday) causes cascading failures
+
+Decision:
+  We will adopt RabbitMQ as the message broker for service-to-service
+  communication, starting with the order-to-inventory flow.
+
+  Configuration:
+  - Exchange: topic, durable=true
+  - Queue: inventory_updates, durable=true
+  - Prefetch: 10 messages per consumer
+  - Dead-letter exchange: orders.dlx
+  - Retry strategy: exponential backoff (1s, 5s, 30s, 5m)
+  - Max retries: 3 before routing to DLQ
+
+  Rollout plan:
+  1. Week 1-2: Deploy RabbitMQ cluster (3 nodes) in staging
+  2. Week 3: Migrate order-to-inventory flow to async
+  3. Week 4: Load test with 2x peak traffic
+  4. Week 5: Production rollout with dual-write (sync + async)
+  5. Week 6: Cut over to async-only, remove sync fallback
+
+Consequences:
+  Positive:
+  - Orders no longer fail when inventory is slow
+  - Retry logic handles transient failures automatically
+  - DLQ captures poison messages for manual review
+  Negative:
+  - New operational burden: RabbitMQ cluster monitoring
+  - Eventual consistency replaces immediate feedback
+  - Team needs to learn AMQP concepts (exchanges, bindings, DLQ)
+```
+
+### How do I link ADRs to code changes?
+
+Reference the ADR number in commit messages and PR descriptions. For example: `feat(orders): async inventory check (ADR-007)`. This creates a searchable link between decisions and implementation. Some teams add a comment at the top of affected files pointing to the relevant ADR.
+
+### What if the team disagrees with a decision?
+
+Document the disagreement in the Alternatives section. Record who objected and why. If the objection is strong enough, keep the ADR in Proposed status and schedule a follow-up discussion. Do not silently override objections — the ADR exists to make disagreements visible.
+
+### Can I update an accepted ADR?
+
+Only to add clarifications or corrections. If the decision itself changes, create a new ADR that supersedes the old one. Mark the original as Superseded with a link to the new ADR. Never rewrite history — the value of ADRs is in the decision trail.
+
 ## Variants
 
 ### Lightweight ADR (small teams)

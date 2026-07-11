@@ -122,6 +122,98 @@ CI/CD pipelines are a high-value target for attackers because they have access t
 
 Pipeline security is a subset of supply chain security. By protecting the source, the build process, and the deployment path, the organization reduces the risk of malicious code reaching production. The template maps each control to a verification method, making it suitable for audits and continuous improvement.
 
+## GitHub Actions Security Configuration
+
+```yaml
+name: Secure CI Pipeline
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789:role/ci-role
+          aws-region: us-east-1
+          # No static keys - OIDC only
+
+      - name: Build and sign
+        uses: sigstore/cosign-installer@v3
+      - run: |
+          cosign sign-blob --yes artifact.tar.gz
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Scan dependencies
+        uses: github/codeql-action/init@v3
+      - run: npm audit --audit-level=high
+      - uses: github/codeql-action/analyze@v3
+```
+
+## SLSA Provenance Example
+
+```json
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "artifact.tar.gz",
+      "digest": { "sha256": "abc123..." }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "builder": { "id": "github-actions" },
+    "buildType": "https://github.com/actions/runner",
+    "invocation": {
+      "configSource": {
+        "uri": "git+https://github.com/org/repo",
+        "digest": { "sha1": "commit-hash" }
+      }
+    },
+    "materials": [
+      { "uri": "git+https://github.com/org/repo", "digest": { "sha1": "commit-hash" } }
+    ]
+  }
+}
+```
+
+## Pipeline Security Audit Checklist
+
+| Control | Verified | Notes |
+|---------|----------|-------|
+| No long-lived secrets in CI | | |
+| OIDC for cloud auth | | |
+| Actions pinned to SHA | | |
+| Minimal permissions per job | | |
+| Branch protection on main | | |
+| Signed artifacts verified | | |
+| SBOM generated per build | | |
+| Dependency scan in pipeline | | |
+| Runners isolated per env | | |
+| Audit log retention > 90 days | | |
+
+
 ## Variants
 
 - **GitHub Actions security checklist**: Focuses on actions pinning, workflow permissions, and reusable workflows.
@@ -164,3 +256,49 @@ Automate security checks, use fast scanners, and require approval only for produ
 ### What is SLSA provenance?
 
 SLSA is a framework for supply chain security. Provenance records how an artifact was built, including source repository, build command, and dependencies, making it easier to detect tampering.
+
+
+### How do we secure secrets in CI/CD pipelines?
+
+Use a dedicated secrets manager (HashiCorp Vault, AWS Secrets Manager, GitHub Actions secrets). Never hardcode secrets in pipeline files or environment variables. Use OIDC for cloud authentication instead of static keys. Rotate secrets quarterly and after any suspected compromise. For self-hosted runners, ensure secrets are scrubbed from logs and the runner is ephemeral.
+
+### What is the difference between SAST, DAST, and SCA?
+
+SAST (Static Application Security Testing) analyzes source code for vulnerabilities without running it. DAST (Dynamic Application Security Testing) tests a running application from the outside. SCA (Software Composition Analysis) scans dependencies for known vulnerabilities. All three should run in your pipeline: SAST on every PR, SCA on every merge, DAST on staging deployments.
+
+### Should we use self-hosted or cloud-managed runners?
+
+Cloud-managed runners (GitHub-hosted, GitLab SaaS) are ephemeral and isolated by default, reducing attack surface. Self-hosted runners are necessary for private network access or specialized hardware, but require hardening: ephemeral instances, no shared state between jobs, and network segmentation between build and production environments. Never run production deployments on the same runner as untrusted PR builds.
+
+### How do we implement dual approval for production deployments?
+
+Configure your pipeline to require manual approval from two different team members before deploying to production. Use environment protection rules in GitHub Actions or GitLab protected environments. The approvers should not be the same person who triggered the pipeline. Log all approvals with timestamp, user, and reason for audit compliance.
+
+### What is an SBOM and why do we need it?
+
+An SBOM (Software Bill of Materials) is a machine-readable inventory of all components in a software artifact, including transitive dependencies, versions, and licenses. It enables vulnerability scanning, license compliance, and supply chain transparency. Generate an SBOM for every build using tools like syft, trivy, or GitHub's dependency graph. Store SBOMs alongside artifacts and retain for the lifetime of the deployed software.
+
+
+### What is cosign and how does it work?
+
+Cosign is a tool from the Sigstore project for signing and verifying container images and blobs. It uses keyless signing with OIDC tokens from your CI provider, eliminating the need to manage signing keys. The signature is stored in a transparency log (Rekor), making it publicly verifiable. Integrate cosign in your pipeline to sign artifacts after build and verify signatures before deployment.
+
+### How do we handle secrets for self-hosted runners?
+
+Use ephemeral runners that are destroyed after each job. Inject secrets at runtime from a secrets manager (Vault, AWS Secrets Manager). Never store secrets on the runner disk. Scrub secret values from pipeline logs using masking. Rotate runner credentials frequently and audit runner access logs. For sensitive environments, use dedicated runner pools per environment with network isolation.
+
+### What is the SLSA framework?
+
+SLSA (Supply-chain Levels for Software Artifacts) is a security framework with four levels of assurance. Level 1 requires provenance generation. Level 2 adds hosted build platform and non-falsifiable provenance. Level 3 requires isolated builds and signed provenance. Level 4 adds two-party review and reproducible builds. Most organizations should target SLSA Level 3 for production-critical software.
+
+### Should we scan Docker images in the pipeline?
+
+Yes. Scan images at two stages: after build (for fast feedback on known CVEs) and before deployment (to catch newly disclosed vulnerabilities). Use Trivy, Grype, or Snyk Container. Configure the scan to fail on critical vulnerabilities but allow overrides for accepted risks with documented justification. Store scan results as pipeline artifacts for audit trails.
+
+### How do we handle third-party action security?
+
+Pin all third-party GitHub Actions to a specific commit SHA, not a version tag. Review the action source code before first use. Use Dependabot to monitor for security advisories in pinned actions. Run untrusted actions in isolated runners with minimal permissions. For critical pipelines, maintain a fork of approved actions and review updates before merging.
+
+### What is a reproducible build and why does it matter?
+
+A reproducible build produces identical output given the same source code and build environment. This means anyone can verify that a binary was built from the claimed source by rebuilding it and comparing checksums. Reproducible builds are a SLSA Level 4 requirement. Achieve reproducibility by fixing timestamps, sorting file lists, and removing non-deterministic inputs like random seeds or network calls during build.

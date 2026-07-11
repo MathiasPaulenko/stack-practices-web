@@ -136,3 +136,167 @@ Test critical runbooks quarterly during calm periods. Update runbooks immediatel
 ### Should runbooks include troubleshooting steps?
 
 Yes. Include common failure modes and their symptoms. Add decision trees or flowcharts for complex procedures. Every runbook should have a clear escalation path if the procedure does not resolve the issue.
+
+
+## Variants
+
+| Context | Approach | Notes |
+|---------|----------|-------|
+| Stateless service | Simplify state section | No state to preserve |
+| Database | Add backup/restore procedures | Include specific commands |
+| Queue/messaging | Add DLQ and reprocess procedures | Handle stuck messages |
+| Cron job | Add re-run procedures | Include temporal dependencies |
+
+## Runbook Example: High CPU on payment-service
+
+```text
+=== Runbook: High CPU on payment-service ===
+
+Alert: PaymentServiceHighCPU
+Severity: Warning
+Condition: CPU > 80% for 5 minutes
+
+Symptoms:
+  - Payment latency increases
+  - Request queue grows
+  - 5xx errors may appear
+
+Diagnostic Steps:
+  1. Check current traffic:
+     kubectl top pods -n production -l app=payment
+     -> If one pod has significantly higher CPU, it may be a hot spot
+
+  2. Check for errors:
+     kubectl logs -n production -l app=payment --tail=100 | grep ERROR
+     -> Error loops can cause high CPU
+
+  3. Check DB connections:
+     kubectl exec -n production payment-db-0 -- psql -c "SELECT count(*) FROM pg_stat_activity"
+     -> Exhausted pool causes retries that consume CPU
+
+  4. Check garbage collection:
+     kubectl logs -n production -l app=payment --tail=200 | grep "GC"
+     -> Frequent GC indicates memory pressure causing CPU usage
+
+Mitigation Actions:
+  A. If it is a hot spot (one pod):
+     kubectl scale deployment payment -n production --replicas=+2
+     -> Add pods to distribute load
+
+  B. If it is an error loop:
+     Identify the error and revert the responsible deploy
+     kubectl rollout undo deployment payment -n production
+
+  C. If DB pool is exhausted:
+     Increase pool max in config
+     kubectl patch configmap payment-config -n production --patch '{"data":{"DB_POOL_MAX":"200"}}'
+     kubectl rollout restart deployment payment -n production
+
+  D. If GC pressure:
+     Increase pod memory
+     kubectl patch deployment payment -n production -p '{"spec":{"template":{"spec":{"containers":[{"name":"payment","resources":{"limits":{"memory":"2Gi"}}}]}}}}'
+
+Post-Mitigation Verification:
+  - CPU drops below 60% within 10 minutes
+  - p95 latency returns to < 500ms
+  - No new 5xx errors
+  - Confirm with Grafana dashboard
+
+Escalation:
+  - If not resolved in 30 min: escalate to SRE on-call
+  - If customer impact: declare SEV2 incident
+  - During business hours: contact service owner (Team Payments)
+
+Postmortem:
+  - Create postmortem if impact was > 15 min of degradation
+  - Identify root cause and create action items
+```
+
+### How do we keep runbooks up to date?
+
+Stale runbooks are worse than no runbooks — they mislead during incidents. To keep them current: review each runbook after every incident that used it — if a step failed, update it. Schedule quarterly review of all runbooks. Assign an owner to each runbook (usually the team that owns the service). Version runbooks in the same repo as the code — code PRs that change service behavior should update the runbook. Use a runbook linter that verifies referenced commands exist. Mark runbooks with last-reviewed date — those older than 6 months are flagged as "possibly stale."
+
+### What makes a good runbook?
+
+A good runbook is actionable, not explanatory. The on-call engineer should be able to follow it step by step without prior knowledge of the service. Include exact commands (copy-paste, not "run the appropriate command"). Include what to look for at each step (not just "check the logs" but "grep for ERROR in the last 100 log lines"). Include mitigation actions for each diagnosis (not just "identify the problem" but "if it is X, do Y"). Include escalation criteria (when to escalate, to whom). Include post-mitigation verification (how to confirm the problem is resolved). A 2-page runbook that can be followed under pressure is better than a 20-page document nobody reads.
+
+### How do we test that runbooks work?
+
+Test runbooks during game days: simulate the alert and follow the runbook step by step. If a step fails or is confusing, update the runbook. Use chaos engineering to inject the real problem and verify the runbook resolves it. Ask engineers who are not on the team to follow the runbook — if they cannot, the runbook needs more detail. Run the runbook commands in a staging environment to verify they work. Document runbook test results. An untested runbook is a hope, not a tool.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

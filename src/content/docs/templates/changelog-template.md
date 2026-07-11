@@ -179,6 +179,78 @@ GitHub Releases can auto-generate notes from PRs and commits. Use label-based fi
 
 Write breaking changes and migration notes manually. Auto-generate bug fix and minor improvement entries from commits. This balances accuracy for important changes with efficiency for routine ones.
 
+## Changelog Example
+
+```text
+=== CHANGELOG: payment-service ===
+
+# Changelog
+
+All notable changes to payment-service are documented here.
+The format is based on Keep a Changelog (https://keepachangelog.com)
+and this project adheres to Semantic Versioning (https://semver.org).
+
+## [Unreleased]
+
+### Added
+- Partial refund endpoint: POST /payments/:id/refund-partial
+- Metadata field in payment responses for custom data
+
+### Changed
+- Amount field now returns as integer in cents (was decimal)
+
+### Fixed
+- Maximum amount validation now correctly applies to refunds
+
+## [2.5.0] - 2026-07-15
+
+### Added
+- Passkey authentication (WebAuthn)
+- CSV data export from admin panel
+- Multi-language support: French and Portuguese
+
+### Changed
+- Full-text search 3x faster (GIN indices in PostgreSQL)
+- Pagination limit increased from 50 to 200 results
+- Structured logs in JSON format with correlation IDs
+
+### Fixed
+- #456: 500 error creating account with email > 50 chars
+- #459: Push notifications not sent on iOS 17.4+
+- #462: Notification counter did not reset
+- #465: Timestamps showed incorrect timezone
+
+### Security
+- Updated JWT library 2.1.0 -> 2.3.0 (CVE-2026-1234)
+- Origin validation to prevent CSRF
+- Automatic secret rotation every 90 days
+
+### Breaking
+- API v1 deprecated (remove in v3.0)
+- user.name field removed (use user.firstName and user.lastName)
+
+## [2.4.0] - 2026-06-15
+
+### Added
+- Real-time metrics dashboard
+- Webhooks for payment events
+- Transaction status query API
+
+### Fixed
+- #401: Race condition in concurrent payment processing
+- #405: Memory leak in notification worker
+
+## [2.3.0] - 2026-05-15
+
+### Added
+- Support for multiple payment methods per customer
+- Automated monthly reports
+
+### Changed
+- Migration from Express to Fastify (20% performance improvement)
+```
+
+
 ## Variants
 
 ### Library changelog
@@ -218,3 +290,12 @@ Use semver pre-release labels: `1.0.0-alpha.1`, `1.0.0-beta.2`, `1.0.0-rc.1`. Do
 ### Should I keep old entries forever?
 
 Yes. The changelog is a historical record. Users upgrading from v1.0 to v3.0 need to read all intermediate changes. If the file gets too long, consider splitting by major version (`CHANGELOG-v1.md`, `CHANGELOG-v2.md`) with an index.
+
+
+### How do we keep the changelog consistent?
+
+Use the Keep a Changelog format: Added, Changed, Fixed, Breaking, and Security sections. Each entry should be one line that a non-technical user can understand. Include the issue or PR number for traceability. Use imperative language: "Add" not "Added." Group changes by version with date. Maintain an [Unreleased] section for changes going in the next release. Each release moves changes from [Unreleased] to a new section with version and date. Never edit past version entries — if you need to correct something, create a new entry. The changelog should be generated or reviewed at each release — do not leave it for the end.
+
+### How do we automate the changelog?
+
+Use conventional commits so the changelog can be generated from commits. Tools like changesets, semantic-release, or auto can generate the changelog automatically. Configure CI so each PR adds an entry to the [Unreleased] section. For more control: use a CHANGELOG.md file that engineers update manually in each PR. Use a linter that verifies the changelog has entries for each release. For open source: publish the changelog on GitHub Releases in addition to the file. Automation reduces work but the Product Owner should review that entries are understandable for users.

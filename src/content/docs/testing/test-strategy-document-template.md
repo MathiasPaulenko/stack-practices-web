@@ -216,6 +216,76 @@ The test strategy document is a living artifact. It should be reviewed quarterly
 
 The CI/CD gates section is the most important: it defines what must pass before code moves forward. Without explicit gates, testing becomes optional and quality degrades. Coverage thresholds should be enforced by CI, not by manual review.
 
+
+### Detailed Scenario: Testing Strategy for a Payments Microservice
+
+```text
+Service: payments-service
+Team: 4 backend devs, 1 QA, 1 SRE
+Stack: Node.js, PostgreSQL, RabbitMQ, Stripe API
+
+Test Pyramid:
+  Unit: 75% (120 tests, < 20s)
+    - Total calculation logic, taxes, discounts
+    - Request schema validation
+    - Order state machine (pending -> paid -> refunded)
+    - Currency formatting and rounding helpers
+
+  Integration: 18% (28 tests, < 4min)
+    - POST /payments with real PostgreSQL (Testcontainers)
+    - Stripe webhook with valid and invalid HMAC signature
+    - Event publishing to RabbitMQ
+    - Idempotency: same payment_intent_id does not create double charge
+
+  E2E: 5% (8 tests, < 10min)
+    - Full flow: create order -> pay -> confirm -> refund
+    - Error flow: payment declined -> user notification
+    - Concurrency: two simultaneous payments for same order
+
+  Contract: 2% (4 tests, < 30s)
+    - Contract with orders-service (consumer)
+    - Contract with notifications-service (consumer)
+
+CI/CD Gates:
+  Pre-commit: lint + type check (15s)
+    Gate: 0 errors
+  PR build: unit + integration + contract (5min)
+    Gate: 100% pass, coverage >= 90% (payments is critical)
+    Gate: no new flaky tests
+  Nightly: E2E + load baseline (25min)
+    Gate: 95% pass, p95 < 300ms, no memory leaks
+  Pre-release: full load + soak (60min)
+    Gate: 100% pass, SLOs met, no 5xx errors
+
+Specific risks:
+  | Risk | Likelihood | Impact | Mitigation |
+  |------|-----------|--------|------------|
+  | Stripe API change | Low | Critical | Contract tests with Stripe sandbox |
+  | Webhook lost | Medium | High | Retry + nightly reconciliation |
+  | Double payment from retry | Medium | Critical | Idempotency key + DB unique constraint |
+  | Race condition on stock | High | High | SELECT FOR UPDATE in transaction |
+
+Test data:
+  - Factory: createPayment(), createRefund(), createWebhookEvent()
+  - Stripe sandbox: test keys, cards 4242, 4000, etc.
+  - DB: PostgreSQL in Testcontainer, isolated data per test
+  - RabbitMQ: in-memory instance or Testcontainer
+
+Tracked metrics:
+  - Coverage: 90% line, 85% branch (higher than general target)
+  - Defect escape rate: < 2 per sprint (payments is critical)
+  - p95 latency: < 300ms at baseline
+  - Flaky test rate: < 0.5% (stricter than general)
+```
+
+### How do I justify the testing investment to leadership?
+
+Connect testing metrics to business outcomes. Calculate the cost of a production bug: engineer hours on hotfix, lost sales, reputational damage. Compare with prevention cost: 1 hour of testing vs 4 hours of hotfix plus 2 hours of postmortem. Show the trend: as coverage goes up, defect escape rate goes down. A quarterly report with this correlation tends to convince.
+
+### What do I do when the team grows and the strategy no longer fits?
+
+Review the strategy when team size, structure, or domain changes. If the team grows from 4 to 12 people, split the pyramid across sub-teams with shared targets. If you add a new service, create an addendum with its specific risks. Keep the central document with shared standards (gates, flaky policy, coverage targets) and delegate details to each team.
+
 ## Variants
 
 | Context | Approach | Notes |

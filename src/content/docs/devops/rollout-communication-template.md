@@ -164,6 +164,64 @@ Use this resource when:
 
 The template separates **internal** communication (technical, timeline-focused, useful) from **external** communication (user-friendly, benefit-focused, reassuring). The audience matrix prevents the common failure mode where engineering announces a release in Slack, support finds out from a customer ticket, and sales learns about it a week later. The rollback trigger criteria give engineering explicit permission to act fast if metrics degrade—without needing a committee meeting at midnight.
 
+## Release Announcement Email Template
+
+```text
+Subject: New Release: [FEATURE NAME] — [DATE]
+
+Hi [FIRST_NAME],
+
+We are excited to announce [FEATURE NAME], now available for [USER_SEGMENT].
+
+What is it?
+  [ONE PARAGRAPH IN CUSTOMER LANGUAGE — NO JARGON]
+
+What is new?
+  - [BENEFIT 1: what the user can now do]
+  - [BENEFIT 2: what improved]
+  - [BENEFIT 3: what was added]
+
+How to use it:
+  1. [STEP 1]
+  2. [STEP 2]
+  3. [STEP 3]
+
+Learn more:
+  - Documentation: [LINK]
+  - Blog post: [LINK]
+  - Video walkthrough: [LINK]
+
+Questions?
+  Reply to this email or contact support@[DOMAIN].
+
+[TEAM_NAME]
+```
+
+## Slack Release Announcement Template
+
+```text
+=== #releases channel ===
+
+:rocket: **Release [VERSION] — [DATE]**
+
+**What is new:**
+  - [FEATURE]: [ONE-LINE DESCRIPTION]
+  - [FIX]: [ONE-LINE DESCRIPTION]
+
+**Impact:** [WHO IS AFFECTED / "No user-facing changes"]
+
+**Rollout:** [PERCENTAGE] — [FLAG NAME: feature_flag_xxx]
+
+**Monitoring:** [DASHBOARD LINK]
+
+**Rollback:** [CONDITION / "Feature flag off"]
+
+**Questions?** Ask in #[SUPPORT_CHANNEL]
+
+:thread: Thread for discussion and feedback below.
+```
+
+
 ## Variants
 
 | Context | Key Addition | Tone |
@@ -204,3 +262,40 @@ The communication plan should have two phases: "Deployed" (the code is in produc
 ### What if a release needs to be rolled back?
 
 Use the pre-written rollback announcement: "We have temporarily rolled back `<release>` due to `<issue>`. The team is investigating and will re-deploy once resolved. Impact: `<scope>`." Notify the same channels in reverse order: customers first (status page / email), then support, then internal teams. Speed and honesty matter more than polished prose during a rollback.
+
+
+### How do we coordinate communication across time zones?
+
+For global teams: schedule the rollout during a low-traffic window that works for all regions. Prepare announcements in advance and schedule them to send at the appropriate local time. Assign a communication owner in each major time zone who can respond to questions in real-time. If the rollout is phased by region, announce per-region with local context. Avoid announcing a release at 5 PM Friday in one region if it is Saturday morning in another — support coverage may be absent.
+
+### What should we include in a rollback announcement?
+
+A rollback announcement should include: what was rolled back (feature name and version), why (brief, non-technical reason), what users will experience (the feature is temporarily unavailable), what the team is doing (investigating and fixing), and when to expect an update (specific timeframe). Send it to the same channels as the original announcement. Be honest about the rollback — users respect transparency more than silence. Update the status page if there is customer impact. Follow up with a resolution message when the fix is deployed.
+
+### How do we measure communication effectiveness?
+
+Track: open rate of release announcement emails, click-through rate to documentation, engagement with release notes on the blog or in-app, support ticket volume related to the release (lower = better communication), and time from announcement to first user adoption. Survey users quarterly: "How did you learn about new features?" Review metrics after each major release and adjust the communication strategy. If users are not reading release notes, experiment with different formats (video, in-app tours, shorter summaries).
+
+### How do we handle communication for a failed rollout?
+
+If a rollout fails: notify customers immediately via the status page and email. Be specific about what failed and what users can expect. Example: "We attempted to release [FEATURE] but encountered an unexpected issue. We have rolled back the change. [FEATURE] is not currently available. We will retry the release on [DATE]." Notify support with talking points and FAQs. Do a postmortem on both the technical failure and the communication process. Document lessons learned for the next rollout.
+
+### Should we use feature flags for all rollouts?
+
+Feature flags are recommended for all but the smallest changes. They decouple deployment from release, allowing you to deploy code safely and enable it when ready. Flags enable phased rollouts (1%, 5%, 25%, 50%, 100%), instant rollback without redeployment, and A/B testing. However, flags add complexity: they need naming conventions, lifecycle management (created, enabled, verified, removed), and documentation. Use a feature flag management tool (LaunchDarkly, Unleash, Flagsmith) for production systems. Clean up stale flags regularly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

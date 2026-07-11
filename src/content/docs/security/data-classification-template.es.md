@@ -107,6 +107,57 @@ Usa este recurso cuando:
 
 La plantilla reemplaza términos vagos como "sensible" con cuatro niveles concretos. Cada nivel tiene reglas explícitas de manejo para acceso, transmisión y almacenamiento. El inventario de datasets te obliga a catalogar lo que tienes antes de poder protegerlo. El log de excepciones reconoce que las necesidades de negocio a veces requieren flexibilidad, pero solo con aceptación de riesgo documentada.
 
+## Arbol de Decision de Clasificacion de Datos
+
+```text
+=== Arbol de Decision: Clasificar un Nuevo Dataset ===
+
+P1: El dataset contiene informacion personal identificable (PII)?
+  SI -> P2
+  NO -> P3
+
+P2: La PII es sensible (salud, financiera, biometrica, ID gubernamental)?
+  SI -> Clasificacion: RESTRINGIDO
+  NO -> P2a
+
+P2a: El dataset contiene datos cubiertos por GDPR, CCPA, o HIPAA?
+  SI -> Clasificacion: RESTRINGIDO
+  NO -> Clasificacion: CONFIDENCIAL
+
+P3: El dataset contiene informacion critica para el negocio?
+  (secretos comerciales, codigo fuente, metricas internas, datos de ingresos)
+  SI -> Clasificacion: CONFIDENCIAL
+  NO -> P4
+
+P4: El dataset es para consumo publico?
+  (materiales de marketing, docs publicos, datos abiertos)
+  SI -> Clasificacion: PUBLICO
+  NO -> P5
+
+P5: El dataset es solo interno pero no critico para el negocio?
+  (datos de test, notas internas, configs no sensibles)
+  SI -> Clasificacion: INTERNO
+  NO -> Por defecto CONFIDENCIAL (en duda, clasificar mas alto)
+```
+
+## Requisitos de Manejo por Clasificacion
+
+```text
+=== Matriz de Manejo ===
+
+Clasificacion     | Encripcion  | Acceso       | Logging    | Retencion
+-----------------|-------------|--------------|------------|------------------
+PUBLICO          | No requerido| Cualquiera   | Opcional   | Sin restriccion
+INTERNO          | En reposo   | Empleados    | Requerido  | Segun politica
+CONFIDENCIAL     | Reposo +    | Need-to-know | Requerido +| Segun politica +
+                 | transito    | solo         | audit trail| retencion legal
+RESTRINGIDO      | Reposo +    | Individuos   | Requerido +| Segun politica +
+                 | transito +  | nombrados    | logs a     | retencion legal +
+                 | key vault   | solo         | prueba de  | derecho al olvido
+                 |             |              | manipulacion|
+```
+
+
 ## Variantes
 
 | Contexto | Niveles Extra | Diferencia Clave |
@@ -146,3 +197,106 @@ Clasifica al nivel más alto presente. Una hoja de cálculo con copia de marketi
 ### ¿Cómo clasifico datos en logs y herramientas de observabilidad?
 
 Los logs son frecuentemente la clase de datos más olvidada. Cualquier log que contenga IDs de usuario, emails o payloads de petición con PII es al menos Confidencial. Usa redacción de logs o tokenización para eliminar PII antes de enviar a logging centralizado. Si debes retener logs completos para depuración, almacénalos en un bucket de acceso Restringido con periodos de retención cortos.
+
+
+### Como automatizamos la clasificacion de datos?
+
+Usa herramientas DLP (Data Loss Prevention) para detectar y etiquetar datos automaticamente basado en patrones: numeros de tarjetas de credito (regex), SSNs, emails, telefonos, y patrones personalizados. Integra el escaneo DLP en tu pipeline de datos — cuando los datos llegan a un warehouse o lake, son escaneados y etiquetados automaticamente. Usa herramientas del proveedor cloud (AWS Macie, GCP DLP API, Azure Purview) para escaneo gestionado. Para bases de datos, usa clasificacion a nivel de esquema — etiqueta columnas que contienen PII a nivel de esquema. Para logs, usa pipelines de redaccion que detectan y enmascaran PII antes de la centralizacion. La automatizacion reduce error humano pero no reemplaza la revision humana para casos extremos.
+
+### Que es la clasificacion de datos en la practica para una aplicacion SaaS?
+
+Para una aplicacion SaaS: perfiles de usuario (nombre, email, telefono) son Confidenciales. Datos de pago (numeros de tarjetas de credito, direcciones de facturacion) son Restringidos. Analiticas de uso (vistas de pagina, uso de features) son Internas. Contenido de marketing es Publico. API keys y secrets son Restringidos. Archivos de log que contienen IDs de usuario son Confidenciales. Backups de base de datos que contienen datos de usuario son Restringidos. La clasificacion determina encripcion, controles de acceso, retencion, y politicas de comparticion. Cada nueva feature deberia incluir una revision de clasificacion de datos como parte del checklist de seguridad.
+
+### Como manejamos la clasificacion de datos para integraciones de terceros?
+
+Al enviar datos a un tercero: clasifica los datos que se envian. Asegura que la postura de seguridad del vendor coincida con la clasificacion (ej., datos Restringidos requieren un vendor con SOC 2 Type II). Documenta el flujo de datos en tu inventario de datos. Incluye la clasificacion en el DPA (Data Processing Agreement). Para datos Restringidos, requiere encripcion en transito y reposo por el vendor. Revisa la seguridad del vendor anualmente. Si un vendor degrada su postura de seguridad, reevalua si continuar enviando datos clasificados. Nunca envies datos Restringidos a un vendor sin un DPA firmado y revision de seguridad.
+
+### Con que frecuencia debemos revisar las clasificaciones de datos?
+
+Revisa clasificaciones: trimestralmente para datasets Restringidos, semestralmente para Confidenciales, anualmente para Internos y Publicos. Dispara revisiones fuera de ciclo cuando: el proposito de un dataset cambia, nuevas regulaciones aplican, ocurre una brecha de datos, o un dataset se fusiona con otro. Rastrea fechas de revision en el inventario de datos. Asigna un dueno de datos responsable de la clasificacion de cada dataset. Documenta hallazgos de revision y cualquier cambio de clasificacion. Una clasificacion que no ha sido revisada en mas de un ano se considera obsoleta y debe ser marcada.
+
+### Cuales son las consecuencias de una clasificacion incorrecta?
+
+Sobre-clasificacion (clasificar todo como Restringido): ralentiza la ingenieria, aumenta costos (encripcion, gestion de acceso, auditoria), y entrena a los ingenieros a ignorar las etiquetas de clasificacion. Sub-clasificacion (clasificar datos Restringidos como Publicos): lleva a brechas de datos, multas regulatorias (GDPR: hasta 4% de ingresos anuales), perdida de confianza del cliente, y responsabilidad legal. El objetivo es clasificacion precisa — no clasificacion maxima. Revisiones regulares y escaneo automatizado ayudan a mantener precision. Documenta la justificacion de cada decision de clasificacion para propositos de auditoria.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

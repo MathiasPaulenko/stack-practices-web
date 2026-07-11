@@ -131,6 +131,129 @@ Usa este recurso cuando:
 
 La asignación de costos solo funciona cuando **cada recurso está taggeado consistentemente**. Sin tags, el gasto se convierte en "overhead compartido" que ningún equipo asume. La plantilla impone una política de tags aplicada en CI/CD, de modo que cada recurso desplegado sea rastreable a un equipo y servicio. La sección de **costos compartidos** reconoce que cierta infraestructura beneficia a todos y no puede taggearse directamente. La base de asignación (cantidad de personas, uso, división equitativa) debe acordarse con finanzas de antemano para evitar disputas.
 
+## Politica de Etiquetas con Terraform
+
+```hcl
+# Modulo de Terraform con etiquetas obligatorias
+variable "required_tags" {
+  type = map(string)
+  default = {
+    Team        = "platform"
+    Environment = "production"
+    Project     = "api-gateway"
+    CostCenter  = "PL-0001"
+  }
+}
+
+resource "aws_instance" "app" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.medium"
+  tags          = var.required_tags
+}
+
+# Validacion de etiquetas en CI
+resource "null_resource" "tag_validator" {
+  provisioner "local-exec" {
+    command = "python3 scripts/validate_tags.py --tfplan tfplan.json"
+  }
+}
+```
+
+## Script de Deteccion de Recursos Sin Etiquetar
+
+```python
+#!/usr/bin/env python3
+"""Detecta recursos sin etiquetar en AWS y reporta el costo estimado."""
+import boto3
+import json
+from datetime import datetime, timedelta
+
+def check_untagged_resources():
+    ce = boto3.client('ce')
+    ec2 = boto3.client('ec2')
+
+    # Consultar costo por recurso en los ultimos 7 dias
+    end_date = datetime.now().strftime('%Y-%m-%d')
+    start_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+
+    response = ce.get_cost_and_usage(
+        TimePeriod={'Start': start_date, 'End': end_date},
+        Granularity='DAILY',
+        Filter={'Dimensions': {'Key': 'RECORD_TYPE', 'Values': ['Usage']}},
+        GroupBy=[{'Type': 'DIMENSION', 'Key': 'RESOURCE_ID'}],
+        Metrics=['UnblendedCost']
+    )
+
+    untagged_cost = 0
+    untagged_resources = []
+
+    for group in response['ResultsByTime']:
+        for result in group['Groups']:
+            resource_id = result['Keys'][0]
+            cost = float(result['Metrics']['UnblendedCost']['Amount'])
+            if cost > 0:
+                # Verificar si el recurso tiene etiquetas
+                try:
+                    if 'instance/' in resource_id:
+                        instance_id = resource_id.split('/')[-1]
+                        tags = ec2.describe_tags(
+                            Filters=[{'Name': 'resource-id', 'Values': [instance_id]}]
+                        )
+                        if not tags['Tags']:
+                            untagged_cost += cost
+                            untagged_resources.append({
+                                'resource_id': resource_id,
+                                'cost': cost
+                            })
+                except Exception:
+                    pass
+
+    print(f'Recursos sin etiquetar: {len(untagged_resources)}')
+    print(f'Costo estimado semanal: ${untagged_cost:.2f}')
+    if untagged_cost > 500:
+        print('ALERTA: Recursos sin etiquetar superan $500/semana')
+        # Enviar alerta a Slack
+    return untagged_resources
+
+if __name__ == '__main__':
+    check_untagged_resources()
+```
+
+## Dashboard de Costos por Equipo
+
+```text
+=== Dashboard de Costos por Equipo (Mensual) ===
+
+Equipo Platform:
+  EC2:          $3,200  (40%)
+  RDS:          $1,800  (22%)
+  S3:             $400  (5%)
+  DataTransfer:   $600  (8%)
+  Total:        $6,000  (100%)
+
+Equipo Data:
+  EMR:          $4,500  (55%)
+  RDS:          $2,000  (24%)
+  S3:          $1,200  (15%)
+  Lambda:         $500  (6%)
+  Total:        $8,200  (100%)
+
+Equipo Frontend:
+  CloudFront:   $1,200  (60%)
+  S3:             $300  (15%)
+  EC2:            $500  (25%)
+  Total:        $2,000  (100%)
+
+Costos Compartidos:
+  Load Balancers: $800
+  Monitoring:     $400
+  Networking:     $300
+  Total:        $1,500
+
+TOTAL MENSUAL: $17,700
+```
+
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -169,3 +292,24 @@ Usa una plataforma de FinOps (CloudHealth, Finout, Vantage) o construye un pipel
 ### ¿Cómo reduzco costos sin impactar la confiabilidad?
 
 Haz right-sizing de instancias basado en uso real de CPU/memoria (no pico). Usa spot/preemptible para cargas no críticas. Archiva logs y datos antiguos. Habilita auto-apagado de entornos de desarrollo fuera de horario. Cada cambio debe tener un plan de rollback y ser probado en staging.
+
+
+### Como implementamos aplicacion de etiquetas en CI/CD?
+
+Usa Terraform Cloud o GitHub Actions con validacion de etiquetas. Crea un script que analice el plan de Terraform y verifique que todos los recursos tengan las etiquetas requeridas (team, environment, project, cost-center). Falla el pipeline si falta alguna etiqueta. Para recursos existentes, ejecuta escaneos semanales con Cloud Custodian o scripts personalizados que identifiquen recursos sin etiquetar y notifiquen a los responsables.
+
+### Que es Cloud Custodian y como nos ayuda?
+
+Cloud Custodian (c7n) es una herramienta de codigo abierto para gestion de nube que permite escribir politicas en YAML para auditar, hacer cumplir y optimizar recursos en AWS, Azure y GCP. Puedes escribir reglas como "eliminar recursos sin etiquetar despues de 7 dias" o "detener instancias EC2 fuera de horario laboral". Ejecutalo diariamente via Lambda o CI/CD. Almacena los resultados en S3 o CloudWatch para auditoria.
+
+### Como manejamos costos de transferencia de datos entre regiones?
+
+La transferencia de datos entre regiones tiene costo en ambos lados. Rastrea el egreso por region usando AWS Cost Explorer con agrupacion por region. Asigna los costos de transferencia al servicio que inicia la transferencia. Para arquitecturas multi-region, considera usar VPC peering o Transit Gateway para reducir costos. Documenta los patrones de transferencia y revisalos trimestralmente para identificar optimizaciones.
+
+### Como optimizamos costos de Kubernetes?
+
+1. Usa requests y limits apropiados por pod. 2. Habilita Horizontal Pod Autoscaler para escalar con la demanda. 3. Usa spot instances para workloads no criticos. 4. Implementa cluster autoscaler para ajustar nodos. 5. Revisa recursos inactivos (pods sin trafico, namespaces abandonados). 6. Usa Kubecost o similar para visibilidad por namespace. 7. Consolida servicios pequenos en un cluster compartido. 8. Usa node groups con instancias mixtas.
+
+### Como calculamos el costo por usuario activo?
+
+Costo total del servicio dividido por usuarios activos mensuales (MAU). Incluye todos los costos directos (computo, almacenamiento, red) y los costos compartidos asignados. Rastrea esto mensualmente. Si el costo por usuario aumenta mientras el numero de usuarios se mantiene, hay ineficiencia. Compara entre equipos para identificar outliers. Establece un objetivo de costo por usuario y revisalo trimestralmente.

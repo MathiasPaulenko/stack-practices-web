@@ -138,3 +138,165 @@ No. Algunos riesgos pueden ser aceptados si el costo de arreglar excede el impac
 ### ¿Quién debería recibir el reporte completo?
 
 Equipo de seguridad, leads de ingeniería, y liderazgo ejecutivo (solo resumen ejecutivo). Comparte hallazgos detallados on a need-to-know basis para prevenir weaponización.
+
+
+## Variantes
+
+| Contexto | Enfoque | Notas |
+|----------|---------|-------|
+| Web app | OWASP Top 10 + ASVS | Enfocarse en input validation y auth |
+| API REST | OWASP API Security Top 10 | Enfocarse en rate limiting y auth |
+| Mobile app | OWASP MASVS | Incluir analisis de APK/IPA |
+| Infraestructura cloud | CIS Benchmarks + pentest de red | Incluir IAM y network policies |
+| Internal red team | Sin notificacion previa | Simular atacante real |
+
+## Ejemplo de Plan de Pen-Test
+
+```text
+=== Plan de Penetration Test: payment-service ===
+
+Objetivo: Evaluar la postura de seguridad del servicio de pagos
+Fecha: 2026-08-15 a 2026-08-19
+Tester: Security Firm XYZ
+Contacto SPOC: alice@company.com
+
+Alcance:
+  URLs en alcance:
+    - https://api.company.com/payments/*
+    - https://api.company.com/orders/*
+  URLs fuera de alcance:
+    - https://api.company.com/auth/* (testeado en pentest anterior)
+    - https://admin.company.com (fuera de alcance este engagement)
+
+  Cuentas de test:
+    - test-user-1@company.com (rol: customer)
+    - test-user-2@company.com (rol: merchant)
+    - test-admin@company.com (rol: admin)
+
+  Datos permitidos:
+    - Datos de test sinteticos unicamente
+    - No acceder a datos de produccion reales
+    - No modificar datos persistentes
+
+Reglas de Engagement:
+  - Horario de testing: 09:00-18:00 UTC-5
+  - Rate limit: max 100 requests/segundo
+  - No usar exploits que causen DoS
+  - No usar social engineering
+  - No testing fisico
+  - Notificar inmediatamente si se encuentra un Critico
+
+Metodologia:
+  - OWASP Testing Guide v4.2
+  - OWASP API Security Top 10
+  - PTES (Penetration Testing Execution Standard)
+
+Entregables:
+  - Reporte ejecutivo (para liderazgo)
+  - Reporte tecnico (para ingenieria)
+  - Hallazgos en formato CSV (para importar al tracker)
+  - Presentacion de debrief (sesion de 2 horas)
+
+Cronograma:
+  Dia 1: Reconocimiento y mapeo de superficie de ataque
+  Dia 2: Testing de autenticacion y autorizacion
+  Dia 3: Testing de logica de negocio y pagos
+  Dia 4: Testing de infraestructura y configuracion
+  Dia 5: Reporte y debrief
+```
+
+### Como elegimos una firma de penetration testing?
+
+Evalua firmas por: certificaciones (OSCP, CEH, CISSP), experiencia en tu industria (fintech, healthcare, e-commerce), referencias de clientes anteriores, metodologia (OWASP, PTES), y calidad de reportes anteriores. Pide un reporte de muestra anonimizado — la calidad del reporte es tan importante como la calidad del testing. Verifica que la firma tiene seguro de responsabilidad profesional. Asegura que la firma firma un NDA antes de compartir cualquier informacion. Compara precios pero no elijas solo por precio — un pentest barato puede perder hallazgos criticos. Manten una relacion continua con la firma — los testers que conocen tu sistema encuentran issues mas profundos.
+
+### Como preparamos al equipo para un pen-test?
+
+Notifica al equipo con 2 semanas de anticipacion: fechas, alcance, y SPOC. Asegura que el SPOC tiene disponibilidad dedicada durante el pen-test (no esta on-call para otra cosa). Prepara cuentas de test con datos sinteticos. Prepara acceso a staging y produccion (si aplica). Documenta la arquitectura actual y compartela con el tester. Configura monitoring extra durante el pen-test para detectar si el testing causa impacto. Programa una llamada de kickoff el dia 1 y una llamada de debrief el ultimo dia. Asegura que el equipo sabe que no deben bloquear el trafico del tester a menos que cause impacto real.
+
+### Que hacemos despues de recibir el reporte de pen-test?
+
+Importa todos los hallazgos al tracker de remediacion dentro de 48 horas. Clasifica cada hallazgo por severidad (Critico/Alto/Medio/Bajo/Informativo). Asigna un owner a cada hallazgo. Programa la remediacion segun SLAs: Critico 24-48h, Alto 1 semana, Medio 30 dias, Bajo 90 dias. Programa la ventana de retest con la firma (30-90 dias). Comparte hallazgos sanitizados con el resto de ingenieria — los patrones se repiten. Conduce un postmortem del proceso de pen-test: que funciono, que no, que mejorar para el proximo. Actualiza el threat model con los hallazgos nuevos. Agrega tests de regression al CI/CD para prevenir recurrencia.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

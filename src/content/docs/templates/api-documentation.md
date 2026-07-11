@@ -254,3 +254,72 @@ API documentation is the human-readable guide with explanations, examples, and c
 ### How do I keep API docs in sync with code?
 
 Generate documentation from code annotations or OpenAPI specs as part of your CI pipeline. Use tools like Swagger UI, Redoc, or Stoplight to render specs automatically. See [REST API Design Guide](/guides/api/rest-api-design-guide) for what works in API design. Manual docs drift quickly without automation.
+
+
+## Variant Comparison
+
+| Variant | Context | Approach | Notes |
+|---------|---------|----------|-------|
+| REST with OpenAPI | Public API, external clients | OpenAPI spec + narrative docs | Generates clients automatically |
+| GraphQL with schema | API with flexible queries | Schema SDL + query examples | Single endpoint |
+| gRPC with proto | Internal microservices | .proto files + generated docs | Binary, high performance |
+| Simple Markdown | Small internal API | Manual docs in repo | Sufficient for 2-3 endpoints |
+
+## Detailed Scenario: Documenting an Order Creation Endpoint
+
+```text
+Endpoint: POST /v1/orders
+Authentication: Bearer token (JWT)
+Rate limit: 100 req/min per user
+
+Request:
+  POST /v1/orders HTTP/1.1
+  Host: api.example.com
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+  Content-Type: application/json
+  Idempotency-Key: client-uuid-12345
+
+  {
+    "customer_id": "usr_abc123",
+    "items": [
+      {"sku": "PROD-001", "quantity": 2},
+      {"sku": "PROD-002", "quantity": 1}
+    ],
+    "shipping_address_id": "addr_xyz789"
+  }
+
+Response 201 Created:
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Location: /v1/orders/ord_def456
+
+  {
+    "id": "ord_def456",
+    "customer_id": "usr_abc123",
+    "status": "pending",
+    "items": [
+      {"sku": "PROD-001", "quantity": 2, "unit_price_cents": 1999},
+      {"sku": "PROD-002", "quantity": 1, "unit_price_cents": 4999}
+    ],
+    "total_cents": 8997,
+    "currency": "USD",
+    "placed_at": "2026-07-11T14:30:00Z"
+  }
+
+Key headers:
+  Idempotency-Key: Prevents duplicates on client retry
+  Location: URL of created resource for redirect
+
+Possible errors:
+  400 - customer_id does not exist or is inactive
+  409 - Idempotency-Key already used with different body
+  422 - quantity <= 0 or SKU not found
+```
+
+### How do I document cursor-based vs offset-based pagination?
+
+Document both if you support them. Offset-based uses `page` and `limit` (simpler, but slow on large datasets). Cursor-based uses `after` (an ID or opaque cursor) and `limit` (more efficient, no skipped records). Include examples of both in the documentation and recommend cursor-based for datasets exceeding 10,000 records.
+
+### Should I include code examples in multiple languages?
+
+If your API has consumers in multiple languages, yes. Include examples in cURL (universal), Python (requests), and JavaScript (fetch). Keep examples short and focused on one endpoint each. For internal APIs with a single consuming language, one language is enough.

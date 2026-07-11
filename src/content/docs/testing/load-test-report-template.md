@@ -130,6 +130,71 @@ Use this resource when:
 
 The template separates **summary** (for executives), **details** (for engineers), and **actions** (for planning). The tabular format makes pass/fail status scannable. Bottlenecks link to evidence so reviewers can verify claims. Action items include owners and dates to prevent findings from being forgotten.
 
+
+### Detailed Scenario: Load Testing an E-commerce Checkout Flow
+
+```text
+System: E-commerce checkout API
+Tool: k6
+Goal: Validate checkout handles 500 concurrent users at peak
+
+Test script (k6):
+  import http from "k6/http";
+  import { check, sleep } from "k6";
+
+  export const options = {
+    stages: [
+      { duration: "2m", target: 100 },
+      { duration: "5m", target: 500 },
+      { duration: "2m", target: 500 },
+      { duration: "1m", target: 0 },
+    ],
+    thresholds: {
+      http_req_duration: ["p(95)<300", "p(99)<500"],
+      http_req_failed: ["rate<0.01"],
+    },
+  };
+
+  export default function () {
+    const res = http.post("https://staging.example.com/api/checkout",
+      JSON.stringify({ cart_id: "cart_123", payment_method: "card" }),
+      { headers: { "Content-Type": "application/json" } });
+    check(res, {
+      "status is 201": (r) => r.status === 201,
+      "response has order_id": (r) => r.json("order_id") !== undefined,
+    });
+    sleep(1);
+  }
+
+Execution:
+  $ k6 run --out json=results.json checkout_load.js
+
+Results:
+  - p50 latency: 85ms (target < 100ms) PASS
+  - p95 latency: 320ms (target < 300ms) WARNING
+  - p99 latency: 680ms (target < 500ms) FAIL
+  - Error rate: 0.05% (target < 0.1%) PASS
+  - Throughput: 1,150 req/s (target 1,000) PASS
+
+Bottleneck found:
+  - DB query on order_items table takes 400ms under load
+  - Missing composite index on (order_id, product_sku)
+  - Connection pool exhausted at 1,200 concurrent users
+
+Actions:
+  P0: Add index on order_items(order_id, product_sku) - @backend
+  P1: Increase pool size 20 -> 40 - @devops
+  P2: Add Redis cache for product lookups - @architect
+```
+
+### What percentiles should I report?
+
+Report p50 (median), p95, and p99 at minimum. p50 shows typical experience. p95 catches most degradation. p99 reveals tail latency problems that affect real users. If you have SLOs at p99.9, include that too. Never report only averages — they hide tail latency spikes.
+
+### How do I simulate realistic user behavior in load tests?
+
+Use think time (pauses between actions) to match real user patterns. Distribute requests across endpoints proportionally to production traffic. Include browsing, searching, and checkout flows — not just the heaviest endpoint. Parameterize test data so each virtual user hits different records to avoid cache hits skewing results.
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -167,3 +232,71 @@ Avoid load testing production directly. Use a production-like environment with s
 ### How often should load tests be repeated?
 
 Before every major release, after major infrastructure changes, and quarterly as a regression check. Automate nightly smoke tests with small load to catch regressions early.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

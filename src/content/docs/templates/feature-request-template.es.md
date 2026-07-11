@@ -175,6 +175,58 @@ patrones de implementación.
 - **Cierra solicitudes stale** — si una solicitud no ha tenido actividad en 6 meses, ciérrala con una nota
 - **Agrupa solicitudes similares** — si 3 solicitudes piden lo mismo, mézclalas y linkea los duplicados
 
+## Ejemplo de Feature Request
+
+```text
+=== Feature Request: Exportacion masiva de pedidos ===
+
+Titulo: Exportacion masiva de pedidos a Excel
+ID: FR-789
+Solicitante: bob@company.com (Sales)
+Prioridad: Media
+Fecha: 2026-07-10
+
+Problema:
+  El equipo de ventas necesita exportar pedidos a Excel para analisis
+  offline. Actualmente, la unica forma es exportar pagina por pagina
+  desde el panel (max 50 por pagina). Para un mes con 5000 pedidos,
+  esto requiere 100 exportaciones manuales.
+
+Solucion Propuesta:
+  Agregar un boton "Exportar todo" en la pagina de pedidos que genere
+  un archivo Excel con todos los pedidos del rango de fechas seleccionado.
+  El archivo se genera async y se envia por email cuando esta listo.
+
+Alternativas Consideradas:
+  1. API endpoint de exportacion: requiere que ventas usen curl/Postman
+     - Descartada: ventas no tiene skills tecnicos
+  2. Dashboard de BI (Metabase): requiere configuracion y mantenimiento
+     - Descartada: demasiado para esta necesidad
+  3. Exportacion via CSV en lugar de Excel: menos funcionalidades
+     - Descartada: ventas usa formulas y graficos de Excel
+
+Impacto:
+  Usuarios afectados: 15 (equipo de ventas)
+  Frecuencia: mensual
+  Horas ahorradas: ~8 horas/mes en exportaciones manuales
+
+Criterios de Aceptacion:
+  - Boton "Exportar todo" visible en la pagina de pedidos
+  - Permite seleccionar rango de fechas
+  - Genera archivo .xlsx con columnas: ID, fecha, cliente, total, estado
+  - El archivo se envia por email al usuario que lo solicito
+  - Notificacion in-app cuando el archivo esta listo
+  - Limite de 50,000 pedidos por exportacion
+  - El archivo expira del almacenamiento despues de 7 dias
+
+Notas Tecnicas:
+  - Usar libreria exceljs para generacion de Excel
+  - Usar cola de jobs (Bull/Redis) para generacion async
+  - Almacenar archivo en S3 con expiracion de 7 dias
+  - Rate limit: 1 exportacion por usuario por hora
+```
+
+
 ## Variantes
 
 ### Ligera (Slack/Teams)
@@ -214,3 +266,37 @@ Divídela en fases. Crea un epic para la visión completa, luego solicitudes ind
 ### ¿Debería trackear solicitudes rechazadas?
 
 Sí. Mantenlas en estado "rechazada" con una razón. Si la misma solicitud surge múltiples veces, el patrón mismo es señal de que debería reconsiderarse.
+
+
+### Como priorizamos feature requests?
+
+Prioriza por: impacto en usuarios (cuantos, cuanto), frecuencia de uso, alineacion con el roadmap, esfuerzo estimado, y urgencia comercial. Usa un framework como RICE (Reach, Impact, Confidence, Effort) para cuantificar. Para requests de ventas/marketing: evalua si el impacto justifica el esfuerzo de ingenieria. Para requests de clientes enterprise: evalua el impacto en retencion y revenue. No priorices solo por quien grita mas fuerte — usa datos. Comunica la decision al solicitante: si se rechaza, explica por que; si se pospone, da una fecha estimada. Revisa feature requests mensualmente en el comite de producto. Un feature request sin respuesta es peor que un feature request rechazado — la comunicacion construye confianza.
+
+### Como manejamos feature requests contradictorias?
+
+Cuando dos requests se contradicen (ej., "agregar mas campos al formulario" vs "simplificar el formulario"): evalua cual tiene mayor impacto en usuarios. Si ambas tienen impacto: busca una solucion que satisfaga ambos (ej., campos opcionales con valores por defecto). Si no hay solucion intermedia: prioriza la que alinee con la vision del producto. Documenta la decision y la razon. Comunica a ambos solicitantes por que se eligio una sobre la otra. Usa A/B testing si es posible — deja que los datos decidan. Las contradicciones son normales en producto — el trabajo del Product Owner es tomar decisiones con datos, no complacer a todos.
+
+### Como diferenciamos un feature request de un bug?
+
+Un bug es un comportamiento que no funciona como se especifico o esperaba. Un feature request es un comportamiento nuevo que no existe. Si el comportamiento actual es claramente incorrecto (ej., el boton no funciona): es un bug. Si el comportamiento actual es correcto pero el usuario quiere algo diferente (ej., el boton funciona pero quiere que ademas envie un email): es un feature request. Si hay debate: pregunta "este comportamiento fue alguna vez correcto?" — si si, es un bug; si no, es un feature request. Los bugs se priorizan por severidad; los feature requests se priorizan por impacto. Nunca marques un feature request como bug para subir su prioridad — eso distorsiona el proceso.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

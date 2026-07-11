@@ -143,6 +143,71 @@ Load testing evaluates how a system behaves under realistic or peak traffic. Thi
 
 Load testing is not just about finding the breaking point. It is about understanding how a system degrades, where the bottlenecks are, and whether the current capacity meets user and business expectations. A documented execution plan makes performance testing repeatable, comparable across releases, and useful for engineering teams.
 
+## k6 Load Test Script Example
+
+```javascript
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+import { Rate } from 'k6/metrics';
+
+const failureRate = new Rate('check_failure_rate');
+
+export const options = {
+  stages: [
+    { duration: '2m', target: 100 },
+    { duration: '5m', target: 100 },
+    { duration: '2m', target: 300 },
+    { duration: '5m', target: 300 },
+    { duration: '2m', target: 500 },
+    { duration: '5m', target: 500 },
+    { duration: '2m', target: 2000 },
+    { duration: '5m', target: 2000 },
+    { duration: '5m', target: 0 },
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<500', 'p(99)<1000'],
+    http_req_failed: ['rate<0.01'],
+    check_failure_rate: ['rate<0.05'],
+  },
+};
+
+export default function () {
+  const correlationId = `corr_${__VU}_${__ITER}`;
+  const headers = {
+    'X-Correlation-Id': correlationId,
+    'Content-Type': 'application/json',
+  };
+
+  const loginRes = http.post('https://api.example.com/auth/login', JSON.stringify({
+    username: `user_${__VU % 100}`,
+    password: 'test-password',
+  }), { headers });
+
+  check(loginRes, {
+    'login status 200': (r) => r.status === 200,
+    'login has token': (r) => r.json('token') !== undefined,
+  });
+
+  failureRate.add(!check(loginRes, {
+    'login success': (r) => r.status === 200,
+  }));
+
+  sleep(Math.random() * 2 + 1);
+
+  const listRes = http.get('https://api.example.com/orders', {
+    headers: { ...headers, Authorization: `Bearer ${loginRes.json('token')}` },
+  });
+
+  check(listRes, {
+    'orders status 200': (r) => r.status === 200,
+    'orders has items': (r) => r.json('items').length > 0,
+  });
+
+  sleep(Math.random() * 3 + 1);
+}
+```
+
+
 ## Variants
 
 - **Spike test plan**: Focus on sudden traffic bursts and recovery behavior.
@@ -188,3 +253,49 @@ Use production logs to model request patterns, add think time between requests, 
 ### Should we run load tests in production?
 
 Production load tests are risky and usually only done with synthetic traffic, feature flags, and isolation. Prefer dedicated production-like environments for most load testing.
+
+
+### How do we correlate load test results with infrastructure metrics?
+
+During the test, capture infrastructure metrics (CPU, memory, network, disk I/O) alongside application metrics (RPS, latency, error rate). Use a dashboard that overlays load test events with infrastructure metrics. After the test, analyze: which infrastructure component hit its limit first, whether the bottleneck was CPU, memory, network, or disk, whether auto-scaling triggered and if it was fast enough, and whether database connections or query latency were the bottleneck. Document the bottleneck and the infrastructure change needed to address it.
+
+### What is the difference between spike, stress, and endurance testing?
+
+Spike testing: sudden, extreme increase in traffic (e.g., 10x normal for 30 seconds) to test if the system survives and recovers. Stress testing: gradually increase load until the system breaks, to find the failure mode and maximum capacity. Endurance testing: run moderate load for hours or days to detect memory leaks, resource exhaustion, or performance drift. Each test type reveals different issues. Run all three as part of a comprehensive performance testing strategy.
+
+### How do we handle load testing for stateful services?
+
+Stateful services (databases, message queues, caches) require special load testing considerations. Use realistic data volumes — testing with 100 rows when production has 10 million hides performance issues. Warm up caches before measuring. Test with realistic connection pool sizes. Monitor replication lag during the test. Test write-heavy and read-heavy scenarios separately. For databases, test with production-like data distribution (not uniform random data). Document the data setup and teardown procedure for reproducibility.
+
+### What should we do if the load test fails?
+
+If the load test fails: do not immediately re-run — analyze the failure first. Identify which scenario failed and which threshold was breached. Check infrastructure metrics for the bottleneck. Review application logs for errors during the test. Determine if the failure is a real performance issue or a test environment issue. Document the finding with a remediation plan and owner. Re-run the test after the fix to confirm the improvement. Never mark a failed load test as passed without remediation.
+
+### How often should we run load tests?
+
+Run full load tests before every major release (monthly or quarterly). Run regression load tests in CI for critical paths (every PR or daily). Run endurance tests quarterly to detect memory leaks. Run spike tests before expected traffic events (Black Friday, product launches, marketing campaigns). Re-run load tests after significant infrastructure changes (new instance types, database upgrades, architecture changes). Document the load test schedule in the testing strategy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

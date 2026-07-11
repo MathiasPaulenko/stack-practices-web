@@ -214,6 +214,71 @@ X-RateLimit-Reset: 1721003460
 - Retornar `200 OK` con un cuerpo de error — viola la semántica HTTP y rompe middleware
 - Diferentes formatos de error por endpoint — los clientes necesitan un formato consistente
 
+
+## Comparacion de Variantes
+
+| Variante | Contexto | Enfoque | Notas |
+|----------|----------|---------|-------|
+| RFC 7807 Problem Details | API publica, clientes externos | JSON estructurado con type, title, status | Estandar IETF, librerias disponibles |
+| Formato simple legacy | API interna, compatibilidad atras | code + message + request_id | Minimo, suficiente para APIs pequenas |
+| Errores GraphQL | API GraphQL | Arreglo errors con extensions | No usa codigos de estado HTTP |
+| Errores gRPC | Microservicios internos | Codigos de estado 0-16 + detalles protobuf | Binario, alto rendimiento |
+
+## Escenario Detallado: Manejar una Cascada de Errores
+
+```text
+Sistema: API de pedidos que llama a servicio de inventario
+Flujo: POST /orders -> verificar stock -> crear pedido
+
+Escenario: Servicio de inventario no responde (timeout)
+
+Paso 1 - Deteccion del error:
+  - Request a inventario timeout despues de 3s
+  - Circuit breaker abierto (3 fallos consecutivos)
+  - El error no es del cliente, es del downstream
+
+Paso 2 - Respuesta al cliente:
+  HTTP/1.1 503 Service Unavailable
+  Content-Type: application/problem+json
+  Retry-After: 60
+
+  {
+    "type": "https://api.example.com/errors/service-unavailable",
+    "title": "Servicio No Disponible",
+    "status": 503,
+    "detail": "El servicio de inventario no esta disponible temporalmente. Reintenta en 60 segundos.",
+    "instance": "/orders",
+    "request_id": "req_abc123",
+    "correlation_id": "corr_xyz789"
+  }
+
+Paso 3 - Logging interno:
+  - Log completo: request original, timeout, circuit breaker state
+  - Tag: downstream_timeout, service=inventory
+  - Metric: inventory_timeout_count++
+  - Trace span: inventario.call (estado=error, duracion=3001ms)
+
+Paso 4 - Comunicacion al cliente:
+  - 503 con Retry-After indica fallo temporal
+  - El cliente debe reintentar con backoff exponencial
+  - Si el cliente recibe 503 repetidamente, mostrar mensaje
+    de mantenimiento en la UI
+
+Paso 5 - Degradacion (opcional):
+  - Si el circuit breaker esta abierto, aceptar pedidos en
+    modo degradado (sin verificacion de stock)
+  - Marcar pedido como "pending_stock_verification"
+  - Cola de reconciliacion cuando inventario se recupere
+```
+
+### Como documento errores que varian segun el plan del cliente?
+
+Usa el mismo codigo de error pero varia el `detail` segun el contexto. Por ejemplo, un plan gratuito que excede el limite de exports retorna 403 con `detail: "Tu plan permite 100 exports/mes. Actualiza para mas."`. No crees codigos de error separados por plan; el codigo identifica el problema, no el contexto del usuario.
+
+### Deberia incluir timestamps en las respuestas de error?
+
+Si, agrega un campo `timestamp` en formato ISO 8601. Esto ayuda a los clientes a correlacionar errores con sus propios logs y a reportar problemas con precision. Algunos equipos prefieren usar el header `Date` de la respuesta HTTP, pero incluirlo en el body es mas util para clientes que loguean solo el cuerpo del error.
+
 ## Variantes
 
 ### Errores GraphQL

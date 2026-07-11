@@ -126,6 +126,87 @@ A data retention policy defines how long an organization keeps data, when it mov
 
 Data retention is a balance between business value, legal obligation, and storage cost. A written policy removes ambiguity, ensures consistent execution, and provides evidence during audits. By classifying data, defining retention periods, and automating lifecycle actions, teams can reduce manual work and avoid keeping data longer than necessary.
 
+## S3 Lifecycle Policy Configuration
+
+```json
+{
+  "Rules": [
+    {
+      "ID": "transition-to-glacier",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "logs/" },
+      "Transitions": [
+        { "Days": 30, "StorageClass": "STANDARD_IA" },
+        { "Days": 90, "StorageClass": "GLACIER" },
+        { "Days": 365, "StorageClass": "DEEP_ARCHIVE" }
+      ],
+      "Expiration": { "Days": 2555 }
+    },
+    {
+      "ID": "expire-temp-data",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "temp/" },
+      "Expiration": { "Days": 7 }
+    },
+    {
+      "ID": "retain-user-data",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "users/" },
+      "NoncurrentVersionExpiration": { "NoncurrentDays": 90 },
+      "Expiration": { "Days": 3650 }
+    }
+  ]
+}
+```
+
+## Database Retention Purge Script
+
+```sql
+-- PostgreSQL scheduled purge job
+-- Run weekly via pg_cron or external scheduler
+
+-- Purge expired sessions (retention: 30 days)
+DELETE FROM sessions
+WHERE created_at < NOW() - INTERVAL '30 days';
+
+-- Purge audit logs (retention: 7 years for compliance)
+-- DO NOT purge: archived separately
+
+-- Purge deleted user data (retention: 90 days after deletion)
+DELETE FROM user_data
+WHERE deleted_at IS NOT NULL
+  AND deleted_at < NOW() - INTERVAL '90 days';
+
+-- Purge event logs (retention: 180 days)
+DELETE FROM event_logs
+WHERE created_at < NOW() - INTERVAL '180 days';
+
+-- Vacuum and analyze after purge
+VACUUM ANALYZE sessions;
+VACUUM ANALYZE user_data;
+VACUUM ANALYZE event_logs;
+```
+
+## Data Classification and Retention Matrix
+
+```text
+=== Data Classification and Retention Matrix ===
+
+| Data Type          | Classification | Retention  | Storage         | Purge Method       |
+|--------------------|----------------|------------|-----------------|--------------------|
+| User PII           | Confidential   | 3 years    | Encrypted RDS   | Scheduled purge    |
+| Payment records    | Restricted     | 7 years    | Encrypted RDS   | Legal hold review  |
+| Audit logs         | Internal       | 7 years    | S3 Glacier      | Lifecycle policy   |
+| Application logs   | Internal       | 90 days    | CloudWatch      | Auto-expire        |
+| Session data       | Internal       | 30 days    | Redis           | TTL auto-expire    |
+| Temporary files    | Public         | 7 days     | S3 temp/        | Lifecycle policy   |
+| Analytics events   | Internal       | 2 years    | BigQuery        | Partition expire   |
+| Backups            | Confidential   | 90 days    | S3 + Glacier    | Backup policy      |
+| Customer exports   | Confidential   | 30 days    | S3 signed URL   | Lifecycle policy   |
+| ML training data   | Internal       | 1 year     | S3 IA           | Scheduled purge    |
+```
+
+
 ## Variants
 
 - **Cloud object storage lifecycle policy**: S3, Azure Blob, or GCP Storage lifecycle rules for transition and expiration.
@@ -171,3 +252,50 @@ Backups should have their own retention schedule. When primary data is deleted, 
 ### What happens if a legal hold conflicts with the retention policy?
 
 Legal hold takes precedence. The affected data must be preserved beyond its normal retention period until the hold is released, and this exception must be documented.
+
+
+### How do we handle GDPR right to erasure requests?
+
+When a user requests data deletion, identify all data stores containing their PII. Create a deletion ticket that tracks each store. Delete or anonymize data in the primary database, object storage, caches, search indexes, data warehouses, and backups. For backups, document that the data will be purged when the backup retention period expires (or initiate an expedited backup purge if required). Log the deletion with timestamp, scope, and approver. Provide confirmation to the user within 30 days. Test the erasure process quarterly.
+
+### What is data anonymization and when should we use it?
+
+Data anonymization removes or obscures personally identifiable information while preserving the data structure for analytics. Techniques include: masking (replacing PII with fake data), hashing (one-way transformation), aggregation (grouping data to remove individual records), and pseudonymization (replacing direct identifiers with pseudonyms). Use anonymization when you need historical data for analytics but no longer need the PII. Document the anonymization method and verify it cannot be reversed.
+
+### How do we manage legal holds?
+
+When a legal hold is issued, immediately suspend all deletion and purging for the affected data. Tag the data with a legal-hold flag in the system. Document the hold: scope, issuing authority, date, and expected duration. Notify all teams with access to the data. Monitor the hold status regularly. When the hold is released, document the release and resume normal retention schedules. Never auto-delete data with an active legal hold. Audit legal hold compliance annually.
+
+### How do we verify data has been deleted?
+
+After a purge job runs, verify deletion by: querying for records older than the retention period (should return zero rows), checking file counts in S3 prefixes (should match expected), and running a sample check on specific records. Log verification results. For compliance, have a second person verify the deletion. Store deletion certificates or logs in an immutable storage bucket. Review deletion verification results monthly.
+
+### How do we handle data retention across multiple regions?
+
+Different regions have different legal requirements (GDPR in EU, CCPA in California, PDPA in Singapore). Create a retention matrix that maps data types to regional requirements. Apply the strictest applicable retention period when data crosses regions. Store data in the region where it was collected when possible. Document cross-region data flows and the retention rules that apply. Review regional requirements annually as laws change.
+
+
+### How do we handle data retention for machine learning models?
+
+ML models and training data have unique retention needs. Retain model artifacts for the lifetime of the model in production plus 1 year for audit purposes. Training data should follow the data classification policy of the source data. Feature stores should expire features that are no longer used. Log model predictions for 90 days for debugging and bias auditing. Document which datasets were used to train each model version for reproducibility and compliance.
+
+### What is immutable storage and when do we need it?
+
+Immutable storage (S3 Object Lock, Azure Immutable Blob) prevents objects from being deleted or overwritten for a specified retention period. Use it for: compliance requirements (SEC, FINRA, HIPAA), legal hold data, audit logs that must be tamper-proof, and financial records. Configure WORM (Write Once Read Many) mode at the bucket level. Document the immutability period and ensure it aligns with regulatory requirements. Test that deletion attempts are blocked.
+
+### How do we handle data retention for log files?
+
+Application logs: retain for 90 days in hot storage (CloudWatch, Elasticsearch), then archive to S3 Glacier for 1 year. Infrastructure logs: retain for 30 days hot, 180 days archived. Security logs: retain for 1 year hot, 7 years archived for compliance. Access logs (ALB, CloudFront): retain for 90 days hot, 1 year archived. Use log aggregation tools (Fluentd, Logstash) to route logs to the correct retention tier automatically. Set up alerts for log ingestion failures.
+
+### How do we document data retention for auditors?
+
+Create a data retention register that lists: data type, classification, storage location, retention period, legal basis, purge method, last purge date, and responsible owner. Store the register in a version-controlled repository. Generate quarterly reports showing purge execution logs and compliance status. During audits, provide the register, purge logs, and policy documents. Ensure auditors can trace a data type from creation to deletion through the documentation.
+
+
+Review the data retention policy annually and after any regulatory change. Update the retention matrix, purge schedules, and legal hold procedures. Train all team members on the updated policy.
+
+
+
+
+
+End of document. Review and update quarterly.

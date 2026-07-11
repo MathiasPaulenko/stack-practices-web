@@ -173,6 +173,72 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 - Vague descriptions like "various improvements" — name the improvement and quantify it
 - No link to migration guide for breaking changes — users need a step-by-step path
 
+## Release Notes Example
+
+```text
+=== Release Notes: v2.5.0 ===
+
+# v2.5.0 - 2026-07-15
+
+## New Features
+
+- **Passkey authentication**: Users can now register and authenticate using
+  passkeys (WebAuthn) in addition to passwords.
+  Setup in Settings > Security > Passkeys.
+
+- **CSV data export**: Administrators can export any table to CSV from
+  the admin panel.
+
+- **Multi-language support**: Added support for French and Portuguese.
+  Total supported languages: 5 (EN, ES, FR, PT, DE).
+
+## Improvements
+
+- **Search performance**: Full-text search is now 3x faster thanks to
+  migration to GIN indices in PostgreSQL.
+
+- **Pagination**: Page limit increased from 50 to 200 results per page.
+
+- **Structured logs**: All logs now use JSON format with correlation IDs
+  to facilitate debugging.
+
+## Bug Fixes
+
+- **#456**: 500 error when creating account with email longer than 50 chars
+- **#459**: Push notifications not sent on iOS 17.4+
+- **#462**: Notification counter did not reset when all were read
+- **#465**: Timestamps in API showed incorrect timezone
+
+## Breaking Changes
+
+- **API v1 deprecated**: API v1 will be removed in v3.0. Migrate to v2.
+  Migration guide: docs/api-migration-v1-to-v2.md
+
+- **user.name field removed**: Replaced by user.firstName and user.lastName.
+  Clients using user.name will receive a 400 error.
+
+## Security Notes
+
+- Updated JWT library from 2.1.0 to 2.3.0 (CVE-2026-1234)
+- Added origin validation to prevent CSRF on forms
+- Automatic secret rotation every 90 days (configurable)
+
+## Upgrade
+
+  Docker: docker pull company/app:2.5.0
+  npm: npm install company-app@2.5.0
+  Helm: helm upgrade app company/app --version 2.5.0
+
+## Release Metrics
+
+  Commits: 47
+  Contributors: 6
+  Issues closed: 12
+  PRs merged: 31
+  Lines changed: +3,245 / -1,892
+```
+
+
 ## Variants
 
 ### Automated release notes (release-please, semantic-release)
@@ -212,3 +278,25 @@ Use multiple channels: in-app notifications for breaking changes, email for majo
 ### What if a release introduces a regression?
 
 Acknowledge it quickly. Add a "Known Issues" section to the release notes with the regression, a workaround if available, and a target fix version. If the regression is severe, consider pulling the release and re-publishing once fixed.
+
+
+### How do we decide what to include in release notes?
+
+Include: new features (with usage instructions), notable improvements (with user impact), bug fixes (with issue number), breaking changes (with migration instructions), and security notes (with CVEs if applicable). Do not include: internal refactoring with no user impact, dependency updates with no behavior change, or typo fixes. For breaking changes: include a before/after code example. For features: include a screenshot or GIF if there are UI changes. Keep the language accessible — users are not engineers. If a feature requires configuration: include the steps.
+
+### How often should we publish release notes?
+
+Publish release notes with every release. For frequent (continuous) releases: publish weekly or per-sprint notes with a summary of changes. For semver releases: publish notes per version (v2.5.0, v2.5.1, etc.). For hotfixes: publish notes with the fix and the reason. Maintain a CHANGELOG.md file with all historical release notes. Use a consistent format so users can scan quickly. For open source projects: publish notes on GitHub Releases in addition to CHANGELOG. Release notes are the most important communication with your users — do not treat them as an afterthought.
+
+### How do we automate release notes generation?
+
+Use conventional commits (feat:, fix:, breaking:) so release notes can be auto-generated. Tools like semantic-release, changesets, or release-please can generate notes from commits. Configure CI so each PR adds a CHANGELOG entry. Use GitHub Releases with auto-generated release notes. For more control: use a release notes template and fill it manually with the most important changes. Automate routine notes (dependencies, typos) and manually write important notes (features, breaking changes). Automation reduces work but does not replace human judgment on what matters.
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -166,3 +166,137 @@ Remote onboarding requires more structured check-ins. Use video calls for pairin
 ### Should onboarding be the same for junior and senior developers?
 
 No. Senior developers need less hand-holding with tools but more context on architecture and domain. Junior developers need more guidance on workflows, code standards, and feedback cycles.
+
+
+## Variants
+
+| Context | Approach | Notes |
+|---------|----------|-------|
+| Startup | 1-week onboarding | Focus on setup and first ticket |
+| Enterprise | 30-day onboarding with mentor | Include culture, processes, compliance |
+| Remote | Onboarding with equipment shipping | Include VPN setup, remote access |
+| Open source | Contributor onboarding | Focus on dev setup and PR workflow |
+
+## Onboarding Example: Week 1
+
+```text
+=== Onboarding: Backend Engineer ===
+
+Day 1: Setup and Access
+  Morning:
+    [ ] Laptop and equipment delivered
+    [ ] Accounts created: Google Workspace, Slack, GitHub, Jira
+    [ ] Repo access: read permissions on all repos
+    [ ] VPN configured
+    [ ] Local environment: Node.js, Docker, PostgreSQL
+    [ ] Clone main repo and run locally
+    [ ] 1:1 meeting with assigned mentor
+  Afternoon:
+    [ ] Tour of internal documentation
+    [ ] Read general architecture (docs/architecture.md)
+    [ ] Join team Slack channels
+    [ ] Configure notifications and profile
+
+Day 2-3: Code Immersion
+  [ ] Read main service README
+    [ ] Understand directory structure
+    [ ] Understand data model
+    [ ] Understand request flow
+  [ ] Run service locally
+    [ ] Make a test request
+    [ ] Check logs
+    [ ] Connect debugger
+  [ ] Read 3 recent PRs to understand review flow
+  [ ] Meeting with Product Owner: understand roadmap
+  [ ] Meeting with Tech Lead: understand code standards
+
+Day 4-5: First Contribution
+  [ ] Assign a "good first issue" ticket
+  [ ] Create branch following naming convention
+  [ ] Implement the change
+  [ ] Write tests
+  [ ] Create PR with clear description
+  [ ] Address code review comments
+  [ ] Merge PR
+  [ ] Celebrate first contribution!
+
+End of Week 1:
+  [ ] Retro 1:1 with mentor: what worked, what did not
+  [ ] Retro 1:1 with manager: expectations, questions
+  [ ] Identify learning areas for Week 2-4
+  [ ] Set up recurring 1:1 meetings
+```
+
+### How do we assign an effective mentor?
+
+A good mentor is patient, knows the codebase, and has availability. Assign the mentor before day 1 — the mentor should prepare the onboarding. The mentor should: do daily 1:1s during the first week, be available for Slack questions, pair program on the first ticket, and give continuous feedback. Do not assign the busiest engineer as mentor — availability is more important than knowledge. Rotate the mentor if the chemistry does not work. The mentor is not responsible for the new engineer's performance — they are responsible for facilitating onboarding. Recognize the mentor's work in performance reviews.
+
+### How do we measure if onboarding was successful?
+
+Measure: time to first contribution (target: < 5 days), time to full autonomy (target: < 30 days), new engineer satisfaction (survey at end of week 1 and month 1), and 90-day retention. Ask for structured feedback: what was useful, what was missing, what would you change. Compare onboarding across different engineers to identify patterns. If an engineer takes more than 2 weeks to make their first PR, the onboarding has a problem. If more than 1 engineer reports the same gap, fix the onboarding. Onboarding is an investment — good onboarding reduces time to productivity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

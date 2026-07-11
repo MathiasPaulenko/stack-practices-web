@@ -134,6 +134,72 @@ Usa este recurso cuando:
 
 La plantilla separa **datos** de **narrativa**. Las tablas fuerzan una revisión cuantitativa; la sección narrativa explica qué significan los números. Muchos equipos omiten el análisis de costos hasta que la factura sorprende a finanzas. Incluir costos semanalmente construye consciencia de costos en la cultura de ingeniería. La sección de temas recurrentes es donde detectas problemas sistémicos: tres incidentes relacionados con memoria en tres semanas significa un patrón, no mala suerte.
 
+## Consulta para Dashboard de Revision Operativa Semanal
+
+```text
+=== Dashboard de Revision Operativa Semanal ===
+
+Semana del: 2026-07-08 al 2026-07-14
+
+1. RESUMEN DE INCIDENTES
+   Incidentes totales:     3
+   P0 (critico):           0
+   P1 (alto):              1 (auth-service timeout, 2026-07-10)
+   P2 (medio):             2 (cache eviction storm, DB slow query)
+   Tiempo medio deteccion: 4 min
+   Tiempo medio resolucion: 22 min
+   Impacto al cliente:     1,200 usuarios afectados (P1)
+
+2. ESTADO DE SLO
+   Servicio          Objetivo SLO  Actual    Presupuesto Restante
+   api-gateway       99.9%         99.92%    78%
+   auth-service      99.9%         99.85%    42% (tendencia bajando)
+   payment-service   99.95%        99.96%    65%
+   search-service    99.5%         99.51%    51%
+
+3. ANALISIS DE COSTOS
+   Esta semana:      $12,450
+   Semana pasada:    $11,800
+   Tendencia:        +5.5% (investigar)
+   Mayor costo:      Instancias EC2 ($4,200)
+   Anomalia:         Egress S3 +40% (nueva feature de export?)
+
+4. RESUMEN DE DESPLIEGUES
+   Despliegues totales: 7
+   Rollbacks:           1 (api-gateway v2.3, error de config)
+   Hotfixes:            1 (auth-service fix de sesion)
+   Despliegues fallidos: 0
+
+5. TEMAS RECURRENTES
+   - Picos de latencia en auth-service durante pico (3ra semana)
+   - Tasa de cache eviction sobre baseline (2da semana)
+   - Costo de egress S3 aumentando (1ra semana, patron nuevo)
+```
+
+## Plantilla de Seguimiento de Action Items
+
+```text
+=== Tracker de Action Items ===
+
+Semana: 2026-07-08
+
+| ID  | Prioridad | Action                              | Owner    | Estado     | ETA         |
+|-----|-----------|-------------------------------------|----------|------------|-------------|
+| A01 | P1        | Investigar latencia auth-service    | alice    | En Progreso| 2026-07-15 |
+| A02 | P1        | Fix politica cache eviction         | bob      | Abierto    | 2026-07-18 |
+| A03 | P2        | Revisar pico costo egress S3        | charlie  | Abierto    | 2026-07-22 |
+| A04 | P2        | Actualizar query DB con indice falt | dba-team | Hecho      | 2026-07-10 |
+| A05 | P0        | Agregar alerta auth p99 > 2s        | alice    | Hecho      | 2026-07-11 |
+
+Items Semana Anterior:
+| ID  | Action                              | Owner    | Estado      |
+|-----|-------------------------------------|----------|-------------|
+| P01 | Reducir costos EC2 right-sizing     | platform | Hecho       |
+| P02 | Agregar synthetic test para checkout| qa-team  | En Progreso |
+| P03 | Documentar procedimiento failover   | sre-team | Hecho       |
+```
+
+
 ## Variantes
 
 | Contexto | Enfoque | Cadencia |
@@ -173,3 +239,63 @@ Celebra brevemente, luego investiga más profundo. Revisa tendencias de costos, 
 ### ¿Cómo hago que los ingenieros se preocupen por los costos?
 
 Muestra costo por feature o por cliente, no solo gasto total. Los ingenieros se relacionan con la eficiencia. Si la Feature X cuesta $0.05 por usuario por mes y la Feature Y cuesta $2.00, esa comparación impulsa la optimización. También, comparte logros de ahorro de costos como victorias de ingeniería; reducir desperdicio es tan valioso como entregar código.
+
+
+### Como automatizamos la recopilacion de datos de la revision operativa?
+
+Usa un script o dashboard que extraiga datos de tu monitoreo (Datadog, Prometheus), gestion de incidentes (PagerDuty, Opsgenie) y gestion de costos (AWS Cost Explorer, CloudHealth) APIs. Genera las tablas automaticamente y completa la narrativa manualmente. Almacena el reporte semanal en un wiki o sistema de documentos compartido. Automatiza la recopilacion de datos pero mantén el analisis humano — el valor de la revision esta en la discusion, no en los numeros.
+
+### Que metricas deberiamos rastrear mas alla de incidentes y costos?
+
+Rastrea: frecuencia de despliegue, lead time para cambios, tasa de fallo de cambios, tiempo medio a recuperacion (metricas DORA). Rastrea tasa de quemado de SLO y consumo de presupuesto de error. Rastrea carga de on-call (paginas por semana, escalaciones). Rastrea items de deuda tecnica cerrados. Rastrea hallazgos de seguridad abiertos y resueltos. Rastrea problemas reportados por clientes. Estas metricas juntas dan una vista holistica de la salud operativa.
+
+### Como manejamos action items que nunca se completan?
+
+Escala action items estancados (abiertos por mas de 2 semanas) al team lead. Si un action item no es lo suficientemente importante para completar en 2 semanas, cierralo y documenta por que. No permitas que la lista de action items crezca indefinidamente — se convierte en ruido. Limita los action items activos a 10 por equipo. Si alcanzas el limite, cierra los items mas antiguos o escala a liderazgo para priorizacion.
+
+### Deberiamos compartir la revision operativa con la empresa?
+
+Comparte una version resumida mensualmente con liderazgo y stakeholders. Incluye: conteo de incidentes, estado de SLO, tendencias de costo y logros principales. Omite action items internos y analisis tecnico detallado. El resumen mensual construye confianza y transparencia. Para equipos de ingenieria, comparte la revision semanal completa en un canal o wiki compartido para que todos puedan ver tendencias y contribuir observaciones.
+
+### Como ejecutamos la revision para equipos distribuidos?
+
+Usa un documento compartido (Google Docs, Notion, Confluence) que todos puedan editar simultaneamente. Comienza con 5 minutos de revision de datos (tablas), luego 15 minutos de discusion (narrativa), luego 10 minutos de action items. Graba la reunion para participantes asincronos. Rota el facilitador semanalmente para construir ownership. Usa una plantilla consistente para que la revision sea comparable semana a semana. Mantén un backlog de temas de discusion para semanas con menos incidentes.
+
+
+### Como manejamos post-mortems sin culpa en la revision operativa?
+
+Dedica 5 minutos al inicio de cada revision para discutir los incidentes de la semana anterior usando un enfoque sin culpa. Enfocate en que paso, por que paso, y que cambios sistemicos lo preveniran. Nunca culpes a individuos — culpa a sistemas, procesos y herramientas. Documenta action items de post-mortems y rastrelos en el tracker de action items. Comparte resumenes de post-mortems con el equipo amplio para aprendizaje. Celebra buenas respuestas a incidentes publicamente.
+
+### Que es un presupuesto de error y como lo usamos en la revision?
+
+Un presupuesto de error es la cantidad maxima de tiempo que un servicio puede fallar su SLO antes de que se requiera accion correctiva. Para un SLO de 99.9% en 30 dias, el presupuesto de error es 43 minutos. Rastrea el consumo del presupuesto de error semanalmente. Si un servicio ha consumido mas del 50% de su presupuesto en menos de la mitad del periodo, marcalo como en riesgo. Si el presupuesto se agota, congela cambios no esenciales y enfocate en mejoras de confiabilidad. Reporta el estado del presupuesto de error en cada revision operativa.
+
+### Como rastreamos la salud del on-call en la revision?
+
+Rastrea: numero de paginas por semana por ingeniero on-call, numero de escalaciones, paginas fuera de horario laboral, e indicadores de fatiga on-call (semanas consecutivas con muchas paginas). Objetivo: menos de 5 paginas por turno, menos de 2 paginas fuera de horario laboral. Si un ingeniero on-call recibe mas de 10 paginas en una semana, marcalo como un problema de salud on-call e investiga causas raiz. Rota los horarios on-call para prevenir burnout. Discute la salud on-call en cada revision operativa.
+
+### Que herramientas deberiamos usar para la revision operativa?
+
+Usa una combinacion de: dashboards de monitoreo (Grafana, Datadog) para datos de SLO e incidentes, herramientas de gestion de costos (AWS Cost Explorer, CloudHealth) para analisis de gasto, herramientas de gestion de incidentes (PagerDuty, Opsgenie) para logs de incidentes, y un documento compartido (Google Docs, Notion) para el reporte semanal. Automatiza la extraccion de datos con scripts o APIs donde sea posible. Mantén el formato de revision consistente semana a semana para analisis de tendencias. Almacena todos los reportes semanales en un archivo buscable para comparacion historica.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

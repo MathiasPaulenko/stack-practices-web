@@ -134,6 +134,42 @@ Usa este recurso cuando:
 
 La plantilla transforma hallazgos de pentesting de texto pasivo en **tickets accionables**. Cada hallazgo necesita propietario único, pasos de corrección enumerados y un checklist de validación. El resumen agregado da visibilidad del progreso a auditorías y gestión. La sección de lecciones aprendidas cierra el ciclo: cada prueba de penetración debe mejorar la preparación de la siguiente.
 
+## Ciclo de Vida de Hallazgos de Pen-Test
+
+```text
+=== Ciclo de Vida de Hallazgos ===
+
+1. DESCUBRIMIENTO
+   - Tester identifica vulnerabilidad durante la evaluacion
+   - Hallazgo documentado con pasos para reproducir, capturas, e impacto
+   - Hallazgo importado al tracker de remediacion en 48 horas
+
+2. TRIAGE
+   - Security team valida el hallazgo (reproduce si es necesario)
+   - Severidad asignada: Critico / Alto / Medio / Bajo / Informativo
+   - Owner asignado: lider de equipo de servicio o ingeniero individual
+   - Reloj de SLA empieza desde la fecha de triage, no de descubrimiento
+
+3. REMEDIACION
+   - Owner desarrolla fix en rama de feature
+   - Fix revisado por security team antes del merge
+   - Fix desplegado a staging para validacion
+   - Fix desplegado a produccion
+
+4. VALIDACION
+   - Mismo tester (o security team) re-prueba en produccion
+   - Evidencia capturada: capturas, output de herramientas, resultados de test
+   - Hallazgo cerrado SOLO despues de que validacion pasa
+   - Si validacion falla, hallazgo reabre con nuevo SLA
+
+5. POST-REMEDIACION
+   - Test de regression agregado al pipeline de CI/CD
+   - Patron de hallazgo compartido con equipo de ingenieria
+   - Threat model actualizado si el attack surface cambio
+   - Hallazgo archivado con trail completo de evidencia
+```
+
+
 ## Variantes
 
 | Contexto | Enfoque | Diferenciador |
@@ -173,3 +209,94 @@ Pentesting de aplicación web/API: anualmente como mínimo, semestralmente si ma
 ### ¿Quién debería revisar los hallazgos antes de que los ingenieros actúen?
 
 Un arquitecto de seguridad o ingeniero senior de confianza debería triagear los hallazgos primero. Los reportes de pentesting a veces contienen falsos positivos o severidades mal asignadas. Un parche incorrecto puede introducir regresiones. También, los pentesters a veces reportan hallazgos que ya están mitigados de otra manera. Una revisión interna antes de la asignación evita que la ingeniería persiga problemas que no existen.
+
+
+### Como coordinamos con testers de penetracion externos?
+
+Establece un unico punto de contacto (SPOC) en el lado de ingenieria. Comparte la info de contacto del SPOC con el tester para preguntas durante el engagement. Proporciona al tester: documentacion de alcance, credenciales de test (no produccion), diagramas de arquitectura, y una lista de sistemas fuera de alcance. Programa una llamada de kickoff para alinear alcance, cronograma, y reglas de engagement. Programa una llamada de debrief al final para recorrer los hallazgos. Solicita el reporte crudo (no solo el resumen ejecutivo) para el tracker de remediacion. Acuerda una ventana de retest — tipicamente 30-90 dias post-reporte. Manten la relacion; los testers que conocen tu sistema encuentran issues mas profundos con el tiempo.
+
+### Que deberiamos incluir en un documento de alcance de pen-test?
+
+El documento de alcance deberia incluir: URLs y direcciones IP en alcance, servicios y APIs en alcance, cuentas de test y credenciales, sistemas fuera de alcance (listados explicitamente), ventanas de testing (cuando se permite testear), limites de tasa (si los hay), reglas de manejo de datos (que puede acceder y almacenar el tester), plan de comunicacion (a quien contactar, como), y procedimientos de escalamiento (si el testing causa una caida). Incluye la metodologia de testing (OWASP, PTES) y cualquier requisito de compliance especifico (PCI DSS, SOC 2). Un alcance claro previene disputas y asegura que el tester se enfoque en lo que importa.
+
+### Como manejamos un hallazgo Critico descubierto un viernes por la tarde?
+
+Para hallazgos Criticos un viernes: notifica al ingeniero on-call y al lider de seguridad inmediatamente. Evalua si el hallazgo es explotable por atacantes externos — si si, comienza la remediacion inmediatamente, incluso si significa un deploy de emergencia. Si el hallazgo requiere acceso interno o no es explotable remotamente, documentalo y programa la remediacion para el lunes por la manana. No dejes hallazgos Criticos sin abordar durante el fin de semana sin un control compensatorio (regla WAF, restriccion IP, feature flag off). Comunica a liderazgo: un hallazgo Critico del viernes es una decision de nivel liderazgo, no solo de ingenieria.
+
+### Como medimos la efectividad de la remediacion de pen-tests?
+
+Rastrea estas metricas: porcentaje de hallazgos remediados dentro del SLA (objetivo: 95%+), tiempo promedio de remediacion por severidad, porcentaje de hallazgos que fallan validacion en el primer intento (objetivo: < 10%), numero de hallazgos recurrentes entre pen-tests (objetivo: decreciente), y numero de hallazgos por pen-test a lo largo del tiempo (objetivo: decreciente a medida que las causas raiz se abordan). Compara hallazgos ano tras ano — si los mismos issues aparecen en pen-tests consecutivos, la causa raiz no se esta abordando. Comparte metricas con liderazgo trimestralmente para justificar inversion en seguridad.
+
+### Cual es la relacion entre pen-tests y testing continuo de seguridad?
+
+Los pen-tests son evaluaciones point-in-time — capturan una instantanea de la postura de seguridad. El testing continuo de seguridad (escaneo DAST, SAST en CI, escaneo de dependencias, escaneo de contenedores) corre constantemente y detecta issues entre pen-tests. Usa pen-tests para testing manual profundo que las herramientas automatizadas no pueden hacer: flaws de logica de negocio, bypasses de autenticacion complejos, cadenas de ataque multi-step. Usa testing continuo para patrones de vulnerabilidad conocidos (SQL injection, XSS, dependencias vulnerables). Ambos son necesarios: el testing continuo detecta el 80%, los pen-tests detectan el 20% que requiere creatividad humana.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

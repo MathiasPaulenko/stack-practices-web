@@ -133,6 +133,43 @@ Use this resource when:
 
 The checklist follows a **defense-in-depth** model: authentication at the edge, authorization at the service, validation at every layer. The OWASP Top 10 table maps each risk to a verifiable check so auditors can trace compliance. Owner checks (horizontal access control) are the most commonly missed item in API reviews. Input validation at the gateway prevents malformed requests from reaching application code. Rate limiting protects against both abuse and accidental cascading failures.
 
+## API Security Review Checklist
+
+```text
+=== Authentication and Authorization ===
+
+[ ] Authentication required on all endpoints (except health/public)
+[ ] JWT validated: signature, expiration, issuer, audience
+[ ] Refresh tokens: rotation, revocation, short expiration
+[ ] OAuth2/OIDC: state validation, PKCE, redirect URI allowlist
+[ ] RBAC or ABAC implemented and tested
+[ ] No auth bypass via path traversal or HTTP method override
+[ ] Rate limiting applied per user and per IP
+[ ] MFA available and required for sensitive operations
+
+=== Input Validation ===
+
+[ ] All parameters validated (type, length, format, range)
+[ ] SQL injection: parameterized queries, ORMs, no string concat
+[ ] XSS: output encoding, Content-Security-Policy header
+[ ] Command injection: no shell exec with user input
+[ ] Path traversal: path validation, no user input in file paths
+[ ] SSRF: domain allowlist for outbound requests
+[ ] XML/JSON: size and depth limits (DoS prevention)
+[ ] Content-Type validation on uploads
+
+=== Data and Responses ===
+
+[ ] No sensitive data in responses (passwords, tokens, unnecessary PII)
+[ ] Encryption in transit (TLS 1.2+, HSTS header)
+[ ] No secrets in URLs (tokens in headers, not query params)
+[ ] Logging does not contain sensitive data (redact PII, tokens)
+[ ] Error messages do not reveal internal info (stack traces, SQL)
+[ ] CORS configured correctly (no wildcard in production)
+[ ] Security headers: X-Content-Type-Options, X-Frame-Options, etc.
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -174,3 +211,92 @@ Yes. Document their security posture (SOC 2, pen test reports), validate TLS cer
 - **Dependency scanning**: Snyk, Dependabot
 - **Secret scanning**: GitLeaks, TruffleHog
 - **API security**: 42Crunch, StackHawk for OpenAPI validation
+
+
+### How do we handle rate limiting and abuse prevention?
+
+Implement rate limiting at multiple layers: per IP (Nginx, CloudFlare) to prevent DDoS, per user/token (API gateway) to prevent account abuse, and per endpoint (app-level) to protect expensive operations. Use the token bucket algorithm for flexibility or sliding window for precision. Configure differentiated limits: read endpoints can have higher limits than write endpoints. For public APIs: document the limits and return rate limit headers (X-RateLimit-Limit, X-RateLimit-Remaining, Retry-After). Monitor abuse patterns: a user consistently near the limit may be a bot. For abuse prevention: add CAPTCHA for signups, bot detection, and behavioral analysis.
+
+### What security headers are mandatory for APIs?
+
+Mandatory headers: Strict-Transport-Security (HSTS) — enforce HTTPS, minimum 1 year with preload. X-Content-Type-Options: nosniff — prevents MIME sniffing. X-Frame-Options: DENY or SAMEORIGIN — prevents clickjacking. Content-Security-Policy — prevents XSS (for APIs serving HTML). Access-Control-Allow-Origin — configured to specific domains, not wildcard. Cache-Control: no-store for responses with sensitive data. X-Request-ID — for request correlation in logs. For REST APIs: add X-API-Version for explicit versioning. Test headers with tools like securityheaders.com or OWASP ZAP.
+
+### How do we review webhook security?
+
+Webhooks are exposed endpoints that receive data from third parties. To secure them: validate the webhook signature (HMAC or asymmetric signature) — never process a webhook without verifying the signature. Use a shared secret rotated regularly. Validate the timestamp to prevent replay attacks (reject webhooks with timestamp > 5 minutes old). Implement idempotency — the same webhook sent twice must not cause duplicate effects. Rate limit your own webhook endpoint. Return 200 quickly and process async — the sender may timeout if processing takes too long. Log all received webhooks for audit. If webhook processing fails, implement retry with exponential backoff on the sender side.
+
+### How do we handle API versioning from a security perspective?
+
+API versioning has security implications: old versions may have known vulnerabilities. Document the lifecycle of each version: GA, deprecation, sunset. Monitor usage of old versions — if a version has low usage, accelerate sunset. For deprecated versions: add deprecation headers (Sunset, Deprecation) and notify users. Do not apply security fixes to deprecated versions — migrate users to the current version. If a Critical vulnerability affects a deprecated version: apply the fix but accelerate sunset. Document the support model: how long each version is supported, what fixes are applied.
+
+### How do we test API security before deployment?
+
+Integrate security testing into CI/CD: SAST for source code (Semgrep, SonarQube), DAST for runtime testing (OWASP ZAP, Burp Suite), dependency scanning (Snyk, Dependabot), and contract testing to verify API spec compliance. Run automated security scans on every PR. Conduct manual penetration testing before major releases. Use API fuzzing tools (Burp Intruder, ffuf) to test for unexpected inputs. Test authentication and authorization with negative tests (access without token, access with wrong role). Test rate limiting by sending burst requests. Test error handling for information disclosure. Security testing should be automated, repeatable, and fast.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

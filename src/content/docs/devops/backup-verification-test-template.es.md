@@ -125,6 +125,98 @@ Un backup que no se puede restaurar no es un backup. Esta plantilla ayuda a los 
 
 La verificacion de backups es la unica forma de probar que un plan de recuperacion ante desastres funciona. Las pruebas regulares exponen problemas como backups faltantes, desviacion de credenciales, errores en runbooks y desajustes de RTO/RPO antes de una emergencia. Documentar cada prueba crea una trazabilidad de auditoria e impulsa la mejora continua de los procedimientos de restauracion.
 
+## Script de Verificacion de Restauracion PostgreSQL
+
+```bash
+#!/bin/bash
+# Restaurar y verificar un backup de PostgreSQL
+set -euo pipefail
+
+BACKUP_FILE="/backups/prod_db_2026-07-11.sql.gz"
+TEST_DB="restore_test_$(date +%s)"
+PG_HOST="test-db.internal"
+PG_USER="restore_verifier"
+
+echo "=== Verificacion de Restauracion de Backup PostgreSQL ==="
+echo "Backup: $BACKUP_FILE"
+echo "DB de prueba: $TEST_DB"
+echo ""
+
+# Crear base de datos de prueba
+echo "[1/6] Creando base de datos de prueba..."
+createdb -h "$PG_HOST" -U "$PG_USER" "$TEST_DB"
+
+# Restaurar backup
+echo "[2/6] Restaurando backup..."
+gunzip -c "$BACKUP_FILE" | psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -v ON_ERROR_STOP=1 > /dev/null
+
+# Verificar conteo de filas
+echo "[3/6] Verificando conteo de filas..."
+TABLES=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT tablename FROM pg_tables WHERE schemaname='public'")
+for table in $TABLES; do
+  count=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT count(*) FROM $table")
+  echo "  $table: $count filas"
+done
+
+# Verificar constraints
+echo "[4/6] Verificando constraints..."
+CONSTRAINTS=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT count(*) FROM pg_constraint WHERE conrelid IN (SELECT oid FROM pg_class WHERE relnamespace='public'::regnamespace)")
+echo "  Constraints activos: $CONSTRAINTS"
+
+# Verificar indices
+echo "[5/6] Verificando indices..."
+INDEXES=$(psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -t -c "SELECT count(*) FROM pg_indexes WHERE schemaname='public'")
+echo "  Indices activos: $INDEXES"
+
+# Ejecutar queries de prueba
+echo "[6/6] Ejecutando queries de smoke..."
+psql -h "$PG_HOST" -U "$PG_USER" -d "$TEST_DB" -c "SELECT 1 as test" > /dev/null && echo "  Smoke query: PASS" || echo "  Smoke query: FAIL"
+
+# Limpiar
+echo ""
+echo "Limpiando base de datos de prueba..."
+dropdb -h "$PG_HOST" -U "$PG_USER" "$TEST_DB"
+echo "=== Verificacion Completada ==="
+```
+
+## Hoja de Calculo de Medicion RTO/RPO
+
+```text
+=== Hoja de Calculo RTO/RPO de Verificacion de Backup ===
+
+Fecha de prueba: 2026-07-11
+Servicio: production-database
+Tipo de Backup: Full + WAL streaming
+
+Medicion RPO:
+  - Ultimo backup exitoso:    2026-07-11 02:00 UTC
+  - Ultimo WAL archivado:     2026-07-11 10:45 UTC
+  - Punto de restauracion:    2026-07-11 11:00 UTC
+  - Perdida de datos:         15 minutos
+  - Objetivo RPO:             30 minutos
+  - Estado RPO:               PASS (15 min < 30 min)
+
+Medicion RTO:
+  - Inicio de restauracion:   11:00 UTC
+  - DB disponible:            11:08 UTC
+  - App conectada:            11:10 UTC
+  - Smoke tests pasaron:      11:12 UTC
+  - RTO total:                12 minutos
+  - Objetivo RTO:             30 minutos
+  - Estado RTO:               PASS (12 min < 30 min)
+
+Problemas Encontrados:
+  - Brecha de WAL de 3 minutos durante 09:30-09:33
+  - Script con path hard-codeado (BVT-001)
+  - Falta paso de rotacion de secretos (BVT-002)
+
+Remediacion:
+  - Investigar causa del brecha WAL
+  - Corregir paths hard-codeados para 2026-07-04
+  - Agregar rotacion de secretos al runbook para 2026-07-11
+```
+
+
 ## Variantes
 
 - **Verificacion de backups de base de datos**: Restaurar backups completos e incrementales, verificar la reproduccion de logs de transacciones y ejecutar verificaciones de consistencia.
@@ -171,3 +263,39 @@ RTO (Recovery Time Objective) es el tiempo maximo aceptable para restaurar un se
 ### Deberiamos probar las restauraciones durante horario laboral?
 
 Las pruebas de restauracion deben realizarse durante ventanas de mantenimiento planificadas para evitar impactar la produccion. Usa entornos aislados siempre que sea posible.
+
+
+### Como automatizamos la verificacion de backups?
+
+Programa pruebas de restauracion usando cron o pipelines de CI/CD. Crea un script que restaure el backup mas reciente a un entorno aislado, ejecute verificaciones de integridad de datos, mida RTO/RPO, y envie un reporte. Almacena resultados en un dashboard para analisis de tendencias. Alerta sobre verificaciones fallidas. Para bases de datos, usa herramientas como pgBackRest verify o AWS RDS automated restore testing. Para sistemas de archivos, usa comparacion de checksums. Automatiza tanto como sea posible pero manten un runbook manual para casos edge.
+
+### Que deberiamos hacer si una verificacion de backup falla?
+
+Tratalo como un incidente P1. Inmediatamente verifica si el sistema de backup de produccion esta funcionando. Si el backup esta corrupto o falta, identifica la causa raiz y crea un nuevo backup. No esperes a la siguiente prueba programada. Documenta el fallo, la causa raiz y la correccion. Notifica a stakeholders si el servicio esta en riesgo. Ejecuta una verificacion completa despues de la correccion para confirmar que el sistema de backup esta saludable. Revisa el incidente en la proxima reunion del equipo.
+
+### Como probamos restauraciones de backups incrementales?
+
+Los backups incrementales requieren el backup full mas todos los backups incrementales subsecuentes aplicados en orden. Prueba restaurando el backup full, aplicando cada backup incremental en secuencia, y verificando el estado final. Prueba recuperacion point-in-time restaurando a un timestamp especifico. Verifica que los logs de transaccion se reproduzcan correctamente. Prueba cadenas incrementales rotas eliminando un backup incremental y confirmando que el sistema detecte el brecha. Documenta el procedimiento completo de restauracion incluyendo todos los pasos.
+
+### Que entornos deberiamos usar para pruebas de restauracion?
+
+Usa un entorno aislado que refleje la topologia de produccion pero que no comparta recursos. Puede ser un VPC de prueba dedicado, un namespace de Kubernetes separado, o una configuracion docker-compose. El entorno debe tener la misma version de base de datos, configuracion de red y version de aplicacion que produccion. Nunca restaures al entorno de produccion. Limpia el entorno de prueba despues de cada verificacion. Usa infrastructure-as-code para aprovisionar y desmontar el entorno de prueba automaticamente.
+
+### Como manejamos la verificacion de backups para sistemas distribuidos?
+
+Para sistemas distribuidos (microservicios, arquitecturas event-driven), verifica cada componente independientemente y luego prueba la restauracion integrada. Restaura bases de datos, colas de mensajes y object stores por separado. Luego verifica que la aplicacion pueda iniciar y procesar requests con todos los componentes restaurados. Prueba event replay para asegurar consistencia. Verifica que las transacciones distribuidas o sagas se completen correctamente despues de la restauracion. Documenta el orden de restauracion — algunos servicios pueden depender de que otros se restauren primero.
+
+
+
+Revisa los resultados de verificacion de backups mensualmente. Rastrea las tendencias de RTO/RPO a lo largo del tiempo para identificar degradacion de rendimiento antes de que se convierta en un problema de cumplimiento.
+
+### Como verificamos la replicacion cross-region de backups?
+
+La replicacion cross-region copia backups a una region secundaria para recuperacion ante desastres. Verifica la replicacion: revisando el estado de replicacion en la consola de nube, comparando tamanos de backup entre regiones primaria y secundaria, y realizando una restauracion desde el backup de la region secundaria. Prueba failover a la region secundaria al menos trimestralmente. Documenta el lag de replicacion y asegurate de que cumpla los requisitos de RPO. Verifica que las claves de cifrado sean accesibles en la region secundaria.
+
+
+
+
+
+
+End of document. Review and update quarterly.

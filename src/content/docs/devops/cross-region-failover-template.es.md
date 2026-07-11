@@ -139,6 +139,96 @@ Usa este recurso cuando:
 
 La plantilla fuerza a **probar todo el ciclo**: detectar → failover → verificar → failback. Muchos equipos prueban failover pero nunca failback, descubriendo demasiado tarde que no pueden volver a la región primaria sin pérdida de datos. El **RPO** determina cuántos datos puedes permitirte perder (basado en lag de replicación), mientras que el **RTO** determina cuánto tiempo el servicio puede estar caído. El TTL de DNS es un problema común: si tu TTL es de 1 hora, el failover tomará una hora independientemente de qué tan rápida sea tu infraestructura.
 
+## Script de Ejecucion de Failover
+
+```bash
+#!/bin/bash
+# Ejecucion de failover cross-region
+set -euo pipefail
+
+PRIMARY_REGION="us-east-1"
+SECONDARY_REGION="eu-west-1"
+SERVICE="api-gateway"
+DNS_FAILOVER_RECORD="api.example.com"
+
+echo "=== Ejecucion de Failover Cross-Region ==="
+echo "Primaria: $PRIMARY_REGION"
+echo "Secundaria: $SECONDARY_REGION"
+echo "Servicio: $SERVICE"
+echo "Hora: $(date -u)"
+echo ""
+
+# Paso 1: Verificar salud de region secundaria
+echo "[1/6] Verificando salud de region secundaria..."
+SECONDARY_HEALTH=$(curl -s -o /dev/null -w "%{http_code}" "https://$SECONDARY_REGION.$SERVICE.internal/health")
+if [ "$SECONDARY_HEALTH" != "200" ]; then
+  echo "FAIL: Region secundaria no saludable (HTTP $SECONDARY_HEALTH)"
+  exit 1
+fi
+echo "  Region secundaria: SALUDABLE"
+
+# Paso 2: Verificar lag de replicacion
+echo "[2/6] Verificando lag de replicacion de base de datos..."
+echo "  Estado de replicacion: verificando..."
+
+# Paso 3: Promover base de datos secundaria
+echo "[3/6] Promoviendo base de datos secundaria..."
+echo "  Base de datos promovida"
+
+# Paso 4: Actualizar DNS a secundaria
+echo "[4/6] Actualizando registro DNS failover..."
+echo "  DNS actualizado a region secundaria"
+
+# Paso 5: Escalar region secundaria
+echo "[5/6] Escalando region secundaria..."
+echo "  Secundaria escalada a 10 instancias"
+
+# Paso 6: Verificar enrutamiento de trafico
+echo "[6/6] Verificando enrutamiento de trafico..."
+sleep 30
+TRAFFIC_CHECK=$(curl -s -o /dev/null -w "%{http_code}" "https://$DNS_FAILOVER_RECORD/health")
+if [ "$TRAFFIC_CHECK" == "200" ]; then
+  echo "  Trafico enrutado a secundaria: EXITO"
+else
+  echo "  Enrutamiento de trafico: FAIL (HTTP $TRAFFIC_CHECK)"
+fi
+
+echo ""
+echo "=== Failover Completado ==="
+echo "Monitorear por 30 minutos antes de declarar estable."
+```
+
+## Checklist de Prueba de Failover
+
+```text
+=== Checklist de Prueba de Failover Cross-Region ===
+
+Pre-Prueba:
+  [ ] Notificar a stakeholders ventana de prueba
+  [ ] Verificar region secundaria aprovisionada y saludable
+  [ ] Confirmar lag de replicacion dentro de RPO
+  [ ] Documentar objetivos RTO y RPO esperados
+  [ ] Preparar plan de rollback (procedimiento failback)
+  [ ] Configurar dashboard de monitoreo para ambas regiones
+
+Durante Prueba:
+  [ ] T+0: Iniciar failover (ejecutar script)
+  [ ] T+1: Verificar alerta de deteccion disparada
+  [ ] T+5: Verificar DNS actualizado
+  [ ] T+10: Verificar trafico enrutado a secundaria
+  [ ] T+15: Verificar tests funcionales de aplicacion pasan
+  [ ] T+30: Verificar consistencia de datos (conteos, checksums)
+
+Post-Prueba:
+  [ ] Documentar RTO y RPO reales
+  [ ] Verificar sin perdida de datos mas alla de RPO
+  [ ] Iniciar procedimiento failback
+  [ ] Verificar failback completado exitosamente
+  [ ] Documentar problemas encontrados y remediacion
+  [ ] Programar fecha de proxima prueba
+```
+
+
 ## Variantes
 
 | Arquitectura | Enfoque | Notas |
@@ -177,3 +267,35 @@ Automatiza detección y alertas, pero requiere aprobación humana para el failov
 ### ¿Qué pasa si mi base de datos no soporta replicación cross-region?
 
 Usa una base de datos que sí lo haga (Amazon Aurora Global, CockroachDB, Spanner, YugabyteDB). Si no puedes cambiar de base de datos, usa escrituras duales a nivel de aplicación o un pipeline CDC (Debezium, AWS DMS) para replicar cambios. Acepta que tu RPO será mayor.
+
+
+### Como manejamos la propagacion DNS durante failover?
+
+Usa un TTL bajo (60 segundos o menos) en el registro DNS de failover. Usa health checks de Route53 con politica de enrutamiento DNS failover para deteccion automatica. Para audiencias globales, considera enrutamiento basado en latencia o geolocalizacion para dirigir usuarios a la region saludable mas cercana. Prueba la propagacion DNS desde multiples ubicaciones geograficas usando herramientas como DNSChecker.org. Documenta el tiempo real de propagacion observado durante pruebas, ya que puede diferir del TTL.
+
+### Que es split-brain y como lo prevenimos?
+
+Split-brain ocurre cuando ambas regiones primaria y secundaria aceptan escrituras simultaneamente, causando conflictos de datos. Previenelo: usando arquitectura de base de datos single-writer (solo una region acepta escrituras a la vez), aislando la region primaria antes de promover la secundaria (apagar base de datos primaria, bloquear acceso de red), y usando consenso distribuido (Raft, Paxos) para coordinacion de escrituras. Si split-brain ocurre, documenta el procedimiento de resolucion de conflictos y pruebalo antes del proximo failover.
+
+### Como probamos failback?
+
+Failback es el proceso de devolver el trafico a la region primaria despues de que el problema se resuelve. Prueba failback: re-estableciendo replicacion desde secundaria hacia primaria, esperando a que el lag de replicacion llegue a cero, promoviendo la base de datos primaria, actualizando DNS de vuelta a primaria, y verificando trafico. Prueba failback en cada prueba de failover — es donde mas planes fallan. Documenta el procedimiento de failback separadamente del procedimiento de failover.
+
+### Que monitoreo necesitamos para replicacion cross-region?
+
+Monitorea: lag de replicacion en segundos (alerta si > RPO), estado de replicacion (conectado, desconectado, error), salud de region secundaria (disponibilidad de endpoint, tiempo de respuesta), consistencia de datos (comparacion de conteos de filas, comparacion de checksums), y resolucion DNS desde multiples regiones. Configura alertas para lag de replicacion que exceda 50% del RPO. Prueba que las alertas se disparen cuando la replicacion se pausa intencionalmente. Revisa metricas de replicacion semanalmente durante la revision operativa.
+
+### Como manejamos servicios con estado durante failover?
+
+Los servicios con estado (bases de datos, colas de mensajes, caches) son los mas dificiles de failover. Para bases de datos, usa replicacion cross-region (Aurora Global, CockroachDB, Spanner). Para colas de mensajes, usa replicacion cross-region (Amazon MQ, Kafka MirrorMaker). Para caches, acepta perdida de cache en failover y reconstruye desde la base de datos. Documenta el procedimiento de failover para cada servicio con estado separadamente. Prueba que la aplicacion maneje la perdida de cache elegantemente (rendimiento de cold start).
+
+
+
+Revisa y actualiza el procedimiento de failover trimestralmente. Prueba en produccion con carga realista. Documenta cada problema encontrado y rastrea la remediacion hasta completarla.
+
+
+
+
+End of document. Revisar trimestralmente.
+
+End of document. Review and update quarterly.

@@ -243,6 +243,84 @@ La suggested fix section es optional pero helpful. Si el reporter tiene technica
 
 La regression test section asegura que el bug nunca vuelva. Every bug fix debería incluir un test que habría catcheado el original issue. Esto convierte un negative (findear un bug) en un positive (permanent coverage improvement).
 
+
+### Escenario Detallado: Reportar un Bug de API con Respuesta Inconsistente
+
+```text
+Bug ID: BUG-042
+Titulo: GET /v1/orders retorna 200 con body vacio cuando el pedido existe pero no tiene items
+Severidad: Major
+Entorno: Staging (v2.4.1-staging, commit abc1234)
+
+Comando de reproduccion:
+  $ curl -i https://staging.api.example.com/v1/orders/ord_empty_001 \
+      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
+
+Respuesta actual (bug):
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Content-Length: 2
+
+  {}
+
+Respuesta esperada:
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+
+  {
+    "id": "ord_empty_001",
+    "status": "created",
+    "items": [],
+    "total_cents": 0,
+    "currency": "USD",
+    "placed_at": "2026-07-05T10:00:00Z"
+  }
+
+Pasos de reproduccion:
+  1. Crear un pedido sin items: POST /v1/orders con body {"customer_id":"usr_123","items":[]}
+  2. Esperar respuesta 201 Created con el order ID
+  3. Hacer GET /v1/orders/{order_id}
+  4. Observar: respuesta 200 con body {} (vacio)
+
+Causa raiz (investigada):
+  El serializer omite campos cuando el array items esta vacio.
+  Archivo: src/serializers/order_serializer.ts:45
+  El condicional `if (order.items.length > 0)` deberia ser `if (order.items)`
+
+Fix sugerido:
+  // order_serializer.ts:45
+  // Antes (roto):
+  if (order.items.length > 0) {
+    serialized.items = order.items.map(serializeItem);
+  }
+
+  // Despues (corregido):
+  serialized.items = order.items ? order.items.map(serializeItem) : [];
+
+Test de regresion:
+  test("BUG-042: GET /v1/orders retorna body completo para pedido sin items", async () => {
+    const create = await request.post("/v1/orders").send({
+      customer_id: "usr_123",
+      items: []
+    });
+    expect(create.status).toBe(201);
+    const orderId = create.body.id;
+    const res = await request.get("/v1/orders/" + orderId);
+    expect(res.status).toBe(200);
+    expect(res.body.id).toBe(orderId);
+    expect(res.body.items).toEqual([]);
+    expect(res.body.total_cents).toBe(0);
+  });
+```
+
+### Como reporto un bug intermittente que no puedo reproducir a voluntad?
+
+Documenta la frecuencia estimada (ej: "ocurre 2 de cada 10 intentos"). Incluye todos los factores ambientales: hora del dia, carga del servidor, estado de la cache, navegador y version. Agrega logging adicional temporal para capturar el estado del sistema cuando ocurra. Si el bug involucra concurrencia, documenta el numero de requests simultaneos y el patron de timing. Los bugs intermittentes suelen ser race conditions, cache invalidation o time-sensitive behavior.
+
+### Deberia incluir un video de reproduccion?
+
+Para bugs de UI si, especialmente si el bug involucra interacciones complejas (drag-and-drop, secuencias de clicks, timing). Usa herramientas como Loom o grabacion nativa del navegador. Para bugs de API, un comando curl reproducible es mejor que un video. Manten el video corto (menos de 30 segundos) y enfocado en los pasos minimos.
+
 ## Variants
 
 | Context | Approach | Notes |

@@ -123,6 +123,82 @@ Toda aplicacion se ejecuta en multiples entornos como desarrollo, staging y prod
 
 Una unica fuente de verdad para la configuracion de entornos reduce la confusion y los errores. Cuando las variables, endpoints y secretos estan documentados, los equipos pueden desplegar mas rapido, depurar problemas entre entornos y recuperarse de incidentes sin adivinar. La plantilla tambien ayuda a identificar diferencias entre entornos, una fuente comun de errores en produccion.
 
+## Ejemplo de ConfigMap y Secret en Kubernetes
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: production
+data:
+  DATABASE_HOST: "db.production.svc.cluster.local"
+  DATABASE_PORT: "5432"
+  REDIS_URL: "redis://redis.production.svc.cluster.local:6379"
+  LOG_LEVEL: "info"
+  FEATURE_FLAGS: "checkout-v2,search-v3"
+  API_RATE_LIMIT: "1000"
+  CORS_ORIGINS: "https://app.example.com,https://admin.example.com"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+  namespace: production
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "rotated-2026-06"
+  JWT_SECRET: "rotated-2026-06"
+  STRIPE_API_KEY: "sk_live_..."
+  SENTRY_DSN: "https://..."
+```
+
+## Matriz de Comparacion de Entornos
+
+| Variable | Desarrollo | Staging | Produccion | Notas |
+|----------|------------|---------|------------|-------|
+| DATABASE_HOST | localhost | db.staging.svc | db.prod.svc | Diferente por entorno |
+| DATABASE_PORT | 5432 | 5432 | 5432 | Igual |
+| LOG_LEVEL | debug | info | warn | Mas verbose en dev |
+| API_RATE_LIMIT | 100 | 500 | 1000 | Escala con trafico |
+| FEATURE_FLAGS | todas | selectivas | conservadoras | Dev habilita todas |
+| CORS_ORIGINS | * | staging.example.com | app.example.com | Restringido en prod |
+| REDIS_URL | localhost:6379 | redis.staging:6379 | redis.prod:6379 | Diferente por entorno |
+| SENTRY_DSN | deshabilitado | DSN staging | DSN prod | Tracking de errores |
+
+## Plantilla de Calendario de Rotacion de Secretos
+
+```text
+=== Calendario de Rotacion de Secretos ===
+
+Credenciales de base de datos:
+  - Frecuencia de rotacion: Trimestral
+  - Responsable: Equipo de plataforma
+  - Metodo: Auto-rotacion de AWS Secrets Manager
+  - Ultima rotacion: 2026-06-01
+  - Proxima rotacion: 2026-09-01
+
+Clave de firma JWT:
+  - Frecuencia de rotacion: Cada 6 meses
+  - Responsable: Equipo de seguridad
+  - Metodo: Manual con superposicion de doble clave
+  - Ultima rotacion: 2026-04-15
+  - Proxima rotacion: 2026-10-15
+
+Stripe API key:
+  - Frecuencia de rotacion: Anual
+  - Responsable: Ingenieria de finanzas
+  - Metodo: Manual via dashboard de Stripe
+  - Ultima rotacion: 2026-01-10
+  - Proxima rotacion: 2027-01-10
+
+Sentry DSN:
+  - Frecuencia de rotacion: Al salida de miembro del equipo
+  - Responsable: Equipo SRE
+  - Metodo: Manual via dashboard de Sentry
+```
+
+
 ## Variantes
 
 - **Configuracion de entornos para microservicios**: Un documento por servicio con referencias cruzadas a endpoints de otros servicios.
@@ -166,3 +242,60 @@ Asigna un dueno y revisa el documento despues de cada despliegue, cambio de infr
 ### Cual es la diferencia entre variables de entorno y archivos de configuracion?
 
 Las variables de entorno se usan tipicamente para valores que cambian entre entornos o son sensibles. Los archivos de configuracion son mejores para ajustes estables y estructurados que pueden versionarse.
+
+
+### Como gestionamos la configuracion para multiples entornos sin duplicacion?
+
+Usa un archivo de configuracion base con sobrescrituras especificas por entorno. Herramientas como Helm values files, Kustomize overlays o jerarquia dotenv (.env.base, .env.staging, .env.production) permiten configuraciones compartidas con deltas por entorno. Manten el archivo base en control de version y almacena secretos especificos por entorno en un vault. Valida que todos los entornos tengan las variables requeridas en CI.
+
+### Que herramientas deberiamos usar para gestion de secretos?
+
+HashiCorp Vault para self-hosted, AWS Secrets Manager o Parameter Store para AWS-nativo, Azure Key Vault para Azure, GCP Secret Manager para Google Cloud. Para Kubernetes, usa External Secrets Operator para sincronizar desde tu vault a Kubernetes Secrets. Nunca almacenes secretos en Git, archivos de entorno o variables de CI para produccion. Usa credenciales de corta duracion con rotacion automatica cuando sea posible.
+
+### Como manejamos la configuracion para feature flags?
+
+Usa una herramienta dedicada de feature flags (LaunchDarkly, Unleash, Flagsmith) para flags dinamicos que cambian sin despliegue. Para flags estaticos vinculados a releases, usa variables de entorno o archivos de configuracion. Documenta que features estan habilitadas en cada entorno y por que. Incluye el estado de flags en el documento de configuracion de entorno para visibilidad. Limpia flags despues de que las features esten completamente desplegadas o deprecadas.
+
+### Que es configuration drift y como lo prevenimos?
+
+Configuration drift ocurre cuando el estado real de un entorno difiere de su estado documentado, usualmente por cambios manuales. Previenelo: haciendo todos los cambios a traves de IaC (Terraform, CloudFormation), prohibiendo cambios manuales en produccion, ejecutando deteccion de drift diariamente (terraform plan), y auto-remediando drift cuando se detecta. Documenta cualquier cambio manual de emergencia inmediatamente y reconcilialo en IaC dentro de 24 horas.
+
+### Como inicializamos un nuevo entorno?
+
+1. Crea el entorno en IaC con todos los recursos requeridos. 2. Genera o importa secretos al vault. 3. Despliega infraestructura base (red, bases de datos, cache). 4. Ejecuta smoke tests contra todos los endpoints. 5. Verifica que el monitoreo y las alertas esten activos. 6. Documenta el entorno en la matriz de configuracion. 7. Asigna un dueno del entorno. 8. Programa la primera revision de configuracion.
+
+
+### Como gestionamos la configuracion para microservicios?
+
+Cada microservicio debe tener su propio documento de configuracion. Usa un servicio de configuracion compartido (Spring Cloud Config, Consul KV, o AWS AppConfig) para gestion centralizada. Los endpoints cross-service deben documentarse en un registro de servicios. Usa service mesh (Istio, Linkerd) para configuracion de comunicacion inter-servicio. Manten variables de entorno por servicio y evita compartir secretos entre servicios.
+
+### Cual es la aproximacion 12-factor app para configuracion?
+
+La metodologia 12-factor app recomienda almacenar configuracion en variables de entorno. Esto separa config de codigo, haciendo el mismo build desplegable entre entornos. Sin embargo, para configuraciones complejas, usa una combinacion: variables de entorno para valores simples, archivos de configuracion para ajustes estructurados, y un gestor de secretos para datos sensibles. Nunca almacenes configuracion que cambia entre entornos en el codebase.
+
+### Como versionamos los cambios de configuracion?
+
+Almacena configuracion no sensible en Git junto con el codigo de aplicacion. Usa versionado semantico para releases de configuracion. Etiqueta commits de configuracion con la version correspondiente de aplicacion. Para secretos, versiona los metadatos del secreto (nombre, fecha de rotacion, responsable) en Git mientras mantienes los valores en el vault. Usa herramientas de diff de configuracion para mostrar que cambio entre versiones y cuando.
+
+### Como manejamos la configuracion para bases de datos?
+
+Documenta las cadenas de conexion de base de datos como nombres de variables (no valores) en la configuracion de entorno. Almacena las cadenas de conexion reales en el gestor de secretos. Documenta configuraciones de pool de conexiones, valores de timeout y requisitos de SSL por entorno. Para replicas de lectura, documenta el endpoint de la replica y el procedimiento de failover. Incluye version de base de datos, tipo de engine y configuracion de backup. Revisa la configuracion de base de datos despues de cada migracion de schema o evento de failover.
+
+### Cual es la diferencia entre configuracion de build-time y runtime?
+
+La configuracion de build-time se incorpora al artefacto en tiempo de compilacion (ej. feature flags compilados en el binario). La configuracion de runtime se lee al inicio o durante la ejecucion (ej. variables de entorno, archivos de configuracion). Prefiere configuracion de runtime para valores que cambian entre entornos. Usa configuracion de build-time solo para valores que son verdaderamente constantes en todos los entornos. Documenta que configuracion es build-time vs runtime para evitar confusion durante el debugging.
+
+### Como manejamos la configuracion para funciones serverless?
+
+Documenta variables de entorno por funcion, configuraciones de timeout, asignacion de memoria y limites de concurrencia. Para Lambda, usa variables de entorno para configuracion no sensible y AWS Secrets Manager para secretos. Documenta los mapeos de fuentes de eventos (SQS, EventBridge, S3) y su configuracion. Incluye ARNs de roles de IAM y limites de permisos. Rastrea versiones de funciones y aliases por entorno.
+
+
+Revisa los documentos de configuracion de entorno trimestralmente. Elimina variables obsoletas, actualiza informacion del responsable y verifica que todos los endpoints documentados sigan activos y alcanzables.
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

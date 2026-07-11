@@ -131,6 +131,111 @@ Use this resource when:
 
 The template enforces **three gates** before any production change: a description that justifies the change, an impact analysis that surfaces hidden dependencies, and a rollback plan that is ready before the change starts. The risk level determines who must approve: low-risk changes may only need a peer review, while high-risk changes require a Change Advisory Board (CAB) and explicit sign-off from security. The execution log creates an audit trail that is invaluable during post-mortems and compliance audits.
 
+## Change Risk Assessment Matrix
+
+```text
+=== Change Risk Assessment ===
+
+Risk Level Criteria:
+
+CRITICAL:
+  - Changes to authentication or authorization
+  - Database schema changes affecting production data
+  - Network infrastructure changes (VPC, firewall, DNS)
+  - Changes during freeze periods (Black Friday, product launch)
+  - Changes affecting > 50% of user traffic
+  Approval: CAB + Security + Engineering Director
+
+HIGH:
+  - Changes to production configuration
+  - API contract changes affecting external consumers
+  - Infrastructure scaling changes
+  - Database index additions/removals
+  - Changes affecting 10-50% of user traffic
+  Approval: CAB + Team Lead
+
+MEDIUM:
+  - Feature flag toggles in production
+  - Non-breaking API additions
+  - Configuration parameter updates
+  - Dependency version bumps
+  Approval: Team Lead + Peer Review
+
+LOW:
+  - CSS/styling changes
+  - Copy/text updates
+  - Documentation updates
+  - Non-production environment changes
+  Approval: Peer Review
+```
+
+## Change Calendar and Collision Detection
+
+```text
+=== Change Calendar (Week of 2026-07-08) ===
+
+Monday    2026-07-08
+  10:00  [MEDIUM] Deploy API v2.3.1 (team-a)     Status: Approved
+  14:00  [LOW]     Update docs site (team-b)      Status: Approved
+
+Tuesday   2026-07-09
+  09:00  [HIGH]    DB migration: add index (dba)  Status: Pending CAB
+  15:00  [MEDIUM]  Feature flag: checkout-v2 (team-c)  Status: Approved
+
+Wednesday 2026-07-10
+  --     FREEZE DAY (product launch)              No changes allowed
+
+Thursday  2026-07-11
+  10:00  [CRITICAL] Auth service upgrade (sec)    Status: Pending CAB
+  11:00  [MEDIUM]  Deploy frontend v3.1 (team-d)  Status: Pending
+  COLLISION DETECTED: Auth upgrade + frontend deploy at same time
+  RESOLUTION: Move frontend deploy to 14:00
+
+Friday    2026-07-12
+  09:00  [LOW]     Cleanup unused S3 buckets (platform)  Status: Approved
+  --     No HIGH/CRITICAL changes after 12:00 (weekend safety)
+```
+
+## Post-Change Review Template
+
+```text
+=== Post-Change Review ===
+
+Change ID: CHG-2026-07-11-001
+Title: Deploy API v2.3.1
+Risk Level: MEDIUM
+Change Owner: alice@example.com
+Reviewer: bob@example.com
+
+Execution Summary:
+  Planned start:  10:00 UTC
+  Actual start:   10:02 UTC
+  Planned end:    10:30 UTC
+  Actual end:     10:35 UTC
+  Duration variance: +5 minutes
+
+Outcome:
+  [x] Change completed as planned
+  [x] All deployment steps succeeded
+  [x] Smoke tests passed
+  [x] Monitoring shows no anomalies (1h post-change)
+  [x] No rollback needed
+  [x] Ticket closed with outcome summary
+
+Issues Encountered:
+  - Migration took 3 min longer than expected due to table size
+  - No user impact
+
+Lessons Learned:
+  - Update migration time estimate for tables > 10M rows
+  - Consider pre-warming cache after migration
+
+Follow-up Actions:
+  - Update runbook with new migration time estimate (alice, by 2026-07-18)
+  - Add cache warming step to deployment script (platform, by 2026-07-25)
+```
+
+
 ## Variants
 
 | Context | Approval Gate | Focus |
@@ -171,3 +276,24 @@ Document an emergency change process: the on-call engineer executes the fix, the
 ### Should infrastructure-as-code changes use this template?
 
 Yes, but integrate with your IaC review process. The change request should reference the pull request and the `terraform plan` diff. The risk assessment focuses on whether the plan shows destructive changes (resource replacement) or just additive changes. The rollback plan for IaC is often a `git revert` + re-apply, but verify that the state file will remain consistent.
+
+
+### How do we implement change freezes?
+
+Define freeze periods based on business events: product launches, holidays, sales events (Black Friday), regulatory deadlines. During a freeze, only emergency changes are allowed with VP-level approval. Communicate freeze dates at least 2 weeks in advance. Block deployments via CI/CD during freezes with an override process for emergencies. Document the freeze in the change calendar. Resume normal changes after the freeze period ends with a debrief on any emergency changes made during the freeze.
+
+### What is a Change Advisory Board (CAB)?
+
+A CAB is a group of stakeholders who review and approve high-risk changes. Typical members: engineering manager, security representative, operations lead, and product owner. The CAB meets on a regular schedule (weekly or twice weekly) to review upcoming changes. Emergency CAB meetings can be called for urgent changes. The CAB reviews the change description, impact analysis, rollback plan, and risk assessment. Document CAB decisions in the change management system for audit trails.
+
+### How do we track change success rate?
+
+Track metrics: total changes per month, percentage of changes that caused incidents, percentage of changes that required rollback, average time to complete a change, and percentage of changes with complete documentation. Target: < 5% incident rate, < 10% rollback rate. Review metrics monthly. Identify patterns in failed changes (specific services, specific change types, specific times). Use these patterns to improve the change process and provide targeted training.
+
+### How do we handle rollback when the change cannot be reversed?
+
+Some changes are irreversible (database migrations that drop columns, data deletions, schema changes). For these, create a forward-fix plan instead of a rollback plan. The forward-fix plan documents how to restore functionality if the change causes issues, even if the original state cannot be restored. Test the forward-fix in staging. Have a communication plan ready for stakeholders. Consider doing irreversible changes in phases: first deprecate, then remove in a later change after a verification period.
+
+### How do we integrate change management with GitOps?
+
+In a GitOps workflow, the pull request IS the change request. Link the PR to the change management system. Use PR labels for risk classification (low, medium, high, critical). Require approvals based on risk level: low = 1 reviewer, medium = 2 reviewers, high = CAB approval. The merge commit is the execution. Use tools like Argo CD or Flux to track deployment status. The PR description should include the impact analysis and rollback plan. Close the change ticket automatically when the deployment succeeds.

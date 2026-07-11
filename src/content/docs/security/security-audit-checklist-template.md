@@ -113,6 +113,59 @@ Use this resource when:
 
 The checklist is organized by **security domain** so teams can divide work across specialties: backend engineers handle auth and input validation, DevOps secures infrastructure, and compliance teams validate documentation. Each item is a binary pass/fail to keep audits objective. The template can be copy-pasted into a ticketing system or run as an automated compliance scan.
 
+## Security Audit Execution Guide
+
+```text
+=== Pre-Audit Preparation (1 week before) ===
+
+[ ] Define audit scope (which services, environments, teams)
+[ ] Notify teams of audit dates and required evidence
+[ ] Gather existing security documentation (policies, procedures)
+[ ] Review previous audit findings and remediation status
+[ ] Prepare access to systems, repos, and infrastructure for auditor
+[ ] Schedule interviews with team leads and security owners
+
+=== During Audit ===
+
+[ ] Walk through each checklist section with the responsible team
+[ ] Capture evidence: screenshots, config files, policy links, tool output
+[ ] Document findings: pass, fail, partial, not applicable
+[ ] Assign severity to each finding: Critical, High, Medium, Low
+[ ] Note remediation steps for each finding
+[ ] Identify quick wins (fixable within 1 week)
+[ ] Identify long-term items (require planning or budget)
+
+=== Post-Audit (1 week after) ===
+
+[ ] Compile audit report with findings and evidence
+[ ] Share report with engineering leadership and security team
+[ ] Create tickets for each finding with severity and due date
+[ ] Schedule remediation review for 30/60/90 days
+[ ] Update security policies based on audit learnings
+[ ] Plan next audit date (quarterly for critical services)
+```
+
+## Security Audit Evidence Templates
+
+```text
+=== Evidence: Authentication Review ===
+
+Service: [SERVICE_NAME]
+Date: [DATE]
+Reviewer: [NAME]
+
+Authentication method: [OAuth2 / SAML / JWT / Session]
+MFA enforced: [Yes / No]
+Password policy: [Min length, complexity, rotation]
+Session timeout: [Duration]
+Failed login lockout: [Threshold and duration]
+Evidence: [Screenshot of auth config / link to policy]
+
+Finding: [Pass / Fail / Partial]
+Notes: [OBSERVATIONS]
+```
+
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -150,3 +203,100 @@ Yes, at least annually. Internal teams know the system too well to find obvious 
 ### What if an item fails but the fix is expensive?
 
 Document the risk, create a mitigation plan (workarounds, monitoring, insurance), and assign a target date. Some risks are accepted with executive sign-off, but they must be revisited regularly.
+
+
+### How do we prioritize security audit findings?
+
+Prioritize by severity and exploitability: Critical findings (remote code execution, authentication bypass, data exposure) must be fixed immediately — within 24-48 hours. High findings (privilege escalation, SQL injection) within 1 week. Medium findings (missing encryption, weak password policy) within 30 days. Low findings (information disclosure, missing headers) within 90 days. Use the CVSS score as a baseline but adjust based on business context — a Critical finding on a public-facing service is more urgent than on an internal tool. Track all findings in a vulnerability management tool with due dates and owners.
+
+### What tools should we use during a security audit?
+
+Use a combination of automated and manual tools: SAST (Static Application Security Testing) — SonarQube, Semgrep, CodeQL for source code analysis. DAST (Dynamic Application Security Testing) — OWASP ZAP, Burp Suite for runtime testing. Dependency scanning — Snyk, Dependabot, OWASP Dependency-Check for vulnerable libraries. Infrastructure scanning — Terraform security scanning (tfsec), CIS benchmarks, cloud security posture management. Secrets scanning — GitLeaks, TruffleHog for hardcoded secrets. Manual review — code review, architecture review, and threat modeling. No single tool finds all issues — use multiple tools and manual review.
+
+### How do we conduct a security audit for a microservices architecture?
+
+For microservices: audit each service individually but also audit the inter-service communication. Per service: authentication, authorization, input validation, dependency scanning, and secrets management. Inter-service: mTLS between services, network policies, API gateway security, and service mesh configuration. Check for broken access control between services — a service with access to all databases is a risk. Review the API gateway for rate limiting, authentication, and request validation. Audit the CI/CD pipeline for each service — a compromised pipeline can inject malicious code. Document the service dependency graph and identify attack paths.
+
+### What is the difference between a security audit and a penetration test?
+
+A security audit is a comprehensive review of security controls, policies, and configurations — it answers "are our security measures adequate?" A penetration test is a simulated attack — it answers "can someone actually break in?" Audits are broader (policies, procedures, configurations) while pentests are deeper (exploiting specific vulnerabilities). Audits are typically internal or by a third-party assessor; pentests are by specialized security firms. Both are necessary: an audit identifies gaps in controls, a pentest validates that controls work under attack. Schedule audits quarterly and pentests annually or before major releases.
+
+### How do we track remediation of audit findings?
+
+Use a vulnerability management tool (Jira, GitHub Issues, dedicated tools like VulnerabilityManager or DefectDojo) to track each finding. Create a ticket with: finding description, severity, evidence, remediation steps, owner, and due date. Review open findings weekly in the security standup. Escalate overdue Critical and High findings to engineering leadership. Close findings only after verification — re-test the fix and document the evidence. Generate monthly reports on finding status (open, in progress, closed) for leadership. Conduct a remediation review at 30, 60, and 90 days post-audit to ensure fixes are sustained.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

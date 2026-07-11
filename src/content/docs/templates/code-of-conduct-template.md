@@ -201,6 +201,69 @@ version 2.1, available at https://www.contributor-covenant.org/version/2/1/code_
 - No scope definition — contributors do not know where the code applies
 - Public enforcement discussions — violations should be handled privately
 
+
+## Variant Comparison
+
+| Variant | Context | Approach | Notes |
+|---------|---------|----------|-------|
+| Contributor Covenant 2.1 | Open-source project, general community | Standard pledge + standards + enforcement | Most common; widely recognized |
+| Corporate code | Company-internal project | Add HR referral, IP assignment, NDA references | Aligns with employee handbook |
+| Event code | Conference or meetup | Add photography, alcohol, accessibility policies | Include on-site phone number |
+| Simplified code | Small project (1-2 maintainers) | Pledge + 5 positive + 5 negative + email | Skip enforcement levels |
+
+## Detailed Scenario: Enforcing a Code of Conduct Violation
+
+```text
+Incident: A contributor posts derogatory comments about another
+contributor's code quality in a public GitHub issue.
+
+Step 1 - Triage (within 24 hours):
+  - Moderation team reviews the issue thread
+  - Two moderators agree: this is a Level 1 violation
+  - One moderator is assigned as case owner
+
+Step 2 - Action (within 48 hours):
+  - Case owner sends a private message to the violator:
+    "Your comment in issue #142 violates our Code of Conduct.
+    Specifically, the language used is derogatory and personal.
+    Please review our standards at [link]. This is a formal warning.
+    Repeated violations will result in a temporary ban."
+  - Case owner sends a private message to the affected contributor:
+    "We saw the comment in issue #142 and have addressed it.
+    You should not have to deal with personal attacks here.
+    Let us know if there are further incidents."
+  - The violating comment is edited or hidden (not deleted)
+
+Step 3 - Documentation:
+  - Log the incident in the private moderation log:
+    Date, issue number, violator, action taken, case owner
+  - Set a reminder to review the violator's behavior in 30 days
+
+Step 4 - Escalation (if repeated):
+  - Second violation within 90 days -> Level 2 (temporary ban)
+  - Send private notification with ban duration and conditions
+  - Remove from GitHub organization, Discord, mailing lists
+  - Document the escalation in the moderation log
+
+Step 5 - Reinstatement:
+  - After ban period, review the case
+  - If the contributor acknowledges the violation and commits
+    to the code, reinstate with a note in the log
+  - Third violation -> permanent ban, no reinstatement
+```
+
+### How do I handle anonymous reports?
+
+Accept reports via an anonymous form (e.g., Google Forms, Typeform) linked from the Code of Conduct page. Anonymous reports are harder to investigate but should still be reviewed. Acknowledge receipt if contact information is provided. Do not dismiss anonymous reports — patterns of anonymous reports about the same person indicate a real problem.
+
+### What if the violation happens outside community spaces?
+
+The code applies when someone represents the community (e.g., speaking at a conference, posting on the project's official Twitter). For behavior in purely personal spaces, the code does not apply directly. However, if a community member's personal behavior makes others unsafe in the community, the moderation team can still act. Use judgment and document the reasoning.
+
+### Should I publish enforcement actions?
+
+No. Publish aggregate statistics quarterly (e.g., "3 warnings, 1 temporary ban this quarter"). Do not publish names, details, or incident specifics. Public enforcement creates drama and discourages reporting. The moderation log is private, shared only with the moderation team.
+
 ## Variants
 
 ### Corporate project code of conduct

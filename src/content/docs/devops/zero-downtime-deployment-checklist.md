@@ -137,6 +137,93 @@ Zero-downtime deployments update production services without interrupting users.
 
 Zero-downtime deployments rely on three things: safe rollout mechanics, reliable health signals, and fast rollback. A checklist ensures that each release considers traffic routing, data compatibility, and observability before any user is exposed. Combining this discipline with automation reduces the risk of production incidents and improves release confidence.
 
+## Kubernetes Rolling Update Configuration
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 0
+  template:
+    spec:
+      containers:
+        - name: api
+          image: registry.example.com/api:v2.3.1
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 15 && kill -SIGTERM 1"]
+      terminationGracePeriodSeconds: 60
+```
+
+## Argo Rollouts Canary Configuration
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: api-gateway
+spec:
+  replicas: 10
+  strategy:
+    canary:
+      steps:
+        - setWeight: 10
+        - pause: { duration: 5m }
+        - analysis:
+            templates:
+              - templateName: success-rate
+            args:
+              - name: service-name
+                value: api-gateway
+        - setWeight: 30
+        - pause: { duration: 5m }
+        - analysis:
+            templates:
+              - templateName: success-rate
+            args:
+              - name: service-name
+                value: api-gateway
+        - setWeight: 50
+        - pause: { duration: 10m }
+        - setWeight: 100
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api
+          image: registry.example.com/api:v2.3.1
+          ports:
+            - containerPort: 8080
+```
+
+
 ## Variants
 
 - Kubernetes rolling update checklist: Focus on readiness probes, max surge, max unavailable, and pod disruption budgets.
@@ -180,3 +267,35 @@ Use additive changes first (add columns, tables, indexes), deploy code that read
 ### When should we roll back immediately?
 
 Roll back when health checks fail broadly, error rate spikes, critical business metrics drop, or a P1 alert fires. Faster rollback saves user trust and revenue.
+
+
+### How do we handle long-running connections during deployment?
+
+Long-running connections (WebSockets, SSE, gRPC streams) require special handling. Use a preStop hook to give connections time to drain naturally. Configure the load balancer with connection draining (AWS: deregistration delay, GCP: connection draining timeout). Set terminationGracePeriodSeconds high enough for the longest expected connection. For WebSockets, send a server-side close frame before terminating. Monitor active connection count during rollout and wait for it to reach zero before force-killing pods.
+
+### What is the expand-contract pattern for database migrations?
+
+Expand-contract is a three-phase pattern for zero-downtime schema changes. Phase 1 (Expand): add new columns, tables, or indexes without removing old ones. Both old and new code can run. Phase 2 (Migrate): deploy code that writes to both old and new schema, backfill existing data, and read from the new schema. Phase 3 (Contract): deploy code that only uses the new schema, then remove old columns in a later deployment. Each phase is a separate deployment with its own validation period.
+
+### How do we test zero-downtime deployments before production?
+
+Test in staging with realistic load: use a load generator that simulates production traffic patterns. Deploy while load is running and measure: error rate during rollout, latency percentiles (p50, p95, p99), connection drop rate, and request success rate. Verify that the rollout completes within the expected time. Test rollback under load as well. Run these tests in CI for every major release. Document the expected behavior and alert if production rollouts deviate from staging results.
+
+### How do we handle feature flag toggles during deployment?
+
+Deploy with the feature flag disabled. Verify the deployment is stable. Then enable the flag for a small percentage of users (1-5%). Monitor metrics for 10-15 minutes. Gradually increase the percentage (10%, 25%, 50%, 100%) with monitoring at each step. If issues appear, disable the flag instantly without rollback. Keep the flag in the code for at least one release cycle after full enablement before removing it. Document the flag lifecycle: created, enabled, verified, removed.
+
+### What monitoring do we need during zero-downtime deployments?
+
+Monitor: error rate (alert if > 0.5% for 2 min), latency p99 (alert if > baseline + 30%), health check success rate (alert if < 95%), deployment progress (alert if stalled), pod restart count (alert if > 2 in 5 min), and business metrics (alert if conversion drops > 5%). Use a deployment dashboard that overlays deployment events with application metrics. Set up automated rollback triggers based on these metrics. Review deployment metrics in the post-deployment validation.
+
+
+
+
+Review and update this checklist after every deployment incident. Remove steps that add no value, add steps that would have caught the issue, and refine automation gates.
+
+
+End of document. Review quarterly.
+
+
+End of document. Review and update quarterly.

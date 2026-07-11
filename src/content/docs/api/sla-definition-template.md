@@ -133,6 +133,163 @@ The following are excluded from SLA calculations:
 
 The template separates **objectives** (what you promise) from **indicators** (how you measure) and **error budgets** (how much failure is acceptable). Without error budgets, teams either over-engineer for perfection or ship recklessly. The burn rate alerts translate abstract percentages into concrete actions: at 10x burn rate, stop deploying and fix the issue.
 
+## Error Budget Calculation Examples
+
+Understanding error budgets requires concrete numbers. Here are calculations for common SLO targets:
+
+### Availability Budgets
+
+| SLO Target | Error Budget | Downtime / 30 days | Downtime / 90 days |
+|------------|-------------|---------------------|---------------------|
+| 99.0% | 1.0% | 432 minutes (7.2 hours) | 1,296 minutes (21.6 hours) |
+| 99.5% | 0.5% | 216 minutes (3.6 hours) | 648 minutes (10.8 hours) |
+| 99.9% | 0.1% | 43.2 minutes | 129.6 minutes |
+| 99.95% | 0.05% | 21.6 minutes | 64.8 minutes |
+| 99.99% | 0.01% | 4.32 minutes | 12.96 minutes |
+
+### Calculating Burn Rate
+
+Burn rate measures how fast you consume your error budget relative to the expected pace:
+
+```python
+def calculate_burn_rate(
+    errors_minutes: float,
+    total_minutes: float,
+    slo_target: float,
+    window_days: int,
+) -> float:
+    error_budget = 1.0 - slo_target
+    actual_error_rate = errors_minutes / total_minutes
+    expected_error_rate = error_budget
+    burn_rate = actual_error_rate / expected_error_rate
+    return burn_rate
+
+# Example: 20 minutes of downtime in 1 day with 99.9% SLO
+burn = calculate_burn_rate(
+    errors_minutes=20,
+    total_minutes=1440,
+    slo_target=0.999,
+    window_days=1,
+)
+print(f"Burn rate: {burn:.1f}x")
+# Output: Burn rate: 13.9x (critical - freeze deploys)
+```
+
+### Error Budget Policy
+
+| Budget Remaining | Action |
+|------------------|--------|
+| > 50% | Normal operations, ship freely |
+| 25% - 50% | Proceed with caution, review risk of changes |
+| 10% - 25% | Freeze non-critical deploys, prioritize reliability |
+| < 10% | Freeze all deploys except reliability fixes |
+| < 0% | Mandatory incident, postmortem required before resume |
+
+## Monitoring SLOs with Prometheus
+
+Use Prometheus and Grafana to track SLO compliance and error budget burn rate.
+
+### Prometheus Recording Rules
+
+```yaml
+groups:
+  - name: slo_rules
+    interval: 1m
+    rules:
+      - record: request_total:rate5m
+        expr: sum(rate(http_requests_total[5m]))
+
+      - record: request_errors:rate5m
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m]))
+
+      - record: slo:availability:rate5m
+        expr: 1 - (request_errors:rate5m / request_total:rate5m)
+
+      - record: slo:error_budget:remaining
+        expr: |
+          1 - (
+            sum(rate(http_requests_total{status=~"5.."}[30d]))
+            /
+            sum(rate(http_requests_total[30d]))
+          ) / (1 - 0.999)
+
+      - record: slo:burn_rate:1h
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[1h]))
+            /
+            sum(rate(http_requests_total[1h]))
+          ) / (1 - 0.999)
+
+      - record: slo:burn_rate:5m
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total[5m]))
+          ) / (1 - 0.999)
+```
+
+### Prometheus Alert Rules
+
+```yaml
+groups:
+  - name: slo_alerts
+    rules:
+      - alert: SLOBurnRateCritical
+        expr: slo:burn_rate:5m > 10 and slo:burn_rate:1h > 10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Error budget burning 10x faster than expected"
+          description: "Freeze non-critical deploys and investigate."
+
+      - alert: SLOBurnRateWarning
+        expr: slo:burn_rate:1h > 2
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Error budget burning 2x faster than expected"
+          description: "Monitor closely and review recent changes."
+
+      - alert: SLOErrorBudgetExhausted
+        expr: slo:error_budget:remaining < 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Error budget exhausted"
+          description: "All deploys frozen until budget recovers."
+```
+
+### Grafana Dashboard JSON
+
+```json
+{
+  "panels": [
+    {
+      "title": "Availability (30d)",
+      "targets": [{"expr": "slo:availability:rate5m * 100", "legendFormat": "Availability %"}],
+      "thresholds": [{"value": 99.9, "colorMode": "critical"}]
+    },
+    {
+      "title": "Error Budget Remaining",
+      "targets": [{"expr": "slo:error_budget:remaining * 100", "legendFormat": "Budget %"}],
+      "thresholds": [{"value": 10, "colorMode": "warning"}, {"value": 0, "colorMode": "critical"}]
+    },
+    {
+      "title": "Burn Rate (1h vs 5m)",
+      "targets": [
+        {"expr": "slo:burn_rate:1h", "legendFormat": "1h burn rate"},
+        {"expr": "slo:burn_rate:5m", "legendFormat": "5m burn rate"}
+      ]
+    }
+  ]
+}
+```
+
 ## Variants
 
 | Context | Approach | Notes |
@@ -140,6 +297,7 @@ The template separates **objectives** (what you promise) from **indicators** (ho
 | Public SaaS | Strict SLA with automatic credits | Customer trust is a competitive advantage |
 | Internal platform | Relaxed SLA, focus on SLOs | Internal teams need reliability, not legal contracts |
 | Enterprise contract | Custom SLA per deal | Negotiated individually with legal approval |
+| Multi-tenant SaaS | Tiered SLAs per plan | Higher tiers get tighter guarantees and faster response |
 
 ## What Works
 
@@ -148,6 +306,8 @@ The template separates **objectives** (what you promise) from **indicators** (ho
 3. **Measure from the consumer's perspective** — availability is not just "server up" but "request succeeds"
 4. **Review quarterly** — services evolve, targets should evolve with them
 5. **Publish real-time status** — a public status page builds trust during incidents
+6. **Automate error budget tracking** — manual calculations drift and lose accuracy
+7. **Tie error budget to deploy policy** — make the budget actionable, not just informational
 
 ## Common Mistakes
 
@@ -156,6 +316,9 @@ The template separates **objectives** (what you promise) from **indicators** (ho
 3. **Ignoring latency in SLAs** — slow is the new down
 4. **Not defining error budgets** — teams have no framework for balancing reliability and changes
 5. **Making SLA reviews reactive only** — schedule quarterly reviews even when everything is green
+6. **Setting the same SLO for all endpoints** — a health check endpoint needs higher availability than a reporting endpoint
+7. **Not accounting for planned maintenance** — exclude it from calculations or consumers will see false violations
+8. **Choosing 99.99% without infrastructure to support it** — each nine costs exponentially more
 
 ## Frequently Asked Questions
 
@@ -176,3 +339,19 @@ Yes, but be realistic. A p95 latency target of 200ms is achievable for most APIs
 ### What happens if we burn the entire error budget before the window ends?
 
 Freeze non-critical deployments and prioritize reliability work until the budget recovers. This is the core SRE principle: error budget policies should drive engineering priorities.
+
+### Should I use a rolling window or calendar window?
+
+Rolling windows (e.g., last 30 days) are better for operational decisions because they reflect current state. Calendar windows (e.g., monthly) are better for SLA reporting and billing. Use both: rolling for internal SLOs, calendar for external SLA compliance.
+
+### How do I handle dependencies in my SLO?
+
+If your service depends on a third-party API, track the third-party's availability separately. Exclude third-party outages from your SLO if they are outside your control, but document this in the exclusions section of your SLA.
+
+### Can I have different SLOs for different endpoints?
+
+Yes. Critical endpoints (payment, auth) can have tighter SLOs than non-critical ones (reporting, analytics). Document each endpoint's SLO so consumers know what to expect.
+
+### How often should I review SLO targets?
+
+Quarterly for stable services. Monthly for new services or those undergoing significant changes. Any P1 incident should trigger an ad-hoc review to assess whether targets need adjustment.

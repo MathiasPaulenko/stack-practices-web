@@ -140,6 +140,108 @@ Muestra los detalles de implementación de un único componente.
 
 El modelo C4 resuelve el **"problema del zoom"** en la documentación de arquitectura. Un único diagrama que intenta mostrar todo se vuelve ilegible. Separando en cuatro niveles, cada diagrama tiene una única audiencia y propósito. Los diagramas de contexto venden la idea. Los de contenedores guían decisiones tecnológicas. Los de componentes integran nuevos desarrolladores. Los de código documentan lógica compleja.
 
+## Ejemplo de Diagrama de Contexto C4 con Mermaid
+
+Usa Mermaid.js para diagramas C4 versionados que renderizan en GitHub y la mayoría de visores Markdown:
+
+```mermaid
+C4Context
+title Diagrama de Contexto - Banca Online
+
+Person(customer, "Cliente Bancario", "Un cliente del banco")
+System(banking, "Sistema de Banca Online", "Permite a clientes gestionar cuentas")
+System_Ext(mainframe, "Mainframe", "Sistema core bancario legacy")
+System_Ext(email, "Sistema de Email", "Envía notificaciones a clientes")
+
+Rel(customer, banking, "Usa")
+Rel(banking, mainframe, "Consulta datos de cuentas")
+Rel(banking, email, "Envía notificaciones")
+```
+
+## Ejemplo de Diagrama de Contenedores con Mermaid
+
+```mermaid
+C4Container
+title Diagrama de Contenedores - Banca Online
+
+Person(customer, "Cliente Bancario")
+System_Ext(mainframe, "Mainframe")
+
+Container(spa, "Aplicación Web", "React, TypeScript", "UI de banca")
+Container(api, "Aplicación API", "Java, Spring Boot", "Lógica de negocio")
+ContainerDb(db, "Base de Datos", "PostgreSQL", "Almacena datos de usuarios")
+Container(cache, "Redis Cache", "Redis", "Sesión y datos calientes")
+Container(queue, "Cola de Mensajes", "RabbitMQ", "Eventos asíncronos")
+
+Rel(customer, spa, "Usa", "HTTPS")
+Rel(spa, api, "Llama", "REST/JSON")
+Rel(api, db, "Lee/Escribe", "SQL")
+Rel(api, cache, "Lee/Escribe", "Protocolo Redis")
+Rel(api, queue, "Publica eventos", "AMQP")
+Rel(api, mainframe, "Consulta", "TCP")
+```
+
+## Ejemplo de DSL Structurizr
+
+Para equipos que necesitan una única fuente de verdad en los cuatro niveles C4:
+
+```text
+workspace "Banca Online" {
+    model {
+        customer = person "Cliente Bancario"
+        banking = softwareSystem "Sistema de Banca Online"
+        mainframe = softwareSystem "Mainframe" "Externo"
+        email = softwareSystem "Sistema de Email" "Externo"
+
+        customer -> banking "Usa"
+        banking -> mainframe "Consulta datos de cuentas"
+        banking -> email "Envía notificaciones"
+
+        spa = banking container "Aplicación Web" "React, TypeScript"
+        api = banking container "Aplicación API" "Java, Spring Boot"
+        db = banking container "Base de Datos" "PostgreSQL"
+        cache = banking container "Redis Cache" "Redis"
+
+        customer -> spa "Usa" "HTTPS"
+        spa -> api "Llama" "REST/JSON"
+        api -> db "Lee/Escribe" "SQL"
+        api -> cache "Lee/Escribe"
+    }
+
+    views {
+        context banking "Contexto" "Vista general del sistema bancario"
+        container banking "Contenedores" "Vista de contenedores"
+        theme default
+    }
+}
+```
+
+## Estándares de Color e Iconos
+
+Un lenguaje visual consistente reduce la carga cognitiva al cambiar entre diagramas:
+
+| Tipo de Elemento | Color de Relleno | Color de Borde | Icono |
+|------------------|-----------------|----------------|-------|
+| Persona | #08427B | #052E3F | Usuario |
+| Sistema (interno) | #1168BD | #0B4884 | Caja |
+| Sistema (externo) | #999999 | #666666 | Caja |
+| Contenedor | #438DD5 | #2E6299 | Componente |
+| Base de Datos | #F5DA81 | #D6B656 | Cilindro |
+| Cola | #B5A3D4 | #8262A8 | Caja |
+
+## Checklist de Revisión de Diagramas
+
+Antes de publicar un diagrama, verifica:
+
+- [ ] Cada caja tiene etiqueta con nombre y tecnología
+- [ ] Cada línea tiene etiqueta con protocolo o tipo de dato
+- [ ] Ningún elemento está desconectado (sin huérfanos)
+- [ ] La dirección de lectura es consistente (izquierda-derecha o arriba-abajo)
+- [ ] La codificación de color coincide con la guía de estilo del equipo
+- [ ] No más de 15 elementos por diagrama (dividir si excede)
+- [ ] El diagrama está almacenado como código en el repositorio
+- [ ] El diagrama renderiza correctamente en el pipeline CI
+
 ## Variantes
 
 | Contexto | Enfoque | Notas |
@@ -147,6 +249,8 @@ El modelo C4 resuelve el **"problema del zoom"** en la documentación de arquite
 | Startup | Solo Contexto + Contenedores | Omitir Componentes y Código hasta que el equipo crezca |
 | Sistema legacy | Contexto + Contenedores + Componentes dirigidos | Enfocarse en las partes que se cambian |
 | Event-driven | Agregar flujos de eventos a diagramas de Contenedores | Mostrar productores, consumidores y topics |
+| SaaS multi-tenant | Aislar tenants en diagrama de Contenedores | Mostrar recursos compartidos vs dedicados |
+| Microservicios | Diagrama de Contenedores por grupo de servicios | Agrupar servicios relacionados para evitar saturación |
 
 ## Lo que funciona
 
@@ -155,6 +259,8 @@ El modelo C4 resuelve el **"problema del zoom"** en la documentación de arquite
 3. Revisar diagramas en registros de decisiones arquitectónicas (ADRs) para mantenerlos actualizados
 4. Usar una guía de estilo del equipo para colores, fuentes y conjuntos de iconos
 5. Enlazar cada diagrama al siguiente nivel de detalle para navegación por drill-down
+6. Mantener diagramas bajo 15 elementos; dividir en sub-diagramas cuando crezcan
+7. Agregar fecha de "última actualización" a cada diagrama para que los lectores sepan frescura
 
 ## Errores Comunes
 
@@ -163,6 +269,8 @@ El modelo C4 resuelve el **"problema del zoom"** en la documentación de arquite
 3. Crear diagramas solo una vez y nunca actualizarlos después de refactorizaciones
 4. Incluir demasiado detalle en diagramas de Contexto o Contenedores
 5. Omitir los usuarios humanos y sistemas externos que proporcionan contexto
+6. Agregar más de 15 elementos a un único diagrama, volviéndolo ilegible
+7. Usar iconos personalizados que no renderizan en todos los visores (GitHub, IDE, wiki)
 
 ## Preguntas Frecuentes
 
@@ -177,3 +285,19 @@ Structurizr está diseñado específicamente para C4. Mermaid y PlantUML funcion
 ### ¿Cómo mantengo los diagramas sincronizados con el código?
 
 Usa el DSL de Structurizr o generadores de diagramas basados en código que extraigan dependencias del codebase. Los diagramas manuales deberían revisarse durante code review cuando cambien los archivos relacionados.
+
+### ¿Cuál es la diferencia entre C4 y UML?
+
+C4 se enfoca en la estructura del sistema en múltiples niveles de zoom. UML se enfoca en el diseño detallado de software (diagramas de clases, secuencia). C4 es mejor para comunicación de arquitectura; UML es mejor para detalle de implementación. Se complementan.
+
+### ¿Cuántos elementos debería tener un diagrama?
+
+Mantén cada diagrama bajo 15 elementos. Si necesitas más, divide en sub-diagramas. El cerebro humano puede rastrear 7 más o menos 2 elementos de un vistazo; 15 es el límite práctico con agrupación.
+
+### ¿Debería usar C4 para diagramas de flujo de datos?
+
+C4 muestra estructura, no flujo de datos. Para flujo de datos, usa un DFD separado o diagrama de secuencia junto al modelo C4. El diagrama de secuencia en la plantilla de especificación técnica combina bien con el diagrama de contenedores.
+
+### ¿Puedo usar C4 con un service mesh?
+
+Sí. Muestra el service mesh como un contenedor en el diagrama de Contenedores. Los servicios individuales se vuelven componentes en el diagrama de Componentes. El mesh maneja preocupaciones transversales (mTLS, reintentos, observabilidad) para que no necesites dibujar esas líneas para cada par de servicios.
