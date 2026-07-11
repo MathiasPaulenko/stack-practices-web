@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: rate-limiter-token-bucket-pattern
-title: "Patrón Token Bucket Rate Limiter: Smootheá Traffic con Token Buckets"
+title: "Patrón Token Bucket Rate Limiter"
 description: "Cómo implementar token bucket rate limiting para API protection. Cubre bucket refill, burst handling, per-key buckets, distributed rate limiting con Redis, y sliding windows."
 metaDescription: "Implementá token bucket rate limiting para API protection. Bucket refill, burst handling, per-key buckets, distributed rate limiting con Redis y sliding windows."
 difficulty: intermediate

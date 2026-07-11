@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: nodejs-eslint-security-plugin
-title: "Enforce Security Rules in Node.js with eslint-plugin-security"
+title: "Enforce Security Rules in Node.js with"
 description: "How to configure eslint-plugin-security to detect insecure patterns in Node.js code, handle false positives, and integrate with CI/CD pipelines."
 metaDescription: "Detect insecure patterns in Node.js code with eslint-plugin-security. Configure rules, handle false positives, and integrate with CI/CD pipelines."
 difficulty: intermediate

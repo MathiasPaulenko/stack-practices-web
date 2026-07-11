@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: nosql-patterns-guide
-title: "Patrones de Modelado NoSQL — Documentos, Clave-Valor, Columnas Anchas, Grafos"
+title: "Patrones de Modelado NoSQL"
 description: "Guia practica de modelado NoSQL: embebido vs referenciado, diseno basado en patrones de acceso, y patrones para MongoDB, DynamoDB, Cassandra y Redis."
 metaDescription: "Aprende modelado NoSQL: embebido vs referenciado, diseno basado en patrones de acceso. Patrones para MongoDB, DynamoDB, Cassandra y Redis con ejemplos."
 difficulty: intermediate

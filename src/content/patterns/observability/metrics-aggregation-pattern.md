@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: metrics-aggregation-pattern
-title: "Metrics Aggregation Pattern: Collect, Tag, and Aggregate Business Metrics"
+title: "Metrics Aggregation: Collect, Tag"
 description: "How to collect, tag, and aggregate business metrics for observability. Covers Prometheus, OpenTelemetry, custom metrics, histograms, and dashboarding."
 metaDescription: "Collect, tag, and aggregate business metrics with Prometheus and OpenTelemetry. Learn counters, gauges, histograms, custom metrics, and dashboarding."
 difficulty: intermediate

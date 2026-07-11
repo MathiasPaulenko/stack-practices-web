@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: integration-testing-strategies
-title: "Diseñar Tests de Integración Efectivos para Sistemas Confiables"
+title: "Diseñar Tests de Integración Efectivos para Sistemas"
 description: "Cómo escribir tests de integración que verifiquen interacciones de componentes usando test containers, contratos de API, consumer-driven contracts y contract testing en Java, TypeScript y Python."
 metaDescription: "Aprende estrategias de testing de integración para sistemas confiables. Verifica interacciones con test containers, contratos de API y consumer-driven contract testing."
 difficulty: intermediate

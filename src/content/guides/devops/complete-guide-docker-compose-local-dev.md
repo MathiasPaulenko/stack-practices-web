@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-docker-compose-local-dev
-title: "Complete Guide to Docker Compose: Multi-Service Local Development"
+title: "Docker Compose: Multi-Service Local Development"
 description: "Master Docker Compose for local development: multi-service environments, networking, volumes, profiles, overrides, hot reload, debugging, and production-like setups."
 metaDescription: "Master Docker Compose for local development: multi-service environments, networking, volumes, profiles, overrides, hot reload, debugging, and production-like setups."
 difficulty: intermediate

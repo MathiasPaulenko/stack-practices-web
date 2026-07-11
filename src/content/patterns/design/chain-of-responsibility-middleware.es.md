@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: chain-of-responsibility-middleware
-title: "Chain of Responsibility para Middleware de Procesamiento de Peticiones"
+title: "Chain of Responsibility para Middleware de Procesamiento"
 description: "Pasa peticiones a lo largo de una cadena de handlers donde cada handler decide si procesa la peticion o la pasa al siguiente handler en la pipeline"
 metaDescription: "Chain of Responsibility para pipelines de middleware. Pasa peticiones a traves de una cadena de handlers donde cada uno decide procesar o delegar al siguiente."
 difficulty: intermediate

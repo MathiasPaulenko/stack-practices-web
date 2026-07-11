@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: css-architecture-pattern
-title: "Patrón CSS Architecture: Utility-First con Component-Scoped Layers"
+title: "Patrón CSS Architecture"
 description: "Cómo organizar CSS con utility-first classes y component-scoped layers. Cubre Tailwind CSS, CSS layers, BEM, CSS modules, y design tokens."
 metaDescription: "Organiza CSS con utility-first classes y component-scoped layers. Aprende Tailwind CSS, @layer, BEM, CSS modules, design tokens, y cascade control."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: strangler-fig-pattern
-title: "Patrón Strangler Fig: Reemplaza Legacy Gradualmente Interceptando Routes"
+title: "Patrón Strangler Fig"
 description: "Cómo reemplazar gradualmente un legacy system interceptando routes y routeando traffic a new services. Cubre strangler fig, incremental migration, y cutover."
 metaDescription: "Reemplaza gradualmente un legacy system interceptando routes y routeando traffic a new services. Aprende strangler fig, incremental migration, y cutover strategy."
 difficulty: intermediate

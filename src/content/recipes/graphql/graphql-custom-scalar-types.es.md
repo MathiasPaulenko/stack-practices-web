@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: graphql-custom-scalar-types
-title: "Tipos escalares personalizados en GraphQL para fechas, emails y JSON"
+title: "Tipos escalares personalizados en GraphQL para fechas,"
 description: "Define escalares GraphQL personalizados para Date, Email, URL y JSON con logica de serializacion, parseo y validacion"
 metaDescription: "Crea escalares GraphQL personalizados para fechas, emails, URLs y JSON. Implementa serialize, parseValue y parseLiteral con validacion."
 difficulty: intermediate

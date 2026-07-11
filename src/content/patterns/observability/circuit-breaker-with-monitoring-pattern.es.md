@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: circuit-breaker-with-monitoring-pattern
-title: "Circuit Breaker con Monitoring: Exponer State como Metrics y Alerts"
+title: "Circuit Breaker con Monitoring"
 description: "Cómo exponer circuit breaker state como metrics para observability. Cubre Prometheus integration, alerting rules, dashboards, y state transitions."
 metaDescription: "Expón circuit breaker state como metrics para observability. Aprende Prometheus integration, alerting en open breakers, dashboards, y state transition tracking."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-openai-embeddings-cosine
-title: "Compare Text Semantic Similarity with OpenAI Embeddings and Cosine"
+title: "Compare Text Semantic Similarity with OpenAI Embeddings"
 description: "Generate text embeddings with OpenAI and compute cosine similarity to measure semantic similarity between texts for search, dedup, and clustering"
 metaDescription: "Compare text semantic similarity with OpenAI embeddings and cosine similarity. Generate vectors, compute distances, and build a similarity search index."
 difficulty: intermediate

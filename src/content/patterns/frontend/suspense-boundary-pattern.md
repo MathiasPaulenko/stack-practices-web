@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: suspense-boundary-pattern
-title: "Suspense Boundary Pattern: Declarative Loading States with React Suspense"
+title: "Suspense Boundary: Declarative Loading States with React"
 description: "How to use React Suspense boundaries for declarative loading states. Covers data fetching, streaming SSR, nested boundaries, and error boundaries."
 metaDescription: "Use React Suspense boundaries for declarative loading states. Learn data fetching, streaming SSR, nested boundaries, fallbacks, and error integration."
 difficulty: advanced

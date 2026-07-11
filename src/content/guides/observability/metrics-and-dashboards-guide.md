@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: metrics-and-dashboards-guide
-title: "Metrics and Dashboards — From Raw Data to Actionable Insights"
+title: "Metrics and Dashboards"
 description: "A practical guide to metrics and dashboards: instrumenting applications, choosing metric types, building useful dashboards, and creating alerting pipelines with Prometheus, Grafana, and Datadog."
 metaDescription: "Learn metrics and dashboards: instrument applications, choose metric types, build useful dashboards, and create alerting pipelines with Prometheus and Grafana."
 difficulty: intermediate

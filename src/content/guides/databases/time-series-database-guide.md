@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: time-series-database-guide
-title: "Time-Series Databases — InfluxDB, TimescaleDB, and ClickHouse"
+title: "Time-Series Databases — InfluxDB, TimescaleDB"
 description: "A practical guide to time-series databases: when to use a specialized TSDB, data model, retention policies, and choosing between InfluxDB, TimescaleDB, and ClickHouse."
 metaDescription: "Learn time-series databases: when to use a TSDB, data model, retention policies. Compare InfluxDB, TimescaleDB, and ClickHouse with practical examples."
 difficulty: intermediate

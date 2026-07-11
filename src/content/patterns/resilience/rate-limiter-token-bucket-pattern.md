@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: rate-limiter-token-bucket-pattern
-title: "Token Bucket Rate Limiter Pattern: Smooth Traffic with Token Buckets"
+title: "Token Bucket Rate Limiter: Smooth Traffic with Token Buckets"
 description: "How to implement token bucket rate limiting for API protection. Covers bucket refill, burst handling, per-key buckets, distributed rate limiting with Redis, and sliding windows."
 metaDescription: "Implement token bucket rate limiting for API protection. Learn bucket refill, burst handling, per-key buckets, distributed rate limiting with Redis, and sliding windows."
 difficulty: intermediate

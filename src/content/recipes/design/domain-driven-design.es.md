@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: domain-driven-design
-title: "Modelar Dominios de Negocio Complejos con Domain-Driven Design"
+title: "Modelar Dominios de Negocio Complejos con Domain-Driven"
 description: "Cómo estructurar código alrededor de conceptos de negocio usando bounded contexts, aggregates, entities, value objects y domain events para gestionar complejidad en aplicaciones grandes."
 metaDescription: "Aprende Domain-Driven Design para dominios de negocio complejos. Usa bounded contexts, aggregates, entities, value objects y domain events para gestionar complejidad."
 difficulty: advanced

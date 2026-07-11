@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: docker-multi-stage-build-optimization
-title: "Optimización de Docker Multi-Stage Build para Imágenes Más Pequeñas"
+title: "Optimización de Docker Multi-Stage Build para Imágenes"
 description: "Reduce el tamaño de imágenes Docker con multi-stage builds y layering correcto"
 metaDescription: "Optimiza imágenes Docker con multi-stage builds, layer caching, bases distroless y .dockerignore. Reduce el tamaño hasta un 90 por ciento."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: islands-architecture-pattern
-title: "Patrón Islands Architecture: Interactivity Solo Donde Se Necesita en SSR"
+title: "Patrón Islands Architecture"
 description: "Cómo shippear interactivity solo donde se necesita usando islands architecture. Cubre Astro islands, partial hydration, React islands, y performance benefits."
 metaDescription: "Shippeá interactivity solo donde se necesita con islands architecture. Aprende Astro islands, partial hydration, React islands, client directives, y performance gains."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: disaster-recovery-guide
-title: "Recuperación ante Desastres: RTO, RPO y Runbooks de Recuperación Resilientes"
+title: "Recuperación ante Desastres"
 description: "Guía práctica para la planificación de recuperación ante desastres: definición de RTO y RPO, estrategias de backup, failover multi-región y construcción de runbooks de recuperación que minimizan downtime."
 metaDescription: "Aprende planificación de recuperación ante desastres: RTO, RPO, estrategias de backup, runbooks y failover multi-región para infraestructura resiliente."
 difficulty: advanced

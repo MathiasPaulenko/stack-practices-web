@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-structured-logging
-title: "Complete Guide to Structured Logging: JSON Logs, Correlation IDs, Aggregation"
+title: "Structured Logging: JSON Logs, Correlation IDs, Aggregation"
 description: "Master structured logging with JSON format, correlation IDs, log levels, and aggregation. Covers Python structlog, Node.js pino, Java SLF4J, ELK and Loki stacks."
 metaDescription: "Master structured logging: JSON logs, correlation IDs, log levels, and aggregation. Covers Python structlog, Node.js pino, Java SLF4J, ELK and Loki stacks."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: circuit-breaker-pattern-recipe
-title: "Construir Sistemas Resilientes con el Circuit Breaker Pattern"
+title: "Construir Sistemas Resilientes con el Circuit Breaker"
 description: "Cómo prevenir fallas en cascada en sistemas distribuidos usando circuit breakers con estados open, closed y half-open en Java, TypeScript y Python."
 metaDescription: "Aprende circuit breaker pattern para sistemas distribuidos resilientes. Previene fallas en cascada con estados open, closed y half-open en Java, TypeScript y Python."
 difficulty: intermediate

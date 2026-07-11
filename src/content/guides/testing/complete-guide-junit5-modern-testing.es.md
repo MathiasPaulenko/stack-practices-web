@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-junit5-modern-testing
-title: "Guía Completa de JUnit 5: Extensions, Tests Parametrizados, Dynamic Tests"
+title: "JUnit 5: Extensions, Tests Parametrizados, Dynamic Tests"
 description: "Dominá JUnit 5 para testing moderno en Java: modelo de extensions, tests parametrizados, dynamic tests, test interfaces, lifecycle, conditional execution y JUnit Platform."
 metaDescription: "Dominá JUnit 5 para testing moderno en Java: extensions, tests parametrizados, dynamic tests, test interfaces, lifecycle, conditional execution y JUnit Platform."
 difficulty: intermediate

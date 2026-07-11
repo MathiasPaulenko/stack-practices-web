@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: circuit-breaker-half-open-pattern
-title: "Patrón Circuit Breaker Half-Open: Testeá Recovery con State Transitions"
+title: "Patrón Circuit Breaker Half-Open"
 description: "Cómo testear service recovery con half-open circuit breaker state transitions. Cubre closed, open, half-open states, trial requests, y gradual recovery."
 metaDescription: "Testeá service recovery con half-open circuit breaker state transitions. Aprende closed, open, half-open states, trial requests, y gradual recovery patterns."
 difficulty: advanced

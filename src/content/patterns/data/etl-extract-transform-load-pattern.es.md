@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: etl-extract-transform-load-pattern
-title: "Patrón ETL Extract-Transform-Load: Batch Data Pipelines con Staging"
+title: "Patrón ETL Extract-Transform-Load"
 description: "Cómo construir ETL pipelines con extract, transform, y load stages. Cubre staging tables, incremental extraction, idempotent loads, y orchestration."
 metaDescription: "Construye ETL pipelines con extract, transform, y load stages. Aprende staging tables, incremental extraction, idempotent loads, orchestration, y scheduling."
 difficulty: intermediate

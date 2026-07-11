@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: canary-deployment-guide
-title: "Despliegue Canary: Rollouts Graduales con Controles de Seguridad"
+title: "Despliegue Canary: Rollouts Graduales con Controles de"
 description: "Guía práctica sobre despliegues canary: estrategias de división de tráfico, promoción automatizada, disparadores de rollback y despliegue seguro de nuevas versiones a un subconjunto de usuarios."
 metaDescription: "Aprende despliegue canary: rollouts graduales, división de tráfico, promoción automatizada, disparadores de rollback y releases seguros."
 difficulty: intermediate

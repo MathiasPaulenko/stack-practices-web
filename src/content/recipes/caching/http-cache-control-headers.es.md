@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: http-cache-control-headers
-title: "Configurar headers HTTP Cache-Control para APIs y assets estaticos"
+title: "Configurar headers HTTP Cache-Control para APIs y assets"
 description: "Establece headers Cache-Control, ETag y Last-Modified para controlar el caching de navegadores y CDN para respuestas API y assets estaticos"
 metaDescription: "Configura headers HTTP Cache-Control para APIs y assets estaticos. Usa ETag, Last-Modified, max-age y stale-while-revalidate para caching CDN."
 difficulty: beginner

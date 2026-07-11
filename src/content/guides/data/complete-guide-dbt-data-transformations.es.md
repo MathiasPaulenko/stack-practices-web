@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-dbt-data-transformations
-title: "Guía Completa de dbt: Modelos, Tests, Macros, Materializations"
+title: "dbt: Modelos, Tests, Macros, Materializations"
 description: "Dominá dbt para data transformations: modelos, tests, macros, materializations, seeds, snapshots, Jinja templating y patrones de producción para analytics engineering."
 metaDescription: "Dominá dbt para data transformations: modelos, tests, macros, materializations, seeds, snapshots, Jinja templating y patrones de producción para analytics engineering."
 difficulty: advanced

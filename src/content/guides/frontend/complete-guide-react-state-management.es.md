@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-react-state-management
-title: "Guía Completa de React State Management: Context, Zustand, TanStack Query"
+title: "React State Management: Context, Zustand, TanStack Query"
 description: "Dominá React state management: Context API, Zustand, Jotai y TanStack Query para server state. Cubre patterns, persistence, optimistic updates y cuándo usar cada uno."
 metaDescription: "Dominá React state management: Context API, Zustand, Jotai y TanStack Query para server state. Cubre patterns, persistence, optimistic updates y cuándo usar cada tool."
 difficulty: intermediate

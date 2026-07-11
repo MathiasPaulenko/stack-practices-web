@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-django-cache-framework
-title: "Cachear Consultas de Base de Datos con Django Cache Framework"
+title: "Cachear Consultas de Base de Datos con Django Cache"
 description: "Usa el framework de cache integrado de Django con caching por vista, fragmentos de template y API de cache de bajo nivel para optimizar consultas."
 metaDescription: "Cachear consultas con Django cache framework. Configura backend Redis, usa cache por vista, fragmentos de template y API de cache de bajo nivel."
 difficulty: intermediate

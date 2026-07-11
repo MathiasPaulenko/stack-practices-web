@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: prototype-pattern-cloning
-title: "Prototype Pattern para Clonacion de Objetos y Plantillas de Configuracion"
+title: "Prototype Pattern para Clonacion de Objetos y Plantillas"
 description: "Crea nuevos objetos copiando existentes, permitiendo plantillas pre-configuradas y evitando explosion de subclases cuando la creacion de objetos es costosa"
 metaDescription: "Prototype pattern para clonacion de objetos. Crea objetos copiando existentes con plantillas pre-configuradas para evitar inicializacion costosa y explosion de subclases."
 difficulty: intermediate

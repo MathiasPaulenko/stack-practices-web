@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: caching-strategies-guide
-title: "Caching Strategies: From Browser to Database, a Complete Guide"
+title: "Caching Strategies: From Browser to Database, a Complete"
 description: "A practical guide to caching strategies: browser caching, CDN edge caching, application caching with Redis, and database query caching. Learn when to use each and how to avoid cache invalidation nightmares."
 metaDescription: "Learn caching strategies: browser, CDN, Redis, and database query caching. When to use each, how to invalidate, and how to avoid common pitfalls."
 difficulty: intermediate

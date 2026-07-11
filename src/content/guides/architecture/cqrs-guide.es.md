@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: cqrs-guide
-title: "CQRS — Segregación de Responsabilidades de Comandos y Consultas"
+title: "CQRS — Segregación de Responsabilidades de Comandos y"
 description: "Guía completa de CQRS: separa los modelos de lectura y escritura para optimizar rendimiento, escalabilidad y autonomía de equipos en dominios complejos."
 metaDescription: "Aprende CQRS con separación de comandos y consultas, integración con event sourcing y patrones prácticos de implementación. Guía para sistemas escalables."
 difficulty: advanced

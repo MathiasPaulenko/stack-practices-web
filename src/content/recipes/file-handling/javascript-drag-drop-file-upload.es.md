@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: javascript-drag-drop-file-upload
-title: "Subida de Archivos con Drag and Drop en JavaScript con HTML5 API"
+title: "Subida de Archivos con Drag and Drop en JavaScript con"
 description: "Implementa subida de archivos drag and drop nativo HTML5 en JavaScript"
 metaDescription: "Construye subida drag and drop en JavaScript con HTML5 Drag API. Cubre drop zones, validación de archivos, barras de progreso, FormData y feedback visual de drag events."
 difficulty: intermediate

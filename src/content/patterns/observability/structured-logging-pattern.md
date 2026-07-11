@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: structured-logging-pattern
-title: "Structured Logging Pattern: Emit JSON Logs with Consistent Fields"
+title: "Structured Logging: Emit JSON Logs with Consistent Fields"
 description: "How to emit structured JSON logs with consistent fields for searchability. Covers Python structlog, Winston, Serilog, log levels, and log aggregation."
 metaDescription: "Emit structured JSON logs with consistent fields for searchability. Learn structlog, Winston, Serilog, log levels, and integration with ELK and Datadog."
 difficulty: intermediate

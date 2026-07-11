@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: javascript-clipboard-copy-paste
-title: "JavaScript Clipboard Copy and Paste: Navigator API and Fallback"
+title: "JavaScript Clipboard Copy and Paste"
 description: "Copy text to clipboard programmatically in JavaScript with fallback"
 metaDescription: "Copy text to clipboard in JavaScript using navigator.clipboard API with fallback for older browsers. Covers execCommand, permissions, and paste event handling."
 difficulty: beginner

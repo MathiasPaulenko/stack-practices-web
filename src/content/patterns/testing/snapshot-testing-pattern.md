@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: snapshot-testing-pattern
-title: "Snapshot Testing Pattern: Capture and Compare Serialized Output"
+title: "Snapshot Testing: Capture and Compare Serialized Output"
 description: "How to use snapshot testing to detect unintended changes in serialized output. Covers Jest snapshots, pytest snapshot, and inline vs external snapshots."
 metaDescription: "Detect unintended output changes with snapshot testing. Learn Jest snapshots, pytest-snapshot, inline vs external snapshots, and when to update baselines."
 difficulty: intermediate

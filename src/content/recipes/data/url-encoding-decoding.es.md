@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: url-encoding-decoding
-title: "Codificacion y Decodificacion de URLs: encodeURI, encodeURIComponent y Mas"
+title: "Codificacion y Decodificacion de URLs"
 description: "Domina la codificacion de URLs en JavaScript y otros lenguajes con encodeURI, encodeURIComponent, manejo de plus-safe, cumplimiento RFC 3986 y casos edge de decodificacion"
 metaDescription: "Domina la codificacion de URLs en JavaScript con encodeURI, encodeURIComponent, cumplimiento RFC 3986, manejo plus-safe y casos edge de decodificacion."
 difficulty: beginner

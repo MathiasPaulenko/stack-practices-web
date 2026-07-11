@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: graph-database-guide
-title: "Bases de Datos de Grafos — Neo4j y Modelado de Grafos de Propiedades"
+title: "Bases de Datos de Grafos"
 description: "Guia practica de bases de datos de grafos: modelo de grafo de propiedades, lenguaje Cypher, patrones de modelado y cuando elegir Neo4j sobre bases relacionales."
 metaDescription: "Aprende bases de datos de grafos: modelo de grafo de propiedades, consultas Cypher, patrones de modelado. Cuando elegir Neo4j sobre relacional para datos conectados."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: mock-server-pattern
-title: "Mock Server Pattern: Stand Up a Mock Server for Integration Test Isolation"
+title: "Mock Server: Stand Up a Mock Server for Integration Test"
 description: "How to use mock servers to isolate integration tests from external dependencies. Covers WireMock, nock, MSW, and Mountebank with configuration examples."
 metaDescription: "Isolate integration tests from external APIs with mock servers. Learn WireMock, nock, MSW, and Mountebank for stubbing HTTP responses in test environments."
 difficulty: intermediate

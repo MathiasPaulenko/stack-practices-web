@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: ambassador-pattern
-title: "Ambassador Pattern: Offload Cross-Cutting Concerns to a Proxy"
+title: "Ambassador: Offload Cross-Cutting Concerns to a Proxy"
 description: "How to offload cross-cutting concerns to a proxy ambassador. Covers connection pooling, retry logic, circuit breaking, monitoring, and TLS termination for client services."
 metaDescription: "Offload cross-cutting concerns to a proxy ambassador. Learn connection pooling, retry logic, circuit breaking, monitoring, and TLS termination for client services."
 difficulty: intermediate

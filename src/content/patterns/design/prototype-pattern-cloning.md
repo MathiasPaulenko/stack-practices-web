@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: prototype-pattern-cloning
-title: "Prototype Pattern for Object Cloning and Configuration Templates"
+title: "Prototype Pattern for Object Cloning and Configuration"
 description: "Create new objects by copying existing ones, allowing pre-configured templates and avoiding subclass explosion when object creation is expensive"
 metaDescription: "Prototype pattern for object cloning. Create objects by copying existing ones with pre-configured templates to avoid expensive initialization and subclass explosion."
 difficulty: intermediate

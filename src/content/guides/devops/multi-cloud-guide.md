@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: multi-cloud-guide
-title: "Multi-Cloud Strategies — Benefits, Pitfalls, and Implementation"
+title: "Multi-Cloud Strategies — Benefits, Pitfalls"
 description: "A practical guide to multi-cloud architecture: when to adopt it, workload placement strategies, data gravity, portability, and avoiding vendor lock-in."
 metaDescription: "Learn multi-cloud strategies: when to adopt, workload placement, data gravity, portability. Benefits, pitfalls, and practical implementation guide."
 difficulty: advanced

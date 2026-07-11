@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: distributed-tracing-pattern
-title: "Patrón Distributed Tracing: Propagar Trace Context Across Services"
+title: "Patrón Distributed Tracing"
 description: "Cómo propagar trace context a través de service boundaries con OpenTelemetry. Cubre span creation, context propagation, sampling, y trace analysis."
 metaDescription: "Propaga trace context across microservices con OpenTelemetry. Aprende span creation, W3C trace context, sampling strategies, y trace analysis."
 difficulty: advanced

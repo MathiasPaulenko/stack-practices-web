@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: outbox-pattern-transactional-events
-title: "Implement the Transactional Outbox Pattern for Reliable Event Publishing"
+title: "Implement the Transactional Outbox Pattern for Reliable"
 description: "Use the transactional outbox pattern to reliably publish domain events alongside database changes, with a relay processor, polling strategies, and exactly-once delivery guarantees."
 metaDescription: "Implement the transactional outbox pattern for reliable event publishing. Use a relay processor, polling, and exactly-once delivery with Python and PostgreSQL."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: platform-engineering-guide
-title: "Platform Engineering — Construyendo Plataformas de Desarrollo Internas"
+title: "Platform Engineering"
 description: "Guia practica de platform engineering: conceptos de IDP, golden paths, infraestructura self-service, developer experience, y herramientas como Backstage, Crossplane y Terraform."
 metaDescription: "Aprende platform engineering: construye Internal Developer Platforms, golden paths, infraestructura self-service. Herramientas como Backstage, Crossplane y Terraform."
 difficulty: intermediate

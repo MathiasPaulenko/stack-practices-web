@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: real-time-analytics-guide
-title: "Analítica en Tiempo Real: De Eventos a Dashboards en Segundos"
+title: "Analítica en Tiempo Real"
 description: "Guía práctica sobre analítica en tiempo real: recolección de eventos, procesamiento de streams, data warehousing y construcción de dashboards sub-segundo con Kafka, ClickHouse, Druid y bases de datos OLAP modernas."
 metaDescription: "Aprende analítica en tiempo real: recolección de eventos, procesamiento de streams, data warehousing y dashboards sub-segundo con Kafka, ClickHouse, Druid y OLAP."
 difficulty: advanced

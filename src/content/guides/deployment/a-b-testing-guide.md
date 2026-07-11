@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: a-b-testing-guide
-title: "A/B Testing: Experimentation Frameworks for Data-Driven Decisions"
+title: "A/B Testing: Experimentation Frameworks for Data-Driven"
 description: "A practical guide to A/B testing: experiment design, statistical significance, sample sizing, avoiding pitfalls, and building an experimentation culture in engineering teams."
 metaDescription: "Learn A/B testing: experiment design, statistical significance, sample sizing, common pitfalls, and building an experimentation culture."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: data-lineage-tracking-pattern
-title: "Patrón Data Lineage Tracking: Track Data Origin y Transformations End-to-End"
+title: "Patrón Data Lineage Tracking"
 description: "Cómo trackear data origin y transformations end-to-end. Cubre column-level lineage, OpenLineage, Marquez, metadata injection, y impact analysis."
 metaDescription: "Trackea data origin y transformations end-to-end. Aprende column-level lineage, OpenLineage, Marquez, metadata injection, y impact analysis strategies."
 difficulty: advanced

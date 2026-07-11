@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-oauth2-oidc-production
-title: "Complete Guide to OAuth2 and OIDC: Authorization Code, PKCE, Token Validation"
+title: "OAuth2 and OIDC: Authorization Code, PKCE, Token Validation"
 description: "Master OAuth2 and OpenID Connect for production: authorization code flow with PKCE, token validation, refresh tokens, scopes, JWT verification, and security best practices."
 metaDescription: "Master OAuth2 and OpenID Connect for production: auth code flow with PKCE, token validation, refresh tokens, scopes, JWT verification, and security best practices."
 difficulty: advanced

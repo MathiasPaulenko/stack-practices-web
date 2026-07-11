@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: kafka-python-consumer-groups
-title: "Build Kafka Consumer Groups with Python for Scalable Streaming"
+title: "Kafka Consumer Groups with Python for Scalable Streaming"
 description: "Create Kafka consumer groups in Python with partition assignment, offset management, commit strategies, rebalance handling, and exactly-once semantics for scalable stream processing."
 metaDescription: "Build Kafka consumer groups in Python. Manage partitions, offsets, commit strategies, rebalance handling, and exactly-once semantics for scalable stream processing."
 difficulty: advanced

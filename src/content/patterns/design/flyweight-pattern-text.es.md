@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: flyweight-pattern-text
-title: "Flyweight Pattern para Comparticion Eficiente de Objetos a Gran Escala"
+title: "Flyweight Pattern para Comparticion Eficiente de Objetos"
 description: "Usa el Flyweight pattern para minimizar uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares, esencial para renderizar datasets grandes"
 metaDescription: "Flyweight pattern para eficiencia de memoria. Comparte estado entre objetos similares para minimizar uso de memoria al renderizar datasets grandes."
 difficulty: intermediate

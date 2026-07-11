@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-modular-monolith
-title: "Complete Guide to Modular Monolith: Module Boundaries, Shared Kernel"
+title: "Modular Monolith: Module Boundaries, Shared Kernel"
 description: "Master modular monolith architecture: module boundaries, shared kernel, dependency rules, communication patterns, and incremental migration to microservices."
 metaDescription: "Master modular monolith architecture: module boundaries, shared kernel, dependency rules, communication patterns, and incremental migration to microservices."
 difficulty: advanced

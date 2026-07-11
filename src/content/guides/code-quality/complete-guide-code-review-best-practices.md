@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-code-review-best-practices
-title: "Complete Guide to Code Reviews: Reviewer Mindset, Feedback, Automation"
+title: "Code Reviews: Reviewer Mindset, Feedback, Automation"
 description: "Master code review best practices: reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing, and building a strong review culture in engineering teams."
 metaDescription: "Master code review best practices: reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing, and building a strong review culture in teams."
 difficulty: intermediate

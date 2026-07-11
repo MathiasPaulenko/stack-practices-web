@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: modular-monolith-pattern
-title: "Modular Monolith Pattern: Single Deployable Unit with Internal Module Boundaries"
+title: "Modular Monolith: Single Deployable with Module Boundaries"
 description: "How to build a modular monolith with strict internal module boundaries. Covers module isolation, shared kernel, inter-module communication, and migration to microservices."
 metaDescription: "Build a modular monolith with strict internal module boundaries. Learn module isolation, shared kernel, inter-module communication, and migration to microservices."
 difficulty: intermediate

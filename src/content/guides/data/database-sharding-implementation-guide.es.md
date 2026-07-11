@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: database-sharding-implementation-guide
-title: "Sharding de Base de Datos: Particionamiento Horizontal en la Práctica"
+title: "Sharding de Base de Datos"
 description: "Guía práctica sobre sharding de base de datos: elegir claves de shard, enrutar consultas, rebalancear datos y evitar errores comunes al escalar más allá de un solo nodo de base de datos."
 metaDescription: "Aprende sharding de bases de datos: elige claves de shard, enruta consultas, rebalancea datos y evita errores comunes al escalar más allá de un solo nodo."
 difficulty: advanced

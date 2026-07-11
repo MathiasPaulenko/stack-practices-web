@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: nodejs-read-large-file-stream
-title: "Procesa Archivos Grandes con Streams en Node.js Sin Problemas de Memoria"
+title: "Procesa Archivos Grandes con Streams en Node.js Sin"
 description: "Procesa archivos de GB en Node.js usando streams. Cubre readline, transform streams, pipeline, backpressure y procesamiento por chunks."
 metaDescription: "Procesa archivos grandes en Node.js con streams. Readline, transform streams, pipeline, backpressure, procesamiento por chunks y parsing eficiente en memoria."
 difficulty: intermediate

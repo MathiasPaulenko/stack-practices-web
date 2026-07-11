@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: redis-cache-patterns
-title: "Patrones de Cache de Redis para Aplicaciones de Alto Rendimiento"
+title: "Patrones de Cache de Redis para Aplicaciones de Alto"
 description: "Como implementar patrones cache-aside, write-through y write-behind con Redis para reducir carga de base de datos y mejorar tiempos de respuesta"
 metaDescription: "Patrones de cache de Redis para apps de alto rendimiento. Implementa cache-aside, write-through y write-behind para reducir carga de base de datos y mejorar latencia."
 difficulty: intermediate

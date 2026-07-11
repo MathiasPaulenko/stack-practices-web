@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: blob-storage-guide
-title: "Almacenamiento Blob: Patrones S3, GCS y Azure Blob para Ingenieros"
+title: "Almacenamiento Blob: Patrones S3, GCS y Azure Blob para"
 description: "Guía práctica sobre almacenamiento blob en la nube: diseño de buckets, control de acceso, políticas de ciclo de vida, subidas multipartes, URLs firmadas, y patrones de optimización de costos para S3, Google Cloud Storage y Azure Blob."
 metaDescription: "Aprende almacenamiento blob: diseño de buckets, control de acceso, ciclo de vida y optimización de costos para S3, GCS y Azure."
 difficulty: intermediate

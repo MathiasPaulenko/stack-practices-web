@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: fallover-pattern
-title: "Patrón Fallover: Switcheá a Standby en Primary Failure Detection"
+title: "Patrón Fallover: Switcheá a Standby en Primary Failure"
 description: "Cómo swithear a un standby system en primary failure detection. Cubre active-passive, active-active, health monitoring, DNS fallover, database replication, y automated promotion."
 metaDescription: "Switcheá a standby en primary failure. Aprende active-passive, active-active, health monitoring, DNS fallover, database replication, y automated promotion."
 difficulty: advanced

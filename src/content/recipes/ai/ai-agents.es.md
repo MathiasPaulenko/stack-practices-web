@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: ai-agents
-title: "Construir Agentes de IA Autónomos con Uso de Herramientas y Razonamiento"
+title: "Construir Agentes de IA Autónomos con Uso de"
 description: "Cómo diseñar agentes de IA que autónomamente planifiquen, ejecuten herramientas e iteren hacia objetivos usando ReAct, function calling y arquitecturas de memoria."
 metaDescription: "Aprende a construir agentes de IA autónomos. Diseña agentes que planifiquen, ejecuten herramientas e iteren usando ReAct, function calling y arquitecturas de memoria."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: encryption-at-rest
-title: "Implementar Encripción en Reposo para Bases de Datos y Almacenamiento de..."
+title: "Encripción en Reposo para Bases de Datos y"
 description: "Cómo encriptar datos sensibles antes de almacenarlos en bases de datos, object storage y backups usando AES-256-GCM, encripción de sobre y servicios de gestión de keys."
 metaDescription: "Aprende encripción en reposo para bases de datos y storage. Encripta datos sensibles usando AES-256-GCM, encripción de sobre y servicios de gestión de keys."
 difficulty: intermediate

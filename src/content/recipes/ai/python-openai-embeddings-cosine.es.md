@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-openai-embeddings-cosine
-title: "Compara similitud semantica de texto con embeddings de OpenAI y coseno"
+title: "Compara similitud semantica de texto con embeddings de"
 description: "Genera embeddings de texto con OpenAI y calcula similitud coseno para medir similitud semantica entre textos para busqueda, deduplicacion y clustering"
 metaDescription: "Compara similitud semantica con embeddings de OpenAI y coseno. Genera vectores, calcula distancias y construye un indice de busqueda por similitud."
 difficulty: intermediate

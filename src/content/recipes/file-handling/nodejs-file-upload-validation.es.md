@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: nodejs-file-upload-validation
-title: "Validación de Subida de Archivos en Node.js: Tipo, Tamaño y Contenido"
+title: "Validación de Subida de Archivos en Node.js"
 description: "Valida subidas de archivos en Node.js con multer para tipo, tamaño y contenido."
 metaDescription: "Valida subidas de archivos en Node.js con multer. Verifica MIME types, impón límites de tamaño, escanea contenido y previene subidas maliciosas en Express."
 difficulty: intermediate

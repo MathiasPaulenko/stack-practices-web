@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: connection-pooling-deep-dive-guide
-title: "Pooling de Conexiones: Optimiza Conexiones de Base de Datos para Escalar"
+title: "Pooling de Conexiones"
 description: "Guía práctica sobre pooling de conexiones de base de datos: dimensionar pools, manejar timeouts de inactividad, detectar fugas, y configurar HikariCP, PgBouncer y pools nativos en la nube para máximo throughput."
 metaDescription: "Aprende pooling de conexiones: dimensiona pools, timeouts, fugas y configura HikariCP, PgBouncer y pools nativos en la nube."
 difficulty: intermediate

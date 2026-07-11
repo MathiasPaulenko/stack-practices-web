@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: mediator-pattern-components
-title: "Mediator Pattern for Loose Component Coupling in Frontend Apps"
+title: "Mediator Pattern for Loose Component Coupling in"
 description: "Reduce chaotic dependencies between UI components by introducing a mediator that centralizes communication, preventing explicit references between peers"
 metaDescription: "Mediator pattern for loose component coupling. Centralize communication between UI components to eliminate explicit peer references and simplify dependencies."
 difficulty: intermediate

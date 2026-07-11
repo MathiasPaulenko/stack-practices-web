@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: distributed-tracing-guide
-title: "Distributed Tracing: End-to-End Request Flow Across Microservices"
+title: "Distributed Tracing: End-to-End Request Flow Across"
 description: "A practical guide to distributed tracing: instrumenting applications, trace propagation, sampling strategies, and diagnosing latency in microservice architectures with OpenTelemetry, Jaeger, and Zipkin."
 metaDescription: "Learn distributed tracing: instrument applications, propagate traces, sampling strategies, and diagnose latency with OpenTelemetry, Jaeger, and Zipkin."
 difficulty: intermediate

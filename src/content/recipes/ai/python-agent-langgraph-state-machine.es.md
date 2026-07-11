@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-agent-langgraph-state-machine
-title: "Construye agentes IA con estado con maquinas de estados LangGraph"
+title: "Construye agentes IA con estado con maquinas de estados"
 description: "Crea agentes IA multi-paso con LangGraph usando maquinas de estados, aristas condicionales, tool calling y checkpoints human-in-the-loop para workflows de produccion"
 metaDescription: "Construye agentes IA con estado con maquinas de estados LangGraph. Define nodos, aristas condicionales, tool calling y checkpointing para workflows LLM multi-paso."
 difficulty: advanced

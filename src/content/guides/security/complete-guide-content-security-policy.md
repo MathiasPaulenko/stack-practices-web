@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-content-security-policy
-title: "Complete Guide to Content Security Policy: CSP Headers, Nonces, Hashes"
+title: "Content Security Policy: CSP Headers, Nonces, Hashes"
 description: "Master Content Security Policy: CSP directives, nonces, hashes, reporting, strict-dynamic, nonce-based CSP, hash-based CSP, and production deployment patterns for web security."
 metaDescription: "Master Content Security Policy: CSP directives, nonces, hashes, reporting, strict-dynamic, and production deployment patterns for web security."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: custom-hook-composition-pattern
-title: "Custom Hook Composition: Componer Lógica Reusable con React Hooks"
+title: "Custom Hook Composition"
 description: "Cómo componer lógica reusable con custom React hooks. Cubre hook composition patterns, dependency arrays, context integration, y testing strategies."
 metaDescription: "Compón lógica reusable con custom React hooks. Aprende composition patterns, dependency arrays, context integration, memoization, y testing strategies."
 difficulty: intermediate

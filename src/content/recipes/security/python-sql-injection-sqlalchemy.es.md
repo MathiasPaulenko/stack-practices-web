@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-sql-injection-sqlalchemy
-title: "Previene inyeccion SQL con consultas parametrizadas en SQLAlchemy"
+title: "Previene inyeccion SQL con consultas parametrizadas en"
 description: "Protege aplicaciones Python de inyeccion SQL usando consultas parametrizadas de SQLAlchemy, modelos ORM, validacion de input e inspeccion de queries para acceso seguro a base de datos"
 metaDescription: "Previene inyeccion SQL con consultas parametrizadas y ORM de SQLAlchemy. Valida inputs, inspecciona SQL generado y aplica patrones seguros para acceso a BD."
 difficulty: intermediate

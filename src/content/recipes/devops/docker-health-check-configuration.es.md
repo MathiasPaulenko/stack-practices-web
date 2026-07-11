@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: docker-health-check-configuration
-title: "Configuración de Docker Health Check para Confiabilidad de Contenedores"
+title: "Configuración de Docker Health Check para Confiabilidad"
 description: "Añade health checks proper a contenedores Docker con HEALTHCHECK"
 metaDescription: "Configura instrucciones Docker HEALTHCHECK con curl, wget y scripts custom. Aprende interval, timeout, retries y start-period para contenedores confiables."
 difficulty: beginner

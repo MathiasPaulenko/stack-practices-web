@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-prometheus-grafana
-title: "Complete Guide to Prometheus and Grafana: Metrics, Dashboards, Alerting"
+title: "Prometheus and Grafana: Metrics, Dashboards, Alerting"
 description: "Master Prometheus metrics collection and Grafana dashboards. Covers metric types, PromQL, service instrumentation, alerting rules, and production deployment patterns."
 metaDescription: "Master Prometheus and Grafana: metric types, PromQL queries, service instrumentation, alerting rules, dashboards, and production deployment patterns for monitoring."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: islands-architecture-pattern
-title: "Islands Architecture: Ship Interactivity Only Where Needed in SSR Apps"
+title: "Islands Architecture"
 description: "How to ship interactivity only where needed using islands architecture. Covers Astro islands, partial hydration, React islands, and performance benefits."
 metaDescription: "Ship interactivity only where needed with islands architecture. Learn Astro islands, partial hydration, React islands, client directives, and performance gains."
 difficulty: advanced

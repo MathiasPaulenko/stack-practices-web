@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-junit5-modern-testing
-title: "Complete Guide to JUnit 5: Extensions, Parameterized Tests, Dynamic Tests"
+title: "JUnit 5: Extensions, Parameterized Tests, Dynamic Tests"
 description: "Master JUnit 5 for modern Java testing: extensions model, parameterized tests, dynamic tests, test interfaces, lifecycle, conditional execution, and JUnit Platform integration."
 metaDescription: "Master JUnit 5 for modern Java testing: extensions model, parameterized tests, dynamic tests, test interfaces, lifecycle, conditional execution, and JUnit Platform."
 difficulty: intermediate

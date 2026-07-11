@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: ambassador-pattern-services
-title: "Ambassador Pattern para Acceso Resiliente a Servicios Remotos"
+title: "Ambassador Pattern para Acceso Resiliente a Servicios"
 description: "Agrega un ambassador local que maneja reintentos, circuit breaking y monitoreo al llamar servicios remotos, manteniendo el cliente simple y la logica de servicio pura"
 metaDescription: "Ambassador pattern para llamadas resilientes. Usa un proxy local para manejar reintentos, circuit breaking y monitoreo al acceder microservicios remotos."
 difficulty: intermediate

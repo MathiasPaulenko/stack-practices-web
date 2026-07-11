@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: rag-pipeline
-title: "Construir un pipeline RAG con LangChain y bases de datos vectoriales"
+title: "Construir un pipeline RAG con LangChain y bases de datos"
 description: "Cómo construir un pipeline de Retrieval-Augmented Generation (RAG) usando LangChain y bases de datos vectoriales para búsqueda potenciada por IA"
 metaDescription: "Construye un pipeline RAG con LangChain, OpenAI y bases de datos vectoriales. Fragmenta documentos, genera embeddings y recupera contexto para respuestas de LLM."
 difficulty: intermediate

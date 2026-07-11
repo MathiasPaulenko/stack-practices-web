@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: docker-multi-stage-build-distroless
-title: "Imágenes de Producción Slim con Multi-Stage Docker Builds y Distroless"
+title: "Imágenes de Producción Slim con Multi-Stage Docker"
 description: "Cómo construir imágenes Docker de producción minimales usando multi-stage builds con distroless base images, cubriendo Go, Node.js, Python y Java con reducción de tamaño."
 metaDescription: "Construye imágenes Docker de producción minimales con multi-stage builds y distroless bases. Reduce tamaño y attack surface para Go, Node.js, Python, Java."
 difficulty: intermediate

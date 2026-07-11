@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-clean-code-principles
-title: "Complete Guide to Clean Code: Naming, Functions, Classes, Comments"
+title: "Clean Code: Naming, Functions, Classes, Comments"
 description: "Master clean code principles: meaningful naming, small functions, single responsibility, comments, formatting, error handling, and production code quality patterns."
 metaDescription: "Master clean code principles: meaningful naming, small functions, single responsibility, comments, formatting, error handling, and production code quality patterns."
 difficulty: intermediate

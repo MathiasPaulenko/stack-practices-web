@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: ci-cd-security-guide
-title: "Seguridad CI/CD: Fortalece tus Pipelines y Previene Ataques de Supply Chain"
+title: "Seguridad CI/CD: Fortalece tus Pipelines y Previene"
 description: "Guía práctica para asegurar pipelines CI/CD: gestión de secretos, runners de mínimo privilegio, firma de artefactos, escaneo de dependencias y defensa contra ataques de supply chain."
 metaDescription: "Aprende seguridad CI/CD: gestión de secretos, runners de mínimo privilegio, firma de artefactos, escaneo de dependencias y prevención de supply chain."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: incident-response-guide
-title: "Incident Response: Structured Handling for Production Outages"
+title: "Incident Response: Structured Handling for Production"
 description: "A practical guide to incident response: declaring incidents, building an incident command structure, communication protocols, and reducing mean time to resolution with structured processes."
 metaDescription: "Learn incident response: declaring incidents, command structure, communication protocols, and reducing MTTR with structured processes."
 difficulty: intermediate

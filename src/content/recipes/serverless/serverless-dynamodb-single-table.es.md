@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: serverless-dynamodb-single-table
-title: "Disenar un Schema Single-Table de DynamoDB para Apps Serverless"
+title: "Disenar un Schema Single-Table de DynamoDB para Apps"
 description: "Disenar un schema single-table de DynamoDB con composite keys, patrones de GSI y access patterns para aplicaciones serverless usando Python y boto3."
 metaDescription: "Disena un schema single-table de DynamoDB con composite keys, patrones de GSI y access patterns para apps serverless con Python y boto3."
 difficulty: advanced

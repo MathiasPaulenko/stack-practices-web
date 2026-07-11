@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: idempotent-load-pattern
-title: "Patrón Idempotent Load: Re-run Data Loads Safely Sin Duplicates"
+title: "Patrón Idempotent Load"
 description: "Cómo re-run data loads safely sin duplicates. Cubre deduplication keys, MERGE upserts, load IDs, partition overwrite, y transactional loads."
 metaDescription: "Re-run data loads safely sin duplicates. Aprende deduplication keys, MERGE upserts, load IDs, partition overwrite, y transactional load strategies."
 difficulty: intermediate

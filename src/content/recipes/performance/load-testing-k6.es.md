@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: load-testing-k6
-title: "Testing de Carga de APIs con k6 y Aserciones Basadas en Umbrales"
+title: "Testing de Carga de APIs con k6 y Aserciones Basadas en"
 description: "Como escribir y ejecutar tests de carga con k6 para medir rendimiento de APIs, validar SLOs e identificar cuellos de botella antes del despliegue a produccion"
 metaDescription: "Testing de carga de APIs con k6. Mide rendimiento, valida SLOs con aserciones de umbrales e identifica cuellos de botella antes del despliegue a produccion."
 difficulty: intermediate

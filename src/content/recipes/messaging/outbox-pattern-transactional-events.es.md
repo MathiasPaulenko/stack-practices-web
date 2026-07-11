@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: outbox-pattern-transactional-events
-title: "Implementar el Patron Outbox Transaccional para Publicacion Confiable de Eventos"
+title: "Patron Outbox Transaccional para Eventos Confiables"
 description: "Usar el patron outbox transaccional para publicar eventos de dominio junto con cambios de base de datos, con un procesador relay, estrategias de polling y garantias de entrega exactly-once."
 metaDescription: "Implementa el patron outbox transaccional para publicacion confiable de eventos. Usa relay processor, polling y entrega exactly-once con Python y PostgreSQL."
 difficulty: advanced

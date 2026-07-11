@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: a-b-testing-guide
-title: "A/B Testing: Frameworks de Experimentación para Decisiones Basadas en Datos"
+title: "A/B Testing: Frameworks de Experimentación para"
 description: "Guía práctica sobre A/B testing: diseño de experimentos, significancia estadística, tamaño de muestra, evitando pitfalls y construyendo cultura de experimentación en equipos de ingeniería."
 metaDescription: "Aprende A/B testing: diseño de experimentos, significancia estadística, tamaño de muestra, pitfalls comunes y cultura de experimentación."
 difficulty: intermediate

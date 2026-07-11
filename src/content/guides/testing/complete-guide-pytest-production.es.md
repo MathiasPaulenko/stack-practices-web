@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-pytest-production
-title: "Guía de Pytest en Producción: Fixtures, Plugins, Markers, Ejecución Paralela"
+title: "Guía de Pytest en Producción"
 description: "Dominá pytest para codebases de producción: fixtures avanzados, plugins, markers personalizados, tests parametrizados, ejecución paralela con pytest-xdist e integración con CI."
 metaDescription: "Dominá pytest para producción: fixtures avanzados, plugins, markers personalizados, tests parametrizados, ejecución paralela con pytest-xdist e integración con CI."
 difficulty: intermediate

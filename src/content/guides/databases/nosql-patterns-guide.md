@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: nosql-patterns-guide
-title: "NoSQL Data Modeling Patterns — Document, Key-Value, Wide-Column, Graph"
+title: "NoSQL Data Modeling Patterns"
 description: "A practical guide to NoSQL data modeling: embedding vs referencing, access pattern-driven design, and patterns for MongoDB, DynamoDB, Cassandra, and Redis."
 metaDescription: "Learn NoSQL data modeling: embedding vs referencing, access pattern-driven design. Patterns for MongoDB, DynamoDB, Cassandra, and Redis with examples."
 difficulty: intermediate

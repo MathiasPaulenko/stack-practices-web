@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: parameterized-test-pattern
-title: "Patrón Parameterized Test: Ejecutar la Misma Lógica Across Múltiples Inputs"
+title: "Patrón Parameterized Test"
 description: "Cómo escribir parameterized tests para verificar la misma lógica across múltiples inputs. Cubre pytest parametrize, Jest test.each, JUnit ParameterizedTest y data providers."
 metaDescription: "Ejecuta la misma lógica de test across múltiples inputs con parameterized tests. Aprende pytest parametrize, Jest test.each, JUnit ParameterizedTest y data providers."
 difficulty: beginner

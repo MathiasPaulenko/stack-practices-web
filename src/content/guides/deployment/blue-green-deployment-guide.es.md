@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: blue-green-deployment-guide
-title: "Despliegue Blue-Green — Releases sin Downtime con Rollback Instantáneo"
+title: "Despliegue Blue-Green"
 description: "Guía práctica sobre despliegues blue-green: arquitectura, estrategias de cambio de tráfico, migraciones de base de datos y lograr releases sin downtime con rollback instantáneo."
 metaDescription: "Aprende despliegue blue-green: releases sin downtime, cambio de tráfico, migraciones de base de datos y estrategias de rollback instantáneo."
 difficulty: intermediate

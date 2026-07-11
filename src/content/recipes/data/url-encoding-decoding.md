@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: url-encoding-decoding
-title: "URL Encoding and Decoding: encodeURI, encodeURIComponent, and Beyond"
+title: "URL Encoding and Decoding"
 description: "Master URL encoding in JavaScript and other languages with encodeURI, encodeURIComponent, plus-safe handling, RFC 3986 compliance, and decoding edge cases"
 metaDescription: "Master URL encoding in JavaScript with encodeURI, encodeURIComponent, RFC 3986 compliance, plus-safe handling, and decoding edge cases."
 difficulty: beginner

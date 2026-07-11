@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-property-based-testing
-title: "Guía Completa de Property-Based Testing: Hypothesis, fast-check, QuickCheck"
+title: "Property-Based Testing: Hypothesis, fast-check, QuickCheck"
 description: "Dominá property-based testing con Hypothesis (Python), fast-check (TypeScript) y principios de QuickCheck. Generá test cases automáticamente, encontrá edge cases y shrinkéá failures."
 metaDescription: "Dominá property-based testing: Hypothesis para Python, fast-check para TypeScript y QuickCheck. Generá test cases, encontrá edge cases y shrinkéá failures."
 difficulty: advanced

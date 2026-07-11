@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: test-pyramid-pattern
-title: "Test Pyramid Pattern: Balance Unit, Integration, and E2E Test Proportions"
+title: "Test Pyramid: Balance Unit, Integration"
 description: "How to structure a test suite using the test pyramid. Covers unit, integration, and E2E test proportions, the testing trophy, and ice cream cone anti-pattern."
 metaDescription: "Balance unit, integration, and E2E tests with the test pyramid pattern. Learn testing trophy, ice cream cone anti-pattern, and proportional test suite design."
 difficulty: intermediate

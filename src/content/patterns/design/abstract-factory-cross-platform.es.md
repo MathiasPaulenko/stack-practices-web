@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: abstract-factory-cross-platform
-title: "Abstract Factory para Familias de Componentes UI Cross-Platform"
+title: "Abstract Factory para Familias de Componentes UI"
 description: "Crea familias de objetos relacionados sin especificar clases concretas, habilitando implementaciones especificas de plataforma que comparten una interfaz comun"
 metaDescription: "Abstract Factory pattern para familias UI. Crea objetos relacionados sin especificar clases concretas para familias de componentes cross-platform y theme-specific."
 difficulty: intermediate

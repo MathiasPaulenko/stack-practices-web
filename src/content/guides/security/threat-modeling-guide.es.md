@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: threat-modeling-guide
-title: "Modelado de Amenazas — Guía Práctica para Equipos de Desarrollo"
+title: "Modelado de Amenazas"
 description: "Guía paso a paso de modelado de amenazas: STRIDE, árboles de ataque, diagramas de flujo de datos e integración de revisión de diseño de seguridad en tu proceso de desarrollo."
 metaDescription: "Aprende modelado de amenazas con STRIDE, árboles de ataque y diagramas de flujo de datos. Integra revisión de diseño de seguridad en tu proceso de desarrollo."
 difficulty: intermediate

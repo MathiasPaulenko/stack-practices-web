@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: concurrent-data-structures
-title: "Usar Estructuras de Datos Concurrentes para Colecciones Thread-Safe"
+title: "Usar Estructuras de Datos Concurrentes para Colecciones"
 description: "CÃ³mo compartir colecciones entre threads de forma segura usando blocking queues, concurrent maps, copy-on-write lists y atomic counters en Java, Python y C++."
 metaDescription: "Aprende estructuras de datos concurrentes para thread safety. Usa blocking queues, concurrent maps, copy-on-write lists y atomic counters en Java, Python y C++."
 difficulty: intermediate

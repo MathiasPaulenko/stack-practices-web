@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: graphql-subscriptions-realtime
-title: "Datos en tiempo real con suscripciones GraphQL sobre WebSockets"
+title: "Datos en tiempo real con suscripciones GraphQL sobre"
 description: "Implementa suscripciones GraphQL sobre WebSockets con Apollo Server y PubSub para actualizaciones en tiempo real enviadas a clientes conectados"
 metaDescription: "Construye suscripciones GraphQL en tiempo real con WebSockets y PubSub. Envia actualizaciones en vivo a clientes ante cambios con Apollo Server."
 difficulty: advanced

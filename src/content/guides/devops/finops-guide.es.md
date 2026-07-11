@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: finops-guide
-title: "FinOps — Optimizacion de Costos Cloud y Operaciones Financieras"
+title: "FinOps — Optimizacion de Costos Cloud y Operaciones"
 description: "Guia practica de FinOps: visibilidad, optimizacion y gobernanza del gasto cloud. Aprende estrategias de tagging, right-sizing, instancias reservadas y cultura consciente de costos."
 metaDescription: "Aprende FinOps: optimizacion de costos cloud, estrategias de tagging, right-sizing, instancias reservadas y construir cultura de ingenieria consciente de costos."
 difficulty: intermediate

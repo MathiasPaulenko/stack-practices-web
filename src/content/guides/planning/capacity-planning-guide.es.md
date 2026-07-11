@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: capacity-planning-guide
-title: "Planificación de Capacidad — Pronóstico, Escalado y Optimización de..."
+title: "Planificación de Capacidad"
 description: "Guía práctica para la planificación de capacidad en infraestructura cloud y on-premise: pronóstico de demanda, pruebas de carga, estrategias de auto-escalado y evitando el sobreaprovisionamiento."
 metaDescription: "Aprende planificación de capacidad para infraestructura cloud: pronóstico de demanda, pruebas de carga, auto-escalado y evitando el sobreaprovisionamiento."
 difficulty: intermediate

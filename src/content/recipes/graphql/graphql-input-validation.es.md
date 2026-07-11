@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: graphql-input-validation
-title: "Validacion y sanitizacion de input types en GraphQL en el servidor"
+title: "Validacion y sanitizacion de input types en GraphQL en"
 description: "Implementa validacion centralizada de inputs en GraphQL con funciones personalizadas, schemas Zod y transformaciones de input types"
 metaDescription: "Valida input types de GraphQL en el servidor con schemas Zod. Sanea strings, aplica restricciones y retorna errores de validacion estructurados."
 difficulty: intermediate

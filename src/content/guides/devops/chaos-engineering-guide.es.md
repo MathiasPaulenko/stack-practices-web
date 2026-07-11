@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: chaos-engineering-guide
-title: "Chaos Engineering — Principios, Herramientas y Experimentos Seguros"
+title: "Chaos Engineering"
 description: "Guia practica de chaos engineering: construye sistemas resilientes inyectando fallos intencionalmente. Aprende los cinco principios, Litmus, Gremlin y Chaos Mesh."
 metaDescription: "Aprende chaos engineering: construye sistemas resilientes inyectando fallos. Cinco principios, herramientas como Litmus y Chaos Mesh, y diseno seguro de experimentos."
 difficulty: advanced

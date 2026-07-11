@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: nodejs-eslint-security-plugin
-title: "Enforzar Reglas de Seguridad en Node.js con eslint-plugin-security"
+title: "Enforzar Reglas de Seguridad en Node.js con"
 description: "Cómo configurar eslint-plugin-security para detectar patrones inseguros en código Node.js, manejar false positives e integrar con pipelines CI/CD."
 metaDescription: "Detecta patrones inseguros en código Node.js con eslint-plugin-security. Configura reglas, maneja false positives e integra con pipelines CI/CD."
 difficulty: intermediate

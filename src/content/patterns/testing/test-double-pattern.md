@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: test-double-pattern
-title: "Test Double Pattern: Replace Dependencies with Stubs, Spies, Fakes, and Mocks"
+title: "Test Double: Replace Dependencies with Stubs, Spies, Fakes"
 description: "How to use test doubles to isolate units under test. Covers stubs, spies, fakes, mocks, and dummy objects with examples in Python, JavaScript, and Java."
 metaDescription: "Replace dependencies with test doubles — stubs, spies, fakes, mocks, and dummies. Learn when to use each type with Python, JavaScript, and Java examples."
 difficulty: intermediate

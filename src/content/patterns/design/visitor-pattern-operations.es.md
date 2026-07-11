@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: visitor-pattern-operations
-title: "Visitor Pattern para Operaciones Extensibles sobre Estructuras de Objetos"
+title: "Visitor Pattern para Operaciones Extensibles sobre"
 description: "Separa algoritmos de los objetos sobre los que operan, permitiendo agregar nuevas operaciones sin modificar clases de elementos existentes"
 metaDescription: "Visitor pattern para operaciones extensibles. Separa algoritmos de los objetos sobre los que operan para agregar nuevas operaciones sin modificar clases existentes."
 difficulty: advanced

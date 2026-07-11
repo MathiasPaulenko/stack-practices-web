@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: rabbitmq-dead-letter-queue
-title: "Configurar Dead-Letter Queues en RabbitMQ para Mensajes Fallidos"
+title: "Configurar Dead-Letter Queues en RabbitMQ para Mensajes"
 description: "Configurar dead-letter queues y exchanges en RabbitMQ con expiracion TTL, limites de longitud, routing por rechazo y patrones de retry para mensajeria resiliente."
 metaDescription: "Configura dead-letter queues en RabbitMQ. Usa expiracion TTL, max length, routing por rechazo y patrones de retry con backoff exponencial para mensajes fallidos."
 difficulty: intermediate

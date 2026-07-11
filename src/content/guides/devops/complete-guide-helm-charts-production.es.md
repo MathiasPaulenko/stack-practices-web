@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-helm-charts-production
-title: "Guía Completa de Helm Charts: Estructura, Templating, Dependencias, Registry"
+title: "Helm Charts: Estructura, Templating, Dependencias, Registry"
 description: "Dominá Helm charts para Kubernetes: estructura de charts, templating, values, dependencias, hooks, library charts, registry management y patrones de producción."
 metaDescription: "Dominá Helm charts para Kubernetes: estructura, templating, values, dependencias, hooks, library charts, registry y patrones de despliegue en producción."
 difficulty: advanced

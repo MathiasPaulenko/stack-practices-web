@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: database-denormalization-guide
-title: "Desnormalización de Bases de Datos — Cuándo y Cómo Romper las Formas Normales"
+title: "Desnormalización de Bases de Datos"
 description: "Guía práctica de desnormalización de bases de datos: cuándo intercambiar almacenamiento por rendimiento de lectura, patrones comunes y cómo mantener datos derivados consistentes."
 metaDescription: "Aprende desnormalización de bases de datos: cuándo intercambiar almacenamiento por rendimiento, patrones comunes y mantener datos derivados consistentes."
 difficulty: intermediate

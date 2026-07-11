@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: read-replica-guide
-title: "Read Replicas: Scale Reads Without Changing Application Logic"
+title: "Read Replicas: Scale Reads Without Changing Application"
 description: "A practical guide to read replicas: setting up replication, routing read queries, handling replication lag, and scaling read-heavy workloads with PostgreSQL, MySQL, and cloud-managed replicas."
 metaDescription: "Learn read replicas: setup replication, route read queries, handle replication lag, and scale read-heavy workloads with PostgreSQL, MySQL, and cloud replicas."
 difficulty: intermediate

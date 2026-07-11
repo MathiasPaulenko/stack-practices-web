@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-github-actions-ci-cd
-title: "Complete Guide to GitHub Actions CI/CD: Workflows, Runners, Secrets"
+title: "GitHub Actions CI/CD: Workflows, Runners, Secrets"
 description: "Master GitHub Actions for CI/CD: workflows, reusable workflows, composite actions, secrets management, runners, matrix builds, caching, and deployment patterns."
 metaDescription: "Master GitHub Actions for CI/CD: workflows, reusable workflows, composite actions, secrets, runners, matrix builds, caching, and deployment patterns for production."
 difficulty: intermediate

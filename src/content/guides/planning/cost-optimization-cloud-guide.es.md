@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: cost-optimization-cloud-guide
-title: "Optimización de Costos Cloud — Reduce Gasto Sin Sacrificar Confiabilidad"
+title: "Optimización de Costos Cloud"
 description: "Guía práctica para la optimización de costos cloud: dimensionamiento correcto, instancias reservadas, instancias spot, estrategias de etiquetado y prácticas FinOps que reducen gasto manteniendo rendimiento."
 metaDescription: "Aprende estrategias de optimización de costos cloud: dimensionamiento, instancias reservadas, spot, etiquetado y prácticas FinOps para ahorros."
 difficulty: intermediate

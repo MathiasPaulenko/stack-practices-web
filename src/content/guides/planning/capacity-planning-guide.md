@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: capacity-planning-guide
-title: "Capacity Planning — Forecast, Scale, and Optimize Infrastructure"
+title: "Capacity Planning — Forecast, Scale"
 description: "A practical guide to capacity planning for cloud and on-premise infrastructure: demand forecasting, load testing, auto-scaling strategies, and avoiding over-provisioning."
 metaDescription: "Learn capacity planning for cloud infrastructure: forecasting demand, load testing, auto-scaling strategies, and avoiding over-provisioning."
 difficulty: intermediate

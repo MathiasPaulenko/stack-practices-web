@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-langchain-chains-composition
-title: "Compose LCEL Chains in LangChain for Multi-Step LLM Workflows"
+title: "Compose LCEL Chains in LangChain for Multi-Step LLM"
 description: "Build composable LLM pipelines with LangChain Expression Language (LCEL) using pipes, parallel execution, and custom runnable components"
 metaDescription: "Compose LCEL chains in LangChain with pipe operators, parallel branches, and custom runnables. Build multi-step LLM workflows with retries and streaming."
 difficulty: intermediate

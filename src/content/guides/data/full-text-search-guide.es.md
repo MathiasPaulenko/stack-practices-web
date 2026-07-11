@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: full-text-search-guide
-title: "Búsqueda de Texto Completo — Implementa una Búsqueda que Realmente Funcione"
+title: "Búsqueda de Texto Completo"
 description: "Guía práctica sobre búsqueda de texto completo: tsvector de PostgreSQL, indexación en Elasticsearch, diseño de consultas, ajuste de relevancia, y construcción de búsqueda con autocompletado, faceting y tolerancia a errores tipográficos."
 metaDescription: "Guía de búsqueda de texto completo: PostgreSQL tsvector, Elasticsearch, relevancia, autocompletado, faceting e indexación para producción."
 difficulty: intermediate

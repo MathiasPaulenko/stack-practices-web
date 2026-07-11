@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: javascript-fetch-retry-logic
-title: "Lógica de Reintento en JavaScript Fetch con Backoff Exponencial"
+title: "Lógica de Reintento en JavaScript Fetch con Backoff"
 description: "Reintenta peticiones HTTP fallidas en JavaScript con backoff exponencial"
 metaDescription: "Reintenta peticiones fetch fallidas con backoff exponencial, jitter, timeout con AbortController y circuit breaker en JavaScript."
 difficulty: intermediate

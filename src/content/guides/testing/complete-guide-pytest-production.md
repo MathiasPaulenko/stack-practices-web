@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-pytest-production
-title: "Pytest in Production Guide: Fixtures, Plugins, Markers, Parallel Execution"
+title: "Pytest in Production Guide"
 description: "Master pytest for production codebases: advanced fixtures, plugins, custom markers, parametrized tests, parallel execution with pytest-xdist, and CI integration."
 metaDescription: "Master pytest for production: advanced fixtures, plugins, custom markers, parametrized tests, parallel execution with pytest-xdist, and CI integration patterns."
 difficulty: intermediate

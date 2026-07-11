@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: metrics-and-dashboards-guide
-title: "Métricas y Dashboards — De Datos Brutos a Insights Accionables"
+title: "Métricas y Dashboards"
 description: "Guía práctica sobre métricas y dashboards: instrumentación de aplicaciones, elección de tipos de métricas, construcción de dashboards efectivos y creación de pipelines de alertas con Prometheus, Grafana y Datadog."
 metaDescription: "Aprende métricas y dashboards: instrumenta aplicaciones, elige tipos de métricas, construye dashboards efectivos y crea pipelines de alertas con Prometheus y Grafana."
 difficulty: intermediate

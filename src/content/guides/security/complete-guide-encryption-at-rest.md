@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-encryption-at-rest
-title: "Complete Guide to Encryption at Rest: AES-256, KMS, Envelope Encryption"
+title: "Encryption at Rest: AES-256, KMS, Envelope Encryption"
 description: "Master encryption at rest: AES-256-GCM, key management services, envelope encryption, key rotation, database encryption, field-level encryption, and production security patterns."
 metaDescription: "Master encryption at rest: AES-256-GCM, KMS, envelope encryption, key rotation, database encryption, field-level encryption, and production security patterns."
 difficulty: advanced

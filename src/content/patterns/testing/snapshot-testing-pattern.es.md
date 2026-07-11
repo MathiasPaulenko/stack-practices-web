@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: snapshot-testing-pattern
-title: "Patrón Snapshot Testing: Capturar y Comparar Output Serializado"
+title: "Patrón Snapshot Testing"
 description: "Cómo usar snapshot testing para detectar cambios no intencionales en output serializado. Cubre Jest snapshots, pytest-snapshot, e inline vs external snapshots."
 metaDescription: "Detecta cambios no intencionales en output con snapshot testing. Aprende Jest snapshots, pytest-snapshot, inline vs external snapshots, y cuándo actualizar baselines."
 difficulty: intermediate

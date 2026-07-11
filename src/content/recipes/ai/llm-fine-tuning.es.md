@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: llm-fine-tuning
-title: "Fine-tuning de un modelo de lenguaje para generación de código"
+title: "Fine-tuning de un modelo de lenguaje para generación de"
 description: "Cómo hacer fine-tuning de un modelo de lenguaje grande para generación de código específico de dominio usando LoRA, QLoRA y datasets personalizados"
 metaDescription: "Haz fine-tuning de LLMs para generación de código con LoRA y QLoRA. Usa Hugging Face y datasets personalizados para modelos específicos de dominio."
 difficulty: advanced

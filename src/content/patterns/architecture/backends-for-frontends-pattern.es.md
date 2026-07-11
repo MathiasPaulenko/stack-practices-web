@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: backends-for-frontends-pattern
-title: "Patrón Backends for Frontends: Dedicated Backend per Client Type"
+title: "Patrón Backends for Frontends"
 description: "Cómo crear dedicated backends per client type. Cubre BFF para web, mobile, y desktop. Cubre API aggregation, client-specific optimization, y GraphQL BFF."
 metaDescription: "Creá dedicated backends per client type. Aprende BFF para web, mobile, desktop, API aggregation, client-specific optimization, y GraphQL BFF pattern."
 difficulty: intermediate

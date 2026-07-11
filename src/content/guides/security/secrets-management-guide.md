@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: secrets-management-guide
-title: "Secrets Management: Vault, Cloud Managers, and Best Practices"
+title: "Secrets Management: Vault, Cloud Managers"
 description: "A practical guide to secrets management: HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, and GCP Secret Manager with rotation, access control, and CI/CD integration."
 metaDescription: "Learn secrets management with Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager. Rotation, access control, and CI/CD integration guide."
 difficulty: intermediate

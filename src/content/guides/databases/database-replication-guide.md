@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: database-replication-guide
-title: "Database Replication — Master-Slave, Multi-Master, and Beyond"
+title: "Database Replication — Master-Slave, Multi-Master"
 description: "A practical guide to database replication strategies: master-slave, multi-master, synchronous vs asynchronous, and how to handle failover and conflict resolution."
 metaDescription: "Learn database replication: master-slave, multi-master, synchronous vs async, failover, and conflict resolution. Practical guide for scalable systems."
 difficulty: intermediate

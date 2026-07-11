@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: anti-corruption-layer-pattern
-title: "Anti-Corruption Layer Pattern: Isolate Legacy Systems with Translation Adapters"
+title: "Anti-Corruption Layer: Isolate Legacy with Adapters"
 description: "How to isolate legacy systems with translation adapters. Covers ACL facade, domain translation, bidirectional mapping, and gradual legacy replacement."
 metaDescription: "Isolate legacy systems with translation adapters. Learn ACL facade, domain translation, bidirectional mapping, and gradual legacy replacement strategy."
 difficulty: advanced

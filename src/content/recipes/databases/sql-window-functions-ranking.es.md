@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: sql-window-functions-ranking
-title: "Clasificar filas y calcular totales acumulados con funciones de ventana"
+title: "Clasificar filas y calcular totales acumulados con"
 description: "Usa funciones de ventana SQL para clasificar filas, calcular totales acumulados y comparar valores dentro de particiones sin self-joins."
 metaDescription: "Clasifica filas y calcula totales acumulados en SQL con funciones de ventana. Usa ROW_NUMBER, RANK, SUM OVER y LAG en consultas analíticas."
 difficulty: intermediate

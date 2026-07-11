@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-data-quality
-title: "Data Quality Guide: Validation, Profiling, Great Expectations, Pandera"
+title: "Data Quality Guide: Validation, Profiling, Great"
 description: "Master data quality: validation frameworks, profiling, schema enforcement, anomaly detection, and monitoring with Great Expectations, Pandera, and Soda for reliable pipelines."
 metaDescription: "Master data quality: validation, profiling, anomaly detection, and monitoring with Great Expectations, Pandera, and Soda for reliable data pipelines."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: database-query-result-caching
-title: "Cachear Resultados de Consultas de Base de Datos con Redis y Python"
+title: "Cachear Resultados de Consultas de Base de Datos con"
 description: "Cachear resultados de consultas costosas en Redis con patron cache-aside, gestion de TTL e invalidacion en writes para aplicaciones Python."
 metaDescription: "Cachear resultados de consultas en Redis con Python. Usa patron cache-aside, establece TTL, invalida en writes y maneja cache stampedes."
 difficulty: intermediate

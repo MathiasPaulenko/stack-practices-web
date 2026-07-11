@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: fixture-setup-teardown-pattern
-title: "Fixture Setup/Teardown Pattern: Reusable Test Context Lifecycle"
+title: "Fixture Setup/Teardown: Reusable Test Context Lifecycle"
 description: "How to use setup and teardown fixtures to create reusable test context. Covers beforeEach, factory functions, fixture objects, and cleanup with examples."
 metaDescription: "Create reusable test context with setup/teardown fixtures. Learn beforeEach, factory functions, fixture objects, and cleanup patterns in Python, JS, and Java."
 difficulty: beginner

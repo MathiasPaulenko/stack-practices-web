@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: iterator-pattern-collections
-title: "Iterator Pattern para Traversal de Colecciones Custom en TypeScript"
+title: "Iterator Pattern para Traversal de Colecciones Custom en"
 description: "Provee una forma de acceder a elementos de un objeto agregado secuencialmente sin exponer su representacion subyacente usando el Iterator pattern"
 metaDescription: "Iterator pattern para colecciones custom. Accede a elementos de agregados secuencialmente sin exponer la representacion subyacente para arboles, grafos y streams."
 difficulty: intermediate

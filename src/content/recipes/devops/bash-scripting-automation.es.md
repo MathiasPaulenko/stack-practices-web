@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: bash-scripting-automation
-title: "Scripting en Bash para Automatizacion DevOps y Tareas de Sistema"
+title: "Scripting en Bash para Automatizacion DevOps y Tareas de"
 description: "Como escribir scripts Bash robustos para automatizar despliegues, monitoreo de sistemas, rotacion de logs y tareas de mantenimiento rutinarias"
 metaDescription: "Scripting en Bash para automatizacion DevOps. Escribe scripts robustos para despliegues, monitoreo, rotacion de logs y mantenimiento con manejo de errores y logging."
 difficulty: beginner

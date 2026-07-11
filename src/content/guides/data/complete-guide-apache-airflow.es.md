@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-apache-airflow
-title: "Guía Completa de Apache Airflow: DAGs, Operadores, Scheduling"
+title: "Apache Airflow: DAGs, Operadores, Scheduling"
 description: "Dominá Apache Airflow: DAGs, operadores, sensores, XCom, scheduling, backfilling, connections, variables y patrones de producción para orquestación de pipelines."
 metaDescription: "Dominá Apache Airflow: DAGs, operadores, sensores, XCom, scheduling, backfilling, connections, variables y patrones de producción para orquestación de pipelines."
 difficulty: advanced

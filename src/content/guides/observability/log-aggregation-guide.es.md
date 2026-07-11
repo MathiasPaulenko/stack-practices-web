@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: log-aggregation-guide
-title: "Agregación de Logs — Centraliza, Busca y Analiza Logs a Escala"
+title: "Agregación de Logs"
 description: "Guía práctica sobre agregación de logs: logs estructurados, estrategias de envío, políticas de retención y construcción de pipelines de logs consultables con ELK, Loki y soluciones nativas de la nube."
 metaDescription: "Aprende agregación de logs: logs estructurados, estrategias de envío, políticas de retención y pipelines consultables con ELK, Loki y soluciones nativas."
 difficulty: intermediate

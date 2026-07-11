@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-testcontainers-integration
-title: "Complete Guide to Testcontainers: Real Dependencies in Integration Tests"
+title: "Testcontainers: Real Dependencies in Integration Tests"
 description: "Master Testcontainers for integration testing with real databases, message brokers, and APIs. Covers Java, Python, and Node.js with Docker-based test fixtures."
 metaDescription: "Master Testcontainers for integration testing: real databases, message brokers, and APIs in Docker containers. Covers Java, Python, and Node.js with test fixtures."
 difficulty: advanced

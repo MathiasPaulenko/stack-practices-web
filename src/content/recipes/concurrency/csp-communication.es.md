@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: csp-communication
-title: "Coordinar Tareas Concurrentes con Communicating Sequential Processes (CSP)"
+title: "Coordinar Tareas Concurrentes con Communicating"
 description: "CÃ³mo estructurar programas concurrentes usando channels, select statements y goroutines para comunicaciÃ³n segura sin estado mutable compartido en Go, Rust y JavaScript."
 metaDescription: "Aprende CSP para coordinaciÃ³n de tareas concurrentes. Usa channels, select statements y goroutines para comunicar sin estado mutable compartido en Go, Rust y JS."
 difficulty: intermediate

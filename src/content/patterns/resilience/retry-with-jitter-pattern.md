@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: retry-with-jitter-pattern
-title: "Retry with Jitter Pattern: Exponential Backoff and Random Jitter"
+title: "Retry with Jitter: Exponential Backoff and Random Jitter"
 description: "How to retry failed operations with exponential backoff and random jitter. Covers full jitter, equal jitter, decorrelated jitter, retry budgets, and idempotency."
 metaDescription: "Retry failed operations with exponential backoff and random jitter. Learn full jitter, equal jitter, decorrelated jitter, retry budgets, and idempotency requirements."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: distributed-tracing-guide
-title: "Trazas Distribuidas: Flujo de Peticiones de Extremo a Extremo en Microservicios"
+title: "Trazas Distribuidas: Flujo de Peticiones en Microservicios"
 description: "Guía práctica sobre trazas distribuidas: instrumentación de aplicaciones, propagación de trazas, estrategias de muestreo y diagnóstico de latencia en arquitecturas de microservicios con OpenTelemetry, Jaeger y Zipkin."
 metaDescription: "Aprende trazas distribuidas: instrumenta aplicaciones, propaga trazas, estrategias de muestreo y diagnostica latencia con OpenTelemetry, Jaeger y Zipkin."
 difficulty: intermediate

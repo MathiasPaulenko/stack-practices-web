@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-refactoring-techniques
-title: "Guía Completa de Refactoring: Extract Method, Replace Conditional, Move Function"
+title: "Refactoring: Extract Method, Replace Conditional"
 description: "Dominá refactoring techniques: extract method, replace conditional with polymorphism, move function, extract class, rename y safe refactoring workflows con tests."
 metaDescription: "Dominá refactoring: extract method, replace conditional with polymorphism, move function, extract class, rename y safe refactoring workflows con tests."
 difficulty: intermediate

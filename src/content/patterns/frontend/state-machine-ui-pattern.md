@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: state-machine-ui-pattern
-title: "State Machine UI Pattern: Model UI State Transitions with Finite State Machines"
+title: "State Machine UI: Finite State Machines for UI"
 description: "How to model UI state transitions with finite state machines in React. Covers XState, statecharts, guarded transitions, and preventing impossible states."
 metaDescription: "Model UI state transitions with finite state machines in React. Learn XState, statecharts, guarded transitions, and preventing impossible states."
 difficulty: advanced

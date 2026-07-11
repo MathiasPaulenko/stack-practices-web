@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: read-replica-guide
-title: "Réplicas de Lectura: Escala Lecturas Sin Cambiar la Lógica de Aplicación"
+title: "Réplicas de Lectura: Escala Lecturas Sin Cambiar la"
 description: "Guía práctica sobre réplicas de lectura: configurar replicación, enrutar consultas de lectura, manejar lag de replicación, y escalar cargas de trabajo intensivas en lectura con PostgreSQL, MySQL y réplicas gestionadas en la nube."
 metaDescription: "Aprende réplicas de lectura: configura replicación, enruta consultas, maneja lag y escala lecturas con PostgreSQL, MySQL y nube."
 difficulty: intermediate

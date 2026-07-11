@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: correlation-id-pattern
-title: "Correlation ID Pattern: Trace Requests Across Distributed Services"
+title: "Correlation ID: Trace Requests Across Distributed Services"
 description: "How to propagate correlation IDs across service boundaries for end-to-end request tracing. Covers HTTP headers, message queues, and logging integration."
 metaDescription: "Trace requests across microservices with correlation IDs. Learn HTTP header propagation, message queue tracing, and structured logging integration."
 difficulty: intermediate

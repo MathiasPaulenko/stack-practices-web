@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: serverless-orchestration
-title: "Orchestrate Serverless Workflows with Step Functions and State Machines"
+title: "Orchestrate Serverless Workflows with Step Functions and"
 description: "How to coordinate complex serverless processes using AWS Step Functions, Temporal, and Durable Functions to manage state, retries, and error handling across distributed functions."
 metaDescription: "Learn serverless orchestration with Step Functions and state machines. Coordinate workflows, manage state, retries, and error handling across distributed functions."
 difficulty: intermediate

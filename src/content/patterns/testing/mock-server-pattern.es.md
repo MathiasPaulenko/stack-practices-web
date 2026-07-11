@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: mock-server-pattern
-title: "Patrón Mock Server: Mock Server para Aislamiento de Integration Tests"
+title: "Patrón Mock Server: Mock Server para Aislamiento de"
 description: "Cómo usar mock servers para aislar integration tests de dependencias externas. Cubre WireMock, nock, MSW, y Mountebank con ejemplos de configuración."
 metaDescription: "Aisla integration tests de APIs externas con mock servers. Aprende WireMock, nock, MSW, y Mountebank para stubbing de HTTP responses en entornos de test."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-terraform-provider-custom
-title: "Construye un Provider Personalizado de Terraform con Python y..."
+title: "Construye un Provider Personalizado de Terraform con"
 description: "Extiende Terraform con un provider personalizado usando Python y terraform-plugin-framework para gestionar recursos externos."
 metaDescription: "Construye un provider personalizado de Terraform en Python con terraform-plugin-framework. Define recursos, data sources, operaciones CRUD y validación de schema."
 difficulty: advanced

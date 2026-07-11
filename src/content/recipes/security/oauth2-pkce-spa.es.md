@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: oauth2-pkce-spa
-title: "Implementa OAuth 2.0 PKCE para Aplicaciones de Una Sola Pagina"
+title: "Implementa OAuth 2.0 PKCE para Aplicaciones de Una Sola"
 description: "Como implementar el flujo OAuth 2.0 PKCE en aplicaciones de una sola pagina para autenticar usuarios de forma segura sin exponer secretos de cliente"
 metaDescription: "OAuth 2.0 PKCE para SPAs. Autentica usuarios sin secretos de cliente, implementa intercambio de codigo y maneja refresh de tokens."
 difficulty: intermediate

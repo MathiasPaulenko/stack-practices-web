@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: serverless-event-driven-sqs-lambda
-title: "Build Event-Driven Lambda with SQS Triggers and Batch Processing"
+title: "Event-Driven Lambda with SQS Triggers and Batch Processing"
 description: "Process SQS messages with Lambda using batch windows, partial batch responses, error handling, and dead-letter queues for resilient event-driven pipelines."
 metaDescription: "Build event-driven Lambda with SQS triggers. Use batch windows, partial batch responses, error handling, and DLQ for resilient message processing."
 difficulty: intermediate

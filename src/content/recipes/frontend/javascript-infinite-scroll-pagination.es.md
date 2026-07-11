@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: javascript-infinite-scroll-pagination
-title: "Paginación con Scroll Infinito en JavaScript con IntersectionObserver"
+title: "Paginación con Scroll Infinito en JavaScript con"
 description: "Implementa carga de datos basada en scroll en JavaScript con IntersectionObserver"
 metaDescription: "Construye paginación de scroll infinito en JavaScript con IntersectionObserver, fetch API, estados de carga y manejo de errores."
 difficulty: intermediate

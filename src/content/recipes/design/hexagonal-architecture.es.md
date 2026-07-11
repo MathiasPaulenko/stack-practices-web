@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: hexagonal-architecture
-title: "Construir Aplicaciones Mantenibles con Arquitectura Hexagonal"
+title: "Construir Aplicaciones Mantenibles con Arquitectura"
 description: "Cómo estructurar aplicaciones usando ports y adapters para aislar lógica de negocio de frameworks, bases de datos y servicios externos para testabilidad y flexibilidad."
 metaDescription: "Aprende arquitectura hexagonal para apps mantenibles. Usa ports y adapters para aislar lógica de negocio de frameworks, bases de datos y servicios externos."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: connection-pooling
-title: "Configurar connection pooling para bases de datos y clientes HTTP"
+title: "Configurar connection pooling para bases de datos y"
 description: "Cómo configurar connection pooling para bases de datos y clientes HTTP para mejorar rendimiento y confiabilidad"
 metaDescription: "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP. Mejora throughput, reduce latencia y previene agotamiento de conexiones."
 difficulty: intermediate

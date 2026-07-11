@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: contract-testing-pattern
-title: "Patrón Contract Testing: Verificar Contracts de API Consumer-Producer"
+title: "Patrón Contract Testing"
 description: "Cómo usar contract testing para verificar que producers y consumers de API acuerdan en shapes de request y response. Cubre Pact consumer-driven contracts y provider verification."
 metaDescription: "Verifica agreements de API consumer-producer con contract testing. Aprende Pact consumer-driven contracts, provider verification, e integración CI/CD para microservices."
 difficulty: advanced

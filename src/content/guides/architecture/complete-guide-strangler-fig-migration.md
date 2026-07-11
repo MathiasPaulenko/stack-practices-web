@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-strangler-fig-migration
-title: "Complete Guide to Strangler Fig Migration: Incremental Legacy Replacement"
+title: "Strangler Fig Migration: Incremental Legacy Replacement"
 description: "Master the strangler fig pattern for incremental legacy migration: routing layer, feature flags, data synchronization, rollback strategies, and production patterns."
 metaDescription: "Master the strangler fig pattern for incremental legacy migration: routing layer, feature flags, data synchronization, rollback strategies, and production patterns."
 difficulty: advanced

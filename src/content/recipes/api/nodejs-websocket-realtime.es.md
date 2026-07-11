@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: nodejs-websocket-realtime
-title: "Comunicación WebSocket en Tiempo Real con Socket.io en Node.js"
+title: "Comunicación WebSocket en Tiempo Real con Socket.io en"
 description: "Construye aplicaciones WebSocket en tiempo real en Node.js con Socket.io"
 metaDescription: "Construye apps WebSocket en tiempo real en Node.js con Socket.io. Cubre rooms, namespaces, broadcasting, reconexión, autenticación y escalado con Redis adapter."
 difficulty: intermediate

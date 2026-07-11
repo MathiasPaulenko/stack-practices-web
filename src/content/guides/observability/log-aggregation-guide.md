@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: log-aggregation-guide
-title: "Log Aggregation — Centralize, Search, and Analyze Logs at Scale"
+title: "Log Aggregation — Centralize, Search"
 description: "A practical guide to log aggregation: structured logging, shipping strategies, retention policies, and building searchable log pipelines with ELK, Loki, and cloud-native solutions."
 metaDescription: "Learn log aggregation: structured logging, shipping strategies, retention policies, and searchable pipelines with ELK, Loki, and cloud-native solutions."
 difficulty: intermediate

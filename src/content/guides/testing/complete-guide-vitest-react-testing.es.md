@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-vitest-react-testing
-title: "Guía Completa de Vitest para React: Component, Hook, e Integration Testing"
+title: "Vitest para React: Component, Hook, e Integration Testing"
 description: "Dominá Vitest para testing en React: component tests con Testing Library, hook tests con renderHook, integration tests, mocking, snapshot testing y ejecución paralela."
 metaDescription: "Dominá Vitest para testing en React: component tests con Testing Library, hook tests con renderHook, integration tests, mocking, snapshot testing y ejecución paralela."
 difficulty: intermediate

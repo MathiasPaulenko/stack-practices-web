@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: database-denormalization-guide
-title: "Database Denormalization — When and How to Break Normal Forms"
+title: "Database Denormalization"
 description: "A practical guide to database denormalization: when to trade storage for read performance, common patterns, and how to keep derived data consistent."
 metaDescription: "Learn database denormalization: when to trade storage for read performance, common patterns, and keeping derived data consistent. Practical guide."
 difficulty: intermediate

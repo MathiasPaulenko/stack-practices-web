@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: github-actions-matrix-strategy
-title: "Testear a Través de Múltiples OS y Versiones con GitHub Actions Matrix"
+title: "Testear a Través de Múltiples OS y Versiones con GitHub"
 description: "Cómo usar GitHub Actions matrix strategy para testear a través de múltiples sistemas operativos, versiones de lenguajes y configuraciones con include, exclude y matrices dinámicas."
 metaDescription: "Testea a través de múltiples OS y versiones con GitHub Actions matrix strategy. Usa include, exclude, matrices dinámicas y fail-fast para CI comprehensivo."
 difficulty: intermediate

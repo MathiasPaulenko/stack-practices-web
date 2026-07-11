@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: stream-processing-guide
-title: "Procesamiento de Streams: Pipelines de Datos Event-Driven con Kafka, Flink y..."
+title: "Procesamiento de Streams: Pipelines con Kafka y Flink"
 description: "Guía práctica sobre procesamiento de streams: elegir entre Kafka Streams, Flink y Spark Streaming, diseñar esquemas de eventos, manejar operaciones stateful, y construir pipelines exactly-once para datos en tiempo real."
 metaDescription: "Aprende procesamiento de streams: Kafka, Flink, Spark, esquemas de eventos, stateful y exactly-once para pipelines en tiempo real."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: blue-green-deployment-guide
-title: "Blue-Green Deployment — Zero-Downtime Releases with Instant Rollback"
+title: "Blue-Green Deployment"
 description: "A practical guide to blue-green deployments: architecture, traffic switching strategies, database migrations, and achieving zero-downtime releases with instant rollback capability."
 metaDescription: "Learn blue-green deployment: zero-downtime releases, traffic switching, database migrations, and instant rollback strategies."
 difficulty: intermediate

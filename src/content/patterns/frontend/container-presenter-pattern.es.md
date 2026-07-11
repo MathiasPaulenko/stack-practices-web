@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: container-presenter-pattern
-title: "Patrón Container-Presenter: Separar Data Logic del Rendering en React"
+title: "Patrón Container-Presenter"
 description: "Cómo separar data-fetching logic del rendering en React usando el container-presenter pattern. Cubre hooks migration, testing benefits, y trade-offs."
 metaDescription: "Separa data-fetching logic del rendering en React con container-presenter. Aprende hooks migration, testing isolation, reusability, y trade-offs."
 difficulty: intermediate

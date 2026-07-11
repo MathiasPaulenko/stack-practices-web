@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: sre-practices-guide
-title: "Site Reliability Engineering: SRE Practices and Error Budgets"
+title: "Site Reliability Engineering"
 description: "A practical guide to SRE: defining SLIs, SLOs, and SLAs, managing error budgets, toil reduction, on-call rotations, and building a culture of reliability."
 metaDescription: "Learn SRE practices: define SLIs, SLOs, SLAs, manage error budgets, reduce toil, and build on-call rotations for production reliability."
 difficulty: intermediate

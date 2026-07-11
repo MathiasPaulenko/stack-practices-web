@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: structured-logging-pattern
-title: "Patrón Structured Logging: Emitir JSON Logs con Campos Consistentes"
+title: "Patrón Structured Logging"
 description: "Cómo emitir structured JSON logs con campos consistentes para searchability. Cubre Python structlog, Winston, Serilog, log levels, y log aggregation."
 metaDescription: "Emite structured JSON logs con campos consistentes para searchability. Aprende structlog, Winston, Serilog, log levels, e integración con ELK y Datadog."
 difficulty: intermediate

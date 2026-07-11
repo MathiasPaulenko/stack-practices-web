@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: interpreter-pattern-expressions
-title: "Interpreter Pattern para Lenguajes de Expresion Especificos de Dominio"
+title: "Interpreter Pattern para Lenguajes de Expresion"
 description: "Construye un interprete de lenguaje que evalua expresiones y reglas representando la gramatica como objetos componibles, util para formulas, queries y reglas de negocio"
 metaDescription: "Interpreter pattern para lenguajes de expresion. Evalua formulas y reglas representando gramatica como objetos componibles para logica de negocio configurable."
 difficulty: advanced

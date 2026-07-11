@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: server-sent-events-go
-title: "Implementa Server-Sent Events en Go para Actualizaciones en Tiempo Real"
+title: "Implementa Server-Sent Events en Go para Actualizaciones"
 description: "Como construir un endpoint de Server-Sent Events en Go listo para produccion con gestion de conexiones, heartbeats y manejo graceful de desconexiones de clientes"
 metaDescription: "Server-Sent Events en Go. Construye streams de actualizacion en tiempo real con gestion de conexiones, heartbeats y manejo graceful de desconexiones de clientes."
 difficulty: intermediate

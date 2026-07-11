@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: graceful-shutdown-pattern
-title: "Patrón Graceful Shutdown: Dreneá In-Flight Requests Antes de Exit"
+title: "Patrón Graceful Shutdown"
 description: "Cómo drenear in-flight requests antes de process exit. Cubre signal handling, health check removal, connection draining, timeout enforcement, y cleanup hooks."
 metaDescription: "Dreneá in-flight requests antes de exit. Aprende signal handling, health check removal, connection draining, timeout enforcement, y cleanup hooks."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-prometheus-metrics-exporter
-title: "Expón Métricas Personalizadas de Aplicación con Python y Prometheus"
+title: "Expón Métricas Personalizadas de Aplicación con Python y"
 description: "Construye un exporter personalizado de métricas Prometheus en Python usando prometheus_client para counters, gauges, histograms y summaries."
 metaDescription: "Construye un exporter personalizado de Prometheus en Python con prometheus_client. Expón counters, gauges, histograms, summaries y endpoints de métricas."
 difficulty: intermediate

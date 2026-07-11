@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: brotli-nginx-compression
-title: "Habilita Compresion Brotli en Nginx para Entrega Mas Rapida de Assets"
+title: "Habilita Compresion Brotli en Nginx para Entrega Mas"
 description: "Como configurar compresion Brotli en Nginx para reducir tamanos de transferencia de assets JavaScript, CSS y HTML con mejores ratios que Gzip"
 metaDescription: "Habilita compresion Brotli en Nginx. Reduce tamanos de transferencia de assets con mejores ratios de compresion que Gzip para JavaScript, CSS y HTML."
 difficulty: beginner

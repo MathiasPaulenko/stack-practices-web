@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: ci-cd-security-guide
-title: "CI/CD Security: Harden Your Pipelines and Prevent Supply Chain Attacks"
+title: "CI/CD Security: Harden Your Pipelines and Prevent Supply"
 description: "A practical guide to securing CI/CD pipelines: secrets management, least-privilege runners, artifact signing, dependency scanning, and defending against supply chain attacks."
 metaDescription: "Learn CI/CD security: secrets management, least-privilege runners, artifact signing, dependency scanning, and supply chain attack prevention."
 difficulty: intermediate

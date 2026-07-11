@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: microservices-patterns
-title: "Diseñar Microservicios Resilientes con Circuit Breakers, Retries y Timeouts"
+title: "Diseñar Microservicios Resilientes con Circuit Breakers,"
 description: "Cómo construir sistemas distribuidos tolerantes a fallos usando patrones de microservicios incluyendo circuit breakers, bulkheads, retries con backoff y sagas para gestión de transacciones."
 metaDescription: "Aprende patrones de microservicios para sistemas resilientes. Implementa circuit breakers, bulkheads, retries con backoff y sagas tolerantes a fallos."
 difficulty: advanced

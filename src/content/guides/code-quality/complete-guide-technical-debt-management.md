@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-technical-debt-management
-title: "Complete Guide to Technical Debt: Track, Prioritize, Pay Down"
+title: "Technical Debt: Track, Prioritize, Pay Down"
 description: "Master technical debt management: identify debt types, track with debt registers, prioritize using impact vs effort, schedule paydown sprints, and measure debt reduction."
 metaDescription: "Master technical debt management: identify debt types, track with debt registers, prioritize using impact vs effort, schedule paydown sprints, and measure debt reduction."
 difficulty: intermediate

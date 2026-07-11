@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: cdc-change-data-capture-pattern
-title: "CDC Change Data Capture Pattern: Stream Database Changes to Downstream Consumers"
+title: "CDC Pattern: Stream Database Changes to Downstream"
 description: "How to stream database changes to downstream consumers with CDC. Covers log-based CDC, Debezium, Kafka Connect, outbox pattern, and consumer reconciliation."
 metaDescription: "Stream database changes to downstream consumers with CDC. Learn log-based CDC, Debezium, Kafka Connect, outbox pattern, and consumer reconciliation strategies."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: vector-database-guide
-title: "Bases de Datos Vectoriales — Embeddings de IA/ML y Busqueda por Similitud"
+title: "Bases de Datos Vectoriales"
 description: "Guia practica de bases de datos vectoriales: embeddings, busqueda por similitud, vecinos aproximados mas cercanos, y elegir entre Pinecone, Weaviate, pgvector y Chroma."
 metaDescription: "Aprende bases de datos vectoriales: embeddings, busqueda por similitud, algoritmos ANN. Compara Pinecone, Weaviate, pgvector y Chroma para casos de uso IA/ML."
 difficulty: intermediate

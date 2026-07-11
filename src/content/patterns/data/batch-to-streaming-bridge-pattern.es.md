@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: batch-to-streaming-bridge-pattern
-title: "Patrón Batch-to-Streaming Bridge: Unify Batch y Streaming con un Data Lake"
+title: "Patrón Batch-to-Streaming Bridge"
 description: "Cómo bridgear batch y streaming pipelines con un data lake. Cubre Lambda architecture, Kafka Connect S3 sink, schema alignment, y unified serving layer."
 metaDescription: "Bridgea batch y streaming pipelines con un data lake. Aprende Lambda architecture, Kafka Connect S3 sink, schema alignment, y unified serving layer design."
 difficulty: advanced

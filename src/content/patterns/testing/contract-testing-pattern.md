@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: contract-testing-pattern
-title: "Contract Testing Pattern: Verify Consumer-Producer API Contracts"
+title: "Contract Testing: Verify Consumer-Producer API Contracts"
 description: "How to use contract testing to verify that API producers and consumers agree on request and response shapes. Covers Pact consumer-driven contracts and provider verification."
 metaDescription: "Verify consumer-producer API agreements with contract testing. Learn Pact consumer-driven contracts, provider verification, and CI/CD integration for microservices."
 difficulty: advanced

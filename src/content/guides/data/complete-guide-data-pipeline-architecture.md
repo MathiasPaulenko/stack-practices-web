@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-data-pipeline-architecture
-title: "Complete Guide to Data Pipeline Architecture: Batch, Streaming, Lambda, Kappa"
+title: "Data Pipeline Architecture: Batch, Streaming, Lambda, Kappa"
 description: "Master data pipeline architecture: batch processing, streaming, lambda and kappa patterns, ETL vs ELT, and choosing the right approach for your data workloads."
 metaDescription: "Master data pipeline architecture: batch processing, streaming, lambda and kappa patterns, ETL vs ELT, and choosing the right approach for your data workloads."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: onion-architecture-guide
-title: "Arquitectura Onion — Inversión de Dependencias en la Práctica"
+title: "Arquitectura Onion"
 description: "Guía práctica de Arquitectura Onion: organizar código alrededor del modelo de dominio, forzar dirección de dependencias hacia adentro y aislar infraestructura de la lógica de negocio."
 metaDescription: "Aprende Arquitectura Onion: organiza código alrededor del dominio, fuerza dependencias hacia adentro, aisla infraestructura. Guía práctica con ejemplos."
 difficulty: intermediate

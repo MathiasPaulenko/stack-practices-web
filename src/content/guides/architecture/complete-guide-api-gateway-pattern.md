@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-api-gateway-pattern
-title: "Complete Guide to API Gateway Pattern: Routing, Auth, Rate Limiting"
+title: "API Gateway: Routing, Auth, Rate Limiting"
 description: "Master API gateway architecture: request routing, authentication, rate limiting, request shaping, response caching, protocol translation, and production deployment patterns."
 metaDescription: "Master API gateway architecture: request routing, authentication, rate limiting, request shaping, response caching, protocol translation, and production patterns."
 difficulty: advanced

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: etl-pipeline-guide
-title: "Pipelines ETL: Extract, Transform, Load para Ingenieros de Datos"
+title: "Pipelines ETL: Extract, Transform, Load para Ingenieros"
 description: "Guía práctica sobre pipelines ETL: extraer datos de múltiples fuentes, transformar con validación y lógica de negocio, y cargar en data warehouses. Cubre programación de batches, manejo de errores y monitoreo con Python, dbt y Airflow."
 metaDescription: "Aprende pipelines ETL: extrae de múltiples fuentes, transforma con validación y lógica de negocio, carga en data warehouses con Python, dbt y Airflow."
 difficulty: intermediate

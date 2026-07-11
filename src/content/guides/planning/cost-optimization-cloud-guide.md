@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: cost-optimization-cloud-guide
-title: "Cloud Cost Optimization: Reduce Spend Without Sacrificing Reliability"
+title: "Cloud Cost Optimization"
 description: "A practical guide to cloud cost optimization: right-sizing, reserved instances, spot instances, tagging strategies, and FinOps practices that reduce spend while maintaining performance."
 metaDescription: "Learn cloud cost optimization strategies: right-sizing, reserved instances, spot instances, tagging, and FinOps practices for savings."
 difficulty: intermediate

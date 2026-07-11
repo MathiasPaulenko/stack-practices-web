@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: clean-architecture-guide
-title: "Clean Architecture — The Dependency Rule and Layered Boundaries"
+title: "Clean Architecture"
 description: "A practical guide to Uncle Bob's Clean Architecture: organize code into layers so that frameworks, UI, and databases are details, not dependencies."
 metaDescription: "Learn Clean Architecture with the Dependency Rule, layered boundaries, and practical examples. Build maintainable, testable applications."
 difficulty: advanced

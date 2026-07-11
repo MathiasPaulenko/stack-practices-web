@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: multi-cloud-guide
-title: "Estrategias Multi-Cloud — Beneficios, Riesgos e Implementacion"
+title: "Estrategias Multi-Cloud"
 description: "Guia practica de arquitectura multi-cloud: cuando adoptarla, estrategias de placement de cargas, gravedad de datos, portabilidad y evitar vendor lock-in."
 metaDescription: "Aprende estrategias multi-cloud: cuando adoptar, placement de cargas, gravedad de datos, portabilidad. Beneficios, riesgos y guia de implementacion practica."
 difficulty: advanced

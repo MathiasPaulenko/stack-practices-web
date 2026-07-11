@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: github-actions-reusable-workflows
-title: "Compartir Lógica de Workflows con GitHub Actions Reusable Workflows"
+title: "Compartir Lógica de Workflows con GitHub Actions"
 description: "Cómo crear y consumir reusable workflows en GitHub Actions, cubriendo inputs, secrets, jobs condicionales, matrix strategy y sharing a nivel organización."
 metaDescription: "Crea y consume reusable workflows de GitHub Actions. Pasa inputs y secrets, usa jobs condicionales, matrix strategy y comparte a nivel organización."
 difficulty: intermediate

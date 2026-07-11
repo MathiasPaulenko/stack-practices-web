@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: database-replication-guide
-title: "Replicación de Bases de Datos — Master-Slave, Multi-Master y Más"
+title: "Replicación de Bases de Datos"
 description: "Guía práctica de estrategias de replicación de bases de datos: master-slave, multi-master, síncrona vs asíncrona, y cómo manejar failover y resolución de conflictos."
 metaDescription: "Aprende replicación de bases de datos: master-slave, multi-master, síncrona vs async, failover y resolución de conflictos. Guía práctica para sistemas escalables."
 difficulty: intermediate

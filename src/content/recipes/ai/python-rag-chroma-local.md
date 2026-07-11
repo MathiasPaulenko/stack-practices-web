@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-rag-chroma-local
-title: "Build a Local RAG Pipeline with ChromaDB and Sentence Transformers"
+title: "a Local RAG Pipeline with ChromaDB and Sentence Transformers"
 description: "Implement retrieval-augmented generation locally with ChromaDB, sentence-transformers embeddings, and LLM generation without external API dependencies"
 metaDescription: "Build a local RAG pipeline with ChromaDB and sentence-transformers. Chunk documents, embed locally, retrieve relevant context, and generate answers."
 difficulty: intermediate

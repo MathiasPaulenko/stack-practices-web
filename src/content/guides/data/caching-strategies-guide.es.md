@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: caching-strategies-guide
-title: "Estrategias de Caché — Desde el Navegador hasta la Base de Datos, una Guía..."
+title: "Estrategias de Caché"
 description: "Guía práctica sobre estrategias de caché: caché del navegador, caché perimetral de CDN, caché de aplicación con Redis, y caché de consultas de base de datos. Aprende cuándo usar cada una y cómo evitar pesadillas de invalidación de caché."
 metaDescription: "Aprende estrategias de caché: navegador, CDN, Redis, y caché de consultas de base de datos. Cuándo usar cada una y cómo evitar errores comunes de invalidación."
 difficulty: intermediate

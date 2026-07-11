@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: optimistic-update-pattern
-title: "Patrón Optimistic Update: Actualizar UI Inmediatamente, Reconciliar en Response"
+title: "Patrón Optimistic Update: UI Inmediata, Reconciliar"
 description: "Cómo actualizar UI inmediatamente y reconciliar en server response en React. Cubre rollback on error, conflict resolution, y React Query integration."
 metaDescription: "Actualiza UI inmediatamente y reconcilia en server response en React. Aprende rollback on error, conflict resolution, React Query, y optimistic transactions."
 difficulty: intermediate

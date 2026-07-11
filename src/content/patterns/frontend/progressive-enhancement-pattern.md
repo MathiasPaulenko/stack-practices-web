@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: progressive-enhancement-pattern
-title: "Progressive Enhancement Pattern: Build Functional Baseline, Enhance with JS"
+title: "Progressive Enhancement"
 description: "How to build a functional HTML baseline and progressively enhance with JavaScript. Covers core functionality, feature detection, graceful degradation, and accessibility."
 metaDescription: "Build a functional HTML baseline and progressively enhance with JavaScript. Learn feature detection, graceful degradation, accessibility, and no-JS fallbacks."
 difficulty: intermediate

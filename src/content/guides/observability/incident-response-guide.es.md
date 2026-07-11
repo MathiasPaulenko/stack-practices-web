@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: incident-response-guide
-title: "Respuesta a Incidentes: Manejo Estructurado de Interrupciones en Producción"
+title: "Respuesta a Incidentes"
 description: "Guía práctica sobre respuesta a incidentes: declarar incidentes, construir una estructura de comando de incidentes, protocolos de comunicación y reducir el tiempo medio de resolución con procesos estructurados."
 metaDescription: "Aprende respuesta a incidentes: declaración, estructura de comando, protocolos de comunicación y reducción de MTTR con procesos estructurados."
 difficulty: intermediate

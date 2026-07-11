@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: mediator-pattern-components
-title: "Mediator Pattern para Desacoplamiento de Componentes en Apps Frontend"
+title: "Mediator Pattern para Desacoplamiento de Componentes en"
 description: "Reduce dependencias caoticas entre componentes UI introduciendo un mediador que centraliza comunicacion, previniendo referencias explicitas entre pares"
 metaDescription: "Mediator pattern para desacoplamiento de componentes. Centraliza comunicacion entre componentes UI para eliminar referencias explicitas y simplificar dependencias."
 difficulty: intermediate

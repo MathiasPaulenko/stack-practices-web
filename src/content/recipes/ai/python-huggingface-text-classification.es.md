@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-huggingface-text-classification
-title: "Fine-tune y despliega clasificadores de texto con Hugging Face Transformers"
+title: "Fine-tune y despliega clasificadores de texto con"
 description: "Fine-tunea un modelo transformer pre-entrenado para clasificacion de texto usando Hugging Face Trainer, tokeniza datasets, evalua metricas y despliega para inferencia"
 metaDescription: "Fine-tunea clasificadores de texto con Hugging Face Transformers. Usa Trainer API, tokeniza datasets, evalua F1 accuracy y despliega con pipeline."
 difficulty: advanced

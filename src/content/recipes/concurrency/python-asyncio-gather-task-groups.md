@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-asyncio-gather-task-groups
-title: "Run Concurrent Async Tasks with asyncio.gather and Task Groups"
+title: "Concurrent Async Tasks with asyncio.gather and Task Groups"
 description: "Execute multiple async operations concurrently in Python using asyncio.gather, asyncio.TaskGroup, error handling with return_exceptions, timeouts, and semaphores for rate limiting."
 metaDescription: "Run concurrent async tasks in Python with asyncio.gather and TaskGroup. Handle errors, timeouts, semaphores for rate limiting, and structured concurrency patterns."
 difficulty: intermediate

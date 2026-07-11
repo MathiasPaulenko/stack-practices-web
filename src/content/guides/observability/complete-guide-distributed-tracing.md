@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-distributed-tracing
-title: "Complete Guide to Distributed Tracing: OpenTelemetry, Jaeger, Zipkin"
+title: "Distributed Tracing: OpenTelemetry, Jaeger, Zipkin"
 description: "Master distributed tracing with OpenTelemetry, Jaeger, and Zipkin. Trace propagation across services, span context, sampling strategies, and production debugging."
 metaDescription: "Master distributed tracing with OpenTelemetry, Jaeger, and Zipkin. Trace propagation, span context, sampling strategies, and production debugging across services."
 difficulty: advanced

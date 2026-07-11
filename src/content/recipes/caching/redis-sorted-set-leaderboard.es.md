@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: redis-sorted-set-leaderboard
-title: "Construir un leaderboard en tiempo real con Redis Sorted Sets"
+title: "Construir un leaderboard en tiempo real con Redis Sorted"
 description: "Usa sorted sets de Redis para implementar leaderboards en tiempo real con seguimiento de ranking, actualizacion de puntajes y consultas top-N en O(log N)"
 metaDescription: "Construye leaderboards en tiempo real con Redis sorted sets. Actualiza puntajes, consulta rankings y obtiene top-N en O(log N) con ZADD y ZREVRANGE."
 difficulty: intermediate

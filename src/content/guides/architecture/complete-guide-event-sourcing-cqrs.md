@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-event-sourcing-cqrs
-title: "Complete Guide to Event Sourcing and CQRS: Event Store, Projections"
+title: "Event Sourcing and CQRS: Event Store, Projections"
 description: "Master event sourcing and CQRS: event store design, aggregate roots, projections, read models, snapshots, sagas, and production patterns for event-driven systems."
 metaDescription: "Master event sourcing and CQRS: event store design, aggregate roots, projections, read models, snapshots, sagas, and production patterns for event-driven systems."
 difficulty: advanced

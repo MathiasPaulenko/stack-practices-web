@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-refactoring-techniques
-title: "Refactoring Guide: Extract Method, Replace Conditional, Move Function"
+title: "Refactoring Guide: Extract Method, Replace Conditional,"
 description: "Master refactoring techniques: extract method, replace conditional with polymorphism, move function, extract class, rename, and safe refactoring workflows with tests."
 metaDescription: "Master refactoring techniques: extract method, replace conditional with polymorphism, move function, extract class, rename, and safe refactoring workflows with tests."
 difficulty: intermediate

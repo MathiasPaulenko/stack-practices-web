@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: graceful-shutdown-pattern
-title: "Graceful Shutdown Pattern: Drain In-Flight Requests Before Exit"
+title: "Graceful Shutdown: Drain In-Flight Requests Before Exit"
 description: "How to drain in-flight requests before process exit. Covers signal handling, health check removal, connection draining, timeout enforcement, and cleanup hooks."
 metaDescription: "Drain in-flight requests before process exit. Learn signal handling, health check removal from load balancer, connection draining, timeout enforcement, and cleanup hooks."
 difficulty: intermediate

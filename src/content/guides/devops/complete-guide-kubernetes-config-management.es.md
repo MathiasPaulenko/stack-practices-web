@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-kubernetes-config-management
-title: "Guía de Kubernetes Config Management: ConfigMaps, Secrets, External Secrets"
+title: "Guía de Kubernetes Config Management"
 description: "Dominá Kubernetes config management: ConfigMaps, Secrets, External Secrets Operator, sealed secrets, env injection, volume mounts y patrones de config rotation."
 metaDescription: "Dominá Kubernetes config management: ConfigMaps, Secrets, External Secrets Operator, sealed secrets, env injection, volume mounts y patrones de config rotation."
 difficulty: advanced

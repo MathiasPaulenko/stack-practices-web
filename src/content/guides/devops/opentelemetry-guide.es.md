@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: opentelemetry-guide
-title: "OpenTelemetry — Guia de Implementacion para Metricas, Logs y Traces"
+title: "OpenTelemetry"
 description: "Guia practica de OpenTelemetry: instrumentacion, collectors, exporters, y conectar OTLP a backends como Jaeger, Prometheus y Grafana."
 metaDescription: "Aprende OpenTelemetry: instrumentacion, collectors, exporters OTLP. Conecta traces, metricas y logs a Jaeger, Prometheus y Grafana."
 difficulty: intermediate

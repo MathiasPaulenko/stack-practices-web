@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-cors-security
-title: "Guía Completa de CORS Security: Origins, Headers, Preflight, Credentials"
+title: "CORS Security: Origins, Headers, Preflight, Credentials"
 description: "Dominá CORS security: same-origin policy, CORS headers, preflight requests, credential handling, common misconfigurations y patrones de seguridad para web APIs."
 metaDescription: "Dominá CORS security: same-origin policy, CORS headers, preflight, credential handling, misconfigurations y patrones de seguridad para web APIs en producción."
 difficulty: intermediate

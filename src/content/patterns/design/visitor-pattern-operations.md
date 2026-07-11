@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: visitor-pattern-operations
-title: "Visitor Pattern for Extensible Operations on Object Structures"
+title: "Visitor Pattern for Extensible Operations on Object"
 description: "Separate algorithms from the objects they operate on, allowing new operations to be added without modifying existing element classes"
 metaDescription: "Visitor pattern for extensible operations. Separate algorithms from the objects they operate on to add new operations without modifying existing element classes."
 difficulty: advanced
