@@ -288,3 +288,92 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Interpreter para DSL de Configuracion
+
+```typescript
+// Interpreter: evaluar expresiones de un DSL
+// Gramatica: SET key value | GET key | DEL key | EXISTS key
+
+interface Expression {
+  interpret(context: Map<string, string>): string;
+}
+
+// Terminal: SET
+class SetExpression implements Expression {
+  constructor(private key: string, private value: string) {}
+  interpret(context: Map<string, string>): string {
+    context.set(this.key, this.value);
+    return `OK: ${this.key} = ${this.value}`;
+  }
+}
+
+// Terminal: GET
+class GetExpression implements Expression {
+  constructor(private key: string) {}
+  interpret(context: Map<string, string>): string {
+    const value = context.get(this.key);
+    return value !== undefined ? value : `NIL: ${this.key}`;
+  }
+}
+
+// Terminal: DEL
+class DelExpression implements Expression {
+  constructor(private key: string) {}
+  interpret(context: Map<string, string>): string {
+    const existed = context.delete(this.key);
+    return existed ? `OK: ${this.key} deleted` : `NIL: ${this.key}`;
+  }
+}
+
+// Non-terminal: secuencia de expresiones
+class SequenceExpression implements Expression {
+  constructor(private expressions: Expression[]) {}
+  interpret(context: Map<string, string>): string {
+    return this.expressions.map(e => e.interpret(context)).join("\n");
+  }
+}
+
+// Parser: convertir texto a arbol de expresiones
+class ConfigParser {
+  parse(input: string): Expression {
+    const lines = input.trim().split("\n");
+    const expressions: Expression[] = [];
+    for (const line of lines) {
+      const parts = line.split(" ");
+      const cmd = parts[0].toUpperCase();
+      if (cmd === "SET") expressions.push(new SetExpression(parts[1], parts.slice(2).join(" ")));
+      else if (cmd === "GET") expressions.push(new GetExpression(parts[1]));
+      else if (cmd === "DEL") expressions.push(new DelExpression(parts[1]));
+      else throw new Error(`Unknown command: ${cmd}`);
+    }
+    return new SequenceExpression(expressions);
+  }
+}
+
+// Uso
+const parser = new ConfigParser();
+const context = new Map<string, string>();
+const program = parser.parse("SET name Alice\nSET role admin\nGET name\nDEL role");
+console.log(program.interpret(context));
+// OK: name = Alice
+// OK: role = admin
+// Alice
+// OK: role deleted
+```
+
+Lecciones:
+  - Interpreter evalua expresiones de un DSL (Domain Specific Language)
+  - Cada expresion implementa interpret(): patron recursivo
+  - Terminal: SET, GET, DEL. Non-terminal: Sequence (compone)
+  - El parser convierte texto en arbol de expresiones
+  - Ideal para configs, queries, reglas de negocio simples
+  - Para DSLs complejos, usar parser generators (ANTLR, nearley)
+```
+
+### Interpreter vs Visitor: cual uso?
+
+Interpreter evalua un arbol de expresiones: cada nodo sabe como interpretarse. Visitor recorre un arbol de objetos: el visitor sabe que hacer con cada nodo. Interpreter es para ejecutar un DSL. Visitor es para operaciones sobre una estructura. Usa Interpreter cuando necesitas un lenguaje custom (config, query, rules). Usa Visitor cuando necesitas anadir operaciones a una estructura sin modificar las clases.

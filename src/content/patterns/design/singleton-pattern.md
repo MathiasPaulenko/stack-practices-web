@@ -190,3 +190,113 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Singleton for Database Connection
+
+```typescript
+// Singleton with lazy initialization
+class DatabaseConnection {
+  private static instance: DatabaseConnection | null = null;
+  private pool: ConnectionPool;
+
+  private constructor(config: DBConfig) {
+    this.pool = createPool({
+      host: config.host,
+      port: config.port,
+      max: config.maxConnections,  // 20
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+    });
+  }
+
+  static getInstance(config?: DBConfig): DatabaseConnection {
+    if (!DatabaseConnection.instance) {
+      if (!config) throw new Error("Config required for first init");
+      DatabaseConnection.instance = new DatabaseConnection(config);
+    }
+    return DatabaseConnection.instance;
+  }
+
+  async query(sql: string, params: unknown[]): Promise<ResultSet> {
+    return this.pool.query(sql, params);
+  }
+
+  async close(): Promise<void> {
+    await this.pool.end();
+    DatabaseConnection.instance = null;
+  }
+}
+
+// Usage
+const db = DatabaseConnection.getInstance({
+  host: "localhost",
+  port: 5432,
+  maxConnections: 20,
+});
+
+// In tests: reset between suites
+afterAll(async () => {
+  await DatabaseConnection.getInstance().close();
+});
+```
+
+Singleton problems and solutions:
+  | Problem | Solution |
+  |---------|----------|
+  | Hard to test | Dependency injection |
+  | Global state | Use DI container instead |
+  | Not thread-safe (Java) | Double-checked locking |
+  | Does not work with clustering | One instance per process |
+  | Hidden coupling | Pass as parameter |
+
+Alternatives to Singleton:
+  | Alternative | Advantage |
+  |-------------|-----------|
+  | DI container | Testable, explicit |
+  | Module pattern | One instance per module (Node.js) |
+  | Factory + cache | Control over creation |
+  | Monostate | Same state, multiple instances |
+
+Lessons:
+  - Singleton is useful for expensive resources (DB, cache, logger)
+  - In Node.js, module caching is implicit singleton
+  - In tests, always provide a way to reset the instance
+  - Prefer DI container over Singleton for testability
+  - Never use Singleton for business logic
+```
+
+### When should I NOT use Singleton?
+
+Do not use Singleton when you need multiple instances (e.g: connections to different DBs), when it makes code hard to test (use DI), or when global state causes hard-to-trace bugs. For business logic, use DI container. For configuration, use module pattern. Singleton is appropriate only for expensive shared resources: DB pool, cache, logger.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

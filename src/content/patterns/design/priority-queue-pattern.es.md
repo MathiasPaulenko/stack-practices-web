@@ -268,3 +268,82 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Priority Queue para Sistema de Tickets
+
+```typescript
+// Priority Queue: elementos con mayor prioridad se procesan primero
+class PriorityQueue<T> {
+  private heap: { priority: number; data: T }[] = [];
+
+  enqueue(data: T, priority: number): void {
+    this.heap.push({ priority, data });
+    this.bubbleUp(this.heap.length - 1);
+  }
+
+  dequeue(): T | null {
+    if (this.heap.length === 0) return null;
+    const top = this.heap[0];
+    const last = this.heap.pop()!;
+    if (this.heap.length > 0) {
+      this.heap[0] = last;
+      this.bubbleDown(0);
+    }
+    return top.data;
+  }
+
+  peek(): T | null { return this.heap.length > 0 ? this.heap[0].data : null; }
+  size(): number { return this.heap.length; }
+  isEmpty(): boolean { return this.heap.length === 0; }
+
+  private bubbleUp(idx: number): void {
+    while (idx > 0) {
+      const parent = Math.floor((idx - 1) / 2);
+      if (this.heap[idx].priority <= this.heap[parent].priority) break;
+      [this.heap[idx], this.heap[parent]] = [this.heap[parent], this.heap[idx]];
+      idx = parent;
+    }
+  }
+
+  private bubbleDown(idx: number): void {
+    while (true) {
+      const left = 2 * idx + 1;
+      const right = 2 * idx + 2;
+      let largest = idx;
+      if (left < this.heap.length && this.heap[left].priority > this.heap[largest].priority) largest = left;
+      if (right < this.heap.length && this.heap[right].priority > this.heap[largest].priority) largest = right;
+      if (largest === idx) break;
+      [this.heap[idx], this.heap[largest]] = [this.heap[largest], this.heap[idx]];
+      idx = largest;
+    }
+  }
+}
+
+// Uso: sistema de tickets de soporte
+const ticketQueue = new PriorityQueue<Ticket>();
+ticketQueue.enqueue({ id: "T1", subject: "Question" }, 1);   // Baja
+ticketQueue.enqueue({ id: "T2", subject: "Bug" }, 3);         // Alta
+ticketQueue.enqueue({ id: "T3", subject: "Feature" }, 2);     // Media
+ticketQueue.enqueue({ id: "T4", subject: "Outage" }, 5);      // Critica
+
+console.log(ticketQueue.dequeue()?.id); // T4 (Outage, prioridad 5)
+console.log(ticketQueue.dequeue()?.id); // T2 (Bug, prioridad 3)
+console.log(ticketQueue.dequeue()?.id); // T3 (Feature, prioridad 2)
+console.log(ticketQueue.dequeue()?.id); // T1 (Question, prioridad 1)
+```
+
+Lecciones:
+  - Priority Queue usa un heap binario: O(log n) enqueue y dequeue
+  - Mayor prioridad se procesa primero
+  - Ideal para: tickets, task scheduling, job queues, pathfinding (Dijkstra)
+  - En JS, no hay PQ nativo: implementar con array + heap o usar lib
+  - Para N elementos: heap es O(n log n) vs sort O(n log n) pero heap es online
+  - En Python: heapq o queue.PriorityQueue
+```
+
+### Priority Queue vs Queue FIFO: cual uso?
+
+Usa Priority Queue cuando los elementos tienen distinta urgencia: tickets criticos antes que preguntas, jobs de alto valor antes que batch. Usa Queue FIFO cuando el orden de llegada importa: pedidos en orden, mensajes en orden. PQ reordena por prioridad; FIFO mantiene orden de llegada. Para sistemas de soporte, PQ. Para procesamiento de transacciones, FIFO. Para scheduling de OS, PQ (prioridad de procesos).

@@ -231,3 +231,93 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Memento para Editor de Formularios
+
+```typescript
+// Memento pattern: guardar y restaurar estado sin exponer internals
+type FormState = {
+  fields: Record<string, string>;
+  errors: Record<string, string>;
+  step: number;
+}
+
+class FormMemento {
+  constructor(private state: FormState) {}
+  getState(): FormState { return { ...this.state }; }
+}
+
+// Originator: el formulario
+class FormEditor {
+  private state: FormState = { fields: {}, errors: {}, step: 0 };
+
+  setField(name: string, value: string) {
+    this.state.fields[name] = value;
+  }
+  setStep(step: number) { this.state.step = step; }
+  setErrors(errors: Record<string, string>) { this.state.errors = errors; }
+
+  save(): FormMemento {
+    return new FormMemento({ ...this.state, fields: { ...this.state.fields }, errors: { ...this.state.errors } });
+  }
+
+  restore(memento: FormMemento) {
+    this.state = memento.getState();
+  }
+  getState(): FormState { return { ...this.state }; }
+}
+
+// Caretaker: historial de estados
+class FormHistory {
+  private history: FormMemento[] = [];
+  private maxHistory = 50;
+
+  push(memento: FormMemento) {
+    this.history.push(memento);
+    if (this.history.length > this.maxHistory) this.history.shift();
+  }
+  pop(): FormMemento | null { return this.history.pop() || null; }
+  canRestore(): boolean { return this.history.length > 0; }
+}
+
+// Uso: wizard form multi-step
+const form = new FormEditor();
+const history = new FormHistory();
+
+// Step 1
+form.setField("email", "user@test.com");
+form.setStep(1);
+history.push(form.save());
+
+// Step 2
+form.setField("name", "Alice");
+form.setField("phone", "555-1234");
+form.setStep(2);
+history.push(form.save());
+
+// Step 3
+form.setField("address", "123 Main St");
+form.setStep(3);
+
+// User clicks "Back"
+const prev = history.pop();
+if (prev) form.restore(prev);
+console.log(form.getState().step); // 2
+console.log(form.getState().fields.name); // "Alice"
+```
+
+Lecciones:
+  - Memento guarda estado sin exponer internals de la clase
+  - El originator crea snapshots inmutables
+  - El caretaker gestiona el historial sin conocer el contenido
+  - Deep copy del estado: evitar mutaciones accidentales
+  - Limitar historial: 50 snapshots para no consumir memoria
+  - Memento vs Command: Memento guarda estado completo; Command guarda la operacion
+```
+
+### Memento vs Command para undo: cual uso?
+
+Usa Memento cuando necesitas restaurar estado completo (formularios, editores visuales). Usa Command cuando necesitas deshacer operaciones individuales (texto, acciones). Memento es mas simple pero consume mas memoria: guarda todo el estado. Command es mas eficiente: solo guarda lo necesario para deshacer. Para wizards y formularios multi-step, Memento es ideal. Para editores de texto, Command es preferible.

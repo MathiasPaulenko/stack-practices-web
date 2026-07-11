@@ -224,3 +224,79 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Throttling for Geolocation API
+
+```typescript
+// Throttling pattern: max 10 requests per second
+class Throttle {
+  private requests: number[] = [];
+  constructor(private maxRequests: number, private windowMs: number) {}
+
+  canProceed(): boolean {
+    const now = Date.now();
+    this.requests = this.requests.filter(t => now - t < this.windowMs);
+    if (this.requests.length < this.maxRequests) {
+      this.requests.push(now);
+      return true;
+    }
+    return false;
+  }
+  timeUntilNextSlot(): number {
+    if (this.requests.length < this.maxRequests) return 0;
+    const oldest = this.requests[0];
+    return this.windowMs - (Date.now() - oldest);
+  }
+}
+
+// Usage: Google Maps API (limit 10 req/s)
+const throttle = new Throttle(10, 1000);
+
+async function geocode(address: string): Promise<LatLng> {
+  if (!throttle.canProceed()) {
+    const wait = throttle.timeUntilNextSlot();
+    await new Promise(resolve => setTimeout(resolve, wait));
+  }
+  const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}`);
+  return response.json();
+}
+
+// Comparison: Throttle vs Rate Limit vs Debounce
+  | Pattern | Purpose | Example |
+  |---------|---------|---------|
+  | Throttle | Max N requests per window | 10 req/s |
+  | Rate Limit | Reject if exceeded | 429 Too Many Requests |
+  | Debounce | Wait for input to stop | Search autocomplete |
+  | Token Bucket | Tokens refill over time | Burst + sustained |
+  | Leaky Bucket | Queue with constant output | Smooth bursts |
+```
+
+Lessons:
+  - Throttle limits request rate: does not reject, waits
+  - Rate limit rejects: 429 with Retry-After header
+  - Debounce groups calls: waits for inactivity
+  - Token bucket allows burst: useful for APIs with quotas
+  - Measure actual throughput: do not assume the limit is exact
+```
+
+### How do I choose between throttle and rate limit?
+
+Use throttle when the client should wait (e.g: calling external API with limit). Use rate limit when the client should be rejected (e.g: protecting your API from abuse). Throttle is cooperative: the client self-limits. Rate limit is imposed: the server rejects. For public APIs, use rate limit (429 + Retry-After). For internal integrations, throttle is sufficient.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

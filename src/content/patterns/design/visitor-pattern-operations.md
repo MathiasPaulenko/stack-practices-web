@@ -227,3 +227,110 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Visitor for Compiler AST
+
+```typescript
+// Visitor pattern: separate algorithms from object structure
+interface ASTNode {
+  accept(visitor: ASTVisitor): void;
+}
+
+interface ASTVisitor {
+  visitNumber(node: NumberNode): void;
+  visitString(node: StringNode): void;
+  visitBinaryOp(node: BinaryOpNode): void;
+  visitFunctionCall(node: FunctionCallNode): void;
+}
+
+// Concrete nodes
+class NumberNode implements ASTNode {
+  constructor(public value: number) {}
+  accept(v: ASTVisitor) { v.visitNumber(this); }
+}
+
+class StringNode implements ASTNode {
+  constructor(public value: string) {}
+  accept(v: ASTVisitor) { v.visitString(this); }
+}
+
+class BinaryOpNode implements ASTNode {
+  constructor(public op: string, public left: ASTNode, public right: ASTNode) {}
+  accept(v: ASTVisitor) { v.visitBinaryOp(this); }
+}
+
+class FunctionCallNode implements ASTNode {
+  constructor(public name: string, public args: ASTNode[]) {}
+  accept(v: ASTVisitor) { v.visitFunctionCall(this); }
+}
+
+// Visitor 1: evaluation
+class EvaluatorVisitor implements ASTVisitor {
+  private stack: unknown[] = [];
+  getResult(): unknown { return this.stack[0]; }
+  visitNumber(n: NumberNode) { this.stack.push(n.value); }
+  visitString(n: StringNode) { this.stack.push(n.value); }
+  visitBinaryOp(n: BinaryOpNode) {
+    n.left.accept(this); n.right.accept(this);
+    const r = this.stack.pop() as number;
+    const l = this.stack.pop() as number;
+    switch (n.op) {
+      case "+": this.stack.push(l + r); break;
+      case "-": this.stack.push(l - r); break;
+      case "*": this.stack.push(l * r); break;
+      case "/": this.stack.push(l / r); break;
+    }
+  }
+  visitFunctionCall(n: FunctionCallNode) {
+    const args = n.args.map(a => { a.accept(this); return this.stack.pop(); });
+    if (n.name === "sqrt") this.stack.push(Math.sqrt(args[0] as number));
+  }
+}
+
+// Visitor 2: pretty print
+class PrettyPrintVisitor implements ASTVisitor {
+  private output = "";
+  getOutput(): string { return this.output; }
+  visitNumber(n: NumberNode) { this.output += n.value; }
+  visitString(n: StringNode) { this.output += `"${n.value}"`; }
+  visitBinaryOp(n: BinaryOpNode) {
+    this.output += "("; n.left.accept(this);
+    this.output += ` ${n.op} `; n.right.accept(this);
+    this.output += ")";
+  }
+  visitFunctionCall(n: FunctionCallNode) {
+    this.output += `${n.name}(`;
+    n.args.forEach((a, i) => { if (i > 0) this.output += ", "; a.accept(this); });
+    this.output += ")";
+  }
+}
+
+// Usage: AST for (3 + 4) * sqrt(16)
+const ast = new BinaryOpNode("*",
+  new BinaryOpNode("+", new NumberNode(3), new NumberNode(4)),
+  new FunctionCallNode("sqrt", [new NumberNode(16)])
+);
+
+const eval = new EvaluatorVisitor();
+ast.accept(eval);
+console.log(eval.getResult()); // 28
+
+const printer = new PrettyPrintVisitor();
+ast.accept(printer);
+console.log(printer.getOutput()); // ((3 + 4) * sqrt(16))
+```
+
+Lessons:
+  - Visitor separates algorithms from object structure
+  - Adding new visitor does not require changing nodes
+  - Adding new node requires changing all visitors
+  - Ideal for stable structures with variable algorithms
+  - Double dispatch: the node decides which visitor method to call
+```
+
+### When NOT to use Visitor?
+
+Do not use Visitor when the object structure changes frequently: each new node requires modifying all visitors. Use Visitor when the structure is stable but algorithms change or get added. For unstable structures, use direct methods on each class or the Interpreter pattern.

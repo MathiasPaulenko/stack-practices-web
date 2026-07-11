@@ -274,3 +274,83 @@ Establece un TTL o politica de retencion en la DLQ. Para SQS, la retencion maxim
 ### ¿Puedo tener diferentes DLQs para diferentes tipos de error?
 
 Si. Rutea mensajes a diferentes DLQs segun el tipo de error (ej. `validation-errors` vs `infrastructure-errors`). Esto facilita el debugging y replay ya que puedes corregir un tipo de error y reprocesar solo esos mensajes.
+
+
+## Temas Avanzados
+
+### Escenario: Dead Letter Queue para Pagos Fallidos
+
+```typescript
+// DLQ: mensajes que fallan tras N retries van a una dead letter queue
+// Arquitectura: Queue Principal -> Worker -> Retry Queue -> DLQ
+
+// SQS: configurar redrive policy
+const redrivePolicy = {
+  deadLetterTargetArn: "arn:aws:sqs:us-east-1:123:payment-dlq",
+  maxReceiveCount: "3",  // Tras 3 intentos fallidos -> DLQ
+};
+
+// Worker: procesar pagos con manejo de errores
+async function processPaymentMessage(message: SQSMessage): Promise<void> {
+  const payment = JSON.parse(message.Body);
+  try {
+    await processPayment(payment);
+    await sqs.deleteMessage({
+      QueueUrl: PAYMENT_QUEUE_URL,
+      ReceiptHandle: message.ReceiptHandle,
+    }).promise();
+  } catch (err) {
+    // El mensaje vuelve a la queue tras visibility timeout
+    // Tras maxReceiveCount, SQS lo mueve a DLQ automaticamente
+    console.error(`Pago ${payment.id} fallido:`, err.message);
+  }
+}
+
+// Consumidor de DLQ: investigar y reprocesar
+async function processDLQ(): Promise<void> {
+  const result = await sqs.receiveMessage({
+    QueueUrl: PAYMENT_DLQ_URL,
+    MaxNumberOfMessages: 10,
+  }).promise();
+
+  for (const msg of result.Messages || []) {
+    const payment = JSON.parse(msg.Body);
+    const error = JSON.parse(msg.MessageAttributes?.error?.StringValue || "{}");
+
+    // Categorizar fallo
+    if (error.type === "insufficient_funds") {
+      await notifyCustomer(payment.customerId, "Pago fallido: fondos insuficientes");
+    } else if (error.type === "card_declined") {
+      await retryWithNewCard(payment);
+    } else {
+      await alertOpsTeam(payment, error);
+    }
+
+    // Archivar para auditoria
+    await archiveFailedPayment(payment, error);
+    await sqs.deleteMessage({ QueueUrl: PAYMENT_DLQ_URL, ReceiptHandle: msg.ReceiptHandle }).promise();
+  }
+}
+
+// Monitoreo
+  | Metrica | Objetivo | Alerta |
+  |---------|----------|--------|
+  | DLQ depth | 0 | > 10 |
+  | DLQ age (mas viejo) | < 1h | > 4h |
+  | Fallos en queue principal | < 1% | > 5% |
+  | Exito de reproceso | > 80% | < 50% |
+```
+
+Lecciones:
+  - DLQ aísla mensajes que fallan tras max retries
+  - SQS mueve a DLQ automaticamente tras maxReceiveCount
+  - El consumidor de DLQ investiga, categoriza y reprocesa
+  - Algunos fallos son permanentes (tarjeta rechazada): notificar cliente
+  - Algunos son transitorios (servicio caido): reprocesar tras fix
+  - Siempre archivar mensajes de DLQ para auditoria
+  - Monitorear DLQ depth: alertar si crece
+```
+
+### Como reproceso desde DLQ?
+
+Mueve el mensaje de vuelta a la queue principal tras fixear el root cause. En SQS: leer de DLQ, enviar a queue principal, borrar de DLQ. Usa una herramienta o script: no reprocesar manualmente en produccion. Anade un contador de retries para evitar loops infinitos. Para fallos permanentes (datos invalidos), no reprocesar: archivar y notificar. Para fallos transitorios (servicio caido), reprocesar tras confirmar que el servicio esta saludable.

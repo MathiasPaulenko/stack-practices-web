@@ -206,3 +206,97 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Timeout on External API Calls
+
+```typescript
+// Timeout pattern with AbortController (Node.js 18+)
+async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    return response;
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "AbortError") {
+      throw new Error(`Request timeout after ${timeoutMs}ms`);
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+// Usage: call external API with 5s timeout
+try {
+  const res = await fetchWithTimeout("https://api.stripe.com/v1/charges", 5000);
+  const data = await res.json();
+} catch (err) {
+  if (err.message.includes("timeout")) {
+    // Handle timeout: retry, fallback, or error to user
+    console.error("Stripe API timeout, using fallback");
+  }
+}
+
+// Timeout with retry and backoff
+async function fetchWithRetry(
+  url: string,
+  timeoutMs: number,
+  maxRetries: number
+): Promise<Response> {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fetchWithTimeout(url, timeoutMs);
+    } catch (err) {
+      if (attempt < maxRetries - 1) {
+        const backoff = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+        await new Promise(r => setTimeout(r, backoff));
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw new Error("Max retries exceeded");
+}
+
+// Timeout configuration per service
+  | Service | Timeout | Retries | Backoff |
+  |---------|---------|---------|---------|
+  | Stripe API | 5s | 3 | Exponential |
+  | DB query | 10s | 0 | N/A |
+  | Redis | 1s | 2 | Fixed 500ms |
+  | S3 upload | 30s | 2 | Exponential |
+  | Internal API | 3s | 2 | Exponential |
+  | Email service | 10s | 3 | Exponential |
+```
+
+Lessons:
+  - AbortController is the modern standard for fetch timeout
+  - Always configure timeout: a request without timeout can hang forever
+  - Timeout + retry + backoff is the complete pattern
+  - Different services need different timeouts
+  - Measure p99 latency to set realistic timeouts
+```
+
+### How do I choose the right timeout value?
+
+Measure the p99 latency of the service. Set timeout to 2-3x the p99. If Stripe p99 is 2s, 5s timeout is reasonable. For DB queries, measure the p99 of the slowest query and add 50%. Never use a timeout lower than p99: you will cause failures under normal conditions. Review timeouts quarterly: if latency improves, you can lower the timeout.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

@@ -285,3 +285,88 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Template Method for ETL Pipeline
+
+```typescript
+// Template Method: define the algorithm skeleton in the base class
+abstract class ETLPipeline {
+  // Template method: defines the flow, not overridden
+  async run(source: DataSource): Promise<void> {
+    const rawData = await this.extract(source);
+    const transformed = await this.transform(rawData);
+    await this.load(transformed);
+    await this.notify();
+  }
+
+  // Steps: subclasses implement
+  abstract extract(source: DataSource): Promise<unknown[]>;
+  abstract transform(data: unknown[]): Promise<unknown[]>;
+  abstract load(data: unknown[]): Promise<void>;
+
+  // Hook: optional, subclasses can override
+  async notify(): Promise<void> {
+    console.log("[ETL] Pipeline completed");
+  }
+}
+
+// Concrete ETL: CSV -> DB
+class CSVToDBPipeline extends ETLPipeline {
+  async extract(source: DataSource): Promise<unknown[]> {
+    const csv = await readFile(source.path);
+    return parseCSV(csv);
+  }
+  async transform(data: unknown[]): Promise<unknown[]> {
+    return data.map(row => ({
+      ...row,
+      normalizedEmail: (row.email as string).toLowerCase().trim(),
+      timestamp: new Date().toISOString(),
+    }));
+  }
+  async load(data: unknown[]): Promise<void> {
+    await db.batchInsert("users", data);
+  }
+}
+
+// Concrete ETL: API -> Redis
+class APIToRedisPipeline extends ETLPipeline {
+  async extract(source: DataSource): Promise<unknown[]> {
+    const response = await fetch(source.url);
+    return response.json();
+  }
+  async transform(data: unknown[]): Promise<unknown[]> {
+    return data.filter(item => item.active);
+  }
+  async load(data: unknown[]): Promise<void> {
+    const pipeline = redis.pipeline();
+    data.forEach(item => pipeline.set(`item:${item.id}`, JSON.stringify(item)));
+    await pipeline.exec();
+  }
+  async notify(): Promise<void> {
+    await slack.notify("#data", "ETL completed: API -> Redis");
+  }
+}
+
+// Usage
+const csvPipeline = new CSVToDBPipeline();
+await csvPipeline.run({ path: "/data/users.csv" });
+
+const apiPipeline = new APIToRedisPipeline();
+await apiPipeline.run({ url: "https://api.example.com/items" });
+```
+
+Lessons:
+  - Template Method defines the skeleton in the base class
+  - Subclasses implement the steps (extract, transform, load)
+  - Hooks: optional methods that subclasses can override
+  - The flow (run) does not change: only the steps vary
+  - Ideal for pipelines, algorithms with fixed steps and variations
+  - Template Method vs Strategy: TM uses inheritance; Strategy uses composition
+```
+
+### Template Method vs Strategy: which do I use?
+
+Template Method uses inheritance: the subclass implements steps of the algorithm. Strategy uses composition: the client injects the strategy. TM is more rigid: the flow is fixed in the base. Strategy is more flexible: the client changes strategy at runtime. Use TM when the algorithm flow is fixed and only steps vary. Use Strategy when you need to change the entire algorithm at runtime. For ETL with fixed steps, TM. For variable discounts, Strategy.

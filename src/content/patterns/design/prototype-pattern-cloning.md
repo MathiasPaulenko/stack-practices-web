@@ -206,3 +206,97 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Configuration Cloning for Multi-tenant
+
+```typescript
+// Prototype pattern for tenant configuration
+interface TenantConfig {
+  theme: Theme;
+  features: string[];
+  limits: ResourceLimits;
+  clone(): TenantConfig;
+}
+
+class DefaultTenantConfig implements TenantConfig {
+  constructor(
+    public theme: Theme,
+    public features: string[],
+    public limits: ResourceLimits
+  ) {}
+
+  clone(): TenantConfig {
+    // Deep clone: recursive copy of nested objects
+    return new DefaultTenantConfig(
+      { ...this.theme },
+      [...this.features],
+      { ...this.limits }
+    );
+  }
+}
+
+// Usage: create new tenant from base config
+const baseConfig = new DefaultTenantConfig(
+  { primary: "#3b82f6", mode: "light" },
+  ["auth", "dashboard", "reports"],
+  { maxUsers: 100, maxStorage: 10 }
+);
+
+// Clone and customize for premium client
+const premiumConfig = baseConfig.clone();
+premiumConfig.features.push("sso", "audit-log");
+premiumConfig.limits.maxUsers = 1000;
+premiumConfig.limits.maxStorage = 100;
+
+// Clone for basic client
+const basicConfig = baseConfig.clone();
+basicConfig.features = ["auth", "dashboard"];
+basicConfig.limits.maxUsers = 10;
+basicConfig.limits.maxStorage = 1;
+
+// Comparison: deep clone vs structuredClone vs JSON
+  | Method | Advantages | Disadvantages |
+  |--------|------------|---------------|
+  | Manual (spread) | Full control | Tedious for deep objects |
+  | JSON.parse(JSON.stringify) | Simple | No Date, Map, functions |
+  | structuredClone() | Native, supports Date/Map | No functions |
+  | lodash _.cloneDeep | Robust | External dependency |
+```
+
+Lessons:
+  - Prototype clones objects without coupling to concrete class
+  - Deep clone is necessary for nested objects
+  - structuredClone() is native in Node.js 17+ and modern browsers
+  - For multi-tenant config, clone base and customize
+  - Avoid JSON.parse/stringify: loses types (Date, Map, undefined)
+```
+
+### When do I use structuredClone vs manual clone?
+
+Use structuredClone() when you need deep clone of plain objects with native types (Date, Map, Set, ArrayBuffer). Use manual clone when you need control over what to clone (e.g: do not clone secrets, reuse shared references). Use lodash _.cloneDeep for complex cases with circular references. Avoid JSON.parse/stringify: loses Date, Map, Set, undefined and functions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

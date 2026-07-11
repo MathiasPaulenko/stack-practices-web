@@ -260,3 +260,75 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Module Pattern para Encapsulacion en JS
+
+```typescript
+// Module pattern: encapsulacion privada con closures
+const PaymentModule = (function() {
+  // Privado: no accesible desde fuera
+  let apiKey = "";
+  let transactions: Transaction[] = [];
+  const MAX_TRANSACTIONS = 1000;
+
+  // Privado: validar API key
+  function validateKey(key: string): boolean {
+    return key.startsWith("pk_") && key.length === 32;
+  }
+
+  // Privado: logging interno
+  function log(msg: string) {
+    console.log(`[PAYMENT] ${new Date().toISOString()} ${msg}`);
+  }
+
+  // Publico: API expuesta
+  return {
+    init(key: string) {
+      if (!validateKey(key)) throw new Error("Invalid API key");
+      apiKey = key;
+      log("Module initialized");
+    },
+    charge(amount: number, currency: string): Promise<Transaction> {
+      if (!apiKey) throw new Error("Module not initialized");
+      if (transactions.length >= MAX_TRANSACTIONS) {
+        throw new Error("Transaction limit reached");
+      }
+      log(`Charging ${amount} ${currency}`);
+      const tx = { id: crypto.randomUUID(), amount, currency, status: "pending" };
+      transactions.push(tx);
+      return Promise.resolve(tx);
+    },
+    getTransactions(): Transaction[] { return [...transactions]; }
+    getStats() {
+      return {
+        total: transactions.length,
+        pending: transactions.filter(t => t.status === "pending").length,
+        completed: transactions.filter(t => t.status === "completed").length,
+      };
+    }
+  };
+})();
+
+// Uso
+PaymentModule.init("pk_test_1234567890123456789012345678");
+const tx = await PaymentModule.charge(99.99, "USD");
+console.log(PaymentModule.getStats()); // { total: 1, pending: 1, completed: 0 }
+// PaymentModule.apiKey -> undefined (privado)
+// PaymentModule.validateKey -> undefined (privado)
+```
+
+Lecciones:
+  - Module pattern: IIFE crea un closure con estado privado
+  - Solo lo que se retorna en el objeto es publico
+  - apiKey, transactions y funciones internas son privadas
+  - En ES6+, usar import/export nativo en lugar de IIFE
+  - El module pattern sigue siendo util para singletons con estado
+  - Namespacing: agrupar funcionalidad relacionada bajo un modulo
+```
+
+### Module pattern vs ES modules: cual uso?
+
+Usa ES modules (import/export) para todo codigo nuevo: es el estandar, soportado nativamente por browsers y Node.js. Usa el module pattern (IIFE) solo para compatibilidad legacy o cuando necesitas un singleton con estado privado sin clases. ES modules son estaticos: el bundler puede tree-shake. El module pattern es dinamico: todo se incluye. Para librerias nuevas, ES modules. Para scripts inline o compatibilidad con sistemas viejos, module pattern.

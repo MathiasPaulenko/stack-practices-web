@@ -237,3 +237,71 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Bridge for Cross-Platform Rendering
+
+```typescript
+// Bridge pattern: separate abstraction from implementation
+interface Renderer {
+  renderCircle(x: number, y: number, r: number): string;
+  renderRect(x: number, y: number, w: number, h: number): string;
+  renderText(x: number, y: number, text: string): string;
+}
+
+// Implementations: SVG and Canvas
+class SVGRenderer implements Renderer {
+  renderCircle(x, y, r) { return `<circle cx="${x}" cy="${y}" r="${r}" />`; }
+  renderRect(x, y, w, h) { return `<rect x="${x}" y="${y}" width="${w}" height="${h}" />`; }
+  renderText(x, y, text) { return `<text x="${x}" y="${y}">${text}</text>`; }
+}
+
+class CanvasRenderer implements Renderer {
+  renderCircle(x, y, r) { return `ctx.arc(${x}, ${y}, ${r}, 0, Math.PI * 2); ctx.stroke();`; }
+  renderRect(x, y, w, h) { return `ctx.strokeRect(${x}, ${y}, ${w}, ${h});`; }
+  renderText(x, y, text) { return `ctx.fillText("${text}", ${x}, ${y});`; }
+}
+
+// Abstraction: Shape
+abstract class Shape {
+  constructor(protected renderer: Renderer) {}
+  abstract draw(): string;
+}
+
+class Circle extends Shape {
+  constructor(renderer: Renderer, private x: number, private y: number, private r: number) { super(renderer); }
+  draw() { return this.renderer.renderCircle(this.x, this.y, this.r); }
+}
+
+class Rectangle extends Shape {
+  constructor(renderer: Renderer, private x: number, private y: number, private w: number, private h: number) { super(renderer); }
+  draw() { return this.renderer.renderRect(this.x, this.y, this.w, this.h); }
+}
+
+// Usage: same shapes, different renderers
+const svgCircle = new Circle(new SVGRenderer(), 50, 50, 20);
+const canvasCircle = new Circle(new CanvasRenderer(), 50, 50, 20);
+console.log(svgCircle.draw());   // <circle cx="50" cy="50" r="20" />
+console.log(canvasCircle.draw()); // ctx.arc(50, 50, 20, 0, Math.PI * 2); ctx.stroke();
+
+// Switch renderer at runtime
+const shape = new Rectangle(new SVGRenderer(), 10, 10, 100, 50);
+console.log(shape.draw()); // SVG rect
+// Re-create with Canvas
+const canvasShape = new Rectangle(new CanvasRenderer(), 10, 10, 100, 50);
+console.log(canvasShape.draw()); // Canvas rect
+```
+
+Lessons:
+  - Bridge separates abstraction (Shape) from implementation (Renderer)
+  - Adding new renderer does not require changing shapes
+  - Adding new shape does not require changing renderers
+  - Reduces class explosion: M shapes + N renderers vs M*N classes
+  - Runtime flexibility: swap renderer without changing shape logic
+```
+
+### Bridge vs Adapter: which do I use?
+
+Bridge is structural: designed from the start to separate abstraction from implementation. Adapter is structural: makes incompatible interfaces work together after the fact. Bridge is proactive: you design both sides. Adapter is reactive: you wrap an existing class. Use Bridge when you control both sides and want independent evolution. Use Adapter when you need to integrate a third-party API with an incompatible interface.

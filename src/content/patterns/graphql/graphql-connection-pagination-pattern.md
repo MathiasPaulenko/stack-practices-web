@@ -284,3 +284,88 @@ Include the filter criteria in the cursor or re-apply the same WHERE clause on e
 ### Can I use connection pagination with DataLoader?
 
 Yes. Create a DataLoader that batches cursor-based queries. The batch function receives multiple cursors and issues separate queries for each, or combines them if the data source supports it.
+
+
+## Advanced Topics
+
+### Scenario: Connection Pagination for Product Feed
+
+```typescript
+// GraphQL Relay Connection: cursor-based pagination
+type ProductConnection {
+  edges: ProductEdge[]
+  pageInfo: PageInfo
+  totalCount: Int
+}
+
+type ProductEdge {
+  node: Product
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+// Resolver: cursor-based pagination
+const resolvers = {
+  Query: {
+    products: async (_, { first, after, last, before }, ctx) => {
+      const afterCursor = after ? JSON.parse(Buffer.from(after, "base64").toString()) : null;
+      const limit = first || last || 20;
+      const order = first ? "ASC" : "DESC";
+
+      let query = "SELECT * FROM products";
+      const params: unknown[] = [];
+      if (afterCursor) {
+        query += ` WHERE created_at > $1 ORDER BY created_at ${order} LIMIT $2`;
+        params.push(afterCursor.created_at, limit + 1);
+      } else {
+        query += ` ORDER BY created_at ${order} LIMIT $1`;
+        params.push(limit + 1);
+      }
+
+      const res = await ctx.db.query(query, params);
+      const rows = res.rows;
+      const hasNextPage = rows.length > limit;
+      const edges = rows.slice(0, limit).map(product => ({
+        node: product,
+        cursor: Buffer.from(JSON.stringify({ id: product.id, created_at: product.created_at })).toString("base64"),
+      }));
+
+      return {
+        edges,
+        totalCount: await ctx.db.query("SELECT COUNT(*) FROM products").then(r => r.rows[0].count),
+        pageInfo: {
+          hasNextPage,
+          hasPreviousPage: !!afterCursor,
+          startCursor: edges[0]?.cursor || null,
+          endCursor: edges[edges.length - 1]?.cursor || null,
+        },
+      };
+    },
+  },
+};
+
+// Query: first page
+// { products(first: 10) { edges { node { id name } cursor } pageInfo { hasNextPage endCursor } } }
+
+// Query: next page
+// { products(first: 10, after: "eyJpZCI6IjEyMyJ9") { ... } }
+```
+
+Lessons:
+  - Cursor-based: the cursor encodes position (id + sort key)
+  - More stable than offset: if items are inserted, cursor does not shift
+  - first/after: paginate forward. last/before: backward
+  - Request limit+1 to know hasNextPage without an extra query
+  - The cursor is opaque: base64(JSON) so the client does not depend on format
+  - Relay Connection is the industry standard for GraphQL
+```
+
+### Cursor-based vs Offset-based: which do I use?
+
+Cursor-based is stable: if items are inserted between pages, the cursor does not shift. Offset-based is simple: LIMIT/OFFSET but if items are inserted, page 2 may repeat or skip items. Use cursor for feeds, timelines, dynamic lists. Use offset for reports, static tables, admin panels. Cursor does not support jumping to page N: only next/prev. Offset does: page=3. For GraphQL, cursor is the standard (Relay).

@@ -232,3 +232,93 @@ Yes, and it is recommended. Creating pools per request or per component wastes r
 ### How do I handle exceptions in pool tasks?
 
 Exceptions thrown by tasks are caught by the pool and wrapped in the `Future`. Call `future.get()` to retrieve the exception. For fire-and-forget tasks, install an `UncaughtExceptionHandler` or use `afterExecute` on a custom `ThreadPoolExecutor`.
+
+
+## Advanced Topics
+
+### Scenario: Thread Pool for CPU-Intensive Tasks
+
+```typescript
+// Thread pool pattern: reuse threads for CPU-intensive work
+import { Worker } from "worker_threads";
+import { EventEmitter } from "events";
+
+class ThreadPool {
+  private workers: Worker[] = [];
+  private taskQueue: { task: Function; resolve: Function; reject: Function }[] = [];
+  private idleWorkers: number[] = [];
+  private busy = new Set<number>();
+
+  constructor(private size: number, private workerFile: string) {
+    for (let i = 0; i < size; i++) {
+      const worker = new Worker(workerFile);
+      const workerId = i;
+      worker.on("message", (result) => {
+        const task = this.busy.has(workerId) ? this.taskQueue.shift() : null;
+        this.busy.delete(workerId);
+        this.idleWorkers.push(workerId);
+        if (task) task.resolve(result);
+        this.processQueue();
+      });
+      worker.on("error", (err) => {
+        this.busy.delete(workerId);
+        this.idleWorkers.push(workerId);
+        this.processQueue();
+      });
+      this.workers.push(worker);
+      this.idleWorkers.push(i);
+    }
+  }
+
+  submit<T>(task: unknown): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.taskQueue.push({ task, resolve, reject });
+      this.processQueue();
+    });
+  }
+
+  private processQueue() {
+    while (this.idleWorkers.length > 0 && this.taskQueue.length > 0) {
+      const workerId = this.idleWorkers.shift()!;
+      const { task, reject } = this.taskQueue.shift()!;
+      this.busy.add(workerId);
+      this.workers[workerId].postMessage(task);
+    }
+  }
+
+  async shutdown() {
+    await Promise.all(this.workers.map(w => w.terminate()));
+  }
+}
+
+// Usage: image processing with 4 workers
+const pool = new ThreadPool(4, "./image-worker.js");
+const results = await Promise.all([
+  pool.submit({ file: "img1.png", op: "resize", w: 800 }),
+  pool.submit({ file: "img2.png", op: "resize", w: 800 }),
+  pool.submit({ file: "img3.png", op: "resize", w: 800 }),
+]);
+await pool.shutdown();
+
+// Pool size tuning
+  | Workload | Pool size | Rationale |
+  |----------|-----------|-----------|
+  | CPU-heavy | CPU cores | One thread per core |
+  | I/O-heavy | 2x CPU cores | Threads wait on I/O |
+  | Mixed | CPU cores + 2 | Balance CPU and I/O |
+  | Image processing | CPU cores | CPU-bound |
+  | File parsing | 2x CPU cores | I/O + CPU |
+```
+
+Lessons:
+  - Thread pool reuses threads: avoids creation overhead
+  - Task queue buffers work when all threads are busy
+  - Pool size: CPU cores for CPU-heavy, 2x for I/O-heavy
+  - Always shutdown the pool to avoid resource leaks
+  - In Node.js, use worker_threads for CPU-intensive tasks
+  - For I/O tasks, use async/await: event loop is sufficient
+```
+
+### When do I use threads vs async in Node.js?
+
+Use worker_threads for CPU-intensive tasks (image processing, crypto, compression, parsing large files). The event loop is single-threaded: CPU work blocks it. Use async/await for I/O tasks (DB, HTTP, file reads): the event loop handles I/O efficiently without threads. If your task takes < 10ms, keep it on the event loop. If it takes > 100ms of CPU time, offload to a worker.

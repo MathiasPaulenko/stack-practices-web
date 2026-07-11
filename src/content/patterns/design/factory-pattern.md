@@ -209,3 +209,94 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Factory for Multi-DB Connections
+
+```typescript
+// Factory pattern: create objects without exposing creation logic
+interface DatabaseConnection {
+  connect(): Promise<void>;
+  query(sql: string): Promise<unknown[]>;
+  close(): Promise<void>;
+}
+
+class PostgreSQLConnection implements DatabaseConnection {
+  constructor(private config: PGConfig) {}
+  async connect() { /* pg.connect() */ }
+  async query(sql: string) { /* pg.query(sql) */ return []; }
+  async close() { /* pg.end() */ }
+}
+
+class MySQLConnection implements DatabaseConnection {
+  constructor(private config: MySQLConfig) {}
+  async connect() { /* mysql.connect() */ }
+  async query(sql: string) { /* mysql.query(sql) */ return []; }
+  async close() { /* mysql.end() */ }
+}
+
+class MongoDBConnection implements DatabaseConnection {
+  constructor(private config: MongoConfig) {}
+  async connect() { /* mongo.connect() */ }
+  async query(sql: string) { /* mongo.find() */ return []; }
+  async close() { /* mongo.close() */ }
+}
+
+// Factory
+class DatabaseFactory {
+  static create(type: "postgres" | "mysql" | "mongo", config: unknown): DatabaseConnection {
+    switch (type) {
+      case "postgres": return new PostgreSQLConnection(config as PGConfig);
+      case "mysql": return new MySQLConnection(config as MySQLConfig);
+      case "mongo": return new MongoDBConnection(config as MongoConfig);
+      default: throw new Error(`Unknown DB type: ${type}`);
+    }
+  }
+}
+
+// Usage: client does not know which DB is used
+const db = DatabaseFactory.create("postgres", {
+  host: "localhost",
+  port: 5432,
+  database: "myapp",
+});
+await db.connect();
+const results = await db.query("SELECT * FROM users");
+await db.close();
+
+// Factory with registry (plugin pattern)
+class PluginDatabaseFactory {
+  private static registry = new Map<string, (config: unknown) => DatabaseConnection>();
+
+  static register(type: string, creator: (config: unknown) => DatabaseConnection) {
+    this.registry.set(type, creator);
+  }
+
+  static create(type: string, config: unknown): DatabaseConnection {
+    const creator = this.registry.get(type);
+    if (!creator) throw new Error(`Unknown DB type: ${type}`);
+    return creator(config);
+  }
+}
+
+// Register plugins
+PluginDatabaseFactory.register("postgres", (cfg) => new PostgreSQLConnection(cfg as PGConfig));
+PluginDatabaseFactory.register("mysql", (cfg) => new MySQLConnection(cfg as MySQLConfig));
+```
+
+Lessons:
+  - Factory encapsulates creation: client does not know concrete class
+  - Adding new DB type only requires modifying the factory
+  - Plugin factory allows registering types without modifying factory
+  - Factory vs Abstract Factory: one class vs family of products
+  - Factory vs DI: factory is explicit, DI is automatic
+```
+
+### Factory vs Abstract Factory: which do I use?
+
+Use Factory when you need to create one type of object with variants (e.g: DatabaseConnection with postgres/mysql/mongo). Use Abstract Factory when you need to create a family of related objects (e.g: UI toolkit that creates Button + Input + Modal, all from the same theme). Factory has one create method; Abstract Factory has multiple create methods for related products.
+
+
+End of document. Review and update quarterly.

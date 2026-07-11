@@ -190,3 +190,113 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Singleton para Conexion de Base de Datos
+
+```typescript
+// Singleton con inicializacion diferida (lazy)
+class DatabaseConnection {
+  private static instance: DatabaseConnection | null = null;
+  private pool: ConnectionPool;
+
+  private constructor(config: DBConfig) {
+    this.pool = createPool({
+      host: config.host,
+      port: config.port,
+      max: config.maxConnections,  // 20
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+    });
+  }
+
+  static getInstance(config?: DBConfig): DatabaseConnection {
+    if (!DatabaseConnection.instance) {
+      if (!config) throw new Error("Config required for first init");
+      DatabaseConnection.instance = new DatabaseConnection(config);
+    }
+    return DatabaseConnection.instance;
+  }
+
+  async query(sql: string, params: unknown[]): Promise<ResultSet> {
+    return this.pool.query(sql, params);
+  }
+
+  async close(): Promise<void> {
+    await this.pool.end();
+    DatabaseConnection.instance = null;
+  }
+}
+
+// Uso
+const db = DatabaseConnection.getInstance({
+  host: "localhost",
+  port: 5432,
+  maxConnections: 20,
+});
+
+// En tests: resetear entre suites
+afterAll(async () => {
+  await DatabaseConnection.getInstance().close();
+});
+```
+
+Problemas del Singleton y soluciones:
+  | Problema | Solucion |
+  |----------|----------|
+  | Dificil de testear | Inyeccion de dependencias |
+  | Estado global | Usar DI container en su lugar |
+  | No thread-safe (Java) | Double-checked locking |
+  | No funciona con clustering | Una instancia por proceso |
+  | Acoplamiento oculto | Pasar como parametro |
+
+Alternativas al Singleton:
+  | Alternativa | Ventaja |
+  |-------------|----------|
+  | DI container | Testable, explicito |
+  | Module pattern | Una instancia por modulo (Node.js) |
+  | Factory + cache | Control sobre creacion |
+  | Monostate | Mismo estado, multiples instancias |
+
+Lecciones:
+  - Singleton es util para recursos caros (DB, cache, logger)
+  - En Node.js, module caching es singleton implicito
+  - En tests, siempre provee forma de resetear la instancia
+  - Prefiere DI container sobre Singleton para testabilidad
+  - Nunca uses Singleton para logica de negocio
+```
+
+### Cuando NO debo usar Singleton?
+
+No uses Singleton cuando necesitas multiples instancias (ej: conexiones a diferentes DBs), cuando hace el codigo dificil de testear (usa DI), o cuando el estado global causa bugs dificiles de rastrear. Para logica de negocio, usa DI container. Para configuracion, usa module pattern. Singleton es apropiado solo para recursos compartidos caros: DB pool, cache, logger.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

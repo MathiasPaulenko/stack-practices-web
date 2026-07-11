@@ -274,3 +274,73 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Composite para Sistema de Archivos
+
+```typescript
+// Composite: tratar archivos y directorios uniformemente
+interface FileSystemNode {
+  getName(): string;
+  getSize(): number;
+  print(indent?: string): void;
+}
+
+// Leaf: archivo
+class File implements FileSystemNode {
+  constructor(private name: string, private size: number) {}
+  getName(): string { return this.name; }
+  getSize(): number { return this.size; }
+  print(indent: string = "") { console.log(`${indent}${this.name} (${this.size} bytes)`); }
+}
+
+// Composite: directorio
+class Directory implements FileSystemNode {
+  private children: FileSystemNode[] = [];
+  constructor(private name: string) {}
+  getName(): string { return this.name; }
+  getSize(): number { return this.children.reduce((sum, c) => sum + c.getSize(), 0); }
+  add(node: FileSystemNode): void { this.children.push(node); }
+  remove(node: FileSystemNode): void { this.children = this.children.filter(c => c !== node); }
+  print(indent: string = "") {
+    console.log(`${indent}${this.name}/ (${this.getSize()} bytes)`);
+    this.children.forEach(c => c.print(indent + "  "));
+  }
+}
+
+// Uso: construir arbol de archivos
+const root = new Directory("root");
+const docs = new Directory("docs");
+docs.add(new File("readme.md", 1024));
+docs.add(new File("api.md", 4096));
+const src = new Directory("src");
+src.add(new File("index.ts", 2048));
+src.add(new File("utils.ts", 1024));
+root.add(docs);
+root.add(src);
+root.add(new File("package.json", 512));
+
+root.print();
+// root/ (8704 bytes)
+//   docs/ (5120 bytes)
+//     readme.md (1024 bytes)
+//     api.md (4096 bytes)
+//   src/ (3072 bytes)
+//     index.ts (2048 bytes)
+//     utils.ts (1024 bytes)
+//   package.json (512 bytes)
+```
+
+Lecciones:
+  - Composite trata archivos y directorios con la misma interfaz
+  - getSize() en un directorio suma recursivamente los hijos
+  - El cliente no distingue entre archivo y directorio
+  - Anadir nuevo tipo de nodo (ej: Symlink) no requiere cambiar existentes
+  - Recorrido de arbol es natural: cada nodo delega a sus hijos
+```
+
+### Composite vs Decorator: cual uso?
+
+Composite es estructural: construye arboles de objetos con la misma interfaz. Decorator es estructural: envuelve un objeto para anadir comportamiento. Composite tiene 0..N hijos; Decorator tiene exactamente 1. Composite construye jerarquias (sistemas de archivos, arboles UI, organigramas). Decorator construye cadenas (logging -> cache -> auth -> service). Usa Composite para jerarquias. Usa Decorator para envoltura.

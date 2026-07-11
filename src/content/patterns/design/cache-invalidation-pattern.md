@@ -265,3 +265,75 @@ Each cache entry is associated with tags (e.g. `user:123` has tags `["user", "us
 ### Should I invalidate or update the cache on write?
 
 Invalidating (delete) is simpler and safer. The next read reloads fresh data. Updating the cache on write (write-through) is faster for the next read but risks writing stale data if the DB write and cache update are not atomic. Prefer invalidation unless write-through is explicitly needed.
+
+
+## Advanced Topics
+
+### Scenario: Cache Invalidation for E-commerce
+
+```typescript
+// Cache invalidation strategies
+class CacheManager {
+  constructor(private redis: RedisClient) {}
+
+  // 1. Explicit invalidation: when updating a product
+  async invalidateProduct(productId: string): Promise<void> {
+    await this.redis.del(`product:${productId}`);
+    // Invalidate lists containing the product
+    await this.redis.del(`products:category:*`);
+    await this.redis.del(`products:featured`);
+    await this.redis.del(`search:product:*`);
+  }
+
+  // 2. Tag-based invalidation: group keys by tag
+  async invalidateByTag(tag: string): Promise<void> {
+    const keys = await this.redis.smembers(`tag:${tag}`);
+    if (keys.length > 0) {
+      await this.redis.del(...keys);
+      await this.redis.del(`tag:${tag}`);
+    }
+  }
+
+  // 3. Version-based invalidation: bump version
+  async bumpVersion(namespace: string): Promise<void> {
+    await this.redis.incr(`version:${namespace}`);
+  }
+
+  async getWithVersion<T>(namespace: string, key: string): Promise<T | null> {
+    const version = await this.redis.get(`version:${namespace}`) || "1";
+    const fullKey = `${namespace}:${version}:${key}`;
+    const cached = await this.redis.get(fullKey);
+    return cached ? JSON.parse(cached) : null;
+  }
+
+  // 4. Write-through: update cache on DB write
+  async updateProduct(product: Product): Promise<void> {
+    await db.update(product);
+    await this.redis.setex(`product:${product.id}`, 300, JSON.stringify(product));
+    await this.invalidateByTag(`category:${product.categoryId}`);
+  }
+}
+
+// Strategy comparison
+  | Strategy | Latency | Consistency | Complexity |
+  |----------|---------|-------------|------------|
+  | Explicit | Low | High | Medium |
+  | Tag-based | Medium | High | Medium |
+  | Version | Low | High | Low |
+  | TTL-only | High | Low (stale) | Minimal |
+  | Write-through | Low | Maximum | High |
+  | Event-driven | Medium | High | High |
+```
+
+Lessons:
+  - Explicit invalidation: delete key on update
+  - Tag-based invalidation: group related keys and delete in batch
+  - Version-based: bump version, old keys expire by TTL
+  - Write-through: write cache on DB update (maximum consistency)
+  - TTL as safety net: if invalidation fails, TTL cleans up
+  - The hardest problem in caching: when to invalidate
+```
+
+### How do I handle invalidation in microservices?
+
+Use event-driven invalidation: when a service updates a product, it publishes a ProductUpdated event. Services that cache listen to the event and invalidate their local cache. For distributed cache (Redis), use pub/sub: the updating service publishes to a channel, others subscribe and invalidate. For eventual consistency, short TTL (60s) + events. For strong consistency, write-through + synchronous invalidation. Avoid cascade invalidation: it can cause thundering herd.

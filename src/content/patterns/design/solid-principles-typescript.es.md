@@ -247,3 +247,99 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: SOLID en un Servicio de Pedidos
+
+```typescript
+// SRP: cada clase tiene una sola razon para cambiar
+class Order {
+  constructor(public id: string, public items: OrderItem[], public total: number) {}
+}
+
+class OrderRepository {
+  async save(order: Order): Promise<void> { /* DB save */ }
+  async findById(id: string): Promise<Order | null> { /* DB query */ }
+}
+
+class OrderValidator {
+  validate(order: Order): string[] {
+    const errors: string[] = [];
+    if (order.items.length === 0) errors.push("Order must have items");
+    if (order.total <= 0) errors.push("Total must be positive");
+    return errors;
+  }
+}
+
+class OrderNotifier {
+  async notify(order: Order): Promise<void> {
+    await emailService.send(order.customerEmail, "Order confirmed");
+  }
+}
+
+// OCP: abierto a extension, cerrado a modificacion
+interface DiscountStrategy {
+  apply(order: Order): number;
+}
+
+class NoDiscount implements DiscountStrategy {
+  apply(order: Order): number { return order.total; }
+}
+
+class PercentageDiscount implements DiscountStrategy {
+  constructor(private percent: number) {}
+  apply(order: Order): number { return order.total * (1 - this.percent / 100); }
+}
+
+// Anadir nuevo descuento sin tocar codigo existente
+class BlackFridayDiscount implements DiscountStrategy {
+  apply(order: Order): number { return order.total * 0.7; }
+}
+
+// LSP: las subclases deben poder reemplazar a la superclase
+// ISP: interfaces pequenas y especificas
+interface Readable { read(id: string): Promise<Order | null>; }
+interface Writable { write(order: Order): Promise<void>; }
+// OrderRepository implementa ambos, pero un ReadOnlyRepo solo Readable
+
+// DIP: depender de abstracciones, no concreciones
+class OrderService {
+  constructor(
+    private repo: Writable,
+    private validator: OrderValidator,
+    private notifier: OrderNotifier,
+    private discount: DiscountStrategy
+  ) {}
+
+  async createOrder(order: Order): Promise<void> {
+    const errors = this.validator.validate(order);
+    if (errors.length > 0) throw new Error(errors.join(", "));
+    order.total = this.discount.apply(order);
+    await this.repo.write(order);
+    await this.notifier.notify(order);
+  }
+}
+
+// Composicion: inyectar dependencias
+const service = new OrderService(
+  new OrderRepository(),
+  new OrderValidator(),
+  new OrderNotifier(),
+  new PercentageDiscount(10)
+);
+```
+
+Lecciones:
+  - SRP: Order, Repository, Validator, Notifier son responsabilidades separadas
+  - OCP: nuevo descuento = nueva clase, no modificar existentes
+  - LSP: cualquier DiscountStrategy puede reemplazar a otra
+  - ISP: Readable y Writable separados, no forzar metodos innecesarios
+  - DIP: OrderService depende de interfaces, no de clases concretas
+  - En tests, inyectar mocks: MockRepo, MockNotifier, NoDiscount
+```
+
+### Como aplico SOLID en codigo legacy?
+
+Empieza con SRP: identifica clases que hacen demasiadas cosas y extrae responsabilidades. Usa extraccion de metodos y clases. Luego DIP: introduce interfaces para dependencias externas y usa inyeccion. OCP llega naturalmente: cuando necesitas anadir variacion, crea una nueva clase en lugar de modificar. No intentes aplicar todos los principios a la vez: refactoriza incrementalmente, un principio a la vez, con tests como red de seguridad.

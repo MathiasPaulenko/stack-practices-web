@@ -261,3 +261,86 @@ Use a lock or single-flight mechanism: when a cache miss occurs, only one reques
 ### Can I use read-through with a distributed cache?
 
 Yes. Redis and Memcached both support read-through patterns. For Redis, use a Lua script for server-side read-through. For application-level, use a cache wrapper library that handles the loader callback.
+
+
+## Advanced Topics
+
+### Scenario: Read-Through Cache with Redis
+
+```typescript
+// Read-Through: the cache manages DB reads transparently
+class ReadThroughCache {
+  constructor(private redis: RedisClient, private db: Pool, private ttlSec: number = 300) {}
+
+  async get<T>(key: string, queryFn: () => Promise<T>): Promise<T> {
+    // 1. Try cache
+    const cached = await this.redis.get(key);
+    if (cached) return JSON.parse(cached) as T;
+
+    // 2. Cache miss: the cache handles reading and filling
+    const data = await queryFn();
+    await this.redis.setex(key, this.ttlSec, JSON.stringify(data));
+    return data;
+  }
+
+  // Batch read-through: multiple keys in one operation
+  async getBatch<T>(keys: string[], queryFn: (keys: string[]) => Promise<Record<string, T>>): Promise<Record<string, T>> {
+    const results: Record<string, T> = {};
+    const missingKeys: string[] = [];
+
+    // 1. Read all keys from cache
+    const cached = await this.redis.mget(...keys);
+    keys.forEach((key, i) => {
+      if (cached[i]) { results[key] = JSON.parse(cached[i]) as T; }
+      else { missingKeys.push(key); }
+    });
+
+    // 2. Read missing from DB
+    if (missingKeys.length > 0) {
+      const dbData = await queryFn(missingKeys);
+      // 3. Fill cache for missing keys
+      const cacheEntries: string[] = [];
+      for (const [key, value] of Object.entries(dbData)) {
+        results[key] = value;
+        cacheEntries.push(key, JSON.stringify(value));
+      }
+      if (cacheEntries.length > 0) {
+        await this.redis.mset(...cacheEntries);
+        for (const key of Object.keys(dbData)) {
+          await this.redis.expire(key, this.ttlSec);
+        }
+      }
+    }
+
+    return results;
+  }
+}
+
+// Usage
+const cache = new ReadThroughCache(redis, dbPool, 300);
+
+// Single read
+const user = await cache.get("user:123", async () => {
+  const res = await dbPool.query("SELECT * FROM users WHERE id = $1", ["123"]);
+  return res.rows[0];
+});
+
+// Batch read
+const users = await cache.getBatch(["user:1", "user:2", "user:3"], async (ids) => {
+  const res = await dbPool.query("SELECT * FROM users WHERE id = ANY($1)", [ids]);
+  return Object.fromEntries(res.rows.map((r: any) => [`user:${r.id}`, r]));
+});
+```
+
+Lessons:
+  - Read-Through: the cache manages transparent reads
+  - The client only calls get(): does not know if it comes from cache or DB
+  - Cache-Aside: the client manages cache and DB separately
+  - Batch read-through: mget + mset to reduce round-trips
+  - TTL as safety net: if invalidation fails, TTL cleans up
+  - Use Redis pipeline to reduce latency in batch operations
+```
+
+### Read-Through vs Cache-Aside: which do I use?
+
+Read-Through: the cache manages the read. The client calls get() and the cache decides whether to go to DB. Simpler for the client. Cache-Aside: the client manages explicitly. Reads cache, on miss reads DB and fills cache. More control. Use Read-Through when read logic is uniform and you want centralization. Use Cache-Aside when you need conditional logic (e.g: do not cache certain results, or variable TTL per key).

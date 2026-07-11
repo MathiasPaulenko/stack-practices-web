@@ -260,3 +260,82 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Partial Class para Separar Responsabilidades
+
+```csharp
+// C#: partial class separa una clase en multiples archivos
+// File: Order.cs - Modelo principal
+public partial class Order {
+    public Guid Id { get; set; }
+    public string CustomerEmail { get; set; }
+    public List<OrderItem> Items { get; set; }
+    public decimal Total { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
+
+// File: Order.Validation.cs - Logica de validacion
+public partial class Order {
+    public bool IsValid() {
+        return Items.Count > 0 && Total > 0 && !string.IsNullOrEmpty(CustomerEmail);
+    }
+    public List<string> GetValidationErrors() {
+        var errors = new List<string>();
+        if (Items.Count == 0) errors.Add("Order must have items");
+        if (Total <= 0) errors.Add("Total must be positive");
+        if (string.IsNullOrEmpty(CustomerEmail)) errors.Add("Email required");
+        return errors;
+    }
+}
+
+// File: Order.Pricing.cs - Logica de precios
+public partial class Order {
+    public void ApplyDiscount(decimal percentage) {
+        Total = Total * (1 - percentage / 100);
+    }
+    public void ApplyCoupon(string code) {
+        var coupon = CouponService.Validate(code);
+        if (coupon.IsValid) Total -= coupon.Amount;
+    }
+    public decimal CalculateTax(decimal rate) {
+        return Total * rate;
+    }
+}
+
+// File: Order.Serialization.cs - Logica de serializacion
+public partial class Order {
+    public string ToJson() {
+        return JsonSerializer.Serialize(this);
+    }
+    public static Order FromJson(string json) {
+        return JsonSerializer.Deserialize<Order>(json);
+    }
+}
+```
+
+```text
+Ventajas y desventajas del partial class:
+  | Aspecto | Pros | Contras |
+  |---------|------|---------|
+  | Organizacion | Separa responsabilidades | Puede fragmentar logica |
+  | Colaboracion | Multiple devs en una clase | Dificil de localizar |
+  | Generacion | Code-gen separado de manual | Conflictos en merge |
+  | Mantenimiento | Archivos mas pequenos | Vision fragmentada |
+  | Testing | Test separado por concern | Setup repetido |
+```
+
+Lecciones:
+  - Partial class separa una clase en multiples archivos
+  - Ideal para separar modelo, validacion, pricing y serializacion
+  - C# soporta partial class nativamente; TypeScript no
+  - En TypeScript, usar composition o mixins en lugar de partial
+  - No abusar: si la clase necesita partial, quizas es demasiado grande (SRP)
+  - Entity Framework usa partial para separar modelo de code-gen
+```
+
+### Partial class esta disponible en TypeScript?
+
+No, TypeScript no soporta partial class. Alternativas: 1) Composition: separar en clases independientes (OrderModel, OrderValidator, OrderPricer). 2) Mixins: anadir metodos via funciones. 3) Declaration merging: interfaces y namespaces se fusionan, pero no clases. 4) Extension methods: usar prototype o module augmentation. La mejor alternativa en TypeScript es composition: cada responsabilidad es una clase separada que se inyecta.

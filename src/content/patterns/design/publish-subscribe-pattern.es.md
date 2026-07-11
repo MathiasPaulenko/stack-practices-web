@@ -266,3 +266,78 @@ Con colas durables, los mensajes se acumulan en la cola del suscriptor mientras 
 ### ¿Cómo agrego un nuevo suscriptor?
 
 Crea una nueva cola, enlazala al topico/exchange, y comienza a consumir. No se necesitan cambios al publicador ni a los suscriptores existentes. Este es el beneficio principal del patron.
+
+
+## Temas Avanzados
+
+### Escenario: Pub/Sub para Notificaciones de Pedidos
+
+```typescript
+// Pub/Sub: desacoplar productor de consumidores
+class EventBus {
+  private subscribers = new Map<string, Set<(data: unknown) => void>>();
+
+  subscribe(event: string, handler: (data: unknown) => void): () => void {
+    if (!this.subscribers.has(event)) this.subscribers.set(event, new Set());
+    this.subscribers.get(event)!.add(handler);
+    // Retornar funcion de unsubscribe
+    return () => this.subscribers.get(event)?.delete(handler);
+  }
+
+  publish(event: string, data: unknown): void {
+    this.subscribers.get(event)?.forEach(handler => {
+      try { handler(data); }
+      catch (err) { console.error(`[PUB/SUB] Handler error for ${event}:`, err); }
+    });
+  }
+}
+
+// Eventos del dominio
+interface OrderCreated { orderId: string; customerEmail: string; total: number; }
+interface OrderShipped { orderId: string; trackingNumber: string; }
+interface OrderCancelled { orderId: string; reason: string; }
+
+// Uso: multiples subscribers desacoplados
+const bus = new EventBus();
+
+// Subscriber 1: enviar email
+bus.subscribe("order.created", (data: OrderCreated) => {
+  emailService.send(data.customerEmail, "Order confirmed", `Total: ${data.total}`);
+});
+
+// Subscriber 2: actualizar analytics
+bus.subscribe("order.created", (data: OrderCreated) => {
+  analytics.track("order_created", { total: data.total });
+});
+
+// Subscriber 3: invalidar cache
+bus.subscribe("order.created", () => {
+  cache.invalidate("orders:recent");
+});
+
+// Subscriber 4: notificar shipping
+bus.subscribe("order.shipped", (data: OrderShipped) => {
+  smsService.send(data.orderId, `Shipped: ${data.trackingNumber}`);
+});
+
+// Publisher: el servicio de pedidos
+async function createOrder(order: Order) {
+  await db.save(order);
+  bus.publish("order.created", { orderId: order.id, customerEmail: order.email, total: order.total });
+}
+
+// El publisher no conoce los subscribers
+```
+
+Lecciones:
+  - Pub/Sub desacopla productor de consumidores
+  - El publisher no conoce quienes son los subscribers
+  - Multiples subscribers reaccionan al mismo evento
+  - Anadir nuevo subscriber no requiere cambiar el publisher
+  - En sistemas distribuidos: usar Kafka, RabbitMQ, SNS+SQS
+  - En memoria: EventEmitter o EventBus custom
+```
+
+### Pub/Sub vs Observer: cual uso?
+
+Pub/Sub es mas amplio: el publisher no conoce los subscribers, hay un bus/broker en medio. Observer es mas directo: el sujeto conoce a los observadores. Usa Pub/Sub para sistemas distribuidos o cuando quieres desacoplamiento total. Usa Observer para notificaciones dentro de un mismo modulo. Pub/Sub escala mejor: el broker enruta eventos. Observer es mas simple: no hay broker. Para microservicios, Pub/Sub. Para reactive forms, Observer.

@@ -210,3 +210,93 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Flyweight for Text Rendering
+
+```typescript
+// Flyweight: share characters to reduce memory
+interface CharacterFlyweight {
+  char: string;
+  font: string;
+  size: number;
+  render(x: number, y: number): string;
+}
+
+class Character implements CharacterFlyweight {
+  constructor(
+    public char: string,
+    public font: string,
+    public size: number
+  ) {}
+
+  render(x: number, y: number): string {
+    return `<text x="${x}" y="${y}" font-family="${this.font}" font-size="${this.size}">${this.char}</text>`;
+  }
+}
+
+// Flyweight Factory: caches shared characters
+class CharacterFactory {
+  private cache = new Map<string, CharacterFlyweight>();
+
+  getCharacter(char: string, font: string, size: number): CharacterFlyweight {
+    const key = `${char}|${font}|${size}`;
+    if (!this.cache.has(key)) {
+      this.cache.set(key, new Character(char, font, size));
+      console.log(`[FLYWEIGHT] Created: ${key}`);
+    }
+    return this.cache.get(key)!;
+  }
+  getCacheSize(): number { return this.cache.size; }
+}
+
+// Extrinsic context: position (not shared)
+class TextRenderer {
+  constructor(private factory: CharacterFactory) {}
+
+  renderText(text: string, font: string, size: number, startX: number, y: number): string {
+    let x = startX;
+    let output = "";
+    for (const char of text) {
+      const flyweight = this.factory.getCharacter(char, font, size);
+      output += flyweight.render(x, y) + "\n";
+      x += size * 0.6; // approximate width
+    }
+    return output;
+  }
+}
+
+// Usage: render 10000 characters
+const factory = new CharacterFactory();
+const renderer = new TextRenderer(factory);
+
+// Without flyweight: 10000 Character objects
+// With flyweight: ~30 objects (unique char+font+size)
+const text = "Hello world ".repeat(1000);
+const svg = renderer.renderText(text, "Arial", 12, 10, 50);
+console.log(`Cache size: ${factory.getCacheSize()}`); // ~30 unique
+
+// Estimated memory
+  | Scenario | Objects | Memory |
+  |----------|---------|--------|
+  | Without flyweight | 12000 | 480KB |
+  | With flyweight | 30 | 1.2KB |
+  | Savings | 99.75% | |
+```
+
+Lessons:
+  - Flyweight shares intrinsic state (char, font, size)
+  - Extrinsic state (x, y) is not shared
+  - The factory caches unique flyweights
+  - Ideal for large quantities of similar objects
+  - Use in text editors, games (tiles), SVG rendering
+```
+
+### When NOT to use flyweight?
+
+Do not use flyweight when there are few objects (factory overhead exceeds savings), when objects are mutable (flyweight requires immutable objects), or when each object has unique state with no repetition. The factory overhead and cache Map only pay off when there is high repetition of the same intrinsic state.
+
+
+End of document. Review and update quarterly.

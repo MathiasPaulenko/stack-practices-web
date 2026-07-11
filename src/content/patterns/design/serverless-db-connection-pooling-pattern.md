@@ -232,3 +232,77 @@ A rough formula: `max_connections = (available_memory / (work_mem + overhead))`.
 ### Does this pattern apply to NoSQL databases?
 
 DynamoDB and similar serverless-native databases use HTTP APIs and do not need connection pooling. MongoDB and Redis do benefit from pooling in serverless environments.
+
+
+## Advanced Topics
+
+### Scenario: Connection Pooling in AWS Lambda
+
+```typescript
+// Serverless DB pooling: reuse connections across invocations
+// Problem: Lambda creates a new instance per cold start
+// Solution: global pool reused across invocations
+
+import { Pool } from "pg";
+
+// Declare outside handler: persists across warm invocations
+let pool: Pool | null = null;
+
+function getPool(): Pool {
+  if (!pool) {
+    pool = new Pool({
+      host: process.env.DB_HOST,
+      port: 5432,
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      max: 10,           // max connections per Lambda instance
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
+    });
+    console.log("[POOL] Created new pool");
+  }
+  return pool;
+}
+
+export const handler = async (event: APIGatewayEvent) => {
+  const pool = getPool();
+  try {
+    const res = await pool.query("SELECT * FROM users WHERE id = $1", [event.pathParameters.id]);
+    return { statusCode: 200, body: JSON.stringify(res.rows[0]) };
+  } catch (err) {
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+  }
+};
+
+// Strategies for serverless
+  | Strategy | Description | Pros | Cons |
+  |----------|-------------|------|------|
+  | Global pool | Pool outside handler | Reuses warm connections | Cold start creates pool |
+  | RDS Proxy | AWS-managed proxy | Connection pooling, failover | Additional cost |
+  | Data API | HTTP-based, no connections | No pooling needed | Aurora PostgreSQL/MySQL only |
+  | PgBouncer | External proxy | Efficient pooling | Extra infra |
+  | Prisma Data Proxy | Managed proxy | No direct connections | Requires Prisma |
+
+// Recommended config per environment
+  | Environment | Strategy | Max conns | Reason |
+  |-------------|----------|-----------|--------|
+  | Lambda + RDS | RDS Proxy | 50-100 | Avoid saturating DB |
+  | Lambda + Aurora | Data API | N/A | HTTP, no pooling |
+  | Lambda + PgBouncer | Global pool | 5-10 | Reuse warm |
+  | ECS/Fargate | Global pool | 20-50 | Long-running process |
+  | EC2 | Global pool | 50-100 | Persistent process |
+```
+
+Lessons:
+  - In serverless, declare pool outside the handler
+  - Warm invocations reuse the pool; cold starts create it
+  - RDS Proxy is the managed solution for Lambda + RDS
+  - Data API eliminates the problem: HTTP instead of TCP
+  - Max conns per Lambda: 5-10 (do not saturate DB)
+  - Monitor: connections, idle, waiting in RDS
+```
+
+### How do I diagnose connection exhaustion in serverless?
+
+Symptoms: "too many connections" errors, query timeouts, Lambda errors. Diagnosis: check CloudWatch for active RDS connections. If there are N concurrent Lambdas with M conns each, total is N*M. Solution: RDS Proxy (manages global pool), reduce max conns per Lambda, or migrate to Data API. Set CloudWatch alarms for DatabaseConnections > 80% of max.

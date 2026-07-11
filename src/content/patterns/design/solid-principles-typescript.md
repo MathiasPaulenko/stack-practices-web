@@ -247,3 +247,99 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: SOLID in an Order Service
+
+```typescript
+// SRP: each class has one reason to change
+class Order {
+  constructor(public id: string, public items: OrderItem[], public total: number) {}
+}
+
+class OrderRepository {
+  async save(order: Order): Promise<void> { /* DB save */ }
+  async findById(id: string): Promise<Order | null> { /* DB query */ }
+}
+
+class OrderValidator {
+  validate(order: Order): string[] {
+    const errors: string[] = [];
+    if (order.items.length === 0) errors.push("Order must have items");
+    if (order.total <= 0) errors.push("Total must be positive");
+    return errors;
+  }
+}
+
+class OrderNotifier {
+  async notify(order: Order): Promise<void> {
+    await emailService.send(order.customerEmail, "Order confirmed");
+  }
+}
+
+// OCP: open for extension, closed for modification
+interface DiscountStrategy {
+  apply(order: Order): number;
+}
+
+class NoDiscount implements DiscountStrategy {
+  apply(order: Order): number { return order.total; }
+}
+
+class PercentageDiscount implements DiscountStrategy {
+  constructor(private percent: number) {}
+  apply(order: Order): number { return order.total * (1 - this.percent / 100); }
+}
+
+// Add new discount without touching existing code
+class BlackFridayDiscount implements DiscountStrategy {
+  apply(order: Order): number { return order.total * 0.7; }
+}
+
+// LSP: subclasses must be substitutable for superclass
+// ISP: small, specific interfaces
+interface Readable { read(id: string): Promise<Order | null>; }
+interface Writable { write(order: Order): Promise<void>; }
+// OrderRepository implements both, but ReadOnlyRepo only Readable
+
+// DIP: depend on abstractions, not concretions
+class OrderService {
+  constructor(
+    private repo: Writable,
+    private validator: OrderValidator,
+    private notifier: OrderNotifier,
+    private discount: DiscountStrategy
+  ) {}
+
+  async createOrder(order: Order): Promise<void> {
+    const errors = this.validator.validate(order);
+    if (errors.length > 0) throw new Error(errors.join(", "));
+    order.total = this.discount.apply(order);
+    await this.repo.write(order);
+    await this.notifier.notify(order);
+  }
+}
+
+// Composition: inject dependencies
+const service = new OrderService(
+  new OrderRepository(),
+  new OrderValidator(),
+  new OrderNotifier(),
+  new PercentageDiscount(10)
+);
+```
+
+Lessons:
+  - SRP: Order, Repository, Validator, Notifier are separate responsibilities
+  - OCP: new discount = new class, do not modify existing ones
+  - LSP: any DiscountStrategy can replace another
+  - ISP: Readable and Writable separated, do not force unnecessary methods
+  - DIP: OrderService depends on interfaces, not concrete classes
+  - In tests, inject mocks: MockRepo, MockNotifier, NoDiscount
+```
+
+### How do I apply SOLID in legacy code?
+
+Start with SRP: identify classes doing too much and extract responsibilities. Use method and class extraction. Then DIP: introduce interfaces for external dependencies and use injection. OCP comes naturally: when you need to add variation, create a new class instead of modifying. Do not try to apply all principles at once: refactor incrementally, one principle at a time, with tests as a safety net.

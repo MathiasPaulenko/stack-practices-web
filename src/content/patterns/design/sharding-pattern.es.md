@@ -180,3 +180,123 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Sharding de Base de Datos para E-commerce
+
+```text
+Sistema: E-commerce, 50M usuarios, 2TB de datos
+Objetivo: Sharding horizontal para escalar writes
+
+Estrategia de sharding:
+  | Estrategia | Formula | Ventajas | Desventajas |
+  |------------|---------|----------|-------------|
+  | Range-based | user_id % 4 = shard | Simple | Hotspots |
+  | Hash-based | hash(user_id) % 4 | Distribucion uniforme | Re-sharding complejo |
+  | Directory | lookup table -> shard | Flexible | Lookup es bottleneck |
+  | Geo-based | region -> shard | Latencia baja | Desbalanceo |
+
+Configuracion (PostgreSQL + pg_partman):
+  | Shard | Region | Usuarios | Tamano |
+  |-------|--------|----------|---------|
+  | shard-0 | US-East | 15M | 600GB |
+  | shard-1 | US-West | 12M | 480GB |
+  | shard-2 | EU | 13M | 520GB |
+  | shard-3 | Asia | 10M | 400GB |
+
+Routing de queries:
+  Application -> Shard Router (pgcat / Vitess / Citus)
+    -> Determina shard por user_id
+    -> Forward query al shard correcto
+    -> Agregar resultados si cross-shard
+
+Cross-shard queries (evitar o optimizar):
+  | Query | Estrategia |
+  |-------|------------|
+  | SELECT por user_id | Directo al shard (OK) |
+  | SELECT all users | Scatter-gather (lento) |
+  | COUNT total | Mantener contador en tabla separada |
+  | JOIN cross-shard | Denormalizar o usar cache |
+  | ORDER BY global | Mantener top-N en Redis |
+
+Re-sharding (cuando un shard crece demasiado):
+  1. Crear nuevo shard (shard-4)
+  2. Migrar 50% de datos del shard mas grande
+  3. Actualizar shard router
+  4. Verificar consistencia
+  5. Eliminar datos migrados del shard original
+  Duration: 2-4 horas con downtime cero (dual-write)
+
+Lecciones:
+  - Sharding es ultima opcion: intenta read replicas y caching primero
+  - Hash-based sharding distribuye uniformemente
+  - Cross-shard queries son el mayor desafio
+  - Re-sharding es complejo: planifica desde el dia 1
+  - Directory-based sharding da flexibilidad pero anade latencia
+```
+
+### Como manejo transacciones cross-shard?
+
+Evita transacciones cross-shard: disena para que cada transaccion toque un solo shard. Si es inevitable, usa el patron saga: divide la transaccion en pasos locales por shard, con compensacion en caso de fallo. Alternativamente, usa 2PC (two-phase commit) pero tiene overhead. Para la mayoria de casos, re-disena para que la transaccion sea local a un shard.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

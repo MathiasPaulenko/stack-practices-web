@@ -188,3 +188,115 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Event System with Observer Pattern
+
+```typescript
+// Observer pattern for notification system
+interface Observer {
+  update(event: string, data: unknown): void;
+}
+
+class EventEmitter {
+  private observers: Map<string, Set<Observer>> = new Map();
+
+  subscribe(event: string, observer: Observer): void {
+    if (!this.observers.has(event)) {
+      this.observers.set(event, new Set());
+    }
+    this.observers.get(event)!.add(observer);
+  }
+
+  unsubscribe(event: string, observer: Observer): void {
+    this.observers.get(event)?.delete(observer);
+  }
+
+  emit(event: string, data: unknown): void {
+    this.observers.get(event)?.forEach(obs => {
+      try {
+        obs.update(event, data);
+      } catch (err) {
+        console.error(`Observer error: ${err}`);
+      }
+    });
+  }
+}
+
+// Usage: e-commerce system
+const emitter = new EventEmitter();
+
+// Observers
+class EmailNotifier implements Observer {
+  update(event: string, data: unknown): void {
+    if (event === "order.created") {
+      sendEmail((data as Order).userEmail, "Order confirmed");
+    }
+  }
+}
+
+class InventoryUpdater implements Observer {
+  update(event: string, data: unknown): void {
+    if (event === "order.created") {
+      decrementStock((data as Order).items);
+    }
+  }
+}
+
+class AnalyticsTracker implements Observer {
+  update(event: string, data: unknown): void {
+    trackEvent(event, data);
+  }
+}
+
+// Subscribe
+emitter.subscribe("order.created", new EmailNotifier());
+emitter.subscribe("order.created", new InventoryUpdater());
+emitter.subscribe("order.created", new AnalyticsTracker());
+
+// Emit
+emitter.emit("order.created", { id: "123", userEmail: "user@example.com", items: [...] });
+// Result: email sent, stock updated, analytics tracked
+```
+
+Lessons:
+  - Observer decouples emitter from receivers
+  - Each observer is independent: failure in one does not affect others
+  - Use Set to avoid duplicates
+  - Try-catch in emit: a broken observer does not break the event
+  - For distributed systems, use a message broker (RabbitMQ, Kafka)
+  - Memory leak: unsubscribe when the observer is no longer needed
+```
+
+### How do I prevent memory leaks with observers?
+
+Always call unsubscribe when the observer is no longer needed. In React, use useEffect cleanup: subscribe on mount, unsubscribe on unmount. In Node.js, use WeakRef or clean up explicitly on shutdown. If observers grow without limit, use a Map with TTL or a max observers per event.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

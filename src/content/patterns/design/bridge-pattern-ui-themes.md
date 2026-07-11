@@ -209,3 +209,94 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Bridge for Multi-platform UI Themes
+
+```typescript
+// Bridge pattern: separate abstraction (UI) from implementation (theme)
+interface Theme {
+  primary: string;
+  background: string;
+  text: string;
+  renderButton(label: string): string;
+}
+
+// Concrete implementations
+class LightTheme implements Theme {
+  primary = "#3b82f6";
+  background = "#ffffff";
+  text = "#1e293b";
+  renderButton(label: string): string {
+    return `<button style="background:${this.primary};color:white;padding:8px 16px">${label}</button>`;
+  }
+}
+
+class DarkTheme implements Theme {
+  primary = "#3b82f6";
+  background = "#1e293b";
+  text = "#f1f5f9";
+  renderButton(label: string): string {
+    return `<button style="background:${this.primary};color:white;padding:8px 16px">${label}</button>`;
+  }
+}
+
+class HighContrastTheme implements Theme {
+  primary = "#ffff00";
+  background = "#000000";
+  text = "#ffffff";
+  renderButton(label: string): string {
+    return `<button style="background:${this.primary};color:black;padding:8px 16px;font-weight:bold;border:2px solid white">${label}</button>`;
+  }
+}
+
+// Abstraction: UI Component
+abstract class UIComponent {
+  constructor(protected theme: Theme) {}
+  abstract render(): string;
+}
+
+class Button extends UIComponent {
+  constructor(theme: Theme, private label: string) { super(theme); }
+  render(): string { return this.theme.renderButton(this.label); }
+}
+
+class Card extends UIComponent {
+  constructor(theme: Theme, private content: string) { super(theme); }
+  render(): string {
+    return `<div style="background:${this.theme.background};color:${this.theme.text};padding:16px;border-radius:8px">${this.content}</div>`;
+  }
+}
+
+// Usage: switch theme without touching components
+const lightButton = new Button(new LightTheme(), "Click me");
+const darkButton = new Button(new DarkTheme(), "Click me");
+const hcButton = new Button(new HighContrastTheme(), "Click me");
+
+// Switch theme at runtime
+let currentTheme: Theme = new LightTheme();
+const button = new Button(currentTheme, "Submit");
+console.log(button.render()); // Light theme
+
+// Switch to dark
+currentTheme = new DarkTheme();
+button.theme = currentTheme;
+console.log(button.render()); // Dark theme
+```
+
+Lessons:
+  - Bridge separates abstraction (UI components) from implementation (themes)
+  - Adding new theme does not require touching UI components
+  - Adding new component does not require touching themes
+  - Switch theme at runtime: just swap the implementation
+  - Reduces class count: M components + N themes vs M*N
+```
+
+### Bridge vs Strategy: which do I use?
+
+Bridge is structural: separates abstraction hierarchy from implementation hierarchy permanently. Strategy is behavioral: changes algorithm at runtime. If the relationship is permanent (a UI component always has a theme), use Bridge. If behavior changes frequently (sorting algorithm), use Strategy. Bridge has two parallel hierarchies; Strategy has one interface with multiple implementations.
+
+
+End of document. Review and update quarterly.

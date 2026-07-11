@@ -228,3 +228,75 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Mediator for Chat Room
+
+```typescript
+// Mediator pattern: centralize communication between components
+interface ChatMediator {
+  sendMessage(msg: string, user: User): void;
+  registerUser(user: User): void;
+}
+
+abstract class User {
+  constructor(protected mediator: ChatMediator, public name: string) {}
+  abstract send(msg: string): void;
+  abstract receive(msg: string): void;
+}
+
+class ChatUser extends User {
+  send(msg: string) { this.mediator.sendMessage(msg, this); }
+  receive(msg: string) { console.log(`[${this.name}] received: ${msg}`); }
+}
+
+// Concrete mediator
+class ChatRoom implements ChatMediator {
+  private users: User[] = [];
+
+  registerUser(user: User) { this.users.push(user); }
+
+  sendMessage(msg: string, sender: User) {
+    // Broadcast to all except sender
+    this.users.filter(u => u !== sender).forEach(u => u.receive(msg));
+  }
+}
+
+// Usage: users do not know each other
+const chat = new ChatRoom();
+const alice = new ChatUser(chat, "Alice");
+const bob = new ChatUser(chat, "Bob");
+const charlie = new ChatUser(chat, "Charlie");
+chat.registerUser(alice);
+chat.registerUser(bob);
+chat.registerUser(charlie);
+
+alice.send("Hello everyone");
+// [Bob] received: Hello everyone
+// [Charlie] received: Hello everyone
+
+// Without Mediator: each user needs reference to all others
+// With Mediator: they only know the mediator
+```
+
+Lessons:
+  - Mediator centralizes communication: components do not know each other
+  - Adding new user does not require changing existing ones
+  - The mediator can filter, transform or log messages
+  - Reduces coupling from N*(N-1) to N*1 (each only knows the mediator)
+  - CQRS uses mediator: commands and queries go through a bus
+  - Event bus is a form of mediator with pub/sub
+```
+
+### Mediator vs Observer: which do I use?
+
+Mediator centralizes: components talk to the mediator and it redirects. Observer decentralizes: the subject notifies observers directly. Use Mediator when interaction logic is complex and you want to centralize it (chat room, wizard form). Use Observer when you just need to notify changes (data binding, event handling). Mediator knows the components; Observer does not.
+
+
+
+
+
+
+End of document. Review and update quarterly.

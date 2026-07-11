@@ -243,3 +243,73 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Materialized View para Dashboard de Ventas
+
+```sql
+-- Tabla base: orders (millones de filas)
+CREATE TABLE orders (
+  id UUID PRIMARY KEY,
+  customer_id UUID,
+  product_id UUID,
+  amount DECIMAL(10,2),
+  status VARCHAR(20),
+  created_at TIMESTAMP
+);
+
+-- Materialized view: ventas por dia por producto
+CREATE MATERIALIZED VIEW mv_sales_daily AS
+SELECT
+  DATE(created_at) AS sale_date,
+  product_id,
+  COUNT(*) AS order_count,
+  SUM(amount) AS total_revenue,
+  AVG(amount) AS avg_order_value
+FROM orders
+WHERE status = "completed"
+GROUP BY DATE(created_at), product_id;
+
+-- Indice en la materialized view
+CREATE INDEX idx_mv_sales_date ON mv_sales_daily(sale_date);
+CREATE INDEX idx_mv_sales_product ON mv_sales_daily(product_id);
+
+-- Refresh: actualizar la vista materializada
+-- Opcion 1: Full refresh (recalcula todo)
+REFRESH MATERIALIZED VIEW mv_sales_daily;
+
+-- Opcion 2: Concurrent refresh (no bloquea lecturas)
+REFRESH MATERIALIZED VIEW CONCURRENTLY mv_sales_daily;
+
+-- Query: dashboard usa la MV en lugar de la tabla base
+SELECT * FROM mv_sales_daily
+WHERE sale_date >= CURRENT_DATE - INTERVAL "30 days"
+ORDER BY sale_date DESC;
+```
+
+```text
+Estrategias de refresh:
+  | Estrategia | Frecuencia | Costo | Latencia datos |
+  |-------------|-------------|-------|----------------|
+  | Full refresh | Diario (off-peak) | Alto | Hasta 24h |
+  | Concurrent | Cada hora | Medio | Hasta 1h |
+  | Incremental | Tiempo real | Bajo | Segundos |
+  | Trigger-based | On write | Minimo | Segundos |
+  | Event-driven | On event | Bajo | Segundos |
+```
+
+Lecciones:
+  - Materialized view precomputa agregaciones costosas
+  - Refresh full: simple pero bloquea lecturas
+  - Refresh concurrent: requiere UNIQUE index, no bloquea
+  - Para datos en tiempo real, usar refresh incremental o triggers
+  - En PostgreSQL, REFRESH CONCURRENTLY requiere al menos un UNIQUE index
+  - En ClickHouse, las MV se actualizan automaticamente on insert
+  - Comparar con CTE: MV persiste resultados; CTE recalcula cada query
+```
+
+### Como implemento refresh incremental?
+
+En lugar de REFRESH completo, actualiza solo las filas nuevas. Opcion 1: trigger en orders que inserta/actualiza la MV on write. Opcion 2: job que procesa solo orders con created_at > last_refresh. Opcion 3: usar PostgreSQL logical replication para actualizar la MV en streaming. Opcion 4: en ClickHouse, la MV se actualiza automaticamente con cada insert. El refresh incremental reduce costo y latencia: solo procesa deltas, no la tabla completa.

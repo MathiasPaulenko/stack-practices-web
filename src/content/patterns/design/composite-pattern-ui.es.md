@@ -225,3 +225,82 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Composite para UI Component Tree
+
+```typescript
+// Composite pattern: tratar individuales y compuestos uniformemente
+interface UIComponent {
+  render(): string;
+  getChildren(): UIComponent[];
+  add(child: UIComponent): void;
+  remove(child: UIComponent): void;
+}
+
+// Leaf: componente sin hijos
+class Button implements UIComponent {
+  constructor(private label: string, private style: string = "") {}
+  render(): string {
+    return `<button class="${this.style}">${this.label}</button>`;
+  }
+  getChildren(): UIComponent[] { return []; }
+  add(child: UIComponent): void { throw new Error("Cannot add to leaf"); }
+  remove(child: UIComponent): void { throw new Error("Cannot remove from leaf"); }
+}
+
+class Input implements UIComponent {
+  constructor(private type: string, private placeholder: string) {}
+  render(): string {
+    return `<input type="${this.type}" placeholder="${this.placeholder}" />`;
+  }
+  getChildren(): UIComponent[] { return []; }
+  add(): void { throw new Error("Cannot add to leaf"); }
+  remove(): void { throw new Error("Cannot remove from leaf"); }
+}
+
+// Composite: componente con hijos
+class Container implements UIComponent {
+  private children: UIComponent[] = [];
+  constructor(private tag: string = "div", private className: string = "") {}
+  add(child: UIComponent): void { this.children.push(child); }
+  remove(child: UIComponent): void {
+    this.children = this.children.filter(c => c !== child);
+  }
+  getChildren(): UIComponent[] { return [...this.children]; }
+  render(): string {
+    const childrenHTML = this.children.map(c => c.render()).join("");
+    return `<${this.tag} class="${this.className}">${childrenHTML}</${this.tag}>`;
+  }
+}
+
+// Uso: construir arbol de UI
+const form = new Container("form", "login-form");
+const header = new Container("div", "form-header");
+header.add(new Button("Close", "btn-close"));
+const body = new Container("div", "form-body");
+body.add(new Input("email", "Email"));
+body.add(new Input("password", "Password"));
+const footer = new Container("div", "form-footer");
+footer.add(new Button("Submit", "btn-primary"));
+form.add(header);
+form.add(body);
+form.add(footer);
+
+console.log(form.render());
+// <form class="login-form"><div class="form-header"><button class="btn-close">Close</button></div>...
+```
+
+Lecciones:
+  - Composite trata hojas y compuestos con la misma interfaz
+  - El cliente no distingue entre un boton y un contenedor
+  - Arboles de UI: cada nodo es un UIComponent
+  - add/remove en hojas lanza error: no pueden tener hijos
+  - React usa este patron: elementos son composables uniformemente
+```
+
+### Composite vs Decorator: cual uso?
+
+Composite es estructural: arboles de objetos con la misma interfaz. Decorator es estructural: envuelve un objeto para anadir comportamiento. Composite tiene 0..N hijos; Decorator tiene exactamente 1. Composite construye arboles; Decorator construye cadenas. Usa Composite para jerarquias de UI. Usa Decorator para anadir logging, cache, o validacion a un servicio.

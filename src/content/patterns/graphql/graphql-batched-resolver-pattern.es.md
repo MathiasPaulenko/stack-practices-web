@@ -275,3 +275,64 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Batched Resolver para N+1 en GraphQL
+
+```typescript
+// DataLoader: batchear requests para evitar N+1
+import DataLoader from "dataloader";
+
+// Resolver sin batching: N+1 queries
+// query { users { orders { id } } } -> 1 query users + N queries orders
+
+// Resolver con DataLoader: 1 query batch
+const orderLoader = new DataLoader<string, Order[]>(async (userIds) => {
+  // 1 query para todos los users
+  const res = await db.query(
+    "SELECT * FROM orders WHERE user_id = ANY($1)",
+    [userIds]
+  );
+  // Agrupar por user_id
+  const ordersByUser = new Map<string, Order[]>();
+  for (const order of res.rows) {
+    const list = ordersByUser.get(order.user_id) || [];
+    list.push(order);
+    ordersByUser.set(order.user_id, list);
+  }
+  // Retornar en el mismo orden que userIds
+  return userIds.map(id => ordersByUser.get(id) || []);
+});
+
+// GraphQL resolver
+const resolvers = {
+  User: {
+    orders: (parent: User) => orderLoader.load(parent.id),
+  },
+  Query: {
+    users: async () => {
+      const res = await db.query("SELECT * FROM users LIMIT 100");
+      return res.rows;
+    },
+  },
+};
+
+// Antes: 100 users -> 100 queries de orders (N+1)
+// Despues: 100 users -> 1 query de orders (batched)
+// DataLoader agrupa todas las llamadas .load() en un tick
+```
+
+Lecciones:
+  - DataLoader agrupa llamadas .load() en un mismo tick de event loop
+  - 1 query batch en lugar de N queries individuales
+  - DataLoader cachea por request: no compartir entre requests
+  - El orden del resultado debe coincidir con el orden de keys
+  - En Apollo Server, crear DataLoader por request en context
+  - Usar para cualquier relacion 1:N o N:1 en GraphQL
+```
+
+### Como configuro DataLoader en Apollo Server?
+
+Crea una instancia de DataLoader por request en el context function. No compartas DataLoader entre requests: la cache de un request puede contaminar otro. En el context: () => ({ orderLoader: new DataLoader(batchFn) }). El DataLoader se crea por request y se descarta al terminar. Para cache entre requests, usar Redis con cacheKeyFn. Para batching manual sin DataLoader: agrupar ids en un Set y hacer una sola query con IN clause.

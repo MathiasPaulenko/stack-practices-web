@@ -220,3 +220,97 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Repository for Multi-DB with TypeORM
+
+```typescript
+// Repository pattern: abstract data access
+interface UserRepository {
+  findById(id: string): Promise<User | null>;
+  findByEmail(email: string): Promise<User | null>;
+  findAll(opts: QueryOpts): Promise<User[]>;
+  save(user: User): Promise<User>;
+  delete(id: string): Promise<void>;
+}
+
+// PostgreSQL implementation
+class PostgresUserRepository implements UserRepository {
+  constructor(private pool: Pool) {}
+  async findById(id: string): Promise<User | null> {
+    const res = await this.pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    return res.rows[0] || null;
+  }
+  async findByEmail(email: string): Promise<User | null> {
+    const res = await this.pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    return res.rows[0] || null;
+  }
+  async findAll(opts: QueryOpts): Promise<User[]> {
+    const limit = opts.limit || 50;
+    const offset = opts.offset || 0;
+    const res = await this.pool.query("SELECT * FROM users LIMIT $1 OFFSET $2", [limit, offset]);
+    return res.rows;
+  }
+  async save(user: User): Promise<User> {
+    if (user.id) {
+      const res = await this.pool.query(
+        "UPDATE users SET name=$1, email=$2 WHERE id=$3 RETURNING *",
+        [user.name, user.email, user.id]
+      );
+      return res.rows[0];
+    }
+    const res = await this.pool.query(
+      "INSERT INTO users (id, name, email) VALUES ($1, $2, $3) RETURNING *",
+      [crypto.randomUUID(), user.name, user.email]
+    );
+    return res.rows[0];
+  }
+  async delete(id: string): Promise<void> {
+    await this.pool.query("DELETE FROM users WHERE id = $1", [id]);
+  }
+}
+
+// MongoDB implementation
+class MongoUserRepository implements UserRepository {
+  constructor(private collection: Collection) {}
+  async findById(id: string): Promise<User | null> {
+    return this.collection.findOne({ _id: new ObjectId(id) });
+  }
+  async save(user: User): Promise<User> {
+    if (user._id) {
+      await this.collection.updateOne({ _id: user._id }, { $set: user });
+      return user;
+    }
+    const res = await this.collection.insertOne(user);
+    return { ...user, _id: res.insertedId };
+  }
+}
+
+// Usage: the service does not know which DB is used
+class UserService {
+  constructor(private repo: UserRepository) {}
+  async getUser(id: string) { return this.repo.findById(id); }
+  async createUser(data: NewUser) { return this.repo.save(data); }
+}
+
+// In tests: use mock repository
+class MockUserRepository implements UserRepository {
+  private users = new Map<string, User>();
+  async findById(id: string) { return this.users.get(id) || null; }
+  async save(user: User) { this.users.set(user.id, user); return user; }
+}
+```
+
+Lessons:
+  - Repository abstracts data access from the domain
+  - The service does not know SQL, MongoDB or storage details
+  - Switching DB only requires a new repository implementation
+  - In tests, use mock or in-memory repository
+  - Repository vs DAO: repository is domain-centric, DAO is table-centric
+```
+
+### Repository vs DAO: which do I use?
+
+Use Repository when you think in domain terms (User, Order) and want to abstract storage entirely. Use DAO when you map directly to tables and need specific queries. Repository returns domain aggregates; DAO returns rows. Repository is higher level; DAO is lower level. For microservices, Repository is preferable: the domain should not know SQL.

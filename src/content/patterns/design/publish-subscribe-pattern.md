@@ -266,3 +266,78 @@ With durable queues, messages accumulate in the subscriber's queue while it is o
 ### How do I add a new subscriber?
 
 Create a new queue, bind it to the topic/exchange, and start consuming. No changes needed to the publisher or existing subscribers. This is the main benefit of the pattern.
+
+
+## Advanced Topics
+
+### Scenario: Pub/Sub for Order Notifications
+
+```typescript
+// Pub/Sub: decouple producer from consumers
+class EventBus {
+  private subscribers = new Map<string, Set<(data: unknown) => void>>();
+
+  subscribe(event: string, handler: (data: unknown) => void): () => void {
+    if (!this.subscribers.has(event)) this.subscribers.set(event, new Set());
+    this.subscribers.get(event)!.add(handler);
+    // Return unsubscribe function
+    return () => this.subscribers.get(event)?.delete(handler);
+  }
+
+  publish(event: string, data: unknown): void {
+    this.subscribers.get(event)?.forEach(handler => {
+      try { handler(data); }
+      catch (err) { console.error(`[PUB/SUB] Handler error for ${event}:`, err); }
+    });
+  }
+}
+
+// Domain events
+interface OrderCreated { orderId: string; customerEmail: string; total: number; }
+interface OrderShipped { orderId: string; trackingNumber: string; }
+interface OrderCancelled { orderId: string; reason: string; }
+
+// Usage: multiple decoupled subscribers
+const bus = new EventBus();
+
+// Subscriber 1: send email
+bus.subscribe("order.created", (data: OrderCreated) => {
+  emailService.send(data.customerEmail, "Order confirmed", `Total: ${data.total}`);
+});
+
+// Subscriber 2: update analytics
+bus.subscribe("order.created", (data: OrderCreated) => {
+  analytics.track("order_created", { total: data.total });
+});
+
+// Subscriber 3: invalidate cache
+bus.subscribe("order.created", () => {
+  cache.invalidate("orders:recent");
+});
+
+// Subscriber 4: notify shipping
+bus.subscribe("order.shipped", (data: OrderShipped) => {
+  smsService.send(data.orderId, `Shipped: ${data.trackingNumber}`);
+});
+
+// Publisher: the order service
+async function createOrder(order: Order) {
+  await db.save(order);
+  bus.publish("order.created", { orderId: order.id, customerEmail: order.email, total: order.total });
+}
+
+// The publisher does not know the subscribers
+```
+
+Lessons:
+  - Pub/Sub decouples producer from consumers
+  - The publisher does not know who the subscribers are
+  - Multiple subscribers react to the same event
+  - Adding new subscriber does not require changing the publisher
+  - In distributed systems: use Kafka, RabbitMQ, SNS+SQS
+  - In memory: EventEmitter or custom EventBus
+```
+
+### Pub/Sub vs Observer: which do I use?
+
+Pub/Sub is broader: the publisher does not know subscribers, there is a bus/broker in between. Observer is more direct: the subject knows the observers. Use Pub/Sub for distributed systems or when you want total decoupling. Use Observer for notifications within the same module. Pub/Sub scales better: the broker routes events. Observer is simpler: no broker. For microservices, Pub/Sub. For reactive forms, Observer.

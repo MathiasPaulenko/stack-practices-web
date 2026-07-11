@@ -273,3 +273,83 @@ Set a TTL or retention policy on the DLQ. For SQS, the maximum retention is 14 d
 ### Can I have different DLQs for different error types?
 
 Yes. Route messages to different DLQs based on error type (e.g., `validation-errors` vs `infrastructure-errors`). This makes debugging and replay easier since you can fix one error type and replay only those messages.
+
+
+## Advanced Topics
+
+### Scenario: Dead Letter Queue for Failed Payments
+
+```typescript
+// DLQ: messages that fail after N retries go to a dead letter queue
+// Architecture: Main Queue -> Worker -> Retry Queue -> DLQ
+
+// SQS: configure redrive policy
+const redrivePolicy = {
+  deadLetterTargetArn: "arn:aws:sqs:us-east-1:123:payment-dlq",
+  maxReceiveCount: "3",  // After 3 failed attempts -> DLQ
+};
+
+// Worker: process payments with error handling
+async function processPaymentMessage(message: SQSMessage): Promise<void> {
+  const payment = JSON.parse(message.Body);
+  try {
+    await processPayment(payment);
+    await sqs.deleteMessage({
+      QueueUrl: PAYMENT_QUEUE_URL,
+      ReceiptHandle: message.ReceiptHandle,
+    }).promise();
+  } catch (err) {
+    // Message returns to queue after visibility timeout
+    // After maxReceiveCount, SQS moves it to DLQ automatically
+    console.error(`Payment ${payment.id} failed:`, err.message);
+  }
+}
+
+// DLQ consumer: investigate and reprocess
+async function processDLQ(): Promise<void> {
+  const result = await sqs.receiveMessage({
+    QueueUrl: PAYMENT_DLQ_URL,
+    MaxNumberOfMessages: 10,
+  }).promise();
+
+  for (const msg of result.Messages || []) {
+    const payment = JSON.parse(msg.Body);
+    const error = JSON.parse(msg.MessageAttributes?.error?.StringValue || "{}");
+
+    // Categorize failure
+    if (error.type === "insufficient_funds") {
+      await notifyCustomer(payment.customerId, "Payment failed: insufficient funds");
+    } else if (error.type === "card_declined") {
+      await retryWithNewCard(payment);
+    } else {
+      await alertOpsTeam(payment, error);
+    }
+
+    // Archive for audit
+    await archiveFailedPayment(payment, error);
+    await sqs.deleteMessage({ QueueUrl: PAYMENT_DLQ_URL, ReceiptHandle: msg.ReceiptHandle }).promise();
+  }
+}
+
+// Monitoring
+  | Metric | Target | Alert |
+  |--------|--------|-------|
+  | DLQ depth | 0 | > 10 |
+  | DLQ age (oldest) | < 1h | > 4h |
+  | Main queue failures | < 1% | > 5% |
+  | Reprocess success | > 80% | < 50% |
+```
+
+Lessons:
+  - DLQ isolates messages that fail after max retries
+  - SQS auto-moves to DLQ after maxReceiveCount
+  - DLQ consumer investigates, categorizes and reprocesses
+  - Some failures are permanent (card declined): notify customer
+  - Some are transient (service down): reprocess after fix
+  - Always archive DLQ messages for audit trail
+  - Monitor DLQ depth: alert if growing
+```
+
+### How do I reprocess from DLQ?
+
+Move the message back to the main queue after fixing the root cause. In SQS: read from DLQ, send to main queue, delete from DLQ. Use a tool or script: do not reprocess manually in production. Add a retry counter to avoid infinite loops. For permanent failures (invalid data), do not reprocess: archive and notify. For transient failures (service was down), reprocess after confirming the service is healthy.

@@ -228,3 +228,75 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: DI para Servicio de Notificaciones
+
+```typescript
+// DI pattern: inyectar dependencias en lugar de crearlas
+// Sin DI (acoplado)
+class BadNotificationService {
+  private emailProvider = new SendGridProvider();  // acoplado
+  private logger = new ConsoleLogger();             // acoplado
+  async notify(email: string, msg: string) {
+    await this.emailProvider.send(email, msg);
+    this.logger.log(`Sent to ${email}`);
+  }
+}
+
+// Con DI (desacoplado)
+interface EmailProvider { send(to: string, body: string): Promise<void>; }
+interface Logger { log(msg: string): void; }
+
+class GoodNotificationService {
+  constructor(
+    private emailProvider: EmailProvider,
+    private logger: Logger
+  ) {}
+
+  async notify(email: string, msg: string) {
+    await this.emailProvider.send(email, msg);
+    this.logger.log(`Sent to ${email}`);
+  }
+}
+
+// Composicion: elegir implementaciones al construir
+const service = new GoodNotificationService(
+  new SendGridProvider(),   // o new SESProvider(), o new MockProvider()
+  new WinstonLogger()       // o new ConsoleLogger(), o new SilentLogger()
+);
+
+// En tests: inyectar mocks
+const mockEmail: EmailProvider = { send: async (to, body) => { console.log(`Mock send to ${to}`); } };
+const mockLogger: Logger = { log: (msg) => { /* spy */ } };
+const testService = new GoodNotificationService(mockEmail, mockLogger);
+
+// Tipos de inyeccion
+  | Tipo | Ejemplo | Ventajas | Desventajas |
+  |------|---------|----------|-------------|
+  | Constructor | constructor(db: DB) | Deps obligatorias | Params largos |
+  | Setter | setDB(db: DB) | Opcional, flexible | Deps pueden faltar |
+  | Interface | @Injectable() | Metadata, DI container | Requiere framework |
+  | Property | @Inject() | Conciso | Deps ocultas |
+  | Method | process(db: DB, data) | Por llamada | Repetitivo |
+```
+
+Lecciones:
+  - DI desacopla: el servicio no crea sus dependencias
+  - Constructor injection es preferido: deps obligatorias y explicitas
+  - En tests, inyectar mocks: no tocar servicios reales
+  - DI container automatiza la composicion (tsyringe, InversifyJS)
+  - Sin DI container: composicion manual en el entry point
+  - DI vs Service Locator: DI es explicito, SL es implicito y oculto
+```
+
+### DI vs Service Locator: cual uso?
+
+Usa DI: las dependencias se pasan al constructor, son visibles y obligatorias. Usa Service Locator solo en legacy: el servicio pide dependencias a un registry global. DI es explicito: ves que necesita el servicio. SL es implicito: el servicio pide dependencias internamente, ocultando acoplamiento. DI es testable; SL es dificil de testear. Prefiere DI siempre.
+
+
+
+
+End of document. Review and update quarterly.

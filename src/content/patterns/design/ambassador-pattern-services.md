@@ -212,3 +212,107 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Ambassador for Legacy Service
+
+```text
+System: Modern microservice needs to call legacy SOAP service
+Pattern: Ambassador as intermediary
+
+Architecture:
+  Modern Service -> Ambassador -> Legacy SOAP Service
+
+  Ambassador responsibilities:
+    1. Translate REST/JSON to SOAP/XML
+    2. Retries with exponential backoff
+    3. Circuit breaker
+    4. Metrics and logging
+    5. Rate limiting
+    6. Response caching
+
+```typescript
+// Ambassador: wraps the legacy service
+class LegacyAmbassador {
+  private circuitBreaker: CircuitBreaker;
+  private cache = new Map<string, { data: unknown; expiry: number }>();
+  private retryConfig = { maxRetries: 3, backoffMs: 1000 };
+
+  constructor(private legacyEndpoint: string) {
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 5,
+      resetTimeoutMs: 30000,
+    });
+  }
+
+  async callLegacy(method: string, params: unknown): Promise<unknown> {
+    // 1. Circuit breaker
+    if (!this.circuitBreaker.canExecute()) {
+      throw new Error("Circuit open: legacy service unavailable");
+    }
+
+    // 2. Cache check
+    const cacheKey = `${method}:${JSON.stringify(params)}`;
+    const cached = this.cache.get(cacheKey);
+    if (cached && cached.expiry > Date.now()) {
+      return cached.data;
+    }
+
+    // 3. Retry with backoff
+    for (let attempt = 0; attempt < this.retryConfig.maxRetries; attempt++) {
+      try {
+        const result = await this.callSOAP(method, params);
+        this.circuitBreaker.recordSuccess();
+        this.cache.set(cacheKey, { data: result, expiry: Date.now() + 60000 });
+        return result;
+      } catch (err) {
+        this.circuitBreaker.recordFailure();
+        if (attempt < this.retryConfig.maxRetries - 1) {
+          await new Promise(r => setTimeout(r, this.retryConfig.backoffMs * Math.pow(2, attempt)));
+        }
+      }
+    }
+    throw new Error("Legacy service failed after retries");
+  }
+
+  private async callSOAP(method: string, params: unknown): Promise<unknown> {
+    // Translate JSON to XML SOAP envelope
+    const soapEnvelope = this.jsonToSOAP(method, params);
+    const response = await fetch(this.legacyEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "text/xml" },
+      body: soapEnvelope,
+    });
+    const xml = await response.text();
+    return this.soapToJSON(xml);
+  }
+
+  private jsonToSOAP(method: string, params: unknown): string {
+    return `<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <${method}>${JSON.stringify(params)}</${method}>
+  </soap:Body>
+</soap:Envelope>`;
+  }
+
+  private soapToJSON(xml: string): unknown {
+    // Parse XML response to JSON
+    return JSON.parse(xml.match(/<return>(.*)<\/return>/s)?.[1] || "{}");
+  }
+}
+```
+
+Lessons:
+  - Ambassador isolates complexity of the legacy service
+  - The modern service does not know it is talking to SOAP
+  - Circuit breaker protects against cascading failures
+  - Cache reduces calls to the legacy service
+  - Ambassador metrics are visible for monitoring
+```
+
+### Ambassador vs Sidecar: which do I use?
+
+Use Ambassador when you need an intermediary that wraps an external service (legacy, third-party). The ambassador lives on the client side and translates/protects calls. Use Sidecar when you need complementary functionality that lives alongside the service (logging, monitoring, proxy). Ambassador is client-side, Sidecar is server-side. Both can be containers in K8s.

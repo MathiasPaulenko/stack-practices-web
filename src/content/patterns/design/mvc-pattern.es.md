@@ -212,3 +212,91 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: MVC para Dashboard Web
+
+```typescript
+// MVC pattern: Model, View, Controller
+// Model: datos y logica de negocio
+class DashboardModel {
+  private metrics: Metric[] = [];
+  private subscribers: (() => void)[] = [];
+
+  addMetric(metric: Metric) {
+    this.metrics.push(metric);
+    this.notify();
+  }
+
+  getMetrics(): Metric[] { return [...this.metrics]; }
+
+  subscribe(cb: () => void) { this.subscribers.push(cb); }
+  private notify() { this.subscribers.forEach(cb => cb()); }
+}
+
+// View: renderiza la UI
+class DashboardView {
+  constructor(private container: HTMLElement) {}
+
+  render(metrics: Metric[]) {
+    this.container.innerHTML = metrics.map(m =>
+      `<div class="metric-card">`,
+      `<h3>${m.name}</h3>`,
+      `<span class="value">${m.value}</span>`,
+      `</div>`
+    ).join("");
+  }
+}
+
+// Controller: orquesta Model y View
+class DashboardController {
+  constructor(private model: DashboardModel, private view: DashboardView) {
+    this.model.subscribe(() => this.updateView());
+  }
+
+  async loadMetrics() {
+    const data = await fetch("/api/metrics").then(r => r.json());
+    data.forEach((m: Metric) => this.model.addMetric(m));
+  }
+
+  private updateView() {
+    this.view.render(this.model.getMetrics());
+  }
+}
+
+// Uso
+const model = new DashboardModel();
+const view = new DashboardView(document.getElementById("dashboard")!);
+const controller = new DashboardController(model, view);
+controller.loadMetrics();
+
+// Comparacion MVC vs MVP vs MVVM
+  | Patron | View conoce Model? | Acoplamiento | Data binding |
+  |--------|-------------------|-------------|--------------|
+  | MVC | Si (directamente) | Alto | Manual |
+  | MVP | No (via Presenter) | Medio | Manual |
+  | MVVM | No (via ViewModel) | Bajo | Automatico (Observable) |
+```
+
+Lecciones:
+  - MVC separa datos (Model), UI (View) y logica (Controller)
+  - El Controller es el unico que toca Model y View
+  - Model notifica cambios a traves de observers
+  - MVC es simple pero View puede acoplarse al Model
+  - Para apps modernas, MVVM con data binding es preferible
+```
+
+### MVC vs MVVM: cual uso en frontend?
+
+Usa MVC para apps simples donde la View es estatica y el Controller maneja todo. Usa MVVM (Model-View-ViewModel) para apps con data binding: la View se actualiza automaticamente cuando el ViewModel cambia. React usa un patron similar a MVVM (state + JSX). Angular usa MVVM con Change Detection. Vue usa MVVM con reactivity. MVC es mas comun en backend (Spring MVC, Express MVC).
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

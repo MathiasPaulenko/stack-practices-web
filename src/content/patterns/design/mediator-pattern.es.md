@@ -254,3 +254,108 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Mediator para Wizard Form Multi-Step
+
+```typescript
+// Mediator: coordinar pasos de un wizard sin acoplamiento
+interface WizardMediator {
+  notify(sender: string, event: string, data?: unknown): void;
+}
+
+abstract class WizardStep {
+  constructor(protected mediator: WizardMediator, public name: string) {}
+  abstract render(): string;
+  abstract validate(): boolean;
+}
+
+class PersonalInfoStep extends WizardStep {
+  private data = { name: "", email: "" };
+  render() { return `<input name="name" /><input name="email" />`; }
+  validate() {
+    if (!this.data.name || !this.data.email) return false;
+    this.mediator.notify(this.name, "valid", this.data);
+    return true;
+  }
+}
+
+class AddressStep extends WizardStep {
+  private data = { street: "", city: "" };
+  render() { return `<input name="street" /><input name="city" />`; }
+  validate() {
+    if (!this.data.street || !this.data.city) return false;
+    this.mediator.notify(this.name, "valid", this.data);
+    return true;
+  }
+}
+
+class PaymentStep extends WizardStep {
+  private data = { card: "", cvv: "" };
+  render() { return `<input name="card" /><input name="cvv" />`; }
+  validate() {
+    if (this.data.card.length < 16) return false;
+    this.mediator.notify(this.name, "valid", this.data);
+    return true;
+  }
+}
+
+// Mediator concreto
+class CheckoutWizard implements WizardMediator {
+  private steps: WizardStep[] = [];
+  private currentStep = 0;
+  private collectedData: Record<string, unknown> = {};
+
+  constructor() {
+    this.steps = [
+      new PersonalInfoStep(this, "personal"),
+      new AddressStep(this, "address"),
+      new PaymentStep(this, "payment"),
+    ];
+  }
+
+  notify(sender: string, event: string, data?: unknown) {
+    if (event === "valid") {
+      this.collectedData[sender] = data;
+      this.next();
+    }
+  }
+
+  next() {
+    if (this.currentStep < this.steps.length - 1) {
+      this.currentStep++;
+      this.renderCurrent();
+    } else {
+      this.complete();
+    }
+  }
+
+  back() {
+    if (this.currentStep > 0) { this.currentStep--; this.renderCurrent(); }
+  }
+
+  renderCurrent(): string { return this.steps[this.currentStep].render(); }
+  validateCurrent(): boolean { return this.steps[this.currentStep].validate(); }
+  complete() { console.log("Wizard complete:", this.collectedData); }
+}
+
+// Uso: los pasos no se conocen entre si
+const wizard = new CheckoutWizard();
+wizard.renderCurrent(); // Step 1: PersonalInfo
+wizard.validateCurrent(); // -> notify -> next()
+wizard.renderCurrent(); // Step 2: Address
+```
+
+Lecciones:
+  - Mediator coordina pasos del wizard sin acoplamiento
+  - Cada paso solo conoce al mediator, no a otros pasos
+  - Anadir nuevo paso = nueva clase + registrar en mediator
+  - El mediator controla el flujo: next, back, complete
+  - Los datos se centralizan en el mediator
+```
+
+### Mediator vs Observer en formularios?
+
+Usa Mediator en formularios multi-step: el mediator controla el flujo (next, back, validate). Usa Observer en formularios reactivos: el campo notifica cambios a observadores (validacion en vivo, dependencias entre campos). Mediator es centralizado: el mediator decide. Observer es descentralizado: cada componente reacciona. Para wizards, Mediator. Para reactive forms, Observer.

@@ -248,3 +248,98 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Facade para Subsistema de Checkout
+
+```typescript
+// Facade: simplificar un subsistema complejo
+// Subsistema: 5 servicios que el cliente no debe conocer
+class InventoryService {
+  async checkStock(itemId: string): Promise<boolean> { /* ... */ return true; }
+  async reserve(itemId: string, qty: number): Promise<void> { /* ... */ }
+}
+
+class PricingService {
+  calculateTotal(items: CartItem[]): number {
+    return items.reduce((sum, i) => sum + i.price * i.qty, 0);
+  }
+  applyCoupon(total: number, coupon: string): number { /* ... */ return total * 0.9; }
+}
+
+class PaymentService {
+  async charge(amount: number, token: string): Promise<PaymentResult> { /* ... */ return { success: true, txId: "tx_123" }; }
+}
+
+class ShippingService {
+  async createLabel(address: Address): Promise<string> { /* ... */ return "TRK_456"; }
+  calculateCost(address: Address): number { /* ... */ return 9.99; }
+}
+
+class NotificationService {
+  async sendConfirmation(email: string, orderId: string): Promise<void> { /* ... */ }
+}
+
+// Facade: una sola interfaz simple para el cliente
+class CheckoutFacade {
+  constructor(
+    private inventory: InventoryService,
+    private pricing: PricingService,
+    private payment: PaymentService,
+    private shipping: ShippingService,
+    private notification: NotificationService
+  ) {}
+
+  async checkout(cart: CartItem[], coupon: string, paymentToken: string, address: Address): Promise<OrderResult> {
+    // 1. Verificar stock y reservar
+    for (const item of cart) {
+      const inStock = await this.inventory.checkStock(item.id);
+      if (!inStock) throw new Error(`Item ${item.id} out of stock`);
+      await this.inventory.reserve(item.id, item.qty);
+    }
+
+    // 2. Calcular precio
+    let total = this.pricing.calculateTotal(cart);
+    if (coupon) total = this.pricing.applyCoupon(total, coupon);
+    total += this.shipping.calculateCost(address);
+
+    // 3. Cobrar
+    const paymentResult = await this.payment.charge(total, paymentToken);
+    if (!paymentResult.success) throw new Error("Payment failed");
+
+    // 4. Crear envio
+    const trackingNumber = await this.shipping.createLabel(address);
+
+    // 5. Notificar
+    await this.notification.sendConfirmation(address.email, paymentResult.txId);
+
+    return { orderId: paymentResult.txId, total, trackingNumber };
+  }
+}
+
+// Uso: el cliente solo llama a un metodo
+const facade = new CheckoutFacade(
+  new InventoryService(),
+  new PricingService(),
+  new PaymentService(),
+  new ShippingService(),
+  new NotificationService()
+);
+
+const result = await facade.checkout(cart, "SAVE10", paymentToken, address);
+console.log(result); // { orderId, total, trackingNumber }
+```
+
+Lecciones:
+  - Facade simplifica un subsistema complejo en una interfaz simple
+  - El cliente no conoce los 5 servicios internos
+  - La facade orquesta: stock -> precio -> pago -> envio -> notificacion
+  - No oculta los servicios: el cliente puede usarlos directamente si necesita
+  - Facade vs Mediator: Facade simplifica acceso; Mediator centraliza comunicacion
+```
+
+### Facade vs API Gateway: cual uso?
+
+Facade es un patron de codigo: simplifica un subsistema interno en una clase. API Gateway es un patron de infraestructura: un proxy entre clientes externos y microservicios. Facade vive en el codigo; API Gateway vive en la red. Usa Facade para simplificar llamadas entre modulos internos. Usa API Gateway para unificar APIs externas, agregar auth, rate limiting y routing. Ambos simplifican: Facade a nivel de clase, API Gateway a nivel de red.

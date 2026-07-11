@@ -251,3 +251,64 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Cache-Aside for Product API
+
+```typescript
+// Cache-Aside: read from cache, on miss read from DB and fill cache
+class ProductCache {
+  constructor(private redis: RedisClient, private db: Pool, private ttlSec: number = 300) {}
+
+  async getProduct(id: string): Promise<Product | null> {
+    // 1. Try cache
+    const cached = await this.redis.get(`product:${id}`);
+    if (cached) return JSON.parse(cached);
+
+    // 2. Cache miss: read from DB
+    const res = await this.db.query("SELECT * FROM products WHERE id = $1", [id]);
+    if (res.rows.length === 0) return null;
+    const product = res.rows[0];
+
+    // 3. Fill cache
+    await this.redis.setex(`product:${id}`, this.ttlSec, JSON.stringify(product));
+    return product;
+  }
+
+  async updateProduct(id: string, data: Partial<Product>): Promise<void> {
+    // 1. Update DB
+    await this.db.query("UPDATE products SET name=$1, price=$2 WHERE id=$3", [data.name, data.price, id]);
+    // 2. Invalidate cache
+    await this.redis.del(`product:${id}`);
+  }
+
+  async deleteProduct(id: string): Promise<void> {
+    await this.db.query("DELETE FROM products WHERE id = $1", [id]);
+    await this.redis.del(`product:${id}`);
+  }
+}
+
+// Invalidation strategies
+  | Strategy | Description | Pros | Cons |
+  |----------|-------------|------|------|
+  | TTL | Expires after N seconds | Simple | Stale data until expiry |
+  | Write-through | Write cache on DB write | Always consistent | Write latency |
+  | Write-around | Write DB only, cache on read | Fast writes | First read slow |
+  | Write-back | Write cache, async to DB | Fast writes | Risk of data loss |
+  | Explicit | Invalidate on update/delete | Full control | Requires manual code |
+```
+
+Lessons:
+  - Cache-Aside: the app manages cache explicitly
+  - Read: cache -> miss -> DB -> fill cache
+  - Write: DB -> invalidate cache (do not update cache)
+  - TTL as safety net: if invalidation fails, TTL cleans up
+  - Cache stampede: if N requests miss simultaneously, N DB queries
+  - Solution: lock or single-flight: only 1 request goes to DB, others wait
+```
+
+### How do I prevent cache stampede?
+
+Use a distributed lock (Redis SETNX): only the first request goes to DB, others wait. Alternative: probabilistic early expiration: refresh before TTL if there is traffic. Another option: single-flight in Go or Promise deduplication in JS: if a fetch is already in flight for that key, reuse the promise. This reduces N queries to 1 query during a massive cache miss.

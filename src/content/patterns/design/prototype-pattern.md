@@ -254,3 +254,82 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Prototype for Product Configurations
+
+```typescript
+// Prototype: clone existing objects instead of creating from scratch
+interface Prototype {
+  clone(): this;
+}
+
+class ProductConfig implements Prototype {
+  constructor(
+    public name: string,
+    public price: number,
+    public category: string,
+    public attributes: Record<string, string> = {},
+    public tags: string[] = []
+  ) {}
+
+  clone(): this {
+    // Deep clone: copy nested objects
+    const cloned = Object.create(this);
+    cloned.attributes = { ...this.attributes };
+    cloned.tags = [...this.tags];
+    return cloned;
+  }
+
+  setAttribute(key: string, value: string): this {
+    this.attributes[key] = value;
+    return this;
+  }
+
+  addTag(tag: string): this {
+    this.tags.push(tag);
+    return this;
+  }
+}
+
+// Base prototypes (registry)
+class ConfigRegistry {
+  private prototypes = new Map<string, ProductConfig>();
+  register(key: string, config: ProductConfig) { this.prototypes.set(key, config); }
+  get(key: string): ProductConfig | undefined { return this.prototypes.get(key)?.clone(); }
+}
+
+// Usage: register base prototypes
+const registry = new ConfigRegistry();
+registry.register("basic", new ProductConfig("Basic", 9.99, "software", { tier: "basic" }, ["starter"]));
+registry.register("pro", new ProductConfig("Pro", 29.99, "software", { tier: "pro", support: "24h" }, ["pro", "priority"]));
+registry.register("enterprise", new ProductConfig("Enterprise", 99.99, "software", { tier: "enterprise", support: "1h", sla: "99.99%" }, ["enterprise", "priority", "sla"]));
+
+// Clone and customize
+const customPro = registry.get("pro")!;
+customPro.name = "Pro Custom";
+customPro.setAttribute("discount", "20%");
+customPro.addTag("custom");
+
+console.log(customPro.name); // "Pro Custom"
+console.log(customPro.attributes.discount); // "20%"
+console.log(customPro.tags); // ["pro", "priority", "custom"]
+
+// Original prototype is not modified
+const originalPro = registry.get("pro")!;
+console.log(originalPro.name); // "Pro" (unchanged)
+```
+
+Lessons:
+  - Prototype clones existing objects instead of constructing from scratch
+  - Deep clone: copy attributes and tags (nested objects)
+  - Prototype registry: register base configs and clone on demand
+  - The original prototype is not modified: each clone is independent
+  - Ideal for configs with many defaults and few variations
+```
+
+### Prototype vs Factory: which do I use?
+
+Use Prototype when you have pre-configured objects and need variations: cloning is more efficient than constructing from scratch. Use Factory when you need to create new objects with variable parameters: the factory decides which class to instantiate. Prototype clones existing; Factory creates new. For configs with defaults, Prototype. For creating objects of different types based on input, Factory.

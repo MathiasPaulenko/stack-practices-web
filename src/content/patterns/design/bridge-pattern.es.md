@@ -238,3 +238,65 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Bridge para Renderizado Multi-plataforma
+
+```typescript
+// Bridge pattern: separar abstraccion de implementacion
+interface Renderer {
+  renderCircle(x: number, y: number, r: number): string;
+  renderRect(x: number, y: number, w: number, h: number): string;
+  renderText(x: number, y: number, text: string): string;
+}
+
+class SVGRenderer implements Renderer {
+  renderCircle(x, y, r) { return `<circle cx="${x}" cy="${y}" r="${r}" />`; }
+  renderRect(x, y, w, h) { return `<rect x="${x}" y="${y}" width="${w}" height="${h}" />`; }
+  renderText(x, y, text) { return `<text x="${x}" y="${y}">${text}</text>`; }
+}
+
+class CanvasRenderer implements Renderer {
+  renderCircle(x, y, r) { return `ctx.arc(${x}, ${y}, ${r}, 0, Math.PI * 2); ctx.stroke();`; }
+  renderRect(x, y, w, h) { return `ctx.strokeRect(${x}, ${y}, ${w}, ${h});`; }
+  renderText(x, y, text) { return `ctx.fillText("${text}", ${x}, ${y});`; }
+}
+
+abstract class Shape {
+  constructor(protected renderer: Renderer) {}
+  abstract draw(): string;
+}
+
+class Circle extends Shape {
+  constructor(renderer: Renderer, private x: number, private y: number, private r: number) { super(renderer); }
+  draw() { return this.renderer.renderCircle(this.x, this.y, this.r); }
+}
+
+class Rectangle extends Shape {
+  constructor(renderer: Renderer, private x: number, private y: number, private w: number, private h: number) { super(renderer); }
+  draw() { return this.renderer.renderRect(this.x, this.y, this.w, this.h); }
+}
+
+// Uso: mismas shapes, diferentes renderers
+const svgCircle = new Circle(new SVGRenderer(), 50, 50, 20);
+const canvasCircle = new Circle(new CanvasRenderer(), 50, 50, 20);
+console.log(svgCircle.draw());   // <circle cx="50" cy="50" r="20" />
+console.log(canvasCircle.draw()); // ctx.arc(50, 50, 20, 0, Math.PI * 2); ctx.stroke();
+```
+
+Lecciones:
+  - Bridge separa abstraccion (Shape) de implementacion (Renderer)
+  - Anadir nuevo renderer no requiere cambiar shapes
+  - Anadir nuevo shape no requiere cambiar renderers
+  - Reduce explosion de clases: M shapes + N renderers vs M*N
+  - Flexibilidad en runtime: cambiar renderer sin tocar shape logic
+```
+
+### Bridge vs Adapter: cual uso?
+
+Bridge es estructural: disenado desde el inicio para separar abstraccion de implementacion. Adapter es estructural: hace que interfaces incompatibles funcionen juntas. Bridge es proactivo: disenas ambos lados. Adapter es reactivo: envuelves una clase existente. Usa Bridge cuando controlas ambos lados y quieres evolucion independiente. Usa Adapter cuando necesitas integrar una API de terceros con una interfaz incompatible.
+
+
+End of document. Review and update quarterly.

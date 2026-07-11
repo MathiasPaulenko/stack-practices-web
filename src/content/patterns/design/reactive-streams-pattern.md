@@ -236,3 +236,106 @@ For simple cases (one producer, one consumer, no composition), async/await is si
 ### Can I have multiple subscribers?
 
 Yes, but each gets its own subscription with independent demand. A `publish` operator shares a single upstream subscription among multiple subscribers. A ` multicast` operator buffers items for late subscribers.
+
+
+## Advanced Topics
+
+### Scenario: Reactive Streams for Event Processing
+
+```typescript
+// Reactive Streams: Publisher, Subscriber, Subscription
+interface Publisher<T> {
+  subscribe(subscriber: Subscriber<T>): void;
+}
+
+interface Subscriber<T> {
+  onNext(value: T): void;
+  onError(err: Error): void;
+  onComplete(): void;
+}
+
+// Publisher: emits data
+class EventPublisher<T> implements Publisher<T> {
+  private subscribers: Subscriber<T>[] = [];
+  private buffer: T[] = [];
+  private maxBuffer = 1000;
+
+  subscribe(sub: Subscriber<T>) { this.subscribers.push(sub); }
+
+  emit(value: T) {
+    this.buffer.push(value);
+    if (this.buffer.length > this.maxBuffer) {
+      this.buffer.shift(); // discard oldest
+    }
+    this.subscribers.forEach(s => {
+      try { s.onNext(value); }
+      catch (err) { s.onError(err); }
+    });
+  }
+
+  complete() {
+    this.subscribers.forEach(s => s.onComplete());
+    this.subscribers = [];
+  }
+}
+
+// Subscriber: processes data with backpressure
+class BatchProcessor<T> implements Subscriber<T> {
+  private batch: T[] = [];
+  private batchSize: number;
+  private processFn: (batch: T[]) => Promise<void>;
+
+  constructor(batchSize: number, processFn: (batch: T[]) => Promise<void>) {
+    this.batchSize = batchSize;
+    this.processFn = processFn;
+  }
+
+  async onNext(value: T) {
+    this.batch.push(value);
+    if (this.batch.length >= this.batchSize) {
+      const batch = this.batch.splice(0, this.batchSize);
+      await this.processFn(batch);
+    }
+  }
+  onError(err: Error) { console.error("[REACTIVE] Error:", err); }
+  async onComplete() {
+    if (this.batch.length > 0) await this.processFn(this.batch);
+    console.log("[REACTIVE] Stream complete");
+  }
+}
+
+// Usage: process click events in batches of 100
+const publisher = new EventPublisher<ClickEvent>();
+const processor = new BatchProcessor(100, async (batch) => {
+  await fetch("/api/analytics", { method: "POST", body: JSON.stringify(batch) });
+});
+publisher.subscribe(processor);
+
+// Simulate events
+for (let i = 0; i < 350; i++) {
+  publisher.emit({ x: i, y: i * 2, timestamp: Date.now() });
+}
+publisher.complete(); // process final batch of 50
+
+// Comparison: RxJS vs Reactive Streams
+  | Aspect | Reactive Streams | RxJS |
+  |--------|-----------------|------|
+  | Standard | Reactive Streams spec | Library |
+  | Backpressure | Explicit (Subscription) | Buffer/lossy |
+  | Operators | Basic | 100+ operators |
+  | Typing | Generics | Native TypeScript |
+  | Use case | Event-driven systems | UI, transformations |
+```
+
+Lessons:
+  - Reactive Streams standardizes pub/sub with backpressure
+  - Publisher emits, Subscriber consumes, Subscription controls
+  - Backpressure: the subscriber controls the consumption rate
+  - Batching reduces overhead: process 100 events per HTTP request
+  - In Node.js, use RxJS or most.js for reactive programming
+  - For pure event-driven systems, use Reactive Streams
+```
+
+### How do I handle backpressure in reactive streams?
+
+Backpressure is when the publisher emits faster than the subscriber can process. Strategies: 1) Buffer: store up to a limit (can cause OOM). 2) Drop: discard new events. 3) Latest: keep only the most recent. 4) Throttle: limit emission rate. 5) Request(n): the subscriber asks the publisher for N items (pull-based). The best strategy depends on the use case: for analytics, drop is acceptable. For payments, buffer with persistence.

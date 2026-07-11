@@ -209,3 +209,94 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Bridge para UI Themes Multi-plataforma
+
+```typescript
+// Bridge pattern: separar abstraccion (UI) de implementacion (theme)
+interface Theme {
+  primary: string;
+  background: string;
+  text: string;
+  renderButton(label: string): string;
+}
+
+// Implementaciones concretas
+class LightTheme implements Theme {
+  primary = "#3b82f6";
+  background = "#ffffff";
+  text = "#1e293b";
+  renderButton(label: string): string {
+    return `<button style="background:${this.primary};color:white;padding:8px 16px">${label}</button>`;
+  }
+}
+
+class DarkTheme implements Theme {
+  primary = "#3b82f6";
+  background = "#1e293b";
+  text = "#f1f5f9";
+  renderButton(label: string): string {
+    return `<button style="background:${this.primary};color:white;padding:8px 16px">${label}</button>`;
+  }
+}
+
+class HighContrastTheme implements Theme {
+  primary = "#ffff00";
+  background = "#000000";
+  text = "#ffffff";
+  renderButton(label: string): string {
+    return `<button style="background:${this.primary};color:black;padding:8px 16px;font-weight:bold;border:2px solid white">${label}</button>`;
+  }
+}
+
+// Abstraccion: UI Component
+abstract class UIComponent {
+  constructor(protected theme: Theme) {}
+  abstract render(): string;
+}
+
+class Button extends UIComponent {
+  constructor(theme: Theme, private label: string) { super(theme); }
+  render(): string { return this.theme.renderButton(this.label); }
+}
+
+class Card extends UIComponent {
+  constructor(theme: Theme, private content: string) { super(theme); }
+  render(): string {
+    return `<div style="background:${this.theme.background};color:${this.theme.text};padding:16px;border-radius:8px">${this.content}</div>`;
+  }
+}
+
+// Uso: cambiar theme sin tocar componentes
+const lightButton = new Button(new LightTheme(), "Click me");
+const darkButton = new Button(new DarkTheme(), "Click me");
+const hcButton = new Button(new HighContrastTheme(), "Click me");
+
+// Cambiar theme en runtime
+let currentTheme: Theme = new LightTheme();
+const button = new Button(currentTheme, "Submit");
+console.log(button.render()); // Light theme
+
+// Switch to dark
+currentTheme = new DarkTheme();
+button.theme = currentTheme;
+console.log(button.render()); // Dark theme
+```
+
+Lecciones:
+  - Bridge separa abstraccion (UI components) de implementacion (themes)
+  - Anadir nuevo theme no requiere tocar UI components
+  - Anadir nuevo componente no requiere tocar themes
+  - Cambiar theme en runtime: solo swap la implementacion
+  - Reduce el numero de clases: M componentes + N themes vs M*N
+```
+
+### Bridge vs Strategy: cual uso?
+
+Bridge es estructural: separa jerarquia de abstraccion de jerarquia de implementacion permanentemente. Strategy es comportamental: cambia algoritmo en runtime. Si la relacion es permanente (un UI component siempre tiene un theme), usa Bridge. Si el comportamiento cambia frecuentemente (algoritmo de sorting), usa Strategy. Bridge tiene dos jerarquias paralelas; Strategy tiene una interfaz con multiples implementaciones.
+
+
+End of document. Review and update quarterly.

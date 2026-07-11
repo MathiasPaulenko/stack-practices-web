@@ -251,3 +251,64 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Cache-Aside para API de Productos
+
+```typescript
+// Cache-Aside: leer de cache, si miss leer de DB y llenar cache
+class ProductCache {
+  constructor(private redis: RedisClient, private db: Pool, private ttlSec: number = 300) {}
+
+  async getProduct(id: string): Promise<Product | null> {
+    // 1. Intentar cache
+    const cached = await this.redis.get(`product:${id}`);
+    if (cached) return JSON.parse(cached);
+
+    // 2. Cache miss: leer de DB
+    const res = await this.db.query("SELECT * FROM products WHERE id = $1", [id]);
+    if (res.rows.length === 0) return null;
+    const product = res.rows[0];
+
+    // 3. Llenar cache
+    await this.redis.setex(`product:${id}`, this.ttlSec, JSON.stringify(product));
+    return product;
+  }
+
+  async updateProduct(id: string, data: Partial<Product>): Promise<void> {
+    // 1. Actualizar DB
+    await this.db.query("UPDATE products SET name=$1, price=$2 WHERE id=$3", [data.name, data.price, id]);
+    // 2. Invalidar cache
+    await this.redis.del(`product:${id}`);
+  }
+
+  async deleteProduct(id: string): Promise<void> {
+    await this.db.query("DELETE FROM products WHERE id = $1", [id]);
+    await this.redis.del(`product:${id}`);
+  }
+}
+
+// Estrategias de invalidacion
+  | Estrategia | Descripcion | Pros | Contras |
+  |-------------|-------------|------|---------|
+  | TTL | Expira tras N segundos | Simple | Datos stale hasta expirar |
+  | Write-through | Escribir cache al escribir DB | Siempre consistente | Latencia en writes |
+  | Write-around | Escribir solo DB, cache en read | Writes rapidos | Primer read es lento |
+  | Write-back | Escribir cache, async a DB | Writes rapidos | Riesgo de perdida |
+  | Explicit | Invalidar en update/delete | Control total | Requiere codigo manual |
+```
+
+Lecciones:
+  - Cache-Aside: la app gestiona el cache explicitamente
+  - Read: cache -> miss -> DB -> fill cache
+  - Write: DB -> invalidate cache (no actualizar cache)
+  - TTL como red de seguridad: si la invalidacion falla, el TTL limpia
+  - Cache stampede: si N requests hacen miss simultaneo, N queries a DB
+  - Solucion: lock o single-flight: solo 1 request va a DB, los demas esperan
+```
+
+### Como evito cache stampede?
+
+Usa un lock distribuido (Redis SETNX): solo el primer request va a DB, los demas esperan. Alternativa: cache con probabilistic early expiration: refrescar antes del TTL si hay trafico. Otra opcion: single-flight en Go o Promise deduplication en JS: si ya hay un fetch en curso para esa key, reutilizar la promesa. Esto reduce N queries a 1 query durante un cache miss masivo.

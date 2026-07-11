@@ -241,3 +241,78 @@ Si, si usas RabbitMQ TTL + DLX. La cola diferida mantiene los mensajes durante e
 ### ¿Puedo cancelar un mensaje diferido?
 
 Con delay nativo del broker (SQS, BullMQ), no puedes cancelar un mensaje una vez enviado. Con un almacen programado, puedes marcar el mensaje como cancelado antes de que el scheduler lo recoja.
+
+
+## Temas Avanzados
+
+### Escenario: Message Deferral para Reintentos con Delay
+
+```typescript
+// Message deferral: retrasar el procesamiento de un mensaje
+// Caso: pago con tarjeta requiere espera de 30s antes de reintentar
+
+// Usando Azure Service Bus deferred messages
+async function deferPaymentVerification(messageId: string, delaySeconds: number) {
+  const sender = serviceBusClient.createSender("payments");
+  const message = {
+    body: { messageId, retryCount: 0 },
+    scheduledEnqueueTimeUtc: new Date(Date.now() + delaySeconds * 1000),
+  };
+  await sender.sendMessages(message);
+}
+
+// Usando SQS con delay queue
+async function deferWithSQS(message: unknown, delaySeconds: number) {
+  await sqs.sendMessage({
+    QueueUrl: DELAY_QUEUE_URL,
+    MessageBody: JSON.stringify(message),
+    DelaySeconds: Math.min(delaySeconds, 900), // max 15 min en SQS
+  }).promise();
+}
+
+// Worker: procesar con logica de deferral
+async function processWithDeferral(msg: PaymentMessage) {
+  try {
+    const result = await verifyPayment(msg.paymentId);
+    if (result.status === "pending") {
+      if (msg.retryCount < 5) {
+        const delay = Math.pow(2, msg.retryCount) * 10; // 10s, 20s, 40s...
+        await deferPaymentVerification(msg.id, delay);
+        console.log(`Deferred ${msg.id} for ${delay}s (retry ${msg.retryCount + 1})`);
+      } else {
+        await moveToDLQ(msg, "Max retries exceeded");
+      }
+    } else {
+      console.log(`Payment ${msg.paymentId} verified: ${result.status}`);
+    }
+  } catch (err) {
+    if (msg.retryCount < 3) {
+      await deferPaymentVerification(msg.id, 30);
+    } else {
+      await moveToDLQ(msg, err.message);
+    }
+  }
+}
+
+// Comparacion: deferral strategies
+  | Estrategia | Implementacion | Max delay | Use case |
+  |-------------|----------------|-----------|----------|
+  | SQS DelaySeconds | SQS delay queue | 900s (15min) | Retries cortos |
+  | SQS scheduled | Message timer | 900s | Retries con delay exacto |
+  | EventBridge schedule | Cron/rate | Ilimitado | Schedules periodicos |
+  | Service Bus deferred | Scheduled enqueue | Ilimitado | Azure nativo |
+  | RabbitMQ DLX + TTL | Dead letter + TTL | Configurable | RabbitMQ |
+```
+
+Lecciones:
+  - Deferral retrasa el procesamiento sin bloquear el worker
+  - Backoff exponencial: 10s, 20s, 40s, 80s, 160s
+  - Max 5 retries: despues va a DLQ
+  - SQS DelaySeconds max 900s (15 min): para delays mayores, usar EventBridge
+  - El worker no se bloquea esperando: el mensaje vuelve a la queue tras el delay
+  - Idempotencia: el worker debe ser idempotente, el mensaje puede procesarse multiples veces
+```
+
+### Como garantizo idempotencia con deferral?
+
+Usa un id unico (messageId) y un store (Redis/DB) para trackear el estado. Antes de procesar, verifica si ya se proceso: si result.status === "completed", skip. Si "processing", esperar o skip. Usa optimistic locking: UPDATE messages SET status=processing WHERE id=X AND status=pending. Si affected_rows=0, alguien mas lo proceso. Idempotencia es obligatoria en sistemas distribuidos: el mismo mensaje puede entregarse 1+ veces.

@@ -245,3 +245,82 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Flyweight para Renderizado de Tiles de Juego
+
+```typescript
+// Flyweight: compartir datos de tiles en el mapa
+interface TileFlyweight {
+  terrain: string;
+  color: string;
+  movementCost: number;
+  isWalkable: boolean;
+}
+
+class Tile implements TileFlyweight {
+  constructor(
+    public terrain: string,
+    public color: string,
+    public movementCost: number,
+    public isWalkable: boolean
+  ) {}
+}
+
+class TileFactory {
+  private cache = new Map<string, TileFlyweight>();
+  getTile(terrain: string): TileFlyweight {
+    if (!this.cache.has(terrain)) {
+      const configs: Record<string, [string, number, boolean]> = {
+        grass: ["#4ade80", 1, true],
+        water: ["#3b82f6", 5, false],
+        mountain: ["#78716c", 3, true],
+        forest: ["#166534", 2, true],
+        desert: ["#fbbf24", 2, true],
+      };
+      const [color, cost, walkable] = configs[terrain];
+      this.cache.set(terrain, new Tile(terrain, color, cost, walkable));
+    }
+    return this.cache.get(terrain)!;
+  }
+  getCacheSize(): number { return this.cache.size; }
+}
+
+// Estado extrinseco: posicion (no se comparte)
+class MapGrid {
+  private tiles: { flyweight: TileFlyweight; x: number; y: number }[] = [];
+  constructor(private factory: TileFactory, private width: number, private height: number) {
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        const terrain = this.randomTerrain();
+        const flyweight = factory.getTile(terrain);
+        this.tiles.push({ flyweight, x, y });
+      }
+    }
+  }
+  private randomTerrain(): string {
+    const terrains = ["grass", "water", "mountain", "forest", "desert"];
+    return terrains[Math.floor(Math.random() * terrains.length)];
+  }
+}
+
+// Uso: 10000 tiles, solo 5 objetos flyweight
+const factory = new TileFactory();
+const map = new MapGrid(factory, 100, 100);
+console.log(`Cache: ${factory.getCacheSize()}`); // 5
+console.log(`Tiles: ${map.tiles.length}`); // 10000
+```
+
+Lecciones:
+  - Flyweight comparte estado intrinseco (terrain, color, cost)
+  - Estado extrinseco (x, y) se guarda por-tile, no se comparte
+  - 10000 tiles con 5 flyweights: 99.95% ahorro de memoria
+  - La factory cachea flyweights: O(1) lookup
+  - Ideal para juegos, mapas, sistemas de particulas, editores de texto
+```
+
+### Cuando NO tiene sentido flyweight?
+
+No uses flyweight cuando hay pocos objetos (el overhead supera el ahorro), cuando cada objeto tiene estado unico (no hay sharing posible), o cuando los objetos son mutables (flyweight requiere inmutabilidad). Si tienes 100 tiles con 90 terrains unicos, el overhead de la factory no vale la pena. Flyweight vale la pena cuando el ratio de objetos a estados intrinsecos unicos es alto (ej: 10000 tiles, 5 terrains).

@@ -252,3 +252,86 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Iterator for Custom Collections
+
+```typescript
+// Iterator for custom LinkedList
+class LinkedListNode<T> {
+  constructor(public value: T, public next: LinkedListNode<T> | null = null) {}
+}
+
+class LinkedList<T> implements Iterable<T> {
+  private head: LinkedListNode<T> | null = null;
+  private tail: LinkedListNode<T> | null = null;
+  private size = 0;
+
+  append(value: T) {
+    const node = new LinkedListNode(value);
+    if (!this.head) { this.head = node; this.tail = node; }
+    else { this.tail!.next = node; this.tail = node; }
+    this.size++;
+  }
+
+  // Implement Symbol.iterator to support for...of
+  [Symbol.iterator](): Iterator<T> {
+    let current = this.head;
+    return {
+      next(): IteratorResult<T> {
+        if (!current) return { done: true, value: undefined };
+        const value = current.value;
+        current = current.next;
+        return { done: false, value };
+      }
+    };
+  }
+
+  // Reverse iterator using generator
+  *reverseIterator(): Generator<T> {
+    const values: T[] = [];
+    let current = this.head;
+    while (current) { values.unshift(current.value); current = current.next; }
+    for (const v of values) yield v;
+  }
+
+  // Filter iterator
+  *filterIterator(pred: (v: T) => boolean): Generator<T> {
+    let current = this.head;
+    while (current) {
+      if (pred(current.value)) yield current.value;
+      current = current.next;
+    }
+  }
+}
+
+// Usage
+const list = new LinkedList<number>();
+list.append(1); list.append(2); list.append(3); list.append(4); list.append(5);
+
+// for...of works thanks to Symbol.iterator
+for (const v of list) console.log(v); // 1, 2, 3, 4, 5
+
+// Reverse iterator
+for (const v of list.reverseIterator()) console.log(v); // 5, 4, 3, 2, 1
+
+// Filter iterator
+for (const v of list.filterIterator(x => x % 2 === 0)) console.log(v); // 2, 4
+
+// Spread operator also works
+const arr = [...list]; // [1, 2, 3, 4, 5]
+```
+
+Lessons:
+  - Symbol.iterator makes any iterable compatible with for...of, spread, destructuring
+  - Generators (function*) are the most concise way to implement iterators
+  - Custom iterators: filter, reverse, map, slice without intermediate arrays
+  - Lazy evaluation: generators only compute when consumed
+  - In JS, Map, Set, String, Array, NodeList are iterable by default
+```
+
+### How do I make my class iterable with for...of?
+
+Implement [Symbol.iterator]() that returns an object with next(). next() returns { done: boolean, value: T }. When done is true, iteration ends. Alternatively, use a generator: *[Symbol.iterator]() { let current = this.head; while (current) { yield current.value; current = current.next; } }. The generator manages state automatically: more concise and less error-prone.

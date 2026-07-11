@@ -240,3 +240,78 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Queue-Based Load Leveling para Procesamiento de Pedidos
+
+```text
+Sistema: E-commerce con picos de trafico (Black Friday)
+Patron: Queue para nivelar carga entre API y worker
+
+Arquitectura:
+  API -> Message Queue (SQS/RabbitMQ) -> Worker Pool
+
+  API: acepta pedidos rapidamente (p99 < 100ms)
+  Queue: buffer de hasta 10000 pedidos
+  Worker: procesa 50 pedidos concurrentes
+  DLQ: pedidos fallidos tras 3 retries
+```typescript
+// API: encolar pedido
+app.post("/api/orders", async (req, res) => {
+  const order = req.body;
+  await sqs.sendMessage({
+    QueueUrl: ORDER_QUEUE_URL,
+    MessageBody: JSON.stringify(order),
+  }).promise();
+  res.status(202).json({ status: "queued", orderId: order.id });
+});
+
+// Worker: consumir pedidos
+async function processOrders() {
+  while (true) {
+    const messages = await sqs.receiveMessage({
+      QueueUrl: ORDER_QUEUE_URL,
+      MaxNumberOfMessages: 10,
+      WaitTimeSeconds: 20, // long polling
+    }).promise();
+
+    for (const msg of messages.Messages || []) {
+      try {
+        const order = JSON.parse(msg.Body);
+        await processOrder(order);
+        await sqs.deleteMessage({
+          QueueUrl: ORDER_QUEUE_URL,
+          ReceiptHandle: msg.ReceiptHandle,
+        }).promise();
+      } catch (err) {
+        // El mensaje vuelve a la queue tras visibility timeout
+        console.error("Order failed:", err);
+      }
+    }
+  }
+}
+
+// Metricas clave
+  | Metrica | Objetivo | Alerta |
+  |---------|----------|--------|
+  | Queue depth | < 1000 | > 5000 |
+  | Process latency | < 30s | > 120s |
+  | Error rate | < 1% | > 5% |
+  | Worker CPU | < 70% | > 90% |
+  | DLQ depth | 0 | > 10 |
+```
+
+Lecciones:
+  - Queue desacopla productor (API) de consumidor (worker)
+  - La API responde rapido: 202 Accepted, no procesa sincrono
+  - El worker procesa a su ritmo: no se satura en picos
+  - Long polling reduce costos en SQS: WaitTimeSeconds=20
+  - DLQ para mensajes que fallan tras N retries
+  - Auto-scaling del worker segun queue depth
+```
+
+### Como configuro el auto-scaling del worker?
+
+Usa CloudWatch alarm en QueueDepth: si > 1000, scale up 2 workers. Si < 100, scale down 1. Configura cooldown de 300s para evitar thrashing. En K8s, usa KEDA con SQS scaler: scale basado en ApproximateNumberOfMessages. Min replicas: 2 (HA), max: 20. Target: 100 mensajes por worker. El worker lee en batches de 10 para eficiencia.

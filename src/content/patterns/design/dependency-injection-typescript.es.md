@@ -214,3 +214,91 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: DI Container para Microservicio
+
+```typescript
+// DI container minimal en TypeScript
+type Constructor<T = unknown> = new (...args: unknown[]) => T;
+
+class DIContainer {
+  private services = new Map<string, { factory: () => unknown; singleton: boolean; instance?: unknown }>();
+
+  registerTransient<T>(token: string, factory: () => T): void {
+    this.services.set(token, { factory, singleton: false });
+  }
+
+  registerSingleton<T>(token: string, factory: () => T): void {
+    this.services.set(token, { factory, singleton: true });
+  }
+
+  resolve<T>(token: string): T {
+    const service = this.services.get(token);
+    if (!service) throw new Error(`Service not found: ${token}`);
+    if (service.singleton) {
+      if (!service.instance) {
+        service.instance = service.factory();
+      }
+      return service.instance as T;
+    }
+    return service.factory() as T;
+  }
+}
+
+// Uso: registrar servicios
+const container = new DIContainer();
+
+// Singleton: una instancia para toda la app
+container.registerSingleton("Database", () => new PostgreSQLConnection({
+  host: "localhost", port: 5432, max: 20
+}));
+
+// Singleton: logger compartido
+container.registerSingleton("Logger", () => new WinstonLogger({
+  level: "info", format: "json"
+}));
+
+// Transient: nueva instancia cada vez
+container.registerTransient("UserRepository", () => {
+  const db = container.resolve<DatabaseConnection>("Database");
+  const logger = container.resolve<Logger>("Logger");
+  return new UserRepository(db, logger);
+});
+
+// Transient: nueva instancia cada request
+container.registerTransient("UserService", () => {
+  const repo = container.resolve<UserRepository>("UserRepository");
+  return new UserService(repo);
+});
+
+// Resolver en el handler
+app.get("/api/users/:id", (req, res) => {
+  const userService = container.resolve<UserService>("UserService");
+  const user = await userService.findById(req.params.id);
+  res.json(user);
+});
+
+// Tipos de DI
+  | Tipo | Descripcion | Ejemplo |
+  |------|-------------|---------|
+  | Constructor | Deps en constructor | constructor(db: DB) |
+  | Setter | Deps via setter | service.setDB(db) |
+  | Interface | Deps via interfaz | @Injectable() |
+  | Property | Deps en propiedades | @Inject() |
+```
+
+Lecciones:
+  - DI desacopla la creacion de dependencias del uso
+  - Singleton para recursos compartidos (DB, logger, cache)
+  - Transient para objetos por-request (repos, services)
+  - Constructor injection es la mas segura (deps obligatorias)
+  - En tests, registra mocks en el container
+  - Frameworks: tsyringe, InversifyJS, NestJS DI
+```
+
+### Como testeo con DI?
+
+En tests, crea un container separado y registra mocks. Usa registerSingleton para reemplazar DB con una mock, Logger con un spy. Resuelve el servicio bajo test: sus dependencias seran los mocks. Esto permite testear unitario sin tocar DB real. Para integration tests, usa el container real con Testcontainers para DB.

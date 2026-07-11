@@ -260,3 +260,83 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Value Objects para Dinero y Coordenadas
+
+```typescript
+// Value Object: inmutable, sin identidad, igualdad por valor
+class Money {
+  constructor(readonly amount: number, readonly currency: string) {
+    if (amount < 0) throw new Error("Amount cannot be negative");
+    if (!currency || currency.length !== 3) throw new Error("Invalid currency code");
+    Object.freeze(this); // Inmutable
+  }
+
+  add(other: Money): Money {
+    if (this.currency !== other.currency) throw new Error("Currency mismatch");
+    return new Money(this.amount + other.amount, this.currency);
+  }
+  subtract(other: Money): Money {
+    if (this.currency !== other.currency) throw new Error("Currency mismatch");
+    return new Money(this.amount - other.amount, this.currency);
+  }
+  multiply(factor: number): Money {
+    return new Money(Math.round(this.amount * factor * 100) / 100, this.currency);
+  }
+  equals(other: Money): boolean {
+    return this.amount === other.amount && this.currency === other.currency;
+  }
+  toString(): string {
+    return `${this.amount.toFixed(2)} ${this.currency}`;
+  }
+}
+
+// Value Object: Coordenadas geograficas
+class GeoCoordinate {
+  constructor(readonly lat: number, readonly lng: number) {
+    if (lat < -90 || lat > 90) throw new Error("Invalid latitude");
+    if (lng < -180 || lng > 180) throw new Error("Invalid longitude");
+    Object.freeze(this);
+  }
+  distanceTo(other: GeoCoordinate): number {
+    const R = 6371; // km
+    const dLat = (other.lat - this.lat) * Math.PI / 180;
+    const dLng = (other.lng - this.lng) * Math.PI / 180;
+    const a = Math.sin(dLat/2) ** 2 +
+      Math.cos(this.lat * Math.PI / 180) * Math.cos(other.lat * Math.PI / 180) *
+      Math.sin(dLng/2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+  equals(other: GeoCoordinate): boolean {
+    return this.lat === other.lat && this.lng === other.lng;
+  }
+}
+
+// Uso
+const price = new Money(99.99, "USD");
+const tax = new Money(8.99, "USD");
+const total = price.add(tax);
+console.log(total.toString()); // "108.98 USD"
+console.log(price.equals(new Money(99.99, "USD"))); // true
+console.log(price.equals(total)); // false
+
+const nyc = new GeoCoordinate(40.7128, -74.0060);
+const la = new GeoCoordinate(34.0522, -118.2437);
+console.log(`${nyc.distanceTo(la).toFixed(0)} km`); // "3936 km"
+```
+
+Lecciones:
+  - Value Object: inmutable, sin identidad, igualdad por valor
+  - Money: no usar float para dinero. Usar cents (integer) o BigDecimal
+  - Object.freeze() garantiza inmutabilidad en runtime
+  - Operaciones retornan nuevas instancias, no mutan
+  - equals() compara por valor, no por referencia
+  - Validacion en constructor: un Value Object invalido no existe
+```
+
+### Value Object vs Entity: cual uso?
+
+Usa Value Object cuando la identidad no importa: Money, Date, Coordinate, Address. Dos Money de 100 USD son intercambiables. Usa Entity cuando la identidad importa: User, Order, Product. Dos Users con el mismo nombre son diferentes personas. Value Objects son inmutables; Entities son mutables. Value Objects se comparan por valor; Entities por id. Prefiere Value Objects cuando sea posible: son mas simples, testeables y no tienen efectos secundarios.

@@ -254,3 +254,108 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Mediator for Multi-Step Wizard Form
+
+```typescript
+// Mediator: coordinate wizard steps without coupling
+interface WizardMediator {
+  notify(sender: string, event: string, data?: unknown): void;
+}
+
+abstract class WizardStep {
+  constructor(protected mediator: WizardMediator, public name: string) {}
+  abstract render(): string;
+  abstract validate(): boolean;
+}
+
+class PersonalInfoStep extends WizardStep {
+  private data = { name: "", email: "" };
+  render() { return `<input name="name" /><input name="email" />`; }
+  validate() {
+    if (!this.data.name || !this.data.email) return false;
+    this.mediator.notify(this.name, "valid", this.data);
+    return true;
+  }
+}
+
+class AddressStep extends WizardStep {
+  private data = { street: "", city: "" };
+  render() { return `<input name="street" /><input name="city" />`; }
+  validate() {
+    if (!this.data.street || !this.data.city) return false;
+    this.mediator.notify(this.name, "valid", this.data);
+    return true;
+  }
+}
+
+class PaymentStep extends WizardStep {
+  private data = { card: "", cvv: "" };
+  render() { return `<input name="card" /><input name="cvv" />`; }
+  validate() {
+    if (this.data.card.length < 16) return false;
+    this.mediator.notify(this.name, "valid", this.data);
+    return true;
+  }
+}
+
+// Concrete mediator
+class CheckoutWizard implements WizardMediator {
+  private steps: WizardStep[] = [];
+  private currentStep = 0;
+  private collectedData: Record<string, unknown> = {};
+
+  constructor() {
+    this.steps = [
+      new PersonalInfoStep(this, "personal"),
+      new AddressStep(this, "address"),
+      new PaymentStep(this, "payment"),
+    ];
+  }
+
+  notify(sender: string, event: string, data?: unknown) {
+    if (event === "valid") {
+      this.collectedData[sender] = data;
+      this.next();
+    }
+  }
+
+  next() {
+    if (this.currentStep < this.steps.length - 1) {
+      this.currentStep++;
+      this.renderCurrent();
+    } else {
+      this.complete();
+    }
+  }
+
+  back() {
+    if (this.currentStep > 0) { this.currentStep--; this.renderCurrent(); }
+  }
+
+  renderCurrent(): string { return this.steps[this.currentStep].render(); }
+  validateCurrent(): boolean { return this.steps[this.currentStep].validate(); }
+  complete() { console.log("Wizard complete:", this.collectedData); }
+}
+
+// Usage: steps do not know each other
+const wizard = new CheckoutWizard();
+wizard.renderCurrent(); // Step 1: PersonalInfo
+wizard.validateCurrent(); // -> notify -> next()
+wizard.renderCurrent(); // Step 2: Address
+```
+
+Lessons:
+  - Mediator coordinates wizard steps without coupling
+  - Each step only knows the mediator, not other steps
+  - Adding new step = new class + register in mediator
+  - The mediator controls flow: next, back, complete
+  - Data is centralized in the mediator
+```
+
+### Mediator vs Observer in forms?
+
+Use Mediator in multi-step forms: the mediator controls flow (next, back, validate). Use Observer in reactive forms: the field notifies changes to observers (live validation, field dependencies). Mediator is centralized: the mediator decides. Observer is decentralized: each component reacts. For wizards, Mediator. For reactive forms, Observer.

@@ -280,3 +280,76 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Registry for Dynamic Plugins
+
+```typescript
+// Registry: store and retrieve implementations by key
+interface Plugin {
+  name: string;
+  init(config: unknown): Promise<void>;
+  execute(input: unknown): Promise<unknown>;
+}
+
+class PluginRegistry {
+  private plugins = new Map<string, Plugin>();
+  private factories = new Map<string, () => Plugin>();
+
+  register(plugin: Plugin): void {
+    if (this.plugins.has(plugin.name)) throw new Error(`Plugin ${plugin.name} already registered`);
+    this.plugins.set(plugin.name, plugin);
+  }
+
+  registerFactory(name: string, factory: () => Plugin): void {
+    this.factories.set(name, factory);
+  }
+
+  get(name: string): Plugin | undefined {
+    if (this.plugins.has(name)) return this.plugins.get(name);
+    const factory = this.factories.get(name);
+    if (factory) {
+      const plugin = factory();
+      this.plugins.set(name, plugin);
+      return plugin;
+    }
+    return undefined;
+  }
+
+  list(): string[] { return [...this.plugins.keys(), ...this.factories.keys()]; }
+  unregister(name: string): void {
+    this.plugins.delete(name);
+    this.factories.delete(name);
+  }
+}
+
+// Usage: register export plugins
+const registry = new PluginRegistry();
+registry.register({ name: "csv", init: async () => {}, execute: async (data) => toCSV(data) });
+registry.register({ name: "json", init: async () => {}, execute: async (data) => JSON.stringify(data) });
+registry.registerFactory("pdf", () => new PDFExportPlugin());
+
+// Client: get plugin by name
+const exporter = registry.get("csv");
+if (exporter) {
+  await exporter.init({ delimiter: "," });
+  const result = await exporter.execute(data);
+}
+
+console.log(registry.list()); // ["csv", "json", "pdf"]
+```
+
+Lessons:
+  - Registry stores implementations by key (name)
+  - Lazy registration: factories create the plugin on demand
+  - The client gets plugins by name without knowing the class
+  - Ideal for plugin systems, extensions, strategies
+  - Registry vs Service Locator: Registry is for types; SL is for dependencies
+  - In tests, unregister between suites to avoid contamination
+```
+
+### Registry vs Service Locator: which do I use?
+
+Registry is a catalog of implementations: the client asks by name and gets an instance. Service Locator is a dependency resolver: the service asks the locator for its deps. Registry is for plugins/strategies: the client decides which to use. SL is for DI: the service does not know its concrete deps. Registry is explicit: the client calls get("csv"). SL is implicit: the service calls locator.get(Logger). Prefer Registry for extensions, SL only in legacy.

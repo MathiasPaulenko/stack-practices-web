@@ -282,3 +282,86 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Event Bus para Arquitectura Event-Driven
+
+```typescript
+// Event Bus: pub/sub con tipado y middleware
+type EventHandler<T = unknown> = (event: T) => void | Promise<void>;
+
+class TypedEventBus {
+  private handlers = new Map<string, EventHandler[]>()
+  private middleware: ((event: string, data: unknown, next: () => void) => void)[] = [];
+
+  on<T>(event: string, handler: EventHandler<T>): () => void {
+    if (!this.handlers.has(event)) this.handlers.set(event, []);
+    this.handlers.get(event)!.push(handler as EventHandler);
+    return () => {
+      const list = this.handlers.get(event);
+      if (list) this.handlers.set(event, list.filter(h => h !== handler));
+    };
+  }
+
+  use(mw: (event: string, data: unknown, next: () => void) => void): void {
+    this.middleware.push(mw);
+  }
+
+  async emit<T>(event: string, data: T): Promise<void> {
+    // Ejecutar middleware chain
+    let idx = 0;
+    const runMiddleware = () => {
+      if (idx < this.middleware.length) {
+        const mw = this.middleware[idx++];
+        mw(event, data, runMiddleware);
+      } else {
+        this.dispatch(event, data);
+      }
+    };
+    runMiddleware();
+  }
+
+  private async dispatch(event: string, data: unknown): Promise<void> {
+    const list = this.handlers.get(event) || [];
+    for (const handler of list) {
+      try { await handler(data); }
+      catch (err) { console.error(`[BUS] Handler error for ${event}:`, err); }
+    }
+  }
+}
+
+// Uso: middleware para logging y validacion
+const bus = new TypedEventBus();
+bus.use((event, data, next) => { console.log(`[LOG] ${event}`); next(); });
+bus.use((event, data, next) => {
+  if (!data) { console.error("[VALIDATE] Empty data"); return; }
+  next();
+});
+
+bus.on("user.created", async (user: User) => {
+  await emailService.welcome(user.email);
+});
+bus.on("user.created", async (user: User) => {
+  await analytics.track("signup", { userId: user.id });
+});
+
+await bus.emit("user.created", { id: "123", email: "alice@test.com" });
+// [LOG] user.created
+// -> welcome email sent
+// -> analytics tracked
+```
+
+Lecciones:
+  - Event Bus: pub/sub con middleware chain (como Express)
+  - Middleware: logging, validacion, auth antes de dispatch
+  - Handlers async: el bus espera cada handler secuencialmente
+  - on() retorna unsubscribe: limpieza automatica
+  - En sistemas distribuidos: usar Kafka/RabbitMQ en lugar de bus en memoria
+  - El bus en memoria es para un solo proceso: no persiste ni distribuye
+```
+
+### Event Bus vs Message Queue: cual uso?
+
+Usa Event Bus en memoria para desacoplar modulos dentro de un proceso: notificaciones, logging, analytics. Usa Message Queue (Kafka, RabbitMQ, SQS) para desacoplar microservicios: persistencia, retry, DLQ, ordering. Event Bus es volatil: si el proceso muere, los eventos se pierden. MQ es persistente: sobrevive a restarts. Para un monolito modular, Event Bus. Para microservicios, MQ.

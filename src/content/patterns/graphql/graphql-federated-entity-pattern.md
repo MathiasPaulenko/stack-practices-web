@@ -284,3 +284,85 @@ Yes. That is the core of federation. The subgraph uses `@extends` and `@external
 ### Can I use federation with REST services?
 
 Not directly. Subgraphs must be GraphQL services that implement the federation spec. To integrate REST, create a GraphQL wrapper that calls the REST API and expose it as a subgraph.
+
+
+## Advanced Topics
+
+### Scenario: Federation for GraphQL Microservices
+
+```graphql
+# Subgraph A: Users service
+type User @key(fields: "id") {
+  id: ID!
+  name: String!
+  email: String!
+  # @external: resolved by another subgraph
+  orders: [Order!] @requires(fields: "id")
+}
+
+# Subgraph B: Orders service
+type Order @key(fields: "id") {
+  id: ID!
+  userId: ID!
+  total: Float!
+  # @provides: this subgraph resolves the field
+  user: User @provides(fields: "name")
+}
+
+# Query: the gateway merges both subgraphs
+query {
+  user(id: "123") {
+    name        # resolved by Users service
+    orders {    # resolved by Orders service
+      id
+      total
+    }
+  }
+}
+```
+
+```typescript
+// Apollo Federation: resolve entity reference
+const resolvers = {
+  User: {
+    // __resolveReference: called when another subgraph references User
+    __resolveReference(user, ctx) {
+      return ctx.dataSources.userAPI.getUserById(user.id);
+    },
+    orders(user, _, ctx) {
+      return ctx.dataSources.orderAPI.getOrdersByUserId(user.id);
+    },
+  },
+  Order: {
+    __resolveReference(order, ctx) {
+      return ctx.dataSources.orderAPI.getOrderById(order.id);
+    },
+    user(order, _, ctx) {
+      return { __typename: "User", id: order.userId };
+    },
+  },
+};
+
+// Gateway: merges subgraphs
+const gateway = new ApolloGateway({
+  serviceList: [
+    { name: "users", url: "http://users-service:4001/graphql" },
+    { name: "orders", url: "http://orders-service:4002/graphql" },
+  ],
+});
+
+const server = new ApolloServer({ gateway });
+```
+
+Lessons:
+  - Federation: multiple subgraphs expose a unified schema
+  - @key: defines the field that identifies the entity across subgraphs
+  - __resolveReference: resolves the entity when another subgraph references it
+  - The gateway routes the query to the corresponding subgraphs
+  - Each service is independent: deploy, scaling, separate team
+  - @extends: add fields to a type defined in another subgraph
+```
+
+### Federation vs Schema Stitching: which do I use?
+
+Federation is the modern Apollo standard: each subgraph uses directives (@key, @provides, @requires) and the gateway resolves automatically. Schema Stitching is manual: the gateway defines resolvers that call each service. Federation is declarative: the gateway infers the execution plan. Stitching is imperative: you write the gateway resolvers. For new projects, Federation. For integrating existing non-Apollo APIs, Stitching.

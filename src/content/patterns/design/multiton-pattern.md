@@ -224,3 +224,80 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Multiton for Multi-tenant Connections
+
+```typescript
+// Multiton: singleton with key, one instance per key
+class TenantDatabase {
+  private static instances = new Map<string, TenantDatabase>();
+  private pool: Pool;
+
+  private constructor(private tenantId: string, config: DBConfig) {
+    this.pool = createPool({
+      host: config.host,
+      port: config.port,
+      database: `tenant_${tenantId}`,
+      max: 10,
+    });
+  }
+
+  static getInstance(tenantId: string, config?: DBConfig): TenantDatabase {
+    if (!this.instances.has(tenantId)) {
+      if (!config) throw new Error(`Config required for new tenant: ${tenantId}`);
+      this.instances.set(tenantId, new TenantDatabase(tenantId, config));
+    }
+    return this.instances.get(tenantId)!;
+  }
+
+  async query(sql: string, params: unknown[]) {
+    return this.pool.query(sql, params);
+  }
+
+  static async closeAll(): Promise<void> {
+    for (const instance of this.instances.values()) {
+      await instance.pool.end();
+    }
+    this.instances.clear();
+  }
+
+  static getActiveTenants(): string[] {
+    return [...this.instances.keys()];
+  }
+}
+
+// Usage: one DB connection per tenant
+const tenantA = TenantDatabase.getInstance("tenant-a", { host: "localhost", port: 5432 });
+const tenantB = TenantDatabase.getInstance("tenant-b", { host: "localhost", port: 5432 });
+const tenantA2 = TenantDatabase.getInstance("tenant-a"); // same instance
+
+console.log(tenantA === tenantA2); // true
+console.log(tenantA === tenantB); // false
+console.log(TenantDatabase.getActiveTenants()); // ["tenant-a", "tenant-b"]
+
+// Comparison: Singleton vs Multiton
+  | Pattern | Instances | Key | Use case |
+  |---------|-----------|-----|----------|
+  | Singleton | 1 global | N/A | Logger, config |
+  | Multiton | N per key | string/enum | Multi-tenant, multi-DB |
+  | Factory | N unlimited | N/A | Create varied objects |
+  | Object Pool | N limited | N/A | Reuse expensive objects |
+```
+
+Lessons:
+  - Multiton is Singleton with key: one instance per key
+  - Ideal for multi-tenant: one DB connection per tenant
+  - closeAll() to clean up at shutdown
+  - Map to store instances: O(1) lookup
+  - In tests, always reset with closeAll() between suites
+```
+
+### How do I prevent memory leaks with Multiton?
+
+Call closeAll() or removeInstance(key) when a tenant is no longer active. Implement a TTL or LRU eviction: if there are more than N active tenants, close the least recently used. In K8s, pods get recycled, but in long-running processes, inactive tenants can accumulate. Monitor getActiveTenants() and alert if it grows without bound.
+
+
+End of document. Review and update quarterly.

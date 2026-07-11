@@ -262,3 +262,85 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Null Object para Logger y Config
+
+```typescript
+// Null Object: un objeto que implementa la interfaz pero no hace nada
+interface Logger {
+  info(msg: string): void;
+  warn(msg: string): void;
+  error(msg: string): void;
+  debug(msg: string): void;
+}
+
+// Logger real
+class ConsoleLogger implements Logger {
+  info(msg: string) { console.log(`[INFO] ${msg}`); }
+  warn(msg: string) { console.warn(`[WARN] ${msg}`); }
+  error(msg: string) { console.error(`[ERROR] ${msg}`); }
+  debug(msg: string) { console.log(`[DEBUG] ${msg}`); }
+}
+
+// Null Object: no hace nada, pero implementa la interfaz
+class NullLogger implements Logger {
+  info(_msg: string) {}
+  warn(_msg: string) {}
+  error(_msg: string) {}
+  debug(_msg: string) {}
+}
+
+// Null Object para Config
+interface AppConfig {
+  get(key: string): string | undefined;
+  getNumber(key: string): number | undefined;
+  getBoolean(key: string): boolean;
+}
+
+class NullConfig implements AppConfig {
+  get(_key: string): string | undefined { return undefined; }
+  getNumber(_key: string): number | undefined { return undefined; }
+  getBoolean(_key: string): boolean { return false; }
+}
+
+// Uso: el servicio no necesita null checks
+class OrderService {
+  constructor(
+    private logger: Logger,
+    private config: AppConfig
+  ) {}
+
+  process(order: Order) {
+    this.logger.info(`Processing order ${order.id}`);
+    const maxItems = this.config.getNumber("MAX_ITEMS") || 100;
+    if (order.items.length > maxItems) {
+      this.logger.warn(`Order ${order.id} exceeds max items`);
+    }
+    // Sin Null Object: if (this.logger) { this.logger.info(...) }
+    // Con Null Object: this.logger.info(...) siempre funciona
+  }
+}
+
+// En tests: usar NullLogger para silenciar output
+const service = new OrderService(new NullLogger(), new NullConfig());
+service.process(order); // No output, no errors
+
+// En produccion: usar ConsoleLogger
+const prodService = new OrderService(new ConsoleLogger(), envConfig);
+```
+
+Lecciones:
+  - Null Object implementa la interfaz pero no hace nada
+  - Elimina null checks: if (logger) logger.info() -> logger.info()
+  - En tests, NullLogger silencia output sin cambiar el codigo
+  - En produccion, ConsoleLogger loguea normalmente
+  - El cliente no sabe si usa el objeto real o el null
+  - Null Object vs Optional: Optional es un wrapper; Null Object es una implementacion
+```
+
+### Null Object vs Optional: cual uso?
+
+Usa Null Object cuando tienes una interfaz y quieres una implementacion que no haga nada (Logger, Config, Notifier). Usa Optional cuando el valor puede estar ausente y necesitas expresarlo en el tipo (Optional<User>). Null Object es una implementacion completa de la interfaz. Optional es un wrapper que fuerza al cliente a manejar el caso ausente. Para dependencias inyectadas, Null Object. Para valores de retorno, Optional.

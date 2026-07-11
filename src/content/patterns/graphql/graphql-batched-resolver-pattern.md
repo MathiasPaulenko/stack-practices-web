@@ -275,3 +275,64 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Batched Resolver for N+1 in GraphQL
+
+```typescript
+// DataLoader: batch requests to avoid N+1
+import DataLoader from "dataloader";
+
+// Resolver without batching: N+1 queries
+// query { users { orders { id } } } -> 1 users query + N orders queries
+
+// Resolver with DataLoader: 1 batch query
+const orderLoader = new DataLoader<string, Order[]>(async (userIds) => {
+  // 1 query for all users
+  const res = await db.query(
+    "SELECT * FROM orders WHERE user_id = ANY($1)",
+    [userIds]
+  );
+  // Group by user_id
+  const ordersByUser = new Map<string, Order[]>();
+  for (const order of res.rows) {
+    const list = ordersByUser.get(order.user_id) || [];
+    list.push(order);
+    ordersByUser.set(order.user_id, list);
+  }
+  // Return in same order as userIds
+  return userIds.map(id => ordersByUser.get(id) || []);
+});
+
+// GraphQL resolver
+const resolvers = {
+  User: {
+    orders: (parent: User) => orderLoader.load(parent.id),
+  },
+  Query: {
+    users: async () => {
+      const res = await db.query("SELECT * FROM users LIMIT 100");
+      return res.rows;
+    },
+  },
+};
+
+// Before: 100 users -> 100 orders queries (N+1)
+// After: 100 users -> 1 orders query (batched)
+// DataLoader groups all .load() calls in one tick
+```
+
+Lessons:
+  - DataLoader groups .load() calls in the same event loop tick
+  - 1 batch query instead of N individual queries
+  - DataLoader caches per request: do not share across requests
+  - The result order must match the key order
+  - In Apollo Server, create DataLoader per request in context
+  - Use for any 1:N or N:1 relationship in GraphQL
+```
+
+### How do I configure DataLoader in Apollo Server?
+
+Create a DataLoader instance per request in the context function. Do not share DataLoader across requests: one request cache can pollute another. In context: () => ({ orderLoader: new DataLoader(batchFn) }). The DataLoader is created per request and discarded when done. For cross-request caching, use Redis with cacheKeyFn. For manual batching without DataLoader: group ids in a Set and make a single query with IN clause.

@@ -208,3 +208,95 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Decorators for Logging and Cache
+
+```typescript
+// Decorator pattern to add behavior without modifying code
+interface DataService {
+  getData(key: string): Promise<unknown>;
+}
+
+class APIDataService implements DataService {
+  async getData(key: string): Promise<unknown> {
+    const res = await fetch(`/api/data/${key}`);
+    return res.json();
+  }
+}
+
+// Decorator: Logging
+class LoggingDecorator implements DataService {
+  constructor(private wrapped: DataService) {}
+
+  async getData(key: string): Promise<unknown> {
+    const start = Date.now();
+    console.log(`[LOG] getData(${key}) started`);
+    try {
+      const result = await this.wrapped.getData(key);
+      console.log(`[LOG] getData(${key}) OK in ${Date.now() - start}ms`);
+      return result;
+    } catch (err) {
+      console.error(`[LOG] getData(${key}) FAILED: ${err}`);
+      throw err;
+    }
+  }
+}
+
+// Decorator: Cache
+class CacheDecorator implements DataService {
+  private cache = new Map<string, { value: unknown; expiry: number }>();
+  constructor(private wrapped: DataService, private ttlMs: number) {}
+
+  async getData(key: string): Promise<unknown> {
+    const cached = this.cache.get(key);
+    if (cached && cached.expiry > Date.now()) {
+      console.log(`[CACHE] HIT: ${key}`);
+      return cached.value;
+    }
+    console.log(`[CACHE] MISS: ${key}`);
+    const result = await this.wrapped.getData(key);
+    this.cache.set(key, { value: result, expiry: Date.now() + this.ttlMs });
+    return result;
+  }
+}
+
+// Composition: API + Cache + Logging
+const service = new LoggingDecorator(
+  new CacheDecorator(
+    new APIDataService(),
+    60000  // 60s TTL
+  )
+);
+
+// Result: each call goes through logging -> cache -> API
+// Cache HIT: does not call API
+// Cache MISS: calls API and stores in cache
+```
+
+Lessons:
+  - Decorator adds behavior without modifying the original class
+  - Decorators compose: cache + logging + retry
+  - Order matters: cache outside logging to avoid logging hits
+  - Maintains Open/Closed: open for extension, closed for modification
+  - In TypeScript, use class decorators (@decorator) for metadata
+```
+
+### How do I order multiple decorators?
+
+Order matters. Put the cheapest decorator outside (cache) and the most expensive inside (API). Logging outside cache: so you see both hits and misses. Retry inside logging but outside API: retries before failing. Typical order: logging -> cache -> retry -> API. Each decorator wraps the next, forming a chain of responsibility.
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

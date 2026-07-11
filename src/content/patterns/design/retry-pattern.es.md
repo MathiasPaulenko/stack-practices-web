@@ -224,3 +224,92 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Retry con Backoff para API Externa
+
+```typescript
+// Retry pattern con backoff exponencial y jitter
+async function retryWithBackoff<T>(
+  fn: () => Promise<T>,
+  opts: {
+    maxRetries: number;
+    baseDelayMs: number;
+    maxDelayMs: number;
+    retryOn?: (err: Error) => boolean;
+  }
+): Promise<T> {
+  const { maxRetries, baseDelayMs, maxDelayMs, retryOn } = opts;
+  let lastError: Error;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastError = err as Error;
+      if (attempt === maxRetries) break;
+      if (retryOn && !retryOn(err as Error)) break;
+
+      // Backoff exponencial con jitter
+      const exponentialDelay = baseDelayMs * Math.pow(2, attempt);
+      const jitter = Math.random() * baseDelayMs;
+      const delay = Math.min(exponentialDelay + jitter, maxDelayMs);
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+  throw lastError!;
+}
+
+// Uso: retry en llamada a Stripe
+try {
+  const charge = await retryWithBackoff(
+    () => stripe.charges.create({ amount: 1000, currency: "usd" }),
+    {
+      maxRetries: 3,
+      baseDelayMs: 1000,
+      maxDelayMs: 10000,
+      retryOn: (err) => err.message.includes("rate_limit") || err.message.includes("timeout"),
+    }
+  );
+} catch (err) {
+  console.error("Payment failed after retries:", err);
+}
+
+// Estrategias de backoff
+  | Estrategia | Formula | Ventajas | Desventajas |
+  |------------|---------|----------|-------------|
+  | Fijo | 1000ms | Simple | No adapta |
+  | Lineal | attempt * 1000 | Predecible | Lento |
+  | Exponencial | 2^attempt * 1000 | Rapido al inicio | Puede ser muy largo |
+  | Exponencial + jitter | 2^attempt * 1000 + random | Evita thundering herd | Menos predecible |
+  | Decorrelated | prev * 3 * random | Auto-adapta | Complejo |
+
+// Cuando NO reintentar
+  | Error | Reintentar? | Razon |
+  |-------|-------------|--------|
+  | 400 Bad Request | No | Error del cliente, no se arregla |
+  | 401 Unauthorized | No | Credenciales invalidas |
+  | 403 Forbidden | No | Sin permisos |
+  | 404 Not Found | No | Recurso no existe |
+  | 429 Too Many Requests | Si | Rate limit temporal |
+  | 500 Internal Server | Si | Error temporal del server |
+  | 502 Bad Gateway | Si | Proxy temporal |
+  | 503 Service Unavailable | Si | Server sobrecargado |
+  | Timeout | Si | Red temporal |
+  | Connection refused | Si | Serverreiniciandose |
+```
+
+Lecciones:
+  - Retry con backoff exponencial + jitter es el estandar
+  - Jitter evita thundering herd: todos reintentan al mismo tiempo
+  - Solo reintentar errores temporales (5xx, timeout, rate limit)
+  - No reintentar errores de cliente (4xx): no se arreglan solos
+  - Max delay cap: evitar esperas de minutos
+  - Circuit breaker + retry: el retry opera dentro del circuito cerrado
+```
+
+### Como combino retry con circuit breaker?
+
+El circuit breaker envuelve el retry. Si el circuito esta cerrado, ejecuta el retry. Si el circuito esta abierto, falla inmediatamente sin reintentar. El circuit breaker cuenta fallos por servicio, no por intento. El retry maneja fallos transitorios; el circuit breaker maneja fallos sostenidos. Configura el circuit breaker con failureThreshold > maxRetries para que no se abra por un solo request con reintentos.

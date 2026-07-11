@@ -264,3 +264,76 @@ Cada entrada de cache se asocia con tags (ej. `user:123` tiene tags `["user", "u
 ### Debo invalidar o actualizar el cache en escritura?
 
 Invalidar (borrar) es mas simple y seguro. La siguiente lectura recarga datos frescos. Actualizar el cache en escritura (write-through) es mas rapido para la siguiente lectura pero arriesga escribir datos stale si la escritura a DB y la actualizacion de cache no son atomicas. Prefiere invalidacion a menos que write-through sea explicitamente necesario.
+
+
+## Temas Avanzados
+
+### Escenario: Cache Invalidation para E-commerce
+
+```typescript
+// Estrategias de invalidacion de cache
+class CacheManager {
+  constructor(private redis: RedisClient) {}
+
+  // 1. Invalidacion explicita: al actualizar un producto
+  async invalidateProduct(productId: string): Promise<void> {
+    await this.redis.del(`product:${productId}`);
+    // Invalidar listas que contienen el producto
+    await this.redis.del(`products:category:*`);
+    await this.redis.del(`products:featured`);
+    await this.redis.del(`search:product:*`);
+  }
+
+  // 2. Invalidacion por tag: agrupar keys por tag
+  async invalidateByTag(tag: string): Promise<void> {
+    // Redis: obtener todas las keys con el tag
+    const keys = await this.redis.smembers(`tag:${tag}`);
+    if (keys.length > 0) {
+      await this.redis.del(...keys);
+      await this.redis.del(`tag:${tag}`);
+    }
+  }
+
+  // 3. Invalidacion con version: bump de version
+  async bumpVersion(namespace: string): Promise<void> {
+    await this.redis.incr(`version:${namespace}`);
+  }
+
+  async getWithVersion<T>(namespace: string, key: string): Promise<T | null> {
+    const version = await this.redis.get(`version:${namespace}`) || "1";
+    const fullKey = `${namespace}:${version}:${key}`;
+    const cached = await this.redis.get(fullKey);
+    return cached ? JSON.parse(cached) : null;
+  }
+
+  // 4. Write-through: actualizar cache al escribir DB
+  async updateProduct(product: Product): Promise<void> {
+    await db.update(product);
+    await this.redis.setex(`product:${product.id}`, 300, JSON.stringify(product));
+    await this.invalidateByTag(`category:${product.categoryId}`);
+  }
+}
+
+// Comparacion de estrategias
+  | Estrategia | Latencia | Consistencia | Complejidad |
+  |-------------|----------|---------------|-------------|
+  | Explicita | Baja | Alta | Media |
+  | Por tag | Media | Alta | Media |
+  | Version | Baja | Alta | Baja |
+  | TTL-only | Alta | Baja (stale) | Minima |
+  | Write-through | Baja | Maxima | Alta |
+  | Event-driven | Media | Alta | Alta |
+```
+
+Lecciones:
+  - Invalidacion explicita: borrar key al actualizar
+  - Invalidacion por tag: agrupar keys relacionadas y borrar en lote
+  - Version-based: bump de version, las keys viejas expiran por TTL
+  - Write-through: escribir cache al actualizar DB (maxima consistencia)
+  - TTL como safety net: si la invalidacion falla, el TTL limpia
+  - El problema mas dificil en caching: cuando invalidar
+```
+
+### Como manejo invalidacion en microservicios?
+
+Usa event-driven invalidation: cuando un servicio actualiza un producto, publica un evento ProductUpdated. Los servicios que cachean escuchan el evento e invalidan su cache local. Para cache distribuido (Redis), usa pub/sub: el servicio que actualiza publica en un canal, los demas suscriben e invalidan. Para consistencia eventual, TTL corto (60s) + eventos. Para consistencia fuerte, write-through + invalidacion sincrona. Evita invalidacion en cascada: puede causar thundering herd.

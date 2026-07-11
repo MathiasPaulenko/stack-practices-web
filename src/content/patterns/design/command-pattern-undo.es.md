@@ -216,3 +216,102 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Sistema de Undo/Redo para Editor de Texto
+
+```typescript
+// Command pattern: encapsular operaciones como objetos
+interface Command {
+  execute(): void;
+  undo(): void;
+  describe(): string;
+}
+
+// Receptor: el editor de texto
+class TextEditor {
+  private content = "";
+  private selection = { start: 0, end: 0 };
+
+  insert(text: string, pos: number) {
+    this.content = this.content.slice(0, pos) + text + this.content.slice(pos);
+  }
+  delete(start: number, end: number) {
+    this.content = this.content.slice(0, start) + this.content.slice(end);
+  }
+  getContent(): string { return this.content; }
+}
+
+// Comandos concretos
+class InsertCommand implements Command {
+  constructor(private editor: TextEditor, private text: string, private pos: number) {}
+  execute() { this.editor.insert(this.text, this.pos); }
+  undo() { this.editor.delete(this.pos, this.pos + this.text.length); }
+  describe() { return `Insert "${this.text}" at ${this.pos}`; }
+}
+
+class DeleteCommand implements Command {
+  private deletedText = "";
+  constructor(private editor: TextEditor, private start: number, private end: number) {}
+  execute() {
+    this.deletedText = this.editor.getContent().slice(this.start, this.end);
+    this.editor.delete(this.start, this.end);
+  }
+  undo() { this.editor.insert(this.deletedText, this.start); }
+  describe() { return `Delete ${this.start}-${this.end}`; }
+}
+
+// Invocador: historial de comandos
+class CommandHistory {
+  private undoStack: Command[] = [];
+  private redoStack: Command[] = [];
+  private maxHistory = 100;
+
+  execute(cmd: Command) {
+    cmd.execute();
+    this.undoStack.push(cmd);
+    if (this.undoStack.length > this.maxHistory) this.undoStack.shift();
+    this.redoStack = [];
+  }
+  undo(): Command | null {
+    const cmd = this.undoStack.pop();
+    if (cmd) { cmd.undo(); this.redoStack.push(cmd); }
+    return cmd;
+  }
+  redo(): Command | null {
+    const cmd = this.redoStack.pop();
+    if (cmd) { cmd.execute(); this.undoStack.push(cmd); }
+    return cmd;
+  }
+  canUndo(): boolean { return this.undoStack.length > 0; }
+  canRedo(): boolean { return this.redoStack.length > 0; }
+}
+
+// Uso
+const editor = new TextEditor();
+const history = new CommandHistory();
+
+history.execute(new InsertCommand(editor, "Hello", 0));
+history.execute(new InsertCommand(editor, " World", 5));
+console.log(editor.getContent()); // "Hello World"
+
+history.undo();
+console.log(editor.getContent()); // "Hello"
+
+history.redo();
+console.log(editor.getContent()); // "Hello World"
+```
+
+Lecciones:
+  - Command encapsula operaciones como objetos con execute y undo
+  - El historial maneja undo/redo sin conocer detalles de cada comando
+  - Cada comando guarda el estado necesario para deshacer
+  - Limitar el historial (100 comandos) para evitar memory leaks
+  - Macro command: agrupar multiples comandos en uno solo
+```
+
+### Como implemento macros con Command?
+
+Crea un MacroCommand que contiene una lista de comandos. Execute() llama a execute() de cada comando en orden. Undo() llama a undo() en orden inverso. Esto permite agrupar operaciones atomicas: por ejemplo, "formatear documento" ejecuta 20 comandos individuales, y un solo undo los revierte todos.

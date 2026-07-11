@@ -233,3 +233,92 @@ Si, y es recomendado. Crear pools por peticion o por componente desperdicia recu
 ### ¿Cómo manejo excepciones en tareas del pool?
 
 Las excepciones lanzadas por tareas son capturadas por el pool y envueltas en el `Future`. Llama `future.get()` para recuperar la excepcion. Para tareas fire-and-forget, instala un `UncaughtExceptionHandler` o usa `afterExecute` en un `ThreadPoolExecutor` custom.
+
+
+## Temas Avanzados
+
+### Escenario: Thread Pool para Tareas CPU-Intensivas
+
+```typescript
+// Thread pool pattern: reutilizar threads para trabajo CPU-intensivo
+import { Worker } from "worker_threads";
+
+class ThreadPool {
+  private workers: Worker[] = [];
+  private taskQueue: { task: unknown; resolve: Function; reject: Function }[] = [];
+  private idleWorkers: number[] = [];
+  private busy = new Set<number>();
+
+  constructor(private size: number, private workerFile: string) {
+    for (let i = 0; i < size; i++) {
+      const worker = new Worker(workerFile);
+      const workerId = i;
+      worker.on("message", (result) => {
+        this.busy.delete(workerId);
+        this.idleWorkers.push(workerId);
+        const task = this.taskQueue.shift();
+        if (task) task.resolve(result);
+        this.processQueue();
+      });
+      worker.on("error", (err) => {
+        this.busy.delete(workerId);
+        this.idleWorkers.push(workerId);
+        this.processQueue();
+      });
+      this.workers.push(worker);
+      this.idleWorkers.push(i);
+    }
+  }
+
+  submit<T>(task: unknown): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.taskQueue.push({ task, resolve, reject });
+      this.processQueue();
+    });
+  }
+
+  private processQueue() {
+    while (this.idleWorkers.length > 0 && this.taskQueue.length > 0) {
+      const workerId = this.idleWorkers.shift()!;
+      const { task } = this.taskQueue.shift()!;
+      this.busy.add(workerId);
+      this.workers[workerId].postMessage(task);
+    }
+  }
+
+  async shutdown() {
+    await Promise.all(this.workers.map(w => w.terminate()));
+  }
+}
+
+// Uso: procesamiento de imagenes con 4 workers
+const pool = new ThreadPool(4, "./image-worker.js");
+const results = await Promise.all([
+  pool.submit({ file: "img1.png", op: "resize", w: 800 }),
+  pool.submit({ file: "img2.png", op: "resize", w: 800 }),
+  pool.submit({ file: "img3.png", op: "resize", w: 800 }),
+]);
+await pool.shutdown();
+
+// Tuning del tamano del pool
+  | Workload | Tamano | Razon |
+  |----------|--------|-------|
+  | CPU-heavy | CPU cores | Un thread por core |
+  | I/O-heavy | 2x CPU cores | Threads esperan en I/O |
+  | Mixto | CPU cores + 2 | Balance CPU e I/O |
+  | Procesamiento imagenes | CPU cores | CPU-bound |
+  | Parsing archivos | 2x CPU cores | I/O + CPU |
+```
+
+Lecciones:
+  - Thread pool reutiliza threads: evita overhead de creacion
+  - La cola de tareas bufferiza trabajo cuando todos los threads estan ocupados
+  - Tamano del pool: CPU cores para CPU-heavy, 2x para I/O-heavy
+  - Siempre shutdown el pool para evitar resource leaks
+  - En Node.js, usar worker_threads para tareas CPU-intensivas
+  - Para I/O, usar async/await: el event loop es suficiente
+```
+
+### Cuando uso threads vs async en Node.js?
+
+Usa worker_threads para tareas CPU-intensivas (procesamiento de imagenes, crypto, compresion, parsing de archivos grandes). El event loop es single-threaded: el trabajo CPU lo bloquea. Usa async/await para tareas I/O (DB, HTTP, lectura de archivos): el event loop maneja I/O eficientemente sin threads. Si tu tarea toma < 10ms, mantenla en el event loop. Si toma > 100ms de CPU, offloadea a un worker.

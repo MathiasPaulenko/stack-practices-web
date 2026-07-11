@@ -257,3 +257,84 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Mixins para Composicion de Componentes
+
+```typescript
+// Mixin: anadir funcionalidad a una clase sin herencia
+// Type: constructor para mixins
+type Constructor<T = {}> = new (...args: any[]) => T;
+
+// Mixin: Loggable
+function Loggable<TBase extends Constructor>(Base: TBase) {
+  return class extends Base {
+    private logPrefix = "[LOG]";
+    log(msg: string) { console.log(`${this.logPrefix} ${msg}`); }
+    setPrefix(prefix: string) { this.logPrefix = prefix; }
+  };
+}
+
+// Mixin: Serializable
+function Serializable<TBase extends Constructor>(Base: TBase) {
+  return class extends Base {
+    serialize(): string { return JSON.stringify(this); }
+    static deserialize<T>(json: string): T { return JSON.parse(json); }
+  };
+}
+
+// Mixin: Validatable
+function Validatable<TBase extends Constructor>(Base: TBase) {
+  return class extends Base {
+    private validators: Record<string, (v: unknown) => boolean> = {};
+    addValidator(field: string, fn: (v: unknown) => boolean) { this.validators[field] = fn; }
+    validate(): string[] {
+      const errors: string[] = [];
+      for (const [field, fn] of Object.entries(this.validators)) {
+        if (!fn((this as any)[field])) errors.push(`Invalid: ${field}`);
+      }
+      return errors;
+    }
+  };
+}
+
+// Clase base
+class User {
+  constructor(public name: string, public email: string) {}
+}
+
+// Composicion: User + Loggable + Serializable + Validatable
+const EnhancedUser = Loggable(Serializable(Validatable(User)));
+
+const user = new EnhancedUser("Alice", "alice@test.com");
+user.setPrefix("[USER]");
+user.log("Created"); // [USER] Created
+const json = user.serialize(); // {"name":"Alice","email":"alice@test.com"}
+user.addValidator("email", (v: string) => v.includes("@"));
+user.addValidator("name", (v: string) => v.length > 0);
+console.log(user.validate()); // [] (valid)
+
+// Ventajas sobre herencia multiple
+  | Aspecto | Mixin | Herencia multiple |
+  |---------|-------|-------------------|
+  | Acoplamiento | Bajo | Alto |
+  | Flexibilidad | Componer al instanciar | Fija en compile time |
+  | Conflictos | Evitable | Diamond problem |
+  | Orden | Importante (capas) | No aplica |
+  | TypeScript | Soportado via classes | No soportado |
+```
+
+Lecciones:
+  - Mixins anaden funcionalidad sin herencia multiple
+  - Composicion sobre herencia: mezclar Loggable + Serializable + Validatable
+  - El orden importa: cada mixin envuelve al anterior
+  - TypeScript soporta mixins via funciones que retornan clases
+  - Evita el diamond problem de herencia multiple
+  - En JS, Object.assign tambien puede mezclar funcionalidad
+```
+
+### Mixin vs Composition: cual uso?
+
+Usa Mixin cuando necesitas anadir la misma funcionalidad a multiples clases no relacionadas (Loggable, Serializable, Eventable). Usa Composition cuando una clase necesita delegar a un objeto: class User { private logger = new Logger(); log() { this.logger.log(); } }. Mixin modifica la clase; Composition usa un objeto delegado. Mixin es mas conciso; Composition es mas explicito y testeable. Para cross-cutting concerns (logging, serialization), Mixin. Para domain logic, Composition.

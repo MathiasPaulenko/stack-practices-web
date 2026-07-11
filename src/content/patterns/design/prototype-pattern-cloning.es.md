@@ -206,3 +206,97 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Clonacion de Configuracion para Multi-tenant
+
+```typescript
+// Prototype pattern para configuracion de tenants
+interface TenantConfig {
+  theme: Theme;
+  features: string[];
+  limits: ResourceLimits;
+  clone(): TenantConfig;
+}
+
+class DefaultTenantConfig implements TenantConfig {
+  constructor(
+    public theme: Theme,
+    public features: string[],
+    public limits: ResourceLimits
+  ) {}
+
+  clone(): TenantConfig {
+    // Deep clone: copia recursiva de objetos anidados
+    return new DefaultTenantConfig(
+      { ...this.theme },
+      [...this.features],
+      { ...this.limits }
+    );
+  }
+}
+
+// Uso: crear nuevo tenant desde config base
+const baseConfig = new DefaultTenantConfig(
+  { primary: "#3b82f6", mode: "light" },
+  ["auth", "dashboard", "reports"],
+  { maxUsers: 100, maxStorage: 10 }
+);
+
+// Clonar y personalizar para cliente premium
+const premiumConfig = baseConfig.clone();
+premiumConfig.features.push("sso", "audit-log");
+premiumConfig.limits.maxUsers = 1000;
+premiumConfig.limits.maxStorage = 100;
+
+// Clonar para cliente basico
+const basicConfig = baseConfig.clone();
+basicConfig.features = ["auth", "dashboard"];
+basicConfig.limits.maxUsers = 10;
+basicConfig.limits.maxStorage = 1;
+
+// Comparacion: deep clone vs structuredClone vs JSON
+  | Metodo | Ventajas | Desventajas |
+  |--------|----------|-------------|
+  | Manual (spread) | Control total | Tedioso para objetos profundos |
+  | JSON.parse(JSON.stringify) | Simple | No soporta Date, Map, funciones |
+  | structuredClone() | Nativo, soporta Date/Map | No soporta funciones |
+  | lodash _.cloneDeep | Robusto | Dependencia externa |
+```
+
+Lecciones:
+  - Prototype clona objetos sin acoplarse a su clase concreta
+  - Deep clone es necesario para objetos anidados
+  - structuredClone() es nativo en Node.js 17+ y browsers modernos
+  - Para config multi-tenant, clonar base y personalizar
+  - Evita JSON.parse/stringify: pierde tipos (Date, Map, undefined)
+```
+
+### Cuando uso structuredClone vs clone manual?
+
+Usa structuredClone() cuando necesitas deep clone de objetos planos con tipos nativos (Date, Map, Set, ArrayBuffer). Usa clone manual cuando necesitas control sobre que clonar (ej: no clonar secrets, reusar referencias compartidas). Usa lodash _.cloneDeep para casos complejos con referencias circulares. Evita JSON.parse/stringify: pierde Date, Map, Set, undefined y funciones.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

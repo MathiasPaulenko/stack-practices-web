@@ -189,3 +189,114 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Throttling para API de Geolocalizacion
+
+```typescript
+// Throttling pattern: max 10 requests por segundo
+class Throttle {
+  private requests: number[] = [];
+  constructor(private maxRequests: number, private windowMs: number) {}
+
+  canProceed(): boolean {
+    const now = Date.now();
+    // Eliminar requests fuera de la ventana
+    this.requests = this.requests.filter(t => now - t < this.windowMs);
+    if (this.requests.length < this.maxRequests) {
+      this.requests.push(now);
+      return true;
+    }
+    return false;
+  }
+  timeUntilNextSlot(): number {
+    if (this.requests.length < this.maxRequests) return 0;
+    const oldest = this.requests[0];
+    return this.windowMs - (Date.now() - oldest);
+  }
+}
+
+// Uso: API de Google Maps (limit 10 req/s)
+const throttle = new Throttle(10, 1000);
+
+async function geocode(address: string): Promise<LatLng> {
+  if (!throttle.canProceed()) {
+    const wait = throttle.timeUntilNextSlot();
+    await new Promise(resolve => setTimeout(resolve, wait));
+  }
+  const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}`);
+  return response.json();
+}
+
+// Comparacion: Throttle vs Rate Limit vs Debounce
+  | Patron | Proposito | Ejemplo |
+  |--------|-----------|---------|
+  | Throttle | Max N requests por ventana | 10 req/s |
+  | Rate Limit | Rechazar si excede | 429 Too Many Requests |
+  | Debounce | Esperar a que pare el input | Search autocomplete |
+  | Token Bucket | Tokens se reponen over time | Burst + sustained |
+  | Leaky Bucket | Cola con salida constante | Suavizar picos |
+```
+
+Lecciones:
+  - Throttle limita la tasa de requests: no rechaza, espera
+  - Rate limit rechaza: 429 con Retry-After header
+  - Debounce agrupa llamadas: espera inactividad
+  - Token bucket permite burst: util para APIs con quotas
+  - Mide el throughput real: no asumas que el limite es exacto
+```
+
+### Como elijo entre throttle y rate limit?
+
+Usa throttle cuando el cliente debe esperar (ej: llamar API externa con limite). Usa rate limit cuando el cliente debe ser rechazado (ej: proteger tu API de abuso). Throttle es cooperativo: el cliente se auto-limita. Rate limit es impuesto: el servidor rechaza. Para APIs publicas, usa rate limit (429 + Retry-After). Para integraciones internas, throttle es suficiente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+End of document. Review and update quarterly.

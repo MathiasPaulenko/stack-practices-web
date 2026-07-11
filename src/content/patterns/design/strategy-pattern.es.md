@@ -215,3 +215,108 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Strategy para Algoritmos de Pricing
+
+```typescript
+// Strategy pattern: intercambiar algoritmos en runtime
+interface PricingStrategy {
+  calculate(basePrice: number, context: PricingContext): number;
+}
+
+interface PricingContext {
+  userAge?: number;
+  isMember?: boolean;
+  orderCount?: number;
+  isHoliday?: boolean;
+}
+
+class RegularPricing implements PricingStrategy {
+  calculate(basePrice: number): number { return basePrice; }
+}
+
+class MemberDiscountPricing implements PricingStrategy {
+  calculate(basePrice: number, ctx: PricingContext): number {
+    const discount = ctx.orderCount > 10 ? 0.20 : 0.10;
+    return basePrice * (1 - discount);
+  }
+}
+
+class SeniorDiscountPricing implements PricingStrategy {
+  calculate(basePrice: number, ctx: PricingContext): number {
+    if (ctx.userAge >= 65) return basePrice * 0.85;
+    return basePrice;
+  }
+}
+
+class HolidayPricing implements PricingStrategy {
+  calculate(basePrice: number, ctx: PricingContext): number {
+    if (ctx.isHoliday) return basePrice * 0.90;
+    return basePrice;
+  }
+}
+
+// Contexto: usa la estrategia activa
+class PricingService {
+  private strategy: PricingStrategy;
+
+  constructor(strategy: PricingStrategy) {
+    this.strategy = strategy;
+  }
+
+  setStrategy(strategy: PricingStrategy) {
+    this.strategy = strategy;
+  }
+
+  calculatePrice(basePrice: number, ctx: PricingContext): number {
+    return this.strategy.calculate(basePrice, ctx);
+  }
+}
+
+// Uso: cambiar estrategia en runtime
+const pricing = new PricingService(new RegularPricing());
+
+// Cliente regular
+console.log(pricing.calculatePrice(100, {})); // 100
+
+// Cambiar a member discount
+pricing.setStrategy(new MemberDiscountPricing());
+console.log(pricing.calculatePrice(100, { orderCount: 15 })); // 80
+
+// Cambiar a senior
+pricing.setStrategy(new SeniorDiscountPricing());
+console.log(pricing.calculatePrice(100, { userAge: 70 })); // 85
+
+// Combinar estrategias (composite)
+class CompositePricing implements PricingStrategy {
+  constructor(private strategies: PricingStrategy[]) {}
+  calculate(basePrice: number, ctx: PricingContext): number {
+    return this.strategies.reduce(
+      (price, s) => s.calculate(price, ctx),
+      basePrice
+    );
+  }
+}
+
+// Aplicar member + holiday
+const composite = new CompositePricing([
+  new MemberDiscountPricing(),
+  new HolidayPricing(),
+]);
+console.log(composite.calculate(100, { orderCount: 15, isHoliday: true })); // 72
+```
+
+Lecciones:
+  - Strategy intercambia algoritmos sin tocar el cliente
+  - Cada estrategia es una clase separada (Open/Closed)
+  - Composite strategy combina multiples descuentos
+  - El cliente no conoce los detalles del algoritmo
+  - Strategy vs State: Strategy cambia algoritmo, State cambia comportamiento segun estado
+```
+
+### Strategy vs State: cual uso?
+
+Strategy cambia el algoritmo desde fuera: el cliente elige que estrategia usar. State cambia el comportamiento desde dentro: el objeto cambia su comportamiento segun su estado interno. Strategy es explicito: pricing.setStrategy(new MemberDiscount()). State es implicito: el objeto decide segun su estado. Strategy es un patron de comportamiento; State es un patron de estado.

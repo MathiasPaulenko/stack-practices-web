@@ -235,3 +235,99 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Proxy para Cache y Validacion de Acceso
+
+```typescript
+// Proxy pattern: controlar acceso a un objeto
+interface DataService {
+  getData(key: string): Promise<unknown>;
+  setData(key: string, value: unknown): Promise<void>;
+}
+
+// Sujeto real: servicio que lee de DB
+class DatabaseService implements DataService {
+  constructor(private db: Pool) {}
+  async getData(key: string): Promise<unknown> {
+    const res = await this.db.query("SELECT value FROM cache WHERE key = $1", [key]);
+    return res.rows[0]?.value || null;
+  }
+  async setData(key: string, value: unknown): Promise<void> {
+    await this.db.query("INSERT INTO cache (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = $2", [key, JSON.stringify(value)]);
+  }
+}
+
+// Proxy 1: Cache
+class CacheProxy implements DataService {
+  private cache = new Map<string, { value: unknown; expiry: number }>();
+  constructor(private real: DataService, private ttlMs: number = 60000) {}
+  async getData(key: string): Promise<unknown> {
+    const cached = this.cache.get(key);
+    if (cached && cached.expiry > Date.now()) return cached.value;
+    const value = await this.real.getData(key);
+    this.cache.set(key, { value, expiry: Date.now() + this.ttlMs });
+    return value;
+  }
+  async setData(key: string, value: unknown): Promise<void> {
+    await this.real.setData(key, value);
+    this.cache.delete(key); // invalidar cache en escritura
+  }
+}
+
+// Proxy 2: Validacion de acceso
+class AccessProxy implements DataService {
+  constructor(private real: DataService, private userRole: string) {}
+  async getData(key: string): Promise<unknown> {
+    if (this.userRole !== "admin" && this.userRole !== "reader") {
+      throw new Error("Access denied: insufficient permissions");
+    }
+    return this.real.getData(key);
+  }
+  async setData(key: string, value: unknown): Promise<void> {
+    if (this.userRole !== "admin") {
+      throw new Error("Access denied: write requires admin");
+    }
+    await this.real.setData(key, value);
+  }
+}
+
+// Proxy 3: Logging
+class LoggingProxy implements DataService {
+  constructor(private real: DataService) {}
+  async getData(key: string): Promise<unknown> {
+    const start = Date.now();
+    const result = await this.real.getData(key);
+    console.log(`[PROXY] getData(${key}) ${Date.now() - start}ms`);
+    return result;
+  }
+  async setData(key: string, value: unknown): Promise<void> {
+    await this.real.setData(key, value);
+    console.log(`[PROXY] setData(${key})`);
+  }
+}
+
+// Composicion: Logging -> Access -> Cache -> DB
+const service = new LoggingProxy(
+  new AccessProxy(
+    new CacheProxy(
+      new DatabaseService(dbPool)
+    ),
+    currentUser.role
+  )
+);
+```
+
+Lecciones:
+  - Proxy controla acceso al objeto real sin cambiar su interfaz
+  - Tipos: virtual (lazy load), protection (access control), remote (RPC), smart (cache)
+  - Los proxies se componen: logging + access + cache + DB
+  - El cliente no sabe que habla con un proxy
+  - Proxy vs Decorator: Proxy controla acceso; Decorator anade comportamiento
+```
+
+### Proxy vs Decorator: cual uso?
+
+Proxy controla acceso al objeto: decide si, cuando y como acceder. Decorator anade comportamiento: siempre delega al objeto real. Proxy decide (access, cache, lazy); Decorator enriquece (logging, metrics, retry). Proxy no anade funcionalidad nueva: solo controla. Decorator anade. Usa Proxy para access control, cache, lazy loading. Usa Decorator para logging, metrics, validacion adicional.

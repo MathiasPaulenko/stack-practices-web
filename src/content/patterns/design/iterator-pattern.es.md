@@ -233,3 +233,105 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+
+## Temas Avanzados
+
+### Escenario: Iterator para Arbol Binario
+
+```typescript
+// Iterator pattern: recorrer colecciones sin exponer internals
+interface Iterator<T> {
+  next(): { value: T | null; done: boolean };
+  hasNext(): boolean;
+  reset(): void;
+}
+
+interface Iterable<T> {
+  createIterator(): Iterator<T>;
+}
+
+// Arbol binario
+class TreeNode<T> {
+  constructor(
+    public value: T,
+    public left: TreeNode<T> | null = null,
+    public right: TreeNode<T> | null = null
+  ) {}
+}
+
+// Iterator: In-order traversal (left, root, right)
+class InOrderIterator<T> implements Iterator<T> {
+  private stack: TreeNode<T>[] = [];
+  private current: TreeNode<T> | null;
+
+  constructor(root: TreeNode<T>) {
+    this.current = root;
+    this.pushLeft(root);
+  }
+
+  private pushLeft(node: TreeNode<T> | null) {
+    while (node) {
+      this.stack.push(node);
+      node = node.left;
+    }
+  }
+
+  hasNext(): boolean { return this.stack.length > 0; }
+
+  next(): { value: T | null; done: boolean } {
+    if (this.stack.length === 0) return { value: null, done: true };
+    const node = this.stack.pop()!;
+    this.pushLeft(node.right);
+    return { value: node.value, done: false };
+  }
+
+  reset() {
+    this.stack = [];
+    if (this.current) this.pushLeft(this.current);
+  }
+}
+
+// Iterator: BFS traversal
+class BFSIterator<T> implements Iterator<T> {
+  private queue: TreeNode<T>[] = [];
+  constructor(root: TreeNode<T>) { this.queue.push(root); }
+  hasNext(): boolean { return this.queue.length > 0; }
+  next(): { value: T | null; done: boolean } {
+    if (this.queue.length === 0) return { value: null, done: true };
+    const node = this.queue.shift()!;
+    if (node.left) this.queue.push(node.left);
+    if (node.right) this.queue.push(node.right);
+    return { value: node.value, done: false };
+  }
+  reset() {}
+}
+
+// Uso
+const tree = new TreeNode(5,
+  new TreeNode(3, new TreeNode(1), new TreeNode(4)),
+  new TreeNode(7, new TreeNode(6), new TreeNode(8))
+);
+
+const inOrder = new InOrderIterator(tree);
+while (inOrder.hasNext()) {
+  console.log(inOrder.next().value); // 1, 3, 4, 5, 6, 7, 8
+}
+
+const bfs = new BFSIterator(tree);
+while (bfs.hasNext()) {
+  console.log(bfs.next().value); // 5, 3, 7, 1, 4, 6, 8
+}
+```
+
+Lecciones:
+  - Iterator recorre colecciones sin exponer su estructura
+  - Diferentes iterators para diferentes traversals (in-order, BFS, DFS)
+  - El cliente no sabe si recorre un array, arbol o grafo
+  - Generator functions (yield*) son iterators nativos en JS
+  - Symbol.iterator permite usar for...of en cualquier iterable
+```
+
+### Como uso generators como iterators?
+
+Usa function* con yield para crear iterators nativos. function* inOrder(node) { if (node.left) yield* inOrder(node.left); yield node.value; if (node.right) yield* inOrder(node.right); }. Luego for (const v of inOrder(tree)) console.log(v). Los generators son mas concisos que una clase Iterator: el estado se maneja automaticamente. Usa clases Iterator cuando necesitas reset(), hasNext() o multiples traversals simultaneos.

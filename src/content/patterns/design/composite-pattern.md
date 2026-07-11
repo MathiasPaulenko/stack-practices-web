@@ -272,3 +272,73 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+
+## Advanced Topics
+
+### Scenario: Composite for File System
+
+```typescript
+// Composite: treat files and directories uniformly
+interface FileSystemNode {
+  getName(): string;
+  getSize(): number;
+  print(indent?: string): void;
+}
+
+// Leaf: file
+class File implements FileSystemNode {
+  constructor(private name: string, private size: number) {}
+  getName(): string { return this.name; }
+  getSize(): number { return this.size; }
+  print(indent: string = "") { console.log(`${indent}${this.name} (${this.size} bytes)`); }
+}
+
+// Composite: directory
+class Directory implements FileSystemNode {
+  private children: FileSystemNode[] = [];
+  constructor(private name: string) {}
+  getName(): string { return this.name; }
+  getSize(): number { return this.children.reduce((sum, c) => sum + c.getSize(), 0); }
+  add(node: FileSystemNode): void { this.children.push(node); }
+  remove(node: FileSystemNode): void { this.children = this.children.filter(c => c !== node); }
+  print(indent: string = "") {
+    console.log(`${indent}${this.name}/ (${this.getSize()} bytes)`);
+    this.children.forEach(c => c.print(indent + "  "));
+  }
+}
+
+// Usage: build file system tree
+const root = new Directory("root");
+const docs = new Directory("docs");
+docs.add(new File("readme.md", 1024));
+docs.add(new File("api.md", 4096));
+const src = new Directory("src");
+src.add(new File("index.ts", 2048));
+src.add(new File("utils.ts", 1024));
+root.add(docs);
+root.add(src);
+root.add(new File("package.json", 512));
+
+root.print();
+// root/ (8704 bytes)
+//   docs/ (5120 bytes)
+//     readme.md (1024 bytes)
+//     api.md (4096 bytes)
+//   src/ (3072 bytes)
+//     index.ts (2048 bytes)
+//     utils.ts (1024 bytes)
+//   package.json (512 bytes)
+```
+
+Lessons:
+  - Composite treats files and directories with the same interface
+  - getSize() on a directory recursively sums children
+  - The client does not distinguish between file and directory
+  - Adding new node type (e.g: Symlink) does not require changing existing code
+  - Tree traversal is natural: each node delegates to its children
+```
+
+### Composite vs Decorator: which do I use?
+
+Composite is structural: builds trees of objects with the same interface. Decorator is structural: wraps one object to add behavior. Composite has 0..N children; Decorator has exactly 1. Composite builds hierarchies (file systems, UI trees, org charts). Decorator builds chains (logging -> cache -> auth -> service). Use Composite for hierarchies. Use Decorator for wrapping.
