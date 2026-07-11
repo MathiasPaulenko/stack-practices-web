@@ -39,7 +39,7 @@ seo:
 
 La migración de datos es el proceso de mover datos de un sistema, esquema o formato a otro. A diferencia de despliegues de código, las migraciones de datos son irreversibles: una vez que los datos se transforman o mueven, revertir requiere otra migración. Migraciones mal ejecutadas causan pérdida de datos, corrupción o downtime extendido.
 
-Esta guía cubre patrones probados para migrar datos de forma segura, incluyendo escrituras duales, backfills, evolución de esquemas y estrategias de validación.
+A continuación: patrones probados para migrar datos de forma segura, incluyendo escrituras duales, backfills, evolución de esquemas y estrategias de validación.
 
 ## Cuándo Usar
 

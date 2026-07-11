@@ -39,7 +39,7 @@ seo:
 
 La búsqueda de texto completo transforma texto crudo en resultados consultables y ranqueados. A diferencia de simples consultas `LIKE '%término%'` que escanean tablas completas, la búsqueda de texto completo usa índices invertidos, stemming, algoritmos de ranqueo, y puntuación de relevancia para devolver resultados significativos en milisegundos.
 
-Esta guía cubre búsqueda integrada de PostgreSQL, Elasticsearch para casos de uso avanzados, diseño de consultas y ajuste de producción.
+A continuación: búsqueda integrada de PostgreSQL, Elasticsearch para casos de uso avanzados, diseño de consultas y ajuste de producción.
 
 ## Cuándo Usar
 

@@ -297,3 +297,7 @@ SLO-based alerting (error budget burn rate) is more robust for user-facing servi
 A healthy on-call shift has 0-2 pages (P1/P2) and 5-15 Slack/email alerts (P3/P4). If an engineer receives more than 5 pages per shift, the alerting policy needs immediate tuning. Track alert volume per shift and review in weekly on-call retros.
 
 Alerts scoring below 12 should be deleted immediately. Alerts scoring 12-17 should be put on a 30-day improvement plan with a named owner.
+
+### How do we prevent alert fatigue during incidents?
+
+During active incidents, suppress dependent alerts that fire as a direct consequence of the root cause. Use alert grouping in Alertmanager to bundle related alerts into a single notification. Designate an incident commander who triages incoming alerts and assigns ownership. After the incident, review all suppressed alerts to confirm they were correctly silenced. Add causal relationships between alerts to your runbook so on-call engineers know which alerts are downstream symptoms versus root causes.

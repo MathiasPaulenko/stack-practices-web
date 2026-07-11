@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-Helm es el package manager para Kubernetes. Definís applications como charts — collections de templated Kubernetes manifests con configurable values. Helm renderéa templates, maneja releases y handlea upgrades y rollbacks. Esta guía cubre chart structure, templating, values, dependencies, hooks, library charts, registry management y production patterns.
+Helm es el package manager para Kubernetes. Definís applications como charts — collections de templated Kubernetes manifests con configurable values. Helm renderéa templates, maneja releases y handlea upgrades y rollbacks. A continuación: chart structure, templating, values, dependencies, hooks, library charts, registry management y production patterns.
 
 ## Chart Structure
 

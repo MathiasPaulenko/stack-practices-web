@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-El strangler fig pattern reemplaza un legacy system incrementalmente. Una routing layer intercepta requests y los dirige al old o new system. Nueva funcionalidad se buildea en el new system mientras que old funcionalidad se migra piece by piece. El old system es eventualmente "strangled" — all traffic rutéa al new system, y el old system se decommissiona. Esta guía cubre routing layer, feature flags, data synchronization, rollback strategies y production patterns.
+El strangler fig pattern reemplaza un legacy system incrementalmente. Una routing layer intercepta requests y los dirige al old o new system. Nueva funcionalidad se buildea en el new system mientras que old funcionalidad se migra piece by piece. El old system es eventualmente "strangled" — all traffic rutéa al new system, y el old system se decommissiona. A continuación: routing layer, feature flags, data synchronization, rollback strategies y production patterns.
 
 ## How It Works
 

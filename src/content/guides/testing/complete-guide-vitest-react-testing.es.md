@@ -37,7 +37,7 @@ seo:
 
 ## Introducción
 
-Vitest es un framework de testing rápido, nativo de Vite que se integra directamente con proyectos de React. Provee APIs compatibles con Jest, soporte nativo de ESM y hot module reloading instantáneo para tests. Combinado con React Testing Library, habilita testing a nivel de componente que se enfoca en el comportamiento del usuario en vez de detalles de implementación. Esta guía cubre component tests, hook tests, integration tests, estrategias de mocking y configuración de CI para proyectos de React usando Vitest.
+Vitest es un framework de testing rápido, nativo de Vite que se integra directamente con proyectos de React. Provee APIs compatibles con Jest, soporte nativo de ESM y hot module reloading instantáneo para tests. Combinado con React Testing Library, habilita testing a nivel de componente que se enfoca en el comportamiento del usuario en vez de detalles de implementación. A continuación: component tests, hook tests, integration tests, estrategias de mocking y configuración de CI para proyectos de React usando Vitest.
 
 ## Setup
 

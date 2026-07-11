@@ -3,7 +3,7 @@ contentType: guides
 slug: solid-principles-guide
 title: "Principios SOLID Explicados con Ejemplos"
 description: "Aprende los cinco principios SOLID con ejemplos prácticos de código: Responsabilidad Única, Abierto/Cerrado, Sustitución de Liskov, Segregación de Interfaces e Inversión de Dependencias."
-metaDescription: "Guía de principios SOLID con ejemplos prácticos: Responsabilidad Única, Abierto/Cerrado, Sustitución de Liskov, Segregación de Interfaces, Inversión de Dependencias."
+metaDescription: "Guía de principios SOLID con ejemplos: Responsabilidad Única, Abierto/Cerrado, Sustitución de Liskov, Segregación de Interfaces, Inversión de Dependencias."
 difficulty: intermediate
 topics:
   - design
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Guía de principios SOLID con ejemplos prácticos: Responsabilidad Única, Abierto/Cerrado, Sustitución de Liskov, Segregación de Interfaces, Inversión de Dependencias."
+  metaDescription: "Guía de principios SOLID con ejemplos: Responsabilidad Única, Abierto/Cerrado, Sustitución de Liskov, Segregación de Interfaces, Inversión de Dependencias."
   keywords:
     - principios solid
     - principio de responsabilidad unica

@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-Apache Airflow es una platform para orquestar data pipelines through directed acyclic graphs (DAGs). Definís tasks y sus dependencies en Python, y Airflow schedulea, ejecuta y monitorea. Esta guía cubre DAGs, operadores, sensores, XCom para data passing, scheduling, backfilling, connections, variables y production patterns.
+Apache Airflow es una platform para orquestar data pipelines through directed acyclic graphs (DAGs). Definís tasks y sus dependencies en Python, y Airflow schedulea, ejecuta y monitorea. A continuación: DAGs, operadores, sensores, XCom para data passing, scheduling, backfilling, connections, variables y production patterns.
 
 ## Core Concepts
 

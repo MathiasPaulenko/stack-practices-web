@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-El código limpio es código que es fácil de entender, fácil de cambiar y fácil de probar. No se trata de ser inteligente, se trata de ser claro. Esta guía cubre los hábitos fundamentales que hacen una base de código sostenible.
+El código limpio es código que es fácil de entender, fácil de cambiar y fácil de probar. No se trata de ser inteligente, se trata de ser claro. A continuación: los hábitos fundamentales que hacen una base de código sostenible.
 
 ## Nombres Significativos
 

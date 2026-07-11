@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-El type system de TypeScript va mucho más allá de interfaces y basic generics. Advanced types como conditional types, mapped types y template literal types te permiten express complex type relationships en compile time. Estos patterns eliminan clases enteras de runtime errors haciendo invalid states unrepresentable. Esta guía cubre conditional types, mapped types, template literal types, `infer`, distributive conditional types y real-world patterns para type-safe APIs, validation y state management.
+El type system de TypeScript va mucho más allá de interfaces y basic generics. Advanced types como conditional types, mapped types y template literal types te permiten express complex type relationships en compile time. Estos patterns eliminan clases enteras de runtime errors haciendo invalid states unrepresentable. A continuación: conditional types, mapped types, template literal types, `infer`, distributive conditional types y real-world patterns para type-safe APIs, validation y state management.
 
 ## Conditional Types
 

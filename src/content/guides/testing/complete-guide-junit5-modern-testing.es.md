@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-JUnit 5 es una reescritura completa del framework JUnit, construido como una plataforma modular en vez de una sola librería. Introduce un modelo de extensions que reemplaza los runners y rules de JUnit 4, tests parametrizados de primera clase, generación de dynamic tests y el JUnit Platform para correr test engines. Esta guía cubre las features que importan para codebases de Java en producción: extensions personalizados, patrones de tests parametrizados, dynamic tests para escenarios data-driven, conditional execution e integración con Maven y Gradle.
+JUnit 5 es una reescritura completa del framework JUnit, construido como una plataforma modular en vez de una sola librería. Introduce un modelo de extensions que reemplaza los runners y rules de JUnit 4, tests parametrizados de primera clase, generación de dynamic tests y el JUnit Platform para correr test engines. A continuación: las features que importan para codebases de Java en producción: extensions personalizados, patrones de tests parametrizados, dynamic tests para escenarios data-driven, conditional execution e integración con Maven y Gradle.
 
 ## Arquitectura
 

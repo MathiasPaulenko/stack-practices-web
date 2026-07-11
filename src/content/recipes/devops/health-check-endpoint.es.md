@@ -3,7 +3,7 @@ contentType: recipes
 slug: health-check-endpoint
 title: "Endpoint de Health Check"
 description: "Cómo implementar un endpoint de health check listo para producción para monitoreo y load balancers."
-metaDescription: "Aprende a construir un endpoint de health check en Python, JavaScript y Java. Incluye liveness, readiness y verificación de dependencias para Kubernetes y load balancers."
+metaDescription: "Aprende a construir un endpoint de health check en Python, JavaScript y Java. Liveness, readiness y verificación de dependencias para Kubernetes y load balancers."
 difficulty: beginner
 topics:
   - devops
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende a construir un endpoint de health check en Python, JavaScript y Java. Incluye liveness, readiness y verificación de dependencias para Kubernetes y load balancers."
+  metaDescription: "Aprende a construir un endpoint de health check en Python, JavaScript y Java. Liveness, readiness y verificación de dependencias para Kubernetes y load balancers."
   keywords:
     - health check endpoint
     - kubernetes liveness probe

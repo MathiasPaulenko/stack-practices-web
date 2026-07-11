@@ -3,7 +3,7 @@ contentType: recipes
 slug: file-upload-validation
 title: "Validación de Subida de Archivos"
 description: "Cómo manejar subidas de archivos de forma segura con validación de tamaño, tipo y contenido."
-metaDescription: "Aprende validación segura de subidas de archivos: límites de tamaño, verificación de tipo MIME, magic bytes y detección de virus. Ejemplos en Python, JavaScript y Java."
+metaDescription: "Validación segura de subidas de archivos: límites de tamaño, verificación de tipo MIME, magic bytes y detección de virus. Ejemplos en Python, JavaScript y Java."
 difficulty: intermediate
 topics:
   - file-handling
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende validación segura de subidas de archivos: límites de tamaño, verificación de tipo MIME, magic bytes y detección de virus. Ejemplos en Python, JavaScript y Java."
+  metaDescription: "Validación segura de subidas de archivos: límites de tamaño, verificación de tipo MIME, magic bytes y detección de virus. Ejemplos en Python, JavaScript y Java."
   keywords:
     - validacion subida archivos
     - validar archivo subido

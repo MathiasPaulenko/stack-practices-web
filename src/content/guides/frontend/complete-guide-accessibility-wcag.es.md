@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-Accesibilidad web significa construir websites que people con disabilities pueden usar. WCAG 2.2 es el international standard con cuatro principles: Perceivable, Operable, Understandable y Robust. Accesibilidad no es optional — es required por law en muchos countries y mejora usability para todos. Esta guía cubre semantic HTML, ARIA roles, keyboard navigation, screen reader support, color contrast, focus management y accessible forms con practical code examples.
+Accesibilidad web significa construir websites que people con disabilities pueden usar. WCAG 2.2 es el international standard con cuatro principles: Perceivable, Operable, Understandable y Robust. Accesibilidad no es optional — es required por law en muchos countries y mejora usability para todos. A continuación: semantic HTML, ARIA roles, keyboard navigation, screen reader support, color contrast, focus management y accessible forms con practical code examples.
 
 ## WCAG 2.2 Principles
 

@@ -41,7 +41,7 @@ seo:
 
 ## Introducción
 
-Apache Kafka es una plataforma distribuida de event streaming. Maneja trillones de eventos por día en empresas como LinkedIn, Uber y Netflix. Esta guía cubre conceptos core de Kafka, producers, consumers, Kafka Streams API, Kafka Connect, Schema Registry y patrones comunes de stream processing con ejemplos en Python, Java y JavaScript.
+Apache Kafka es una plataforma distribuida de event streaming. Maneja trillones de eventos por día en empresas como LinkedIn, Uber y Netflix. A continuación: conceptos core de Kafka, producers, consumers, Kafka Streams API, Kafka Connect, Schema Registry y patrones comunes de stream processing con ejemplos en Python, Java y JavaScript.
 
 ## Conceptos Core
 

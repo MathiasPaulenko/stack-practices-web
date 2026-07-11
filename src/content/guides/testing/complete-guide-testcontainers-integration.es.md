@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-Testcontainers es una librería que provee instancias livianas, desechables de Docker containers para integration testing. En vez de mockear databases, message brokers o APIs externas, levantás instancias reales en Docker containers que se crean antes de que corran los tests y se destruyen después. Esto te da integration tests que capturan issues reales — compatibilidad de drivers, diferencias de SQL dialect, serialization bugs — sin mantener infraestructura de test permanente. Esta guía cubre Testcontainers en Java, Python y Node.js con patrones prácticos para databases, Kafka, Redis y containers personalizados.
+Testcontainers es una librería que provee instancias livianas, desechables de Docker containers para integration testing. En vez de mockear databases, message brokers o APIs externas, levantás instancias reales en Docker containers que se crean antes de que corran los tests y se destruyen después. Esto te da integration tests que capturan issues reales — compatibilidad de drivers, diferencias de SQL dialect, serialization bugs — sin mantener infraestructura de test permanente. A continuación: Testcontainers en Java, Python y Node.js con patrones prácticos para databases, Kafka, Redis y containers personalizados.
 
 ## ¿Por qué Testcontainers?
 

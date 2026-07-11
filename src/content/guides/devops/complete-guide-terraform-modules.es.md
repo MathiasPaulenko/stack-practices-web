@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Los módulos de Terraform encapsulan recursos de infraestructura en unidades reutilizables y componibles. Un módulo bien estructurado te permite provisionar la misma infraestructura across entornos (dev, staging, prod) con diferentes configuraciones. Esta guía cubre estructura de módulos, inputs/outputs, composición, versionado, testing y publicación al Terraform Registry.
+Los módulos de Terraform encapsulan recursos de infraestructura en unidades reutilizables y componibles. Un módulo bien estructurado te permite provisionar la misma infraestructura across entornos (dev, staging, prod) con diferentes configuraciones. A continuación: estructura de módulos, inputs/outputs, composición, versionado, testing y publicación al Terraform Registry.
 
 ## Estructura del Módulo
 

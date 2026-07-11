@@ -39,7 +39,7 @@ seo:
 
 La analítica en tiempo real procesa datos a medida que llegan, entregando insights en segundos en lugar de horas o días. A diferencia de la analítica por batches que corre durante la noche, los sistemas en tiempo real ingieren eventos, computan agregaciones sobre la marcha, y actualizan dashboards continuamente. Esto habilita decisiones operacionales inmediatas: detección de fraude, análisis de comportamiento de usuario en vivo, monitoreo de IoT, y personalización en tiempo real.
 
-Esta guía cubre recolección de eventos, procesamiento de streams, bases de datos OLAP y diseño de dashboards para analítica sub-segundo.
+A continuación: recolección de eventos, procesamiento de streams, bases de datos OLAP y diseño de dashboards para analítica sub-segundo.
 
 ## Cuándo Usar
 

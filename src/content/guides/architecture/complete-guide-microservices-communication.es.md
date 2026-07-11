@@ -42,7 +42,7 @@ seo:
 
 ## Introducción
 
-Los microservicios deben comunicarse para entregar funcionalidad de negocio. La elección del patrón de comunicación afecta directamente latencia, confiabilidad, escalabilidad y acoplamiento. Esta guía cubre patrones síncronos (REST, gRPC), patrones asíncronos (colas de mensajes, event-driven), y patrones de infraestructura (service mesh, API gateway), con ejemplos de código prácticos y criterios de decisión.
+Los microservicios deben comunicarse para entregar funcionalidad de negocio. La elección del patrón de comunicación afecta directamente latencia, confiabilidad, escalabilidad y acoplamiento. A continuación: patrones síncronos (REST, gRPC), patrones asíncronos (colas de mensajes, event-driven), y patrones de infraestructura (service mesh, API gateway), con ejemplos de código prácticos y criterios de decisión.
 
 ## Síncrono vs Asíncrono
 

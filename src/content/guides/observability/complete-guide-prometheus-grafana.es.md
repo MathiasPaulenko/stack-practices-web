@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-Prometheus es un time-series database que scrapea metrics de servicios instrumentados. Grafana es una platform de visualization que queryea Prometheus para construir dashboards y alerts. Juntos forman el monitoring stack open-source más adoptado. Prometheus maneja metric collection, storage y alerting rules. Grafana maneja visualization, dashboarding y alert delivery. Esta guía cubre metric types, PromQL, service instrumentation en Python/Node.js/Java, alerting rules y production deployment.
+Prometheus es un time-series database que scrapea metrics de servicios instrumentados. Grafana es una platform de visualization que queryea Prometheus para construir dashboards y alerts. Juntos forman el monitoring stack open-source más adoptado. Prometheus maneja metric collection, storage y alerting rules. Grafana maneja visualization, dashboarding y alert delivery. A continuación: metric types, PromQL, service instrumentation en Python/Node.js/Java, alerting rules y production deployment.
 
 ## Prometheus Metric Types
 

@@ -3,7 +3,7 @@ contentType: guides
 slug: api-gateway-design-guide
 title: "Diseño de API Gateway: Resiliencia, Enrutamiento y Seguridad"
 description: "Guía práctica para diseñar API gateways: patrones de enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad para APIs resilientes."
-metaDescription: "Aprende a diseñar API gateways resilientes con enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad. Guía completa para equipos de ingeniería."
+metaDescription: "Aprende a diseñar API gateways resilientes con enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad. Guía para equipos de ingeniería."
 difficulty: advanced
 topics:
   - architecture
@@ -27,7 +27,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende a diseñar API gateways resilientes con enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad. Guía completa para equipos de ingeniería."
+  metaDescription: "Aprende a diseñar API gateways resilientes con enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad. Guía para equipos de ingeniería."
   keywords:
     - api gateway
     - arquitectura
@@ -41,7 +41,7 @@ seo:
 ---
 ## Visión General
 
-Toda arquitectura de microservicios eventualmente necesita una puerta de entrada. El API gateway es esa puerta — y si lo diseñas mal, se convierte en un punto único de fallo, un cuello de botella de rendimiento o una brecha de seguridad. Un gateway bien diseñado maneja enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad para que los servicios individuales se enfoquen en la lógica de negocio. Esta guía cubre los patrones principales, trade-offs y estrategias de implementación para construir API gateways resilientes.
+Toda arquitectura de microservicios eventualmente necesita una puerta de entrada. El API gateway es esa puerta — y si lo diseñas mal, se convierte en un punto único de fallo, un cuello de botella de rendimiento o una brecha de seguridad. Un gateway bien diseñado maneja enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad para que los servicios individuales se enfoquen en la lógica de negocio. A continuación: los patrones principales, trade-offs y estrategias de implementación para construir API gateways resilientes.
 
 ## Cuándo Usar
 

@@ -3,7 +3,7 @@ contentType: guides
 slug: sql-performance-tuning-guide
 title: "Optimización de Rendimiento SQL"
 description: "Una guía práctica para optimizar consultas SQL: estrategias de indexación, reescritura de queries, análisis de EXPLAIN plans y anti-patrones comunes a evitar."
-metaDescription: "Guía de optimización SQL: estrategias de indexación, reescritura de queries, EXPLAIN plans y anti-patrones. Optimiza consultas lentas en PostgreSQL, MySQL y SQL Server."
+metaDescription: "Guía de optimización SQL: indexación, reescritura de queries, EXPLAIN plans y anti-patrones. Optimiza consultas lentas en PostgreSQL, MySQL y SQL Server."
 difficulty: intermediate
 topics:
   - databases
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Guía de optimización SQL: estrategias de indexación, reescritura de queries, EXPLAIN plans y anti-patrones. Optimiza consultas lentas en PostgreSQL, MySQL y SQL Server."
+  metaDescription: "Guía de optimización SQL: indexación, reescritura de queries, EXPLAIN plans y anti-patrones. Optimiza consultas lentas en PostgreSQL, MySQL y SQL Server."
   keywords:
     - optimizacion rendimiento sql
     - optimizacion de consultas
@@ -38,7 +38,7 @@ seo:
 
 ## Introducción
 
-Las consultas lentas son una de las causas más comunes de problemas de rendimiento en aplicaciones. Esta guía cubre técnicas prácticas para identificar, diagnosticar y corregir problemas de rendimiento SQL en PostgreSQL, MySQL y SQL Server.
+Las consultas lentas son una de las causas más comunes de problemas de rendimiento en aplicaciones. A continuación: técnicas prácticas para identificar, diagnosticar y corregir problemas de rendimiento SQL en PostgreSQL, MySQL y SQL Server.
 
 ## Encontrando Consultas Lentas
 

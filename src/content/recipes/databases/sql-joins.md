@@ -30,7 +30,7 @@ seo:
 
 ## Overview
 
-SQL JOINs combine rows from two or more tables based on a related column. They are one of the most capable and frequently misunderstood capabilities of relational databases. This recipe demonstrates the four common JOIN types with a realistic `users` and `orders` schema.
+SQL JOINs combine rows from two or more tables based on a related column. They are one of the most capable and frequently misunderstood capabilities of relational databases. The four common JOIN types, with a realistic `users` and `orders` schema.
 
 ## When to Use
 

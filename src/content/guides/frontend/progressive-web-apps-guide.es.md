@@ -37,7 +37,7 @@ seo:
 
 ## Visión General
 
-Las Progressive Web Apps (PWA) usan capacidades web modernas para ofrecer una experiencia similar a una app: acceso offline, notificaciones push, instalación en la pantalla de inicio y sincronización en segundo plano. A diferencia de las apps nativas, funcionan en el navegador y no requieren aprobación de una tienda de apps. Esta guía cubre las tecnologías principales y lo que funciona para construir PWAs de producción.
+Las Progressive Web Apps (PWA) usan capacidades web modernas para ofrecer una experiencia similar a una app: acceso offline, notificaciones push, instalación en la pantalla de inicio y sincronización en segundo plano. A diferencia de las apps nativas, funcionan en el navegador y no requieren aprobación de una tienda de apps. A continuación: las tecnologías principales y lo que funciona para construir PWAs de producción.
 
 ## Cuándo Usar
 

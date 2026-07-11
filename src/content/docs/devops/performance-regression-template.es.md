@@ -3,7 +3,7 @@ contentType: docs
 slug: performance-regression-template
 title: "Plantilla de Regresión de Rendimiento"
 description: "Una plantilla para comparar benchmarks y crear planes de acción cuando el rendimiento se degrada."
-metaDescription: "Usa esta plantilla de regresión de rendimiento para comparar benchmarks antes y después de releases, identificar degradaciones y crear planes de remediación accionables."
+metaDescription: "Plantilla de regresión de rendimiento para comparar benchmarks antes y después de releases, identificar degradaciones y crear planes de remediación accionables."
 difficulty: intermediate
 topics:
   - devops
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Usa esta plantilla de regresión de rendimiento para comparar benchmarks antes y después de releases, identificar degradaciones y crear planes de remediación accionables."
+  metaDescription: "Plantilla de regresión de rendimiento para comparar benchmarks antes y después de releases, identificar degradaciones y crear planes de remediación accionables."
   keywords:
     - devops
     - rendimiento

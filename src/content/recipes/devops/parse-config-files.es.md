@@ -3,7 +3,7 @@ contentType: recipes
 slug: parse-config-files
 title: "Analizar y Validar Configuración YAML/JSON"
 description: "Cómo analizar y validar archivos de configuración de aplicaciones usando esquemas YAML y JSON."
-metaDescription: "Aprende a analizar y validar archivos de configuración YAML y JSON en Python, JavaScript y Java. Cubre validación de esquemas, configs por entorno y gestión de secretos."
+metaDescription: "Analiza y valida archivos de configuración YAML y JSON en Python, JavaScript y Java. Validación de esquemas, configs por entorno y gestión de secretos."
 difficulty: beginner
 topics:
   - devops
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende a analizar y validar archivos de configuración YAML y JSON en Python, JavaScript y Java. Cubre validación de esquemas, configs por entorno y gestión de secretos."
+  metaDescription: "Analiza y valida archivos de configuración YAML y JSON en Python, JavaScript y Java. Validación de esquemas, configs por entorno y gestión de secretos."
   keywords:
     - config
     - yaml

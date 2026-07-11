@@ -40,7 +40,7 @@ seo:
 
 Los feature flags (también llamados feature toggles) desacoplan el despliegue del release. Permiten desplegar código a producción mientras mantienen funcionalidades ocultas, luego habilitarlas gradualmente para usuarios, regiones o porcentajes específicos. También sirven como kill switches para deshabilitar instantáneamente cambios problemáticos sin redeploy.
 
-Esta guía cubre tipos de flags, patrones de implementación, estrategias de rollout y métodos operacionales probados.
+A continuación: tipos de flags, patrones de implementación, estrategias de rollout y métodos operacionales probados.
 
 ## When to Use
 

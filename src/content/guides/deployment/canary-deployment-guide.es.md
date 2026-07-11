@@ -41,7 +41,7 @@ seo:
 
 El despliegue canary libera una nueva versión primero a un pequeño subconjunto de usuarios, luego aumenta gradualmente el tráfico mientras monitorea problemas. Combina la seguridad de la exposición controlada con la velocidad del despliegue continuo, detectando problemas antes de que impacten a todos los usuarios.
 
-Esta guía cubre división de tráfico, métricas de salud, promoción automatizada y estrategias de rollback.
+A continuación: división de tráfico, métricas de salud, promoción automatizada y estrategias de rollback.
 
 ## When to Use
 

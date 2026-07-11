@@ -41,7 +41,7 @@ seo:
 
 ## Introducción
 
-Kubernetes Ingress expone rutas HTTP y HTTPS desde fuera del cluster hacia servicios dentro del cluster. Provee virtual hosting basado en nombres, enrutamiento por path, terminación TLS y otras features de Layer 7 que un Service plain (Layer 4) no puede. Esta guía cubre instalar un Ingress controller, configurar reglas de enrutamiento, habilitar TLS, usar anotaciones y solucionar problemas comunes.
+Kubernetes Ingress expone rutas HTTP y HTTPS desde fuera del cluster hacia servicios dentro del cluster. Provee virtual hosting basado en nombres, enrutamiento por path, terminación TLS y otras features de Layer 7 que un Service plain (Layer 4) no puede. A continuación: instalar un Ingress controller, configurar reglas de enrutamiento, habilitar TLS, usar anotaciones y solucionar problemas comunes.
 
 ## ¿Qué es Ingress?
 

@@ -3,7 +3,7 @@ contentType: guides
 slug: system-design-interview-guide
 title: "Guía de Entrevistas de System Design: Conceptos Clave"
 description: "Una guía práctica para entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios y cómo estructurar tu respuesta."
-metaDescription: "Guía de entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios. Aprende a estructurar respuestas para entrevistas técnicas."
+metaDescription: "Guía de entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios. Estructura respuestas para entrevistas técnicas."
 difficulty: advanced
 topics:
   - architecture
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Guía de entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios. Aprende a estructurar respuestas para entrevistas técnicas."
+  metaDescription: "Guía de entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios. Estructura respuestas para entrevistas técnicas."
   keywords:
     - entrevista system design
     - guia system design

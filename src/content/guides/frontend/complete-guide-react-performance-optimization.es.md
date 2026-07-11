@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-React es rápido por default, pero a medida que las apps crecen, re-renders innecesarios, bundles grandes y listas no optimizadas pueden degradar performance. Esta guía cubre memoization, virtualization, code splitting, bundle analysis, React Profiler, concurrent features y tuning de Core Web Vitals.
+React es rápido por default, pero a medida que las apps crecen, re-renders innecesarios, bundles grandes y listas no optimizadas pueden degradar performance. A continuación: memoization, virtualization, code splitting, bundle analysis, React Profiler, concurrent features y tuning de Core Web Vitals.
 
 ## Identificando Problemas de Performance
 

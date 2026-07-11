@@ -30,7 +30,7 @@ seo:
 
 ## Visión General
 
-Los JOINs en SQL combinan filas de dos o más tablas basándose en una columna relacionada. Son una de las capacidades más poderosas y frecuentemente mal entendidas de las bases de datos relacionales. Esta receta demuestra los cuatro tipos comunes de JOIN con un esquema realista de `users` y `orders`.
+Los JOINs en SQL combinan filas de dos o más tablas basándose en una columna relacionada. Son una de las capacidades más poderosas y frecuentemente mal entendidas de las bases de datos relacionales. Los cuatro tipos comunes de JOIN con un esquema realista de `users` y `orders`.
 
 ## Cuándo Usar
 

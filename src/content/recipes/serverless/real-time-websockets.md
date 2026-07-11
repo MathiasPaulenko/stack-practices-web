@@ -297,3 +297,7 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+### How do I test locally before deploying?
+
+Use `sam local start-api` with AWS SAM to emulate API Gateway WebSockets locally. For DynamoDB, run DynamoDB Local in Docker. Create a test client in JavaScript that connects to the local endpoint and sends messages. Verify that the `$connect` callback registers the connection in DynamoDB and that `$default` processes messages correctly. For load testing, use Artillery with the WebSocket engine to simulate hundreds of concurrent connections.

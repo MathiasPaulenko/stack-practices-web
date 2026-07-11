@@ -297,3 +297,7 @@ R: Usa una tabla de base de datos como cola: inserta filas para mensajes, los co
 
 **P: Como monitoreo la salud de la cola en produccion?**
 R: Rastrea profundidad de cola, consumer lag, edad de mensaje, throughput, tasa de error y tamano de dead-letter queue. Configura dashboards con estas metricas. Alerta sobre: profundidad de cola creciendo, edad de mensaje excediendo SLA, tasa de error sobre 5%, y dead-letter queue recibiendo mensajes. Usa CloudWatch (SQS), RabbitMQ Management plugin, o metricas de consumer lag de Kafka.
+
+**P: Como escalo consumidores automaticamente?**
+
+R: Usa escalado automatico basado en profundidad de cola. En SQS, configura CloudWatch alarms sobre `ApproximateNumberOfMessagesVisible` y escala ECS/Lambda concurrency. En Kafka, usa consumer lag metrics para escalar consumer groups. Establece un maximo de consumidores igual al numero de particiones — mas consumidores que particiones no reciben mensajes. Configura scale-down con un delay de 5-10 minutos para evitar flapping.

@@ -37,7 +37,7 @@ seo:
 
 ## Introducción
 
-Technical debt es el cost de shortcuts tomados durante development. Como financial debt, accruea interest: cuanto más esperás para pay down, más expensive se vuelve. Esta guía cubre identificar debt types, trackear con un debt register, priorizar usando impact vs effort, agendar paydown sprints y medir debt reduction over time.
+Technical debt es el cost de shortcuts tomados durante development. Como financial debt, accruea interest: cuanto más esperás para pay down, más expensive se vuelve. A continuación: identificar debt types, trackear con un debt register, priorizar usando impact vs effort, agendar paydown sprints y medir debt reduction over time.
 
 ## Types of Technical Debt
 

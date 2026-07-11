@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-La revisión de código es una de las actividades con mayor retorno en el desarrollo de software. Detecta bugs temprano, comparte conocimiento entre el equipo y mantiene la calidad del código consistente. Esta guía cubre prácticas tanto para autores (quienes envían código) como para revisores (quienes lo evalúan).
+La revisión de código es una de las actividades con mayor retorno en el desarrollo de software. Detecta bugs temprano, comparte conocimiento entre el equipo y mantiene la calidad del código consistente. A continuación: prácticas tanto para autores (quienes envían código) como para revisores (quienes lo evalúan).
 
 ## Para Autores: Haciendo tu Código Revisable
 

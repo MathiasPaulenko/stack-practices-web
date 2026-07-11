@@ -41,7 +41,7 @@ seo:
 
 La planificación de capacidad asegura que tu infraestructura pueda manejar la demanda actual y futura sin desperdiciar recursos. Cierra la brecha entre la extinción de incendios reactiva y el escalado proactivo, ayudando a los equipos a entregar servicios confiables mientras controlan costos.
 
-Esta guía cubre el pronóstico de demanda, pruebas de carga, estrategias de escalado y decisiones de capacidad conscientes de costos para entornos cloud y on-premise.
+A continuación: el pronóstico de demanda, pruebas de carga, estrategias de escalado y decisiones de capacidad conscientes de costos para entornos cloud y on-premise.
 
 ## When to Use
 

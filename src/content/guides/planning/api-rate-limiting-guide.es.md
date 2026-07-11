@@ -43,7 +43,7 @@ seo:
 
 El rate limiting controla la cantidad de requests de API que un cliente puede hacer en un período de tiempo determinado. Protege tu backend de sobrecarga, asegura compartición justa de recursos y previene abuso. Límites bien diseñados equilibran experiencia de usuario con protección del sistema.
 
-Esta guía cubre algoritmos de rate limiting, estrategias de implementación y elección de límites apropiados.
+A continuación: algoritmos de rate limiting, estrategias de implementación y elección de límites apropiados.
 
 ## When to Use
 

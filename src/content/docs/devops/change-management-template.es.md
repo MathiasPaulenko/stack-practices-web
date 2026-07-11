@@ -297,3 +297,7 @@ Algunos cambios son irreversibles (migraciones de base de datos que eliminan col
 ### Como integramos gestion de cambios con GitOps?
 
 En un flujo de GitOps, el pull request ES la solicitud de cambio. Vincula el PR al sistema de gestion de cambios. Usa etiquetas de PR para clasificacion de riesgo (bajo, medio, alto, critico). Requiere aprobaciones basadas en nivel de riesgo: bajo = 1 revisor, medio = 2 revisores, alto = aprobacion CAB. El commit de merge es la ejecucion. Usa herramientas como Argo CD o Flux para rastrear el estado del despliegue. La descripcion del PR debe incluir el analisis de impacto y el plan de rollback. Cierra el ticket de cambio automaticamente cuando el despliegue tiene exito.
+
+### Que hacemos con cambios de emergencia fuera de horario?
+
+Define un proceso de cambio de emergencia separado del flujo normal. Requiere aprobacion del lider de guardia y notificacion al CAB via canal de Slack o PagerDuty. Documenta el cambio retrospectivamente dentro de 24 horas. Realiza un postmortem si el cambio de emergencia causo o estuvo relacionado con un incidente. Limita cambios de emergencia a correcciones de bugs criticos o parches de seguridad. No uses el proceso de emergencia para saltarte revisiones de cambios planificados.

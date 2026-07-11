@@ -39,7 +39,7 @@ seo:
 
 La respuesta a incidentes es el proceso estructurado de reaccionar ante interrupciones de servicio no planificadas. Sin estructura, los incidentes devienen en caos: demasiada gente hablando, sin un responsable claro de decisiones, y comunicación confusa con stakeholders. Un proceso de respuesta definido reduce el tiempo medio de resolución (MTTR), minimiza el impacto al cliente y reduce el estrés de los respondedores.
 
-Esta guía cubre declaración de incidentes, roles, comunicación y flujos de trabajo de resolución.
+A continuación: declaración de incidentes, roles, comunicación y flujos de trabajo de resolución.
 
 ## Cuándo Usar
 

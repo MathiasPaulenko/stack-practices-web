@@ -35,7 +35,7 @@ seo:
 
 ## Resumen
 
-Una base de datos bien diseñada es la fundación de aplicaciones confiables. Un mal diseño conduce a inconsistencias de datos, consultas lentas y migraciones costosas. Esta guía cubre los principios esenciales para diseñar bases de datos relacionales escalables.
+Una base de datos bien diseñada es la fundación de aplicaciones confiables. Un mal diseño conduce a inconsistencias de datos, consultas lentas y migraciones costosas. A continuación: los principios esenciales para diseñar bases de datos relacionales escalables.
 
 ## Modelado Entidad-Relación
 

@@ -37,7 +37,7 @@ seo:
 
 ## Introducción
 
-Pytest es el framework de testing para Python más popular, pero la mayoría de los equipos solo usan lo básico. Los codebases de producción necesitan más que `assert` statements — necesitan fixtures reusables, markers personalizados para organizar tests, ejecución paralela para velocidad, plugins para funcionalidad compartida e integración con CI que provea feedback accionable. Esta guía cubre todo lo que necesitás para correr pytest a escala: desde fixture factories y patrones de conftest hasta paralelización con xdist y desarrollo de plugins personalizados.
+Pytest es el framework de testing para Python más popular, pero la mayoría de los equipos solo usan lo básico. Los codebases de producción necesitan más que `assert` statements — necesitan fixtures reusables, markers personalizados para organizar tests, ejecución paralela para velocidad, plugins para funcionalidad compartida e integración con CI que provea feedback accionable. A continuación: todo lo que necesitás para correr pytest a escala: desde fixture factories y patrones de conftest hasta paralelización con xdist y desarrollo de plugins personalizados.
 
 ## Fundamentos de Fixtures
 

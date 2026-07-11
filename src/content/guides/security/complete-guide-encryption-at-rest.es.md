@@ -37,7 +37,7 @@ seo:
 
 ## Introducción
 
-Encryption at rest protege stored data de unauthorized access. Si un attacker gana access al storage layer (disk, backup, snapshot), encrypted data es unreadable sin el key. Esta guía cubre AES-256-GCM, key management services (KMS), envelope encryption, key rotation, database encryption, field-level encryption y production patterns.
+Encryption at rest protege stored data de unauthorized access. Si un attacker gana access al storage layer (disk, backup, snapshot), encrypted data es unreadable sin el key. A continuación: AES-256-GCM, key management services (KMS), envelope encryption, key rotation, database encryption, field-level encryption y production patterns.
 
 ## Encryption Layers
 

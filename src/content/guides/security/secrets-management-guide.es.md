@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-Los secretos — contraseñas, claves de API, tokens, certificados — son las llaves de tu reino. Almacenarlos en código fuente, archivos de configuración o variables de entorno es una fuente común de brechas. Una gestión adecuada de secretos asegura que las credenciales estén encriptadas, rotadas, auditadas y accesibles solo para servicios y usuarios autorizados. Esta guía cubre las soluciones líderes de gestión de secretos y las prácticas que las hacen útiles.
+Los secretos — contraseñas, claves de API, tokens, certificados — son las llaves de tu reino. Almacenarlos en código fuente, archivos de configuración o variables de entorno es una fuente común de brechas. Una gestión adecuada de secretos asegura que las credenciales estén encriptadas, rotadas, auditadas y accesibles solo para servicios y usuarios autorizados. A continuación: las soluciones líderes de gestión de secretos y las prácticas que las hacen útiles.
 
 ## When to Use
 

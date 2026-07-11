@@ -297,3 +297,7 @@ A: Use a database table as a queue: insert rows for messages, consumers select a
 
 **Q: How do I monitor queue health in production?**
 A: Track queue depth, consumer lag, message age, throughput, error rate, and dead-letter queue size. Set dashboards with these metrics. Alert on: queue depth growing over time, message age exceeding SLA, error rate above 5%, and dead-letter queue receiving messages. Use CloudWatch (SQS), RabbitMQ Management plugin, or Kafka consumer lag metrics.
+
+**Q: How do I scale consumers automatically?**
+
+A: Use autoscaling based on queue depth. In SQS, configure CloudWatch alarms on `ApproximateNumberOfMessagesVisible` and scale ECS/Lambda concurrency. In Kafka, use consumer lag metrics to scale consumer groups. Set a maximum number of consumers equal to the number of partitions — more consumers than partitions receive no messages. Configure scale-down with a 5-10 minute delay to avoid flapping.

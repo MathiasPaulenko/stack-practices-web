@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Even with ORMs, raw SQL is sometimes necessary for complex queries, migrations, or performance optimization. However, executing raw SQL without safeguards is a primary cause of SQL injection vulnerabilities. This recipe demonstrates how to execute raw SQL safely using parameterized queries in Python, JavaScript, and Java.
+Even with ORMs, raw SQL is sometimes necessary for complex queries, migrations, or performance optimization. However, executing raw SQL without safeguards is a primary cause of SQL injection vulnerabilities. How to execute raw SQL safely using parameterized queries in Python, JavaScript, and Java.
 
 ## When to Use
 

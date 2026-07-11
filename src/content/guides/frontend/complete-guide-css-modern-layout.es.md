@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-Modern CSS provee layout tools que hacen media-query-heavy stylesheets largely innecesarios. CSS Grid maneja two-dimensional layouts. Flexbox maneja one-dimensional distribution. Container queries dejan a los components responder al size de su parent en vez del viewport. Subgrid permite a nested grids alinear con parent grid tracks. Esta guía cubre practical patterns para cada uno, con real-world component examples.
+Modern CSS provee layout tools que hacen media-query-heavy stylesheets largely innecesarios. CSS Grid maneja two-dimensional layouts. Flexbox maneja one-dimensional distribution. Container queries dejan a los components responder al size de su parent en vez del viewport. Subgrid permite a nested grids alinear con parent grid tracks. A continuación: practical patterns para cada uno, con real-world component examples.
 
 ## CSS Grid
 

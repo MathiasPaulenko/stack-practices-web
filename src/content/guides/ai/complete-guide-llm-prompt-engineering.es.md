@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Prompt engineering es la práctica de diseñar inputs que guían a los Large Language Models (LLMs) para producir outputs deseados. Es parte arte, parte ciencia — pequeños cambios en phrasing, estructura y context pueden afectar dramáticamente la calidad del output. Esta guía cubre patrones de prompts, few-shot learning, chain-of-thought reasoning, retrieval-augmented generation (RAG), system prompts, temperature tuning, function calling y estrategias de evaluación.
+Prompt engineering es la práctica de diseñar inputs que guían a los Large Language Models (LLMs) para producir outputs deseados. Es parte arte, parte ciencia — pequeños cambios en phrasing, estructura y context pueden afectar dramáticamente la calidad del output. A continuación: patrones de prompts, few-shot learning, chain-of-thought reasoning, retrieval-augmented generation (RAG), system prompts, temperature tuning, function calling y estrategias de evaluación.
 
 ## Anatomía de un Prompt
 

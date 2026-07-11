@@ -37,7 +37,7 @@ seo:
 
 ## Visión General
 
-La accesibilidad web (a11y) asegura que las personas con discapacidades puedan percibir, entender, navegar e interactuar con el contenido web. WCAG 2.2 (Pautas de Accesibilidad para Contenido Web) es el estándar actual, organizado en torno a cuatro principios: Perceptible, Operable, Comprensible y Confiable (POUR). Esta guía cubre los criterios de éxito más impactantes con ejemplos de código prácticos.
+La accesibilidad web (a11y) asegura que las personas con discapacidades puedan percibir, entender, navegar e interactuar con el contenido web. WCAG 2.2 (Pautas de Accesibilidad para Contenido Web) es el estándar actual, organizado en torno a cuatro principios: Perceptible, Operable, Comprensible y Confiable (POUR). A continuación: los criterios de éxito más impactantes con ejemplos de código prácticos.
 
 ## Cuándo Usar
 

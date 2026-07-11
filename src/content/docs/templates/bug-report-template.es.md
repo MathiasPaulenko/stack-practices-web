@@ -4,7 +4,7 @@ slug: bug-report-template
 templateType: bug-report
 title: "Plantilla de Reporte de Bug"
 description: "Plantilla estructurada de reporte de bugs para ayudar a equipos a reproducir, clasificar y resolver defectos más rápido con pasos claros y comportamiento esperado."
-metaDescription: "Plantilla de reporte de bugs con pasos de reproducción, comportamiento esperado vs actual, detalles de entorno y severidad. Ayuda a tu equipo a arreglar bugs más rápido."
+metaDescription: "Plantilla de reporte de bugs con pasos de reproducción, comportamiento esperado vs actual, detalles de entorno y severidad. Ayuda a arreglar bugs más rápido."
 difficulty: beginner
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Plantilla de reporte de bugs con pasos de reproducción, comportamiento esperado vs actual, detalles de entorno y severidad. Ayuda a tu equipo a arreglar bugs más rápido."
+  metaDescription: "Plantilla de reporte de bugs con pasos de reproducción, comportamiento esperado vs actual, detalles de entorno y severidad. Ayuda a arreglar bugs más rápido."
   keywords:
     - plantilla reporte bug
     - formato reporte issue

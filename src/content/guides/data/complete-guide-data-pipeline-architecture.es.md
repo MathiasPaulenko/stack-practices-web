@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-Data pipelines mueven data de source systems a destinations donde se vuelve useful. La arquitectura que elegís determina latency, throughput, complexity y cost. Batch processing maneja large volumes en un schedule. Streaming procesa events en real-time. Lambda combina ambos. Kappa simplifica usando streaming para todo. Esta guía cubre cada pattern, sus trade-offs y cuándo usarlos.
+Data pipelines mueven data de source systems a destinations donde se vuelve useful. La arquitectura que elegís determina latency, throughput, complexity y cost. Batch processing maneja large volumes en un schedule. Streaming procesa events en real-time. Lambda combina ambos. Kappa simplifica usando streaming para todo. A continuación: cada pattern, sus trade-offs y cuándo usarlos.
 
 ## Pipeline Patterns Overview
 

@@ -40,7 +40,7 @@ seo:
 
 ## Introducción
 
-Elasticsearch es un motor distribuido de search y analytics. Maneja full-text search, structured search, analytics y vector search. Correrlo en producción requiere entender roles de nodos, estrategias de sharding, mapping y cluster health. Esta guía cubre arquitectura de cluster, deployment, index management, mapping, snapshots y tuning de producción.
+Elasticsearch es un motor distribuido de search y analytics. Maneja full-text search, structured search, analytics y vector search. Correrlo en producción requiere entender roles de nodos, estrategias de sharding, mapping y cluster health. A continuación: arquitectura de cluster, deployment, index management, mapping, snapshots y tuning de producción.
 
 ## Arquitectura de Cluster
 

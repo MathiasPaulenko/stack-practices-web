@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-ORMs (Object-Relational Mappers) abstract database interactions into native code objects, reducing boilerplate SQL and improving maintainability. This recipe demonstrates CRUD operations using SQLAlchemy (Python), Prisma (JavaScript), and Hibernate (Java).
+ORMs (Object-Relational Mappers) abstract database interactions into native code objects, reducing boilerplate SQL and improving maintainability. CRUD operations using SQLAlchemy (Python), Prisma (JavaScript), and Hibernate (Java).
 
 ## When to Use
 

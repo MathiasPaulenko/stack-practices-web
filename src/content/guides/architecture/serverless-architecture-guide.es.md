@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-La arquitectura serverless te permite ejecutar código sin aprovisionar ni gestionar servidores. El proveedor cloud se encarga de infraestructura, escalado y parcheo; tú proporcionas funciones que se ejecutan en respuesta a eventos. Aunque serverless elimina la gestión de servidores, introduce nuevas restricciones: límites de tiempo de ejecución, cold starts, falta de estado y debugging distribuido. Esta guía cubre patrones que funcionan y anti-patrones que causan problemas.
+La arquitectura serverless te permite ejecutar código sin aprovisionar ni gestionar servidores. El proveedor cloud se encarga de infraestructura, escalado y parcheo; tú proporcionas funciones que se ejecutan en respuesta a eventos. Aunque serverless elimina la gestión de servidores, introduce nuevas restricciones: límites de tiempo de ejecución, cold starts, falta de estado y debugging distribuido. A continuación: patrones que funcionan y anti-patrones que causan problemas.
 
 ## Cuándo Usar
 

@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-Un API gateway se sienta entre clients y backend services. Handlea cross-cutting concerns: routing, authentication, rate limiting, request shaping, response caching y protocol translation. Backend services se focusan en business logic en vez de infrastructure. Esta guía cubre routing, auth, rate limiting, request/response transformation, caching, protocol translation y production deployment patterns.
+Un API gateway se sienta entre clients y backend services. Handlea cross-cutting concerns: routing, authentication, rate limiting, request shaping, response caching y protocol translation. Backend services se focusan en business logic en vez de infrastructure. A continuación: routing, auth, rate limiting, request/response transformation, caching, protocol translation y production deployment patterns.
 
 ## Core Responsibilities
 

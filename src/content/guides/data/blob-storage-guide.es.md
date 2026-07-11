@@ -38,7 +38,7 @@ seo:
 
 El almacenamiento blob (objeto) es la forma dominante de almacenar datos no estructurados en la nube: imágenes, videos, documentos, respaldos y logs. A diferencia de sistemas de archivos o almacenamiento de bloques, el almacenamiento de objetos trata cada archivo como un objeto independiente con metadatos, accedido vía APIs HTTP. Es infinitamente preparado para crecer, durable y costo-efectivo, pero requiere diferentes patrones de diseño que el almacenamiento tradicional.
 
-Esta guía cubre diseño de buckets, patrones de acceso, seguridad, gestión de ciclo de vida y consideraciones multi-cloud.
+A continuación: diseño de buckets, patrones de acceso, seguridad, gestión de ciclo de vida y consideraciones multi-cloud.
 
 ## Cuándo Usar
 

@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-CI/CD (Continuous Integration / Continuous Deployment) es la columna vertebral de la entrega de software moderna. Esta guía cubre la construcción de pipelines que testean, compilan y despliegan código de manera confiable.
+CI/CD (Continuous Integration / Continuous Deployment) es la columna vertebral de la entrega de software moderna. A continuación: la construcción de pipelines que testean, compilan y despliegan código de manera confiable.
 
 ## When to Use
 

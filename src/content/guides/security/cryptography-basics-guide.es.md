@@ -37,7 +37,7 @@ seo:
 
 ## Overview
 
-La criptografía es la base de la seguridad digital. Ya sea que estés almacenando contraseñas, transmitiendo datos por TLS o firmando solicitudes de API, estás usando criptografía. Entender las primitivas — encriptación, hashing y firmas — y cuándo usar cada una previene una clase de vulnerabilidades que ningún framework puede proteger. Esta guía cubre los conceptos esenciales que todo desarrollador necesita sin requerir un título en matemáticas.
+La criptografía es la base de la seguridad digital. Ya sea que estés almacenando contraseñas, transmitiendo datos por TLS o firmando solicitudes de API, estás usando criptografía. Entender las primitivas — encriptación, hashing y firmas — y cuándo usar cada una previene una clase de vulnerabilidades que ningún framework puede proteger. A continuación: los conceptos esenciales que todo desarrollador necesita sin requerir un título en matemáticas.
 
 ## When to Use
 

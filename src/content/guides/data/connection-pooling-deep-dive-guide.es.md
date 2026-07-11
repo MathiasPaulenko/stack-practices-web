@@ -37,7 +37,7 @@ seo:
 
 Las conexiones de base de datos son costosas de crear. Cada conexión requiere handshake TCP, autenticación, asignación de memoria y fork de proceso en el servidor de base de datos. Abrir una conexión nueva para cada consulta destruye el rendimiento bajo carga. El pooling de conexiones reutiliza conexiones establecidas, reduciendo drásticamente la latencia y carga del servidor mientras previene el agotamiento de conexiones.
 
-Esta guía cubre el dimensionamiento de pools, configuración, monitoreo y troubleshooting para pools a nivel de aplicación y middleware.
+A continuación: el dimensionamiento de pools, configuración, monitoreo y troubleshooting para pools a nivel de aplicación y middleware.
 
 ## Cuándo Usar
 

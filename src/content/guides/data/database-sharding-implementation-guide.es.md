@@ -39,7 +39,7 @@ seo:
 
 El sharding de base de datos divide una única base de datos en múltiples bases de datos más pequeñas (shards) para distribuir carga y almacenamiento. Cuando el escalado vertical (máquinas más grandes) se vuelve demasiado costoso o alcanza límites físicos, el particionamiento horizontal permite que tu capa de base de datos crezca agregando nodos en lugar de actualizar los existentes.
 
-Esta guía cubre cuándo hacer shard, cómo elegir claves de shard, enrutamiento de consultas, rebalanceo y consideraciones operativas.
+A continuación: cuándo hacer shard, cómo elegir claves de shard, enrutamiento de consultas, rebalanceo y consideraciones operativas.
 
 ## Cuándo Usar
 

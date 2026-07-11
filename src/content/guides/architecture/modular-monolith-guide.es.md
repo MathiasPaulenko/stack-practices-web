@@ -3,7 +3,7 @@ contentType: guides
 slug: modular-monolith-guide
 title: "Monolito Modular — Una Arquitectura Pragmática"
 description: "Guía práctica de Monolitos Modulares: combina la simplicidad de los monolitos con la modularidad de los microservicios mediante bounded contexts y límites estrictos entre módulos."
-metaDescription: "Aprende arquitectura de Monolito Modular con bounded contexts, límites entre módulos y rutas de migración a microservicios. Guía práctica para equipos en crecimiento."
+metaDescription: "Aprende arquitectura de Monolito Modular con bounded contexts, límites entre módulos y rutas de migración a microservicios. Guía para equipos en crecimiento."
 difficulty: intermediate
 topics:
   - architecture
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende arquitectura de Monolito Modular con bounded contexts, límites entre módulos y rutas de migración a microservicios. Guía práctica para equipos en crecimiento."
+  metaDescription: "Aprende arquitectura de Monolito Modular con bounded contexts, límites entre módulos y rutas de migración a microservicios. Guía para equipos en crecimiento."
   keywords:
     - monolito-modular
     - monolito

@@ -41,7 +41,7 @@ seo:
 
 ## Introducción
 
-GitOps usa Git como única fuente de verdad para infraestructura y deployment de aplicaciones. ArgoCD es una herramienta de continuous delivery Kubernetes-native que implementa GitOps — watchea un repo Git y sincroniza el estado deseado a clusters de Kubernetes. Esta guía cubre instalación, configuración de aplicaciones, estrategias de sync, integración Helm/Kustomize, RBAC y multi-cluster management.
+GitOps usa Git como única fuente de verdad para infraestructura y deployment de aplicaciones. ArgoCD es una herramienta de continuous delivery Kubernetes-native que implementa GitOps — watchea un repo Git y sincroniza el estado deseado a clusters de Kubernetes. A continuación: instalación, configuración de aplicaciones, estrategias de sync, integración Helm/Kustomize, RBAC y multi-cluster management.
 
 ## Principios de GitOps
 

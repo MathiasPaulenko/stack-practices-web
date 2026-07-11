@@ -37,7 +37,7 @@ seo:
 
 ## Introducción
 
-Refactoring es el process de cambiar code structure sin cambiar behavior. Hace el code easier de read, understand y modify. Esta guía cubre las most common refactoring techniques: extract method, replace conditional with polymorphism, move function, extract class, rename y safe refactoring workflows.
+Refactoring es el process de cambiar code structure sin cambiar behavior. Hace el code easier de read, understand y modify. A continuación: las most common refactoring techniques: extract method, replace conditional with polymorphism, move function, extract class, rename y safe refactoring workflows.
 
 ## Safe Refactoring Workflow
 

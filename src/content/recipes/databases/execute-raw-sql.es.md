@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Incluso con ORMs, SQL crudo a veces es necesario para consultas complejas, migraciones o optimización de rendimiento. Sin embargo, ejecutar SQL sin salvaguardas es una causa principal de vulnerabilidades de inyección SQL. Esta receta demuestra cómo ejecutar SQL de forma segura usando consultas parametrizadas en Python, JavaScript y Java.
+Incluso con ORMs, SQL crudo a veces es necesario para consultas complejas, migraciones o optimización de rendimiento. Sin embargo, ejecutar SQL sin salvaguardas es una causa principal de vulnerabilidades de inyección SQL. Cómo ejecutar SQL de forma segura usando consultas parametrizadas en Python, JavaScript y Java.
 
 ## Cuándo Usar
 

@@ -40,7 +40,7 @@ seo:
 
 Las réplicas de lectura son copias de tu base de datos primaria que manejan consultas de solo lectura. Son la forma más simple y costo-efectiva de escalar cargas de trabajo intensivas en lectura de base de datos. Al descargar las consultas SELECT a las réplicas, reduces la carga en el primario, mejoras los tiempos de respuesta y aumentas la disponibilidad.
 
-Esta guía cubre configuración de replicación, enrutamiento de consultas, manejo de lag de replicación y lo que funciona operativamente.
+A continuación: configuración de replicación, enrutamiento de consultas, manejo de lag de replicación y lo que funciona operativamente.
 
 ## Cuándo Usar
 

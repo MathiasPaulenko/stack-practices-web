@@ -3,7 +3,7 @@ contentType: guides
 slug: complete-guide-property-based-testing
 title: "Guía Completa de Property-Based Testing: Hypothesis, fast-check, QuickCheck"
 description: "Dominá property-based testing con Hypothesis (Python), fast-check (TypeScript) y principios de QuickCheck. Generá test cases automáticamente, encontrá edge cases y shrinkéá failures."
-metaDescription: "Dominá property-based testing: Hypothesis para Python, fast-check para TypeScript, principios de QuickCheck. Generá test cases, encontrá edge cases y shrinkéá failures."
+metaDescription: "Dominá property-based testing: Hypothesis para Python, fast-check para TypeScript y QuickCheck. Generá test cases, encontrá edge cases y shrinkéá failures."
 difficulty: advanced
 topics:
   - testing
@@ -24,7 +24,7 @@ lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
 seo:
-  metaDescription: "Dominá property-based testing: Hypothesis para Python, fast-check para TypeScript, principios de QuickCheck. Generá test cases, encontrá edge cases y shrinkéá failures."
+  metaDescription: "Dominá property-based testing: Hypothesis para Python, fast-check para TypeScript y QuickCheck. Generá test cases, encontrá edge cases y shrinkéá failures."
   keywords:
     - property based testing
     - hypothesis python
@@ -36,7 +36,7 @@ seo:
 
 ## Introducción
 
-Property-based testing invierte el modelo de testing tradicional. En vez de escribir test cases individuales con inputs y outputs específicos, definís properties — invariantes que deberían valer para todos los inputs válidos — y el framework genera cientos o miles de test cases automáticamente. Cuando un test falla, el framework shrinkéa el input que falla al caso más chico posible que reproduce el bug. Esta guía cubre Hypothesis para Python, fast-check para TypeScript/JavaScript y los principios subyacentes de QuickCheck que alimentan todos los frameworks de property-based testing.
+Property-based testing invierte el modelo de testing tradicional. En vez de escribir test cases individuales con inputs y outputs específicos, definís properties — invariantes que deberían valer para todos los inputs válidos — y el framework genera cientos o miles de test cases automáticamente. Cuando un test falla, el framework shrinkéa el input que falla al caso más chico posible que reproduce el bug. A continuación: Hypothesis para Python, fast-check para TypeScript/JavaScript y los principios subyacentes de QuickCheck que alimentan todos los frameworks de property-based testing.
 
 ## Conceptos Core
 

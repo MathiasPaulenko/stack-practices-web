@@ -297,3 +297,7 @@ Some changes are irreversible (database migrations that drop columns, data delet
 ### How do we integrate change management with GitOps?
 
 In a GitOps workflow, the pull request IS the change request. Link the PR to the change management system. Use PR labels for risk classification (low, medium, high, critical). Require approvals based on risk level: low = 1 reviewer, medium = 2 reviewers, high = CAB approval. The merge commit is the execution. Use tools like Argo CD or Flux to track deployment status. The PR description should include the impact analysis and rollback plan. Close the change ticket automatically when the deployment succeeds.
+
+### What do we do with out-of-hours emergency changes?
+
+Define a separate emergency change process from the normal flow. Require approval from the on-call lead and notify the CAB via Slack channel or PagerDuty. Document the change retrospectively within 24 hours. Conduct a postmortem if the emergency change caused or was related to an incident. Limit emergency changes to critical bug fixes or security patches. Do not use the emergency process to bypass planned change reviews.

@@ -41,7 +41,7 @@ seo:
 
 Las alertas son la forma en que tus sistemas te indican que algo necesita atención. Hechas mal, crean ruido, agotamiento y respuesta más lenta a incidentes. Hechas bien, dan a la persona correcta la información correcta en el momento correcto para que pueda actuar con decisión.
 
-Esta guía cubre diseño de alertas, clasificación de severidad, estructuras de guardia, políticas de escalamiento y prácticas operativas sostenibles.
+A continuación: diseño de alertas, clasificación de severidad, estructuras de guardia, políticas de escalamiento y prácticas operativas sostenibles.
 
 ## Cuándo Usar
 

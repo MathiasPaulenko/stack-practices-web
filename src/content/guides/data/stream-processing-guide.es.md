@@ -39,7 +39,7 @@ seo:
 
 El procesamiento de streams ingiere, transforma y produce datos continuamente a medida que fluyen eventos a través del sistema. A diferencia del procesamiento por batch que procesa datos en chunks programados, el procesamiento de streams maneja cada evento a medida que llega, habilitando reacciones sub-segundo a condiciones cambiantes. Poderiza detección de fraude en tiempo real, recomendaciones en vivo, monitoreo de IoT y analítica operacional.
 
-Esta guía cubre fundamentos de procesamiento de streams, selección de motor, operaciones stateful y patrones de producción con Kafka Streams, Apache Flink y Spark Streaming.
+A continuación: fundamentos de procesamiento de streams, selección de motor, operaciones stateful y patrones de producción con Kafka Streams, Apache Flink y Spark Streaming.
 
 ## Cuándo Usar
 

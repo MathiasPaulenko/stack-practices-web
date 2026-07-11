@@ -40,7 +40,7 @@ seo:
 
 ## Introducción
 
-El versionado de APIs permite evolucionar una API sin romper clientes existentes. La estrategia correcta depende del tipo de API (REST vs GraphQL), base de clientes (interna vs pública) y cadencia de releases. Esta guía cubre los cuatro enfoques principales de versionado REST, evolución de schema GraphQL, workflows de deprecación y patrones de migración.
+El versionado de APIs permite evolucionar una API sin romper clientes existentes. La estrategia correcta depende del tipo de API (REST vs GraphQL), base de clientes (interna vs pública) y cadencia de releases. A continuación: los cuatro enfoques principales de versionado REST, evolución de schema GraphQL, workflows de deprecación y patrones de migración.
 
 ## ¿Por qué versionar APIs?
 

@@ -41,7 +41,7 @@ seo:
 
 Las métricas son mediciones numéricas recolectadas a lo largo del tiempo que te indican cómo se comportan tus sistemas. Los dashboards visualizan esas métricas para hacer visibles los patrones. Juntas, forman la base de la conciencia operativa, permitiendo a los equipos detectar tendencias, identificar anomalías y tomar decisiones basadas en datos.
 
-Esta guía cubre tipos de métricas, patrones de instrumentación, diseño de dashboards y creación de alertas.
+A continuación: tipos de métricas, patrones de instrumentación, diseño de dashboards y creación de alertas.
 
 ## Cuándo Usar
 

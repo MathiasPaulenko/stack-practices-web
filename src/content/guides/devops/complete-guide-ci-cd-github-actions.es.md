@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-GitHub Actions es la plataforma CI/CD built-in de GitHub. Te permite automatizar build, test y deployment directamente desde tu repositorio. Esta guía cubre sintaxis de workflows, runners, matrix builds, caching, secrets, environments, deployment strategies y reusable workflows.
+GitHub Actions es la plataforma CI/CD built-in de GitHub. Te permite automatizar build, test y deployment directamente desde tu repositorio. A continuación: sintaxis de workflows, runners, matrix builds, caching, secrets, environments, deployment strategies y reusable workflows.
 
 ## Básicos de Workflows
 

@@ -41,7 +41,7 @@ seo:
 
 La agregación de logs recolecta logs de todos los servicios, sistemas e infraestructura en una plataforma centralizada y consultable. Transforma archivos de texto dispersos en una señal de observabilidad consultable, permitiendo depuración rápida, auditoría de seguridad y visibilidad operativa en sistemas distribuidos.
 
-Esta guía cubre logging estructurado, estrategias de envío, optimización de almacenamiento y selección de plataformas.
+A continuación: logging estructurado, estrategias de envío, optimización de almacenamiento y selección de plataformas.
 
 ## Cuándo Usar
 

@@ -35,7 +35,7 @@ seo:
 
 ## Visión General
 
-Web Components son un conjunto de APIs nativas del navegador para crear elementos HTML reutilizables y encapsulados. Funcionan en cualquier framework — o sin ninguno — y proporcionan verdadera encapsulación de estilos y DOM mediante Shadow DOM. Esta guía cubre las tres tecnologías principales: Custom Elements, Shadow DOM y HTML Templates, con ejemplos prácticos que puedes usar hoy.
+Web Components son un conjunto de APIs nativas del navegador para crear elementos HTML reutilizables y encapsulados. Funcionan en cualquier framework — o sin ninguno — y proporcionan verdadera encapsulación de estilos y DOM mediante Shadow DOM. A continuación: las tres tecnologías principales: Custom Elements, Shadow DOM y HTML Templates, con ejemplos prácticos que puedes usar hoy.
 
 ## Cuándo Usar
 

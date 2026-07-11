@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-React state management se divide en dos categories: client state (UI state, form input, theme) y server state (API data, cached responses). Different tools handle cada category. Context API está built into React para sharing state sin prop drilling. Zustand provee un lightweight store fuera del React tree. Jotai ofrece atomic state management para fine-grained reactivity. TanStack Query maneja server state con caching, invalidation y optimistic updates. Esta guía cubre los cuatro con practical patterns y guidance sobre cuándo usar cada uno.
+React state management se divide en dos categories: client state (UI state, form input, theme) y server state (API data, cached responses). Different tools handle cada category. Context API está built into React para sharing state sin prop drilling. Zustand provee un lightweight store fuera del React tree. Jotai ofrece atomic state management para fine-grained reactivity. TanStack Query maneja server state con caching, invalidation y optimistic updates. A continuación: los cuatro con practical patterns y guidance sobre cuándo usar cada uno.
 
 ## State Categories
 

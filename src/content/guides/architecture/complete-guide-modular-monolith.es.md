@@ -35,7 +35,7 @@ seo:
 
 ## Introducción
 
-Un modular monolith es un single deployable unit con strict internal module boundaries. Cada module posee su domain logic, data y public API. Los modules communicatean through well-defined contracts, no direct database access. Esta arquitectura te da la simplicity de un monolith para deployment y testing, con la separation of concerns needed para un future microservices migration. Esta guía cubre module boundaries, shared kernel, dependency rules, communication patterns y migration strategies.
+Un modular monolith es un single deployable unit con strict internal module boundaries. Cada module posee su domain logic, data y public API. Los modules communicatean through well-defined contracts, no direct database access. Esta arquitectura te da la simplicity de un monolith para deployment y testing, con la separation of concerns needed para un future microservices migration. A continuación: module boundaries, shared kernel, dependency rules, communication patterns y migration strategies.
 
 ## Module Structure
 

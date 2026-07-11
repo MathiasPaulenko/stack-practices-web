@@ -36,7 +36,7 @@ seo:
 
 ## Overview
 
-La seguridad no es una feature que agregas después—es un fundamento que construyes en cada capa de tu aplicación. Esta guía cubre las prácticas esenciales para construir software seguro.
+La seguridad no es una feature que agregas después—es un fundamento que construyes en cada capa de tu aplicación. A continuación: las prácticas esenciales para construir software seguro.
 
 ## When to Apply
 

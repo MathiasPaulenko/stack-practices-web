@@ -40,7 +40,7 @@ seo:
 
 ## Introducción
 
-GraphQL Federation te permite splitir una API GraphQL grande across múltiples servicios (subgraphs) mientras expones una API unificada a través de un gateway. Cada equipo posee su subgraph, define sus types, y la capa de federation los compone en un supergraph. Esta guía cubre setup de subgraph, supergraph composition, entity resolution y gateway deployment usando Apollo Federation.
+GraphQL Federation te permite splitir una API GraphQL grande across múltiples servicios (subgraphs) mientras expones una API unificada a través de un gateway. Cada equipo posee su subgraph, define sus types, y la capa de federation los compone en un supergraph. A continuación: setup de subgraph, supergraph composition, entity resolution y gateway deployment usando Apollo Federation.
 
 ## Arquitectura de Federation
 

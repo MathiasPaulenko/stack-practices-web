@@ -41,7 +41,7 @@ seo:
 
 Las trazas distribuidas capturan el recorrido completo de una petición a medida que viaja por múltiples servicios. A diferencia de los logs y las métricas, las trazas muestran causalidad y tiempos a través de los límites de los servicios, haciéndolas esenciales para depurar latencia, entender dependencias y optimizar rutas de petición en sistemas distribuidos.
 
-Esta guía cubre instrumentación, propagación de contexto de traza, muestreo y prácticas operativas.
+A continuación: instrumentación, propagación de contexto de traza, muestreo y prácticas operativas.
 
 ## Cuándo Usar
 

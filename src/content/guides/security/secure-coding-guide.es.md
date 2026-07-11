@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-La codificación segura es la práctica de escribir software que sea resistente a vulnerabilidades y ataques. No es una única técnica sino una mentalidad: valida cada suposición, desconfía de toda entrada y diseña para el fallo. Esta guía cubre patrones específicos por lenguaje y técnicas defensivas universales que aplican independientemente de tu stack.
+La codificación segura es la práctica de escribir software que sea resistente a vulnerabilidades y ataques. No es una única técnica sino una mentalidad: valida cada suposición, desconfía de toda entrada y diseña para el fallo. A continuación: patrones específicos por lenguaje y técnicas defensivas universales que aplican independientemente de tu stack.
 
 ## When to Use
 

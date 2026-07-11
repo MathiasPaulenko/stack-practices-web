@@ -43,7 +43,7 @@ seo:
 
 La optimización de costos cloud es la práctica de reducir el gasto en infraestructura manteniendo o mejorando el rendimiento y confiabilidad de las aplicaciones. Combina decisiones técnicas (tipos de instancia, clases de almacenamiento) con prácticas organizacionales (etiquetado, chargeback, cultura FinOps).
 
-Esta guía cubre estrategias comprobadas para reducir facturas cloud sin recortar esquinas.
+A continuación: estrategias comprobadas para reducir facturas cloud sin recortar esquinas.
 
 ## When to Use
 

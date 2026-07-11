@@ -43,7 +43,7 @@ seo:
 
 Los pipelines CI/CD son objetivos de alto valor para ataques. Tienen acceso a código fuente, secretos, entornos de producción y credenciales de despliegue. Un pipeline comprometido puede llevar a inyección de código, brechas de datos y ataques de supply chain que afectan a cada consumidor downstream.
 
-Esta guía cubre técnicas prácticas para fortalecer tu infraestructura CI/CD desde el origen hasta el despliegue.
+A continuación: técnicas prácticas para fortalecer tu infraestructura CI/CD desde el origen hasta el despliegue.
 
 ## When to Use
 

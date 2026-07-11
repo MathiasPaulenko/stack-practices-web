@@ -37,7 +37,7 @@ seo:
 ---
 ## Visión General
 
-Los webhooks son la infraestructura de integración moderna. Stripe envía eventos de pago a tu endpoint. GitHub notifica tu pipeline CI sobre pushes. Slack envía interacciones de usuario a tu servidor. Pero cada webhook es un request HTTP entrante no solicitado a tu infraestructura — y cada request entrante es una superficie de ataque. Esta guía cubre cómo asegurar webhooks con verificación de firmas, protección contra repetición, cifrado de payloads y endurecimiento de endpoints.
+Los webhooks son la infraestructura de integración moderna. Stripe envía eventos de pago a tu endpoint. GitHub notifica tu pipeline CI sobre pushes. Slack envía interacciones de usuario a tu servidor. Pero cada webhook es un request HTTP entrante no solicitado a tu infraestructura — y cada request entrante es una superficie de ataque. A continuación: cómo asegurar webhooks con verificación de firmas, protección contra repetición, cifrado de payloads y endurecimiento de endpoints.
 
 ## Cuándo Usar
 

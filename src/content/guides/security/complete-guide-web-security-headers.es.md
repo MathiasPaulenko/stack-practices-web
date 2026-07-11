@@ -40,7 +40,7 @@ seo:
 
 ## Introducción
 
-Los HTTP security headers le dicen al browser cómo comportarse al manejar el contenido de tu sitio. Previene clickjacking, XSS, MIME-type sniffing, downgrade attacks e information leakage. Esta guía cubre cada security header principal, cómo configurarlos y cómo testear que funcionen.
+Los HTTP security headers le dicen al browser cómo comportarse al manejar el contenido de tu sitio. Previene clickjacking, XSS, MIME-type sniffing, downgrade attacks e information leakage. A continuación: cada security header principal, cómo configurarlos y cómo testear que funcionen.
 
 ## Content-Security-Policy (CSP)
 

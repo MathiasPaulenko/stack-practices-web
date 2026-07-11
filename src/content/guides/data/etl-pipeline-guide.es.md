@@ -40,7 +40,7 @@ seo:
 
 ETL (Extract, Transform, Load) mueve datos desde sistemas operacionales hacia sistemas analíticos donde pueden ser consultados, reportados y usados para toma de decisiones. A diferencia del procesamiento de streams, que maneja eventos a medida que llegan, ETL procesa datos en batches programados, haciéndolo más simple de implementar y razonar para muchos casos de uso de análisis de negocio.
 
-Esta guía cubre arquitectura de pipelines, estrategias de extracción de datos, patrones de transformación, técnicas de carga y consideraciones operativas de producción.
+A continuación: arquitectura de pipelines, estrategias de extracción de datos, patrones de transformación, técnicas de carga y consideraciones operativas de producción.
 
 ## Cuándo Usar
 

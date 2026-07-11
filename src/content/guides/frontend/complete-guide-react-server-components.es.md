@@ -34,7 +34,7 @@ seo:
 
 ## Introducción
 
-React Server Components (RSC) ejecutan en el server y mandan HTML al browser en vez de JavaScript. Pueden acceder a databases, file systems e internal APIs directamente sin exponer secrets al client. RSC reduce el JavaScript bundle size y mejora el initial page load. En Next.js App Router, los components son server components por default. Esta guía cubre RSC architecture, data loading patterns, streaming con Suspense, server actions y el boundary entre server y client components.
+React Server Components (RSC) ejecutan en el server y mandan HTML al browser en vez de JavaScript. Pueden acceder a databases, file systems e internal APIs directamente sin exponer secrets al client. RSC reduce el JavaScript bundle size y mejora el initial page load. En Next.js App Router, los components son server components por default. A continuación: RSC architecture, data loading patterns, streaming con Suspense, server actions y el boundary entre server y client components.
 
 ## Cómo Funciona RSC
 

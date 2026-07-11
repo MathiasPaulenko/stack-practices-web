@@ -39,7 +39,7 @@ seo:
 
 La caché es una de las formas más útiles de mejorar el rendimiento de aplicaciones y reducir costos de infraestructura. Al almacenar copias de datos frecuentemente accedidos más cerca de donde se necesitan, reduces latencia, disminuyes la carga en la base de datos y mejoras la experiencia de usuario. Pero la caché introduce complejidad: datos obsoletos, lógica de invalidación y desafíos de consistencia.
 
-Esta guía cubre caché en cada capa del stack, desde el navegador hasta la base de datos.
+A continuación: caché en cada capa del stack, desde el navegador hasta la base de datos.
 
 ## Cuándo Usar
 

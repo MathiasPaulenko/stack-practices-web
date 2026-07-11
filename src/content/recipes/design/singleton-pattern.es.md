@@ -3,7 +3,7 @@ contentType: recipes
 slug: singleton-pattern-recipe
 title: "Asegurar una Única Instancia con el Singleton Pattern"
 description: "Cómo garantizar exactamente una instancia de una clase en una aplicación usando inicialización perezosa, creación thread-safe y singletons basados en registro."
-metaDescription: "Aprende singleton pattern para instancias únicas. Usa inicialización perezosa, creación thread-safe y singletons basados en registro para asegurar una instancia por app."
+metaDescription: "Aprende singleton pattern para instancias únicas. Inicialización perezosa, creación thread-safe y singletons basados en registro para asegurar una instancia por app."
 difficulty: beginner
 topics:
   - design
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Aprende singleton pattern para instancias únicas. Usa inicialización perezosa, creación thread-safe y singletons basados en registro para asegurar una instancia por app."
+  metaDescription: "Aprende singleton pattern para instancias únicas. Inicialización perezosa, creación thread-safe y singletons basados en registro para asegurar una instancia por app."
   keywords:
     - singleton pattern
     - instancia unica

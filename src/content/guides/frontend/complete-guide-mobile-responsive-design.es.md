@@ -39,7 +39,7 @@ seo:
 
 ## Introducción
 
-Diseño responsive significa construir layouts que se adaptan a cualquier tamaño de pantalla — desde teléfonos de 320px hasta monitores 4K. CSS moderno nos da Grid, Flexbox, container queries y fluid typography para construir interfaces responsive sin JavaScript. Esta guía cubre estrategia mobile-first, layouts con CSS Grid, patrones de Flexbox, container queries, fluid typography, responsive images y estrategias de testing.
+Diseño responsive significa construir layouts que se adaptan a cualquier tamaño de pantalla — desde teléfonos de 320px hasta monitores 4K. CSS moderno nos da Grid, Flexbox, container queries y fluid typography para construir interfaces responsive sin JavaScript. A continuación: estrategia mobile-first, layouts con CSS Grid, patrones de Flexbox, container queries, fluid typography, responsive images y estrategias de testing.
 
 ## Estrategia Mobile-First
 

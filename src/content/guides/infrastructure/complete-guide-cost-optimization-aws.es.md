@@ -41,7 +41,7 @@ seo:
 
 ## Introducción
 
-Las bills de AWS crecen silenciosamente — resources no usados, instancias over-provisioned y falta de monitoreo pueden inflar costos en 40% o más. Esta guía cubre EC2 right-sizing, Spot y Reserved Instances, Savings Plans, S3 lifecycle policies, RDS optimization, networking costs y automated cost monitoring.
+Las bills de AWS crecen silenciosamente — resources no usados, instancias over-provisioned y falta de monitoreo pueden inflar costos en 40% o más. A continuación: EC2 right-sizing, Spot y Reserved Instances, Savings Plans, S3 lifecycle policies, RDS optimization, networking costs y automated cost monitoring.
 
 ## Cost Explorer y Budgets
 

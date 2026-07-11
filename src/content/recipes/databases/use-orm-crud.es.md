@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Los ORMs (Object-Relational Mappers) abstraen las interacciones con la base de datos en objetos de código nativo, reduciendo código repetitivo SQL y mejorando la mantenibilidad. Esta receta demuestra operaciones CRUD usando SQLAlchemy (Python), Prisma (JavaScript) y Hibernate (Java).
+Los ORMs (Object-Relational Mappers) abstraen las interacciones con la base de datos en objetos de código nativo, reduciendo código repetitivo SQL y mejorando la mantenibilidad. Operaciones CRUD usando SQLAlchemy (Python), Prisma (JavaScript) y Hibernate (Java).
 
 ## Cuándo Usar
 

@@ -3,7 +3,7 @@ contentType: recipes
 slug: blue-green-deployment
 title: "Despliegue Blue-Green"
 description: "Despliega con zero downtime usando ambientes blue-green, conmutación instantánea de tráfico y capacidades de rollback automatizado."
-metaDescription: "Estrategia de despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción."
+metaDescription: "Despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción."
 difficulty: intermediate
 topics:
   - devops
@@ -22,7 +22,7 @@ relatedResources:
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
-  metaDescription: "Estrategia de despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción."
+  metaDescription: "Despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción."
   keywords:
     - blue-green
     - deployment

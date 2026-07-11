@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-La replicación de bases de datos es el proceso de copiar y mantener datos a través de múltiples nodos de base de datos. Provee alta disponibilidad, escalado de lecturas y recuperación ante desastres. Pero la replicación introduce complejidad: lag, conflictos, escenarios de split-brain y trade-offs de consistencia. Esta guía cubre las estrategias de replicación usadas en producción, desde simples setups master-slave hasta clusters multi-master.
+La replicación de bases de datos es el proceso de copiar y mantener datos a través de múltiples nodos de base de datos. Provee alta disponibilidad, escalado de lecturas y recuperación ante desastres. Pero la replicación introduce complejidad: lag, conflictos, escenarios de split-brain y trade-offs de consistencia. A continuación: las estrategias de replicación usadas en producción, desde simples setups master-slave hasta clusters multi-master.
 
 ## When to Use
 

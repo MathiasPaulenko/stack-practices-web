@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Terraform es la herramienta de infrastructure-as-code más usada, permitiendo a equipos definir, provisionar y gestionar recursos cloud a través de archivos de configuración declarativos. Mientras empezar con Terraform es sencillo, construir infraestructura de grado productivo requiere disciplina en diseño de módulos, gestión de estado, seguridad y flujos de colaboración. Esta guía cubre las prácticas que separan código Terraform de prototipo de infraestructura enterprise-ready.
+Terraform es la herramienta de infrastructure-as-code más usada, permitiendo a equipos definir, provisionar y gestionar recursos cloud a través de archivos de configuración declarativos. Mientras empezar con Terraform es sencillo, construir infraestructura de grado productivo requiere disciplina en diseño de módulos, gestión de estado, seguridad y flujos de colaboración. A continuación: las prácticas que separan código Terraform de prototipo de infraestructura enterprise-ready.
 
 ## When to Use
 

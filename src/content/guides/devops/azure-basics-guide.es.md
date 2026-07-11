@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Microsoft Azure es la segunda plataforma cloud más grande, profundamente integrada con herramientas empresariales como Microsoft 365, Active Directory y .NET. Para desarrolladores, Azure ofrece un conjunto amplio de servicios para compute, storage, bases de datos, networking e identity management. Esta guía cubre los servicios que usarás más frecuentemente y cómo se conectan en una arquitectura de aplicación típica.
+Microsoft Azure es la segunda plataforma cloud más grande, profundamente integrada con herramientas empresariales como Microsoft 365, Active Directory y .NET. Para desarrolladores, Azure ofrece un conjunto amplio de servicios para compute, storage, bases de datos, networking e identity management. A continuación: los servicios que usarás más frecuentemente y cómo se conectan en una arquitectura de aplicación típica.
 
 ## When to Use
 

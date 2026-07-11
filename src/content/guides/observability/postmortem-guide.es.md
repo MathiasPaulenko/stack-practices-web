@@ -39,7 +39,7 @@ seo:
 
 Un postmortem es una revisión estructurada de un incidente que se enfoca en qué pasó, por qué pasó y cómo prevenir que vuelva a pasar. El aspecto "sin culpa" es crítico: las personas no causan incidentes; los sistemas y procesos sí. Al remover la culpa, creas seguridad psicológica que lleva a análisis honesto, exhaustivo y a mejoras reales.
 
-Esta guía cubre el proceso de postmortem, estructura de plantilla, técnicas de facilitación y responsabilidad de seguimiento.
+A continuación: el proceso de postmortem, estructura de plantilla, técnicas de facilitación y responsabilidad de seguimiento.
 
 ## Cuándo Usar
 

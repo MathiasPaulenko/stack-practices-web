@@ -37,7 +37,7 @@ seo:
 
 ## Resumen
 
-La performance es un aspecto clave. Los sitios lentos pierden usuarios, ingresos y rankings de búsqueda. Esta guía cubre técnicas prácticas para mejorar Core Web Vitals y ofrecer experiencias rápidas.
+La performance es un aspecto clave. Los sitios lentos pierden usuarios, ingresos y rankings de búsqueda. A continuación: técnicas prácticas para mejorar Core Web Vitals y ofrecer experiencias rápidas.
 
 ## Core Web Vitals
 

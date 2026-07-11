@@ -45,7 +45,7 @@ seo:
 
 La recuperación ante desastres (DR) es el conjunto de políticas, herramientas y procedimientos que permiten la recuperación o continuación de infraestructura tecnológica crítica después de un desastre natural o inducido por humanos. Protege contra pérdida de datos y minimiza downtime cuando ocurre lo inesperado.
 
-Esta guía cubre la definición de objetivos de recuperación, estrategias de backup, arquitecturas multi-región y runbooks útiles.
+A continuación: la definición de objetivos de recuperación, estrategias de backup, arquitecturas multi-región y runbooks útiles.
 
 ## When to Use
 

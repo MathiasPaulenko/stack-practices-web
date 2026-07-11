@@ -37,7 +37,7 @@ seo:
 
 ## Introducción
 
-Event sourcing storea state changes como una secuencia de events en vez de mutable current state. CQRS separa read y write models — commands modifican state, queries leen desde optimized projections. Juntos proveen una auditable, replayable y scalable architecture para complex domains. Esta guía cubre event store design, aggregate roots, projections, read models, snapshots, sagas y production patterns.
+Event sourcing storea state changes como una secuencia de events en vez de mutable current state. CQRS separa read y write models — commands modifican state, queries leen desde optimized projections. Juntos proveen una auditable, replayable y scalable architecture para complex domains. A continuación: event store design, aggregate roots, projections, read models, snapshots, sagas y production patterns.
 
 ## Core Concepts
 

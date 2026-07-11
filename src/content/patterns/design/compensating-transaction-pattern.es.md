@@ -3,7 +3,7 @@ contentType: patterns
 slug: compensating-transaction-pattern
 title: "Patrón Compensating Transaction"
 description: "Deshace los efectos de una transacción completada ejecutando una operación contraria, habilitando consistencia eventual en procesos de negocio de larga duración a través de servicios distribuidos."
-metaDescription: "Aprende el Patrón Compensating Transaction para deshacer operaciones en sagas. Ejemplos en Python, Java y JavaScript con workflows de rollback, reintentos e idempotencia."
+metaDescription: "Aprende Compensating Transaction para deshacer operaciones en sagas. Ejemplos en Python, Java y JavaScript con workflows de rollback, reintentos e idempotencia."
 difficulty: advanced
 topics:
   - design
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende el Patrón Compensating Transaction para deshacer operaciones en sagas. Ejemplos en Python, Java y JavaScript con workflows de rollback, reintentos e idempotencia."
+  metaDescription: "Aprende Compensating Transaction para deshacer operaciones en sagas. Ejemplos en Python, Java y JavaScript con workflows de rollback, reintentos e idempotencia."
   keywords:
     - compensating transaction
     - design pattern

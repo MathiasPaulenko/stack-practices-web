@@ -40,7 +40,7 @@ seo:
 
 ## Introducción
 
-PostgreSQL es poderoso pero los settings default son conservadores — diseñados para correr en una máquina con 256MB de RAM. Workloads de producción necesitan configuración tuneada, indexes apropiados, queries optimizadas y particionado estratégico de datos. Esta guía cubre tuning de configuración, estrategias de indexación, optimización de queries, connection pooling, particionado y vacuum management.
+PostgreSQL es poderoso pero los settings default son conservadores — diseñados para correr en una máquina con 256MB de RAM. Workloads de producción necesitan configuración tuneada, indexes apropiados, queries optimizadas y particionado estratégico de datos. A continuación: tuning de configuración, estrategias de indexación, optimización de queries, connection pooling, particionado y vacuum management.
 
 ## Tuning de Configuración
 
