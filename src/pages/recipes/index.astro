@@ -7,7 +7,7 @@ const recipes = await getCollection('recipes', ({ id, data }) => !isSpanish(id) 
 const entries = recipes.map((r) => ({
   title: r.data.title,
   description: r.data.description,
-  href: `/recipes/${r.data.slug}`,
+  href: `/recipes/${r.data.slug}/`,
   difficulty: r.data.difficulty,
   tags: r.data.tags,
 }));
@@ -16,7 +16,7 @@ const entries = recipes.map((r) => ({
 <ListingPage
   heading="Recipes"
   description="Practical, copy-paste solutions to real development problems across multiple languages."
-  path="/recipes"
+  path="/recipes/"
   entries={entries}
   keywords={['code recipes', 'how to', 'programming examples']}
   contentType="recipes"

@@ -44,7 +44,7 @@ const entries = [...recipes, ...patterns, ...docs, ...guides]
   .map((entry) => ({
     title: entry.data.title,
     description: entry.data.description,
-    href: `/${entry.data.contentType}/${entry.data.slug}`,
+    href: `/${entry.data.contentType}/${entry.data.slug}/`,
     difficulty: entry.data.difficulty,
     tags: entry.data.tags,
   }));
@@ -53,7 +53,7 @@ const entries = [...recipes, ...patterns, ...docs, ...guides]
 <ListingPage
   heading={topicLabel}
   description={`Practical resources about ${topicLabel} for software engineers.`}
-  path={`/topics/${topic}`}
+  path={`/topics/${topic}/`}
   entries={entries}
   keywords={[topicLabel, 'recipes', 'patterns', 'docs', 'guides']}
   hasAlternate={hasEsVersion}

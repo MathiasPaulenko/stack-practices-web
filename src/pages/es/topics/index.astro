@@ -48,11 +48,11 @@ const jsonLd = [
     description: 'Explora contenido de StackPractices por tema y tecnología.',
     url: '/es/topics',
     locale: 'es',
-    items: concepts.map((c) => ({ name: c.slug, url: `/es/topics/${c.slug}` })),
+    items: concepts.map((c) => ({ name: c.slug, url: `/es/topics/${c.slug}/` })),
   }),
   breadcrumbList([
-    { name: 'Inicio', url: '/es' },
-    { name: 'Temas', url: '/es/topics' },
+    { name: 'Inicio', url: '/es/' },
+    { name: 'Temas', url: '/es/topics/' },
   ]),
 ];
 ---
@@ -60,7 +60,7 @@ const jsonLd = [
 <BaseLayout
   title="Temas"
   description="Explora recetas de código, patrones, documentos y guías por tema y tecnología."
-  path="/topics"
+  path="/topics/"
   locale="es"
   keywords={['temas de programación', 'temas de tecnología', 'ingeniería de software']}
   jsonLd={jsonLd}
@@ -70,7 +70,7 @@ const jsonLd = [
   <header class="border-b border-slate-200 bg-slate-50">
     <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
-        <a href="/es" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
+        <a href="/es/" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">Inicio</a>
         <span class="mx-2 text-slate-400">/</span>
         <span class="font-medium text-slate-800">Temas</span>
       </nav>
@@ -111,7 +111,7 @@ const jsonLd = [
           );
           return (
             <a
-              href={`/es/topics/${concept.slug}`}
+              href={`/es/topics/${concept.slug}/`}
               class="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
             >
               <div class="flex items-start gap-4">
@@ -171,7 +171,7 @@ const jsonLd = [
           );
           return (
             <a
-              href={`/es/tags/${tech}`}
+              href={`/es/tags/${tech}/`}
               class="group flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md"
             >
               <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-slate-800 text-white">

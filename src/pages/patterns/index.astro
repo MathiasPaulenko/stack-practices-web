@@ -7,7 +7,7 @@ const patterns = await getCollection('patterns', ({ id, data }) => !isSpanish(id
 const entries = patterns.map((p) => ({
   title: p.data.title,
   description: p.data.description,
-  href: `/patterns/${p.data.slug}`,
+  href: `/patterns/${p.data.slug}/`,
   difficulty: p.data.difficulty,
   tags: p.data.tags,
 }));
@@ -16,7 +16,7 @@ const entries = patterns.map((p) => ({
 <ListingPage
   heading="Patterns"
   description="Software design and architecture patterns explained with real, runnable examples."
-  path="/patterns"
+  path="/patterns/"
   entries={entries}
   keywords={['design patterns', 'software architecture', 'patterns examples']}
   contentType="patterns"

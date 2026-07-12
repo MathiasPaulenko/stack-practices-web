@@ -15,7 +15,7 @@ const allContent = await Promise.all([
 const authorWorks = allContent.flat().map((entry) => ({
   title: entry.data.title,
   description: entry.data.description,
-  href: `/${entry.data.contentType}/${entry.data.slug}`,
+  href: `/${entry.data.contentType}/${entry.data.slug}/`,
   difficulty: entry.data.difficulty,
   tags: entry.data.tags,
   date: entry.data.lastUpdated,
@@ -26,7 +26,7 @@ const jsonLd = [
     ...webPage({
       name: 'Mathias Paulenko — Software Engineer & Author',
       description: 'Meet Mathias Vladimir Paulenko Echeverz, the software engineer behind StackPractices. 12+ years building production systems.',
-      url: '/authors/mathias-paulenko',
+      url: '/authors/mathias-paulenko/',
       locale: 'en',
     }),
     datePublished: '2026-06-13',

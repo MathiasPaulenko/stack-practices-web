@@ -7,7 +7,7 @@ const docs = await getCollection('docs', ({ id, data }) => isSpanish(id) && !dat
 const entries = docs.map((d) => ({
   title: d.data.title,
   description: d.data.description,
-  href: `/es/docs/${d.data.slug}`,
+  href: `/es/docs/${d.data.slug}/`,
   difficulty: d.data.difficulty,
   tags: d.data.tags,
 }));
@@ -16,7 +16,7 @@ const entries = docs.map((d) => ({
 <ListingPage
   heading="Documentación"
   description="Plantillas de documentación técnica reutilizables: READMEs, ADRs, runbooks y más."
-  path="/docs"
+  path="/docs/"
   locale="es"
   entries={entries}
   keywords={['plantillas de documentación', 'plantilla readme', 'plantilla adr']}

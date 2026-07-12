@@ -68,7 +68,7 @@ const jsonLd: Record<string, unknown>[] = [
   }),
   webPage({ name: title, description: metaDescription, url: path, locale: localeTag }),
   breadcrumbList([
-    { name: locale === 'es' ? 'Inicio' : 'Home', url: locale === 'es' ? '/es' : '/' },
+    { name: locale === 'es' ? 'Inicio' : 'Home', url: locale === 'es' ? '/es/' : '/' },
     { name: listingLabel, url: listingHref },
     { name: title, url: path },
   ]),
@@ -102,7 +102,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   <header class="border-b border-slate-200 bg-slate-50">
     <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
-        <a href={locale === 'es' ? '/es' : '/'} class="font-medium text-brand-600 hover:text-brand-700 hover:underline">
+        <a href={locale === 'es' ? '/es/' : '/'} class="font-medium text-brand-600 hover:text-brand-700 hover:underline">
           {locale === 'es' ? 'Inicio' : 'Home'}
         </a>
         <span class="mx-2 text-slate-400">/</span>
@@ -120,7 +120,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
             </span>
             <span class="h-3 w-px bg-slate-300"></span>
             <a
-              href={`${locale === 'es' ? '/es' : ''}/authors`}
+              href={`${locale === 'es' ? '/es' : ''}/authors/`}
               class="text-xs font-medium text-brand-600 hover:text-brand-700 hover:underline"
             >
               {locale === 'es' ? 'Por' : 'By'} {author}
@@ -147,7 +147,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
             <div class="mt-4 flex flex-wrap gap-2">
               {tags.map((tag: string) => (
                 <a
-                  href={`${locale === 'es' ? '/es' : ''}/tags/${tag}`}
+                  href={`${locale === 'es' ? '/es' : ''}/tags/${tag}/`}
                   class="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-600 transition hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700"
                 >
                   {tag}
@@ -163,7 +163,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
               <span class="font-medium text-slate-400">{locale === 'es' ? 'Temas' : 'Topics'}:</span>
               {topics.map((topic: string) => (
                 <a
-                  href={`${locale === 'es' ? '/es' : ''}/topics/${topic}`}
+                  href={`${locale === 'es' ? '/es' : ''}/topics/${topic}/`}
                   class="font-medium text-brand-600 hover:text-brand-700 hover:underline"
                 >
                   {topic.replace('-', ' ')}

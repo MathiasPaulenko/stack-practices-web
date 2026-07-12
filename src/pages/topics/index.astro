@@ -48,11 +48,11 @@ const jsonLd = [
     description: 'Browse StackPractices content by topic and technology.',
     url: '/topics',
     locale: 'en',
-    items: concepts.map((c) => ({ name: c.slug, url: `/topics/${c.slug}` })),
+    items: concepts.map((c) => ({ name: c.slug, url: `/topics/${c.slug}/` })),
   }),
   breadcrumbList([
     { name: 'Home', url: '/' },
-    { name: 'Topics', url: '/topics' },
+    { name: 'Topics', url: '/topics/' },
   ]),
 ];
 ---
@@ -60,7 +60,7 @@ const jsonLd = [
 <BaseLayout
   title="Topics"
   description="Browse code recipes, patterns, docs, and guides by topic and technology."
-  path="/topics"
+  path="/topics/"
   keywords={['programming topics', 'technology topics', 'software engineering']}
   jsonLd={jsonLd}
 >
@@ -110,7 +110,7 @@ const jsonLd = [
           );
           return (
             <a
-              href={`/topics/${concept.slug}`}
+              href={`/topics/${concept.slug}/`}
               class="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
             >
               <div class="flex items-start gap-4">
@@ -170,7 +170,7 @@ const jsonLd = [
           );
           return (
             <a
-              href={`/tags/${tech}`}
+              href={`/tags/${tech}/`}
               class="group flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md"
             >
               <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-slate-800 text-white">

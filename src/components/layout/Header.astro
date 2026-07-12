@@ -7,6 +7,7 @@ export interface Props {
 
 const { locale = SITE.defaultLocale } = Astro.props;
 const prefix = locale === 'es' ? '/es' : '';
+const navPrefix = locale === 'es' ? '/es/' : '/';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -42,14 +43,14 @@ const currentPath = Astro.url.pathname;
 
     <div class="flex items-center gap-2">
       <a
-        href={`${prefix}/search`}
+        href={`${prefix}/search/`}
         class="rounded-md p-2 text-slate-300 hover:bg-slate-800 hover:text-white"
         aria-label="Search"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
       </a>
       <a
-        href={locale === 'es' ? currentPath.replace(/^\/es/, '') || '/' : `/es${currentPath}`}
+        href={locale === 'es' ? currentPath.replace(/^\/es/, '') || '/' : `/es${currentPath.endsWith('/') ? currentPath : `${currentPath}/`}`}
         class="rounded-md border border-slate-600 px-2.5 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white"
         aria-label="Switch language"
       >

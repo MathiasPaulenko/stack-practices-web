@@ -15,7 +15,7 @@ const allContent = await Promise.all([
 const authorWorks = allContent.flat().map((entry) => ({
   title: entry.data.title,
   description: entry.data.description,
-  href: `/es/${entry.data.contentType}/${entry.data.slug}`,
+  href: `/es/${entry.data.contentType}/${entry.data.slug}/`,
   difficulty: entry.data.difficulty,
   tags: entry.data.tags,
   date: entry.data.lastUpdated,
@@ -26,7 +26,7 @@ const jsonLd = [
     ...webPage({
       name: 'Mathias Paulenko — Ingeniero de Software y Autor',
       description: 'Conoce a Mathias Vladimir Paulenko Echeverz, el ingeniero de software detrás de StackPractices. Más de 12 años construyendo sistemas de producción.',
-      url: '/es/authors/mathias-paulenko',
+      url: '/es/authors/mathias-paulenko/',
       locale: 'es',
     }),
     datePublished: '2026-06-13',

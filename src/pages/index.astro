@@ -128,7 +128,7 @@ const concepts = [
   <!-- Search -->
   <section class="border-b border-slate-200 bg-white">
     <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <form action="/search" method="get" class="relative">
+      <form action="/search/" method="get" class="relative">
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
           <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
@@ -148,10 +148,10 @@ const concepts = [
         </button>
       </form>
       <p class="mt-3 text-center text-sm text-slate-500">
-        Try: <a href="/search?q=python" class="text-brand-600 hover:underline">python</a>,
-        <a href="/search?q=api" class="text-brand-600 hover:underline">api</a>,
-        <a href="/search?q=docker" class="text-brand-600 hover:underline">docker</a>,
-        <a href="/search?q=testing" class="text-brand-600 hover:underline">testing</a>
+        Try: <a href="/search/?q=python" class="text-brand-600 hover:underline">python</a>,
+        <a href="/search/?q=api" class="text-brand-600 hover:underline">api</a>,
+        <a href="/search/?q=docker" class="text-brand-600 hover:underline">docker</a>,
+        <a href="/search/?q=testing" class="text-brand-600 hover:underline">testing</a>
       </p>
     </div>
   </section>
@@ -215,7 +215,7 @@ const concepts = [
           );
           return (
             <a
-              href={`/${type.slug}`}
+              href={`/${type.slug}/`}
               class="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
             >
               <div class="flex items-start gap-3">
@@ -247,7 +247,7 @@ const concepts = [
           <h2 class="text-2xl font-bold text-slate-900">Browse by tag</h2>
           <p class="mt-2 text-slate-600">Quick access to the most popular topics across all content.</p>
         </div>
-        <a href="/tags" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
+        <a href="/tags/" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
           View all tags
           <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
@@ -255,7 +255,7 @@ const concepts = [
       <div class="mt-8 flex flex-wrap gap-2">
         {popularTags.map(({ tag, count }) => (
           <a
-            href={`/tags/${tag}`}
+            href={`/tags/${tag}/`}
             class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700"
           >
             <span class="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-semibold text-brand-700">{count}</span>
@@ -263,7 +263,7 @@ const concepts = [
           </a>
         ))}
       </div>
-      <a href="/tags" class="mt-6 inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700 sm:hidden">
+      <a href="/tags/" class="mt-6 inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700 sm:hidden">
         View all tags
         <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </a>
@@ -280,7 +280,7 @@ const concepts = [
           Authentication, and Testing — or by your favorite programming language.
         </p>
         <a
-          href="/topics"
+          href="/topics/"
           class="mt-8 inline-flex items-center rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-600 hover:shadow-xl"
         >
           Browse topics
@@ -300,14 +300,14 @@ const concepts = [
           <h2 class="text-2xl font-bold text-slate-900">Latest recipes</h2>
           <p class="mt-2 text-slate-600">Fresh code solutions added to the knowledge base.</p>
         </div>
-        <a href="/recipes" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
+        <a href="/recipes/" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
           View all
           <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {recipes.slice(0, 3).map((recipe) => (
-          <a href={`/recipes/${recipe.data.slug}`} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-lg">
+          <a href={`/recipes/${recipe.data.slug}/`} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-lg">
             <div class="flex items-center gap-2">
               <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold uppercase text-slate-600">{recipe.data.difficulty}</span>
               <span class="text-xs text-slate-400">{recipe.data.topics[0]?.replace(/-/g, ' ')}</span>
@@ -323,7 +323,7 @@ const concepts = [
         ))}
       </div>
       <div class="mt-6 text-center sm:hidden">
-        <a href="/recipes" class="text-sm font-semibold text-brand-600 hover:text-brand-700">View all recipes →</a>
+        <a href="/recipes/" class="text-sm font-semibold text-brand-600 hover:text-brand-700">View all recipes →</a>
       </div>
     </div>
   </section>

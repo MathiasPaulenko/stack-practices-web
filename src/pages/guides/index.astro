@@ -7,7 +7,7 @@ const guides = await getCollection('guides', ({ id, data }) => !isSpanish(id) &&
 const entries = guides.map((g) => ({
   title: g.data.title,
   description: g.data.description,
-  href: `/guides/${g.data.slug}`,
+  href: `/guides/${g.data.slug}/`,
   difficulty: g.data.difficulty,
   tags: g.data.tags,
 }));
@@ -16,7 +16,7 @@ const entries = guides.map((g) => ({
 <ListingPage
   heading="Guides"
   description="Long-form guides that connect recipes and patterns into complete solutions."
-  path="/guides"
+  path="/guides/"
   entries={entries}
   keywords={['programming guides', 'software engineering guides']}
   contentType="guides"

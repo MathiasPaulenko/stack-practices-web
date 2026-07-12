@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://stackpractices.com',
   output: 'static',
-  trailingSlash: 'ignore',
+  trailingSlash: 'always',
   compressHTML: true,
   build: {
     format: 'directory',

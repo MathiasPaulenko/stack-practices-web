@@ -25,7 +25,7 @@ export interface Props {
 
 const { heading, description, path, entries, keywords = [], locale = 'en', contentType, hasAlternate = true } = Astro.props;
 
-const homeHref = locale === 'es' ? '/es' : '/';
+const homeHref = locale === 'es' ? '/es/' : '/';
 const homeLabel = locale === 'es' ? 'Inicio' : 'Home';
 
 const jsonLd = [

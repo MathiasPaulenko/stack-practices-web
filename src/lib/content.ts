@@ -14,7 +14,7 @@ export function isSpanish(id: string): boolean {
 /** Returns the canonical slug from frontmatter. */
 export function entryHref(contentType: string, slug: string, locale: 'en' | 'es'): string {
   const prefix = locale === 'es' ? '/es' : '';
-  return `${prefix}/${contentType}/${slug}`;
+  return `${prefix}/${contentType}/${slug}/`;
 }
 
 /**
@@ -99,7 +99,7 @@ export async function buildTagIndex(locale: 'en' | 'es') {
         const items = index.get(tag) ?? [];
         items.push({
           title: d.title,
-          href: `${prefix}/${d.contentType}/${d.slug}`,
+          href: `${prefix}/${d.contentType}/${d.slug}/`,
           description: d.description,
           contentType: d.contentType,
           tags: d.tags,
@@ -125,7 +125,7 @@ export function resolveRelated(
       return {
         title: found.title,
         description: found.description,
-        href: `${prefix}/${found.contentType}/${found.slug}`,
+        href: `${prefix}/${found.contentType}/${found.slug}/`,
         contentType: found.contentType,
       };
     })
