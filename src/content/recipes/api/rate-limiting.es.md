@@ -247,7 +247,7 @@ Benchmarks en Node.js 20, single core, 1000 error responses. Los resultados vari
 ## Preguntas Frecuentes
 
 
-## Preguntas frecuentes
+## Preguntas frecuentes (Additional)
 
 **P: ¿Debería limitar en el edge o en la aplicación?**
 R: Ambos. Usa edge/CDN (Cloudflare, AWS WAF) para protección DDoS y límites a nivel de aplicación para lógica de negocio.

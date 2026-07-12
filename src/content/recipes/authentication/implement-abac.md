@@ -337,7 +337,7 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Evaluating attributes on every request without caching — repeated database or LDAP lookups create latency spikes
 - Not defining a fallback policy when attribute sources are unavailable — decide whether to deny or allow when the policy engine cannot reach the attribute store

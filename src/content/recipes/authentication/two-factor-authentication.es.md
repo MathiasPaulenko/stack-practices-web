@@ -307,7 +307,6 @@ Benchmarks en Node.js 20, single core, Redis cache. Resultados reales varian seg
 - **OAuth2 implicit grant abuse**: el implicit grant retorna tokens en el URL fragment, que es vulnerable a leakage. Usa authorization code grant con PKCE en su lugar.
 - **Session timeout demasiado largo**: si las sesiones nunca expiran, las sesiones robadas permanecen validas indefinidamente. Setea session timeout a 30 minutos de inactividad y 8 horas maximo absoluto.
 
-## Preguntas Frecuentes
 
 ## Preguntas Frecuentes
 

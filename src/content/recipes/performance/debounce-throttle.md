@@ -334,7 +334,7 @@ Typically 200-500ms. Too short and you query on every keystroke; too long and th
 
 Yes. A common pattern is "throttle then debounce": guarantee a minimum execution rate (throttle) while also waiting for pauses (debounce). For example, update a live preview at most every 100ms, but also ensure a final update 300ms after the user stops typing.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Using debounce for scroll events — the handler never fires during continuous scrolling, only after the user stops
 - Using throttle for search input — fires intermediate queries that waste network requests before the user finishes typing

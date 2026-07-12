@@ -353,7 +353,7 @@ Sí. Hacer rebase de tu feature branch sobre el último main antes de mergear ma
 
 Cuando ocurre un conflicto, Git pausa el rebase. Corrige los archivos en conflicto, haz `git add`, luego `git rebase --continue` para resumir. Usa `git rebase --abort` para cancelar y volver al estado pre-rebase. Usa `git rebase --skip` para descartar el commit actual si ya está aplicado. Siempre resuelve conflictos en lotes pequeños — rebasea un commit a la vez en lugar de todos a la vez.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - Rebasear ramas compartidas que otros ya hicieron pull — reescribe el historial público y rompe los repos de los teammates
 - No usar `git stash` antes de iniciar un rebase con cambios sin commitear

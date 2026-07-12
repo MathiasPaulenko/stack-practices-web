@@ -339,7 +339,7 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - Usar `INCR` solo sin un script Lua — crea condiciones de carrera entre el incremento y las verificaciones de expiración
 - No setear TTL en las claves de rate limiting — la memoria crece sin límite para usuarios que hacen un solo request

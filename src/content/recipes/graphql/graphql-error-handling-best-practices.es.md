@@ -340,7 +340,7 @@ La spec de GraphQL permite retornar tanto `data` como `errors` en la misma respu
 
 Retorna `UNAUTHENTICATED` (código 401) cuando no se provee una credencial válida. Retorna `FORBIDDEN` (código 403) cuando la credencial es válida pero falta permisos. Incluye el permiso requerido en `extensions.requiredRole` para que los clientes puedan mostrar mensajes significativos o solicitar acceso elevado.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - Retornar HTTP 200 con solo `errors` y sin `data` — los clientes esperan que `data` esté presente aunque sea null
 - Exponer stack traces en producción — siempre elimina `extensions.exception.stacktrace`

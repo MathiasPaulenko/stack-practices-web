@@ -333,7 +333,7 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - No validar el input en la función `parseValue` — aceptar datos malformados que rompen los resolvers downstream
 - Lanzar errores genéricos en lugar de `GraphQLError` — los clientes reciben mensajes de error poco claros sin extensions

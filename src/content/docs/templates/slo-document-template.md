@@ -178,7 +178,7 @@ Review: Quarterly
 Owner: Team Payments
 ```
 
-## Error Budget Policy
+## Error Budget Policy Enforcement
 
 ```text
 === Error Budget Policy ===

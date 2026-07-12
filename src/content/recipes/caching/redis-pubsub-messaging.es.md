@@ -341,7 +341,7 @@ A: Los mensajes se descartan. Redis Pub/Sub no persiste mensajes. Si la durabili
 **Q: ¿Puedo usar suscripciones por patrón con sharded Pub/Sub?**
 A: No. Sharded Pub/Sub (`SPUBLISH`/`SSUBSCRIBE`) no soporta pattern matching con globs. Usa `PUBLISH`/`PSUBSCRIBE` regular para suscripciones por patrón, pero nota que estas no se benefician del sharding del cluster.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - Asumir que los mensajes se entregan de forma confiable — Pub/Sub descarta mensajes cuando los suscriptores están desconectados
 - No manejar lógica de reconexión — los suscriptores deben resuscribirse después de una caída de conexión

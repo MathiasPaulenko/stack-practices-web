@@ -334,7 +334,7 @@ Típicamente 200-500ms. Muy corto y consultas en cada pulsación; muy largo y la
 
 Sí. Un patrón común es "throttle luego debounce": garantiza una tasa mínima de ejecución (throttle) mientras espera pausas (debounce). Por ejemplo, actualiza una vista previa en vivo como máximo cada 100ms, pero también asegura una actualización final 300ms tras el usuario dejar de escribir.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - Usar debounce para eventos de scroll — el handler nunca se ejecuta durante scroll continuo, solo después de que el usuario se detiene
 - Usar throttle para input de búsqueda — ejecuta queries intermedias que desperdician requests de red antes de que el usuario termine de escribir

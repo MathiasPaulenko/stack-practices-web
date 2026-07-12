@@ -321,7 +321,7 @@ Sí, pero cada subgrafo debe implementar la directiva independientemente. El gat
 
 Usa directivas apiladas: `@auth(requires: EDITOR) @owner`. La directiva `@auth` verifica el rol primero. Si pasa, `@owner` verifica que el usuario sea el dueño del recurso. Si falla cualquiera de las dos, el campo retorna error o null según la configuración.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - Aplicar directivas de auth solo a nivel de query — las mutations y subscriptions también necesitan protección
 - Retornar mensajes de error detallados que filtran información del schema — usa mensajes genéricos `FORBIDDEN` en producción

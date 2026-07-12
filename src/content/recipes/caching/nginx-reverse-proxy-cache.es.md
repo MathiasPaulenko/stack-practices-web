@@ -351,7 +351,7 @@ Usa `proxy_cache_valid` con códigos de status explícitos: `proxy_cache_valid 2
 
 `$upstream_cache_status` te dice si la respuesta vino del caché o del origin: `HIT` (servida desde caché), `MISS` (no en caché, obtenida del origin), `EXPIRED` (entrada expirada, re-obtenida), `BYPASS` (caché saltado), `REVALIDATED` (stale pero revalidada). Añádelo como header de respuesta con `add_header X-Cache-Status $upstream_cache_status;` para debuggear el comportamiento del caché.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - No setear `proxy_cache_key` — la clave por defecto puede no incluir todas las variantes del request (método, headers)
 - Cachear respuestas con headers `Set-Cookie` — filtra datos de sesión entre usuarios

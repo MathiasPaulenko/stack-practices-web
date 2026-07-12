@@ -267,7 +267,7 @@ Async logging via local buffer + background flush agrega <0.5ms de overhead. Syn
 - **Testea inmutabilidad de audit logs**: escribe una audit entry, intenta modificarla y verifica que el log storage (append-only file, WORM S3 bucket) rechaza la modificación.
 - **Testea políticas de retención de logs**: crea logs más antiguos que el período de retención y verifica que se eliminen o archiven automáticamente. Testea que los logs ERROR se retengan más tiempo que los INFO si usas retención tiered.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - **Loguear data sensible por defecto**: muchos frameworks loguean bodies completos de request/response incluyendo passwords, API keys y tokens. Siempre configura redaction filters antes de habilitar debug logging en producción.
 - **Synchronous logging bloqueando el event loop**: Winston, Pino y Log4j todos soportan async modes. Olvidar habilitar async mode causa que cada log write bloquee la petición, agregando 2-50ms por log entry.

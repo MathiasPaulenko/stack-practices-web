@@ -279,7 +279,6 @@ Benchmarks en Node.js 20, single core, mensajes 1KB. Resultados reales varian se
 - **SSE connection limit per browser**: los navegadores limitan conexiones SSE por origin (6 en Chrome). Si tu app abre multiples SSE connections, algunas fallaran. Usa una sola conexion multiplexed en su lugar.
 - **Graceful degradation**: si WebSocket esta bloqueado por un firewall, los clientes deberian fall back a SSE o REST polling. Implementa logica de fallback en el cliente y documenta la estrategia de degradation.
 
-## Preguntas Frecuentes
 
 ## Preguntas Frecuentes
 

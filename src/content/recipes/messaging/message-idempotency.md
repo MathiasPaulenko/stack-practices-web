@@ -217,7 +217,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 - **Consumer resource optimization**: right-size consumer instances based on processing requirements. Use spot instances for non-critical consumers. Scale consumers to zero during off-hours for non-urgent queues. Monitor consumer CPU and memory utilization. Right-size before scaling out. Track cost per message processed
 - **Storage cost management**: message queues consume storage for queued and retained messages. Set appropriate message TTL to auto-expire old messages. Configure DLQ retention policies. Monitor queue storage usage. Archive old messages to cheaper storage. Use lifecycle policies for message archives. Track storage costs per queue
 
-## Testing and Quality Assurance
+## Testing and QA Checklist
 
 - **Integration testing for messaging**: test producer-consumer integration end-to-end. Verify message delivery, ordering, and content. Test with realistic message volumes. Test failure scenarios (broker down, consumer crash, network partition). Use test queues for integration tests. Clean up test queues after each run. Automate in CI pipeline
 - **Load testing messaging systems**: test with production-like message volumes. Measure throughput, latency, and error rate under load. Identify bottlenecks (broker, consumer, network). Test consumer scaling behavior. Verify DLQ behavior under load. Test backpressure handling. Document load test results and capacity limits

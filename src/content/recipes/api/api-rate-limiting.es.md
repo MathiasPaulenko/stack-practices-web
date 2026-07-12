@@ -267,7 +267,7 @@ Rate limiting in-memory es 100x más rápido que Redis pero no funciona across i
 - **Testea Redis failover**: simula pérdida de conexión a Redis y verifica que el rate limiter fails open (permite peticiones) o fails closed (bloquea todas) según tu policy. Documenta el comportamiento elegido para el equipo de operaciones.
 - **Testea consistencia distribuida**: corre múltiples instancias simultáneamente y verifica que el rate limit aggregate se enforcement correctamente across todas las instancias. Usa un load tester para generar tráfico desde múltiples sources.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - **Usar fixed windows sin jitter**: fixed window rate limiting causa thundering herd en los boundaries de la window. Todos los clientes retryean simultáneamente al inicio de cada window. Agrega jitter (random delay 0-500ms) a la retry logic.
 - **Olvidar rate limit por IP detrás de un proxy**: si tu API está detrás de un load balancer, `req.ip` retorna la IP del proxy, no la del cliente. Configura `trust proxy` y usa `X-Forwarded-For` para identificar clientes reales.

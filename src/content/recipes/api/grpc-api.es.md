@@ -288,7 +288,6 @@ Benchmarks en Node.js 20, single core, payload 1KB, 100 streams concurrentes. Re
 - **gRPC channel idle timeout**: los channels idle mantienen TCP connections abiertas. Setea idle_timeout a 30 segundos para cerrar conexiones no usadas y liberar recursos.
 - **gRPC channel idle timeout safety**: asegurate que idle_timeout este configurado para prevenir zombie connections de acumularse en servicios long-running.
 
-## Preguntas Frecuentes
 
 ## Preguntas Frecuentes
 

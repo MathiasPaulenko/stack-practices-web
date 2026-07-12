@@ -340,7 +340,7 @@ GraphQL spec allows returning both `data` and `errors` in the same response. If 
 
 Return `UNAUTHENTICATED` (code 401) when no valid credential is provided. Return `FORBIDDEN` (code 403) when the credential is valid but lacks permissions. Include the required permission in `extensions.requiredRole` so clients can display meaningful messages or request elevated access.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Returning HTTP 200 with only `errors` and no `data` — clients expect `data` to be present even if null
 - Exposing stack traces in production — always strip `extensions.exception.stacktrace`

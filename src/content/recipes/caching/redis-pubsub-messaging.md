@@ -340,7 +340,7 @@ A: Messages are dropped. Redis Pub/Sub does not persist messages. If durability 
 **Q: Can I use pattern subscriptions with sharded Pub/Sub?**
 A: No. Sharded Pub/Sub (`SPUBLISH`/`SSUBSCRIBE`) does not support glob-style pattern matching. Use regular `PUBLISH`/`PSUBSCRIBE` for pattern subscriptions, but note that these do not benefit from cluster sharding.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Assuming messages are delivered reliably — Pub/Sub drops messages when subscribers are disconnected
 - Not handling reconnection logic — subscribers must resubscribe after connection drops

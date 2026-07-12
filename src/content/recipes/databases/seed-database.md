@@ -337,7 +337,7 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Running seed scripts against production databases — always add a environment check that aborts if `NODE_ENV === 'production'`
 - Not cleaning up old data before seeding — use `TRUNCATE` or `DELETE` in a transaction before inserting fresh data

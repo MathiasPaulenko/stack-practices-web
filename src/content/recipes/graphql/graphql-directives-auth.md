@@ -347,7 +347,7 @@ Directives add a wrapper layer to the resolver, but the overhead is minimal (one
 
 Yes, but each subgraph must implement the directive independently. The gateway does not re-run subgraph directives. Define directives in each subgraph's schema and apply auth rules there.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Applying auth directives only at the query level — mutations and subscriptions need protection too
 - Returning detailed error messages that leak schema information — use generic `FORBIDDEN` messages in production

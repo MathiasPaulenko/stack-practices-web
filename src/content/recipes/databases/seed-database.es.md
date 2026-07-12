@@ -340,7 +340,7 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - Ejecutar scripts de seed contra bases de datos de producción — siempre añade un check de entorno que aborte si `NODE_ENV === 'production'`
 - No limpiar datos viejos antes de seedear — usa `TRUNCATE` o `DELETE` en una transacción antes de insertar datos frescos

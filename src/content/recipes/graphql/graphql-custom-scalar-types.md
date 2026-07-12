@@ -333,7 +333,7 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Not validating input in the `parseValue` function — accepting malformed data that breaks downstream resolvers
 - Throwing generic errors instead of `GraphQLError` — clients receive unclear error messages without extensions

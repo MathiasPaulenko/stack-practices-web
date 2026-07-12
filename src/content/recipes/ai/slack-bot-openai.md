@@ -262,7 +262,7 @@ if __name__ == "__main__":
 - **Not handling empty or whitespace-only messages**: users may send empty messages or just mentions. Validate input before calling the OpenAI API.
 - **Forgetting to handle Slack rate limits**: Slack allows 1 message per second per channel. Batch responses or queue messages to avoid hitting limits.
 
-## FAQ
+## Additional FAQ
 
 **Q: How do I add thread context to the bot's responses?**
 A: Use Slack's `conversations.replies` API to fetch all messages in a thread. Include the last 5-10 thread messages as context in the OpenAI prompt. This gives the bot awareness of the conversation flow.

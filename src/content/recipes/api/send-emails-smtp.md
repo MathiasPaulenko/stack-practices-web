@@ -280,7 +280,6 @@ Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary
 - **SSE connection limit per browser**: browsers limit SSE connections per origin (6 in Chrome). If your app opens multiple SSE connections, some will fail. Use a single multiplexed connection instead.
 - **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling. Implement fallback logic on the client and document the degradation strategy.
 
-## Frequently Asked Questions
 
 ## Frequently Asked Questions
 

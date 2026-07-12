@@ -217,7 +217,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 - **Optimizacion de recursos de consumer**: right-sizea consumer instances basado en requirements de procesamiento. Usa spot instances para consumers non-critical. Scalea consumers a zero durante off-hours para queues non-urgent. Monitorea consumer CPU y memory utilization. Right-sizea antes de scalear out. Trackea costo por mensaje procesado
 - **Gestion de storage costs**: message queues consumen storage para mensajes queued y retained. Setea message TTL apropiado para auto-expirar mensajes viejos. Configura DLQ retention policies. Monitorea queue storage usage. Archiva mensajes viejos a storage mas barato. Usa lifecycle policies para message archives. Trackea storage costs por queue
 
-## Testing y Quality Assurance
+## Testing y QA Checklist
 
 - **Integration testing para messaging**: testea producer-consumer integration end-to-end. Verifica message delivery, ordering y content. Testea con realistic message volumes. Testea escenarios de failure (broker down, consumer crash, network partition). Usa test queues para integration tests. Limpia test queues despues de cada run. Automatiza en CI pipeline
 - **Load testing de messaging systems**: testea con message volumes production-like. Mide throughput, latency y error rate bajo load. Identifica bottlenecks (broker, consumer, network). Testea consumer scaling behavior. Verifica DLQ behavior bajo load. Testea backpressure handling. Documenta load test results y capacity limits

@@ -258,7 +258,7 @@ GraphQL agrega 2-5x latencia comparado con REST para operaciones equivalentes de
 - **Testea límites de query complexity**: envía queries deeply nested y queries con high field counts. Verifica que el complexity analyzer los rechace con un error message clear. Testea que queries válidas dentro de los límites pasen.
 - **Testea lifecycle de subscriptions**: conecta un subscription client, verifica que reciba real-time updates, luego desconecta y verifica que el server limpie la subscription y deje de enviar data.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - **Problema N+1 queries**: resolvers que fetchean data relacionada individualmente causan N+1 database queries. Una query por 100 users con sus posts triggerea 1 + 100 = 101 queries. Usa DataLoader para batchear related fetches en una sola query por level.
 - **Exponer el schema entero en producción**: introspection permite a clientes descubrir todos los types y fields. Deshabilita introspection en producción para prevenir que atacantes mappeen tu API surface. Usa `@deprecated` para phase out fields gracefully.

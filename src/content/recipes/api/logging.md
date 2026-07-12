@@ -257,7 +257,6 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Error-based DoS**: attackers can trigger expensive error paths (e.g., database connection errors) repeatedly. Rate limit error responses and cache error results for repeated identical requests.
 - **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing. Generate correlation IDs server-side and ignore client-provided ones.
 
-## Frequently Asked Questions
 
 ## Frequently Asked Questions
 

@@ -276,7 +276,7 @@ Versionado por URL path tiene zero routing overhead y el cache hit rate más alt
 - **Testea backward compatibility**: corre la v1 test suite contra v2 y verifica que todos los v1 tests pasen (a menos que se hayan roto intencionalmente). Usa `openapi-diff` para detectar breaking changes entre versiones automáticamente en CI.
 - **Testea version sunset**: simula la sunset date y verifica que la API retorne 410 Gone con un mensaje dirigiendo usuarios a la nueva versión. Testea que el sunset grace period funcione correctamente.
 
-## Errores Comunes
+## Errores Comunes Adicionales
 
 - **Versionar cada cambio minor**: no cada cambio necesita una nueva versión. Cambios aditivos (nuevos fields, nuevos endpoints) son backward-compatible y no requieren versionado. Reserva nuevas versiones solo para breaking changes.
 - **Mantener versiones viejas vivas demasiado tiempo**: mantener 3+ versiones simultáneamente aumenta code complexity, testing burden e infrastructure costs. Setea un timeline claro de deprecación (6-12 meses) y enfórzalo con sunset headers.

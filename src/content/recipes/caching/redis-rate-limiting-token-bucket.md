@@ -339,7 +339,7 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
 
-## Common Mistakes
+## Additional Common Mistakes
 
 - Using `INCR` alone without a Lua script — creates race conditions between increment and expiry checks
 - Not setting a TTL on rate limit keys — memory grows unbounded for users who make a single request
