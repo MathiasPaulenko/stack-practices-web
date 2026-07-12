@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, CONTENT_TYPES, TECHNOLOGIES } from '../config/site';
+import { SITE, CONTENT_TYPES } from '../config/site';
 import { webPage } from '../lib/schema';
 import { getCollection } from 'astro:content';
 import { isSpanish, buildTagIndex } from '../lib/content';
@@ -54,14 +54,13 @@ const jsonLd = [
   },
 ];
 
-const concepts = [
-  { label: 'API Design', slug: 'api' },
-  { label: 'Authentication', slug: 'authentication' },
-  { label: 'Architecture', slug: 'architecture' },
-  { label: 'Performance', slug: 'performance' },
-  { label: 'Testing', slug: 'testing' },
-  { label: 'Security', slug: 'security' },
-];
+const latestRecipes = [...recipes]
+  .sort((a, b) => (b.data.lastUpdated || '').localeCompare(a.data.lastUpdated || ''))
+  .slice(0, 3);
+
+const latestGuides = [...guides]
+  .sort((a, b) => (b.data.lastUpdated || '').localeCompare(a.data.lastUpdated || ''))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -306,7 +305,7 @@ const concepts = [
         </a>
       </div>
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {recipes.slice(0, 3).map((recipe) => (
+        {latestRecipes.map((recipe) => (
           <a href={`/recipes/${recipe.data.slug}/`} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-lg">
             <div class="flex items-center gap-2">
               <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold uppercase text-slate-600">{recipe.data.difficulty}</span>
@@ -324,6 +323,42 @@ const concepts = [
       </div>
       <div class="mt-6 text-center sm:hidden">
         <a href="/recipes/" class="text-sm font-semibold text-brand-600 hover:text-brand-700">View all recipes →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Guides -->
+  <section class="border-t border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900">Latest guides</h2>
+          <p class="mt-2 text-slate-600">In-depth engineering guides connecting recipes and patterns.</p>
+        </div>
+        <a href="/guides/" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
+          View all
+          <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {latestGuides.map((guide) => (
+          <a href={`/guides/${guide.data.slug}/`} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-lg">
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold uppercase text-slate-600">{guide.data.difficulty}</span>
+              <span class="text-xs text-slate-400">{guide.data.topics[0]?.replace(/-/g, ' ')}</span>
+            </div>
+            <h3 class="mt-3 text-base font-semibold text-slate-900 group-hover:text-brand-600">{guide.data.title}</h3>
+            <p class="mt-1 flex-1 text-sm text-slate-500">{guide.data.description}</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {guide.data.tags.slice(0, 3).map((tag: string) => (
+                <span class="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs text-slate-600">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="mt-6 text-center sm:hidden">
+        <a href="/guides/" class="text-sm font-semibold text-brand-600 hover:text-brand-700">View all guides →</a>
       </div>
     </div>
   </section>
