@@ -40,7 +40,7 @@ seo:
 
 El Patrón Builder es un patrón de diseño creacional que te permite construir objetos complejos paso a paso. Separa la construcción de un objeto de su representación, permitiendo que el mismo proceso de construcción cree diferentes representaciones.
 
-Brilla cuando un objeto tiene muchos parámetros opcionales, componentes anidados, o cuando quieres una API fluida y legible para la creación de objetos.
+Brilla cuando un objeto tiene muchos parámetros opcionales, componentes anidados, o cuando quieres una API directa y legible para la creación de objetos.
 
 ## Cuándo usarlo
 
@@ -180,7 +180,7 @@ El Patrón Builder separa el ensamblaje del objeto en dos partes:
 - **Builder**: Acumula estado de configuración y sabe cómo construir el objeto final
 - **Producto** (`Pizza`): El objeto inmutable o completamente configurado retornado por `build()`
 
-Retornando `self` (o `this`) de cada método de configuración, creas una interfaz fluida que se lee como una oración. Esto elimina constructores con docenas de parámetros.
+Retornando `self` (o `this`) de cada método de configuración, creas una interfaz encadenable que se lee como una oración. Esto elimina constructores con docenas de parámetros.
 
 ## Variantes
 
@@ -204,7 +204,7 @@ Retornando `self` (o `this`) de cada método de configuración, creas una interf
 - **Validación faltante**: Construir un objeto inválido porque se saltó la validación
 - **Builders excesivamente complejos**: Un builder para un objeto simple con 2 campos es excesivo
 - **Fuga de estado**: Reusar una instancia de builder después de `build()` sin resetear estado
-- **Olvidar retornar `self`**: Romper la cadena fluida retornando `None`/`void`
+- **Olvidar retornar `self`**: Romper el encadenamiento retornando `None`/`void`
 
 ## Técnicas avanzadas
 
@@ -537,7 +537,7 @@ R: Sí. Los Builders pueden parsear datos estructurados y construir objetos paso
 R: Acepta locale como parámetro en el constructor del builder o proporciona métodos específicos de locale. Usa el locale para formatear o validar valores durante la construcción.
 
 **P: ¿Debería usar Builders para requests de API?**
-R: Sí. Los Builders son excelentes para construir requests HTTP con muchos parámetros opcionales, headers y parámetros de query. Proporcionan una API fluida para el ensamblaje de requests.
+R: Sí. Los Builders son excelentes para construir requests HTTP con muchos parámetros opcionales, headers y parámetros de query. Proporcionan una API encadenable para el ensamblaje de requests.
 
 **P: ¿Cómo manejo valores por defecto que dependen de otros parámetros?**
 R: Calcula defaults dependientes en el método `build()` después de que todos los parámetros estén establecidos. Esto asegura que los defaults se calculen basados en el estado final de configuración.
@@ -545,7 +545,7 @@ R: Calcula defaults dependientes en el método `build()` después de que todos l
 **P: ¿Pueden los Builders usarse para factories de datos de prueba?**
 R: Sí. Los Builders son excelentes para crear datos de prueba con variaciones. Define configuraciones comunes como métodos (ej. `builder.configuracionEstandar()`) y personaliza según sea necesario para cada test.
 
-**P: ¿Cómo añado soporte para encadenamiento de métodos en lenguajes sin interfaces fluidas?**
+**P: ¿Cómo añado soporte para encadenamiento de métodos en lenguajes sin interfaces encadenables?**
 R: En lenguajes sin soporte de encadenamiento de métodos, usa un enfoque paso a paso donde cada método retorna una nueva instancia de builder, o usa un patrón de objeto de configuración.
 
 **P: ¿Debería usar Builders para construcción de componentes UI?**
@@ -681,7 +681,7 @@ R: Sí. Los Builders son útiles para construir queries de GraphQL con campos, a
 R: Proporciona contextos de validación que incluyen información adicional (environment, rol de usuario, permisos) durante la validación, habilitando reglas de validación context-aware.
 
 **P: ¿Debería usar Builders para construcción de requests de API REST?**
-R: Sí. Los Builders son excelentes para construir requests de API REST con URLs, headers, parámetros de query y bodies. Proporcionan una API fluida para ensamblaje de requests.
+R: Sí. Los Builders son excelentes para construir requests de API REST con URLs, headers, parámetros de query y bodies. Proporcionan una API encadenable para ensamblaje de requests.
 
 **P: ¿Cómo manejo serialización de estado del builder a formatos binarios?**
 R: Añade métodos para serializar estado del builder a formatos binarios (Protocol Buffers, Avro) para almacenamiento y transmisión eficiente.
@@ -729,7 +729,7 @@ R: Sí. Los Builders son útiles para construir schemas JSON con propiedades, va
 R: Cachea resultados de validación cuando el estado del builder no ha cambiado, mejorando rendimiento para llamadas de validación repetidas.
 
 **P: ¿Debería usar Builders para construcción de documentos XML?**
-R: Sí. Los Builders son útiles para construir documentos XML con elementos, atributos y namespaces. Proporcionan una API fluida para ensamblaje de XML.
+R: Sí. Los Builders son útiles para construir documentos XML con elementos, atributos y namespaces. Proporcionan una API encadenable para ensamblaje de XML.
 
 **P: ¿Cómo manejo soporte async de validación de estado del builder?**
 R: Soporta validación asíncrona para builders que requieren llamadas externas (checks de API, lookups de base de datos) durante la validación.
@@ -741,13 +741,13 @@ R: Sí. Los Builders son útiles para construir datos CSV con headers, filas y e
 R: Soporta tipos de validación personalizados más allá de tipos built-in, habilitando lógica de validación domain-specific en builders.
 
 **P: ¿Debería usar Builders para construcción de documentos YAML?**
-R: Sí. Los Builders son útiles para construir documentos YAML con keys, valores y anchors. Proporcionan una API fluida para ensamblaje de YAML.
+R: Sí. Los Builders son útiles para construir documentos YAML con keys, valores y anchors. Proporcionan una API encadenable para ensamblaje de YAML.
 
 **P: ¿Cómo manejo optimización de rendimiento de validación de estado del builder?**
 R: Optimiza la validación por short-circuit en el primer error, caching de resultados de validación, y usando estructuras de datos eficientes para lookups de validación.
 
 **P: ¿Pueden los Builders usarse para construcción de documentos TOML?**
-R: Sí. Los Builders son útiles para construir documentos TOML con tablas, keys y valores. Proporcionan una API fluida para ensamblaje de TOML.
+R: Sí. Los Builders son útiles para construir documentos TOML con tablas, keys y valores. Proporcionan una API encadenable para ensamblaje de TOML.
 
 **P: ¿Cómo añado soporte para engine de reglas de validación de estado del builder?**
 R: Integra un engine de reglas con el builder para aplicar reglas de validación complejas definidas externamente, habilitando lógica de validación flexible y mantenible.
@@ -816,7 +816,7 @@ R: Soporta mensajes de error de validación localizados basados en el setting de
 R: Sí. Los Builders son útiles para construir configuraciones de despliegue canary con routing de tráfico y reglas de monitoreo.
 
 **P: ¿Cómo manejo agregación de errores de validación de estado del builder across múltiples builders?**
-R: Agrega errores de validación de múltiples builders en un solo reporte, habilitando validación holística de escenarios de construcción complejos.
+R: Agrega errores de validación de múltiples builders en un solo reporte, habilitando validación completa de escenarios de construcción complejos.
 
 **P: ¿Pueden los Builders usarse para configuración de despliegue blue-green?**
 R: Sí. Los Builders son útiles para construir configuraciones de despliegue blue-green con switching de tráfico y reglas de rollback.

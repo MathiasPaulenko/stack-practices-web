@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-ai-agents-production
-title: "Guía Completa de AI Agents en Producción"
+title: "Referencia Detallada de AI Agents en Producción"
 description: "Construir AI agents en produccion. Cubre arquitecturas de agents, tool use, planning, memory, multi-agent systems, patrones ReAct, function calling, human-in-the-loop, safety y deployment para agents autonomos confiables."
 metaDescription: "Construir AI agents en produccion. Cubre arquitecturas, tool use, planning, memory, multi-agent, ReAct, human-in-the-loop, safety."
 difficulty: advanced

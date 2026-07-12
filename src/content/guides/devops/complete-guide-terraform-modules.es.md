@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-terraform-modules
-title: "Guía Completa de Módulos de Terraform"
+title: "Referencia Detallada de Módulos de Terraform"
 description: "Construye módulos de Terraform reutilizables con estructura adecuada, inputs, outputs y versionado. Cubre composición, testing y publicación en el Registry."
-metaDescription: "Guía completa de módulos de Terraform. Construye infraestructura reutilizable con estructura, variables, outputs, versionado, testing y registry."
+metaDescription: "Referencia Detallada de módulos de Terraform. Construye infraestructura reutilizable con estructura, variables, outputs, versionado, testing y registry."
 difficulty: intermediate
 topics:
   - infrastructure
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de módulos de Terraform. Construye infraestructura reutilizable con estructura, variables, outputs, versionado, testing y registry."
+  metaDescription: "Referencia Detallada de módulos de Terraform. Construye infraestructura reutilizable con estructura, variables, outputs, versionado, testing y registry."
   keywords:
     - terraform modules
     - terraform module structure
@@ -35,7 +35,7 @@ seo:
     - infrastructure as code
 ---
 
-# Guía Completa de Módulos de Terraform
+# Referencia Detallada de Módulos de Terraform
 
 ## Introducción
 

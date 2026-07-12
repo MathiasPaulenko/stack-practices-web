@@ -285,7 +285,7 @@ result = chain_with_history.invoke(
 - **Usa `StrOutputParser` para salida de texto simple** — extrae el contenido string del mensaje AI
 - **Divide cadenas complejas en componentes mas pequenos** — cada componente debe hacer una sola cosa
 - **Usa `with_fallbacks` para produccion** — las APIs LLM pueden rate-limit o timeout
-- **Stream para salida orientada al usuario** — mejora la latencia percibida significativamente
+- **Stream para salida orientada al usuario** — mejora la latencia percibida considerablemente
 
 ## Errores Comunes
 

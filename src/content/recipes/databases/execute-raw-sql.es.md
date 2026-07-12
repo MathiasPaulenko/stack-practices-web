@@ -136,7 +136,7 @@ Las **consultas parametrizadas** (prepared statements) separan la lógica SQL de
 |------------|---------|-------|
 | Python | `SQLAlchemy text()` | SQL crudo dentro del ORM con parámetros vinculados |
 | JavaScript | `knex.raw()` | Query builder con SQL crudo y bindings |
-| Java | `Jdbi` | API fluida sobre JDBC con binding de parámetros |
+| Java | `Jdbi` | API directa sobre JDBC con binding de parámetros |
 
 ## Lo que funciona
 

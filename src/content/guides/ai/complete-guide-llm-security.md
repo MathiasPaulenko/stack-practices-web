@@ -567,7 +567,7 @@ Prompt injection is when an attacker crafts input that overrides the model's sys
 
 ### Can LLMs be fully secured against prompt injection?
 
-No. LLMs are fundamentally susceptible to prompt injection because they cannot reliably distinguish between instructions and data. You can reduce risk significantly with the defenses in this guide, but you cannot eliminate it. For high-stakes applications, use human-in-the-loop approval and limit the model's ability to take actions directly.
+No. LLMs are fundamentally susceptible to prompt injection because they cannot reliably distinguish between instructions and data. You can reduce risk considerably with the defenses in this guide, but you cannot eliminate it. For high-stakes applications, use human-in-the-loop approval and limit the model's ability to take actions directly.
 
 ### What is the OWASP Top 10 for LLMs?
 

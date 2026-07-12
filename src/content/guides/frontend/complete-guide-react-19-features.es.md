@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-react-19-features
-title: "Guía Completa de React 19 Features"
-description: "Dominar React 19 features. Cubre server components, use() hook, actions, form actions, useActionState, useOptimistic, useFormStatus, ref as prop, document metadata, asset loading y React Compiler con ejemplos practicos de codigo."
-metaDescription: "Dominar React 19. Cubre server components, use() hook, actions, useActionState, useOptimistic, useFormStatus, ref as prop, React Compiler."
+title: "Referencia Detallada de React 19 Features"
+description: "React 19 features. Cubre server components, use() hook, actions, form actions, useActionState, useOptimistic, useFormStatus, ref as prop, document metadata, asset loading y React Compiler con ejemplos practicos de codigo."
+metaDescription: "React 19. Cubre server components, use() hook, actions, useActionState, useOptimistic, useFormStatus, ref as prop, React Compiler."
 difficulty: advanced
 topics:
   - frontend
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dominar React 19. Cubre server components, use() hook, actions, useActionState, useOptimistic, useFormStatus, ref as prop, React Compiler."
+  metaDescription: "React 19. Cubre server components, use() hook, actions, useActionState, useOptimistic, useFormStatus, ref as prop, React Compiler."
   keywords:
     - react 19
     - server components

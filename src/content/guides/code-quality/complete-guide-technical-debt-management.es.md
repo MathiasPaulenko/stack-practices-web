@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-technical-debt-management
-title: "Guía Completa de Technical Debt: Track, Prioritize, Pay Down"
+title: "Referencia Detallada de Technical Debt: Track, Prioritize, Pay Down"
 description: "Dominá technical debt management: identificá debt types, trackeá con debt registers, priorizá usando impact vs effort, agendá paydown sprints y medí debt reduction."
 metaDescription: "Dominá technical debt management: identificá debt types, trackeá con registers, priorizá con impact vs effort, agendá paydown sprints y medí debt reduction."
 difficulty: intermediate

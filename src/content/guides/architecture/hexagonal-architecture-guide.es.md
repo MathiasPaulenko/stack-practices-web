@@ -2,7 +2,7 @@
 contentType: guides
 slug: hexagonal-architecture-guide
 title: "Arquitectura Hexagonal — Puertos, Adaptadores y Testabilidad"
-description: "Guía completa de Arquitectura Hexagonal (Puertos y Adaptadores): estructura aplicaciones para aislar la lógica de dominio de frameworks, bases de datos y servicios externos."
+description: "Referencia Detallada de Arquitectura Hexagonal (Puertos y Adaptadores): estructura aplicaciones para aislar la lógica de dominio de frameworks, bases de datos y servicios externos."
 metaDescription: "Aprende Arquitectura Hexagonal con puertos, adaptadores y aislamiento de dominio. Guía práctica para aplicaciones testeables e independientes de frameworks."
 difficulty: advanced
 topics:

@@ -193,7 +193,7 @@ The template structures the handoff into **incidents** (what's broken), **alerts
 | Daily shift handoff | Abbreviated version (15 min) | Focus on active incidents and alerts only |
 | Weekly rotation | Full template with retrospective | Include incident count, MTTR trends |
 | Vacation coverage | Extended version | Add project context, meeting schedules, stakeholder contacts |
-| Incident mid-handoff | Incident-focused | Deep-dive on the active incident, de-prioritize routine items |
+| Incident mid-handoff | Incident-focused | Focus on the active incident, de-prioritize routine items |
 
 ## What works
 

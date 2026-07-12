@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-typescript-advanced-types
-title: "Guía Completa de TypeScript Advanced Types"
+title: "Referencia Detallada de TypeScript Advanced Types"
 description: "Dominá TypeScript advanced types: conditional types, mapped types, template literal types, infer, distributive types y type-level programming patterns."
 metaDescription: "Dominá TypeScript advanced types: conditional types, mapped types, template literal types, infer y distributive types para type-level programming seguro."
 difficulty: advanced

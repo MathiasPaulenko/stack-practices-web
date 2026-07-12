@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-sql-query-optimization
-title: "Guía Completa de SQL Query Optimization"
+title: "Referencia Detallada de SQL Query Optimization"
 description: "Optimizar SQL queries. Cubre EXPLAIN plan analysis, index strategies, join optimization, N+1 query detection, query rewriting, materialized views, partitioning, connection pooling y query caching con ejemplos practicos de PostgreSQL y MySQL."
 metaDescription: "Optimize SQL queries. Covers EXPLAIN plans, index strategies, join optimization, N+1 detection, materialized views, partitioning, caching."
 difficulty: advanced

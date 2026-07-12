@@ -671,7 +671,7 @@ A: Ideally yes. Stateless middleware is easier to test and reuse. If state is ne
 A: Add circuit breaker middleware that tracks failure rates and short-circuits requests when a downstream service is failing. This prevents cascading failures and improves system resilience.
 
 **Q: Can I use this pattern for validation pipelines?**
-A: Yes. Validation chains where each middleware verifies a different aspect (format, business rules, security constraints) are a common use case. Results can be aggregated to provide comprehensive validation feedback.
+A: Yes. Validation chains where each middleware verifies a different aspect (format, business rules, security constraints) are a common use case. Results can be aggregated to provide detailed validation feedback.
 
 **Q: How do I handle priority in middleware execution?**
 A: Implement middleware ordering based on priority where higher priority middleware executes first. This is useful for ensuring critical checks (auth, security) run before less critical operations.
@@ -791,7 +791,7 @@ A: Yes. Enrichment chains where each middleware fetches additional data from dif
 A: Include tenant identification in the request context and ensure middleware respects tenant isolation (separate data access, per-tenant configuration, resource quotas).
 
 **Q: Can middleware be implemented as web framework middleware?**
-A: Yes. Most web frameworks (Express, Django, ASP.NET Core) support middleware patterns that are essentially chain of responsibility implementations. Leverage framework-specific middleware APIs.
+A: Yes. Most web frameworks (Express, Django, ASP.NET Core) support middleware patterns that are essentially chain of responsibility implementations. use framework-specific middleware APIs.
 
 **Q: How do I add request compression/decompression in a chain?**
 A: Add compression/decompression middleware that handles content encoding (gzip, deflate, brotli). Place decompression early and compression late in the chain.

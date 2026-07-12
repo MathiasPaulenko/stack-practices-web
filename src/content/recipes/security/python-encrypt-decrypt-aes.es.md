@@ -256,7 +256,7 @@ Conceptos clave:
 
 - Siempre usar AES-GCM o ChaCha20-Poly1305. Nunca usar AES-CBC sin un MAC separado.
 - Generar un nonce aleatorio fresco para cada encriptación. Nunca reusar un nonce con la misma clave.
-- Usar claves de 256 bits para sistemas nuevos. 128 bits es aceptable pero menos future-proof.
+- Usar claves de 256 bits para sistemas nuevos. 128 bits es aceptable pero menos adaptable.
 - Derivar claves desde passwords con PBKDF2 (600,000+ iteraciones) o Argon2.
 - Almacenar el salt y nonce junto al ciphertext. No son secrets.
 - Usar AAD para vincular ciphertext a contexto y prevenir intercambio de ciphertext.

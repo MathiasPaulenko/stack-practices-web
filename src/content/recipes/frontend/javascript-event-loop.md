@@ -2,7 +2,7 @@
 contentType: recipes
 slug: javascript-event-loop
 title: "JavaScript Event Loop"
-description: "Understand how the JavaScript event loop works under the hood and how to write non-blocking code."
+description: "Understand how the JavaScript event loop works internally and how to write non-blocking code."
 metaDescription: "How the JavaScript event loop works: call stack, task queue, microtasks, and writing efficient async code for better web app performance."
 difficulty: intermediate
 topics:

@@ -208,7 +208,7 @@ public class OrderToShipmentAdapter {
 
 - **Un bounded context gigante**: modelar toda una empresa como un único contexto crea un enredo. Si dos equipos frecuentemente conflictúan sobre la definición de un término, necesitan contextos separados. Fusiona contextos solo cuando el costo de traducción excede el costo de coordinación.
 - **Filtrar persistencia al dominio**: los aggregates no deberían saber sobre anotaciones de ORM, queries SQL o esquemas de documentos. La capa de dominio define repositories como interfaces; la infraestructura los implementa. Esto permite testear lógica de negocio sin base de datos.
-- **Sobre-ingeniería dominios simples**: DDD es poderoso pero costoso. Un panel de administración CRUD para un catálogo de 10 entidades no necesita aggregates, domain events y mapas de contexto. Usa DDD cuando la complejidad del negocio justifique el costo de abstracción.
+- **Sobre-ingeniería dominios simples**: DDD es capaz pero costoso. Un panel de administración CRUD para un catálogo de 10 entidades no necesita aggregates, domain events y mapas de contexto. Usa DDD cuando la complejidad del negocio justifique el costo de abstracción.
 - **Faltar anti-corruption layers**: al integrar con sistemas externos, usar directamente sus modelos de datos contamina tu dominio. Crea una anti-corruption layer que traduzca conceptos externos a tu lenguaje ubicuo, protegiendo tu modelo de cambios externos.
 
 ## Preguntas frecuentes
@@ -223,7 +223,7 @@ R: Sí. Los aggregates mapean a tablas, las entities a filas, los value objects 
 R: Un domain service contiene lógica de negocio que no pertenece a ninguna entidad (ej. calcular costo de envío entre múltiples carriers). Un application service orquesta casos de uso, llamando repositories y domain services, sin contener reglas de negocio.
 
 **P: ¿Todo proyecto debería usar event sourcing con DDD?**
-R: No. Event sourcing almacena estado como una secuencia de eventos. Es poderoso para dominios con fuerte auditoría pero agrega complejidad mayor. Empieza con persistencia estándar y domain events. Solo adopta event sourcing si genuinamente necesitas trails de auditoría completos, queries temporales o capacidades de replay de eventos.
+R: No. Event sourcing almacena estado como una secuencia de eventos. Es capaz para dominios con fuerte auditoría pero agrega complejidad mayor. Empieza con persistencia estándar y domain events. Solo adopta event sourcing si genuinamente necesitas trails de auditoría completos, queries temporales o capacidades de replay de eventos.
 
 
 ### Repository Pattern con Unit of Work (Python)

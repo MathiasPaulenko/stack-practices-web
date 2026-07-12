@@ -215,7 +215,7 @@ class SlidingSessionStore(SessionStore):
 ## Como Funciona
 
 1. **Estructura de claves**: Las sesiones se almacenan como `session:<session_id>`. El ID de sesion es un string URL-safe criptograficamente aleatorio generado con `secrets.token_urlsafe(32)`.
-2. **Serializacion**: El modulo `serde` de pymemcache maneja la conversion Python-to-bytes. JSON funciona para dicts simples; usa `pickle` para objetos complejos (pero ten en cuenta las implicaciones de seguridad).
+2. **Serializacion**: El modulo `serde` de pymemcache maneja la conversion Python-to-bytes. JSON funciona para dicts simples; usa `pickle` para objetos complejos (pero nota las implicaciones de seguridad).
 3. **TTL**: El parametro `expire` de Memcached establece el TTL en segundos. Cuando expira, la clave se evicta automaticamente. No se necesita limpieza.
 4. **Hashing consistente**: `HashClient` distribuye claves entre multiples servidores Memcached. Si un servidor cae, se marca como muerto y las claves se redistribuyen a los servidores restantes.
 5. **Failover**: `retry_attempts` y `dead_timeout` controlan como el cliente maneja fallos de servidor. Un servidor muerto se reintenta despues de `dead_timeout` segundos.

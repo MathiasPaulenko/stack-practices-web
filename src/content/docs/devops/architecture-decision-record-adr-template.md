@@ -186,7 +186,7 @@ Migrate to PostgreSQL 16 as the primary database.
 ### Positive
 - Native declarative partitioning
 - JSONB for semi-structured data
-- Robust logical replication
+- Solid logical replication
 - Active community and mature tooling (pgAdmin, pgBackRest)
 
 ### Negative
@@ -268,7 +268,7 @@ Create a `docs/adr/` directory in the repository. Name each file `ADR-NNN-short-
 
 ### When should an ADR be superseded?
 
-An ADR should be superseded when: the chosen technology reaches end of life, a new option becomes clearly superior, requirements changed significantly, or the decision caused operational issues that outweigh benefits. Do not edit the original ADR — create a new ADR that references the old one, mark the old one's status as "Superseded by ADR-NNN", and explain why the change is being made. Keep the original ADR in the repository for historical reference.
+An ADR should be superseded when: the chosen technology reaches end of life, a new option becomes clearly superior, requirements changed considerably, or the decision caused operational issues that outweigh benefits. Do not edit the original ADR — create a new ADR that references the old one, mark the old one's status as "Superseded by ADR-NNN", and explain why the change is being made. Keep the original ADR in the repository for historical reference.
 
 ### How do we integrate ADRs with the pull request workflow?
 

@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-redis-caching-strategies
-title: "Guía Completa de Estrategias de Caching con Redis"
-description: "Dominar caching con Redis: cache-aside, read-through, write-through, write-behind y refresh-ahead. Cubre politicas de eviction, tuning de TTL, serializacion y operaciones de produccion."
-metaDescription: "Dominar caching con Redis: cache-aside, read-through, write-through, write-behind, refresh-ahead. Cubre eviction, TTL, serializacion y ops de produccion."
+title: "Referencia Detallada de Estrategias de Caching con Redis"
+description: "caching con Redis: cache-aside, read-through, write-through, write-behind y refresh-ahead. Cubre politicas de eviction, tuning de TTL, serializacion y operaciones de produccion."
+metaDescription: "caching con Redis: cache-aside, read-through, write-through, write-behind, refresh-ahead. Cubre eviction, TTL, serializacion y ops de produccion."
 difficulty: advanced
 topics:
   - caching
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dominar caching con Redis: cache-aside, read-through, write-through, write-behind, refresh-ahead. Cubre eviction, TTL, serializacion y ops de produccion."
+  metaDescription: "caching con Redis: cache-aside, read-through, write-through, write-behind, refresh-ahead. Cubre eviction, TTL, serializacion y ops de produccion."
   keywords:
     - redis caching estrategias
     - cache-aside patron

@@ -2,7 +2,7 @@
 contentType: guides
 slug: event-sourcing-guide
 title: "Event Sourcing — State as a Sequence of Events"
-description: "A deep dive into Event Sourcing: persist state changes as events, reconstruct aggregates from history, and build audit trails by design."
+description: "A detailed analysis into Event Sourcing: persist state changes as events, reconstruct aggregates from history, and build audit trails by design."
 metaDescription: "Learn Event Sourcing with aggregate reconstruction, event stores, snapshots, and projections. Complete guide for auditable, event-driven systems."
 difficulty: advanced
 topics:

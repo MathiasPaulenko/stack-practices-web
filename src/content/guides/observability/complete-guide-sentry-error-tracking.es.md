@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-sentry-error-tracking
-title: "Guía Completa de Sentry: Error Tracking, Triage y Resolution"
+title: "Referencia Detallada de Sentry: Error Tracking, Triage y Resolution"
 description: "Dominá Sentry para error tracking en producción. Cubre SDK integration en Python, Node.js, Java, release tracking, source maps, performance monitoring y alerting."
 metaDescription: "Dominá Sentry para error tracking en producción: SDK integration en Python, Node.js, Java, release tracking, source maps, performance monitoring y alerting rules."
 difficulty: intermediate

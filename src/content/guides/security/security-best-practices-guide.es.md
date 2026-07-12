@@ -2,7 +2,7 @@
 contentType: guides
 slug: security-best-practices-guide
 title: "Guía de Mejores Prácticas de Seguridad"
-description: "Una guía completa de seguridad de aplicaciones: autenticación, autorización, validación de inputs, gestión de secretos y prevención de vulnerabilidades comunes."
+description: "Una Referencia Detallada de seguridad de aplicaciones: autenticación, autorización, validación de inputs, gestión de secretos y prevención de vulnerabilidades comunes."
 metaDescription: "Aprende prácticas esenciales de seguridad: autenticación, validación de inputs, gestión de secretos y prevención de vulnerabilidades OWASP."
 difficulty: intermediate
 topics:

@@ -208,7 +208,7 @@ for r in results:
 4. **`with_fallbacks`** tries the primary chain first; if it raises an exception, it tries each fallback in order.
 5. **`with_retry`** automatically retries on failure with configurable attempts and backoff.
 6. **`stream`** yields output chunks as they are generated, enabling real-time UI updates.
-7. **`batch`** processes multiple inputs concurrently, leveraging the LLM provider's batch API for throughput.
+7. **`batch`** processes multiple inputs concurrently, using the LLM provider's batch API for throughput.
 
 ## Variants
 
@@ -285,7 +285,7 @@ result = chain_with_history.invoke(
 - **Use `StrOutputParser` for simple text output** — it extracts the string content from the AI message
 - **Break complex chains into smaller components** — each component should do one thing
 - **Use `with_fallbacks` for production** — LLM APIs can rate-limit or timeout
-- **Stream for user-facing output** — improves perceived latency significantly
+- **Stream for user-facing output** — improves perceived latency considerably
 
 ## Common Mistakes
 

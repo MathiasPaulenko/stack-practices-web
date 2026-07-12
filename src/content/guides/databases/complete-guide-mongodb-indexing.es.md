@@ -1,8 +1,8 @@
 ---
 contentType: guides
 slug: complete-guide-mongodb-indexing
-title: "Guía Completa de MongoDB Indexing"
-description: "Dominar MongoDB indexing. Cubre single field, compound, text, geospatial, TTL, wildcard, hashed indexes, ESR rule, covered queries, explain plan analysis, index intersection y partial indexes con ejemplos practicos."
+title: "Referencia Detallada de MongoDB Indexing"
+description: "MongoDB indexing. Cubre single field, compound, text, geospatial, TTL, wildcard, hashed indexes, ESR rule, covered queries, explain plan analysis, index intersection y partial indexes con ejemplos practicos."
 metaDescription: "Master MongoDB indexing. Covers single, compound, text, geospatial, TTL, wildcard, hashed indexes, ESR rule, covered queries, explain plans."
 difficulty: advanced
 topics:

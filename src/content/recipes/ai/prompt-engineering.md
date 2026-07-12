@@ -291,7 +291,7 @@ A: Yes. For code generation, include the programming language, framework version
 ## Best Practices
 
 - **Version control your prompts**: store prompts in a dedicated file or database with version numbers. Tag each deployment with the prompt version used. This lets you correlate quality changes with prompt modifications.
-- **Build a prompt evaluation harness**: create a script that runs a prompt against a test set and reports pass/fail rates. Run it before and after any prompt change. This catches regressions before they reach production.
+- **Build a prompt evaluation use**: create a script that runs a prompt against a test set and reports pass/fail rates. Run it before and after any prompt change. This catches regressions before they reach production.
 - **Use separate prompts for separate tasks**: a single prompt that tries to classify, summarize, and extract entities will do all three poorly. Split into separate API calls with focused prompts.
 - **Set up prompt A/B testing**: route a percentage of traffic to the new prompt and compare outcomes (user satisfaction, accuracy, cost). Promote the winner only after statistically significant results.
 - **Cache responses for deterministic prompts**: if the same prompt + input always produces the same output (temperature=0), cache the response. This eliminates redundant API calls and reduces latency.

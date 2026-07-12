@@ -376,7 +376,7 @@ print(f"Defect escape rate: {results['defect_escape_rate']:.0%}")
 
 ## Additional Best Practices
 
-1. **Use review slots to prevent review fatigue.** Assign a maximum of 2-3 reviews per engineer per day. Beyond that, review quality drops significantly:
+1. **Use review slots to prevent review fatigue.** Assign a maximum of 2-3 reviews per engineer per day. Beyond that, review quality drops considerably:
 
 ```yaml
 # GitHub Actions - check reviewer load before assignment

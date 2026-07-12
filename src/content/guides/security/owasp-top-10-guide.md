@@ -34,7 +34,7 @@ seo:
 
 ## Overview
 
-The OWASP Top 10 is a standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications. Understanding these risks, and more importantly how to prevent them, is a baseline skill for every developer shipping code to production.
+The OWASP Top 10 is a standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications. Understanding these risks, and more in particular how to prevent them, is a baseline skill for every developer shipping code to production.
 
 ## When to Use
 

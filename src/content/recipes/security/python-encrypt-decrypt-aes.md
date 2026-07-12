@@ -256,7 +256,7 @@ Key concepts:
 
 - Always use AES-GCM or ChaCha20-Poly1305. Never use AES-CBC without a separate MAC.
 - Generate a fresh random nonce for every encryption. Never reuse a nonce with the same key.
-- Use 256-bit keys for new systems. 128-bit is acceptable but less future-proof.
+- Use 256-bit keys for new systems. 128-bit is acceptable but less adaptable.
 - Derive keys from passwords with PBKDF2 (600,000+ iterations) or Argon2.
 - Store the salt and nonce alongside the ciphertext. They are not secrets.
 - Use AAD to bind ciphertext to context and prevent ciphertext swapping.

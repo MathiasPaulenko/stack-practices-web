@@ -45,7 +45,7 @@ Los Terraform workspaces te permiten usar la misma configuración para manejar m
 ## When NOT to Use
 
 - Infraestructura de producción con requisitos de isolation estrictos — usá separate state files en su lugar
-- Cuando los entornos difieren significativamente — los workspaces se vuelven un enredo de conditionals
+- Cuando los entornos difieren considerablemente — los workspaces se vuelven un enredo de conditionals
 - Cuando diferentes entornos usan diferentes AWS accounts — usá separate backend configs
 - Cuando necesitás diferentes provider configurations por entorno — los workspaces no pueden hacer esto
 
@@ -413,7 +413,7 @@ Un container con nombre para un Terraform state. Cada workspace tiene su propio 
 
 ### ¿Cuándo debería usar workspaces vs separate state files?
 
-Usá workspaces cuando los entornos son similares (misma infraestructura, diferentes sizes/counts). Usá separate state files cuando los entornos difieren significativamente o usan diferentes AWS accounts.
+Usá workspaces cuando los entornos son similares (misma infraestructura, diferentes sizes/counts). Usá separate state files cuando los entornos difieren considerablemente o usan diferentes AWS accounts.
 
 ### ¿Puedo tener diferentes providers por workspace?
 

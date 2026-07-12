@@ -401,7 +401,7 @@ A static analysis tool for Python that scans code for common security vulnerabil
 
 ### How does Bandit differ from pip-audit?
 
-Bandit scans your source code for insecure coding patterns. pip-audit scans your installed dependencies for known CVEs. Use both for comprehensive security coverage.
+Bandit scans your source code for insecure coding patterns. pip-audit scans your installed dependencies for known CVEs. Use both for detailed security coverage.
 
 ### What do severity and confidence mean in Bandit?
 

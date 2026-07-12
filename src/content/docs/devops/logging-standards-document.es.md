@@ -267,7 +267,7 @@ Los logs son eventos discretos con timestamps — que paso en un momento especif
 
 ### Como probamos el logging en CI/CD?
 
-Agrega tests que verifiquen: el formato de log es JSON valido, los campos requeridos estan presentes (timestamp, level, service, correlationId), los datos sensibles no se loguean, los niveles de log se usan correctamente, y el volumen de log no excede umbrales. Usa un test harness que capture la salida de log y la valide contra el schema. Ejecuta tests de parsing de log para asegurar que el pipeline de agregacion puede ingerir los logs. Incluye tests de logging en la checklist de despliegue.
+Agrega tests que verifiquen: el formato de log es JSON valido, los campos requeridos estan presentes (timestamp, level, service, correlationId), los datos sensibles no se loguean, los niveles de log se usan correctamente, y el volumen de log no excede umbrales. Usa un test use que capture la salida de log y la valide contra el schema. Ejecuta tests de parsing de log para asegurar que el pipeline de agregacion puede ingerir los logs. Incluye tests de logging en la checklist de despliegue.
 
 
 

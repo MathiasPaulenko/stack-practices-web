@@ -247,7 +247,7 @@ Usa un script o dashboard que extraiga datos de tu monitoreo (Datadog, Prometheu
 
 ### Que metricas deberiamos rastrear mas alla de incidentes y costos?
 
-Rastrea: frecuencia de despliegue, lead time para cambios, tasa de fallo de cambios, tiempo medio a recuperacion (metricas DORA). Rastrea tasa de quemado de SLO y consumo de presupuesto de error. Rastrea carga de on-call (paginas por semana, escalaciones). Rastrea items de deuda tecnica cerrados. Rastrea hallazgos de seguridad abiertos y resueltos. Rastrea problemas reportados por clientes. Estas metricas juntas dan una vista holistica de la salud operativa.
+Rastrea: frecuencia de despliegue, lead time para cambios, tasa de fallo de cambios, tiempo medio a recuperacion (metricas DORA). Rastrea tasa de quemado de SLO y consumo de presupuesto de error. Rastrea carga de on-call (paginas por semana, escalaciones). Rastrea items de deuda tecnica cerrados. Rastrea hallazgos de seguridad abiertos y resueltos. Rastrea problemas reportados por clientes. Estas metricas juntas dan una vista completa de la salud operativa.
 
 ### Como manejamos action items que nunca se completan?
 

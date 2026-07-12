@@ -265,7 +265,7 @@ if __name__ == "__main__":
 R: Usa la API `conversations.replies` de Slack para obtener todos los mensajes de un thread. Incluye los últimos 5-10 mensajes del thread como contexto en el prompt de OpenAI. Esto le da al bot awareness del flujo de conversación.
 
 **P: ¿El bot puede procesar archivos subidos?**
-R: Sí. Escucha eventos `file_shared`, descarga el archivo con la API `files.info` de Slack y pásalo a GPT-4 Vision para imágenes o extrae texto para documentos. Ten en cuenta los límites de tamaño de archivo y las políticas de contenido.
+R: Sí. Escucha eventos `file_shared`, descarga el archivo con la API `files.info` de Slack y pásalo a GPT-4 Vision para imágenes o extrae texto para documentos. nota los límites de tamaño de archivo y las políticas de contenido.
 
 **P: ¿Cómo hago que el bot responda solo en canales específicos?**
 R: Verifica `event.channel` contra una allowlist de IDs de canal. Configura la allowlist vía variables de entorno o un archivo de configuración. Esto evita que el bot responda en canales donde no es bienvenido.

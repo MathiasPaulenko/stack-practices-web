@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: docker-for-developers-guide
-title: "Docker para Desarrolladores — Guía Completa"
+title: "Docker para Desarrolladores — Referencia Detallada"
 description: "Aprende Docker desde cero: imágenes, contenedores, Dockerfiles, redes, volúmenes y Docker Compose para desarrollo local."
-metaDescription: "Guía completa de Docker para desarrolladores. Aprende imágenes, contenedores, Dockerfiles, redes, volúmenes y Docker Compose para flujos de desarrollo local."
+metaDescription: "Referencia Detallada de Docker para desarrolladores. Aprende imágenes, contenedores, Dockerfiles, redes, volúmenes y Docker Compose para flujos de desarrollo local."
 difficulty: beginner
 topics:
   - devops
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Guía completa de Docker para desarrolladores. Aprende imágenes, contenedores, Dockerfiles, redes, volúmenes y Docker Compose para flujos de desarrollo local."
+  metaDescription: "Referencia Detallada de Docker para desarrolladores. Aprende imágenes, contenedores, Dockerfiles, redes, volúmenes y Docker Compose para flujos de desarrollo local."
   keywords:
     - docker para desarrolladores
     - contenedores docker

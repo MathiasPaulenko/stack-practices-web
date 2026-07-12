@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-api-versioning-strategies
-title: "Guía Completa de Estrategias de Versionado de APIs"
+title: "Referencia Detallada de Estrategias de Versionado de APIs"
 description: "Versiona APIs REST y GraphQL con estrategias de URI, header, query param y content negotiation. Cubre deprecación, sunset y patrones de migración."
-metaDescription: "Guía completa de versionado de APIs. Compara URI, header, query param, content negotiation y evolución de schema GraphQL para REST y GraphQL."
+metaDescription: "Referencia Detallada de versionado de APIs. Compara URI, header, query param, content negotiation y evolución de schema GraphQL para REST y GraphQL."
 difficulty: intermediate
 topics:
   - api
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de versionado de APIs. Compara URI, header, query param, content negotiation y evolución de schema GraphQL para REST y GraphQL."
+  metaDescription: "Referencia Detallada de versionado de APIs. Compara URI, header, query param, content negotiation y evolución de schema GraphQL para REST y GraphQL."
   keywords:
     - api versioning strategies
     - rest api versioning
@@ -36,7 +36,7 @@ seo:
     - backward compatibility
 ---
 
-# Guía Completa de Estrategias de Versionado de APIs
+# Referencia Detallada de Estrategias de Versionado de APIs
 
 ## Introducción
 

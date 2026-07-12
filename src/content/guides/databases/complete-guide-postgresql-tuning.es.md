@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-postgresql-tuning
-title: "Guía Completa de PostgreSQL Tuning"
+title: "Referencia Detallada de PostgreSQL Tuning"
 description: "Optimiza PostgreSQL para alto throughput. Cubre tuning de configuración, estrategias de indexación, optimización de queries, connection pooling, particionado y vacuum."
-metaDescription: "Guía completa de PostgreSQL tuning. Optimiza config, indexación, query plans, connection pooling, particionado y vacuum para workloads de alto throughput."
+metaDescription: "Referencia detallada de PostgreSQL tuning. Optimiza config, indexación, query plans, connection pooling, particionado y vacuum para workloads de alto throughput."
 difficulty: advanced
 topics:
   - databases
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de PostgreSQL tuning. Optimiza config, indexación, query plans, connection pooling, particionado y vacuum para workloads de alto throughput."
+  metaDescription: "Referencia detallada de PostgreSQL tuning. Optimiza config, indexación, query plans, connection pooling, particionado y vacuum para workloads de alto throughput."
   keywords:
     - postgresql tuning
     - postgresql performance
@@ -36,11 +36,11 @@ seo:
     - vacuum postgresql
 ---
 
-# Guía Completa de PostgreSQL Tuning
+# Referencia Detallada de PostgreSQL Tuning
 
 ## Introducción
 
-PostgreSQL es poderoso pero los settings default son conservadores — diseñados para correr en una máquina con 256MB de RAM. Workloads de producción necesitan configuración tuneada, indexes apropiados, queries optimizadas y particionado estratégico de datos. A continuación: tuning de configuración, estrategias de indexación, optimización de queries, connection pooling, particionado y vacuum management.
+PostgreSQL es capaz pero los settings default son conservadores — diseñados para correr en una máquina con 256MB de RAM. Workloads de producción necesitan configuración tuneada, indexes apropiados, queries optimizadas y particionado estratégico de datos. A continuación: tuning de configuración, estrategias de indexación, optimización de queries, connection pooling, particionado y vacuum management.
 
 ## Tuning de Configuración
 

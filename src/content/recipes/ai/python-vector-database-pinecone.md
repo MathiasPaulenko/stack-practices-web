@@ -354,7 +354,7 @@ for vid, vector in result["vectors"].items():
 
 - **Mismatched dimensions** — the index dimension must match the embedding model's output dimension exactly
 - **Not using metadata filtering** — retrieving all vectors and filtering client-side is slow and expensive
-- **Upserting one vector at a time** — batch upserts are significantly faster and avoid rate limits
+- **Upserting one vector at a time** — batch upserts are considerably faster and avoid rate limits
 - **Using the wrong metric** — cosine is best for normalized text embeddings; dotproduct for unnormalized
 
 ## FAQ

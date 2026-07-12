@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-local-llm-deployment
-title: "Guía Completa de Despliegue Local de LLM"
+title: "Referencia Detallada de Despliegue Local de LLM"
 description: "Desplegar LLMs localmente y on-premise. Cubre Ollama, vLLM, llama.cpp, LM Studio, quantization de modelos, GPU requirements, serving con API servers, performance tuning y elegir entre local y cloud."
 metaDescription: "Desplegar LLMs localmente. Cubre Ollama, vLLM, llama.cpp, LM Studio, quantization, GPU, API servers, performance tuning."
 difficulty: advanced

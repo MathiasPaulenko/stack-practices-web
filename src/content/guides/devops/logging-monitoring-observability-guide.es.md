@@ -222,7 +222,7 @@ Alertas (sintomas orientados a usuarios):
 
 Lecciones:
   - OpenTelemetry unifica traces, metrics y logs
-  - traceId es la clave para correlacionar todo
+  - traceId es la forma de correlacionar todo
   - Logs JSON estructurados > texto plano
   - Alerta sobre SLOs, no sobre infraestructura
   - El collector desacopla la app del backend de observabilidad

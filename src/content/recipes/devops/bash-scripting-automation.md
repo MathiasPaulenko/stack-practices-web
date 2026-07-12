@@ -465,7 +465,7 @@ count_items() {
 }
 ```
 
-3. **Use `[[ ]]` instead of `[ ]`.** More robust, supports pattern matching:
+3. **Use `[[ ]]` instead of `[ ]`.** More solid, supports pattern matching:
 
 ```bash
 # Good: pattern matching

@@ -530,7 +530,7 @@ A layered approach: HTML provides the functional baseline, CSS adds presentation
 
 ### How is this different from graceful degradation?
 
-Progressive enhancement starts simple and adds features. Graceful degradation starts with full features and tries to handle failures. Progressive enhancement is generally more robust because the baseline always works.
+Progressive enhancement starts simple and adds features. Graceful degradation starts with full features and tries to handle failures. Progressive enhancement is generally more solid because the baseline always works.
 
 ### Should every site use progressive enhancement?
 

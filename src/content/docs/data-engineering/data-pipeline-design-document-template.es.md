@@ -542,7 +542,7 @@ Detectá schema changes con un schema validation check en el staging layer. Cuan
 
 ### ¿Cuál es la difference entre ELT y ETL?
 
-ETL extract data, lo transforma en un processing engine, luego lo load al warehouse. ELT load raw data al warehouse first, luego lo transforma usando warehouse compute. ELT es simpler porque skippea el staging processing step, pero require un powerful warehouse. Documentá qué approach tu pipeline usa.
+ETL extract data, lo transforma en un processing engine, luego lo load al warehouse. ELT load raw data al warehouse first, luego lo transforma usando warehouse compute. ELT es simpler porque skippea el staging processing step, pero require un capable warehouse. Documentá qué approach tu pipeline usa.
 
 ### ¿Cómo versioneamos el pipeline design document?
 

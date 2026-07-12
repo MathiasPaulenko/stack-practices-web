@@ -516,7 +516,7 @@ A: Use composition to combine multiple repositories in services. Avoid inheritan
 A: Yes. Use repositories to fetch initial data for subscriptions and handle data updates through repository methods.
 
 **Q: How do I handle database-specific features in repositories?**
-A: Abstract database-specific features behind repository interfaces. Use concrete implementations to leverage database-specific optimizations.
+A: Abstract database-specific features behind repository interfaces. Use concrete implementations to use database-specific optimizations.
 
 **Q: Should repositories handle data transformation?**
 A: Minimal transformation is acceptable (e.g., mapping database documents to entities). Complex transformations belong in the service layer.
@@ -690,7 +690,7 @@ A: Implement consistency check methods in repositories or use database constrain
 A: Archiving and retention can be implemented in repositories with dedicated methods. Use background jobs for automated archiving.
 
 **Q: How do I implement repository for data auditing?**
-A: Add audit fields to entities and update them in repository methods. Consider using database triggers for comprehensive audit logging.
+A: Add audit fields to entities and update them in repository methods. Consider using database triggers for detailed audit logging.
 
 **Q: Can I use repositories with database query optimization?**
 A: Yes. Optimize queries in repository implementations. Use database-specific features like query hints or execution plans.
@@ -822,7 +822,7 @@ A: Data synchronization transformation belongs in sync services. Repositories pr
 A: Data security validation belongs in the security layer. Repositories work with secure data.
 
 **Q: How do I implement repository for data access error handling?**
-A: Implement comprehensive error handling in repository methods. Translate database errors to domain exceptions.
+A: Implement detailed error handling in repository methods. Translate database errors to domain exceptions.
 
 **Q: Can I use repositories with database connection monitoring?**
 A: Yes. Monitor connection health and performance. Use monitoring tools to track connection metrics.

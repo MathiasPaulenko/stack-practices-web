@@ -473,4 +473,4 @@ GDPR requiere responder dentro de un mes desde la recepción de la solicitud. Es
 
 ### ¿Qué cuenta como datos personales bajo GDPR?
 
-Cualquier información relacionada con una persona identificada o identificable: nombre, email, dirección IP, identificadores de cookies, datos de ubicación, datos biométricos y datos de comportamiento. Incluso los datos pseudonimizados son datos personales si existe la clave para re-identificar a la persona.
+Cualquier información relacionada con una persona identificada o identificable: nombre, email, dirección IP, identificadores de cookies, datos de ubicación, datos biométricos y datos de comportamiento. Incluso los datos pseudonimizados son datos personales si existe la forma de re-identificar a la persona.

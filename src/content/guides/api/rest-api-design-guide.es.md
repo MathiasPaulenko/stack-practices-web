@@ -2,7 +2,7 @@
 contentType: guides
 slug: rest-api-design-guide
 title: "Guía de Diseño de APIs REST"
-description: "Una guía completa para diseñar APIs REST limpias, escalables y mantenibles."
+description: "Una Referencia Detallada para diseñar APIs REST limpias, escalables y mantenibles."
 metaDescription: "Aprende mejores prácticas de diseño de APIs REST: estructura de URLs, métodos HTTP, códigos de estado, versionado, paginación y manejo de errores."
 difficulty: intermediate
 topics:

@@ -322,7 +322,7 @@ http.post("/api/upload", ({ request }) => {
 
 ### Can I use MSW with axios?
 
-Yes. MSW intercepts at the `fetch` and `http` level, which axios uses under the hood. No configuration needed.
+Yes. MSW intercepts at the `fetch` and `http` level, which axios uses internally. No configuration needed.
 
 ### How do I mock paginated responses?
 

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: observability-guide
-title: "Observabilidad — Guia Completa de Metricas, Logs y Traces"
+title: "Observabilidad — Referencia Detallada de Metricas, Logs y Traces"
 description: "Guia practica de observabilidad: los tres pilares (metricas, logs, traces), implementacion con Prometheus, Grafana, Loki, Tempo/Jaeger, y construccion de alertas basadas en SLO."
 metaDescription: "Aprende observabilidad: metricas, logs, traces. Implementa con Prometheus, Grafana, Loki, Jaeger. Construye alertas basadas en SLO para sistemas en produccion."
 difficulty: intermediate

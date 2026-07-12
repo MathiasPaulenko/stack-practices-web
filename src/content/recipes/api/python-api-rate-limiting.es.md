@@ -342,7 +342,7 @@ Conceptos clave:
 - **Distributed**: Las implementaciones con Redis usan scripts Lua para atomicidad. El script lee, actualiza y escribe en una sola operación de Redis, previniendo race conditions.
 - **Sliding window**: En vez de ventanas fijas, el sliding window trackea timestamps individuales de peticiones en un sorted set. Cuenta peticiones dentro de los últimos N segundos, proveyendo límites más suaves.
 
-El script Lua en la variante de Redis es crucial: sin ejecución atómica, peticiones concurrentes podrían leer el mismo conteo de tokens y todas pasar el check de límite.
+El script Lua en la variante de Redis es important: sin ejecución atómica, peticiones concurrentes podrían leer el mismo conteo de tokens y todas pasar el check de límite.
 
 ## Variantes
 

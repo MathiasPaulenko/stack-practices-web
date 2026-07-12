@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-elasticsearch-cluster-setup
-title: "Guía Completa de Elasticsearch Cluster Setup"
+title: "Referencia Detallada de Elasticsearch Cluster Setup"
 description: "Despliega y escala clusters de Elasticsearch. Cubre roles de nodos, sharding, réplicas, index templates, mapping, snapshots y tuning de producción para search a escala."
-metaDescription: "Guía completa de Elasticsearch cluster setup. Despliega, configura roles, sharding, réplicas, index templates, mapping, snapshots y tuning de producción."
+metaDescription: "Referencia Detallada de Elasticsearch cluster setup. Despliega, configura roles, sharding, réplicas, index templates, mapping, snapshots y tuning de producción."
 difficulty: advanced
 topics:
   - databases
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de Elasticsearch cluster setup. Despliega, configura roles, sharding, réplicas, index templates, mapping, snapshots y tuning de producción."
+  metaDescription: "Referencia Detallada de Elasticsearch cluster setup. Despliega, configura roles, sharding, réplicas, index templates, mapping, snapshots y tuning de producción."
   keywords:
     - elasticsearch cluster
     - elasticsearch setup
@@ -36,7 +36,7 @@ seo:
     - index templates
 ---
 
-# Guía Completa de Elasticsearch Cluster Setup
+# Referencia Detallada de Elasticsearch Cluster Setup
 
 ## Introducción
 

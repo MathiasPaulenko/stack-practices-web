@@ -247,7 +247,7 @@ Use a script or dashboard that pulls data from your monitoring (Datadog, Prometh
 
 ### What metrics should we track beyond incidents and cost?
 
-Track: deployment frequency, lead time for changes, change failure rate, mean time to recovery (DORA metrics). Track SLO burn rate and error budget consumption. Track on-call load (pages per week, escalations). Track technical debt items closed. Track security findings open and resolved. Track customer-reported issues. These metrics together give a holistic view of operational health.
+Track: deployment frequency, lead time for changes, change failure rate, mean time to recovery (DORA metrics). Track SLO burn rate and error budget consumption. Track on-call load (pages per week, escalations). Track technical debt items closed. Track security findings open and resolved. Track customer-reported issues. These metrics together give a complete view of operational health.
 
 ### How do we handle action items that never get done?
 

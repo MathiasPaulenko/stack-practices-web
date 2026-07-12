@@ -380,7 +380,7 @@ Faithfulness measures whether the answer is grounded in the retrieved context â€
 
 ### How do I create a ground truth answer set?
 
-Select 50-100 representative queries across all query types. For each query, have a domain expert write the correct answer. Include queries that require single-chunk answers, multi-chunk synthesis, and "I don't know" responses. Store the query, ground truth answer, and the relevant source chunks. Update the set when the corpus changes significantly.
+Select 50-100 representative queries across all query types. For each query, have a domain expert write the correct answer. Include queries that require single-chunk answers, multi-chunk synthesis, and "I don't know" responses. Store the query, ground truth answer, and the relevant source chunks. Update the set when the corpus changes considerably.
 
 ### What should I do if faithfulness is low?
 

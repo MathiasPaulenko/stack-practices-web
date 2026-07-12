@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-rabbitmq-architecture
-title: "Guía Completa de Arquitectura RabbitMQ"
+title: "Referencia Detallada de Arquitectura RabbitMQ"
 description: "Disenar y operar RabbitMQ para mensajeria confiable. Cubre exchanges, queues, bindings, patrones de routing, dead letter queues, clustering y mejores practicas de produccion para workloads de alto throughput."
 metaDescription: "Disenar RabbitMQ para mensajeria confiable. Cubre exchanges, queues, bindings, routing, dead letter queues, clustering y mejores practicas."
 difficulty: advanced

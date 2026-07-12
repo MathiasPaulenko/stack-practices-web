@@ -31,7 +31,7 @@ seo:
 ---
 ## Visión General
 
-El chaos engineering es la disciplina de experimentar en sistemas distribuidos para construir confianza en su resiliencia. Al inyectar fallas intencionalmente — matar instancias, inyectar latencia, corromper paquetes — los equipos descubren debilidades antes que los clientes. Netflix fue pionero con Chaos Monkey; hoy, herramientas como Litmus, Gremlin y AWS Fault Injection Simulator lo hacen accesible para cualquier equipo.
+El chaos engineering es la disciplina de experimentar en sistemas distribuidos para construir confianza en su resiliencia. Al inyectar fallas intencionalmente — matar instancias, inyectar latencia, corromper paquetes — los equipos descubren debilidades antes que los clientes. Netflix fue novedoso con Chaos Monkey; hoy, herramientas como Litmus, Gremlin y AWS Fault Injection Simulator lo hacen accesible para cualquier equipo.
 
 ## Cuándo Usar
 

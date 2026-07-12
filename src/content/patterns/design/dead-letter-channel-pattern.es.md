@@ -39,7 +39,7 @@ Cuando un mensaje falla consistentemente en el procesamiento, reintentarlo para 
 
 - Los mensajes fallan repetidamente y no pueden procesarse (payload malformado, dependencias faltantes, estado invalido)
 - Necesitas preservar mensajes fallidos para debugging y auditoria
-- Quieres desbloquear la cola principal para que los mensajes sanos continuen procesandose
+- Quieres activar la cola principal para que los mensajes sanos continuen procesandose
 - Necesitas reprocesar mensajes fallidos despues de corregir el problema subyacente
 
 ## Solución

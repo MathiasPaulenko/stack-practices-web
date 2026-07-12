@@ -3,7 +3,7 @@ contentType: patterns
 slug: builder-pattern-configuration
 title: "Builder Pattern para Objetos de Configuracion Complejos"
 description: "Usa el Builder pattern para construir objetos de configuracion complejos con parametros opcionales y valores por defecto sensatos sin constructores telescopicos"
-metaDescription: "Builder pattern para objetos de configuracion. Construye objetos complejos con parametros opcionales, API fluida y valores por defecto sin constructores telescopicos."
+metaDescription: "Builder pattern para objetos de configuracion. Construye objetos complejos con parametros opcionales, API directa y valores por defecto sin constructores telescopicos."
 difficulty: beginner
 topics:
   - design
@@ -20,7 +20,7 @@ relatedResources:
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Builder pattern para objetos de configuracion. Construye objetos complejos con parametros opcionales, API fluida y valores por defecto sin constructores telescopicos."
+  metaDescription: "Builder pattern para objetos de configuracion. Construye objetos complejos con parametros opcionales, API directa y valores por defecto sin constructores telescopicos."
   keywords:
     - builder pattern
     - configuration builder
@@ -134,7 +134,7 @@ const config = new DatabaseConfigBuilder()
 ## Lo que funciona
 
 - Valida solo al llamar `build()`, no en cada setter; consulta [Builder pattern](/patterns/design/builder-pattern) para estrategias de validacion
-- Retorna `this` para encadenamiento de metodos (interfaz fluida)
+- Retorna `this` para encadenamiento de metodos (interfaz directa)
 - Congela o sella el objeto retornado para prevenir mutacion post-construccion
 
 ## Errores Comunes
@@ -781,7 +781,7 @@ R: Soporta mensajes de error de validación localizados basados en el setting de
 R: Sí. Los builders son excelentes para configurar despliegues multi-región con replicación, optimización de latencia y estrategias de failover.
 
 **P: ¿Cómo manejo agregación de errores de validación de estado de configuración across múltiples builders?**
-R: Agrega errores de validación de múltiples builders en un solo reporte, habilitando validación holística de escenarios de construcción complejos.
+R: Agrega errores de validación de múltiples builders en un solo reporte, habilitando validación completa de escenarios de construcción complejos.
 
 **P: ¿Pueden los builders usarse para configuración de hybrid cloud?**
 R: Sí. Los builders son útiles para construir configuraciones de hybrid cloud con integración de recursos on-premises y cloud.

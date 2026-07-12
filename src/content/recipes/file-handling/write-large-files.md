@@ -411,7 +411,7 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.WRITE)) {
 }
 ```
 
-2. **Tune buffer sizes for your workload.** Default buffer sizes (4-8KB) work for general use. For large sequential writes, 64KB-1MB buffers reduce syscall count significantly:
+2. **Tune buffer sizes for your workload.** Default buffer sizes (4-8KB) work for general use. For large sequential writes, 64KB-1MB buffers reduce syscall count considerably:
 
 ```python
 # Python: use larger buffer for sequential writes

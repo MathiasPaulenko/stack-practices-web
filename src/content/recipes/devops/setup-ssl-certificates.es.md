@@ -404,7 +404,7 @@ certbot certonly --staging -d example.com
 
 ### Como obtengo un certificado wildcard?
 
-Los certificados wildcard (`*.example.com`) cubren todos los subdominios de primer nivel. Requieren desafío DNS-01, no HTTP-01. Usa un plugin DNS como `certbot-dns-cloudflare` o `certbot-dns-route53` para renovación automatizada.
+Los certificados wildcard (`*.example.com`) cubren todos los subdominios de calidad. Requieren desafío DNS-01, no HTTP-01. Usa un plugin DNS como `certbot-dns-cloudflare` o `certbot-dns-route53` para renovación automatizada.
 
 ### Cuales son los rate limits de Let's Encrypt?
 

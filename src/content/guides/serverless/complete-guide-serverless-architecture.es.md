@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-serverless-architecture
-title: "Guía Completa de Arquitectura Serverless"
+title: "Referencia Detallada de Arquitectura Serverless"
 description: "Decidir cuando ir serverless y cuando no. Cubre patrones FaaS, diseno event-driven, cold starts, modelos de costo, vendor lock-in y estrategias de migracion para aplicaciones serverless de produccion."
 metaDescription: "Decidir cuando ir serverless. Cubre patrones FaaS, event-driven, cold starts, costo, vendor lock-in y migracion para apps de produccion."
 difficulty: advanced
@@ -346,7 +346,7 @@ container_cost = 730 * (0.025 * 0.5 + 0.003 * 1)  # ~$10.22/mes
 
 ## Vendor Lock-In
 
-Las plataformas serverless difieren significativamente. Mover de AWS Lambda a Google Cloud Functions o Azure Functions requiere reescribir handlers, triggers, y configuracion de infraestructura.
+Las plataformas serverless difieren considerablemente. Mover de AWS Lambda a Google Cloud Functions o Azure Functions requiere reescribir handlers, triggers, y configuracion de infraestructura.
 
 ### Factores de Lock-In
 

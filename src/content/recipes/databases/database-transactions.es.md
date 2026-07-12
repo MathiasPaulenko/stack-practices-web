@@ -426,7 +426,7 @@ ALTER SYSTEM SET idle_in_transaction_session_timeout = '300s';
 
 1. **Mantén transacciones por debajo de 100ms cuando sea posible.** Las transacciones cortas reducen la contención de locks y mejoran el throughput.
 
-2. **Usa `COPY` en lugar de `INSERT` para cargas masivas.** `COPY` es significativamente más rápido y genera menos WAL:
+2. **Usa `COPY` en lugar de `INSERT` para cargas masivas.** `COPY` es considerablemente más rápido y genera menos WAL:
 
 ```sql
 BEGIN;

@@ -219,7 +219,7 @@ For microservices: audit each service individually but also audit the inter-serv
 
 ### What is the difference between a security audit and a penetration test?
 
-A security audit is a comprehensive review of security controls, policies, and configurations — it answers "are our security measures adequate?" A penetration test is a simulated attack — it answers "can someone actually break in?" Audits are broader (policies, procedures, configurations) while pentests are deeper (exploiting specific vulnerabilities). Audits are typically internal or by a third-party assessor; pentests are by specialized security firms. Both are necessary: an audit identifies gaps in controls, a pentest validates that controls work under attack. Schedule audits quarterly and pentests annually or before major releases.
+A security audit is a detailed review of security controls, policies, and configurations — it answers "are our security measures adequate?" A penetration test is a simulated attack — it answers "can someone actually break in?" Audits are broader (policies, procedures, configurations) while pentests are deeper (exploiting specific vulnerabilities). Audits are typically internal or by a third-party assessor; pentests are by specialized security firms. Both are necessary: an audit identifies gaps in controls, a pentest validates that controls work under attack. Schedule audits quarterly and pentests annually or before major releases.
 
 ### How do we track remediation of audit findings?
 

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-graphql-security
-title: "Guía Completa de Seguridad GraphQL"
+title: "Referencia Detallada de Seguridad GraphQL"
 description: "Asegurar APIs GraphQL contra leaks de introspection, ataques de profundidad, DoS por costo, abuso de batching e inyeccion. Cubre patrones de auth, rate limiting y hardening de produccion."
 metaDescription: "Asegurar APIs GraphQL contra introspection, ataques de profundidad, DoS por costo, abuso de batching e inyeccion. Cubre auth, rate limiting y hardening de produccion."
 difficulty: advanced

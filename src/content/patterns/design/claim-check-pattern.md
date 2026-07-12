@@ -417,7 +417,7 @@ The Claim Check Pattern separates message routing from payload transport:
 3. **Retrieve**: The consumer receives the message, uses the token to fetch the payload
 4. **Cleanup**: After processing, the consumer deletes the stored payload to manage storage costs
 
-This keeps the message broker lean while leveraging cheap, growth-ready object storage for the actual data.
+This keeps the message broker lean while using cheap, growth-ready object storage for the actual data.
 
 ## Variants
 

@@ -31,7 +31,7 @@ seo:
 
 # Fine-Tune and Deploy Text Classifiers with Hugging Face Transformers
 
-Pre-trained transformer models like BERT and DistilBERT achieve state-of-the-art results on text classification. Hugging Face's `transformers` library provides the `Trainer` API to fine-tune these models on custom datasets with minimal code. Below: loading a dataset, tokenizing, fine-tuning, evaluating, and deploying a classifier.
+Pre-trained transformer models like BERT and DistilBERT achieve modern results on text classification. Hugging Face's `transformers` library provides the `Trainer` API to fine-tune these models on custom datasets with minimal code. Below: loading a dataset, tokenizing, fine-tuning, evaluating, and deploying a classifier.
 
 ## When to Use This
 

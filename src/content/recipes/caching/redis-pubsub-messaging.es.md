@@ -326,7 +326,7 @@ A: Miles. Redis maneja el fan-out eficientemente, pero cada suscriptor anade mem
 A: Los mensajes se descartan. Redis Pub/Sub no persiste mensajes. Si la durabilidad importa, usa Redis Streams en su lugar — almacenan mensajes y permiten que los consumer groups lean a su propio ritmo.
 
 **Q: ¿Puedo usar suscripciones por patrón con sharded Pub/Sub?**
-A: No. Sharded Pub/Sub (`SPUBLISH`/`SSUBSCRIBE`) no soporta pattern matching con globs. Usa `PUBLISH`/`PSUBSCRIBE` regular para suscripciones por patrón, pero ten en cuenta que estas no se benefician del sharding del cluster.
+A: No. Sharded Pub/Sub (`SPUBLISH`/`SSUBSCRIBE`) no soporta pattern matching con globs. Usa `PUBLISH`/`PSUBSCRIBE` regular para suscripciones por patrón, pero nota que estas no se benefician del sharding del cluster.
 
 ## Errores Comunes
 

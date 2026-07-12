@@ -261,7 +261,7 @@ During the test, capture infrastructure metrics (CPU, memory, network, disk I/O)
 
 ### What is the difference between spike, stress, and endurance testing?
 
-Spike testing: sudden, extreme increase in traffic (e.g., 10x normal for 30 seconds) to test if the system survives and recovers. Stress testing: gradually increase load until the system breaks, to find the failure mode and maximum capacity. Endurance testing: run moderate load for hours or days to detect memory leaks, resource exhaustion, or performance drift. Each test type reveals different issues. Run all three as part of a comprehensive performance testing strategy.
+Spike testing: sudden, extreme increase in traffic (e.g., 10x normal for 30 seconds) to test if the system survives and recovers. Stress testing: gradually increase load until the system breaks, to find the failure mode and maximum capacity. Endurance testing: run moderate load for hours or days to detect memory leaks, resource exhaustion, or performance drift. Each test type reveals different issues. Run all three as part of a detailed performance testing strategy.
 
 ### How do we handle load testing for stateful services?
 

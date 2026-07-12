@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-web-security-headers
-title: "Guía Completa de Web Security Headers"
+title: "Referencia Detallada de Web Security Headers"
 description: "Implementa CSP, HSTS, X-Frame-Options y headers seguros. Cubre content security policy, CORS, referrer policy, permissions policy y testing con security scanners."
-metaDescription: "Guía completa de web security headers. Implementa CSP, HSTS, X-Frame-Options, CORS, referrer policy, permissions policy y testing con security scanners."
+metaDescription: "Referencia detallada de web security headers. Implementa CSP, HSTS, X-Frame-Options, CORS, referrer policy, permissions policy y testing con security scanners."
 difficulty: intermediate
 topics:
   - security
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de web security headers. Implementa CSP, HSTS, X-Frame-Options, CORS, referrer policy, permissions policy y testing con security scanners."
+  metaDescription: "Referencia detallada de web security headers. Implementa CSP, HSTS, X-Frame-Options, CORS, referrer policy, permissions policy y testing con security scanners."
   keywords:
     - web security headers
     - content security policy
@@ -36,7 +36,7 @@ seo:
     - permissions policy
 ---
 
-# Guía Completa de Web Security Headers
+# Referencia Detallada de Web Security Headers
 
 ## Introducción
 
@@ -44,7 +44,7 @@ Los HTTP security headers le dicen al browser cómo comportarse al manejar el co
 
 ## Content-Security-Policy (CSP)
 
-CSP es el security header más poderoso. Restringe qué recursos el browser puede cargar — scripts, styles, images, fonts, frames y connections.
+CSP es el security header más efectivo. Restringe qué recursos el browser puede cargar — scripts, styles, images, fonts, frames y connections.
 
 ### CSP básico
 

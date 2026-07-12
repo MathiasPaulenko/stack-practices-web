@@ -3,7 +3,7 @@ contentType: recipes
 slug: github-actions-matrix-strategy
 title: "Across Multiple OS and Language Versions with GitHub"
 description: "How to use GitHub Actions matrix strategy to test across multiple operating systems, language versions, and configurations with include, exclude, and dynamic matrices."
-metaDescription: "Test across multiple OS and language versions with GitHub Actions matrix strategy. Use include, exclude, dynamic matrices, and fail-fast for comprehensive CI."
+metaDescription: "Test across multiple OS and language versions with GitHub Actions matrix strategy. Use include, exclude, dynamic matrices, and fail-fast for detailed CI."
 difficulty: intermediate
 topics:
   - devops
@@ -21,7 +21,7 @@ relatedResources:
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Test across multiple OS and language versions with GitHub Actions matrix strategy. Use include, exclude, dynamic matrices, and fail-fast for comprehensive CI."
+  metaDescription: "Test across multiple OS and language versions with GitHub Actions matrix strategy. Use include, exclude, dynamic matrices, and fail-fast for detailed CI."
   keywords:
     - devops
     - github-actions

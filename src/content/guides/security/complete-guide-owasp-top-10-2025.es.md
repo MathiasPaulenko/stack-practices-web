@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-owasp-top-10-2025
-title: "Guía Completa de OWASP Top 10 2025"
+title: "Referencia Detallada de OWASP Top 10 2025"
 description: "Mitigar cada riesgo del OWASP Top 10 2025 con ejemplos de codigo practicos. Cubre broken access control, fallas criptograficas, injection, insecure design, security misconfiguration, componentes vulnerables, fallas de auth, integridad de software, fallas de logging y SSRF."
 metaDescription: "Mitigar riesgos OWASP Top 10 2025 con codigo. Cubre broken access control, crypto failures, injection, SSRF, insecure design, misconfiguration."
 difficulty: advanced

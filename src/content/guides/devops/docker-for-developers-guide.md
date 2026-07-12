@@ -322,7 +322,7 @@ Optimizations:
 
 Lessons:
   - Multi-stage build reduces size dramatically
-  - Copy package.json before code leverages layer cache
+  - Copy package.json before code uses layer cache
   - Non-root user is mandatory in production
   - Healthcheck enables auto-restart in orchestrators
   - docker-compose for dev, Dockerfile for prod

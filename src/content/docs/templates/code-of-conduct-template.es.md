@@ -32,7 +32,7 @@ seo:
 
 ## Resumen
 
-Un código de conducta establece expectativas sobre el comportamiento de los participantes dentro de una comunidad. Crea un ambiente acogedor y provee procedimientos para abordar violaciones. Sin uno, los mantenedores no tienen marco para manejar comportamiento disruptivo, y los colaboradores no saben qué esperar.
+Un código de conducta establece expectativas sobre el comportamiento de los participantes dentro de una comunidad. Crea un ambiente acogedor y provee procedimientos para abordar violaciones. Sin uno, los mantenedores no tienen marco para manejar comportamiento novedoso, y los colaboradores no saben qué esperar.
 
 ## Cuándo Usar
 

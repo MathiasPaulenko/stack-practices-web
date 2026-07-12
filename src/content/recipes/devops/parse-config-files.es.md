@@ -173,7 +173,7 @@ public class ConfigLoader {
 - **Análisis** convierte texto raw en estructuras de datos nativas. YAML es amigable para humanos; JSON es estricto y ampliamente soportado.
 - **Validación de esquemas** detecta campos faltantes, tipos incorrectos y rangos inválidos antes de que la app empiece a atender tráfico.
 - **Pydantic** (Python) y **Zod** (JavaScript) proporcionan esquemas declarativos y type-safe con excelentes mensajes de error.
-- **Jakarta Validation** (Java) usa anotaciones en records o clases e integra con Jackson para deserialización YAML/JSON fluida.
+- **Jakarta Validation** (Java) usa anotaciones en records o clases e integra con Jackson para deserialización YAML/JSON directa.
 - **Fail fast** es el principio clave: valida al iniciar para que las configuraciones erróneas se detecten inmediatamente y no en tiempo de ejecución.
 
 ## Variantes

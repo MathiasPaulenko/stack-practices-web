@@ -426,7 +426,7 @@ ALTER SYSTEM SET idle_in_transaction_session_timeout = '300s';
 
 1. **Keep transactions under 100ms when possible.** Short transactions reduce lock contention and improve throughput.
 
-2. **Use `COPY` instead of `INSERT` for bulk loads.** `COPY` is significantly faster and generates less WAL:
+2. **Use `COPY` instead of `INSERT` for bulk loads.** `COPY` is considerably faster and generates less WAL:
 
 ```sql
 BEGIN;

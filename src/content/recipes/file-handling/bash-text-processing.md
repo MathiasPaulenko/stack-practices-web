@@ -469,7 +469,7 @@ LC_ALL=C sort large_file.txt > sorted.txt
 LC_ALL=C grep -n "pattern" huge_file.log
 ```
 
-2. **Use `grep -F` for fixed strings.** When you do not need regex, fixed-string mode is significantly faster:
+2. **Use `grep -F` for fixed strings.** When you do not need regex, fixed-string mode is considerably faster:
 
 ```bash
 # Slow: regex engine processes literal string

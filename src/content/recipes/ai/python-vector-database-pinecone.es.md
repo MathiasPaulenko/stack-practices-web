@@ -354,7 +354,7 @@ for vid, vector in result["vectors"].items():
 
 - **Dimensiones no coincidentes** — la dimension del indice debe coincidir exactamente con la dimension de salida del modelo de embedding
 - **No usar filtrado por metadatos** — recuperar todos los vectores y filtrar client-side es lento y costoso
-- **Upsertear un vector a la vez** — los upserts batch son significativamente mas rapidos y evitan rate limits
+- **Upsertear un vector a la vez** — los upserts batch son considerablemente mas rapidos y evitan rate limits
 - **Usar la metrica equivocada** — cosine es mejor para embeddings de texto normalizados; dotproduct para no normalizados
 
 ## FAQ

@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-La arquitectura Lakehouse, pionera de Databricks, unifica lo mejor de Data Lakes y Data Warehouses. Almacena datos en formatos abiertos (Parquet) en almacenamiento de objetos de bajo costo mientras añade garantías transaccionales, enforce de schema y time travel. Los formatos de tabla abiertos como Delta Lake, Apache Iceberg y Hudi hacen esto posible manteniendo capas de metadata que rastrean cambios, particiones y estadísticas.
+La arquitectura Lakehouse, novedosa de Databricks, unifica lo mejor de Data Lakes y Data Warehouses. Almacena datos en formatos abiertos (Parquet) en almacenamiento de objetos de bajo costo mientras añade garantías transaccionales, enforce de schema y time travel. Los formatos de tabla abiertos como Delta Lake, Apache Iceberg y Hudi hacen esto posible manteniendo capas de metadata que rastrean cambios, particiones y estadísticas.
 
 ## Cuándo Usar
 

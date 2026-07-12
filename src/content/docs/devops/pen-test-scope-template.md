@@ -421,7 +421,7 @@ aws rds restore-db-instance-from-db-snapshot \
 
 ### How do we scope a penetration test for microservices?
 
-List each microservice endpoint separately in the scope table. Include the API gateway, individual service endpoints, and any service-to-service communication paths. Provide Swagger/OpenAPI specs to testers for comprehensive coverage. Test both the gateway (external perspective) and individual services (internal perspective). Include authentication and authorization testing for each service's API.
+List each microservice endpoint separately in the scope table. Include the API gateway, individual service endpoints, and any service-to-service communication paths. Provide Swagger/OpenAPI specs to testers for detailed coverage. Test both the gateway (external perspective) and individual services (internal perspective). Include authentication and authorization testing for each service's API.
 
 ### What is the difference between a vulnerability scan and a penetration test?
 

@@ -38,7 +38,7 @@ Polars es una librería de DataFrame escrita en Rust con un binding de Python. U
 ## When to Use
 
 - Datasets de 1GB a 100GB que no caben cómodamente en pandas
-- Operaciones de group-by y join en DataFrames grandes — Polars es significativamente más rápido
+- Operaciones de group-by y join en DataFrames grandes — Polars es considerablemente más rápido
 - Pipelines donde la optimización de queries importa — lazy evaluation salta columnas innecesarias
 - Reemplazar pandas en pipelines ETL por velocidad sin cambiar a Spark
 - Leer/escribir archivos Parquet, CSV o IPC (Arrow) a escala

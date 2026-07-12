@@ -606,7 +606,7 @@ Un unique identifier attached a cada request y propagated a través de todos los
 
 ### ELK vs. Loki — ¿cuál debería usar?
 
-ELK (Elasticsearch) es full-text search con indexing — queries poderosas pero high resource usage. Loki indexa solo labels (no full text) — más barato y simple, pero menos powerful search. Elegí Loki para cost efficiency, ELK para complex search needs.
+ELK (Elasticsearch) es full-text search con indexing — queries poderosas pero high resource usage. Loki indexa solo labels (no full text) — más barato y simple, pero menos capable search. Elegí Loki para cost efficiency, ELK para complex search needs.
 
 ### ¿Cómo redactéa sensitive data en logs?
 

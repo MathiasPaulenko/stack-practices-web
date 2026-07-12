@@ -383,7 +383,7 @@ La idea clave es que **los agentes son ganado, no mascotas**. El supervisor los 
 
 ## Ejemplos del Mundo Real
 
-- **Erlang/OTP**: Marco pionero del patron de supervision. Los procesos se organizan en arboles de supervision donde los supervisores monitorean workers y aplican estrategias de reinicio. Impulsa la infraestructura de mensajeria de WhatsApp.
+- **Erlang/OTP**: Marco novedoso del patron de supervision. Los procesos se organizan en arboles de supervision donde los supervisores monitorean workers y aplican estrategias de reinicio. Impulsa la infraestructura de mensajeria de WhatsApp.
 - **Kubernetes**: Los controladores actuan como supervisores. Un controlador de Deployment monitorea Pods (agentes), detecta los no saludables via health checks, y crea reemplazos.
 - **Apache Airflow**: El modelo de executor de Airflow usa un programador que analiza DAGs y coloca tareas en workers (agentes). El programador monitorea el estado en la base de datos de metadatos y reintenta tareas fallidas.
 

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-llm-evaluation
-title: "Guía Completa de Evaluación de LLM"
+title: "Referencia Detallada de Evaluación de LLM"
 description: "Evaluar aplicaciones LLM en produccion. Cubre RAGAS, LLM-as-judge, evaluacion humana, A/B testing, deteccion de hallucinations, toxicity scoring, regression testing y pipelines de evaluacion automatizados."
 metaDescription: "Evaluar apps LLM. Cubre RAGAS, LLM-as-judge, eval humana, A/B testing, hallucination detection, toxicity, regression testing."
 difficulty: advanced

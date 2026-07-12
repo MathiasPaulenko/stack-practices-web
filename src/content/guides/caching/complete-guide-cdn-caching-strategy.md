@@ -421,7 +421,7 @@ Browser cache is stored on the user's device. It reduces requests to the CDN. CD
 
 ### Should I cache HTML pages on the CDN?
 
-Yes, with a short TTL (1-5 minutes). HTML pages are expensive to generate server-side. Caching them for even 1 minute reduces origin load significantly. Use `must-revalidate` and ETags so the CDN revalidates efficiently.
+Yes, with a short TTL (1-5 minutes). HTML pages are expensive to generate server-side. Caching them for even 1 minute reduces origin load considerably. Use `must-revalidate` and ETags so the CDN revalidates efficiently.
 
 ### How do I handle user-specific content with a CDN?
 

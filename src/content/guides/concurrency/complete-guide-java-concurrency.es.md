@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-java-concurrency
-title: "Guía Completa de Concurrencia en Java"
-description: "Dominar concurrencia en Java en produccion. Cubre threads, locks, CompletableFuture, virtual threads, executors, concurrent collections, memory model y patrones para aplicaciones paralelas de alto throughput."
-metaDescription: "Dominar concurrencia Java. Cubre threads, locks, CompletableFuture, virtual threads, executors, concurrent collections y memory model."
+title: "Referencia Detallada de Concurrencia en Java"
+description: "Concurrencia en Java en produccion. Cubre threads, locks, CompletableFuture, virtual threads, executors, concurrent collections, memory model y patrones para aplicaciones paralelas de alto throughput."
+metaDescription: "Concurrencia Java en producción. Cubre threads, locks, CompletableFuture, virtual threads, executors, concurrent collections y memory model."
 difficulty: advanced
 topics:
   - concurrency
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dominar concurrencia Java. Cubre threads, locks, CompletableFuture, virtual threads, executors, concurrent collections y memory model."
+  metaDescription: "Concurrencia Java en producción. Cubre threads, locks, CompletableFuture, virtual threads, executors, concurrent collections y memory model."
   keywords:
     - concurrencia java
     - java threads

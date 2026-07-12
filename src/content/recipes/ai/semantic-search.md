@@ -260,7 +260,7 @@ OpenAI's `text-embedding-3-small` costs $0.02 per 1M tokens. Indexing 100,000 do
 
 ## Best Practices
 
-- **Use hybrid search for production**: combine vector search with BM25 keyword search. Use reciprocal rank fusion (RRF) to merge results. This catches both semantic matches and exact term matches, improving recall significantly.
+- **Use hybrid search for production**: combine vector search with BM25 keyword search. Use reciprocal rank fusion (RRF) to merge results. This catches both semantic matches and exact term matches, improving recall considerably.
 - **Implement query understanding**: before embedding the query, classify intent (informational, navigational, transactional). Route different intents to different search strategies. This improves relevance for diverse query types.
 - **Use filtered vector search**: attach metadata tags (category, date, language, author) to embeddings. Filter by metadata before vector search to reduce the search space and improve both speed and relevance.
 - **Benchmark different embedding models**: test 3-5 embedding models on your domain-specific test set. Compare recall@k and MRR. Models like `e5-large-v2`, `bge-large`, and `text-embedding-3-large` can outperform OpenAI's default on certain domains.

@@ -42,7 +42,7 @@ Las bases de datos de grafos almacenan datos como nodos (entidades) y aristas (r
 
 - Las relaciones son la principal preocupacion de consulta, no solo atributos
 - Necesitas recorrer muchos saltos eficientemente (amigo-de-amigo, cadena de suministro)
-- El esquema es fluido y emergen nuevos tipos de relacion frecuentemente
+- El esquema es directo y emergen nuevos tipos de relacion frecuentemente
 - Se requiere busqueda de caminos, centralidad o deteccion de comunidades
 - Un modelo relacional requeriria excessive self-joins o tablas de union
 

@@ -453,7 +453,7 @@ Los guardrails son composables y ordenados. El pipeline los ejecuta secuencialme
 ## Preguntas frecuentes
 
 **Q: Son suficientes los guardrails basados en regex?**
-A: Atrapan ataques obvios pero pierden prompt injection sofisticado. Para sistemas en produccion, combina regex con un modelo clasificador (como la API de moderacion de OpenAI o un BERT fine-tuned) para mejor cobertura.
+A: Atrapan ataques obvios pero pierden prompt injection avanzado. Para sistemas en produccion, combina regex con un modelo clasificador (como la API de moderacion de OpenAI o un BERT fine-tuned) para mejor cobertura.
 
 **Q: Deben los guardrails bloquear o sanitizar?**
 A: Ambos tienen trade-offs. Bloquear es mas seguro pero frustra a los usuarios. Sanitizar (remover la parte problematica) es mas amigable pero arriesga dejar pasar ataques sutiles. Por defecto bloquea para entrada, sanitiza para salida.

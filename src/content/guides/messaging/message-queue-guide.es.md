@@ -2,8 +2,8 @@
 contentType: guides
 slug: message-queue-guide
 title: "Colas de Mensajes — Inmersión en RabbitMQ, Kafka y SQS"
-description: "Guía completa sobre colas de mensajes: cuándo usar RabbitMQ, Kafka o SQS. Cubre patrones, throughput, ordenamiento y consideraciones operativas."
-metaDescription: "Guía completa de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."
+description: "Referencia Detallada sobre colas de mensajes: cuándo usar RabbitMQ, Kafka o SQS. Cubre patrones, throughput, ordenamiento y consideraciones operativas."
+metaDescription: "Referencia Detallada de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."
 difficulty: intermediate
 topics:
   - messaging
@@ -26,7 +26,7 @@ relatedResources:
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."
+  metaDescription: "Referencia Detallada de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."
   keywords:
     - colas de mensajes
     - kafka

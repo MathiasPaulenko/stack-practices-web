@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-application-level-caching
-title: "Guía Completa de Caching a Nivel Aplicación"
+title: "Referencia Detallada de Caching a Nivel Aplicación"
 description: "Implementar caches en memoria, distribuidos e hibridos en la capa de aplicacion. Cubre caches LRU, TTL, estrategias multi-tier, sizing, thread safety y patrones de produccion para Python, Java y Node.js."
 metaDescription: "Implementar caches en memoria, distribuidos e hibridos en la capa app. Cubre LRU, TTL, multi-tier, sizing, thread safety y patrones de produccion."
 difficulty: advanced

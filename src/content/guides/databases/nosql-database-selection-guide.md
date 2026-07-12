@@ -278,7 +278,7 @@ Operational complexity:
   | Monitoring | Unified dashboard per store |
 
 Lessons:
-  - Polyglot persistence is powerful but expensive
+  - Polyglot persistence is capable but expensive
   - Start with 1-2 stores, add more when patterns diverge
   - Event-driven sync (Kafka) is the glue
   - Each store owns a specific access pattern

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-event-driven-systems
-title: "Guía Completa de Sistemas Event-Driven"
+title: "Referencia Detallada de Sistemas Event-Driven"
 description: "Disenar y operar backends event-driven. Cubre event sourcing, CQRS, sagas, outbox pattern, idempotency, eventual consistency y patrones de produccion para arquitecturas event-driven confiables."
 metaDescription: "Disenar backends event-driven. Cubre event sourcing, CQRS, sagas, outbox pattern, idempotency, eventual consistency y patrones de produccion."
 difficulty: advanced

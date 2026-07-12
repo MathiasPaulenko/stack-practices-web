@@ -144,7 +144,7 @@ Comprometer uso base para descuentos significativos:
 - Usar RI convertibles o savings plans si la carga puede cambiar
 - Revisar capacidad reservada trimestralmente
 
-### 4. Aprovechar Instancias Spot y Preemptibles
+### 4. usar Instancias Spot y Preemptibles
 
 Usar capacidad con descuento para cargas tolerantes a fallos:
 
@@ -262,7 +262,7 @@ El monitoreo proactivo previene sustos de facturación:
 
 - **Específico AWS:** Enfocarse en Savings Plans, instancias Graviton, S3 Intelligent-Tiering
 - **Específico Azure:** Usar Hybrid Benefit, Reserved VM Instances, Spot VMs
-- **Específico GCP:** Aprovechar Committed Use Discounts, Preemptible VMs, Sustained Use Discounts
+- **Específico GCP:** usar Committed Use Discounts, Preemptible VMs, Sustained Use Discounts
 - **Multi-cloud:** Comparar precios entre proveedores para cada tipo de carga
 
 ## FAQ

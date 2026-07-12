@@ -669,7 +669,7 @@ print(chain({}))                    # Unauthorized
 
 2. **Provide a default handler.** Always include a catch-all handler at the end of the chain to handle requests that fall through, preventing silent failures.
 
-3. **Document handler order.** Clearly document the expected order of handlers and any dependencies between them, as order significantly affects behavior.
+3. **Document handler order.** Clearly document the expected order of handlers and any dependencies between them, as order considerably affects behavior.
 
 4. **Use immutable request objects.** Pass immutable request objects through the chain to prevent handlers from accidentally modifying shared state.
 
@@ -718,7 +718,7 @@ A: Ideally yes. Stateless handlers are easier to test and reuse. If state is nec
 A: Add a circuit breaker handler that tracks failure rates and short-circuits requests when a downstream service is failing. This prevents cascading failures and improves system resilience.
 
 **Q: Can I use this pattern for validation pipelines?**
-A: Yes. Validation chains are a common use case where each handler checks a different aspect (format, business rules, security constraints). Results can be aggregated to provide comprehensive validation feedback.
+A: Yes. Validation chains are a common use case where each handler checks a different aspect (format, business rules, security constraints). Results can be aggregated to provide detailed validation feedback.
 
 **Q: How do I handle priority in handler execution?**
 A: Implement priority-based handler ordering where handlers with higher priority execute first. This is useful for ensuring critical checks (auth, security) run before less critical operations.
@@ -838,7 +838,7 @@ A: Yes. Enrichment chains where each handler fetches additional data from differ
 A: Include tenant identification in the request context and ensure handlers respect tenant isolation (separate data access, per-tenant configuration, resource quotas).
 
 **Q: Can handlers be implemented as middleware in web frameworks?**
-A: Yes. Most web frameworks (Express, Django, ASP.NET Core) support middleware patterns that are essentially chain of responsibility implementations. Leverage framework-specific middleware APIs.
+A: Yes. Most web frameworks (Express, Django, ASP.NET Core) support middleware patterns that are essentially chain of responsibility implementations. use framework-specific middleware APIs.
 
 **Q: How do I add request compression/decompression in a chain?**
 A: Add compression/decompression handlers that handle content encoding (gzip, deflate, brotli). Place decompression early and compression late in the chain.

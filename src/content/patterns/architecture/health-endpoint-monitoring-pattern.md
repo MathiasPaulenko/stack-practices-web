@@ -159,7 +159,7 @@ Yes. Many teams adopt patterns incrementally. Start with the core idea and add s
 
 ### Deep health endpoint with dependency checks
 
-Implement a comprehensive health endpoint that checks all dependencies:
+Implement a detailed health endpoint that checks all dependencies:
 
 ```javascript
 const express = require('express');

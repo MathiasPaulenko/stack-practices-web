@@ -346,7 +346,7 @@ container_cost = 730 * (0.025 * 0.5 + 0.003 * 1)  # ~$10.22/month
 
 ## Vendor Lock-In
 
-Serverless platforms differ significantly. Moving from AWS Lambda to Google Cloud Functions or Azure Functions requires rewriting handlers, triggers, and infrastructure configuration.
+Serverless platforms differ considerably. Moving from AWS Lambda to Google Cloud Functions or Azure Functions requires rewriting handlers, triggers, and infrastructure configuration.
 
 ### Lock-In Factors
 

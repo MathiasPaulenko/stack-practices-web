@@ -290,7 +290,7 @@ Use alert suppression or silencing in your alerting tool. In Alertmanager, creat
 
 ### Should we use SLO-based alerting instead of threshold-based alerting?
 
-SLO-based alerting (error budget burn rate) is more robust for user-facing services because it directly measures user impact. Threshold-based alerting is simpler and works well for infrastructure metrics (CPU, disk, memory). Use SLO-based alerting for critical user journeys and threshold-based for infrastructure health.
+SLO-based alerting (error budget burn rate) is more solid for user-facing services because it directly measures user impact. Threshold-based alerting is simpler and works well for infrastructure metrics (CPU, disk, memory). Use SLO-based alerting for critical user journeys and threshold-based for infrastructure health.
 
 ### How many alerts should an on-call engineer receive per shift?
 

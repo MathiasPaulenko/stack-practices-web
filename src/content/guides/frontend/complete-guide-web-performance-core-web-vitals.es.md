@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-web-performance-core-web-vitals
-title: "Guía Completa de Web Performance y Core Web Vitals"
+title: "Referencia Detallada de Web Performance y Core Web Vitals"
 description: "Optimizar Core Web Vitals. Cubre LCP, INP, CLS measurement y improvement, image optimization, font loading, render-blocking resources, lazy loading, caching strategies y performance monitoring con ejemplos practicos de codigo."
 metaDescription: "Optimize Core Web Vitals. Covers LCP, INP, CLS measurement, image optimization, font loading, render-blocking, lazy loading, caching, monitoring."
 difficulty: advanced

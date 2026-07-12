@@ -360,7 +360,7 @@ function App() {
 - Usa `container-type: inline-size` para la mayoría de los casos — responde al ancho, que es lo que usualmente necesitas
 - Usa containers nombrados (`container-name`) cuando los componentes están anidados y necesitas targetear un ancestor específico
 - Setea `container-type` en el wrapper parent, no en el componente mismo — el componente queriea su container
-- Usa unidades de container query (`cqi`, `cqw`) para tipografía fluida que escala con el container
+- Usa unidades de container query (`cqi`, `cqw`) para tipografía directa que escala con el container
 - Combina con `clamp()` para bounds de min/max: `font-size: clamp(1rem, 5cqi, 2rem)`
 - Testea componentes en diferentes tamaños de container — no asumas que el tamaño del viewport determina el espacio del componente
 - Usa `@container (max-width: ...)` para patrones mobile-first que se adaptan cuando el espacio se encoge

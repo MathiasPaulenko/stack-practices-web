@@ -291,7 +291,7 @@ R: Sí. Para generación de código, incluye el lenguaje de programación, versi
 ## Buenas Prácticas
 
 - **Versiona tus prompts**: almacena prompts en un archivo dedicado o base de datos con números de versión. Taggea cada despliegue con la versión de prompt usada. Esto te permite correlacionar cambios de calidad con modificaciones de prompt.
-- **Construye un harness de evaluación de prompts**: crea un script que ejecute un prompt contra un test set y reporte tasas de pass/fail. Ejecútalo antes y después de cualquier cambio de prompt. Esto detecta regresiones antes de que lleguen a producción.
+- **Construye un use de evaluación de prompts**: crea un script que ejecute un prompt contra un test set y reporte tasas de pass/fail. Ejecútalo antes y después de cualquier cambio de prompt. Esto detecta regresiones antes de que lleguen a producción.
 - **Usa prompts separados para tareas separadas**: un solo prompt que intenta clasificar, resumir y extraer entidades hará las tres cosas mal. Divide en llamadas API separadas con prompts enfocados.
 - **Setea A/B testing de prompts**: rutea un porcentaje del tráfico al nuevo prompt y compara outcomes (satisfacción del usuario, accuracy, costo). Promueve el ganador solo después de resultados estadísticamente significativos.
 - **Cachea respuestas para prompts determinísticos**: si el mismo prompt + input siempre produce el mismo output (temperature=0), cachea la respuesta. Esto elimina llamadas API redundantes y reduce latencia.

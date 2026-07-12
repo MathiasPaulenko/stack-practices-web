@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Amazon Web Services (AWS) es la plataforma cloud más adoptada, ofreciendo más de 200 servicios. Para desarrolladores, dominar los servicios core — compute, storage, bases de datos, networking y seguridad — es esencial para construir aplicaciones listas para crecimiento y rentables. Esta guía se enfoca en los servicios que usarás diariamente y cómo encajan en una arquitectura típica.
+Amazon Web Services (AWS) es la plataforma cloud más adoptada, ofreciendo más de 200 servicios. Para desarrolladores, entender los servicios core — compute, storage, bases de datos, networking y seguridad — es esencial para construir aplicaciones listas para crecimiento y rentables. Esta guía se enfoca en los servicios que usarás diariamente y cómo encajan en una arquitectura típica.
 
 ## When to Use
 

@@ -228,7 +228,7 @@ public class RetryExecutor {
 - **Jitter** adds randomness (`random * delay`) to prevent synchronized retries from many clients simultaneously hitting a recovering server (thundering herd problem).
 - **Max delay cap** prevents unbounded waits — essential for user-facing operations where latency matters.
 - **Exception filtering** ensures you only retry transient errors (timeouts, 5xx, connection refused), not permanent ones (4xx client errors, validation failures).
-- **Idempotency keys** (UUID sent as header) guarantee that retried requests don't create duplicate side effects. The server uses the key to deduplicate.
+- **Idempotency keys** (UUID sent as header) guarantee that retried requests don't create duplicate side effects. The server uses the way to deduplicate.
 
 ## Variants
 

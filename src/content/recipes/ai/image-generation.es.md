@@ -221,7 +221,7 @@ R: Cachea agresivamente — almacena cada imagen generada por hash de prompt y s
 
 - **No testear prompts across versiones de modelo** — DALL-E 3 y DALL-E 4 pueden interpretar el mismo prompt diferentemente. Regression testea tu librería de prompts al actualizar modelos.
 - **Generar a 4K y downscaléar** — esto desperdicia tokens y tiempo. Genera a la resolución objetivo de display. Si necesitas mayor resolución, usa un upscaler post-generación.
-- **No usar negative prompts con Stable Diffusion** — negative prompts ("blurry, deformed, extra fingers, watermark") mejoran significativamente la calidad. Siempre incluye un negative prompt para generación basada en SD.
+- **No usar negative prompts con Stable Diffusion** — negative prompts ("blurry, deformed, extra fingers, watermark") mejoran considerablemente la calidad. Siempre incluye un negative prompt para generación basada en SD.
 - **Almacenar imágenes sin content hashes** — sin un hash, no puedes detectar generaciones duplicadas o implementar caching. Hashea el prompt + modelo + seed y úsalo como cache key.
 - **No manejar aspect ratio correctamente** — DALL-E 3 soporta 1024x1024, 1792x1024 y 1024x1792. Generar al aspect ratio equivocado produce imágenes distorsionadas. Matchea el aspect ratio a tu contexto de display.
 - **Olvidar strippear EXIF metadata** — las imágenes generadas por IA pueden contener metadata sobre el proceso de generación. Strippea EXIF data antes de publicar para evitar leakear texto de prompt o información de API.
@@ -231,7 +231,7 @@ R: Cachea agresivamente — almacena cada imagen generada por hash de prompt y s
 ## Buenas Prácticas
 
 - **Construye una librería de prompts**: mantén una colección versionada de prompts testeados con sus outputs esperados. Esto asegura consistencia entre miembros del equipo y sirve como regression test cuando los modelos se actualizan.
-- **Genera múltiples variantes y elige la mejor**: solicita 2-4 imágenes por prompt y selecciona la de mayor calidad. Esto cuesta más pero mejora significativamente la calidad del output, especialmente para materiales de marketing.
+- **Genera múltiples variantes y elige la mejor**: solicita 2-4 imágenes por prompt y selecciona la de mayor calidad. Esto cuesta más pero mejora considerablemente la calidad del output, especialmente para materiales de marketing.
 - **Usa seeds determinísticos para reproducibilidad**: cuando encuentres un buen resultado, guarda el seed. Esto te permite regenerar imágenes similares o hacer pequeños ajustes de prompt preservando la composición.
 - **Implementa una cola de revisión para contenido面向 usuario**: nunca publiques imágenes generadas por IA directamente a usuarios sin un paso de revisión humana. Setea una cola de moderación que verifique artifacts, errores de renderizado de texto y violaciones de política de contenido.
 - **Almacena metadatos de generación separados de las imágenes**: guarda prompt, modelo, seed y parámetros en una base de datos. Esto habilita auditoría, debugging y re-generación sin parsear metadatos de imagen.

@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-observability-grafana-stack
-title: "Guía Completa de Observabilidad con el Grafana Stack"
+title: "Referencia Detallada de Observabilidad con el Grafana Stack"
 description: "Configura metrics, logs y traces con Grafana, Prometheus, Loki y Tempo. Cubre instrumentación, dashboards, alerting y distributed tracing para sistemas en producción."
-metaDescription: "Guía completa de observabilidad con Grafana stack. Configura metrics, logs, traces con Prometheus, Loki, Tempo. Cubre dashboards, alerting y distributed tracing."
+metaDescription: "Referencia Detallada de observabilidad con Grafana stack. Configura metrics, logs, traces con Prometheus, Loki, Tempo. Cubre dashboards, alerting y distributed tracing."
 difficulty: advanced
 topics:
   - observability
@@ -26,7 +26,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de observabilidad con Grafana stack. Configura metrics, logs, traces con Prometheus, Loki, Tempo. Cubre dashboards, alerting y distributed tracing."
+  metaDescription: "Referencia Detallada de observabilidad con Grafana stack. Configura metrics, logs, traces con Prometheus, Loki, Tempo. Cubre dashboards, alerting y distributed tracing."
   keywords:
     - grafana observability
     - prometheus metrics
@@ -38,7 +38,7 @@ seo:
     - monitoring
 ---
 
-# Guía Completa de Observabilidad con el Grafana Stack
+# Referencia Detallada de Observabilidad con el Grafana Stack
 
 ## Introducción
 

@@ -257,7 +257,7 @@ Before circulating the spec for approval:
 
 ## What Works
 
-1. Keep the spec under 10 pages; link to detailed docs for deep dives
+1. Keep the spec under 10 pages; link to detailed docs for further reading
 2. Assign every requirement a traceable ID for test coverage mapping
 3. Review the spec with stakeholders before implementation begins
 4. Update the spec as implementation discoveries change the plan

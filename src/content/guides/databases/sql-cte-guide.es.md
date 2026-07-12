@@ -3,7 +3,7 @@ contentType: guides
 slug: sql-cte-guide
 title: "CTEs en SQL — Expresiones de Tablas Comunes Explicadas"
 description: "Guia practica de CTEs en SQL: expresiones no recursivas y recursivas, legibilidad, rendimiento y cuando usarlas sobre subconsultas."
-metaDescription: "Aprende CTEs SQL: expresiones recursivas y no recursivas, legibilidad, tips de rendimiento. Guia completa con ejemplos para PostgreSQL, SQL Server y MySQL."
+metaDescription: "Aprende CTEs SQL: expresiones recursivas y no recursivas, legibilidad, tips de rendimiento. Referencia Detallada con ejemplos para PostgreSQL, SQL Server y MySQL."
 difficulty: intermediate
 topics:
   - databases
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende CTEs SQL: expresiones recursivas y no recursivas, legibilidad, tips de rendimiento. Guia completa con ejemplos para PostgreSQL, SQL Server y MySQL."
+  metaDescription: "Aprende CTEs SQL: expresiones recursivas y no recursivas, legibilidad, tips de rendimiento. Referencia Detallada con ejemplos para PostgreSQL, SQL Server y MySQL."
   keywords:
     - sql
     - cte

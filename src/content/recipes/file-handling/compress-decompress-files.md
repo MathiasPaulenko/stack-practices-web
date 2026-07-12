@@ -118,7 +118,7 @@ public class Compressor {
 
 ## Explanation
 
-**ZIP** stores multiple files with optional per-file compression, preserving directory structure. **GZIP** compresses a single file or stream, commonly used for HTTP content encoding and log rotation. **TAR** archives multiple files without compression; paired with GZIP it becomes a `.tar.gz` (or `.tgz`). All three use DEFLATE under the hood, offering excellent compression for text data.
+**ZIP** stores multiple files with optional per-file compression, preserving directory structure. **GZIP** compresses a single file or stream, commonly used for HTTP content encoding and log rotation. **TAR** archives multiple files without compression; paired with GZIP it becomes a `.tar.gz` (or `.tgz`). All three use DEFLATE internally, offering excellent compression for text data.
 
 ## Variants
 

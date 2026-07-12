@@ -3,7 +3,7 @@ contentType: guides
 slug: event-sourcing-guide
 title: "Event Sourcing — Estado como Secuencia de Eventos"
 description: "Inmersión profunda en Event Sourcing: persiste cambios de estado como eventos, reconstruye agregados desde el historial y construye audit trails por diseño."
-metaDescription: "Aprende Event Sourcing con reconstrucción de agregados, event stores, snapshots y proyecciones. Guía completa para sistemas auditables y event-driven."
+metaDescription: "Aprende Event Sourcing con reconstrucción de agregados, event stores, snapshots y proyecciones. Referencia Detallada para sistemas auditables y event-driven."
 difficulty: advanced
 topics:
   - architecture
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende Event Sourcing con reconstrucción de agregados, event stores, snapshots y proyecciones. Guía completa para sistemas auditables y event-driven."
+  metaDescription: "Aprende Event Sourcing con reconstrucción de agregados, event stores, snapshots y proyecciones. Referencia Detallada para sistemas auditables y event-driven."
   keywords:
     - event-sourcing
     - cqrs

@@ -352,7 +352,7 @@ function ItemList() {
 
 Conceptos clave:
 
-- **`rootMargin`**: Expande el bounding box del observer para que dispare antes de que el sentinel sea visible. Configurar `rootMargin: "300px"` dispara la carga cuando el usuario está a 300px del final, creando una experiencia fluida.
+- **`rootMargin`**: Expande el bounding box del observer para que dispare antes de que el sentinel sea visible. Configurar `rootMargin: "300px"` dispara la carga cuando el usuario está a 300px del final, creando una experiencia directa.
 - **Guard de carga**: El flag `loading` previene fetches duplicados cuando múltiples eventos de intersección se disparan rápidamente.
 - **Flag `hasMore`**: La respuesta de la API debe incluir un boolean `hasMore`. Cuando es false, desconectar el observer para detener intentos.
 - **Recuperación de errores**: En fallo de fetch, decrementar el contador de página y permitir reintento. Mostrar un mensaje de error con delay antes de resetear el flag de carga.

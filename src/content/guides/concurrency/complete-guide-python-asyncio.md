@@ -480,7 +480,7 @@ Use **asyncio** for I/O-bound workloads (HTTP requests, database queries, file I
 
 ### Can I use asyncio with Flask?
 
-Flask is synchronous by default. For async support, use Flask 2.0+ with `async def` route handlers, or switch to an async framework like FastAPI, Quart, or Starlette. FastAPI is the most popular choice — it uses Starlette's asyncio under the hood and supports async/await natively.
+Flask is synchronous by default. For async support, use Flask 2.0+ with `async def` route handlers, or switch to an async framework like FastAPI, Quart, or Starlette. FastAPI is the most popular choice — it uses Starlette's asyncio internally and supports async/await natively.
 
 ### How do I test async code?
 

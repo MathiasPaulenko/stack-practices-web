@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-microservices-communication
-title: "Guía Completa de Comunicación entre Microservicios"
+title: "Referencia Detallada de Comunicación entre Microservicios"
 description: "Compara patrones de comunicación síncrona vs asíncrona para microservicios. Cubre REST, gRPC, colas de mensajes, event-driven, service mesh y cuándo usar cada uno."
-metaDescription: "Guía completa de comunicación entre microservicios. Compara REST, gRPC, colas de mensajes, patrones event-driven y service mesh para sync vs async."
+metaDescription: "Referencia Detallada de comunicación entre microservicios. Compara REST, gRPC, colas de mensajes, patrones event-driven y service mesh para sync vs async."
 difficulty: intermediate
 topics:
   - architecture
@@ -27,7 +27,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de comunicación entre microservicios. Compara REST, gRPC, colas de mensajes, patrones event-driven y service mesh para sync vs async."
+  metaDescription: "Referencia Detallada de comunicación entre microservicios. Compara REST, gRPC, colas de mensajes, patrones event-driven y service mesh para sync vs async."
   keywords:
     - microservices communication
     - sync vs async microservices
@@ -38,7 +38,7 @@ seo:
     - microservices patterns
 ---
 
-# Guía Completa de Comunicación entre Microservicios
+# Referencia Detallada de Comunicación entre Microservicios
 
 ## Introducción
 

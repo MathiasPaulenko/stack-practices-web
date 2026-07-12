@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-api-security
-title: "Guía Completa de API Security"
+title: "Referencia Detallada de API Security"
 description: "Asegurar tus APIs end-to-end. Cubre rate limiting, autenticacion, input validation, CORS, prevencion de SQL injection, API gateway patterns, limites de request size, pagination security, mass assignment, versioning, audit logging y API security testing con ejemplos de codigo."
 metaDescription: "Asegurar APIs end-to-end. Cubre rate limiting, auth, input validation, CORS, SQL injection, API gateway, mass assignment, audit logging, testing."
 difficulty: advanced

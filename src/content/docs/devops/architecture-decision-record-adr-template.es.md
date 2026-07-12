@@ -268,7 +268,7 @@ Crea un directorio `docs/adr/` en el repositorio. Nombra cada archivo como `ADR-
 
 ### Cuando un ADR debe ser reemplazado?
 
-Un ADR debe ser reemplazado cuando: la tecnologia elegida llega al final de su vida, una nueva opcion se vuelve claramente superior, los requisitos cambiaron significativamente, o la decision causo problemas operacionales que superan los beneficios. No edites el ADR original — crea un nuevo ADR que referencie al anterior, marque su estado como "Reemplazado por ADR-NNN", y explique por que se cambia. Mantén el ADR original en el repositorio para referencia historica.
+Un ADR debe ser reemplazado cuando: la tecnologia elegida llega al final de su vida, una nueva opcion se vuelve claramente superior, los requisitos cambiaron considerablemente, o la decision causo problemas operacionales que superan los beneficios. No edites el ADR original — crea un nuevo ADR que referencie al anterior, marque su estado como "Reemplazado por ADR-NNN", y explique por que se cambia. Mantén el ADR original en el repositorio para referencia historica.
 
 ### Como integramos ADRs con el flujo de pull requests?
 

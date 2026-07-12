@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-kafka-production
-title: "Guía Completa de Apache Kafka en Producción"
+title: "Referencia Detallada de Apache Kafka en Producción"
 description: "Ejecutar Apache Kafka en produccion con confianza. Cubre particiones, replicacion, consumer groups, monitoreo, tuning de performance y mejores practicas operativas para pipelines de streaming de alto throughput."
 metaDescription: "Ejecutar Kafka en produccion. Cubre particiones, replicacion, consumer groups, monitoreo, tuning de performance y mejores practicas."
 difficulty: advanced

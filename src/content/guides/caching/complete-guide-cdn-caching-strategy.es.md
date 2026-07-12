@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-cdn-caching-strategy
-title: "Guía Completa de Estrategia de Caching CDN"
+title: "Referencia Detallada de Estrategia de Caching CDN"
 description: "Disenar caching CDN para aplicaciones web y APIs. Cubre edge caching, cache keys, cache headers, estrategias de invalidacion, surrogate keys y setups multi-CDN para rendimiento global."
 metaDescription: "Disenar caching CDN para web y APIs. Cubre edge caching, cache keys, headers, invalidacion, surrogate keys y multi-CDN para rendimiento global."
 difficulty: advanced
@@ -421,7 +421,7 @@ Browser cache se almacena en el dispositivo del usuario. Reduce requests al CDN.
 
 ### ¿Debería cachear paginas HTML en el CDN?
 
-Si, con un TTL corto (1-5 minutos). Las paginas HTML son costosas de generar server-side. Cachearlas por solo 1 minuto reduce la carga de origin significativamente. Usa `must-revalidate` y ETags para que el CDN revalide eficientemente.
+Si, con un TTL corto (1-5 minutos). Las paginas HTML son costosas de generar server-side. Cachearlas por solo 1 minuto reduce la carga de origin considerablemente. Usa `must-revalidate` y ETags para que el CDN revalide eficientemente.
 
 ### ¿Cómo manejo contenido especifico de usuario con un CDN?
 

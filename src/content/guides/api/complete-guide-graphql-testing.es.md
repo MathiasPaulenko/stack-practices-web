@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-graphql-testing
-title: "Guía Completa de Testing GraphQL"
+title: "Referencia Detallada de Testing GraphQL"
 description: "Testear APIs GraphQL en cada capa: unit tests para resolvers, integration tests para esquemas, E2E para operaciones. Cubre mocking, fixtures, snapshot testing y performance testing."
 metaDescription: "Testear GraphQL en cada capa: unit tests para resolvers, integration tests para esquema, E2E para operaciones. Cubre mocking, fixtures, snapshots y performance testing."
 difficulty: advanced

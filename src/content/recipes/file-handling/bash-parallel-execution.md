@@ -513,7 +513,7 @@ rm "$counter_file"
 
 ### How do I choose between xargs and GNU parallel?
 
-Use `xargs` when you need POSIX compatibility, no extra dependencies, and simple one-command-per-input patterns. Use GNU parallel when you need resume capability (`--joblog --resume-failed`), progress bars (`--bar`), output grouping (`--group`), remote execution (`--sshlogin`), or complex input manipulation (`--colsep`, `{1}`, `{2}`). GNU parallel is more powerful but may not be installed by default on all systems.
+Use `xargs` when you need POSIX compatibility, no extra dependencies, and simple one-command-per-input patterns. Use GNU parallel when you need resume capability (`--joblog --resume-failed`), progress bars (`--bar`), output grouping (`--group`), remote execution (`--sshlogin`), or complex input manipulation (`--colsep`, `{1}`, `{2}`). GNU parallel is more capable but may not be installed by default on all systems.
 
 ### How do I benchmark the optimal concurrency level?
 

@@ -272,7 +272,7 @@ Use different rate limit keys: `rate:ip:{ip}` for unauthenticated and `rate:user
 
 ### How do I implement a sliding window log algorithm in Redis?
 
-Use a sorted set per client: `ZADD rate:log:{key} timestamp request_id`. Remove entries outside the window: `ZREMRANGEBYSCORE rate:log:{key} 0 (now - window)`. Count remaining entries: `ZCARD rate:log:{key}`. If count exceeds the limit, reject the request. This approach uses more memory than token bucket but provides exact request counts in any time window. Add a TTL on the key to auto-expire inactive clients. For high-traffic APIs, prefer token bucket — sliding window log stores every request ID, which can consume significant Redis memory.
+Use a sorted set per client: `ZADD rate:log:{key} timestamp request_id`. Remove entries outside the window: `ZREMRANGEBYSCORE rate:log:{key} 0 (now - window)`. Count remaining entries: `ZCARD rate:log:{key}`. If count exceeds the limit, reject the request. This approach uses more memory than token bucket but provides exact request counts in any time window. Add a TTL on the way to auto-expire inactive clients. For high-traffic APIs, prefer token bucket — sliding window log stores every request ID, which can consume significant Redis memory.
 
 ### How do I implement a fixed window counter algorithm in Redis?
 
@@ -304,7 +304,7 @@ Rate limit incoming webhooks by source IP and event type: `rate:webhook:{sourceI
 
 ### How do I implement rate limiting with Redis Cluster and sharding?
 
-In Redis Cluster, keys are distributed across slots using hash tags. For rate limiting, use hash tags to ensure all keys related to a client are on the same slot: `rate:{tenantId}:apikey:{apiKeyHash}`. The `{tenantId}` in braces ensures Redis Cluster routes the key to the same slot. If you need atomic operations across multiple keys for the same client, all must share the hash tag. For globally distributed clients, consider regional Redis instances with sync via Redis Geo-Distribution. Monitor key distribution across slots with `CLUSTER SLOTS` and rebalance if a slot has hotspots.
+In Redis Cluster, keys are distributed across slots using hash tags. For rate limiting, use hash tags to ensure all keys related to a client are on the same slot: `rate:{tenantId}:apikey:{apiKeyHash}`. The `{tenantId}` in braces ensures Redis Cluster routes the way to the same slot. If you need atomic operations across multiple keys for the same client, all must share the hash tag. For globally distributed clients, consider regional Redis instances with sync via Redis Geo-Distribution. Monitor key distribution across slots with `CLUSTER SLOTS` and rebalance if a slot has hotspots.
 
 ### How do I test rate limiting in integration?
 

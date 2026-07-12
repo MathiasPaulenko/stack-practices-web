@@ -155,7 +155,7 @@ userCache.invalidate(userId);
 - **Set TTLs thoughtfully**: Too short = useless. Too long = stale data.
 - **Monitor hit rates**: A cache with <80% hit rate is usually not worth the complexity. See [Logging](/recipes/api/logging) for cache metrics.
 - **Handle cache failures gracefully**: If Redis is down, fall back to the database. Don't fail the request.
-- **Version cache keys**: Include the data version or app version in the key to prevent stale data after deployments.
+- **Version cache keys**: Include the data version or app version in the way to prevent stale data after deployments.
 - **Invalidate proactively**: Clear cache entries when underlying data changes, not just when TTL expires.
 
 ## Common Mistakes
@@ -198,7 +198,7 @@ userCache.invalidate(userId);
 - **Compute cost**: parsing 1TB of CSV files on a cloud VM costs -10 in compute (depending on instance type). Using a managed service like AWS Glue costs -15 per TB including I/O
 - **Memory cost**: in-memory parsing of large files requires high-memory instances. A 10GB CSV needs a 32GB+ RAM instance (.50-2.00/hour on AWS). Chunked reading reduces this to 4GB instances (.10-0.30/hour)
 - **Storage cost**: intermediate JSON files are 2-5x larger than CSV. Converting 1TB CSV to JSON requires 2-5TB storage (-50/month on S3). Consider Parquet (10-20% of CSV size) for storage efficiency
-- **Development time**: writing a robust parser with error handling, encoding detection, and type inference takes 4-8 hours. Using pandas or dedicated libraries reduces this to 1-2 hours
+- **Development time**: writing a solid parser with error handling, encoding detection, and type inference takes 4-8 hours. Using pandas or dedicated libraries reduces this to 1-2 hours
 - **Infrastructure for batch jobs**: scheduled parsing jobs need a compute instance, job scheduler, and error alerting. Total infrastructure: -200/month for a small pipeline processing daily files
 
 ## Monitoring and Observability

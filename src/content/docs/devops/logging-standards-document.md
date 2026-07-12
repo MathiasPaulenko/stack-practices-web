@@ -267,7 +267,7 @@ Logs are discrete events with timestamps — what happened at a specific moment.
 
 ### How do we test logging in CI/CD?
 
-Add tests that verify: log format is valid JSON, required fields are present (timestamp, level, service, correlationId), sensitive data is not logged, log levels are used correctly, and log volume does not exceed thresholds. Use a test harness that captures log output and validates it against the schema. Run log parsing tests to ensure the aggregation pipeline can ingest the logs. Include logging tests in the deployment checklist.
+Add tests that verify: log format is valid JSON, required fields are present (timestamp, level, service, correlationId), sensitive data is not logged, log levels are used correctly, and log volume does not exceed thresholds. Use a test use that captures log output and validates it against the schema. Run log parsing tests to ensure the aggregation pipeline can ingest the logs. Include logging tests in the deployment checklist.
 
 
 

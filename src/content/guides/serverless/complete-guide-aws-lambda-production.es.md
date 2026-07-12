@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-aws-lambda-production
-title: "Guía Completa de AWS Lambda en Producción"
+title: "Referencia Detallada de AWS Lambda en Producción"
 description: "Ejecutar AWS Lambda en produccion con confianza. Cubre optimizacion de cold starts, layers, patrones de deployment, observabilidad con X-Ray, security hardening, connection pooling y cost tuning."
 metaDescription: "Ejecutar AWS Lambda en produccion. Cubre cold starts, layers, deployment, X-Ray, security, connection pooling y cost tuning."
 difficulty: advanced

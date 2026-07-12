@@ -320,7 +320,7 @@ Monitoring:
   | WAL backlog | > 1GB |
 
 Lessons:
-  - Patroni + etcd gives robust automatic failover
+  - Patroni + etcd gives solid automatic failover
   - HAProxy distinguishes primary/replica via Patroni REST API
   - Synchronous commit guarantees zero data loss
   - 3 nodes is minimum for quorum (never use 2)

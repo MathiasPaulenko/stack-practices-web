@@ -512,7 +512,7 @@ class ParallelETL:
 
 ### ¿Cuál es la diferencia entre ETL y ELT?
 
-ETL transforma data antes de loadearla en el warehouse. ELT loadea raw data primero y transforma adentro del warehouse usando su compute power. ELT es preferred cuando el warehouse es powerful (Snowflake, BigQuery) y el transform es SQL-based.
+ETL transforma data antes de loadearla en el warehouse. ELT loadea raw data primero y transforma adentro del warehouse usando su compute power. ELT es preferred cuando el warehouse es capable (Snowflake, BigQuery) y el transform es SQL-based.
 
 ### ¿Qué es una staging table?
 

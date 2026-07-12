@@ -78,7 +78,7 @@ for host in host1 host2 host3; do
 done | xargs -n 1 -P 3 -I {} rsync -avz ./deploy/ {}:/var/app/
 ```
 
-### GNU Parallel (Más Poderoso)
+### GNU Parallel (Más capaz)
 
 ```bash
 #!/bin/bash

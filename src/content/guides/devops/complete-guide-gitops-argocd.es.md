@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-gitops-argocd
-title: "Guía Completa de GitOps con ArgoCD"
+title: "Referencia Detallada de GitOps con ArgoCD"
 description: "Despliega aplicaciones Kubernetes con GitOps usando ArgoCD. Cubre instalación, ApplicationSets, estrategias de sync, Helm/Kustomize, RBAC y multi-cluster."
-metaDescription: "Guía completa de GitOps con ArgoCD. Instala, configura ApplicationSets, estrategias de sync, Helm, Kustomize, RBAC y multi-cluster para Kubernetes."
+metaDescription: "Referencia Detallada de GitOps con ArgoCD. Instala, configura ApplicationSets, estrategias de sync, Helm, Kustomize, RBAC y multi-cluster para Kubernetes."
 difficulty: intermediate
 topics:
   - devops
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de GitOps con ArgoCD. Instala, configura ApplicationSets, estrategias de sync, Helm, Kustomize, RBAC y multi-cluster para Kubernetes."
+  metaDescription: "Referencia Detallada de GitOps con ArgoCD. Instala, configura ApplicationSets, estrategias de sync, Helm, Kustomize, RBAC y multi-cluster para Kubernetes."
   keywords:
     - gitops
     - argocd
@@ -37,7 +37,7 @@ seo:
     - multi-cluster
 ---
 
-# Guía Completa de GitOps con ArgoCD
+# Referencia Detallada de GitOps con ArgoCD
 
 ## Introducción
 

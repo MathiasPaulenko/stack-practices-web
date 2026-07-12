@@ -233,7 +233,7 @@ sum by (service) (
 
 ## Resumen de Best Practices
 
-- **Usa OpenTelemetry para instrumentation**: vendor-neutral, future-proof. Auto-instrumentation donde posible. Manual para custom spans. Export a multiples backends. Testea instrumentation. Documenta strategy. Revisa regularmente. Manten libraries updated. Monitorea overhead
+- **Usa OpenTelemetry para instrumentation**: vendor-neutral, adaptable. Auto-instrumentation donde posible. Manual para custom spans. Export a multiples backends. Testea instrumentation. Documenta strategy. Revisa regularmente. Manten libraries updated. Monitorea overhead
 - **Define SLOs y error budgets**: setea SLOs para critical services. Trackea error budget burn rate. Alerta en SLO violations. Revisa SLOs trimestralmente. Documenta SLO definitions. Usa SLO-based alerting. Comunica SLO status. Testea SLO monitoring. Revisa SLO targets
 - **Correlaciona traces, logs y metrics**: usa trace IDs para linkear traces y logs. Usa service labels para linkear metrics. Crea unified dashboards. Documenta correlation strategy. Testea correlation. Revisa correlation effectiveness. Usa consistent naming. Monitorea correlation coverage
 - **Monitorea el monitoring system**: setea meta-monitoring. Monitorea collector health. Monitorea storage usage. Monitorea query performance. Alerta en observability pipeline failures. Documenta meta-monitoring setup. Testea meta-monitoring. Revisa meta-monitoring regularmente. Usa external monitoring para critical alerts

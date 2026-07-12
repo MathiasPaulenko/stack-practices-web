@@ -48,7 +48,7 @@ Usa el patrón Deployment Ring cuando:
 - Despliegas cambios que conllevan riesgo (nuevos features, cambios de schema, actualizaciones de infra)
 - Necesitas validar con trafico real antes del rollout completo
 - Quieres rollback automatico ante degradacion de salud
-- Tu base de usuarios es lo suficientemente grande para segmentar significativamente
+- Tu base de usuarios es lo suficientemente grande para segmentar considerablemente
 - Ejemplos: plataformas SaaS, servicios API, updates de apps moviles, despliegues de microservicios
 
 ## Solución

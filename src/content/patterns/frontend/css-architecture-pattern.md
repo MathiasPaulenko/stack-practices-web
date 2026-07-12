@@ -48,7 +48,7 @@ CSS architecture is about organizing styles so they scale without becoming a mai
 
 - Simple landing pages with fewer than 10 components
 - Projects where CSS is already well-organized with BEM or another methodology
-- Legacy projects where introducing a new CSS architecture would be disruptive
+- Legacy projects where introducing a new CSS architecture would be costly
 - Static sites with no reusable components
 
 ## Solution

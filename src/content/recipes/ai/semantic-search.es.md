@@ -261,7 +261,7 @@ Verifica en orden: (1) ¿Los embeddings están normalizados? (2) ¿La métrica d
 
 ## Buenas Prácticas
 
-- **Usa búsqueda híbrida para producción**: combina búsqueda vectorial con BM25 keyword search. Usa reciprocal rank fusion (RRF) para mergeear resultados. Esto captura tanto coincidencias semánticas como coincidencias de términos exactos, mejorando el recall significativamente.
+- **Usa búsqueda híbrida para producción**: combina búsqueda vectorial con BM25 keyword search. Usa reciprocal rank fusion (RRF) para mergeear resultados. Esto captura tanto coincidencias semánticas como coincidencias de términos exactos, mejorando el recall considerablemente.
 - **Implementa understanding de queries**: antes de embeber la query, clasifica el intent (informacional, navegacional, transaccional). Rutea diferentes intents a diferentes estrategias de búsqueda. Esto mejora la relevancia para tipos diversos de queries.
 - **Usa búsqueda vectorial filtrada**: adjunta tags de metadatos (categoría, fecha, idioma, autor) a los embeddings. Filtra por metadatos antes de la búsqueda vectorial para reducir el espacio de búsqueda y mejorar tanto velocidad como relevancia.
 - **Benchmarkea diferentes modelos de embedding**: testea 3-5 modelos de embedding en tu test set domain-specific. Compara recall@k y MRR. Modelos como `e5-large-v2`, `bge-large` y `text-embedding-3-large` pueden outperformar el default de OpenAI en ciertos dominios.

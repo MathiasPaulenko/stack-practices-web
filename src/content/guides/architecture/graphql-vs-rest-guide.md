@@ -285,7 +285,7 @@ Use the **strangler fig pattern**: build a GraphQL layer in front of your existi
 
 ### Is GraphQL slower than REST?
 
-**It depends on the query**. A simple GraphQL query is slightly slower than an equivalent REST call due to resolver overhead (1–5ms). A well-optimized GraphQL query that fetches nested data in a single request is faster than multiple REST calls (network latency dominates). A poorly written GraphQL query with N+1 problems is orders of magnitude slower than REST. The performance difference is not inherent to the protocol — it is inherent to implementation quality. GraphQL requires more engineering discipline to perform well.
+**It depends on the query**. A simple GraphQL query is slightly slower than an equivalent REST call due to resolver overhead (1–5ms). A well-optimized GraphQL query that fetches nested data in a single request is faster than multiple REST calls (network latency dominates). A poorly written GraphQL query with N+1 problems is orders of magnitude slower than REST. The performance difference is not natural to the protocol — it is natural to implementation quality. GraphQL requires more engineering discipline to perform well.
 
 
 

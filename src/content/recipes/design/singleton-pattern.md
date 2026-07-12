@@ -265,7 +265,7 @@ public enum DatabaseType {
 String driver = DatabaseType.INSTANCE.getProperty("driver");
 ```
 
-Enum singletons are guaranteed by the JVM to be single instances, even across serialization and reflection. This is the most robust Java singleton form.
+Enum singletons are guaranteed by the JVM to be single instances, even across serialization and reflection. This is the most solid Java singleton form.
 
 ### Testing Singleton Code
 

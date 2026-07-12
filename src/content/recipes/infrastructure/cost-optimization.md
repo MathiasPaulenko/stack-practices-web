@@ -254,7 +254,7 @@ spec:
 - **Budget allocation strategy**: allocate budget by team, environment, and service. Use a top-down approach (total budget -> team budgets -> service budgets). Set aside 10-15% contingency for unexpected costs. Review allocation quarterly based on actual spend. Reallocate from under-spending teams to over-spending teams. Document allocation rationale for audit trail
 ## Vendor Negotiation and Contracts
 
-- **Enterprise discount programs**: negotiate enterprise discount programs (EDP) with cloud providers. AWS EDP offers up to 25% discount in exchange for spend commitment. GCP offers similar CUD discounts at scale. Azure offers EA discounts. Commit to 1-3 year terms. Negotiate based on projected growth. Review terms annually. Use a cloud broker for negotiation leverage
+- **Enterprise discount programs**: negotiate enterprise discount programs (EDP) with cloud providers. AWS EDP offers up to 25% discount in exchange for spend commitment. GCP offers similar CUD discounts at scale. Azure offers EA discounts. Commit to 1-3 year terms. Negotiate based on projected growth. Review terms annually. Use a cloud broker for negotiation use
 - **Contract renewal strategy**: start renewal negotiations 90 days before expiration. Review current utilization and commitment levels. Adjust commitment amounts based on projected usage. Negotiate better rates using competitive quotes from other providers. Consider multi-year commitments for deeper discounts. Document negotiation outcomes for future reference
 ## Sustainability and Green FinOps
 
@@ -297,4 +297,4 @@ Start with the minimal example above. Add logging at each step. Test with small 
 
 ### How often should I review my cloud costs?
 
-Review costs daily using dashboards. Conduct deep-dive analysis weekly. Run optimization audits monthly. Present findings to leadership quarterly. Continuous monitoring prevents budget overruns and identifies waste early.
+Review costs daily using dashboards. Conduct detailed analysis weekly. Run optimization audits monthly. Present findings to leadership quarterly. Continuous monitoring prevents budget overruns and identifies waste early.

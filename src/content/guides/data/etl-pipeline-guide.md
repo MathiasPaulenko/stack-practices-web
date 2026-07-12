@@ -45,7 +45,7 @@ This guide walks through pipeline architecture, data extraction strategies, data
 ## When to Use
 
 - You need to consolidate data from multiple sources into a single analytical database
-- Your analytics queries are too slow or disruptive to run on production databases
+- Your analytics queries are too slow or expensive to run on production databases
 - You need historical snapshots of data that changes over time
 - Your data requires cleansing, enrichment, or aggregation before analysis
 - You want to separate operational and analytical workloads

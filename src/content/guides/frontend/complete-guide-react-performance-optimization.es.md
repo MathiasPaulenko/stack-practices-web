@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-react-performance-optimization
-title: "Guía Completa de Optimización de Performance en React"
+title: "Referencia Detallada de Optimización de Performance en React"
 description: "Optimiza apps de React para velocidad. Cubre memoization, virtualization, code splitting, bundle analysis, React Profiler, concurrent features y Core Web Vitals."
-metaDescription: "Guía completa de optimización de performance en React. Master memoization, virtualization, code splitting, bundle analysis, React Profiler y Core Web Vitals."
+metaDescription: "Referencia Detallada de optimización de performance en React. Master memoization, virtualization, code splitting, bundle analysis, React Profiler y Core Web Vitals."
 difficulty: intermediate
 topics:
   - frontend
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de optimización de performance en React. Master memoization, virtualization, code splitting, bundle analysis, React Profiler y Core Web Vitals."
+  metaDescription: "Referencia Detallada de optimización de performance en React. Master memoization, virtualization, code splitting, bundle analysis, React Profiler y Core Web Vitals."
   keywords:
     - react performance
     - react optimization
@@ -35,7 +35,7 @@ seo:
     - core web vitals react
 ---
 
-# Guía Completa de Optimización de Performance en React
+# Referencia Detallada de Optimización de Performance en React
 
 ## Introducción
 

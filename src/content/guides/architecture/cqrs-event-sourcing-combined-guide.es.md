@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-CQRS (Command Query Responsibility Segregation) y Event Sourcing se usan frecuentemente juntos pero resuelven problemas diferentes. CQRS separa operaciones de lectura y escritura en modelos optimizados para cada una. Event Sourcing almacena cambios de estado como una secuencia de eventos en lugar de sobrescribir el estado actual. Combinados, crean un patrón poderoso donde el modelo de escritura agrega eventos, el modelo de lectura proyecta esos eventos en vistas consultables, y el sistema puede reconstruir cualquier estado pasado reproduciendo el log de eventos.
+CQRS (Command Query Responsibility Segregation) y Event Sourcing se usan frecuentemente juntos pero resuelven problemas diferentes. CQRS separa operaciones de lectura y escritura en modelos optimizados para cada una. Event Sourcing almacena cambios de estado como una secuencia de eventos en lugar de sobrescribir el estado actual. Combinados, crean un patrón capaz donde el modelo de escritura agrega eventos, el modelo de lectura proyecta esos eventos en vistas consultables, y el sistema puede reconstruir cualquier estado pasado reproduciendo el log de eventos.
 
 ## Cuándo Usar
 

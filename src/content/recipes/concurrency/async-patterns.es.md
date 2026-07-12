@@ -1,7 +1,7 @@
 ﻿---
 contentType: recipes
 slug: async-patterns
-title: "Dominar Patrones Async con Promises, Futures y Coroutines"
+title: "Patrones Async con Promises, Futures y Coroutines"
 description: "CÃ³mo escribir cÃ³digo concurrente eficiente usando async/await, promises, futures y coroutines en JavaScript, Python y Java para I/O no bloqueante y procesamiento paralelo."
 metaDescription: "Aprende patrones async para programaciÃ³n concurrente. Domina async/await, promises, futures y coroutines en JavaScript, Python y Java para I/O no bloqueante."
 difficulty: intermediate

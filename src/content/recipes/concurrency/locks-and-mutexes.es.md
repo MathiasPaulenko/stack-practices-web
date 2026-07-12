@@ -201,7 +201,7 @@ int main() {
 ## Errores comunes
 
 - **Lockeando en objetos mutables**: `synchronized(someList)` falla si la referencia cambia. Otro thread puede sincronizar en un objeto diferente. Usa un campo privado final como monitor de lock, nunca los datos mismos.
-- **Olvidar desbloquear despuÃ©s de retorno temprano**: un mÃ©todo con mÃºltiples paths de retorno puede retornar sin desbloquear. Por eso `ReentrantLock` de Java requiere `unlock()` explÃ­cito â€” te fuerza a pensar en cada path de salida. Usa try/finally religiosamente.
+- **Olvidar activar despuÃ©s de retorno temprano**: un mÃ©todo con mÃºltiples paths de retorno puede retornar sin activar. Por eso `ReentrantLock` de Java requiere `unlock()` explÃ­cito â€” te fuerza a pensar en cada path de salida. Usa try/finally religiosamente.
 - **Sobre-lockeo (lockear demasiado)**: envolver un mÃ©todo completo en `synchronized` puede proteger datos pero serializa a todos los llamadores, haciendo el cÃ³digo bien single-threaded. Identifica el estado compartido exacto que necesita protecciÃ³n y bloquea solo eso.
 - **Testing sin estrÃ©s de concurrencia**: una condiciÃ³n de carrera puede no manifestarse con 2 threads en una mÃ¡quina de desarrollo. Usa stress tests con cientos de threads, buclea millones de iteraciones y corre en hardware multi-core. Herramientas como ThreadSanitizer detectan data races en runtime.
 

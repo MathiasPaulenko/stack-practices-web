@@ -266,7 +266,7 @@ Trackea cuatro categorías: infraestructura (CPU, memoria, disco), aplicación (
 
 ### ¿Cuándo debería hacer rollback vs fix forward?
 
-Roll back cuando: el error rate aumenta significativamente, flujos críticos de usuario se rompen, o la seguridad se compromete. Fix forward cuando: el issue es cosmético, un bug menor con fix rápido disponible, o rollback causaría pérdida de datos. En duda, roll back — es más seguro y rápido.
+Roll back cuando: el error rate aumenta considerablemente, flujos críticos de usuario se rompen, o la seguridad se compromete. Fix forward cuando: el issue es cosmético, un bug menor con fix rápido disponible, o rollback causaría pérdida de datos. En duda, roll back — es más seguro y rápido.
 
 ### ¿Cómo manejo deployments con breaking changes de base de datos?
 

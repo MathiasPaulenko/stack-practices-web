@@ -402,7 +402,7 @@ Yes, but some rules overlap with `@typescript-eslint`. Use both, but disable dup
 
 ### How is this different from npm audit?
 
-`eslint-plugin-security` scans your source code for insecure patterns. `npm audit` scans your dependencies for known vulnerabilities. Use both for comprehensive coverage.
+`eslint-plugin-security` scans your source code for insecure patterns. `npm audit` scans your dependencies for known vulnerabilities. Use both for detailed coverage.
 
 ### Can I use this for browser code?
 

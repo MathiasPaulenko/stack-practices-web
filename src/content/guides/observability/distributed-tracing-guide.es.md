@@ -49,7 +49,7 @@ A continuación: instrumentación, propagación de contexto de traza, muestreo y
 - Depurar latencia requiere correlacionar logs entre múltiples servicios
 - Necesitas entender dependencias y rutas críticas de los servicios
 - Tu tiempo medio de resolución (MTTR) para problemas entre servicios excede los 30 minutos
-- Quieres medir la latencia de petición de extremo a extremo, no solo por servicio
+- Quieres medir la latencia de petición completo, no solo por servicio
 
 ## Conceptos Clave
 

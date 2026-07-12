@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-cost-optimization-aws
-title: "Guía Completa de Optimización de Costos en AWS"
+title: "Referencia Detallada de Optimización de Costos en AWS"
 description: "Reduce el gasto en AWS cloud en 40%. Cubre EC2 right-sizing, Spot instances, Reserved Instances, Savings Plans, S3 lifecycle, RDS optimization, networking, monitoreo y automatización."
 metaDescription: "Guía de optimización de costos AWS. Reduce el gasto cloud 40%. Master EC2 right-sizing, Spot, Reserved Instances, Savings Plans, S3 lifecycle y monitoreo."
 difficulty: intermediate
@@ -37,7 +37,7 @@ seo:
     - cloud cost
 ---
 
-# Guía Completa de Optimización de Costos en AWS
+# Referencia Detallada de Optimización de Costos en AWS
 
 ## Introducción
 

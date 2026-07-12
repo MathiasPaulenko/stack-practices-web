@@ -330,5 +330,5 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 
 ## Conclusion
 
-El despliegue canary es la forma más segura de liberar software a escala. Al exponer cambios a una audiencia pequeña y controlada primero, detectas problemas temprano, minimizas el radio de explosión y construyes confianza en cada release. Combina análisis automatizado de métricas con promoción gradual para un proceso de despliegue de primer nivel.
+El despliegue canary es la forma más segura de liberar software a escala. Al exponer cambios a una audiencia pequeña y controlada primero, detectas problemas temprano, minimizas el radio de explosión y construyes confianza en cada release. Combina análisis automatizado de métricas con promoción gradual para un proceso de despliegue de calidad.
 

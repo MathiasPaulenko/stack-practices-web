@@ -224,7 +224,7 @@ A: Cache aggressively — store every generated image by prompt hash and serve f
 
 - **Not testing prompts across model versions** — DALL-E 3 and DALL-E 4 may interpret the same prompt differently. Regression test your prompt library when upgrading models.
 - **Generating at 4K and downscaling** — this wastes tokens and time. Generate at the target display resolution. If you need higher resolution, use an upscaler post-generation.
-- **Not using negative prompts with Stable Diffusion** — negative prompts ("blurry, deformed, extra fingers, watermark") significantly improve quality. Always include a negative prompt for SD-based generation.
+- **Not using negative prompts with Stable Diffusion** — negative prompts ("blurry, deformed, extra fingers, watermark") considerably improve quality. Always include a negative prompt for SD-based generation.
 - **Storing images without content hashes** — without a hash, you cannot detect duplicate generations or implement caching. Hash the prompt + model + seed and use it as the cache key.
 - **Not handling aspect ratio correctly** — DALL-E 3 supports 1024x1024, 1792x1024, and 1024x1792. Generating at the wrong aspect ratio produces distorted images. Match the aspect ratio to your display context.
 - **Forgetting to strip EXIF metadata** — AI-generated images may contain metadata about the generation process. Strip EXIF data before publishing to avoid leaking prompt text or API information.
@@ -234,7 +234,7 @@ A: Cache aggressively — store every generated image by prompt hash and serve f
 ## Best Practices
 
 - **Build a prompt library**: maintain a versioned collection of tested prompts with their expected outputs. This ensures consistency across team members and serves as a regression test when models update.
-- **Generate multiple variants and pick the best**: request 2-4 images per prompt and select the highest quality. This costs more but significantly improves output quality, especially for marketing materials.
+- **Generate multiple variants and pick the best**: request 2-4 images per prompt and select the highest quality. This costs more but considerably improves output quality, especially for marketing materials.
 - **Use deterministic seeds for reproducibility**: when you find a good result, save the seed. This lets you regenerate similar images or make small prompt adjustments while preserving composition.
 - **Implement a review queue for user-facing content**: never publish AI-generated images directly to users without a human review step. Set up a moderation queue that checks for artifacts, text rendering errors, and content policy violations.
 - **Store generation metadata separately from images**: keep prompt, model, seed, and parameters in a database. This enables auditing, debugging, and re-generation without parsing image metadata.

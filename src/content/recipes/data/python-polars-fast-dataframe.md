@@ -38,7 +38,7 @@ Polars is a DataFrame library written in Rust with a Python binding. It uses Apa
 ## When to Use
 
 - Datasets from 1GB to 100GB that don't fit in pandas comfortably
-- Group-by and join operations on large DataFrames — Polars is significantly faster
+- Group-by and join operations on large DataFrames — Polars is considerably faster
 - Pipelines where query optimization matters — lazy evaluation skips unnecessary columns
 - Replacing pandas in ETL pipelines for speed without changing to Spark
 - Reading/writing Parquet, CSV, or IPC (Arrow) files at scale

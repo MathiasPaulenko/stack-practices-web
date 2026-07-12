@@ -261,7 +261,7 @@ Durante el test, captura metricas de infraestructura (CPU, memoria, red, disco I
 
 ### Cual es la diferencia entre spike, stress y endurance testing?
 
-Spike testing: aumento repentino y extremo de trafico (ej., 10x normal por 30 segundos) para probar si el sistema sobrevive y se recupera. Stress testing: aumentar gradualmente la carga hasta que el sistema se rompa, para encontrar el modo de fallo y la capacidad maxima. Endurance testing: ejecutar carga moderada por horas o dias para detectar memory leaks, agotamiento de recursos o deriva de rendimiento. Cada tipo de test revela problemas diferentes. Ejecuta los tres como parte de una estrategia integral de performance testing.
+Spike testing: aumento repentino y extremo de trafico (ej., 10x normal por 30 segundos) para probar si el sistema sobrevive y se recupera. Stress testing: aumentar gradualmente la carga hasta que el sistema se rompa, para encontrar el modo de fallo y la capacidad maxima. Endurance testing: ejecutar carga moderada por horas o dias para detectar memory leaks, agotamiento de recursos o deriva de rendimiento. Cada tipo de test revela problemas diferentes. Ejecuta los tres como parte de una estrategia essential de performance testing.
 
 ### Como manejamos load testing para servicios con estado?
 

@@ -669,7 +669,7 @@ print(chain({}))                    # No autorizado
 
 2. **Proporciona un manejador por defecto.** Siempre incluye un manejador comodín al final de la cadena para manejar solicitudes que caen a través, previniendo fallos silenciosos.
 
-3. **Documenta el orden de manejadores.** Documenta claramente el orden esperado de manejadores y cualquier dependencia entre ellos, ya que el orden afecta significativamente el comportamiento.
+3. **Documenta el orden de manejadores.** Documenta claramente el orden esperado de manejadores y cualquier dependencia entre ellos, ya que el orden afecta considerablemente el comportamiento.
 
 4. **Usa objetos de solicitud inmutables.** Pasa objetos de solicitud inmutables a través de la cadena para prevenir que los manejadores modifiquen accidentalmente estado compartido.
 

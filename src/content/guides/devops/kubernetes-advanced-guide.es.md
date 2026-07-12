@@ -38,7 +38,7 @@ seo:
 
 ## Overview
 
-Kubernetes se ha convertido en la plataforma estándar para orquestación de containers, pero dominar sus capacidades avanzadas requiere entender su modelo de extensibilidad, modelo de seguridad y patrones operacionales. A continuación: operators, custom resources, admission controllers, gestión multi-cluster y prácticas de hardening para ambientes productivos.
+Kubernetes se ha convertido en la plataforma estándar para orquestación de containers, pero entender sus capacidades avanzadas requiere entender su modelo de extensibilidad, modelo de seguridad y patrones operacionales. A continuación: operators, custom resources, admission controllers, gestión multi-cluster y prácticas de hardening para ambientes productivos.
 
 ## When to Use
 

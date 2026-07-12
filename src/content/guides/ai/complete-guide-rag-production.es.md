@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-rag-production
-title: "Guía Completa de RAG en Producción"
+title: "Referencia Detallada de RAG en Producción"
 description: "Construir sistemas RAG en produccion. Cubre estrategias de chunking, modelos de embedding, vector stores, optimizacion de retrieval, reranking, hybrid search, evaluacion y patrones de deployment para retrieval-augmented generation confiable."
 metaDescription: "Construir RAG en produccion. Cubre chunking, embeddings, vector stores, retrieval, reranking, hybrid search, evaluacion y deployment."
 difficulty: advanced

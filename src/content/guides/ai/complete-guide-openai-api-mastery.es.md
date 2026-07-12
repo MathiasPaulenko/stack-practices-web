@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-openai-api-mastery
-title: "Guía Completa del OpenAI API"
-description: "Dominar el OpenAI API en produccion. Cubre chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, batch API, assistants API, rate limits, error handling y optimizacion de costos."
-metaDescription: "Dominar OpenAI API. Cubre chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, batch API."
+title: "Referencia Detallada del OpenAI API"
+description: "el OpenAI API en produccion. Cubre chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, batch API, assistants API, rate limits, error handling y optimizacion de costos."
+metaDescription: "OpenAI API. Cubre chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, batch API."
 difficulty: advanced
 topics:
   - ai
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dominar OpenAI API. Cubre chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, batch API."
+  metaDescription: "OpenAI API. Cubre chat completions, streaming, function calling, structured outputs, embeddings, fine-tuning, batch API."
   keywords:
     - openai api
     - chat completions

@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-llm-prompt-engineering
-title: "Guía Completa de LLM Prompt Engineering"
+title: "Referencia Detallada de LLM Prompt Engineering"
 description: "Escribe prompts efectivos para modelos de IA. Cubre patrones de prompts, few-shot learning, chain-of-thought, RAG, system prompts, temperature tuning, function calling y evaluación."
-metaDescription: "Guía completa de LLM prompt engineering. Master few-shot, chain-of-thought, RAG, system prompts, temperature tuning y evaluación para modelos de IA."
+metaDescription: "Referencia Detallada de LLM prompt engineering. Master few-shot, chain-of-thought, RAG, system prompts, temperature tuning y evaluación para modelos de IA."
 difficulty: intermediate
 topics:
   - ai
@@ -23,7 +23,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de LLM prompt engineering. Master few-shot, chain-of-thought, RAG, system prompts, temperature tuning y evaluación para modelos de IA."
+  metaDescription: "Referencia Detallada de LLM prompt engineering. Master few-shot, chain-of-thought, RAG, system prompts, temperature tuning y evaluación para modelos de IA."
   keywords:
     - llm prompt engineering
     - prompt patterns
@@ -35,7 +35,7 @@ seo:
     - function calling
 ---
 
-# Guía Completa de LLM Prompt Engineering
+# Referencia Detallada de LLM Prompt Engineering
 
 ## Introducción
 

@@ -68,7 +68,7 @@ ETL:
 ELT:
   Extract → Load → Transform
   Loadá raw data first, transformá inside del warehouse.
-  Warehouse stores raw + transformed. Leveragea warehouse compute.
+  Warehouse stores raw + transformed. Aprovecha warehouse compute.
 ```
 
 ## Batch Processing
@@ -525,7 +525,7 @@ Una simplificación de Lambda donde todo es streaming. Batch processing es reemp
 
 ### ETL vs ELT — ¿cuál debería usar?
 
-ELT es el modern standard cuando usás powerful warehouses como Snowflake o BigQuery. Loadá raw data first, luego transformá con dbt inside del warehouse. ETL es mejor cuando necesitás mask sensitive data antes de storage o tenés limited warehouse compute.
+ELT es el modern standard cuando usás capable warehouses como Snowflake o BigQuery. Loadá raw data first, luego transformá con dbt inside del warehouse. ETL es mejor cuando necesitás mask sensitive data antes de storage o tenés limited warehouse compute.
 
 ### ¿Qué es idempotency en data pipelines?
 

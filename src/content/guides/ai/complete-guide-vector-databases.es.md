@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-vector-databases
-title: "Guía Completa de Vector Databases"
+title: "Referencia Detallada de Vector Databases"
 description: "Comparar y usar vector databases en produccion. Cubre Pinecone, Weaviate, Chroma, pgvector, Milvus y Qdrant. Incluye indexing, similarity search, filtering, scaling, benchmarking y elegir la vector database correcta."
 metaDescription: "Comparar vector databases: Pinecone, Weaviate, Chroma, pgvector, Milvus, Qdrant. Cubre indexing, search, filtering, scaling."
 difficulty: advanced

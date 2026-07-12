@@ -286,7 +286,7 @@ et/http/pprof). Protect them with authentication or bind to an internal port
 ## FAQ
 
 **Q: Are channels just queues with locking?**
-A: Under the hood, channels use locks and condition variables. But the abstraction they provide â€” ownership transfer, typed communication, and select-based multiplexing â€” is higher-level and safer than manual locking. The implementation uses locks; the mental model does not.
+A: internally, channels use locks and condition variables. But the abstraction they provide â€” ownership transfer, typed communication, and select-based multiplexing â€” is higher-level and safer than manual locking. The implementation uses locks; the mental model does not.
 
 **Q: How many goroutines is too many?**
 A: Go routinely handles hundreds of thousands of goroutines. They start with a 2KB stack that grows and shrinks. The scheduler multiplexes goroutines onto OS threads (M:N scheduling). The limit is memory â€” each goroutine consumes some overhead. If you hit memory limits, use a worker pool with a fixed number of goroutines.

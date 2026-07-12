@@ -516,7 +516,7 @@ R: Usa composicion para combinar multiples repositorios en servicios. Evita here
 R: Si. Usa repositorios para obtener datos iniciales para suscripciones y manejar actualizaciones de datos a traves de metodos de repositorio.
 
 **P: Como manejo caracteristicas especificas de base de datos en repositorios?**
-R: Abstrae caracteristicas especificas de base de datos detras de interfaces de repositorio. Usa implementaciones concretas para aprovechar optimizaciones especificas de base de datos.
+R: Abstrae caracteristicas especificas de base de datos detras de interfaces de repositorio. Usa implementaciones concretas para usar optimizaciones especificas de base de datos.
 
 **P: Deben los repositorios manejar transformacion de datos?**
 R: Transformacion minima es aceptable (ej., mapear documentos de base de datos a entidades). Transformaciones complejas pertenecen a la capa de servicio.

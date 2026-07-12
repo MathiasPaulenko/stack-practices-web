@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-llm-security
-title: "Guía Completa de Seguridad LLM"
+title: "Referencia Detallada de Seguridad LLM"
 description: "Asegurar aplicaciones LLM en produccion. Cubre prompt injection, jailbreaks, data leakage, OWASP Top 10 para LLMs, input validation, output filtering, rate limiting, red teaming y building secure LLM pipelines con guardrails."
 metaDescription: "Asegurar apps LLM. Cubre prompt injection, jailbreaks, data leakage, OWASP LLM Top 10, input validation, output filtering, red teaming, guardrails."
 difficulty: advanced

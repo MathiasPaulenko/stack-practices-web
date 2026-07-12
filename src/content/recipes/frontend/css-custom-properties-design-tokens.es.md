@@ -200,7 +200,7 @@ document.documentElement.setAttribute("data-theme", "dark");
 }
 ```
 
-### Tipografía fluida con clamp
+### Tipografía directa con clamp
 
 ```css
 :root {
@@ -353,7 +353,7 @@ function toggleTheme() {
 - Usa nombres semánticos de tokens (`--color-bg`, `--color-text`) en lugar de nombres de color crudos (`--blue-500`) — los tokens semánticos hacen el theming trivial
 - Define escalas de color crudas separadas de los tokens semánticos — las escalas crudas son la paleta, los tokens semánticos son el significado
 - Mantén la escala de spacing consistente — usa una unidad base (0.25rem) y multiplica
-- Usa `clamp()` para tipografía fluida — se adapta suavemente a través de tamaños de pantalla
+- Usa `clamp()` para tipografía directa — se adapta suavemente a través de tamaños de pantalla
 - Agrupa tokens por categoría (colors, spacing, typography, shadows) con comentarios
 - Usa tokens scoped a componente para componentes complejos — overridea tokens parent localmente
 - Testea ambos temas durante el desarrollo — no construyas toda la UI en light mode y luego intentes agregar dark mode

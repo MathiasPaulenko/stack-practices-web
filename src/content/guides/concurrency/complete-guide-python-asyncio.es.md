@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-python-asyncio
-title: "Guía Completa de Python Asyncio"
+title: "Referencia Detallada de Python Asyncio"
 description: "Master programación asincrónica en Python con asyncio. Cubre coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients, websockets y debugging."
-metaDescription: "Guía completa de Python asyncio. Master coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients, websockets y debugging de async code."
+metaDescription: "Referencia detallada de Python asyncio. Master coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients, websockets y debugging de async code."
 difficulty: advanced
 topics:
   - concurrency
@@ -24,7 +24,7 @@ relatedResources:
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
-  metaDescription: "Guía completa de Python asyncio. Master coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients, websockets y debugging de async code."
+  metaDescription: "Referencia detallada de Python asyncio. Master coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients, websockets y debugging de async code."
   keywords:
     - python asyncio
     - async python
@@ -36,7 +36,7 @@ seo:
     - python concurrency
 ---
 
-# Guía Completa de Python Asyncio
+# Referencia Detallada de Python Asyncio
 
 ## Introducción
 
@@ -480,7 +480,7 @@ Usar **asyncio** para I/O-bound workloads (HTTP requests, database queries, file
 
 ### ¿Puedo usar asyncio con Flask?
 
-Flask es síncrono por default. Para async support, usar Flask 2.0+ con `async def` route handlers, o switchear a un async framework como FastAPI, Quart o Starlette. FastAPI es la opción más popular — usa Starlette's asyncio under the hood y soporta async/await nativamente.
+Flask es síncrono por default. Para async support, usar Flask 2.0+ con `async def` route handlers, o switchear a un async framework como FastAPI, Quart o Starlette. FastAPI es la opción más popular — usa Starlette's asyncio internamente y soporta async/await nativamente.
 
 ### ¿Cómo testeo async code?
 

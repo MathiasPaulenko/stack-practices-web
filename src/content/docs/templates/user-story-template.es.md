@@ -203,7 +203,7 @@ Definicion de Hecho:
 
 ### Como dividimos historias grandes (epicas)?
 
-Una epica es una historia demasiado grande para un sprint. Para dividirla: identifica los criterios de aceptacion independientes — cada uno puede ser su propia historia. Usa el patron "vertical slice": cada historia entrega valor de usuario de extremo a extremo, no solo una capa tecnica. Evita dividir por capas (frontend, backend, database) — esto crea historias que no entregan valor por si solas. Usa el patron INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable. Si una historia no es Small, dividela. Documenta la relacion entre historias divididas con links. El Product Owner es responsable de priorizar las historias divididas.
+Una epica es una historia demasiado grande para un sprint. Para dividirla: identifica los criterios de aceptacion independientes — cada uno puede ser su propia historia. Usa el patron "vertical slice": cada historia entrega valor de usuario completo, no solo una capa tecnica. Evita dividir por capas (frontend, backend, database) — esto crea historias que no entregan valor por si solas. Usa el patron INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable. Si una historia no es Small, dividela. Documenta la relacion entre historias divididas con links. El Product Owner es responsable de priorizar las historias divididas.
 
 ### Como estimamos historias de usuario?
 
@@ -211,7 +211,7 @@ Usa Planning Poker con la secuencia Fibonacci (1, 2, 3, 5, 8, 13, 21). Cada inge
 
 ### Como manejamos historias que cambian durante el sprint?
 
-Si una historia cambia durante el sprint: evalua el impacto. Si el cambio es pequeno (un criterio de aceptacion adicional): agrega el criterio y continua. Si el cambio es grande (nuevo alcance significativo): mueve la historia de vuelta al backlog y crea una nueva con el alcance actualizado. El Product Owner debe aprobar cualquier cambio. Documenta el cambio y la razon. Si el cambio es causado por un descubrimiento tecnico (ej., la API no soporta lo que pensabamos): documenta el descubrimiento y ajusta la historia. No fuerces una historia a encajar si el alcance cambio significativamente — es mejor ser transparente sobre el cambio.
+Si una historia cambia durante el sprint: evalua el impacto. Si el cambio es pequeno (un criterio de aceptacion adicional): agrega el criterio y continua. Si el cambio es grande (nuevo alcance significativo): mueve la historia de vuelta al backlog y crea una nueva con el alcance actualizado. El Product Owner debe aprobar cualquier cambio. Documenta el cambio y la razon. Si el cambio es causado por un descubrimiento tecnico (ej., la API no soporta lo que pensabamos): documenta el descubrimiento y ajusta la historia. No fuerces una historia a encajar si el alcance cambio considerablemente — es mejor ser transparente sobre el cambio.
 
 ### Como escribimos criterios de aceptacion efectivos?
 

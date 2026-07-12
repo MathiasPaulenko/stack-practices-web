@@ -289,7 +289,7 @@ Usa `context.Context` para propagar cancelación. Cuando el HTTP handler retorna
 
 ### ¿Cómo comprimo respuestas SSE en Go?
 
-Habilita compresión gzip con `middleware.Compress` de chi o el middleware `Gzip` de gin. Las respuestas SSE se benefician de compresión cuando los eventos contienen payloads JSON repetitivos. Setea `Content-Encoding: gzip` y flushea después de cada chunk comprimido. Ten en cuenta que la compresión añade overhead de CPU por evento — benchmarkea con tamaños de payload realistas para determinar si mejora el throughput para tu caso de uso.
+Habilita compresión gzip con `middleware.Compress` de chi o el middleware `Gzip` de gin. Las respuestas SSE se benefician de compresión cuando los eventos contienen payloads JSON repetitivos. Setea `Content-Encoding: gzip` y flushea después de cada chunk comprimido. nota que la compresión añade overhead de CPU por evento — benchmarkea con tamaños de payload realistas para determinar si mejora el throughput para tu caso de uso.
 
 ### ¿Cómo manejo SSE detrás de un load balancer?
 

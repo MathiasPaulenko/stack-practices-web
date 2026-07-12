@@ -254,7 +254,7 @@ spec:
 - **Estrategia de asignacion de presupuesto**: asigna presupuesto por equipo, entorno y servicio. Usa approach top-down (presupuesto total -> presupuestos de equipo -> presupuestos de servicio). Reserva 10-15% de contingencia para costos inesperados. Revisa asignacion trimestralmente basado en spend actual. Reasigna de equipos under-spending a equipos over-spending. Documenta racional de asignacion para audit trail
 ## Negociacion de Vendors y Contratos
 
-- **Programas de descuento enterprise**: negocia programas de descuento enterprise (EDP) con cloud providers. AWS EDP ofrece hasta 25% de descuento a cambio de commitment de spend. GCP ofrece descuentos CUD similares a escala. Azure ofrece descuentos EA. Comprometete a terminos de 1-3 aÃ±os. Negocia basado en growth proyectado. Revisa terminos anualmente. Usa un cloud broker para leverage de negociacion
+- **Programas de descuento enterprise**: negocia programas de descuento enterprise (EDP) con cloud providers. AWS EDP ofrece hasta 25% de descuento a cambio de commitment de spend. GCP ofrece descuentos CUD similares a escala. Azure ofrece descuentos EA. Comprometete a terminos de 1-3 aÃ±os. Negocia basado en growth proyectado. Revisa terminos anualmente. Usa un cloud broker para use de negociacion
 - **Estrategia de renovacion de contrato**: empieza negociaciones de renovacion 90 dias antes de la expiracion. Revisa utilizacion actual y niveles de commitment. Ajusta amounts de commitment basado en uso proyectado. Negocia mejores rates usando quotes competitivos de otros providers. Considera commitments multi-year para descuentos mas profundos. Documenta outcomes de negociacion para referencia futura
 ## Sostenibilidad y Green FinOps
 

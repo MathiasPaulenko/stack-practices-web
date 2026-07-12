@@ -393,4 +393,4 @@ Like regular CSS properties. A token defined on `:root` applies to all elements.
 
 ### Should I use custom properties or Tailwind's @theme?
 
-Tailwind v4's `@theme` uses custom properties under the hood. Use `@theme` if you're using Tailwind — it generates utilities from your tokens. Use raw custom properties if you're not using Tailwind.
+Tailwind v4's `@theme` uses custom properties internally. Use `@theme` if you're using Tailwind — it generates utilities from your tokens. Use raw custom properties if you're not using Tailwind.

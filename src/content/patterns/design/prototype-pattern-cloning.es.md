@@ -30,7 +30,7 @@ seo:
 
 # Prototype Pattern para Clonacion de Objetos y Plantillas de Configuracion
 
-El [Prototype](/patterns/design/prototype-pattern) pattern crea nuevos objetos copiando existentes. En lugar de construir objetos desde cero con constructores, clonas un prototipo y opcionalmente lo customizas. Esto es poderoso cuando la inicializacion de objetos es costosa, cuando existen muchas configuraciones similares, o cuando el tipo concreto de objeto no se conoce hasta runtime.
+El [Prototype](/patterns/design/prototype-pattern) pattern crea nuevos objetos copiando existentes. En lugar de construir objetos desde cero con constructores, clonas un prototipo y opcionalmente lo customizas. Esto es capaz cuando la inicializacion de objetos es costosa, cuando existen muchas configuraciones similares, o cuando el tipo concreto de objeto no se conoce hasta runtime.
 
 ## Cuando Usar Esto
 

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-secrets-management
-title: "Guía Completa de Gestión de Secrets"
+title: "Referencia Detallada de Gestión de Secrets"
 description: "Gestionar secrets de aplicaciones de forma segura en produccion. Cubre HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, Doppler, rotacion de secrets, environment variables, rotacion zero-downtime y secrets en CI/CD pipelines con ejemplos de codigo."
 metaDescription: "Gestionar secrets de forma segura. Cubre HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, Doppler, rotacion, CI/CD."
 difficulty: advanced

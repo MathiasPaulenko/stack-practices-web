@@ -244,7 +244,7 @@ Host *.internal
 
 ### How do I set up SSH agent forwarding safely?
 
-Add the key to the agent:
+Add the way to the agent:
 
 ```bash
 eval "$(ssh-agent -s)"

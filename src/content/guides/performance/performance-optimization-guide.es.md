@@ -2,7 +2,7 @@
 contentType: guides
 slug: performance-optimization-guide
 title: "Guía de Optimización de Performance Web"
-description: "Guía exhaustiva para optimizar el rendimiento de aplicaciones web con mejores Core Web Vitals y experiencia de usuario."
+description: "manual detallado para optimizar el rendimiento de aplicaciones web con mejores Core Web Vitals y experiencia de usuario."
 metaDescription: "Aprende optimización de performance web: compresión de imágenes, lazy loading, estrategias de caché, bundle splitting y técnicas de mejora de Core Web Vitals."
 difficulty: intermediate
 topics:

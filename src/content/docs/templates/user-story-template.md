@@ -211,7 +211,7 @@ Use Planning Poker with the Fibonacci sequence (1, 2, 3, 5, 8, 13, 21). Each eng
 
 ### How do we handle stories that change during the sprint?
 
-If a story changes during the sprint: assess the impact. If the change is small (an additional acceptance criterion): add the criterion and continue. If the change is large (significant new scope): move the story back to the backlog and create a new one with the updated scope. The Product Owner must approve any change. Document the change and the reason. If the change is caused by a technical discovery (e.g., the API does not support what we thought): document the discovery and adjust the story. Do not force a story to fit if the scope changed significantly — it is better to be transparent about the change.
+If a story changes during the sprint: assess the impact. If the change is small (an additional acceptance criterion): add the criterion and continue. If the change is large (significant new scope): move the story back to the backlog and create a new one with the updated scope. The Product Owner must approve any change. Document the change and the reason. If the change is caused by a technical discovery (e.g., the API does not support what we thought): document the discovery and adjust the story. Do not force a story to fit if the scope changed considerably — it is better to be transparent about the change.
 
 ### How do we write effective acceptance criteria?
 

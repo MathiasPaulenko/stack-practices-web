@@ -247,7 +247,7 @@ Lessons:
 
 ### How do I prevent the platform from becoming a bottleneck?
 
-Make everything self-service. Templates generate everything automatically. Backstage provides catalog and scaffolding. Documentation is comprehensive and up to date. Office hours are for consulting, not tickets. If teams wait on the platform for something, automate it. Measure wait time and reduce it.
+Make everything self-service. Templates generate everything automatically. Backstage provides catalog and scaffolding. Documentation is detailed and up to date. Office hours are for consulting, not tickets. If teams wait on the platform for something, automate it. Measure wait time and reduce it.
 
 
 

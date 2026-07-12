@@ -401,7 +401,7 @@ A: Si, pero corre en proceso. Para setups multi-instancia, usa el modo cliente-s
 A: Aproximadamente 1KB por vector para el modelo por defecto. 100K chunks usan ~100MB de RAM.
 
 **Q: Debo usar un reranker cross-encoder?**
-A: Para RAG de produccion, si. Reranking mejora la precision significativamente — recupera 20 chunks, rerankear a top 5.
+A: Para RAG de produccion, si. Reranking mejora la precision considerablemente — recupera 20 chunks, rerankear a top 5.
 
 ### ¿Esta solución está lista para producción?
 

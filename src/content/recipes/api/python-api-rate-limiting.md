@@ -342,7 +342,7 @@ Key concepts:
 - **Distributed**: Redis-backed implementations use Lua scripts for atomicity. The script reads, updates, and writes in a single Redis operation, preventing race conditions.
 - **Sliding window**: Instead of fixed windows, the sliding window tracks individual request timestamps in a sorted set. It counts requests within the last N seconds, providing smoother limits.
 
-The Lua script in the Redis variant is crucial: without atomic execution, concurrent requests could read the same token count and all pass the limit check.
+The Lua script in the Redis variant is important: without atomic execution, concurrent requests could read the same token count and all pass the limit check.
 
 ## Variants
 

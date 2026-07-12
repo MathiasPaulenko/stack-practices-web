@@ -32,7 +32,7 @@ seo:
 
 ## Overview
 
-A code of conduct sets expectations for participant behavior within a project community. It creates a welcoming environment and provides procedures for addressing violations. Without one, maintainers have no framework for handling disruptive behavior, and contributors do not know what to expect.
+A code of conduct sets expectations for participant behavior within a project community. It creates a welcoming environment and provides procedures for addressing violations. Without one, maintainers have no framework for handling unacceptable behavior, and contributors do not know what to expect.
 
 ## When to Use
 

@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: sql-window-functions-guide
-title: "Funciones de Ventana SQL — Guia Completa"
+title: "Funciones de Ventana SQL — Referencia Detallada"
 description: "Guia practica de funciones de ventana SQL: ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG, SUM, AVG sobre particiones y casos de uso de analitica real."
-metaDescription: "Aprende funciones de ventana SQL: ROW_NUMBER, RANK, LEAD, LAG, SUM sobre particiones. Guia completa con ejemplos de analitica real."
+metaDescription: "Aprende funciones de ventana SQL: ROW_NUMBER, RANK, LEAD, LAG, SUM sobre particiones. Referencia Detallada con ejemplos de analitica real."
 difficulty: intermediate
 topics:
   - databases
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
-  metaDescription: "Aprende funciones de ventana SQL: ROW_NUMBER, RANK, LEAD, LAG, SUM sobre particiones. Guia completa con ejemplos de analitica real."
+  metaDescription: "Aprende funciones de ventana SQL: ROW_NUMBER, RANK, LEAD, LAG, SUM sobre particiones. Referencia Detallada con ejemplos de analitica real."
   keywords:
     - sql
     - funciones-ventana

@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-cache-invalidation
-title: "Guía Completa de Invalidation de Cache"
-description: "Dominar estrategias de invalidation de cache: TTL, event-driven, versioned keys, tag-based purging y write-through. Cubre invalidation multi-tier, race conditions y patrones de consistencia."
-metaDescription: "Dominar invalidation de cache: TTL, event-driven, versioned keys, tag-based purging, write-through. Cubre multi-tier, race conditions y consistencia."
+title: "Referencia Detallada de Invalidation de Cache"
+description: "estrategias de invalidation de cache: TTL, event-driven, versioned keys, tag-based purging y write-through. Cubre invalidation multi-tier, race conditions y patrones de consistencia."
+metaDescription: "invalidation de cache: TTL, event-driven, versioned keys, tag-based purging, write-through. Cubre multi-tier, race conditions y consistencia."
 difficulty: advanced
 topics:
   - caching
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dominar invalidation de cache: TTL, event-driven, versioned keys, tag-based purging, write-through. Cubre multi-tier, race conditions y consistencia."
+  metaDescription: "invalidation de cache: TTL, event-driven, versioned keys, tag-based purging, write-through. Cubre multi-tier, race conditions y consistencia."
   keywords:
     - cache invalidation
     - ttl expiration

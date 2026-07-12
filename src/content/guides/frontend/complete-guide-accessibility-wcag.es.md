@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-accessibility-wcag
-title: "Guía Completa de Accesibilidad Web: WCAG 2.2"
+title: "Referencia Detallada de Accesibilidad Web: WCAG 2.2"
 description: "Dominá accesibilidad web con WCAG 2.2: roles ARIA, navegación por teclado, soporte para screen readers, contraste de color y formularios accesibles."
 metaDescription: "Dominá accesibilidad web con WCAG 2.2: roles ARIA, navegación por teclado, soporte para screen readers, contraste de color y formularios accesibles para todos."
 difficulty: intermediate

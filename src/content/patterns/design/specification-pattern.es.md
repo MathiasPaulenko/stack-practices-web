@@ -38,7 +38,7 @@ seo:
 
 El Patrón Specification encapsula reglas de negocio para seleccionar objetos como objetos predicado reutilizables y componibles. En lugar de hard-codear condiciones de query en repositories o servicios, cada regla es encapsulada en una clase Specification que puede combinarse con otras usando operadores lógicos (AND, OR, NOT).
 
-Este patrón es particularmente poderoso para validación y querying. Una `OverdueInvoiceSpecification` puede reutilizarse tanto para encontrar facturas vencidas como para validar si una sola factura está vencida. Las specifications pueden encadenarse: `isOverdue AND isHighValue AND isFromVIPCustomer`.
+Este patrón es particularmente capaz para validación y querying. Una `OverdueInvoiceSpecification` puede reutilizarse tanto para encontrar facturas vencidas como para validar si una sola factura está vencida. Las specifications pueden encadenarse: `isOverdue AND isHighValue AND isFromVIPCustomer`.
 
 ## Cuándo Usar
 

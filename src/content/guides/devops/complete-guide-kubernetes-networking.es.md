@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-kubernetes-networking
-title: "Guía Completa de Kubernetes Networking"
-description: "Dominar Kubernetes networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, external traffic, mTLS y troubleshooting con ejemplos practicos de YAML manifests y configuracion."
-metaDescription: "Dominar K8s networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, mTLS, troubleshooting."
+title: "Referencia Detallada de Kubernetes Networking"
+description: "Kubernetes networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, external traffic, mTLS y troubleshooting con ejemplos practicos de YAML manifests y configuracion."
+metaDescription: "K8s networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, mTLS, troubleshooting."
 difficulty: advanced
 topics:
   - devops
@@ -26,7 +26,7 @@ relatedResources:
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dominar K8s networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, mTLS, troubleshooting."
+  metaDescription: "K8s networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, mTLS, troubleshooting."
   keywords:
     - kubernetes networking
     - k8s services

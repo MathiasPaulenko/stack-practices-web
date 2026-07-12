@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-graphql-caching
-title: "Guía Completa de Caching GraphQL"
+title: "Referencia Detallada de Caching GraphQL"
 description: "Cachear respuestas GraphQL en cada capa: CDN, gateway, DataLoader, persisted queries y cliente. Cubre cache keys, invalidacion, directivas HTTP caching y Apollo Client cache."
 metaDescription: "Cachear GraphQL en cada capa: CDN, gateway, DataLoader, persisted queries, cliente. Cubre cache keys, invalidacion, directivas HTTP y Apollo Client cache."
 difficulty: advanced

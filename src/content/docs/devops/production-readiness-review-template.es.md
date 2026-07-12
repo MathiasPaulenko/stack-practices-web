@@ -2,7 +2,7 @@
 contentType: docs
 slug: production-readiness-review-template
 title: "Plantilla de Production Readiness Review"
-description: "Una checklist integral para verificar que un servicio, feature, o sistema esta listo para despliegue en produccion y operacion continua."
+description: "Una checklist essential para verificar que un servicio, feature, o sistema esta listo para despliegue en produccion y operacion continua."
 metaDescription: "Asegura la preparacion para produccion con esta checklist de revision. Cubre monitoreo, SLOs, rollback, seguridad, docs y procedimientos operativos."
 difficulty: intermediate
 topics:
@@ -265,7 +265,7 @@ Servicios Tier 1 (criticos): PRR anual completo. Servicios Tier 2 (importantes):
 
 ### Cual es el rol del SRE en el production readiness review?
 
-El SRE o ingeniero de plataforma es el revisor tecnico del PRR. Su rol: verificar que las alertas son accionables (no solo ruido), que los dashboards muestran metricas utiles (no vanity metrics), que los runbooks son ejecutables por alguien que no escribio el servicio, que el escalado esta probado, y que el plan de rollback funciona. El SRE no es un aprobador de seguridad o producto — su dominio es la operabilidad. Si el SRE bloquea, el bloqueo es sobre preparacion operacional, no sobre features o prioridades de producto. Documenta los bloqueos del SRE con criterios especificos para desbloquear.
+El SRE o ingeniero de plataforma es el revisor tecnico del PRR. Su rol: verificar que las alertas son accionables (no solo ruido), que los dashboards muestran metricas utiles (no vanity metrics), que los runbooks son ejecutables por alguien que no escribio el servicio, que el escalado esta probado, y que el plan de rollback funciona. El SRE no es un aprobador de seguridad o producto — su dominio es la operabilidad. Si el SRE bloquea, el bloqueo es sobre preparacion operacional, no sobre features o prioridades de producto. Documenta los bloqueos del SRE con criterios especificos para activar.
 
 
 

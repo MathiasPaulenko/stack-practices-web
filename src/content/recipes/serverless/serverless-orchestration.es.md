@@ -278,7 +278,7 @@ Cada paso registra una compensación antes de avanzar al siguiente. Si cualquier
 ## Preguntas frecuentes
 
 **P: ¿Debería usar Step Functions o Temporal?**
-R: Step Functions es más simple para workflows centrados en AWS con monitoreo visual. Temporal es más poderoso para lógica compleja, portabilidad multi-cloud y workflows de larga duración con código arbitrario. Si necesitas ejecutar workflows on-premise o multi-cloud, Temporal es la mejor opción.
+R: Step Functions es más simple para workflows centrados en AWS con monitoreo visual. Temporal es más capaz para lógica compleja, portabilidad multi-cloud y workflows de larga duración con código arbitrario. Si necesitas ejecutar workflows on-premise o multi-cloud, Temporal es la mejor opción.
 
 **P: ¿Cómo manejo esperas largas (horas o días) en un workflow?**
 R: Usa estados de espera con callbacks. Step Functions soporta estados `Wait` con timestamps. Los workflows de Temporal pueden dormir por días — el worker no corre activamente durante el sleep; el orquestador programa un evento de despertar. Durable Functions soporta timers durable.

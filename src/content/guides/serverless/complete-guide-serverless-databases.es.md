@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-serverless-databases
-title: "Guía Completa de Bases de Datos Serverless"
+title: "Referencia Detallada de Bases de Datos Serverless"
 description: "Elegir y operar bases de datos serverless para aplicaciones event-driven. Cubre DynamoDB, Aurora Serverless, FaunaDB y PlanetScale con pricing, escalado, patrones de query y estrategias de migracion."
 metaDescription: "Elegir bases de datos serverless: DynamoDB, Aurora Serverless, FaunaDB, PlanetScale. Cubre pricing, escalado, query patterns y migracion."
 difficulty: advanced

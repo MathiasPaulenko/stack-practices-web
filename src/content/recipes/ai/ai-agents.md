@@ -287,7 +287,7 @@ For 1000 sessions/day: $150-$850/day. Switch to GPT-4o-mini for routing decision
 
 ## When Not to Use Agents
 
-Agents are powerful but not always the right tool. Avoid them when:
+Agents are capable but not always the right tool. Avoid them when:
 
 - **The task is a single LLM call**: if you just need a summary or classification, call the LLM directly. Wrapping it in an agent loop adds latency, cost, and failure modes without benefit.
 - **Deterministic execution is required**: agents are non-deterministic by nature. If the same input must always produce the same output, use a fixed pipeline with no LLM-based routing.

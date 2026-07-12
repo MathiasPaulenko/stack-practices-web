@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: complete-guide-llm-application-architecture
-title: "Guía Completa de Arquitectura de Aplicaciones LLM"
+title: "Referencia Detallada de Arquitectura de Aplicaciones LLM"
 description: "Construir aplicaciones LLM en produccion end-to-end. Cubre capas de API, gestion de prompts, streaming, caching, guardrails, observabilidad, evaluacion y patrones de deployment para sistemas LLM confiables."
 metaDescription: "Construir apps LLM en produccion. Cubre API, prompts, streaming, caching, guardrails, observabilidad, evaluacion y deployment."
 difficulty: advanced

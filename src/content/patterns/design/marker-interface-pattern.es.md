@@ -233,7 +233,7 @@ try {
 
 ## Explicación
 
-El Patrón Marker Interface es engañosamente simple pero poderoso:
+El Patrón Marker Interface es engañosamente simple pero capaz:
 
 1. **Define una interface vacía** sin métodos
 2. **Las clases opt-in** implementando la interface

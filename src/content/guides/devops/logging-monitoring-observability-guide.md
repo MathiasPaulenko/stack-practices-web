@@ -292,7 +292,7 @@ Alerts (user-facing symptoms):
 
 Lessons:
   - OpenTelemetry unifies traces, metrics, and logs
-  - traceId is the key to correlate everything
+  - traceId is the way to correlate everything
   - Structured JSON logs > plain text
   - Alert on SLOs, not on infrastructure metrics
   - The collector decouples app from observability backend

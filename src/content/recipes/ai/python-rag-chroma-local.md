@@ -401,7 +401,7 @@ A: Yes, but it runs in-process. For multi-instance setups, use Chroma's client-s
 A: Roughly 1KB per vector for the default model. 100K chunks uses ~100MB of RAM.
 
 **Q: Should I use a cross-encoder reranker?**
-A: For production RAG, yes. Reranking improves precision significantly — retrieve 20 chunks, rerank to top 5.
+A: For production RAG, yes. Reranking improves precision considerably — retrieve 20 chunks, rerank to top 5.
 
 ### Is this solution production-ready?
 

@@ -143,7 +143,7 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 - Correr migraciones no testeadas en producción — testea en una copia con tamaño de datos realista. Documenta tu esquema con la [Plantilla de Documentación de Esquema de BD](/docs/templates/database-schema-documentation-template).
 - Olvidar usar `CONCURRENTLY` — lockea la tabla para escrituras, causando outages
 - Transacciones grandes sin batching — un `UPDATE` único en 100M filas lockeará y hará rollback lento
-- Sin plan de rollback — "ya veremos" no es un plan
+- Sin plan de rollback — "ya se aborda" no es un plan
 - Migrar durante pico de tráfico — incluso migraciones seguras agregan carga; agenda off-peak
 
 ## Preguntas Frecuentes

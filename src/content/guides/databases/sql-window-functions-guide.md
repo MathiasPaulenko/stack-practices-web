@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Window functions in SQL compute a value across a set of rows related to the current row — without collapsing the result set into groups like `GROUP BY`. They unlock capable analytical queries: running totals, rankings, moving averages, and row-to-row comparisons. Available in PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.25+, they are essential for anyone writing analytical SQL.
+Window functions in SQL compute a value across a set of rows related to the current row — without collapsing the result set into groups like `GROUP BY`. They enable capable analytical queries: running totals, rankings, moving averages, and row-to-row comparisons. Available in PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.25+, they are essential for anyone writing analytical SQL.
 
 ## When to Use
 
@@ -277,7 +277,7 @@ ORDER BY lifetime_value DESC;
 
 ### How do I optimize window functions on large tables?
 
-Create composite indexes that match PARTITION BY + ORDER BY. For example, if you use `PARTITION BY category ORDER BY revenue DESC`, create an index on `(category, revenue DESC)`. For LAG/LEAD over time series, an index on `(entity_id, date DESC)` speeds things up significantly. Consider partitioning the table by date if queries always filter by time range. In PostgreSQL, parallelism helps with large tables: configure `max_parallel_workers_per_gather`.
+Create composite indexes that match PARTITION BY + ORDER BY. For example, if you use `PARTITION BY category ORDER BY revenue DESC`, create an index on `(category, revenue DESC)`. For LAG/LEAD over time series, an index on `(entity_id, date DESC)` speeds things up considerably. Consider partitioning the table by date if queries always filter by time range. In PostgreSQL, parallelism helps with large tables: configure `max_parallel_workers_per_gather`.
 
 
 

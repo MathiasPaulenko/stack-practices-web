@@ -409,7 +409,7 @@ try (FileChannel channel = FileChannel.open(path, StandardOpenOption.WRITE)) {
 }
 ```
 
-2. **Ajusta tamaños de buffer para tu carga de trabajo.** Los tamaños de buffer por defecto (4-8KB) funcionan para uso general. Para escrituras secuenciales grandes, buffers de 64KB-1MB reducen el conteo de syscalls significativamente:
+2. **Ajusta tamaños de buffer para tu carga de trabajo.** Los tamaños de buffer por defecto (4-8KB) funcionan para uso general. Para escrituras secuenciales grandes, buffers de 64KB-1MB reducen el conteo de syscalls considerablemente:
 
 ```python
 # Python: usar buffer más grande para escrituras secuenciales

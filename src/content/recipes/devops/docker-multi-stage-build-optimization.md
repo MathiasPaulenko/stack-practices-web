@@ -202,7 +202,7 @@ Each `FROM` instruction starts a new stage. Docker builds all stages but only th
 Key concepts:
 
 - **Stage naming**: Use `AS builder`, `AS runtime` to name stages. Reference them with `COPY --from=builder`.
-- **Distroless images**: Google's distroless images have no shell, package manager, or extra binaries. They reduce size and attack surface significantly.
+- **Distroless images**: Google's distroless images have no shell, package manager, or extra binaries. They reduce size and attack surface considerably.
 - **Scratch images**: The smallest possible base (0 bytes). Only works for statically compiled binaries like Go.
 - **Layer caching**: Docker caches each layer. Put rarely-changing instructions (dependency install) before frequently-changing ones (source code copy). This way, changing source code reuses the cached dependency layer.
 - **`.dockerignore`**: Reduces the build context sent to the Docker daemon. Exclude `node_modules`, `.git`, build artifacts, and IDE files.

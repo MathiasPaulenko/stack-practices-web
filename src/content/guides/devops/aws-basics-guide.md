@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Amazon Web Services (AWS) is the most widely adopted cloud platform, offering over 200 services. For developers, mastering the core services — compute, storage, databases, networking, and security — is essential for building growth-ready, cost-effective applications. This guide focuses on the services you will use daily and how they fit together in a typical architecture.
+Amazon Web Services (AWS) is the most widely adopted cloud platform, offering over 200 services. For developers, understanding the core services — compute, storage, databases, networking, and security — is essential for building growth-ready, cost-effective applications. This guide focuses on the services you will use daily and how they fit together in a typical architecture.
 
 ## When to Use
 

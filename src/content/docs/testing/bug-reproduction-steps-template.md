@@ -371,4 +371,4 @@ Critical: data loss, security breach, system unusable. Major: core feature broke
 
 ### How detailed should the regression test be?
 
-It should cover the exact scenario that triggered the bug: same steps, same data, same assertions. The test should fail before the fix and pass after. Keep it focused — one test per bug, not a comprehensive suite.
+It should cover the exact scenario that triggered the bug: same steps, same data, same assertions. The test should fail before the fix and pass after. Keep it focused — one test per bug, not a detailed suite.

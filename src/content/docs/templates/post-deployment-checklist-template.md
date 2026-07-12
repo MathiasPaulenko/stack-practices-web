@@ -266,7 +266,7 @@ Track four categories: infrastructure (CPU, memory, disk), application (error ra
 
 ### When should I roll back vs fix forward?
 
-Roll back when: error rate increases significantly, critical user flows break, or security is compromised. Fix forward when: the issue is cosmetic, a minor bug with a quick fix available, or rollback would cause data loss. When in doubt, roll back — it is safer and faster.
+Roll back when: error rate increases considerably, critical user flows break, or security is compromised. Fix forward when: the issue is cosmetic, a minor bug with a quick fix available, or rollback would cause data loss. When in doubt, roll back — it is safer and faster.
 
 ### How do I handle deployments with breaking database changes?
 

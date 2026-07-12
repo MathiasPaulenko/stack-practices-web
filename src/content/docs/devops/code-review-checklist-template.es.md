@@ -376,7 +376,7 @@ print(f"Defect escape rate: {results['defect_escape_rate']:.0%}")
 
 ## Mejores Practicas Adicionales
 
-1. **Usa slots de revision para prevenir fatiga del revisor.** Asigna un maximo de 2-3 revisiones por ingeniero por dia. Mas alla de eso, la calidad de revision cae significativamente:
+1. **Usa slots de revision para prevenir fatiga del revisor.** Asigna un maximo de 2-3 revisiones por ingeniero por dia. Mas alla de eso, la calidad de revision cae considerablemente:
 
 ```yaml
 # GitHub Actions - check reviewer load before assignment

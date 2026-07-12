@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-go-concurrency
-title: "Guía Completa de Concurrencia en Go"
-description: "Dominar concurrencia en Go en produccion. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines, fan-out/fan-in y patrones para aplicaciones Go concurrentes de alto throughput."
-metaDescription: "Dominar concurrencia Go. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines y fan-out/fan-in."
+title: "Referencia Detallada de Concurrencia en Go"
+description: "Concurrencia en Go en produccion. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines, fan-out/fan-in y patrones para aplicaciones Go concurrentes de alto throughput."
+metaDescription: "Concurrencia Go en producción. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines y fan-out/fan-in."
 difficulty: advanced
 topics:
   - concurrency
@@ -25,7 +25,7 @@ relatedResources:
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
-  metaDescription: "Dominar concurrencia Go. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines y fan-out/fan-in."
+  metaDescription: "Concurrencia Go en producción. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines y fan-out/fan-in."
   keywords:
     - concurrencia go
     - goroutines

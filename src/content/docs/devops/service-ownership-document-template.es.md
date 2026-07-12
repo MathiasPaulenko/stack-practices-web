@@ -288,7 +288,7 @@ Configura recordatorios automatizados: notificacion de revision trimestral al du
 
 ### Deberiamos usar una herramienta de catalogo de servicios?
 
-Para organizaciones con mas de 10 servicios: si. Un catalogo de servicios (Backstage, OpsLevel, Spinnaker) centraliza docs de ownership, dependencias, y metricas de salud. Fuerza consistencia, habilita busqueda, y proporciona una fuente unica de verdad. Para organizaciones mas pequenas: un wiki bien organizado o un repo de archivos markdown es suficiente. La clave es buscabilidad y cadencia de revision. No dejes que la herramienta se convierta en el objetivo — un archivo markdown simple que esta actualizado es mejor que una herramienta sofisticada con datos obsoletos.
+Para organizaciones con mas de 10 servicios: si. Un catalogo de servicios (Backstage, OpsLevel, Spinnaker) centraliza docs de ownership, dependencias, y metricas de salud. Fuerza consistencia, habilita busqueda, y proporciona una fuente unica de verdad. Para organizaciones mas pequenas: un wiki bien organizado o un repo de archivos markdown es suficiente. La clave es buscabilidad y cadencia de revision. No dejes que la herramienta se convierta en el objetivo — un archivo markdown simple que esta actualizado es mejor que una herramienta avanzada con datos obsoletos.
 
 ### Como documentamos servicios durante migraciones?
 
