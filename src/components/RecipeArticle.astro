@@ -100,7 +100,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
 
   <!-- Header section -->
   <header class="border-b border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+    <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
         <a href={locale === 'es' ? '/es/' : '/'} class="font-medium text-brand-600 hover:text-brand-700 hover:underline">
           {locale === 'es' ? 'Inicio' : 'Home'}
@@ -178,7 +178,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
 
   <!-- Table of Contents -->
   <nav id="toc-nav" class="bg-white pt-6" style="display:none">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
       <details class="rounded-lg border border-slate-200 bg-white shadow-sm">
         <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-semibold text-slate-800 select-none">
           <span>{locale === 'es' ? 'Contenido' : 'Table of Contents'}</span>
@@ -193,7 +193,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   {
     locale === 'es' ? (
       <section class="bg-white">
-        <div class="prose prose-slate mx-auto max-w-3xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
+        <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
           <p class="rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-sm text-brand-800">
             <strong>Nota para desarrolladores hispanohablantes:</strong> Esta guía incluye ejemplos y convenciones de nomenclatura adaptadas a equipos que trabajan en español. Cuando existen diferencias significativas en terminología técnica entre el inglés y el español, se indican explícitamente para facilitar la comunicación en equipos multiculturales.
           </p>
@@ -201,7 +201,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
       </section>
     ) : (
       <section class="bg-white">
-        <div class="prose prose-slate mx-auto max-w-3xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
+        <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
           <p class="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
             <strong>Note:</strong> This guide follows English-language naming conventions and terminology standards common in international development teams. Examples use English identifiers and comments to maximize compatibility across codebases and tooling.
           </p>
@@ -212,7 +212,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
 
   <!-- Main content -->
   <section class="bg-white">
-    <div class="prose prose-slate mx-auto max-w-3xl px-4 pt-4 pb-10 prose-headings:scroll-mt-20 prose-a:text-brand-600 prose-pre:rounded-lg sm:px-6">
+    <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-10 prose-headings:scroll-mt-20 prose-a:text-brand-600 prose-pre:rounded-lg sm:px-6">
       <slot />
     </div>
   </section>
@@ -336,7 +336,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   {
     related.length > 0 && (
       <section class="border-t border-slate-200 bg-white">
-        <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+        <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
           <RelatedResources items={related} heading={relatedLabel} />
         </div>
       </section>
