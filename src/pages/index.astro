@@ -55,11 +55,11 @@ const jsonLd = [
 ];
 
 const latestRecipes = [...recipes]
-  .sort((a, b) => (b.data.lastUpdated || '').localeCompare(a.data.lastUpdated || ''))
+  .sort((a, b) => (b.data.lastUpdated?.getTime() || 0) - (a.data.lastUpdated?.getTime() || 0))
   .slice(0, 3);
 
 const latestGuides = [...guides]
-  .sort((a, b) => (b.data.lastUpdated || '').localeCompare(a.data.lastUpdated || ''))
+  .sort((a, b) => (b.data.lastUpdated?.getTime() || 0) - (a.data.lastUpdated?.getTime() || 0))
   .slice(0, 3);
 ---
 
